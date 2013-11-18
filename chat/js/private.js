@@ -63,7 +63,7 @@ function createPChatDiv(divPName, divToName, dPID, duID) {
                 '<input type=\'text\' id=\'poptionsBar_' + divPName + '\' class="poptionsBar" onKeyPress="return submitenter(this,event,\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\',\'' + uUser + '\');" onfocus="changeMessBoxStyle(\'poptionsBar_' + divPName + '\');">' +
                 '</textarea>' +
                 '<input id="poptionsSend" class="poptionsSend" type="button" value="' + lang31 + '" onclick="sendPMessage(\'' + dPID + '\',\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\')">' +
-                '</div>'));
+            '</div>'));
 
         // menu win
         pmContainer.append($("<div id='pmenuWin_" + divPName + "'></div>"));

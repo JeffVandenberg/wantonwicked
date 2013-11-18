@@ -244,7 +244,7 @@ try {
             'active' => $onlineTime,
             'room' => makeSafe($_GET['roomID'])
         );
-        $query = "SELECT id, username, userid, prevroom, room, avatar, webcam, active, online, status, watching, eCredits, guest, lastActive, userIP, admin, moderator, speaker
+        $query = "SELECT id, username, userid, prevroom, room, avatar, webcam, active, online, status, watching, eCredits, guest, lastActive, userIP, admin, moderator, speaker, user_type_id
 				  FROM prochatrooms_users 
 				  WHERE username != '' 
 				  AND active > :active
@@ -317,7 +317,6 @@ EOQ;
             $xml .= $i['admin'] . "||";
             $xml .= $i['moderator'] . "||";
             $xml .= $i['speaker'] . "||";
-            $xml .= $i['user_type_id'] . "||";
 
             // set user to online
             $onlineStatus = '1';
@@ -360,6 +359,7 @@ EOQ;
             }
 
             $xml .= $ip . "||";
+            $xml .= $i['user_type_id'] . "||";
 
             $xml .= '</userlist>';
         }

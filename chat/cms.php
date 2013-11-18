@@ -163,13 +163,17 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
         $row = $action->fetch(PDO::FETCH_ASSOC);
         $icon = 'st.png';
         $userTypeId = 4; // regular ST
+        if($row['Is_Asst']) {
+            // $icon = 'asst.png';
+            $userTypeId = 5;
+        }
         if($row['Is_Admin'] == 'Y') {
             $icon = 'admin.png';
-            $userTypeId = 5;
+            $userTypeId = 6;
         }
         else if($row['Wiki_Manager'] == 'Y') {
             $icon = 'wiki.png';
-            $userTypeId = 6;
+            $userTypeId = 7;
         }
 
         addUser($icon, $userTypeId);
@@ -297,7 +301,7 @@ UPDATE
 SET
     display_name = ?,
     usergroup = '1',
-    admin = '0',
+    admin = '0'
     moderator = '0',
     guest = '1',
     avatar = 'ooc.png'
@@ -328,12 +332,12 @@ SELECT
 FROM
     prochatrooms_users
 WHERE
-    username = ?
-    AND userid = ?
-    AND user_type_id = ?
+    `username` = ?
+    AND `userid` = ?
+    AND `user_type_id` = ?
 EOQ;
 
-$statement = $dbh->query($sql);
+$statement = $dbh->prepare($sql);
 $statement->execute(array(C_CUSTOM_USERNAME, C_CUSTOM_USERID, $userTypeId));
 $result = $statement->fetch(PDO::FETCH_ASSOC);
 $_SESSION['user_id'] = $result['id'];

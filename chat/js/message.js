@@ -531,7 +531,7 @@ function handleMessages()
 				intellibotRoomID = roomID;
 			}
 
-			createUsersDiv('-1', '-1', intelliBotName, intelliBotAvi, '0', intellibotRoomID, intellibotRoomID, '1','','','');	
+			createUsersDiv('-1', '-1', intelliBotName, intelliBotAvi, '0', intellibotRoomID, intellibotRoomID, '1','','','',1);
 		}
 		
 		for (var i = 0; i < xmldoc.getElementsByTagName("userlist").length;)
@@ -590,7 +590,8 @@ function handleMessages()
 						userListArray[9],
 						userListArray[21],
 						userListArray[22],
-						userListArray[23]
+						userListArray[23],
+                        userListArray[24]
 				);
 
 			// loop

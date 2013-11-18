@@ -101,7 +101,7 @@ if($CONFIG['CMS'] && !isset($_GET['logout']))
 	}
 
 	// add user
-	addUser(C_CUSTOM_AVATAR);
+	addUser(C_CUSTOM_AVATAR, $userTypeId);
 
 	// assign default room login
 	if(!$_REQUEST['roomID'])
@@ -248,7 +248,7 @@ if(isset($_REQUEST['logout']) && isset($_SESSION['username']))
 
 	if($CONFIG['CMS'])
 	{
-        header('location:http://wantonwicked.gamingsandbox.com');
+        header('location:/');
 		die($loginError);
 	}
 	else
