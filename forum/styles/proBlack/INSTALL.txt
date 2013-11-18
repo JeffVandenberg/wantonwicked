@@ -1,0 +1,31 @@
+###############################################################################
+###############################################################################
+#############							###############
+#############               OLYMPUS MODS PRESENTS               ###############
+#############                    ----------                     ###############
+#############               proBlack Version 3.1                ###############
+#############           Copyright C 2007 Olympus MOds           ###############
+#############                All Rights Reserved.               ###############
+#############                                                   ###############
+#############     http://www.Olympus-Mods.DivineReapers.org     ###############
+#############                                                   ###############
+###############################################################################
+#############                                                   ###############
+#############             INSTALLATION INSTRUCTIONS             ###############
+#############                                                   ###############
+###############################################################################
+###############################################################################
+
+INSTALLATION INSTRUCTIONS:
+
+1. Download the .zip archive from http://www.Olympus-Mods.DivineReapers.org
+2. Uplaod the archive to your web website.
+3. Extract the archive to the styles directory 
+   (ex. /home/you/www/FORUM/styles/proBlack)
+4. Login to your Administration Control Panel.
+5. Click Styles and Install proBlack.
+6. Click on "Imagesets", and then click refresh beside the proBlack set.
+7. Click on "Templates", and then click refresh beside the proBlack set.
+8. Navigate to your website and ENJOY!
+9. If you need help or support see our website at 
+   http://www.Olympus-Mods.DivineReapers.org 

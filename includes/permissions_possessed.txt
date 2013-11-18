@@ -1,0 +1,50 @@
+user.usergroup.id = 17
+user.usergroup.icon = 114
+user.usergroup.title = Possessed
+
+user.usergroup.can_msg = 1              
+user.usergroup.idle_kick = 0
+
+user.usergroup.can_action = 1
+user.usergroup.post_delay = 0
+user.usergroup.allow_pm = 1
+user.usergroup.allow_room_create = 1
+user.usergroup.allow_avatars = 1
+user.usergroup.can_random = 1
+user.usergroup.allow_bbcode = 1
+user.usergroup.allow_color = 0
+user.usergroup.msg_scroll = 1
+user.usergroup.max_msg_length = 1024
+user.usergroup.filter_shout = 0
+user.usergroup.filter_profanity = 0
+user.usergroup.filter_word_replace = 1
+user.usergroup.can_nick = 0
+user.usergroup.level = 5
+
+user.usergroup.is_admin = 0
+user.usergroup.allow_html = 0
+user.usergroup.can_kick = 0
+user.usergroup.can_affect_admin = 0
+user.usergroup.can_grant = 0
+user.usergroup.can_cloak = 0
+user.usergroup.can_see_cloak = 0 
+user.usergroup.login_cloaked = 0
+user.usergroup.can_ban = 0
+user.usergroup.can_ban_subnet = 0 
+user.usergroup.can_system_speak = 0
+user.usergroup.can_silence = 0
+user.usergroup.can_fnick = 0
+user.usergroup.can_launch_website = 0
+user.usergroup.can_transfer = 0
+user.usergroup.can_join_nopw = 0
+user.usergroup.can_topic = 0
+user.usergroup.can_close = 0
+user.usergroup.can_ipquery = 0
+user.usergroup.can_geo_locate = 0
+user.usergroup.can_query_ether = 0
+user.usergroup.can_clear_screen = 0
+user.usergroup.can_clear_history = 0
+user.usergroup.allow_img_tag = 0
+
+user.usergroup.allow_admin_console = 0
+user.usergroup.can_view_transcripts = 0

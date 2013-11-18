@@ -1,0 +1,77 @@
+<!-- IF S_PRIVMSGS -->
+
+<a id="preview" name="preview" accesskey="p"></a>
+<h2>{L_PREVIEW}: {PREVIEW_SUBJECT}</h2>
+<div style="padding: 40px;">
+	<div class="pmpreview">
+		{PREVIEW_MESSAGE}
+	</div>
+		<!-- IF .attachment -->
+		<dl class="attachbox">
+			<dt>{L_ATTACHMENTS}</dt>
+			<!-- BEGIN attachment -->
+			<dd>{attachment.DISPLAY_ATTACHMENT}</dd>
+			<!-- END attachment -->
+		</dl>
+		<!-- ENDIF -->
+		<!-- IF PREVIEW_SIGNATURE --><div class="signature">{PREVIEW_SIGNATURE}</div><!-- ENDIF -->
+	<div class="clear"></div>
+</div>
+
+<!-- ELSE -->
+
+
+<!-- IF S_HAS_POLL_OPTIONS -->
+<div class="contentwrapper">
+	<div class="cw2"><div class="cw3"><div class="cw4"><div class="cw5">
+		<h2 class="ctitle">{L_PREVIEW}: {POLL_QUESTION}</h2>
+		<div class="cfill">
+			<div class="crow">
+
+				<p class="author"><!-- IF L_POLL_LENGTH -->{L_POLL_LENGTH}<br /><!-- ENDIF -->{L_MAX_VOTES}</p>
+
+				<fieldset class="polls">
+				<!-- BEGIN poll_option -->
+					<dl>
+						<dt><label for="vote_{poll_option.POLL_OPTION_ID}">{poll_option.POLL_OPTION_CAPTION}</label></dt>
+						<dd style="width: auto;"><!-- IF S_IS_MULTI_CHOICE --><input type="checkbox" name="vote_id[]" id="vote_{poll_option.POLL_OPTION_ID}" value="{poll_option.POLL_OPTION_ID}"<!-- IF poll_option.POLL_OPTION_VOTED --> checked="checked"<!-- ENDIF --> /><!-- ELSE --><input type="radio" name="vote_id[]" id="vote_{poll_option.POLL_OPTION_ID}" value="{poll_option.POLL_OPTION_ID}"<!-- IF poll_option.POLL_OPTION_VOTED --> checked="checked"<!-- ENDIF --> /><!-- ENDIF --></dd>
+					</dl>
+				<!-- END poll_option -->
+				</fieldset>
+
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div></div></div></div>
+</div>
+<div class="clear"></div>
+
+<!-- ENDIF -->
+<a id="preview" name="preview" accesskey="p"></a>
+<div class="contentwrapper">
+	<div class="cw2"><div class="cw3"><div class="cw4"><div class="cw5">
+		<h2 class="ctitle">{L_PREVIEW}: {PREVIEW_SUBJECT}</h2>
+		<div class="cfill">
+			<div class="crow preview">
+				<div class="content">
+					{PREVIEW_MESSAGE}
+
+					<!-- IF .attachment -->
+					<dl class="attachbox">
+						<dt>{L_ATTACHMENTS}</dt>
+						<!-- BEGIN attachment -->
+						<dd>{attachment.DISPLAY_ATTACHMENT}</dd>
+						<!-- END attachment -->
+					</dl>
+					<!-- ENDIF -->
+				</div>
+				<!-- IF PREVIEW_SIGNATURE --><div class="signature">{PREVIEW_SIGNATURE}</div><!-- ENDIF -->
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div></div></div></div>
+</div>
+<div class="clear"></div>
+
+<!-- ENDIF -->

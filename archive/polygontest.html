@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+
+<!-- This software is distributed on an "AS IS" basis, without warranties or
+     conditions of any kind, either express or implied.
+-->
+
+  <head>
+    <style type="text/css">
+        v\:* {behavior:url(#default#VML); }
+      	html, body { width: 99%; height: 95% }
+      	body { margin-top: 3px; margin-right: 0px; margin-left: 3px; margin-bottom: 0px }
+    </style>
+    <script src="http://maps.google.com/maps?file=api&v=2.x&key=ABQIAAAAmGTfcjlUIeXs4aoEIragyxT59gojkbh5st5ZsHLr70RjPARmzBT7L3rhZrOG_BQy3b5PoUuCKuvZAg" type="text/javascript"></script>
+    <script src="../js/gpolygon.gen.js" type="text/javascript"></script>
+  </head>
+  <body>
+<!--    <div id="map" style="width: 99%; height: 99%"></div>
+-->
+<!--    <div id="map" style="width: 600px; height: 600px"></div>
+-->
+    <div id="map" style="width: 99%; height: 95%"></div>
+    <script type="text/javascript">
+    //<![CDATA[
+    
+// ***** Use SVG to draw and fill polygons
+_mSvgEnabled = true;
+_mSvgForced = true;
+
+
+    var map = new GMap2(document.getElementById("map"));
+    map.addControl(new GLargeMapControl());
+    map.addControl(new GMapTypeControl());
+//    map.setCenter(new GLatLng(47.60, -122.365), 12);//11);
+//    map.setCenter(new GLatLng(40.75, -74.0), 13);
+
+var lineThickness = 1;
+
+var points = [];
+var points2 = [];
+var points3 = [];
+var points4 = [];
+
+var polygonDisplayed = new Array();
+var polygons = new Array();
+
+
+    map.setCenter(new GLatLng(47.656, -122.365), 12);//11);
+
+    getPoints();
+
+    polygons[0] = new GPolygon(points, true, "#ff6b54",0.40,true);
+    map.addOverlay(polygons[0]);
+    polygonDisplayed[0] = true;
+
+    polygons[1] = new GPolygon(points2, true,"#0000ff",0.40,true);
+    map.addOverlay(polygons[1]);
+    polygonDisplayed[1] = true;
+
+    polygons[2] = new GPolygon(points3, true,"#0000ff",0.40,true);
+    map.addOverlay(polygons[2]);
+    polygonDisplayed[2] = true;
+
+    polygons[3] = new GPolygon(points4, true,"#0000ff",0.40,true);
+    map.addOverlay(polygons[3]);
+    polygonDisplayed[3] = true;
+
+   
+    // Add a listener for Zooms
+//    GEvent.addListener(map, "zoom", function() {
+/*
+    GEvent.addListener(map, "zoomend", function (oldLevel, newLevel) {
+//        GLog.write("ZOOM level = "+map.getZoom());
+        map.clearOverlays(); 
+
+        polygons[0] = new JPolygon(points,"#ff6b54",true,map);
+        polygons[1] = new JPolygon(points2, "#0000ff",true, map);
+        polygons[2] = new JPolygon(points3, "#0000ff",true, map);
+        polygons[3] = new JPolygon(points4, "#0000ff",true, map);
+
+        for (var i = 0; i < polygonDisplayed.length; i++) {
+            // Only add the polygon as an overlay if it is in the visible part of the map
+            if (map.getBounds().intersects(polygons[i].getBounds())) {
+                map.addOverlay(polygons[i]);
+                polygonDisplayed[i] = true;
+            }
+            else {
+                polygonDisplayed[i] = false;
+            }
+        }
+    });
+*/
+
+    // Add a listener for clicks to display Infowindows
+    GEvent.addListener(map, "click", function(overlay, point) {
+        if (point) {
+           if (polygons[0].inZone(point)) {
+               map.openInfoWindowHtml(point, "<html>Hello world</html>");
+            }
+        }
+    });
+
+
+    // Add a listener for Moveends
+    GEvent.addListener(map, "moveend", function() {
+        for (var i = 0; i < polygonDisplayed.length; i++) {
+            if (polygonDisplayed[i] == false) {
+                // Only add the polygon as an overlay if it is in the visible part of the map
+                if (map.getBounds().intersects(polygons[i].getBounds())) {
+                    map.addOverlay(polygons[i]);
+                    polygonDisplayed[i] = true;
+               }
+                else {
+                    polygonDisplayed[i] = false;
+                }
+            }
+        }
+    });
+
+
+function getPoints() {
+    points = [];
+    points2 = [];
+    points3 = [];
+    points4 = [];
+
+    points.push(new GLatLng(47.656, -122.34));
+    points.push(new GLatLng(47.613, -122.34));
+    points.push(new GLatLng(47.613, -122.30));
+    points.push(new GLatLng(47.656, -122.30));
+
+
+    points2.push(new GLatLng(47.613204319056045, -122.3871176135507));
+    points2.push(new GLatLng(47.61684683369688, -122.39467145259941));
+    points2.push(new GLatLng(47.619546488233524, -122.40304688745843));
+    points2.push(new GLatLng(47.6212211041749, -122.41198907747764));
+    points2.push(new GLatLng(47.621819698061735, -122.42122582970698));
+    points2.push(new GLatLng(47.65780847769449, -122.42078698801428));
+    points2.push(new GLatLng(47.65661042317468, -122.40230103040005));
+    points2.push(new GLatLng(47.65325895036952, -122.38440580764272));
+    points2.push(new GLatLng(47.647856297874895, -122.3676470171554));
+    points2.push(new GLatLng(47.64056722782395, -122.35253529684004));
+
+    points3.push(new GLatLng(47.67196640153331, -122.40194487615674));
+    points3.push(new GLatLng(47.670441122952554, -122.40242212714896));
+    points3.push(new GLatLng(47.669003789264345, -122.40323095795063));
+    points3.push(new GLatLng(47.6676980670374, -122.40434677666259));
+    points3.push(new GLatLng(47.66656362207177, -122.40573567025076));
+    points3.push(new GLatLng(47.66563491512721, -122.40735543611405));
+    points3.push(new GLatLng(47.66494015590858, -122.40915686460134));
+    points3.push(new GLatLng(47.66450044696301, -122.41108523348356));
+    points3.push(new GLatLng(47.66432914337661, -122.41308196906145));
+    points3.push(new GLatLng(47.664431447619266, -122.41508642362988));
+    points3.push(new GLatLng(47.66480425177183, -122.41703771556456));
+    points3.push(new GLatLng(47.66543623189323, -122.41887657644166));
+    points3.push(new GLatLng(47.66630819166827, -122.42054714939652));
+    points3.push(new GLatLng(47.667393644945094, -122.4219986843779));
+    points3.push(new GLatLng(47.66865961955101, -122.42318707902091));
+    points3.push(new GLatLng(47.670067658077365, -122.4240762184578));
+    points3.push(new GLatLng(47.67157498535267, -122.42463907338354));
+    points3.push(new GLatLng(47.67313580725602, -122.4248585229242));
+    points3.push(new GLatLng(47.67470270151376, -122.42472787711355));
+    points3.push(new GLatLng(47.67622805829765, -122.4242510828295));
+    points3.push(new GLatLng(47.677665526889755, -122.42344260661204));
+    points3.push(new GLatLng(47.67897142444998, -122.42232699759226));
+    points3.push(new GLatLng(47.68010606403055, -122.42093814351227));
+    points3.push(new GLatLng(47.6810349613982, -122.41931824220789));
+    points3.push(new GLatLng(47.681729883880274, -122.4175165196664));
+    points3.push(new GLatLng(47.68216970923763, -122.41558773358417));
+    points3.push(new GLatLng(47.68234106834319, -122.41359050798094));
+    points3.push(new GLatLng(47.68223875203066, -122.41158554966611));
+    points3.push(new GLatLng(47.68186586967498, -122.40963380102326));
+    points3.push(new GLatLng(47.68123375464964, -122.40779458556197));
+    points3.push(new GLatLng(47.680361619541274, -122.40612380291493));
+    points3.push(new GLatLng(47.67927597164953, -122.40467222842542));
+    points3.push(new GLatLng(47.67800980662052, -122.40348396922352));
+    points3.push(new GLatLng(47.67660160483078, -122.40259512384083));
+    points3.push(new GLatLng(47.67509416114368, -122.4020326861151));
+    points3.push(new GLatLng(47.67353328372113, -122.40181372659974));
+
+    points4.push(new GLatLng(47.706, -122.34));
+    points4.push(new GLatLng(47.663, -122.34));
+    points4.push(new GLatLng(47.663, -122.30));
+    points4.push(new GLatLng(47.706, -122.30));
+
+
+}
+
+
+
+  
+
+    //]]>
+    </script>
+    <div>
+      <p>
+      A demonstration of filled polygons using the hidden GPolygon class.
+      I have made modifications to the code that <a href="mailto:chris.smoak@gmail.com">Chris Smoak</a> developed so that you can use any version of Google Maps API from v2.52-2.x. Just take a look at <a href="gpolygon.gen.js">gpolygon.gen.js</a> and add this after you add the API javascript. A few notes:
+      </p>
+
+      <ul>
+        <li>I have modified the first parameter of the GPolygon constructor to be an array of GLatLngs instead of an array of GPolylines.</li>
+	<li>I have added an inZone() method to GPolygon so that you can determine if a mouse click is within a polygon. Click on the orange rectangle for a demonstration of how this method is used to determine if an InfoWindow should be displayed.</li>
+      </ul>
+
+      <p>
+      To create a new polygon, call <tt>new GPolygon(points, fill?, color?, opacity?, outline?)</tt>. <tt>points</tt> is an array of <tt>GLatLng</tt>s, <tt>fill</tt> is a boolean indicating whether you want the polygon filled or not, <tt>color</tt> is the color of the polygon's interior (the outline color is determined by the polylines), <tt>opacity</tt> determines the fill's opacity, and <tt>outline</tt> is a boolean determining whether the outline polylines are drawn or not.
+      </p>
+
+      <p>The Javascript used in gpolygon.gen.js is based on <a href="http://xmaps.busmonster.com/script/poly.js">Chris Smoak's original poly.js</a>.</p>
+      <p>Jim Miller - 4 August 2006</p>
+    </div>
+  <b1><!--Pngtw_FUeNrTz80r0Q9JLEpPLTEw1Dc2NjQzB1Imlkbm5vrl5eV65Yl5Jfl55ZnJ2akpenmpJfrlqUn6yfl5JalAfQX5OZXpIHZxiV5GSW4OANCPGv8=--></b1></body>
+</html>

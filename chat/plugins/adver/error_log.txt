@@ -1,0 +1,668 @@
+Function: displayAd
+File: index.php
+PDOException: 42S02-SQLSTATE[42S02]: Base table or view not found: 1146 Table 'gamingsa_wanton.prochatrooms_adverts' doesn't exist
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: displayAd
+File: index.php
+PDOException: HY000-SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 0
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 0
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 104
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 0
+
+Function: db_connect
+File: functions.php
+PDOException: 2013-SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 0
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (111)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+
+Function: db_connect
+File: functions.php
+PDOException: 2002-SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+

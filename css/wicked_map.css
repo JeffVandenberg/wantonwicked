@@ -1,0 +1,109 @@
+div.map
+{
+  position:absolute;
+  left:28px;
+  top: 196px;
+  width: 600px;
+  height: 600px;
+}
+
+div.overlay
+{
+  position:absolute;
+  left:28px;
+  top:196px;
+  z-index:1;
+  visibility:hidden;
+  background:#ffffff;
+  width:600px;
+  height:600px;
+}
+
+div.title
+{
+  position:absolute;
+  left:28px;
+  top:123px;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+select.modeselect
+{
+  position:absolute;
+  left:28px;
+  top:158px;
+}
+
+input.submitbutton
+{
+  position:absolute;
+  left:165px;
+  top:158px;
+}
+
+input.information
+{
+  position:absolute;
+  left:300px;
+  top:32px;
+  width:250px;
+}
+table.infotable
+{
+  position:absolute;
+  left:153px;
+  top:105px;
+  background:#aaaaaa;
+  width:300px;
+  height:400px;
+  border-style: ridge;
+  border-color:#3a3333;
+  border-width: 3px;
+  color: #000000;
+}
+
+table.icontable
+{
+  position:absolute;
+  left:658px;
+  top:158px;
+  width:150px;
+  height:300px;
+  padding: 0px;
+}
+
+td.icon
+{
+  border-style: ridge;
+  border-color:#443333;
+  border-width: 3px;
+  width:50%;
+  vertical-align: middle;
+  text-align: center;
+}
+
+td.information
+{
+  text-align: center;
+  font-size: 15px;
+}
+
+td.territoryinputfield
+{
+  text-align: center;
+}
+
+.textinput1
+{
+  border-style: solid;
+  border-width: 1px;
+  border-color: #0000ff;
+}
+
+.featureinformation
+{
+  font-size: 12px;
+  font-family: arial;
+  color: #000000;
+}

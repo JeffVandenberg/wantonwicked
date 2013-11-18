@@ -1,0 +1,70 @@
+#gs-header-bar {
+    height: 30px;
+    line-height: 30px;
+    background-color: #003663;
+    /*background: linear-gradient(to bottom, #ccccaa 0%, #aaaacc 100%);*/
+    border-bottom-right-radius: 6px;
+    -moz-border-radius-bottomright: 6px;
+    border-bottom-left-radius: 6px;
+    -moz-border-radius-bottomleft: 6px;
+    box-shadow: 2px 4px 3px rgba(0, 0, 0, .6);
+    padding-bottom: 6px;
+    color: #000000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+#gs-header-inner {
+    width: 850px;
+    margin: 0 auto;
+}
+
+#gs-header-logo {
+    width: 150px;
+    float: left;
+    margin-right: 20px;
+    background: url('../img/wantonwicked_whitebanner.png') no-repeat center;
+    text-indent: -999px;
+}
+
+#gs-header-logo a {
+    color: #fff;
+}
+
+#gs-header-logo-nav {
+    width: 150px;
+    height: 30px;
+    display: block;
+}
+
+#gs-header-games {
+    width: 350px;
+    float: left;
+    margin-left: 20px;
+    margin-right: 20px;
+    /*background-color: #bbbbbb;*/
+}
+
+div#footer-bar {
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+    background-color: #003663;
+    border-top-right-radius: 6px;
+    -moz-border-radius-topright: 6px;
+    border-top-left-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    box-shadow: 2px 4px 3px rgba(0, 0, 0, .7);
+    color: #cccccc;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+div#footer-inner {
+    width: 800px;
+    margin: 0 auto;
+    text-align: right;
+}

@@ -1,0 +1,12 @@
+.idea/
+.git/
+.vagrant/
+cgi-bin/dbconnect.php
+chat/profiles/uploads
+chat/includes/db.php
+classes/core/repository/DatabaseMapper.php
+forum/cache
+forum/config.php
+wiki/wiki.d
+wiki3.0/wiki.d
+Thumbs.db

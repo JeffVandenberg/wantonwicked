@@ -1,0 +1,50 @@
+user.usergroup.icon = 4
+user.usergroup.title = Super Administrator
+
+user.usergroup.can_login = 1
+user.usergroup.can_msg = 1
+user.usergroup.idle_kick = 0
+
+user.usergroup.can_action = 1
+user.usergroup.post_delay = 0
+user.usergroup.allow_pm = 1
+user.usergroup.allow_room_create = 1
+user.usergroup.allow_avatars = 1
+user.usergroup.can_random = 1
+user.usergroup.allow_bbcode = 1
+user.usergroup.allow_color = 1
+user.usergroup.msg_scroll = 1
+user.usergroup.max_msg_length = 2048
+user.usergroup.filter_shout = 0
+user.usergroup.filter_profanity = 0
+user.usergroup.filter_word_replace = 0
+user.usergroup.can_nick = 1
+user.usergroup.level = 20
+
+user.usergroup.is_admin = 1
+user.usergroup.allow_html = 1
+user.usergroup.can_kick = 1
+user.usergroup.can_affect_admin = 1
+user.usergroup.can_grant = 1
+user.usergroup.can_cloak = 1
+user.usergroup.can_see_cloak = 1
+user.usergroup.login_cloaked = 1
+user.usergroup.can_ban = 1
+user.usergroup.can_ban_subnet = 1
+user.usergroup.can_system_speak = 1
+user.usergroup.can_silence = 1
+user.usergroup.can_fnick = 1
+user.usergroup.can_launch_website = 1
+user.usergroup.can_transfer = 1
+user.usergroup.can_join_nopw = 1
+user.usergroup.can_topic = 1
+user.usergroup.can_close = 1
+user.usergroup.can_ipquery = 1
+user.usergroup.can_geo_locate = 1
+user.usergroup.can_query_ether = 1
+user.usergroup.can_clear_screen = 1
+user.usergroup.can_clear_history = 1
+user.usergroup.allow_img_tag = 1
+
+user.usergroup.allow_admin_console = 1
+user.usergroup.can_view_transcripts = 1

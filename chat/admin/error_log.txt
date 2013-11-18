@@ -1,0 +1,20 @@
+Function: getAdminDatabase
+File: functions.php
+PDOException: 42S02-SQLSTATE[42S02]: Base table or view not found: 1146 Table 'gamingsa_wanton.prochatrooms_share' doesn't exist
+
+Function: updateAdminRooms
+File: functions.php
+PDOException: 23000-SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2227' for key 'PRIMARY'
+
+Function: updateAdminRooms
+File: functions.php
+PDOException: 23000-SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1111' for key 'PRIMARY'
+
+Function: updateAdminRooms
+File: functions.php
+PDOException: 23000-SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '3331' for key 'PRIMARY'
+
+Function: updateAdminRooms
+File: functions.php
+PDOException: 23000-SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '107' for key 'PRIMARY'
+

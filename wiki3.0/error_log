@@ -1,0 +1,22 @@
+[10-Dec-2007 05:44:32] PHP Fatal error:  Cannot redeclare redirect() (previously declared in /home/wanton00/public_html/pmwiki/pmwiki.php:1070) in /home/wanton00/public_html/forum/includes/functions.php on line 1841
+[22-Dec-2007 02:38:45] PHP Parse error:  syntax error, unexpected '<' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 02:41:56] PHP Parse error:  syntax error, unexpected $end in /home/wanton00/public_html/pmwiki/local/config.php on line 171
+[22-Dec-2007 02:42:26] PHP Parse error:  syntax error, unexpected $end in /home/wanton00/public_html/pmwiki/local/config.php on line 169
+[22-Dec-2007 02:43:16] PHP Parse error:  syntax error, unexpected $end in /home/wanton00/public_html/pmwiki/local/config.php on line 168
+[22-Dec-2007 02:44:16] PHP Parse error:  syntax error, unexpected '<' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 16:49:24] PHP Parse error:  syntax error, unexpected ',' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 16:52:15] PHP Parse error:  syntax error, unexpected ',' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 18:36:46] PHP Parse error:  syntax error, unexpected T_STRING in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 18:39:04] PHP Parse error:  syntax error, unexpected T_STRING in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 18:39:15] PHP Parse error:  syntax error, unexpected T_STRING in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 18:39:32] PHP Parse error:  syntax error, unexpected T_STRING in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 18:39:47] PHP Parse error:  syntax error, unexpected T_STRING in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 18:40:10] PHP Parse error:  syntax error, unexpected T_STRING in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[22-Dec-2007 18:40:14] PHP Parse error:  syntax error, unexpected T_STRING in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[28-Dec-2007 06:38:47] PHP Parse error:  syntax error, unexpected '=' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[28-Dec-2007 06:39:14] PHP Parse error:  syntax error, unexpected '=' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[28-Dec-2007 06:41:06] PHP Parse error:  syntax error, unexpected '=' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[28-Dec-2007 06:41:14] PHP Parse error:  syntax error, unexpected '=' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[28-Dec-2007 06:42:26] PHP Parse error:  syntax error, unexpected '=' in /home/wanton00/public_html/pmwiki/local/config.php(171) : eval()'d code on line 1
+[28-Dec-2007 06:42:26] PHP Parse error:  syntax error, unexpected '=' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
+[28-Dec-2007 06:47:53] PHP Parse error:  syntax error, unexpected ';' in /home/wanton00/public_html/pmwiki/pmwiki.php(775) : eval()'d code on line 1
