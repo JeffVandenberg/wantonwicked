@@ -54,6 +54,7 @@ define('C_CUSTOM_LOGIN','1'); // 0 OFF, 1 ON
 
 // Enter your CMS Global values below
 $loggedIn = false;
+$userTypeId = 0;
 if(isset($_GET['character_id'])) {
     $characterId = (int) $_GET['character_id'];
     $query = <<<EOQ
@@ -65,16 +66,14 @@ FROM
     wod_characters AS C
     INNER JOIN login_character_index as LCI ON C.character_id = LCI.character_id
 WHERE
-    LCI.character_id = :characterId
-	AND LCI.login_id = :loginId
+    LCI.character_id = ?
+	AND LCI.login_id = ?
 EOQ;
 
     /* @var PDO $dbh */
     $dbh = db_connect();
     $action = $dbh->prepare($query);
-    $action->bindValue('characterId', $characterId, PDO::PARAM_INT);
-    $action->bindValue('loginId', $userdata['user_id'], PDO::PARAM_INT);
-    $action->execute();
+    $action->execute(array($characterId, $userdata['user_id']));
     $character = $action->fetch(PDO::FETCH_ASSOC);
 
     if($character === false) {
@@ -119,7 +118,8 @@ EOQ;
     $_SESSION['userid'] = C_CUSTOM_USERID;
     $_SESSION['userGroup'] = 2;
     $_SESSION['is_invisible'] = 0;
-    addUser($icon);
+    $userTypeId = 3;
+    addUser($icon, $userTypeId); // login type 3 = character
 
     $query = <<<EOQ
 UPDATE
@@ -162,15 +162,17 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
 
         $row = $action->fetch(PDO::FETCH_ASSOC);
         $icon = 'st.png';
-
+        $userTypeId = 4; // regular ST
         if($row['Is_Admin'] == 'Y') {
             $icon = 'admin.png';
+            $userTypeId = 5;
         }
         else if($row['Wiki_Manager'] == 'Y') {
             $icon = 'wiki.png';
+            $userTypeId = 6;
         }
 
-        addUser($icon);
+        addUser($icon, $userTypeId);
 
         $admin = ($row['Is_Admin'] == 'Y') ? 1 : 0;
         $mod = 0;
@@ -252,7 +254,8 @@ EOQ;
         $icon = 'supporter.png';
     }
 
-    addUser($icon);
+    $userTypeId = 2;
+    addUser($icon, $userTypeId); // registered ooc user
 
     $query = <<<EOQ
 UPDATE
@@ -285,7 +288,8 @@ else if(isset($_POST['username']) && (trim($_POST['username']) !== '')) {
     $_SESSION['userid'] = C_CUSTOM_USERID;
     $_SESSION['userGroup'] = 1;
     $_SESSION['is_invisible'] = 0;
-    addUser('ooc.png');
+    $userTypeId = 1;
+    addUser('ooc.png', $userTypeId); // guest user
 
     $query = <<<EOQ
 UPDATE
@@ -317,6 +321,22 @@ if(!$loggedIn)
 {
 	die("Not Logged In.");
 }
+
+$sql = <<<EOQ
+SELECT
+    id
+FROM
+    prochatrooms_users
+WHERE
+    username = ?
+    AND userid = ?
+    AND user_type_id = ?
+EOQ;
+
+$statement = $dbh->query($sql);
+$statement->execute(array(C_CUSTOM_USERNAME, C_CUSTOM_USERID, $userTypeId));
+$result = $statement->fetch(PDO::FETCH_ASSOC);
+$_SESSION['user_id'] = $result['id'];
 
 ## DO NOT EDIT BELOW THIS LINE ##############
 

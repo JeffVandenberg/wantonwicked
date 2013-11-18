@@ -96,6 +96,7 @@ if($CONFIG['CMS'] && !isset($_GET['logout']))
 			$_SESSION['username'] = $uname;
 			$_SESSION['userid'] = $uid;
             $_SESSION['display_name'] = $uname;
+            $_SESSION['user_id'] = $userId;
 		}
 	}
 
@@ -239,6 +240,7 @@ if(isset($_REQUEST['logout']) && isset($_SESSION['username']))
 	unset($_SESSION['username']);
     unset($_SESSION['display_name']);
 	unset($_SESSION['userid']);
+	unset($_SESSION['user_id']);
 	unset($_SESSION['room']);
 	unset($_SESSION['guest']);
 

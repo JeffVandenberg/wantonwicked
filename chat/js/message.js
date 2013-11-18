@@ -348,9 +348,8 @@ function sendData(displayMDiv)
 	param += '&uid=' + uID;
 	param += '&umid=' + displayMDiv;
 	param += '&uroom=' + roomID;
-	//param += '&uname=' + encodeURI(userName.replaceAll('\'', '&#39;'));
 	param += '&uname=' + encodeURI(userName);
-	param += '&toname=' + encodeURI(isPrivate);
+	param += '&to_user_id=' + encodeURI(isPrivate);
 	param += '&umessage=' + encodeURIComponent(message);
 	param += '&usfx=' + escape(sfx);	
 

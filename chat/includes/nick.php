@@ -46,13 +46,11 @@ UPDATE
 SET
     display_name = ?
 WHERE
-    userid = ?
-    AND display_name = ?
+    id = ?
 EOQ;
         $parameters = array(
             $_POST['new_name'],
-            $_POST['user_id'],
-            $_POST['username']
+            $_POST['user_id']
         );
         break;
     default:

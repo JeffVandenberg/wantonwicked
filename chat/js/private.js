@@ -58,7 +58,12 @@ function createPChatDiv(divPName, divToName, dPID, duID) {
         pmContainer.append($("<div id='pmenuBar_" + divPName + "' class='pmenuBar'></div>"));
 
         // sendbox
-        pmContainer.append($('<div id=\'psendbox_' + divPName + '\' class=\'psendbox\'><input type=\'text\' id=\'poptionsBar_' + divPName + '\' class="poptionsBar" onKeyPress="return submitenter(this,event,\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\',\'' + uUser + '\');" onfocus="changeMessBoxStyle(\'poptionsBar_' + divPName + '\');"></textarea><input id="poptionsSend" class="poptionsSend" type="button" value="' + lang31 + '" onclick="sendPMessage(\'' + uUser + '\',\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\')"></div>'));
+        pmContainer.append(
+            $('<div id=\'psendbox_' + divPName + '\' class=\'psendbox\'>' +
+                '<input type=\'text\' id=\'poptionsBar_' + divPName + '\' class="poptionsBar" onKeyPress="return submitenter(this,event,\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\',\'' + uUser + '\');" onfocus="changeMessBoxStyle(\'poptionsBar_' + divPName + '\');">' +
+                '</textarea>' +
+                '<input id="poptionsSend" class="poptionsSend" type="button" value="' + lang31 + '" onclick="sendPMessage(\'' + dPID + '\',\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\')">' +
+                '</div>'));
 
         // menu win
         pmContainer.append($("<div id='pmenuWin_" + divPName + "'></div>"));
