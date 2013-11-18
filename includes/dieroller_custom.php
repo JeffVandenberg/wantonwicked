@@ -97,11 +97,8 @@ ob_start();
 ?>
     <div class="ui-widget">
         <form method="post" action="dieroller.php?action=custom" id="roll-dice">
-            <div style="margin-bottom:10px;text-align:center;border:solid 1px #554646;padding:4px;">
-                <div class="paragraph" style="font-size:1.5em;font-weight:bold;">
-                    Custom Die Roller
-                </div>
-                <div style="margin-bottom:5px">
+            <div align="center">
+                <div style="margin:5px">
                     Description: <input type="text" name="description" id="description" value="" maxlength="200"
                                         style="width:200px;"/>
                 </div>
@@ -115,6 +112,7 @@ ob_start();
                                      style="width:30px;"/>
                     <input type="button" value="Roll" name="roll_dice_button" id="roll-dice-button"/>
                 </div>
+            </div>
             </div>
         </form>
 

@@ -217,42 +217,56 @@ function buildWoDSheet($stats, $character_type='Mortal', $edit_show_sheet = fals
 	switch($character_type)
 	{
 		case 'Mortal':
-			$table_bg_color = "#505067";
+			$table_bg_color = "#6e68a3";
 			$table_class = "mortal_normal_text";
 			break;
 			
 		case 'Psychic':
-			$table_bg_color = "#673867";
+			$table_bg_color = "#6e68a3";
 			$table_class = "mortal_normal_text";
 			break;
 			
 		case 'Thaumaturge':
-			$table_bg_color = "#673867";
+			$table_bg_color = "#6e68a3";
 			$table_class = "mortal_normal_text";
 			$splat1_groups = array("Ceremonial Magician", "Hedge Witch", "Shaman", "Taoist Alchemist", "Vodoun");
 			break;
 			
 		case 'Vampire':
-			$table_bg_color = "#9d3030";
+			$table_bg_color = "#9e0b0f";
 			$table_class = "vampire_normal_text";
 			$splat1_groups = array("Daeva", "Gangrel", "Mekhet", "Nosferatu", "Ventrue");
 			$splat2_groups = array("Carthian", "Circle of the Crone", "Invictus", "Lancea Sanctum", "Ordo Dracul", "Unaligned");
 			break;
 		case 'Werewolf':
-			$table_bg_color = "#8a6030";
+			$table_bg_color = "#74483f";
 			$table_class = "werewolf_normal_text";
 			$splat1_groups = array("Rahu", "Cahalith", "Elodoth", "Ithaeur", "Irraka", "None");
 			$splat2_groups = array("Blood Talons", "Bone Shadows", "Hunters in Darkness", "Iron Masters", "Storm Lords", "Ghost Wolves", "Fire-Touched", "Ivory Claws", "Predator Kings");
 			break;
 		case 'Mage':
-			$table_bg_color = "#4091ba";
+			$table_bg_color = "#004a80";
 			$table_class = "mage_normal_text";
 			$splat1_groups = array("Acanthus", "Mastigos", "Moros", "Obrimos", "Thyrsus");
 			$splat2_groups = array("The Adamantine Arrows", "Free Council", "Guardians of the Veil", "The Mysterium", "The Silver Ladder", "Apostate", "Seer of the Throne", "Banisher");
 			break;
+		case 'Geist':
+			$table_bg_color = "#415582";
+			$table_class = "geist_normal_text";
+			$splat1_groups = array("Advocate", "Bonepicker", "Celebrant", "Gatekeeper", "Mourner", "Necromancer", "Pilgrim", "Reaper");
+			$splat2_groups = array("Forgotten", "Prey", "Silent", "Stricken", "Torn");
+			break;
 		case 'Ghoul':
-			$table_bg_color = "#675050";
+			$table_bg_color = "#9e0b0f";
 			$table_class = "ghoul_normal_text";
+			break;
+		case 'Sleepwalker':
+			$table_bg_color = "#004a80";
+			$table_class = "sleepwalker_normal_text";
+			break;
+		case 'Wolfblood':
+			$table_bg_color = "#004a80";
+			$table_class = "wolfblood_normal_text";
 			break;
 		default:
 			$table_bg_color = "#505067";

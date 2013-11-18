@@ -61,9 +61,6 @@ if (isset($_GET['action'])) {
         case 'view':
             include 'includes/request_view.php';
             break;
-        case 'history':
-            include 'includes/request_history.php';
-            break;
         case 'edit':
             include 'includes/request_edit.php';
             break;
@@ -133,11 +130,6 @@ if (isset($_GET['action'])) {
             else
             {
                 include 'includes/index_redirect.php';
-            }
-            break;
-        case 'admin_time_report':
-            if(UserdataHelper::IsHead($userdata)) {
-                include 'includes/request_admin_time_report.php';
             }
             break;
         case 'submit':

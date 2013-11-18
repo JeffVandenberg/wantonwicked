@@ -10,15 +10,9 @@
 namespace classes\request\repository;
 
 
-use classes\core\repository\AbstractRepository;
 use classes\request\data\RequestType;
 
-class RequestTypeRepository extends AbstractRepository
-{
-    function __construct() {
-        parent::__construct('classes\request\data\RequestType');
-    }
-
+class RequestTypeRepository {
     public function ListAll()
     {
         $blueBook = RequestType::BlueBook;

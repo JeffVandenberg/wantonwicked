@@ -26,7 +26,7 @@ $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
-$page_template = "no_menu_layout4.tpl";
+$page_template = "main_ww4.tpl";
 $contentHeader = "";
 
 // build links
@@ -35,7 +35,7 @@ include 'user_panel.php';
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'login':
-            $page_template = "blank_layout4.tpl";
+            $page_template = "main_ww4.tpl";
             include 'includes/character_login.php';
             break;
         case 'interface':

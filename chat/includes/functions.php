@@ -550,13 +550,13 @@ function createUser($loginName,$loginID,$loginPass,$loginGender,$login,$guest)
 		addUser($loginGender);
 
 		// return details
-		return array($_SESSION['display_name'], $_SESSION['username'],$_SESSION['userid'],'0');
+		return array($_SESSION['username'],$_SESSION['userid'],'0');
 	}
 
 	if(!$login)
 	{
 		// user session already set
-		return array($_SESSION['display_name'], $_SESSION['username'],$_SESSION['userid'],'0');
+		return array($_SESSION['username'],$_SESSION['userid'],'0');
 	}
 
 }
@@ -637,22 +637,42 @@ function getUser($prevRoom,$roomID)
 		// update user in database
 		updateUser();
 		
-		// update room counts
+		// update room details
 		try {
 			$dbh = db_connect();
-			$query = <<<EOQ
-update prochatrooms_rooms AS R set roomusers = (
-    SELECT
-        count(*)
-    FROM
-        prochatrooms_users AS U
-    WHERE
-        U.room = R.id
-        AND U.online = 1
-)
-EOQ;
+			$params = array(
+			'roomID' => makeSafe($roomID)
+			);
+			$query = "UPDATE prochatrooms_rooms 
+					  SET roomusers = roomusers + 1
+					  WHERE id = :roomID
+					  ";							
 			$action = $dbh->prepare($query);
-			$action->execute();
+			$action->execute($params);	
+			$dbh = null;
+		}
+		catch(PDOException $e) 
+		{
+			$error  = "Function: ".__FUNCTION__."\n";
+			$error .= "File: ".basename(__FILE__)."\n";	
+			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+
+			debugError($error);
+		}		
+
+		// update room details
+		try {
+			$dbh = db_connect();
+			$params = array(
+			'prevRoom' => makeSafe($prevRoom)
+			);
+			$query = "UPDATE prochatrooms_rooms 
+					  SET roomusers = roomusers - 1 
+					  WHERE id = :prevRoom
+					  AND roomusers > '0'
+					  ";							
+			$action = $dbh->prepare($query);
+			$action->execute($params);	
 			$dbh = null;
 		}
 		catch(PDOException $e) 

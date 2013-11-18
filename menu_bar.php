@@ -1,5 +1,5 @@
 <?php
-global $userdata;
+/*global $userdata;
 // check if they are an ST
 $gamemaster_link = "";
 
@@ -26,7 +26,6 @@ if ($user->data['user_id'] != ANONYMOUS) {
 <a href="/wiki/">Wiki</a><br>
 <a href="/forum/index.php">Forums</a><br>
 <a href="/chat.php">Game/Chat Interface</a><br>
-<!--<a href="/events.php">Event Calendar</a><br />-->
 $gamemaster_link
 $supporter
 <a href="/support.php">Supporters</a><br />
@@ -39,8 +38,8 @@ else {
 <a href="/">Home</a><br />
 <a href="/wiki/">Wiki</a><br>
 <a href="/forum/index.php">Forums</a><br>
-<!--<a href="/events.php">Event Calendar</a><br />-->
 <a href="/support.php">Supporters</a><br />
 <a href="/index.php?action=storytellers">Storytellers</a><br>
+
 EOQ;
-}
+}*/

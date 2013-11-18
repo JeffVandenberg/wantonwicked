@@ -2,31 +2,39 @@
 <html>
 <head>
 <title><?php echo @copyrightTitle();?></title>
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+<!--[if IE 9]>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
+<![endif]-->
+
+<!--[if lt IE 9]>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<![endif]-->
+
 <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template']; ?>/jquery-ui.min.css">
 <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template'];?>/style.css">
-<script type="text/javascript" src="/chat/js/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="/chat/js/sortelements.js"></script>
-<script type="text/javascript" src="/chat/js/jquery-ui.js"></script>
-<script type="text/javascript" src="/chat/includes/lang.js.php"></script>
-<script type="text/javascript" src="/chat/includes/settings.js.php"></script>
-<script type="text/javascript" src="/chat/js/XmlHttpRequest.js"></script>
-<script type="text/javascript" src="/chat/js/cookie.js"></script>
-<script type="text/javascript" src="/chat/js/divLayout.js"></script>
-<script type="text/javascript" src="/chat/js/message.js"></script>
-<script type="text/javascript" src="/chat/js/functions.js"></script>
-<script type="text/javascript" src="/chat/js/private.js"></script>
-<script type="text/javascript" src="/chat/js/userlist.js"></script>
-<script type="text/javascript" src="/chat/js/newRoom.js"></script>
-<script type="text/javascript" src="/chat/js/swfobject.js"></script>
-<script type="text/javascript" src="/chat/js/playSnd.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/sortelements.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="includes/lang.js.php"></script>
+<script type="text/javascript" src="includes/settings.js.php"></script>
+<script type="text/javascript" src="js/XmlHttpRequest.js"></script>
+<script type="text/javascript" src="js/cookie.js.php"></script>
+<script type="text/javascript" src="js/divLayout.js.php"></script>
+<script type="text/javascript" src="js/message.js.php"></script>
+<script type="text/javascript" src="js/functions.js.php"></script>
+<script type="text/javascript" src="js/private.js.php"></script>
+<script type="text/javascript" src="js/userlist.js.php"></script>
+<script type="text/javascript" src="js/newRoom.js.php"></script>
+<script type="text/javascript" src="js/swfobject.js"></script>
+<script type="text/javascript" src="js/playSnd.js"></script>
 
 <!-- Intellibot -->
-<script type="text/javascript" src="/chat/js/intellibotRes.js"></script>
-<script type="text/javascript" src="/chat/js/intellibot.js"></script>
+<script type="text/javascript" src="js/intellibotRes.js.php"></script>
+<script type="text/javascript" src="js/intellibot.js.php"></script>
 
 <?php echo @showPlugins('main');?>
 
@@ -34,7 +42,7 @@
 <!--
 
 /* user details */
-var userName = '<?php echo $displayName;?>';
+var userName = '<?php echo $username;?>';
 var userID = <?php echo $userid;?>;
 var uID = '<?php echo $id;?>';
 var userAvatar = '<?php echo $avatar;?>';

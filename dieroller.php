@@ -32,8 +32,11 @@ $top_image = "";
 $page_content = "";
 $java_script = "";
 $contentHeader = "";
-$template_layout = "no_menu_layout4.tpl";
+$template_layout = "main_ww4.tpl";
 include 'user_panel.php';
+// build links
+include 'menu_bar.php';
+include 'menu_bar_player_content.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {

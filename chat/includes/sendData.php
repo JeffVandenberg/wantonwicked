@@ -264,7 +264,7 @@ if($_POST)
 		}
 		else
 		{
-			$senderName = $_SESSION['display_name'];
+			$senderName = $_SESSION['username'];
 		}
 
 		// if user is not silenced

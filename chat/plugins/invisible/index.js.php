@@ -19,7 +19,6 @@ include("../../includes/session.php");
 include("../../includes/db.php");
 include("../../includes/config.php");
 include("../../includes/functions.php");
-header("content-type: application/x-javascript");
 
 /*
 * assign hidden status
@@ -40,6 +39,7 @@ if(($CONFIG['invisibleAdminsPlugin']) && ($_SESSION['is_invisible']))
 
 if($_SESSION['is_invisible']) {
     die('invisible');
+header("content-type: application/x-javascript");
 
 echo " var invisibleOn = ".$CONFIG['invisibleAdminsPlugin']."; ";
 echo " var hide = ".$id."; ";

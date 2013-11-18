@@ -570,20 +570,3 @@ echo "var version = '".$CONFIG['version']."'; ";
 echo "var dispLastMess = '".$CONFIG['dispLastMess']."'; "; 
 
 ?>
-// set variables
-var intelliBot = <?php echo $CONFIG['intelliBot'];?>;
-var intelliBotName = '<?php echo $CONFIG['intelliBotName'];?>';
-var intelliBotAvi = '<?php echo $CONFIG['intelliBotAvi'];?>';
-var intellibotRoomID = '<?php echo $CONFIG['intellibotRoomID'];?>';
-var maxTextLength = <?php echo $CONFIG['maxChars'];?>;
-var hasSharePlugin = <?php echo (file_exists("../plugins/share/index.php")) ? 'true' : 'false'; ?>;
-var hasGamesPlugin = <?php echo (file_exists("../plugins/games/index.php")) ? 'true' : 'false'; ?>;
-<?php
-$room = '';
-
-if(isset($_SESSION['room']) && $CONFIG['singleRoom'])
-{
-    $room = "roomID=".$_SESSION['room']."&";
-}
-?>
-var roomText = '<?php echo $room; ?>';

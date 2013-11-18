@@ -95,7 +95,6 @@ if($CONFIG['CMS'] && !isset($_GET['logout']))
 			// assign user details
 			$_SESSION['username'] = $uname;
 			$_SESSION['userid'] = $uid;
-            $_SESSION['display_name'] = $uname;
 		}
 	}
 
@@ -237,7 +236,6 @@ if(isset($_REQUEST['logout']) && isset($_SESSION['username']))
 	}
 
 	unset($_SESSION['username']);
-    unset($_SESSION['display_name']);
 	unset($_SESSION['userid']);
 	unset($_SESSION['room']);
 	unset($_SESSION['guest']);
@@ -358,7 +356,7 @@ if(empty($_REQUEST['userId']))
 	$_REQUEST['userId'] = '-1';
 }
 
-list($displayName, $username,$userid,$loginError) = createUser(
+list($username,$userid,$loginError) = createUser(
                      $_REQUEST['userName'],
                      $_REQUEST['userId'],
                      $_REQUEST['userPass'],

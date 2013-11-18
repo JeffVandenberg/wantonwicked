@@ -34,7 +34,7 @@ $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
-$page_template = "no_menu_layout4.tpl";
+$page_template = "main_ww4.tpl";
 $contentHeader = "";
 
 // build links

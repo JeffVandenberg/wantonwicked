@@ -11,10 +11,8 @@ namespace classes\request\repository;
 
 
 use classes\core\repository\AbstractRepository;
-use classes\core\repository\RepositoryManager;
 use classes\request\data\Request;
 use classes\request\data\RequestStatus;
-use classes\request\data\RequestStatusHistory;
 use classes\request\data\RequestType;
 
 class RequestRepository extends AbstractRepository
@@ -23,21 +21,6 @@ class RequestRepository extends AbstractRepository
     function __construct()
     {
         parent::__construct('classes\request\data\Request');
-    }
-
-    public function Save(Request $request)
-    {
-        $result = parent::Save($request);
-        if($result) {
-            $requestStatusHistory = new RequestStatusHistory();
-            $requestStatusHistory->RequestId = $request->Id;
-            $requestStatusHistory->RequestStatusId = $request->RequestStatusId;
-            $requestStatusHistory->CreatedById = $request->UpdatedById;
-            $requestStatusHistory->CreatedOn = date('Y-m-d H:i:s');
-            $requestStatusHistoryRepository = RepositoryManager::GetRepository('classes\request\data\RequestStatusHistory');
-            return $requestStatusHistoryRepository->Save($requestStatusHistory);
-        }
-        return $result;
     }
 
     public function FindById($id)
@@ -409,7 +392,7 @@ EOQ;
         return ExecuteQueryData($sql);
     }
 
-    public function ListByGroups($groups, $characterId, $page, $pageSize, $sort, $filter)
+    public function ListByGroups($groups, $page, $pageSize, $sort, $filter)
     {
         $groupListPlaceholders = implode(',', array_fill(0, count($groups), '?'));
 
@@ -435,13 +418,8 @@ FROM
     LEFT JOIN groups as G ON R.group_id = G.id
 WHERE
     R.group_id IN ($groupListPlaceholders)
-    AND C.is_deleted = 'N'
-    AND ((C.character_id = ?) OR (? = 0))
 EOQ;
         $parameters = $groups;
-        $parameters[] = $characterId;
-        $parameters[] = $characterId;
-
         if($filter['character_name'] != '') {
             $sql .= ' AND C.character_name LIKE ? ';
             $parameters[] = $filter['character_name'] . '%';
@@ -456,10 +434,8 @@ EOQ;
         }
 
         if($filter['request_status_id'] != '0') {
-            if($filter['request_status_id'] != -1) {
-                $sql .= ' AND R.request_status_id = ? ';
-                $parameters[] = $filter['request_status_id'];
-            }
+            $sql .= ' AND R.request_status_id = ? ';
+            $parameters[] = $filter['request_status_id'];
         }
         else {
             $sql .= ' AND R.request_status_id IN (' . $storytellerPlaceholders . ')';
@@ -551,11 +527,39 @@ EOQ;
 
     public function UpdateStatus($requestId, $requestStatusId, $userId)
     {
-        $request = $this->GetById($requestId);
-        /* @var \classes\request\data\Request $request */
-        $request->RequestStatusId = $requestStatusId;
-        $request->UpdatedById = $userId;
-        return $this->Save($request);
+        $requestId = (int) $requestId;
+        $requestStatusId = (int) $requestStatusId;
+        $userId = (int) $userId;
+        $updatedOn = date('Y-m-d H:i:s');
+
+        $sql = <<<EOQ
+UPDATE
+    requests
+SET
+    request_status_id = $requestStatusId,
+    updated_by_id = $userId,
+    updated_on = '$updatedOn'
+WHERE
+    id = $requestId;
+EOQ;
+
+        return ExecuteQuery($sql);
+    }
+
+    public function Close($id)
+    {
+        $submitted = RequestStatus::Closed;
+        $id = (int)$id;
+        $sql = <<<EOQ
+UPDATE
+    requests
+SET
+    request_status_id = $submitted
+WHERE
+    id = $id;
+EOQ;
+
+        return ExecuteQuery($sql);
     }
 
     public function ListRequestAssociatedWith($characterId)
@@ -661,75 +665,5 @@ WHERE
     id = ?
 EOQ;
         return $this->Query($sql)->Execute(array($userId, $requestId));
-    }
-
-
-    public function GetTimeReport()
-    {
-        $sql = <<<EOQ
-SELECT
-    character_type,
-    AVG(UNIX_TIMESTAMP(first_view)-UNIX_TIMESTAMP(created)) AS first_view,
-    AVG(UNIX_TIMESTAMP(terminal_status)-UNIX_TIMESTAMP(created)) AS terminal_status,
-    AVG(UNIX_TIMESTAMP(closed)-UNIX_TIMESTAMP(created)) AS closed
-FROM
-    (
-    SELECT
-        C.character_type,
-        (
-            SELECT
-                min(created_on)
-            FROM
-                request_status_histories AS RSH
-            WHERE
-                RSH.request_id = R.id
-                AND RSH.request_status_id = 1
-            GROUP BY
-                RSH.request_id
-        ) as created,
-        (
-            SELECT
-                min(created_on)
-            FROM
-                request_status_histories AS RSH
-            WHERE
-                RSH.request_id = R.id
-                AND RSH.request_status_id = 2
-            GROUP BY
-                RSH.request_id
-        ) as first_view,
-        (
-            SELECT
-                min(created_on)
-            FROM
-                request_status_histories AS RSH
-            WHERE
-                RSH.request_id = R.id
-                AND RSH.request_status_id IN (4,5)
-            GROUP BY
-                RSH.request_id
-        ) as terminal_status,
-        (
-            SELECT
-                min(created_on)
-            FROM
-                request_status_histories AS RSH
-            WHERE
-                RSH.request_id = R.id
-                AND RSH.request_status_id = 7
-            GROUP BY
-                RSH.request_id
-        ) as closed
-    FROM
-        requests AS R
-        INNER JOIN wod_characters as C ON R.character_id = C.character_id
-    ) AS A
-WHERE
-    created IS NOT NULL
-GROUP BY
-    character_type
-EOQ;
-
-        return $this->Query($sql)->All();
     }
 }

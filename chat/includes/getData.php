@@ -241,7 +241,7 @@ try {
 		'active' => $onlineTime,
 		'room' => makeSafe($_GET['roomID'])		
 		);
-		$query = "SELECT id, display_name AS username, userid, prevroom, room, avatar, webcam, active, online, status, watching, eCredits, guest, lastActive, userIP, admin, moderator, speaker
+		$query = "SELECT id, username, userid, prevroom, room, avatar, webcam, active, online, status, watching, eCredits, guest, lastActive, userIP, admin, moderator, speaker 
 				  FROM prochatrooms_users 
 				  WHERE username != '' 
 				  AND active > :active
@@ -254,7 +254,7 @@ try {
 		$params = array(
 		'active' => $onlineTime
 		);
-		$query = "SELECT id, display_name AS username, userid, prevroom, room, avatar, webcam, active, online, status, watching, eCredits, guest, lastActive, userIP, admin, moderator, speaker
+		$query = "SELECT id, username, userid, prevroom, room, avatar, webcam, active, online, status, watching, eCredits, guest, lastActive, userIP, admin, moderator, speaker 
 				  FROM prochatrooms_users 
 				  WHERE  username != ''
 				  AND active > :active

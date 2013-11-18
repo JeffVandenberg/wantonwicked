@@ -28,7 +28,7 @@ $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
-$template_layout = "no_menu_layout.tpl";
+$template_layout = "main_ww4.tpl";
 
 if(isset($_GET['action']))
 {

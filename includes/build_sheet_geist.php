@@ -315,17 +315,13 @@ $power_list .= "</table>";
 $traits_table = <<<EOQ
 <table class="character-sheet $table_class">
     <tr>
-        <th colspan="6" align="center">
-            <b>Abilities</b>
-            $abilities_help
-        </th>
-    </tr>
-    <tr>
       <th bgcolor="$cell_bg_color" colspan="3" align="center" width="50%">
         Merits
+		$abilities_help
       </th>
       <th bgcolor="$cell_bg_color" colspan="3" align="center" width="50%">
         Powers
+		$abilities_help
         </th>
     </tr>
     <tr valign="top">
@@ -339,6 +335,7 @@ $traits_table = <<<EOQ
     <tr>
       <th bgcolor="$cell_bg_color" colspan="3" align="center">
         Flaws/Derangements
+		$abilities_help
       </th>
     </tr>
     <tr>
