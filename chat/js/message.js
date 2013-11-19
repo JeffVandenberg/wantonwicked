@@ -474,8 +474,8 @@ function handleMessages()
 
 		// userroom data
 		roomNameStr = '';
-		
-		for (var i = 0; i < xmldoc.getElementsByTagName("userrooms").length;)
+		var i;
+		for (i = 0; i < xmldoc.getElementsByTagName("userrooms").length;)
 		{
 			// for each room
 			var userRooms = xmldoc.getElementsByTagName("userrooms")[i].childNodes[0].nodeValue;

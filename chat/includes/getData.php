@@ -395,7 +395,7 @@ try {
 		
 		$deleteRoom = '0';
 
-		if($i['roomusers'] == '0' && getTime()-60 >= $i['roomcreated'] && $i['roomowner'] != '1')
+		if(($i['roomusers'] == '0') && (getTime()-300 >= $i['roomcreated']) && ($i['roomowner'] != '1'))
 		{
 			// was  - if($_REQUEST['s'] && !$CONFIG['one2onePlugin'])
 			// did not delete users created rooms, so we updated it too,
