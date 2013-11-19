@@ -138,13 +138,27 @@ try {
             'userid' => makeSafe($_SESSION['user_id'])
         );
         $query = <<<EOQ
-SELECT id, uid, mid, username, tousername, message, sfx, room, messtime
-				  FROM prochatrooms_message
-				  WHERE room = :room AND id > :last AND tousername = '' AND username != :username 
-				  OR room = :room AND id > :last AND tousername = :username
-				  OR id > :last AND tousername = :username
-				  OR room = :room AND id > :last AND share = '1' AND tousername = :username
-				  OR room = :room AND id > :last AND share = '1' AND username = :username
+SELECT
+    id,
+    uid,
+    mid,
+    username,
+    tousername,
+    to_user_id,
+    message,
+    sfx,
+    room,
+    messtime
+FROM
+    prochatrooms_message
+WHERE
+    (id > :last)
+    AND
+    (
+        (room = :room)
+        OR (to_user_id = :userid)
+	    OR (share = '1')
+    )
 EOQ;
     }
     else {
@@ -222,8 +236,8 @@ EOQ;
     $error = "Action: Get Messages\n";
     $error .= "File: " . basename(__FILE__) . "\n";
     $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-    debugError($error);
+    die($error);
+    //debugError($error);
 }
 //CreateSiteLog($seed, 'Get Messages', $startTime, $dbh);
 /*
@@ -368,7 +382,6 @@ EOQ;
     $error = "Action: Get Users\n";
     $error .= "File: " . basename(__FILE__) . "\n";
     $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
     debugError($error);
 }
 
@@ -447,7 +460,6 @@ EOQ;
     $error = "Action: Get Rooms\n";
     $error .= "File: " . basename(__FILE__) . "\n";
     $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
     debugError($error);
 }
 
