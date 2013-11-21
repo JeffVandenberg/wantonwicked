@@ -564,7 +564,7 @@ EOQ;
                     $powers = array(
                         'Key' => 'key',
                         'Manifestation' => 'manifestation',
-                        'Ceremonies', 'ceremony'
+                        'Ceremonies' => 'ceremony'
                     );
                     break;
                 case "Purified":
