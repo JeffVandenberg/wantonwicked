@@ -64,7 +64,7 @@ var lastMessageID = <?php echo $lastMessageID;?>;
 
 </head>
 <body id="body" class="body">
-
+<div id="content" class="content">
 <div id="mainContainer" class="mainContainer">
 
 	<div id="topContainer" class="topContainer"></div>
@@ -123,6 +123,6 @@ var lastMessageID = <?php echo $lastMessageID;?>;
 </div>
 
 <div id="oInfo" class="oInfo"></div>
-
+</div>
 </body>
 </html>
