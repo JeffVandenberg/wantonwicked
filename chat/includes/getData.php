@@ -81,6 +81,25 @@ list($admin,$mod,$speaker) = adminPermissions();
 * update user
 *
 */
+// check room ID
+$sql = <<<EOQ
+SELECT
+    count(*) as `count`
+FROM
+    prochatrooms_users
+WHERE
+    room = ?
+    AND username = ?
+EOQ;
+$queryParams = array($_GET['roomID'], $_SESSION['username']);
+$statement = $dbh->prepare($sql);
+$statement->execute($queryParams);
+$result = $statement->fetchColumn();
+if($result == 0) {
+    mail('jeffvandenberg@gmail.com', 'Chat Abuse', $_SESSION['username'] . ' attempted to be logged into multiple rooms');
+    logoutUser($_SESSION['username'], $_GET['roomID']);
+    die();
+}
 
 updateUser();
 
