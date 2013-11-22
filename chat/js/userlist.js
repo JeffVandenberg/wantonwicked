@@ -326,7 +326,21 @@ function createRoomsdiv(room,roomid,roomdel)
 
 		newdiv.setAttribute("id","room_"+roomid);
 		newdiv.className = "";
-		newdiv.innerHTML = '<div class="roomheader" onclick=toggleHeader("room_'+roomid+'");><div class="room-div"><span style="float:left;"><img style="vertical-align:middle;" src="images/mini.gif">&nbsp;<span class="roomname">'+decodeURI(room.replace("+"," "))+'</span>&nbsp;</span></div> <span style="float:right;" class="usercount">[<span id="userCount_'+roomid+'">0</span>]</span> </div>';
+		newdiv.innerHTML =
+            '<div class="roomheader" onclick=toggleHeader("room_'+roomid+'");>' +
+                '<div class="room-div">' +
+                    '<span style="float:left;">' +
+                        '<img style="vertical-align:middle;" src="images/mini.gif">' +
+                        '&nbsp;' +
+                        '<span class="roomname">'+
+                        decodeURI(room.replace("+"," "))+
+                        '</span>&nbsp;' +
+                    '</span>' +
+                '</div> ' +
+                '<span style="float:right;" class="usercount">' +
+                    '[<span id="userCount_'+roomid+'">0</span>]' +
+                '</span> ' +
+            '</div>';
 
         if(ni != null) {
 		    ni.appendChild(newdiv);
