@@ -90,6 +90,7 @@ FROM
 WHERE
     room = ?
     AND username = ?
+    AND online = 1
 EOQ;
 $queryParams = array($_GET['roomID'], $_SESSION['username']);
 $statement = $dbh->prepare($sql);
@@ -97,7 +98,7 @@ $statement->execute($queryParams);
 $result = $statement->fetchColumn();
 if($result == 0) {
     mail('jeffvandenberg@gmail.com', 'Chat Abuse', $_SESSION['username'] . ' attempted to be logged into multiple rooms');
-    logoutUser($_SESSION['username'], $_GET['roomID']);
+    //logoutUser($_SESSION['username'], $_GET['roomID']);
     die();
 }
 
