@@ -82,7 +82,7 @@ list($admin,$mod,$speaker) = adminPermissions();
 *
 */
 // check room ID
-$sql = <<<EOQ
+/*$sql = <<<EOQ
 SELECT
     count(*) as `count`
 FROM
@@ -101,7 +101,7 @@ if($result == 0) {
     //logoutUser($_SESSION['username'], $_GET['roomID']);
     die();
 }
-
+*/
 updateUser();
 
 /*
