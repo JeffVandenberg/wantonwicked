@@ -97,7 +97,7 @@ $statement = $dbh->prepare($sql);
 $statement->execute($queryParams);
 $result = $statement->fetchColumn();
 if($result == 0) {
-    mail('jeffvandenberg@gmail.com', 'Chat Abuse', $_SESSION['username'] . ' attempted to be logged into multiple rooms');
+    //mail('jeffvandenberg@gmail.com', 'Chat Abuse', $_SESSION['username'] . ' attempted to be logged into multiple rooms');
     //logoutUser($_SESSION['username'], $_GET['roomID']);
     die();
 }
