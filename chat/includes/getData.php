@@ -143,6 +143,7 @@ SELECT
     uid,
     mid,
     username,
+    tousername,
     to_user_id,
     message,
     sfx,
@@ -380,7 +381,6 @@ EOQ;
     $error = "Action: Get Users\n";
     $error .= "File: " . basename(__FILE__) . "\n";
     $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
     debugError($error);
 }
 
@@ -460,7 +460,6 @@ EOQ;
     $error = "Action: Get Rooms\n";
     $error .= "File: " . basename(__FILE__) . "\n";
     $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
     debugError($error);
 }
 

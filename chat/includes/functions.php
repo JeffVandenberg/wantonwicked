@@ -52,7 +52,7 @@ function debugError($data)
 
     if ($CONFIG['debug']) {
         $error_log = fopen("error_log.txt", "a+");
-        echo fwrite($error_log, $data);
+        fwrite($error_log, $data);
         fclose($error_log);
     }
 
