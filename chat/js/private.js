@@ -5,30 +5,30 @@
 
 var privateChat = 0;
 
-function createPChatDiv(divPName, divToName, dPID, duID) {
+function createPChatDiv(divPName, divToName, fromUserId, toUserId) {
     if (privateChat == 1) {
         showInfoBox("system", "220", "300", "200", "", lang30);
         return false;
     }
 
     // to user
+    var uUser;
     if (divToName != userName) {
-        var uUser = divToName;
+        uUser = divToName;
     }
     else {
-        var uUser = divPName;
+        uUser = divPName;
     }
-    uUser = uUser.replaceAll('\'', '&#39;');
 
     // window title
     var pTitle = uUser;
 
     // div name
-    if (parseInt(duID) > parseInt(dPID)) {
-        divPName = dPID + "_" + duID;
+    if (parseInt(toUserId) > parseInt(fromUserId)) {
+        divPName = fromUserId + "_" + toUserId;
     }
     else {
-        divPName = duID + "_" + dPID;
+        divPName = toUserId + "_" + fromUserId;
     }
 
     // prevent duplicate private chat windows
@@ -37,7 +37,7 @@ function createPChatDiv(divPName, divToName, dPID, duID) {
         return false;
     }
 
-    // if div exists
+    // if div doesn't exist
     if (!document.getElementById(divPName)) {
         // create div
         var ni = $("#pWin");
@@ -60,9 +60,9 @@ function createPChatDiv(divPName, divToName, dPID, duID) {
         // sendbox
         pmContainer.append(
             $('<div id=\'psendbox_' + divPName + '\' class=\'psendbox\'>' +
-                '<input type=\'text\' id=\'poptionsBar_' + divPName + '\' class="poptionsBar" onKeyPress="return submitenter(this,event,\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\',\'' + uUser + '\');" onfocus="changeMessBoxStyle(\'poptionsBar_' + divPName + '\');">' +
+                '<input type=\'text\' id=\'poptionsBar_' + divPName + '\' class="poptionsBar" onKeyPress="return submitenter(this,event,\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\',\'' + toUserId + '\');" onfocus="changeMessBoxStyle(\'poptionsBar_' + divPName + '\');">' +
                 '</textarea>' +
-                '<input id="poptionsSend" class="poptionsSend" type="button" value="' + lang31 + '" onclick="sendPMessage(\'' + dPID + '\',\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\')">' +
+                '<input id="poptionsSend" class="poptionsSend" type="button" value="' + lang31 + '" onclick="sendPMessage(\'' + toUserId + '\',\'poptionsBar_' + divPName + '\',\'pcontent_' + divPName + '\')">' +
             '</div>'));
 
         // menu win
@@ -97,7 +97,7 @@ function createPChatDiv(divPName, divToName, dPID, duID) {
     }
 
     // if eCredits is enabled
-    if (eCredits == 1 && Number(duID) == Number(uID)) {
+    if (eCredits == 1 && Number(toUserId) == Number(uID)) {
         eCreditsRequest(divPName, 'on');
         privateChat = 1;
     }

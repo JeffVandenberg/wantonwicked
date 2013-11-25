@@ -832,13 +832,12 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 	ppDiv = pDiv.split("_");
 
 	// create private chat window if not exists
-	if(mUID != uID && mDiv != 'chatContainer' && mToUser.toLowerCase() == userName.toLowerCase())
-	{
+	if((mUID != uID) && (mDiv != 'chatContainer')) {
 		// if message history is enabled
 		// dont load old private messages
 		if(showHistory)
 		{
-			return false;
+			//return false;
 		}
 	
 		// if div isnt created
