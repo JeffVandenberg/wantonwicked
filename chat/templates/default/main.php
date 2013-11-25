@@ -37,6 +37,7 @@
 var userName = '<?php echo $displayName;?>';
 var userID = <?php echo $userid;?>;
 var uID = '<?php echo $id;?>';
+var userTypeId = <?php echo $userTypeId; ?>;
 var userAvatar = '<?php echo $avatar;?>';
 var roomOwner = <?php echo $roomOwner;?>;
 var blockedList = '<?php echo $blockedList;?>';

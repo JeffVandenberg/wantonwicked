@@ -483,25 +483,25 @@ function handleMessages()
 			var userRoomsArray = userRooms.split("||");
 
 			// moderated chat
-			moderatedChat = userRoomsArray[6];
+			moderatedChat = userRoomsArray[8];
 
 			createSelectRoomdiv(
-						userRoomsArray[2], 
-						userRoomsArray[1],
-						userRoomsArray[5]
+						userRoomsArray[2], // name
+						userRoomsArray[1], // id
+						userRoomsArray[7] // delete
 					);
 
 			createRoomsdiv(
-						userRoomsArray[2], 
-						userRoomsArray[1],
-						userRoomsArray[5]
+						userRoomsArray[2], // name
+						userRoomsArray[1], // id
+                        userRoomsArray[6] // icon name
 					);
 
 			// create room name str
 			roomNameStr = roomNameStr + "|" + userRoomsArray[2].toLowerCase() + "|";
 
 			// if room is deleted, remove from userlist and select box
-			if(userRoomsArray[5] == Number(1))
+			if(userRoomsArray[7] == Number(1))
 			{
 				deleteDiv("select_"+userRoomsArray[1],'roomSelect')
 
@@ -571,27 +571,29 @@ function handleMessages()
 				admin = Number(userListArray[7]);
 				moderator = Number(userListArray[8]);
 				speaker = Number(userListArray[9]);
+                userTypeId = Number(userListArray[25]);
 			}			
 			
 			// all users
 			createUsersDiv(
-						userListArray[0],
-						userListArray[1],
-						userListArray[2],
-						userListArray[3],
-						userListArray[4],
-						userListArray[6],
-						userListArray[5],
-						userListArray[10],
-						userListArray[11],
-						userListArray[12],
-						userListArray[7],
-						userListArray[8],
-						userListArray[9],
-						userListArray[21],
-						userListArray[22],
-						userListArray[23],
-                        userListArray[24]
+						userListArray[0], // id
+						userListArray[1], // userid (cms)
+						userListArray[2], // username
+                        userListArray[3], // display name
+						userListArray[4], // icon
+						userListArray[5], // webcam
+						userListArray[7], // prev room
+						userListArray[6], // room
+						userListArray[11], // activity
+						userListArray[12], // status
+						userListArray[13], // watching
+						userListArray[8], // admin
+						userListArray[9], // moderator
+						userListArray[10], // speaker
+						userListArray[22], // active time
+						userListArray[23], // last active time
+						userListArray[24], // ip address
+                        userListArray[25] // usertype
 				);
 
 			// loop
@@ -765,18 +767,15 @@ var doTextAdverts = 0;
 function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser, mTime)
 {
 	message	= decodeURI(message);
-    var mUserOriginal = mUser;
-    mUser = mUser.replaceAll('\'', '&#39;');
-
     lastMessageText = message;
 	
 	// if message history is enabled 
 	// dont load old command messages
    	if(
-	showHistory && message.search("BROADCAST") != -1 ||
-	showHistory && message.search("KICK") != -1 || 
-	showHistory && message.search("WEBCAM_REQUEST") != -1 || 
-	showHistory && message.search("WEBCAM_ACCEPT") != -1
+        showHistory && message.search("BROADCAST") != -1 ||
+        showHistory && message.search("KICK") != -1 ||
+        showHistory && message.search("WEBCAM_REQUEST") != -1 ||
+        showHistory && message.search("WEBCAM_ACCEPT") != -1
 	)
    	{
       	return false;
@@ -1025,7 +1024,6 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		}
 
 		newMessage += "<span id='username' style='cursor:pointer;font-weight: bold;'>"+displayName+"</span>";
-		//newMessage += "<span id='username' style='cursor:pointer;font-weight: bold;' onclick='whisperUser(\""+mUser+"\")'>"+displayName+"</span>";
 		newMessage += "<span style='color:" + messageArray[1] + ";font-size:" + messageArray[2] + ";font-family:" + messageArray[3] + ";'>" + messageArray[4] + "</span>";
 
 		// shout filter

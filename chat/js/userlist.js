@@ -10,10 +10,8 @@ var share = 0;
 *
 */
 
-function createUsersDiv(uuID, userID, uUser, uAvatar, uWebcam, uPrevRoom, uRoom, uActivity, uStatus, uWatch, uAdmin, uModerator, uSpeaker, uActive, uLastActive, uIP, userTypeId)
+function createUsersDiv(uuID, userID, uUser, uDisplay, uAvatar, uWebcam, uPrevRoom, uRoom, uActivity, uStatus, uWatch, uAdmin, uModerator, uSpeaker, uActive, uLastActive, uIP, userTypeId)
 {
-    var uUserOriginal = uUser;
-    uUser = uUser.replaceAll('\'', '&#39;');
 	// sender has closed webcam window
 	if(document.getElementById("cam_"+uuID) && uWebcam == 0)
 	{
@@ -27,7 +25,7 @@ function createUsersDiv(uuID, userID, uUser, uAvatar, uWebcam, uPrevRoom, uRoom,
     var userClass = 0;
     if((userTypeId == 4) || (userTypeId == 5)) {
         userClass = 'user-storyteller';
-        showAdminID = ' (Admin) ';
+        showAdminID = ' (ST) ';
         uBlock = 0;
     }
     if(userTypeId == 6) {
@@ -60,15 +58,17 @@ function createUsersDiv(uuID, userID, uUser, uAvatar, uWebcam, uPrevRoom, uRoom,
 			else
 			{
                 newdiv.innerHTML =
-                    "<div>" +
-                        "<div class='scrollable-container user-div'>" +
-                            "<div class='scrollable'>" +
-                                "<img id='avatar_" + uuID + "' style='vertical-align:middle;' src='avatars/" + uAvatar + "'>" +
-                                "&nbsp;" +
-                                "<span class='" + userClass + " username' onclick='userPanel(\"" + userName + "\",\"" + uUser + "\",\"" + uuID + "\",\"" + uRoom + "\",\"" + userID + "\",\"" + uAvatar + "\",\"" + uBlock + "\",\"" + uIP + "\")' ondblclick='createPChatDiv(\"" + userName + "\",\"" + uUser + "\",\"" + uuID + "\",\"" + uID + "\");deleteDiv(\"userpanel_" + uuID + uID + "\", \"userlist_" + uuID + uID + "\");'>" +
-                                decodeURI(uUser) + showAdminID + "</span>" +
-                                "<span id='ustatusID_" + uuID + "'></span>" +
-                            "</div>" +
+                    "<div class='scrollable-container user-div'>" +
+                        "<div class='scrollable'>" +
+                            "<img id='avatar_" + uuID + "' style='vertical-align:middle;' src='avatars/" + uAvatar + "'>" +
+                            "&nbsp;" +
+                            "<span class='" + userClass + "' onclick='userPanel(\"" + userName + "\",\"" + uUser + "\",\"" + uuID + "\",\"" + uRoom + "\",\"" + userID + "\",\"" + uAvatar + "\",\"" + uBlock + "\",\"" + uIP + "\")' ondblclick='createPChatDiv(\"" + userName + "\",\"" + uUser + "\",\"" + uuID + "\",\"" + uID + "\");deleteDiv(\"userpanel_" + uuID + uID + "\", \"userlist_" + uuID + uID + "\");'>" +
+                                "<span class='username'>" +
+                                    decodeURI(uUser) +
+                                "</span>" +
+                                showAdminID +
+                            "</span>" +
+                            "<span id='ustatusID_" + uuID + "'></span>" +
                         "</div>" +
                     "</div>";
 			}
@@ -90,6 +90,9 @@ function createUsersDiv(uuID, userID, uUser, uAvatar, uWebcam, uPrevRoom, uRoom,
 
 		// update users avatar
 		updateAvatar(uuID, uAvatar, uRoom);
+
+        // update user display name
+        updateDisplayName(uuID, uDisplay, uRoom);
 
 		// show blocked user icon
 		if(uUser && blockedList.indexOf("|"+uuID+"|") != '-1')
@@ -257,6 +260,16 @@ function updateAvatar(uID, uAvatar, uRoom)
 }
 
 /*
+* update displayName
+*
+*/
+
+function updateDisplayName(userId, displayName, roomID)
+{
+    $("userlist_"+userId+roomID).find('username').html(displayName);
+}
+
+/*
 * delete users div 
 *
 */
@@ -315,7 +328,7 @@ function createSelectRoomdiv(room, roomid, roomdel)
 *
 */
 
-function createRoomsdiv(room,roomid,roomdel)
+function createRoomsdiv(room,roomid,icon)
 {
 	// if div does not exist
 	if(!document.getElementById("room_"+roomid))
@@ -326,7 +339,20 @@ function createRoomsdiv(room,roomid,roomdel)
 
 		newdiv.setAttribute("id","room_"+roomid);
 		newdiv.className = "";
-		newdiv.innerHTML = '<div class="roomheader" onclick=toggleHeader("room_'+roomid+'");><div class="room-div"><span style="float:left;"><img style="vertical-align:middle;" src="images/mini.gif">&nbsp;<span class="roomname">'+decodeURI(room.replace("+"," "))+'</span>&nbsp;</span></div> <span style="float:right;" class="usercount">[<span id="userCount_'+roomid+'">0</span>]</span> </div>';
+		newdiv.innerHTML =
+            '<div class="roomheader" onclick=toggleHeader("room_'+roomid+'");>' +
+                '<div class="room-div">' +
+                    '<span style="float:left;">' +
+                        '<img style="vertical-align:middle;" src="images/'+icon+'">&nbsp;' +
+                        '<span class="roomname">'+
+                            decodeURI(room.replace("+"," "))+
+                        '</span>&nbsp;' +
+                    '</span>' +
+                '</div> ' +
+                '<span style="float:right;" class="usercount">' +
+                    '[<span id="userCount_'+roomid+'">0</span>]' +
+                '</span>' +
+            '</div>';
 
         if(ni != null) {
 		    ni.appendChild(newdiv);
@@ -460,19 +486,18 @@ function userPanel(userName,uUser,uuID,uRoom,userID,uAvatar,uBlock,uIP)
 				{
 					newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='requestViewWebcam(\""+uUser+"\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='plugins/webcams/images/mini.gif'><span style='padding-left:6px;'>"+lang35+"</span></div>";
 				}
-
 			}
-
 		}
 		
 		// profile
+        var profileID;
 		if(profileRef)
 		{
-			var profileID = uUser;
+			profileID = uUser;
 		}
 		else
 		{
-			var profileID = uuID;
+			profileID = uuID;
 		}
 
 		if(profileOn)
@@ -513,7 +538,7 @@ function userPanel(userName,uUser,uuID,uRoom,userID,uAvatar,uBlock,uIP)
 			
 		}
 		
-		if(admin && uID == uuID || moderator && uID != uuID)
+		if((admin && uID != uuID) || (moderator && uID != uuID))
 		{
             // view sheet
             newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/view_sheet.php?action=st_view_xp&view_character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Sheet</span></div>";

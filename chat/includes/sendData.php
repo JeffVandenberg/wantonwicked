@@ -9,6 +9,7 @@ include("ini.php");
 include("session.php");
 include("functions.php");
 include("config.php");
+/* @var array $CONFIG */
 
 /*
 * set time of last post
@@ -250,8 +251,7 @@ if ($_POST) {
                     'uid' => makeSafe($_POST['uid']),
                     'mid' => makeSafe($_POST['umid']),
                     'username' => makeSafe($senderName),
-                    'tousername' => makeSafe($_POST['toname']),
-                    'to_user_id' => makeSafe($_POST['to_user_id']),
+                    'touserid' => makeSafe($_POST['to_user_id']),
                     'message' => makeSafe($_POST['umessage']),
                     'sfx' => makeSafe($_POST['usfx']),
                     'room' => makeSafe($_POST['uroom']),
@@ -263,7 +263,6 @@ if ($_POST) {
 											uid,
 											mid,
 											username, 
-											tousername, 
 											to_user_id,
 											message,
 											sfx,
@@ -276,7 +275,7 @@ if ($_POST) {
 											:uid,
 											:mid,
 											:username, 
-											:tousername, 
+											:touserid,
 											:message, 
 											:sfx,
 											:room,
@@ -288,11 +287,13 @@ if ($_POST) {
                 $action->execute($params);
                 $dbh = null;
             } catch (PDOException $e) {
+                var_dump('ON LINE: ' . __LINE__);
                 $error = "Action: Send Message to DB\n";
                 $error .= "File: " . basename(__FILE__) . "\n";
                 $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
                 debugError($error);
+                var_dump($error);
             }
 
             // update users active time
@@ -313,7 +314,7 @@ if ($_POST) {
                 $error = "Action: Update Users Active Time\n";
                 $error .= "File: " . basename(__FILE__) . "\n";
                 $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
+                var_dump($error);
                 debugError($error);
             }
         }

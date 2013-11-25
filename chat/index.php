@@ -23,6 +23,7 @@ include("includes/ini.php");
 include("includes/session.php");
 include("includes/config.php");
 include("includes/functions.php");
+/* @var array $CONFIG */
 
 /*
 * include language file
@@ -60,7 +61,6 @@ if(getUsersOnline('1') >= $CONFIG['maxUsers'] && !isset($_GET['logout']))
 
 if($CONFIG['CMS'] && !isset($_GET['logout']))
 {
-    //var_dump($_REQUEST);
 	// cookie login
 	if($_REQUEST['uname'])
 	{
@@ -81,27 +81,15 @@ if($CONFIG['CMS'] && !isset($_GET['logout']))
 		}
 	}
 
-    //var_dump($_SESSION);
-    //die();
 	// session login
-	if(!$_SESSION['username'])
+	if(!$_SESSION['user_id'])
 	{
 		// include files
 		include("cms.php");
-
-		// session login
-		if(C_CUSTOM_LOGIN && $uname)
-		{
-			// assign user details
-			$_SESSION['username'] = $uname;
-			$_SESSION['userid'] = $uid;
-            $_SESSION['display_name'] = $uname;
-            $_SESSION['user_id'] = $userId;
-		}
 	}
 
 	// add user
-	addUser(C_CUSTOM_AVATAR, $userTypeId);
+	addUser(C_CUSTOM_AVATAR, $_SESSION['user_type_id']);
 
 	// assign default room login
 	if(!$_REQUEST['roomID'])
@@ -241,6 +229,7 @@ if(isset($_REQUEST['logout']) && isset($_SESSION['username']))
     unset($_SESSION['display_name']);
 	unset($_SESSION['userid']);
 	unset($_SESSION['user_id']);
+	unset($_SESSION['user_type_id']);
 	unset($_SESSION['room']);
 	unset($_SESSION['guest']);
 
@@ -347,12 +336,12 @@ $prevRoom = prevRoom();
 
 if(isset($_SESSION['username']))
 {
-		$_REQUEST['userName'] = $_SESSION['username'];
+    $_REQUEST['userName'] = $_SESSION['username'];
 }
 
 if(isset($_SESSION['userid']))
 {
-		$_REQUEST['userId'] = $_SESSION['userid'];
+    $_REQUEST['userId'] = $_SESSION['userid'];
 }
 
 if(empty($_REQUEST['userId']))
@@ -360,14 +349,15 @@ if(empty($_REQUEST['userId']))
 	$_REQUEST['userId'] = '-1';
 }
 
-list($displayName, $username,$userid,$loginError) = createUser(
-                     $_REQUEST['userName'],
-                     $_REQUEST['userId'],
-                     $_REQUEST['userPass'],
-                     $_REQUEST['genderID'],
-                     isset($_REQUEST['login']),
-                     isset($_POST['isGuest'])
-                  );
+list($displayName,$username,$userid,$loginError) =
+    createUser(
+        $_REQUEST['userName'],
+        $_REQUEST['userId'],
+        $_REQUEST['userPass'],
+        $_REQUEST['genderID'],
+        isset($_REQUEST['login']),
+        isset($_POST['isGuest'])
+    );
 
 if(isset($_REQUEST['login']) && $loginError)
 {
@@ -384,7 +374,7 @@ $roomPass = '';
 
 if(isset($_REQUEST['roomPass']))
 {
-		$roomPass = $_REQUEST['roomPass'];		
+    $roomPass = $_REQUEST['roomPass'];
 }
 
 list($roomID,$roomOwnerID) = chatRoomID($_REQUEST['roomID'],$roomPass);
@@ -403,7 +393,7 @@ if($_POST['isGuest'])
 	//updateGuestAvatar($_REQUEST['genderID']);
 }
 
-list($id,$avatar,$loginError,$blockedList,$guestUser) = getUser($prevRoom,$roomID);
+list($id,$avatar,$loginError,$blockedList,$guestUser, $userTypeId) = getUser($prevRoom,$roomID);
 
 /*
 * assign user group
@@ -463,5 +453,3 @@ $lastMessageID = getLastMessageID($roomID);
 */
 
 include("templates/".$CONFIG['template']."/main.php");
-
-?>

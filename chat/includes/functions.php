@@ -8,6 +8,10 @@
 function db_connect()
 {
     include(dirname(__FILE__) . "/db.php");
+    /* @var string $host */
+    /* @var string $dbname */
+    /* @var string $user */
+    /* @var string $pass */
 
     try {
         # MS SQL Server
@@ -33,6 +37,7 @@ function db_connect()
 
         debugError($error);
     }
+    return false;
 }
 
 /*
@@ -43,6 +48,7 @@ function db_connect()
 function debugError($data)
 {
     include(dirname(__FILE__) . "/config.php");
+    /* @var array $CONFIG */
 
     if ($CONFIG['debug']) {
         $error_log = fopen("error_log.txt", "a+");
@@ -72,6 +78,7 @@ function getLang($id)
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     // set admin default language file
     if (file_exists(getDocPath() . "lang/" . $CONFIG['lang'][1])) {
@@ -519,7 +526,7 @@ function createUser($loginName, $loginID, $loginPass, $loginGender, $login, $gue
         // user session already set
         return array($_SESSION['display_name'], $_SESSION['username'], $_SESSION['userid'], '0');
     }
-
+    return false;
 }
 
 /*
@@ -533,16 +540,24 @@ function getUser($prevRoom, $roomID)
 
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     // check username is in database
+    $id = '';
+    $avatar = '';
+    $kick = '';
+    $ban = '';
+    $blockedList = '';
+    $guest = '';
+    $userTypeId = '';
     try {
         $dbh = db_connect();
         $params = array(
-            'username' => makeSafe($_SESSION['username'])
+            'id' => $_SESSION['user_id']
         );
-        $query = "SELECT id, userid, avatar, kick, ban, blocked, room, guest, userGroup  
+        $query = "SELECT id, userid, avatar, kick, ban, blocked, room, guest, userGroup, user_type_id
 				  FROM prochatrooms_users 
-				  WHERE username = :username 
+				  WHERE id = :id
 				  LIMIT 1
 				  ";
         $action = $dbh->prepare($query);
@@ -555,6 +570,7 @@ function getUser($prevRoom, $roomID)
             $ban = $i['ban'];
             $blockedList = $i['blocked'];
             $guest = $i['guest'];
+            $userTypeId = $i['user_type_id'];
 
             $_SESSION['userGroup'] = $i['userGroup'];
             $_SESSION['myProfileID'] = $id;
@@ -620,11 +636,11 @@ EOQ;
             $dbh = db_connect();
             $params = array(
                 'lastActive' => getTime(),
-                'username' => makeSafe($_SESSION['username']),
+                'userid' => $_SESSION['user_id']
             );
             $query = "UPDATE prochatrooms_users 
 					  SET watching = '', webcam = '0', lastActive = :lastActive  
-					  WHERE username = :username
+					  WHERE id = :userid
 					  ";
             $action = $dbh->prepare($query);
             $action->execute($params);
@@ -640,7 +656,7 @@ EOQ;
     }
 
     // return details
-    return array($id, $avatar, $loginError, $blockedList, $guest);
+    return array($id, $avatar, $loginError, $blockedList, $guest, $userTypeId);
 
 }
 
@@ -653,6 +669,7 @@ function getUserGroup($id)
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     if (!is_numeric($id)) {
         // set default user group
@@ -767,13 +784,15 @@ function addUser($defaultIcon, $userTypeId)
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     // assign avatar
     if (!$defaultIcon) {
         $defaultIcon = 'online.gif';
     }
 
-    // check username is in database		
+    // check username is in database
+    $count = 0;
     try {
         $dbh = db_connect();
         $params = array(
@@ -893,6 +912,7 @@ function totalRooms()
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     // count rooms total	
     try {
@@ -909,8 +929,6 @@ function totalRooms()
         else {
             return $count;
         }
-
-        $dbh = null;
     } catch (PDOException $e) {
         $error = "Function: " . __FUNCTION__ . "\n";
         $error .= "File: " . basename(__FILE__) . "\n";
@@ -918,7 +936,7 @@ function totalRooms()
 
         debugError($error);
     }
-
+    return 0;
 }
 
 /*

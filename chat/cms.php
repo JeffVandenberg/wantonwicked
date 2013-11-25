@@ -301,7 +301,7 @@ UPDATE
 SET
     display_name = ?,
     usergroup = '1',
-    admin = '0'
+    admin = '0',
     moderator = '0',
     guest = '1',
     avatar = 'ooc.png'
@@ -317,7 +317,7 @@ EOQ;
     $loggedIn = true;
 }
 else {
-    header('location:http://wantonwicked.gamingsandbox.com/login_ooc.php');
+    header('location:/login_ooc.php');
     die();
 }
 
@@ -340,7 +340,14 @@ EOQ;
 $statement = $dbh->prepare($sql);
 $statement->execute(array(C_CUSTOM_USERNAME, C_CUSTOM_USERID, $userTypeId));
 $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+// set chat information
+// session login
+$_SESSION['username'] = C_CUSTOM_USERNAME;
+$_SESSION['userid'] = C_CUSTOM_USERID;
+$_SESSION['display_name'] = C_CUSTOM_USERNAME;
 $_SESSION['user_id'] = $result['id'];
+$_SESSION['user_type_id'] = $userTypeId;
 
 ## DO NOT EDIT BELOW THIS LINE ##############
 

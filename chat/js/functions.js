@@ -911,7 +911,7 @@ function floodControl()
 	lastPost++;	
 }
 
-setInterval('floodControl();','1000');
+setInterval('floodControl();',1000);
 
 /*
 * logout user
@@ -932,9 +932,7 @@ function createStatusSelectOptions()
 {
 	var sel = document.getElementById('selectStatusID');
 
-	var i = 0;
-
-	for (i = 0; i < userStatusMes.length; i++)
+	for (var i = 0; i < userStatusMes.length; i++)
 	{
 		if(!document.getElementById("selectStatusID_"+i))
 		{
@@ -1045,14 +1043,15 @@ function blockUsers(i,id)
 var y = 1;
 function toggleLoginPass()
 {
+    var state;
 	if(y)
 	{
-		var state = 'hidden';
+		state = 'hidden';
 		y = 0;	
 	}
 	else
 	{
-		var state = 'visible';
+		state = 'visible';
 		y = 1;	
 	}
 
@@ -1242,8 +1241,7 @@ function scrollDiv(offsetAmount, element, delay) {
     });
 }
 
-function endScroll(e) {
-    console.debug('stop scroll!' + e.toString());
+function endScroll() {
     isScrolling = false;
     $(this).stop(true, true);
 }

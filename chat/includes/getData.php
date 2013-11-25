@@ -138,13 +138,26 @@ try {
             'userid' => makeSafe($_SESSION['user_id'])
         );
         $query = <<<EOQ
-SELECT id, uid, mid, username, tousername, message, sfx, room, messtime
-				  FROM prochatrooms_message
-				  WHERE room = :room AND id > :last AND tousername = '' AND username != :username 
-				  OR room = :room AND id > :last AND tousername = :username
-				  OR id > :last AND tousername = :username
-				  OR room = :room AND id > :last AND share = '1' AND tousername = :username
-				  OR room = :room AND id > :last AND share = '1' AND username = :username
+SELECT
+    id,
+    uid,
+    mid,
+    username,
+    to_user_id,
+    message,
+    sfx,
+    room,
+    messtime
+FROM
+    prochatrooms_message
+WHERE
+    (id > :last)
+    AND
+    (
+        (room = :room)
+        OR (to_user_id = :userid)
+	    OR (share = '1')
+    )
 EOQ;
     }
     else {
@@ -222,7 +235,6 @@ EOQ;
     $error = "Action: Get Messages\n";
     $error .= "File: " . basename(__FILE__) . "\n";
     $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
     debugError($error);
 }
 //CreateSiteLog($seed, 'Get Messages', $startTime, $dbh);
@@ -306,17 +318,17 @@ EOQ;
             $i['room'] = empty($i['room']) ? "0" : $i['room'];
 
             $xml .= '<userlist>';
-            $xml .= $i['id'] . "||";
-            $xml .= stripslashes($i['userid']) . "||";
-            $xml .= stripslashes($i['username']) . "||";
-            $xml .= stripslashes($i['display_name']) . "||";
-            $xml .= stripslashes($i['avatar']) . "||";
-            $xml .= $i['webcam'] . "||";
-            $xml .= $i['room'] . "||";
-            $xml .= $i['prevroom'] . "||";
-            $xml .= $i['admin'] . "||";
-            $xml .= $i['moderator'] . "||";
-            $xml .= $i['speaker'] . "||";
+            $xml .= $i['id'] . "||"; // 0
+            $xml .= stripslashes($i['userid']) . "||"; // 1
+            $xml .= stripslashes($i['username']) . "||"; // 2
+            $xml .= stripslashes($i['display_name']) . "||"; // 3
+            $xml .= stripslashes($i['avatar']) . "||"; // 4
+            $xml .= $i['webcam'] . "||"; // 5
+            $xml .= $i['room'] . "||"; // 6
+            $xml .= $i['prevroom'] . "||"; // 7
+            $xml .= $i['admin'] . "||"; // 8
+            $xml .= $i['moderator'] . "||"; // 9
+            $xml .= $i['speaker'] . "||"; // 10
 
             // set user to online
             $onlineStatus = '1';
@@ -332,24 +344,24 @@ EOQ;
                 }
             }
 
-            $xml .= $onlineStatus . "||";
-            $xml .= $i['status'] . "||";
+            $xml .= $onlineStatus . "||"; // 11
+            $xml .= $i['status'] . "||"; // 12
 
             if (!$i['watching']) {
                 $i['watching'] = '0';
             }
 
-            $xml .= $i['watching'] . "||";
-            $xml .= $CONFIG['eCreditsOn'] . "||";
-            $xml .= $i['eCredits'] . "||";
-            $xml .= $_SESSION['groupCams'] . "||";
-            $xml .= $_SESSION['groupWatch'] . "||";
-            $xml .= $_SESSION['groupChat'] . "||";
-            $xml .= $_SESSION['groupPChat'] . "||";
-            $xml .= $_SESSION['groupRooms'] . "||";
-            $xml .= $_SESSION['groupVideo'] . "||";
-            $xml .= $i['active'] . "||";
-            $xml .= $i['lastActive'] . "||";
+            $xml .= $i['watching'] . "||"; //13
+            $xml .= $CONFIG['eCreditsOn'] . "||"; // 14
+            $xml .= $i['eCredits'] . "||"; // 15
+            $xml .= $_SESSION['groupCams'] . "||"; // 16
+            $xml .= $_SESSION['groupWatch'] . "||"; // 17
+            $xml .= $_SESSION['groupChat'] . "||"; // 18
+            $xml .= $_SESSION['groupPChat'] . "||"; // 19
+            $xml .= $_SESSION['groupRooms'] . "||"; // 20
+            $xml .= $_SESSION['groupVideo'] . "||"; // 21
+            $xml .= $i['active'] . "||"; // 22
+            $xml .= $i['lastActive'] . "||"; // 23
 
             // if admin or mod, show users IP
             $ip = "0";
@@ -358,8 +370,8 @@ EOQ;
                 $ip = $i['userIP'];
             }
 
-            $xml .= $ip . "||";
-            $xml .= $i['user_type_id'] . "||";
+            $xml .= $ip . "||"; // 24
+            $xml .= $i['user_type_id'] . "||"; // 25
 
             $xml .= '</userlist>';
         }
@@ -424,6 +436,7 @@ EOQ;
         $xml .= $i['roomowner'] . "||";
         $xml .= $i['roomusers'] . "||";
         $xml .= $i['room_type_id'] . "||";
+        $xml .= 'mini.gif' .'||'; //$i['room_icon'] . "||";
 
         $deleteRoom = '0';
 
