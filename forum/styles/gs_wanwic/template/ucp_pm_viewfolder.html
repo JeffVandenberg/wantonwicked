@@ -61,12 +61,12 @@
 
 	<!-- BEGIN messagerow -->
 		<tr>
-			<td class="row2" width="25" align="center" nowrap="nowrap">{messagerow.FOLDER_IMG}</td>
+			<td class="row2" width="20" align="center" nowrap="nowrap">{messagerow.FOLDER_IMG}</td>
 		<!-- IF S_PM_ICONS -->
-			<td class="row2" width="25" align="center">{messagerow.PM_ICON_IMG}</td>
+			<td class="row2" width="17" align="center">{messagerow.PM_ICON_IMG}</td>
 		<!-- ENDIF -->
 
-		<!-- IF messagerow.S_PM_DELETED --><td class="row3"><!-- ELSE --><td class="row1"><!-- ENDIF -->
+		<!-- IF messagerow.S_PM_DELETED --><td class="row3"><!-- ELSE --><td class="row2"><!-- ENDIF -->
 			<!-- IF not messagerow.PM_IMG and messagerow.PM_CLASS -->
 				<span class="{messagerow.PM_CLASS}" style="float: {S_CONTENT_FLOW_BEGIN};"><img src="images/spacer.gif" width="10" height="10" alt="" /></span>&nbsp;
 			<!-- ELSEIF messagerow.PM_IMG -->

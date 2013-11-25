@@ -43,7 +43,7 @@ include 'user_panel.php';
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'search':
-            $page_template = "blank_layout4.tpl";
+            $page_template = "main_ww4.tpl";
             include 'includes/users_search.php';
             break;
         default:

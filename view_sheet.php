@@ -118,7 +118,7 @@ if (isset($_GET['action'])) {
     }
 }
 
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,

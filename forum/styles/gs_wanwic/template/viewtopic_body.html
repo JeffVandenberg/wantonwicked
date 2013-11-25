@@ -31,10 +31,10 @@
 
 	<table width="100%" cellspacing="1">
 	<tr>
-		<td align="{S_CONTENT_FLOW_BEGIN}" valign="middle" nowrap="nowrap">
+		<td align="{S_CONTENT_FLOW_BEGIN}" valign="middle" nowrap="nowrap" class="postoptions">
 		<!-- IF not S_IS_BOT -->
-			<!-- IF S_DISPLAY_POST_INFO --><a href="{U_POST_NEW_TOPIC}">{POST_IMG}</a>&nbsp;<!-- ENDIF -->
-			<!-- IF S_DISPLAY_REPLY_INFO --><a href="{U_POST_REPLY_TOPIC}">{REPLY_IMG}</a><!-- ENDIF -->
+			<!-- IF S_DISPLAY_POST_INFO --><a href="{U_POST_NEW_TOPIC}">New Topic</a> | <!-- ENDIF -->
+			<!-- IF S_DISPLAY_REPLY_INFO --><a href="{U_POST_REPLY_TOPIC}">Post Reply</a><!-- ENDIF -->
 		<!-- ENDIF -->
 		</td>
 		<!-- IF TOTAL_POSTS -->
@@ -127,7 +127,7 @@
 	</table>
 
 <!-- BEGIN postrow -->
-	<table class="tablebg" width="100%" cellspacing="0">
+	<table class="tablebg" width="100%" cellspacing="0" style="border-bottom: 1px solid #898989;">
 	<!-- IF postrow.S_FIRST_ROW -->
 		<tr>
 			<th>{L_AUTHOR}</th>
@@ -145,7 +145,7 @@
 				<b class="postauthor"<!-- IF postrow.POST_AUTHOR_COLOUR --> style="color: {postrow.POST_AUTHOR_COLOUR}"<!-- ENDIF -->>{postrow.POST_AUTHOR}</b>
 			</td>
 			<td width="100%" height="25">
-				<table class="row1" width="100%" cellspacing="0">
+				<table class="row4" width="100%" cellspacing="0">
 				<tr>
 				<!-- IF postrow.POST_ICON_IMG -->
 					<td><img src="{T_ICONS_PATH}{postrow.POST_ICON_IMG}" width="{postrow.POST_ICON_IMG_WIDTH}" height="{postrow.POST_ICON_IMG_HEIGHT}" alt="" title="" /></td>
@@ -160,11 +160,6 @@
 
 			<td valign="top" class="profile">
 				<table cellspacing="4" align="center" width="150">
-			<!-- IF postrow.ONLINE_IMG -->
-				<tr>
-					<td>{postrow.ONLINE_IMG}</td>
-				</tr>
-			<!-- ENDIF -->
 			<!-- IF postrow.RANK_TITLE -->
 				<tr>
 					<td class="postdetails">{postrow.RANK_TITLE}</td>
@@ -185,12 +180,17 @@
 					<td></td>
 				</tr>
 			<!-- ENDIF -->
+            <!-- IF postrow.ONLINE_IMG -->
+				<tr>
+					<td>{postrow.ONLINE_IMG}</td>
+				</tr>
+			<!-- ENDIF -->
 				</table>
 
 				<span class="postdetails">
-					<!-- IF postrow.POSTER_JOINED --><br /><b>{L_JOINED}:</b> {postrow.POSTER_JOINED}<!-- ENDIF -->
+					<!-- IF postrow.POSTER_JOINED --><br /><b>{L_JOINED}:</b><br /> {postrow.POSTER_JOINED}<!-- ENDIF -->
 					<!-- IF postrow.POSTER_POSTS != '' --><br /><b>{L_POSTS}:</b> {postrow.POSTER_POSTS}<!-- ENDIF -->
-					<!-- IF postrow.POSTER_FROM --><br /><b>{L_LOCATION}:</b> {postrow.POSTER_FROM}<!-- ENDIF -->
+					<!-- IF postrow.POSTER_FROM --><br /><b>{L_LOCATION}:</b><br /> {postrow.POSTER_FROM}<!-- ENDIF -->
 
 					<!-- IF postrow.S_PROFILE_FIELD1 -->
 						<!-- Use a construct like this to include admin defined profile fields. Replace FIELD1 with the name of your field. -->
@@ -285,7 +285,7 @@
 		<!-- IF postrow.S_ROW_COUNT is even --><tr class="row2"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
 
 			<td class="profile"><strong><a href="#wrapheader">{L_BACK_TO_TOP}</a></strong></td>
-			<td><div class="gensmall" style="float: {S_CONTENT_FLOW_BEGIN};">&nbsp;<!-- IF postrow.U_POST_AUTHOR --><a href="{postrow.U_POST_AUTHOR}">{PROFILE_IMG}</a> <!-- ENDIF --> <!-- IF postrow.U_PM --><a href="{postrow.U_PM}">{PM_IMG}</a> <!-- ENDIF --> <!-- IF postrow.U_EMAIL --><a href="{postrow.U_EMAIL}">{EMAIL_IMG}</a> <!-- ENDIF -->&nbsp;</div> <div class="gensmall" style="float: {S_CONTENT_FLOW_END};"><!-- IF not S_IS_BOT --><!-- IF postrow.U_EDIT --><a href="{postrow.U_EDIT}">{EDIT_IMG}</a> <!-- ENDIF --> <!-- IF postrow.U_QUOTE --><a href="{postrow.U_QUOTE}">{QUOTE_IMG}</a> <!-- ENDIF --> <!-- ENDIF -->&nbsp;</div></td>
+			<td><div class="gensmall" style="float: {S_CONTENT_FLOW_BEGIN};">&nbsp;<!-- IF postrow.U_POST_AUTHOR -->[<a href="{postrow.U_POST_AUTHOR}">member profile</a> | <!-- ENDIF --> <!-- IF postrow.U_PM --><a href="{postrow.U_PM}">send private message</a> | <!-- ENDIF --> <!-- IF postrow.U_EMAIL --><a href="{postrow.U_EMAIL}">send e-mail</a>]<!-- ENDIF -->&nbsp;</div> <div class="gensmall" style="float: {S_CONTENT_FLOW_END};"><!-- IF not S_IS_BOT --><!-- IF postrow.U_EDIT -->[<a href="{postrow.U_EDIT}">edit post</a> | <!-- ENDIF --> <!-- IF postrow.U_QUOTE --><a href="{postrow.U_QUOTE}">quote post</a>] <!-- ENDIF --> <!-- ENDIF -->&nbsp;</div></td>
 	<!-- ENDIF -->
 		</tr>
 
@@ -305,10 +305,10 @@
 
 	<table width="100%" cellspacing="1">
 	<tr>
-		<td align="{S_CONTENT_FLOW_BEGIN}" valign="middle" nowrap="nowrap">
+		<td align="{S_CONTENT_FLOW_BEGIN}" valign="middle" nowrap="nowrap" class="postoptions">
 		<!-- IF not S_IS_BOT -->
-			<!-- IF S_DISPLAY_POST_INFO --><a href="{U_POST_NEW_TOPIC}">{POST_IMG}</a>&nbsp;<!-- ENDIF -->
-			<!-- IF S_DISPLAY_REPLY_INFO --><a href="{U_POST_REPLY_TOPIC}">{REPLY_IMG}</a><!-- ENDIF -->
+			<!-- IF S_DISPLAY_POST_INFO --><a href="{U_POST_NEW_TOPIC}">New Topic</a> | <!-- ENDIF -->
+			<!-- IF S_DISPLAY_REPLY_INFO --><a href="{U_POST_REPLY_TOPIC}">Post Reply</a><!-- ENDIF -->
 		<!-- ENDIF -->
 		</td>
 		<!-- IF TOTAL_POSTS -->

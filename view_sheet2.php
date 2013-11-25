@@ -107,9 +107,9 @@ if(isset($_GET['action']))
 );
 
 // initialize template
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 $template->set_filenames(array(
-		'body' => 'no_menu_layout.tpl')
+		'body' => 'main_ww4.tpl')
 );
 $template->display('body');
 ?>

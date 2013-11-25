@@ -30,7 +30,7 @@ $page_content = "";
 $java_script = "";
 $contentHeader = "";
 
-$page_template = 'main_layout4.tpl';
+$page_template = 'main_ww4.tpl';
 
 // build links
 include 'user_panel.php';

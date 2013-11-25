@@ -55,7 +55,10 @@ font-size:18px;
 background: #898989;
 }
 #loginb {
-margin:5px;
+height:25px;
+padding-left:5px;
+padding-top:5px;
+background-image: url(images/headerbg.jpg);
 }
 /* End Login Container*/
 
@@ -155,7 +158,12 @@ margin-bottom: 10px;
 }
 #navmenu li {
   float: left;
-  padding: 0px 8px 0px 8px;
+  font-family: "Century Gothic", Verdana, Geneva, sans-serif;
+  font-size: 18px;
+  display: block;
+  line-height: 30px;
+  padding: 0px 25px;
+  text-align: center;
 }
 #navmenu li a {
   color: #ffffff;
@@ -421,6 +429,7 @@ p.topicdetails {
 
 .postdetails {
 	color: #000000;
+	font-size:10px;
 }
 
 .postbody {
@@ -492,32 +501,57 @@ p.topicdetails {
 	color: red;
 }
 
+.postoptions {
+	font-family:"Century Gothic",Verdana, Geneva, sans-serif;
+	font-size:16px;
+	font-weight:bold;
+	text-transform:uppercase;
+	white-space:nowrap;
+}
 
 /* Tables
  ------------ */
+ table {
+	 margin-bottom:5px;
+	 padding-bottom:5px;
+ }
 th {
-	color: #FFFFFF;
-	font-family:"Century Gothic",Verdana, Geneva, sans-serif;
-	text-transform:uppercase;
-	font-size: 14px;
+	font-family:Verdana, Geneva, sans-serif;
+	text-transform: uppercase;
+	font-size: 10px;
 	font-weight:normal;
-	background-color: #790000;
-	white-space: nowrap;
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-	height: 30px;
-	text-align:center;
+	border-top:1px solid #898989;
+	border-right:1px solid #898989;
+	border-left:1px solid #898989;
+	border-top-right-radius:8px;
+	border-top-left-radius:8px;
+	padding: 2px;
+	background: #dddddd; /* Old browsers */
+background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#dddddd)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #eeeeee 0%,#dddddd 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #eeeeee 0%,#dddddd 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #eeeeee 0%,#dddddd 100%); /* IE10+ */
+background: linear-gradient(to bottom, #eeeeee 0%,#dddddd 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
 }
-thcat {
-	color: #FFFFFF;
+.thcat {
 	font-family:"Century Gothic",Verdana, Geneva, sans-serif;
 	font-variant:small-caps;
 	font-size: 18px;
 	font-weight:normal;
-	background-color: #790000;
-	white-space: nowrap;
-	padding: 7px 5px;
-	border-radius:8px;
+	border-top:1px solid #790000;
+	border-top-right-radius:8px;
+	border-top-left-radius:8px;
+	padding: 4px;
+	background: #dddddd; /* Old browsers */
+background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 50%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(50%,#dddddd)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #eeeeee 0%,#dddddd 50%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #eeeeee 0%,#dddddd 50%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #eeeeee 0%,#dddddd 50%); /* IE10+ */
+background: linear-gradient(to bottom, #eeeeee 0%,#dddddd 50%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
 }
 
 td {
@@ -555,7 +589,7 @@ td.profile {
 	background-color: #eeeeee;
 	padding: 4px;
 	border-radius: 8px;
-	border: 1px solid #790000;
+	border: 1px solid #898989;
 }
 
 .row2 {
@@ -571,6 +605,21 @@ td.profile {
 	font-weight:normal;
 	background-color: #dddddd;
 	padding: 4px;
+}
+.row4 {
+	background-color: #dddddd;
+	padding: 4px;
+	border-radius: 8px;
+	border-bottom: 1px solid #898989;
+}
+
+.tablehead {
+	color: #000000;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size: 10px;
+	background-color: #dddddd;
+	padding: 4px;
+	text-align:center;
 }
 
 .spacer {
@@ -612,7 +661,7 @@ a:visited {
 
 a:hover {
 	color: #C00000;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 a:active {
@@ -633,7 +682,6 @@ a.topictitle {
 	font-family: Verdana, Geneva, sans-serif;
 	font-weight: normal;
 	font-size: 14px;
-	border-bottom: 1px solid #898989;
 }
 
 a.topictitle:visited {

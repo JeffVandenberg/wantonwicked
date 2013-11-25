@@ -20,7 +20,7 @@ $template = new Template("/templates/");
 
 // check page actions
 $page_title = "";
-$css_url = "www.wantonwicked.net/wicked.css";
+$css_url = "wantonwicked.gamingsandbox.com/css/ww4_v2.css";
 $menu_bar = "";
 $top_image = "";
 $page_content = "";
@@ -232,7 +232,7 @@ $template->assign_vars(array(
 
 // initialize template
 $template->set_filenames(array(
-		'body' => 'templates/main_layout.tpl')
+		'body' => 'templates/main_ww4.tpl')
 );
 $template->pparse('body');
 ?>

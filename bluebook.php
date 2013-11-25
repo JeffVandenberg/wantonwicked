@@ -43,7 +43,7 @@ $top_image = "";
 $page_content = "";
 $java_script = "";
 $extra_headers = "";
-$template_name = 'main_layout4.tpl';
+$template_name = 'main_ww4.tpl';
 $contentHeader = "";
 
 require_once('user_panel.php');
@@ -86,7 +86,7 @@ if (isset($_GET['action'])) {
     }
 }
 
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
