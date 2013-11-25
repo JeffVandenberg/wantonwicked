@@ -544,12 +544,12 @@ function handleMessages()
 	
 			if(uID == userListArray[0])
 			{
-				groupCams = userListArray[15];
-				groupWatch = userListArray[16];
-				groupChat = userListArray[17];
-				groupPChat = userListArray[18];
-				groupRooms = userListArray[19];
-				groupVideo = userListArray[20];				
+				groupCams = userListArray[16];
+				groupWatch = userListArray[17];
+				groupChat = userListArray[18];
+				groupPChat = userListArray[19];
+				groupRooms = userListArray[20];
+				groupVideo = userListArray[21];
 			}
 
 			// enable eCredits
