@@ -322,7 +322,7 @@ h4 {
 	font-family:"Century Gothic",Verdana, Geneva, sans-serif;
 	font-size:14px;
 	font-weight:normal;
-	font-style:italic;
+	/*font-style:italic;*/
 	text-transform:uppercase;
 }
 
@@ -395,8 +395,7 @@ p.searchbarreg {
 p.forumdesc {
 	padding-left: 10px;
 	padding-bottom: 4px;
-	font-style:italic;
-	font-size:12px;
+	font-size:10px;
 }
 
 p.topicauthor {
@@ -539,7 +538,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 	font-family:"Century Gothic",Verdana, Geneva, sans-serif;
 	font-variant:small-caps;
 	font-size: 18px;
-	font-weight:normal;
+	font-weight:bold;
+	text-align:center;
 	border-top:1px solid #790000;
 	border-top-right-radius:8px;
 	border-top-left-radius:8px;
@@ -671,9 +671,9 @@ a:active {
 
 a.forumlink {
 	color: #790000;
-	font-weight: normal;
-	text-transform:uppercase;
-	font-family: "Century Gothic",Verdana, Geneva, sans-serif;
+	font-weight:normal;
+	text-transform:capitalize;
+	font-family: Verdana, Geneva, sans-serif;
 	font-size: 14px;
 }
 
