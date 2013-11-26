@@ -1121,7 +1121,7 @@ function showInfoBox(info,height,width,top,url,txt)
 	if(info == 'viewTranscripts')
 	{
 		var newdiv = document.createElement('div');
-		newdiv.innerHTML  = "<div class=\"userInfoTitle\" style=\"cursor:move;\"><b>"+lang62+"</b><span style='float:right;cursor:pointer;'><img src='images/close.gif' onclick='closeMdiv(\""+info+"\");'></span></div>";
+		newdiv.innerHTML  = "<div class=\"userInfoTitle\" style=\"cursor:move;\"><b>Transcripts</b><span style='float:right;cursor:pointer;'><img src='images/close.gif' onclick='closeMdiv(\""+info+"\");'></span></div>";
 		newdiv.innerHTML += "<div><iframe style='border:0;' src='"+url+"' width='"+(width)+"' height='"+(height-36)+"'></div>";	
 	}	
 
