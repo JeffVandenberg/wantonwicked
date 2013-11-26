@@ -131,7 +131,10 @@ color: #790000;
   text-decoration: none;
 }
 #loginb {
-margin:5px;
+height:25px;
+padding-left:5px;
+padding-top:5px;
+background-image: url('../img/main/headerbg.jpg');
 }
 /* End Login Container*/
 

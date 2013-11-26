@@ -22,7 +22,7 @@ if ($user->data['user_id'] != ANONYMOUS) {
     $menu_bar = <<<EOQ
 <div id='navmenu'>
 <ul>
-   <li class='active'><a href='index.php'><span>Home</span></a></li>
+   <li class='active'><a href='/index.php'><span>Home</span></a></li>
    <li><span>The Setting</span>
       <ul>
          <li><a href='/wiki/index.php?n=City.City'><span>The City</span></a></li>
@@ -94,31 +94,30 @@ if ($user->data['user_id'] != ANONYMOUS) {
    </li>
    <li><span>Tools</span>
       <ul>
-         <li><a href='chat.php'><span>Game/Chat Interface</span></a></li>
+         <li><a href='/chat.php'><span>Game/Chat Interface</span></a></li>
          <li><a href='/wiki/index.php?n=GameRef.Help'><span>Help</span></a>
             <ul>
-				<li><a href='/wiki/index.php?n=GameRef.NewPlayerHelp'><span>Getting Started</span></a></li>
             	<li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
             	<li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
             </ul>
          </li>
-         <li><a href='support.php'><span>Site Supporter</span></a>
+         <li><a href='/support.php'><span>Site Supporter</span></a>
                $supporter
 		 </li>
          <li>$gamemaster_link</li>
       </ul>
    </li>
-   <li><a href='http://wantonwicked.gamingsandbox.com/forum/index.php'><span>Forums</span></a></li>
+   <li><a href='/forum/index.php'><span>Forums</span></a></li>
    <li class='has-sub last'><span>Site Info</span>
       <ul>
-	  <li><a href='index.php?action=storytellers'><span>The Team</span></a></li>
+	  <li><a href='/index.php?action=storytellers'><span>The Team</span></a></li>
          <li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a>
             <ul>
                <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
             </ul>
          </li>
          <li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
-         <li><a href='site_content.php?action=view&content_uid=links'><span>Links</span></a></li>
+         <li><a href='/site_content.php?action=view&content_uid=links'><span>Links</span></a></li>
       </ul>
    </li>
 </ul>
@@ -129,7 +128,7 @@ else {
 $menu_bar .= <<<EOQ
 <div id='navmenu'>
 <ul>
-   <li class='active'><a href='index.php'><span>Home</span></a></li>
+   <li class='active'><a href='/index.php'><span>Home</span></a></li>
    <li><span>The Setting</span>
       <ul>
          <li><a href='/wiki/index.php?n=City.City'><span>The City</span></a></li>
@@ -203,25 +202,24 @@ $menu_bar .= <<<EOQ
       <ul>
         <li><a href='/wiki/index.php?n=GameRef.Help'><span>Help</span></a>
             <ul>
-				<li><a href='/wiki/index.php?n=GameRef.NewPlayerHelp'><span>Getting Started</span></a></li>
-               <li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
+				<li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
                <li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
             </ul>
          </li>
-         <li><a href='support.php'><span>Site Supporter</span></a></li>
+         <li><a href='/support.php'><span>Site Supporter</span></a></li>
       </ul>
    </li>
-   <li><a href='http://wantonwicked.gamingsandbox.com/forum/index.php'><span>Forums</span></a></li>
+   <li><a href='/forum/index.php'><span>Forums</span></a></li>
    <li class='has-sub last'><span>Site Info</span>
       <ul>
-	  <li><a href='index.php?action=storytellers'><span>The Team</span></a></li>
+	  <li><a href='/index.php?action=storytellers'><span>The Team</span></a></li>
          <li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a>
             <ul>
                <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
             </ul>
          </li>
          <li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
-         <li><a href='site_content.php?action=view&content_uid=links'><span>Links</span></a></li>
+         <li><a href='/site_content.php?action=view&content_uid=links'><span>Links</span></a></li>
       </ul>
    </li>
 </ul>
