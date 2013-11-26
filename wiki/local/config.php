@@ -195,3 +195,48 @@ $WikiStyle['werewolf']['color']    ='#74483f';
 
 $MarkupCss = true;
 
+include_once('../cgi-bin/timezoneAdjustment.php');
+include_once('../user_panel.php');
+
+$FmtPV['$ServerTime'] = "$server_time";
+$FmtPV['$UserControlPanel'] = "getUserControlPanel()";
+$FmtPV['$SiteUserName'] = "\"$userdata[username]\"";
+$FmtPV['$SiteUPName'] = 'getUpName()';
+$FmtPV['$LogInOut'] = 'getUpLogInOut()';
+
+include_once('../menu_bar.php');
+include_once('../menu_bar_player_content.php');
+
+function getMenuBar()
+{
+    global $menu_bar;
+    return $menu_bar;
+}
+
+$FmtPV['$MenuBar'] = 'getMenuBar()';
+
+$isLoggedIn = false;
+
+if($userdata['user_id'] == 1)
+{
+    if(isset($_GET['action']))
+    {
+        if(($_GET['action'] == 'edit') ||($_GET['action'] == 'attr'))
+        {
+            die();
+        }
+    }
+}
+else
+{
+    $isLoggedIn = true;
+}
+
+$FmtPV['IsLoggedIn'] = 'getIsLoggedIn()';
+function getIsLoggedIn()
+{
+    global $isLoggedIn;
+    return $isLoggedIn;
+}
+
+Markup('noedit', 'directives',  '/\\(:noedit:\\)/ei', "SetTmplDisplay('PageEditLinkFmt',0)"); ;

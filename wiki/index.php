@@ -1,4 +1,23 @@
 <?php
+// perform required includes
+define('IN_PHPBB', true);
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../forum/';
+$phpEx = substr(strrchr(__FILE__, '.'), 1);
+include($phpbb_root_path . 'common.' . $phpEx);
+include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+
+//
+// Start session management
+//
+
+$user->session_begin();
+$auth->acl($user->data);
+$userdata = $user->data;
+
+//
+// End session management
+//
+
 /*
     PmWiki
     Copyright 2001-2013 Patrick R. Michaud
