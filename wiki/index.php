@@ -690,7 +690,7 @@ function ResolvePageName($pagename) {
     return $p;
   if (IsEnabled($EnableFixedUrlRedirect, 1)
       && $p && (PageExists($p) || preg_match('/[\\/.]/', $pagename)))
-    { Redirect($p); exit(); }
+    { WikiRedirect($p); exit(); }
   return MakePageName($DefaultPage, "$pagename.$pagename");
 }
 
@@ -1185,7 +1185,7 @@ function Abort($msg, $info='') {
   exit;
 }
 
-function Redirect($pagename, $urlfmt='$PageUrl') {
+function WikiRedirect($pagename, $urlfmt='$PageUrl') {
   # redirect the browser to $pagename
   global $EnableRedirect, $RedirectDelay, $EnableStopWatch;
   SDV($RedirectDelay, 0);
@@ -1407,7 +1407,7 @@ function RedirectMarkup($pagename, $opt) {
     return '';
   if (preg_match('/^30[1237]$/', @$opt['status'])) 
      header("HTTP/1.1 {$opt['status']}");
-  Redirect($to, "{\$PageUrl}"
+  WikiRedirect($to, "{\$PageUrl}"
     . (IsEnabled($EnableRedirectQuiet, 0) && IsEnabled($opt['quiet'], 0)
       ? '' : "?from=$pagename")
     . $anchor);
@@ -1910,7 +1910,7 @@ function HandleEdit($pagename, $auth = 'edit') {
     $PageEditForm, $HandleEditFmt, $PageStartFmt, $PageEditFmt, $PageEndFmt;
   SDV($EditRedirectFmt, '$FullName');
   if (@$_POST['cancel']) 
-    { Redirect(FmtPageName($EditRedirectFmt, $pagename)); return; }
+    { WikiRedirect(FmtPageName($EditRedirectFmt, $pagename)); return; }
   Lock(2);
   $page = RetrieveAuthPage($pagename, $auth, true);
   if (!$page) Abort("?cannot edit $pagename"); 
@@ -1925,7 +1925,7 @@ function HandleEdit($pagename, $auth = 'edit') {
   UpdatePage($pagename, $page, $new);
   Lock(0);
   if ($IsPagePosted && !@$_POST['postedit']) 
-    { Redirect(FmtPageName($EditRedirectFmt, $pagename)); return; }
+    { WikiRedirect(FmtPageName($EditRedirectFmt, $pagename)); return; }
   $FmtV['$DiffClassMinor'] = 
     (@$_POST['diffclass']=='minor') ?  "checked='checked'" : '';
   $FmtV['$EditText'] = 
@@ -2203,7 +2203,7 @@ function HandlePostAttr($pagename, $auth = 'attr') {
     unset($_SESSION['authlist']);
     $_SESSION['authpw'] = array();
   }
-  Redirect($pagename);
+  WikiRedirect($pagename);
   exit;
 } 
 
@@ -2219,7 +2219,7 @@ function HandleLogoutA($pagename, $auth = 'read') {
   foreach ($LogoutCookies as $c)
     if (isset($_COOKIE[$c])) setcookie($c, '', time()-43200, '/');
   session_destroy();
-  Redirect(FmtPageName($LogoutRedirectFmt, $pagename));
+  WikiRedirect(FmtPageName($LogoutRedirectFmt, $pagename));
 }
 
 
@@ -2228,6 +2228,6 @@ function HandleLoginA($pagename, $auth = 'login') {
   unset($DefaultPasswords['admin']);
   $prompt = @(!$_POST['authpw'] || ($AuthId != $_POST['authid']));
   $page = RetrieveAuthPage($pagename, $auth, $prompt, READPAGE_CURRENT);
-  Redirect($pagename);
+  WikiRedirect($pagename);
 }
 
