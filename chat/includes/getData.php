@@ -317,7 +317,7 @@ WHERE
     (
         (room = :room AND uid != :userid AND to_user_id = 0)
         OR (to_user_id = :userid)
-	    OR (share = '1')
+	    OR (share = '1' AND to_user_id = 0)
     )
 EOQ;
     }
@@ -350,7 +350,7 @@ WHERE
         (room = :room AND to_user_id = 0)
         OR (to_user_id = :userid)
         OR (uid = :userid AND to_user_id > 0)
-	    OR (share = '1')
+	    OR (share = '1' and to_user_id = 0)
     )
 LIMIT
     $totalMessages
