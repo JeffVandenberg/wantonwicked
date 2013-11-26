@@ -74,6 +74,41 @@ a:active {color:#790000; text-decoration:none;}    /* selected link */
 }
 #wikihead input { font-size:12px; } 
 
+#login {
+width:1000px;
+height:50px;
+border:1px solid #000000;
+border-radius: 5px;
+-moz-border-radius: 5px;
+background-image: url('../img/main/bg2.jpg');
+margin-bottom: 10px;
+margin-top: 50px;
+
+}
+#logina {
+width:1000px;
+margin-top: 10px;
+height: 30px;
+border-top: 1px solid #000;
+border-bottom: 1px solid #000;
+color:#FFFFFF;
+font-size:14px;
+font-weight: normal;
+background: #898989;
+}
+#login a {
+color:#FFFFFF;
+}
+#login a:hover {
+color: #790000;
+  text-decoration: none;
+}
+#loginb {
+height:20px;
+padding:5px;
+background-image: url('../img/main/headerbg.jpg');
+}
+
 /* These affect the main content area. */
 #pagetitle {
 width:1000px;

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" xml:lang="{S_USER_LANG}">
 <head>
-
+<link type="text/css" href="../css/gaming-sandbox.css" rel="Stylesheet"/>
 <meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
 <meta http-equiv="content-language" content="{S_USER_LANG}" />
 <meta http-equiv="content-style-type" content="text/css" />
@@ -10,6 +10,14 @@
 <meta name="distribution" content="global" />
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+    <link type="text/css" href="../css/wanton/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/wanton/jquery.ui.menubar.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.watermark.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.ui.menubar.js"></script>
+    <script type="text/javascript" src="../js/wanton.js"></script>
+<script type="text/javascript" src="../js/gaming-sandbox.js"></script>
 {META}
 <title>Wanton Wicked &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
 
@@ -142,6 +150,22 @@ function marklist(id, name, state)
 <body class="{S_CONTENT_DIRECTION}">
 
 <a name="top"></a>
+<div id="gs-header-bar">
+    <div id="gs-header-inner">
+        <div id="gs-header-logo">
+            <a href="/" id="gs-header-logo-nav">
+                Wanton Wicked
+            </a>
+        </div>
+        <div id="gs-header-games">
+            <select id="gs-game-selector">
+                <option value="www">Home</option>
+                <option value="ragnarok">Ragnarok NYC</option>
+                <option value="wantonwicked" selected>Wanton Wicked</option>
+            </select>
+        </div>
+    </div>
+</div>
 <div id="wrapper">
 <div id="login">
 <div id="logina"> 
@@ -150,7 +174,8 @@ function marklist(id, name, state)
 						<!-- IF S_DISPLAY_PM --> <font color="#FFFFFF">|</font> <a href="{U_PRIVATEMSGS}"><font color="#FFFFFF">{PRIVATE_MESSAGE_INFO}<!-- IF PRIVATE_MESSAGE_INFO_UNREAD -->, {PRIVATE_MESSAGE_INFO_UNREAD}<!-- ENDIF --></font></a><!-- ENDIF -->
 					<!-- ELSEIF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) --> <font color="#FFFFFF">|</font> <a href="{U_REGISTER}"><font color="#FFFFFF">{L_REGISTER}</font></a>
 					<!-- ENDIF -->
-				<!-- ENDIF --></div>
+				<!-- ENDIF -->
+                <span style="float:right;" id="server-time"></span></div>
 </div>
 </div>
 <div id="header" align="center">

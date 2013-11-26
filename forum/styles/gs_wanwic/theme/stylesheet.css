@@ -41,8 +41,10 @@ height:50px;
 border:1px solid #000000;
 border-radius: 5px;
 -moz-border-radius: 5px;
-background-image: url(images/bg2.jpg);
+background-image: url('images/bg2.jpg');
 margin-bottom: 10px;
+margin-top: 50px;
+
 }
 #logina {
 width:1000px;
@@ -51,14 +53,21 @@ height: 30px;
 border-top: 1px solid #000;
 border-bottom: 1px solid #000;
 color:#FFFFFF;
-font-size:12px;
+font-size:14px;
+font-weight: normal;
 background: #898989;
 }
+#login a {
+color:#FFFFFF;
+}
+#login a:hover {
+color: #790000;
+  text-decoration: none;
+}
 #loginb {
-height:25px;
-padding-left:5px;
-padding-top:5px;
-background-image: url(images/headerbg.jpg);
+height:20px;
+padding:5px;
+background-image: url('images/headerbg.jpg');
 }
 /* End Login Container*/
 
