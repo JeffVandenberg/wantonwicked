@@ -79,7 +79,7 @@ var lastMessageID = <?php echo $lastMessageID;?>;
             <textarea class="optionsBar" id="optionsBar" rows="10" cols="5" onKeyPress="return submitenter(this,event,'optionsBar','chatContainer','');" onfocus="changeMessBoxStyle('optionsBar');"></textarea>
 
 		<span class="optionsSelectStatus">
-			<span id="uwhisperID">
+			<span id="uwhisperID" style="display:none;">
 				<?php echo C_LANG160;?>: <input class="whisper" type="text" id="whisperID">&nbsp;
 			</span>
 			<input type="checkbox" id="autoScrollID" checked><?php echo C_LANG135;?>&nbsp;

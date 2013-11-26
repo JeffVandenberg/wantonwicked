@@ -50,7 +50,7 @@ WHERE
 EOQ;
         $parameters = array(
             $_POST['new_name'],
-            $_POST['user_id']
+            $_SESSION['user_id']
         );
         break;
     default:

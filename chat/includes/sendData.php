@@ -119,7 +119,7 @@ if ($_POST) {
                 }
                 else {
                     // ban/kick user
-                    banKickUser($_POST['umessage'], $_POST['toname']);
+                    banKickUser($_POST['umessage'], $_POST['to_user_id']);
                 }
             }
 
@@ -233,7 +233,7 @@ if ($_POST) {
             $senderName = $CONFIG['intelliBotName'];
         }
         else {
-            $senderName = $_SESSION['username'];
+            $senderName = $_SESSION['display_name'];
         }
 
         // if user is not silenced

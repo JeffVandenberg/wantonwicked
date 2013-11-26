@@ -568,9 +568,9 @@ function handleMessages()
 
 			if(uID == userListArray[0])
 			{
-				admin = Number(userListArray[7]);
-				moderator = Number(userListArray[8]);
-				speaker = Number(userListArray[9]);
+				admin = Number(userListArray[8]);
+				moderator = Number(userListArray[9]);
+				speaker = Number(userListArray[10]);
                 userTypeId = Number(userListArray[25]);
 			}			
 			
@@ -607,10 +607,10 @@ function handleMessages()
                     $(".userlist", item).sortElements(function(a, b) {
                         var aText = $(a).find('.username').text().toUpperCase();
                         var bText = $(b).find('.username').text().toUpperCase();
-                        if($(a).find('.username').hasClass('st-user') && !$(b).find('.username').hasClass('st-user')) {
+                        if($(a).find('.username').parent('span').hasClass('user-storyteller') && !$(b).find('.username').parent('span').hasClass('user-storyteller')) {
                             return -1;
                         }
-                        if(!$(a).find('.username').hasClass('st-user') && $(b).find('.username').hasClass('st-user')) {
+                        if(!$(a).find('.username').parent('span').hasClass('user-storyteller') && $(b).find('.username').parent('span').hasClass('user-storyteller')) {
                             return 1;
                         }
                         return aText.localeCompare(bText);
@@ -781,7 +781,7 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
       	return false;
    	}	
 
-	if(message == 'SILENCE' && mToUser.toLowerCase() == userName.toLowerCase())
+	if(message == 'SILENCE' && mToUser == uID)
 	{
 		isSilenced = 1;
 		showInfoBox("system","220","300","200","",lang7+" "+silent+" "+lang8);
@@ -794,24 +794,24 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		return false;
 	}
 
-	if(message == 'KICK' && mToUser.toLowerCase() == userName.toLowerCase())
+	if((message == 'KICK') && (mToUser == uID))
 	{
 		logout('kick');
 		return false;
 	}
 
-	if(message == 'KICK' && mToUser.toLowerCase() != userName.toLowerCase())
+	if(message == 'KICK' && mToUser != uID)
 	{
 		return false;
 	}
 
-	if(message == 'BAN' && mToUser.toLowerCase() == userName.toLowerCase())
+	if(message == 'BAN' && mToUser == uID)
 	{
 		logout('ban');
 		return false;
 	}
 
-	if(message == 'BAN' && mToUser.toLowerCase() != userName.toLowerCase())
+	if(message == 'BAN' && mToUser != uID)
 	{
 		return false;
 	}
@@ -855,7 +855,7 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 				// this user is sender (initilised PM)
 				// eg. this user crashed or lost connection
 				// catches any closed PM that a receiver still has open
-				createPChatDiv(userName,mUser,mUID,uID);
+				createPChatDiv(userName,mUser,uID,mUID);
 			}
 		}
         else {
@@ -1249,14 +1249,13 @@ nick.change = function(commandLine) {
             '/chat/includes/nick.php',
             {
                 action: 'change',
-                user_id: userID,
-                username: userName,
                 new_name: remainder
             },
             function(response) {
                 if(response.status == true) {
                     // set nick information
                     userName = remainder;
+                    updateDisplayName(uID, remainder, roomID);
                 }
                 else {
                     alert(response.message);

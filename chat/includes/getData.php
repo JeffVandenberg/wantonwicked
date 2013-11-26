@@ -189,6 +189,7 @@ WHERE
     (
         (room = :room AND to_user_id = 0)
         OR (to_user_id = :userid)
+        OR (uid = :userid AND to_user_id > 0)
 	    OR (share = '1')
     )
 LIMIT

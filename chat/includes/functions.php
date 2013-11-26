@@ -1437,6 +1437,7 @@ function adminPermissions()
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     // default values	
     $admin = '0';
@@ -2538,12 +2539,13 @@ function sendUserEmail($id, $username, $email, $newpass, $status)
 *
 */
 
-function sendAdminEmail($status, $report, $message)
+function sendAdminEmail($status, $targetUserId, $targetUserName, $message)
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-    if (!$_SESSION['username']) {
+    if (!$_SESSION['user_id']) {
         return "no access";
     }
 
@@ -2567,7 +2569,7 @@ function sendAdminEmail($status, $report, $message)
     if ($status == '1') {
         $email_subject = $CONFIG['chatroomName'] . " - " . C_LANG37;
         $email_message = C_LANG38 . ",\r\n\r\n";
-        $email_message .= C_LANG39 . " " . $_SESSION['username'] . " " . C_LANG40 . ": " . urldecode($report) . "\r\n\r\n";
+        $email_message .= C_LANG39 . " " . $_SESSION['username'] . " " . C_LANG40 . ": " . urldecode($targetUserName) . ' (ID:' . $targetUserId . ')' . "\r\n\r\n";
         $email_message .= C_LANG41 . ":\r\n\r\n";
         $email_message .= $message . "\r\n\r\n";
         $email_message .= C_LANG33 . ",\r\n";
@@ -2578,12 +2580,12 @@ function sendAdminEmail($status, $report, $message)
         return C_LANG42;
     }
 
-    if (isset($_SESSION['lastReportAgainst']) && $_SESSION['lastReportAgainst'] == $report) {
+    if (isset($_SESSION['lastReportAgainst']) && $_SESSION['lastReportAgainst'] == $targetUserId) {
         return C_LANG43;
     }
 
     if ($_SESSION['username']) {
-        $_SESSION['lastReportAgainst'] = $report;
+        $_SESSION['lastReportAgainst'] = $targetUserId;
 
         mail($CONFIG['chatroomEmail'], $email_subject, $email_message, $headers);
 
@@ -2809,10 +2811,11 @@ function getTranscripts($room)
 *
 */
 
-function banKickUser($message, $toname)
+function banKickUser($message, $toUserId)
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     try {
         $dbh = db_connect();
@@ -2823,21 +2826,21 @@ function banKickUser($message, $toname)
 
             $params = array(
                 'kick' => $dropKick,
-                'username' => makeSafe($toname),
+                'id' => $toUserId,
             );
             $query = "UPDATE prochatrooms_users
 					  SET kick = :kick
-					  WHERE username = :username
+					  WHERE id = :id
 					  ";
         }
 
         if ($message == 'BAN') {
             $params = array(
-                'username' => makeSafe($toname)
+                'id' => $toUserId
             );
             $query = "UPDATE prochatrooms_users
 					  SET ban = '1'
-					  WHERE username = :username
+					  WHERE id = :id
 					  ";
         }
 
@@ -2857,11 +2860,11 @@ function banKickUser($message, $toname)
         $dbh = db_connect();
         $params = array(
             'active' => getTime() - 180,
-            'username' => makeSafe($toname)
+            'username' => makeSafe($toUserId)
         );
         $query = "UPDATE prochatrooms_users 
 				  SET active = '" . $offlineTime . "', online = '0' 
-				  WHERE username = '" . makeSafe($toname) . "'
+				  WHERE id = '" . makeSafe($toUserId) . "'
 				  ";
         $action = $dbh->prepare($query);
         $action->execute($params);

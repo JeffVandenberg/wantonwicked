@@ -29,7 +29,7 @@ function createUsersDiv(uuID, userID, uUser, uDisplay, uAvatar, uWebcam, uPrevRo
         uBlock = 0;
     }
     if(userTypeId == 6) {
-        userClass = 'user-admin';
+        userClass = 'user-storyteller user-admin';
         showAdminID = ' (Admin) ';
         uBlock = 0;
     }
@@ -267,7 +267,7 @@ function updateAvatar(uID, uAvatar, uRoom)
 
 function updateDisplayName(userId, displayName, roomID)
 {
-    $("userlist_"+userId+roomID).find('username').html(displayName);
+    $("#userlist_"+userId+roomID).find('.username').html(displayName);
 }
 
 /*
@@ -450,7 +450,7 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 		}
 		
 		// whisper
-		if(whisperOn && uID != targetUserId)
+		if(false) //whisperOn && uID != targetUserId)
 		{
 			// if user has no eCredits
 			// disable option to send webcam requests
@@ -514,7 +514,7 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 
 		if(uID != targetUserId && share)
 		{
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"shareFiles\",\"280\",\"300\",\"200\",\"plugins/share/?shareWithUser="+targetUserName+"\",\"\");' class='highliteOff'><img style='vertical-align:middle;' src='images/share.gif'><span style='padding-left:7px;'>Share Files</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"shareFiles\",\"280\",\"300\",\"200\",\"plugins/share/?shareWithUser="+targetUserId+"\",\"\");' class='highliteOff'><img style='vertical-align:middle;' src='images/share.gif'><span style='padding-left:7px;'>Share Files</span></div>";
 		}
 
 		if(uID != targetUserId && uBlock == 1)
@@ -526,23 +526,19 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='blockUsers(\"unblock\",\""+targetUserId+"\");showInfoBox(\"system\",\"220\",\"300\",\"200\",\"\",\"You have unblocked "+decodeURI(targetUserName)+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/unblock.gif'><span style='padding-left:10px;'>"+lang38+"</span></div>";
 
 			// report abuse
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"report\",\"280\",\"360\",\"200\",\"templates/"+styleFolder+"/report.php?id="+targetUserName+"\",\"\");;deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/report.gif'><span style='padding-left:7px;'>"+lang39+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"report\",\"280\",\"360\",\"200\",\"templates/"+styleFolder+"/report.php?id="+targetUserId+"\",\"\");;deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/report.gif'><span style='padding-left:7px;'>"+lang39+"</span></div>";
 		}
 
 		if(admin && uID != targetUserId || moderator && uID != targetUserId)// || roomOwner && uID != uuID)
 		{
 			// silence
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserName+"\",\"SILENCE\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang40+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserId+"\",\"SILENCE\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang40+"</span></div>";
 
 			// kick
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserName+"\",\"KICK\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang41+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserId+"\",\"KICK\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang41+"</span></div>";
 
-			if(admin && uID != targetUserId || moderator && uID != targetUserId)
-			{
-				// ban
-				newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserName+"\",\"BAN\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang42+"</span></div>";
-			}
-			
+            // ban
+            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserId+"\",\"BAN\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang42+"</span></div>";
 		}
 		
 		if((admin && uID != targetUserId) || (moderator && uID != targetUserId))
@@ -594,12 +590,12 @@ function clearWhisper()
 *
 */
 
-function adminControls(tUser,doAction)
+function adminControls(targetUserId,doAction)
 {
 	var param = '?';
 	param += '&uid=' + escape(uID);
 	param += '&uname=' + escape(userName);
-	param += '&toname=' + escape(tUser);
+	param += '&to_user_id=' + escape(targetUserId);
 	param += '&umessage=' + escape(doAction);	
 	param += '&uroom=' + roomID;
 	param += '&usfx=' + escape(sfx);
@@ -608,7 +604,7 @@ function adminControls(tUser,doAction)
 	// if ready to send message to DB
 	if (sendReq.readyState == 4 || sendReq.readyState == 0) 
 	{
-		if(admin && userName != tUser || moderator && userName != tUser || roomOwner && userName != tUser)
+		if(admin && userName != targetUserId || moderator && userName != targetUserId || roomOwner && userName != targetUserId)
 		{
 			sendReq.open("POST", 'includes/sendData.php?rnd='+ Math.random(), true);
 			sendReq.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
