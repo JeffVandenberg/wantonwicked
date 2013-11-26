@@ -201,8 +201,6 @@ function badChars()
 
 function validChars($data)
 {
-    $i = 0;
-
     $badChars = badChars();
 
     for ($i = 0; $i < sizeof($badChars); $i += 1) {
@@ -219,6 +217,7 @@ function validChars($data)
             return C_LANG8 . ": [ " . $badChars[$i] . " ]<br>";
         }
     }
+    return true;
 }
 
 /*
@@ -231,6 +230,7 @@ function validEmail($email)
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return C_LANG9 . "<br>";
     }
+    return '';
 }
 
 /*
@@ -242,6 +242,7 @@ function showLang()
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     $count = count($CONFIG['lang']);
 
@@ -271,8 +272,10 @@ function registerUser($username, $password, $email)
 
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     $username = urlencode($username);
+    $pass = '';
 
     // check username is in database
     try {
@@ -456,10 +459,12 @@ function createUser($loginName, $loginID, $loginPass, $loginGender, $login, $gue
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     if ($login) {
         if ($loginName != $_SESSION['username']) {
             $loginName = urlencode($loginName);
+            $password = '';
 
             // check username status	
             try {
@@ -516,7 +521,7 @@ function createUser($loginName, $loginID, $loginPass, $loginGender, $login, $gue
         $_SESSION['userid'] = $loginID;
 
         // add user to database
-        addUser($loginGender);
+        addUser($loginGender, 2);
 
         // return details
         return array($_SESSION['display_name'], $_SESSION['username'], $_SESSION['userid'], '0');
@@ -1057,6 +1062,7 @@ function chatRoomID($id, $pass)
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     if (!$id || !is_numeric($id)) {
         // if no room ID or room ID is not numeric then
@@ -1073,13 +1079,13 @@ function chatRoomID($id, $pass)
         }
 
         $roomPassword = "1";
-
+        $roomowner = '0';
         // admin & mods dont need a password ;)
-        if (getAdmin($_SESSION['username']) || getModerator($_SESSION['username'])) {
+        if (getAdmin($_SESSION['user_id']) || getModerator($_SESSION['user_id'])) {
             $roomPassword = '';
         }
 
-        // check room exists	
+        // check room exists
         try {
             $dbh = db_connect();
 
@@ -1118,14 +1124,15 @@ function chatRoomID($id, $pass)
                     $roomowner = $i['roomowner'];
                 }
 
+                $dbh = null;
                 return array($id, $roomowner);
             }
             else {
+                $dbh = null;
                 include("templates/" . $CONFIG['template'] . "/private.php");
                 die;
             }
 
-            $dbh = null;
         } catch (PDOException $e) {
             $error = "Function: " . __FUNCTION__ . "\n";
             $error .= "File: " . basename(__FILE__) . "\n";
@@ -1135,9 +1142,7 @@ function chatRoomID($id, $pass)
         }
 
     }
-
     updateRoomUserCount($id);
-
 }
 
 /*
@@ -1147,6 +1152,9 @@ function chatRoomID($id, $pass)
 
 function chatRoomDesc($roomID)
 {
+    $roombg = '';
+    $roomdesc = '';
+
     try {
         $dbh = db_connect();
         $params = array(
@@ -1184,20 +1192,16 @@ function chatRoomDesc($roomID)
 
 function getLastMessageID($room)
 {
-    $id = '0';
+    $id = 0;
 
     try {
         $dbh = db_connect();
         $params = array(
             'room' => makeSafe($room),
-            'tousername' => makeSafe($_SESSION['username']),
             'share' => '1'
         );
-        $query = "SELECT id   
-				  FROM prochatrooms_message 
-				  WHERE room = :room 
-				  OR tousername = :tousername
-				  OR share = :share
+        $query = "SELECT id
+				  FROM prochatrooms_message
 				  ORDER BY id DESC
 				  LIMIT 1
 				  ";
@@ -1209,6 +1213,7 @@ function getLastMessageID($room)
 
             // include files
             include(getDocPath() . "includes/config.php");
+            /* @var array $CONFIG */
             $id -= $CONFIG['dispLastMess'];
         }
 
@@ -1232,10 +1237,11 @@ function getLastMessageID($room)
 * 
 */
 
-function logoutUser($username, $room)
+function logoutUser($userId, $room)
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     if (empty($room) || $room == '') {
         $room = '0';
@@ -1243,10 +1249,11 @@ function logoutUser($username, $room)
 
     $showLogout = '1';
 
-    if (invisibleAdmins($username)) {
+    if (invisibleAdmins($userId)) {
         $showLogout = '0';
     }
 
+    $dbh = db_connect();
     if ($showLogout) {
         if (file_exists(getDocPath() . "lang/" . $_SESSION['lang'])) {
             include(getDocPath() . "lang/" . $_SESSION['lang']);
@@ -1256,21 +1263,19 @@ function logoutUser($username, $room)
         $offlineTime = getTime() - $CONFIG['activeTimeout'];
 
         try {
-            $dbh = db_connect();
             $params = array(
                 'active' => $offlineTime,
                 'online' => '0',
                 'webcam' => '0',
                 'status' => '0',
-                'username' => makeSafe($username)
+                'id' => $userId
             );
-            $query = "UPDATE prochatrooms_users 
+            $query = "UPDATE prochatrooms_users
 					  SET active = :active, online = :online, webcam = :webcam, status = :status    
-					  WHERE username = :username
+					  WHERE id = :id
 					  ";
             $action = $dbh->prepare($query);
             $action->execute($params);
-            $dbh = null;
         } catch (PDOException $e) {
             $error = "Function: " . __FUNCTION__ . "\n";
             $error .= "File: " . basename(__FILE__) . "\n";
@@ -1279,42 +1284,23 @@ function logoutUser($username, $room)
             debugError($error);
         }
 
-        // get userid
-        try {
-            $dbh = db_connect();
-            $params = array(
-                'username' => makeSafe($username)
-            );
-            $query = "SELECT id   
-					  FROM prochatrooms_users 
-					  WHERE username = :username
-					  LIMIT 1
-					";
-            $action = $dbh->prepare($query);
-            $action->execute($params);
-
-            foreach ($action as $i) {
-                $id = $i['id'];
-            }
-
-            $dbh = null;
-        } catch (PDOException $e) {
-            $error = "Function: " . __FUNCTION__ . "\n";
-            $error .= "File: " . basename(__FILE__) . "\n";
-            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-            debugError($error);
+        $displayName = '';
+        $sql = "select display_name from prochatrooms_users where id = ?";
+        $action = $dbh->prepare($sql);
+        $action->execute(array($userId));
+        if($action->rowCount()) {
+            $row = $action->fetch(PDO::FETCH_ASSOC);
+            $displayName = $row['display_name'];
         }
 
         // send logout message
         try {
-            $dbh = db_connect();
             $params = array(
-                'uid' => $id,
+                'uid' => $userId,
                 'mid' => 'chatContainer',
-                'username' => makeSafe($username),
+                'username' => makeSafe($displayName),
                 'tousername' => '',
-                'message' => '1|#000000|12px|Verdana|** ' . makeSafe($username) . ' ' . makeSafe(C_LANG22),
+                'message' => '1|#000000|12px|Verdana|** ' . makeSafe($displayName) . ' has logged out.',
                 'sfx' => 'beep_high.mp3',
                 'room' => makeSafe($room),
                 'messtime' => getTime()
@@ -1344,28 +1330,6 @@ function logoutUser($username, $room)
 					  ";
             $action = $dbh->prepare($query);
             $action->execute($params);
-            $dbh = null;
-        } catch (PDOException $e) {
-            $error = "Function: " . __FUNCTION__ . "\n";
-            $error .= "File: " . basename(__FILE__) . "\n";
-            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-            debugError($error);
-        }
-
-        // update room user count
-        try {
-            $dbh = db_connect();
-            $params = array(
-                'id' => makeSafe($room)
-            );
-            $query = "UPDATE prochatrooms_rooms 
-					  SET roomusers = roomusers - 1 
-					  WHERE id = :id
-					  ";
-            $action = $dbh->prepare($query);
-            $action->execute($params);
-            $dbh = null;
         } catch (PDOException $e) {
             $error = "Function: " . __FUNCTION__ . "\n";
             $error .= "File: " . basename(__FILE__) . "\n";
@@ -1385,6 +1349,7 @@ function streamID()
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     $id = md5(date("U") . $CONFIG['salt'] . $_SESSION['username'] . rand(1, 9999999));
 
@@ -1549,7 +1514,7 @@ function getAdmin($id)
         );
         $query = "SELECT admin   
 				  FROM prochatrooms_users 
-				  WHERE username = :id
+				  WHERE id = :id
 				  LIMIT 1
 				  ";
         $action = $dbh->prepare($query);
@@ -1587,7 +1552,7 @@ function getModerator($id)
         );
         $query = "SELECT moderator   
 				  FROM prochatrooms_users 
-				  WHERE username = :id
+				  WHERE id = :id
 				  LIMIT 1
 				  ";
         $action = $dbh->prepare($query);
@@ -1625,7 +1590,7 @@ function getSpeaker($id)
         );
         $query = "SELECT speaker   
 				  FROM prochatrooms_users 
-				  WHERE username = :id
+				  WHERE id = :id
 				  LIMIT 1
 				  ";
         $action = $dbh->prepare($query);
@@ -1663,7 +1628,7 @@ function getUserTypeId($id)
         );
         $query = "SELECT user_type_id
 				  FROM prochatrooms_users
-				  WHERE username = :id
+				  WHERE id = :id
 				  LIMIT 1
 				  ";
         $action = $dbh->prepare($query);
@@ -2661,7 +2626,7 @@ function confirmReg($id, $email)
     if (!$confirm) {
         return C_LANG46;
     }
-
+    return false;
 }
 
 /*
@@ -2675,28 +2640,28 @@ function getTranscripts($room)
     include(getDocPath() . "includes/session.php");
     include(getDocPath() . "includes/config.php");
     include(getDocPath() . "lang/" . $_SESSION['lang']);
+    /* @var array $CONFIG */
 
     // check room id is numeric
     if (!is_numeric($room)) {
         return "Invalid RoomID";
-        die;
     }
 
     // check active session
-    if (!$_SESSION['username']) {
+    if (!$_SESSION['user_id']) {
         return C_LANG47;
-        die;
     }
 
-    // get user blocked list		
+    // get user blocked list
+    $blocked = array();
     try {
         $dbh = db_connect();
         $params = array(
-            'username' => $_SESSION['username']
+            'id' => $_SESSION['user_id']
         );
         $query = "SELECT blocked   
 				  FROM prochatrooms_users 
-				  WHERE username = :username
+				  WHERE id = :id
 				";
         $action = $dbh->prepare($query);
         $action->execute($params);
@@ -2718,33 +2683,41 @@ function getTranscripts($room)
     $blocked = substr($blocked, 1, -1);
     $blocked = str_replace(",,", ",", $blocked);
 
-    // get transcripts	
+    // get transcripts
+    $html = "";
     try {
         $dbh = db_connect();
 
+        $params = array(
+            'transcriptID' => $_SESSION['transcriptsID'],
+            'room' => makeSafe($room),
+            'userid' => $_SESSION['user_id']
+        );
+        $query = <<<EOQ
+SELECT
+    M.messtime,
+    M.room,
+    R.roomname,
+    M.username,
+    T.display_name AS to_user_name,
+    M.message
+FROM
+    prochatrooms_message AS M
+    LEFT JOIN prochatrooms_rooms AS R ON M.room = R.id
+    LEFT JOIN prochatrooms_users AS T ON M.to_user_id = T.id
+WHERE
+    M.id >= :transcriptID
+	AND
+	(
+	    M.room = :room
+	    OR
+	    M.to_user_id = :userid
+    )
+EOQ;
+
         if ($blocked) {
-            $params = array(
-                'transcriptID' => $_SESSION['transcriptsID'],
-                'room' => makeSafe($room),
-                'blockedIDs' => $blocked,
-            );
-            $query = "SELECT messtime, room, username , tousername, message   
-					  FROM prochatrooms_message
-					  WHERE id >= :transcriptID
-					  AND room = :room
-					  AND uid NOT IN (:blockedIDs)
-					  ";
-        }
-        else {
-            $params = array(
-                'transcriptID' => $_SESSION['transcriptsID'],
-                'room' => makeSafe($room)
-            );
-            $query = "SELECT messtime, room, username , tousername, message   
-					  FROM prochatrooms_message
-					  WHERE id >= :transcriptID
-					  AND room = :room
-					  ";
+            $params['blockedIDs'] = $blocked;
+            $query .= " AND uid NOT IN (:blockedIDs)";
         }
 
         $action = $dbh->prepare($query);
@@ -2754,41 +2727,35 @@ function getTranscripts($room)
         $html .= "<tr class='header' style='color:#FFFFFF'><td>" . C_LANG49 . "</td><td>" . C_LANG50 . "</td><td>" . C_LANG51 . "</td><td>" . C_LANG52 . "</td><td>" . C_LANG53 . "</td></tr>";
 
         foreach ($action as $i) {
-            if (!invisibleAdmins($i['username'])) {
-                if ($i['tousername'] == '' || $i['tousername'] == $_SESSION['username']) {
-                    // explode message
-                    $i['message'] = explode("|", urldecode($i['message']));
+            // explode message
+            $i['message'] = explode("|", urldecode($i['message']));
 
-                    // format message
-                    $i['message'][4] = str_replace("[u]", "", $i['message'][4]);
-                    $i['message'][4] = str_replace("[/u]", "", $i['message'][4]);
-                    $i['message'][4] = str_replace("[i]", "", $i['message'][4]);
-                    $i['message'][4] = str_replace("[/i]", "", $i['message'][4]);
-                    $i['message'][4] = str_replace("[b]", "", $i['message'][4]);
-                    $i['message'][4] = str_replace("[/b]", "", $i['message'][4]);
+            // format message
+            $i['message'][4] = str_replace("[u]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[/u]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[i]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[/i]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[b]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[/b]", "", $i['message'][4]);
 
-                    $i['message'][4] = str_replace("[[", "<", $i['message'][4]);
-                    $i['message'][4] = str_replace("]]", ">", $i['message'][4]);
+            $i['message'][4] = str_replace("[[", "<", $i['message'][4]);
+            $i['message'][4] = str_replace("]]", ">", $i['message'][4]);
 
-                    $message = "<span style=\"color:" . $i['message'][1] . ";font-size:" . $i['message'][2] . ";font-family:" . $i['message'][3] . ";\">" . html_entity_decode(stripslashes($i['message'][4])) . "</span>";
+            $message = "<span style=\"color:" . $i['message'][1] . ";font-size:" . $i['message'][2] . ";font-family:" . $i['message'][3] . ";\">" . html_entity_decode(stripslashes($i['message'][4])) . "</span>";
 
-                    // add <pre> if required
-                    // used for formatting multi-line messages.
-                    if ($i['message'][6] == '1') {
-                        $message = "<pre>" . $message . "</pre>";
-                    }
-
-                    // if receiver is empty
-                    if (!$i['tousername']) {
-                        $i['tousername'] = 'Room';
-                    }
-
-                    // final output
-                    $html .= "<tr class='row' valign='top'><td>" . date("H:i:s", $i['messtime']) . "</td><td align='center'>" . urldecode($i['room']) . "</td><td>" . urldecode($i['username']) . "</td><td>" . urldecode($i['tousername']) . "</td><td>" . $message . "</td></tr>";
-                }
-
+            // add <pre> if required
+            // used for formatting multi-line messages.
+            if ($i['message'][6] == '1') {
+                $message = "<pre>" . $message . "</pre>";
             }
 
+            // if receiver is empty
+            if (!$i['tousername']) {
+                $i['tousername'] = 'Room';
+            }
+
+            // final output
+            $html .= "<tr class='row' valign='top'><td>" . date("H:i:s", $i['messtime']) . "</td><td align='center'>" . urldecode($i['roomname']) . "</td><td>" . urldecode($i['username']) . "</td><td>" . urldecode($i['to_user_name']) . "</td><td>" . $message . "</td></tr>";
         }
 
         $dbh = null;
@@ -2819,6 +2786,8 @@ function banKickUser($message, $toUserId)
 
     try {
         $dbh = db_connect();
+        $query = '';
+        $params = array();
 
         if ($message == 'KICK') {
             $kickTime = $CONFIG['kickTime'] * 60;
@@ -2844,8 +2813,10 @@ function banKickUser($message, $toUserId)
 					  ";
         }
 
-        $action = $dbh->prepare($query);
-        $action->execute($params);
+        if($query != '') {
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+        }
         $dbh = null;
     } catch (PDOException $e) {
         $error = "Function: " . __FUNCTION__ . "\n";
@@ -2862,6 +2833,7 @@ function banKickUser($message, $toUserId)
             'active' => getTime() - 180,
             'username' => makeSafe($toUserId)
         );
+        $offlineTime = getTime() - $CONFIG['activeTimeout'];
         $query = "UPDATE prochatrooms_users 
 				  SET active = '" . $offlineTime . "', online = '0' 
 				  WHERE id = '" . makeSafe($toUserId) . "'
@@ -2891,6 +2863,7 @@ function getUsersOnline($id)
     include(getDocPath() . 'includes/db.php');
     include(getDocPath() . 'includes/config.php');
     include(getDocPath() . "lang/" . $_SESSION['lang']);
+    /* @var array $CONFIG */
 
     try {
         $dbh = db_connect();
@@ -2918,7 +2891,7 @@ function getUsersOnline($id)
             $html .= "<tr class='header'><td>" . C_LANG54 . "</td><td>" . C_LANG50 . "</td></tr>";
 
             foreach ($action as $i) {
-                if ($CONFIG['invisibleAdminsPlugin'] && getAdmin($i['username'])) {
+                if ($CONFIG['invisibleAdminsPlugin'] && getAdmin($i['user_id'])) {
                     // hide admin user
                 }
                 else {
@@ -2939,6 +2912,7 @@ function getUsersOnline($id)
 
         debugError($error);
     }
+    return false;
 }
 
 /*
@@ -2948,6 +2922,7 @@ function getUsersOnline($id)
 
 function getRoomOwner()
 {
+    $count = 0;
     try {
         $dbh = db_connect();
         $params = array(
@@ -3097,16 +3072,17 @@ function moderatedChat()
 * requires invisible admins plugin
 */
 
-function invisibleAdmins($username)
+function invisibleAdmins($userId)
 {
     // include files
     include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
     $result = '0';
 
     if ($CONFIG['invisibleAdminsPlugin']) {
         if (file_exists(getDocPath() . "plugins/invisible/index.js.php")) {
-            $result = getAdmin($username);
+            $result = getAdmin($userId);
         }
     }
 

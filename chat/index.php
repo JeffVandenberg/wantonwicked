@@ -218,7 +218,7 @@ if($_SESSION['eCreditsInit'])
 
 if(isset($_REQUEST['logout']) && isset($_SESSION['username']))
 {
-	logoutUser($_SESSION['username'],$_SESSION['room']);
+	logoutUser($_SESSION['user_id'],$_SESSION['room']);
 
 	if($_REQUEST['logout'] == 'kick')
 	{
@@ -232,19 +232,7 @@ if(isset($_REQUEST['logout']) && isset($_SESSION['username']))
 	unset($_SESSION['user_type_id']);
 	unset($_SESSION['room']);
 	unset($_SESSION['guest']);
-
-	$loginError = C_LANG5;
-
-	if($CONFIG['CMS'])
-	{
-        header('location:/');
-		die($loginError);
-	}
-	else
-	{
-		include("templates/".$CONFIG['template']."/login.php");
-		die;
-	}
+    header('location:/');
 }
 
 /*

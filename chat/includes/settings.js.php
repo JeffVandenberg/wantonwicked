@@ -451,9 +451,9 @@ if(isset($_SESSION['adminUser']))
 *
 */
 
-echo "var admin = ".getAdmin($_SESSION['username'])."; ";
-echo "var moderator = ".getModerator($_SESSION['username'])."; ";
-echo "var speaker = ".getSpeaker($_SESSION['username'])."; ";
+echo "var admin = ".getAdmin($_SESSION['user_id'])."; ";
+echo "var moderator = ".getModerator($_SESSION['user_id'])."; ";
+echo "var speaker = ".getSpeaker($_SESSION['user_id'])."; ";
 
 /* 
 * user messages 
