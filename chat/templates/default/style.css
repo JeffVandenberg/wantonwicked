@@ -274,11 +274,10 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
-	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/grin_small.png') no-repeat;
+	background: url('../../images/menu/grin_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 	
@@ -288,11 +287,10 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/grin_small.png') no-repeat;
+	background: url('../../images/menu/grin.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 	
@@ -302,12 +300,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;	
 	
-	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/bell_small.png') no-repeat;
+	background: url('../../images/menu/bell_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 
@@ -317,12 +314,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;	
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/bell_small.png') no-repeat;
+	background: url('../../images/menu/bell.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 
@@ -332,12 +328,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/styles_small.png') no-repeat;
+	background: url('../../images/menu/styles_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -346,12 +341,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/styles_small.png') no-repeat;
+	background: url('../../images/menu/styles.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -360,12 +354,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/avatars_small.png') no-repeat;
+	background: url('../../images/menu/avatars_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -374,12 +367,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/avatars_small.png') no-repeat;
+	background: url('../../images/menu/avatars.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -388,12 +380,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/sound_small.png') no-repeat;
+	background: url('../../images/menu/sound_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -402,12 +393,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/sound_small.png') no-repeat;
+	background: url('../../images/menu/sound.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -416,12 +406,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/transcripts_small.png') no-repeat;
+	background: url('../../images/menu/transcripts_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -430,12 +419,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/transcripts_small.png') no-repeat;
+	background: url('../../images/menu/transcripts.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -444,12 +432,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #666666 url(../../images/menu/help_small.gif) no-repeat;
+	background: url(../../images/menu/help_small.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -458,19 +445,18 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url(../../images/menu/help_small.gif) no-repeat;
+	background: url(../../images/menu/help.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 }
 
 .iconeCredits
 {
-    background: url(../../images/menu/timer.gif) no-repeat;
+    background: url(../../images/menu/timer.png) no-repeat;
     height: 18px;
 	width: 18px;
 	padding-top: 2px;
@@ -481,12 +467,10 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
-	
-	border: 1px solid #666666;
-    background: #666666 url(../../plugins/games/games.gif) no-repeat;
+    background: url(../../plugins/games/games.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -495,12 +479,12 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
 	border: 1px solid #CCCCCC;
-    background: #666666 url(../../plugins/games/games.gif) no-repeat;
+    background: #666666 url(../../plugins/games/games.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -509,12 +493,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #666666 url(../../images/share.gif) no-repeat;
+	background: url(../../images/share.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -523,12 +506,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url(../../images/share.gif) no-repeat;
+	background: url(../../images/share_over.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -537,12 +519,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #666666 url(../../images/eraser.gif) no-repeat;
+	background: url(../../images/eraser.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -551,12 +532,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url(../../images/eraser.gif) no-repeat;
+	background: url(../../images/eraser_over.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -565,12 +545,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #666666 url(../../images/edit.gif) no-repeat;
+	background: url(../../images/edit.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -579,12 +558,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url(../../images/edit.gif) no-repeat;
+	background: url(../../images/edit_over.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -593,12 +571,12 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
 	border: 1px solid #666666;
-    background: #666666 url(../../images/copyright.gif) no-repeat;
+    background: #666666 url(../../images/copyright.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -607,12 +585,12 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
 	border: 1px solid #CCCCCC;
-    background: #666666 url(../../images/copyright.gif) no-repeat;
+    background: #666666 url(../../images/copyright.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
