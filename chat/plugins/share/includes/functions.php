@@ -28,7 +28,6 @@ if (!isset($_SESSION['adminUser']) && !$_SESSION['user_id']) {
 // http://www.w3schools.com/media/media_mimeref.asp
 
 $validFile = array(
-
     'image/jpeg',
     'image/pjpeg',
     'image/gif',
@@ -40,7 +39,6 @@ $validFile = array(
 );
 
 $validExt = array(
-
     '.jpg',
     '.gif',
     '.zip',
@@ -132,6 +130,8 @@ if ($_POST) {
     // share file with room/user
 
     $shareWithUserId = 0;
+    $shareWithUsername = '';
+    $shareWithDisplayName = '';
 
     if ($_POST['shareID'] == '2') {
         $count = 0;
@@ -141,7 +141,7 @@ if ($_POST) {
             $params = array(
                 'shareWithUserId' => $_POST['shareWithUserId']
             );
-            $query = "SELECT id
+            $query = "SELECT id, username, display_name
 					  FROM prochatrooms_users 
 					  WHERE id = :shareWithUserId
 					  LIMIT 1
@@ -149,6 +149,11 @@ if ($_POST) {
             $action = $dbh->prepare($query);
             $action->execute($params);
             $count = $action->rowCount();
+
+            foreach($action as $i) {
+                $shareWithUsername = $i['username'];
+                $shareWithDisplayName = $i['display_name'];
+            }
 
             $dbh = null;
         } catch (PDOException $e) {
@@ -206,7 +211,11 @@ if ($_POST) {
         }
 
         if ($shareWithUserId) {
-            $bMessage = " &amp;#187; " . $shareWithUserId . ": ";
+            $bMessage = " &amp;#187; " . $shareWithDisplayName;
+            if($shareWithUsername != $shareWithDisplayName) {
+                $bMessage .= ' ('.$shareWithUsername.') ';
+            }
+            $bMessage .= ": ";
             $pMessage = "|1|0";
         }
 
