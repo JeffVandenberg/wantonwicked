@@ -7,7 +7,8 @@ use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 
 include 'cgi-bin/start_of_page.php';
-
+echo date('U')*1000;
+die();
 $repository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $repository */
 

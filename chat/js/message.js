@@ -417,7 +417,7 @@ function getMessages()
 	/*if (receiveMesReq.readyState == 4 || receiveMesReq.readyState == 0)
 	{*/
 		receiveMesReq.open("GET", 'includes/getData.php?roomID='+roomID+'&history='+showHistory+'&last='+lastMessageID+'&s='+singleRoom+'&rnd='+ Math.random(), true);
-		receiveMesReq.onreadystatechange = handleMessages; 
+		receiveMesReq.onreadystatechange = handleMessages;
 		receiveMesReq.send(null);
 	//}
 			
@@ -687,18 +687,16 @@ function handleMessages()
 							uID,
 							displayMDiv,
 							-2,
-							'1|'+stextColor+'|'+stextSize+'|'+stextFamily+'|** '+userName+' '+publicEntry,
+							'entry.png|'+stextColor+'|'+stextSize+'|'+stextFamily+'|'+publicEntry,
 							'beep_high.mp3',
+							userName,
 							'',
-							'',
-							''
+							new Date().getTime()/1000
 						);
 
 			showHistory = 0;
 		}
-
 	}
-
 }
 
 /*

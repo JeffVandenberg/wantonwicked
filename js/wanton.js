@@ -39,9 +39,9 @@ function showClock() {
 }
 
 $(function () {
-    var difference = 0;
     $.get('/server_time.php', null, function(time) {
-        difference = new Date().getTime() - time;
+        var serverTime = new Date(time);
+        difference = new Date().getTime() - serverTime.getTime();
         showClock();
     });
 

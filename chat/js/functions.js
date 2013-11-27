@@ -25,10 +25,10 @@ function initAll()
 	}
 
 	var entryWelcome = "../images/notice.gif|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+publicWelcome+"|1";
-	var entryNotice = "1|"+stextColor+"|"+stextSize+"|"+stextFamily+"|** "+userName+" "+publicEntry;
+	var entryNotice = "entry.png|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+publicEntry;
 	var entryMessages = "../images/notice.gif|"+stextColor+"|"+stextSize+"|"+stextFamily+"|Displaying last messages ...|1";
 
-	createMessageDiv('1',uID,displayMDiv,1,entryWelcome,'doorbell.mp3','','');
+	createMessageDiv('1',uID,displayMDiv,1,entryWelcome,'doorbell.mp3','','','');
 
 	if(invisibleOn == 1 && (admin == 1 && hide == 1))
 	{
@@ -38,7 +38,7 @@ function initAll()
 	{
 		if(dispLastMess > 1)
 		{
-			createMessageDiv('0',uID,displayMDiv,2,entryMessages,'beep_high.mp3','','');
+			createMessageDiv('0',uID,displayMDiv,2,entryMessages,'beep_high.mp3','','','');
 		}
 
 		roomlogout();
@@ -119,10 +119,10 @@ function roomlogin()
 {
 	roomID = currRoom;
 
-	message = "1|"+stextColor+"|"+stextSize+"|"+stextFamily+"|** "+userName+" "+publicEntry;
+	message = "entry.png|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+publicEntry;
 
 	// send login message
-	var login = setTimeout('sendData(displayMDiv);',1000);
+	setTimeout('sendData(displayMDiv);',1000);
 }
 
 /*
@@ -140,7 +140,7 @@ function roomlogout()
 	{
 		roomID = prevRoom;
 
-		message = "1|"+stextColor+"|"+stextSize+"|"+stextFamily+"|** "+userName+" "+publicExit;
+		message = "exit.png|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+publicExit;
 
 		// send logout message
 		sendData(displayMDiv);
@@ -1197,6 +1197,23 @@ $(function() {
         .on('click', '.scrollable', endScroll);
     $(document)
         .on('dblclick', '.userlist', openPmWindow);
+
+    $(document)
+        .on('mouseenter', '.roomname', function(e) {
+            var tip = $(
+                '<div class="floatingtooltip">' +
+                    $(this).text()+
+                '</div>'
+            );
+            tip.css('top', $(this).css('top')+20);
+            tip.css('left', $(this).closest('.userContainer').css('left'));
+            tip.css('position', 'absolute');
+            tip.css('z-index', 999);
+            $(this).append(tip);
+        })
+        .on('mouseleave', '.roomname', function(e) {
+            $(".floatingtooltip").remove();
+        });
 
     $("#toggle-userlist").click(function() {
         $("#rightContainer").toggle();

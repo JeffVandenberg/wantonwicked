@@ -1120,7 +1120,7 @@ body
 }
 
 .room-div {
-    width: 180px;
+    width: 190px;
     overflow:hidden;
     white-space: nowrap;
     float: left;
@@ -1143,4 +1143,17 @@ body
 
 .user-admin {
     color: #ff4f59;
+}
+
+.floatingtooltip {
+    border: solid 1px #000;
+    background-color: #ddd;
+    width: 236px;
+    padding: 5px;
+}
+
+#server-time {
+    margin: 0 auto;
+    width: 200px;
+    text-align: center;
 }

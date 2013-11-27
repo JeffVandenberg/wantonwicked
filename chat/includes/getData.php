@@ -420,20 +420,21 @@ try {
         );
         $query = <<<EOQ
 SELECT
-    id,
-    roomid,
-    roomname,
-    roomowner,
-    roomusers,
-    roomcreated,
-    room_type_id
+    R.id,
+    R.roomid,
+    R.roomname,
+    R.roomowner,
+    R.roomusers,
+    R.roomcreated,
+    R.room_type_id,
+    RT.room_icon
 FROM
-    prochatrooms_rooms
+    prochatrooms_rooms AS R
+    INNER JOIN prochatrooms_room_types AS RT ON R.room_type_id = RT.id
 WHERE
-    roomname != :userRoom
-    AND is_active = 1
+    is_active = 1
 ORDER BY
-    ABS(id) ASC
+    ABS(R.id) ASC
 EOQ;
     }
 
@@ -449,7 +450,7 @@ EOQ;
         $xml .= $i['roomowner'] . "||";
         $xml .= $i['roomusers'] . "||";
         $xml .= $i['room_type_id'] . "||";
-        $xml .= 'mini.gif' .'||'; //$i['room_icon'] . "||";
+        $xml .= $i['room_icon'] . "||";
 
         $deleteRoom = '0';
 

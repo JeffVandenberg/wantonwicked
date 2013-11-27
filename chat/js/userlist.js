@@ -339,15 +339,14 @@ function createRoomsdiv(room,roomid,icon)
 		var newdiv = document.createElement('div');
 
 		newdiv.setAttribute("id","room_"+roomid);
-		newdiv.className = "";
 		newdiv.innerHTML =
             '<div class="roomheader" onclick=toggleHeader("room_'+roomid+'");>' +
                 '<div class="room-div">' +
                     '<span style="float:left;">' +
                         '<img style="vertical-align:middle;" src="images/'+icon+'">&nbsp;' +
-                        '<span class="roomname">'+
+                        '<span class="roomname">' +
                             decodeURI(room.replace("+"," "))+
-                        '</span>&nbsp;' +
+                        '</span>'+
                     '</span>' +
                 '</div> ' +
                 '<span style="float:right;" class="usercount">' +
@@ -450,7 +449,7 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 		}
 		
 		// whisper
-		if(false) //whisperOn && uID != targetUserId)
+		if(whisperOn && uID != targetUserId)
 		{
 			// if user has no eCredits
 			// disable option to send webcam requests

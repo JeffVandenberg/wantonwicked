@@ -1300,7 +1300,7 @@ function logoutUser($userId, $room)
                 'mid' => 'chatContainer',
                 'username' => makeSafe($displayName),
                 'tousername' => '',
-                'message' => '1|#000000|12px|Verdana|** ' . makeSafe($displayName) . ' has logged out.',
+                'message' => 'logout.png|#000000|12px|Verdana|has logged out.',
                 'sfx' => 'beep_high.mp3',
                 'room' => makeSafe($room),
                 'messtime' => getTime()

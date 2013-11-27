@@ -216,7 +216,7 @@ if($_SESSION['eCreditsInit'])
 *
 */
 
-if(isset($_REQUEST['logout']) && isset($_SESSION['username']))
+if(isset($_REQUEST['logout']) && isset($_SESSION['user_id']))
 {
 	logoutUser($_SESSION['user_id'],$_SESSION['room']);
 
