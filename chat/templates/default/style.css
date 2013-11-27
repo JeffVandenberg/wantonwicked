@@ -1137,10 +1137,9 @@ body
     margin: 0 auto;
     width: 200px;
     text-align: center;
-    border: solid 1px;
-    background-color: #eef;
+    /*border: solid 1px;
+    background-color: #eef;*/
     padding: 2px;
-	color:#000000;
 }
 
 #server-time > label {
