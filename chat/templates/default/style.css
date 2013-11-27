@@ -278,7 +278,7 @@ body
 	float: left;
 	cursor:pointer;
 	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/grin_small.gif') no-repeat;
+    background: #666666 url('../../images/menu/grin_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 	
@@ -292,7 +292,7 @@ body
 	float: left;
 	cursor:pointer;
 	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/grin_small.gif') no-repeat;
+    background: #cccccc url('../../images/menu/grin_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 	
@@ -307,7 +307,7 @@ body
 	cursor:pointer;	
 	
 	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/bell_small.gif') no-repeat;
+    background: #666666 url('../../images/menu/bell_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 
@@ -322,7 +322,7 @@ body
 	cursor:pointer;	
 	
 	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/bell_small.gif') no-repeat;
+    background: #cccccc url('../../images/menu/bell_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 
@@ -337,7 +337,7 @@ body
 	cursor:pointer;
 	
 	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/styles_small.gif') no-repeat;
+    background: #666666 url('../../images/menu/styles_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -351,7 +351,7 @@ body
 	cursor:pointer;
 	
 	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/styles_small.gif') no-repeat;
+    background: #cccccc url('../../images/menu/styles_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -365,7 +365,7 @@ body
 	cursor:pointer;
 	
 	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/avatars_small.gif') no-repeat;
+    background: #666666 url('../../images/menu/avatars_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -379,7 +379,7 @@ body
 	cursor:pointer;
 	
 	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/avatars_small.gif') no-repeat;
+    background: #cccccc url('../../images/menu/avatars_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -393,7 +393,7 @@ body
 	cursor:pointer;
 	
 	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/sound_small.gif') no-repeat;
+    background: #666666 url('../../images/menu/sound_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -407,7 +407,7 @@ body
 	cursor:pointer;
 	
 	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/sound_small.gif') no-repeat;
+    background: #cccccc url('../../images/menu/sound_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -421,7 +421,7 @@ body
 	cursor:pointer;
 	
 	border: 1px solid #000000;
-    background: #666666 url('../../images/menu/transcripts_small.gif') no-repeat;
+    background: #666666 url('../../images/menu/transcripts_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -435,7 +435,7 @@ body
 	cursor:pointer;
 	
 	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/transcripts_small.gif') no-repeat;
+    background: #cccccc url('../../images/menu/transcripts_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -770,7 +770,6 @@ body
 	position:absolute;
 	visibility: hidden;
 	z-index: 100;
-	
 	-moz-border-radius: 5px;
 	border-radius: 5px;		
 }
@@ -783,7 +782,6 @@ body
 	background-color: #666666;
 	color: #FFFFFF;
 	cursor: pointer;
-	
 	-moz-border-radius: 5px;
 	border-radius: 5px;	
 }
