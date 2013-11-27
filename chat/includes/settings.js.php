@@ -587,3 +587,4 @@ if(isset($_SESSION['room']) && $CONFIG['singleRoom'])
 }
 ?>
 var roomText = '<?php echo $room; ?>';
+var textScale = 100;

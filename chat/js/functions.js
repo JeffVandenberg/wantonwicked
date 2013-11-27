@@ -438,6 +438,7 @@ function editSettings()
 		newdiv.innerHTML += '<div><input type="checkbox" id="entryExitID" onclick="updateUserSettings()"> '+lang48+'&nbsp;</div>';
 		newdiv.innerHTML += '<div><input type="checkbox" id="soundsID" onclick="updateUserSettings()"> '+lang49+'&nbsp;</div>';
 		newdiv.innerHTML += '<div><input type="checkbox" id="sfxID" onclick="updateUserSettings()"> '+lang50+'&nbsp;</div>';
+		newdiv.innerHTML += '<div><input type="text" id="textScale" onblur="updateUserSettings()" value="' + textScale + '" style="width:30px;"> Text Scale (100=Normal)</div>';
 		newdiv.innerHTML += '<div>&nbsp;</div>';
 		newdiv.innerHTML += '<div>&nbsp;</div>';
 		newdiv.innerHTML += '<div>&nbsp;'+lang51+': <select id="selectStatusID" onchange="sendStatus(this.value);"></select></div>';
@@ -465,8 +466,13 @@ function updateUserSettings()
 	userEntryExitSFX = document.getElementById('entryExitID').checked;
 	userNewMessageSFX = document.getElementById('soundsID').checked;
 	userSFX = document.getElementById('sfxID').checked;
-
-	createCookie('myOptions',encodeURI(userRPM+"|"+userRWebcam+"|"+userEntryExitSFX+"|"+userNewMessageSFX+"|"+userSFX),30);
+    textScale = $("#textScale").val();
+    if(!(parseInt(textScale) > 0)) {
+        textScale = 100;
+        $("#textScale").val(100);
+    }
+    $(".message-text-scale").css('font-size', (textScale / 100) + 'em');
+	createCookie('myOptions',encodeURI(userRPM+"|"+userRWebcam+"|"+userEntryExitSFX+"|"+userNewMessageSFX+"|"+userSFX+'|'+textScale),30);
 }
 
 /*
@@ -476,13 +482,10 @@ function updateUserSettings()
 
 function switchSettingsStatus(value,div)
 {
+    var newStatus = true;
 	if(value == 'false' || value == false)
 	{
-		var newStatus = false;
-	}
-	else
-	{
-		var newStatus = true;
+		newStatus = false;
 	}
 
 	document.getElementById(div).checked = newStatus;
