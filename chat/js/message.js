@@ -1012,8 +1012,19 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 			messageArray[4] = "<pre style='white-space: pre-wrap;'>"+messageArray[4]+"</pre>";
 		}
 
-		newMessage += "<span id='username' style='cursor:pointer;font-weight: bold;'>"+displayName+"</span>";
-		newMessage += "<span style='color:" + messageArray[1] + ";font-size:" + messageArray[2] + ";font-family:" + messageArray[3] + ";'>" + messageArray[4] + "</span>";
+        var fontEmSize = textScale / 100;
+		newMessage +=
+            "<span id='username' style='cursor:pointer;font-weight: bold;'>" +
+                '<span class="message-text-scale" style="font-size: ' + fontEmSize + 'em">' +
+                    displayName +
+                '</span>' +
+            "</span>";
+		newMessage +=
+            "<span style='color:" + messageArray[1] + ";font-size:" + messageArray[2] + ";font-family:" + messageArray[3] + ";'>" +
+                '<span class="message-text-scale" style="font-size: ' + fontEmSize + 'em">' +
+                    messageArray[4] +
+                '</span>' +
+            '</span>';
 
 		// shout filter
 		if(enableShoutFilter)
