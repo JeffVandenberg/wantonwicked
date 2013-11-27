@@ -83,9 +83,11 @@ var lastMessageID = <?php echo $lastMessageID;?>;
 				<?php echo C_LANG160;?>: <input class="whisper" type="text" id="whisperID">&nbsp;
 			</span>
 			<input type="checkbox" id="autoScrollID" checked><?php echo C_LANG135;?>&nbsp;
-            <div id="server-time"></div>
 			<span id="iconeCredits" class="iconeCredits" style="cursor:pointer;" onclick='showInfoBox("ecredits","550","600","25","templates/default/ecredits.php","");'><?php echo C_LANG109;?>: <span id="eCreditsID"></span></span>
 		</span>
+            <div id="time-wrapper">
+                <div id="server-time"></div>
+            </div>
 
             <input class="optionsSend" id="optionsSend" type="button" value="<?php echo C_LANG136;?>" onclick="addMessage('optionsBar','chatContainer')">
 

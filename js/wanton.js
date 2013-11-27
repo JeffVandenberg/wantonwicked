@@ -1,4 +1,3 @@
-var TimeNow = "";
 var difference = 0;
 function UpdateTime() {
     setTimeout("UpdateTime();", 1000);

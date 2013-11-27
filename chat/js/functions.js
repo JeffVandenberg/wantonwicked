@@ -1226,6 +1226,13 @@ $(function() {
             $("#optionsContainer").width($("#optionsContainer").width() - 236);
         }
     });
+
+    $.get('/server_time.php', null, function(time) {
+        var serverTime = new Date(time);
+        difference = new Date().getTime() - serverTime.getTime();
+        showClock();
+    });
+
 });
 
 function startScroll() {
@@ -1266,4 +1273,42 @@ function endScroll() {
 function openPmWindow() {
     //alert($(this).html());
     //createPChatDiv(userName,uUser,uuID,uID);
+}
+
+var difference = 0;
+function UpdateTime() {
+    setTimeout("UpdateTime();", 1000);
+    $("#server-time").html(MakeTime());
+}
+
+/**
+ * @return {string}
+ */
+function MakeTime() {
+    var timer = new Date(new Date().getTime() - difference);
+
+    var hhN = timer.getHours();
+    var hh, AP;
+    if (hhN > 12) {
+        hh = String(hhN - 12);
+        AP = "pm";
+    }
+    else if (hhN == 12) {
+        hh = "12";
+        AP = "pm";
+    }
+    else if (hhN == 0) {
+        hh = "12";
+        AP = "am";
+    }
+    else {
+        hh = String(hhN);
+        AP = "am";
+    }
+    var mm = String(timer.getMinutes());
+    return "<label>Server Time:</label> " + hh + ((mm < 10) ? ":0" : ":") + mm + AP;
+}
+
+function showClock() {
+    UpdateTime();
 }

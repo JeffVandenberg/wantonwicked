@@ -1152,8 +1152,22 @@ body
     padding: 5px;
 }
 
+#time-wrapper {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 2px;
+}
+
 #server-time {
     margin: 0 auto;
     width: 200px;
     text-align: center;
+    border: solid 1px;
+    background-color: #eef;
+    padding: 2px;
+}
+
+#server-time > label {
+    font-weight: bold;
 }
