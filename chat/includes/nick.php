@@ -27,7 +27,7 @@ $seed = mt_rand(100000,999999);
 $startTime = microtime(true);
 $dbh = db_connect();
 
-if(!isset($_SESSION['username'])) {
+if(!isset($_SESSION['user_id'])) {
     die();
 }
 

@@ -7,7 +7,47 @@ use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 
 include 'cgi-bin/start_of_page.php';
-echo date('U')*1000;
+
+$command = '"This is a Test" 8 Blood WP';
+preg_replace('\s+', ' ', $command);
+
+
+$response = array();
+$matches = array();
+$count = preg_match('"[\w\s]+"', $command, $matches);
+if($count == 0) {
+    $response['message'] = 'The format for the command is /nick "my action" <dice> [WP] [Blood]';
+}
+$action = $matches[0];
+$command = trim(str_replace('"'.$action.'"', '', $command));
+
+$spaceIndex = strpos($command, ' ');
+if($spaceIndex === false) {
+    $dice = $command;
+    $command = "";
+}
+else {
+    $dice = substr($command, 0, $spaceIndex);
+    $command = substr($command, $spaceIndex);
+}
+
+if((int)$dice == 0) {
+    $response['message'] = 'Text dice are not supported.. yet.';
+}
+
+$spendWP = (strpos($command, 'WP') !== false);
+$spendPP = (strpos($command, 'Blood') !== false);
+
+if($spendWP) {
+    $dice += 3;
+}
+
+if($spendPP) {
+    $dice +=2;
+}
+
+var_dump($action, $dice, $spendWP, $spendPP, $response);
+
 die();
 $repository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $repository */

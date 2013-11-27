@@ -266,6 +266,12 @@ function addMessage(inputMDiv,displayMDiv)
         return false;
     }
 
+    if(ircCommand[0] == '/dice') {
+        dice.roll(message, displayMDiv);
+        clrMessageInput(inputMDiv);
+        return false;
+    }
+
     // add bold font
 	if(mBold == 1)
 	{
@@ -1257,6 +1263,36 @@ nick.change = function(commandLine) {
                     // set nick information
                     userName = remainder;
                     updateDisplayName(uID, remainder, roomID);
+                }
+                else {
+                    alert(response.message);
+                }
+            }
+        );
+    }
+};
+
+var dice = {};
+dice.roll = function(commandLine, displayMDiv) {
+    var remainder = commandLine.substr(commandLine.indexOf(' ')+1);
+    if((commandLine == remainder) || (remainder == "")) {
+        alert('The format for the command is /nick "my action" <dice> [WP] [Blood]');
+    }
+    else {
+        var div = displayMDiv;
+        $.post(
+            '/chat/includes/dice.php',
+            {
+                action: 'roll',
+                command: remainder
+            },
+            function(response) {
+                if(response.status) {
+                    // send the message
+                    message = userAvatar+"|"+textColor+"|"+textSize+"|"+textFamily+"|"+response.message+"|1|0";
+                    // send data to database
+                    sendData(div);
+                    createMessageDiv('0', uID, displayMDiv, showMessages+1, message, sfx, userName, '',(new Date().getTime()/1000));
                 }
                 else {
                     alert(response.message);
