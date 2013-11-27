@@ -112,7 +112,7 @@ function addMessage(inputMDiv,displayMDiv)
 	}
 	
 	// anti spam filter for repeated messages
-	if(message == lastMessageTxt)
+	if((admin != 1) && (moderator != 1) && (message == lastMessageTxt))
 	{
 		var antiSpam  = "Sorry, your message has been marked as spam and will not be sent. Please do not send the same message repeatedly.";
 			
@@ -655,16 +655,8 @@ function handleMessages()
 			{
 				// firefox has a node limit of 4096 characters, so we 
 				// use textContent.length instead to get the user message
-				var userMessage = xmldoc.getElementsByTagName("usermessage")[i].textContent;							
+				userMessage = xmldoc.getElementsByTagName("usermessage")[i].textContent;
 			}
-			else
-			{
-				// all other browsers
-				if(xmldoc.getElementsByTagName("usermessage")[i].childNodes[0].nodeValue)
-				{
-					var userMessage = xmldoc.getElementsByTagName("usermessage")[i].childNodes[0].nodeValue;
-				}
-			}				
 
 			// split message data
 			var userMessageArray = userMessage.split("}{");

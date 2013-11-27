@@ -124,165 +124,6 @@ if ($CONFIG['moderatedChatPlugin']) {
 }
 
 /*
-* get users from database
-*
-*/
-
-// check users within last 5 mins
-$onlineTime = getTime() - 300;
-
-// set offline time
-$offlineTime = getTime() - $CONFIG['activeTimeout'];
-
-// get users
-try {
-    if ($_REQUEST['s']) { // if single room
-        $params = array(
-            'active' => $onlineTime,
-            'room' => makeSafe($_GET['roomID'])
-        );
-        $query = "SELECT id, username, userid, prevroom, room, avatar, webcam, active, online, status, watching, eCredits, guest, lastActive, userIP, admin, moderator, speaker, user_type_id
-				  FROM prochatrooms_users
-				  WHERE username != ''
-				  AND active > :active
-				  AND room = :room
-				  GROUP BY room, username ASC
-				";
-    }
-    else {
-        $params = array(
-            'active' => $onlineTime
-        );
-        $query = <<<EOQ
-SELECT
-    id,
-    username,
-    display_name,
-    userid,
-    prevroom,
-    room,
-    avatar,
-    webcam,
-    active,
-    online,
-    status,
-    watching,
-    eCredits,
-    guest,
-    lastActive,
-    userIP,
-    admin,
-    moderator,
-    speaker,
-    user_type_id
-FROM
-    prochatrooms_users
-WHERE
-    username != ''
-    AND online = '1'
-ORDER BY
-    room,
-    username ASC
-EOQ;
-
-    }
-    $action = $dbh->prepare($query);
-    $action->execute($params);
-    //CreateSiteLog($seed, 'Execute User Query', $startTime, $dbh);
-
-    foreach ($action as $i) {
-        $showAllUsers = 1;
-
-        if (invisibleAdmins($i['id'])) {
-            $showAllUsers = 0;
-        }
-
-        if ($showAllUsers == 1) {
-            $i['userid'] = empty($i['userid']) ? "0" : $i['userid'];
-            $i['room'] = empty($i['room']) ? "0" : $i['room'];
-
-            $xml .= '<userlist>';
-            $xml .= $i['id'] . "||"; // 0
-            $xml .= stripslashes($i['userid']) . "||"; // 1
-            $xml .= stripslashes($i['username']) . "||"; // 2
-            $xml .= stripslashes($i['display_name']) . "||"; // 3
-            $xml .= stripslashes($i['avatar']) . "||"; // 4
-            $xml .= $i['webcam'] . "||"; // 5
-            $xml .= $i['room'] . "||"; // 6
-            $xml .= $i['prevroom'] . "||"; // 7
-            $xml .= $i['admin'] . "||"; // 8
-            $xml .= $i['moderator'] . "||"; // 9
-            $xml .= $i['speaker'] . "||"; // 10
-
-            // set user to online
-            $onlineStatus = '1';
-
-            // if user hasnt been active within $offlineTime
-            if ($i['active'] < $offlineTime) {
-                // set user to offline
-                $onlineStatus = '0';
-
-                if ($i['online'] == '1') {
-                    // update user status
-                    logoutUser($i['id'], $i['room']);
-                }
-            }
-
-            $xml .= $onlineStatus . "||"; // 11
-            $xml .= $i['status'] . "||"; // 12
-
-            if (!$i['watching']) {
-                $i['watching'] = '0';
-            }
-
-            $xml .= $i['watching'] . "||"; //13
-            $xml .= $CONFIG['eCreditsOn'] . "||"; // 14
-            $xml .= $i['eCredits'] . "||"; // 15
-            $xml .= $_SESSION['groupCams'] . "||"; // 16
-            $xml .= $_SESSION['groupWatch'] . "||"; // 17
-            $xml .= $_SESSION['groupChat'] . "||"; // 18
-            $xml .= $_SESSION['groupPChat'] . "||"; // 19
-            $xml .= $_SESSION['groupRooms'] . "||"; // 20
-            $xml .= $_SESSION['groupVideo'] . "||"; // 21
-            $xml .= $i['active'] . "||"; // 22
-            $xml .= $i['lastActive'] . "||"; // 23
-
-            // if admin or mod, show users IP
-            $ip = "0";
-
-            if ($admin || $mod) {
-                $ip = $i['userIP'];
-            }
-
-            $xml .= $ip . "||"; // 24
-            $xml .= $i['user_type_id'] . "||"; // 25
-
-            $xml .= '</userlist>';
-        }
-    }
-} catch (PDOException $e) {
-    $error = "Action: Get Users\n";
-    $error .= "File: " . basename(__FILE__) . "\n";
-    $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-    debugError($error);
-}
-
-// update room user count
-$query = <<<EOQ
-UPDATE prochatrooms_rooms AS R set roomusers = (
-    SELECT
-        count(*)
-    FROM
-        prochatrooms_users AS U
-    WHERE
-        U.room = R.id
-        AND U.online = 1
-)
-EOQ;
-
-$dbh->query($query)->execute();
-
-/*
 * get messages from database
 *
 */
@@ -400,6 +241,163 @@ EOQ;
     debugError($error);
 }
 
+/*
+* get users from database
+*
+*/
+
+// check users within last 5 mins
+$onlineTime = getTime() - 300;
+
+// set offline time
+$offlineTime = getTime() - $CONFIG['activeTimeout'];
+
+// get users
+try {
+    if ($_REQUEST['s']) { // if single room
+        $params = array(
+            'active' => $onlineTime,
+            'room' => makeSafe($_GET['roomID'])
+        );
+        $query = "SELECT id, username, userid, prevroom, room, avatar, webcam, active, online, status, watching, eCredits, guest, lastActive, userIP, admin, moderator, speaker, user_type_id
+				  FROM prochatrooms_users
+				  WHERE username != ''
+				  AND active > :active
+				  AND room = :room
+				  GROUP BY room, username ASC
+				";
+    }
+    else {
+        $params = array(
+            'active' => $onlineTime
+        );
+        $query = <<<EOQ
+SELECT
+    id,
+    username,
+    display_name,
+    userid,
+    prevroom,
+    room,
+    avatar,
+    webcam,
+    active,
+    online,
+    status,
+    watching,
+    eCredits,
+    guest,
+    lastActive,
+    userIP,
+    admin,
+    moderator,
+    speaker,
+    user_type_id
+FROM
+    prochatrooms_users
+WHERE
+    username != ''
+    AND active > :active
+ORDER BY
+    room,
+    username ASC
+EOQ;
+
+    }
+    $action = $dbh->prepare($query);
+    $action->execute($params);
+
+    foreach ($action as $i) {
+        $showAllUsers = 1;
+
+        if (invisibleAdmins($i['id'])) {
+            $showAllUsers = 0;
+        }
+
+        if ($showAllUsers == 1) {
+            $i['userid'] = empty($i['userid']) ? "0" : $i['userid'];
+            $i['room'] = empty($i['room']) ? "0" : $i['room'];
+
+            $xml .= '<userlist>';
+            $xml .= $i['id'] . "||"; // 0
+            $xml .= stripslashes($i['userid']) . "||"; // 1
+            $xml .= stripslashes($i['username']) . "||"; // 2
+            $xml .= stripslashes($i['display_name']) . "||"; // 3
+            $xml .= stripslashes($i['avatar']) . "||"; // 4
+            $xml .= $i['webcam'] . "||"; // 5
+            $xml .= $i['room'] . "||"; // 6
+            $xml .= $i['prevroom'] . "||"; // 7
+            $xml .= $i['admin'] . "||"; // 8
+            $xml .= $i['moderator'] . "||"; // 9
+            $xml .= $i['speaker'] . "||"; // 10
+
+            // set user to online
+            $onlineStatus = '1';
+
+            // if user hasnt been active within $offlineTime
+            if ($i['active'] < $offlineTime) {
+                // set user to offline
+                $onlineStatus = '0';
+
+                if ($i['online'] == '1') {
+                    // update user status
+                    logoutUser($i['id'], $i['room']);
+                }
+            }
+
+            $xml .= $onlineStatus . "||"; // 11
+            $xml .= $i['status'] . "||"; // 12
+
+            if (!$i['watching']) {
+                $i['watching'] = '0';
+            }
+
+            $xml .= $i['watching'] . "||"; //13
+            $xml .= $CONFIG['eCreditsOn'] . "||"; // 14
+            $xml .= $i['eCredits'] . "||"; // 15
+            $xml .= $_SESSION['groupCams'] . "||"; // 16
+            $xml .= $_SESSION['groupWatch'] . "||"; // 17
+            $xml .= $_SESSION['groupChat'] . "||"; // 18
+            $xml .= $_SESSION['groupPChat'] . "||"; // 19
+            $xml .= $_SESSION['groupRooms'] . "||"; // 20
+            $xml .= $_SESSION['groupVideo'] . "||"; // 21
+            $xml .= $i['active'] . "||"; // 22
+            $xml .= $i['lastActive'] . "||"; // 23
+
+            // if admin or mod, show users IP
+            $ip = "0";
+
+            if ($admin || $mod) {
+                $ip = $i['userIP'];
+            }
+
+            $xml .= $ip . "||"; // 24
+            $xml .= $i['user_type_id'] . "||"; // 25
+
+            $xml .= '</userlist>';
+        }
+    }
+} catch (PDOException $e) {
+    $error = "Action: Get Users\n";
+    $error .= "File: " . basename(__FILE__) . "\n";
+    $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+    debugError($error);
+}
+
+// update room user count
+$query = <<<EOQ
+UPDATE prochatrooms_rooms AS R set roomusers = (
+    SELECT
+        count(*)
+    FROM
+        prochatrooms_users AS U
+    WHERE
+        U.room = R.id
+        AND U.online = 1
+)
+EOQ;
+
+$dbh->query($query)->execute();
 /*
 * get rooms from database
 * 

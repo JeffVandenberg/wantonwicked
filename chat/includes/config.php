@@ -236,4 +236,3 @@ $CONFIG['debug'] = '1';
 */
 
 include("version.php");
-?>
