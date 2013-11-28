@@ -110,7 +110,7 @@ To send a message to other chat room users, type your message in the message box
 In the message bar, type: /dice roll "<i>action</i>" <i>dice</i> (be sure to include the quotes around your action). This command allows you to simulate rolling dice in the chat room. For example, type <i>/dice roll "attack monster" 7</i> to generate your results. <br>
 You can also add a dice modifier to the roll. For example, Willpower: /dice roll "action" dice <i>WP</i><br><br>
 1a) /dice roll initiative<br>
-In the message bar, type: <i>/dice roll initiative</i> (the word, not your initiative modifier). This command sllows you to simulate rolling initiative and will automatically take into account your initiative modifier if you are logged in as a character.<br><br>
+In the message bar, type: <i>/dice roll initiative</i> (the word, not your initiative modifier). This command sllows you to simulate rolling initiative and will automatically take into account your initiative modifier if you are logged in as a character. If your base initiative modifier has been adjusted by an ability or merit, type: /dice roll initiative +<i>number</i><br><br>
 1b) /dice list<br>
 In the message bar, type <i>/dice list</i> to display the most recent dice rolls from the chat.<br><br>/dice and /dice help will pop up a reminder for this syntax.<br><br>
 2) /me <i>message</i><br>
