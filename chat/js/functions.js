@@ -1218,6 +1218,18 @@ $(function() {
             $(".floatingtooltip").remove();
         });
 
+    $(document)
+        .on('click', '.chat-viewable', function() {
+            $("#sub-panel").load($(this).attr('href'), function() {
+                $(this).dialog({
+                    width: 550,
+                    height: 400,
+                    title: 'View Detail'
+                });
+            });
+            return false;
+        });
+
     $("#toggle-userlist").click(function() {
         $("#rightContainer").toggle();
         if($("#rightContainer").css("display") == 'none') {

@@ -2709,9 +2709,11 @@ WHERE
     M.id >= :transcriptID
 	AND
 	(
-	    M.room = :room
+	    (M.room = :room AND to_user_id = 0)
 	    OR
-	    M.to_user_id = :userid
+	    (M.to_user_id = :userid)
+	    OR
+	    (M.uid = :userid AND to_user_id > 0)
     )
 EOQ;
 

@@ -37,7 +37,7 @@ ini_set("error_log",dirname (__FILE__)."/error_log.txt");
 
 if(phpversion() >= '5.1.0')
 {
-	date_default_timezone_set("UTC");
+	date_default_timezone_set("America/Chicago");
 }
 
 ?>

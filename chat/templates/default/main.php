@@ -6,11 +6,11 @@
 <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template']; ?>/jquery-ui.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/vader/jquery-ui-1.10.3.custom.min.css">
 <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template'];?>/style.css">
-<script type="text/javascript" src="/chat/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="/chat/js/sortelements.js"></script>
-<script type="text/javascript" src="/chat/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="/chat/includes/lang.js.php"></script>
 <script type="text/javascript" src="/chat/includes/settings.js.php"></script>
 <script type="text/javascript" src="/chat/js/XmlHttpRequest.js"></script>
@@ -119,6 +119,6 @@ var lastMessageID = <?php echo $lastMessageID;?>;
 </div>
 
 <div id="oInfo" class="oInfo"></div>
-
+<div id="sub-panel" style="display:none;"></div>
 </body>
 </html>

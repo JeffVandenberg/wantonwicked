@@ -1122,23 +1122,17 @@ body
     border: solid 1px #000;
     background-color: #ddd;
 	border-radius:4px;
-    width: 236px;
+    width: 224px;
     padding: 5px;
 }
 
-#time-wrapper {
-    width: 100%;
-    text-align: center;
+#server-time {
     position: absolute;
     bottom: 2px;
-}
-
-#server-time {
-    margin: 0 auto;
+    left: 50%;
+    margin-left: -100px;
     width: 200px;
     text-align: center;
-    /*border: solid 1px;
-    background-color: #eef;*/
     padding: 2px;
 }
 

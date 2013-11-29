@@ -204,7 +204,7 @@ function addMessage(inputMDiv,displayMDiv)
 	}
 
 	// IRC roll dice
-	if(ircCommand[0] == '/roll') {
+	/*if(ircCommand[0] == '/roll') {
 		// check /roll contains dice (eg. 2d4) 
 		if(!ircCommand[1] || ircCommand[1].replace(/\s/g,"") == "")
 		{
@@ -242,8 +242,7 @@ function addMessage(inputMDiv,displayMDiv)
 		diceScore = "( Result: "+singleRoll+", "+diceModifier+" Total: "+Number(totalRoll+diceModifier)+" )";
 
 		message = message +" "+diceScore;
-
-	}
+	}*/
 
     // IRC madness
     if(ircCommand[0] == '/madness') {
@@ -267,9 +266,25 @@ function addMessage(inputMDiv,displayMDiv)
     }
 
     if(ircCommand[0] == '/dice') {
-        dice.roll(message, displayMDiv);
-        clrMessageInput(inputMDiv);
-        return false;
+        if(ircCommand.length == 1) {
+            dice.help();
+            return false;
+        }
+        if(ircCommand[1].toLowerCase() == 'roll') {
+            dice.roll(message, displayMDiv);
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else if(ircCommand[1].toLowerCase() == 'list') {
+            dice.listRolls();
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else if(ircCommand[1].toLowerCase() == 'help') {
+            dice.help();
+            clrMessageInput(inputMDiv);
+            return false;
+        }
     }
 
     // add bold font
@@ -1272,32 +1287,54 @@ nick.change = function(commandLine) {
     }
 };
 
-var dice = {};
-dice.roll = function(commandLine, displayMDiv) {
-    var remainder = commandLine.substr(commandLine.indexOf(' ')+1);
-    if((commandLine == remainder) || (remainder == "")) {
-        alert('The format for the command is /nick "my action" <dice> [WP] [Blood]');
-    }
-    else {
-        var div = displayMDiv;
-        $.post(
-            '/chat/includes/dice.php',
-            {
-                action: 'roll',
-                command: remainder
-            },
-            function(response) {
-                if(response.status) {
-                    // send the message
-                    message = userAvatar+"|"+textColor+"|"+textSize+"|"+textFamily+"|"+response.message+"|1|0";
-                    // send data to database
-                    sendData(div);
-                    createMessageDiv('0', uID, displayMDiv, showMessages+1, message, sfx, userName, '',(new Date().getTime()/1000));
-                }
-                else {
-                    alert(response.message);
-                }
+var dice = {
+    roll:  function(commandLine, displayMDiv) {
+        var remainder = commandLine.substr(commandLine.indexOf('roll ')+5);
+        if((commandLine == remainder) || (remainder == "")) {
+            this.helpRoll();
+        }
+        else {
+            var div = displayMDiv;
+            var action = 'roll';
+            var parts = remainder.split(' ');
+            if((parts[0].toLowerCase() == 'init') || (parts[0] == 'initiative')) {
+                action = 'initiative'
             }
-        );
+            $.post(
+                '/chat/includes/dice.php',
+                {
+                    action: action,
+                    command: remainder
+                },
+                function(response) {
+                    if(response.status) {
+                        // send the message
+                        message = userAvatar+"|"+textColor+"|"+textSize+"|"+textFamily+"|"+response.message+"|1|0";
+                        // send data to database
+                        sendData(div);
+                        createMessageDiv('0', uID, displayMDiv, showMessages+1, message, sfx, userName, '',(new Date().getTime()/1000));
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                }
+            );
+        }
+    },
+    listRolls: function() {
+        alert('here');
+        $("#sub-panel").load('/dieroller.php?action=list', function() {
+            $(this).dialog({
+                width: 500,
+                height: 500,
+                title: 'Recent Rolls'
+            });
+        })
+    },
+    help: function() {
+        alert('Valid options for the /dice command are:\n - roll\n - list');
+    },
+    helpRoll: function() {
+        alert('The format for the command is /dice roll "my action" <dice> [WP] [Blood]');
     }
 };
