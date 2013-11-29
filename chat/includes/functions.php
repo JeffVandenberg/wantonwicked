@@ -760,11 +760,11 @@ function updateGuestAvatar($loginGender)
             'avatar' => makeSafe($loginGender),
             'userIP' => $_SERVER['REMOTE_ADDR'],
             'guest' => $_SESSION['guest'],
-            'username' => makeSafe($_SESSION['username']),
+            'id' => $_SESSION['user_id'],
         );
         $query = "UPDATE prochatrooms_users 
 				  SET avatar = :avatar, userIP = :userIP, guest = :guest
-				  WHERE username = :username
+				  WHERE id = :id
 				  ";
         $action = $dbh->prepare($query);
         $action->execute($params);
@@ -1004,12 +1004,12 @@ function prevRoom()
             $params = array(
                 'prevroom' => makeSafe($prevRoom),
                 'status' => '1',
-                'username' => makeSafe($_SESSION['username']),
+                'id' => $_SESSION['user_id'],
             );
             $query = "UPDATE prochatrooms_users 
 					  SET prevroom = :prevroom, 
 					  status = :status    
-					  WHERE username = :username
+					  WHERE id = :id
 					  ";
             $action = $dbh->prepare($query);
             $action->execute($params);
@@ -1413,11 +1413,11 @@ function adminPermissions()
     try {
         $dbh = db_connect();
         $params = array(
-            'username' => makeSafe($_SESSION['username'])
+            'id' => $_SESSION['user_id']
         );
         $query = "SELECT admin, moderator, speaker, user_type_id
 				  FROM prochatrooms_users 
-				  WHERE username = :username
+				  WHERE id = :id
 				  LIMIT 1
 				  ";
         $action = $dbh->prepare($query);
@@ -2263,7 +2263,7 @@ function eCredits($id)
 {
     // include files
     include(getDocPath() . "includes/config.php");
-
+    /* @var array $CONFIG */
     // if eCredits session not set
     if (!$_SESSION['eCredits_start']) {
         $_SESSION['eCredits_start'] = date("U");
