@@ -27,7 +27,7 @@
 </head>
 <body class="body" style="margin: 0 0 0 0;">
 
-<?php echo @getTranscripts($_GET['roomID']); ?>
+<?php echo getTranscripts($_GET['roomID']); ?>
 
 <!-- do not edit below -->
 <p style="text-align:center;">

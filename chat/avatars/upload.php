@@ -188,11 +188,11 @@ function updateAvatar()
 		try {
 			$dbh = db_connect();
 			$params = array(
-			'username' => $_SESSION['username']
+			'id' => $_SESSION['user_id']
 			);
 			$query = "SELECT id, avatar  
 					  FROM prochatrooms_users 
-					  WHERE username = :username
+					  WHERE id = :id
 					  LIMIT 1
 					";							
 			$action = $dbh->prepare($query);
@@ -261,11 +261,11 @@ function updateAvatar()
 		$dbh = db_connect();
 		$params = array(
 		'avatar' => $uploadfile,
-		'username' => $_SESSION['username']
+		'id' => $_SESSION['user_id']
 		);
 		$query = "UPDATE prochatrooms_users 
 				  SET avatar = :avatar 
-				  WHERE username = :username
+				  WHERE id = :id
 				  ";							
 		$action = $dbh->prepare($query);
 		$action->execute($params);	

@@ -20,6 +20,7 @@ include("../../includes/db.php");
 include("../../includes/config.php");
 include("../../includes/functions.php");
 header("content-type: application/x-javascript");
+/* @var array $CONFIG */
 
 /*
 * assign hidden status
@@ -30,7 +31,7 @@ $id = 0;
 
 if(($CONFIG['invisibleAdminsPlugin']) && ($_SESSION['is_invisible']))
 {
-	$id = getAdmin($_SESSION['username']);
+	$id = getAdmin($_SESSION['user_id']);
 }
 
 /*
@@ -39,9 +40,6 @@ if(($CONFIG['invisibleAdminsPlugin']) && ($_SESSION['is_invisible']))
 */
 
 if($_SESSION['is_invisible']) {
-    die('invisible');
-
-echo " var invisibleOn = ".$CONFIG['invisibleAdminsPlugin']."; ";
-echo " var hide = ".$id."; ";
+    echo " var invisibleOn = ".$CONFIG['invisibleAdminsPlugin']."; ";
+    echo " var hide = ".$id."; ";
 }
-?>

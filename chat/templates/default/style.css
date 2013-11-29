@@ -18,7 +18,7 @@ body
 {
 	margin: 0 0 0 2px; 
 	padding: 0 0 0 0;
-    background: #333333 url('../../templates/default/images/background.jpg') repeat;
+    background: #666666 url('../../templates/default/images/bg1.jpg') repeat;
     font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	font-style: normal;
@@ -79,15 +79,14 @@ body
 { 
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 1px solid #000000;
+	/*border: 1px solid #000000;*/
 	top: 106px;
 	right: 5px;
 	position:absolute;
-	background-color: #333333;
+	/*background-color: #666666;*/
 	overflow-y: auto;
 	overflow-x: hidden;
 	color: #ffffff;
-	
 	-moz-border-radius: 5px;
 	border-radius: 5px;		
 }
@@ -101,12 +100,8 @@ body
 	height: 65px;
 	width: 475px;
 	position:absolute;
-	border: 1px solid #666666; 
-	background-color: #999999; 
+	border: 0px solid #666666; 
 	visibility: hidden;
-	
-	-moz-border-radius: 0 0 8px 8px;
-	border-radius: 0 0 8px 8px;
 }
 
 .logoContainer 
@@ -126,14 +121,15 @@ body
 { 
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 1px solid #000000; 
+	/*border: 1px solid #000000; */
 	left: 5px;
 	bottom: 5px;
 	height: 120px;
 	position:absolute;
-    background: #999999 url('../../templates/default/images/bg2.jpg') repeat;
+    /*background: #999999 url('../../templates/default/images/bg2.jpg') repeat;*/
     -moz-border-radius: 8px;
-	border-radius: 8px;		
+	border-radius: 8px;	
+	color:#ffffff;	
 } 
 
 /*
@@ -229,7 +225,6 @@ body
 	width: 100%;
 	position:absolute;
 	background-color: #FFFFFF;
-	
 	-moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -245,12 +240,9 @@ body
 	width: 80px;
 	position:absolute;
     cursor:pointer;
-
 	font-weight: bold;
 	color: #FFFFFF;
-
     background: #FFFFFF url('../../templates/default/images/send.jpg') repeat-x;
-
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -266,12 +258,9 @@ body
 	width: 80px;
 	position:absolute;
     cursor:pointer;
-	
 	font-weight: bold;
 	color: #FFFFFF;
-
     background: #FFFFFF url('../../templates/default/images/logout.jpg') repeat-x;
-
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -285,12 +274,10 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
-	
-	border: 1px solid #000000;
-    background: #dddddd url('../../images/menu/grin_small.gif') no-repeat;
+	background: url('../../images/menu/grin_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 	
@@ -300,12 +287,10 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
-	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/grin_small.gif') no-repeat;
+	background: url('../../images/menu/grin.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 	
@@ -315,12 +300,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;	
 	
-	border: 1px solid #000000;
-    background: #dddddd url('../../images/menu/bell_small.gif') no-repeat;
+	background: url('../../images/menu/bell_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 
@@ -330,12 +314,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;	
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/bell_small.gif') no-repeat;
+	background: url('../../images/menu/bell.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 
@@ -345,12 +328,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/styles_small.gif') no-repeat;
+	background: url('../../images/menu/styles_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -359,12 +341,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/styles_small.gif') no-repeat;
+	background: url('../../images/menu/styles.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -373,12 +354,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #dddddd url('../../images/menu/avatars_small.gif') no-repeat;
+	background: url('../../images/menu/avatars_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -387,12 +367,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/avatars_small.gif') no-repeat;
+	background: url('../../images/menu/avatars.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -401,12 +380,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #dddddd url('../../images/menu/sound_small.gif') no-repeat;
+	background: url('../../images/menu/sound_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -415,12 +393,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/sound_small.gif') no-repeat;
+	background: url('../../images/menu/sound.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -429,12 +406,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #dddddd url('../../images/menu/transcripts_small.gif') no-repeat;
+	background: url('../../images/menu/transcripts_small.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -443,12 +419,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url('../../images/menu/transcripts_small.gif') no-repeat;
+	background: url('../../images/menu/transcripts.png') no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -457,12 +432,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #dddddd url(../../images/menu/help_small.gif) no-repeat;
+	background: url(../../images/menu/help_small.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -471,19 +445,18 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url(../../images/menu/help_small.gif) no-repeat;
+	background: url(../../images/menu/help.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;	
 }
 
 .iconeCredits
 {
-    background: url(../../images/menu/timer.gif) no-repeat;
+    background: url(../../images/menu/timer.png) no-repeat;
     height: 18px;
 	width: 18px;
 	padding-top: 2px;
@@ -494,12 +467,10 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
-	
-	border: 1px solid #666666;
-    background: #CCCCCC url(../../plugins/games/games.gif) no-repeat;
+    background: url(../../plugins/games/games.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -508,12 +479,12 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
 	border: 1px solid #CCCCCC;
-    background: #666666 url(../../plugins/games/games.gif) no-repeat;
+    background: #666666 url(../../plugins/games/games.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -522,12 +493,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #dddddd url(../../images/share.gif) no-repeat;
+	background: url(../../images/share.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -536,12 +506,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url(../../images/share.gif) no-repeat;
+	background: url(../../images/share_over.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -550,12 +519,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #dddddd url(../../images/eraser.gif) no-repeat;
+	background: url(../../images/eraser.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -564,12 +532,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url(../../images/eraser.gif) no-repeat;
+	background: url(../../images/eraser_over.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -578,12 +545,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #dddddd url(../../images/edit.gif) no-repeat;
+	background: url(../../images/edit.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -592,12 +558,11 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #000000;
-    background: #cccccc url(../../images/edit.gif) no-repeat;
+	background: url(../../images/edit_over.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -606,12 +571,12 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
 	border: 1px solid #666666;
-    background: #CCCCCC url(../../images/copyright.gif) no-repeat;
+    background: #666666 url(../../images/copyright.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -620,12 +585,12 @@ body
 {
     height: 24px;
 	width: 24px;
-	margin-left: 2px;
+	margin-left: 5px;
 	float: left;
 	cursor:pointer;
 	
 	border: 1px solid #CCCCCC;
-    background: #666666 url(../../images/copyright.gif) no-repeat;
+    background: #666666 url(../../images/copyright.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -783,7 +748,6 @@ body
 	position:absolute;
 	visibility: hidden;
 	z-index: 100;
-	
 	-moz-border-radius: 5px;
 	border-radius: 5px;		
 }
@@ -796,7 +760,6 @@ body
 	background-color: #666666;
 	color: #FFFFFF;
 	cursor: pointer;
-	
 	-moz-border-radius: 5px;
 	border-radius: 5px;	
 }
@@ -816,9 +779,19 @@ body
 .roomheader
 {
 	height: 20px;
-	background: #cccccc url('../../templates/default/images/rooms.jpg') repeat;
-	border: 0 solid #666666;
-	padding: 4px 4px 0 4px;
+	background: #dddddd; /* Old browsers */
+	background: -moz-linear-gradient(top,  #dddddd 0%, #cccccc 9%, #666666 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(9%,#cccccc), color-stop(100%,#666666)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #dddddd 0%,#cccccc 9%,#666666 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #dddddd 0%,#cccccc 9%,#666666 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #dddddd 0%,#cccccc 9%,#666666 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #dddddd 0%,#cccccc 9%,#666666 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#666666',GradientType=0 ); /* IE6-9 */
+	border-top: 1 solid #000;
+	/*border-top-right-radius:5px;
+	border-top-left-radius:5px;*/
+	border-radius:5px;
+	padding-top: 2px;
 	cursor: pointer;
 	font-weight: normal;
 	color: #000000;
@@ -827,12 +800,13 @@ body
 .usercount
 {
 	color: #000;
+	padding-right:2px;
 }
 
 .userlist
 {
 	height: 26px;
-	padding: 2px 0 0 4px;
+	padding: 2px 0 0 0;
 	cursor: pointer;
 }
 
@@ -1001,6 +975,7 @@ body
 	background-color: #eeeeee;
 	min-height: 40px;
 	height: auto;
+	clear:both;
 }
 
 .whisperMessage
@@ -1058,7 +1033,6 @@ body
 	visibility: hidden;
 	overflow-y: auto;
 	overflow-x: auto;
-	
 	-moz-border-radius: 8px;
 	border-radius: 8px;		
 }
@@ -1076,7 +1050,6 @@ body
 	background-color: #666666;
 	color: #FFFFFF;
 	cursor: pointer;
-	
 	-moz-border-radius: 5px;
 	border-radius: 5px;		
 }
@@ -1105,7 +1078,6 @@ body
 	height: 14px;
 	background-color: #FFFFFF;
 	border: 1px solid #000000;
-	
 	-moz-border-radius: 5px;
 	border-radius: 5px;	
 }
@@ -1121,7 +1093,7 @@ body
 }
 
 .room-div {
-    width: 180px;
+    width: 190px;
     overflow:hidden;
     white-space: nowrap;
     float: left;
@@ -1131,5 +1103,39 @@ body
 }
 
 .st-user {
-    color: #2a9fff;
+    color: #6dcff6;
+}
+
+.user-storyteller {
+    color: #6dcff6;
+}
+
+.user-wiki {
+    color: #79d572;
+}
+
+.user-admin {
+    color: #f94f55;
+}
+
+.floatingtooltip {
+    border: solid 1px #000;
+    background-color: #ddd;
+	border-radius:4px;
+    width: 224px;
+    padding: 5px;
+}
+
+#server-time {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    margin-left: -100px;
+    width: 200px;
+    text-align: center;
+    padding: 2px;
+}
+
+#server-time > label {
+    font-weight: bold;
 }

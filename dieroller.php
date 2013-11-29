@@ -37,6 +37,9 @@ include 'user_panel.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
+        case 'list':
+            include 'includes/dieroller_list.php';
+            break;
         case 'character':
             include 'includes/dieroller_character.php';
             break;

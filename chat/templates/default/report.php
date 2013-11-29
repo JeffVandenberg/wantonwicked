@@ -2,11 +2,30 @@
 // include files
 include("../../includes/session.php");
 include("../../includes/functions.php");
+include("../../includes/db.php");
 include("../../lang/".getLang(''));
 // captcha
 $showCaptcha = getCaptchaText();
+
+$targetUserId = $_REQUEST['id'];
+$sql = <<<EOQ
+SELECT
+    username
+FROM
+    prochatrooms_users
+WHERE
+    id = ?
+EOQ;
+
+$db = db_connect();
+$query = $db->prepare($sql);
+$query->execute(array($targetUserId));
+$user = $query->fetch(PDO::FETCH_ASSOC);
+
 // send email
-if($_POST){$result = sendAdminEmail('1',$_POST['id'],$_POST['report']);}
+if($_POST) {
+    $result = sendAdminEmail('1',$_POST['id'],$user['username'], $_POST['report']);
+}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
@@ -20,7 +39,7 @@ if($_POST){$result = sendAdminEmail('1',$_POST['id'],$_POST['report']);}
 
 .table
 {
-	border: 0px;
+	border: 0;
 }
 
 .header
@@ -38,7 +57,7 @@ if($_POST){$result = sendAdminEmail('1',$_POST['id'],$_POST['report']);}
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0;
 	background-color: #CCCCCC;	
-	font-family: Verdana, Arial;
+	font-family: Verdana, Arial, sans-serif;
 	font-size: 12px;
 	font-style: normal;
 }
@@ -93,27 +112,27 @@ if($_POST){$result = sendAdminEmail('1',$_POST['id'],$_POST['report']);}
 	<div class="header" style='float:right;cursor:pointer;' onclick="parent.closeMdiv('report');"><img src='../../images/close.gif'></div>
 </div>
 
-<?php if(!$_POST){?>
+<?php if(!$_POST): ?>
 
 	<form style="padding: 0 0 0 3px;" method="post" name="report" action="report.php">
 		<input type="hidden" name="sCaptcha" value="<?php echo $showCaptcha;?>">
 		<input type="hidden" name="id" value="<?php echo $_REQUEST['id'];?>">
 		<span><?php echo C_LANG154;?>,</span><br><br>
 		<table class="table">
-		<tr><td><?php echo C_LANG54;?>:</td><td><?php echo $_REQUEST['id'];?></td></tr>
+		<tr><td><?php echo C_LANG54;?>:</td><td><?php echo $user['username'];?></td></tr>
 		<tr><td valign="top"><?php echo C_LANG155;?>:</td><td><textarea class="sInput" name="report" value=""></textarea></td></tr>
 		<tr><td><?php echo C_LANG156;?>:</td><td><input class="sCode" type="text" size="6" name="uCaptcha" value="">&nbsp;<span class="sCaptcha"><?php echo $showCaptcha;?></span></td></tr>
 		<tr><td>&nbsp;</td><td><input class="sbutton" type="submit" name="send" value="<?php echo C_LANG136;?>"></td></tr>
 		</table>
 	</form>
 
-<?php }else{ ?>
+<?php else: ?>
 
 	<p>&nbsp;<?php echo $result;?></p>
 
 	<p>&nbsp;</p>
 
-<?php }?>
+<?php endif; ?>
 
 <!-- do not edit below -->
 <p style="text-align:center;">

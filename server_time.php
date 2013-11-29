@@ -7,4 +7,4 @@
  * To change this template use File | Settings | File Templates.
  */
 
-echo microtime(true);
+echo date('Y-m-d H:i:s');

@@ -25,10 +25,10 @@ function initAll()
 	}
 
 	var entryWelcome = "../images/notice.gif|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+publicWelcome+"|1";
-	var entryNotice = "1|"+stextColor+"|"+stextSize+"|"+stextFamily+"|** "+userName+" "+publicEntry;
+	var entryNotice = "entry.png|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+publicEntry;
 	var entryMessages = "../images/notice.gif|"+stextColor+"|"+stextSize+"|"+stextFamily+"|Displaying last messages ...|1";
 
-	createMessageDiv('1',uID,displayMDiv,1,entryWelcome,'doorbell.mp3','','');
+	createMessageDiv('1',uID,displayMDiv,1,entryWelcome,'doorbell.mp3','','','');
 
 	if(invisibleOn == 1 && (admin == 1 && hide == 1))
 	{
@@ -38,7 +38,7 @@ function initAll()
 	{
 		if(dispLastMess > 1)
 		{
-			createMessageDiv('0',uID,displayMDiv,2,entryMessages,'beep_high.mp3','','');
+			createMessageDiv('0',uID,displayMDiv,2,entryMessages,'beep_high.mp3','','','');
 		}
 
 		roomlogout();
@@ -119,10 +119,10 @@ function roomlogin()
 {
 	roomID = currRoom;
 
-	message = "1|"+stextColor+"|"+stextSize+"|"+stextFamily+"|** "+userName+" "+publicEntry;
+	message = "entry.png|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+publicEntry;
 
 	// send login message
-	var login = setTimeout('sendData(displayMDiv);',1000);
+	setTimeout('sendData(displayMDiv);',1000);
 }
 
 /*
@@ -140,7 +140,7 @@ function roomlogout()
 	{
 		roomID = prevRoom;
 
-		message = "1|"+stextColor+"|"+stextSize+"|"+stextFamily+"|** "+userName+" "+publicExit;
+		message = "exit.png|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+publicExit;
 
 		// send logout message
 		sendData(displayMDiv);
@@ -438,6 +438,7 @@ function editSettings()
 		newdiv.innerHTML += '<div><input type="checkbox" id="entryExitID" onclick="updateUserSettings()"> '+lang48+'&nbsp;</div>';
 		newdiv.innerHTML += '<div><input type="checkbox" id="soundsID" onclick="updateUserSettings()"> '+lang49+'&nbsp;</div>';
 		newdiv.innerHTML += '<div><input type="checkbox" id="sfxID" onclick="updateUserSettings()"> '+lang50+'&nbsp;</div>';
+		newdiv.innerHTML += '<div><input type="text" id="textScale" onblur="updateUserSettings()" value="' + textScale + '" style="width:30px;"> Text Scale (100=Normal)</div>';
 		newdiv.innerHTML += '<div>&nbsp;</div>';
 		newdiv.innerHTML += '<div>&nbsp;</div>';
 		newdiv.innerHTML += '<div>&nbsp;'+lang51+': <select id="selectStatusID" onchange="sendStatus(this.value);"></select></div>';
@@ -465,8 +466,13 @@ function updateUserSettings()
 	userEntryExitSFX = document.getElementById('entryExitID').checked;
 	userNewMessageSFX = document.getElementById('soundsID').checked;
 	userSFX = document.getElementById('sfxID').checked;
-
-	createCookie('myOptions',encodeURI(userRPM+"|"+userRWebcam+"|"+userEntryExitSFX+"|"+userNewMessageSFX+"|"+userSFX),30);
+    textScale = $("#textScale").val();
+    if(!(parseInt(textScale) > 0)) {
+        textScale = 100;
+        $("#textScale").val(100);
+    }
+    $(".message-text-scale").css('font-size', (textScale / 100) + 'em');
+	createCookie('myOptions',encodeURI(userRPM+"|"+userRWebcam+"|"+userEntryExitSFX+"|"+userNewMessageSFX+"|"+userSFX+'|'+textScale),30);
 }
 
 /*
@@ -476,13 +482,10 @@ function updateUserSettings()
 
 function switchSettingsStatus(value,div)
 {
+    var newStatus = true;
 	if(value == 'false' || value == false)
 	{
-		var newStatus = false;
-	}
-	else
-	{
-		var newStatus = true;
+		newStatus = false;
 	}
 
 	document.getElementById(div).checked = newStatus;
@@ -911,7 +914,7 @@ function floodControl()
 	lastPost++;	
 }
 
-setInterval('floodControl();','1000');
+setInterval('floodControl();',1000);
 
 /*
 * logout user
@@ -932,9 +935,7 @@ function createStatusSelectOptions()
 {
 	var sel = document.getElementById('selectStatusID');
 
-	var i = 0;
-
-	for (i = 0; i < userStatusMes.length; i++)
+	for (var i = 0; i < userStatusMes.length; i++)
 	{
 		if(!document.getElementById("selectStatusID_"+i))
 		{
@@ -1045,14 +1046,15 @@ function blockUsers(i,id)
 var y = 1;
 function toggleLoginPass()
 {
+    var state;
 	if(y)
 	{
-		var state = 'hidden';
+		state = 'hidden';
 		y = 0;	
 	}
 	else
 	{
-		var state = 'visible';
+		state = 'visible';
 		y = 1;	
 	}
 
@@ -1122,7 +1124,7 @@ function showInfoBox(info,height,width,top,url,txt)
 	if(info == 'viewTranscripts')
 	{
 		var newdiv = document.createElement('div');
-		newdiv.innerHTML  = "<div class=\"userInfoTitle\" style=\"cursor:move;\"><b>"+lang62+"</b><span style='float:right;cursor:pointer;'><img src='images/close.gif' onclick='closeMdiv(\""+info+"\");'></span></div>";
+		newdiv.innerHTML  = "<div class=\"userInfoTitle\" style=\"cursor:move;\"><b>Transcripts</b><span style='float:right;cursor:pointer;'><img src='images/close.gif' onclick='closeMdiv(\""+info+"\");'></span></div>";
 		newdiv.innerHTML += "<div><iframe style='border:0;' src='"+url+"' width='"+(width)+"' height='"+(height-36)+"'></div>";	
 	}	
 
@@ -1199,6 +1201,35 @@ $(function() {
     $(document)
         .on('dblclick', '.userlist', openPmWindow);
 
+    $(document)
+        .on('mouseenter', '.roomname', function(e) {
+            var tip = $(
+                '<div class="floatingtooltip">' +
+                    $(this).text()+
+                '</div>'
+            );
+            tip.css('top', $(this).css('top')+20);
+            tip.css('left', $(this).closest('.userContainer').css('left'));
+            tip.css('position', 'absolute');
+            tip.css('z-index', 999);
+            $(this).append(tip);
+        })
+        .on('mouseleave', '.roomname', function(e) {
+            $(".floatingtooltip").remove();
+        });
+
+    $(document)
+        .on('click', '.chat-viewable', function() {
+            $("#sub-panel").load($(this).attr('href'), function() {
+                $(this).dialog({
+                    width: 550,
+                    height: 400,
+                    title: 'View Detail'
+                });
+            });
+            return false;
+        });
+
     $("#toggle-userlist").click(function() {
         $("#rightContainer").toggle();
         if($("#rightContainer").css("display") == 'none') {
@@ -1210,6 +1241,13 @@ $(function() {
             $("#optionsContainer").width($("#optionsContainer").width() - 236);
         }
     });
+
+    $.get('/server_time.php', null, function(time) {
+        var serverTime = new Date(time);
+        difference = new Date().getTime() - serverTime.getTime();
+        showClock();
+    });
+
 });
 
 function startScroll() {
@@ -1242,8 +1280,7 @@ function scrollDiv(offsetAmount, element, delay) {
     });
 }
 
-function endScroll(e) {
-    console.debug('stop scroll!' + e.toString());
+function endScroll() {
     isScrolling = false;
     $(this).stop(true, true);
 }
@@ -1251,4 +1288,42 @@ function endScroll(e) {
 function openPmWindow() {
     //alert($(this).html());
     //createPChatDiv(userName,uUser,uuID,uID);
+}
+
+var difference = 0;
+function UpdateTime() {
+    setTimeout("UpdateTime();", 1000);
+    $("#server-time").html(MakeTime());
+}
+
+/**
+ * @return {string}
+ */
+function MakeTime() {
+    var timer = new Date(new Date().getTime() - difference);
+
+    var hhN = timer.getHours();
+    var hh, AP;
+    if (hhN > 12) {
+        hh = String(hhN - 12);
+        AP = "pm";
+    }
+    else if (hhN == 12) {
+        hh = "12";
+        AP = "pm";
+    }
+    else if (hhN == 0) {
+        hh = "12";
+        AP = "am";
+    }
+    else {
+        hh = String(hhN);
+        AP = "am";
+    }
+    var mm = String(timer.getMinutes());
+    return "<label>Server Time:</label> " + hh + ((mm < 10) ? ":0" : ":") + mm + AP;
+}
+
+function showClock() {
+    UpdateTime();
 }

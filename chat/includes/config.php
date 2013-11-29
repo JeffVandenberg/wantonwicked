@@ -21,7 +21,7 @@ $CONFIG['template'] = 'default';
 * 0 - do not show
 */
 
-$CONFIG['dispLastMess'] = '10';
+$CONFIG['dispLastMess'] = '20';
 
 /*
 * set maximum chat room users
@@ -236,4 +236,3 @@ $CONFIG['debug'] = '1';
 */
 
 include("version.php");
-?>

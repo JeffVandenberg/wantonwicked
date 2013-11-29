@@ -6,11 +6,11 @@
 <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template']; ?>/jquery-ui.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/vader/jquery-ui-1.10.3.custom.min.css">
 <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template'];?>/style.css">
-<script type="text/javascript" src="/chat/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="/chat/js/sortelements.js"></script>
-<script type="text/javascript" src="/chat/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="/chat/includes/lang.js.php"></script>
 <script type="text/javascript" src="/chat/includes/settings.js.php"></script>
 <script type="text/javascript" src="/chat/js/XmlHttpRequest.js"></script>
@@ -37,6 +37,7 @@
 var userName = '<?php echo $displayName;?>';
 var userID = <?php echo $userid;?>;
 var uID = '<?php echo $id;?>';
+var userTypeId = <?php echo $userTypeId; ?>;
 var userAvatar = '<?php echo $avatar;?>';
 var roomOwner = <?php echo $roomOwner;?>;
 var blockedList = '<?php echo $blockedList;?>';
@@ -78,12 +79,15 @@ var lastMessageID = <?php echo $lastMessageID;?>;
             <textarea class="optionsBar" id="optionsBar" rows="10" cols="5" onKeyPress="return submitenter(this,event,'optionsBar','chatContainer','');" onfocus="changeMessBoxStyle('optionsBar');"></textarea>
 
 		<span class="optionsSelectStatus">
-			<span id="uwhisperID">
+			<span id="uwhisperID" style="display:none;">
 				<?php echo C_LANG160;?>: <input class="whisper" type="text" id="whisperID">&nbsp;
 			</span>
 			<input type="checkbox" id="autoScrollID" checked><?php echo C_LANG135;?>&nbsp;
 			<span id="iconeCredits" class="iconeCredits" style="cursor:pointer;" onclick='showInfoBox("ecredits","550","600","25","templates/default/ecredits.php","");'><?php echo C_LANG109;?>: <span id="eCreditsID"></span></span>
 		</span>
+            <div id="time-wrapper">
+                <div id="server-time"></div>
+            </div>
 
             <input class="optionsSend" id="optionsSend" type="button" value="<?php echo C_LANG136;?>" onclick="addMessage('optionsBar','chatContainer')">
 
@@ -115,6 +119,6 @@ var lastMessageID = <?php echo $lastMessageID;?>;
 </div>
 
 <div id="oInfo" class="oInfo"></div>
-
+<div id="sub-panel" style="display:none;"></div>
 </body>
 </html>
