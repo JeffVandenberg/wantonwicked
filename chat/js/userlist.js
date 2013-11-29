@@ -10,10 +10,8 @@ var share = 0;
 *
 */
 
-function createUsersDiv(uuID, userID, uUser, uAvatar, uWebcam, uPrevRoom, uRoom, uActivity, uStatus, uWatch, uAdmin, uModerator, uSpeaker, uActive, uLastActive, uIP)
+function createUsersDiv(uuID, userID, uUser, uDisplay, uAvatar, uWebcam, uPrevRoom, uRoom, uActivity, uStatus, uWatch, uAdmin, uModerator, uSpeaker, uActive, uLastActive, uIP, userTypeId)
 {
-    var uUserOriginal = uUser;
-    uUser = uUser.replaceAll('\'', '&#39;');
 	// sender has closed webcam window
 	if(document.getElementById("cam_"+uuID) && uWebcam == 0)
 	{
@@ -23,31 +21,21 @@ function createUsersDiv(uuID, userID, uUser, uAvatar, uWebcam, uPrevRoom, uRoom,
 
 	var showAdminID = '';
 	var uBlock = 1;
-    var hasBlue = 0;
 
-	if(uAdmin == 1)
-	{
-		showAdminID = ' (Admin) ';
-		uBlock = 0;
-        hasBlue = 1
-	}
-
-	var showModeratorID = '';
-
-	if((uModerator == 1) && (uAdmin == 0))
-	{
-		showModeratorID = ' (ST) ';
-		uBlock = 0;
-        hasBlue = 1;
-	}
-
-	var showSpeakerID = '';
-
-	if(uSpeaker == 1)
-	{
-		showSpeakerID = ' (S) ';
-		uBlock = 0;
-	}
+    var userClass = 0;
+    if((userTypeId == 4) || (userTypeId == 5)) {
+        userClass = 'user-storyteller';
+        showAdminID = ' (ST) ';
+        uBlock = 0;
+    }
+    if(userTypeId == 6) {
+        userClass = 'user-storyteller user-admin';
+        showAdminID = ' (Admin) ';
+        uBlock = 0;
+    }
+    if(userTypeId == 7) {
+        userClass = 'user-wiki'
+    }
 
 	// user is active
 	if(uActivity == 1)
@@ -69,23 +57,21 @@ function createUsersDiv(uuID, userID, uUser, uAvatar, uWebcam, uPrevRoom, uRoom,
 			}
 			else
 			{
-                if(hasBlue == 0) {
-                    newdiv.innerHTML =
-                        "<div>" +
-                            "<div class='scrollable-container user-div'>" +
-                                "<div class='scrollable'>" +
-                                    "<img id='avatar_" + uuID + "' style='vertical-align:middle;' src='avatars/" + uAvatar + "'>" +
-                                    "&nbsp;" +
-                                    "<span class='username' onclick='userPanel(\"" + userName + "\",\"" + uUser + "\",\"" + uuID + "\",\"" + uRoom + "\",\"" + userID + "\",\"" + uAvatar + "\",\"" + uBlock + "\",\"" + uIP + "\")' ondblclick='createPChatDiv(\"" + userName + "\",\"" + uUser + "\",\"" + uuID + "\",\"" + uID + "\");deleteDiv(\"userpanel_" + uuID + uID + "\", \"userlist_" + uuID + uID + "\");'>" +
-                                    decodeURI(uUser) + showAdminID + showModeratorID + showSpeakerID + "</span>" +
-                                    "<span id='ustatusID_" + uuID + "'></span>" +
-                                "</div>" +
-                            "</div>" +
-                        "</div>";
-                }
-                else {
-                    newdiv.innerHTML = "<div class='scrollable-container'><div class='scrollable user-div'><img id='avatar_"+uuID+"' style='vertical-align:middle;' src='avatars/"+uAvatar+"'>&nbsp;<span class='st-user username' onclick='userPanel(\""+userName+"\",\""+uUser+"\",\""+uuID+"\",\""+uRoom+"\",\""+userID+"\",\""+uAvatar+"\",\""+uBlock+"\",\""+uIP+"\")' ondblclick='createPChatDiv(\""+userName+"\",\""+uUser+"\",\""+uuID+"\",\""+uID+"\");deleteDiv(\"userpanel_"+uuID+uID+"\", \"userlist_"+uuID+uID+"\");'>"+decodeURI(uUser)+showAdminID+showModeratorID+showSpeakerID+"</span><span id='ustatusID_"+uuID+"'></span></div></div>";
-                }
+                newdiv.innerHTML =
+                    "<div class='scrollable-container user-div'>" +
+                        "<div class='scrollable'>" +
+                            "<img id='avatar_" + uuID + "' style='vertical-align:middle;' src='avatars/" + uAvatar + "'>" +
+                            "&nbsp;" +
+                            "<span class='" + userClass + "' " +
+                                "onclick='userPanel(\"" + userName + "\",\"" + uUser + "\",\"" + uuID + "\",\"" + uRoom + "\",\"" + userID + "\",\"" + uAvatar + "\",\"" + uBlock + "\",\"" + uIP + "\")' ondblclick='createPChatDiv(\"" + userName + "\",\"" + uUser + "\",\"" + uID + "\",\"" + uuID + "\");deleteDiv(\"userpanel_" + uuID + uID + "\", \"userlist_" + uuID + uID + "\");'>" +
+                                "<span class='username'>" +
+                                    decodeURI(uUser) +
+                                "</span>" +
+                                showAdminID +
+                            "</span>" +
+                            "<span id='ustatusID_" + uuID + "'></span>" +
+                        "</div>" +
+                    "</div>";
 			}
 
             if(ni != null) {
@@ -105,6 +91,9 @@ function createUsersDiv(uuID, userID, uUser, uAvatar, uWebcam, uPrevRoom, uRoom,
 
 		// update users avatar
 		updateAvatar(uuID, uAvatar, uRoom);
+
+        // update user display name
+        updateDisplayName(uuID, uDisplay, uRoom);
 
 		// show blocked user icon
 		if(uUser && blockedList.indexOf("|"+uuID+"|") != '-1')
@@ -236,8 +225,8 @@ function updateUserRoomCount(uRoom, value)
         console.debug('Room: ' + uRoom + ' does not exist.');
     }
     else {
-        var newCount = document.getElementById("room_"+uRoom).children.length - 1;
-        document.getElementById("userCount_"+uRoom).innerHTML = newCount;
+        document.getElementById("userCount_"+uRoom).innerHTML =
+            (document.getElementById("room_" + uRoom).children.length - 1).toString();
     }
 }
 
@@ -269,6 +258,16 @@ function updateAvatar(uID, uAvatar, uRoom)
 	{
 		document.getElementById("avatar_"+uID).src = "avatars/"+uAvatar;
 	}
+}
+
+/*
+* update displayName
+*
+*/
+
+function updateDisplayName(userId, displayName, roomID)
+{
+    $("#userlist_"+userId+roomID).find('.username').html(displayName);
 }
 
 /*
@@ -330,7 +329,7 @@ function createSelectRoomdiv(room, roomid, roomdel)
 *
 */
 
-function createRoomsdiv(room,roomid,roomdel)
+function createRoomsdiv(room,roomid,icon)
 {
 	// if div does not exist
 	if(!document.getElementById("room_"+roomid))
@@ -340,8 +339,20 @@ function createRoomsdiv(room,roomid,roomdel)
 		var newdiv = document.createElement('div');
 
 		newdiv.setAttribute("id","room_"+roomid);
-		newdiv.className = "";
-		newdiv.innerHTML = '<div class="roomheader" onclick=toggleHeader("room_'+roomid+'");><div class="room-div"><span style="float:left;"><img style="vertical-align:middle;" src="images/mini.gif">&nbsp;<span class="roomname">'+decodeURI(room.replace("+"," "))+'</span>&nbsp;</span></div> <span style="float:right;" class="usercount">[<span id="userCount_'+roomid+'">0</span>]</span> </div>';
+		newdiv.innerHTML =
+            '<div class="roomheader" onclick=toggleHeader("room_'+roomid+'");>' +
+                '<div class="room-div">' +
+                    '<span style="float:left;">' +
+                        '<img style="vertical-align:middle;" src="images/'+icon+'">&nbsp;' +
+                        '<span class="roomname">' +
+                            decodeURI(room.replace("+"," "))+
+                        '</span>'+
+                    '</span>' +
+                '</div> ' +
+                '<span style="float:right;" class="usercount">' +
+                    '[<span id="userCount_'+roomid+'">0</span>]' +
+                '</span>' +
+            '</div>';
 
         if(ni != null) {
 		    ni.appendChild(newdiv);
@@ -377,33 +388,39 @@ function removeRoomsDiv(divID)
 * appears when you click a username
 */
 
-function userPanel(userName,uUser,uuID,uRoom,userID,uAvatar,uBlock,uIP)
+function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uBlock,uIP)
 {
-    var uUserOriginal = uUser;
-    uUser = uUser.replaceAll('\'', '&#39;');
 	// if user is Intelli-bot, disable options
-	if(uUser.toLowerCase() == intelliBotName.toLowerCase())
+	if(targetUserName.toLowerCase() == intelliBotName.toLowerCase())
 	{
 		return false;
 	}
 	// if div exists
-	if(!document.getElementById("userpanel_"+uuID+uRoom))
+	if(!document.getElementById("userpanel_"+targetUserId+roomId))
 	{
 		// create div
-		var ni = document.getElementById("userlist_"+uuID+uRoom);
+		var ni = document.getElementById("userlist_"+targetUserId+roomId);
 
 		var newdiv = document.createElement('div');
-		newdiv.setAttribute("id","userpanel_"+uuID+uRoom);
+		newdiv.setAttribute("id","userpanel_"+targetUserId+roomId);
 		newdiv.className = "userInfo";
 
 		// header
-		newdiv.innerHTML = "<div class='userInfoTitle'><span style='float:left;'><img style='vertical-align:middle;' src='avatars/"+uAvatar+"'>&nbsp;"+decodeURI(uUser)+"</span><span style='float:right;' onclick='deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")'><img src='images/close.gif'>&nbsp;</span></div>";
+		newdiv.innerHTML =
+            "<div class='userInfoTitle'>" +
+                "<span style='float:left;'>" +
+                    "<img style='vertical-align:middle;' src='avatars/"+uAvatar+"'>&nbsp;"+decodeURI(targetUserName)+
+                "</span>" +
+                "<span style='float:right;' onclick='deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")'>" +
+                    "<img src='images/close.gif'>&nbsp;" +
+                "</span>" +
+            "</div>";
 
 		// used for style formatting only
 		newdiv.innerHTML += "<div style='height:2px;'>&nbsp;</div>";
 
 		// private chat
-		if(privateOn && uID != uuID)
+		if(privateOn && uID != targetUserId)
 		{		
 			// if user has no eCredits
 			// disable option to send PM requests
@@ -419,13 +436,20 @@ function userPanel(userName,uUser,uuID,uRoom,userID,uAvatar,uBlock,uIP)
 				}
 				else
 				{
-					newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='clearWhisper();deleteDiv(\""+uID+"_"+uuID+"\",\"pWin\");createPChatDiv(\""+userName+"\",\""+uUser+"\",\""+uuID+"\",\""+uID+"\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/private.gif'><span style='padding-left:11px;'>"+lang33+"</span></div>";
+					newdiv.innerHTML +=
+                        "<div onmouseover=\"this.className='highliteOn'\" " +
+                            "onmouseout=\"this.className='highliteOff'\" " +
+                            "onclick='clearWhisper();createPChatDiv(\""+userName+"\",\""+targetUserName+"\",\""+uID+"\",\""+targetUserId+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")'" +
+                            " class='highliteOff'>" +
+                                "<img style='vertical-align:middle;' src='images/usermenu/private.gif'>" +
+                                "<span style='padding-left:11px;'>"+lang33+"</span>" +
+                        "</div>";
 				}
 			}
 		}
 		
 		// whisper
-		if(whisperOn && uID != uuID)
+		if(whisperOn && uID != targetUserId)
 		{
 			// if user has no eCredits
 			// disable option to send webcam requests
@@ -441,7 +465,7 @@ function userPanel(userName,uUser,uuID,uRoom,userID,uAvatar,uBlock,uIP)
 				}
 				else
 				{
-					newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='whisperUser(\""+uUser+"\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/private.gif'><span style='padding-left:10px;'>"+lang34+"</span></div>";
+					newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='whisperUser(\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/private.gif'><span style='padding-left:10px;'>"+lang34+"</span></div>";
 				}
 
 			}
@@ -449,7 +473,7 @@ function userPanel(userName,uUser,uuID,uRoom,userID,uAvatar,uBlock,uIP)
 		}
 
 		// webcam
-		if(webcamsOn && uID != uuID)
+		if(webcamsOn && uID != targetUserId)
 		{
 
 			// if user has no eCredits
@@ -466,62 +490,57 @@ function userPanel(userName,uUser,uuID,uRoom,userID,uAvatar,uBlock,uIP)
 				}
 				else
 				{
-					newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='requestViewWebcam(\""+uUser+"\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='plugins/webcams/images/mini.gif'><span style='padding-left:6px;'>"+lang35+"</span></div>";
+					newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='requestViewWebcam(\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='plugins/webcams/images/mini.gif'><span style='padding-left:6px;'>"+lang35+"</span></div>";
 				}
-
 			}
-
 		}
 		
 		// profile
+        var profileID;
 		if(profileRef)
 		{
-			var profileID = uUser;
+			profileID = targetUserName;
 		}
 		else
 		{
-			var profileID = uuID;
+			profileID = targetUserId;
 		}
 
 		if(profileOn)
 		{
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewProfile(\""+profileID+"\",\""+uUser+"\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/profile.gif'><span style='padding-left:10px;'>"+lang36+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewProfile(\""+profileID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/profile.gif'><span style='padding-left:10px;'>"+lang36+"</span></div>";
 		}
 
-		if(uID != uuID && share)
+		if(uID != targetUserId && share)
 		{
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"shareFiles\",\"280\",\"300\",\"200\",\"plugins/share/?shareWithUser="+uUser+"\",\"\");' class='highliteOff'><img style='vertical-align:middle;' src='images/share.gif'><span style='padding-left:7px;'>Share Files</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"shareFiles\",\"280\",\"300\",\"200\",\"plugins/share/?shareWithUserId="+targetUserId+"\",\"\");' class='highliteOff'><img style='vertical-align:middle;' src='images/share.gif'><span style='padding-left:7px;'>Share Files</span></div>";
 		}
 
-		if(uID != uuID && uBlock == 1)
+		if(uID != targetUserId && uBlock == 1)
 		{
 			// block user
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='blockUsers(\"block\",\""+uuID+"\");showInfoBox(\"system\",\"220\",\"300\",\"200\",\"\",\"You have blocked "+decodeURI(uUser)+"\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/block.gif'><span style='padding-left:10px;'>"+lang37+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='blockUsers(\"block\",\""+targetUserId+"\");showInfoBox(\"system\",\"220\",\"300\",\"200\",\"\",\"You have blocked "+decodeURI(targetUserName)+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/block.gif'><span style='padding-left:10px;'>"+lang37+"</span></div>";
 
 			// unblock user
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='blockUsers(\"unblock\",\""+uuID+"\");showInfoBox(\"system\",\"220\",\"300\",\"200\",\"\",\"You have unblocked "+decodeURI(uUser)+"\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/unblock.gif'><span style='padding-left:10px;'>"+lang38+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='blockUsers(\"unblock\",\""+targetUserId+"\");showInfoBox(\"system\",\"220\",\"300\",\"200\",\"\",\"You have unblocked "+decodeURI(targetUserName)+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/unblock.gif'><span style='padding-left:10px;'>"+lang38+"</span></div>";
 
 			// report abuse
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"report\",\"280\",\"360\",\"200\",\"templates/"+styleFolder+"/report.php?id="+uUser+"\",\"\");;deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/report.gif'><span style='padding-left:7px;'>"+lang39+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"report\",\"280\",\"360\",\"200\",\"templates/"+styleFolder+"/report.php?id="+targetUserId+"\",\"\");;deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/report.gif'><span style='padding-left:7px;'>"+lang39+"</span></div>";
 		}
 
-		if(admin && uID != uuID || moderator && uID != uuID)// || roomOwner && uID != uuID)
+		if(admin && uID != targetUserId || moderator && uID != targetUserId)// || roomOwner && uID != uuID)
 		{
 			// silence
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+uUser+"\",\"SILENCE\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang40+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserId+"\",\"SILENCE\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang40+"</span></div>";
 
 			// kick
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+uUser+"\",\"KICK\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang41+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserId+"\",\"KICK\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang41+"</span></div>";
 
-			if(admin && uID != uuID || moderator && uID != uuID)
-			{
-				// ban
-				newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+uUser+"\",\"BAN\");deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang42+"</span></div>";
-			}
-			
+            // ban
+            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserId+"\",\"BAN\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang42+"</span></div>";
 		}
 		
-		if(admin && uID == uuID || moderator && uID != uuID)
+		if((admin && uID != targetUserId) || (moderator && uID != targetUserId))
 		{
             // view sheet
             newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/view_sheet.php?action=st_view_xp&view_character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Sheet</span></div>";
@@ -536,15 +555,15 @@ function userPanel(userName,uUser,uuID,uRoom,userID,uAvatar,uBlock,uIP)
 			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('http://www.infosniper.net/index.php?ip_address="+uIP+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>IP: "+uIP+"</span></div>";
 		}
 
-		if(admin && uID == uuID)
+		if(admin && uID == targetUserId)
 		{
 			// admin area
 			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('admin/') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>Admin Area</span></div>";
 		}
 
-		if(moderatedChat == '1' && admin && uID == uuID || moderatedChat == '1' && moderator && uID == uuID)
+		if(moderatedChat == '1' && admin && uID == targetUserId || moderatedChat == '1' && moderator && uID == targetUserId)
 		{
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"mc\",\"400\",\"600\",\"100\",\"plugins/moderated_chat/index.php\",\"\");;deleteDiv(\"userpanel_"+uuID+uRoom+"\",\"userlist_"+uuID+uRoom+"\")' class='highliteOff'><img style='vertical-align:middle;' src='plugins/moderated_chat/images/moderatedchat.gif'><span style='padding-left:10px;'>"+lang43+"</span></div>";
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"mc\",\"400\",\"600\",\"100\",\"plugins/moderated_chat/index.php\",\"\");;deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='plugins/moderated_chat/images/moderatedchat.gif'><span style='padding-left:10px;'>"+lang43+"</span></div>";
 		}
 
         if(ni != null) {
@@ -570,12 +589,12 @@ function clearWhisper()
 *
 */
 
-function adminControls(tUser,doAction)
+function adminControls(targetUserId,doAction)
 {
 	var param = '?';
 	param += '&uid=' + escape(uID);
 	param += '&uname=' + escape(userName);
-	param += '&toname=' + escape(tUser);
+	param += '&to_user_id=' + escape(targetUserId);
 	param += '&umessage=' + escape(doAction);	
 	param += '&uroom=' + roomID;
 	param += '&usfx=' + escape(sfx);
@@ -584,7 +603,7 @@ function adminControls(tUser,doAction)
 	// if ready to send message to DB
 	if (sendReq.readyState == 4 || sendReq.readyState == 0) 
 	{
-		if(admin && userName != tUser || moderator && userName != tUser || roomOwner && userName != tUser)
+		if(admin && userName != targetUserId || moderator && userName != targetUserId || roomOwner && userName != targetUserId)
 		{
 			sendReq.open("POST", 'includes/sendData.php?rnd='+ Math.random(), true);
 			sendReq.setRequestHeader('Content-Type','application/x-www-form-urlencoded');

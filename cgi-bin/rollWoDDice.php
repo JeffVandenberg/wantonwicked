@@ -27,10 +27,8 @@ function rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, 
 	if($chance_die == 'Y')
 	{
 		// process chance die roll
-		$roll = 0;
 		$highlight_next_roll = false;
-		$roll_again = false;
-		
+
 		do
 		{
 			// roll the dice
@@ -81,13 +79,14 @@ function rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, 
 	else
 	{
 		// process roll normally
+        $num_of_successes = 0;
 		do {
 			for($i = 0; $i < $dice; $i++)
 			{
-				$roll = 0;
 				$roll_again = false;
 				$is_first_roll = true;
 				$first_roll = 0;
+                $number_of_successes = 0;
 				do
 				{
 					// do roll
@@ -186,4 +185,3 @@ function rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, 
 	$return['note'] = $note;
 	return $return;
 }
-?>

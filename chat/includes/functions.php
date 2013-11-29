@@ -7,34 +7,37 @@
 
 function db_connect()
 {
-	include(dirname(__FILE__)."/db.php");
+    include(dirname(__FILE__) . "/db.php");
+    /* @var string $host */
+    /* @var string $dbname */
+    /* @var string $user */
+    /* @var string $pass */
 
-	try {
-	  # MS SQL Server
-	  #$dbh = new PDO("mssql:host=$host;dbname=$dbname, $user, $pass");
+    try {
+        # MS SQL Server
+        #$dbh = new PDO("mssql:host=$host;dbname=$dbname, $user, $pass");
 
-	  # Sybase with PDO_DBLIB
-	  # $dbh = new PDO("sybase:host=$host;dbname=$dbname, $user, $pass");
+        # Sybase with PDO_DBLIB
+        # $dbh = new PDO("sybase:host=$host;dbname=$dbname, $user, $pass");
 
-	  # MySQL with PDO_MYSQL
-	  $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+        # MySQL with PDO_MYSQL
+        $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass, array(PDO::ATTR_PERSISTENT => true));
 
-	  # SQLite Database
-	  # $dbh = new PDO("sqlite:my/database/path/database.db");
+        # SQLite Database
+        # $dbh = new PDO("sqlite:my/database/path/database.db");
 
-	  # set error reporting
-	  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	  
-	  
-	  return($dbh);
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        # set error reporting
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-		debugError($error);
-	}
+        return ($dbh);
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+    return false;
 }
 
 /*
@@ -44,16 +47,16 @@ function db_connect()
 
 function debugError($data)
 {
-	include(dirname(__FILE__)."/config.php");
+    include(dirname(__FILE__) . "/config.php");
+    /* @var array $CONFIG */
 
-	if($CONFIG['debug'])
-	{
-		$error_log = fopen("error_log.txt","a+");
-		echo fwrite($error_log,$data);
-		fclose($error_log);
-	}
+    if ($CONFIG['debug']) {
+        $error_log = fopen("error_log.txt", "a+");
+        fwrite($error_log, $data);
+        fclose($error_log);
+    }
 
-	return;
+    return;
 }
 
 /*
@@ -63,7 +66,7 @@ function debugError($data)
 
 function getDocPath()
 {
-	return dirname(dirname(__FILE__))."/";
+    return dirname(dirname(__FILE__)) . "/";
 }
 
 /*
@@ -73,28 +76,26 @@ function getDocPath()
 
 function getLang($id)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	// set admin default language file
-	if(file_exists(getDocPath()."lang/".$CONFIG['lang'][1]))
-	{
-		$_SESSION['lang'] = $CONFIG['lang'][1];		
-	}
+    // set admin default language file
+    if (file_exists(getDocPath() . "lang/" . $CONFIG['lang'][1])) {
+        $_SESSION['lang'] = $CONFIG['lang'][1];
+    }
 
-	// if $id is set, check file exists and set new language file
-	if(is_numeric($id) && file_exists(getDocPath()."lang/".$CONFIG['lang'][$id]))
-	{
-		$_SESSION['lang'] = $CONFIG['lang'][$id];		
-	}
-	
-	// if no language file set system language file
-	if(empty($_SESSION['lang']))
-	{
-		$_SESSION['lang'] = "english.php";
-	}
+    // if $id is set, check file exists and set new language file
+    if (is_numeric($id) && file_exists(getDocPath() . "lang/" . $CONFIG['lang'][$id])) {
+        $_SESSION['lang'] = $CONFIG['lang'][$id];
+    }
 
-	return $_SESSION['lang'];
+    // if no language file set system language file
+    if (empty($_SESSION['lang'])) {
+        $_SESSION['lang'] = "english.php";
+    }
+
+    return $_SESSION['lang'];
 }
 
 /*
@@ -104,7 +105,7 @@ function getLang($id)
 
 function getTime()
 {
-	return date("U");
+    return date("U");
 }
 
 /*
@@ -114,7 +115,7 @@ function getTime()
 
 function getCaptchaText()
 {
-	return substr(md5(date("U").rand(1,99999)),0,-26);
+    return substr(md5(date("U") . rand(1, 99999)), 0, -26);
 }
 
 /*
@@ -124,9 +125,9 @@ function getCaptchaText()
 
 function makeSafe($data)
 {
-	$data = htmlspecialchars($data);
+    $data = htmlspecialchars($data);
 
-	return $data;
+    return $data;
 }
 
 /*
@@ -136,10 +137,9 @@ function makeSafe($data)
 
 function validSoftware()
 {
-	if(!file_exists("software_licence.txt"))
-	{
-		die(C_LANG7);
-	}
+    if (!file_exists("software_licence.txt")) {
+        die(C_LANG7);
+    }
 }
 
 /*
@@ -150,47 +150,47 @@ function validSoftware()
 function badChars()
 {
 
-	$badChars = array(
+    $badChars = array(
 
-				'intelli-bot',
-				'adbot',
-				'fuck',
-				'shit',
-				'wank',
-				'cunt',
-				'\\',
-				' ',
-				'!',
-				'<',
-				'>',
-				'.',
-				',',
-				'/',
-				'\'',
-				'"',
-				':',
-				'&',
-				';',
-				'#',
-				'@',
-				'~',
-				'(',
-				')',
-				'[',
-				']',
-				'{',
-				'}',
-				'�',
-				'$',
-				'%',
-				'^',
-				'*',
-				'?',
-				'+',
-				'='
-			);
+        'intelli-bot',
+        'adbot',
+        'fuck',
+        'shit',
+        'wank',
+        'cunt',
+        '\\',
+        ' ',
+        '!',
+        '<',
+        '>',
+        '.',
+        ',',
+        '/',
+        '\'',
+        '"',
+        ':',
+        '&',
+        ';',
+        '#',
+        '@',
+        '~',
+        '(',
+        ')',
+        '[',
+        ']',
+        '{',
+        '}',
+        '�',
+        '$',
+        '%',
+        '^',
+        '*',
+        '?',
+        '+',
+        '='
+    );
 
-	return $badChars;
+    return $badChars;
 
 }
 
@@ -201,28 +201,23 @@ function badChars()
 
 function validChars($data)
 {
-	$i = 0;
+    $badChars = badChars();
 
-	$badChars = badChars();
+    for ($i = 0; $i < sizeof($badChars); $i += 1) {
+        $pos = strpos(stripslashes(strtolower($data)), $badChars[$i]);
 
-	for($i=0; $i < sizeof($badChars); $i+=1)
-	{
-		$pos = strpos(stripslashes(strtolower($data)),$badChars[$i]);
+        if ($pos === false) {
+            // do nothing
+        }
+        else {
+            if ($badChars[$i] == ' ') {
+                $badChars[$i] = 'space';
+            }
 
-		if ($pos === false)
-		{
-    			// do nothing
-		} 
-		else 
-		{
-			if($badChars[$i] == ' ')
-			{
-				$badChars[$i] = 'space';
-			}
-
-			return C_LANG8.": [ ".$badChars[$i]." ]<br>";
-		}
-	}
+            return C_LANG8 . ": [ " . $badChars[$i] . " ]<br>";
+        }
+    }
+    return true;
 }
 
 /*
@@ -232,10 +227,10 @@ function validChars($data)
 
 function validEmail($email)
 {
-	if(!filter_var($email, FILTER_VALIDATE_EMAIL))	
-	{ 
-		return C_LANG9."<br>"; 
-	} 	
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return C_LANG9 . "<br>";
+    }
+    return '';
 }
 
 /*
@@ -245,26 +240,25 @@ function validEmail($email)
 
 function showLang()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	$count = count($CONFIG['lang']); 
+    $count = count($CONFIG['lang']);
 
-	$html = '';
+    $html = '';
 
-	for ($i = 1; $i < $count; $i++)
-	{
-		$selected = '';
+    for ($i = 1; $i < $count; $i++) {
+        $selected = '';
 
-		if($CONFIG['lang'][$i] == $_SESSION['lang'])
-		{
-			$selected = 'SELECTED';
-		}
+        if ($CONFIG['lang'][$i] == $_SESSION['lang']) {
+            $selected = 'SELECTED';
+        }
 
-		$html .= "<option value='".$i."' ".$selected.">".ucfirst(substr($CONFIG['lang'][$i], 0, -4))."</option>";
-	}
+        $html .= "<option value='" . $i . "' " . $selected . ">" . ucfirst(substr($CONFIG['lang'][$i], 0, -4)) . "</option>";
+    }
 
-	return $html;
+    return $html;
 }
 
 /*
@@ -272,131 +266,122 @@ function showLang()
 *
 */
 
-function registerUser($username,$password,$email)
+function registerUser($username, $password, $email)
 {
-	$result = '0';
+    $result = '0';
 
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	$username = urlencode($username);
+    $username = urlencode($username);
+    $pass = '';
 
-	// check username is in database
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'username' => makeSafe($username)
-		);
-		$query = "SELECT password 
+    // check username is in database
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'username' => makeSafe($username)
+        );
+        $query = "SELECT password 
 				  FROM prochatrooms_users 
 				  WHERE username = :username
-				  LIMIT 1";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		
-		foreach ($action as $i) 
-		{
-			$pass = $i['password'];
+				  LIMIT 1";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-			$result = '1';
-		}
-			
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        foreach ($action as $i) {
+            $pass = $i['password'];
 
-		debugError($error);
-	}			
+            $result = '1';
+        }
 
-	// if user exists but no password is found, 
-	// update guest username to member status
-	if(!$pass && $result)
-	{
-		// user found in db but has no password assigned (guest)
-		// allow the user to register this username
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'password' => md5($password),
-			'email' => makeSafe($email),
-			'username' => makeSafe($username),
-			);
-			$query = "UPDATE prochatrooms_users 
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    // if user exists but no password is found, 
+    // update guest username to member status
+    if (!$pass && $result) {
+        // user found in db but has no password assigned (guest)
+        // allow the user to register this username
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'password' => md5($password),
+                'email' => makeSafe($email),
+                'username' => makeSafe($username),
+            );
+            $query = "UPDATE prochatrooms_users 
 					  SET password = :password, 
 					      email = :email 
 					  WHERE username = :username
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}			
+            debugError($error);
+        }
 
-		$result = C_LANG10;
+        $result = C_LANG10;
 
-		return $result;
-	}
+        return $result;
+    }
 
-	// if username exists and password exists, 
-	// user is already registered (already member)
-	if($pass)
-	{
-		$result = C_LANG11;	
-	}
-	else
-	{
-		// if new registrations require email confirmation
-		if($CONFIG['approve'])
-		{
-			$CONFIG['approve'] = substr(md5(date("U").rand(1,99999)), 0, -20);
+    // if username exists and password exists, 
+    // user is already registered (already member)
+    if ($pass) {
+        $result = C_LANG11;
+    }
+    else {
+        // if new registrations require email confirmation
+        if ($CONFIG['approve']) {
+            $CONFIG['approve'] = substr(md5(date("U") . rand(1, 99999)), 0, -20);
 
-			sendUserEmail($CONFIG['approve'],$username,$email,'','2');
+            sendUserEmail($CONFIG['approve'], $username, $email, '', '2');
 
-			$result = C_LANG12;
-		}
-		else
-		{
-			$result = C_LANG13;
-		}
+            $result = C_LANG12;
+        }
+        else {
+            $result = C_LANG13;
+        }
 
-		$incUserGroup = $CONFIG['userGroup'];
+        $incUserGroup = $CONFIG['userGroup'];
 
-		if(is_numeric($_SESSION['userGroup']))
-		{
-			$incUserGroup = $_SESSION['userGroup'];
-		}
+        if (is_numeric($_SESSION['userGroup'])) {
+            $incUserGroup = $_SESSION['userGroup'];
+        }
 
-		// user doesnt exist, add to database
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'username' => makeSafe($username), 
-			'userid' => '-1',
-			'password' => md5($password),
-			'email' => makeSafe($email),
-			'room' => '1',
-			'userIP' => $_SERVER['REMOTE_ADDR'],
-			'avatar' => assignGenderImage('0'),
-			'webcam' => '0',
-			'online' => '0',
-			'enabled' => $CONFIG['approve'],
-			'active' => '0',
-			'userGroup' => makeSafe($incUserGroup)
-			);
-			$query = "INSERT INTO prochatrooms_users
+        // user doesnt exist, add to database
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'username' => makeSafe($username),
+                'userid' => '-1',
+                'password' => md5($password),
+                'email' => makeSafe($email),
+                'room' => '1',
+                'userIP' => $_SERVER['REMOTE_ADDR'],
+                'avatar' => assignGenderImage('0'),
+                'webcam' => '0',
+                'online' => '0',
+                'enabled' => $CONFIG['approve'],
+                'active' => '0',
+                'userGroup' => makeSafe($incUserGroup)
+            );
+            $query = "INSERT INTO prochatrooms_users
 								(
-									username, 
+									username,
 									userid,
 									password,
 									email,
@@ -423,50 +408,46 @@ function registerUser($username,$password,$email)
 									:enabled,
 									:active,
 									:userGroup
-								)";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+								)";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}			
+            debugError($error);
+        }
 
-		// create a new user profile entry in db
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'username' => makeSafe($username)
-			);
-			$query = "INSERT INTO prochatrooms_profiles
+        // create a new user profile entry in db
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'username' => makeSafe($username)
+            );
+            $query = "INSERT INTO prochatrooms_profiles
 								(
 									username
 								) 
 								VALUES 
 								(
 									:username
-								)";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+								)";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}			
+            debugError($error);
+        }
 
-	}
+    }
 
-	return $result;
+    return $result;
 }
 
 /*
@@ -474,91 +455,83 @@ function registerUser($username,$password,$email)
 *
 */
 
-function createUser($loginName,$loginID,$loginPass,$loginGender,$login,$guest)
+function createUser($loginName, $loginID, $loginPass, $loginGender, $login, $guest)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	if($login)
-	{
-		if($loginName != $_SESSION['username'])
-		{
-			$loginName = urlencode($loginName);
+    if ($login) {
+        if ($loginName != $_SESSION['username']) {
+            $loginName = urlencode($loginName);
+            $password = '';
 
-			// check username status	
-			try {
-				$dbh = db_connect();
-				$params = array(
-				'loginname' => makeSafe($loginName)
-				);
-				$query = "SELECT active, password, enabled, kick, ban    
+            // check username status	
+            try {
+                $dbh = db_connect();
+                $params = array(
+                    'loginname' => makeSafe($loginName)
+                );
+                $query = "SELECT active, password, enabled, kick, ban    
 						  FROM prochatrooms_users 
 						  WHERE username = :loginname
 						  LIMIT 1
-						  ";							
-				$action = $dbh->prepare($query);
-				$action->execute($params);
-				
-				foreach ($action as $i) 
-				{
-					if(!$guest)
-					{
-						if($CONFIG['approve'] && ($i['enabled'] != '1') && $i['kick'] == '' && $i['ban'] == '')
-						{
-							$loginError = C_LANG14;
-							return array('','',$loginError);
-						}
-					}
+						  ";
+                $action = $dbh->prepare($query);
+                $action->execute($params);
 
-					if($i['active'] > date("U")-15)
-					{
-						$loginError = C_LANG15;
-						return array('','',$loginError);
-					}
+                foreach ($action as $i) {
+                    if (!$guest) {
+                        if ($CONFIG['approve'] && ($i['enabled'] != '1') && $i['kick'] == '' && $i['ban'] == '') {
+                            $loginError = C_LANG14;
+                            return array('', '', $loginError);
+                        }
+                    }
 
-					$password = $i['password'];
-				}
+                    if ($i['active'] > date("U") - 15) {
+                        $loginError = C_LANG15;
+                        return array('', '', $loginError);
+                    }
 
-				if($loginPass && $password != md5($loginPass) || $password && $password != md5($loginPass))
-				{
-					$loginError = C_LANG16;
-					return array('','',$loginError);
-				}				
-					
-				$dbh = null;
-			}
-			catch(PDOException $e) 
-			{
-				$error  = "Function: ".__FUNCTION__."\n";
-				$error .= "File: ".basename(__FILE__)."\n";	
-				$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+                    $password = $i['password'];
+                }
 
-				debugError($error);
-			}					
+                if ($loginPass && $password != md5($loginPass) || $password && $password != md5($loginPass)) {
+                    $loginError = C_LANG16;
+                    return array('', '', $loginError);
+                }
 
-		}
+                $dbh = null;
+            } catch (PDOException $e) {
+                $error = "Function: " . __FUNCTION__ . "\n";
+                $error .= "File: " . basename(__FILE__) . "\n";
+                $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		// unset old session
-		unset($_SESSION['username']);
-		unset($_SESSION['userid']);
+                debugError($error);
+            }
 
-		// create new user session
-		$_SESSION['username'] = $loginName;
-		$_SESSION['userid'] = $loginID;
+        }
 
-		// add user to database
-		addUser($loginGender);
+        // unset old session
+        unset($_SESSION['username']);
+        unset($_SESSION['userid']);
 
-		// return details
-		return array($_SESSION['display_name'], $_SESSION['username'],$_SESSION['userid'],'0');
-	}
+        // create new user session
+        $_SESSION['username'] = $loginName;
+        $_SESSION['userid'] = $loginID;
 
-	if(!$login)
-	{
-		// user session already set
-		return array($_SESSION['display_name'], $_SESSION['username'],$_SESSION['userid'],'0');
-	}
+        // add user to database
+        addUser($loginGender, 2);
 
+        // return details
+        return array($_SESSION['display_name'], $_SESSION['username'], $_SESSION['userid'], '0');
+    }
+
+    if (!$login) {
+        // user session already set
+        return array($_SESSION['display_name'], $_SESSION['username'], $_SESSION['userid'], '0');
+    }
+    return false;
 }
 
 /*
@@ -566,81 +539,82 @@ function createUser($loginName,$loginID,$loginPass,$loginGender,$login,$guest)
 *
 */
 
-function getUser($prevRoom,$roomID)
+function getUser($prevRoom, $roomID)
 {
-	$loginError = '0';
+    $loginError = '0';
 
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	// check username is in database
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'username' => makeSafe($_SESSION['username'])
-		);
-		$query = "SELECT id, userid, avatar, kick, ban, blocked, room, guest, userGroup  
+    // check username is in database
+    $id = '';
+    $avatar = '';
+    $kick = '';
+    $ban = '';
+    $blockedList = '';
+    $guest = '';
+    $userTypeId = '';
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => $_SESSION['user_id']
+        );
+        $query = "SELECT id, userid, avatar, kick, ban, blocked, room, guest, userGroup, user_type_id
 				  FROM prochatrooms_users 
-				  WHERE username = :username 
+				  WHERE id = :id
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$id = $i['id'];
-			$avatar = $i['avatar'];
-			$kick = $i['kick'];
-			$ban = $i['ban'];
-			$blockedList = $i['blocked'];
-			$guest = $i['guest'];
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-			$_SESSION['userGroup'] = $i['userGroup'];
-			$_SESSION['myProfileID'] = $id;
-			$_SESSION['myStreamID'] = streamID();			
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        foreach ($action as $i) {
+            $id = $i['id'];
+            $avatar = $i['avatar'];
+            $kick = $i['kick'];
+            $ban = $i['ban'];
+            $blockedList = $i['blocked'];
+            $guest = $i['guest'];
+            $userTypeId = $i['user_type_id'];
 
-		debugError($error);
-	}		
+            $_SESSION['userGroup'] = $i['userGroup'];
+            $_SESSION['myProfileID'] = $id;
+            $_SESSION['myStreamID'] = streamID();
+        }
 
-	if(!$id)
-	{
-		$loginError = C_LANG17;		
-	}
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	if($kick > date("U"))
-	{
-		$loginError = C_LANG18.' '.$CONFIG['kickTime'].' '.C_LANG19;
-	}
+        debugError($error);
+    }
 
-	if($ban)
-	{
-		$loginError = C_LANG20;
-	}
+    if (!$id) {
+        $loginError = C_LANG17;
+    }
 
-	if($CONFIG['banIP'] && getIPBanList(getIP()))
-	{
-		$loginError = C_LANG20;
-	}
+    if ($kick > date("U")) {
+        $loginError = C_LANG18 . ' ' . $CONFIG['kickTime'] . ' ' . C_LANG19;
+    }
 
-	if(!$loginError)
-	{
-		// update user in database
-		updateUser();
-		
-		// update room counts
-		try {
-			$dbh = db_connect();
-			$query = <<<EOQ
+    if ($ban) {
+        $loginError = C_LANG20;
+    }
+
+    if ($CONFIG['banIP'] && getIPBanList(getIP())) {
+        $loginError = C_LANG20;
+    }
+
+    if (!$loginError) {
+        // update user in database
+        updateUser();
+
+        // update room counts
+        try {
+            $dbh = db_connect();
+            $query = <<<EOQ
 update prochatrooms_rooms AS R set roomusers = (
     SELECT
         count(*)
@@ -651,47 +625,43 @@ update prochatrooms_rooms AS R set roomusers = (
         AND U.online = 1
 )
 EOQ;
-			$action = $dbh->prepare($query);
-			$action->execute();
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+            $action = $dbh->prepare($query);
+            $action->execute();
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}			
+            debugError($error);
+        }
 
-		// update watching, webcam, avatar, lastactive 
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'lastActive' => getTime(),
-			'username' => makeSafe($_SESSION['username']),			
-			);
-			$query = "UPDATE prochatrooms_users 
+        // update watching, webcam, avatar, lastactive 
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'lastActive' => getTime(),
+                'userid' => $_SESSION['user_id']
+            );
+            $query = "UPDATE prochatrooms_users 
 					  SET watching = '', webcam = '0', lastActive = :lastActive  
-					  WHERE username = :username
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+					  WHERE id = :userid
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}			
+            debugError($error);
+        }
 
-	}
+    }
 
-	// return details
-	return array($id, $avatar, $loginError, $blockedList, $guest);
+    // return details
+    return array($id, $avatar, $loginError, $blockedList, $guest, $userTypeId);
 
 }
 
@@ -702,50 +672,47 @@ EOQ;
 
 function getUserGroup($id)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	if(!is_numeric($id))
-	{
-		// set default user group
-		$_SESSION['userGroup'] = $CONFIG['userGroup'];
-	}
+    if (!is_numeric($id)) {
+        // set default user group
+        $_SESSION['userGroup'] = $CONFIG['userGroup'];
+    }
 
-	// select user group 
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'userGroup' => makeSafe($_SESSION['userGroup'])
-		);
-		$query = "SELECT *  
+    // select user group 
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'userGroup' => makeSafe($_SESSION['userGroup'])
+        );
+        $query = "SELECT *  
 				  FROM prochatrooms_group 
 				  WHERE id = :userGroup
 				  LIMIT 1
-				";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$_SESSION['groupChat'] = $i['groupChat'];
-			$_SESSION['groupPChat'] = $i['groupPChat'];
-			$_SESSION['groupCams'] = $i['groupCams'];
-			$_SESSION['groupWatch'] = $i['groupWatch'];
-			$_SESSION['groupRooms'] = $i['groupRooms'];
-			$_SESSION['groupShare'] = $i['groupShare'];
-			$_SESSION['groupVideo'] = $i['groupVideo'];						
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}	
+        foreach ($action as $i) {
+            $_SESSION['groupChat'] = $i['groupChat'];
+            $_SESSION['groupPChat'] = $i['groupPChat'];
+            $_SESSION['groupCams'] = $i['groupCams'];
+            $_SESSION['groupWatch'] = $i['groupWatch'];
+            $_SESSION['groupRooms'] = $i['groupRooms'];
+            $_SESSION['groupShare'] = $i['groupShare'];
+            $_SESSION['groupVideo'] = $i['groupVideo'];
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
 }
 
 /*
@@ -755,23 +722,22 @@ function getUserGroup($id)
 
 function assignGenderImage($loginGender)
 {
-	// assign avatar
-	switch ($loginGender)
-	{
-		case 1:
-  			$avatar = "male.gif";
-  			break;
-		case 2:
-  			$avatar = "female.gif";
-  			break;
-		case 3:
-  			$avatar = "couple.gif";
-  			break;
-		default:
-  			$avatar = "male.gif";
-	}
+    // assign avatar
+    switch ($loginGender) {
+        case 1:
+            $avatar = "male.gif";
+            break;
+        case 2:
+            $avatar = "female.gif";
+            break;
+        case 3:
+            $avatar = "couple.gif";
+            break;
+        default:
+            $avatar = "male.gif";
+    }
 
-	return $avatar;
+    return $avatar;
 }
 
 /*
@@ -781,39 +747,37 @@ function assignGenderImage($loginGender)
 
 function updateGuestAvatar($loginGender)
 {
-	// assign guest user
-	$_SESSION['guest'] = '1';
+    // assign guest user
+    $_SESSION['guest'] = '1';
 
-	// assign avatar
-	$loginGender = assignGenderImage($loginGender);
+    // assign avatar
+    $loginGender = assignGenderImage($loginGender);
 
-	// update watching, webcam, avatar
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'avatar' => makeSafe($loginGender),
-		'userIP' => $_SERVER['REMOTE_ADDR'],
-		'guest' => $_SESSION['guest'],
-		'username' => makeSafe($_SESSION['username']),		
-		);
-		$query = "UPDATE prochatrooms_users 
+    // update watching, webcam, avatar
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'avatar' => makeSafe($loginGender),
+            'userIP' => $_SERVER['REMOTE_ADDR'],
+            'guest' => $_SESSION['guest'],
+            'username' => makeSafe($_SESSION['username']),
+        );
+        $query = "UPDATE prochatrooms_users 
 				  SET avatar = :avatar, userIP = :userIP, guest = :guest
 				  WHERE username = :username
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);	
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		debugError($error);
-	}	
+        debugError($error);
+    }
 
-	return $_SESSION['guest'];
+    return $_SESSION['guest'];
 }
 
 /*
@@ -821,66 +785,66 @@ function updateGuestAvatar($loginGender)
 *
 */
 
-function addUser($defaultIcon)
+function addUser($defaultIcon, $userTypeId)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	// assign avatar
-	if(!$defaultIcon)
-	{
-		$defaultIcon = 'online.gif';
-	}
+    // assign avatar
+    if (!$defaultIcon) {
+        $defaultIcon = 'online.gif';
+    }
 
-	// check username is in database		
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'username' => makeSafe($_SESSION['username'])
-		);
-		$query = "SELECT username 
+    // check username is in database
+    $count = 0;
+    try {
+        $dbh = db_connect();
+        $params = array(
+            makeSafe($_SESSION['username']),
+            $userTypeId
+        );
+        $query = "SELECT username 
 				  FROM prochatrooms_users 
-				  WHERE username = :username 
+				  WHERE username = ?
+				  AND user_type_id = ?
 				  LIMIT 1
-				 ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		$count = $action->rowCount();		
-		
-		$dbh = null;
-	}				
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				 ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $count = $action->rowCount();
 
-		debugError($error);
-	}	
-	
-	// if user doesnt exist, add to database
-	if(!$count)
-	{
-		$incUserGroup = $CONFIG['userGroup'];
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		if(is_numeric($_SESSION['userGroup']))
-		{
-			$incUserGroup = $_SESSION['userGroup'];
-		}
-		
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'username' => makeSafe($_SESSION['username']), 
-			'userid' => makeSafe($_SESSION['userid']), 
-			'userIP' => $_SERVER['REMOTE_ADDR'], 
-			'room' => '1', 
-			'avatar' => makeSafe($defaultIcon),
-			'webcam' => '0', 
-			'active' => '0', 
-			'userGroup' => makeSafe($incUserGroup)
-			);
-			$query = "INSERT INTO prochatrooms_users
+        debugError($error);
+    }
+
+    // if user doesnt exist, add to database
+    if (!$count) {
+        $incUserGroup = $CONFIG['userGroup'];
+
+        if (is_numeric($_SESSION['userGroup'])) {
+            $incUserGroup = $_SESSION['userGroup'];
+        }
+
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'username' => makeSafe($_SESSION['username']),
+                'userid' => makeSafe($_SESSION['userid']),
+                'userIP' => $_SERVER['REMOTE_ADDR'],
+                'room' => '1',
+                'avatar' => makeSafe($defaultIcon),
+                'webcam' => '0',
+                'active' => '0',
+                'userGroup' => makeSafe($incUserGroup),
+                'usertypeid' => $userTypeId
+            );
+            $query = "INSERT INTO prochatrooms_users
 								(
 									username, 
 									userid,
@@ -889,7 +853,8 @@ function addUser($defaultIcon)
 									avatar, 
 									webcam,
 									active,
-									userGroup
+									userGroup,
+									user_type_id
 								) 
 								VALUES 
 								(
@@ -900,50 +865,47 @@ function addUser($defaultIcon)
 									:avatar, 
 									:webcam,
 									:active,
-									:userGroup
-								)";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);
-				
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+									:userGroup,
+									:usertypeid
+								)";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
 
-			debugError($error);
-		}		
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		// if no profile exists for this user
-		// create a new user profile entry in db
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'username' => makeSafe($_SESSION['username'])
-			);
-			$query = "INSERT INTO prochatrooms_profiles
+            debugError($error);
+        }
+
+        // if no profile exists for this user
+        // create a new user profile entry in db
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'username' => makeSafe($_SESSION['username'])
+            );
+            $query = "INSERT INTO prochatrooms_profiles
 								(
 									username
 								) 
 								VALUES 
 								(
 									:username
-								)";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+								)";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}			
-	}
+            debugError($error);
+        }
+    }
 }
 
 /*
@@ -953,38 +915,33 @@ function addUser($defaultIcon)
 
 function totalRooms()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	// count rooms total	
-	try {
-		$dbh = db_connect();
-		$params = array('');
-		$query = "SELECT roomid FROM prochatrooms_rooms";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		$count = $action->rowCount();	
+    // count rooms total	
+    try {
+        $dbh = db_connect();
+        $params = array('');
+        $query = "SELECT roomid FROM prochatrooms_rooms";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $count = $action->rowCount();
 
-		if($CONFIG['singleRoom'])
-		{
-			return $CONFIG['singleRoom'];
-		}
-		else
-		{
-			return $count;
-		}		
-			
-		$dbh = null;
-	}				
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        if ($CONFIG['singleRoom']) {
+            return $CONFIG['singleRoom'];
+        }
+        else {
+            return $count;
+        }
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		debugError($error);
-	}			
-
+        debugError($error);
+    }
+    return 0;
 }
 
 /*
@@ -994,39 +951,37 @@ function totalRooms()
 
 function updateUser()
 {
-	// update details
-	try {
-		$dbh = db_connect();
+    // update details
+    try {
+        $dbh = db_connect();
 
-		$params = array(	
-		'userIP' => $_SERVER['REMOTE_ADDR'],
-		'room' => makeSafe($_SESSION['room']),
-		'isActive' => getTime(),
-		'isOnline' => '1',
-		'streamID' => makeSafe($_SESSION['myStreamID']),	
-		'username' => makeSafe($_SESSION['username'])		
-		);
-		$query = "UPDATE prochatrooms_users 
+        $params = array(
+            'userIP' => $_SERVER['REMOTE_ADDR'],
+            'room' => makeSafe($_SESSION['room']),
+            'isActive' => getTime(),
+            'isOnline' => '1',
+            'streamID' => makeSafe($_SESSION['myStreamID']),
+            'userid' => makeSafe($_SESSION['user_id'])
+        );
+        $query = "UPDATE prochatrooms_users 
 				  SET 
 				  userIP = :userIP,
 				  room = :room, 
 				  active = :isActive, 
 				  online = :isOnline, 
 				  streamID = :streamID  
-				  WHERE username = :username
-				  ";		  
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  WHERE id = :userid
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		debugError($error);
-	}	
+        debugError($error);
+    }
 }
 
 /*
@@ -1036,44 +991,40 @@ function updateUser()
 
 function prevRoom()
 {
-	$prevRoom = '1';
+    $prevRoom = '1';
 
-	if(isset($_SESSION['room']))
-	{
-		$prevRoom = $_SESSION['room'];
-	}
+    if (isset($_SESSION['room'])) {
+        $prevRoom = $_SESSION['room'];
+    }
 
-	if(isset($_SESSION['username']))
-	{
-		// update users previous room
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'prevroom' => makeSafe($prevRoom),
-			'status' => '1',
-			'username' => makeSafe($_SESSION['username']),
-			);
-			$query = "UPDATE prochatrooms_users 
+    if (isset($_SESSION['username'])) {
+        // update users previous room
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'prevroom' => makeSafe($prevRoom),
+                'status' => '1',
+                'username' => makeSafe($_SESSION['username']),
+            );
+            $query = "UPDATE prochatrooms_users 
 					  SET prevroom = :prevroom, 
 					  status = :status    
 					  WHERE username = :username
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}		
-		
-	}
+            debugError($error);
+        }
 
-	return $prevRoom;
+    }
+
+    return $prevRoom;
 
 }
 
@@ -1084,24 +1035,22 @@ function prevRoom()
 
 function deleteUserRoom($id)
 {
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'id' => makeSafe($id),
-		);
-		$query = "DELETE FROM prochatrooms_rooms WHERE id = :id";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);	
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($id),
+        );
+        $query = "DELETE FROM prochatrooms_rooms WHERE id = :id";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		debugError($error);
-	}	
+        debugError($error);
+    }
 }
 
 /*
@@ -1109,102 +1058,91 @@ function deleteUserRoom($id)
 *
 */
 
-function chatRoomID($id,$pass)
+function chatRoomID($id, $pass)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	if(!$id || !is_numeric($id))
-	{
-		// if no room ID or room ID is not numeric then
-		// log user into default room (set in config.php)
+    if (!$id || !is_numeric($id)) {
+        // if no room ID or room ID is not numeric then
+        // log user into default room (set in config.php)
 
-		$_SESSION['room'] = $CONFIG['defaultRoom'];
+        $_SESSION['room'] = $CONFIG['defaultRoom'];
 
-		return array($CONFIG['defaultRoom'],'1');	
-	}
-	else
-	{
-		// password encryption
-		if(!empty($pass))
-		{
-			$pass = md5($pass);
-		}
+        return array($CONFIG['defaultRoom'], '1');
+    }
+    else {
+        // password encryption
+        if (!empty($pass)) {
+            $pass = md5($pass);
+        }
 
-		$roomPassword = "1";
+        $roomPassword = "1";
+        $roomowner = '0';
+        // admin & mods dont need a password ;)
+        if (getAdmin($_SESSION['user_id']) || getModerator($_SESSION['user_id'])) {
+            $roomPassword = '';
+        }
 
-      	// admin & mods dont need a password ;)
-      	if(getAdmin($_SESSION['username']) || getModerator($_SESSION['username']))
-     	{
-         	$roomPassword = '';
-      	}
+        // check room exists
+        try {
+            $dbh = db_connect();
 
-		// check room exists	
-		try {
-			$dbh = db_connect();
-			
-			if($roomPassword)
-			{
-				$params = array(
-				'id' => makeSafe($id),
-				'roompassword' => makeSafe($pass)				
-				);
-				$query = "SELECT id, roomid, roomowner   
+            if ($roomPassword) {
+                $params = array(
+                    'id' => makeSafe($id),
+                    'roompassword' => makeSafe($pass)
+                );
+                $query = "SELECT id, roomid, roomowner   
 						  FROM prochatrooms_rooms 
 						  WHERE id = :id  
 						  AND roompassword = :roompassword 
 						  ORDER BY id DESC
 						  LIMIT 1
 						  ";
-			}
-			else
-			{
-				$params = array(
-				'id' => makeSafe($id)
-				);
-				$query = "SELECT id, roomid, roomowner   
+            }
+            else {
+                $params = array(
+                    'id' => makeSafe($id)
+                );
+                $query = "SELECT id, roomid, roomowner   
 						  FROM prochatrooms_rooms 
 						  WHERE id = :id
 						  ORDER BY id DESC
 						  LIMIT 1
 						  ";
-			}		 
-					  
-			$action = $dbh->prepare($query);
-			$action->execute($params);
-			$count = $action->rowCount();			
-			
-			if($count)
-			{
-				foreach ($action as $i)  
-				{
-					$_SESSION['room'] = $i['id'];
-					$roomowner = $i['roomowner'];
-				}
+            }
 
-				return array($id,$roomowner);
-			}
-			else
-			{
-				include("templates/".$CONFIG['template']."/private.php");
-				die;
-			}			
-			
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $count = $action->rowCount();
 
-			debugError($error);
-		}				
+            if ($count) {
+                foreach ($action as $i) {
+                    $_SESSION['room'] = $i['id'];
+                    $roomowner = $i['roomowner'];
+                }
 
-	}
+                $dbh = null;
+                return array($id, $roomowner);
+            }
+            else {
+                $dbh = null;
+                include("templates/" . $CONFIG['template'] . "/private.php");
+                die;
+            }
 
-	updateRoomUserCount($id);
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
+            debugError($error);
+        }
+
+    }
+    updateRoomUserCount($id);
 }
 
 /*
@@ -1214,37 +1152,37 @@ function chatRoomID($id,$pass)
 
 function chatRoomDesc($roomID)
 {
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'id' => makeSafe($roomID)
-		);
-		$query = "SELECT roombg,roomdesc   
+    $roombg = '';
+    $roomdesc = '';
+
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($roomID)
+        );
+        $query = "SELECT roombg,roomdesc   
 				  FROM prochatrooms_rooms 
 				  WHERE id = :id
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$roombg = $i['roombg'];
-			$roomdesc = urldecode($i['roomdesc']);				
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}		
+        foreach ($action as $i) {
+            $roombg = $i['roombg'];
+            $roomdesc = urldecode($i['roomdesc']);
+        }
 
-	return array($roombg,$roomdesc);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return array($roombg, $roomdesc);
 }
 
 /*
@@ -1254,49 +1192,43 @@ function chatRoomDesc($roomID)
 
 function getLastMessageID($room)
 {
-	$id = '0';
-	
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'room' => makeSafe($room),
-		'tousername' => makeSafe($_SESSION['username']),	
-		'share' => '1'	
-		);
-		$query = "SELECT id   
-				  FROM prochatrooms_message 
-				  WHERE room = :room 
-				  OR tousername = :tousername
-				  OR share = :share
+    $id = 0;
+
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'room' => makeSafe($room),
+            'share' => '1'
+        );
+        $query = "SELECT id
+				  FROM prochatrooms_message
 				  ORDER BY id DESC
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$id = $i['id'];
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-			// include files
-			include(getDocPath()."includes/config.php");
-			$id -= $CONFIG['dispLastMess'];				
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        foreach ($action as $i) {
+            $id = $i['id'];
 
-		debugError($error);
-	}		
+            // include files
+            include(getDocPath() . "includes/config.php");
+            /* @var array $CONFIG */
+            $id -= $CONFIG['dispLastMess'];
+        }
 
-	$_SESSION['transcriptsID'] = $id + 1;
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	return $id;
+        debugError($error);
+    }
+
+    $_SESSION['transcriptsID'] = $id + 1;
+
+    return $id;
 
 }
 
@@ -1305,103 +1237,75 @@ function getLastMessageID($room)
 * 
 */
 
-function logoutUser($username,$room)
+function logoutUser($userId, $room)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	if(empty($room) || $room == '')
-	{
-		$room = '0';
-	}
+    if (empty($room) || $room == '') {
+        $room = '0';
+    }
 
-	$showLogout = '1';
+    $showLogout = '1';
 
-	if(invisibleAdmins($username))
-	{
-		$showLogout = '0';
-	}
+    if (invisibleAdmins($userId)) {
+        $showLogout = '0';
+    }
 
-	if($showLogout)
-	{
-		if(file_exists(getDocPath()."lang/".$_SESSION['lang']))
-		{
-			include(getDocPath()."lang/".$_SESSION['lang']);
-		}		
+    $dbh = db_connect();
+    if ($showLogout) {
+        if (file_exists(getDocPath() . "lang/" . $_SESSION['lang'])) {
+            include(getDocPath() . "lang/" . $_SESSION['lang']);
+        }
 
-		// set user to offline
-		$offlineTime = getTime()-$CONFIG['activeTimeout'];
-		
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'active' => $offlineTime,
-			'online' => '0',
-			'webcam' => '0',
-			'status' => '0',		
-			'username' => makeSafe($username)				
-			);
-			$query = "UPDATE prochatrooms_users 
+        // set user to offline
+        $offlineTime = getTime() - $CONFIG['activeTimeout'];
+
+        try {
+            $params = array(
+                'active' => $offlineTime,
+                'online' => '0',
+                'webcam' => '0',
+                'status' => '0',
+                'id' => $userId
+            );
+            $query = "UPDATE prochatrooms_users
 					  SET active = :active, online = :online, webcam = :webcam, status = :status    
-					  WHERE username = :username
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{	
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
-			
-			debugError($error);
-		}		
+					  WHERE id = :id
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		// get userid
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'username' => makeSafe($username)
-			);
-			$query = "SELECT id   
-					  FROM prochatrooms_users 
-					  WHERE username = :username
-					  LIMIT 1
-					";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);
-						
-			foreach ($action as $i) 
-			{
-					$id = $i['id'];			
-			}
-			
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{	
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+            debugError($error);
+        }
 
-			debugError($error);
-		}			
-	
-		// send logout message
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'uid' => $id,
-			'mid' => 'chatContainer',
-			'username' => makeSafe($username),
-			'tousername' => '',
-			'message' =>  '1|#000000|12px|Verdana|** '.makeSafe($username).' '.makeSafe(C_LANG22),
-			'sfx' => 'beep_high.mp3',
-			'room' => makeSafe($room),
-			'messtime' => getTime()
-			);
-			$query = "INSERT INTO prochatrooms_message
+        $displayName = '';
+        $sql = "select display_name from prochatrooms_users where id = ?";
+        $action = $dbh->prepare($sql);
+        $action->execute(array($userId));
+        if($action->rowCount()) {
+            $row = $action->fetch(PDO::FETCH_ASSOC);
+            $displayName = $row['display_name'];
+        }
+
+        // send logout message
+        try {
+            $params = array(
+                'uid' => $userId,
+                'mid' => 'chatContainer',
+                'username' => makeSafe($displayName),
+                'tousername' => '',
+                'message' => 'logout.png|#000000|12px|Verdana|has logged out.',
+                'sfx' => 'beep_high.mp3',
+                'room' => makeSafe($room),
+                'messtime' => getTime()
+            );
+            $query = "INSERT INTO prochatrooms_message
 								(
 									uid,
 									mid,
@@ -1423,43 +1327,17 @@ function logoutUser($username,$room)
 									:room,
 									:messtime
 								)
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);		
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{	
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
-	
-			debugError($error);
-		}				
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		// update room user count
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'id' => makeSafe($room)
-			);
-			$query = "UPDATE prochatrooms_rooms 
-					  SET roomusers = roomusers - 1 
-					  WHERE id = :id
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
-
-			debugError($error);
-		}
-	}
+            debugError($error);
+        }
+    }
 }
 
 /*
@@ -1469,12 +1347,13 @@ function logoutUser($username,$room)
 
 function streamID()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	$id = md5(date("U").$CONFIG['salt'].$_SESSION['username'].rand(1,9999999));
+    $id = md5(date("U") . $CONFIG['salt'] . $_SESSION['username'] . rand(1, 9999999));
 
-	return $id;
+    return $id;
 }
 
 /*
@@ -1484,37 +1363,34 @@ function streamID()
 
 function validStreamID($id)
 {
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'streamID' => makeSafe($id)
-		);
-		$query = "SELECT streamID   
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'streamID' => makeSafe($id)
+        );
+        $query = "SELECT streamID   
 				  FROM prochatrooms_users 
 				  WHERE streamID = :streamID
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		$count = $action->rowCount();	
-		
-		if($count)
-		{
-			$valid = '1';
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $count = $action->rowCount();
 
-		debugError($error);
-	}
-	
-	return $valid;
+        if ($count) {
+            $valid = '1';
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return $valid;
 }
 
 /*
@@ -1524,53 +1400,52 @@ function validStreamID($id)
 
 function adminPermissions()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	// default values	
-	$admin = '0';	
-	$mod = '0';	
-	$speaker = '0';		
+    // default values	
+    $admin = '0';
+    $mod = '0';
+    $speaker = '0';
+    $userTypeId = 1;
 
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'username' => makeSafe($_SESSION['username'])
-		);
-		$query = "SELECT admin, moderator, speaker  
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'username' => makeSafe($_SESSION['username'])
+        );
+        $query = "SELECT admin, moderator, speaker, user_type_id
 				  FROM prochatrooms_users 
 				  WHERE username = :username
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);	
-	
-		foreach ($action as $i) 
-		{
-			$admin = $i['admin'];
-			$mod = $i['moderator'];
-			$speaker = $i['speaker'];
-			
-			// if user is admin and config setting is set to 1 
-			// allows auto-login to admin area
-			if($admin && $CONFIG['adminArea'])
-			{
-				$_SESSION['adminUser'] = '1';
-			}
-		}
-		
-		$dbh = null;		
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}		
+        foreach ($action as $i) {
+            $admin = $i['admin'];
+            $mod = $i['moderator'];
+            $speaker = $i['speaker'];
+            $userTypeId = $i['user_type_id'];
 
-	return array($admin,$mod,$speaker);
+            // if user is admin and config setting is set to 1 
+            // allows auto-login to admin area
+            if ($admin && $CONFIG['adminArea']) {
+                $_SESSION['adminUser'] = '1';
+            }
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return array($admin, $mod, $speaker, $userTypeId);
 }
 
 /*
@@ -1581,46 +1456,45 @@ function adminPermissions()
 
 function toUserPermissions($id)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
 
-	// default values	
-	$admin = '0';	
-	$mod = '0';	
-	$speaker = '0';		
+    // default values	
+    $admin = '0';
+    $mod = '0';
+    $speaker = '0';
+    $userTypeId = 1;
 
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'id' => makeSafe($id)
-		);
-		$query = "SELECT admin, moderator, speaker  
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($id)
+        );
+        $query = "SELECT admin, moderator, speaker, user_type_id
 				  FROM prochatrooms_users 
-				  WHERE username = :id
+				  WHERE id = :id
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);	
-	
-		foreach ($action as $i) 
-		{
-			$admin = $i['admin'];
-			$mod = $i['moderator'];
-			$speaker = $i['speaker'];
-		}
-		
-		$dbh = null;		
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}			
+        foreach ($action as $i) {
+            $admin = $i['admin'];
+            $mod = $i['moderator'];
+            $speaker = $i['speaker'];
+            $userTypeId = $i['user_type_id'];
+        }
 
-	return array($admin,$mod,$speaker);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return array($admin, $mod, $speaker);
 }
 
 
@@ -1631,38 +1505,35 @@ function toUserPermissions($id)
 
 function getAdmin($id)
 {
-	$result = '0';	
+    $result = '0';
 
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'id' => makeSafe($id)
-		);
-		$query = "SELECT admin   
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($id)
+        );
+        $query = "SELECT admin   
 				  FROM prochatrooms_users 
-				  WHERE username = :id
+				  WHERE id = :id
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$result = $i['admin']; 				
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}	
-	
-	return $result;
+        foreach ($action as $i) {
+            $result = $i['admin'];
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return $result;
 }
 
 /*
@@ -1672,38 +1543,35 @@ function getAdmin($id)
 
 function getModerator($id)
 {
-	$result = '0';
+    $result = '0';
 
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'id' => makeSafe($id)
-		);
-		$query = "SELECT moderator   
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($id)
+        );
+        $query = "SELECT moderator   
 				  FROM prochatrooms_users 
-				  WHERE username = :id
+				  WHERE id = :id
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$result = $i['moderator']; 				
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}	
+        foreach ($action as $i) {
+            $result = $i['moderator'];
+        }
 
-	return $result;
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return $result;
 }
 
 /*
@@ -1713,38 +1581,73 @@ function getModerator($id)
 
 function getSpeaker($id)
 {
-	$result = '0';
-	
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'id' => makeSafe($id)
-		);
-		$query = "SELECT speaker   
-				  FROM prochatrooms_users 
-				  WHERE username = :id
-				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$result = $i['speaker']; 				
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+    $result = '0';
 
-		debugError($error);
-	}	
-	
-	return $result;
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($id)
+        );
+        $query = "SELECT speaker   
+				  FROM prochatrooms_users 
+				  WHERE id = :id
+				  LIMIT 1
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+
+        foreach ($action as $i) {
+            $result = $i['speaker'];
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return $result;
+}
+
+/*
+* user_type_id
+*
+*/
+
+function getUserTypeId($id)
+{
+    $result = '0';
+
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($id)
+        );
+        $query = "SELECT user_type_id
+				  FROM prochatrooms_users
+				  WHERE id = :id
+				  LIMIT 1
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+
+        foreach ($action as $i) {
+            $result = $i['user_type_id'];
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return $result;
 }
 
 /*
@@ -1754,25 +1657,22 @@ function getSpeaker($id)
 
 function getUserAge($age)
 {
-	$html = '';
-	$selected = ''; 
+    $html = '';
+    $selected = '';
 
-	for($i = 16; $i <= 100; $i++) 
-	{
-		if($i == $age)
-		{
-			$selected = 'SELECTED '; 
-		}
+    for ($i = 16; $i <= 100; $i++) {
+        if ($i == $age) {
+            $selected = 'SELECTED ';
+        }
 
-		if($i < $age || $i > $age)
-		{
-			$selected = ''; 
-		}
+        if ($i < $age || $i > $age) {
+            $selected = '';
+        }
 
-		$html .= "<option value='".$i."' ".$selected.">".$i."</option>"; 
-	}
+        $html .= "<option value='" . $i . "' " . $selected . ">" . $i . "</option>";
+    }
 
-	return $html;
+    return $html;
 }
 
 /*
@@ -1782,57 +1682,51 @@ function getUserAge($age)
 
 function getUserGenders($userGender)
 {
-	try {
-		$dbh = db_connect();
-		$params = array('');
-		$query = "SELECT gender    
+    try {
+        $dbh = db_connect();
+        $params = array('');
+        $query = "SELECT gender    
 				  FROM prochatrooms_config 
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$gender = $i['gender'];			
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}		
+        foreach ($action as $i) {
+            $gender = $i['gender'];
+        }
 
-	$html = '';
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	$x = 1;
+        debugError($error);
+    }
 
-	$gender = explode(",", $gender);
-	$genderArrayLength = count($gender);
+    $html = '';
 
-	for ($i = 0; $i < $genderArrayLength; $i++)
-	{
-		if($x == $userGender)
-		{
-			$selected = 'SELECTED '; 
-		}
+    $x = 1;
 
-		if($x < $userGender || $x > $userGender)
-		{
-			$selected = ''; 
-		}
+    $gender = explode(",", $gender);
+    $genderArrayLength = count($gender);
 
-		$html .= "<option value='".$x."' ".$selected." >".$gender[$i]."</option>"; 
+    for ($i = 0; $i < $genderArrayLength; $i++) {
+        if ($x == $userGender) {
+            $selected = 'SELECTED ';
+        }
 
-		$x++;
-	}
+        if ($x < $userGender || $x > $userGender) {
+            $selected = '';
+        }
 
-	return $html;
+        $html .= "<option value='" . $x . "' " . $selected . " >" . $gender[$i] . "</option>";
+
+        $x++;
+    }
+
+    return $html;
 }
 
 /*
@@ -1842,39 +1736,36 @@ function getUserGenders($userGender)
 
 function getProfileGenders($userGender)
 {
-	try {
-		$dbh = db_connect();
-		$params = array('');
-		$query = "SELECT gender    
+    try {
+        $dbh = db_connect();
+        $params = array('');
+        $query = "SELECT gender    
 				  FROM prochatrooms_config 
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$gender = $i['gender'];			
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}		
+        foreach ($action as $i) {
+            $gender = $i['gender'];
+        }
 
-	$gender = explode(",", $gender);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	// all arrays start @ 0
-	// so lets subtract 1 for true gender
-	$result = $gender[$userGender-1]; 
+        debugError($error);
+    }
 
-	return $result;
+    $gender = explode(",", $gender);
+
+    // all arrays start @ 0
+    // so lets subtract 1 for true gender
+    $result = $gender[$userGender - 1];
+
+    return $result;
 }
 
 /*
@@ -1884,67 +1775,61 @@ function getProfileGenders($userGender)
 
 function getUserRooms($id)
 {
-	try {
-		$dbh = db_connect();
-		
-		if(!$id)
-		{		
-			$params = array(
-			'roomownerID' => '1',
-			'roomName' => 'User Room'			
-			);
-			$query = "SELECT id, roomname    
+    try {
+        $dbh = db_connect();
+
+        if (!$id) {
+            $params = array(
+                'roomownerID' => '1',
+                'roomName' => 'User Room'
+            );
+            $query = "SELECT id, roomname    
 					  FROM prochatrooms_rooms 
 					  WHERE roomowner = :roomownerID
 					  AND roomname != :roomName
 					  ORDER BY id
-					  ";	
-		}
-		else
-		{
-			// include files
-			include(getDocPath()."includes/config.php");	
+					  ";
+        }
+        else {
+            // include files
+            include(getDocPath() . "includes/config.php");
 
-			// check roomID is numeric
-			if(!is_numeric($id))
-			{
-				$id = $CONFIG['defaultRoom'];
-			}
-		
-			$params = array(
-			'roomownerID' => '1',
-			'roomid' => makeSafe($id)	
-			);
-			$query = "SELECT id, roomname    
+            // check roomID is numeric
+            if (!is_numeric($id)) {
+                $id = $CONFIG['defaultRoom'];
+            }
+
+            $params = array(
+                'roomownerID' => '1',
+                'roomid' => makeSafe($id)
+            );
+            $query = "SELECT id, roomname    
 					  FROM prochatrooms_rooms 
 					  WHERE roomowner = :roomownerID
 					  AND id = :roomid 
 					  ORDER BY id
-					  ";			
-		}
-				  
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		
-		$html = ''; 
-					
-		foreach ($action as $i) 
-		{
-			$html .= "<option value='".$i['id']."'>".urldecode($i['roomname'])."</option>"; 	
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+					  ";
+        }
 
-		debugError($error);
-	}		
-	
-	return $html;
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+
+        $html = '';
+
+        foreach ($action as $i) {
+            $html .= "<option value='" . $i['id'] . "'>" . urldecode($i['roomname']) . "</option>";
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return $html;
 }
 
 /*
@@ -1954,33 +1839,30 @@ function getUserRooms($id)
 
 function getLoginNews()
 {
-	try {
-		$dbh = db_connect();
-		$params = array('');
-		$query = "SELECT news    
+    try {
+        $dbh = db_connect();
+        $params = array('');
+        $query = "SELECT news    
 				  FROM prochatrooms_config 
 				  LIMIT 1
-				";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$html = stripslashes(urldecode($i['news']));				
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}		
+        foreach ($action as $i) {
+            $html = stripslashes(urldecode($i['news']));
+        }
 
-	return $html;
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return $html;
 }
 
 /*
@@ -1990,17 +1872,16 @@ function getLoginNews()
 
 function copyrightTitle()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
 
-	$html = "Powered by Pro Chat Rooms ".$CONFIG['version'];
+    $html = "Powered by Pro Chat Rooms " . $CONFIG['version'];
 
-	if(file_exists(getDocPath()."plugins/rembrand/index.php"))
-	{
-		$html = $CONFIG['chatroomName'];
-	}
+    if (file_exists(getDocPath() . "plugins/rembrand/index.php")) {
+        $html = $CONFIG['chatroomName'];
+    }
 
-	return $html;
+    return $html;
 }
 
 /*
@@ -2010,17 +1891,16 @@ function copyrightTitle()
 
 function copyrightFooter()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
 
-	$html = "<span class='link'>&copy;<a href='http://prochatrooms.com'>Pro Chat Rooms</a> ".$CONFIG['version']."</span>";
+    $html = "<span class='link'>&copy;<a href='http://prochatrooms.com'>Pro Chat Rooms</a> " . $CONFIG['version'] . "</span>";
 
-	if(file_exists(getDocPath()."/plugins/rembrand/index.php"))
-	{
-		$html = "<span class='link'>&copy;".date("Y")." - <a href='".$CONFIG['chatroomUrl']."'>".$CONFIG['chatroomName']."</a></span>";	
-	}
+    if (file_exists(getDocPath() . "/plugins/rembrand/index.php")) {
+        $html = "<span class='link'>&copy;" . date("Y") . " - <a href='" . $CONFIG['chatroomUrl'] . "'>" . $CONFIG['chatroomName'] . "</a></span>";
+    }
 
-	return $html;
+    return $html;
 }
 
 /*
@@ -2030,52 +1910,47 @@ function copyrightFooter()
 
 function showImage($id)
 {
-	// strip tags
-	if(!ctype_digit($id))
-	{
-		die("invalid id");
-	}
+    // strip tags
+    if (!ctype_digit($id)) {
+        die("invalid id");
+    }
 
-	// reset image
-	$image = '';
+    // reset image
+    $image = '';
 
-	// get user pic
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'id' => makeSafe($id)
-		);
-		$query = "SELECT photo 
+    // get user pic
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($id)
+        );
+        $query = "SELECT photo 
 				  FROM prochatrooms_profiles 
 				  WHERE id = :id
 				  LIMIT 1
-				";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$image = explode("|", $i['photo']);				
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}		
+        foreach ($action as $i) {
+            $image = explode("|", $i['photo']);
+        }
 
-	if($image[0]!='image/jpeg' && $image[0]!='image/gif' && $image[0]!='image/pjpeg')
-	{
-		$image[0] = 'image/jpeg';
-		$image[1] = 'nopic.jpg';
-	}
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	return array($image[0],$image[1]);
+        debugError($error);
+    }
+
+    if ($image[0] != 'image/jpeg' && $image[0] != 'image/gif' && $image[0] != 'image/pjpeg') {
+        $image[0] = 'image/jpeg';
+        $image[1] = 'nopic.jpg';
+    }
+
+    return array($image[0], $image[1]);
 
 }
 
@@ -2086,50 +1961,47 @@ function showImage($id)
 
 function userProfileInfo($id)
 {
-	// strip tags
-	$id = strip_tags($id);
+    // strip tags
+    $id = strip_tags($id);
 
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'id' => makeSafe($id)
-		);
-		$query = "SELECT prochatrooms_profiles.username, prochatrooms_profiles.real_name, prochatrooms_profiles.age, prochatrooms_profiles.gender, prochatrooms_profiles.location, prochatrooms_profiles.hobbies, prochatrooms_profiles.aboutme, prochatrooms_profiles.photo, prochatrooms_users.email  
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => makeSafe($id)
+        );
+        $query = "SELECT prochatrooms_profiles.username, prochatrooms_profiles.real_name, prochatrooms_profiles.age, prochatrooms_profiles.gender, prochatrooms_profiles.location, prochatrooms_profiles.hobbies, prochatrooms_profiles.aboutme, prochatrooms_profiles.photo, prochatrooms_users.email  
 				  FROM prochatrooms_profiles, prochatrooms_users
 				  WHERE prochatrooms_profiles.id = prochatrooms_users.id
 				  AND prochatrooms_profiles.id = :id
 				  LIMIT 1
-				";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$username = $i['username'];
-			$real_name = $i['real_name'];
-			$age = $i['age'];
-			$gender = $i['gender'];
-			$location = $i['location'];
-			$hobbies = $i['hobbies'];
-			$aboutme = $i['aboutme'];
-			$email = $i['email'];
+				";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-			$photo = explode("|", $i['photo']);
-			$photo = $photo[1];			
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        foreach ($action as $i) {
+            $username = $i['username'];
+            $real_name = $i['real_name'];
+            $age = $i['age'];
+            $gender = $i['gender'];
+            $location = $i['location'];
+            $hobbies = $i['hobbies'];
+            $aboutme = $i['aboutme'];
+            $email = $i['email'];
 
-		debugError($error);
-	}		
+            $photo = explode("|", $i['photo']);
+            $photo = $photo[1];
+        }
 
-	return array($username,$real_name,$age,$gender,$location,$hobbies,$aboutme,$photo,$email);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    return array($username, $real_name, $age, $gender, $location, $hobbies, $aboutme, $photo, $email);
 
 }
 
@@ -2138,158 +2010,144 @@ function userProfileInfo($id)
 * 
 */
 
-function updateProfile($id,$profileRealname,$profileAge,$profileGender,$uploadedfile,$deleteImage,$imgID,$profileLocation,$profileHobbies,$profileAboutme,$profilePass,$profileEmail)
+function updateProfile($id, $profileRealname, $profileAge, $profileGender, $uploadedfile, $deleteImage, $imgID, $profileLocation, $profileHobbies, $profileAboutme, $profilePass, $profileEmail)
 {
-	// include files
-	include(getDocPath()."lang/".$_SESSION['lang']);
+    // include files
+    include(getDocPath() . "lang/" . $_SESSION['lang']);
 
-	if(!is_numeric($id))
-	{
-		// invalid Session ID
-		die("Invalid Session ID");
-	}
+    if (!is_numeric($id)) {
+        // invalid Session ID
+        die("Invalid Session ID");
+    }
 
-	// make safe data
-	$realname = makeSafe(urlencode($profileRealname));
-	$age = makeSafe(urlencode($profileAge));
-	$gender = makeSafe(urlencode($profileGender));
-	$img = $uploadedfile;
-	$location = makeSafe(urlencode($profileLocation));
-	$hobbies = makeSafe(urlencode($profileHobbies));
-	$aboutme = makeSafe(urlencode($profileAboutme));
-	$password = makeSafe($profilePass);
-	$email = makeSafe($profileEmail);
+    // make safe data
+    $realname = makeSafe(urlencode($profileRealname));
+    $age = makeSafe(urlencode($profileAge));
+    $gender = makeSafe(urlencode($profileGender));
+    $img = $uploadedfile;
+    $location = makeSafe(urlencode($profileLocation));
+    $hobbies = makeSafe(urlencode($profileHobbies));
+    $aboutme = makeSafe(urlencode($profileAboutme));
+    $password = makeSafe($profilePass);
+    $email = makeSafe($profileEmail);
 
-	$uploaddir = "uploads/";
+    $uploaddir = "uploads/";
 
-	$ext_allowed = '0';
+    $ext_allowed = '0';
 
-	$file_type = $_FILES['uploadedfile']['type'];
-	$file_type_ext = array('image/pjpeg','image/gif','image/jpeg');
+    $file_type = $_FILES['uploadedfile']['type'];
+    $file_type_ext = array('image/pjpeg', 'image/gif', 'image/jpeg');
 
-	$allowed_ext = array('jpg','gif');
+    $allowed_ext = array('jpg', 'gif');
 
-	if(basename($_FILES['uploadedfile']['name']))
-	{ // image is being uploaded
+    if (basename($_FILES['uploadedfile']['name'])) { // image is being uploaded
 
-		if(in_array(strtolower(substr(basename($_FILES['uploadedfile']['name']), -3)), $allowed_ext))
-		{ // check last 3 characters of basename()
+        if (in_array(strtolower(substr(basename($_FILES['uploadedfile']['name']), -3)), $allowed_ext)) { // check last 3 characters of basename()
 
-			$ext_allowed='1';
-		}
+            $ext_allowed = '1';
+        }
 
-		if(in_array($file_type, $file_type_ext))
-		{ // check mime type
+        if (in_array($file_type, $file_type_ext)) { // check mime type
 
-			$ext_allowed='1';
-		}
+            $ext_allowed = '1';
+        }
 
-	}
+    }
 
-	if(!$deleteImage)
-	{ // set error reporting
+    if (!$deleteImage) { // set error reporting
 
-		if(!$ext_allowed && basename($_FILES['uploadedfile']['name']))
-		{ 
-			// ext not allowed
-			$image_result = "Invalid Image";
-		}
-		else
-		{
-			// error reporting for file uploads
-			// http://www.php.net/manual/en/features.file-upload.errors.php
-			define("C_IMG1","Error: The uploaded file exceeds the upload_max_filesize directive in php.ini.");
-			define("C_IMG2","Error: The uploaded file exceeds the MAX_IMAGE_SIZE value that was specified in the config settings");
-			define("C_IMG3","Error: The uploaded file was only partially uploaded.");
-			define("C_IMG4",""); // empty
-			define("C_IMG5",""); // empty
-			define("C_IMG6","Error: Missing a temporary folder.");
-			define("C_IMG7","Error: Failed to write file to disk.");
-			define("C_IMG8","Error: A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help.");
+        if (!$ext_allowed && basename($_FILES['uploadedfile']['name'])) {
+            // ext not allowed
+            $image_result = "Invalid Image";
+        }
+        else {
+            // error reporting for file uploads
+            // http://www.php.net/manual/en/features.file-upload.errors.php
+            define("C_IMG1", "Error: The uploaded file exceeds the upload_max_filesize directive in php.ini.");
+            define("C_IMG2", "Error: The uploaded file exceeds the MAX_IMAGE_SIZE value that was specified in the config settings");
+            define("C_IMG3", "Error: The uploaded file was only partially uploaded.");
+            define("C_IMG4", ""); // empty
+            define("C_IMG5", ""); // empty
+            define("C_IMG6", "Error: Missing a temporary folder.");
+            define("C_IMG7", "Error: Failed to write file to disk.");
+            define("C_IMG8", "Error: A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help.");
 
-			switch ($_FILES['uploadedfile']['error']) 
-			{
-    			case 1:
-        			$image_result = C_IMG1;
-        			break;
-    			case 2:
-        			$image_result = C_IMG2;
-        			break;
-    			case 3:
-        			$image_result = C_IMG3;
-        			break;
-    			case 6:
-        			$image_result = C_IMG6;
-        			break;
-    			case 7:
-        			$image_result = C_IMG7;
-        			break;
-    			case 8:
-        			$image_result = C_IMG8;
-        			break;
-    			default:
-       				$image_result = '0';
+            switch ($_FILES['uploadedfile']['error']) {
+                case 1:
+                    $image_result = C_IMG1;
+                    break;
+                case 2:
+                    $image_result = C_IMG2;
+                    break;
+                case 3:
+                    $image_result = C_IMG3;
+                    break;
+                case 6:
+                    $image_result = C_IMG6;
+                    break;
+                case 7:
+                    $image_result = C_IMG7;
+                    break;
+                case 8:
+                    $image_result = C_IMG8;
+                    break;
+                default:
+                    $image_result = '0';
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
-	$incImage = '';
+    $incImage = '';
 
-	if($deleteImage)
-	{ 
-		if(file_exists($uploaddir.$imgID))
-		{
-			unlink($uploaddir.$imgID);
+    if ($deleteImage) {
+        if (file_exists($uploaddir . $imgID)) {
+            unlink($uploaddir . $imgID);
 
-			$incImage = 'delete';
+            $incImage = 'delete';
 
-       		$image_result = C_LANG23;
+            $image_result = C_LANG23;
 
-		}
-	}
+        }
+    }
 
-	if($ext_allowed && !$image_error)
-	{
+    if ($ext_allowed && !$image_error) {
 
-		// PHP file upload reference
-		// http://www.scanit.be/uploads/php-file-upload.pdf
+        // PHP file upload reference
+        // http://www.scanit.be/uploads/php-file-upload.pdf
 
-		$uploadfile = $uploaddir.md5(basename($_FILES['uploadedfile']['name']).rand(1,99999).rand(1,99999));
+        $uploadfile = $uploaddir . md5(basename($_FILES['uploadedfile']['name']) . rand(1, 99999) . rand(1, 99999));
 
-		if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $uploadfile))
-		{ // update the user details and image
+        if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $uploadfile)) { // update the user details and image
 
-			if(!chmod($uploadfile, 0644))
-			{
-				die("unable to chmod images to 644");
-			}
+            if (!chmod($uploadfile, 0644)) {
+                die("unable to chmod images to 644");
+            }
 
-			$incImage = 'update';
-		}
+            $incImage = 'update';
+        }
 
-		$imageUploaded = '1';
+        $imageUploaded = '1';
 
-	}
+    }
 
-	// update profile
-	try {
-		$dbh = db_connect();
-		
-		if(!$incImage)
-		{ // no image update
-			$params = array(
-			'realname' => $realname,
-			'gender' => $gender,
-			'age' => $age,
-			'location' => $location,
-			'hobbies' => $hobbies,
-			'aboutme' => $aboutme,	
-			'id' => $id				
-			);
-			$query = "UPDATE prochatrooms_profiles 
+    // update profile
+    try {
+        $dbh = db_connect();
+
+        if (!$incImage) { // no image update
+            $params = array(
+                'realname' => $realname,
+                'gender' => $gender,
+                'age' => $age,
+                'location' => $location,
+                'hobbies' => $hobbies,
+                'aboutme' => $aboutme,
+                'id' => $id
+            );
+            $query = "UPDATE prochatrooms_profiles 
 					  SET 
 					  real_name = :realname,
 					  gender = :gender, 
@@ -2298,32 +2156,29 @@ function updateProfile($id,$profileRealname,$profileAge,$profileGender,$uploaded
 					  hobbies = :hobbies, 
 					  aboutme = :aboutme
 					  WHERE id = :id
-					  ";	
-		}
-		else
-		{ // inc. update/delete image
-		
-			if($incImage == 'update')
-			{
-				$img = makeSafe($_FILES['uploadedfile']['type'])."|".makeSafe(basename($uploadfile));
-			}
-			
-			if($incImage == 'delete')
-			{
-				$img = '';
-			}
-		
-			$params = array(
-			'realname' => $realname,
-			'gender' => $gender,
-			'age' => $age,
-			'location' => $location,
-			'hobbies' => $hobbies,
-			'aboutme' => $aboutme,	
-			'id' => $id,
-			'image' => $img,			
-			);
-			$query = "UPDATE prochatrooms_profiles 
+					  ";
+        }
+        else { // inc. update/delete image
+
+            if ($incImage == 'update') {
+                $img = makeSafe($_FILES['uploadedfile']['type']) . "|" . makeSafe(basename($uploadfile));
+            }
+
+            if ($incImage == 'delete') {
+                $img = '';
+            }
+
+            $params = array(
+                'realname' => $realname,
+                'gender' => $gender,
+                'age' => $age,
+                'location' => $location,
+                'hobbies' => $hobbies,
+                'aboutme' => $aboutme,
+                'id' => $id,
+                'image' => $img,
+            );
+            $query = "UPDATE prochatrooms_profiles 
 					  SET 
 					  real_name = :realname,
 					  gender = :gender, 
@@ -2333,78 +2188,70 @@ function updateProfile($id,$profileRealname,$profileAge,$profileGender,$uploaded
 					  aboutme = :aboutme,
 					  photo = :image
 					  WHERE id = :id
-					  ";			
-		}
-				  
-		$action = $dbh->prepare($query);
-		$action->execute($params);	
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
-
-		debugError($error);
-	}	
-	
-	// update user info
-	try {
-		$dbh = db_connect();
-		
-		if($password[1]!='')
-		{
-			$params = array(
-			'password' => md5($password),
-			'email' => makeSafe($email),
-			'id' => $id
-			);
-			$query = "UPDATE prochatrooms_users 
-					  SET email = '".$email."', 
-					      password='".md5($password)."' 
-					  WHERE id = '".$id."'
 					  ";
-		}
-		else
-		{
-			$params = array(
-			'email' => makeSafe($email),
-			'id' => $id
-			);
-			$query = "UPDATE prochatrooms_users 
-					  SET email = '".$email."'
-					  WHERE id = '".$id."'
-					  ";		
-		}
-		
-		$action = $dbh->prepare($query);
-		$action->execute($params);	
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        }
 
-		debugError($error);
-	}	
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	// profile updated status/error messages
-	$profile_updated = $image_result;
+        debugError($error);
+    }
 
-	if(!$profile_updated)
-	{
-		$profile_updated = C_LANG24;
-	}
+    // update user info
+    try {
+        $dbh = db_connect();
 
-	if(!$image_error && $imageUploaded)
-	{
-		$profile_updated = C_LANG25;
-	}	
+        if ($password[1] != '') {
+            $params = array(
+                'password' => md5($password),
+                'email' => makeSafe($email),
+                'id' => $id
+            );
+            $query = "UPDATE prochatrooms_users 
+					  SET email = '" . $email . "', 
+					      password='" . md5($password) . "' 
+					  WHERE id = '" . $id . "'
+					  ";
+        }
+        else {
+            $params = array(
+                'email' => makeSafe($email),
+                'id' => $id
+            );
+            $query = "UPDATE prochatrooms_users 
+					  SET email = '" . $email . "'
+					  WHERE id = '" . $id . "'
+					  ";
+        }
 
-	return $profile_updated;	
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    // profile updated status/error messages
+    $profile_updated = $image_result;
+
+    if (!$profile_updated) {
+        $profile_updated = C_LANG24;
+    }
+
+    if (!$image_error && $imageUploaded) {
+        $profile_updated = C_LANG25;
+    }
+
+    return $profile_updated;
 }
 
 /*
@@ -2414,113 +2261,101 @@ function updateProfile($id,$profileRealname,$profileAge,$profileGender,$uploaded
 
 function eCredits($id)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
 
-	// if eCredits session not set
-	if(!$_SESSION['eCredits_start'])
-	{
-		$_SESSION['eCredits_start'] = date("U");
-	}
-	else
-	{
-		// update count on page refresh
-		$_SESSION['eCredits'] =  date("U") - $_SESSION['eCredits_start'];
-	}
+    // if eCredits session not set
+    if (!$_SESSION['eCredits_start']) {
+        $_SESSION['eCredits_start'] = date("U");
+    }
+    else {
+        // update count on page refresh
+        $_SESSION['eCredits'] = date("U") - $_SESSION['eCredits_start'];
+    }
 
-	// if 60 secs, update eCredits count
-	if($_SESSION['eCredits'] >= '60')
-	{
-		// deduct credit from sender
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'eCredits' => $CONFIG['eCredits'],
-			'username' => makeSafe($_SESSION['username'])
-			);
-			$query = "UPDATE prochatrooms_users 
+    // if 60 secs, update eCredits count
+    if ($_SESSION['eCredits'] >= '60') {
+        // deduct credit from sender
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'eCredits' => $CONFIG['eCredits'],
+                'username' => makeSafe($_SESSION['username'])
+            );
+            $query = "UPDATE prochatrooms_users 
 					  SET eCredits = eCredits - :eCredits 
 					  WHERE username = :username
 					  AND eCredits > '0'
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}		
+            debugError($error);
+        }
 
-		// check user has ecredits to pay receiver
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'username' => makeSafe($_SESSION['username'])
-			);
-			$query = "SELECT eCredits   
+        // check user has ecredits to pay receiver
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'username' => makeSafe($_SESSION['username'])
+            );
+            $query = "SELECT eCredits   
 					  FROM prochatrooms_users 
 					  WHERE username = :username
 					  LIMIT 1
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);
-			
-			$updateeCredits = '0';
-						
-			foreach ($action as $i) 
-			{
-				if($i['eCredits'] > 0)
-				{
-					$updateeCredits = '1';
-				}					
-			}
-			
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
 
-			debugError($error);
-		}
+            $updateeCredits = '0';
 
-		// if user has eCredits
-		if($updateeCredits)
-		{
-			try {
-				$dbh = db_connect();
-				$params = array(
-				'eCredits' => $CONFIG['eCredits'],
-				'id' => makeSafe($id)
-				);
-				$query = "UPDATE prochatrooms_users 
+            foreach ($action as $i) {
+                if ($i['eCredits'] > 0) {
+                    $updateeCredits = '1';
+                }
+            }
+
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+            debugError($error);
+        }
+
+        // if user has eCredits
+        if ($updateeCredits) {
+            try {
+                $dbh = db_connect();
+                $params = array(
+                    'eCredits' => $CONFIG['eCredits'],
+                    'id' => makeSafe($id)
+                );
+                $query = "UPDATE prochatrooms_users 
 						  SET eCreditsEarned = eCreditsEarned + :eCredits 
 						  WHERE id = :id
-						  ";							
-				$action = $dbh->prepare($query);
-				$action->execute($params);	
-				$dbh = null;
-			}
-			catch(PDOException $e) 
-			{
-				$error  = "Function: ".__FUNCTION__."\n";
-				$error .= "File: ".basename(__FILE__)."\n";	
-				$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+						  ";
+                $action = $dbh->prepare($query);
+                $action->execute($params);
+                $dbh = null;
+            } catch (PDOException $e) {
+                $error = "Function: " . __FUNCTION__ . "\n";
+                $error .= "File: " . basename(__FILE__) . "\n";
+                $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-				debugError($error);
-			}		
-		}
-	
-		// reset eCredit count
-		$_SESSION['eCredits_start'] = date("U");
-	}
+                debugError($error);
+            }
+        }
+
+        // reset eCredit count
+        $_SESSION['eCredits_start'] = date("U");
+    }
 }
 
 /*
@@ -2530,102 +2365,93 @@ function eCredits($id)
 
 function resetPassword($data)
 {
-	// include files
-	include(getDocPath()."includes/session.php");
-	include(getDocPath()."includes/db.php");
-	include(getDocPath()."lang/".$_SESSION['lang']);
-	
-	$email = $data['userEmail'];
-	$uCaptcha = $data['uCaptcha'];	
-	$sCaptcha = $data['sCaptcha'];
+    // include files
+    include(getDocPath() . "includes/session.php");
+    include(getDocPath() . "includes/db.php");
+    include(getDocPath() . "lang/" . $_SESSION['lang']);
 
-	$error = validEmail($email);
+    $email = $data['userEmail'];
+    $uCaptcha = $data['uCaptcha'];
+    $sCaptcha = $data['sCaptcha'];
 
-	if($error)
-	{
-		return C_LANG26;
-	}
+    $error = validEmail($email);
 
-	if($uCaptcha != $sCaptcha)
-	{
-		return C_LANG158;
-	}
+    if ($error) {
+        return C_LANG26;
+    }
 
-	$userFound = '0';
+    if ($uCaptcha != $sCaptcha) {
+        return C_LANG158;
+    }
 
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'email' => makeSafe($email)
-		);
-		$query = "SELECT username, email  
+    $userFound = '0';
+
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'email' => makeSafe($email)
+        );
+        $query = "SELECT username, email  
 				  FROM prochatrooms_users 
 				  WHERE email = :email
 				  LIMIT 1
-				";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		
-		$result = '0';
-					
-		foreach ($action as $i) 
-		{
-			$result = '1';		
-			$sendToUser = $i['username'];
-			$sendToEmail = $i['email'];			
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}
+        $result = '0';
 
-	if($result)
-	{
-		$userFound = '1';
+        foreach ($action as $i) {
+            $result = '1';
+            $sendToUser = $i['username'];
+            $sendToEmail = $i['email'];
+        }
 
-		$newpass = substr(md5(date("U").rand(1,99999)), 0, -20);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-		// update users password
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'password' => md5($newpass),
-			'email' => makeSafe($email)
-			);
-			$query = "UPDATE prochatrooms_users 
+        debugError($error);
+    }
+
+    if ($result) {
+        $userFound = '1';
+
+        $newpass = substr(md5(date("U") . rand(1, 99999)), 0, -20);
+
+        // update users password
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'password' => md5($newpass),
+                'email' => makeSafe($email)
+            );
+            $query = "UPDATE prochatrooms_users 
 					  SET password = :password
 					  WHERE email = :email
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}		
-	
-		// send email with new password
-		sendUserEmail('',$sendToUser,$sendToEmail,$newpass,'1');
+            debugError($error);
+        }
 
-		return C_LANG27;	
-	}
-	
-	if(!$userFound)
-	{
-		return C_LANG28;
-	}
+        // send email with new password
+        sendUserEmail('', $sendToUser, $sendToEmail, $newpass, '1');
+
+        return C_LANG27;
+    }
+
+    if (!$userFound) {
+        return C_LANG28;
+    }
 }
 
 /*
@@ -2633,45 +2459,43 @@ function resetPassword($data)
 *
 */
 
-function sendUserEmail($id,$username,$email,$newpass,$status)
+function sendUserEmail($id, $username, $email, $newpass, $status)
 {
-	// include files
-	include(getDocPath()."includes/session.php");
-	include(getDocPath()."includes/config.php");
-	include(getDocPath()."lang/".$_SESSION['lang']);
+    // include files
+    include(getDocPath() . "includes/session.php");
+    include(getDocPath() . "includes/config.php");
+    include(getDocPath() . "lang/" . $_SESSION['lang']);
 
-	// create headers
-	$headers = "MIME-Version: 1.0\n";
-	$headers .= "Content-type: text/plain; charset=iso-8859-1\n";
-	$headers .= "X-Priority: 3\n";
-	$headers .= "X-MSMail-Priority: Normal\n";
-	$headers .= "X-Mailer: php\n";
-	$headers .= "From: \"" . $CONFIG['chatroomName'] . "\" <" . $CONFIG['chatroomEmail'] . ">\n";
+    // create headers
+    $headers = "MIME-Version: 1.0\n";
+    $headers .= "Content-type: text/plain; charset=iso-8859-1\n";
+    $headers .= "X-Priority: 3\n";
+    $headers .= "X-MSMail-Priority: Normal\n";
+    $headers .= "X-Mailer: php\n";
+    $headers .= "From: \"" . $CONFIG['chatroomName'] . "\" <" . $CONFIG['chatroomEmail'] . ">\n";
 
-	// send lost password
-	if($status == '1')
-	{
-		$email_subject  = $CONFIG['chatroomName']." - ".C_LANG29;
-		$email_message  = C_LANG30." ".urldecode($username).",\r\n\r\n";
-		$email_message .= C_LANG31.": ".$newpass."\r\n\r\n";
-		$email_message .= C_LANG32."\r\n\r\n";
-		$email_message .= C_LANG33.",\r\n";
-		$email_message .= $CONFIG['chatroomName'];
-	}
+    // send lost password
+    if ($status == '1') {
+        $email_subject = $CONFIG['chatroomName'] . " - " . C_LANG29;
+        $email_message = C_LANG30 . " " . urldecode($username) . ",\r\n\r\n";
+        $email_message .= C_LANG31 . ": " . $newpass . "\r\n\r\n";
+        $email_message .= C_LANG32 . "\r\n\r\n";
+        $email_message .= C_LANG33 . ",\r\n";
+        $email_message .= $CONFIG['chatroomName'];
+    }
 
-	// send confirmation register email
-	if($status == '2')
-	{
-		$email_subject = $CONFIG['chatroomName']." - ".C_LANG34;
-		$email_message  = C_LANG30." ".urldecode($username).",\r\n\r\n";
-		$email_message .= C_LANG35.": ".$CONFIG['chatroomName']."\r\n\r\n";
-		$email_message .= C_LANG36.",\r\n\r\n";
-		$email_message .= $CONFIG['chatroomUrl']."?nReg=".$id."&email=".$email."\r\n\r\n";
-		$email_message .= C_LANG33.",\r\n";
-		$email_message .= $CONFIG['chatroomName'];
-	}
+    // send confirmation register email
+    if ($status == '2') {
+        $email_subject = $CONFIG['chatroomName'] . " - " . C_LANG34;
+        $email_message = C_LANG30 . " " . urldecode($username) . ",\r\n\r\n";
+        $email_message .= C_LANG35 . ": " . $CONFIG['chatroomName'] . "\r\n\r\n";
+        $email_message .= C_LANG36 . ",\r\n\r\n";
+        $email_message .= $CONFIG['chatroomUrl'] . "?nReg=" . $id . "&email=" . $email . "\r\n\r\n";
+        $email_message .= C_LANG33 . ",\r\n";
+        $email_message .= $CONFIG['chatroomName'];
+    }
 
-	mail($email, $email_subject, $email_message, $headers);
+    mail($email, $email_subject, $email_message, $headers);
 
 }
 
@@ -2680,64 +2504,58 @@ function sendUserEmail($id,$username,$email,$newpass,$status)
 *
 */
 
-function sendAdminEmail($status,$report,$message)
+function sendAdminEmail($status, $targetUserId, $targetUserName, $message)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	if(!$_SESSION['username'])
-	{
-		return "no access";
-	}
+    if (!$_SESSION['user_id']) {
+        return "no access";
+    }
 
-	if(empty($message))
-	{
-		return C_LANG65." [<a href=\"javascript:history.go(-1)\">".C_LANG159."</a>]";
-	}
+    if (empty($message)) {
+        return C_LANG65 . " [<a href=\"javascript:history.go(-1)\">" . C_LANG159 . "</a>]";
+    }
 
-	if(!$_POST['sCaptcha'] || $_POST['sCaptcha'] != $_POST['uCaptcha'])
-	{
-		return C_LANG158." [<a href=\"javascript:history.go(-1)\">".C_LANG159."</a>]";
-	}
+    if (!$_POST['sCaptcha'] || $_POST['sCaptcha'] != $_POST['uCaptcha']) {
+        return C_LANG158 . " [<a href=\"javascript:history.go(-1)\">" . C_LANG159 . "</a>]";
+    }
 
-	// create headers
-	$headers = "MIME-Version: 1.0\n";
-	$headers .= "Content-type: text/plain; charset=iso-8859-1\n";
-	$headers .= "X-Priority: 3\n";
-	$headers .= "X-MSMail-Priority: Normal\n";
-	$headers .= "X-Mailer: php\n";
-	$headers .= "From: \"" . $CONFIG['chatroomName'] . "\" <" . $CONFIG['chatroomEmail'] . ">\n";
+    // create headers
+    $headers = "MIME-Version: 1.0\n";
+    $headers .= "Content-type: text/plain; charset=iso-8859-1\n";
+    $headers .= "X-Priority: 3\n";
+    $headers .= "X-MSMail-Priority: Normal\n";
+    $headers .= "X-Mailer: php\n";
+    $headers .= "From: \"" . $CONFIG['chatroomName'] . "\" <" . $CONFIG['chatroomEmail'] . ">\n";
 
-	// send confirmation register email
-	if($status == '1')
-	{
-		$email_subject = $CONFIG['chatroomName']." - ".C_LANG37;
-		$email_message  = C_LANG38.",\r\n\r\n";
-		$email_message .= C_LANG39." ".$_SESSION['username']." ".C_LANG40.": ".urldecode($report)."\r\n\r\n";
-		$email_message .= C_LANG41.":\r\n\r\n";
-		$email_message .= $message."\r\n\r\n";
-		$email_message .= C_LANG33.",\r\n";
-		$email_message .= $CONFIG['chatroomName'];
-	}
+    // send confirmation register email
+    if ($status == '1') {
+        $email_subject = $CONFIG['chatroomName'] . " - " . C_LANG37;
+        $email_message = C_LANG38 . ",\r\n\r\n";
+        $email_message .= C_LANG39 . " " . $_SESSION['username'] . " " . C_LANG40 . ": " . urldecode($targetUserName) . ' (ID:' . $targetUserId . ')' . "\r\n\r\n";
+        $email_message .= C_LANG41 . ":\r\n\r\n";
+        $email_message .= $message . "\r\n\r\n";
+        $email_message .= C_LANG33 . ",\r\n";
+        $email_message .= $CONFIG['chatroomName'];
+    }
 
-	if(empty($message))	
-	{
-		return C_LANG42;
-	}
+    if (empty($message)) {
+        return C_LANG42;
+    }
 
-	if(isset($_SESSION['lastReportAgainst']) && $_SESSION['lastReportAgainst'] == $report)
-	{
-		return C_LANG43;
-	}
+    if (isset($_SESSION['lastReportAgainst']) && $_SESSION['lastReportAgainst'] == $targetUserId) {
+        return C_LANG43;
+    }
 
-	if($_SESSION['username'])
-	{
-		$_SESSION['lastReportAgainst'] = $report;
+    if ($_SESSION['username']) {
+        $_SESSION['lastReportAgainst'] = $targetUserId;
 
-		mail($CONFIG['chatroomEmail'], $email_subject, $email_message, $headers);
+        mail($CONFIG['chatroomEmail'], $email_subject, $email_message, $headers);
 
-		return C_LANG44;
-	}
+        return C_LANG44;
+    }
 
 }
 
@@ -2746,75 +2564,69 @@ function sendAdminEmail($status,$report,$message)
 *
 */
 
-function confirmReg($id,$email)
+function confirmReg($id, $email)
 {
-	// include files
-	include(getDocPath()."includes/session.php");
-	include(getDocPath()."lang/".$_SESSION['lang']);
+    // include files
+    include(getDocPath() . "includes/session.php");
+    include(getDocPath() . "lang/" . $_SESSION['lang']);
 
-	$confirm = '0';
+    $confirm = '0';
 
-	// check users account status		
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'enabled' => makeSafe($id),
-		'email' => makeSafe($email)		
-		);
-		$query = "SELECT enabled,email  
+    // check users account status		
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'enabled' => makeSafe($id),
+            'email' => makeSafe($email)
+        );
+        $query = "SELECT enabled,email  
 				  FROM prochatrooms_users 
 				  WHERE enabled = :enabled
 				  AND email = :email
 				  LIMIT 1
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		$confirm = $action->rowCount();		
-			
-		$dbh = null;
-	}				
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $confirm = $action->rowCount();
 
-		debugError($error);
-	}				
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	if($confirm)
-	{
-		// enable user account
-		try {
-			$dbh = db_connect();
-			$params = array(
-			'id' => makeSafe($id)
-			);
-			$query = "UPDATE prochatrooms_users 
+        debugError($error);
+    }
+
+    if ($confirm) {
+        // enable user account
+        try {
+            $dbh = db_connect();
+            $params = array(
+                'id' => makeSafe($id)
+            );
+            $query = "UPDATE prochatrooms_users 
 					  SET enabled = '1' 
 					  WHERE enabled = :id
-					  ";							
-			$action = $dbh->prepare($query);
-			$action->execute($params);	
-			$dbh = null;
-		}
-		catch(PDOException $e) 
-		{
-			$error  = "Function: ".__FUNCTION__."\n";
-			$error .= "File: ".basename(__FILE__)."\n";	
-			$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+					  ";
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+            $dbh = null;
+        } catch (PDOException $e) {
+            $error = "Function: " . __FUNCTION__ . "\n";
+            $error .= "File: " . basename(__FILE__) . "\n";
+            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-			debugError($error);
-		}		
+            debugError($error);
+        }
 
-		return C_LANG45;
-	}
+        return C_LANG45;
+    }
 
-	if(!$confirm)
-	{
-		return C_LANG46;
-	}
-
+    if (!$confirm) {
+        return C_LANG46;
+    }
+    return false;
 }
 
 /*
@@ -2824,152 +2636,142 @@ function confirmReg($id,$email)
 
 function getTranscripts($room)
 {
-	// include files
-	include(getDocPath()."includes/session.php");
-	include(getDocPath()."includes/config.php");
-	include(getDocPath()."lang/".$_SESSION['lang']);
+    // include files
+    include(getDocPath() . "includes/session.php");
+    include(getDocPath() . "includes/config.php");
+    include(getDocPath() . "lang/" . $_SESSION['lang']);
+    /* @var array $CONFIG */
 
-	// check room id is numeric
-	if(!is_numeric($room))
-	{
-		return "Invalid RoomID";
-		die;
-	}
+    // check room id is numeric
+    if (!is_numeric($room)) {
+        return "Invalid RoomID";
+    }
 
-	// check active session
-	if(!$_SESSION['username'])
-	{
-		return C_LANG47;
-		die;
-	}
+    // check active session
+    if (!$_SESSION['user_id']) {
+        return C_LANG47;
+    }
 
-	// get user blocked list		
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'username' => $_SESSION['username']
-		);
-		$query = "SELECT blocked   
+    // get user blocked list
+    $blocked = array();
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'id' => $_SESSION['user_id']
+        );
+        $query = "SELECT blocked   
 				  FROM prochatrooms_users 
-				  WHERE username = :username
-				";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-					
-		foreach ($action as $i) 
-		{
-			$blocked = explode('|', $i['blocked']);				
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  WHERE id = :id
+				";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-		debugError($error);
-	}			
+        foreach ($action as $i) {
+            $blocked = explode('|', $i['blocked']);
+        }
 
-	$blocked = implode(',', $blocked);
-	$blocked = substr($blocked, 1, -1);
-	$blocked = str_replace(",,",",",$blocked);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	// get transcripts	
-	try {
-		$dbh = db_connect();
-		
-		if($blocked)
-		{
-			$params = array(
-			'transcriptID' => $_SESSION['transcriptsID'],
-			'room' => makeSafe($room),
-			'blockedIDs' => $blocked,			
-			);
-			$query = "SELECT messtime, room, username , tousername, message   
-					  FROM prochatrooms_message
-					  WHERE id >= :transcriptID
-					  AND room = :room
-					  AND uid NOT IN (:blockedIDs)
-					  ";			
-		}
-		else
-		{
-			$params = array(
-			'transcriptID' => $_SESSION['transcriptsID'],
-			'room' => makeSafe($room)			
-			);
-			$query = "SELECT messtime, room, username , tousername, message   
-					  FROM prochatrooms_message
-					  WHERE id >= :transcriptID
-					  AND room = :room
-					  ";		
-		}
+        debugError($error);
+    }
 
-		$action = $dbh->prepare($query);
-		$action->execute($params);				
-					
-		$html ="<table class='table' width='100%' style='background-color:#333333;'>";
-		$html .="<tr class='header' style='color:#FFFFFF'><td>".C_LANG49."</td><td>".C_LANG50."</td><td>".C_LANG51."</td><td>".C_LANG52."</td><td>".C_LANG53."</td></tr>";
+    $blocked = implode(',', $blocked);
+    $blocked = substr($blocked, 1, -1);
+    $blocked = str_replace(",,", ",", $blocked);
 
-		foreach ($action as $i) 
-		{
-			if(!invisibleAdmins($i['username']))
-			{
-				if($i['tousername'] == '' || $i['tousername'] == $_SESSION['username'])
-				{
-					// explode message
-					$i['message'] = explode("|", urldecode($i['message']));
+    // get transcripts
+    $html = "";
+    try {
+        $dbh = db_connect();
 
-					// format message
-					$i['message'][4] = str_replace("[u]","",$i['message'][4]);
-					$i['message'][4] = str_replace("[/u]","",$i['message'][4]);
-					$i['message'][4] = str_replace("[i]","",$i['message'][4]);
-					$i['message'][4] = str_replace("[/i]","",$i['message'][4]);
-					$i['message'][4] = str_replace("[b]","",$i['message'][4]);
-					$i['message'][4] = str_replace("[/b]","",$i['message'][4]);
+        $params = array(
+            'transcriptID' => $_SESSION['transcriptsID'],
+            'room' => makeSafe($room),
+            'userid' => $_SESSION['user_id']
+        );
+        $query = <<<EOQ
+SELECT
+    M.messtime,
+    M.room,
+    R.roomname,
+    M.username,
+    T.display_name AS to_user_name,
+    M.message
+FROM
+    prochatrooms_message AS M
+    LEFT JOIN prochatrooms_rooms AS R ON M.room = R.id
+    LEFT JOIN prochatrooms_users AS T ON M.to_user_id = T.id
+WHERE
+    M.id >= :transcriptID
+	AND
+	(
+	    (M.room = :room AND to_user_id = 0)
+	    OR
+	    (M.to_user_id = :userid)
+	    OR
+	    (M.uid = :userid AND to_user_id > 0)
+    )
+EOQ;
 
-					$i['message'][4] = str_replace("[[","<",$i['message'][4]);
-					$i['message'][4] = str_replace("]]",">",$i['message'][4]);
+        if ($blocked) {
+            $params['blockedIDs'] = $blocked;
+            $query .= " AND uid NOT IN (:blockedIDs)";
+        }
 
-					$message = "<span style=\"color:".$i['message'][1].";font-size:".$i['message'][2].";font-family:".$i['message'][3].";\">".html_entity_decode(stripslashes($i['message'][4]))."</span>";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
 
-					// add <pre> if required
-					// used for formatting multi-line messages.
-					if($i['message'][6]=='1')
-					{
-						$message = "<pre>".$message."</pre>";
-					}
+        $html = "<table class='table' width='100%' style='background-color:#333333;'>";
+        $html .= "<tr class='header' style='color:#FFFFFF'><td>" . C_LANG49 . "</td><td>" . C_LANG50 . "</td><td>" . C_LANG51 . "</td><td>" . C_LANG52 . "</td><td>" . C_LANG53 . "</td></tr>";
 
-					// if receiver is empty
-					if(!$i['tousername'])
-					{
-						$i['tousername'] = 'Room';
-					}
+        foreach ($action as $i) {
+            // explode message
+            $i['message'] = explode("|", urldecode($i['message']));
 
-					// final output
-					$html .= "<tr class='row' valign='top'><td>".date("H:i:s",$i['messtime'])."</td><td align='center'>".urldecode($i['room'])."</td><td>".urldecode($i['username'])."</td><td>".urldecode($i['tousername'])."</td><td>".$message."</td></tr>";
-				}	
+            // format message
+            $i['message'][4] = str_replace("[u]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[/u]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[i]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[/i]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[b]", "", $i['message'][4]);
+            $i['message'][4] = str_replace("[/b]", "", $i['message'][4]);
 
-			}
+            $i['message'][4] = str_replace("[[", "<", $i['message'][4]);
+            $i['message'][4] = str_replace("]]", ">", $i['message'][4]);
 
-		}
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+            $message = "<span style=\"color:" . $i['message'][1] . ";font-size:" . $i['message'][2] . ";font-family:" . $i['message'][3] . ";\">" . html_entity_decode(stripslashes($i['message'][4])) . "</span>";
 
-		debugError($error);
-	}			
+            // add <pre> if required
+            // used for formatting multi-line messages.
+            if ($i['message'][6] == '1') {
+                $message = "<pre>" . $message . "</pre>";
+            }
 
-	$html .="</table>";
+            // if receiver is empty
+            if (!$i['tousername']) {
+                $i['tousername'] = 'Room';
+            }
 
-	return $html;
+            // final output
+            $html .= "<tr class='row' valign='top'><td>" . date("H:i:s", $i['messtime']) . "</td><td align='center'>" . urldecode($i['roomname']) . "</td><td>" . urldecode($i['username']) . "</td><td>" . urldecode($i['to_user_name']) . "</td><td>" . $message . "</td></tr>";
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+
+    $html .= "</table>";
+
+    return $html;
 
 }
 
@@ -2978,76 +2780,76 @@ function getTranscripts($room)
 *
 */
 
-function banKickUser($message, $toname)
+function banKickUser($message, $toUserId)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	try {
-		$dbh = db_connect();
-		
-		if($message == 'KICK')
-		{
-			$kickTime = $CONFIG['kickTime'] * 60;
-			$dropKick = getTime()+$kickTime;
-			
-			$params = array(
-			'kick' => $dropKick,
-			'username' => makeSafe($toname),
-			);
-			$query = "UPDATE prochatrooms_users
+    try {
+        $dbh = db_connect();
+        $query = '';
+        $params = array();
+
+        if ($message == 'KICK') {
+            $kickTime = $CONFIG['kickTime'] * 60;
+            $dropKick = getTime() + $kickTime;
+
+            $params = array(
+                'kick' => $dropKick,
+                'id' => $toUserId,
+            );
+            $query = "UPDATE prochatrooms_users
 					  SET kick = :kick
-					  WHERE username = :username
+					  WHERE id = :id
 					  ";
-		}
-		
-		if($message == 'BAN')
-		{
-			$params = array(
-			'username' => makeSafe($toname)
-			);
-			$query = "UPDATE prochatrooms_users
+        }
+
+        if ($message == 'BAN') {
+            $params = array(
+                'id' => $toUserId
+            );
+            $query = "UPDATE prochatrooms_users
 					  SET ban = '1'
-					  WHERE username = :username
+					  WHERE id = :id
 					  ";
-		}		
-	  
-		$action = $dbh->prepare($query);
-		$action->execute($params);	
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        }
 
-		debugError($error);
-	}	
+        if($query != '') {
+            $action = $dbh->prepare($query);
+            $action->execute($params);
+        }
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	// set user to offline
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'active' => getTime()-180,
-		'username' => makeSafe($toname)
-		);
-		$query = "UPDATE prochatrooms_users 
-				  SET active = '".$offlineTime."', online = '0' 
-				  WHERE username = '".makeSafe($toname)."'
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);	
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+        debugError($error);
+    }
 
-		debugError($error);
-	}	
+    // set user to offline
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'active' => getTime() - 180,
+            'username' => makeSafe($toUserId)
+        );
+        $offlineTime = getTime() - $CONFIG['activeTimeout'];
+        $query = "UPDATE prochatrooms_users 
+				  SET active = '" . $offlineTime . "', online = '0' 
+				  WHERE id = '" . makeSafe($toUserId) . "'
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
 
 }
 
@@ -3058,66 +2860,61 @@ function banKickUser($message, $toname)
 
 function getUsersOnline($id)
 {
-	// include files
-	include(getDocPath()."includes/session.php");
-	include(getDocPath().'includes/db.php');
-	include(getDocPath().'includes/config.php');
-	include(getDocPath()."lang/".$_SESSION['lang']);
+    // include files
+    include(getDocPath() . "includes/session.php");
+    include(getDocPath() . 'includes/db.php');
+    include(getDocPath() . 'includes/config.php');
+    include(getDocPath() . "lang/" . $_SESSION['lang']);
+    /* @var array $CONFIG */
 
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'online' => getTime()-30
-		);
-		$query = "SELECT prochatrooms_users.username, prochatrooms_users.avatar, prochatrooms_rooms.roomname   
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'online' => getTime() - 30
+        );
+        $query = "SELECT prochatrooms_users.username, prochatrooms_users.avatar, prochatrooms_rooms.roomname   
 				  FROM prochatrooms_users, prochatrooms_rooms
 				  WHERE prochatrooms_users.active >= :online
 				  AND prochatrooms_users.room = prochatrooms_rooms.id
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		$count = $action->rowCount();		
-		
-		if($id == 1)
-		{
-			// display users online count
-			return $count;
-		}
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $count = $action->rowCount();
 
-		if($id == 2)
-		{
-			// display users online table
-			$html = "";
-			$html .= "<table class='table'>";
-			$html .= "<tr class='header'><td>".C_LANG54."</td><td>".C_LANG50."</td></tr>";
-			
-			foreach ($action as $i) 
-			{
-				if($CONFIG['invisibleAdminsPlugin'] && getAdmin($i['username']))
-				{
-					// hide admin user
-				}
-				else
-				{
-					$html .= "<tr><td><img src='../../avatars/".$i['avatar']."' style='vertical-align:middle;'>&nbsp;".urldecode($i['username'])."</td><td>".urldecode($i['roomname'])."</td></tr>";
-				}
-			}
+        if ($id == 1) {
+            // display users online count
+            return $count;
+        }
 
-			$html .= "</table>";
+        if ($id == 2) {
+            // display users online table
+            $html = "";
+            $html .= "<table class='table'>";
+            $html .= "<tr class='header'><td>" . C_LANG54 . "</td><td>" . C_LANG50 . "</td></tr>";
 
-			return $html;
-		}		
-		
-		$dbh = null;
-	}
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+            foreach ($action as $i) {
+                if ($CONFIG['invisibleAdminsPlugin'] && getAdmin($i['user_id'])) {
+                    // hide admin user
+                }
+                else {
+                    $html .= "<tr><td><img src='../../avatars/" . $i['avatar'] . "' style='vertical-align:middle;'>&nbsp;" . urldecode($i['username']) . "</td><td>" . urldecode($i['roomname']) . "</td></tr>";
+                }
+            }
 
-		debugError($error);
-	}			
+            $html .= "</table>";
+
+            return $html;
+        }
+
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+    }
+    return false;
 }
 
 /*
@@ -3127,31 +2924,30 @@ function getUsersOnline($id)
 
 function getRoomOwner()
 {
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'roomowner' => $_SESSION['myProfileID']
-		);
-		$query = "SELECT id  
+    $count = 0;
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'roomowner' => $_SESSION['myProfileID']
+        );
+        $query = "SELECT id  
 				  FROM prochatrooms_rooms 
 				  WHERE roomowner = :roomowner
-				  ";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		$count = $action->rowCount();		
-			
-		$dbh = null;
-	}				
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				  ";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $count = $action->rowCount();
 
-		debugError($error);
-	}			
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	return $count;
+        debugError($error);
+    }
+
+    return $count;
 }
 
 /*
@@ -3161,7 +2957,7 @@ function getRoomOwner()
 
 function getIP()
 {
-	return $_SERVER['REMOTE_ADDR'];
+    return $_SERVER['REMOTE_ADDR'];
 }
 
 /*
@@ -3171,32 +2967,30 @@ function getIP()
 
 function getIPBanList($id)
 {
-	try {
-		$dbh = db_connect();
-		$params = array(
-		'userIP' => $id
-		);
-		$query = "SELECT id  
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'userIP' => $id
+        );
+        $query = "SELECT id  
 				  FROM prochatrooms_users 
 				  WHERE userIP = :userIP
 				  AND ban = '1'
-				";							
-		$action = $dbh->prepare($query);
-		$action->execute($params);
-		$count = $action->rowCount();		
-			
-		$dbh = null;
-	}				
-	catch(PDOException $e) 
-	{
-		$error  = "Function: ".__FUNCTION__."\n";
-		$error .= "File: ".basename(__FILE__)."\n";	
-		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
+				";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $count = $action->rowCount();
 
-		debugError($error);
-	}	
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-	return $count;	
+        debugError($error);
+    }
+
+    return $count;
 }
 
 /*
@@ -3206,17 +3000,16 @@ function getIPBanList($id)
 
 function remBrand()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
 
-	$remBranding = '1';
+    $remBranding = '1';
 
-	if(file_exists(getDocPath()."plugins/rembrand/index.php"))
-	{
-		$remBranding = '0';
-	}
+    if (file_exists(getDocPath() . "plugins/rembrand/index.php")) {
+        $remBranding = '0';
+    }
 
-	return $remBranding;
+    return $remBranding;
 }
 
 /*
@@ -3226,18 +3019,16 @@ function remBrand()
 
 function checkEvent()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
 
-	if($CONFIG['eventsPlugin'])
-	{
-		if(file_exists(getDocPath()."plugins/events/index.php"))
-		{
-			include(getDocPath()."plugins/events/index.php");
+    if ($CONFIG['eventsPlugin']) {
+        if (file_exists(getDocPath() . "plugins/events/index.php")) {
+            include(getDocPath() . "plugins/events/index.php");
 
-			return doEvent($event_day,$event_start_hour,$event_start_mins,$event_stop_hour,$event_stop_mins,$server_time,$region_time);
-		}
-	}
+            return doEvent($event_day, $event_start_hour, $event_start_mins, $event_stop_hour, $event_stop_mins, $server_time, $region_time);
+        }
+    }
 }
 
 /*
@@ -3247,16 +3038,14 @@ function checkEvent()
 
 function virtualCredits()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
 
-	if($CONFIG['virtualCreditsPlugin'])
-	{
-		if(file_exists(getDocPath()."plugins/virtual_credits/index.php"))
-		{
-			include(getDocPath()."plugins/virtual_credits/index.php");
-		}
-	}
+    if ($CONFIG['virtualCreditsPlugin']) {
+        if (file_exists(getDocPath() . "plugins/virtual_credits/index.php")) {
+            include(getDocPath() . "plugins/virtual_credits/index.php");
+        }
+    }
 }
 
 /*
@@ -3266,20 +3055,18 @@ function virtualCredits()
 
 function moderatedChat()
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
 
-	$result = '0';
+    $result = '0';
 
-	if($CONFIG['moderatedChatPlugin'])
-	{
-		if(file_exists(getDocPath()."plugins/moderated_chat/index.php"))
-		{
-			$result = '1';
-		}
-	}
+    if ($CONFIG['moderatedChatPlugin']) {
+        if (file_exists(getDocPath() . "plugins/moderated_chat/index.php")) {
+            $result = '1';
+        }
+    }
 
-	return $result;
+    return $result;
 }
 
 /*
@@ -3287,22 +3074,21 @@ function moderatedChat()
 * requires invisible admins plugin
 */
 
-function invisibleAdmins($username)
+function invisibleAdmins($userId)
 {
-	// include files
-	include(getDocPath()."includes/config.php");
+    // include files
+    include(getDocPath() . "includes/config.php");
+    /* @var array $CONFIG */
 
-	$result = '0';
+    $result = '0';
 
-	if($CONFIG['invisibleAdminsPlugin'])
-	{
-		if(file_exists(getDocPath()."plugins/invisible/index.js.php"))
-		{
-			$result = getAdmin($username);
-		}
-	}
+    if ($CONFIG['invisibleAdminsPlugin']) {
+        if (file_exists(getDocPath() . "plugins/invisible/index.js.php")) {
+            $result = getAdmin($userId);
+        }
+    }
 
-	return $result;
+    return $result;
 }
 
 /*
@@ -3312,64 +3098,58 @@ function invisibleAdmins($username)
 
 function showPlugins($page)
 {
-	$html ='';
-	$plugin ='';
-	
-	if($page == "login" && file_exists(getDocPath()."plugins/login_gallery/index.php"))
-	{
-		$html .= '<!-- login gallery -->';
-		$html .= '<script type="text/javascript" src="plugins/login_gallery/index.php"></script>';
-		
-		$plugin .= 'showGallery();';
-	}
-	
-	if(($page == "login" || $page = "main") && file_exists(getDocPath()."plugins/adver/functions.js"))
-	{	
-		$html .= '<!-- Adverts Plugin -->';
-		$html .= '<script type="text/javascript">var refreshBanner = 30;</script>';
-		$html .= '<script type="text/javascript" src="plugins/adver/functions.js"></script>';
-		
-		$plugin .= 'showBannerAds();';		
-	}
-	
-	if($page == "main" && file_exists(getDocPath()."plugins/share/index.php"))
-	{		
-		$html .= '<!-- Share Files Plugin -->';
-		$html .= '<script type="text/javascript">var share = 1;</script>';
-		
-		$plugin .= '';			
-	}
-	
-	if($page == "main" && file_exists(getDocPath()."plugins/webcams/js/functions.js"))
-	{		
-		$html .= '<!-- Webcam Plugin -->';
-		$html .= '<script type="text/javascript" src="plugins/webcams/js/functions.js"></script>';	
-		
-		$plugin .= 'showCam();';			
-	}
-	
-	if($page == "main" && file_exists(getDocPath()."plugins/invisible/index.js.php"))
-	{		
-		$html .= '<!-- Invisible Admins Plugin -->';
-		$html .= '<script type="text/javascript" src="plugins/invisible/index.js.php"></script>';	
-		
-		$plugin .= '';			
-	}	
-	
-	$html .= '<script type="text/javascript">';
-	$html .= 'window.onload = function()';
-	$html .= '{';
-	
-	if($page == "main")
-	{
-		$html .= 'initAll();';
-	}
-	
-	$html .= $plugin;	
-	$html .= '}';
-	$html .= '</script>';
-	
-	return $html;
+    $html = '';
+    $plugin = '';
+
+    if ($page == "login" && file_exists(getDocPath() . "plugins/login_gallery/index.php")) {
+        $html .= '<!-- login gallery -->';
+        $html .= '<script type="text/javascript" src="plugins/login_gallery/index.php"></script>';
+
+        $plugin .= 'showGallery();';
+    }
+
+    if (($page == "login" || $page = "main") && file_exists(getDocPath() . "plugins/adver/functions.js")) {
+        $html .= '<!-- Adverts Plugin -->';
+        $html .= '<script type="text/javascript">var refreshBanner = 30;</script>';
+        $html .= '<script type="text/javascript" src="plugins/adver/functions.js"></script>';
+
+        $plugin .= 'showBannerAds();';
+    }
+
+    if ($page == "main" && file_exists(getDocPath() . "plugins/share/index.php")) {
+        $html .= '<!-- Share Files Plugin -->';
+        $html .= '<script type="text/javascript">var share = 1;</script>';
+
+        $plugin .= '';
+    }
+
+    if ($page == "main" && file_exists(getDocPath() . "plugins/webcams/js/functions.js")) {
+        $html .= '<!-- Webcam Plugin -->';
+        $html .= '<script type="text/javascript" src="plugins/webcams/js/functions.js"></script>';
+
+        $plugin .= 'showCam();';
+    }
+
+    if ($page == "main" && file_exists(getDocPath() . "plugins/invisible/index.js.php")) {
+        $html .= '<!-- Invisible Admins Plugin -->';
+        $html .= '<script type="text/javascript" src="plugins/invisible/index.js.php"></script>';
+
+        $plugin .= '';
+    }
+
+    $html .= '<script type="text/javascript">';
+    $html .= 'window.onload = function()';
+    $html .= '{';
+
+    if ($page == "main") {
+        $html .= 'initAll();';
+    }
+
+    $html .= $plugin;
+    $html .= '}';
+    $html .= '</script>';
+
+    return $html;
 }
-	
+
 ?>

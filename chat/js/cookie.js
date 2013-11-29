@@ -57,6 +57,7 @@ var gotCookie2 = readCookie('myOptions');
 
 function getCookie()
 {
+    var gotCookie;
 	if(gotCookie1)
 	{
 		gotCookie = decodeURI(gotCookie1).split("|");
@@ -78,5 +79,6 @@ function getCookie()
 		userEntryExitSFX = gotCookie[2];
 		userNewMessageSFX = gotCookie[3];
 		userSFX = gotCookie[4];
+        textSize = gotCookie[5];
 	}
 }

@@ -43,11 +43,7 @@ function addRoom()
 	// get new room name
 	var newRoomName = "|" + document.getElementById("roomName").value.toLowerCase() + "|";
 	
-   	// check for white space (no url)
-    whSpc = new RegExp(/^\s+$/);
-
 	// check if room already exists
-	//if(whSpc.test(document.getElementById("roomName").value.toLowerCase()) || roomNameStr.indexOf(newRoomName)!= '-1')
 	if(roomNameStr.indexOf(newRoomName)!= '-1')
 	{
 		showInfoBox("system","220","300","200","",lang28);
@@ -56,6 +52,7 @@ function addRoom()
 	}
 
     // check for badwords/chars
+    /*newRoomName = newRoomName.replaceAll(' ', '&nbsp;');
 	var checkRoomName = filterBadword(newRoomName.replace(/\|/g,""));
 		checkRoomName = checkRoomName.split("");
 
@@ -79,35 +76,31 @@ function addRoom()
 
 			return false;
 		}
-	}
+	}*/
 
-	var param = '?';
-	param += '&addRoom=1';
-	param += '&newRoomName=' + encodeURIComponent(document.getElementById("roomName").value);
-	param += '&newRoomOwner=' + uID;
-	param += '&newRoomPass='+ document.getElementById("roomPass").value;
+    var params = {
+        action: 'add',
+        roomName: encodeURIComponent(document.getElementById("roomName").value),
+        roomPass: document.getElementById("roomPass").value
+    };
 
-	// if ready to send message to DB
-	if (updateUserRooms.readyState == 4 || updateUserRooms.readyState == 0)
-	{
+    // clr input fields
+    document.getElementById("roomName").value = '';
+    document.getElementById("roomPass").value = '';
 
-		updateUserRooms.open("POST", 'includes/sendData.php', true);
-		updateUserRooms.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-		updateUserRooms.onreadystatechange = handleSendBlock;
-		updateUserRooms.send(param);
+    // hide room creator
+    newRoom('0');
+    showInfoBox("system","220","300","200","",lang29);
 
-		// visual confirm
-		showInfoBox("system","220","300","200","",lang29);
-
-	}
-
-	// clr input fields
-	document.getElementById("roomName").value = '';
-	document.getElementById("roomPass").value = '';
-
-	// hide room creator
-	newRoom('0');
-    return false;
+    $.post('includes/room.php', params, function(response) {
+        closeMdiv('system');
+        if(response.status) {
+            document.location = 'index.php?roomID=' + response.roomId;
+        }
+        else {
+            alert(response.message);
+        }
+    });
 }
 
 function handleSendBlock()

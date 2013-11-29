@@ -1,4 +1,4 @@
-<?
+<?php
 $page_title = "General Die Roller";
 
 // test if doing an update or dice roll
@@ -186,4 +186,3 @@ $page_content = <<<EOQ
 </table>
 </form>
 EOQ;
-?>

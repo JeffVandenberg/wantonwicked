@@ -112,7 +112,7 @@ function addMessage(inputMDiv,displayMDiv)
 	}
 	
 	// anti spam filter for repeated messages
-	if(message == lastMessageTxt)
+	if((admin != 1) && (moderator != 1) && (message == lastMessageTxt))
 	{
 		var antiSpam  = "Sorry, your message has been marked as spam and will not be sent. Please do not send the same message repeatedly.";
 			
@@ -204,7 +204,7 @@ function addMessage(inputMDiv,displayMDiv)
 	}
 
 	// IRC roll dice
-	if(ircCommand[0] == '/roll') {
+	/*if(ircCommand[0] == '/roll') {
 		// check /roll contains dice (eg. 2d4) 
 		if(!ircCommand[1] || ircCommand[1].replace(/\s/g,"") == "")
 		{
@@ -242,8 +242,7 @@ function addMessage(inputMDiv,displayMDiv)
 		diceScore = "( Result: "+singleRoll+", "+diceModifier+" Total: "+Number(totalRoll+diceModifier)+" )";
 
 		message = message +" "+diceScore;
-
-	}
+	}*/
 
     // IRC madness
     if(ircCommand[0] == '/madness') {
@@ -264,6 +263,28 @@ function addMessage(inputMDiv,displayMDiv)
         nick.change(message);
         clrMessageInput(inputMDiv);
         return false;
+    }
+
+    if(ircCommand[0] == '/dice') {
+        if(ircCommand.length == 1) {
+            dice.help();
+            return false;
+        }
+        if(ircCommand[1].toLowerCase() == 'roll') {
+            dice.roll(message, displayMDiv);
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else if(ircCommand[1].toLowerCase() == 'list') {
+            dice.listRolls();
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else if(ircCommand[1].toLowerCase() == 'help') {
+            dice.help();
+            clrMessageInput(inputMDiv);
+            return false;
+        }
     }
 
     // add bold font
@@ -348,9 +369,8 @@ function sendData(displayMDiv)
 	param += '&uid=' + uID;
 	param += '&umid=' + displayMDiv;
 	param += '&uroom=' + roomID;
-	//param += '&uname=' + encodeURI(userName.replaceAll('\'', '&#39;'));
 	param += '&uname=' + encodeURI(userName);
-	param += '&toname=' + encodeURI(isPrivate);
+	param += '&to_user_id=' + encodeURI(isPrivate);
 	param += '&umessage=' + encodeURIComponent(message);
 	param += '&usfx=' + escape(sfx);	
 
@@ -418,7 +438,7 @@ function getMessages()
 	/*if (receiveMesReq.readyState == 4 || receiveMesReq.readyState == 0)
 	{*/
 		receiveMesReq.open("GET", 'includes/getData.php?roomID='+roomID+'&history='+showHistory+'&last='+lastMessageID+'&s='+singleRoom+'&rnd='+ Math.random(), true);
-		receiveMesReq.onreadystatechange = handleMessages; 
+		receiveMesReq.onreadystatechange = handleMessages;
 		receiveMesReq.send(null);
 	//}
 			
@@ -484,25 +504,25 @@ function handleMessages()
 			var userRoomsArray = userRooms.split("||");
 
 			// moderated chat
-			moderatedChat = userRoomsArray[6];
+			moderatedChat = userRoomsArray[8];
 
 			createSelectRoomdiv(
-						userRoomsArray[2], 
-						userRoomsArray[1],
-						userRoomsArray[5]
+						userRoomsArray[2], // name
+						userRoomsArray[1], // id
+						userRoomsArray[7] // delete
 					);
 
 			createRoomsdiv(
-						userRoomsArray[2], 
-						userRoomsArray[1],
-						userRoomsArray[5]
+						userRoomsArray[2], // name
+						userRoomsArray[1], // id
+                        userRoomsArray[6] // icon name
 					);
 
 			// create room name str
 			roomNameStr = roomNameStr + "|" + userRoomsArray[2].toLowerCase() + "|";
 
 			// if room is deleted, remove from userlist and select box
-			if(userRoomsArray[5] == Number(1))
+			if(userRoomsArray[7] == Number(1))
 			{
 				deleteDiv("select_"+userRoomsArray[1],'roomSelect')
 
@@ -532,7 +552,7 @@ function handleMessages()
 				intellibotRoomID = roomID;
 			}
 
-			createUsersDiv('-1', '-1', intelliBotName, intelliBotAvi, '0', intellibotRoomID, intellibotRoomID, '1','','','');	
+			createUsersDiv('-1', '-1', intelliBotName, intelliBotAvi, '0', intellibotRoomID, intellibotRoomID, '1','','','',1);
 		}
 		
 		for (var i = 0; i < xmldoc.getElementsByTagName("userlist").length;)
@@ -545,12 +565,12 @@ function handleMessages()
 	
 			if(uID == userListArray[0])
 			{
-				groupCams = userListArray[15];
-				groupWatch = userListArray[16];
-				groupChat = userListArray[17];
-				groupPChat = userListArray[18];
-				groupRooms = userListArray[19];
-				groupVideo = userListArray[20];				
+				groupCams = userListArray[16];
+				groupWatch = userListArray[17];
+				groupChat = userListArray[18];
+				groupPChat = userListArray[19];
+				groupRooms = userListArray[20];
+				groupVideo = userListArray[21];
 			}
 
 			// enable eCredits
@@ -569,29 +589,32 @@ function handleMessages()
 
 			if(uID == userListArray[0])
 			{
-				admin = Number(userListArray[7]);
-				moderator = Number(userListArray[8]);
-				speaker = Number(userListArray[9]);
+				admin = Number(userListArray[8]);
+				moderator = Number(userListArray[9]);
+				speaker = Number(userListArray[10]);
+                userTypeId = Number(userListArray[25]);
 			}			
 			
 			// all users
 			createUsersDiv(
-						userListArray[0],
-						userListArray[1],
-						userListArray[2],
-						userListArray[3],
-						userListArray[4],
-						userListArray[6],
-						userListArray[5],
-						userListArray[10],
-						userListArray[11],
-						userListArray[12],
-						userListArray[7],
-						userListArray[8],
-						userListArray[9],
-						userListArray[21],
-						userListArray[22],
-						userListArray[23]
+						userListArray[0], // id
+						userListArray[1], // userid (cms)
+						userListArray[2], // username
+                        userListArray[3], // display name
+						userListArray[4], // icon
+						userListArray[5], // webcam
+						userListArray[7], // prev room
+						userListArray[6], // room
+						userListArray[11], // activity
+						userListArray[12], // status
+						userListArray[13], // watching
+						userListArray[8], // admin
+						userListArray[9], // moderator
+						userListArray[10], // speaker
+						userListArray[22], // active time
+						userListArray[23], // last active time
+						userListArray[24], // ip address
+                        userListArray[25] // usertype
 				);
 
 			// loop
@@ -605,10 +628,10 @@ function handleMessages()
                     $(".userlist", item).sortElements(function(a, b) {
                         var aText = $(a).find('.username').text().toUpperCase();
                         var bText = $(b).find('.username').text().toUpperCase();
-                        if($(a).find('.username').hasClass('st-user') && !$(b).find('.username').hasClass('st-user')) {
+                        if($(a).find('.username').parent('span').hasClass('user-storyteller') && !$(b).find('.username').parent('span').hasClass('user-storyteller')) {
                             return -1;
                         }
-                        if(!$(a).find('.username').hasClass('st-user') && $(b).find('.username').hasClass('st-user')) {
+                        if(!$(a).find('.username').parent('span').hasClass('user-storyteller') && $(b).find('.username').parent('span').hasClass('user-storyteller')) {
                             return 1;
                         }
                         return aText.localeCompare(bText);
@@ -653,16 +676,8 @@ function handleMessages()
 			{
 				// firefox has a node limit of 4096 characters, so we 
 				// use textContent.length instead to get the user message
-				var userMessage = xmldoc.getElementsByTagName("usermessage")[i].textContent;							
+				userMessage = xmldoc.getElementsByTagName("usermessage")[i].textContent;
 			}
-			else
-			{
-				// all other browsers
-				if(xmldoc.getElementsByTagName("usermessage")[i].childNodes[0].nodeValue)
-				{
-					var userMessage = xmldoc.getElementsByTagName("usermessage")[i].childNodes[0].nodeValue;
-				}
-			}				
 
 			// split message data
 			var userMessageArray = userMessage.split("}{");
@@ -693,18 +708,16 @@ function handleMessages()
 							uID,
 							displayMDiv,
 							-2,
-							'1|'+stextColor+'|'+stextSize+'|'+stextFamily+'|** '+userName+' '+publicEntry,
+							'entry.png|'+stextColor+'|'+stextSize+'|'+stextFamily+'|'+publicEntry,
 							'beep_high.mp3',
+							userName,
 							'',
-							'',
-							''
+							new Date().getTime()/1000
 						);
 
 			showHistory = 0;
 		}
-
 	}
-
 }
 
 /*
@@ -765,24 +778,21 @@ var doTextAdverts = 0;
 function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser, mTime)
 {
 	message	= decodeURI(message);
-    var mUserOriginal = mUser;
-    mUser = mUser.replaceAll('\'', '&#39;');
-
     lastMessageText = message;
 	
 	// if message history is enabled 
 	// dont load old command messages
    	if(
-	showHistory && message.search("BROADCAST") != -1 ||
-	showHistory && message.search("KICK") != -1 || 
-	showHistory && message.search("WEBCAM_REQUEST") != -1 || 
-	showHistory && message.search("WEBCAM_ACCEPT") != -1
+        showHistory && message.search("BROADCAST") != -1 ||
+        showHistory && message.search("KICK") != -1 ||
+        showHistory && message.search("WEBCAM_REQUEST") != -1 ||
+        showHistory && message.search("WEBCAM_ACCEPT") != -1
 	)
    	{
       	return false;
    	}	
 
-	if(message == 'SILENCE' && mToUser.toLowerCase() == userName.toLowerCase())
+	if(message == 'SILENCE' && mToUser == uID)
 	{
 		isSilenced = 1;
 		showInfoBox("system","220","300","200","",lang7+" "+silent+" "+lang8);
@@ -795,24 +805,24 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		return false;
 	}
 
-	if(message == 'KICK' && mToUser.toLowerCase() == userName.toLowerCase())
+	if((message == 'KICK') && (mToUser == uID))
 	{
 		logout('kick');
 		return false;
 	}
 
-	if(message == 'KICK' && mToUser.toLowerCase() != userName.toLowerCase())
+	if(message == 'KICK' && mToUser != uID)
 	{
 		return false;
 	}
 
-	if(message == 'BAN' && mToUser.toLowerCase() == userName.toLowerCase())
+	if(message == 'BAN' && mToUser == uID)
 	{
 		logout('ban');
 		return false;
 	}
 
-	if(message == 'BAN' && mToUser.toLowerCase() != userName.toLowerCase())
+	if(message == 'BAN' && mToUser != uID)
 	{
 		return false;
 	}
@@ -833,13 +843,12 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 	ppDiv = pDiv.split("_");
 
 	// create private chat window if not exists
-	if(mUID != uID && mDiv != 'chatContainer' && mToUser.toLowerCase() == userName.toLowerCase())
-	{
+	if((mUID != uID) && (mDiv != 'chatContainer')) {
 		// if message history is enabled
 		// dont load old private messages
 		if(showHistory)
 		{
-			return false;
+			//return false;
 		}
 	
 		// if div isnt created
@@ -857,7 +866,7 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 				// this user is sender (initilised PM)
 				// eg. this user crashed or lost connection
 				// catches any closed PM that a receiver still has open
-				createPChatDiv(userName,mUser,mUID,uID);
+				createPChatDiv(userName,mUser,uID,mUID);
 			}
 		}
         else {
@@ -1024,9 +1033,19 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 			messageArray[4] = "<pre style='white-space: pre-wrap;'>"+messageArray[4]+"</pre>";
 		}
 
-		newMessage += "<span id='username' style='cursor:pointer;font-weight: bold;'>"+displayName+"</span>";
-		//newMessage += "<span id='username' style='cursor:pointer;font-weight: bold;' onclick='whisperUser(\""+mUser+"\")'>"+displayName+"</span>";
-		newMessage += "<span style='color:" + messageArray[1] + ";font-size:" + messageArray[2] + ";font-family:" + messageArray[3] + ";'>" + messageArray[4] + "</span>";
+        var fontEmSize = textScale / 100;
+		newMessage +=
+            "<span id='username' style='cursor:pointer;font-weight: bold;'>" +
+                '<span class="message-text-scale" style="font-size: ' + fontEmSize + 'em">' +
+                    displayName +
+                '</span>' +
+            "</span>";
+		newMessage +=
+            "<span style='color:" + messageArray[1] + ";font-size:" + messageArray[2] + ";font-family:" + messageArray[3] + ";'>" +
+                '<span class="message-text-scale" style="font-size: ' + fontEmSize + 'em">' +
+                    messageArray[4] +
+                '</span>' +
+            '</span>';
 
 		// shout filter
 		if(enableShoutFilter)
@@ -1252,19 +1271,70 @@ nick.change = function(commandLine) {
             '/chat/includes/nick.php',
             {
                 action: 'change',
-                user_id: userID,
-                username: userName,
                 new_name: remainder
             },
             function(response) {
                 if(response.status == true) {
                     // set nick information
                     userName = remainder;
+                    updateDisplayName(uID, remainder, roomID);
                 }
                 else {
                     alert(response.message);
                 }
             }
         );
+    }
+};
+
+var dice = {
+    roll:  function(commandLine, displayMDiv) {
+        var remainder = commandLine.substr(commandLine.indexOf('roll ')+5);
+        if((commandLine == remainder) || (remainder == "")) {
+            this.helpRoll();
+        }
+        else {
+            var div = displayMDiv;
+            var action = 'roll';
+            var parts = remainder.split(' ');
+            if((parts[0].toLowerCase() == 'init') || (parts[0] == 'initiative')) {
+                action = 'initiative'
+            }
+            $.post(
+                '/chat/includes/dice.php',
+                {
+                    action: action,
+                    command: remainder
+                },
+                function(response) {
+                    if(response.status) {
+                        // send the message
+                        message = userAvatar+"|"+textColor+"|"+textSize+"|"+textFamily+"|"+response.message+"|1|0";
+                        // send data to database
+                        sendData(div);
+                        createMessageDiv('0', uID, displayMDiv, showMessages+1, message, sfx, userName, '',(new Date().getTime()/1000));
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                }
+            );
+        }
+    },
+    listRolls: function() {
+        alert('here');
+        $("#sub-panel").load('/dieroller.php?action=list', function() {
+            $(this).dialog({
+                width: 500,
+                height: 500,
+                title: 'Recent Rolls'
+            });
+        })
+    },
+    help: function() {
+        alert('Valid options for the /dice command are:\n - roll\n - list');
+    },
+    helpRoll: function() {
+        alert('The format for the command is /dice roll "my action" <dice> [WP] [Blood]');
     }
 };

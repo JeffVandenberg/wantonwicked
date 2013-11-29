@@ -12,6 +12,4 @@ include("includes/functions.php");
 * 
 */
 
-echo showShareFile($_GET['id'],'view');
-
-?>
+echo showShareFile($_GET['id']);
