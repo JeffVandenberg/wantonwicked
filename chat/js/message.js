@@ -1338,7 +1338,6 @@ var dice = {
         }
     },
     listRolls: function() {
-        alert('here');
         $("#sub-panel").load('/dieroller.php?action=list', function() {
             $(this).dialog({
                 width: 500,
