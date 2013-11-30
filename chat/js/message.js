@@ -153,7 +153,7 @@ function addMessage(inputMDiv,displayMDiv)
 		{
 			sfx = 'beep_high.mp3';
 
-			message  = "BROADCAST " + encodeURI(message.slice(ircCommand[0].length));
+			message  = "/BROADCAST " + encodeURI(message.slice(ircCommand[0].length));
 
 			iRC = '1';
 		}
@@ -954,7 +954,8 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 
 		if(broadcast[0] == 'BROADCAST')
 		{
-			showInfoBox("system","220","300","200","",decodeURI(messageArray[4].replace("BROADCAST","")));
+            var alertMessage = '[' + mUser + ']' + "<br />" + decodeURI(messageArray[4].replace("BROADCAST",""));
+			showInfoBox("system","220","300","200","",alertMessage);
 			return false;
 		}
 

@@ -61,7 +61,9 @@ if(isset($_GET['character_id'])) {
 SELECT
     C.character_name,
     C.character_type,
-    C.is_sanctioned
+    C.is_sanctioned,
+    icon,
+    hide_icon
 FROM
     wod_characters AS C
     INNER JOIN login_character_index as LCI ON C.character_id = LCI.character_id
@@ -109,6 +111,9 @@ EOQ;
                 break;
         }
 
+        if((((int) $character['icon']) === 0) && ($character['hide_icon'] == 'N')){
+            $icon = $character['icon'];
+        }
     }
     if($character['is_sanctioned'] == 'N') {
         $icon = 'desanctioned.png';
@@ -150,7 +155,6 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
     $action = $dbh->prepare($query);
     $action->bindValue('id', $userdata['user_id'], PDO::PARAM_INT);
     $action->execute();
-
     if($action->rowCount() > 0) {
         define('C_CUSTOM_USERNAME', $userdata['username']);
         define('C_CUSTOM_USERID', $userdata['user_id']);
@@ -163,7 +167,7 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
         $row = $action->fetch(PDO::FETCH_ASSOC);
         $icon = 'st.png';
         $userTypeId = 4; // regular ST
-        if($row['Is_Asst']) {
+        if($row['Is_Asst'] == 'Y') {
             // $icon = 'asst.png';
             $userTypeId = 5;
         }
@@ -338,7 +342,8 @@ WHERE
 EOQ;
 
 $statement = $dbh->prepare($sql);
-$statement->execute(array(C_CUSTOM_USERNAME, C_CUSTOM_USERID, $userTypeId));
+$params = array(C_CUSTOM_USERNAME, C_CUSTOM_USERID, $userTypeId);
+$statement->execute($params);
 $result = $statement->fetch(PDO::FETCH_ASSOC);
 
 // set chat information

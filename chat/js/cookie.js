@@ -79,6 +79,6 @@ function getCookie()
 		userEntryExitSFX = gotCookie[2];
 		userNewMessageSFX = gotCookie[3];
 		userSFX = gotCookie[4];
-        textSize = gotCookie[5];
+        textScale = gotCookie[5];
 	}
 }

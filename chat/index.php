@@ -25,6 +25,15 @@ include("includes/config.php");
 include("includes/functions.php");
 /* @var array $CONFIG */
 
+if(!isset($_SESSION['user_id'])) {
+    unset($_SESSION['username']);
+    unset($_SESSION['display_name']);
+    unset($_SESSION['userid']);
+    unset($_SESSION['user_id']);
+    unset($_SESSION['user_type_id']);
+    unset($_SESSION['room']);
+    unset($_SESSION['guest']);
+}
 /*
 * include language file
 *

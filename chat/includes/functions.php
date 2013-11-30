@@ -846,7 +846,7 @@ function addUser($defaultIcon, $userTypeId)
             );
             $query = "INSERT INTO prochatrooms_users
 								(
-									username, 
+									username,
 									userid,
 									userIP,
 									room, 
@@ -858,7 +858,7 @@ function addUser($defaultIcon, $userTypeId)
 								) 
 								VALUES 
 								(
-									:username, 
+									:username,
 									:userid,
 									:userIP,
 									:room, 

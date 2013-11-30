@@ -6,23 +6,23 @@
 <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link type="text/css" rel="stylesheet" href="/css/vader/jquery-ui-1.10.3.custom.min.css">
-<link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template'];?>/style.css">
-<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="/chat/js/sortelements.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/vader/jquery-ui-1.10.3.custom.min.css?v=<?php echo $CONFIG['version']; ?>">
+<link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template'];?>/style.css?v=<?php echo $CONFIG['version']; ?>">
+<script type="text/javascript" src="/js/jquery-1.9.1.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/sortelements.js?v=<?php echo $CONFIG['version']; ?>"></script>
 <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script type="text/javascript" src="/chat/includes/lang.js.php"></script>
-<script type="text/javascript" src="/chat/includes/settings.js.php"></script>
-<script type="text/javascript" src="/chat/js/XmlHttpRequest.js"></script>
-<script type="text/javascript" src="/chat/js/cookie.js"></script>
-<script type="text/javascript" src="/chat/js/divLayout.js"></script>
-<script type="text/javascript" src="/chat/js/message.js"></script>
-<script type="text/javascript" src="/chat/js/functions.js"></script>
-<script type="text/javascript" src="/chat/js/private.js"></script>
-<script type="text/javascript" src="/chat/js/userlist.js"></script>
-<script type="text/javascript" src="/chat/js/newRoom.js"></script>
-<script type="text/javascript" src="/chat/js/swfobject.js"></script>
-<script type="text/javascript" src="/chat/js/playSnd.js"></script>
+<script type="text/javascript" src="/chat/includes/lang.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/includes/settings.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/XmlHttpRequest.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/cookie.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/divLayout.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/message.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/functions.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/private.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/userlist.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/newRoom.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/swfobject.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/chat/js/playSnd.js?v=<?php echo $CONFIG['version']; ?>"></script>
 
 <!-- Intellibot -->
 <script type="text/javascript" src="/chat/js/intellibotRes.js"></script>

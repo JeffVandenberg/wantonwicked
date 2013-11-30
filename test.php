@@ -6,7 +6,8 @@ use classes\character\repository\CharacterRepository;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 
-var_dump((int) number_format('-2'));
+$text = '/BROADCAST this is a test';
+var_dump(substr($text, 1, strlen($text)-1));
 die();
 include 'cgi-bin/start_of_page.php';
 

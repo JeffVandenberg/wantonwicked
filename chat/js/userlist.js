@@ -338,14 +338,15 @@ function createRoomsdiv(room,roomid,icon)
 		var ni = document.getElementById('userContainer');
 		var newdiv = document.createElement('div');
 
+        var roomName = decodeURI(room.replace("+"," "));
 		newdiv.setAttribute("id","room_"+roomid);
 		newdiv.innerHTML =
-            '<div class="roomheader" onclick=toggleHeader("room_'+roomid+'");>' +
+            '<div class="roomheader" title="' + roomName +'" onclick=toggleHeader("room_'+roomid+'");>' +
                 '<div class="room-div">' +
                     '<span style="float:left;">' +
                         '<img style="vertical-align:middle;" src="images/'+icon+'">&nbsp;' +
                         '<span class="roomname">' +
-                            decodeURI(room.replace("+"," "))+
+                            roomName +
                         '</span>'+
                     '</span>' +
                 '</div> ' +

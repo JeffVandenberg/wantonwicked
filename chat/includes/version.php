@@ -5,6 +5,4 @@
 * Inc. Patch Release
 */
 
-$CONFIG['version'] = 'v8.0.0';
-
-?>
+$CONFIG['version'] = 'GSv1.0.0';

@@ -366,10 +366,10 @@ EOQ;
 			$icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
 		}
 		$icon_result = mysql_query($icon_query) or die(mysql_error());
-		
+
 		$icon_ids = "";
 		$icon_names = "";
-		
+
 		while ( $icon_detail = mysql_fetch_array($icon_result, MYSQL_ASSOC) )
 		{
 			$icon_ids[] = $icon_detail['Icon_ID'];

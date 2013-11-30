@@ -28,12 +28,12 @@ $startTime = microtime(true);
 $dbh = db_connect();
 
 if(!isset($_SESSION['user_id'])) {
-    die();
+    die('No ID');
 }
 
-list($admin,$mod,$speaker) = adminPermissions();
-if(!$admin || !$mod) {
-    die();
+list($admin,$mod,$speaker,$userTypeId) = adminPermissions();
+if(!$admin && !$mod) {
+    die('Not Admin or Mod!');
 }
 
 $sql = '';

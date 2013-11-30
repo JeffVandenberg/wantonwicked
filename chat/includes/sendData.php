@@ -215,16 +215,15 @@ if ($_POST) {
             }
 
             // is message shared? (eg. broadcast)
-            if (
-                stristr($checkMessage[4], "/BROADCAST") && ($admin || $mod)
-            ) {
-                $share = '1';
-            }
-
-            if (
-                stristr($checkMessage[4], "/BROADCAST") && (!$admin && !$mod)
-            ) {
-                die("incorrect permissions");
+            if(strpos($checkMessage[4], "/BROADCAST ") === 0) {
+                if($admin || $mod) {
+                    $share = '1';
+                    $checkMessage[4] = substr($checkMessage[4], 1, strlen($checkMessage[4])-1);
+                    $_POST['umessage'] = implode('|', $checkMessage);
+                }
+                else {
+                    die("incorrect permissions");
+                }
             }
         }
 

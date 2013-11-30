@@ -39,8 +39,8 @@ function showClock() {
 
 $(function () {
     $.get('/server_time.php', null, function(time) {
-        var serverTime = new Date(time);
-        difference = new Date().getTime() - serverTime.getTime();
+        var local = new Date();
+        difference = (local.getTime() - (local.getTimezoneOffset() *60000)) - time;
         showClock();
     });
 

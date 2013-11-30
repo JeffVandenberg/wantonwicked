@@ -1202,21 +1202,7 @@ $(function() {
         .on('dblclick', '.userlist', openPmWindow);
 
     $(document)
-        .on('mouseenter', '.roomname', function(e) {
-            var tip = $(
-                '<div class="floatingtooltip">' +
-                    $(this).text()+
-                '</div>'
-            );
-            tip.css('top', $(this).css('top')+20);
-            tip.css('left', $(this).closest('.userContainer').css('left'));
-            tip.css('position', 'absolute');
-            tip.css('z-index', 999);
-            $(this).append(tip);
-        })
-        .on('mouseleave', '.roomname', function(e) {
-            $(".floatingtooltip").remove();
-        });
+        .tooltip();
 
     $(document)
         .on('click', '.chat-viewable', function() {
@@ -1243,11 +1229,10 @@ $(function() {
     });
 
     $.get('/server_time.php', null, function(time) {
-        var serverTime = new Date(time);
-        difference = new Date().getTime() - serverTime.getTime();
+        var local = new Date();
+        difference = (local.getTime() - (local.getTimezoneOffset() *60000)) - time;
         showClock();
     });
-
 });
 
 function startScroll() {

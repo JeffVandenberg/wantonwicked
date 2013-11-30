@@ -80,7 +80,7 @@ EOQ;
     $splat2 = "";
     $splat2_groups = "";
     $subsplat = "";
-    $icon = 0;
+    $icon = 'city.png';
     $sex = "";
     $age = "18+";
     $apparent_age = "18+";
@@ -446,28 +446,6 @@ EOQ;
         $vices = array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath");
         $vice = buildSelect($vice, $vices, $vices, "vice");
 
-        // icon
-        $icon_query = "";
-        if ($view_is_admin || $view_is_head) {
-            $icon_query = "select * from icons where Admin_Viewable='Y' order by Icon_Name;";
-        } else if ($view_is_gm) {
-            $icon_query = "select * from icons where GM_Viewable='Y' order by Icon_Name;";
-        } else if ($view_is_asst) {
-            $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
-        } else if ($icon_query == "") {
-            $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
-        }
-        $icon_result = mysql_query($icon_query) or die(mysql_error());
-
-        $icon_ids = "";
-        $icon_names = "";
-
-        while ($icon_detail = mysql_fetch_array($icon_result, MYSQL_ASSOC)) {
-            $icon_ids[] = $icon_detail['Icon_ID'];
-            $icon_names[] = $icon_detail['Icon_Name'];
-        }
-        $icon = buildSelect($icon, $icon_ids, $icon_names, "icon");
-
         $splat1_select_js = "";
         $splat2_select_js = "";
         if ($edit_xp) {
@@ -502,9 +480,6 @@ EOQ;
 <input type="text" name="apparent_age" id="apparent_age" value="$apparent_age" size="4" maxlength="4">
 EOQ;
     } else {
-        // get name of icon
-        $icon = $stats['Icon_Name'];
-
         // have a hidden form field for character dots
         $character_type_select = <<<EOQ
 $character_type
@@ -537,6 +512,28 @@ EOQ;
 
     // description
     if ($edit_description) {
+        // icon
+        $icon_query = "";
+        if ($view_is_admin || $view_is_head) {
+            $icon_query = "select * from icons where Admin_Viewable='Y' order by Icon_Name;";
+        } else if ($view_is_gm) {
+            $icon_query = "select * from icons where GM_Viewable='Y' order by Icon_Name;";
+        } else if ($view_is_asst) {
+            $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
+        } else if ($icon_query == "") {
+            $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
+        }
+        $icon_result = mysql_query($icon_query) or die(mysql_error());
+
+        $icon_ids = "";
+        $icon_names = "";
+
+        while ($icon_detail = mysql_fetch_array($icon_result, MYSQL_ASSOC)) {
+            $icon_ids[] = $icon_detail['Icon_ID'];
+            $icon_names[] = $icon_detail['Icon_Name'];
+        }
+        $icon = buildSelect($icon, $icon_ids, $icon_names, "icon");
+
         $description = <<<EOQ
 <input type="text" name="description" id="description" value="$description" size="50" maxlength="400">
 EOQ;

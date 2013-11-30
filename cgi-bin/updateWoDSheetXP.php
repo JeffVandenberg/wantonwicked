@@ -62,7 +62,7 @@ EOQ;
             $exit_line = "I need an exit line";
         }
 
-        $icon = (int) $stats['icon'];
+        $icon = mysql_real_escape_string($stats['icon']);
         $is_npc = isset($stats['is_npc']) ? "Y" : "N";
         $virtue = mysql_real_escape_string($stats['virtue']);
         $vice = mysql_real_escape_string($stats['vice']);
@@ -326,7 +326,7 @@ EOQ;
 
             if ($edit_vitals)
             {
-                $update_query .= "character_type = '$character_type', city = '$city', sex = '$sex', virtue = '$virtue', vice = '$vice', icon = $icon, splat1 = '$splat1', splat2 = '$splat2', subsplat = '$subsplat', age = $age, apparent_age = $apparent_age, ";
+                $update_query .= "character_type = '$character_type', city = '$city', sex = '$sex', virtue = '$virtue', vice = '$vice', splat1 = '$splat1', splat2 = '$splat2', subsplat = '$subsplat', age = $age, apparent_age = $apparent_age, ";
             }
 
             if ($edit_is_npc)
@@ -347,6 +347,7 @@ EOQ;
             if ($edit_description)
             {
                 $update_query .= "description = '$description', ";
+                $update_query .= "icon = '$icon', ";
             }
 
             if ($edit_url)
@@ -480,8 +481,6 @@ EOQ;
                 {
                     $update_query = substr($update_query, 0, strlen($update_query) - 2);
                     $update_query .= " where character_id = $stats[character_id];";
-                    //echo $update_query."<br>";
-                    //die();
                     $update_result = mysql_query($update_query) or die(mysql_error());
                 }
             }
