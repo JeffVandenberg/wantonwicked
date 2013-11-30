@@ -106,6 +106,12 @@ EOQ;
             case 'changeling':
                 $icon = 'ctl.png';
                 break;
+            case 'sleepwalker':
+                $icon = 'mtasw.png';
+                break;
+            case 'wolfblooded':
+                $icon = 'wtfwb.png';
+                break;
             default:
                 $icon = 'player.png';
                 break;
