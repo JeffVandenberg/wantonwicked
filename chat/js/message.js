@@ -495,6 +495,7 @@ function handleMessages()
 		// userroom data
 		roomNameStr = '';
 		var i;
+        var roomList = [];
 		for (i = 0; i < xmldoc.getElementsByTagName("userrooms").length;)
 		{
 			// for each room
@@ -517,6 +518,7 @@ function handleMessages()
 						userRoomsArray[1], // id
                         userRoomsArray[6] // icon name
 					);
+            roomList.push(userRoomsArray[1]);
 
 			// create room name str
 			roomNameStr = roomNameStr + "|" + userRoomsArray[2].toLowerCase() + "|";
@@ -524,7 +526,7 @@ function handleMessages()
 			// if room is deleted, remove from userlist and select box
 			if(userRoomsArray[7] == Number(1))
 			{
-				deleteDiv("select_"+userRoomsArray[1],'roomSelect')
+				deleteDiv("select_"+userRoomsArray[1],'roomSelect');
 
 				removeRoomsDiv("room_"+userRoomsArray[1]);
 
@@ -540,6 +542,19 @@ function handleMessages()
 			// loop
 			i++;
 		}
+
+        // remove unused rooms
+        $("#userContainer").find(".roomheader").each(function(index, element) {
+            var id = $(element).parent('div').attr('id');
+            var roomId = id.substr(5);
+            console.debug(roomId);
+            if(roomList.indexOf(roomId) == -1) {
+                deleteDiv("select_"+roomId,'roomSelect');
+                removeRoomsDiv("room_"+roomId);
+                var roomName = $(".roomname", element).text();
+                roomNameStr = roomNameStr.replace("|" + roomName.toLowerCase() + "|","");
+            }
+        });
 
         // sort rooms
 		

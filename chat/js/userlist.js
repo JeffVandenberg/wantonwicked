@@ -517,6 +517,14 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"shareFiles\",\"280\",\"300\",\"200\",\"plugins/share/?shareWithUserId="+targetUserId+"\",\"\");' class='highliteOff'><img style='vertical-align:middle;' src='images/share.gif'><span style='padding-left:7px;'>Share Files</span></div>";
 		}
 
+        if((uID == targetUserId) && userTypeId == 3) {
+            newdiv.innerHTML +=
+                "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewSheet(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
+                    "<img style='vertical-align:middle;' src='images/usermenu/profile.gif'>" +
+                    "<span style='padding-left:10px;'>View Sheet</span>" +
+                "</div>";
+        }
+
 		if(uID != targetUserId && uBlock == 1)
 		{
 			// block user
@@ -625,9 +633,12 @@ function adminControls(targetUserId,doAction)
 *
 */
 
-function viewProfile(uID,uUser)
-{
-	var win = window.open('/wiki/?n=Players.'+uUser.stripNonAlpha());//profileUrl+uID,'','');
+function viewProfile(uID,uUser) {
+	window.open('/wiki/?n=Players.'+uUser.stripNonAlpha());//profileUrl+uID,'','');
+}
+
+function viewSheet(characterId) {
+    window.open('/view_sheet.php?action=view_own_xp&character_id='+characterId);
 }
 
 /*

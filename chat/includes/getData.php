@@ -144,124 +144,6 @@ if ($CONFIG['moderatedChatPlugin']) {
 }
 
 /*
-* get messages from database
-*
-*/
-
-$userLogout = '';
-
-try {
-
-    if ($_GET['history'] == 0) {
-        $params = array(
-            'room' => makeSafe($_GET['roomID']),
-            'last' => makeSafe($_GET['last']),
-            'userid' => makeSafe($_SESSION['user_id'])
-        );
-        $query = <<<EOQ
-SELECT
-    id,
-    uid,
-    mid,
-    username,
-    tousername,
-    to_user_id,
-    message,
-    sfx,
-    room,
-    messtime
-FROM
-    prochatrooms_message
-WHERE
-    (id > :last)
-    AND
-    (
-        (room = :room AND uid != :userid AND to_user_id = 0)
-        OR (to_user_id = :userid)
-	    OR (share = '1' AND to_user_id = 0)
-    )
-EOQ;
-    }
-    else {
-        $totalMessages = $CONFIG['dispLastMess'] + 1;
-
-        $params = array(
-            'room' => makeSafe($_GET['roomID']),
-            'last' => makeSafe($_GET['last']),
-            'userid' => makeSafe($_SESSION['user_id'])
-        );
-
-        $query = <<<EOQ
-SELECT
-    id,
-    uid,
-    mid,
-    username,
-    to_user_id,
-    message,
-    sfx,
-    room,
-    messtime
-FROM
-    prochatrooms_message
-WHERE
-    (id > :last)
-    AND
-    (
-        (room = :room AND to_user_id = 0)
-        OR (to_user_id = :userid)
-        OR (uid = :userid AND to_user_id > 0)
-	    OR (share = '1' and to_user_id = 0)
-    )
-LIMIT
-    $totalMessages
-EOQ;
-    }
-
-    $action = $dbh->prepare($query);
-    $action->execute($params);
-
-    foreach ($action as $i) {
-        if (!$i['username']) {
-            //die("error: username value null");
-        }
-
-        $xml .= '<usermessage>';
-
-        $xml .= $i['id'] . "}{";
-        $xml .= $i['uid'] . "}{";
-        $xml .= $i['mid'] . "}{";
-        $xml .= stripslashes($i['username']) . "}{";
-
-        // if tousername is null
-        if (!$i['to_user_id']) {
-            $i['to_user_id'] = '_';
-        }
-
-        $xml .= stripslashes($i['to_user_id']) . "}{";
-        $xml .= stripslashes(urldecode($i['message'])) . "}{";
-        $xml .= $i['room'] . "}{";
-        $xml .= $i['sfx'] . "}{";
-        $xml .= $i['messtime'] . "";
-
-        $xml .= '</usermessage>';
-
-        // check if user has been silenced
-        // if so, set silence start time
-        if ($i['message'] == 'SILENCE' && $i['to_user_id'] == $_SESSION['user_id']) {
-            if (!$_SESSION['silenceStart'] || $_SESSION['silenceStart'] < date("U") - ($CONFIG['silent'] * 60)) {
-                $_SESSION['silenceStart'] = date("U");
-            }
-        }
-    }
-} catch (PDOException $e) {
-    $error = "Action: Get Messages\n";
-    $error .= "File: " . basename(__FILE__) . "\n";
-    $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-    debugError($error);
-}
-
-/*
 * get users from database
 *
 */
@@ -418,6 +300,125 @@ UPDATE prochatrooms_rooms AS R set roomusers = (
 EOQ;
 
 $dbh->query($query)->execute();
+
+/*
+* get messages from database
+*
+*/
+
+$userLogout = '';
+
+try {
+
+    if ($_GET['history'] == 0) {
+        $params = array(
+            'room' => makeSafe($_GET['roomID']),
+            'last' => makeSafe($_GET['last']),
+            'userid' => makeSafe($_SESSION['user_id'])
+        );
+        $query = <<<EOQ
+SELECT
+    id,
+    uid,
+    mid,
+    username,
+    tousername,
+    to_user_id,
+    message,
+    sfx,
+    room,
+    messtime
+FROM
+    prochatrooms_message
+WHERE
+    (id > :last)
+    AND
+    (
+        (room = :room AND uid != :userid AND to_user_id = 0)
+        OR (to_user_id = :userid)
+	    OR (share = '1' AND to_user_id = 0)
+    )
+EOQ;
+    }
+    else {
+        $totalMessages = $CONFIG['dispLastMess'] + 1;
+
+        $params = array(
+            'room' => makeSafe($_GET['roomID']),
+            'last' => makeSafe($_GET['last']),
+            'userid' => makeSafe($_SESSION['user_id'])
+        );
+
+        $query = <<<EOQ
+SELECT
+    id,
+    uid,
+    mid,
+    username,
+    to_user_id,
+    message,
+    sfx,
+    room,
+    messtime
+FROM
+    prochatrooms_message
+WHERE
+    (id > :last)
+    AND
+    (
+        (room = :room AND to_user_id = 0)
+        OR (to_user_id = :userid)
+        OR (uid = :userid AND to_user_id > 0)
+	    OR (share = '1' and to_user_id = 0)
+    )
+LIMIT
+    $totalMessages
+EOQ;
+    }
+
+    $action = $dbh->prepare($query);
+    $action->execute($params);
+
+    foreach ($action as $i) {
+        if (!$i['username']) {
+            //die("error: username value null");
+        }
+
+        $xml .= '<usermessage>';
+
+        $xml .= $i['id'] . "}{";
+        $xml .= $i['uid'] . "}{";
+        $xml .= $i['mid'] . "}{";
+        $xml .= stripslashes($i['username']) . "}{";
+
+        // if tousername is null
+        if (!$i['to_user_id']) {
+            $i['to_user_id'] = '_';
+        }
+
+        $xml .= stripslashes($i['to_user_id']) . "}{";
+        $xml .= stripslashes(urldecode($i['message'])) . "}{";
+        $xml .= $i['room'] . "}{";
+        $xml .= $i['sfx'] . "}{";
+        $xml .= $i['messtime'] . "";
+
+        $xml .= '</usermessage>';
+
+        // check if user has been silenced
+        // if so, set silence start time
+        if ($i['message'] == 'SILENCE' && $i['to_user_id'] == $_SESSION['user_id']) {
+            if (!$_SESSION['silenceStart'] || $_SESSION['silenceStart'] < date("U") - ($CONFIG['silent'] * 60)) {
+                $_SESSION['silenceStart'] = date("U");
+            }
+        }
+    }
+} catch (PDOException $e) {
+    $error = "Action: Get Messages\n";
+    $error .= "File: " . basename(__FILE__) . "\n";
+    $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+    debugError($error);
+}
+
 /*
 * get rooms from database
 * 
