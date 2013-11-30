@@ -5,6 +5,16 @@ $page_title = "Wanton Wicked an Online World of Darkness Roleplaying Game";
 
 $page_content = <<<EOQ
 <div class="news">
+    <div class="news-title" style="font-size:1.2em;font-weight:bold;">Major Chat Update</div>
+    <div class="news-body">
+        <div class="paragraph">
+            There was a major chat overhaul that added a lot of new features and changed the look. Check out
+            the details <a href="http://wantonwicked.gamingsandbox.com/forum/viewtopic.php?f=583&t=43141),">in the forums</a>. If you experience any technical difficulties, please
+            make sure to report it in the <a href="http://wantonwicked.gamingsandbox.com/forum/viewforum.php?f=583">Technical Discussion</a> forum.
+        </div>
+    </div>
+</div>
+<div class="news">
     <div class="news-title" style="font-size:1.2em;font-weight:bold;">Supporter Package Up</div>
     <div class="news-body">
         <div class="paragraph">
