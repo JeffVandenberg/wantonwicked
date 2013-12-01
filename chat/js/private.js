@@ -73,7 +73,7 @@ function createPChatDiv(divPName, divToName, fromUserId, toUserId) {
             ni.append(newdiv.append(pmContainer));
         }
         // add menu
-        optionsMenu('pmenuBar_' + divPName, 'poptionsBar_' + divPName, 'pcontent_' + divPName, 'pmenuWin_' + divPName);
+        optionsMenu('pmenuBar_' + divPName, 'poptionsBar_' + divPName, 'pcontent_' + divPName, 'pmenuWin_' + divPName, toUserId);
 
         // focus window
         doFocus(divPName);

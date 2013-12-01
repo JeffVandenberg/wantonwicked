@@ -17,7 +17,7 @@ function initAll()
 	switchSettingsStatus(userNewMessageSFX,"soundsID");
 	switchSettingsStatus(userSFX,"sfxID");
 
-    optionsMenu('optionsIcons','optionsBar','chatContainer','menuWin');
+    optionsMenu('optionsIcons','optionsBar','chatContainer','menuWin', 0);
 
 	if(publicWelcome == "")
 	{
@@ -377,10 +377,11 @@ function doStyles(inputMDiv, displayMDiv, nWin)
 * if(ndiv.search("pmenuBar_")){}
 */
 
-function optionsMenu(ndiv,nBar,nContainer,nWin)
+function optionsMenu(ndiv,nBar,nContainer,nWin, toUserId)
 {
 	document.getElementById(ndiv).innerHTML  = '<span alt="'+lang52+'" title="'+lang52+'" id="smilies" class="iconSmilies" onmouseover="this.className=\'iconSmiliesOver\'" onmouseout="this.className=\'iconSmilies\'" onclick="doSmilies(\''+nBar+'\',\''+nContainer+'\',\''+nWin+'\');"></span>';
-	document.getElementById(ndiv).innerHTML += '<span alt="'+lang53+'" title="'+lang53+'" id="ringbell" class="iconRingbell" onmouseover="this.className=\'iconRingbellOver\'" onmouseout="this.className=\'iconRingbell\'" onclick="ringBell(\''+nBar+'\',\''+nContainer+'\')"></span>';
+	document.getElementById(ndiv).innerHTML +=
+        '<span alt="'+lang53+'" title="'+lang53+'" id="ringbell" class="iconRingbell" onmouseover="this.className=\'iconRingbellOver\'" onmouseout="this.className=\'iconRingbell\'" onclick="ringBell(\''+nBar+'\',\''+nContainer+'\',' + toUserId + ')"></span>';
 	document.getElementById(ndiv).innerHTML += '<span alt="'+lang54+'" title="'+lang54+'" id="style" class="iconStyle" onmouseover="this.className=\'iconStyleOver\'" onmouseout="this.className=\'iconStyle\'" onclick="doStyles(\''+nBar+'\',\''+nContainer+'\',\''+nWin+'\');"></span>';
     if(true || moderator || admin) {
 	    document.getElementById(ndiv).innerHTML += '<span alt="'+lang55+'" title="'+lang55+'" id="avatar" class="iconAvatar" onmouseover="this.className=\'iconAvatarOver\'" onmouseout="this.className=\'iconAvatar\'" onclick="doAvatars(\''+nBar+'\',\''+nContainer+'\',\''+nWin+'\')"></span>';

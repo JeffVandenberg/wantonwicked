@@ -758,10 +758,12 @@ function whisperUser(touserName)
 *
 */
 
-function ringBell(inputMDiv,displayMDiv)
+function ringBell(inputMDiv,displayMDiv,toUserId)
 {
 	// set message input
 	document.getElementById(inputMDiv).value = "/ringbell";
+
+    isPrivate = toUserId;
 
 	// send message
 	addMessage(inputMDiv,displayMDiv);
