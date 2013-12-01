@@ -28,7 +28,7 @@ switch ($_POST['action']) {
         $command = trim($command);
 
         $matches = array();
-        $count = preg_match('/^"[\w\s]+"/', $command, $matches);
+        $count = preg_match('/^"[^".]+"/', $command, $matches);
         if ($count == 0) {
             $response['message'] = 'The format for the command is /dice roll "my action" <dice> [WP] [Blood]';
             break;

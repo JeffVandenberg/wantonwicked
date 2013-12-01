@@ -409,9 +409,9 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 		// header
 		newdiv.innerHTML =
             "<div class='userInfoTitle'>" +
-                "<span style='float:left;'>" +
+                "<div style='float:left;width: 140px;overflow: hidden;height: 24px;' title='" + decodeURI(targetUserName) + "'>" +
                     "<img style='vertical-align:middle;' src='avatars/"+uAvatar+"'>&nbsp;"+decodeURI(targetUserName)+
-                "</span>" +
+                "</div>" +
                 "<span style='float:right;' onclick='deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")'>" +
                     "<img src='images/close.gif'>&nbsp;" +
                 "</span>" +
