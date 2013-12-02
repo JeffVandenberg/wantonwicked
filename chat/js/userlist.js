@@ -450,7 +450,8 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 		}
 		
 		// whisper
-		if(whisperOn && uID != targetUserId)
+        // disable whispering completely.
+		if(false)//whisperOn && uID != targetUserId)
 		{
 			// if user has no eCredits
 			// disable option to send webcam requests
