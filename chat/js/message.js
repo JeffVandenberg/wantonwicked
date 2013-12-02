@@ -547,7 +547,6 @@ function handleMessages()
         $("#userContainer").find(".roomheader").each(function(index, element) {
             var id = $(element).parent('div').attr('id');
             var roomId = id.substr(5);
-            console.debug(roomId);
             if(roomList.indexOf(roomId) == -1) {
                 deleteDiv("select_"+roomId,'roomSelect');
                 removeRoomsDiv("room_"+roomId);

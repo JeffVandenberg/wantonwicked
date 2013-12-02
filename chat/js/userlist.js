@@ -193,7 +193,7 @@ function updateUserStatusMes(id,status)
 	    document.getElementById("ustatusID_"+id).innerHTML = showStatus;
     }
     else {
-        console.debug("User ID: " + id + " does not exist.");
+        //console.debug("User ID: " + id + " does not exist.");
     }
 }
 
@@ -222,7 +222,7 @@ function updateWebcamStatus(id,status)
 function updateUserRoomCount(uRoom, value)
 {
     if(document.getElementById("room_"+uRoom) == null) {
-        console.debug('Room: ' + uRoom + ' does not exist.');
+        //console.debug('Room: ' + uRoom + ' does not exist.');
     }
     else {
         document.getElementById("userCount_"+uRoom).innerHTML =
@@ -243,7 +243,7 @@ function updateAvatar(uID, uAvatar, uRoom)
 	    var avatarFilePath = document.getElementById("avatar_"+uID).src.split("/");
     }
     else {
-        console.debug("User ID: " + uID + " does not exist.");
+        //console.debug("User ID: " + uID + " does not exist.");
         return false;
     }
 
