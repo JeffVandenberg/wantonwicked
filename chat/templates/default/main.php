@@ -1,11 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title><?php echo @copyrightTitle();?></title>
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="/css/vader/jquery-ui-1.10.3.custom.min.css?v=<?php echo $CONFIG['version']; ?>">
 <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template'];?>/style.css?v=<?php echo $CONFIG['version']; ?>">
 <script type="text/javascript" src="/js/jquery-1.9.1.js?v=<?php echo $CONFIG['version']; ?>"></script>
@@ -112,7 +112,7 @@ var lastMessageID = <?php echo $lastMessageID;?>;
             <span><input class="roomButtons" type="button" name="roombutton" value="<?php echo C_LANG131;?>" onclick="addRoom();">&nbsp;<input class="roomButtons" type="button" name="" value="<?php echo C_LANG132;?>" onclick="newRoom('0');"></span>
         </div>
         <select id="roomSelect" class="roomSelect" onchange="changeRooms(this.value);"></select>
-        <div id="userContainer" class="userContainer"></div>
+        <div class="userContainer" id="userContainer"></div>
     </div>
 	<div id="playSndDiv"></div>
 
