@@ -109,13 +109,14 @@ SET
     current_experience = current_experience + :xp,
     total_experience = total_experience + :xp
 WHERE
-    S.expires_on > :date
+    S.expires_on > '$date'
     AND S.number_of_characters > S.characters_awarded
     AND C.is_sanctioned = 'Y'
     AND C.is_deleted = 'N'
+    AND C.bonus_xp = 0
 EOQ;
 
-        $parameters = array('xp' => $bonusXp, 'date' => $date);
+        $parameters = array('xp' => $bonusXp);
         $this->Query($sql)->Execute($parameters);
 
         $sql = <<<EOQ
