@@ -54,7 +54,7 @@ ob_start()
         <table>
             <tr>
                 <td>
-                    <label>Username</label>h
+                    <label>Username</label>
                     <?php echo $supporter->User->Username; ?>
                 </td>
                 <td>
