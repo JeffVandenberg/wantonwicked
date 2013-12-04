@@ -127,11 +127,34 @@ a:hover {text-decoration: underline;}
 <ol>
 <li><strong>/dice roll</strong>
 <p>In the message bar, type: /dice roll "<i>action</i>" <i>dice</i> (be sure to include the quotes around your action). This command allows you to simulate rolling dice in the chat room. For example, type <i>/dice roll "attack monster" 7</i> to generate your results. <br>
-You can also add a dice modifier to the roll. For example, Willpower: /dice roll "action" dice <i>WP</i></p>
-<ul><li><strong>/dice roll initiative</strong>
-<p>In the message bar, type: <i>/dice roll initiative</i> (the word, not your initiative modifier). This command sllows you to simulate rolling initiative and will automatically take into account your initiative modifier if you are logged in as a character. If your base initiative modifier has been adjusted by an ability or merit, type: /dice roll initiative +<i>number</i></p></li>
-<li><strong>/dice list</strong>
-<p>In the message bar, type <i>/dice list</i> to display the most recent dice rolls from the chat.<br><br>/dice and /dice help will pop up a reminder for this syntax</p>.</li></ul></li>
+You can also add a dice modifier to the roll. For example, Willpower: /dice roll "action" dice <i>WP</i></p></li>
+  <ul>
+  <li><strong>Modifiers</strong>
+  <ul>
+  <li>Willpower<br>
+      <em>/dice roll &quot;action&quot; dice WP</em></
+      <li>Blood (vampire only)<br>
+      <em>/dice roll &quot;action&quot; dice blood</em></
+    <li>Chance<br>
+      <em>/dice roll &quot;action&quot; 1 chance</em></li>
+    <li>Rote<br>
+    <em>/dice roll &quot;action&quot; dice rote</em></li>
+    <li>8-again<br>
+    <em>/dice roll &quot;action&quot; dice 8again</em></li>
+    <li>9-again<br>
+    <em>/dice roll &quot;action&quot; dice 9again</em></li>
+    <li>No Reroll<br>
+    <em>This feature is only available on the site Dice Roller at this time.</em></li>
+    <li>1s Remove<br>
+    <em>This feature is only available on the site Dice Roller at this time.</em></li>
+    <li>Multiple Modifiers: simply add on to the end<br>
+    <em>/dice roll &quot;action&quot; dice rote 8again 9again</em></li>
+  </ul>
+  </li>
+  <li><strong>/dice roll initiative or /dice roll init</strong><br>In the message bar, type: <i>/dice roll initiative</i> (the word, not your initiative modifier). This command sllows you to simulate rolling initiative and will automatically take into account your initiative modifier if you are logged in as a character. If your base initiative modifier has been adjusted by an ability or merit, type: /dice roll initiative +<i>number</i>
+  </li>
+    <li><strong>/dice list</strong><br>In the message bar, type <i>/dice list</i> to display the most recent dice rolls from the chat.<br><br>/dice and /dice help will pop up a reminder for this syntax.</li></ul>
+</li>
 <li><strong>/me <i>message</i></strong><p>
 In the message bar, type '/me <i>message</i>' (without the quotes). This command allows you to add fun action messages. Example: Type '/action <i>files around the room</i>' (without the quotes) and a message will appear in the main chat window informing other users that '<i>username</i> flies around the room'.</p></li>
 <li><strong>/broadcast <i>message</i></strong> (admins only)
