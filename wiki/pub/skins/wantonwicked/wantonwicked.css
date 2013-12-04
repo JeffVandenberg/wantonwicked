@@ -51,16 +51,24 @@ H2 {
 H3 {
 	font-family:"Century Gothic",Verdana, Geneva, sans-serif;
 	font-size:16px;
-	font-weight:normal;
+	font-weight:bold;
 	text-transform:uppercase;
 }
 H4 {
 	font-family:"Century Gothic",Verdana, Geneva, sans-serif;
 	font-size:14px;
 	font-weight:normal;
+	font-style:normal;
+	text-transform:uppercase;
+}
+H5 {
+	font-family:"Century Gothic",Verdana, Geneva, sans-serif;
+	font-size:14px;
+	font-weight:normal;
 	font-style:italic;
 	text-transform:uppercase;
 }
+
 
 a:link {color:#790000; text-decoration:none;}      /* unvisited link */
 a:visited {color:#464646; text-decoration:none;}   /* visited link */
