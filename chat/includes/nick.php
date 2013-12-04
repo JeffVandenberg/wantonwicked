@@ -31,9 +31,17 @@ if(!isset($_SESSION['user_id'])) {
     die('No ID');
 }
 
+$response = array(
+    'status' => false,
+    'message' => 'Unknown action'
+);
+
 list($admin,$mod,$speaker,$userTypeId) = adminPermissions();
 if(!$admin && !$mod) {
-    die('Not Admin or Mod!');
+    header('content-type: application/json');
+    $response['message'] = 'Not admin or moderator. User ID: ' . $_SESSION['user_id'];
+    echo json_encode($response);
+    die();
 }
 
 $sql = '';
@@ -56,11 +64,6 @@ EOQ;
     default:
         break;
 }
-
-$response = array(
-    'status' => false,
-    'message' => 'Unknown action'
-);
 
 if($sql !== '') {
     $statement = $dbh->prepare($sql);

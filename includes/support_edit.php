@@ -54,7 +54,7 @@ ob_start()
         <table>
             <tr>
                 <td>
-                    <label>Username</label>
+                    <label>Username</label>h
                     <?php echo $supporter->User->Username; ?>
                 </td>
                 <td>
@@ -80,7 +80,9 @@ ob_start()
             <?php foreach($supporter->Characters as $character): ?>
                 <tr>
                     <td colspan="4">
-                        <?php echo $character->CharacterName; ?>
+                        <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $character->CharacterId; ?>">
+                            <?php echo $character->CharacterName; ?>
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>

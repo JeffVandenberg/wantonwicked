@@ -138,7 +138,7 @@ EOQ;
 UPDATE
     supporters AS S
 SET
-    S.characters_awarded = (
+    S.characters_awarded = IFNULL((
         SELECT
             COUNT(*)
         FROM
@@ -151,11 +151,11 @@ SET
             AND SC.supporter_id = S.id
         GROUP BY
             S.id
-    )
+    ),0)
 WHERE
-    S.expires_on > ?
+    S.expires_on >= '$date'
 EOQ;
-        $this->Query($sql)->Execute(array($bonusXp, $date));
+        $this->Query($sql)->Execute(array($bonusXp));
     }
 
     public function ListSupporterCharacters()
