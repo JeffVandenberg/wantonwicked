@@ -732,4 +732,25 @@ EOQ;
 
         return $this->Query($sql)->All();
     }
+
+    public function CountRequestsByCharacterIdAndStatus($characterId, $requestStatuses)
+    {
+        if(!is_array($requestStatuses)) {
+            $requestStatuses = array($requestStatuses);
+        }
+        $statusPlaceholders = implode(',',array_fill(0, count($requestStatuses), '?'));
+
+        $sql = <<<EOQ
+SELECT
+    count(*) as `total`
+FROM
+    requests
+WHERE
+    request_type_id != ?
+    AND character_id = ?
+    AND request_status_id IN ($statusPlaceholders)
+EOQ;
+
+        return $this->Query($sql)->Value(array_merge(array(RequestType::BlueBook, $characterId), $requestStatuses));
+    }
 }

@@ -288,4 +288,10 @@ class Database
         }
         return self::$instance;
     }
+
+    public function Value($parameters)
+    {
+        $this->Statement->execute($parameters);
+        return $this->Statement->fetchColumn();
+    }
 }
