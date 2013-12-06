@@ -272,7 +272,7 @@ ob_start();
         <input type="hidden" name="character_id" value="<?php echo $characterId; ?>"/>
     </form>
     <div style="min-width:870px;width:100%;overflow:auto;">
-        <div style="float:left;width:240px;min-height:300px;border:solid 0 #333333;">
+        <div style="float:left;width:290px;min-height:300px;border:solid 0 #333333;">
             <div class="tableRowHeader" style="width:100%;">
                 <div style="text-align: center;font-weight: bold;">
                     Character Information
@@ -280,7 +280,7 @@ ob_start();
             </div>
             <?php echo $characterInfo; ?>
         </div>
-        <div style="float:left;width:240px;min-height:300px;border:solid 0 #333333;">
+        <div style="float:left;width:290px;min-height:300px;border:solid 0 #333333;">
             <div class="tableRowHeader" style="width:100%;">
                 <div style="text-align: center;font-weight: bold;">
                     Requests
@@ -339,7 +339,7 @@ ob_start();
                 </table>
             </div>
         </div>
-        <div style="float:left;width:240px;min-height:300px;border:solid 0 #333333;">
+        <div style="float:left;width:290px;min-height:300px;border:solid 0 #333333;">
             <div class="tableRowHeader" style="width:100%;">
                 <div style="text-align: center;font-weight: bold;">
                     Widgets
