@@ -132,9 +132,9 @@ You can also add a dice modifier to the roll. For example, Willpower: /dice roll
   <li><strong>Modifiers</strong>
   <ul>
   <li>Willpower<br>
-      <em>/dice roll &quot;action&quot; dice WP</em></
+      <em>/dice roll &quot;action&quot; dice WP</em></li>
       <li>Blood (vampire only)<br>
-      <em>/dice roll &quot;action&quot; dice blood</em></
+      <em>/dice roll &quot;action&quot; dice blood</em></li>
     <li>Chance<br>
       <em>/dice roll &quot;action&quot; 1 chance</em></li>
     <li>Rote<br>
