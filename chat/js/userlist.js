@@ -338,7 +338,7 @@ function createRoomsdiv(room,roomid,icon)
 		var ni = document.getElementById('userContainer');
 		var newdiv = document.createElement('div');
 
-        var roomName = decodeURI(room.replace("+"," "));
+        var roomName = decodeURIComponent(room.replace("+"," "));
 		newdiv.setAttribute("id","room_"+roomid);
 		newdiv.innerHTML =
             '<div class="roomheader" title="' + roomName +'" onclick=toggleHeader("room_'+roomid+'");>' +

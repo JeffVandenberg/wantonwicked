@@ -751,6 +751,7 @@ WHERE
     AND request_status_id IN ($statusPlaceholders)
 EOQ;
 
-        return $this->Query($sql)->Value(array_merge(array(RequestType::BlueBook, $characterId), $requestStatuses));
+        $params = array_merge(array(RequestType::BlueBook, $characterId), $requestStatuses);
+        return $this->Query($sql)->Value($params);
     }
 }

@@ -153,6 +153,35 @@ EOQ;
     $action->bindValue('name', C_CUSTOM_USERNAME);
     $action->execute();
 
+    // add login record to character log
+    $query = <<<EOQ
+INSERT INTO
+    log_characters
+    (
+        character_id,
+        action_type_id,
+        created_by_id,
+        created,
+        note
+    )
+VALUES
+    (
+        ?,
+        ?,
+        ?,
+        ?,
+        'Chat Login'
+    )
+EOQ;
+    $params = array(
+        $characterId,
+        2, // login
+        $userdata['user_id'],
+        date('Y-m-d H:i:s')
+    );
+    $action = $dbh->prepare($query);
+    $action->execute($params);
+
     $loggedIn = true;
 }
 else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {

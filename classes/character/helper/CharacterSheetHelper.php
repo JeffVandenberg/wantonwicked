@@ -13,6 +13,7 @@ namespace classes\character\helper;
 use classes\character\data\Character;
 use classes\character\data\ElementType;
 use classes\core\helpers\FormHelper;
+use classes\core\repository\Database;
 
 class CharacterSheetHelper
 {
@@ -238,7 +239,12 @@ class CharacterSheetHelper
 
         foreach ($skills as $skill) {
             $skillLower = strtolower($skill);
-            $$skillLower = FormHelper::Dots($skillLower, $character->getSkill($skill)->PowerLevel, ElementType::Skill, $character->CharacterType);
+            $$skillLower = FormHelper::Dots(
+                $skillLower,
+                $character->getSkill($skill)->PowerLevel,
+                ElementType::Skill,
+                $character->CharacterType
+            );
         }
 
         ob_start();
@@ -283,7 +289,26 @@ class CharacterSheetHelper
                     <?php echo $animal_ken; ?>
                 </td>
                 <td rowspan="11" style="vertical-align: top;">
-                    Specialties here!
+                    <table>
+                        <tr>
+                            <th>
+                                Skill
+                            </th>
+                            <th>
+                                Specialty
+                            </th>
+                        </tr>
+                    <?php foreach($character->Specialties as $specialty): ?>
+                            <tr>
+                                <td>
+                                    <?php echo $specialty->PowerNote; ?>
+                                </td>
+                                <td>
+                                    <?php echo $specialty->PowerName; ?>
+                                </td>
+                            </tr>
+                    <?php endforeach; ?>
+                    </table>
                 </td>
             </tr>
             <tr>
@@ -430,5 +455,148 @@ class CharacterSheetHelper
 
         <?php
         return ob_get_clean();
+    }
+
+    public static function MakeVitalsViewOwn(Character $character)
+    {
+        switch($character->CharacterType) {
+            case 'Vampire':
+                return self::MakeVitalsViewOwnVampire($character);
+                break;
+            default:
+                return "Unknown Character Type: " . $character->CharacterType;
+        }
+    }
+
+    private static function MakeVitalsViewOwnVampire(Character $character)
+    {
+        ob_start();
+        ?>
+        <table class="character-sheet <?php echo self::GetTableClassForCharacterType($character->CharacterType); ?>">
+            <tr>
+                <th colspan="4">
+                    Vitals
+                </th>
+            </tr>
+            <tr>
+                <td style="width:15%;">
+                    <b>Name</b>
+                </td>
+                <td style="width:35%;">
+                    <?php echo $character->CharacterName; ?>
+                </td>
+                <td style="width:15%;">
+                    <b>Character Type</b>
+                </td>
+                <td style="width:35%;">
+                    <?php echo $character->CharacterType; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Location</b>
+                </td>
+                <td>
+                    <?php echo $character->City; ?>
+                </td>
+                <td>
+                    <b>Sex:</b>
+                </td>
+                <td>
+                    <?php echo $character->Sex; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Virtue</b>
+                </td>
+                <td>
+                    <?php echo $character->Virtue; ?>
+                </td>
+                <td>
+                    <b>Vice</b>
+                </td>
+                <td>
+                    <?php echo $character->Vice; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Clan</b>
+                </td>
+                <td>
+                    <?php echo $character->Splat1; ?>
+                </td>
+                <td>
+                    <b>Bloodline</b>
+                </td>
+                <td>
+                    <?php echo $character->SubSplat; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Covenant</b>
+                </td>
+                <td>
+                    <?php echo $character->Splat2; ?>
+                </td>
+                <td>
+                    <b>Icon</b>
+                </td>
+                <td>
+                    <?php echo self::GetIconSelect($character); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Age</b>
+                </td>
+                <td>
+                    <?php echo $character->Age; ?>
+                </td>
+                <td>
+                    <b>Apparent Age</b>
+                </td>
+                <td>
+                    <?php echo $character->ApparentAge; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Is NPC</b>
+                </td>
+                <td>
+                    <?php echo $character->IsNpc; ?>
+                </td>
+                <td>
+                    <b>Status</b>
+                </td>
+                <td>
+                    <?php echo $character->Status; ?>
+                </td>
+            </tr>
+        </table>
+        <?php
+        return ob_get_clean();
+    }
+
+    private static function GetIconSelect(Character $character, $type = 'player')
+    {
+        $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
+        if ($type == 'admin') {
+            $icon_query = "select * from icons where Admin_Viewable='Y' order by Icon_Name;";
+        } else if ($type == 'st') {
+            $icon_query = "select * from icons where GM_Viewable='Y' order by Icon_Name;";
+        }
+
+        $icons = Database::GetInstance()->Query($icon_query)->All();
+        $ids = array();
+        $values = array();
+        foreach($icons as $icon) {
+            $ids[] = $icon['Icon_ID'];
+            $values[] = $icon['Icon_Name'];
+        }
+        return buildSelect($character->Icon, $ids, $values, "icon");
     }
 }

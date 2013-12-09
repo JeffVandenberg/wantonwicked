@@ -301,6 +301,7 @@ EOQ;
 
             $page_content = <<<EOQ
 <a href="/bluebook.php?action=st_list&character_id=$character_detail[Character_ID]">View Bluebook</a><br />
+<a href="/character.php?action=log&character_id=$character_detail[Character_ID]">View Character Log</a><br />
 <form name="character_sheet" id="character_sheet" method="post" action="$_SERVER[PHP_SELF]?action=st_view_xp">
 <a href="storyteller_index.php?action=profile_lookup&profile_name=$character_detail[Name]">View all of $character_detail[Name]'s characters</a>
 <div align="center" name="charSheet" id="charSheet">Loading Character Sheet...

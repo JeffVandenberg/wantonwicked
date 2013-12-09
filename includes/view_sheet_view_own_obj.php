@@ -15,11 +15,13 @@ $page_title = 'View ' . $character->CharacterName;
 $contentHeader = $page_title;
 
 $header = CharacterSheetHelper::MakeHeaderView($character);
+$vitals = CharacterSheetHelper::MakeVitalsViewOwn($character);
 $attributes = CharacterSheetHelper::MakeAttributesView($character);
 $skills = CharacterSheetHelper::MakeSkillsView($character);
 
 $page_content = <<<EOQ
 $header
+$vitals
 $attributes
 $skills
 EOQ;

@@ -312,7 +312,7 @@ ob_start();
                         </td>
                         <td>
                             <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::Returned; ?>&character_id=<?php echo $characterId; ?>&action=list">
-                                <?php echo $rejectedRequests; ?>
+                                <?php echo $returnedRequests; ?>
                             </a>
                         </td>
                     </tr>

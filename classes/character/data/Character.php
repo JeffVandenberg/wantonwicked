@@ -40,6 +40,7 @@ class Character extends DataModel
     public $Url;
     public $SafePlace;
     public $Friends;
+    public $Icon;
     public $IsNpc;
     public $Virtue;
     public $Vice;
@@ -104,6 +105,7 @@ class Character extends DataModel
         'Url' => 'URL',
         'SafePlace' => 'Safe_Place',
         'Friends' => 'Friends',
+        'Icon' => 'Icon',
         'IsNpc' => 'Is_NPC',
         'Virtue' => 'Virtue',
         'Vice' => 'Vice',

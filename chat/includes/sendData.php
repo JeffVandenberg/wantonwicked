@@ -235,6 +235,7 @@ if ($_POST) {
             $senderName = $_SESSION['display_name'];
         }
 
+        $dbh = db_connect();
         // if user is not silenced
         if (!$_SESSION['silenceStart'] || $_SESSION['silenceStart'] < (date("U") - $CONFIG['silent'] * 60)) {
             unset($_SESSION['silenceStart']);
@@ -245,7 +246,6 @@ if ($_POST) {
 
             // add message
             try {
-                $dbh = db_connect();
                 $params = array(
                     'uid' => makeSafe($_POST['uid']),
                     'mid' => makeSafe($_POST['umid']),
@@ -284,7 +284,57 @@ if ($_POST) {
 										";
                 $action = $dbh->prepare($query);
                 $action->execute($params);
-                $dbh = null;
+
+                // check if user is logged in, if not send a logged out message back to the sender from the 'user'.
+                if($_POST['to_user_id'] != '') {
+                    $query = "select online, display_name from prochatrooms_users where id = ?";
+                    $params = array($_POST['to_user_id']);
+                    $action = $dbh->prepare($query);
+                    $action->execute($params);
+                    if($action->rowCount() > 0) {
+                        $row = $action->fetch(PDO::FETCH_ASSOC);
+                        if($row['online'] == 0) {
+                            $params = array(
+                                'uid' => makeSafe($_POST['to_user_id']),
+                                'mid' => makeSafe($_POST['umid']),
+                                'username' => $row['display_name'],
+                                'touserid' => $_POST['uid'],
+                                'message' => 'admin.png|#000000|12px|verdana|This user is logged out.||0',
+                                'sfx' => 'door_close.mp3',
+                                'room' => makeSafe($_POST['uroom']),
+                                'share' => 0,
+                                'messtime' => getTime()
+                            );
+                            $query = "INSERT INTO " . $chatMessTableName . "
+										(
+											uid,
+											mid,
+											username,
+											to_user_id,
+											message,
+											sfx,
+											room,
+											share,
+											messtime
+										)
+										VALUES
+										(
+											:uid,
+											:mid,
+											:username,
+											:touserid,
+											:message,
+											:sfx,
+											:room,
+											:share,
+											:messtime
+										)
+										";
+                            $action = $dbh->prepare($query);
+                            $action->execute($params);
+                        }
+                    }
+                }
             } catch (PDOException $e) {
                 var_dump('ON LINE: ' . __LINE__);
                 $error = "Action: Send Message to DB\n";
