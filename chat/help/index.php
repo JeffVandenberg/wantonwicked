@@ -144,9 +144,9 @@ You can also add a dice modifier to the roll. For example, Willpower: /dice roll
     <li>9-again<br>
     <em>/dice roll &quot;action&quot; dice 9again</em></li>
     <li>No Reroll<br>
-    <em>This feature is only available on the site Dice Roller at this time.</em></li>
+    <em>/dice roll &quot;action&quot; dice no10again</em></li>
     <li>1s Remove<br>
-    <em>This feature is only available on the site Dice Roller at this time.</em></li>
+    <em>/dice roll &quot;action&quot; dice 1cancel</em></li>
     <li>Multiple Modifiers: simply add on to the end<br>
     <em>/dice roll &quot;action&quot; dice rote 8again 9again</em></li>
   </ul>
