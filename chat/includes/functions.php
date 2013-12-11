@@ -2876,6 +2876,7 @@ function getUsersOnline($id)
 				  FROM prochatrooms_users, prochatrooms_rooms
 				  WHERE prochatrooms_users.active >= :online
 				  AND prochatrooms_users.room = prochatrooms_rooms.id
+				  ORDER BY roomname, username
 				  ";
         $action = $dbh->prepare($query);
         $action->execute($params);

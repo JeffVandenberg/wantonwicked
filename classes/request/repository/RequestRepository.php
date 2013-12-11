@@ -257,7 +257,7 @@ EOQ;
     public function ListOpenRequestsForCharacter($characterId)
     {
         $characterId = (int) $characterId;
-        $edittable = implode(',', RequestStatus::$PlayerEdit);
+        $edittable = implode(',', RequestStatus::$Terminal);
         $blueBook = RequestType::BlueBook;
 
         $sql = <<<EOQ
@@ -266,7 +266,7 @@ SELECT
 FROM
     requests AS R
 WHERE
-    request_status_id IN ($edittable)
+    request_status_id NOT IN ($edittable)
     AND request_type_id != $blueBook
     AND character_id = $characterId
 ORDER BY

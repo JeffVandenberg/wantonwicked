@@ -23,7 +23,7 @@ include("../../lang/".getLang(''));
 {
 	border: 2px solid #666666;
 	width: 100%;
-	font-family: Verdana, Arial;
+	font-family: Verdana, Arial, sans-serif;
 	font-size: 12px;
 	background-color: #333333;	
 	color: #FFFFFF;
@@ -31,9 +31,8 @@ include("../../lang/".getLang(''));
 
 .header
 {
-	background-image:url('images/rooms.jpg');	
-	background-repeat: repeat-x;
-	font-weight: bold;
+    background: url('images/rooms.jpg') repeat-x;
+    font-weight: bold;
 }
 
 .row
@@ -50,20 +49,15 @@ include("../../lang/".getLang(''));
 
 .pageheader
 { 
-	padding: 2px 2px 2px 34px; 
-	background-color: #666666;
-	font-weight: bold;
-	font-size: 13px;
-	height: 20px;
+	padding: 2px 2px 2px 34px;
+    font-weight: bold;
+    height: 20px;
 	color: #FFFFFF;
-	font-family: Verdana, Arial;
+	font-family: Verdana, Arial, sans-serif;
 	font-size: 12px;
-	
 	-moz-border-radius: 3px;
-	border-radius: 3px;	
-
-	background-image: url('images/icon.png');
-	background-repeat: no-repeat;	
+	border-radius: 3px;
+    background: #666666 url('images/icon.png') no-repeat;
 }
 
 </style>
