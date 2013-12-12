@@ -112,10 +112,9 @@ else {
     include 'includes/index_redirect.php';
 }
 
-$template->set_custom_template('templates', substr($page_template, 0, strlen($page_template)-4));
+$template->set_custom_template('templates', 'main_layout4');
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
-        "CSS_URL" => $css_url,
         "JAVA_SCRIPT" => $java_script,
         "USER_PANEL" => $user_panel,
         "MENU_BAR" => $menu_bar,
