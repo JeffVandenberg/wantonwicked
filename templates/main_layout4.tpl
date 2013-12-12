@@ -52,6 +52,8 @@
             <div class="box-content">
                 <div id="left-menu-content">
                     {MENU_BAR}
+                <div align="center" style="font-size:10px; font-style:italic;"><br>World of Darkness,<br> Changeling: the Lost,<br> Geist: The Sin-Eaters,<br> Mage: The Awakening,<br> Vampire: the Requiem,<br> Werewolf: the Forsaken<br>
+                © White Wolf Publishing, Inc.</div>
                 </div>
             </div>
         </div>
