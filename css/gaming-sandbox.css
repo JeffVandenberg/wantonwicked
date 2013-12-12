@@ -64,7 +64,21 @@ div#footer-bar {
 }
 
 div#footer-inner {
-    width: 800px;
+    width: 900px;
     margin: 0 auto;
+}
+
+div#right-footer {
+    float: right;
     text-align: right;
+    width: 450px;
+}
+
+div#left-footer {
+    float: left;
+    width: 450px;
+}
+
+div#left-footer a {
+    color: #ddd;
 }

@@ -52,8 +52,6 @@
             <div class="box-content">
                 <div id="left-menu-content">
                     {MENU_BAR}
-                <div align="center" style="font-size:10px; font-style:italic;"><br>World of Darkness,<br> Changeling: the Lost,<br> Geist: The Sin-Eaters,<br> Mage: The Awakening,<br> Vampire: the Requiem,<br> Werewolf: the Forsaken<br>
-                © White Wolf Publishing, Inc.</div>
                 </div>
             </div>
         </div>
@@ -74,9 +72,14 @@
 </div>
 <div id="footer-bar">
     <div id="footer-inner">
-        Images by jarden
-        Produced by Jeff Vandenberg
-        Copyright 2013
+        <div id="right-footer">
+            Images by jarden
+            Produced by Jeff Vandenberg
+            Copyright 2013
+        </div>
+        <div id="left-footer">
+            <a href="http://www.white-wolf.com/fansites/termsofuse.php" target="_blank">Copyright White Wolf Publishing, Inc.</a>
+        </div>
     </div>
 </div>
 </body>
