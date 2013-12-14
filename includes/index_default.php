@@ -37,8 +37,9 @@ ob_start();
                         clear on the game state.
                     <li>
                         <div style="font-weight: bold;">Don't:</div>
-                        Escalate issues when issues come up. Take a step back and bring it up to the STs. Escalating
-                        does nothing but make it worse.
+                        Escalate the hostility when issues come up. Take a step back and bring it up to the STs if you
+                        can't work it out with the other player. Escalating the negative tone does nothing but make it
+                        worse.
                     <li>
                         <div style="font-weight: bold;">Do:</div>
                         Act in the interests of the larger game, this can mean compromising a bit. Sometimes it means
