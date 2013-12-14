@@ -79,7 +79,7 @@ switch ($_POST['action']) {
         $chance_die = (strpos($command, 'chance') !== false) ? 'Y' : 'N';
         $isRote = (strpos($command, 'rote') !== false) ? true : false;
 
-        $result = rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias, $is_rote);
+        $result = rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias, $isRote);
 
         $now = date('Y-m-d H:i:s');
         //$bias = 'normal';
