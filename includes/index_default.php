@@ -30,7 +30,8 @@ ob_start();
                         Trust that other people are acting in good faith.
                     <li>
                         <div style="font-weight: bold;">Don't:</div>
-                        Don't take advantage of other people's trust. [i]That is abusive and not welcome here.[/i]
+                        Don't take advantage of other people's trust.
+                        <div style="font-style: italic">That is abusive and not welcome here.</div>
                     <li>
                         <div style="font-weight: bold;">Do:</div>
                         Talk to other players OOC when something comes up or to establish what's at stake so everyone is
