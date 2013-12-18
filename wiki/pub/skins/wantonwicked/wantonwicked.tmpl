@@ -106,11 +106,10 @@
    </li>
    <li><span>Game Guide</span>
       <ul>
-         <li><a href='#'><span>House Rules</span></a>
+         <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>House Rules</span></a>
             <ul>
-               <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>Errata and Clarifications</span></a></li>
+			   <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
                <li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Policies and Practices</span></a></li>
-               <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
             </ul>
          </li>
          <li><a href='/wiki/index.php?n=GameRef.CharacterCreation'><span>Character Creation</span></a>
@@ -159,40 +158,50 @@
 {$Title}
 </div>
 <div id='contenta'>
-<div id='contentb'>
-  <div id='wikihead' align="right">
-  <div id='wikititle' align="right">Group: <a href='{$ScriptUrl}/{$Group}'>{$Group}</a>&nbsp;</div>
-  <div id='wikicmds'><!--wiki:{$Group}.PageActions {$SiteGroup}.PageActions--></div>
-  <br>
-  <form action='{$ScriptUrl}'>
-    <span class='headnav'><a href='{$ScriptUrl}/$[{$Group}/RecentChanges]'
-      accesskey='$[ak_recentchanges]'>$[Recent Changes]</a> -</span>
-    <input type='hidden' name='n' value='{$FullName}' />
-    <input type='hidden' name='action' value='search' />
-    <a href='{$ScriptUrl}/$[{$SiteGroup}/Search]'>$[Search]</a>:
-    <input type='text' name='q' value='' class='inputbox searchbox' />
-    <input type='submit' class='inputbutton searchbutton'
-      value='$[Go]' /></form></div>
-<!--/PageHeaderFmt-->
-  <div id='wikimid' width='100%' cellspacing='0' cellpadding='10'>
-<div id='wikibody'>
-    <!--PageText-->
-      </div>
-	  </div>
-	<div id='wikifoot'>
-    <div class='footnav'>
-      <a rel="nofollow" href='{$PageUrl}?action=edit'>$[Edit]</a> -
-      <a rel="nofollow" href='{$PageUrl}?action=diff'>$[History]</a> -
-      <a rel="nofollow" href='{$PageUrl}?action=print' target='_blank'>$[Print]</a> -
-      <a href='{$ScriptUrl}/$[{$Group}/RecentChanges]'>$[Recent Changes]</a> -
-      <a href='{$ScriptUrl}/$[{$SiteGroup}/Search]'>$[Search]</a></div>
-    <div class='lastmod'>$[Page last modified on {$LastModified}]</div></div>
+	<div id='contentb'>
+		<div id='wikihead' align="right">
+		<div id='wikititle' align="right">Group: <a href='{$ScriptUrl}/{$Group}'>{$Group}</a>&nbsp;</div>
+		<div id='wikicmds'><!--wiki:{$Group}.PageActions {$SiteGroup}.PageActions--></div>
+		<br>
+			<form action='{$ScriptUrl}'>
+			<span class='headnav'><a href='{$ScriptUrl}/$[{$Group}/RecentChanges]'accesskey='$[ak_recentchanges]'>$[Recent Changes]</a> -</span>
+			<input type='hidden' name='n' value='{$FullName}' />
+			<input type='hidden' name='action' value='search' />
+			<a href='{$ScriptUrl}/$[{$SiteGroup}/Search]'>$[Search]</a>:
+			<input type='text' name='q' value='' class='inputbox searchbox' />
+			<input type='submit' class='inputbutton searchbutton' value='$[Go]' /></form></div>
+		<!--/PageHeaderFmt-->
+		<div id='wikimid' width='100%' cellspacing='0' cellpadding='10'>
+			<div id='wikibody'>
+			<!--PageText-->
+			</div>
+		</div>
+		<div id='wikifoot'>
+			<div class='footnav'>
+			<a rel="nofollow" href='{$PageUrl}?action=edit'>$[Edit]</a> -
+			<a rel="nofollow" href='{$PageUrl}?action=diff'>$[History]</a> -
+			<a rel="nofollow" href='{$PageUrl}?action=print' target='_blank'>$[Print]</a> -
+			<a href='{$ScriptUrl}/$[{$Group}/RecentChanges]'>$[Recent Changes]</a> -
+			<a href='{$ScriptUrl}/$[{$SiteGroup}/Search]'>$[Search]</a>
+			</div>
+			<div class='lastmod'>$[Page last modified on {$LastModified}]
+			</div>
+		</div>
 	</div>
-	</div>
-	</div>
+</div>
+</div>
+<br>
 <!--PageFooterFmt-->
+	<div id="content">
+		<div id="contenta">
+		<div id="contentb" class="contentbox">
+            <center><font size="-6">World of Darkness, Changeling: The Lost, Geist: The Sin-Eaters, Mage: The Awakening, Vampire: The Requiem, Werewolf: The Forsaken <br>
+&copy;2013-2014 <a href="http://www.white-wolf.com/fansites/termsofuse.php" target="_blank">White Wolf Publishing, Inc.</a></font></center>
+		</div>
+        </div>
+    </div>
   <div id="footer" align="center">
-	<p>Copyright &copy 2010 <a href="#">Website Name</a></p>
+	<p>Copyright &copy 2013-2014 <a href="http://gamingsandbox.com/" target="_new">GamingSandbox</a></p>
 </div>
 <!--HTMLFooter-->
 </body>

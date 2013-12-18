@@ -62,10 +62,19 @@
 		</div>
         </div>
     </div>
+    <div id="content">
+		<div id="contenta">
+		<div id="contentb" class="contentbox">
+            <center>{DISCLAIMER}
+            <font size="-6">World of Darkness, Changeling: The Lost, Geist: The Sin-Eaters, Mage: The Awakening, Vampire: The Requiem, Werewolf: The Forsaken <br>
+&copy;2013-2014 <a href="http://www.white-wolf.com/fansites/termsofuse.php" target="_blank">White Wolf Publishing, Inc.</a></font></center>
+		</div>
+        </div>
+    </div>
 </div>
 <div id="footer-bar">
     <div id="footer-inner">
-        Images by jarden
+        Layout and Design by jarden
         Produced by Jeff Vandenberg
         Copyright 2013
     </div>
