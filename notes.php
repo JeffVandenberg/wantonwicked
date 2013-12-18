@@ -20,7 +20,7 @@ $userdata = $user->data;
 
 // check page actions
 $page_title = "";
-$css_url = "wantonwicked.gamingsandbox.com/css/ww4_v2.css";
+$css_url = "ww4_v2.css";
 $menu_bar = "";
 $top_image = "";
 $page_content = "";

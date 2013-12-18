@@ -26,7 +26,7 @@ $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
-$templateName = 'no_menu_layout4.tpl';
+$templateName = 'main_ww4.tpl';
 $contentHeader = "";
 
 // build links
@@ -79,7 +79,7 @@ if (isset($_GET['action'])) {
 //print_r($template);
 // initialize template
 
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "CSS_URL" => $css_url,

@@ -164,7 +164,7 @@ $template->assign_vars(array(
 
 if(Request::IsAjax())
 {
-    $template_name = 'empty.tpl';
+    $template_name = 'main_ww4.tpl';
 }
 // initialize template
 $template->set_filenames(array(

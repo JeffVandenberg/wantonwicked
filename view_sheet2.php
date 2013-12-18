@@ -29,7 +29,7 @@ $userdata = $user->data;
 
 // check page actions
 $page_title = "";
-$css_url = "www.wantonwicked.net/wicked.css";
+$css_url = "www.wantonwicked.net/ww4_v2.css";
 $top_image = "";
 $page_content = "";
 $java_script = "";
