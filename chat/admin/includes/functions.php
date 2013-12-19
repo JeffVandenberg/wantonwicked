@@ -1985,14 +1985,23 @@ function getAdminTranscripts($findUser,$findRoom,$page)
 		if(!empty($findUser))
 		{
 			$params = array(
-			'findUser' => $findUser,			
-			);			
-			$query = "SELECT *   
-					  FROM prochatrooms_message
-					  WHERE username = :findUser OR tousername = :findUser 
-					  ORDER by id DESC 
-					  ";
-				  
+			    'findUser' => $findUser,
+			);
+			$query = <<<EOQ
+SELECT
+    M.*,
+    TU.username AS to_username,
+    FU.username AS from_username
+FROM
+    prochatrooms_message AS M
+    LEFT JOIN prochatrooms_users AS TU ON M.to_user_id = TU.id
+    LEFT JOIN prochatrooms_users AS FU ON M.uid = FU.id
+WHERE
+    TU.username = :findUser
+    OR FU.username = :findUser
+ORDER BY
+    M.id DESC
+EOQ;
 			$action = $dbh->prepare($query);	
 			$action->execute($params);
 		}
@@ -2002,14 +2011,24 @@ function getAdminTranscripts($findUser,$findRoom,$page)
 			'room' => $findRoom,
 			'page' => $page,	
 			'results' => $results				
-			);		
-			$query = "SELECT *   
-					  FROM prochatrooms_message
-					  WHERE room = :room
-					  ORDER by id DESC 
-					  LIMIT :page,:results
-					  ";	
-					  
+			);
+            $query = <<<EOQ
+SELECT
+    M.*,
+    TU.username AS to_username,
+    FU.username AS from_username
+FROM
+    prochatrooms_message AS M
+    LEFT JOIN prochatrooms_users AS TU ON M.to_user_id = TU.id
+    LEFT JOIN prochatrooms_users AS FU ON M.uid = FU.id
+WHERE
+    M.room = :room
+ORDER BY
+    M.id DESC
+LIMIT
+    :page,:results
+EOQ;
+
 			$dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);					  
 			$action = $dbh->prepare($query);				
 			$action->execute($params);			  
@@ -2039,7 +2058,7 @@ function getAdminTranscripts($findUser,$findRoom,$page)
 		}
 		else
 		{
-			$html .= '<tr><td>ID</td><td>RoomID</td><td>Time</td><td>Username</td><td>To</td><td>Message</td></tr>';
+			$html .= '<tr><td>ID</td><td>RoomID</td><td>Time</td><td>Username</td><td>To</td><td style="max-width: 700px;">Message</td></tr>';
 		}
 
 		foreach ($action as $i) 
@@ -2076,8 +2095,8 @@ function getAdminTranscripts($findUser,$findRoom,$page)
 				$html .= '<td width="50">'.$i['id'].'</td>';
 				$html .= '<td width="80">'.$i['room'].'</td>';
 				$html .= '<td width="170">'.date("d M Y, H:i:s",$i['messtime']).'</td>';
-				$html .= '<td width="100">'.urldecode($i['username']).'</td>';
-				$html .= '<td width="100">'.urldecode($i['tousername']).'</td>';
+				$html .= '<td width="100">'.urldecode($i['from_username']).'</td>';
+				$html .= '<td width="100">'.urldecode($i['to_username']).'</td>';
 				$html .= '<td>'.$message.'</td>';
 				$html .= '</tr>';
 			}
@@ -2102,7 +2121,7 @@ function getAdminTranscripts($findUser,$findRoom,$page)
 		$error  = "Function: ".__FUNCTION__."\n";
 		$error .= "File: ".basename(__FILE__)."\n";	
 		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
-		
+		var_dump($error);
 		debugError($error);
 	}					
 				
