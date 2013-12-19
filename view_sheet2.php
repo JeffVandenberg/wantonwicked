@@ -29,7 +29,7 @@ $userdata = $user->data;
 
 // check page actions
 $page_title = "";
-$css_url = "www.wantonwicked.net/wicked.css";
+$css_url = "www.wantonwicked.net/ww4_v2.css";
 $top_image = "";
 $page_content = "";
 $java_script = "";
@@ -107,9 +107,9 @@ if(isset($_GET['action']))
 );
 
 // initialize template
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 $template->set_filenames(array(
-		'body' => 'no_menu_layout.tpl')
+		'body' => 'main_ww4.tpl')
 );
 $template->display('body');
 ?>

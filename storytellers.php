@@ -1,23 +1,17 @@
 <?php
-use classes\core\helpers\SessionHelper;
-
-ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
+
 // perform required includes
 define('IN_PHPBB', true);
-$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './forum/';
-$phpEx = substr(strrchr(__FILE__, '.'), 1);
-/** @noinspection PhpIncludeInspection */
-include($phpbb_root_path . 'common.' . $phpEx);
-/** @noinspection PhpIncludeInspection */
-include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+$phpbb_root_path = './forum/';
+include($phpbb_root_path . 'extension.inc');
+include($phpbb_root_path . 'common.'.$phpEx);
+
 //
 // Start session management
 //
-
-$user->session_begin();
-$auth->acl($user->data);
-$userdata = $user->data;
+$userdata = session_pagestart($user_ip, WEBSITE);
+init_userprefs($userdata);
 //
 // End session management
 //
@@ -26,7 +20,7 @@ $template = new Template("/templates/");
 
 // check page actions
 $page_title = "";
-$css_url = "www.wantonwicked.net/wicked.css";
+$css_url = "wantonwicked.gamingsandbox.com/css/ww4_v2.css";
 $menu_bar = "";
 $top_image = "";
 $page_content = "";
@@ -66,15 +60,17 @@ $page_content .= <<<EOQ
 EOQ;
 
 $row = 0;
-while ($head_gm_detail = mysql_fetch_array($head_gm_result, MYSQL_ASSOC)) {
-    $email_address = "";
-    if ($head_gm_detail['Email_Address'] != "") {
-        $email_address = "<a href=\"mailto:$head_gm_detail[Email_Address]\" class=\"linkmain\">$head_gm_detail[Email_Address]</a>";
-    }
-
-    $row_color = (($row++) % 2) ? "#443a33" : "";
-
-    $page_content .= <<<EOQ
+while($head_gm_detail = mysql_fetch_array($head_gm_result, MYSQL_ASSOC))
+{
+	$email_address = "";
+	if($head_gm_detail['Email_Address'] != "")
+	{
+		$email_address = "<a href=\"mailto:$head_gm_detail[Email_Address]\" class=\"linkmain\">$head_gm_detail[Email_Address]</a>";
+	}
+	
+	$row_color = (($row++)%2) ? "#443a33" : "";
+	
+	$page_content .= <<<EOQ
 	<tr bgcolor="$row_color">
 	  <td>
 	    $head_gm_detail[Name]
@@ -116,15 +112,17 @@ $page_content .= <<<EOQ
 EOQ;
 
 $row = 0;
-while ($gm_detail = mysql_fetch_array($gm_result, MYSQL_ASSOC)) {
-    $email_address = "";
-    if ($gm_detail['Email_Address'] != "") {
-        $email_address = "<a href=\"mailto:$gm_detail[Email_Address]\" class=\"linkmain\">$gm_detail[Email_Address]</a>";
-    }
-
-    $row_color = (($row++) % 2) ? "#443a33" : "";
-
-    $page_content .= <<<EOQ
+while($gm_detail = mysql_fetch_array($gm_result, MYSQL_ASSOC))
+{
+	$email_address = "";
+	if($gm_detail['Email_Address'] != "")
+	{
+		$email_address = "<a href=\"mailto:$gm_detail[Email_Address]\" class=\"linkmain\">$gm_detail[Email_Address]</a>";
+	}
+	
+	$row_color = (($row++)%2) ? "#443a33" : "";
+	
+	$page_content .= <<<EOQ
 	<tr bgcolor="$row_color">
 	  <td>
 	    $gm_detail[Name]
@@ -180,15 +178,17 @@ $page_content .= <<<EOQ
 EOQ;
 
 $row = 0;
-while ($wikiMgr = mysql_fetch_array($asst_gm_result, MYSQL_ASSOC)) {
-    $email_address = "";
-    if ($wikiMgr['Email_Address'] != "") {
-        $email_address = "<a href=\"mailto:$wikiMgr[Email_Address]\" class=\"linkmain\">$wikiMgr[Email_Address]</a>";
-    }
-
-    $row_color = (($row++) % 2) ? "#443a33" : "";
-
-    $page_content .= <<<EOQ
+while($wikiMgr = mysql_fetch_array($asst_gm_result, MYSQL_ASSOC))
+{
+	$email_address = "";
+	if($wikiMgr['Email_Address'] != "")
+	{
+		$email_address = "<a href=\"mailto:$wikiMgr[Email_Address]\" class=\"linkmain\">$wikiMgr[Email_Address]</a>";
+	}
+	
+	$row_color = (($row++)%2) ? "#443a33" : "";
+	
+	$page_content .= <<<EOQ
 	<tr bgcolor="$row_color">
 	  <td>
 	    $wikiMgr[Name]
@@ -212,20 +212,28 @@ EOQ;
 $page_content .= "</table>";
 
 
+
+// build links
+include 'user_panel.php';
+include 'menu_bar.php';
+include 'menu_bar_player_content.php';
+
 $template->assign_vars(array(
-        "PAGE_TITLE" => $page_title,
-        "CSS_URL" => $css_url,
-        "JAVA_SCRIPT" => $java_script,
-        "USER_PANEL" => $user_panel,
-        "MENU_BAR" => $menu_bar,
-        "TOP_IMAGE" => $page_image,
-        "PAGE_CONTENT" => $page_content,
-        "CONTENT_HEADER" => $contentHeader,
-        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage()
-    )
+"PAGE_TITLE" => $page_title,
+"CSS_URL" => $css_url, 
+"JAVA_SCRIPT" => $java_script,
+"USER_PANEL" => $user_panel, 
+"MENU_BAR" => $menu_bar, 
+"TOP_IMAGE" => $page_image, 
+"PAGE_CONTENT" => $page_content,
+"EXTRA_TAGS" => $extra_tags
+)
 );
 
+// initialize template
 $template->set_filenames(array(
-        'body' => $page_template)
+		'body' => 'templates/main_ww4.tpl')
 );
-$template->display('body');
+$template->pparse('body');
+?>
+

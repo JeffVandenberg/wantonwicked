@@ -521,18 +521,12 @@ ob_start();
                 </form>
             </td>
         </tr>
-        <tr>
-            <td colspan="2">
-                <hr>
-            </td>
-        </tr>
-        <tr style="vertical-align: top;">
-            <td colspan="2">
-                <div style="text-align: center; font-size: 1.2em;">
-                    Past Rolls
+    </table>
+                <div align="center">
+                    <h2>Past Rolls</h2>
                 </div>
                 <br>
-
+<div>
                 <form method="get" action="dieroller.php">
                     Page <input type="text" value="<?php echo $page; ?>" name="page" style="width:30px;"/>
                     of <?php echo $pages; ?>
@@ -568,9 +562,7 @@ ob_start();
                             &gt; &gt;</a>
                     <?php endif; ?>
                 </form>
-            </td>
-        </tr>
-    </table>
+</div>
     <script>
         $(function () {
             var submitted = true;

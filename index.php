@@ -35,7 +35,7 @@ include 'user_panel.php';
 include 'menu_bar.php';
 include 'menu_bar_player_content.php';
 
-$page_template = 'main_layout4.tpl';
+$page_template = 'main_ww4.tpl';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {

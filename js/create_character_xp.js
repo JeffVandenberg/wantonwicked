@@ -328,10 +328,11 @@ function updateSupernaturalXP() {
             updateVampireXP(2);
             break;
         case 'Mortal':
-        case 'Sleepwalker':
-        case 'Wolfblooded':
+            break;
         case 'Hunter':
+            break;
         case 'Psychic':
+            break;
         case 'Thaumaturge':
             break;
         case 'Promethean':
@@ -781,7 +782,7 @@ function getMeritCost(index, dots, character_type) {
 
 function getVampireMeritCost(index, dots) {
     var merit_cost = ((Number(dots) * (Number(dots) + 1)) * 2) / 2;
-    /*if (getSplat2().indexOf("Carthian") > -1) {
+    if (getSplat2().indexOf("Carthian") > -1) {
         switch (getMeritName(index).toLowerCase()) {
             case 'allies':
             case 'contacts':
@@ -804,7 +805,7 @@ function getVampireMeritCost(index, dots) {
                 }
                 break;
         }
-    }*/
+    }
 
     return merit_cost;
 }

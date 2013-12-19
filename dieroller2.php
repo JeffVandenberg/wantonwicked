@@ -23,12 +23,12 @@ $template = new Template("/templates/");
 
 // check page actions
 $page_title = "";
-$css_url = "www.wantonwicked.net/wicked.css";
+$css_url = "ww4_v2.css";
 $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
-$template_layout = "no_menu_layout.tpl";
+$template_layout = "main_ww4.tpl";
 
 if(isset($_GET['action']))
 {

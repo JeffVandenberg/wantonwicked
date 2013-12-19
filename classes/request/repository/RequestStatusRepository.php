@@ -10,14 +10,7 @@
 namespace classes\request\repository;
 
 
-use classes\core\repository\AbstractRepository;
-
-class RequestStatusRepository extends AbstractRepository
-{
-    function __construct() {
-        parent::__construct('classes\request\data\RequestStatus');
-    }
-
+class RequestStatusRepository {
     public function ListAll()
     {
         $sql = <<<EOQ

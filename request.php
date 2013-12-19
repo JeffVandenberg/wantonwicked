@@ -43,7 +43,7 @@ $top_image = "";
 $page_content = "";
 $java_script = "";
 $extra_headers = "";
-$template_name = 'no_menu_layout4.tpl';
+$template_name = 'main_ww4.tpl';
 $contentHeader = "";
 
 require_once('user_panel.php');
@@ -60,9 +60,6 @@ if (isset($_GET['action'])) {
             break;
         case 'view':
             include 'includes/request_view.php';
-            break;
-        case 'history':
-            include 'includes/request_history.php';
             break;
         case 'edit':
             include 'includes/request_edit.php';
@@ -135,11 +132,6 @@ if (isset($_GET['action'])) {
                 include 'includes/index_redirect.php';
             }
             break;
-        case 'admin_time_report':
-            if(UserdataHelper::IsHead($userdata)) {
-                include 'includes/request_admin_time_report.php';
-            }
-            break;
         case 'submit':
             include 'includes/request_submit.php';
             break;
@@ -155,7 +147,7 @@ if (isset($_GET['action'])) {
     }
 }
 
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
@@ -172,7 +164,7 @@ $template->assign_vars(array(
 
 if(Request::IsAjax())
 {
-    $template_name = 'empty.tpl';
+    $template_name = 'main_ww4.tpl';
 }
 // initialize template
 $template->set_filenames(array(

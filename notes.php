@@ -20,12 +20,12 @@ $userdata = $user->data;
 
 // check page actions
 $page_title = "";
-$css_url = "www.wantonwicked.net/wicked.css";
+$css_url = "ww4_v2.css";
 $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
-$page_template = "no_menu_layout4.tpl";
+$page_template = "main_ww4.tpl";
 $contentHeader = "";
 
 include 'user_panel.php';
@@ -38,7 +38,7 @@ if (isset($_GET['action'])) {
         case 'player':
             break;
         case 'view':
-            $page_template = "blank_layout4.tpl";
+            $page_template = "main_ww4.tpl";
             include 'includes/notes_view.php';
             break;
         default:

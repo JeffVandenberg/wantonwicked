@@ -1,0 +1,16 @@
+Function: db_connect
+File: functions.php
+PDOException: 1045-SQLSTATE[28000] [1045] Access denied for user 'gamingsa'@'localhost' (using password: NO)
+
+Function: db_connect
+File: functions.php
+PDOException: 1045-SQLSTATE[28000] [1045] Access denied for user 'gamingsa'@'localhost' (using password: NO)
+
+Function: db_connect
+File: functions.php
+PDOException: 1045-SQLSTATE[28000] [1045] Access denied for user 'gamingsa'@'localhost' (using password: NO)
+
+Function: logoutUser
+File: functions.php
+PDOException: 23000-SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'uid' cannot be null
+

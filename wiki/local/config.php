@@ -13,15 +13,17 @@ include_once("cookbook/pagetoc.php");
 include_once("cookbook/toggle.php");
 include_once("cookbook/sortable.php");
 include_once("cookbook/newpageboxplus.php");
+include_once("cookbook/extendmarkup.php");
+include_once("cookbook/break_page.php");
 //include_once("$FarmD/cookbook/FacebookLikeButton.php");
 
 ## set group patterns
-$GroupPattern = '(?:Players|CityBook|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
+$GroupPattern = '(?:Players|City|Changeling|Geist|Hunter|Mage|Mortal|Vampire|Werewolf|Whitefield|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
 $isST = false;
 if(($userdata['is_asst'] || $userdata['is_gm'] || $userdata['wiki_manager']|| $userdata['is_head'] || $userdata['is_admin']) && (!$userdata['cell_id']))
 {
   $isST = true;
-  $GroupPattern = '(?:Players|CityBook|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox|Storytellers)';
+  $GroupPattern = '(?:Players|City|Changeling|Geist|Hunter||Mage|Mortal|Vampire|Werewolf|Whitefield|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox|Storytellers)';
 }
 $DeleteKeyPattern = "^\\s*123This Page Is Removed321\\s*$";
 
@@ -45,7 +47,7 @@ $DeleteKeyPattern = "^\\s*123This Page Is Removed321\\s*$";
 ## If you want to have a custom skin, then set $Skin to the name
 ## of the directory (in pub/skins/) that contains your skin files.
 ## See PmWiki.Skins and Cookbook.Skins.
-$Skin = 'official';
+$Skin = 'wantonwicked';
 
 ## You'll probably want to set an administrative password that you
 ## can use to get into password-protected pages.  Also, by default 
@@ -176,6 +178,23 @@ $EnableRelativePageVars = 1;
 
 # Wanton Wicked configuraiton
 
+$DefaultTocTitle="Contents";
+$NumberToc=false;
+$TocBackFmt="%right%[--[&uarr; back to top]--]";
+
+$TableRowIndexMax = 2;
+$TableRowAttrFmt = "class='ind\$TableRowIndex'";
+
+$WikiStyle['city']['color']    ='#898989';
+$WikiStyle['changeling']['color']    ='#005826';
+$WikiStyle['geist']['color']    ='#415582';
+$WikiStyle['mage']['color']    ='#004a80';
+$WikiStyle['mortal']['color']    ='#6e68a3';
+$WikiStyle['vampire']['color']    ='#9e0b0f';
+$WikiStyle['werewolf']['color']    ='#74483f';
+
+$MarkupCss = true;
+
 include_once('../cgi-bin/timezoneAdjustment.php');
 include_once('../user_panel.php');
 
@@ -190,8 +209,8 @@ include_once('../menu_bar_player_content.php');
 
 function getMenuBar()
 {
-  global $menu_bar;
-  return $menu_bar;
+    global $menu_bar;
+    return $menu_bar;
 }
 
 $FmtPV['$MenuBar'] = 'getMenuBar()';
@@ -200,24 +219,24 @@ $isLoggedIn = false;
 
 if($userdata['user_id'] == 1)
 {
-  if(isset($_GET['action']))
-  {
-    if(($_GET['action'] == 'edit') ||($_GET['action'] == 'attr'))
+    if(isset($_GET['action']))
     {
-      die();
+        if(($_GET['action'] == 'edit') ||($_GET['action'] == 'attr'))
+        {
+            die();
+        }
     }
-  }
 }
 else
 {
-  $isLoggedIn = true;
+    $isLoggedIn = true;
 }
 
 $FmtPV['IsLoggedIn'] = 'getIsLoggedIn()';
 function getIsLoggedIn()
 {
-  global $isLoggedIn;
-  return $isLoggedIn;
+    global $isLoggedIn;
+    return $isLoggedIn;
 }
 
-Markup('noedit', 'directives',  '/\\(:noedit:\\)/ei', "SetTmplDisplay('PageEditLinkFmt',0)"); 
+Markup('noedit', 'directives',  '/\\(:noedit:\\)/ei', "SetTmplDisplay('PageEditLinkFmt',0)"); ;

@@ -8,9 +8,7 @@
  */
 namespace classes\request\data;
 
-use classes\core\data\DataModel;
-
-class RequestType extends DataModel
+class RequestType
 {
     const Sanction      = 1;
     const XpRequest     = 2;
@@ -19,11 +17,4 @@ class RequestType extends DataModel
     const CreativeThaum = 5;
     const SceneRequest  = 6;
     const XpRecommend   = 7;
-
-    public $Id;
-    public $Name;
-
-    function __construct() {
-        parent::__construct();
-    }
 }

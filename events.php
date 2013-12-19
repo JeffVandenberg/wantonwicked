@@ -42,7 +42,7 @@ include 'user_panel.php';
 include 'menu_bar.php';
 include 'menu_bar_player_content.php';
 
-$page_template = 'main_layout4.tpl';
+$page_template = 'main_ww4.tpl';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -57,7 +57,7 @@ else {
 }
 
 // initialize template
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,

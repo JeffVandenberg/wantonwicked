@@ -320,17 +320,13 @@ $disciplines_list .= "</table>";
 $traits_table = <<<EOQ
 <table class="character-sheet $table_class">
     <tr>
-        <td colspan="6" align="center">
-            <b>Abilities</b>
-            $abilities_help
-        </td>
-    </tr>
-    <tr>
         <th colspan="3" align="center" width="50%">
             Merits
+			$abilities_help
         </th>
         <th colspan="3" align="center" width="50%">
             Disciplines
+			$abilities_help
         </th>
     </tr>
     <tr valign="top">
@@ -344,6 +340,7 @@ $traits_table = <<<EOQ
     <tr>
         <th colspan="3" align="center">
             Flaws/Derangements
+			$abilities_help
         </th>
     </tr>
     <tr>

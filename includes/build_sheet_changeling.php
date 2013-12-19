@@ -1,6 +1,6 @@
 <?php
 			$vitals_table = <<<EOQ
-<table class="character-sheet $table_class">
+<table class="character-sheet $table_class" width="100%">
     <tr>
         <th colspan="4" align="center">
             Vitals
@@ -108,7 +108,7 @@
 EOQ;
 		
 			$information_table = <<<EOQ
-<table class="character-sheet $table_class">
+<table class="character-sheet $table_class" width="100%">
     <tr>
         <th colspan="2" align="center">
             Information
@@ -382,19 +382,15 @@ EOQ;
       $power_list .= "</table>";
       
 			$traits_table = <<<EOQ
-<table class="character-sheet $table_class">
-    <tr>
-        <td colspan="6" align="center">
-            <b>Abilities</b>
-            $abilities_help
-        </td>
-    </tr>
+<table class="character-sheet $table_class"  width="100%">
     <tr>
         <th colspan="3" align="center" width="50%">
             Merits
+			$abilities_help
         </th>
         <th colspan="3" align="center" width="50%">
             Contracts
+			$abilities_help
         </th>
     </tr>
     <tr valign="top">
@@ -408,6 +404,7 @@ EOQ;
     <tr>
         <th colspan="3" align="center">
             Flaws/Derangements
+			$abilities_help
         </th>
     </tr>
     <tr>
@@ -416,7 +413,7 @@ EOQ;
         </td>
     </tr>
 </table>
-<table class="character-sheet $table_class">
+<table class="character-sheet $table_class"  width="100%">
     <tr>
         <th colspan="6">
             Traits

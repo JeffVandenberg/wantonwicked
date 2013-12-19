@@ -32,7 +32,7 @@ function buildWoDSheetXP(
     $number_of_merits = 5;
 
     //$character_types = array("Mortal", "Vampire", "Werewolf", "Mage", "Ghoul", "Psychic", "Thaumaturge", "Promethean", "Changeling", "Hunter", "Geist", "Purified", "Possessed");
-    $character_types = array("Mortal", "Vampire", "Werewolf", "Mage", "Changeling", "Geist", "Ghoul", "Wolfblooded", "Sleepwalker");
+    $character_types = array("Mortal", "Vampire", "Werewolf", "Mage", "Ghoul", "Changeling", "Geist");
 
     $max_dots = 7;
     $attribute_list = array("strength", "dexterity", "stamina", "presence", "manipulation", "composure", "intelligence", "wits", "resolve");
@@ -118,9 +118,16 @@ EOQ;
     // set page colors based on type of character and supernatural XP
     switch ($character_type) {
         case 'Mortal':
+            $table_class = "mortal_normal_text";
+            break;
+		case 'Sleepwalker':
+            $table_class = "mage_normal_text";
+            break;
+		case 'Wolfblood':
+            $table_class = "werewolf_normal_text";
+            break;
+
         case 'Psychic':
-        case 'Wolfblooded':
-        case 'Sleepwalker':
             $table_class = "mortal_normal_text";
             break;
 
@@ -180,7 +187,7 @@ EOQ;
             break;
 
         case 'Geist':
-            $table_class = "mortal_normal_text";
+            $table_class = "geist_normal_text";
             $splat1_groups = array("Advocate", "Bonepicker", "Celebrant", "Gatekeeper", "Mourner", "Necromancer", "Pilgrim", "Reaper");
             $splat2_groups = array("Forgotten", "Prey", "Silent", "Stricken", "Torn");
             $supernatural_xp = 44;
@@ -1074,8 +1081,6 @@ EOQ;
     $traits_table = "Traits Not Done Yet<br>";
     switch ($character_type) {
         case 'Mortal':
-        case 'Wolfblooded':
-        case 'Sleepwalker':
             /** @noinspection PhpIncludeInspection */
             include 'includes/build_sheet_mortal.php';
             break;
@@ -1156,7 +1161,7 @@ EOQ;
     </th>
 </tr>
 <tr>
-    <th colspan="6">
+    <th colspan="6" style="background-color: transparent; border-top-left-radius:0px; border-top-right-radius:0px; color:#000; border:1px solid #898989;">
         Attributes: <input type="text" name="attribute_xp" id="attribute_xp" size="3" value="$attribute_xp" readonly>
         &nbsp;&nbsp;
         Skills: <input type="text" name="skill_xp" id="skill_xp" size="3" value="$skill_xp" readonly>
@@ -1360,19 +1365,14 @@ EOQ;
     $skill_table = <<<EOQ
 <table class="character-sheet $table_class">
     <tr>
-        <th colspan="7" align="center">
-            Skills
-        </th>
-    </tr>
-    <tr>
       <th colspan="2">
-        Mental
+        Mental skills
       </th>
       <th colspan="2">
-        Physical
+        Physical Skills
       </th>
       <th colspan="2">
-        Social
+        Social Skills
       </th>
       <th>
         Specialties
