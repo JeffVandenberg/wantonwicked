@@ -46,9 +46,10 @@ if (isset($_POST['action'])) {
         }
     }
 }
-$request = $requestRepository->FindById($requestId);
+$request = $requestRepository->GetById($requestId);
+/* @var \classes\request\data\Request $request */
 
-$page_title = 'Approve Request: ' . $request['title'];
+$page_title = 'Approve Request: ' . $request->Title;
 $contentHeader = $page_title;
 
 ob_start();
@@ -74,6 +75,32 @@ ob_start();
             <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
+    <h3>Request</h3>
+    <div class="tinymce-content">
+        <?php echo $request->Body; ?>
+    </div>
+    <h3>Past Notes</h3>
+<?php if (count($requestNotes) > 0): ?>
+    <dl>
+        <?php foreach ($requestNotes as $note): ?>
+            <dt>
+                <?php echo $note['username']; ?>
+                wrote on
+                <?php echo date('m/d/Y H:i:s', strtotime($note['created_on'])); ?>
+            </dt>
+            <dd>
+                <div class="tinymce-content">
+                    <?php echo $note['note']; ?>
+                </div>
+            </dd>
+        <?php endforeach; ?>
+    </dl>
+<?php else: ?>
+    <div class="paragraph">
+        No Notes for this Request
+    </div>
+<?php endif; ?>
+
     <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         tinymce.init({
