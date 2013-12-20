@@ -1081,6 +1081,8 @@ EOQ;
     $traits_table = "Traits Not Done Yet<br>";
     switch ($character_type) {
         case 'Mortal':
+        case 'Wolfblooded':
+        case 'Sleepwalker':
             /** @noinspection PhpIncludeInspection */
             include 'includes/build_sheet_mortal.php';
             break;
