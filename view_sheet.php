@@ -41,10 +41,13 @@ $page_content = "";
 $java_script = "";
 $body_params = "";
 $extra_headers = "";
-$template_name = 'no_menu_layout4.tpl';
+$template_name = 'main_ww4.tpl';
 $contentHeader = "";
 
 require_once('user_panel.php');
+// build links
+include 'menu_bar.php';
+include 'menu_bar_player_content.php';
 
 if (isset($_GET['action'])) {
     //echo $_GET['action']."<br>";
@@ -115,7 +118,7 @@ if (isset($_GET['action'])) {
     }
 }
 
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
@@ -124,6 +127,7 @@ $template->assign_vars(array(
         "EXTRA_TAGS" => $body_params,
         "EXTRA_HEADERS" => $extra_headers,
         "USER_PANEL" => $user_panel,
+		"MENU_BAR" => $menu_bar,
         "CONTENT_HEADER" => $contentHeader
     )
 );

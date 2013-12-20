@@ -12,7 +12,7 @@ $template = new Template("/templates/");
 
 // check page actions
 $page_title = "";
-$css_url = "www.wantonwicked.net/wicked.css";
+$css_url = "ww4_v2.css";
 $menu_bar = "";
 $top_image = "";
 $page_content = "";
@@ -47,7 +47,7 @@ EOQ;
 
 // initialize template
 $template->set_filenames(array(
-		'body' => 'templates/no_menu_layout.tpl')
+		'body' => 'templates/main_ww4.tpl')
 );
 $template->pparse('body');
 ?>

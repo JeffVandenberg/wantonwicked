@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" xml:lang="{S_USER_LANG}">
+<head>
+<link type="text/css" href="../css/gaming-sandbox.css" rel="Stylesheet"/>
+<meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
+<meta http-equiv="content-language" content="{S_USER_LANG}" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+    <link type="text/css" href="../css/wanton/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
+    <link type="text/css" href="../css/wanton/jquery.ui.menubar.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.watermark.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.ui.menubar.js"></script>
+    <script type="text/javascript" src="../js/wanton.js"></script>
+<script type="text/javascript" src="../js/gaming-sandbox.js"></script>
+{META}
+<title>Wanton Wicked &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
+
+<!-- IF S_ENABLE_FEEDS -->
+	<!-- IF S_ENABLE_FEEDS_OVERALL --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_FORUMS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_FORUMS}" href="{U_FEED}?mode=forums" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPICS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_TOPICS_NEW}" href="{U_FEED}?mode=topics" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPICS_ACTIVE --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_TOPICS_ACTIVE}" href="{U_FEED}?mode=topics_active" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
+	<!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
+<!-- ENDIF -->
+
+<link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
+
+<script type="text/javascript">
+// <![CDATA[
+<!-- IF S_USER_PM_POPUP and S_NEW_PM -->
+	popup('{UA_POPUP_PM}', 400, 225, '_phpbbprivmsg');
+<!-- ENDIF -->
+
+function popup(url, width, height, name)
+{
+	if (!name)
+	{
+		name = '_popup';
+	}
+
+	window.open(url.replace(/&amp;/g, '&'), name, 'height=' + height + ',resizable=yes,scrollbars=yes,width=' + width);
+	return false;
+}
+
+function jumpto()
+{
+	var page = prompt('{LA_JUMP_PAGE}:', '{ON_PAGE}');
+	var per_page = '{PER_PAGE}';
+	var base_url = '{A_BASE_URL}';
+
+	if (page !== null && !isNaN(page) && page == Math.floor(page) && page > 0)
+	{
+		if (base_url.indexOf('?') == -1)
+		{
+			document.location.href = base_url + '?start=' + ((page - 1) * per_page);
+		}
+		else
+		{
+			document.location.href = base_url.replace(/&amp;/g, '&') + '&start=' + ((page - 1) * per_page);
+		}
+	}
+}
+
+/**
+* Find a member
+*/
+function find_username(url)
+{
+	popup(url, 760, 570, '_usersearch');
+	return false;
+}
+
+/**
+* Mark/unmark checklist
+* id = ID of parent container, name = name prefix, state = state [true/false]
+*/
+function marklist(id, name, state)
+{
+	var parent = document.getElementById(id);
+	if (!parent)
+	{
+		eval('parent = document.' + id);
+	}
+
+	if (!parent)
+	{
+		return;
+	}
+
+	var rb = parent.getElementsByTagName('input');
+	
+	for (var r = 0; r < rb.length; r++)
+	{
+		if (rb[r].name.substr(0, name.length) == name)
+		{
+			rb[r].checked = state;
+		}
+	}
+}
+
+<!-- IF ._file -->
+
+	/**
+	* Play quicktime file by determining it's width/height
+	* from the displayed rectangle area
+	*
+	* Only defined if there is a file block present.
+	*/
+	function play_qt_file(obj)
+	{
+		var rectangle = obj.GetRectangle();
+
+		if (rectangle)
+		{
+			rectangle = rectangle.split(',')
+			var x1 = parseInt(rectangle[0]);
+			var x2 = parseInt(rectangle[2]);
+			var y1 = parseInt(rectangle[1]);
+			var y2 = parseInt(rectangle[3]);
+
+			var width = (x1 < 0) ? (x1 * -1) + x2 : x2 - x1;
+			var height = (y1 < 0) ? (y1 * -1) + y2 : y2 - y1;
+		}
+		else
+		{
+			var width = 200;
+			var height = 0;
+		}
+
+		obj.width = width;
+		obj.height = height + 16;
+
+		obj.SetControllerVisible(true);
+
+		obj.Play();
+	}
+<!-- ENDIF -->
+
+// ]]>
+</script>
+</head>
+<body class="{S_CONTENT_DIRECTION}">
+
+<a name="top"></a>
+<div id="gs-header-bar">
+    <div id="gs-header-inner">
+        <div id="gs-header-logo">
+            <a href="/" id="gs-header-logo-nav">
+                Wanton Wicked
+            </a>
+        </div>
+        <div id="gs-header-games">
+            <select id="gs-game-selector">
+                <option value="www">Home</option>
+                <option value="ragnarok">Ragnarok NYC</option>
+                <option value="wantonwicked" selected>Wanton Wicked</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div id="wrapper">
+<div id="login">
+<div id="logina"> 
+<div id="loginb" valign="center"><!-- IF not S_IS_BOT --><a href="{U_LOGIN_LOGOUT}"><font color="#FFFFFF"> {L_LOGIN_LOGOUT}</font></a>&nbsp;<!-- ENDIF --> <!-- IF not S_IS_BOT -->
+					<!-- IF S_USER_LOGGED_IN -->
+						<!-- IF S_DISPLAY_PM --> <font color="#FFFFFF">|</font> <a href="{U_PRIVATEMSGS}"><font color="#FFFFFF">{PRIVATE_MESSAGE_INFO}<!-- IF PRIVATE_MESSAGE_INFO_UNREAD -->, {PRIVATE_MESSAGE_INFO_UNREAD}<!-- ENDIF --></font></a><!-- ENDIF -->
+					<!-- ELSEIF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) --> <font color="#FFFFFF">|</font> <a href="{U_REGISTER}"><font color="#FFFFFF">{L_REGISTER}</font></a>
+					<!-- ENDIF -->
+				<!-- ENDIF -->
+                <span style="float:right;" id="server-time"></span></div>
+</div>
+</div>
+<div id="header" align="center">
+<img src="{T_THEME_PATH}/images/ww_banner.png" width="652" height="100" /></div>
+
+<div id="nav">
+<div id='navmenu'>
+<ul>
+   <li class='active'><a href='/index.php'><span>Home</span></a></li>
+   <li><span>The Setting</span>
+      <ul>
+         <li><a href='/wiki/index.php?n=City.City'><span>The City</span></a></li>
+         <li><a href='/wiki/index.php?n=Changeling.Changeling'><span>Changeling</span></a>
+         	<ul>
+			   <li><a href='/wiki/index.php?n=Changeling.HouseRules'><span>Changeling House Rules</span></a></li>
+			   <li><a href='/wiki/index.php?n=Changeling.PlayerGuide'><span>Changeling Player Guide</span></a></li>
+			   <li><a href='/wiki/index.php?n=Players.Changeling'><span>Changeling Cast</span></a></li>
+            </ul></li>
+            <li><a href='/wiki/index.php?n=Geist.Geist'><span>Geist</span></a>
+         	<ul>
+               <li><a href='/wiki/index.php?n=Geist.HouseRules'><span>Geist House Rules</span></a></li>
+			   <li><a href='/wiki/index.php?n=Geist.PlayerGuide'><span>Geist Player Guide</span></a></li>
+			   <li><a href='/wiki/index.php?n=Players.Geist'><span>Geist Cast</span></a></li></ul></li>
+         <li><a href='/wiki/index.php?n=Mage.Mage'><span>Mage</span></a>
+         	<ul>
+               <li><a href='/wiki/index.php?n=Mage.HouseRules'><span>Mage House Rules</span></a></li>
+			   <li><a href='/wiki/index.php?n=Mage.PlayerGuide'><span>Mage Player Guide</span></a></li>
+			   <li><a href='/wiki/index.php?n=Players.Mage'><span>Mage Cast</span></a></li>
+            </ul></li>
+         <li><a href='/wiki/index.php?n=Mortal.Mortal'><span>Mortal</span></a>
+         	<ul>
+               <li><a href='/wiki/index.php?n=Mortal.HouseRules'><span>Mortal House Rules</span></a></li>
+			   <li><a href='/wiki/index.php?n=Mortal.PlayerGuide'><span>Mortal Player Guide</span></a></li>
+			   <li><a href='/wiki/index.php?n=Players.Mortal'><span>Mortal Cast</span></a></li>
+            </ul></li>
+         <li><a href='/wiki/index.php?n=Vampire.Vampire'><span>Vampire</span></a>
+         	<ul>
+               <li><a href='/wiki/index.php?n=Vampire.HouseRules'><span>Vampire House Rules</span></a></li>
+			   <li><a href='/wiki/index.php?n=Vampire.PlayerGuide'><span>Vampire Player Guide</span></a></li>
+			   <li><a href='/wiki/index.php?n=Players.Vampire'><span>Vampire Cast</span></a></li>
+            </ul></li>
+         <li><a href='/wiki/index.php?n=Werewolf.Werewolf'><span>Werewolf</span></a>
+         	<ul>
+               <li><a href='/wiki/index.php?n=Werewolf.HouseRules'><span>Werewolf House Rules</span></a></li>
+			   <li><a href='/wiki/index.php?n=Werewolf.PlayerGuide'><span>Werewolf Player Guide</span></a></li>
+			   <li><a href='/wiki/index.php?n=Players.Werewolf'><span>Werewolf Cast</span></a></li>
+            </ul></li>
+            <li><a href='/wiki/index.php?n=GameRef.SubVenues'><span>Crossover Sub-venues</span></a>
+         	<ul>
+               <li><a href='/wiki/index.php?n=Whitefield.Whitefield'><span>Whitefield University</span></a>
+			   <ul>
+               <li><a href='/wiki/index.php?n=Whitefield.HouseRules'><span>Whitefield House Rules</span></a></li>
+			   <li><a href='/wiki/index.php?n=Whitefield.PlayerGuide'><span>Whitefield Player Guide</span></a></li>
+			   <li><a href='/wiki/index.php?n=Players.Whitefield'><span>Whitefield Cast</span></a></li>
+            </ul>
+			   </li>
+            </ul></li>
+         <li><a href='/wiki/index.php?n=Players'><span>The Cast</span></a></li>
+      </ul>
+   </li>
+   <li><span>Game Guide</span>
+      <ul>
+         <li><a href='#'><span>House Rules</span></a>
+            <ul>
+               <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>Errata and Clarifications</span></a></li>
+               <li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Policies and Practices</span></a></li>
+               <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
+            </ul>
+         </li>
+         <li><a href='/wiki/index.php?n=GameRef.CharacterCreation'><span>Character Creation</span></a>
+         <ul>
+         <li><a href='/wiki/index.php?n=GameRef.SanctioningGuide'><span>Sanctioning Checklist</span></a></li>
+         <li><a href='/wiki/index.php?n=GameRef.BookPolicy'><span>Book Policy</span></a></li>
+         </ul></li>
+         <li><a href='/wiki/index.php?n=GameRef.ExperienceGuide'><span>Experience Guide</span></a></li>
+         <li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
+      </ul>
+   </li>
+   <li><span>Tools</span>
+      <ul>
+         <li><a href='/chat.php'><span>Game/Chat Interface</span></a></li>
+         <li><a href='/wiki/index.php?n=GameRef.Help'><span>Help</span></a>
+            <ul>
+            	<li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
+            	<li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
+            </ul>
+         </li>
+         <li><a href='/support.php'><span>Site Supporter</span></a></li>
+         <!-- IF IS_STORYTELLER -->
+         <li><a href="/storyteller_index.php" target="_blank">Storyteller Tools</a></li>
+                    <!-- ENDIF -->
+      </ul>
+   </li>
+   <li><a href='/forum/index.php'><span>Forums</span></a></li>
+   <li class='has-sub last'><span>Site Info</span>
+      <ul>
+	  <li><a href='/index.php?action=storytellers'><span>The Team</span></a></li>
+         <li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a>
+            <ul>
+               <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
+            </ul>
+         </li>
+         <li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
+         <li><a href='/site_content.php?action=view&content_uid=links'><span>Links</span></a></li>
+      </ul>
+   </li>
+</ul>
+</div>
+</div>
+
+<div id="content">
+<div id="pagetitle">
+{PAGE_TITLE}
+</div>
+<div id="contenta">
+<div id="contentb">
+
+<div id="wrapheader">
+	<div id="datebar">
+		<table width="100%" cellspacing="0">
+		<tr>
+			<td class="gensmall"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ENDIF --></td>
+			<td class="gensmall" align="{S_CONTENT_FLOW_END}">{CURRENT_TIME} - {S_TIMEZONE}<br /></td>
+		</tr>
+		</table>
+	</div>
+    
+	<div id="menubar">
+		<table width="100%" cellspacing="0">
+		<tr>
+			<td class="genmed">
+				
+				<!-- IF U_RESTORE_PERMISSIONS --> &nbsp;<a href="{U_RESTORE_PERMISSIONS}"><img src="{T_THEME_PATH}/images/icon_mini_login.gif" width="12" height="13" alt="*" /> {L_RESTORE_PERMISSIONS}</a><!-- ENDIF -->
+				<!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN --> &nbsp;<span style="color: red;">{L_BOARD_DISABLED}</span><!-- ENDIF -->
+				
+			</td>
+			<td class="genmed" align="{S_CONTENT_FLOW_END}">
+				<a href="{U_FAQ}"><img src="{T_THEME_PATH}/images/icon_mini_faq.gif" width="12" height="13" alt="*" /> {L_FAQ}</a>
+				<!-- IF S_DISPLAY_SEARCH -->&nbsp; &nbsp;<a href="{U_SEARCH}"><img src="{T_THEME_PATH}/images/icon_mini_search.gif" width="12" height="13" alt="*" /> {L_SEARCH}</a><!-- ENDIF -->
+				<!-- IF not S_IS_BOT -->
+					<!-- IF S_DISPLAY_MEMBERLIST -->&nbsp; &nbsp;<a href="{U_MEMBERLIST}"><img src="{T_THEME_PATH}/images/icon_mini_members.gif" width="12" height="13" alt="*" /> {L_MEMBERLIST}</a><!-- ENDIF -->
+					<!-- IF S_USER_LOGGED_IN -->&nbsp; &nbsp;<a href="{U_PROFILE}"><img src="{T_THEME_PATH}/images/icon_mini_profile.gif" width="12" height="13" alt="*" /> {L_PROFILE}</a><!-- ENDIF -->
+				<!-- ENDIF -->
+			</td>
+		</tr>
+		</table>
+	</div>
+
+</div>
+
+<div id="wrapcentre">
+	<!-- INCLUDE breadcrumbs.html -->
+	<!-- IF S_DISPLAY_SEARCH -->
+	<p class="searchbar">
+		<span style="float: {S_CONTENT_FLOW_END};"><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a> | <a href="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</a> | 
+		<!-- IF S_USER_LOGGED_IN or S_LOAD_UNREADS -->
+		<!-- IF S_LOAD_UNREADS --><a href="{U_SEARCH_UNREAD}"><b>{L_SEARCH_UNREAD}</b></a><!-- IF S_USER_LOGGED_IN --> | <!-- ENDIF --><!-- ENDIF --><!-- IF S_USER_LOGGED_IN --><a href="{U_SEARCH_NEW}">{L_SEARCH_NEW}</a> | <a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a><!-- ENDIF --></span>
+		<!-- ENDIF -->
+	</p>
+	<!-- ENDIF -->
+
+	<br style="clear: both;" />
+
+
+
+	<br />

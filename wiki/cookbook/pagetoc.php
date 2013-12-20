@@ -12,10 +12,10 @@
     (at your option) any later version.
 */
 SDV($TocSize,'smaller');
-SDV($TocFloat,false);
+SDV($TocFloat,true);
 $HTMLStylesFmt['toc'] = "
 span.anchor {
-	float: left;
+	float: right;
 	font-size: 10px;
 	margin-left: -10px;
 	width: 10px;
@@ -24,25 +24,18 @@ span.anchor {
 }
 span.anchor a { text-decoration: none; }
 span.anchor a:hover { text-decoration: underline; }
-ol.toc { text-indent:-20px; list-style: none; }
-ol.toc ol.toc { text-indent:-40px; }";
+ol.toc { text-indent:-5px; list-style: none; }
+ol.toc ol.toc { text-indent:-15px; }";
 $HTMLStylesFmt['tocf'] = "
-div.tocfloat { font-size: $TocSize; margin-bottom: 10px;
-    border-top: 1px dotted #555555; border-bottom: 1px dotted #555555;
-    padding-top: 5px; padding-bottom: 5px; 
-    width: 38%; float: right; margin-left: 10px; clear: right;
-    margin-right:-13px; padding-right: 13px; padding-left: 13px;
-    background-color: #eeeeee; }
-div.toc { font-size: $TocSize; 
-    padding: 5px; border: 1px dotted #cccccc;
-    background: #030303;
-    margin-bottom: 10px; }
-div.toc p { background-color: #333333;
+div.tocfloat { font-size: $TocSize; margin-left:10px; margin-bottom:10px; width:300px;
+	border: 1px solid #000; padding:5px; float: right; background-color: #eeeeee; }
+div.toc { font-size: $TocSize; margin:0px; width:300px;	border: 1px solid #000; padding:5px; background-color: #eeeeee; position: fixed; z-index:100; top:0;}
+div.toc p { background-color: #eeeeee; width:300px;
     margin-top:-5px;   padding-top: 5px;
     margin-left:-5px;  padding-left: 5px;
     margin-right:-5px; padding-right: 5px;
     padding-bottom: 3px;
-    border-bottom:  1px dotted #cccccc; }"; 
+    border-bottom:  1px solid #000000; }"; 
 SDV($ToggleText, array('hide', 'show'));
 $HTMLHeaderFmt['toggle'] = "<script type=\"text/javascript\">
 function toggle(obj) {

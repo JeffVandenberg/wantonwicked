@@ -133,17 +133,13 @@ EOQ;
 $traits_table = <<<EOQ
 <table class="character-sheet $table_class">
     <tr>
-        <th colspan="6">
-            Abilities
-            $abilities_help
-        </th>
-    </tr>
-    <tr>
         <th colspan="3">
             Merits
+			$abilities_help
         </th>
         <th colspan="3">
             Flaws/Derangements
+			$abilities_help
         </th>
     </tr>
     <tr valign="top">

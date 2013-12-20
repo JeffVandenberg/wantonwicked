@@ -148,12 +148,10 @@ $rolls .= "</table>";
 
 $page_content = <<<EOQ
 <div align="center">
-	<font size="+1">General Wanton Wicked Die Roller</font>
+	<h1>General Wanton Wicked Die Roller</h1>
 </div>
 <br>
-<table border="0" width="100%" class="normal_text">
-	<tr valign="top">
-		<td align="center" width="60%">
+<div align="center">
 			<form method="post" action="$_SERVER[PHP_SELF]?action=ooc">
 			Name: <input type="text" name="character_name" size="20" maxlength="35" value="">
 			Action: <input type="text" name="action" size="20" maxlength="50" value="">
@@ -167,22 +165,12 @@ $page_content = <<<EOQ
 			Rote Action: <input type="checkbox" name="is_rote" value="y"><br>
 			<input type="submit" name="submit_die_roller" value="Roll Dice/Refresh">
 			</form>
-		</td>
-	</tr>
-	<tr>
-	  <td>
-	    <hr>
-	  </td>
-	</tr>
-	<tr valign="top">
-		<td>
+</div>
+<br>
 			<div align="center">
-				<font size="+1">Past Rolls</font>
+				<h2>Past Rolls</h2>
 			</div>
 			<br>
 			$rolls
-		</td>
-	</tr>
-</table>
 </form>
 EOQ;
