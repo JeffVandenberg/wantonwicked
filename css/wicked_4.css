@@ -396,3 +396,6 @@ table.changeling_normal_text > tbody > tr > td:nth-child(odd) {
     background-color: #95dd9d;
 }
 
+.tinymce-content p {
+    padding-bottom: 10px;
+}

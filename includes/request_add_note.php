@@ -6,6 +6,7 @@ use classes\core\helpers\Response;
 use classes\request\data\RequestNote;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
+
 $requestId = Request::GetValue('request_id', 0);
 $requestRepository = new RequestRepository();
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
@@ -34,8 +35,12 @@ if (isset($_POST['action'])) {
         }
     }
 }
-$request = $requestRepository->FindById($requestId);
-$contentHeader = $page_title = 'Add Note to: ' . $request['title'];
+$request = $requestRepository->GetById($requestId);
+/* @var \classes\request\data\Request $request */
+$requestNoteRepository = new RequestNoteRepository();
+$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
+
+$contentHeader = $page_title = 'Add Note to: ' . $request->Title;
 
 ob_start();
 ?>
@@ -53,6 +58,31 @@ ob_start();
             <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
+    <h3>Request</h3>
+    <div class="tinymce-content">
+        <?php echo $request->Body; ?>
+    </div>
+    <h3>Past Notes</h3>
+<?php if (count($requestNotes) > 0): ?>
+    <dl>
+        <?php foreach ($requestNotes as $note): ?>
+            <dt>
+                <?php echo $note['username']; ?>
+                wrote on
+                <?php echo date('m/d/Y H:i:s', strtotime($note['created_on'])); ?>
+            </dt>
+            <dd>
+                <div class="tinymce-content">
+                    <?php echo $note['note']; ?>
+                </div>
+            </dd>
+        <?php endforeach; ?>
+    </dl>
+<?php else: ?>
+    <div class="paragraph">
+        No Notes for this Request
+    </div>
+<?php endif; ?>
     <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         tinymce.init({
