@@ -29,6 +29,8 @@ $page_template = "main_ww4.tpl";
 $contentHeader = "";
 
 include 'user_panel.php';
+include 'menu_bar.php';
+include 'menu_bar_player_content.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {

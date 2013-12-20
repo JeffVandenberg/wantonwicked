@@ -270,6 +270,7 @@ $alert
 $date_box
 </div>
 $result_set
+</div>
+</div>
 EOQ;
-
 ?>

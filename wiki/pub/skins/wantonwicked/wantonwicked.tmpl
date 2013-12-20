@@ -3,15 +3,13 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>$WikiTitle | {$Group} / {$Title} $ActionTitle</title>
-    <META NAME="copyright" content="(c) 2013 Jeff Vandenberg">
+   <META NAME="copyright" content="(c) 2013 Jeff Vandenberg">
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
     <link rel='stylesheet' href='$SkinDirUrl/wantonwicked.css' type='text/css' />
     <link type="text/css" href="../css/gaming-sandbox.css" rel="Stylesheet"/>
     <link type="text/css" href="../css/blitzer/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
-	<link type="text/css" href="../css/wanton/jquery.ui.menubar.css" rel="stylesheet"/>
     <script type="text/javascript" src="../js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../js/jquery-ui-1.10.3.custom.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.ui.menubar.js"></script>
     <script type="text/javascript" src="../js/jquery.watermark.min.js"></script>
     <script type="text/javascript" src="../js/wanton.js"></script>
     <script type="text/javascript" src="../js/gaming-sandbox.js"></script>
@@ -41,8 +39,10 @@
 <div id='login' style="width:1000px; height:50px; border:1px solid #000000; border-radius: 5px; -moz-border-radius: 5px; background-image: url('../img/main/bg2.jpg'); margin-bottom: 10px; margin-top: 50px;"> 
 <div id='logina' style="width:1000px; margin-top: 10px; height: 30px; border-top: 1px solid #000; border-bottom: 1px solid #000; color:#FFFFFF; font-size:14px; font-weight: normal; background: #898989;"> 
 <div id='loginb' align="left" style="height:20px; padding:5px; background-image: url('../img/main/headerbg.jpg');">
-{?USER_PANEL}
-<span style="float:right;" id="server-time"></span></div>
+<span>{$SiteUPName}</span> -
+            {$LogInOut}
+            {$UserControlPanel}
+            <span id="server-time" style="float:right;"></span></div>
 </div>
 </div>
 <div id='header' align="center">
@@ -50,7 +50,7 @@
 
 
 <div id='nav'>
-{MENU_BAR}
+{$MenuBar}
 </div>
 
 <div id='content'>
