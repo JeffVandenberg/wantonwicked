@@ -12,7 +12,7 @@ $requestRepository = new RequestRepository();
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=view&request_id=' . $requestId);
+        Response::Redirect('request.php?action=st_view&request_id=' . $requestId);
     } elseif ($_POST['action'] == 'Add Note') {
         $requestNote = new RequestNote();
         $requestNote->RequestId = $requestId;

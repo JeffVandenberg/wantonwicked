@@ -58,8 +58,8 @@ ob_start();
             <label>
                 Character
             </label>
-            <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $request['character_id']; ?>"
-               target="_blank"><?php echo $request['character_name']; ?></a>
+            <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $request->CharacterId; ?>"
+               target="_blank"><?php echo $request->Character->CharacterName; ?></a>
         </div>
         <div class="formInput">
             <label>
