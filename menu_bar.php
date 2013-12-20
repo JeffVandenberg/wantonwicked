@@ -76,10 +76,8 @@ if ($user->data['user_id'] != ANONYMOUS) {
    </li>
    <li><span>Game Guide</span>
       <ul>
-         <li><a href='#'><span>House Rules</span></a>
+         <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>House Rules</span></a>
             <ul>
-               <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>Errata and Clarifications</span></a></li>
-               <li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Policies and Practices</span></a></li>
                <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
             </ul>
          </li>
@@ -89,7 +87,10 @@ if ($user->data['user_id'] != ANONYMOUS) {
          <li><a href='/wiki/index.php?n=GameRef.BookPolicy'><span>Book Policy</span></a></li>
          </ul></li>
          <li><a href='/wiki/index.php?n=GameRef.ExperienceGuide'><span>Experience Guide</span></a></li>
-         <li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
+		 <li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Policies and Practices</span></a>
+         <ul>
+		 <li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
+		 </ul></li>
       </ul>
    </li>
    <li><span>Tools</span>
