@@ -34,7 +34,9 @@ ob_start();
             Body:
         </dt>
         <dd>
-            <?php echo $request['body']; ?>
+            <div class="tinymce-content">
+                <?php echo $request['body']; ?>
+            </div>
         </dd>
         <dt>
             Created On:

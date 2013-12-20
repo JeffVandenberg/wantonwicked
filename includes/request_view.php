@@ -132,7 +132,9 @@ ob_start();
             Request:
         </dt>
         <dd>
-            <?php echo $request['body']; ?>
+            <div class="tinymce-content">
+                <?php echo $request->Body; ?>
+            </div>
         </dd>
     </dl>
 
@@ -200,7 +202,9 @@ ob_start();
                 <?php echo date('m/d/Y H:i:s', strtotime($note['created_on'])); ?>
             </dt>
             <dd>
-                <?php echo $note['note']; ?>
+                <div class="tinymce-content">
+                    <?php echo $note['note']; ?>
+                </div>
             </dd>
         <?php endforeach; ?>
     </dl>
