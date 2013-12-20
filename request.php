@@ -105,6 +105,16 @@ if (isset($_GET['action'])) {
                 include 'includes/index_redirect.php';
             }
             break;
+        case 'st_add_note':
+            if(UserdataHelper::IsSt($userdata))
+            {
+                include 'includes/request_st_add_note.php';
+            }
+            else
+            {
+                include 'includes/index_redirect.php';
+            }
+            break;
         case 'st_approve':
             if(UserdataHelper::IsSt($userdata))
             {
