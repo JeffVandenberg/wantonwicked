@@ -56,14 +56,12 @@ ob_start();
                 game a happier place for all players.
             </div>
             <div class="paragraph">
-
                 Ultimately, everyone should be having fun telling stories. If your aim (as a player) is to RP your
                 character with 100% accuracy, beat everyone else at the game, or have the most powerful combat person
                 around, then you're doing it wrong. This game is about collaboration, not competition. Stories, not
                 trophies. This applies to everyone, players and storytellers alike. It works both ways.
             </div>
             <div class="paragraph">
-
                 We were all excited to have Wanton Wicked back, and I want to maintain that energy and enthusiasm.
             </div>
         </div>
