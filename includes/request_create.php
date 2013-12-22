@@ -5,7 +5,9 @@ use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\repository\RepositoryManager;
 use classes\request\data\RequestStatus;
+use classes\request\data\RequestStatusHistory;
 use classes\request\repository\GroupRepository;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestTypeRepository;
@@ -28,7 +30,7 @@ if (Request::IsPost()) {
         $request->Title = htmlspecialchars(Request::GetValue('title'));
         $request->RequestTypeId = Request::GetValue('request_type_id', 0);
         $request->GroupId = Request::GetValue('group_id', 0);
-        $request->RequestStatusId = ($_POST['action'] == 'Submit Request') ? RequestStatus::Submitted :  RequestStatus::NewRequest;
+        $request->RequestStatusId = RequestStatus::NewRequest;
         $request->Body = Request::GetValue('body');
         $request->CreatedById = $userdata['user_id'];
         $request->CreatedOn = date('Y-m-d H:i:s');
@@ -42,6 +44,10 @@ if (Request::IsPost()) {
         }
         else
         {
+            if($_POST['action'] == 'Submit Request') {
+                $request->RequestStatusId = RequestStatus::Submitted;
+                $requestRepository->Save($request);
+            }
             Response::Redirect('request.php?action=view&request_id='.$request->Id);
         }
     }

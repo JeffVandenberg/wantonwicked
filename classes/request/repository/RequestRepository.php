@@ -164,7 +164,7 @@ EOQ;
         return $count;
     }
 
-    public function MayViewRequest($requestId, $userId)
+    public function MayViewRequest($requestId, $userId, $linkedCharacterId = 0)
     {
         $requestId = (int) $requestId;
         $userId = (int) $userId;
@@ -174,17 +174,18 @@ SELECT
     count(*) AS `rows`
 FROM
     requests as R
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
 WHERE
-    R.id = $requestId
-    AND R.created_by_id = $userId
+    R.id = ?
+    AND (
+        R.created_by_id = ?
+        OR
+        RC.character_id = ?
+    )
 EOQ;
-        $rows = 0;
-
-        foreach(ExecuteQueryData($sql) as $row) {
-            $rows = $row['rows'];
-        }
-
-        return $rows;
+        $parameters = array($requestId, $userId, $linkedCharacterId);
+        $rows = $this->Query($sql)->Value($parameters);
+        return ($rows > 0);
     }
 
     public function GetOpenRequestsNotAttachedToRequest($requestId, $characterId)

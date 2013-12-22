@@ -16,5 +16,6 @@ function getXmlHttpRequestObject()
 	else 
 	{
 		alert("Status: Cound not create XmlHttpRequest Object.  Consider upgrading your browser.");
+        return false;
 	}
 }

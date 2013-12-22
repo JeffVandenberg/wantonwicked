@@ -10,7 +10,10 @@
 namespace classes\request\data;
 
 
-class RequestStatus {
+use classes\core\data\DataModel;
+
+class RequestStatus extends DataModel
+{
     const NewRequest = 1;
     const Submitted = 6;
     const InProgress = 2;
@@ -54,4 +57,11 @@ class RequestStatus {
         RequestStatus::Denied,
         RequestStatus::Closed
     );
+
+    public $Id;
+    public $Name;
+
+    function __construct() {
+        parent::__construct();
+    }
 }

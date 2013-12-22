@@ -51,7 +51,7 @@ $character = $characterRepository->FindById($characterId);
 
 $requestTypeRepository = new RequestTypeRepository();
 $requestTypes = $requestTypeRepository->SimpleListAll();
-$page_title = 'Create Request for ' . $character['Character_Name'];
+$page_title = 'Create Bluebook Entry for ' . $character['Character_Name'];
 $contentHeader = $page_title;
 
 ob_start();

@@ -136,6 +136,7 @@ EOQ;
 UPDATE
     prochatrooms_users
 SET
+    display_name = :name,
     usergroup = '2',
     admin = '0',
     moderator = '0',
@@ -149,6 +150,7 @@ EOQ;
     $action->bindValue('userid', C_CUSTOM_USERID, PDO::PARAM_INT);
     $action->bindValue('username', C_CUSTOM_USERNAME);
     $action->bindValue('icon', $icon);
+    $action->bindValue('name', C_CUSTOM_USERNAME);
     $action->execute();
 
     // add login record to character log
@@ -225,6 +227,7 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
 UPDATE
     prochatrooms_users
 SET
+    display_name = :name,
     usergroup = '3',
     guest = '0',
     admin = '$admin',
@@ -238,6 +241,7 @@ EOQ;
         $action = $dbh->prepare($query);
         $action->bindValue('userid', $userdata['user_id'], PDO::PARAM_INT);
         $action->bindValue('username', $userdata['username']);
+        $action->bindValue('name', C_CUSTOM_USERNAME);
         $action->execute();
         $loggedIn = true;
     }
@@ -300,6 +304,7 @@ EOQ;
 UPDATE
     prochatrooms_users
 SET
+    display_name = :name,
     usergroup = '2',
     admin = '0',
     moderator = '0',
@@ -313,6 +318,7 @@ EOQ;
     $action = $dbh->prepare($query);
     $action->bindValue('userid', C_CUSTOM_USERID, PDO::PARAM_INT);
     $action->bindValue('username', C_CUSTOM_USERNAME);
+    $action->bindValue('name', C_CUSTOM_USERNAME);
     $action->execute();
     $loggedIn = true;
 }
@@ -332,6 +338,7 @@ else if(isset($_POST['username']) && (trim($_POST['username']) !== '')) {
 UPDATE
     prochatrooms_users
 SET
+    display_name = ?,
     usergroup = '1',
     admin = '0',
     moderator = '0',
@@ -344,7 +351,7 @@ EOQ;
 
     $dbh = db_connect();
     $action = $dbh->prepare($query);
-    $parameters = array(C_CUSTOM_USERNAME, C_CUSTOM_USERID);
+    $parameters = array(C_CUSTOM_USERNAME, C_CUSTOM_USERNAME, C_CUSTOM_USERID);
     $action->execute($parameters);
     $loggedIn = true;
 }

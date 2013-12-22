@@ -3,8 +3,13 @@ namespace classes\core\data;
 
 use classes\core\helpers\SlugHelper;
 use classes\core\repository\RepositoryManager;
+use classes\request\data\RequestType;
 use Exception;
 
+/**
+ * Class DataModel
+ * @package classes\core\data
+ */
 abstract class DataModel
 {
     /**
@@ -81,6 +86,11 @@ abstract class DataModel
      */
     protected $RepositoryClass;
 
+    /**
+     * @var
+     */
+    protected $ForeignId;
+
     function __construct($tablePrefix = '', $database = 'gamingsa_wanton')
     {
         $this->Database = $database;
@@ -106,7 +116,7 @@ abstract class DataModel
 
             $targetRepository = RepositoryManager::GetRepository($targetModel->getFullClassName());
 
-            $method = 'ListBy' . $this->getIdProperty();
+            $method = 'ListBy' . $this->GetForeignIdProperty();
             $selfIdColumn = $this->getIdProperty();
             $this->$property = $targetRepository->$method($this->$selfIdColumn);
             return $this->$property;
@@ -365,8 +375,14 @@ abstract class DataModel
     {
         $this->BaseTableName = SlugHelper::FromPropertyToName($this->ClassName);
         $this->IdColumn = SlugHelper::FromPropertyToName($this->IdProperty);
+        $this->ForeignId = $this->ClassName . 'Id';
         $this->NameColumn = SlugHelper::FromPropertyToName($this->NameProperty);
         $this->SortColumn = $this->NameColumn;
+    }
+
+    protected function GetForeignIdProperty()
+    {
+        return $this->ForeignId;
     }
 
 }

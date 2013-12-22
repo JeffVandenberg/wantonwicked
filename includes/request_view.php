@@ -9,23 +9,19 @@ use classes\request\data\RequestStatus;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
-use classes\request\repository\RequestStatusRepository;
-use classes\request\repository\RequestTypeRepository;
 
 $requestId = Request::GetValue('request_id', 0);
+$linkedCharacterId = Request::GetValue('character_id', 0);
 $requestRepository = new RequestRepository();
 
-if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'], $linkedCharacterId)) {
     SessionHelper::SetFlashMessage('Unable to view Request');
     Response::Redirect('/');
 }
 
-$request = $requestRepository->FindById($requestId);
+$request = $requestRepository->GetById($requestId);
+/* @var \classes\request\data\Request $request */
 
-$requestTypeRepository = new RequestTypeRepository();
-$requestType = $requestTypeRepository->FindById($request['request_type_id']);
-$requestStatusRepository = new RequestStatusRepository();
-$requestStatus = $requestStatusRepository->FindById($request['request_status_id']);
 $requestNoteRepository = new RequestNoteRepository();
 $requestNotes = $requestNoteRepository->ListByRequestId($requestId);
 $requestCharacterRepository = new RequestCharacterRepository();
@@ -35,65 +31,73 @@ $supportingRequests = $requestRepository->ListSupportingRequests($requestId);
 $supportingRolls = $requestRepository->ListSupportingRolls($requestId);
 $supportingBluebooks = $requestRepository->ListSupportingBluebookEntries($requestId);
 
-$contentHeader = $page_title = 'Request: ' . $request['title'];
+$contentHeader = $page_title = 'Request: ' . $request->Title;
 
-if($request['request_status_id'] == RequestStatus::NewRequest) {
+if($request->RequestStatusId == RequestStatus::NewRequest) {
     SessionHelper::SetFlashMessage('This request is not yet submitted to STs.');
 }
 
-$characterId = $request['character_id'];
+$characterId = $request->CharacterId;
+if($linkedCharacterId != 0) {
+    $characterId = $linkedCharacterId;
+}
 require_once('helpers/character_menu.php');
 $characterMenu['Actions'] = array(
     'link' => '#',
     'submenu' => array(
         'Back' => array(
-            'link' => 'request.php?action=list&character_id=' . $request['character_id']
+            'link' => 'request.php?action=list&character_id=' . $characterId
+        ),
+        'View History' => array (
+            'link' => 'request.php?action=history&request_id=' . $request->Id
         )
     )
 );
-if($request['request_status_id'] == RequestStatus::NewRequest) {
-    $characterMenu['Actions']['submenu']['Edit Request'] = array(
-        'link' => 'request.php?action=edit&request_id=' . $requestId
-    );
-}
-if ($request['request_status_id'] != RequestStatus::Closed) {
-    $characterMenu['Actions']['submenu']['Close Request'] = array(
-        'link' => 'request.php?action=close&request_id=' . $requestId
-    );
-}
-if (in_array($request['request_status_id'], RequestStatus::$PlayerSubmit)) {
-    $characterMenu['Actions']['submenu']['Submit Request'] = array(
-        'link' => 'request.php?action=submit&request_id=' . $requestId
-    );
-}
-if($request['request_status_id'] == RequestStatus::NewRequest) {
-    $characterMenu['Actions']['submenu']['Delete Request'] = array(
-        'link' => 'request.php?action=delete&request_id=' . $requestId
-    );
-}
+if($linkedCharacterId == 0) {
+    if($request->RequestStatusId == RequestStatus::NewRequest) {
+        $characterMenu['Actions']['submenu']['Edit Request'] = array(
+            'link' => 'request.php?action=edit&request_id=' . $requestId
+        );
+    }
+    if ($request->RequestStatusId != RequestStatus::Closed) {
+        $characterMenu['Actions']['submenu']['Close Request'] = array(
+            'link' => 'request.php?action=close&request_id=' . $requestId
+        );
+    }
+    if (in_array($request->RequestStatusId, RequestStatus::$PlayerSubmit)) {
+        $characterMenu['Actions']['submenu']['Submit Request'] = array(
+            'link' => 'request.php?action=submit&request_id=' . $requestId
+        );
+    }
+    if($request->RequestStatusId == RequestStatus::NewRequest) {
+        $characterMenu['Actions']['submenu']['Delete Request'] = array(
+            'link' => 'request.php?action=delete&request_id=' . $requestId
+        );
+    }
 
-if(!in_array($request['request_status_id'], RequestStatus::$Terminal)) {
-    $characterMenu['Attach'] = array(
-        'link' => '#',
-        'submenu' => array(
-            'New Note' => array(
-                'link' => 'request.php?action=add_note&request_id=' . $requestId
+    if(!in_array($request->RequestStatusId, RequestStatus::$Terminal)) {
+        $characterMenu['Attach'] = array(
+            'link' => '#',
+            'submenu' => array(
+                'New Note' => array(
+                    'link' => 'request.php?action=add_note&request_id=' . $requestId
+                )
             )
-        )
-    );
-    if(in_array($request['request_status_id'], RequestStatus::$PlayerEdit)) {
-        $characterMenu['Attach']['submenu']['Character'] = array(
-                'link' => 'request.php?action=add_character&request_id=' . $requestId
-            );
-        $characterMenu['Attach']['submenu']['Request'] = array(
-                'link' => 'request.php?action=attach_request&request_id=' . $requestId
-            );
-        $characterMenu['Attach']['submenu']['Bluebook Entry'] = array(
-                'link' => 'request.php?action=attach_bluebook&request_id=' . $requestId
-            );
-        $characterMenu['Attach']['submenu']['Dice Roll'] = array(
-                'link' => 'dieroller.php?action=character&character_id=' . $request['character_id']
-            );
+        );
+        if(in_array($request->RequestStatusId, RequestStatus::$PlayerEdit)) {
+            $characterMenu['Attach']['submenu']['Character'] = array(
+                    'link' => 'request.php?action=add_character&request_id=' . $requestId
+                );
+            $characterMenu['Attach']['submenu']['Request'] = array(
+                    'link' => 'request.php?action=attach_request&request_id=' . $requestId
+                );
+            $characterMenu['Attach']['submenu']['Bluebook Entry'] = array(
+                    'link' => 'request.php?action=attach_bluebook&request_id=' . $requestId
+                );
+            $characterMenu['Attach']['submenu']['Dice Roll'] = array(
+                    'link' => 'dieroller.php?action=character&character_id=' . $request->CharacterId
+                );
+        }
     }
 }
 $menu = MenuHelper::GenerateMenu($characterMenu);
@@ -108,25 +112,25 @@ ob_start();
             Title:
         </dt>
         <dd>
-            <?php echo $request['title']; ?>
+            <?php echo $request->Title; ?>
         </dd>
         <dt>
             Group:
         </dt>
         <dd>
-            <?php echo $request['group_name']; ?>
+            <?php echo $request->Group->Name; ?>
         </dd>
         <dt>
             Request Type:
         </dt>
         <dd>
-            <?php echo $requestType['name']; ?>
+            <?php echo $request->RequestType->Name; ?>
         </dd>
         <dt>
             Request Status:
         </dt>
         <dd>
-            <?php echo $requestStatus['name']; ?>
+            <?php echo $request->RequestStatus->Name; ?>
         </dd>
         <dt>
             Request:

@@ -11,7 +11,6 @@ use classes\request\repository\RequestTypeRepository;
 $contentHeader = $page_title = "Pending Requests";
 
 $characterId = Request::GetValue('character_id', 0);
-$statusId = Request::GetValue('status_id', 0);
 $page = Request::GetValue('page', 1);
 $pageSize = Request::GetValue('page_size', 20);
 $sort = Request::GetValue('sort', 'updated_on DESC');
@@ -19,6 +18,12 @@ $filter = Request::GetValue('filter', array('character_name' => '', 'title' => '
 
 $pagination = new Pagination();
 $pagination->SetSort($sort);
+$pagination->SetParameters(array(
+    'character_id' => $characterId,
+    'page' => $page,
+    'sort' => $sort,
+    'filter' => $filter
+));
 
 $storytellerRepository = new StorytellerRepository();
 $stGroups = $storytellerRepository->ListGroupsForStoryteller($userdata['user_id']);
@@ -28,7 +33,7 @@ foreach ($stGroups as $group) {
 }
 
 $requestRepository = new RequestRepository();
-$requests = $requestRepository->ListByGroups($groups, $page, $pageSize, $pagination->GetSort(), $filter);
+$requests = $requestRepository->ListByGroups($groups, $characterId, $page, $pageSize, $pagination->GetSort(), $filter);
 $count = $requestRepository->ListByByGroupsCount($groups, $filter);
 
 $hasPrev = false;
@@ -46,7 +51,7 @@ $requestTypeRepository = new RequestTypeRepository();
 $requestTypes = $requestTypeRepository->SimpleListAll();
 $requestTypes = array('All') + $requestTypes;
 $requestStatuses = $requestStatusRepository->SimpleListAll();
-$requestStatuses = array('All') + $requestStatuses;
+$requestStatuses = array(0 => 'Open', -1 => 'All') + $requestStatuses;
 
 
 ob_start();
@@ -56,18 +61,22 @@ ob_start();
         <tr>
             <th>
                 <?php if($hasPrev): ?>
-                    <a href="request.php?action=st_list&page=<?php echo $page-1; ?>&sort=<?php echo $pagination->GetSort(); ?>">&lt; &lt;</a>
+                    <a href="/request.php?action=st_list&<?php echo $pagination->GetPrev(); ?>">&lt; &lt;</a>
                 <?php else: ?>
                     &lt; &lt;
                 <?php endif; ?>
-                <form method="get" style="display: inline;" action="request.php">
+                <form method="get" style="display: inline;" action="/request.php">
                     Page:
                     <?php echo FormHelper::Hidden('sort', $sort); ?>
                     <?php echo FormHelper::Hidden('action', 'st_list'); ?>
+                    <?php echo FormHelper::Hidden('character_id', $characterId); ?>
+                    <?php echo FormHelper::Hidden('filter[title]', $filter['title']); ?>
+                    <?php echo FormHelper::Hidden('filter[request_type_id]', $filter['request_type_id']); ?>
+                    <?php echo FormHelper::Hidden('filter[request_status_id]', $filter['request_status_id']); ?>
                     <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
                 </form>
                 <?php if($hasNext): ?>
-                    <a href="request.php?action=st_list&page=<?php echo $page+1; ?>&sort=<?php echo $pagination->GetSort(); ?>">&gt; &gt;</a>
+                    <a href="/request.php?action=st_list&<?php echo $pagination->GetNext(); ?>">&gt; &gt;</a>
                 <?php else: ?>
                     &gt; &gt;
                 <?php endif; ?>
@@ -77,32 +86,32 @@ ob_start();
             </th>
         </tr>
     </table>
-<form method="get" action="request.php">
+<form method="get" action="/request.php">
     <table>
         <tr>
             <th>
-                <a href="request.php?action=st_list&page=<?php echo $page; ?>&sort=<?php echo $pagination->SortColumn('C.character_name'); ?>">Character</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('C.character_name'); ?>">Character</a>
             </th>
             <!--<th>
-                <a href="request.php?action=st_list&page=<?php echo $page; ?>&sort=<?php echo $pagination->SortColumn('G.name'); ?>">Group</a>
+                <a href="request.php?action=st_list&<?php echo $pagination->GetSortLink('G.name'); ?>">Group</a>
             </th>-->
             <th>
-                <a href="request.php?action=st_list&page=<?php echo $page; ?>&sort=<?php echo $pagination->SortColumn('R.title'); ?>">Name</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.title'); ?>">Name</a>
             </th>
             <th>
-                <a href="request.php?action=st_list&page=<?php echo $page; ?>&sort=<?php echo $pagination->SortColumn('RT.name'); ?>">Type</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('RT.name'); ?>">Type</a>
             </th>
             <th>
-                <a href="request.php?action=st_list&page=<?php echo $page; ?>&sort=<?php echo $pagination->SortColumn('RS.name'); ?>">Status</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('RS.name'); ?>">Status</a>
             </th>
             <th>
-                <a href="request.php?action=st_list&page=<?php echo $page; ?>&sort=<?php echo $pagination->SortColumn('R.created_on'); ?>">Created</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.created_on'); ?>">Created</a>
             </th>
             <th>
-                <a href="request.php?action=st_list&page=<?php echo $page; ?>&sort=<?php echo $pagination->SortColumn('UB.username'); ?>">Updated By</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('UB.username'); ?>">Updated By</a>
             </th>
             <th>
-                <a href="request.php?action=st_list&page=<?php echo $page; ?>&sort=<?php echo $pagination->SortColumn('R.updated_on'); ?>">Status</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.updated_on'); ?>">Status</a>
             </th>
             <th>
 
@@ -169,7 +178,7 @@ ob_start();
                         <?php echo date('m/d/Y', strtotime($request['updated_on'])); ?>
                     </td>
                     <td>
-                        <a href="request.php?action=st_view&request_id=<?php echo $request['id']; ?>">View</a>
+                        <a href="/request.php?action=st_view&request_id=<?php echo $request['id']; ?>">View</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -11,10 +11,15 @@ namespace classes\request\data;
 
 use classes\character\data\Character;
 use classes\core\data\DataModel;
+use classes\core\data\Group;
 use classes\core\helpers\SlugHelper;
 
 /**
  * @property Character Character
+ * @property Group Group
+ * @property RequestType RequestType
+ * @property RequestStatus RequestStatus
+ * @property RequestStatusHistory[] RequestStatusHistory
  */
 class Request extends DataModel
 {
@@ -43,5 +48,9 @@ class Request extends DataModel
         'Group' => 'classes\core\data\Group',
         'RequestType',
         'RequestStatus'
+    );
+
+    public $HasMany = array(
+        'RequestStatusHistory'
     );
 }

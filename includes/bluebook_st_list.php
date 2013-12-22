@@ -47,19 +47,19 @@ ob_start();
         <tr>
             <th>
                 <?php if($hasPrev): ?>
-                    <a href="/bluebook.php?action=list&character_id=<?php echo $characterId; ?>&page=<?php echo $page-1; ?>&sort=<?php echo $pagination->GetSort(); ?>">&lt; &lt;</a>
+                    <a href="/bluebook.php?action=st_list&character_id=<?php echo $characterId; ?>&page=<?php echo $page-1; ?>&sort=<?php echo $pagination->GetSort(); ?>">&lt; &lt;</a>
                 <?php else: ?>
                     &lt; &lt;
                 <?php endif; ?>
                 <form method="get" style="display: inline;" action="/bluebook.php">
                     Page:
                     <?php echo FormHelper::Hidden('sort', $sort); ?>
-                    <?php echo FormHelper::Hidden('action', 'list'); ?>
+                    <?php echo FormHelper::Hidden('action', 'st_list'); ?>
                     <?php echo FormHelper::Hidden('character_id', $characterId); ?>
                     <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
                 </form>
                 <?php if($hasNext): ?>
-                    <a href="/bluebook.php?action=list&character_id=<?php echo $characterId; ?>&page=<?php echo $page+1; ?>&sort=<?php echo $pagination->GetSort(); ?>">&gt; &gt;</a>
+                    <a href="/bluebook.php?action=st_list&character_id=<?php echo $characterId; ?>&page=<?php echo $page+1; ?>&sort=<?php echo $pagination->GetSort(); ?>">&gt; &gt;</a>
                 <?php else: ?>
                     &gt; &gt;
                 <?php endif; ?>

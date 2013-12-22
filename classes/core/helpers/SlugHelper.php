@@ -20,7 +20,7 @@ class SlugHelper
             $className = substr($className, 0, strlen($className) -1) . 'ies';
         }
         else if(substr($className, -1) == 's') {
-            $className = substr($className, 0, strlen($className) -1) . 'es';
+            $className .= 'es';
         }
         else {
             $className .= 's';

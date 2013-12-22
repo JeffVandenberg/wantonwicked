@@ -1,5 +1,7 @@
 <?php
 /* @var array $userdata */
+use classes\core\repository\PermissionRepository;
+
 $page_title = "List ST Permissions";
 $contentHeader = $page_title;
 
@@ -7,36 +9,18 @@ $contentHeader = $page_title;
 if (isset($_POST['action'])) {
     if (($_POST['action'] == 'update') && isset($_POST['delete'])) {
         $list = $_POST['delete'];
-        foreach ($list as $key => $value) {
-            $delete_query = "delete from gm_permissions where permission_id=$value;";
-            ExecuteQuery($delete_query);
+        $permissionRepository = new PermissionRepository();
+        foreach ($list as $value) {
+            $permissionRepository->RemovePermissions($value);
         }
     }
 }
-
-
-// build js for the page
-$java_script .= <<<EOQ
-<script language="JavaScript">
-function submitForm ( )
-{
-	window.document.gm_list.submit();
-}
-</script>
-EOQ;
-
-// may only add a skill if moderator or submittor and not a approved
-$page_content .= <<<EOQ
-<a href="$_SERVER[PHP_SELF]?action=permissions_add"Name>Add ST Permission</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="$_SERVER[PHP_SELF]?action=permissions" onClick="submitForm();return false;"Name>Delete ST Permissions</a>
-EOQ;
 
 // get details of GM Permissions from database
 $login_query = <<<EOQ
 SELECT
     group_concat(G.name separator ', ') as groups,
-    L.user_id AS ID,
+    L.user_id,
     L.username as Name,
     GP.*
 FROM
@@ -52,87 +36,92 @@ ORDER BY
 EOQ;
 $storytellers = ExecuteQueryData($login_query);
 
-$page_content .= <<<EOQ
-<form name="gm_list" id="gm_list" method="post">
-    <input type="hidden" name="action" id="action" value="update">
-    <table>
-        <tr>
-            <th>
-                Delete
-            </th>
-            <th>
-                Login Name
-            </th>
-            <th>
-                Group(s)
-            </th>
-            <th>
-                Is Asst
-            </th>
-            <th>
-                Is ST
-            </th>
-            <th>
-                Is Head
-            </th>
-            <th>
-                Is Admin
-            </th>
-            <th>
-                Side Game
-            </th>
-            <th>
-                Wiki
-            </th>
-        </tr>
-EOQ;
+ob_start();
+?>
+    <a href="/storyteller_index.php?action=permissions_add">Add ST Permission</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/storyteller_index.php?action=permissions" onClick="submitForm();return false;">Delete ST Permissions</a>
 
-// build table
-foreach($storytellers as $login_detail) {
-    $page_content .= <<<EOQ
-  <tr>
-EOQ;
-    if ($userdata['is_admin'] || $login_detail['Is_Admin'] != 'Y') {
-        $page_content .= <<<EOQ
-	  <td>
-	    <input type="checkbox" name="delete[]" id="delete[]" value="$login_detail[Permission_ID]">
-	  </td>
-EOQ;
-    }
-    else {
-        $page_content .= <<<EOQ
-	  <td>
-	    &nbsp;
-	  </td>
-EOQ;
-    }
-    $page_content .= <<<EOQ
-	  <td>
-	    <a href="$_SERVER[PHP_SELF]?action=permissions_view&permission_id=$login_detail[Permission_ID]"Name>$login_detail[Name]</a>
-	  </td>
-	  <td>
-        $login_detail[groups]
-	  </td>
-	  <td>
-	    $login_detail[Is_Asst]
-	  </td>
-	  <td>
-	    $login_detail[Is_GM]
-	  </td>
-	  <td>
-	    $login_detail[Is_Head]
-	  </td>
-	  <td>
-	    $login_detail[Is_Admin]
-	  </td>
-	  <td>
-	    $login_detail[Side_Game]
-	  </td>
-	  <td>
-	    $login_detail[Wiki_Manager]
-	  </td>
-	</tr>
-EOQ;
-}
+    <form name="gm_list" id="gm_list" method="post">
+        <input type="hidden" name="action" id="action" value="update">
+        <table>
+            <tr>
+                <th>
+                    Delete
+                </th>
+                <th>
+                    Login
+                </th>
+                <th>
+                    Group(s)
+                </th>
+                <th>
+                    Asst
+                </th>
+                <th>
+                    ST
+                </th>
+                <th>
+                    Head
+                </th>
+                <th>
+                    Admin
+                </th>
+                <th>
+                    Side
+                </th>
+                <th>
+                    Wiki
+                </th>
+            </tr>
+            <?php foreach ($storytellers as $login_detail): ?>
+                <tr>
+                    <?php if ($userdata['is_admin'] || $login_detail['Is_Admin'] != 'Y'): ?>
+                        <td>
+                            <label>
+                                <input type="checkbox" name="delete[]" value="<?php echo $login_detail['user_id']; ?>">
+                            </label>
+                        </td>
+                    <?php else: ?>
+                        <td>
+                            &nbsp;
+                        </td>
+                    <?php endif; ?>
+                    <td>
+                        <a href="/storyteller_index.php?action=permissions_view&permission_id=<?php echo $login_detail['Permission_ID']; ?>"
+                           Name><?php echo $login_detail['Name']; ?></a>
+                    </td>
+                    <td>
+                        <?php echo $login_detail['groups']; ?>
+                    </td>
+                    <td style="background-color: <?php echo ($login_detail['Is_Asst'] == 'Y') ? '#ada' : '#baa'; ?>">
+                        <?php echo $login_detail['Is_Asst']; ?>
+                    </td>
+                    <td style="background-color: <?php echo ($login_detail['Is_GM'] == 'Y') ? '#ada' : '#baa'; ?>">
+                        <?php echo $login_detail['Is_GM']; ?>
+                    </td>
+                    <td style="background-color: <?php echo ($login_detail['Is_Head'] == 'Y') ? '#ada' : '#baa'; ?>">
+                        <?php echo $login_detail['Is_Head']; ?>
+                    </td>
+                    <td style="background-color: <?php echo ($login_detail['Is_Admin'] == 'Y') ? '#ada' : '#baa'; ?>">
+                        <?php echo $login_detail['Is_Admin']; ?>
+                    </td>
+                    <td style="background-color: <?php echo ($login_detail['Side_Game'] == 'Y') ? '#ada' : '#baa'; ?>">
+                        <?php echo $login_detail['Side_Game']; ?>
+                    </td>
+                    <td style="background-color: <?php echo ($login_detail['Wiki_Manager'] == 'Y') ? '#ada' : '#baa'; ?>">
+                        <?php echo $login_detail['Wiki_Manager']; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </form>
+    <script language="JavaScript">
+        function submitForm ( )
+        {
+            window.document.gm_list.submit();
+        }
+    </script>
 
-$page_content .= "</form></table>";
+<?php
+$page_content = ob_get_clean();

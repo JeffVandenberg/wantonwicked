@@ -552,7 +552,7 @@ EOQ;
                     $powers = array(
                         'AffContract' => 'affcont',
                         'NonAffContract' => 'nonaffcont',
-                        'GoblinContract', 'gobcont'
+                        'GoblinContract' => 'gobcont'
                     );
                     break;
                 case "Hunter":
@@ -665,10 +665,10 @@ function saveSpecialtiesXP($stats, $character_id)
     $i = 0;
     while (isset($stats["skill_spec$i"]))
     {
-        $skill_spec_selected = htmlspecialchars($stats["skill_spec${i}_selected"]);
+        $skill_spec_selected = mysql_real_escape_string(htmlspecialchars($stats["skill_spec${i}_selected"]));
         $skill_spec_id = $stats["skill_spec${i}_id"] + 0;
 
-        $skill_spec = $stats["skill_spec$i"];
+        $skill_spec = mysql_real_escape_string($stats["skill_spec$i"]);
 
         $query = "";
         if ($skill_spec != "")

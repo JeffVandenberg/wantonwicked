@@ -4,6 +4,7 @@
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::GetValue('request_id', 0);
@@ -13,9 +14,10 @@ if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     die();
 }
 
-$request = $requestRepository->FindById($requestId);
+$requestRepository->UpdateStatus($requestId, RequestStatus::Submitted, $userdata['user_id']);
+$request = $requestRepository->GetById($requestId);
+/* @var \classes\request\data\Request $request */
 
-$requestRepository->Submit($request['id']);
-SessionHelper::SetFlashMessage('Submitted Request: ' . $request['title'], 'request');
+SessionHelper::SetFlashMessage('Submitted Request: ' . $request->Title, 'request');
 
-Response::Redirect('request.php?action=list&character_id=' . $request['character_id']);
+Response::Redirect('request.php?action=list&character_id=' . $request->CharacterId);
