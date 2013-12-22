@@ -32,7 +32,6 @@ if (Request::IsPost()) {
         else {
             SessionHelper::SetFlashMessage('Error Attaching Character');
         }
-
     }
 }
 $request = $requestRepository->FindById($requestId);
@@ -113,6 +112,11 @@ ob_start();
                             }));
                         }
                     });
+                },
+                close: function() {
+                    if(!(parseInt($("#character-id").val()) > 0)) {
+                        alert('Select a character from the drop down.')
+                    }
                 },
                 search: function(e) {
                 },

@@ -76,7 +76,7 @@ else
 }
 
 // initialize template
-$template->set_custom_template('templates', 'main_layout');
+$template->set_custom_template('templates', 'main_ww4');
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
@@ -90,6 +90,6 @@ $template->assign_vars(array(
 );
 
 $template->set_filenames(array(
-        'body' => 'main_layout4.tpl')
+        'body' => 'main_ww4.tpl')
 );
 $template->display('body');

@@ -20,7 +20,7 @@ $userdata = $user->data;
 //
 
 // check page actions
-$page_template = 'main_layout4.tpl';
+$page_template = 'main_ww4.tpl';
 $page_title = "";
 $menu_bar = "";
 $top_image = "";

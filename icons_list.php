@@ -22,7 +22,7 @@ if(!$userdata['is_head'] && !$userdata['is_admin'])
 
 // check page actions
 $page_title = "Icon List";
-$css_url = "www.wantonwicked.net/wicked.css";
+$css_url = "ww4_v2.css";
 $menu_bar = "";
 $top_image = "";
 $page_content = "";

@@ -1,0 +1,22 @@
+<form method="post" action="{U_QR_ACTION}">
+
+	<table class="tablebg" width="100%" cellspacing="1" align="center">
+		<tr>
+			<th align="center" colspan="2">{L_QUICKREPLY}</th>
+		</tr>
+		<tr>
+			<td  class="row2"align="center"><b class="genmed">{L_SUBJECT}:</b> <input class="post" style="width:450px" type="text" name="subject" size="45" maxlength="64" tabindex="2" value="{SUBJECT}" /><br /><textarea name="message" rows="7" cols="76" tabindex="3"  style="width: 70%; height: 130px;"></textarea> </td>
+		</tr>
+		<tr>
+			<td class="cat" align="center">
+				<input class="btnmain" type="submit" accesskey="s" tabindex="6" name="post" value="{L_SUBMIT}" />&nbsp;
+				<input class="btnlite" type="submit" accesskey="f" tabindex="7" name="full_editor" value="{L_FULL_EDITOR}" />
+
+				{S_FORM_TOKEN}
+				{QR_HIDDEN_FIELDS}
+			</td>
+		</tr>
+	</table>
+	
+</form>
+<br clear="all" />

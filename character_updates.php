@@ -29,13 +29,13 @@ $userdata = $user->data;
 
 // check page actions
 $page_title = "";
-$css_url = "wantonwicked.gamingsandbox.com/wicked.css";
+$css_url = "ww4_v2.css";
 $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
 $extra_tags = "onLoad='showClock();'";
-$template_file = 'main_layout';
+$template_file = 'main_ww4.tpl';
 
 // build links
 include 'user_panel.php';
