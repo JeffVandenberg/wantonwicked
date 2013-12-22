@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377904213
+host=98.232.234.158
+name=CityBook.CtLHistory
+rev=2
+targets=
+text=(:title Changeling History:)%0a[[#top]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/ctl.png%0a(:include GameRef.CtLMaster#History#HistoryEnd:)%0a%0a(:include CityBook.ChangelingNavigationBar:)
+time=1386812093
+title=Changeling History
+author:1386812093=JillA
+diff:1386812093:1377904213:=3c3%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/ctl.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/changelingthelost.png%0a
+host:1386812093=98.232.234.158
+author:1377904213=JillA
+diff:1377904213:1377904213:=1,6d0%0a%3c (:title Changeling History:)%0a%3c [[#top]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/changelingthelost.png%0a%3c (:include GameRef.CtLMaster#History#HistoryEnd:)%0a%3c %0a%3c (:include CityBook.ChangelingNavigationBar:)%0a\ No newline at end of file%0a
+host:1377904213=24.20.151.3

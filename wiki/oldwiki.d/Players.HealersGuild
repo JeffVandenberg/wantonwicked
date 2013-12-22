@@ -1,0 +1,21 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=Euphoric_Goth
+charset=ISO-8859-1
+csum=
+ctime=1378326171
+host=80.212.49.151
+name=Players.HealersGuild
+rev=3
+targets=Players.ChasePhoenix,Players.SophieAlbert
+text=The Healer's Guild is the Freehold's First responder medical service. If a changeling is injured, they know they can call upon one of the Healing Guild for help. Membership is open to any with skill in healing- mundane, magical, or even just with access to the more potent healing fruits. %0a%0aThe Guild is not obliged to provide their services for free, though they will never refuse to treat someone in dire need. Favors owed in return are worked out between the individuals and generally vary by the work done by the Healer as well as the person who called's ability to pay. It's a new organization, begun by Dr. Chase who is actively recruiting. %0a%0a''Pledge:''\\%0aTBD and worked out with players interested in joining.\\%0aDuration: Seasonal\\%0a%0a%0a''Members:''%0a[[Chase Phoenix]] (NPC), [[Sophie Albert]]
+time=1382880046
+author:1382880046=Euphoric_Goth
+diff:1382880046:1378326217:=11c11%0a%3c [[Chase Phoenix]] (NPC), [[Sophie Albert]]%0a\ No newline at end of file%0a---%0a> [[Chase Phoenix]] (NPC)%0a\ No newline at end of file%0a
+host:1382880046=80.212.49.151
+author:1378326217=MarianneP
+diff:1378326217:1378326171:=3,5c3,5%0a%3c The Guild is not obliged to provide their services for free, though they will never refuse to treat someone in dire need. Favors owed in return are worked out between the individuals and generally vary by the work done by the Healer as well as the person who called's ability to pay. It's a new organization, begun by Dr. Chase who is actively recruiting. %0a%3c %0a%3c ''Pledge:''\\%0a---%0a> The Guild is not obliged to provide their services for free, though they will never refuse to treat someone in dire need. Favors owed in return are worked out between the individuals and generally vary by the work done by the Healer as well as the person who called's ability to pay. %0a> %0a> Pledge:%0a10c10%0a%3c ''Members:''%0a---%0a> Members:%0a
+host:1378326217=71.126.140.190
+author:1378326171=MarianneP
+diff:1378326171:1378326171:=1,11d0%0a%3c The Healer's Guild is the Freehold's First responder medical service. If a changeling is injured, they know they can call upon one of the Healing Guild for help. Membership is open to any with skill in healing- mundane, magical, or even just with access to the more potent healing fruits. %0a%3c %0a%3c The Guild is not obliged to provide their services for free, though they will never refuse to treat someone in dire need. Favors owed in return are worked out between the individuals and generally vary by the work done by the Healer as well as the person who called's ability to pay. %0a%3c %0a%3c Pledge:%0a%3c TBD and worked out with players interested in joining.\\%0a%3c Duration: Seasonal\\%0a%3c %0a%3c %0a%3c Members:%0a%3c [[Chase Phoenix]] (NPC)%0a\ No newline at end of file%0a
+host:1378326171=71.126.140.190

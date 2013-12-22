@@ -1,0 +1,64 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.48 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377464873
+host=98.232.234.158
+name=GameRef.GeneralHouseRules
+rev=17
+targets=
+text=(:title House Rules: Errata and Clarifications:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a(:include GameRef.CityMaster#HouseRules#HouseRulesEnd:)%0a%0a[[#VenueHR]]%0a!Venue House Rules%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_changeling.png (:toggle hide CtLCG:)%0a>>id=CtLCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.CtLMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_mage.png (:toggle hide MtACG:)%0a>>id=MtACG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:Include GameRef.MtAMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_mortal.png (:toggle hide MCG:)%0a>>id=MCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.WodMMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_vampire.png (:toggle hide VCG:)%0a>>id=VCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.VtRMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_werewolf.png (:toggle hide WtFCG:)%0a>>id=WtFCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.WtFMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c
+time=1384598599
+title=House Rules: Errata and Clarifications
+author:1384598599=JillA
+diff:1384598599:1381197662:=1c1%0a%3c (:title House Rules: Errata and Clarifications:)%0a---%0a> (:notitle:)%0a2a3%0a> !General House Rules%0a
+host:1384598599=98.232.234.158
+author:1381197662=JillA
+diff:1381197662:1377640660:=20,23d19%0a%3c >>%3c%3c%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_vampire.png (:toggle hide VCG:)%0a%3c >>id=VCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include GameRef.VtRMaster#HouseRules#HouseRulesEnd:)%0a
+host:1381197662=24.20.151.3
+author:1377640660=JillA
+diff:1377640660:1377577943:=11c11%0a%3c (:include GameRef.CtLMaster#HouseRules#HouseRulesEnd:)%0a---%0a> (:include ChangelingHouseRules:)%0a19c19%0a%3c (:include GameRef.WodMMaster#HouseRules#HouseRulesEnd:)%0a---%0a> (:include MortalHouseRules:)%0a23,24c23,24%0a%3c (:include GameRef.WtFMaster#HouseRules#HouseRulesEnd:)%0a%3c >>%3c%3c%0a\ No newline at end of file%0a---%0a> (:include WerewolfHouseRules:)%0a> >>%3c%3c%0a
+host:1377640660=24.20.151.3
+author:1377577943=JillA
+diff:1377577943:1377507328:=1,2c1%0a%3c (:notitle:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a---%0a> (:title House Rules:)%0a4,7d2%0a%3c (:include GameRef.CityMaster#HouseRules#HouseRulesEnd:)%0a%3c %0a%3c [[#VenueHR]]%0a%3c !Venue House Rules%0a8a4,8%0a> %0a> !!Venue House Rules%0a> [[%3c%3c]]%0a> %0a> [[#CTL]]%0a12a13%0a> [[#MTA]]%0a16a18%0a> [[#M]]%0a20a23,28%0a> [[#VTR]]%0a> http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_vampire.png (:toggle hide VtRCG:)%0a> >>id=VtRCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a> (:include VampireHouseRules:)%0a> >>%3c%3c%0a> [[#WTF]]%0a24a33%0a> %0a
+host:1377577943=24.20.151.3
+author:1377507328=JillA
+diff:1377507328:1377502973:=8,11c8,12%0a%3c [[#CTL]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_changeling.png (:toggle hide CtLCG:)%0a%3c >>id=CtLCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include ChangelingHouseRules:)%0a---%0a> %0a> [[#M]]%0a> !!!%25color=grey%25Mortals%25%25 (:toggle hide MCG:)%0a> >>id=MCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a> (:include MortalHouseRules:)%0a12a14,20%0a> %0a> [[#VTR]]%0a> !!!%25color=#A00000%25Vampire%25%25 (:toggle hide VtRCG:)%0a> >>id=VtRCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a> (:include VampireHouseRules:)%0a> >>%3c%3c%0a> %0a14c22%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_mage.png (:toggle hide MtACG:)%0a---%0a> !!!%25color=#1b9ad0%25Mage%25%25 (:toggle hide MtACG:)%0a18,21c26,30%0a%3c [[#M]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_mortal.png (:toggle hide MCG:)%0a%3c >>id=MCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include MortalHouseRules:)%0a---%0a> %0a> [[#WTF]]%0a> !!!%25color=#996600%25Werewolf%25%25 (:toggle hide WtFCG:)%0a> >>id=WtFCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a> (:include WerewolfHouseRules:)%0a23,33c32,38%0a%3c [[#VTR]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_vampire.png (:toggle hide VtRCG:)%0a%3c >>id=VtRCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include VampireHouseRules:)%0a%3c >>%3c%3c%0a%3c [[#WTF]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_werewolf.png (:toggle hide WtFCG:)%0a%3c >>id=WtFCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include WerewolfHouseRules:)%0a%3c >>%3c%3c%0a%3c %0a---%0a> %0a> %0a> [[#CTL]]%0a> !!!%25green%25Changeling%25%25 (:toggle hide CtLCG:)%0a> >>id=CtLCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a> (:include ChangelingHouseRules:)%0a> >>%3c%3c%0a\ No newline at end of file%0a
+host:1377507328=24.20.151.3
+author:1377502973=JillA
+diff:1377502973:1377467031:=24c24%0a%3c (:Include GameRef.MtAMaster#HouseRules#HouseRulesEnd:)%0a---%0a> (:include MageHouseRules:)%0a
+host:1377502973=24.20.151.3
+author:1377467031=ThomasH
+diff:1377467031:1377466362:=
+host:1377467031=71.0.16.129
+author:1377466362=ThomasH
+diff:1377466362:1377466226:=12c12%0a%3c (:include MortalHouseRules:)%0a---%0a> (:include GameRef.:)%0a18c18%0a%3c (:include VampireHouseRules:)%0a---%0a> (:include VampireRulesMaster#rules#rulesend:)%0a30c30%0a%3c (:include WerewolfHouseRules:)%0a---%0a> (:include WerewolfRulesMaster#rules#rulesend:)%0a37c37%0a%3c (:include ChangelingHouseRules:)%0a---%0a> (:include ChangelingRulesMaster#rules#rulesend:)%0a
+host:1377466362=71.0.16.129
+author:1377466226=ThomasH
+diff:1377466226:1377466145:=10c10%0a%3c !!!%25color=grey%25Mortals%25%25 (:toggle hide MCG:)%0a---%0a> !!!%25color=grey%25Mortals%25%25(:toggle hide MCG:)%0a16c16%0a%3c !!!%25color=#A00000%25Vampire%25%25 (:toggle hide VtRCG:)%0a---%0a> !!!%25color=#A00000%25Vampire%25%25(:toggle hide VtRCG:)%0a22c22%0a%3c !!!%25color=#1b9ad0%25Mage%25%25 (:toggle hide MtACG:)%0a---%0a> !!!%25color=#1b9ad0%25Mage%25%25(:toggle hide MtACG:)%0a28c28%0a%3c !!!%25color=#996600%25Werewolf%25%25 (:toggle hide WtFCG:)%0a---%0a> !!!%25color=#996600%25Werewolf%25%25(:toggle hide WtFCG:)%0a35c35%0a%3c !!!%25green%25Changeling%25%25 (:toggle hide CtLCG:)%0a---%0a> !!!%25green%25Changeling%25%25(:toggle hide CtLCG:)%0a
+host:1377466226=71.0.16.129
+author:1377466145=ThomasH
+diff:1377466145:1377466102:=10c10,11%0a%3c !!!%25color=grey%25Mortals%25%25(:toggle hide MCG:)%0a---%0a> !!!%25color=#365776%25Mortals%25%25%0a> (:toggle hide MCG:)%0a16c17,18%0a%3c !!!%25color=#A00000%25Vampire%25%25(:toggle hide VtRCG:)%0a---%0a> !!!%25color=#A00000%25Vampire%25%25%0a> (:toggle hide VtRCG:)%0a22c24,25%0a%3c !!!%25color=#1b9ad0%25Mage%25%25(:toggle hide MtACG:)%0a---%0a> !!!%25color=#1b9ad0%25Mage%25%25%0a> (:toggle hide MtACG:)%0a28c31,32%0a%3c !!!%25color=#996600%25Werewolf%25%25(:toggle hide WtFCG:)%0a---%0a> !!!%25color=#996600%25Werewolf%25%25%0a> (:toggle hide WtFCG:)%0a35c39,40%0a%3c !!!%25green%25Changeling%25%25(:toggle hide CtLCG:)%0a---%0a> !!!%25green%25Changeling%25%25%0a> (:toggle hide CtLCG:)%0a
+host:1377466145=71.0.16.129
+author:1377466102=ThomasH
+diff:1377466102:1377465100:=13c13%0a%3c (:include GameRef.:)%0a---%0a> (:include GameRef.MortalRulesMaster#rules#rulesend:)%0a27c27%0a%3c (:include MageHouseRules:)%0a---%0a> (:include MageRulesMaster#rules#rulesend:)%0a
+host:1377466102=71.0.16.129
+author:1377465100=JillA
+diff:1377465100:1377465077:=17c17%0a%3c !!!%25color=#A00000%25Vampire%25%25%0a---%0a> !!!'''%25color=#A00000%25Vampire%25%25'''%0a
+host:1377465100=24.20.151.3
+author:1377465077=JillA
+diff:1377465077:1377464962:=2c2%0a%3c !General House Rules%0a---%0a> [+++'''General House Rules'''+++]%0a5c5%0a%3c !!Venue House Rules%0a---%0a> [+++'''Venue House Rules'''+++]%0a10c10%0a%3c !!!%25color=#365776%25Mortals%25%25%0a---%0a> '''%25color=#365776%25Mortals%25%25'''%0a17c17%0a%3c !!!'''%25color=#A00000%25Vampire%25%25'''%0a---%0a> '''%25color=#A00000%25Vampire%25%25'''%0a24c24%0a%3c !!!%25color=#1b9ad0%25Mage%25%25%0a---%0a> '''%25color=#1b9ad0%25Mage%25%25'''%0a31c31%0a%3c !!!%25color=#996600%25Werewolf%25%25%0a---%0a> '''%25color=#996600%25Werewolf%25%25'''%0a39c39%0a%3c !!!%25green%25Changeling%25%25%0a---%0a> '''%25green%25Changeling%25%25'''%0a
+host:1377465077=24.20.151.3
+author:1377464962=ThomasH
+diff:1377464962:1377464949:=7,8d6%0a%3c %0a%3c %0a
+host:1377464962=71.0.16.129
+author:1377464949=ThomasH
+diff:1377464949:1377464925:=2,4c2,4%0a%3c [+++'''General House Rules'''+++]%0a%3c [[%3c%3c]]%0a%3c %0a---%0a> [+++'''Restricted Slots'''+++]%0a> %0a> %0a6d5%0a%3c [[%3c%3c]]%0a
+host:1377464949=71.0.16.129
+author:1377464925=ThomasH
+diff:1377464925:1377464873:=2,5c2,3%0a%3c [+++'''Restricted Slots'''+++]%0a%3c %0a%3c %0a%3c [+++'''Venue House Rules'''+++]%0a---%0a> +++General House Rules+++%0a> %0a
+host:1377464925=71.0.16.129
+author:1377464873=ThomasH
+diff:1377464873:1377464873:=1,38d0%0a%3c (:title House Rules:)%0a%3c +++General House Rules+++%0a%3c %0a%3c [[#M]]%0a%3c '''%25color=#365776%25Mortals%25%25'''%0a%3c (:toggle hide MCG:)%0a%3c >>id=MCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include GameRef.MortalRulesMaster#rules#rulesend:)%0a%3c >>%3c%3c%0a%3c %0a%3c [[#VTR]]%0a%3c '''%25color=#A00000%25Vampire%25%25'''%0a%3c (:toggle hide VtRCG:)%0a%3c >>id=VtRCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include VampireRulesMaster#rules#rulesend:)%0a%3c >>%3c%3c%0a%3c %0a%3c [[#MTA]]%0a%3c '''%25color=#1b9ad0%25Mage%25%25'''%0a%3c (:toggle hide MtACG:)%0a%3c >>id=MtACG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include MageRulesMaster#rules#rulesend:)%0a%3c >>%3c%3c%0a%3c %0a%3c [[#WTF]]%0a%3c '''%25color=#996600%25Werewolf%25%25'''%0a%3c (:toggle hide WtFCG:)%0a%3c >>id=WtFCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include WerewolfRulesMaster#rules#rulesend:)%0a%3c >>%3c%3c%0a%3c %0a%3c %0a%3c [[#CTL]]%0a%3c '''%25green%25Changeling%25%25'''%0a%3c (:toggle hide CtLCG:)%0a%3c >>id=CtLCG border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include ChangelingRulesMaster#rules#rulesend:)%0a%3c >>%3c%3c%0a\ No newline at end of file%0a
+host:1377464873=71.0.16.129

@@ -1,0 +1,25 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1380465720
+host=67.238.250.80
+name=Players.MemorialStaff
+rev=4
+targets=Players.SaraFremen,Players.LucienTakayama,Players.Ash,Players.Jane
+text=(:title Memorial Health Clinic Staff:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%25rfloat width=250px%25http://i.imgur.com/ROyGG3x.jpg%0a%0a%0a!!ACI-- Surgical Associates%0a%0a!!Behavioral Medicine%0a%0a!!Center for Breast Care%0a%0a!!Children's Hospital%0a%0a!!Memorial Health Bariatrics%0a%0a!!Endocrinology%0a%0a!!OB/GYN%0a%0a!!Occupational Health%0a%0a!!Rehabilitation Medicine%0a->[[players.SaraFremen| Dr. Fremen]]%0a-->Duties Here.%0a%0a!!Savannah Center for Respiratory, Critical Care, and Sleep Medicine%0a%0a!!Savannah Pediatric Surgery and Pediatric Gastroenterology%0a%0a!!Savannah Perinatology%0a%0a!!Memorial Metabolic Institute%0a%0a!!Trauma Center%0a->[[players.LucienTakayama|Dr. Takayama]]%0a-->Duties Here.%0a%0a!!Urgent Care%0a%0a!!The William and Iffath Hoskins Center for Biomedical Research%0a%0a%0a!!Nursing Staff%0a->[[Players.Ash|Nurse Keller]]%0a-->Duties Here.%0a!!Emergency Medical Technicians%0a->[[Players.Jane|Paramedic Foss]]%0a-->Duties Here.
+time=1380474631
+title=Memorial Health Clinic Staff
+author:1380474631=ThomasH
+diff:1380474631:1380465842:=44,48c44,45%0a%3c ->[[Players.Ash|Nurse Keller]]%0a%3c -->Duties Here.%0a%3c !!Emergency Medical Technicians%0a%3c ->[[Players.Jane|Paramedic Foss]]%0a%3c -->Duties Here.%0a\ No newline at end of file%0a---%0a> %0a> !!Emergency Medical Technicians%0a\ No newline at end of file%0a
+host:1380474631=67.238.250.80
+author:1380465842=ThomasH
+diff:1380465842:1380465780:=3c3%0a%3c %25rfloat width=250px%25http://i.imgur.com/ROyGG3x.jpg%0a---%0a> http://i.imgur.com/ROyGG3x.jpg%0a
+host:1380465842=67.238.250.80
+author:1380465780=ThomasH
+diff:1380465780:1380465720:=6,22c6,22%0a%3c !!ACI-- Surgical Associates%0a%3c %0a%3c !!Behavioral Medicine%0a%3c %0a%3c !!Center for Breast Care%0a%3c %0a%3c !!Children's Hospital%0a%3c %0a%3c !!Memorial Health Bariatrics%0a%3c %0a%3c !!Endocrinology%0a%3c %0a%3c !!OB/GYN%0a%3c %0a%3c !!Occupational Health%0a%3c %0a%3c !!Rehabilitation Medicine%0a---%0a> !ACI-- Surgical Associates%0a> %0a> !Behavioral Medicine%0a> %0a> !Center for Breast Care%0a> %0a> !Children's Hospital%0a> %0a> !Memorial Health Bariatrics%0a> %0a> !Endocrinology%0a> %0a> !OB/GYN%0a> %0a> !Occupational Health%0a> %0a> !Rehabilitation Medicine%0a26,34c26,34%0a%3c !!Savannah Center for Respiratory, Critical Care, and Sleep Medicine%0a%3c %0a%3c !!Savannah Pediatric Surgery and Pediatric Gastroenterology%0a%3c %0a%3c !!Savannah Perinatology%0a%3c %0a%3c !!Memorial Metabolic Institute%0a%3c %0a%3c !!Trauma Center%0a---%0a> !Savannah Center for Respiratory, Critical Care, and Sleep Medicine%0a> %0a> !Savannah Pediatric Surgery and Pediatric Gastroenterology%0a> %0a> !Savannah Perinatology%0a> %0a> !Memorial Metabolic Institute%0a> %0a> !Trauma Center%0a38,45c38,45%0a%3c !!Urgent Care%0a%3c %0a%3c !!The William and Iffath Hoskins Center for Biomedical Research%0a%3c %0a%3c %0a%3c !!Nursing Staff%0a%3c %0a%3c !!Emergency Medical Technicians%0a\ No newline at end of file%0a---%0a> !Urgent Care%0a> %0a> !The William and Iffath Hoskins Center for Biomedical Research%0a> %0a> %0a> !Nursing Staff%0a> %0a> !Emergency Medical Technicians%0a\ No newline at end of file%0a
+host:1380465780=67.238.250.80
+author:1380465720=ThomasH
+diff:1380465720:1380465720:=1,45d0%0a%3c (:title Memorial Health Clinic Staff:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c http://i.imgur.com/ROyGG3x.jpg%0a%3c %0a%3c %0a%3c !ACI-- Surgical Associates%0a%3c %0a%3c !Behavioral Medicine%0a%3c %0a%3c !Center for Breast Care%0a%3c %0a%3c !Children's Hospital%0a%3c %0a%3c !Memorial Health Bariatrics%0a%3c %0a%3c !Endocrinology%0a%3c %0a%3c !OB/GYN%0a%3c %0a%3c !Occupational Health%0a%3c %0a%3c !Rehabilitation Medicine%0a%3c ->[[players.SaraFremen| Dr. Fremen]]%0a%3c -->Duties Here.%0a%3c %0a%3c !Savannah Center for Respiratory, Critical Care, and Sleep Medicine%0a%3c %0a%3c !Savannah Pediatric Surgery and Pediatric Gastroenterology%0a%3c %0a%3c !Savannah Perinatology%0a%3c %0a%3c !Memorial Metabolic Institute%0a%3c %0a%3c !Trauma Center%0a%3c ->[[players.LucienTakayama|Dr. Takayama]]%0a%3c -->Duties Here.%0a%3c %0a%3c !Urgent Care%0a%3c %0a%3c !The William and Iffath Hoskins Center for Biomedical Research%0a%3c %0a%3c %0a%3c !Nursing Staff%0a%3c %0a%3c !Emergency Medical Technicians%0a\ No newline at end of file%0a
+host:1380465720=67.238.250.80

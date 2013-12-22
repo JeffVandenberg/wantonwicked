@@ -1,0 +1,83 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+author=systemoftheworld
+charset=ISO-8859-1
+csum=public effects
+ctime=1378851521
+host=71.51.102.45
+name=Players.Transit
+rev=21
+targets=Players.577,Players.Charlie,Players.Kudzu,Players.Hydra,Players.Azrael,Players.Padawan
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a!!%25white%25Transit%25white%25%0a(:cellnr rowspan=25 width=400 align=center:)  %0ahttp://img268.imageshack.us/img268/9023/rw46.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 23%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) 23%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'7"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Very thin%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Bicycle mechanic%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) FC Herald Consillium - 2%0a(:cellnr width=150 align=left:)'''Order:'''%0a(:cell width=190:) FC%0a(:cellnr width=150 align=left:)'''Path:'''%0a(:cell width=190:) Moros%0a(:cellnr width=150 align=left:)'''Cabal:'''%0a(:cell width=190:) Hattan's Aegis%0a(:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_a.png%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) systemoftheworld%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[https://www.youtube.com/watch?v=WL1ly1GMwwc |Waltz#2]]%0a(:cellnr width=150 align=left:)%0a(:cell width=190:) [[https://www.youtube.com/watch?v=JXfC9N-zm04 |What Death Leaves Behind]]%0a(:tableend:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a''Dark wiry unkempt hair. Dark tortoise shell glasses. Lanky and underfed. Usually wearing mechanic overalls, grime build-up depending on the time of day. "Invention has its own algorithm: genius, obsession, serendipity, and epiphany in some unknowable combination. - Gladwell" ''%0a:Nimbus:%0a''White dust flows up from underneath her feet as a multitude of low murmuring voices turn to louder moans as the up flowing dust hardens into a leaden bone exoskeleton as the moans become a high mechanical screech, the exoskeleton sheens.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a''Just got in town off a Greyhound a month ago.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a''Bicycle Aficionado:'' Found riding around town on various bicycles. Even a motorized one. Usually still wearing work coveralls, never neon skin tight bike gear.%0a%0a''Freeganism:'' 'Are you done with that?', she will sometimes ask someone who is about to throw away half a jumbo bacon triple cheese mega non-trans fat super sized deep fried deluxe burger. Or maybe she is found climbing out of a dumpster with a slat cracked sweat stained futon. Or on the side of a highway with her homemade home depot esque shopping cart, filling it with things that have fallen out of someones truck. All this trash and throw aways, free for the taking. And yet all of Transit's possesions are new and clean looking, sometimes high end or extraordinary. Except her coveralls, those are always grimy. %0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a->%25right%25%25color=#74483F%25 There are faster ways to get yourself killed, but fucking with her comes with a 100%25 personal guarantee.  Salt'a the G*dd*amn Earth. - '''[[577]]'''%0a%0a->%25right%25%25color=#74483F%25 The first of her kind where I've been able to say "She's cool" without having to mentally append "...for a Free Councilor." - '''[[Charlie]]'''%0a%0a->%25right%25%25color=#74483F%25 "One of the few Free Councilors that I don't see as being intolerant of the views of other people" - '''[[Kudzu]]'''%0a%0a->%25right%25%25color=#74483F%25 "The amount of effort she put into the thoughts that are behind her actions and words is greater than most I've seen. This has led me to fear and respect her while laughing, impressive."- '''[[Hydra]]'''%0a%0a->%25right%25%25color=#74483F%25 So, Transit is actually a pretty cool chick. She knows stuff about engines and mechanics, things I would never be able to figure out. Her back office is also amazingly nice and cool against the Georgian heat.  - '''[[Azrael]]'''%0a%0a->%25right%25%25color=#74483F%25 "She has a drive and focus on her work that is quite impressive.  The level to which she commits herself to her tasks makes me understand quite easily why she Awakened.   I was privileged to see her work in action once, and it is comforting to know that she is out there doing what she does.  She's also really good at making bicycles."- '''[[Padawan]]'''%0a%0a(:cellnr rowspan=25 width=400 align=center:) %0a(:include CityBook.MageNavigationBar:)
+time=1382138272
+author:1382138272=systemoftheworld
+csum:1382138272=public effects
+diff:1382138272:1382111348:minor=19c19%0a%3c (:cell width=190:) FC Herald Consillium - 2%0a---%0a> (:cell width=190:) None%0a
+host:1382138272=71.51.102.45
+author:1382111348=Dr Forrester
+diff:1382111348:1381893941:=63,65d62%0a%3c %0a%3c ->%25right%25%25color=#74483F%25 "She has a drive and focus on her work that is quite impressive.  The level to which she commits herself to her tasks makes me understand quite easily why she Awakened.   I was privileged to see her work in action once, and it is comforting to know that she is out there doing what she does.  She's also really good at making bicycles."- '''[[Padawan]]'''%0a%3c %0a
+host:1382111348=65.83.54.31
+author:1381893941=Prophet
+diff:1381893941:1381788463:=61,62d60%0a%3c %0a%3c ->%25right%25%25color=#74483F%25 So, Transit is actually a pretty cool chick. She knows stuff about engines and mechanics, things I would never be able to figure out. Her back office is also amazingly nice and cool against the Georgian heat.  - '''[[Azrael]]'''%0a
+host:1381893941=24.11.97.8
+author:1381788463=Rho
+diff:1381788463:1381123400:=
+host:1381788463=74.131.173.38
+author:1381123400=Worldwalker
+diff:1381123400:1380258288:=57,58d56%0a%3c %0a%3c ->%25right%25%25color=#74483F%25 "One of the few Free Councilors that I don't see as being intolerant of the views of other people" - '''[[Kudzu]]'''%0a
+host:1381123400=162.195.67.141
+author:1380258288=TheUserWin
+diff:1380258288:1380140075:=58d57%0a%3c ->%25right%25%25color=#74483F%25 "The amount of effort she put into the thoughts that are behind her actions and words is greater than most I've seen. This has led me to fear and respect her while laughing, impressive."- '''[[Hydra]]'''%0a
+host:1380258288=135.19.224.88
+author:1380140075=systemoftheworld
+diff:1380140075:1380139814:=32d31%0a%3c (:cellnr width=150 align=left:)%0a
+host:1380140075=71.51.97.59
+author:1380139814=systemoftheworld
+csum:1380139814=added song link
+diff:1380139814:1380139803:minor=
+host:1380139814=71.51.97.59
+author:1380139803=systemoftheworld
+csum:1380139803=added song link
+diff:1380139803:1380125287:minor=32d31%0a%3c (:cell width=190:) [[https://www.youtube.com/watch?v=JXfC9N-zm04 |What Death Leaves Behind]]%0a
+host:1380139803=71.51.97.59
+author:1380125287=Griffalo
+diff:1380125287:1379788713:=53,54d52%0a%3c %0a%3c ->%25right%25%25color=#74483F%25 The first of her kind where I've been able to say "She's cool" without having to mentally append "...for a Free Councilor." - '''[[Charlie]]'''%0a
+host:1380125287=82.71.25.5
+author:1379788713=systemoftheworld
+csum:1379788713=Added Cabal
+diff:1379788713:1379718470:minor=25c25%0a%3c (:cell width=190:) Hattan's Aegis%0a---%0a> (:cell width=190:) None%0a
+host:1379788713=72.183.110.55
+author:1379718470=Rho
+diff:1379718470:1379381910:=52,53d51%0a%3c ->%25right%25%25color=#74483F%25 There are faster ways to get yourself killed, but fucking with her comes with a 100%25 personal guarantee.  Salt'a the G*dd*amn Earth. - '''[[577]]'''%0a%3c %0a
+host:1379718470=74.131.173.38
+author:1379381910=JillA
+diff:1379381910:1379010806:=45,47d44%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1379381910=24.20.151.3
+author:1379010806=systemoftheworld
+csum:1379010806=added hooks
+diff:1379010806:1378965339:=42,44c42%0a%3c ''Bicycle Aficionado:'' Found riding around town on various bicycles. Even a motorized one. Usually still wearing work coveralls, never neon skin tight bike gear.%0a%3c %0a%3c ''Freeganism:'' 'Are you done with that?', she will sometimes ask someone who is about to throw away half a jumbo bacon triple cheese mega non-trans fat super sized deep fried deluxe burger. Or maybe she is found climbing out of a dumpster with a slat cracked sweat stained futon. Or on the side of a highway with her homemade home depot esque shopping cart, filling it with things that have fallen out of someones truck. All this trash and throw aways, free for the taking. And yet all of Transit's possesions are new and clean looking, sometimes high end or extraordinary. Except her coveralls, those are always grimy. %0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1379010806=70.196.14.74
+author:1378965339=systemoftheworld
+csum:1378965339=music link
+diff:1378965339:1378963397:minor=31c31%0a%3c (:cell width=190:) [[https://www.youtube.com/watch?v=WL1ly1GMwwc |Waltz#2]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a39c39%0a%3c ''Just got in town off a Greyhound a month ago.''%0a---%0a> ''Place your Public History Here''%0a
+host:1378965339=71.51.102.19
+author:1378963397=systemoftheworld
+diff:1378963397:1378949302:=29c29%0a%3c (:cell width=190:) systemoftheworld%0a---%0a> (:cell width=190:) ?%0a47c47%0a%3c (:cellnr rowspan=25 width=400 align=center:) %0a---%0a> %0a
+host:1378963397=71.51.102.19
+author:1378949302=systemoftheworld
+diff:1378949302:1378945235:=27c27,47%0a%3c %0a---%0a> (:cellnr width=150 align=left:)'''Death:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Fate:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Forces:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Life:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Matter:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Mind:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Prime:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Space:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Spirit:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> (:cellnr width=150 align=left:)'''Time:'''%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a> %0a34c54%0a%3c ''Dark wiry unkempt hair. Dark tortoise shell glasses. Lanky and underfed. Usually wearing mechanic overalls, grime build-up depending on the time of day. "Invention has its own algorithm: genius, obsession, serendipity, and epiphany in some unknowable combination. - Gladwell" ''%0a---%0a> ''Place your Description Here''%0a36c56%0a%3c ''White dust flows up from underneath her feet as a multitude of low murmuring voices turn to louder moans as the up flowing dust hardens into a leaden bone exoskeleton as the moans become a high mechanical screech, the exoskeleton sheens.''%0a---%0a> ''Nimbus description here''%0a
+host:1378949302=71.51.102.19
+author:1378945235=systemoftheworld
+csum:1378945235=added stats
+diff:1378945235:1378852663:minor=9c9%0a%3c (:cell width=190:) 23%0a---%0a> (:cell width=190:) ?%0a11c11%0a%3c (:cell width=190:) 23%0a---%0a> (:cell width=190:) ?%0a13c13%0a%3c (:cell width=190:) 5'7"%0a---%0a> (:cell width=190:) ?%0a15c15%0a%3c (:cell width=190:) Very thin%0a---%0a> (:cell width=190:) ?%0a17c17%0a%3c (:cell width=190:) Bicycle mechanic%0a---%0a> (:cell width=190:) ?%0a19c19%0a%3c (:cell width=190:) None%0a---%0a> (:cell width=190:) ?%0a21c21%0a%3c (:cell width=190:) FC%0a---%0a> (:cell width=190:) ?%0a23c23%0a%3c (:cell width=190:) Moros%0a---%0a> (:cell width=190:) ?%0a25c25%0a%3c (:cell width=190:) None%0a---%0a> (:cell width=190:) ?%0a
+host:1378945235=71.51.102.19
+author:1378852663=systemoftheworld
+diff:1378852663:1378852144:=4,5c4%0a%3c (:cellnr rowspan=25 width=400 align=center:)  %0a%3c http://img268.imageshack.us/img268/9023/rw46.jpg%0a---%0a> (:cellnr rowspan=25 width=400 align=center:) http://imageshack.us/a/img541/4601/c2la.jpg http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1378852663=71.51.102.19
+author:1378852144=systemoftheworld
+diff:1378852144:1378851521:=
+host:1378852144=71.51.102.19
+author:1378851521=systemoftheworld
+csum:1378851521=Name and Pic
+diff:1378851521:1378851521:=1,67d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a%3c !!%25white%25Transit%25white%25%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://imageshack.us/a/img541/4601/c2la.jpg http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Order:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Path:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Cabal:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_a.png%0a%3c (:cellnr width=150 align=left:)'''Death:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Fate:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Forces:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Life:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Matter:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Mind:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Prime:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Space:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Spirit:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Time:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a%3c ''Place your Description Here''%0a%3c :Nimbus:%0a%3c ''Nimbus description here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1378851521=71.51.102.19

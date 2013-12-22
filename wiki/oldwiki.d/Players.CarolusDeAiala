@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:18.0) Gecko/20130119 Firefox/18.0
+author=Nougatcreme
+charset=ISO-8859-1
+csum=
+ctime=1386198996
+host=189.6.89.98
+name=Players.CarolusdeAiala
+rev=2
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a!!%25white%25Carolus de Aiala%25white%25          http://i.imgur.com/CixpsNb.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) Difficult to say%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) Early adulthood%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) Average%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Powerful%0a(:cellnr width=150 align=left:)'''Profession:'''%0a(:cell width=190:) Philosopher%0a(:cellnr width=150 align=left:)'''Covenant:'''%0a(:cell width=190:) Ordo Dracul%0a(:cellnr width=150 align=left:)'''Clan:'''%0a(:cell width=190:) Nosferatu%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Mask of Tranquility%0a(:cellnr width=150 align=left:)'''Coterie:'''%0a(:cell width=190:) To be disclosed%0a(:cellnr width=150 align=left:)'''Theme Music:'''%0a(:cell width=190:) [[https://www.youtube.com/watch?v=-xTGrfs5TXM |Low Rider]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_con.png%0a''None yet''%0a[[%3c%3c]]%0a(:include CityBook.VampireNavigationBar:)
+time=1386199023
+author:1386199023=Nougatcreme
+diff:1386199023:1386198996:=3c3%0a%3c !!%25white%25Carolus de Aiala%25white%25          http://i.imgur.com/CixpsNb.jpg%0a---%0a> !!%25white%25Carolus de Aiala%25white%25http://i.imgur.com/CixpsNb.jpg%0a
+host:1386199023=189.6.89.98
+author:1386198996=Nougatcreme
+diff:1386198996:1386198996:=1,30d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a%3c !!%25white%25Carolus de Aiala%25white%25http://i.imgur.com/CixpsNb.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) Difficult to say%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) Early adulthood%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) Average%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Powerful%0a%3c (:cellnr width=150 align=left:)'''Profession:'''%0a%3c (:cell width=190:) Philosopher%0a%3c (:cellnr width=150 align=left:)'''Covenant:'''%0a%3c (:cell width=190:) Ordo Dracul%0a%3c (:cellnr width=150 align=left:)'''Clan:'''%0a%3c (:cell width=190:) Nosferatu%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Mask of Tranquility%0a%3c (:cellnr width=150 align=left:)'''Coterie:'''%0a%3c (:cell width=190:) To be disclosed%0a%3c (:cellnr width=150 align=left:)'''Theme Music:'''%0a%3c (:cell width=190:) [[https://www.youtube.com/watch?v=-xTGrfs5TXM |Low Rider]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_con.png%0a%3c ''None yet''%0a%3c [[%3c%3c]]%0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1386198996=189.6.89.98

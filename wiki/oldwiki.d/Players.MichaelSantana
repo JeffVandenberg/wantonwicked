@@ -1,0 +1,45 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=darthadamus
+charset=ISO-8859-1
+csum=
+ctime=1385881218
+host=96.240.28.71
+name=Players.MichaelSantana
+rev=11
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Michael Santana%25white%25%0a(:cellnr rowspan=15 width=400 align=center:)%0ahttp://www.screencaptures.net/p/ponce07.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 32%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 6'1%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Toned%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Cardiac Surgeon%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Status 2 (Medical)%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) darthadamus%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=7iX9Jq-SlRc |Parkour Music]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a''Place your Description Here''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a''Michael decided he wanted to be a doctor to help people who couldn't afford medical attention. He graduated both high school and college as valedictorian, he attended John Hopkins and graduated med school with high honors. He ended up back in his lovely home city of Savannah where he completed his residency two years ago where he is now paying off all of those student loans he has built up over the years, but he is almost done with the loans.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a'''''Run, Forest, Run:''' Michael is into Parkour. He does this as his form of exercise instead of normal running. For a doctor, this isn't the best sport he could have chosen given the bones he has broken doing this.''%0a%0a'''''I need a doctor:''' Michael is a all around good guy. If someone shows up at his house needing medical attention, he will not turn you away or even charge you for his services.'''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a''Contacts (Medical, Legal) Faction 1 (Asclepius Incarnae)''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1386276457
+author:1386276457=darthadamus
+diff:1386276457:1386276426:=32a33%0a> %0a
+host:1386276457=96.240.28.71
+author:1386276426=darthadamus
+diff:1386276426:1386275339:=31,33d30%0a%3c %0a%3c '''''I need a doctor:''' Michael is a all around good guy. If someone shows up at his house needing medical attention, he will not turn you away or even charge you for his services.'''%0a%3c %0a
+host:1386276426=96.240.28.71
+author:1386275339=darthadamus
+diff:1386275339:1386225940:=27c27%0a%3c ''Michael decided he wanted to be a doctor to help people who couldn't afford medical attention. He graduated both high school and college as valedictorian, he attended John Hopkins and graduated med school with high honors. He ended up back in his lovely home city of Savannah where he completed his residency two years ago where he is now paying off all of those student loans he has built up over the years, but he is almost done with the loans.''%0a---%0a> ''Michael decided he wanted to be a doctor to prevent things like this from happening. He graduated both high school and college as valedictorian, he attended John Hopkins and graduated med school with high honors. He ended up back in his lovely home city of Savannah where he completed his residency two years ago where he is now paying off all of those student loans he has built up over the years, but he is almost done paying them off.''%0a
+host:1386275339=96.240.28.71
+author:1386225940=darthadamus
+diff:1386225940:1386223899:=
+host:1386225940=96.240.28.71
+author:1386223899=darthadamus
+diff:1386223899:1385881754:=30c30%0a%3c '''''Run, Forest, Run:''' Michael is into Parkour. He does this as his form of exercise instead of normal running. For a doctor, this isn't the best sport he could have chosen given the bones he has broken doing this.''%0a---%0a> ''Run, Forest, Run: Michael is into Parkour. He does this as his form of exercise instead of normal running. For a doctor, this isn't the best sport he could have chosen given the bones he has broken doing this''%0a
+host:1386223899=96.240.28.71
+author:1385881754=darthadamus
+diff:1385881754:1385881717:=
+host:1385881754=96.240.28.71
+author:1385881717=darthadamus
+diff:1385881717:1385881657:=27c27%0a%3c ''Michael decided he wanted to be a doctor to prevent things like this from happening. He graduated both high school and college as valedictorian, he attended John Hopkins and graduated med school with high honors. He ended up back in his lovely home city of Savannah where he completed his residency two years ago where he is now paying off all of those student loans he has built up over the years, but he is almost done paying them off.''%0a---%0a> ''Place your Public History Here''%0a
+host:1385881717=96.240.28.71
+author:1385881657=darthadamus
+diff:1385881657:1385881357:=4,5c4%0a%3c (:cellnr rowspan=15 width=400 align=center:)%0a%3c http://www.screencaptures.net/p/ponce07.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a30c29%0a%3c ''Run, Forest, Run: Michael is into Parkour. He does this as his form of exercise instead of normal running. For a doctor, this isn't the best sport he could have chosen given the bones he has broken doing this''%0a---%0a> ''Run, Forest, Run: Michael is into Parkour. He does this as his form of exercise instead of normal running''%0a
+host:1385881657=96.240.28.71
+author:1385881357=darthadamus
+diff:1385881357:1385881260:=16c16%0a%3c (:cell width=190:) Status 2 (Medical)%0a---%0a> (:cell width=190:) Status 2 (Medical) Contacts (Medical, Legal)Faction 1 (Asclepius Incarnae)%0a32c32%0a%3c ''Contacts (Medical, Legal) Faction 1 (Asclepius Incarnae)''%0a---%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1385881357=96.240.28.71
+author:1385881260=darthadamus
+diff:1385881260:1385881218:=3c3%0a%3c !!%25white%25Michael Santana%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1385881260=96.240.28.71
+author:1385881218=darthadamus
+diff:1385881218:1385881218:=1,38d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 32%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 6'1%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Toned%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Cardiac Surgeon%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Status 2 (Medical) Contacts (Medical, Legal)Faction 1 (Asclepius Incarnae)%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) darthadamus%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=7iX9Jq-SlRc |Parkour Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c ''Run, Forest, Run: Michael is into Parkour. He does this as his form of exercise instead of normal running''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1385881218=96.240.28.71

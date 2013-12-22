@@ -1,0 +1,20 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+author=JeffV
+charset=ISO-8859-1
+csum=Update Resonance & Territory
+ctime=1382295506
+host=173.17.121.105
+name=CityBook.WhitefieldUniversity
+rev=2
+targets=CityBook.NorthChatham,CityBook.CityBook
+text=(:title Whitefield University:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%0aReturn to: [[CityBook.NorthChatham|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!Whitefield University%0a'''District:''' [[CityBook.NorthChatham|North Chatham]]%0a%0a[Picture] Description%0a%0a'''Resonance:''' Bizarre\\%0a'''Territory:''' No one has been able to stake a permanent claim on the university%0a[[#locationend]]%0a%0a(:include CityBook.wunavigationbar:)
+time=1382328602
+title=Whitefield University
+author:1382328602=JeffV
+csum:1382328602=Update Resonance & Territory
+diff:1382328602:1382295506:=12,13c12,13%0a%3c '''Resonance:''' Bizarre\\%0a%3c '''Territory:''' No one has been able to stake a permanent claim on the university%0a---%0a> '''Resonance:''' blah\\%0a> '''Territory:''' Falls within X's claim%0a
+host:1382328602=173.17.121.105
+author:1382295506=JillA
+diff:1382295506:1382295506:=1,16d0%0a%3c (:title Whitefield University:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%3c %0a%3c Return to: [[CityBook.NorthChatham|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!Whitefield University%0a%3c '''District:''' [[CityBook.NorthChatham|North Chatham]]%0a%3c %0a%3c [Picture] Description%0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a%3c %0a%3c (:include CityBook.wunavigationbar:)%0a\ No newline at end of file%0a
+host:1382295506=24.20.151.3

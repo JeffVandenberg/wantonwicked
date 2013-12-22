@@ -1,0 +1,69 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.59.10 (KHTML, like Gecko) Version/5.1.9 Safari/534.59.10
+author=Carlos
+charset=ISO-8859-1
+csum=
+ctime=1386914736
+host=68.196.168.125
+name=Players.SimonJeffrey
+rev=19
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a!!%25white%25Simon Jeffrey%25white%25%0a(:cellnr rowspan=30 width=400 align=center:) %0ahttp://i74.photobucket.com/albums/i271/migeddo/ad5f57a5-2a54-44b2-a230-1c804555032e_zps7f1f1805.png%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 22%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 6'1"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Athletic and Muscular%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Whatever is paying%0a(:cellnr width=150 align=left:)'''Auspice:'''%0a(:cell width=190:) Cahalith %0a(:cellnr width=150 align=left:)'''Tribe:'''%0a(:cell width=190:) Blood Talon%0a(:cellnr width=150 align=left:)'''Lodge:'''%0a(:cell width=190:) Lodge of Echoes%0a(:cellnr width=150 align=left:)'''Primal Urge:'''%0a(:cell width=190:) 2%0a(:cellnr width=150 align=left:)'''Pack:'''%0a(:cell width=190:) None%0a(:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_r.png%0a(:cellnr width=150 align=left:)'''Cunning:''' %0a(:cell width=190:) &#9675;&#9675;&#9675;&#9675;&#9675;%0a(:cellnr width=150 align=left:)'''Glory:''' %0a(:cell width=190:) &#9679;&#9679;&#9679;&#9675;&#9675;%0a(:cellnr width=150 align=left:)'''Honor:''' %0a(:cell width=190:) &#9679;&#9675;&#9675;&#9675;&#9675;%0a(:cellnr width=150 align=left:)'''Purity:''' %0a(:cell width=190:) &#9679;&#9675;&#9675;&#9675;&#9675;%0a(:cellnr width=150 align=left:)'''Wisdom:''' %0a(:cell width=190:) &#9675;&#9675;&#9675;&#9675;&#9675;%0a%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Carlos%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:tableend:)%0a%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a%25center%25 http://img.photobucket.com/albums/v337/loony_moony/CamGigandethishotandloltastic.gif%0a%25center%25%25color=#6F5753%25'''Yeah Pretty Much'''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_rph.png%0a%25width=25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/smallsymbols/wod_s.png[-%25color=#6F5753%25'''Fight Club?''' - Follow the rules.-]%0a%25width=25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/smallsymbols/wod_s.png[-%25color=#6F5753%25'''Local Town Bad Boy''' - Once upon a time Simon actually used to live Savannah. Maybe you went to school with him or new him in his teen years, I'm sure he called you back.....right?-]%0a%25width=25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/smallsymbols/wtf_s.png[-%25color=#6F5753%25'''Suthar Anzuth''' - Simon likes nothing more than going to the bars with other talons to drink and fight and make merry because well, we could die tomorrow after all.-]%0a%0a[[%3c%3c]]%0a%0a%0a%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a%25center%25%25color=#6F5753%25'''What's that now?'''%0a%0a* say something....poetic! %0a%0a[[%3c%3c]]%0a%0a%25center%25http://i74.photobucket.com/albums/i271/migeddo/simon001_zps25b5c223.gif%0a%0a%0a(:include CityBook.WerewolfNavigationBar:)
+time=1387515161
+author:1387515161=Carlos
+diff:1387515161:1387515129:=61,63d60%0a%3c %0a%3c * say something....poetic! %0a%3c %0a
+host:1387515161=68.196.168.125
+author:1387515129=Carlos
+diff:1387515129:1387513356:=5c5%0a%3c http://i74.photobucket.com/albums/i271/migeddo/ad5f57a5-2a54-44b2-a230-1c804555032e_zps7f1f1805.png%0a---%0a> http://i74.photobucket.com/albums/i271/migeddo/a935b81f-c4d7-4429-9c8d-b1a85be5c3c4_zps882cf405.jpg%0a54d53%0a%3c %0a62,64d60%0a%3c %0a%3c %25center%25http://i74.photobucket.com/albums/i271/migeddo/simon001_zps25b5c223.gif%0a%3c %0a
+host:1387515129=68.196.168.125
+author:1387513356=Carlos
+diff:1387513356:1387247997:=9c9%0a%3c (:cell width=190:) 22%0a---%0a> (:cell width=190:) 24%0a
+host:1387513356=68.196.168.125
+author:1387247997=Carlos
+diff:1387247997:1387083290:=22,23c22,23%0a%3c (:cellnr width=150 align=left:)'''Primal Urge:'''%0a%3c (:cell width=190:) 2%0a---%0a> (:cellnr width=150 align=left:)'''Public Effects:'''%0a> (:cell width=190:) So Many%0a
+host:1387247997=68.196.168.125
+author:1387083290=Carlos
+diff:1387083290:1387081865:=48d47%0a%3c %0a49a49,51%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_h.png%0a> ''Place your Public History Here''%0a> [[%3c%3c]]%0a55,57c57,61%0a%3c %0a%3c %0a%3c %0a---%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_con.png%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a> [[%3c%3c]]%0a> %0a> %0a59c63%0a%3c %25center%25%25color=#6F5753%25'''What's that now?'''%0a---%0a> ''What Others have to Say about you''%0a
+host:1387083290=68.196.168.125
+author:1387081865=Carlos
+diff:1387081865:1387081474:=44,45c44%0a%3c %0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a---%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a47d45%0a%3c %25center%25%25color=#6F5753%25'''Yeah Pretty Much'''%0a
+host:1387081865=68.196.168.125
+author:1387081474=Carlos
+diff:1387081474:1387081247:=50a51%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1387081474=68.196.168.125
+author:1387081247=Carlos
+diff:1387081247:1387081186:=53c53%0a%3c %25width=25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/smallsymbols/wod_s.png[-%25color=#6F5753%25'''Local Town Bad Boy''' - Once upon a time Simon actually used to live Savannah. Maybe you went to school with him or new him in his teen years, I'm sure he called you back.....right?-]%0a---%0a> %25width=25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/smallsymbols/wod_s.png[-%25color=#6F5753%25'''Local Town Bad Boy''' - Once upon a time Simon actually used to live Savannah. Maybe you went to school with him or new him in his teen years .-]%0a
+host:1387081247=68.196.168.125
+author:1387081186=Carlos
+diff:1387081186:1386998017:=52,54d51%0a%3c %25width=25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/smallsymbols/wod_s.png[-%25color=#6F5753%25'''Fight Club?''' - Follow the rules.-]%0a%3c %25width=25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/smallsymbols/wod_s.png[-%25color=#6F5753%25'''Local Town Bad Boy''' - Once upon a time Simon actually used to live Savannah. Maybe you went to school with him or new him in his teen years .-]%0a%3c %25width=25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/smallsymbols/wtf_s.png[-%25color=#6F5753%25'''Suthar Anzuth''' - Simon likes nothing more than going to the bars with other talons to drink and fight and make merry because well, we could die tomorrow after all.-]%0a
+host:1387081186=68.196.168.125
+author:1386998017=Carlos
+diff:1386998017:1386997833:=5c5%0a%3c http://i74.photobucket.com/albums/i271/migeddo/a935b81f-c4d7-4429-9c8d-b1a85be5c3c4_zps882cf405.jpg%0a---%0a> http://i74.photobucket.com/albums/i271/migeddo/c59b36b3-dbf1-469a-9152-29bc99abbbaf_zpsf055770c.jpg%0a
+host:1386998017=68.196.168.125
+author:1386997833=Carlos
+diff:1386997833:1386997765:=45c45%0a%3c %25center%25 http://img.photobucket.com/albums/v337/loony_moony/CamGigandethishotandloltastic.gif%0a---%0a> ''Place your Description Here''%0a56c56,57%0a%3c %0a---%0a> %25center%25 http://img.photobucket.com/albums/v337/loony_moony/CamGigandethishotandloltastic.gif%0a> [[%3c%3c]]%0a
+host:1386997833=68.196.168.125
+author:1386997765=Carlos
+diff:1386997765:1386997587:=56,58d55%0a%3c %25center%25 http://img.photobucket.com/albums/v337/loony_moony/CamGigandethishotandloltastic.gif%0a%3c [[%3c%3c]]%0a%3c %0a
+host:1386997765=68.196.168.125
+author:1386997587=Carlos
+diff:1386997587:1386997568:=25c25%0a%3c (:cell width=190:) None%0a---%0a> (:cell width=190:) ?%0a
+host:1386997587=68.196.168.125
+author:1386997568=Carlos
+diff:1386997568:1386997372:=4,5c4,5%0a%3c (:cellnr rowspan=30 width=400 align=center:) %0a%3c http://i74.photobucket.com/albums/i271/migeddo/c59b36b3-dbf1-469a-9152-29bc99abbbaf_zpsf055770c.jpg%0a---%0a> (:cellnr rowspan=25 width=400 align=center:) %0a> http://adamantiumbullet.com/wp-content/uploads/2011/04/445.jpg%0a
+host:1386997568=68.196.168.125
+author:1386997372=Carlos
+diff:1386997372:1386997349:=4c4%0a%3c (:cellnr rowspan=25 width=400 align=center:) %0a---%0a> (:cellnr rowspan=30 width=400 align=center:) %0a
+host:1386997372=68.196.168.125
+author:1386997349=Carlos
+diff:1386997349:1386996577:=4,5c4%0a%3c (:cellnr rowspan=30 width=400 align=center:) %0a%3c http://adamantiumbullet.com/wp-content/uploads/2011/04/445.jpg%0a---%0a> (:cellnr rowspan=30 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1386997349=68.196.168.125
+author:1386996577=Carlos
+diff:1386996577:1386996564:=39c39%0a%3c (:cell width=190:) Carlos%0a---%0a> (:cell width=190:) ?%0a
+host:1386996577=68.196.168.125
+author:1386996564=Carlos
+diff:1386996564:1386914736:=8c8%0a%3c (:cell width=190:) 24%0a---%0a> (:cell width=190:) ?%0a10c10%0a%3c (:cell width=190:) 6'1"%0a---%0a> (:cell width=190:) ?%0a12c12%0a%3c (:cell width=190:) Athletic and Muscular%0a---%0a> (:cell width=190:) ?%0a14c14%0a%3c (:cell width=190:) Whatever is paying%0a---%0a> (:cell width=190:) ?%0a16c16%0a%3c (:cell width=190:) Cahalith %0a---%0a> (:cell width=190:) ?%0a18c18%0a%3c (:cell width=190:) Blood Talon%0a---%0a> (:cell width=190:) ?%0a20c20%0a%3c (:cell width=190:) Lodge of Echoes%0a---%0a> (:cell width=190:) ?%0a22,23d21%0a%3c (:cell width=190:) So Many%0a%3c (:cellnr width=150 align=left:)'''Pack:'''%0a24a23,24%0a> (:cellnr width=150 align=left:)'''Pack:'''%0a> (:cell width=190:) ?%0a27c27%0a%3c (:cell width=190:) &#9675;&#9675;&#9675;&#9675;&#9675;%0a---%0a> (:cell width=190:) ?%0a29c29%0a%3c (:cell width=190:) &#9679;&#9679;&#9679;&#9675;&#9675;%0a---%0a> (:cell width=190:) ?%0a31c31%0a%3c (:cell width=190:) &#9679;&#9675;&#9675;&#9675;&#9675;%0a---%0a> (:cell width=190:) ?%0a33c33%0a%3c (:cell width=190:) &#9679;&#9675;&#9675;&#9675;&#9675;%0a---%0a> (:cell width=190:) ?%0a35c35%0a%3c (:cell width=190:) &#9675;&#9675;&#9675;&#9675;&#9675;%0a---%0a> (:cell width=190:) ?%0a
+host:1386996564=68.196.168.125
+author:1386914736=Devilish
+diff:1386914736:1386914736:=1,59d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a%3c !!%25white%25Simon Jeffrey%25white%25%0a%3c (:cellnr rowspan=30 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Auspice:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Tribe:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Lodge:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Pack:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_r.png%0a%3c (:cellnr width=150 align=left:)'''Cunning:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Glory:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Honor:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Purity:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Wisdom:''' %0a%3c (:cell width=190:) ?%0a%3c %0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.WerewolfNavigationBar:)%0a\ No newline at end of file%0a
+host:1386914736=68.224.99.74

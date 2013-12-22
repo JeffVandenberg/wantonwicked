@@ -1,0 +1,31 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36
+author=MichelleC
+charset=ISO-8859-1
+csum=
+ctime=1378767025
+host=67.80.106.255
+name=CityBook.WhitemarshIsland
+rev=6
+targets=
+text=(:title Whitemarsh Island:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0a(:newpagebox base=CityBook template=CityBook.WTemplate label="Create Whitemarsh Island Location:" value="Place Name":)%0a%0a(:include GameRef.CityMaster#W#WEnd:)%0a%0a!!District Features:%0a>>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a'''City/Mortal''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Changeling''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Mage''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Vampire''':%0a* Domain of [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.MillicentStClaire|Millicent St. Claire, Invictus]]%0a* Location Rating: 4%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Werewolf''':%0a>>%3c%3c%0a%0a%0a!!District Locations:%0a(:sortable align=center:)%0a||class=sortable id=WILocations%0a||!Location||!Venue||!Owner||%0a(:tableend:)%0a%0a----%0a(:include CityBook.Directory:)
+time=1381224823
+title=Whitemarsh Island
+author:1381224823=MichelleC
+diff:1381224823:1381125893:=23,24c23,24%0a%3c * Domain of [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.MillicentStClaire|Millicent St. Claire, Invictus]]%0a%3c * Location Rating: 4%0a---%0a> * Domain of%0a> * Location Rating:%0a
+host:1381224823=67.80.106.255
+author:1381125893=Eiragwen
+diff:1381125893:1379816432:=9,30d8%0a%3c >>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''City/Mortal''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Changeling''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Mage''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Vampire''':%0a%3c * Domain of%0a%3c * Location Rating:%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Werewolf''':%0a%3c >>%3c%3c%0a%3c %0a
+host:1381125893=24.20.151.3
+author:1379816432=JillA
+diff:1379816432:1379816405:=4,6c4,6%0a%3c (:newpagebox base=CityBook template=CityBook.WTemplate label="Create Whitemarsh Island Location:" value="Place Name":)%0a%3c %0a%3c (:include GameRef.CityMaster#W#WEnd:)%0a---%0a> (:newpagebox base=CityBook template=CityBook.WITemplate label="Create Whitemarsh Island Location:" value="Place Name":)%0a> %0a> (:include GameRef.CityMaster#WI#WIEnd:)%0a
+host:1379816432=24.20.151.3
+author:1379816405=JillA
+diff:1379816405:1379703880:=6c6%0a%3c (:include GameRef.CityMaster#WI#WIEnd:)%0a---%0a> (:include GameRef.CityMaster#A#AEnd:)%0a
+host:1379816405=24.20.151.3
+author:1379703880=ThomasH
+diff:1379703880:1378767025:=1,17c1%0a%3c (:title Whitemarsh Island:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c (:newpagebox base=CityBook template=CityBook.WITemplate label="Create Whitemarsh Island Location:" value="Place Name":)%0a%3c %0a%3c (:include GameRef.CityMaster#A#AEnd:)%0a%3c %0a%3c !!District Features:%0a%3c %0a%3c !!District Locations:%0a%3c (:sortable align=center:)%0a%3c ||class=sortable id=WILocations%0a%3c ||!Location||!Venue||!Owner||%0a%3c (:tableend:)%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a---%0a> (:title Whitemarsh Island:)%0a\ No newline at end of file%0a
+host:1379703880=67.238.250.80
+author:1378767025=ThomasH
+diff:1378767025:1378767025:=1d0%0a%3c (:title Whitemarsh Island:)%0a\ No newline at end of file%0a
+host:1378767025=71.0.16.129

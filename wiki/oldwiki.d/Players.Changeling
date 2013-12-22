@@ -1,0 +1,37 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1373315741
+host=98.232.234.158
+name=Players.Changeling
+rev=8
+targets=
+text=[[#ctop]]%0a(:notitle:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/ctl.png%0a(:Include GameRef.CtLMaster#Introduction#IntroductionEnd:)%0a(:include CityBook.ChangelingNavigationBar:)
+time=1386812064
+author:1386812064=JillA
+diff:1386812064:1377655237:=3c3%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/ctl.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/changelingthelost.png%0a
+host:1386812064=98.232.234.158
+author:1377655237=JillA
+diff:1377655237:1377655205:=4c4%0a%3c (:Include GameRef.CtLMaster#Introduction#IntroductionEnd:)%0a---%0a> (:Include GameRef.CtLMaster#Introduction#Introduction:)%0a
+host:1377655237=24.20.151.3
+author:1377655205=JillA
+diff:1377655205:1377513559:=4c4%0a%3c (:Include GameRef.CtLMaster#Introduction#Introduction:)%0a---%0a> (:Include GameRef.ChangelingRulesMaster#setting#settingend:)%0a
+host:1377655205=24.20.151.3
+author:1377513559=JillA
+diff:1377513559:1377510998:=2d1%0a%3c (:notitle:)%0a
+host:1377513559=24.20.151.3
+author:1377510998=JillA
+diff:1377510998:1376973968:=3,4c3%0a%3c (:Include GameRef.ChangelingRulesMaster#setting#settingend:)%0a%3c (:include CityBook.ChangelingNavigationBar:)%0a\ No newline at end of file%0a---%0a> (:Include GameRef.ChangelingRulesMaster#setting#settingend:)%0a\ No newline at end of file%0a
+host:1377510998=24.20.151.3
+author:1376973968=JillA
+csum:1376973968=updated image host
+diff:1376973968:1376878463:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/changelingthelost.png%0a---%0a> http://imageshack.us/a/img203/2346/04zu.png%0a
+host:1376973968=24.20.151.3
+author:1376878463=JillA
+diff:1376878463:1373315741:=2c2%0a%3c http://imageshack.us/a/img203/2346/04zu.png%0a---%0a> %25center%25%25width=600px%25 http://i635.photobucket.com/albums/uu71/Desse_photos/Wiki%2520Pics/Changelingheader.png%0a
+host:1376878463=24.20.151.3
+author:1373315741=ThomasH
+diff:1373315741:1373315741:=1,3d0%0a%3c [[#ctop]]%0a%3c %25center%25%25width=600px%25 http://i635.photobucket.com/albums/uu71/Desse_photos/Wiki%2520Pics/Changelingheader.png%0a%3c (:Include GameRef.ChangelingRulesMaster#setting#settingend:)%0a\ No newline at end of file%0a
+host:1373315741=71.0.16.129

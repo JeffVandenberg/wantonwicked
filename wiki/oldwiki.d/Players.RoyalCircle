@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.62 Safari/537.36
+author=MarianneP
+charset=ISO-8859-1
+csum=
+ctime=1378321493
+host=71.126.140.190
+name=Players.RoyalCircle
+rev=1
+targets=Players.HarrisFisher,Players.TobiasTheCrispy,Players.JustineFrostine,Players.TheUnknownQueen,Players.JohanKilbronn
+text=The Royal Circle is a closed motley. It began decades ago when four courtiers of each court came together in an alliance to gain power in the freehold. They succeeded and the Circle morphed into a motley of the monarchs and occassionally other major power players in the freehold. %0a%0aPledge:\\%0aNo one outside the Circle know exactly what the pledge is, but it's generally assumed that it keeps all the motley members from screwing the others over too badly no matter how tense things occassionally get between courts when interests compete. The more pessimistic among the freehold also assume that it dedicates members to maintaining their collective power as well.%0a%0aCurrent Members:\\%0a[[Harris Fisher]]- Spring King\\%0a[[Tobias the Crispy]]- Summer King\\%0a[[Justine Frostine]]- Winter Queen\\%0a[[The Unknown Queen]]- Autumn Queen\\%0a[[Johan Kilbronn]]- Autumn Vizier\\%0a
+time=1378321493
+author:1378321493=MarianneP
+diff:1378321493:1378321493:=1,11d0%0a%3c The Royal Circle is a closed motley. It began decades ago when four courtiers of each court came together in an alliance to gain power in the freehold. They succeeded and the Circle morphed into a motley of the monarchs and occassionally other major power players in the freehold. %0a%3c %0a%3c Pledge:\\%0a%3c No one outside the Circle know exactly what the pledge is, but it's generally assumed that it keeps all the motley members from screwing the others over too badly no matter how tense things occassionally get between courts when interests compete. The more pessimistic among the freehold also assume that it dedicates members to maintaining their collective power as well.%0a%3c %0a%3c Current Members:\\%0a%3c [[Harris Fisher]]- Spring King\\%0a%3c [[Tobias the Crispy]]- Summer King\\%0a%3c [[Justine Frostine]]- Winter Queen\\%0a%3c [[The Unknown Queen]]- Autumn Queen\\%0a%3c [[Johan Kilbronn]]- Autumn Vizier\\%0a
+host:1378321493=71.126.140.190

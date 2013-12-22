@@ -1,0 +1,30 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Scales
+charset=ISO-8859-1
+csum=
+ctime=1384473237
+host=174.24.36.192
+name=Players.GideonDesk
+rev=6
+targets=Players.GideonWard,Players.AshildrDeHaviland,Players.MadisonGray
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a!!%25white%25Gideon's Massive Desk%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) %0a%25width="400"%25http://rencodesign.com/images/EgDesk2.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a(:cellnr width=150 align=left:)'''Length:'''%0a(:cell width=190:) Never had any complaints%0a(:cellnr width=150 align=left:)'''Girth:'''%0a(:cell width=190:) Impressive%0a(:cellnr width=150 align=left:)'''Rigidity:''' %0a(:cell width=190:) Very sturdy%0a(:cellnr width=150 align=left:)'''Owner:''' %0a(:cell width=190:) [[Gideon Ward]]%0a(:tableend:)%0a%0a%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_q.png%0a''It's so large, that desk of his, that circling it can sometimes require taking the time to sit on it for a while.'' - [[Ashildr de Haviland]]%0a%0a''I thought I'd seen Desks before but after this one..I'm not sure that I can really say any others compare. I just hope someday he'll let me polish it for him.'' - [[Madison Gray]]%0a%0a%0a%0a[[%3c%3c]]%0a(:include CityBook.VampireNavigationBar:)
+time=1386310862
+author:1386310862=Scales
+diff:1386310862:1384946757:=21,22d20%0a%3c %0a%3c ''I thought I'd seen Desks before but after this one..I'm not sure that I can really say any others compare. I just hope someday he'll let me polish it for him.'' - [[Madison Gray]]%0a
+host:1386310862=174.24.36.192
+author:1384946757=Miloko
+diff:1384946757:1384474427:=20c20%0a%3c ''It's so large, that desk of his, that circling it can sometimes require taking the time to sit on it for a while.'' - [[Ashildr de Haviland]]%0a---%0a> ''Leave your quotes about Gideon's massive desk here.''%0a
+host:1384946757=86.155.106.114
+author:1384474427=PresterJohn
+diff:1384474427:1384474385:=13a14,15%0a> (:cellnr width=150 align=left:)'''Player:''' %0a> (:cell width=190:) PresterJohn%0a15a18,19%0a> (:cellnr width=150 align=left:)'''Theme Music:''' %0a> (:cell width=190:) [[http://www.youtube.com/watch?v=HKtsdZs9LJo |Ain't No Rest for the Wicked]]%0a
+host:1384474427=68.12.114.218
+author:1384474385=PresterJohn
+diff:1384474385:1384473635:=8,13c8,23%0a%3c (:cellnr width=150 align=left:)'''Length:'''%0a%3c (:cell width=190:) Never had any complaints%0a%3c (:cellnr width=150 align=left:)'''Girth:'''%0a%3c (:cell width=190:) Impressive%0a%3c (:cellnr width=150 align=left:)'''Rigidity:''' %0a%3c (:cell width=190:) Very sturdy%0a---%0a> (:cellnr width=150 align=left:)'''Age:'''%0a> (:cell width=190:) 76%0a> (:cellnr width=150 align=left:)'''Apparent Age:'''%0a> (:cell width=190:) 48%0a> (:cellnr width=150 align=left:)'''Height:'''%0a> (:cell width=190:) 6'0"%0a> (:cellnr width=150 align=left:)'''Weight:'''%0a> (:cell width=190:) 190 lbs.%0a> (:cellnr width=150 align=left:)'''Profession:''' %0a> (:cell width=190:) Judge%0a> (:cellnr width=150 align=left:)'''Covenant:'''%0a> (:cell width=190:) Carthian%0a> (:cellnr width=150 align=left:)'''Clan:'''%0a> (:cell width=190:) Ventrue%0a> (:cellnr width=150 align=left:)'''Public Effects:'''%0a> (:cell width=190:) Status 3 (Carthian); Status 1 (City); Status 1 (Ventrue); Striking Looks +1.%0a16,17c26,27%0a%3c (:cellnr width=150 align=left:)'''Owner:''' %0a%3c (:cell width=190:) [[Gideon Ward]]%0a---%0a> (:cellnr width=150 align=left:)'''Desk:''' %0a> (:cell width=190:) [[GideonDesk|Gideon's Massive Desk]]%0a21,29d30%0a%3c %0a%3c %0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_q.png%0a%3c ''Leave your quotes about Gideon's massive desk here.''%0a%3c %0a%3c %0a%3c %0a%3c [[%3c%3c]]%0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1384474385=68.12.114.218
+author:1384473635=PresterJohn
+diff:1384473635:1384473237:=1,30c1%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a%3c !!%25white%25Gideon's Massive Desk%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) %0a%3c %25width="400"%25http://rencodesign.com/images/EgDesk2.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 76%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) 48%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 6'0"%0a%3c (:cellnr width=150 align=left:)'''Weight:'''%0a%3c (:cell width=190:) 190 lbs.%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Judge%0a%3c (:cellnr width=150 align=left:)'''Covenant:'''%0a%3c (:cell width=190:) Carthian%0a%3c (:cellnr width=150 align=left:)'''Clan:'''%0a%3c (:cell width=190:) Ventrue%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Status 3 (Carthian); Status 1 (City); Status 1 (Ventrue); Striking Looks +1.%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) PresterJohn%0a%3c (:cellnr width=150 align=left:)'''Desk:''' %0a%3c (:cell width=190:) [[GideonDesk|Gideon's Massive Desk]]%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=HKtsdZs9LJo |Ain't No Rest for the Wicked]]%0a%3c (:tableend:)%0a---%0a> http://rencodesign.com/images/EgDesk2.jpg%0a\ No newline at end of file%0a
+host:1384473635=68.12.114.218
+author:1384473237=PresterJohn
+diff:1384473237:1384473237:=1d0%0a%3c http://rencodesign.com/images/EgDesk2.jpg%0a\ No newline at end of file%0a
+host:1384473237=68.12.114.218

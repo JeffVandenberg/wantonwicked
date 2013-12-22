@@ -1,0 +1,25 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1372651994
+host=71.0.16.129
+name=GameRef.WoDCharacterCreation
+rev=4
+targets=GameRef.WoDCharacterCreation,GameRef.CharacterCreation
+text=(:title World of Darkness Character Creation:)%0a[[#wodtop]]%0a%25center%25%25width=600px%25http://i68.photobucket.com/albums/i5/Aramil98/World_of_Darkness_Logo.png%0a[[GameRef.WoDCharacterCreation?action=edit|Click here to Edit]]%0a%0a(:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a(:cellnr align=center:)%0a(:cellnr:)%0a(:cellnr bgcolor=#365776 align=center:)%0a'''Contents'''%0a(:cellnr:) %0a*[[#Creation| Character Creation]]%0a**[[#Mortals| Mortals]]%0a**[[#IXP|Incentive XP]]%0a(:tableend:)%0a%0a[[#Creation]]%0a[++'''Character Creation'''++]%0a%0a[[#Mortals]]%0a[++'''Mortals'''++]%0a%0a*Mortals are not subject to any additional restrictions at Character Creation other than those which apply to all characters.%0a%0a[[#IXP]]%0a[++'''Incentive XP'''++]%0a%0a->[[CharacterCreation|General XP]]%0a%0a%0a%0a(:include CityBook.WoDNavigationBar:)
+time=1373254451
+title=World of Darkness Character Creation
+author:1373254451=ThomasH
+diff:1373254451:1372681993:=3d2%0a%3c %25center%25%25width=600px%25http://i68.photobucket.com/albums/i5/Aramil98/World_of_Darkness_Logo.png%0a32c31%0a%3c (:include CityBook.WoDNavigationBar:)%0a\ No newline at end of file%0a---%0a> (:include CityBook.WoDNavigationBar:)%0a
+host:1373254451=71.0.16.129
+author:1372681993=Aramil98
+diff:1372681993:1372652135:=27c27,31%0a%3c ->[[CharacterCreation|General XP]]%0a---%0a> ->[[CharacterCreation|General XP]] stacks for WoD venue characters up to +10 rather than +5. In addition, the following iXP is offered (note that WoD venue iXP is still capped at 10)%0a> **+1 to +2 - Contributions to the Setting (NPCs/Locations, etc - can only be claimed once (as general XP or as Venue XP))%0a> **+1 for having connections/grouping up with another WoD PC (max +2)%0a> **+3 Being a vanilla mortal (Vanilla mortal = No supernatural powers. Completely normal)%0a> **+2 for belonging to a Focus Group / Organization (ie, UCSD in Education/Medical, the specific precinct for law, one of the pre-made criminal organizations, etc, etc. You may qualify for this if you have your own business - talk to a WoD ST)%0a
+host:1372681993=71.0.16.129
+author:1372652135=Aramil98
+diff:1372652135:1372651994:=
+host:1372652135=71.0.16.129
+author:1372651994=Aramil98
+diff:1372651994:1372651994:=1,35d0%0a%3c (:title World of Darkness Character Creation:)%0a%3c [[#wodtop]]%0a%3c [[GameRef.WoDCharacterCreation?action=edit|Click here to Edit]]%0a%3c %0a%3c (:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a%3c (:cellnr align=center:)%0a%3c (:cellnr:)%0a%3c (:cellnr bgcolor=#365776 align=center:)%0a%3c '''Contents'''%0a%3c (:cellnr:) %0a%3c *[[#Creation| Character Creation]]%0a%3c **[[#Mortals| Mortals]]%0a%3c **[[#IXP|Incentive XP]]%0a%3c (:tableend:)%0a%3c %0a%3c [[#Creation]]%0a%3c [++'''Character Creation'''++]%0a%3c %0a%3c [[#Mortals]]%0a%3c [++'''Mortals'''++]%0a%3c %0a%3c *Mortals are not subject to any additional restrictions at Character Creation other than those which apply to all characters.%0a%3c %0a%3c [[#IXP]]%0a%3c [++'''Incentive XP'''++]%0a%3c %0a%3c ->[[CharacterCreation|General XP]] stacks for WoD venue characters up to +10 rather than +5. In addition, the following iXP is offered (note that WoD venue iXP is still capped at 10)%0a%3c **+1 to +2 - Contributions to the Setting (NPCs/Locations, etc - can only be claimed once (as general XP or as Venue XP))%0a%3c **+1 for having connections/grouping up with another WoD PC (max +2)%0a%3c **+3 Being a vanilla mortal (Vanilla mortal = No supernatural powers. Completely normal)%0a%3c **+2 for belonging to a Focus Group / Organization (ie, UCSD in Education/Medical, the specific precinct for law, one of the pre-made criminal organizations, etc, etc. You may qualify for this if you have your own business - talk to a WoD ST)%0a%3c %0a%3c %0a%3c %0a%3c (:include CityBook.WoDNavigationBar:)%0a
+host:1372651994=71.0.16.129

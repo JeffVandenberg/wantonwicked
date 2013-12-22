@@ -1,0 +1,24 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1373251745
+host=71.0.16.129
+name=GameRef.ChangelingHouseRules
+rev=4
+targets=
+text=[[#ctop]]%0a%25center%25%25width=500px%25 http://i635.photobucket.com/albums/uu71/Desse_photos/Wiki%2520Pics/Changelingheader.png%0a(:Include GameRef.ChangelingRulesMaster#houserules#rulesend:)
+time=1377452464
+author:1377452464=ThomasH
+diff:1377452464:1373418235:=2c2%0a%3c %25center%25%25width=500px%25 http://i635.photobucket.com/albums/uu71/Desse_photos/Wiki%2520Pics/Changelingheader.png%0a---%0a> %25center%25%25width=600px%25 http://i635.photobucket.com/albums/uu71/Desse_photos/Wiki%2520Pics/Changelingheader.png%0a
+host:1377452464=71.0.16.129
+author:1373418235=ThomasH
+diff:1373418235:1373251969:=
+host:1373418235=71.0.16.129
+author:1373251969=ThomasH
+diff:1373251969:1373251745:=1,3c1%0a%3c [[#ctop]]%0a%3c %25center%25%25width=600px%25 http://i635.photobucket.com/albums/uu71/Desse_photos/Wiki%2520Pics/Changelingheader.png%0a%3c (:Include GameRef.ChangelingRulesMaster#houserules#rulesend:)%0a\ No newline at end of file%0a---%0a> (:Include GameRef.ChangelingRulesMaster:)%0a\ No newline at end of file%0a
+host:1373251969=71.0.16.129
+author:1373251745=ThomasH
+diff:1373251745:1373251745:=1d0%0a%3c (:Include GameRef.ChangelingRulesMaster:)%0a\ No newline at end of file%0a
+host:1373251745=71.0.16.129

@@ -1,0 +1,39 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36
+author=Forestessentials
+charset=ISO-8859-1
+csum=
+ctime=1377792647
+host=50.147.19.4
+name=Players.DFQuotes
+rev=9
+targets=Players.DFQuotes
+text=(:cellnr colspan=2 bgcolor=black align=center:)%0a%25width=150%25http://i741.photobucket.com/albums/xx59/leashedkitty1/Delilah/861d5a1d-61a0-4f7e-bdd5-2e8b1447fb56_zps07e73eda.jpg%0a(:cell colspan=4 bgcolor=black align=left:)%0a%25left%25http://i741.photobucket.com/albums/xx59/leashedkitty1/quotes2_zps4569de45.png%0a'''''[--[[DFQuotes|Click to Leave Quotes]]--]'''''\\%0a%25right%25%25color=#74483F%25"Charm is often despised but I can never see why. No one has it who isn't capable of genuinely liking others, at least at the actual moment of meeting and speaking. Charm is always genuine; it may be superficial but it isn't false"%0a->%25right%25%25color=#74483F%25 P.D. James%0a%0a%25left%25%25color=#74483F%25''"When I compliment you, I compliment myself, because I am who I associate with."''%0a->%25color=#74483F%25- ''Jarod Kintz''%0a%0a%25right%25%25color=#74483F%25 "Your Thoughts."%0a->%25right%25%25color=#74483F%25 - ''You''
+time=1377813758
+author:1377813758=Forestessentials
+diff:1377813758:1377813255:=2c2%0a%3c %25width=150%25http://i741.photobucket.com/albums/xx59/leashedkitty1/Delilah/861d5a1d-61a0-4f7e-bdd5-2e8b1447fb56_zps07e73eda.jpg%0a---%0a> %25width=150%25http://i741.photobucket.com/albums/xx59/leashedkitty1/DF3_zps65226a09.jpg%0a
+host:1377813758=50.147.19.4
+author:1377813255=Forestessentials
+diff:1377813255:1377799653:=2c2%0a%3c %25width=150%25http://i741.photobucket.com/albums/xx59/leashedkitty1/DF3_zps65226a09.jpg%0a---%0a> %25width=150%25http://i741.photobucket.com/albums/xx59/leashedkitty1/Delilah/861d5a1d-61a0-4f7e-bdd5-2e8b1447fb56_zps07e73eda.jpg%0a4c4%0a%3c %25left%25http://i741.photobucket.com/albums/xx59/leashedkitty1/quotes2_zps4569de45.png%0a---%0a> %25left%25%25color=#74483F%25[++The Whispers ++]\\%0a
+host:1377813255=50.147.19.4
+author:1377799653=Forestessentials
+diff:1377799653:1377796341:=4,5d3%0a%3c %25left%25%25color=#74483F%25[++The Whispers ++]\\%0a%3c '''''[--[[DFQuotes|Click to Leave Quotes]]--]'''''\\%0a
+host:1377799653=50.147.19.4
+author:1377796341=Forestessentials
+diff:1377796341:1377795883:=1c1%0a%3c (:cellnr colspan=2 bgcolor=black align=center:)%0a---%0a> (:cellnr colspan=2 bgcolor=#aaaaaa align=center:)%0a3c3%0a%3c (:cell colspan=4 bgcolor=black align=left:)%0a---%0a> (:cell colspan=4 bgcolor=#aaaaaa align=left:)%0a
+host:1377796341=50.147.19.4
+author:1377795883=Forestessentials
+diff:1377795883:1377794559:=1,7c1,6%0a%3c (:cellnr colspan=2 bgcolor=#aaaaaa align=center:)%0a%3c %25width=150%25http://i741.photobucket.com/albums/xx59/leashedkitty1/Delilah/861d5a1d-61a0-4f7e-bdd5-2e8b1447fb56_zps07e73eda.jpg%0a%3c (:cell colspan=4 bgcolor=#aaaaaa align=left:)%0a%3c %25right%25%25color=#74483F%25"Charm is often despised but I can never see why. No one has it who isn't capable of genuinely liking others, at least at the actual moment of meeting and speaking. Charm is always genuine; it may be superficial but it isn't false"%0a%3c ->%25right%25%25color=#74483F%25 P.D. James%0a%3c %0a%3c %25left%25%25color=#74483F%25''"When I compliment you, I compliment myself, because I am who I associate with."''%0a---%0a> (:table border=0 style=float width=90%25 align=center cellspacing=0 :)%0a> (:cellnr bgcolor=#222222 align=right:)%0a> %25color=#74483F%25"Charm is often despised but I can never see why. No one has it who isn't capable of genuinely liking others, at least at the actual moment of meeting and speaking. Charm is always genuine; it may be superficial but it isn't false"%0a> ->%25color=#74483F%25 P.D. James%0a> (:cellnr align=left:)%0a> %25color=#74483F%25''"When I compliment you, I compliment myself, because I am who I associate with."''%0a9,11c8,10%0a%3c %0a%3c %25right%25%25color=#74483F%25 "Your Thoughts."%0a%3c ->%25right%25%25color=#74483F%25 - ''You''%0a\ No newline at end of file%0a---%0a> (:cellnr bgcolor=#222222 align=right:)%0a> %25color=#74483F%25 "Your Thoughts."%0a> ->%25color=#74483F%25 - ''You''%0a\ No newline at end of file%0a
+host:1377795883=50.147.19.4
+author:1377794559=schreier
+diff:1377794559:1377794544:=1,10d0%0a%3c (:table border=0 style=float width=90%25 align=center cellspacing=0 :)%0a%3c (:cellnr bgcolor=#222222 align=right:)%0a%3c %25color=#74483F%25"Charm is often despised but I can never see why. No one has it who isn't capable of genuinely liking others, at least at the actual moment of meeting and speaking. Charm is always genuine; it may be superficial but it isn't false"%0a%3c ->%25color=#74483F%25 P.D. James%0a%3c (:cellnr align=left:)%0a%3c %25color=#74483F%25''"When I compliment you, I compliment myself, because I am who I associate with."''%0a%3c ->%25color=#74483F%25- ''Jarod Kintz''%0a%3c (:cellnr bgcolor=#222222 align=right:)%0a%3c %25color=#74483F%25 "Your Thoughts."%0a%3c ->%25color=#74483F%25 - ''You''%0a\ No newline at end of file%0a
+host:1377794559=155.178.4.11
+author:1377794544=schreier
+diff:1377794544:1377794504:=0a1,4%0a> (:table border=0 style=float width=90%25 align=center cellspacing=0 :)%0a> (:cellnr bgcolor=#222222 align=right:)%0a> %25color=#74483F%25 "Your Thoughts."%0a> ->%25color=#74483F%25 - ''You''%0a\ No newline at end of file%0a
+host:1377794544=155.178.4.11
+author:1377794504=schreier
+diff:1377794504:1377792647:=1a2,7%0a> (:cellnr bgcolor=#222222 align=right:)%0a> %25color=#74483F%25"Charm is often despised but I can never see why. No one has it who isn't capable of genuinely liking others, at least at the actual moment of meeting and speaking. Charm is always genuine; it may be superficial but it isn't false"%0a> ->%25color=#74483F%25 P.D. James%0a> (:cellnr align=left:)%0a> %25color=#74483F%25''"When I compliment you, I compliment myself, because I am who I associate with."''%0a> ->%25color=#74483F%25- ''Jarod Kintz''%0a
+host:1377794504=155.178.4.11
+author:1377792647=Forestessentials
+diff:1377792647:1377792647:=1,10d0%0a%3c (:table border=0 style=float width=90%25 align=center cellspacing=0 :)%0a%3c (:cellnr bgcolor=#222222 align=right:)%0a%3c %25color=#74483F%25"Charm is often despised but I can never see why. No one has it who isn't capable of genuinely liking others, at least at the actual moment of meeting and speaking. Charm is always genuine; it may be superficial but it isn't false"%0a%3c ->%25color=#74483F%25 P.D. James%0a%3c (:cellnr align=left:)%0a%3c %25color=#74483F%25''"When I compliment you, I compliment myself, because I am who I associate with."''%0a%3c ->%25color=#74483F%25- ''Jarod Kintz''%0a%3c (:cellnr bgcolor=#222222 align=right:)%0a%3c %25color=#74483F%25 "Your Thoughts."%0a%3c ->%25color=#74483F%25 - ''You''%0a\ No newline at end of file%0a
+host:1377792647=50.147.19.4

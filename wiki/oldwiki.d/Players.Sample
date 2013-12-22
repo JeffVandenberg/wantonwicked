@@ -1,0 +1,54 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1374980967
+host=24.20.151.3
+name=Players.Sample
+rev=14
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Sample Name%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a''Place your Description Here''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a''Place your Public History Here''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1379380537
+author:1379380537=JillA
+diff:1379380537:1377895049:=30,32d29%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1379380537=24.20.151.3
+author:1377895049=JillA
+diff:1377895049:1377876862:=33,35c33%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a---%0a> [[%3c%3c]]%0a\ No newline at end of file%0a
+host:1377895049=24.20.151.3
+author:1377876862=ThomasH
+diff:1377876862:1377876620:=6c6%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a---%0a> http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_s.png%0a22c22%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a---%0a> %25%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_d.png%0a25c25%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a---%0a> %25%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_h.png%0a28c28%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a---%0a> %25%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_rph.png%0a31c31%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a---%0a> %25%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_q.png%0a
+host:1377876862=71.0.16.129
+author:1377876620=ThomasH
+diff:1377876620:1377473957:=1,20c1,29%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a---%0a> (:table border=2  style=float width=10%25 align=right cellspacing=0 :)%0a> (:cellnr bgcolor=#6e68a3 align=Center:)%0a> '''''[++Sample++]'''''%0a> (:cellnr align=center:)%0a> %25width=350px%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod.png%0a> (:cellnr bgcolor=#6e68a3 align=center:)%0a> %25left%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_s.png%0a> (:cellnr align=center:)%0a> '''''Age:'''''%0a> (:cellnr align=center:)%0a> '''''Height:'''''%0a> (:cellnr align=center:)%0a> '''''Weight:'''''%0a> (:cellnr align=center:)%0a> '''''Build:''''' %0a> (:cellnr align=center:)%0a> '''''Hair:''''' %0a> (:cellnr align=center:)%0a> '''''Eyes:''''' %0a> (:cellnr align=center:)%0a> '''''Public Effects:'''''%0a> (:cellnr align=center:)%0a> '''''Profession:''''' N/A%0a> (:cellnr align=center:)%0a> '''''Status:'''''%0a> (:cellnr align=center:)%0a> '''''Player:''''' %0a> (:cellnr align=center:)%0a> '''Theme Music''' [[http://www.youtube.com/ |Music]]%0a
+host:1377876620=71.0.16.129
+author:1377473957=ThomasH
+diff:1377473957:1377451984:=2c2%0a%3c (:cellnr bgcolor=#6e68a3 align=Center:)%0a---%0a> (:cellnr bgcolor=grey align=Center:)%0a6c6%0a%3c (:cellnr bgcolor=#6e68a3 align=center:)%0a---%0a> (:cellnr bgcolor=grey align=center:)%0a
+host:1377473957=71.0.16.129
+author:1377451984=ThomasH
+diff:1377451984:1377451776:=20,21d19%0a%3c (:cellnr align=center:)%0a%3c '''''Public Effects:'''''%0a
+host:1377451984=71.0.16.129
+author:1377451776=ThomasH
+diff:1377451776:1376870694:=5c5%0a%3c %25width=350px%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod.png%0a---%0a> %25width=350px%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/wod.png%0a7c7%0a%3c %25left%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_s.png%0a---%0a> '''[+Information+]'''%0a29c29%0a%3c %25%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_d.png%0a---%0a> %25%25http://i68.photobucket.com/albums/i5/Aramil98/wod_d.png%0a32c32%0a%3c %25%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_h.png%0a---%0a> %25%25http://i68.photobucket.com/albums/i5/Aramil98/wod_h.png%0a35c35%0a%3c %25%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_rph.png%0a---%0a> %25%25http://i68.photobucket.com/albums/i5/Aramil98/wod_rph.png%0a38c38%0a%3c %25%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod_q.png%0a---%0a> %25%25http://i68.photobucket.com/albums/i5/Aramil98/wod_q.png%0a
+host:1377451776=71.0.16.129
+author:1376870694=ThomasH
+diff:1376870694:1376855634:=5c5%0a%3c %25width=350px%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/wod.png%0a---%0a> http://i68.photobucket.com/albums/i5/Aramil98/wodlogo.jpg%0a
+host:1376870694=71.0.16.129
+author:1376855634=ThomasH
+diff:1376855634:1376854500:=
+host:1376855634=71.0.16.129
+author:1376854500=ThomasH
+diff:1376854500:1376854337:=30d29%0a%3c ''Place your Description Here''%0a33d31%0a%3c ''Place your Public History Here''%0a36d33%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a39d35%0a%3c ''What Others have to Say about you''%0a
+host:1376854500=71.0.16.129
+author:1376854337=ThomasH
+diff:1376854337:1376854145:=33c33%0a%3c %25%25http://i68.photobucket.com/albums/i5/Aramil98/wod_rph.png%0a---%0a> %25%25%0a
+host:1376854337=71.0.16.129
+author:1376854145=ThomasH
+diff:1376854145:1376854118:=29c29%0a%3c %25%25http://i68.photobucket.com/albums/i5/Aramil98/wod_d.png%0a---%0a> %25%25%0a31c31%0a%3c %25%25http://i68.photobucket.com/albums/i5/Aramil98/wod_h.png%0a---%0a> %25%25%0a
+host:1376854145=71.0.16.129
+author:1376854118=ThomasH
+diff:1376854118:1374980967:=28,36c28%0a%3c (:tableend:)%0a%3c %25%25%0a%3c [[%3c%3c]]%0a%3c %25%25%0a%3c [[%3c%3c]]%0a%3c %25%25%0a%3c [[%3c%3c]]%0a%3c %25%25http://i68.photobucket.com/albums/i5/Aramil98/wod_q.png%0a%3c [[%3c%3c]]%0a\ No newline at end of file%0a---%0a> (:tableend:)%0a\ No newline at end of file%0a
+host:1376854118=71.0.16.129
+author:1374980967=ThomasH
+diff:1374980967:1374980967:=1,28d0%0a%3c (:table border=2  style=float width=10%25 align=right cellspacing=0 :)%0a%3c (:cellnr bgcolor=grey align=Center:)%0a%3c '''''[++Sample++]'''''%0a%3c (:cellnr align=center:)%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/wodlogo.jpg%0a%3c (:cellnr bgcolor=grey align=center:)%0a%3c '''[+Information+]'''%0a%3c (:cellnr align=center:)%0a%3c '''''Age:'''''%0a%3c (:cellnr align=center:)%0a%3c '''''Height:'''''%0a%3c (:cellnr align=center:)%0a%3c '''''Weight:'''''%0a%3c (:cellnr align=center:)%0a%3c '''''Build:''''' %0a%3c (:cellnr align=center:)%0a%3c '''''Hair:''''' %0a%3c (:cellnr align=center:)%0a%3c '''''Eyes:''''' %0a%3c (:cellnr align=center:)%0a%3c '''''Profession:''''' N/A%0a%3c (:cellnr align=center:)%0a%3c '''''Status:'''''%0a%3c (:cellnr align=center:)%0a%3c '''''Player:''''' %0a%3c (:cellnr align=center:)%0a%3c '''Theme Music''' [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a\ No newline at end of file%0a
+host:1374980967=71.0.16.129

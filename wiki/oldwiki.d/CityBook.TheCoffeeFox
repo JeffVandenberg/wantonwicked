@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1378808355
+host=24.20.151.3
+name=CityBook.TheCoffeeFox
+rev=2
+targets=CityBook.HistoricalDistrict,CityBook.CityBook
+text=(:title The Coffee Fox:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0aReturn to: [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!The Coffee Fox%0a'''District:''' Historical District%0a%0a%25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/locations/coffeefox1.png %0aThe Coffee Fox, located in the heart of the Historical District, is a craft coffee house proudly serving locally roasted coffee.%0a%0aThe corner store front is dominated by a large counter offering a variety of coffees, teas, wine, snacks and cheese boards.  Seating is more limited than expected, offering a bar counter facing the front windows and small, intimate tables along one wall with tables and a booth bench.%0a[[%3c%3c]]%0a'''Resonance:''' Unknown\\%0a'''Territory:''' Unclaimed%0a[[#locationend]]%0a%0a----%0a(:include CityBook.Directory:)
+time=1378808385
+title=The Coffee Fox
+author:1378808385=JillA
+diff:1378808385:1378808355:=2,4c2,4%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c Return to: [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a---%0a> [Venue or Savannah Banner]%0a> %0a> Return to: [[CityBook.?|Venue Locations]], [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a
+host:1378808385=24.20.151.3
+author:1378808355=JillA
+diff:1378808355:1378808355:=1,20d0%0a%3c (:title The Coffee Fox:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!The Coffee Fox%0a%3c '''District:''' Historical District%0a%3c %0a%3c %25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/locations/coffeefox1.png %0a%3c The Coffee Fox, located in the heart of the Historical District, is a craft coffee house proudly serving locally roasted coffee.%0a%3c %0a%3c The corner store front is dominated by a large counter offering a variety of coffees, teas, wine, snacks and cheese boards.  Seating is more limited than expected, offering a bar counter facing the front windows and small, intimate tables along one wall with tables and a booth bench.%0a%3c [[%3c%3c]]%0a%3c '''Resonance:''' Unknown\\%0a%3c '''Territory:''' Unclaimed%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1378808355=24.20.151.3

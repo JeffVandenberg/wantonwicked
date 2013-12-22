@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377651458
+host=24.20.151.3
+name=Players.WODMLaw
+rev=2
+targets=
+text=[[#top]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/worldofdarknessmortal.png%0a(:title City Ordinances:)%0a(:include GameRef.WodMMaster#Law#LawEnd:)%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1377651467
+title=City Ordinances
+author:1377651467=JillA
+diff:1377651467:1377651458:=4c4%0a%3c (:include GameRef.WodMMaster#Law#LawEnd:)%0a---%0a> (:include GameRef.WodMMaster#Fiat#FiatEnd:)%0a
+host:1377651467=24.20.151.3
+author:1377651458=JillA
+diff:1377651458:1377651458:=1,6d0%0a%3c [[#top]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/worldofdarknessmortal.png%0a%3c (:title City Ordinances:)%0a%3c (:include GameRef.WodMMaster#Fiat#FiatEnd:)%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1377651458=24.20.151.3

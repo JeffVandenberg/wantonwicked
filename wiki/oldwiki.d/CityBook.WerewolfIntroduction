@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=LeeK
+charset=ISO-8859-1
+csum=
+ctime=1375621552
+host=50.80.149.8
+name=CityBook.WerewolfIntroduction
+rev=1
+targets=
+text=!! The Werewolf Setting%0a%0aThe place is Savannah, GA. The Tribes of the Moon have recovered some of their losses since the Brethren War, but continue to wage a secret war against the Pure Tribes. The packs must stand together against the greater numbers and more organized packs of their enemies and every newly Changed is a fresh body to add to the conflict. The players are entering the setting in a time of relative calm in the conflict, a quiet moment where the two sides are busy building up resources and allies to tend to matters at home.%0a%0a(Under Construction)%0a%0a
+time=1375621552
+author:1375621552=LeeK
+diff:1375621552:1375621552:=1,6d0%0a%3c !! The Werewolf Setting%0a%3c %0a%3c The place is Savannah, GA. The Tribes of the Moon have recovered some of their losses since the Brethren War, but continue to wage a secret war against the Pure Tribes. The packs must stand together against the greater numbers and more organized packs of their enemies and every newly Changed is a fresh body to add to the conflict. The players are entering the setting in a time of relative calm in the conflict, a quiet moment where the two sides are busy building up resources and allies to tend to matters at home.%0a%3c %0a%3c (Under Construction)%0a%3c %0a
+host:1375621552=50.80.149.8

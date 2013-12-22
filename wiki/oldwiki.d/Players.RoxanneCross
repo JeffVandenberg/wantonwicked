@@ -1,0 +1,48 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=Bihac
+charset=ISO-8859-1
+csum=
+ctime=1381999392
+host=222.154.158.153
+name=Players.RoxanneCross
+rev=12
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Roxanne Cross%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) http://i479.photobucket.com/albums/rr158/TSBihac/Roxanne.png%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 21%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 6ft%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Athletic%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Rookie Police Officer%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Status: 1 (Police)%0aSworn Officer: 2%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:cellnr width=150 align=left:)'''Character model:''' %0a(:cell width=190:) Gina Carano%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%0a[[%3c%3c]] Rachel has long black hair that is often tied back into a pony tail, and is most frequently found well protected inside her police uniform and it's armour. However on the rare occasions that she's outside of that she's most frequently wearing a tank top, jeans and some walking boots.%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%0a[[%3c%3c]]'''Gym Monkey''' - Roxanne attends the gym and places of physical training alot, and can quite easily be found in one.%0a[[%3c%3c]]  '''At a bar''' - Roxanne is also still fairly young and quite likes to parttake in alcohol.%0a[[%3c%3c]]  '''Rookie Cop''' - Brend new to the force, she's in a patrol car and is there to help, provided she see's something happen or is directed your way.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1382311032
+author:1382311032=Bihac
+diff:1382311032:1382310558:=22,23d21%0a%3c (:cellnr width=150 align=left:)'''Character model:''' %0a%3c (:cell width=190:) Gina Carano%0a
+host:1382311032=222.154.158.153
+author:1382310558=Bihac
+diff:1382310558:1382307995:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://i479.photobucket.com/albums/rr158/TSBihac/Roxanne.png%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://i479.photobucket.com/albums/rr158/TSBihac/Krill.png%0a
+host:1382310558=222.154.158.153
+author:1382307995=Bihac
+diff:1382307995:1382307871:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://i479.photobucket.com/albums/rr158/TSBihac/Krill.png%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://i479.photobucket.com/albums/rr158/TSBihac/nm2087783.jpg%0a
+host:1382307995=222.154.158.153
+author:1382307871=Bihac
+diff:1382307871:1382305344:=3,4c3,4%0a%3c !!%25white%25Roxanne Cross%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://i479.photobucket.com/albums/rr158/TSBihac/nm2087783.jpg%0a---%0a> !!%25white%25Sample Name%25white%25%0a> (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1382307871=222.154.158.153
+author:1382305344=Bihac
+diff:1382305344:1382305251:=24c24%0a%3c %0a---%0a> ''Place your Description Here''%0a27c27%0a%3c %0a---%0a> ''Place your Public History Here''%0a30c30%0a%3c %0a---%0a> ''Story Hooks''%0a
+host:1382305344=222.154.158.153
+author:1382305251=Bihac
+diff:1382305251:1382080582:=
+host:1382305251=222.154.158.153
+author:1382080582=Bihac
+diff:1382080582:1382079215:=25c25%0a%3c [[%3c%3c]] Rachel has long black hair that is often tied back into a pony tail, and is most frequently found well protected inside her police uniform and it's armour. However on the rare occasions that she's outside of that she's most frequently wearing a tank top, jeans and some walking boots.%0a---%0a> [[%3c%3c]]%0a
+host:1382080582=222.154.158.153
+author:1382079215=Bihac
+diff:1382079215:1382079009:=16,17c16%0a%3c (:cell width=190:) Status: 1 (Police)%0a%3c Sworn Officer: 2%0a---%0a> (:cell width=190:) Nothing of Note%0a
+host:1382079215=222.154.158.153
+author:1382079009=Bihac
+diff:1382079009:1382043114:=14c14%0a%3c (:cell width=190:) Rookie Police Officer%0a---%0a> (:cell width=190:) Police Officer%0a29,32c29%0a%3c ''Story Hooks''%0a%3c [[%3c%3c]]'''Gym Monkey''' - Roxanne attends the gym and places of physical training alot, and can quite easily be found in one.%0a%3c [[%3c%3c]]  '''At a bar''' - Roxanne is also still fairly young and quite likes to parttake in alcohol.%0a%3c [[%3c%3c]]  '''Rookie Cop''' - Brend new to the force, she's in a patrol car and is there to help, provided she see's something happen or is directed your way.%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1382079009=222.154.158.153
+author:1382043114=Bihac
+diff:1382043114:1382043071:=16c16%0a%3c (:cell width=190:) Nothing of Note%0a---%0a> (:cell width=190:) ?%0a
+host:1382043114=222.154.158.153
+author:1382043071=Bihac
+diff:1382043071:1381999392:=8c8%0a%3c (:cell width=190:) 21%0a---%0a> (:cell width=190:) ?%0a10c10%0a%3c (:cell width=190:) 6ft%0a---%0a> (:cell width=190:) ?%0a12c12%0a%3c (:cell width=190:) Athletic%0a---%0a> (:cell width=190:) ?%0a14c14%0a%3c (:cell width=190:) Police Officer%0a---%0a> (:cell width=190:) ?%0a
+host:1382043071=222.154.158.153
+author:1381999392=Bihac
+diff:1381999392:1381999392:=1,38d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1381999392=222.154.158.153

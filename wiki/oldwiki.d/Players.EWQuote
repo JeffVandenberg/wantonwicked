@@ -1,0 +1,28 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+author=Ephsy
+charset=ISO-8859-1
+csum=
+ctime=1384793578
+host=190.105.65.183
+name=Players.EWQuote
+rev=5
+targets=Players.MarcusCole,Players.AaronBuel
+text=%25color=#762216%25She may not be Uratha, but she -is- People and she -is- Pack. As a result she's as worthy of respect as any of us. [[Marcus Cole|%25color=#78724C%25Marcus Cole]].%0a%0a%25color=#762216%25This bitch is one stone cold killer, so I'd keep my eyes on her. [[Aaron Buel|%25color=#78724C%25Light-Render]].
+time=1385411506
+author:1385411506=Ephsy
+diff:1385411506:1385411466:=3c3%0a%3c %25color=#762216%25This bitch is one stone cold killer, so I'd keep my eyes on her. [[Aaron Buel|%25color=#78724C%25Light-Render]].%0a\ No newline at end of file%0a---%0a> %25color=#762216%25This bitch is one stone cold killer, so I'd keep my eyes on her. [[Aaron Buel|%25color=#78724C%25Rends-the-Light]].%0a\ No newline at end of file%0a
+host:1385411506=190.105.65.183
+author:1385411466=Ephsy
+diff:1385411466:1385340356:=1,3c1%0a%3c %25color=#762216%25She may not be Uratha, but she -is- People and she -is- Pack. As a result she's as worthy of respect as any of us. [[Marcus Cole|%25color=#78724C%25Marcus Cole]].%0a%3c %0a%3c %25color=#762216%25This bitch is one stone cold killer, so I'd keep my eyes on her. [[Aaron Buel|%25color=#78724C%25Rends-the-Light]].%0a\ No newline at end of file%0a---%0a> %25color=#762216%25She may not be Uratha, but she -is- People and she -is- Pack. As a result she's as worthy of respect as any of us. [[Marcus Cole|%25color=#78724C%25Marcus Cole]].%0a\ No newline at end of file%0a
+host:1385411466=190.105.65.183
+author:1385340356=Bottlecaps
+diff:1385340356:1384794040:=1c1%0a%3c %25color=#762216%25She may not be Uratha, but she -is- People and she -is- Pack. As a result she's as worthy of respect as any of us. [[Marcus Cole|%25color=#78724C%25Marcus Cole]].%0a\ No newline at end of file%0a---%0a> %25color=#762216%25She may not be Uratha, but she -is- People and she -is- Pack. As a result she's as worthy of respect as any of us. [[Players.EWQuote?action=edit|%25color=#78724C%25Marcus Cole]].%0a\ No newline at end of file%0a
+host:1385340356=50.147.19.4
+author:1384794040=Bottlecaps
+diff:1384794040:1384793578:=1c1%0a%3c %25color=#762216%25She may not be Uratha, but she -is- People and she -is- Pack. As a result she's as worthy of respect as any of us. [[Players.EWQuote?action=edit|%25color=#78724C%25Marcus Cole]].%0a\ No newline at end of file%0a---%0a> %25color=#222%25She may not be Uratha, but she -is- People and she -is- Pack. As a result she's as worthy of respect as any of us. [[Players.EWQuote?action=edit|%25color=#555%25Marcus Cole]].%0a\ No newline at end of file%0a
+host:1384794040=50.147.19.4
+author:1384793578=Bottlecaps
+csum:1384793578=put on quote pagey
+diff:1384793578:1384793578:=1d0%0a%3c %25color=#222%25She may not be Uratha, but she -is- People and she -is- Pack. As a result she's as worthy of respect as any of us. [[Players.EWQuote?action=edit|%25color=#555%25Marcus Cole]].%0a\ No newline at end of file%0a
+host:1384793578=50.147.19.4

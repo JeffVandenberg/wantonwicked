@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+author=JeffV
+charset=ISO-8859-1
+csum=
+ctime=1382295812
+host=173.17.121.105
+name=CityBook.WuLocations
+rev=2
+targets=
+text=(:title Whitefield U Campus:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%0a!Campus Locations%0a%0a* Library%0a* Science Building%0a* Art Building%0a* Humanities Building%0a%0a%0a(:include CityBook.Wunavigationbar:)
+time=1382328775
+title=Whitefield U Campus
+author:1382328775=JeffV
+diff:1382328775:1382295812:=5,9d4%0a%3c %0a%3c * Library%0a%3c * Science Building%0a%3c * Art Building%0a%3c * Humanities Building%0a
+host:1382328775=173.17.121.105
+author:1382295812=JillA
+diff:1382295812:1382295812:=1,7d0%0a%3c (:title Whitefield U Campus:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%3c %0a%3c !Campus Locations%0a%3c %0a%3c %0a%3c (:include CityBook.Wunavigationbar:)%0a\ No newline at end of file%0a
+host:1382295812=24.20.151.3

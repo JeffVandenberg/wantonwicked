@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36
+author=Setau
+charset=ISO-8859-1
+csum=
+ctime=1379880189
+host=70.195.6.79
+name=Players.Setau
+rev=1
+targets=
+text=!! Setau%0a%0aThis is an OOC landing page for my profile link for my OOC name.%0a%0a%0a!! Current Characters%0a%0aWerewolf the Forsaken:%0aRyan Brooks  -  A cat burglar that is currently working on reforming and becoming a security consultant%0a%0a%0aMage the Awakening:%0aMachi -  Thyrsus Mage with the Adamantine Arrow that works as a surgeon
+time=1379880189
+author:1379880189=Setau
+diff:1379880189:1379880189:=1,13d0%0a%3c !! Setau%0a%3c %0a%3c This is an OOC landing page for my profile link for my OOC name.%0a%3c %0a%3c %0a%3c !! Current Characters%0a%3c %0a%3c Werewolf the Forsaken:%0a%3c Ryan Brooks  -  A cat burglar that is currently working on reforming and becoming a security consultant%0a%3c %0a%3c %0a%3c Mage the Awakening:%0a%3c Machi -  Thyrsus Mage with the Adamantine Arrow that works as a surgeon%0a\ No newline at end of file%0a
+host:1379880189=70.195.6.79

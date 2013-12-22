@@ -1,0 +1,21 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=Sami
+charset=ISO-8859-1
+csum=
+ctime=1379536198
+host=84.238.20.58
+name=Players.EvangelineDorianQuote
+rev=3
+targets=Players.JackHNorth
+text="''%25color=#993300%25Crime, when it succeeds, is called virtue%25%25''"- '''[[ https://en.wikipedia.org/wiki/Seneca_the_Younger | %25black%25Lucius Annaeus Seneca%25%25]]'''%0a%0a"''%25color=#993300%25I've heard some funny stories about her. We've only been briefly introduced, but I gotta say, I like a woman who knows how to mix an old fashioned. %25%25''"- '''[[JackHNorth| %25black%25Hunter%25%25]]'''
+time=1379829004
+author:1379829004=Sami
+diff:1379829004:1379536390:=1,3c1%0a%3c "''%25color=#993300%25Crime, when it succeeds, is called virtue%25%25''"- '''[[ https://en.wikipedia.org/wiki/Seneca_the_Younger | %25black%25Lucius Annaeus Seneca%25%25]]'''%0a%3c %0a%3c "''%25color=#993300%25I've heard some funny stories about her. We've only been briefly introduced, but I gotta say, I like a woman who knows how to mix an old fashioned. %25%25''"- '''[[JackHNorth| %25black%25Hunter%25%25]]'''%0a\ No newline at end of file%0a---%0a> "''%25color=#993300%25Crime, when it succeeds, is called virtue%25%25''"- '''[[ https://en.wikipedia.org/wiki/Seneca_the_Younger | %25black%25Lucius Annaeus Seneca%25%25]]'''%0a\ No newline at end of file%0a
+host:1379829004=84.238.20.58
+author:1379536390=Euphoric_Goth
+diff:1379536390:1379536198:=1c1%0a%3c "''%25color=#993300%25Crime, when it succeeds, is called virtue%25%25''"- '''[[ https://en.wikipedia.org/wiki/Seneca_the_Younger | %25black%25Lucius Annaeus Seneca%25%25]]'''%0a\ No newline at end of file%0a---%0a> "''%25color=#993300%25Crime, when it succeeds, is called virtue%25%25''"- [[ https://en.wikipedia.org/wiki/Seneca_the_Younger | %25black%25Lucius Annaeus Seneca%25%25]]%0a\ No newline at end of file%0a
+host:1379536390=80.212.49.151
+author:1379536198=Euphoric_Goth
+diff:1379536198:1379536198:=1d0%0a%3c "''%25color=#993300%25Crime, when it succeeds, is called virtue%25%25''"- [[ https://en.wikipedia.org/wiki/Seneca_the_Younger | %25black%25Lucius Annaeus Seneca%25%25]]%0a\ No newline at end of file%0a
+host:1379536198=80.212.49.151

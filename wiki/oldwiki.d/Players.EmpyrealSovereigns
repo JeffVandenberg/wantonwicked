@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1378964240
+host=24.20.151.3
+name=Players.EmpyrealSovereigns
+rev=2
+targets=
+text=[[#top]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/worldofdarknessmortal.png%0a(:title Empyreal Sovereigns:)%0a%0a(:include GameRef.WodMMaster#C-ES#C-ESEnd:)%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1378964279
+title=Empyreal Sovereigns
+author:1378964279=JillA
+diff:1378964279:1378964240:=5c5%0a%3c (:include GameRef.WodMMaster#C-ES#C-ESEnd:)%0a---%0a> (:include GameRef.WodMMaster#C-Es#C-ESEnd:)%0a
+host:1378964279=24.20.151.3
+author:1378964240=JillA
+diff:1378964240:1378964240:=1,7d0%0a%3c [[#top]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/worldofdarknessmortal.png%0a%3c (:title Empyreal Sovereigns:)%0a%3c %0a%3c (:include GameRef.WodMMaster#C-Es#C-ESEnd:)%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1378964240=24.20.151.3

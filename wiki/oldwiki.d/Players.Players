@@ -1,0 +1,100 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+author=Kitsuiko
+charset=ISO-8859-1
+csum=
+ctime=1373311376
+host=24.177.193.227
+name=Players.Players
+rev=29
+targets=GameRef.GeneralHouseRules,Players.ChangelingCharacters,Players.MageCharacters,Players.MortalCharacters,Players.VampireCharacters,Players.WerewolfCharacters
+text=(:title The Cast:)%0a[[#top]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a %0aBefore creating your character wiki, remember to read our [[GameRef.GeneralHouseRules#CW|House Rules]]!%0a%0a*[[#Ling|Changelings and Touched]] %0a*[[#Mage|Mages and Sleepwalkers]]%0a*[[#WoD|Mortals]]%0a*[[#Vamp|Vampires and Ghouls]]%0a*[[#Were|Werewolves and Wolfblooded]]%0a%0a%0a[[#Ling]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_changeling.png%0a(:toggle hide CtLP:)%0a>>id=CtLP border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%25color=green%25[[Players.ChangelingCharacters?action=edit|Edit this section]]%25%25%0a(:include Players.ChangelingCharacters#PC#PCEnd:)%0a>>%3c%3c%0a[--%25color=#365776%25[[#top| Back to top]]--]%0a[[#Mage]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_mage.png%0a(:toggle hide MtAP:)%0a>>id=MtAP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a%25color=#1b9ad0%25[[Players.MageCharacters?action=edit|Edit this section]]%25%25 %0a(:include Players.MageCharacters#PC#PCEnd:)%0a>>%3c%3c%0a[--%25color=#365776%25[[#top| Back to top]]--]%0a[[#WoD]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_mortal.png%0a(:toggle hide WoDP:)%0a>>id=WoDP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a%25color=#6e68a3%25[[Players.MortalCharacters?action=edit|Edit this section]]%25%25%0a(:include Players.MortalCharacters#PC#PCEnd:)%0a>>%3c%3c%0a[--%25color=#365776%25[[#top| Back to top]]--]%0a[[#Vamp]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_vampire.png%0a(:toggle hide VtRP:)%0a>>id=VtRP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a%25color=#9e0b0f%25[[Players.VampireCharacters?action=edit|Edit this section]]%25%25%0a(:include Players.VampireCharacters#PC#PCEnd:)%0a>>%3c%3c%0a[--%25color=#365776%25[[#top| Back to top]]--]%0a[[#Were]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_werewolf.png%0a(:toggle hide WtFP:)%0a>>id=WtFP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a%25color=#996600%25[[Players.WerewolfCharacters?action=edit|Edit this section]]%25%25%0a(:include Players.WerewolfCharacters#PC#PCEnd:)%0a>>%3c%3c%0a[--%25color=#365776%25[[#top| Back to top]]--]%0a%0a----%0a(:include CityBook.Directory:)
+time=1385175741
+title=The Cast
+author:1385175741=Kitsuiko
+diff:1385175741:1385175732:=4c4%0a%3c  %0a---%0a> [[0]]%0a
+host:1385175741=24.177.193.227
+author:1385175732=Kitsuiko
+diff:1385175732:1379380392:=4c4%0a%3c [[0]]%0a---%0a> %0a
+host:1385175732=24.177.193.227
+author:1379380392=JillA
+diff:1379380392:1379205573:=4,5d3%0a%3c %0a%3c Before creating your character wiki, remember to read our [[GameRef.GeneralHouseRules#CW|House Rules]]!%0a
+host:1379380392=24.20.151.3
+author:1379205573=ThomasH
+diff:1379205573:1379205109:=37c37%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_vampire.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/%0a
+host:1379205573=67.238.250.80
+author:1379205109=ThomasH
+diff:1379205109:1378770020:=8d7%0a%3c *[[#Vamp|Vampires and Ghouls]]%0a34,41d32%0a%3c >>%3c%3c%0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c [[#Vamp]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/%0a%3c (:toggle hide VtRP:)%0a%3c >>id=VtRP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a%3c %25color=#9e0b0f%25[[Players.VampireCharacters?action=edit|Edit this section]]%25%25%0a%3c (:include Players.VampireCharacters#PC#PCEnd:)%0a
+host:1379205109=67.238.250.80
+author:1378770020=JillA
+diff:1378770020:1378770012:=44d43%0a%3c ----%0a
+host:1378770020=24.20.151.3
+author:1378770012=JillA
+diff:1378770012:1378080406:=3,4c3%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a---%0a> %0a42,44c41%0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a---%0a> [--%25color=#365776%25[[#top| Back to top]]--]%0a\ No newline at end of file%0a
+host:1378770012=24.20.151.3
+author:1378080406=JillA
+diff:1378080406:1377877655:=6a7%0a> *[[#Vamp|Vampires and Ghouls]]%0a
+host:1378080406=24.20.151.3
+author:1377877655=ThomasH
+diff:1377877655:1377674538:=7d6%0a%3c *[[#Vamp|Vampires and Ghouls]]%0a
+host:1377877655=71.0.16.129
+author:1377674538=JillA
+diff:1377674538:1377674505:=6a7%0a> *[[#Vamp|Vampires and Ghouls]]%0a31a33,40%0a> >>%3c%3c%0a> [--%25color=#365776%25[[#top| Back to top]]--]%0a> [[#Vamp]]%0a> http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_vampire.png%0a> (:toggle hide VtMP:)%0a> >>id=VtMP border='0px solid #999' padding=5px bgcolor=#black%3c%3c  %0a> %25color=#A00000%25[[Players.VampireCharacters?action=edit|Edit this section]]%25%25%0a> (:include Players.VampireCharacters#PC#PCEnd:)%0a
+host:1377674538=24.20.151.3
+author:1377674505=JillA
+diff:1377674505:1377513885:=16c16%0a%3c (:include Players.ChangelingCharacters#PC#PCEnd:)%0a---%0a> (:include ChangelingCharacters#PC#PCEnd:)%0a
+host:1377674505=24.20.151.3
+author:1377513885=JillA
+diff:1377513885:1377513803:=16c16%0a%3c (:include ChangelingCharacters#PC#PCEnd:)%0a---%0a> (:include ChangelingCharacters:)%0a32c32%0a%3c (:include Players.MortalCharacters#PC#PCEnd:)%0a---%0a> (:include Players.MortalCharacters:)%0a40c40%0a%3c (:include Players.VampireCharacters#PC#PCEnd:)%0a---%0a> (:include Players.VampireCharacters:)%0a48c48%0a%3c (:include Players.WerewolfCharacters#PC#PCEnd:)%0a---%0a> (:include Players.WerewolfCharacters:)%0a
+host:1377513885=24.20.151.3
+author:1377513803=JillA
+diff:1377513803:1377507156:=1c1%0a%3c (:title The Cast:)%0a---%0a> (:title Player Characters:)%0a3c3,10%0a%3c %0a---%0a> [++''' '''++]%0a> %0a> (:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a> (:cellnr align=center:)%0a> (:cellnr:)%0a> (:cellnr bgcolor=#365776 align=center:)%0a> '''Contents'''%0a> (:cellnr:)%0a10c17%0a%3c %0a---%0a> (:tableend:)%0a
+host:1377513803=24.20.151.3
+author:1377507156=JillA
+diff:1377507156:1377507046:=31c31%0a%3c (:include Players.MageCharacters#PC#PCEnd:)%0a---%0a> (:include Players.MageCharacters:)%0a
+host:1377507156=24.20.151.3
+author:1377507046=JillA
+diff:1377507046:1377506517:=24a25%0a> %0a25a27%0a> %0a38a41%0a> %0a41a45%0a> %0a49a54%0a> %0a
+host:1377507046=24.20.151.3
+author:1377506517=JillA
+diff:1377506517:1377473478:=19c19,20%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_changeling.png%0a---%0a> http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/CtL/180px-ChangelingLogo.png%0a> %0a29c30,31%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_mage.png%0a---%0a> http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/MtA/180px-MageAwakeningLogo.png%0a> %0a37c39,40%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_mortal.png%0a---%0a> http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/180px-World_of_Darkness_Logo.png%0a> %0a47c50,51%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_vampire.png%0a---%0a> http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/VtR/180px-VampireRequiemLogo.png%0a> %0a56c60,61%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_werewolf.png%0a---%0a> http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/WtF/180px-WerewolfForsakenLogo.png%0a> %0a
+host:1377506517=24.20.151.3
+author:1377473478=ThomasH
+diff:1377473478:1377473225:=34c34%0a%3c %25color=#1b9ad0%25[[Players.MageCharacters?action=edit|Edit this section]]%25%25 %0a---%0a> %25color=#3BA6A0%25[[Players.MageCharacters?action=edit|Edit this section]]%25%25 %0a
+host:1377473478=71.0.16.129
+author:1377473225=ThomasH
+diff:1377473225:1377473186:=45c45%0a%3c (:include Players.MortalCharacters:)%0a---%0a> (:include Players.WoDCharacters:)%0a
+host:1377473225=71.0.16.129
+author:1377473186=ThomasH
+diff:1377473186:1377473114:=11c11%0a%3c *[[#Ling|Changelings and Touched]] %0a---%0a> *[[#Ling|Changelings]] %0a
+host:1377473186=71.0.16.129
+author:1377473114=ThomasH
+diff:1377473114:1377472094:=43c43%0a%3c %25color=#6e68a3%25[[Players.MortalCharacters?action=edit|Edit this section]]%25%25%0a---%0a> %25color=#365776%25[[Players.WoDCharacters?action=edit|Edit this section]]%25%25%0a
+host:1377473114=71.0.16.129
+author:1377472094=ThomasH
+diff:1377472094:1377472072:=23c23%0a%3c %25color=green%25[[Players.ChangelingCharacters?action=edit|Edit this section]]%25%25%0a---%0a> %25%25color=green%25%25[[Players.ChangelingCharacters?action=edit|Edit this section]]%25%25%0a
+host:1377472094=71.0.16.129
+author:1377472072=ThomasH
+diff:1377472072:1377460435:=23d22%0a%3c %25%25color=green%25%25[[Players.ChangelingCharacters?action=edit|Edit this section]]%25%25%0a67c66%0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a\ No newline at end of file%0a---%0a> [--%25color=#365776%25[[#top| Back to top]]--]%0a
+host:1377472072=71.0.16.129
+author:1377460435=ThomasH
+diff:1377460435:1377460357:=10,12c10%0a%3c (:cellnr:)%0a%3c *[[#Ling|Changelings]] %0a%3c *[[#Mage|Mages and Sleepwalkers]]%0a---%0a> (:cellnr:) %0a14a13%0a> *[[#Mage|Mages and Sleepwalkers]]%0a16c15%0a%3c %0a---%0a> *[[#Ling|Changelings]]%0a23c22%0a%3c (:include ChangelingCharacters:)%0a---%0a> (:include ChangelingCharacters#ctltop#ctlbottom:)%0a66a66%0a> %0a
+host:1377460435=71.0.16.129
+author:1377460357=ThomasH
+diff:1377460357:1377304150:=1d0%0a%3c (:title Player Characters:)%0a21,22c20,23%0a%3c >>id=CtLP border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include ChangelingCharacters#ctltop#ctlbottom:)%0a---%0a> >>id=CtLP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a> %25green%25[[Players.ChangelingCharacters?action=edit|Edit this section]]%25%25%0a> %0a> (:include Players.ChangelingCharacters:)%0a66a68,69%0a> %0a> (:title Player Characters:)%0a\ No newline at end of file%0a
+host:1377460357=71.0.16.129
+author:1377304150=ThomasH
+diff:1377304150:1377112046:=16,23c16,24%0a%3c [[#Ling]]%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/CtL/180px-ChangelingLogo.png%0a%3c %0a%3c (:toggle hide CtLP:)%0a%3c >>id=CtLP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a%3c %25green%25[[Players.ChangelingCharacters?action=edit|Edit this section]]%25%25%0a%3c %0a%3c (:include Players.ChangelingCharacters:)%0a---%0a> %0a> [[#WoD]]%0a> http://i68.photobucket.com/albums/i5/Aramil98/180px-World_of_Darkness_Logo.png%0a> %0a> (:toggle hide WoDP:)%0a> >>id=WoDP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a> %25color=#365776%25[[Players.WoDCharacters?action=edit|Edit this section]]%25%25%0a> %0a> (:include Players.WoDCharacters:)%0a25d25%0a%3c %0a27a28,37%0a> [[#Vamp]]%0a> http://i68.photobucket.com/albums/i5/Aramil98/180px-VampireRequiemLogo.png%0a> %0a> (:toggle hide VtMP:)%0a> >>id=VtMP border='0px solid #999' padding=5px bgcolor=#black%3c%3c  %0a> %25color=#A00000%25[[Players.VampireCharacters?action=edit|Edit this section]]%25%25%0a> (:include Players.VampireCharacters:)%0a> >>%3c%3c%0a> [--%25color=#365776%25[[#top| Back to top]]--]%0a> %0a29,30c39,40%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/MtA/180px-MageAwakeningLogo.png%0a%3c %0a---%0a> http://i68.photobucket.com/albums/i5/Aramil98/180px-MageAwakeningLogo.png%0a> %0a37,44c47,54%0a%3c [[#WoD]]%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/180px-World_of_Darkness_Logo.png%0a%3c %0a%3c (:toggle hide WoDP:)%0a%3c >>id=WoDP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a%3c %25color=#365776%25[[Players.WoDCharacters?action=edit|Edit this section]]%25%25%0a%3c %0a%3c (:include Players.WoDCharacters:)%0a---%0a> %0a> [[#Were]]%0a> http://i68.photobucket.com/albums/i5/Aramil98/180px-WerewolfForsakenLogo.png%0a> %0a> (:toggle hide WtFP:)%0a> >>id=WtFP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a> %25color=#996600%25[[Players.WerewolfCharacters?action=edit|Edit this section]]%25%25%0a> (:include Players.WerewolfCharacters:)%0a47,54c57,64%0a%3c %0a%3c [[#Vamp]]%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/VtR/180px-VampireRequiemLogo.png%0a%3c %0a%3c (:toggle hide VtMP:)%0a%3c >>id=VtMP border='0px solid #999' padding=5px bgcolor=#black%3c%3c  %0a%3c %25color=#A00000%25[[Players.VampireCharacters?action=edit|Edit this section]]%25%25%0a%3c (:include Players.VampireCharacters:)%0a---%0a> [[#Ling]]%0a> http://i68.photobucket.com/albums/i5/Aramil98/180px-ChangelingLogo.png%0a> %0a> (:toggle hide CtLP:)%0a> >>id=CtLP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a> %25green%25[[Players.ChangelingCharacters?action=edit|Edit this section]]%25%25%0a> %0a> (:include Players.ChangelingCharacters:)%0a55a66%0a> %0a57,67d67%0a%3c %0a%3c [[#Were]]%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/WtF/180px-WerewolfForsakenLogo.png%0a%3c %0a%3c (:toggle hide WtFP:)%0a%3c >>id=WtFP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a%3c %25color=#996600%25[[Players.WerewolfCharacters?action=edit|Edit this section]]%25%25%0a%3c (:include Players.WerewolfCharacters:)%0a%3c >>%3c%3c%0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a
+host:1377304150=71.0.16.129
+author:1377112046=HunterV
+diff:1377112046:1374944819:=12c12%0a%3c *[[#Mage|Mages and Sleepwalkers]]%0a---%0a> *[[#Mage|Mages and Proximi]]%0a
+host:1377112046=74.131.61.37
+author:1374944819=ThomasH
+diff:1374944819:1373312084:=20,21c20,21%0a%3c (:toggle hide WoDP:)%0a%3c >>id=WoDP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a---%0a> (:toggle id=box1 init=hide button=1:)%0a> >>id=box1 border='1px solid #999' padding=5px bgcolor=#black%3c%3c %0a31,32c31,32%0a%3c (:toggle hide VtMP:)%0a%3c >>id=VtMP border='0px solid #999' padding=5px bgcolor=#black%3c%3c  %0a---%0a> (:toggle id=box5 init=hide button=1:)%0a> >>id=box5 border='1px solid #999' padding=5px bgcolor=#black%3c%3c %0a41,42c41,42%0a%3c (:toggle hide MtAP:)%0a%3c >>id=MtAP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a---%0a> (:toggle id=box7 init=hide button=1:)%0a> >>id=box7 border='1px solid #999' padding=5px bgcolor=#black%3c%3c%0a51,52c51,52%0a%3c (:toggle hide WtFP:)%0a%3c >>id=WtFP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a---%0a> (:toggle id=box9 init=hide button=1:)%0a> >>id=box9 border='1px solid #999' padding=5px bgcolor=#black%3c%3c %0a60,61c60,61%0a%3c (:toggle hide CtLP:)%0a%3c >>id=CtLP border='0px solid #999' padding=5px bgcolor=#black%3c%3c %0a---%0a> (:toggle id=box11 init=hide button=1:)%0a> >>id=box11 border='1px solid #999' padding=5px bgcolor=#black%3c%3c %0a
+host:1374944819=71.0.16.129
+author:1373312084=ThomasH
+diff:1373312084:1373311376:=18,19c18,19%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/180px-World_of_Darkness_Logo.png%0a%3c %0a---%0a> http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/WoDheader.png%0a> %0a25a26,27%0a> %0a> %0a27a30%0a> %0a29,30c32,33%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/180px-VampireRequiemLogo.png%0a%3c %0a---%0a> http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/VampireHeader.png%0a> %0a33a37%0a> %0a35a40%0a> %0a37a43%0a> %0a39,40c45,46%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/180px-MageAwakeningLogo.png%0a%3c %0a---%0a> http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/Mageheader.png%0a> %0a45a52%0a> %0a47a55%0a> %0a49,50c57,58%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/180px-WerewolfForsakenLogo.png%0a%3c %0a---%0a> http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/WerewolfHeader.png%0a> %0a55a64%0a> %0a56a66,67%0a> %0a> %0a58,59c69,70%0a%3c http://i68.photobucket.com/albums/i5/Aramil98/180px-ChangelingLogo.png%0a%3c %0a---%0a> http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/Changelingheader.png%0a> %0a65a77%0a> %0a
+host:1373312084=71.0.16.129
+author:1373311376=ThomasH
+diff:1373311376:1373311376:=1,81d0%0a%3c [[#top]]%0a%3c [++''' '''++]%0a%3c %0a%3c (:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a%3c (:cellnr align=center:)%0a%3c (:cellnr:)%0a%3c (:cellnr bgcolor=#365776 align=center:)%0a%3c '''Contents'''%0a%3c (:cellnr:) %0a%3c *[[#WoD|Mortals]]%0a%3c *[[#Vamp|Vampires and Ghouls]]%0a%3c *[[#Mage|Mages and Proximi]]%0a%3c *[[#Were|Werewolves and Wolfblooded]]%0a%3c *[[#Ling|Changelings]]%0a%3c (:tableend:)%0a%3c %0a%3c [[#WoD]]%0a%3c http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/WoDheader.png%0a%3c %0a%3c (:toggle id=box1 init=hide button=1:)%0a%3c >>id=box1 border='1px solid #999' padding=5px bgcolor=#black%3c%3c %0a%3c %25color=#365776%25[[Players.WoDCharacters?action=edit|Edit this section]]%25%25%0a%3c %0a%3c (:include Players.WoDCharacters:)%0a%3c >>%3c%3c%0a%3c %0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c %0a%3c [[#Vamp]]%0a%3c http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/VampireHeader.png%0a%3c %0a%3c (:toggle id=box5 init=hide button=1:)%0a%3c >>id=box5 border='1px solid #999' padding=5px bgcolor=#black%3c%3c %0a%3c %25color=#A00000%25[[Players.VampireCharacters?action=edit|Edit this section]]%25%25%0a%3c %0a%3c (:include Players.VampireCharacters:)%0a%3c >>%3c%3c%0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c %0a%3c [[#Mage]]%0a%3c http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/Mageheader.png%0a%3c %0a%3c (:toggle id=box7 init=hide button=1:)%0a%3c >>id=box7 border='1px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c %25color=#3BA6A0%25[[Players.MageCharacters?action=edit|Edit this section]]%25%25 %0a%3c (:include Players.MageCharacters:)%0a%3c >>%3c%3c%0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c %0a%3c [[#Were]]%0a%3c http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/WerewolfHeader.png%0a%3c %0a%3c (:toggle id=box9 init=hide button=1:)%0a%3c >>id=box9 border='1px solid #999' padding=5px bgcolor=#black%3c%3c %0a%3c %25color=#996600%25[[Players.WerewolfCharacters?action=edit|Edit this section]]%25%25%0a%3c (:include Players.WerewolfCharacters:)%0a%3c >>%3c%3c%0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c %0a%3c [[#Ling]]%0a%3c http://i1189.photobucket.com/albums/z424/anne_wtf/wantonwicked/Changelingheader.png%0a%3c %0a%3c (:toggle id=box11 init=hide button=1:)%0a%3c >>id=box11 border='1px solid #999' padding=5px bgcolor=#black%3c%3c %0a%3c %25green%25[[Players.ChangelingCharacters?action=edit|Edit this section]]%25%25%0a%3c %0a%3c (:include Players.ChangelingCharacters:)%0a%3c >>%3c%3c%0a%3c %0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c (:title Player Characters:)%0a\ No newline at end of file%0a
+host:1373311376=71.0.16.129

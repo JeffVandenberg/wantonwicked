@@ -1,0 +1,48 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Kitsuiko
+charset=ISO-8859-1
+csum=
+ctime=1382848673
+host=24.177.193.227
+name=Players.GenevieveKeen
+rev=12
+targets=Players.Cerberus,Players.577,Players.VincentCrane,Players.LouDrechsler,Players.KadenDavis,Players.Cheshire,Players.Tracer,Players.AmberRaeVolmer
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a!!%25white%25Genevieve Keen%25white%25%0a(:cellnr rowspan=25 width=400 align=center:)%0ahttp://i21.photobucket.com/albums/b279/darkestdreaming/0f5bcb78-0741-4cdd-8a3a-bdc0ba5fc03f_zps6fe1df12.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 18%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) 18%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'4"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Petite%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Student%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) %0a%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) WGS%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:tableend:)%0ahttp://cs319726.vk.me/v319726545/284c/tOizlcWnvSs.jpg%0a%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0aFull time student at South University Savannah%0a%0aWorks at Market Eats%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0aUncle [[Cerberus]]%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a''What Others have to Say about you''%0a%0a''"Lil Eve's a little naive, but a ton of funny.  Side from family beef, I wouldn't mind see'n her round the PH more off'n."'' - [[577]]%0a%0a''"The girl has a heart of gold, and an amazing view of life. Makes people feel like the world is a better place because of her, or a darker place for them not being more like her. I hope she holds on to that innocence"'' - [[Vincent Crane]]%0a%0a''"I look around her, and all I see are people that want. They want things from her, some knowingly, others not. I've seen it, and now I can't just do nothing. I've made a stand, drawn a line in the dirt. I think I've bitten off more than I can chew, but it's done. Now all that's left is to see it through."'' - [[Lou Drechsler]]%0a%0a''"Everyone needs someone like her with in their lives. I enjoy tormenting her with being bad, but she is a good at her internship. Now she is one of my closer friends"'' -[[Kaden Davis|%25color=#33CC99%25&copy;]]%0a%0a''"Only a few find the way, some don't recognize it when they do - some... don't ever want to"'' - [[Cheshire]]%0a%0a''“There’s always something to look at if you open your eyes!”'' -[[Tracer]]%0a%0a''"Yer probably 'spectin' me to say somethin' either 'bout how weak I think she is or 'bout how I wish I was someone like her insteada who I am.  Naw.  Girlie's Girlie and I know who I am.  Jes wish people'd lay off an' let her grow t'see who she is, too."'' -[[Amber Rae Volmer]]%0a[[%3c%3c]]%0a%0a(:include CityBook.MageNavigationBar:)
+time=1387002673
+author:1387002673=Kitsuiko
+diff:1387002673:1386761702:=58d57%0a%3c ''"Yer probably 'spectin' me to say somethin' either 'bout how weak I think she is or 'bout how I wish I was someone like her insteada who I am.  Naw.  Girlie's Girlie and I know who I am.  Jes wish people'd lay off an' let her grow t'see who she is, too."'' -[[Amber Rae Volmer]]%0a
+host:1387002673=24.177.193.227
+author:1386761702=indywrecked
+diff:1386761702:1386754300:=50c50%0a%3c ''"I look around her, and all I see are people that want. They want things from her, some knowingly, others not. I've seen it, and now I can't just do nothing. I've made a stand, drawn a line in the dirt. I think I've bitten off more than I can chew, but it's done. Now all that's left is to see it through."'' - [[Lou Drechsler]]%0a---%0a> ''"She works hard, studies hard. She's driven, but I wonder what the goal is. Hope she finds it though, she's a good kid. Goofy drunk too. Needs more friends her own age though I think."'' - [[Lou Drechsler]]%0a
+host:1386761702=68.189.9.97
+author:1386754300=BreadMage
+diff:1386754300:1386408134:=55,56d54%0a%3c %0a%3c ''“There’s always something to look at if you open your eyes!”'' -[[Tracer]]%0a
+host:1386754300=67.61.242.152
+author:1386408134=Lydor
+diff:1386408134:1386010583:=53,55d52%0a%3c %0a%3c ''"Only a few find the way, some don't recognize it when they do - some... don't ever want to"'' - [[Cheshire]]%0a%3c %0a
+host:1386408134=67.61.242.152
+author:1386010583=forestdevil
+diff:1386010583:1386003037:=3c3%0a%3c !!%25white%25Genevieve Keen%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1386010583=82.26.105.71
+author:1386003037=Bottlecaps
+diff:1386003037:1385967620:=52d51%0a%3c ''"Everyone needs someone like her with in their lives. I enjoy tormenting her with being bad, but she is a good at her internship. Now she is one of my closer friends"'' -[[Kaden Davis|%25color=#33CC99%25&copy;]]%0a
+host:1386003037=50.147.19.4
+author:1385967620=indywrecked
+diff:1385967620:1385800147:=49,50d48%0a%3c %0a%3c ''"She works hard, studies hard. She's driven, but I wonder what the goal is. Hope she finds it though, she's a good kid. Goofy drunk too. Needs more friends her own age though I think."'' - [[Lou Drechsler]]%0a
+host:1385967620=68.189.9.97
+author:1385800147=Lydor
+diff:1385800147:1384884879:=47,48d46%0a%3c %0a%3c ''"The girl has a heart of gold, and an amazing view of life. Makes people feel like the world is a better place because of her, or a darker place for them not being more like her. I hope she holds on to that innocence"'' - [[Vincent Crane]]%0a
+host:1385800147=67.61.242.152
+author:1384884879=Rho
+diff:1384884879:1382848972:=45,47d44%0a%3c %0a%3c ''"Lil Eve's a little naive, but a ton of funny.  Side from family beef, I wouldn't mind see'n her round the PH more off'n."'' - [[577]]%0a%3c %0a
+host:1384884879=74.131.173.38
+author:1382848972=WGS
+diff:1382848972:1382848833:=5c5%0a%3c http://i21.photobucket.com/albums/b279/darkestdreaming/0f5bcb78-0741-4cdd-8a3a-bdc0ba5fc03f_zps6fe1df12.jpg%0a---%0a> http://i21.photobucket.com/albums/b279/darkestdreaming/Genivieve_zpscbe7db1f.jpg%0a
+host:1382848972=98.202.0.164
+author:1382848833=WGS
+diff:1382848833:1382848673:=27,28d26%0a%3c http://cs319726.vk.me/v319726545/284c/tOizlcWnvSs.jpg%0a%3c %0a
+host:1382848833=98.202.0.164
+author:1382848673=WGS
+diff:1382848673:1382848673:=1,45d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=25 width=400 align=center:)%0a%3c http://i21.photobucket.com/albums/b279/darkestdreaming/Genivieve_zpscbe7db1f.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 18%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) 18%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 5'4"%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Petite%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Student%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) %0a%3c %0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) WGS%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a%3c %0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a%3c %0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a%3c Full time student at South University Savannah%0a%3c %0a%3c Works at Market Eats%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a%3c Uncle [[Cerberus]]%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1382848673=98.202.0.164

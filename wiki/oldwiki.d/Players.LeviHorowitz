@@ -1,0 +1,36 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Kitsuiko
+charset=ISO-8859-1
+csum=
+ctime=1387152647
+host=24.177.193.227
+name=Players.LeviHorowitz
+rev=8
+targets=Players.AmberRaeVolmer
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a!!%25white%25Levi Horowitz%25white%25%0a(:cellnr rowspan=25 width=400 align=center:) http://i.imgur.com/9rMUHzU.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 21%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) 21%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'9~%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Slim%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Pianist/Student%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Destiny (Prodigal Son), Fame 1 (Youth Pianist), Somnambulist 4%0a%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Nostalgic%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:tableend:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a''Place your Description Here''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a''Place your Public History Here''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a''What Others have to Say about you''%0a%0a*''"Life's got a fuck'n strange sense of humor, right?"''%0a->%25right%25[- - ''[[Amber Rae Volmer]]''-]%0a[[%3c%3c]]%0a%0a(:include CityBook.MageNavigationBar:)
+time=1387651026
+author:1387651026=Kitsuiko
+diff:1387651026:1387651001:=41,42c41,42%0a%3c *''"Life's got a fuck'n strange sense of humor, right?"''%0a%3c ->%25right%25[- - ''[[Amber Rae Volmer]]''-]%0a---%0a> *%25color=#004a80%25''"Life's got a fuck'n strange sense of humor, right?"''%0a> ->%25right%25%25color=#004a80%25[- - ''[[Amber Rae Volmer]]''-]%0a
+host:1387651026=24.177.193.227
+author:1387651001=Kitsuiko
+diff:1387651001:1387186526:=40,42d39%0a%3c %0a%3c *%25color=#004a80%25''"Life's got a fuck'n strange sense of humor, right?"''%0a%3c ->%25right%25%25color=#004a80%25[- - ''[[Amber Rae Volmer]]''-]%0a
+host:1387651001=24.177.193.227
+author:1387186526=Kitsuiko
+diff:1387186526:1387153640:=3c3%0a%3c !!%25white%25Levi Horowitz%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1387186526=24.177.193.227
+author:1387153640=Nostalgic
+diff:1387153640:1387152861:=4c4%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://i.imgur.com/9rMUHzU.jpg%0a---%0a> (:cellnr rowspan=25 width=400 align=center:) http://i.imgur.com/psrkvkb.jpg?2%0a
+host:1387153640=76.237.93.155
+author:1387152861=Nostalgic
+diff:1387152861:1387152833:=4c4%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://i.imgur.com/psrkvkb.jpg?2%0a---%0a> (:cellnr rowspan=25 width=400 align=center:) http://imgur.com/psrkvkb%0a
+host:1387152861=76.237.93.155
+author:1387152833=Nostalgic
+diff:1387152833:1387152704:=4c4%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://imgur.com/psrkvkb%0a---%0a> (:cellnr rowspan=25 width=375 align=center:) http://i.imgur.com/psrkvkb.jpg%0a
+host:1387152833=76.237.93.155
+author:1387152704=Nostalgic
+diff:1387152704:1387152647:=4c4%0a%3c (:cellnr rowspan=25 width=375 align=center:) http://i.imgur.com/psrkvkb.jpg%0a---%0a> (:cellnr rowspan=25 width=400 align=center:) http://i.imgur.com/psrkvkb.jpg?1?8751%0a
+host:1387152704=76.237.93.155
+author:1387152647=Nostalgic
+diff:1387152647:1387152647:=1,42d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://i.imgur.com/psrkvkb.jpg?1?8751%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 21%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) 21%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 5'9~%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Slim%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Pianist/Student%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Destiny (Prodigal Son), Fame 1 (Youth Pianist), Somnambulist 4%0a%3c %0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) Nostalgic%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1387152647=76.237.93.155

@@ -1,0 +1,34 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1380395521
+host=98.232.234.158
+name=CityBook.CalhounLodge
+rev=7
+targets=CityBook.Mage,CityBook.SavannahNationalWildlifeRefuge,CityBook.CityBook
+text=(:title Calhoun Lodge:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/mta.png%0a%0aReturn to: [[CityBook.Mage|Venue Locations]], [[CityBook.SavannahNationalWildlifeRefuge|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!Calhoun Lodge , Sanctum Sanctorum  of the Shaman Kudzu.%0a%0a'''District:''' [[CityBook.SavannahNationalWildlifeRefuge|Savannah National Wildlife Refuge]]%0a%0ahttp://www.e-torch.org/wp-content/uploads/2013/04/kudzuUGA.jpg http://cdn2-b.examiner.com/sites/default/files/styles/image_content_width/hash/1e/a7/1ea7bcbe4c090de4a6a9eaf0b15958a8.jpg%0a'''Description:'''Formally Owned by the Calhoun Family but most obviosuly having not seen habitation for many years, this cabin lodge is located deep in the woods upon the large island that sits between the bends of the Steamboat river and the mighty Savannah River. Centered in a glade and maze of Thornberry , Kudzu, Verbena , Wolfsbane and Poison Ivy one doesn't have to wonder why it hasn't been visited in years but rumor says someone has claimed the area and visits it regularly for the past year. During the warmer time of spring and summer many Hummingbirds and Butterflies call the clearing home.%0a%0a'''Resonance:''' Spiritual and Alive%0a%0a'''Territory:''' Claimed by the [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.Kudzu| Shaman Kudzu]] under the Lex Arcana of the City and Consilium of Savanah.%0a[[#locationend]]%0a%0a'''Guardians:'''  [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.Rihmatha'umma-lil| Stranglethorn]]%0a[[#locationend]]%0a%0a----%0a(:include CityBook.Directory:)
+time=1386812639
+title=Calhoun Lodge
+author:1386812639=JillA
+diff:1386812639:1381005411:=1,2c1,2%0a%3c (:title Calhoun Lodge:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/mta.png%0a---%0a> (:title location name:)%0a> '-http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png-'%0a
+host:1386812639=98.232.234.158
+author:1381005411=Worldwalker
+diff:1381005411:1380407877:=
+host:1381005411=162.195.67.141
+author:1380407877=JillA
+diff:1380407877:1380399687:=4c4%0a%3c Return to: [[CityBook.Mage|Venue Locations]], [[CityBook.SavannahNationalWildlifeRefuge|District Locations]], [[CityBook.CityBook|The City]]%0a---%0a> Return to: [[CityBook.?|Venue Locations]], [[CityBook.SavannahNationalWildlifeRefuge|District Locations]], [[CityBook.CityBook|The City]]%0a
+host:1380407877=24.20.151.3
+author:1380399687=Worldwalker
+diff:1380399687:1380398066:=17,19d16%0a%3c [[#locationend]]%0a%3c %0a%3c '''Guardians:'''  [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.Rihmatha'umma-lil| Stranglethorn]]%0a
+host:1380399687=162.195.67.141
+author:1380398066=Worldwalker
+diff:1380398066:1380396066:=16c16%0a%3c '''Territory:''' Claimed by the [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.Kudzu| Shaman Kudzu]] under the Lex Arcana of the City and Consilium of Savanah.%0a---%0a> '''Territory:''' Claimed by the Shaman Kudzu under the Lex Arcana of the City and Consilium of Savanah.%0a
+host:1380398066=162.195.67.141
+author:1380396066=Worldwalker
+diff:1380396066:1380395521:=2c2%0a%3c '-http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png-'%0a---%0a> [Venue or Savannah Banner]%0a
+host:1380396066=162.195.67.141
+author:1380395521=Worldwalker
+diff:1380395521:1380395521:=1,20d0%0a%3c (:title location name:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.SavannahNationalWildlifeRefuge|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!Calhoun Lodge , Sanctum Sanctorum  of the Shaman Kudzu.%0a%3c %0a%3c '''District:''' [[CityBook.SavannahNationalWildlifeRefuge|Savannah National Wildlife Refuge]]%0a%3c %0a%3c http://www.e-torch.org/wp-content/uploads/2013/04/kudzuUGA.jpg http://cdn2-b.examiner.com/sites/default/files/styles/image_content_width/hash/1e/a7/1ea7bcbe4c090de4a6a9eaf0b15958a8.jpg%0a%3c '''Description:'''Formally Owned by the Calhoun Family but most obviosuly having not seen habitation for many years, this cabin lodge is located deep in the woods upon the large island that sits between the bends of the Steamboat river and the mighty Savannah River. Centered in a glade and maze of Thornberry , Kudzu, Verbena , Wolfsbane and Poison Ivy one doesn't have to wonder why it hasn't been visited in years but rumor says someone has claimed the area and visits it regularly for the past year. During the warmer time of spring and summer many Hummingbirds and Butterflies call the clearing home.%0a%3c %0a%3c '''Resonance:''' Spiritual and Alive%0a%3c %0a%3c '''Territory:''' Claimed by the Shaman Kudzu under the Lex Arcana of the City and Consilium of Savanah.%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1380395521=162.195.67.141

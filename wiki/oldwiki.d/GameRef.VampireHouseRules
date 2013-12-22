@@ -1,0 +1,30 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1373255847
+host=71.0.16.129
+name=GameRef.VampireHouseRules
+rev=6
+targets=
+text=%25center%25http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a(:Include GameRef.VampireRulesMaster#houserules#rulesend:)
+time=1377466488
+author:1377466488=ThomasH
+diff:1377466488:1377466442:=1c1%0a%3c %25center%25http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a---%0a> %25center%25http://i68.photobucket.com/albums/i5/Aramil98/VampireRequiemLogo.png%0a
+host:1377466488=71.0.16.129
+author:1377466442=ThomasH
+diff:1377466442:1377452373:=1c1%0a%3c %25center%25http://i68.photobucket.com/albums/i5/Aramil98/VampireRequiemLogo.png%0a---%0a> %25center%25%25width=600%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/VtR/VampireRequiemLogo.png%0a
+host:1377466442=71.0.16.129
+author:1377452373=ThomasH
+diff:1377452373:1377452343:=1c1%0a%3c %25center%25%25width=600%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/VtR/VampireRequiemLogo.png%0a---%0a> %25center%25%25width=600%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/VtRVampireRequiemLogo.png%0a
+host:1377452373=71.0.16.129
+author:1377452343=ThomasH
+diff:1377452343:1373417959:=1c1%0a%3c %25center%25%25width=600%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/VtRVampireRequiemLogo.png%0a---%0a> %25center%25%25width=600%25http://i68.photobucket.com/albums/i5/Aramil98/VampireRequiemLogo.png%0a
+host:1377452343=71.0.16.129
+author:1373417959=ThomasH
+diff:1373417959:1373255847:=1d0%0a%3c %25center%25%25width=600%25http://i68.photobucket.com/albums/i5/Aramil98/VampireRequiemLogo.png%0a
+host:1373417959=71.0.16.129
+author:1373255847=ThomasH
+diff:1373255847:1373255847:=1d0%0a%3c (:Include GameRef.VampireRulesMaster#houserules#rulesend:)%0a\ No newline at end of file%0a
+host:1373255847=71.0.16.129

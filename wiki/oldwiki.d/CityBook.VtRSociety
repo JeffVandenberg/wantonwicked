@@ -1,0 +1,21 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1381042626
+host=98.232.234.158
+name=CityBook.VtRSociety
+rev=3
+targets=
+text=(:notitle:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a%0a!Vampire Society%0a(:include GameRef.VtRMaster#Covenants#CovenantsEnd:)%0a%0a(:include CityBook.VampireNavigationBar:)
+time=1386812012
+author:1386812012=JillA
+diff:1386812012:1381050775:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a
+host:1386812012=98.232.234.158
+author:1381050775=JillA
+diff:1381050775:1381042626:=4,5c4%0a%3c !Vampire Society%0a%3c (:include GameRef.VtRMaster#Covenants#CovenantsEnd:)%0a---%0a> The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!%0a
+host:1381050775=24.20.151.3
+author:1381042626=JillA
+diff:1381042626:1381042626:=1,6d0%0a%3c (:notitle:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a%3c %0a%3c The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!%0a%3c %0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1381042626=24.20.151.3

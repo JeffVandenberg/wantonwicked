@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0
+author=HunterV
+charset=ISO-8859-1
+csum=
+ctime=1377100024
+host=74.131.61.37
+name=GameRef.MageErrata
+rev=1
+targets=
+text=[[#top]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a(:table border=0 style=float width=40%25 align=right cellspacing=0 :)%0a(:cellnr align=center:)%0a(:cellnr:)%0a(:cellnr bgcolor=#004a80 align=center:)%0a'''%25white%25Errata%25%25'''%0a(:cellnr:)%0a*[[#E-1|Ley Line Map]]%0a*[[#E-2|Locations Map]]%0a*[[#E-3|Territory Map]]%0a*[[#E-4|Misc.]]%0a(:tableend:)%0a[[%3c%3c]]%0a[[%3c%3c]]%0a%0a[[#E-1]]%0a!!Ley Line Map%0a%0ahttp://31.media.tumblr.com/6b6f666bcfa484d15794a8b60d83a7a9/tumblr_mrvsxdg1Sy1rgwqz7o1_500.jpg%0a%0a[--%25color=#365776%25[[#top| Back to top]]--]%0a%0a[[#E-2]]%0a!!Locations Map%0a%0aComing Soon%0a%0a[--%25color=#365776%25[[#top| Back to top]]--]%0a%0a%0a[[#E-3]]%0a!!Territory Map%0a%0aComing soon%0a%0a[--%25color=#365776%25[[#top| Back to top]]--]%0a%0a%0a[[#E-4]]%0a!!Misc.%0a%0aComing Soon%0a%0a[--%25color=#365776%25[[#top| Back to top]]--]
+time=1377100024
+author:1377100024=HunterV
+diff:1377100024:1377100024:=1,45d0%0a%3c [[#top]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a%3c (:table border=0 style=float width=40%25 align=right cellspacing=0 :)%0a%3c (:cellnr align=center:)%0a%3c (:cellnr:)%0a%3c (:cellnr bgcolor=#004a80 align=center:)%0a%3c '''%25white%25Errata%25%25'''%0a%3c (:cellnr:)%0a%3c *[[#E-1|Ley Line Map]]%0a%3c *[[#E-2|Locations Map]]%0a%3c *[[#E-3|Territory Map]]%0a%3c *[[#E-4|Misc.]]%0a%3c (:tableend:)%0a%3c [[%3c%3c]]%0a%3c [[%3c%3c]]%0a%3c %0a%3c [[#E-1]]%0a%3c !!Ley Line Map%0a%3c %0a%3c http://31.media.tumblr.com/6b6f666bcfa484d15794a8b60d83a7a9/tumblr_mrvsxdg1Sy1rgwqz7o1_500.jpg%0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c [[#E-2]]%0a%3c !!Locations Map%0a%3c %0a%3c Coming Soon%0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c %0a%3c [[#E-3]]%0a%3c !!Territory Map%0a%3c %0a%3c Coming soon%0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a%3c %0a%3c %0a%3c [[#E-4]]%0a%3c !!Misc.%0a%3c %0a%3c Coming Soon%0a%3c %0a%3c [--%25color=#365776%25[[#top| Back to top]]--]%0a\ No newline at end of file%0a
+host:1377100024=74.131.61.37

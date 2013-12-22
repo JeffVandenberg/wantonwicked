@@ -1,0 +1,40 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1378766086
+host=24.20.151.3
+name=CityBook.ChathamParkway
+rev=9
+targets=Players.AnnaTisdale,Players.Mortal,CityBook.SavannahMorningNews
+text=(:title Chatham Parkway:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0a(:newpagebox base=CityBook template=CityBook.CPTemplate label="Create Chatham Parkway Location:" value="Place Name":)%0a!!!Clearview%0aClearview consists of two smaller and adjacent neighborhoods named Bartow (Woodville) and Bayview (Hudson Hill). Bayview is a low-income and primarily African American community, with a dense population of nearly a thousand more inhabitants per square mile than Savannah's statistical average. The area offers low rent and the median household value of $94,776 Bounded by West Lathrop Avenue, East Lathrop Avenue, West Bay Street. Meanwhile the Woodville/Bartow neighborhood is an ethnically diverse middle class neighborhood with affordable rent and a median house value of $129, 856. The neighborhood is bounded by Freeway 516, West Bay Street, Market Street, Tremont Road and railroad tracks. %0a%0a!!District Features:%0a>>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a'''City/Mortal''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Changeling''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Mage''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Vampire''':%0a* Domain of [[Players/Anna Tisdale]], Ordo Dracul%0a* Location Rating: 0%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Werewolf''':%0a>>%3c%3c%0a%0a!!District Locations:%0a(:sortable align=center:)%0a||class=sortable id=SGLocations%0a||!Location||!Venue||!Owner||%0a||[[Savannah Morning News]]||[[Players.Mortal|Media]]|| ||%0a(:tableend:)%0a%0a----%0a(:include CityBook.Directory:)
+time=1382209013
+title=Chatham Parkway
+author:1382209013=JillA
+diff:1382209013:1381224765:=5,6c5,6%0a%3c !!!Clearview%0a%3c Clearview consists of two smaller and adjacent neighborhoods named Bartow (Woodville) and Bayview (Hudson Hill). Bayview is a low-income and primarily African American community, with a dense population of nearly a thousand more inhabitants per square mile than Savannah's statistical average. The area offers low rent and the median household value of $94,776 Bounded by West Lathrop Avenue, East Lathrop Avenue, West Bay Street. Meanwhile the Woodville/Bartow neighborhood is an ethnically diverse middle class neighborhood with affordable rent and a median house value of $129, 856. The neighborhood is bounded by Freeway 516, West Bay Street, Market Street, Tremont Road and railroad tracks. %0a---%0a> %0a> (:include GameRef.CityMaster#A#AEnd:)%0a
+host:1382209013=24.20.151.3
+author:1381224765=JillA
+diff:1381224765:1381224146:=23c23%0a%3c * Domain of [[Players/Anna Tisdale]], Ordo Dracul%0a---%0a> * Domain of [[Players/Anna Tisdale]]%0a
+host:1381224765=24.20.151.3
+author:1381224146=JillA
+diff:1381224146:1381125298:=23,24c23,24%0a%3c * Domain of [[Players/Anna Tisdale]]%0a%3c * Location Rating: 0%0a---%0a> * Domain of%0a> * Location Rating:%0a
+host:1381224146=24.20.151.3
+author:1381125298=Eiragwen
+diff:1381125298:1379817091:=9,29d8%0a%3c >>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''City/Mortal''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Changeling''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Mage''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Vampire''':%0a%3c * Domain of%0a%3c * Location Rating:%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Werewolf''':%0a%3c >>%3c%3c%0a
+host:1381125298=24.20.151.3
+author:1379817091=JillA
+diff:1379817091:1379817084:=14c14%0a%3c ||[[Savannah Morning News]]||[[Players.Mortal|Media]]|| ||%0a---%0a> ||[[Savannah Morning News]||[[Players.Mortal|Media]]|| ||%0a
+host:1379817091=24.20.151.3
+author:1379817084=JillA
+diff:1379817084:1379815870:=14c14%0a%3c ||[[Savannah Morning News]||[[Players.Mortal|Media]]|| ||%0a---%0a> ||[[CityBook.CoastalStatePrison|Coastal State Prison]]||[[Players.Mage|Mage]]||[[Seers of the Throne]]||%0a
+host:1379817084=24.20.151.3
+author:1379815870=JillA
+diff:1379815870:1379703022:=4c4%0a%3c (:newpagebox base=CityBook template=CityBook.CPTemplate label="Create Chatham Parkway Location:" value="Place Name":)%0a---%0a> (:newpagebox base=CityBook template=CityBook.ATemplate label="Create Chatham Parkway Location:" value="Place Name":)%0a
+host:1379815870=24.20.151.3
+author:1379703022=ThomasH
+diff:1379703022:1378766086:=1,18c1%0a%3c (:title Chatham Parkway:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c (:newpagebox base=CityBook template=CityBook.ATemplate label="Create Chatham Parkway Location:" value="Place Name":)%0a%3c %0a%3c (:include GameRef.CityMaster#A#AEnd:)%0a%3c %0a%3c !!District Features:%0a%3c %0a%3c !!District Locations:%0a%3c (:sortable align=center:)%0a%3c ||class=sortable id=SGLocations%0a%3c ||!Location||!Venue||!Owner||%0a%3c ||[[CityBook.CoastalStatePrison|Coastal State Prison]]||[[Players.Mage|Mage]]||[[Seers of the Throne]]||%0a%3c (:tableend:)%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a---%0a> (:title Chatham Parkway:)%0a\ No newline at end of file%0a
+host:1379703022=67.238.250.80
+author:1378766086=ThomasH
+diff:1378766086:1378766086:=1d0%0a%3c (:title Chatham Parkway:)%0a\ No newline at end of file%0a
+host:1378766086=71.0.16.129

@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.62 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1377993902
+host=71.0.16.129
+name=GameRef.HouseRules
+rev=1
+targets=
+text=!House Rules%0a*[[#Ling|Changelings the Lost]] %0a*[[#Mage|Mage the Awakening]]%0a*[[#WoD|Mortals]]%0a*[[#Vamp|Vampire the Requiem]]%0a*[[#Were|Werewolve the Forsaken]]%0a!!Changeling the Lost  %0a(:toggle hide CtLHR:)%0a>>id=CtLHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.CtLMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c%0a!!Mage the Awakening  %0a(:toggle hide MtAHR:)%0a>>id=MtAHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.MtAMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c%0a!!Mortals  %0a(:toggle hide WoDMHR:)%0a>>id=WoDMHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.WodMMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c%0a!!Vampire the Requiem  %0a(:toggle hide VtRHR:)%0a>>id=VtRHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.VtRMaster#HouseRules#HouseRulesEnd:)%0a>>%3c%3c%0a!!Werewolf the Forsaken  %0a(:toggle hide WtFHR:)%0a>>id=WtFHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a(:include GameRef.WtFMaster#HouseRules#HouseRulesEnd:)
+time=1377993902
+author:1377993902=ThomasH
+diff:1377993902:1377993902:=1,30d0%0a%3c !House Rules%0a%3c *[[#Ling|Changelings the Lost]] %0a%3c *[[#Mage|Mage the Awakening]]%0a%3c *[[#WoD|Mortals]]%0a%3c *[[#Vamp|Vampire the Requiem]]%0a%3c *[[#Were|Werewolve the Forsaken]]%0a%3c !!Changeling the Lost  %0a%3c (:toggle hide CtLHR:)%0a%3c >>id=CtLHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include GameRef.CtLMaster#HouseRules#HouseRulesEnd:)%0a%3c >>%3c%3c%0a%3c !!Mage the Awakening  %0a%3c (:toggle hide MtAHR:)%0a%3c >>id=MtAHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include GameRef.MtAMaster#HouseRules#HouseRulesEnd:)%0a%3c >>%3c%3c%0a%3c !!Mortals  %0a%3c (:toggle hide WoDMHR:)%0a%3c >>id=WoDMHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include GameRef.WodMMaster#HouseRules#HouseRulesEnd:)%0a%3c >>%3c%3c%0a%3c !!Vampire the Requiem  %0a%3c (:toggle hide VtRHR:)%0a%3c >>id=VtRHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include GameRef.VtRMaster#HouseRules#HouseRulesEnd:)%0a%3c >>%3c%3c%0a%3c !!Werewolf the Forsaken  %0a%3c (:toggle hide WtFHR:)%0a%3c >>id=WtFHR border='0px solid #999' padding=5px bgcolor=#black%3c%3c%0a%3c (:include GameRef.WtFMaster#HouseRules#HouseRulesEnd:)%0a\ No newline at end of file%0a
+host:1377993902=71.0.16.129

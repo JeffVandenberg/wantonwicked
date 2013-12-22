@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0
+author=Bottlecaps
+charset=ISO-8859-1
+csum=
+ctime=1386829046
+host=50.147.19.4
+name=Players.OurClients
+rev=2
+targets=Players.OurTeam,Players.HorizonWhiteCommunications,Players.Cheshire,Players.DevonVanDerMetter,Players.LakerReid
+text=(:div %25width=740px style='color:grey;background-color:#141414;':) [[%3c%3c]]%0a%0a%25center%25%25width=732%25http://i.imgur.com/Z9gbccU.png%0a(:div style='color:grey;background-color: #141414' style=float width=50%25 cellspacing=0:)%0a(:cellnr width=150 align=center:)%25color=grey%25[[Our Team]]%0a(:cell width=190 align=center:)%25color=grey%25[[HorizonWhiteCommunications|Our Home]]%0a(:tableend:)%0a[[%3c%3c]]%0a(:sortable :)%0a||class=sortable id=hcclients%0a||!Name||!Status||!Profession||!Fame||%0a||[[Cheshire|Jackson Calico]]||Radio 1||Radio DJ||-||%0a||[[Devon Van Der Metter]]||-||Night Club Promoter||1-Night Club Promoter||%0a||[[Laker Reid]]||High Society 2||Writer||2- Crime Writer||%0a||[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=CityBook.TheFallOfMan|The Fall Of Man]]||-||Bookstore||-||
+time=1386830511
+author:1386830511=Bottlecaps
+diff:1386830511:1386829046:=14,15c14%0a%3c ||[[Laker Reid]]||High Society 2||Writer||2- Crime Writer||%0a%3c ||[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=CityBook.TheFallOfMan|The Fall Of Man]]||-||Bookstore||-||%0a\ No newline at end of file%0a---%0a> ||[[Laker Reid]]||High Society 2||Writer||2- Crime Writer||%0a\ No newline at end of file%0a
+host:1386830511=50.147.19.4
+author:1386829046=Bottlecaps
+diff:1386829046:1386829046:=1,14d0%0a%3c (:div %25width=740px style='color:grey;background-color:#141414;':) [[%3c%3c]]%0a%3c %0a%3c %25center%25%25width=732%25http://i.imgur.com/Z9gbccU.png%0a%3c (:div style='color:grey;background-color: #141414' style=float width=50%25 cellspacing=0:)%0a%3c (:cellnr width=150 align=center:)%25color=grey%25[[Our Team]]%0a%3c (:cell width=190 align=center:)%25color=grey%25[[HorizonWhiteCommunications|Our Home]]%0a%3c (:tableend:)%0a%3c [[%3c%3c]]%0a%3c (:sortable :)%0a%3c ||class=sortable id=hcclients%0a%3c ||!Name||!Status||!Profession||!Fame||%0a%3c ||[[Cheshire|Jackson Calico]]||Radio 1||Radio DJ||-||%0a%3c ||[[Devon Van Der Metter]]||-||Night Club Promoter||1-Night Club Promoter||%0a%3c ||[[Laker Reid]]||High Society 2||Writer||2- Crime Writer||%0a\ No newline at end of file%0a
+host:1386829046=50.147.19.4

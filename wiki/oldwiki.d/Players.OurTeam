@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0
+author=Bottlecaps
+charset=ISO-8859-1
+csum=
+ctime=1386829424
+host=50.147.19.4
+name=Players.OurTeam
+rev=2
+targets=Players.OurClients,Players.HorizonWhiteCommunications,Players.Alice,Players.Breeze,Players.GenevieveKeen
+text=(:div %25width=740px style='color:grey;background-color:#141414;':) [[%3c%3c]]%0a%0a%25center%25%25width=732%25http://i.imgur.com/Z9gbccU.png%0a(:div style='color:grey;background-color: #141414' style=float width=50%25 cellspacing=0:)%0a(:cellnr width=150 align=center:)%25color=grey%25[[Our Clients]]%0a(:cell width=190 align=center:)%25color=grey%25[[HorizonWhiteCommunications|Our Home]]%0a(:tableend:)%0a[[%3c%3c]]%0a(:sortable :)%0a||class=sortable id=hcclients%0a||!Name||!Position||%0a||[[Alice]]||Chief Executive Officer||%0a||[[Breeze|John]]||Admin Support||%0a||[[GenevieveKeen|Evie]]||Writer||
+time=1386834917
+author:1386834917=Bottlecaps
+diff:1386834917:1386829424:=11,14c11,13%0a%3c ||!Name||!Position||%0a%3c ||[[Alice]]||Chief Executive Officer||%0a%3c ||[[Breeze|John]]||Admin Support||%0a%3c ||[[GenevieveKeen|Evie]]||Writer||%0a\ No newline at end of file%0a---%0a> ||!Name||!Status||!Position||%0a> ||[[Alice]]||1-Buisness Owner||Chief Executive Officer||%0a> ||[[Breeze|John]]||-||Admin Support||%0a\ No newline at end of file%0a
+host:1386834917=50.147.19.4
+author:1386829424=Bottlecaps
+diff:1386829424:1386829424:=1,13d0%0a%3c (:div %25width=740px style='color:grey;background-color:#141414;':) [[%3c%3c]]%0a%3c %0a%3c %25center%25%25width=732%25http://i.imgur.com/Z9gbccU.png%0a%3c (:div style='color:grey;background-color: #141414' style=float width=50%25 cellspacing=0:)%0a%3c (:cellnr width=150 align=center:)%25color=grey%25[[Our Clients]]%0a%3c (:cell width=190 align=center:)%25color=grey%25[[HorizonWhiteCommunications|Our Home]]%0a%3c (:tableend:)%0a%3c [[%3c%3c]]%0a%3c (:sortable :)%0a%3c ||class=sortable id=hcclients%0a%3c ||!Name||!Status||!Position||%0a%3c ||[[Alice]]||1-Buisness Owner||Chief Executive Officer||%0a%3c ||[[Breeze|John]]||-||Admin Support||%0a\ No newline at end of file%0a
+host:1386829424=50.147.19.4

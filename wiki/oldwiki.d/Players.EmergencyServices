@@ -1,0 +1,16 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1380463641
+host=67.238.250.80
+name=Players.EmergencyServices
+rev=1
+targets=
+text=(:title Emergency Services:)%0a
+time=1380463641
+title=Emergency Services
+author:1380463641=ThomasH
+diff:1380463641:1380463641:=1d0%0a%3c (:title Emergency Services:)%0a
+host:1380463641=67.238.250.80

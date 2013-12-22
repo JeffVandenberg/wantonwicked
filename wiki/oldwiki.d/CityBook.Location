@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1378768116
+host=24.20.151.3
+name=CityBook.Location
+rev=2
+targets=CityBook.CityBook,CityBook.CPTemplate,CityBook.HDTemplate,CityBook.IDTemplate,CityBook.DtTemplate,CityBook.HITemplate,CityBook.CTemplate,CityBook.ESTemplate,CityBook.SSTemplate,CityBook.BSTemplate,CityBook.NITemplate,CityBook.WITemplate,CityBook.SITemplate,CityBook.IoHTemplate,CityBook.DWTemplate,CityBook.NCTemplate,CityBook.HAATemplate,CityBook.SCTemplate,CityBook.OPTemplate,CityBook.CBRDTemplate,CityBook.WCTemplate,CityBook.WSTemplate,CityBook.BDTemplate,CityBook.RSTemplate,CityBook.SNWRTemplate
+text=(:title location name:)%0a[Venue or Savannah Banner]%0a%0aReturn to: [[CityBook.?|Venue Locations]], [[CityBook.?|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!Location Name%0a'''District:''' blah%0a%0a[Picture] Description%0a%0a'''Resonance:''' blah\\%0a'''Territory:''' Falls within X's claim%0a[[#locationend]]%0a%0a[[CP Template]]%0a[[HD Template]]%0a[[ID Template]]%0a[[Dt Template]]%0a[[HI Template]]%0a[[C Template]]%0a[[ES Template]]%0a[[SS Template]]%0a[[BS Template]]%0a[[NI Template]]%0a[[WI Template]]%0a[[SI Template]]%0a[[WI Template]]%0a[[IoH Template]]%0a[[DW Template]]%0a[[NC Template]]%0a[[HAA Template]]%0a[[SC Template]]%0a[[OP Template]]%0a[[CBRD Template]]%0a[[WC Template]]%0a[[WS Template]]%0a[[BD Template]]%0a[[RS Template]]%0a[[SNWR Template]]
+time=1378768699
+title=location name
+author:1378768699=JillA
+diff:1378768699:1378768116:=14,40c14%0a%3c [[#locationend]]%0a%3c %0a%3c [[CP Template]]%0a%3c [[HD Template]]%0a%3c [[ID Template]]%0a%3c [[Dt Template]]%0a%3c [[HI Template]]%0a%3c [[C Template]]%0a%3c [[ES Template]]%0a%3c [[SS Template]]%0a%3c [[BS Template]]%0a%3c [[NI Template]]%0a%3c [[WI Template]]%0a%3c [[SI Template]]%0a%3c [[WI Template]]%0a%3c [[IoH Template]]%0a%3c [[DW Template]]%0a%3c [[NC Template]]%0a%3c [[HAA Template]]%0a%3c [[SC Template]]%0a%3c [[OP Template]]%0a%3c [[CBRD Template]]%0a%3c [[WC Template]]%0a%3c [[WS Template]]%0a%3c [[BD Template]]%0a%3c [[RS Template]]%0a%3c [[SNWR Template]]%0a\ No newline at end of file%0a---%0a> [[#locationend]]%0a\ No newline at end of file%0a
+host:1378768699=24.20.151.3
+author:1378768116=JillA
+diff:1378768116:1378768116:=1,14d0%0a%3c (:title location name:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.?|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!Location Name%0a%3c '''District:''' blah%0a%3c %0a%3c [Picture] Description%0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a\ No newline at end of file%0a
+host:1378768116=24.20.151.3

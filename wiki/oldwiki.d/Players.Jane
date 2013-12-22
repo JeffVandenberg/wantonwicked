@@ -1,0 +1,84 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Kitsuiko
+charset=ISO-8859-1
+csum=
+ctime=1378688175
+host=24.177.193.227
+name=Players.Jane
+rev=24
+targets=Players.CaelosVigiles,Players.577
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a!!%25white%25Jane%25white%25%0a(:cellnr rowspan=25 width=400 align=center:) http://paramedicandemttraining.com/wp-content/uploads/2012/09/Paramedic-Certification.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 27%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) Mid to late 20s%0a(:cellnr width=150 align=left:)'''Height:'''5'8"%0a(:cell width=190:) 5'8"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Stocky%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Paramedic%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Status: Medical 1%0aStatus: Guardians of the Veil 1%0aStatus: Consilium 2 (Herald)%0a(:cellnr width=150 align=left:)'''Order:'''%0a(:cell width=190:) Guardians of the Veil%0a(:cellnr width=150 align=left:)'''Path:'''%0a(:cell width=190:) The Way of the Healer%0a(:cellnr width=150 align=left:)'''Cabal:'''%0a(:cell width=190:) [[Caelos Vigiles]]%0a(:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_a.png%0a(:cellnr width=150 align=left:)'''Death:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Fate:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Forces:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Life:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Matter:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Mind:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Prime:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Space:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Spirit:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Time:'''%0a(:cell width=190:) ?%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Nosferajew%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=Sqz5dbs5zmo |Explosions]]%0a(:tableend:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a''Jane is a stocky, athletic young man who keeps himself clean shaven. He has an upbeat and friendly demeanor, though he does tend to keep people at a professional distance. When he isn't on the clock or just getting off of his shift as a paramedic, he's usually wearing loose pants and a t-shirt or cycling clothes.''%0a:Nimbus:%0a''For a moment, Jane and anyone else nearby affected by active magic appears as a corpse. The visage is reflective of how, at that time, the person is most likely to die. The visage is usually different every time, though those who lead violent lives are more consistently shown as having died a violent death. Those who are projected to die peacefully simply appear pallid.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a''Jane is a newcomer to the Savannah Consilium. According to him he relocated from Atlanta in September of 2013, presumably under direction from the Guardian caucus there.''%0a%0a''''+Fun Facts About Jane!+''''%0a%0a- Jane loves coffee.%0a%0a- Jane is generally a pleasant guy.%0a%0a- Jane can occasionally turn into an unpleasant guy when he hasn't had his coffee.%0a%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a''Medical/Emergency Services - Jane works a whole lot of hours every week as a paramedic. Those working in hospital emergency rooms and accident scenes, whether they're doctors, nurses, cops, or firemen, are most likely to run into Jane while he's on duty.''%0a%0a''Cycling - Jane loves to bike around Savannah. During his off days he can usually be seen riding around downtown and in several parks.''%0a%0a''Gaming - Jane sometimes shows up at Morningstar Games for Pathfinder Society. He plays a dwarf rogue named Shanks McKidney.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a''''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a''What Others have to Say about you''%0a%0a''"Wha?  Jane the blind Herald?  Well, hmm.  I like his haircut and was flattered his Dork & Dweebs character was based on me.  He's aight."''  - [[577]]%0a%0a[[%3c%3c]]%0a%0a(:include CityBook.MageNavigationBar:)
+time=1387237748
+author:1387237748=Kitsuiko
+diff:1387237748:1387159106:=26c26%0a%3c (:cell width=190:) [[Caelos Vigiles]]%0a---%0a> (:cell width=190:) Caelos Vigiles%0a
+host:1387237748=24.177.193.227
+author:1387159106=Nosferajew
+diff:1387159106:1384884645:=26c26%0a%3c (:cell width=190:) Caelos Vigiles%0a---%0a> (:cell width=190:) None known%0a
+host:1387159106=66.68.14.83
+author:1384884645=Rho
+diff:1384884645:1381976171:=82,84d81%0a%3c %0a%3c ''"Wha?  Jane the blind Herald?  Well, hmm.  I like his haircut and was flattered his Dork & Dweebs character was based on me.  He's aight."''  - [[577]]%0a%3c %0a
+host:1384884645=74.131.173.38
+author:1381976171=Nosferajew
+diff:1381976171:1381973848:=18,20c18%0a%3c (:cell width=190:) Status: Medical 1%0a%3c Status: Guardians of the Veil 1%0a%3c Status: Consilium 2 (Herald)%0a---%0a> (:cell width=190:) ?%0a
+host:1381976171=66.68.14.83
+author:1381973848=Nosferajew
+diff:1381973848:1381973685:=71c71%0a%3c ''Cycling - Jane loves to bike around Savannah. During his off days he can usually be seen riding around downtown and in several parks.''%0a---%0a> ''Cycling - Jane loves to bike around Savannah. During his off days he can usually be seen riding around.''%0a
+host:1381973848=66.68.14.83
+author:1381973685=Nosferajew
+diff:1381973685:1381973668:=73c73%0a%3c ''Gaming - Jane sometimes shows up at Morningstar Games for Pathfinder Society. He plays a dwarf rogue named Shanks McKidney.''%0a---%0a> ''Gaming - Jane sometimes shows up at Morningstar Games for Pathfinder Society. He plays a dwarf rogue named Shanks McKidney.%0a
+host:1381973685=66.68.14.83
+author:1381973668=Nosferajew
+diff:1381973668:1381684360:=72,73d71%0a%3c %0a%3c ''Gaming - Jane sometimes shows up at Morningstar Games for Pathfinder Society. He plays a dwarf rogue named Shanks McKidney.%0a
+host:1381973668=66.68.14.83
+author:1381684360=Nosferajew
+diff:1381684360:1381684312:=63d62%0a%3c %0a65d63%0a%3c %0a66a65%0a> [[%3c%3c]]%0a
+host:1381684360=66.68.14.83
+author:1381684312=Nosferajew
+diff:1381684312:1381684264:=59,61c59,60%0a%3c %0a%3c ''''+Fun Facts About Jane!+''''%0a%3c %0a---%0a> [[%3c%3c]]%0a> Fun Facts About Jane!%0a66d64%0a%3c %0a
+host:1381684312=66.68.14.83
+author:1381684264=Nosferajew
+diff:1381684264:1380412538:=59,63d58%0a%3c [[%3c%3c]]%0a%3c Fun Facts About Jane!%0a%3c - Jane loves coffee.%0a%3c - Jane is generally a pleasant guy.%0a%3c - Jane can occasionally turn into an unpleasant guy when he hasn't had his coffee.%0a
+host:1381684264=66.68.14.83
+author:1380412538=Nosferajew
+diff:1380412538:1380410796:=50c50%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=Sqz5dbs5zmo |Explosions]]%0a---%0a> (:cell width=190:) [[http://youtu.be/jofNR_WkoCE?t=40s |Music]]%0a
+host:1380412538=66.68.14.83
+author:1380410796=Nosferajew
+diff:1380410796:1379781587:=53c53%0a%3c ''Jane is a stocky, athletic young man who keeps himself clean shaven. He has an upbeat and friendly demeanor, though he does tend to keep people at a professional distance. When he isn't on the clock or just getting off of his shift as a paramedic, he's usually wearing loose pants and a t-shirt or cycling clothes.''%0a---%0a> ''Place your Description Here''%0a58c58%0a%3c ''Jane is a newcomer to the Savannah Consilium. According to him he relocated from Atlanta in September of 2013, presumably under direction from the Guardian caucus there.''%0a---%0a> ''Place your Public History Here''%0a61,63c61%0a%3c ''Medical/Emergency Services - Jane works a whole lot of hours every week as a paramedic. Those working in hospital emergency rooms and accident scenes, whether they're doctors, nurses, cops, or firemen, are most likely to run into Jane while he's on duty.''%0a%3c %0a%3c ''Cycling - Jane loves to bike around Savannah. During his off days he can usually be seen riding around.''%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a66c64%0a%3c ''''%0a---%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1380410796=66.68.14.83
+author:1379781587=Nosferajew
+diff:1379781587:1379781582:=
+host:1379781587=66.68.14.83
+author:1379781582=Nosferajew
+diff:1379781582:1379381763:=55c55%0a%3c ''For a moment, Jane and anyone else nearby affected by active magic appears as a corpse. The visage is reflective of how, at that time, the person is most likely to die. The visage is usually different every time, though those who lead violent lives are more consistently shown as having died a violent death. Those who are projected to die peacefully simply appear pallid.''%0a---%0a> ''Nimbus description here''%0a
+host:1379781582=66.68.14.83
+author:1379381763=JillA
+diff:1379381763:1379258930:=3c3%0a%3c !!%25white%25Jane%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a62,64d61%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1379381763=24.20.151.3
+author:1379258930=Nosferajew
+diff:1379258930:1378689033:=50c50%0a%3c (:cell width=190:) [[http://youtu.be/jofNR_WkoCE?t=40s |Music]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/watch?v=wXzg0D-cKds |Music]]%0a
+host:1379258930=66.68.14.83
+author:1378689033=Nosferajew
+diff:1378689033:1378689012:=
+host:1378689033=66.68.14.83
+author:1378689012=Nosferajew
+diff:1378689012:1378688820:=50c50%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=wXzg0D-cKds |Music]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a
+host:1378689012=66.68.14.83
+author:1378688820=Nosferajew
+diff:1378688820:1378688784:=48c48%0a%3c (:cell width=190:) Nosferajew%0a---%0a> (:cell width=190:) ?%0a
+host:1378688820=66.68.14.83
+author:1378688784=Nosferajew
+diff:1378688784:1378688728:=27c27%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a29c29%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a31c31%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a33c33%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a35c35%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a37c37%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a39c39%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a41c41%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a43c43%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a45c45%0a%3c (:cell width=190:) ?%0a---%0a> (:cell width=190:) Initiate, Apprentice, etc.%0a
+host:1378688784=66.68.14.83
+author:1378688728=Nosferajew
+diff:1378688728:1378688527:=20c20%0a%3c (:cell width=190:) Guardians of the Veil%0a---%0a> (:cell width=190:) ?%0a22c22%0a%3c (:cell width=190:) The Way of the Healer%0a---%0a> (:cell width=190:) ?%0a24c24%0a%3c (:cell width=190:) None known%0a---%0a> (:cell width=190:) ?%0a
+host:1378688728=66.68.14.83
+author:1378688527=Nosferajew
+diff:1378688527:1378688413:=8c8%0a%3c (:cell width=190:) 27%0a---%0a> (:cell width=190:) ?%0a10,12c10,12%0a%3c (:cell width=190:) Mid to late 20s%0a%3c (:cellnr width=150 align=left:)'''Height:'''5'8"%0a%3c (:cell width=190:) 5'8"%0a---%0a> (:cell width=190:) ?%0a> (:cellnr width=150 align=left:)'''Height:'''%0a> (:cell width=190:) ?%0a14c14%0a%3c (:cell width=190:) Stocky%0a---%0a> (:cell width=190:) ?%0a16c16%0a%3c (:cell width=190:) Paramedic%0a---%0a> (:cell width=190:) ?%0a
+host:1378688527=66.68.14.83
+author:1378688413=Nosferajew
+diff:1378688413:1378688175:=4c4%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://paramedicandemttraining.com/wp-content/uploads/2012/09/Paramedic-Certification.jpg%0a---%0a> (:cellnr rowspan=25 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1378688413=66.68.14.83
+author:1378688175=Nosferajew
+diff:1378688175:1378688175:=1,67d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Order:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Path:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Cabal:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_a.png%0a%3c (:cellnr width=150 align=left:)'''Death:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Fate:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Forces:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Life:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Matter:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Mind:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Prime:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Space:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Spirit:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c (:cellnr width=150 align=left:)'''Time:'''%0a%3c (:cell width=190:) Initiate, Apprentice, etc.%0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a%3c ''Place your Description Here''%0a%3c :Nimbus:%0a%3c ''Nimbus description here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1378688175=66.68.14.83

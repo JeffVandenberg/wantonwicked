@@ -1,0 +1,24 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1381042616
+host=98.232.234.158
+name=CityBook.VtRLaw
+rev=4
+targets=
+text=(:notitle:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a!Vampiric Law%0a*[[#P|Proclamations of the Revenant Prince]]%0a*[[#E|Laws of Elysium]]%0a*[[#C|Carthian Law]]%0a%0a(:include GameRef.VtRMaster#Law#LawEnd:)%0a%0a(:include CityBook.VampireNavigationBar:)
+time=1386811994
+author:1386811994=JillA
+diff:1386811994:1381574513:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a
+host:1386811994=98.232.234.158
+author:1381574513=JillA
+diff:1381574513:1381048521:=3,6d2%0a%3c !Vampiric Law%0a%3c *[[#P|Proclamations of the Revenant Prince]]%0a%3c *[[#E|Laws of Elysium]]%0a%3c *[[#C|Carthian Law]]%0a
+host:1381574513=24.20.151.3
+author:1381048521=JillA
+diff:1381048521:1381042616:=4c4%0a%3c (:include GameRef.VtRMaster#Law#LawEnd:)%0a---%0a> The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!%0a
+host:1381048521=24.20.151.3
+author:1381042616=JillA
+diff:1381042616:1381042616:=1,6d0%0a%3c (:notitle:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a%3c %0a%3c The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!%0a%3c %0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1381042616=24.20.151.3

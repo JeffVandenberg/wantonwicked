@@ -1,0 +1,24 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+author=Devilish
+charset=ISO-8859-1
+csum=
+ctime=1384730612
+host=68.224.99.74
+name=Profiles.Devilish
+rev=4
+targets=
+text=(:redirect Players.Devilish:)
+time=1384730697
+author:1384730697=Devilish
+diff:1384730697:1384730638:=1c1%0a%3c (:redirect Players.Devilish:)%0a\ No newline at end of file%0a---%0a> [[#redirect Players.Devilish]]%0a\ No newline at end of file%0a
+host:1384730697=68.224.99.74
+author:1384730638=Devilish
+diff:1384730638:1384730630:=1c1%0a%3c [[#redirect Players.Devilish]]%0a\ No newline at end of file%0a---%0a> [#redirect Players.Devilish]%0a\ No newline at end of file%0a
+host:1384730638=68.224.99.74
+author:1384730630=Devilish
+diff:1384730630:1384730612:=1c1%0a%3c [#redirect Players.Devilish]%0a\ No newline at end of file%0a---%0a> #redirect Players.Devilish%0a\ No newline at end of file%0a
+host:1384730630=68.224.99.74
+author:1384730612=Devilish
+diff:1384730612:1384730612:=1d0%0a%3c #redirect Players.Devilish%0a\ No newline at end of file%0a
+host:1384730612=68.224.99.74

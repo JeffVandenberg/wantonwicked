@@ -1,0 +1,66 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+author=TheedsNC
+charset=ISO-8859-1
+csum=
+ctime=1380144281
+host=24.74.206.46
+name=Players.LucienMarks
+rev=18
+targets=Players.DeltaPinkerton,Players.SamuelBHiggins,Players.JackHNorth
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a!!%25white%25Lucien Marks%25white%25%0a(:cellnr rowspan=30 width=400 align=center:) http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/12a298b00e7e78bd3bec964178ba3b9a_zps5854395d.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienstats_zps4d43ee69.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 28%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 6'2"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Athletic%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Gun for Hire%0a(:cellnr width=150 align=left:)'''Auspice:'''%0a(:cell width=190:) Ithaeur%0a(:cellnr width=150 align=left:)'''Tribe:'''%0a(:cell width=190:) Stormlord%0a(:cellnr width=150 align=left:)'''Lodge:'''%0a(:cell width=190:) Private%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) PU 1, Predator's Gaze, Danger Sense, Barfly%0a(:cellnr width=150 align=left:)'''Pack:'''%0a(:cell width=190:) [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.NIL|NIL]]%0a(:cellnr width=150 align=left:)'''Claimed:'''%0a(:cell width=190:) [[Delta Pinkerton]]%0a%0a(:cellnr colspan=2:)http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienrenown_zps24e5ac65.png%0a(:cellnr width=150 align=left:)'''Cunning:''' %0a(:cell width=190:) 0%0a(:cellnr width=150 align=left:)'''Glory:''' %0a(:cell width=190:) 0%0a(:cellnr width=150 align=left:)'''Honor:''' %0a(:cell width=190:) 1%0a(:cellnr width=150 align=left:)'''Purity:''' %0a(:cell width=190:) 0%0a(:cellnr width=150 align=left:)'''Wisdom:''' %0a(:cell width=190:) 1%0a%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) TheedsNC%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:tableend:)%0a%25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/luciendescription_zpsb373919d.png%0a''6'2 tall wears boots, jeans, a black hoodie and leather vest over the hoodie. On the leather vest were various patches but the major ones were on the back. Across the top was "NIL" followed by the patch of a wolf in the middle with the letters MC next to it and underneath it was the words "GEORGIA". On his belt is a bowie knife''%0a%0a[[%3c%3c]]%0a%25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienhistory_zps06301ead.png%0a''Place your Public History Here''%0a[[%3c%3c]]%0a%0a%25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienhooks_zpscb060ba1.png%0a''-Son of Wealth (Status: High Society).''%0a%0a''-Hired Help (Status: Business).''%0a%0a''-(Insert Here).''%0a%0a''-(Insert Here).''%0a%0a%0a[[%3c%3c]]%0a%25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/luciencontacts_zps33d697b6.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0a%0a%25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienquotes_zpsd806fa2e.png%0a''What Others have to Say about you''%0a%0a''"There's something to be said for two very different lives having had very similar roots."'' - [[SamuelBHiggins|Sam]]%0a%0a''"We're pack, and even before we were, we got along quite well."'' - [[JackHNorth|Hunter]]%0a[[%3c%3c]]%0a%0a(:include CityBook.WerewolfNavigationBar:)
+time=1381922557
+author:1381922557=TheedsNC
+diff:1381922557:1381664511:=47c47%0a%3c ''6'2 tall wears boots, jeans, a black hoodie and leather vest over the hoodie. On the leather vest were various patches but the major ones were on the back. Across the top was "NIL" followed by the patch of a wolf in the middle with the letters MC next to it and underneath it was the words "GEORGIA". On his belt is a bowie knife''%0a---%0a> ''6'2 tall wears boots, jeans, a black hoodie and leather vest over the hoodie. On the leather vest were various patches but the major ones were on the back. Across the top was "NIL" followed by the pack of a wolf in the middle with the letters MC next to it and underneath it was the words "GEORGIA". On his belt is a bowie knife''%0a
+host:1381922557=24.74.206.46
+author:1381664511=Sami
+diff:1381664511:1381495695:=73,74d72%0a%3c %0a%3c ''"We're pack, and even before we were, we got along quite well."'' - [[JackHNorth|Hunter]]%0a
+host:1381664511=84.238.20.58
+author:1381495695=TheedsNC
+diff:1381495695:1381307316:=47c47%0a%3c ''6'2 tall wears boots, jeans, a black hoodie and leather vest over the hoodie. On the leather vest were various patches but the major ones were on the back. Across the top was "NIL" followed by the pack of a wolf in the middle with the letters MC next to it and underneath it was the words "GEORGIA". On his belt is a bowie knife''%0a---%0a> ''6'2 tall wears boots, jeans, a black hoodie and leather vest over the hoodie. On the leather vest were various patches but the major ones were on the back. Across the top was "LONEWOLF" followed by the pack of a wolf in the middle with the letters MC next to it and underneath it was the words "NO CLUB". On his belt is a bowie knife''%0a
+host:1381495695=24.74.206.46
+author:1381307316=MtnThg
+diff:1381307316:1381197311:=71,72d70%0a%3c %0a%3c ''"There's something to be said for two very different lives having had very similar roots."'' - [[SamuelBHiggins|Sam]]%0a
+host:1381307316=75.71.62.157
+author:1381197311=TheedsNC
+diff:1381197311:1380822539:=24c24%0a%3c (:cell width=190:) [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.NIL|NIL]]%0a---%0a> (:cell width=190:) None%0a
+host:1381197311=24.74.206.46
+author:1380822539=TheedsNC
+diff:1380822539:1380334914:=22c22%0a%3c (:cell width=190:) PU 1, Predator's Gaze, Danger Sense, Barfly%0a---%0a> (:cell width=190:) PU 1, Danger Sense, Barfly%0a55,57c55,57%0a%3c ''-Son of Wealth (Status: High Society).''%0a%3c %0a%3c ''-Hired Help (Status: Business).''%0a---%0a> ''-Son of Wealth.''%0a> %0a> ''-Hired Gun.''%0a
+host:1380822539=24.74.206.46
+author:1380334914=TheedsNC
+diff:1380334914:1380324355:=55,56c55,56%0a%3c ''-Son of Wealth.''%0a%3c %0a---%0a> '' -Son of Wealth.''%0a> %0a58,61d57%0a%3c %0a%3c ''-(Insert Here).''%0a%3c %0a%3c ''-(Insert Here).''%0a
+host:1380334914=70.63.206.242
+author:1380324355=TheedsNC
+diff:1380324355:1380324301:=48d47%0a%3c %0a53d51%0a%3c %0a64d61%0a%3c %0a
+host:1380324355=70.63.206.242
+author:1380324301=TheedsNC
+diff:1380324301:1380324066:=53,57c53,54%0a%3c '' -Son of Wealth.''%0a%3c %0a%3c ''-Hired Gun.''%0a%3c %0a%3c %0a---%0a> '' -Son of Wealth%0a> -Hired Gun.''%0a
+host:1380324301=70.63.206.242
+author:1380324066=TheedsNC
+diff:1380324066:1380322956:=53,54c53%0a%3c '' -Son of Wealth%0a%3c -Hired Gun.''%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1380324066=70.63.206.242
+author:1380322956=TheedsNC
+diff:1380322956:1380322933:=27d26%0a%3c %0a
+host:1380322956=70.63.206.242
+author:1380322933=TheedsNC
+diff:1380322933:1380320751:=25,26d24%0a%3c (:cellnr width=150 align=left:)'''Claimed:'''%0a%3c (:cell width=190:) [[Delta Pinkerton]]%0a
+host:1380322933=70.63.206.242
+author:1380320751=TheedsNC
+diff:1380320751:1380317626:=27c27%0a%3c (:cell width=190:) 0%0a---%0a> (:cell width=190:) ?%0a29c29%0a%3c (:cell width=190:) 0%0a---%0a> (:cell width=190:) ?%0a33c33%0a%3c (:cell width=190:) 0%0a---%0a> (:cell width=190:) ?%0a
+host:1380320751=70.63.206.242
+author:1380317626=TheedsNC
+diff:1380317626:1380317547:=44c44%0a%3c ''6'2 tall wears boots, jeans, a black hoodie and leather vest over the hoodie. On the leather vest were various patches but the major ones were on the back. Across the top was "LONEWOLF" followed by the pack of a wolf in the middle with the letters MC next to it and underneath it was the words "NO CLUB". On his belt is a bowie knife''%0a---%0a> ''6'2 tall man looked like a biker. He wears boots, jeans, a black hoodie and leather vest over the hoodie. On the leather vest were various patches but the major ones were on the back. Across the top was "LONEWOLF" followed by the pack of a wolf in the middle with the letters MC next to it and underneath it was the words "NO CLUB". On his belt is a bowie knife''%0a
+host:1380317626=70.63.206.242
+author:1380317547=TheedsNC
+diff:1380317547:1380317043:=44c44%0a%3c ''6'2 tall man looked like a biker. He wears boots, jeans, a black hoodie and leather vest over the hoodie. On the leather vest were various patches but the major ones were on the back. Across the top was "LONEWOLF" followed by the pack of a wolf in the middle with the letters MC next to it and underneath it was the words "NO CLUB". On his belt is a bowie knife''%0a---%0a> ''Place your Description Here''%0a
+host:1380317547=70.63.206.242
+author:1380317043=TheedsNC
+diff:1380317043:1380227154:=22c22%0a%3c (:cell width=190:) PU 1, Danger Sense, Barfly%0a---%0a> (:cell width=190:) TBA%0a
+host:1380317043=70.63.206.242
+author:1380227154=TheedsNC
+diff:1380227154:1380144281:=31,32d30%0a%3c (:cell width=190:) 1%0a%3c (:cellnr width=150 align=left:)'''Purity:''' %0a33a32,33%0a> (:cellnr width=150 align=left:)'''Purity:''' %0a> (:cell width=190:) ?%0a35,37c35,37%0a%3c (:cell width=190:) 1%0a%3c %0a%3c %0a---%0a> (:cell width=190:) ?%0a> %0a> %0a39c39%0a%3c (:cell width=190:) TheedsNC%0a---%0a> (:cell width=190:) ?%0a
+host:1380227154=24.74.206.46
+author:1380144281=MaddyBelle
+diff:1380144281:1380144281:=1,59d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a%3c !!%25white%25Lucien Marks%25white%25%0a%3c (:cellnr rowspan=30 width=400 align=center:) http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/12a298b00e7e78bd3bec964178ba3b9a_zps5854395d.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienstats_zps4d43ee69.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 28%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 6'2"%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Athletic%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Gun for Hire%0a%3c (:cellnr width=150 align=left:)'''Auspice:'''%0a%3c (:cell width=190:) Ithaeur%0a%3c (:cellnr width=150 align=left:)'''Tribe:'''%0a%3c (:cell width=190:) Stormlord%0a%3c (:cellnr width=150 align=left:)'''Lodge:'''%0a%3c (:cell width=190:) Private%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) TBA%0a%3c (:cellnr width=150 align=left:)'''Pack:'''%0a%3c (:cell width=190:) None%0a%3c (:cellnr colspan=2:)http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienrenown_zps24e5ac65.png%0a%3c (:cellnr width=150 align=left:)'''Cunning:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Glory:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Honor:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Purity:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Wisdom:''' %0a%3c (:cell width=190:) ?%0a%3c %0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/luciendescription_zpsb373919d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienhistory_zps06301ead.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienhooks_zpscb060ba1.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/luciencontacts_zps33d697b6.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Other/lucienquotes_zpsd806fa2e.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.WerewolfNavigationBar:)%0a\ No newline at end of file%0a
+host:1380144281=66.86.125.180

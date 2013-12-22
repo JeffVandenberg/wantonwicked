@@ -1,0 +1,51 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=WGS
+charset=ISO-8859-1
+csum=
+ctime=1381748009
+host=98.202.0.164
+name=Players.MaryJaneKelly
+rev=13
+targets=Players.Noah
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a!!%25white%25Mary Jane Kelly%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) http://img823.imageshack.us/img823/8981/mlgp.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 125%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) 24%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'7"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Average%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Unknown%0a(:cellnr width=150 align=left:)'''Covenant:'''%0a(:cell width=190:) Unaligned%0a(:cellnr width=150 align=left:)'''Clan:'''%0a(:cell width=190:) Daeva%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Social Chameleon 2%0aStriking Looks 2%0a%0a(:cellnr width=150 align=left:)'''Coterie:'''%0a(:cell width=190:) TBD%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) WGS%0a(:cellnr width=150 align=left:)'''Gallery/Music:''' %0a(:cell width=190:) [[http://wickedgirlsabrina.wix.com/maryjanenoah|Noah & Mary Jane]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_d.png%0aShe is tall and thin, with long dark hair and light eyes.  %0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_h.png%0aUnknown%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_rph.png%0aShe seems out of touch with the world, often relying heavily on Noah in everyday situations.%0a%0aSimple things often confuse or fascinate her.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_con.png%0aEntwined with [[Noah]]%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a(:include CityBook.VampireNavigationBar:)
+time=1382306373
+author:1382306373=WGS
+diff:1382306373:1382306270:=30c30%0a%3c (:cell width=190:) [[http://wickedgirlsabrina.wix.com/maryjanenoah|Noah & Mary Jane]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/watch?v=KdBF85D6eeA |Noah & Mary Jane]]%0a
+host:1382306373=98.202.0.164
+author:1382306270=WGS
+diff:1382306270:1382306233:=26c26%0a%3c (:cell width=190:) TBD%0a---%0a> (:cell width=190:) %0a
+host:1382306270=98.202.0.164
+author:1382306233=WGS
+diff:1382306233:1382306141:=16c16%0a%3c (:cell width=190:) Unknown%0a---%0a> (:cell width=190:) %0a29c29%0a%3c (:cellnr width=150 align=left:)'''Gallery/Music:''' %0a---%0a> (:cellnr width=150 align=left:)'''More:''' %0a
+host:1382306233=98.202.0.164
+author:1382306141=WGS
+diff:1382306141:1382306123:=
+host:1382306141=98.202.0.164
+author:1382306123=WGS
+diff:1382306123:1382306074:=36c36%0a%3c Unknown%0a---%0a> ''Place your Public History Here''%0a
+host:1382306123=98.202.0.164
+author:1382306074=WGS
+diff:1382306074:1382305949:=33c33%0a%3c She is tall and thin, with long dark hair and light eyes.  %0a---%0a> ''Place your Description Here''%0a
+host:1382306074=98.202.0.164
+author:1382305949=WGS
+diff:1382305949:1382305908:=
+host:1382305949=98.202.0.164
+author:1382305908=WGS
+diff:1382305908:1381830547:=29,30c29,30%0a%3c (:cellnr width=150 align=left:)'''More:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=KdBF85D6eeA |Noah & Mary Jane]]%0a---%0a> (:cellnr width=150 align=left:)'''Theme Music:''' %0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a
+host:1382305908=98.202.0.164
+author:1381830547=WGS
+diff:1381830547:1381825322:=39,41c39%0a%3c She seems out of touch with the world, often relying heavily on Noah in everyday situations.%0a%3c %0a%3c Simple things often confuse or fascinate her.%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a44c42%0a%3c Entwined with [[Noah]]%0a---%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1381830547=98.202.0.164
+author:1381825322=WGS
+diff:1381825322:1381749787:=22,24c22%0a%3c (:cell width=190:) Social Chameleon 2%0a%3c Striking Looks 2%0a%3c %0a---%0a> (:cell width=190:) %0a
+host:1381825322=98.202.0.164
+author:1381749787=WGS
+diff:1381749787:1381748268:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://img823.imageshack.us/img823/8981/mlgp.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1381749787=98.202.0.164
+author:1381748268=WGS
+diff:1381748268:1381748009:=
+host:1381748268=98.202.0.164
+author:1381748009=WGS
+diff:1381748009:1381748009:=1,45d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a%3c !!%25white%25Mary Jane Kelly%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 125%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) 24%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 5'7"%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Average%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) %0a%3c (:cellnr width=150 align=left:)'''Covenant:'''%0a%3c (:cell width=190:) Unaligned%0a%3c (:cellnr width=150 align=left:)'''Clan:'''%0a%3c (:cell width=190:) Daeva%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) %0a%3c (:cellnr width=150 align=left:)'''Coterie:'''%0a%3c (:cell width=190:) %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) WGS%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1381748009=98.202.0.164

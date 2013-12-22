@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377904009
+host=98.232.234.158
+name=CityBook.WtFHistory
+rev=2
+targets=
+text=(:title Werewolf History:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/wtf.png%0a(:include GameRef.WtFMaster#History#HistoryEnd:)%0a(:include CityBook.WerewolfNavigationBar:)
+time=1386812265
+title=Werewolf History
+author:1386812265=JillA
+diff:1386812265:1377904009:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/wtf.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/werewolftheforsaken.png%0a
+host:1386812265=98.232.234.158
+author:1377904009=JillA
+diff:1377904009:1377904009:=1,4d0%0a%3c (:title Werewolf History:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/werewolftheforsaken.png%0a%3c (:include GameRef.WtFMaster#History#HistoryEnd:)%0a%3c (:include CityBook.WerewolfNavigationBar:)%0a\ No newline at end of file%0a
+host:1377904009=24.20.151.3

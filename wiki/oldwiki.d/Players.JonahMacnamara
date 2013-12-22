@@ -1,0 +1,75 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=youkilledkenny
+charset=ISO-8859-1
+csum=
+ctime=1381252241
+host=50.181.56.222
+name=Players.JonahMacnamara
+rev=21
+targets=Players.TheRevival,Players.AllTomorrowsParties,Players.RebekahFuchs,Players.StarCarson,Players.ReverendSilasLove,Players.MichaelBertramYoung,Players.DamianNero,Players.DevonVanDerMetter,Players.TobiasDelovelyMcKinley,Players.Alexander
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a!!%25white%25Jonah Macnamara%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) http://i697.photobucket.com/albums/vv340/griffalo/Jonah_zps14481ffa.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) 27%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Muscular%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Covenant:'''%0a(:cell width=190:) Lancea Sanctum%0a(:cellnr width=150 align=left:)'''Clan:'''%0a(:cell width=190:) Daeva%0a(:cellnr width=150 align=left:)'''Coteries:'''%0a(:cell width=190:) [[The Revival]], [[All Tomorrow's Parties]]%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Griffalo%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/playlist?list=PLGoRx6jDwQWVzgtGlv3eXZkWVoAA9oHpq&feature=mh_lolz|Music (NSFW)]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_d.png%0aMuscular and tan with perfect teeth. He always dresses to flatter his body, whether it be a well-cut suit, casual wear - or simply designer underwear, sneakers and a baseball cap. There's a hint of a Louisiana accent as he talks.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_h.png%0aJonah travels with [[Rebekah Fuchs|his]] [[Star Carson|sisters]] and the [[Reverend Silas Love]], part of a travelling [[The Revival|revival]] of Lancea Sanctum.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_rph.png%0a''Party Monster'': He's becoming a fixture of the Savannah Club Scene.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_q.png%0a%0a''It's a dance; a dance no one had to teach me; a dance I'd known, since I first saw my reflection in my father's eyes. My partners have been princes and starving artists, Greek gods, and clowns; and every one of them certain they led. But it's always my dance. I make the first move, which is no move at all. I always just understand that they will eventually find themselves in front of me; primitive, beautiful animals and their bodies responding to the inevitability of it all. It's my dance and I have performed it with finesse and abandon with countless partners. Only the faces change and now... the dance will never end.'' - '''Jonah'''%0a%0a%0a''What Others have to Say about you''%0a%0a''Ah yes, my big brother. Though sometimes, it feels like I'm the older sibling of the two of us. Still, I love him to bits, and those times when I forget how to girl, he reminds me.'' - [[Rebekah Fuchs]]%0a%0a''They say that after we die we lose our lust for flesh and instead the want for blood takes over.  So, how to put this gracefully... Jonah reminds me how to be human.'' -- [[Players.MichaelBertramYoung|Michael Bertram-Young]]%0a%0a''All these years, I thought there was only one thing I could every truly be hungry for.  Turns out I was wrong.'' -- [[Players.DamianNero|Damian Nero]]%0a%0a''There was actually a time in my life that I lived in the delusion that I was a man of action.  Since meeting Jonah, that illusion has been nicely folded up, and put away with my rattles and bibs.  Jonah is action, he brings it, he gets it.'' -[[Devon Van Der Metter]]%0a%0a''Let me tell you the story about Jonah and the whale...'' -- %0a[[Players.TobiasDelovelyMcKinley|Tobias McKinley]]%0a%0a''Why do I say these Jonah things?  The Mister Invictus city vampires don't like it.'' -[[Alexander]]  %0a%0a[[%3c%3c]]%0a[[%3c%3c]]%0a(:include CityBook.VampireNavigationBar:)
+time=1386633471
+author:1386633471=youkilledkenny
+diff:1386633471:1386633450:=51,53d50%0a%3c ''Let me tell you the story about Jonah and the whale...'' -- %0a%3c [[Players.TobiasDelovelyMcKinley|Tobias McKinley]]%0a%3c %0a55a53%0a> ''Let me tell you the story about Jonah and the whale...'' -- [[Players.TobiasDelovelyMcKinley|Tobias McKinley]]%0a
+host:1386633471=50.181.56.222
+author:1386633450=youkilledkenny
+diff:1386633450:1385730752:=50,51d49%0a%3c %0a%3c ''Why do I say these Jonah things?  The Mister Invictus city vampires don't like it.'' -[[Alexander]]  %0a
+host:1386633450=50.181.56.222
+author:1385730752=Rho
+diff:1385730752:1385388241:=48,49d47%0a%3c %0a%3c ''There was actually a time in my life that I lived in the delusion that I was a man of action.  Since meeting Jonah, that illusion has been nicely folded up, and put away with my rattles and bibs.  Jonah is action, he brings it, he gets it.'' -[[Devon Van Der Metter]]%0a
+host:1385730752=74.137.228.75
+author:1385388241=Griffalo
+diff:1385388241:1385177084:minor=17,18c17,18%0a%3c (:cellnr width=150 align=left:)'''Coteries:'''%0a%3c (:cell width=190:) [[The Revival]], [[All Tomorrow's Parties]]%0a---%0a> (:cellnr width=150 align=left:)'''Coterie:'''%0a> (:cell width=190:) [[The Revival]]%0a
+host:1385388241=82.71.25.5
+author:1385177084=Griffalo
+diff:1385177084:1385160565:=37c37%0a%3c %0a---%0a> %25center%25http://i.imgur.com/ezXXm.gif%0a
+host:1385177084=176.249.245.117
+author:1385160565=dramaturge
+diff:1385160565:1385128891:=48,49d47%0a%3c %0a%3c ''Let me tell you the story about Jonah and the whale...'' -- [[Players.TobiasDelovelyMcKinley|Tobias McKinley]]%0a
+host:1385160565=12.12.15.154
+author:1385128891=Griffalo
+diff:1385128891:1384111174:=38,40d37%0a%3c ''It's a dance; a dance no one had to teach me; a dance I'd known, since I first saw my reflection in my father's eyes. My partners have been princes and starving artists, Greek gods, and clowns; and every one of them certain they led. But it's always my dance. I make the first move, which is no move at all. I always just understand that they will eventually find themselves in front of me; primitive, beautiful animals and their bodies responding to the inevitability of it all. It's my dance and I have performed it with finesse and abandon with countless partners. Only the faces change and now... the dance will never end.'' - '''Jonah'''%0a%3c %0a%3c %0a
+host:1385128891=82.71.25.5
+author:1384111174=gothicountry
+diff:1384111174:1384111121:=44c44%0a%3c ''All these years, I thought there was only one thing I could every truly be hungry for.  Turns out I was wrong.'' -- [[Players.DamianNero|Damian Nero]]%0a---%0a> ''All these years, I thought there was only one thing I could every truly be hungry for.  I was wrong.'' -- [[Players.DamianNero|Damian Nero]]%0a
+host:1384111174=174.109.189.122
+author:1384111121=gothicountry
+diff:1384111121:1383694992:=43,44d42%0a%3c %0a%3c ''All these years, I thought there was only one thing I could every truly be hungry for.  I was wrong.'' -- [[Players.DamianNero|Damian Nero]]%0a
+host:1384111121=174.109.189.122
+author:1383694992=Kitsuiko
+diff:1383694992:1381776064:=41,42d40%0a%3c %0a%3c ''They say that after we die we lose our lust for flesh and instead the want for blood takes over.  So, how to put this gracefully... Jonah reminds me how to be human.'' -- [[Players.MichaelBertramYoung|Michael Bertram-Young]]%0a
+host:1383694992=24.183.49.4
+author:1381776064=Rini
+diff:1381776064:1381733792:=39,41d38%0a%3c %0a%3c ''Ah yes, my big brother. Though sometimes, it feels like I'm the older sibling of the two of us. Still, I love him to bits, and those times when I forget how to girl, he reminds me.'' - [[Rebekah Fuchs]]%0a%3c [[%3c%3c]]%0a
+host:1381776064=64.85.232.60
+author:1381733792=Griffalo
+diff:1381733792:1381570170:minor=25c25%0a%3c Muscular and tan with perfect teeth. He always dresses to flatter his body, whether it be a well-cut suit, casual wear - or simply designer underwear, sneakers and a baseball cap. There's a hint of a Louisiana accent as he talks.%0a---%0a> Muscular and tan with perfect teeth. He always dresses to flatter his body, whether it be a well-cut suit, casual wear - or simply designer underwear, sneakers and a baseball cap.%0a
+host:1381733792=2.122.152.94
+author:1381570170=Griffalo
+diff:1381570170:1381535958:minor=28c28%0a%3c Jonah travels with [[Rebekah Fuchs|his]] [[Star Carson|sisters]] and the [[Reverend Silas Love]], part of a travelling [[The Revival|revival]] of Lancea Sanctum.%0a---%0a> Jonah travels with [[Rebekah Fuchs|his]] [[Star Dent|sisters]] and the [[Reverend Silas Love]], part of a travelling [[The Revival|revival]] of Lancea Sanctum.%0a
+host:1381570170=2.122.152.94
+author:1381535958=Griffalo
+diff:1381535958:1381364919:=28c28%0a%3c Jonah travels with [[Rebekah Fuchs|his]] [[Star Dent|sisters]] and the [[Reverend Silas Love]], part of a travelling [[The Revival|revival]] of Lancea Sanctum.%0a---%0a> Jonah travels with his sisters and the [[Reverend Silas Love]], part of a travelling revival of Lancea Sanctum.%0a
+host:1381535958=2.122.152.94
+author:1381364919=Griffalo
+diff:1381364919:1381364757:minor=28c28%0a%3c Jonah travels with his sisters and the [[Reverend Silas Love]], part of a travelling revival of Lancea Sanctum.%0a---%0a> Jonah travels with his sister and the [[Reverend Silas Love]], part of a travelling revival of Lancea Sanctum%0a
+host:1381364919=2.122.152.94
+author:1381364757=Griffalo
+diff:1381364757:1381347346:=17,18d16%0a%3c (:cellnr width=150 align=left:)'''Coterie:'''%0a%3c (:cell width=190:) [[The Revival]]%0a
+host:1381364757=2.122.152.94
+author:1381347346=Griffalo
+diff:1381347346:1381320860:=35d34%0a%3c %25center%25http://i.imgur.com/ezXXm.gif%0a
+host:1381347346=2.122.152.94
+author:1381320860=Griffalo
+diff:1381320860:1381260533:=26c26%0a%3c Jonah travels with his sister and the [[Reverend Silas Love]], part of a travelling revival of Lancea Sanctum%0a---%0a> Jonah travels with his sister and the Reverend Silas Love, part of a travelling revival of Lancea Sanctum%0a
+host:1381320860=82.71.25.5
+author:1381260533=Griffalo
+diff:1381260533:1381260166:minor=3c3%0a%3c !!%25white%25Jonah Macnamara%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1381260533=2.122.152.94
+author:1381260166=Griffalo
+diff:1381260166:1381252241:minor=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://i697.photobucket.com/albums/vv340/griffalo/Jonah_zps14481ffa.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://media-cache-ec0.pinimg.com/236x/70/02/3a/70023ad65c4970a87eee4d4c17403aa5.jpg%0a
+host:1381260166=2.122.152.94
+author:1381252241=Griffalo
+diff:1381252241:1381252241:=1,37d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://media-cache-ec0.pinimg.com/236x/70/02/3a/70023ad65c4970a87eee4d4c17403aa5.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) 27%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Muscular%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Covenant:'''%0a%3c (:cell width=190:) Lancea Sanctum%0a%3c (:cellnr width=150 align=left:)'''Clan:'''%0a%3c (:cell width=190:) Daeva%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) Griffalo%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/playlist?list=PLGoRx6jDwQWVzgtGlv3eXZkWVoAA9oHpq&feature=mh_lolz|Music (NSFW)]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_d.png%0a%3c Muscular and tan with perfect teeth. He always dresses to flatter his body, whether it be a well-cut suit, casual wear - or simply designer underwear, sneakers and a baseball cap.%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_h.png%0a%3c Jonah travels with his sister and the Reverend Silas Love, part of a travelling revival of Lancea Sanctum%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_rph.png%0a%3c ''Party Monster'': He's becoming a fixture of the Savannah Club Scene.%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1381252241=2.122.152.94

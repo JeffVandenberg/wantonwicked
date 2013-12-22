@@ -1,0 +1,36 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=Infinity
+charset=ISO-8859-1
+csum=
+ctime=1378878411
+host=108.201.200.24
+name=Players.JackShepard
+rev=8
+targets=Players.SirenCain,Players.DelilahFlower
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#000000 align=center:)%0a!!%25white%25Jack Shepard%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) %25width=400%25http://i.imgur.com/jIBffgl.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Nick's:'''%0a(:cell width=190:) N/A%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 25%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 6'0"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Muscular%0a(:cellnr width=150 align=left:)'''Profession:'''%0a(:cell width=190:) Police Officer, SWAT%0a(:cellnr width=150 align=left:)'''Public Notice:''' %0a(:cell width=190:) Sworn Officer%0a(:cellnr width=150 align=left:)'''Domitor:''' %0a(:cell width=190:) [[Siren Cain]]%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Infinity%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=P1QUZzeZoPQ|The Heavy - Short Change Hero]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a''When someone looks at Jack it's like he practically holds up a sign above his head that says he's a cop. It's the way he carries himself, the way he talks and even acts. To strangers he's very direct and precise, after all everyone is a possible suspect. Once you're a cop it's hard to flip that switch off. When hes not on duty he likes to dress in normal clothes to blend in.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a''He grew up around town, in the suburbs actually. Always wanted to be a cop ever since he could remember. It was almost an obsession for him. Once he became an officer of the law Jack really did his best and put forth the effort to do a good job.%0a ''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a*'''To Protect and Serve:'''  ''He's a cop afterall, and is always happy to chat up another memeber of the force. He doesn't look at rank as social groups and enjoys making friends anywhere.'' %0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a%0a''"Definitely caught off guard.. "'' -[[Delilah Flower]]%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1382460781
+author:1382460781=Infinity
+diff:1382460781:1380933905:=19,20d18%0a%3c (:cellnr width=150 align=left:)'''Domitor:''' %0a%3c (:cell width=190:) [[Siren Cain]]%0a
+host:1382460781=108.201.200.24
+author:1380933905=BloodyQuill
+diff:1380933905:1380511089:=37c37%0a%3c ''"Definitely caught off guard.. "'' -[[Delilah Flower]]%0a---%0a> ''"Defiantly Caught off Guard.. "'' -[[Delilah Flower]]%0a
+host:1380933905=67.204.243.249
+author:1380511089=Forestessentials
+diff:1380511089:1380329490:=37c37%0a%3c ''"Defiantly Caught off Guard.. "'' -[[Delilah Flower]]%0a---%0a> ''"He makes me Laugh and something about him has caught me off guard."'' -[[Delilah Flower]]%0a
+host:1380511089=50.147.19.4
+author:1380329490=Infinity
+diff:1380329490:1379145632:=22c22%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=P1QUZzeZoPQ|The Heavy - Short Change Hero]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/watch?v=TChi7JHq4Rw|Nero - Scorpions]]%0a
+host:1380329490=108.201.200.24
+author:1379145632=Forestessentials
+diff:1379145632:1378998718:=36,37d35%0a%3c %0a%3c ''"He makes me Laugh and something about him has caught me off guard."'' -[[Delilah Flower]]%0a
+host:1379145632=50.147.19.4
+author:1378998718=Infinity
+diff:1378998718:1378998697:=14c14%0a%3c (:cell width=190:) Muscular%0a---%0a> (:cell width=190:) Toned%0a
+host:1378998718=108.201.200.24
+author:1378998697=Infinity
+diff:1378998697:1378878411:=8c8%0a%3c (:cell width=190:) N/A%0a---%0a> (:cell width=190:) Charley, Dair%0a
+host:1378998697=108.201.200.24
+author:1378878411=Infinity
+diff:1378878411:1378878411:=1,38d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#000000 align=center:)%0a%3c !!%25white%25Jack Shepard%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) %25width=400%25http://i.imgur.com/jIBffgl.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Nick's:'''%0a%3c (:cell width=190:) Charley, Dair%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 25%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 6'0"%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Toned%0a%3c (:cellnr width=150 align=left:)'''Profession:'''%0a%3c (:cell width=190:) Police Officer, SWAT%0a%3c (:cellnr width=150 align=left:)'''Public Notice:''' %0a%3c (:cell width=190:) Sworn Officer%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) Infinity%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=TChi7JHq4Rw|Nero - Scorpions]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''When someone looks at Jack it's like he practically holds up a sign above his head that says he's a cop. It's the way he carries himself, the way he talks and even acts. To strangers he's very direct and precise, after all everyone is a possible suspect. Once you're a cop it's hard to flip that switch off. When hes not on duty he likes to dress in normal clothes to blend in.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''He grew up around town, in the suburbs actually. Always wanted to be a cop ever since he could remember. It was almost an obsession for him. Once he became an officer of the law Jack really did his best and put forth the effort to do a good job.%0a%3c  ''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c *'''To Protect and Serve:'''  ''He's a cop afterall, and is always happy to chat up another memeber of the force. He doesn't look at rank as social groups and enjoys making friends anywhere.'' %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1378878411=108.201.200.24

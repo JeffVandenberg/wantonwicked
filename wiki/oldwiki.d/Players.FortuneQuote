@@ -1,0 +1,31 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+author=Bottlecaps
+charset=ISO-8859-1
+csum=
+ctime=1380657041
+host=50.147.19.4
+name=Players.FortuneQuote
+rev=6
+targets=
+text=
+time=1380756902
+author:1380756902=Bottlecaps
+diff:1380756902:1380754621:=0a1%0a> *'''Because one claims to be a Sovereign does not make one the center of my world. Learn what it means to be in my circle before trying to call me your [[http://www.youtube.com/watch?v=BKmldYSDJaM|%25color=#33CCCC%25lover.]] ''' - [[Kaden Davis|%25color=#33CCCC%25Copyright]]%0a\ No newline at end of file%0a
+host:1380756902=50.147.19.4
+author:1380754621=Sunlight
+diff:1380754621:1380754616:minor=
+host:1380754621=108.247.38.0
+author:1380754616=Sunlight
+diff:1380754616:1380728253:minor=1c1%0a%3c *'''Because one claims to be a Sovereign does not make one the center of my world. Learn what it means to be in my circle before trying to call me your [[http://www.youtube.com/watch?v=BKmldYSDJaM|%25color=#33CCCC%25lover.]] ''' - [[Kaden Davis|%25color=#33CCCC%25Copyright]]%0a\ No newline at end of file%0a---%0a> *'''Because one claims to be a Sovereign does not make one the center of my world. Learn what it means to be in my circle before trying to call me your [[http://www.youtube.com/watch?v=gJLIiF15wjQ|%25color=#33CCCC%25lover.]] ''' - [[Kaden Davis|%25color=#33CCCC%25Copyright]]%0a\ No newline at end of file%0a
+host:1380754616=108.247.38.0
+author:1380728253=Bottlecaps
+csum:1380728253=Quote because song was actualy dedicated in scene. Please don't change the song I add.
+diff:1380728253:1380726419:=1c1%0a%3c *'''Because one claims to be a Sovereign does not make one the center of my world. Learn what it means to be in my circle before trying to call me your [[http://www.youtube.com/watch?v=gJLIiF15wjQ|%25color=#33CCCC%25lover.]] ''' - [[Kaden Davis|%25color=#33CCCC%25Copyright]]%0a\ No newline at end of file%0a---%0a> *'''Because one claims to be a Sovereign does not make one the center of my world. Learn what it means to be in my circle before trying to call me your [[http://www.youtube.com/watch?v=9OFpfTd0EIs|%25color=#33CCCC%25lover.]] ''' - [[Kaden Davis|%25color=#33CCCC%25Copyright]]%0a\ No newline at end of file%0a
+host:1380728253=50.147.19.4
+author:1380726419=Sunlight
+diff:1380726419:1380657041:=1c1%0a%3c *'''Because one claims to be a Sovereign does not make one the center of my world. Learn what it means to be in my circle before trying to call me your [[http://www.youtube.com/watch?v=9OFpfTd0EIs|%25color=#33CCCC%25lover.]] ''' - [[Kaden Davis|%25color=#33CCCC%25Copyright]]%0a\ No newline at end of file%0a---%0a> *'''Because one claims to be a Sovereign does not make one the center of my world. Learn what it means to be in my circle before trying to call me your [[http://www.youtube.com/watch?v=gJLIiF15wjQ|%25color=#33CCCC%25lover.]] ''' - [[Kaden Davis|%25color=#33CCCC%25Copyright]]%0a\ No newline at end of file%0a
+host:1380726419=108.247.38.0
+author:1380657041=Bottlecaps
+diff:1380657041:1380657041:=1d0%0a%3c *'''Because one claims to be a Sovereign does not make one the center of my world. Learn what it means to be in my circle before trying to call me your [[http://www.youtube.com/watch?v=gJLIiF15wjQ|%25color=#33CCCC%25lover.]] ''' - [[Kaden Davis|%25color=#33CCCC%25Copyright]]%0a\ No newline at end of file%0a
+host:1380657041=50.147.19.4

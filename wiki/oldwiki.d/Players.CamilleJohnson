@@ -1,0 +1,38 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+author=forestdevil
+charset=ISO-8859-1
+csum=
+ctime=1383418438
+host=82.26.105.71
+name=Players.CamilleJohnson
+rev=8
+targets=Players.AaronBuel,Players.OpheliaCollins,Players.SeanBagshaw
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a!!%25white%25Camille Johnson%25white%25%0a(:cellnr rowspan=30 width=400 align=center:) http://farm5.staticflickr.com/4076/4776959297_cb8860a322_o.png%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 26%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'8"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Curvy%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Physician%0a(:cellnr width=150 align=left:)'''Claimed by:'''%0a(:cell width=190:) None%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Status: Medical 1%0a%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) snowcrane%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a''Place your Description Here''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_h.png%0a''Place your Public History Here''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_rph.png%0a''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a%0a''"At one point of my life I would have probably ended up dead in a ditch if it hasn't been for her. Or shanked to death. Or I would have committed suicide by cop. So I'll always be there for her, like she's been for me."'' - [[Aaron Buel|Rends-the-Light]]%0a%0a%0a''"Good heart on her, very happy to have met her and her man Sean.  I like hanging out with both of them."'' - [[OpheliaCollins|Lia]]%0a%0a%0a''"I have no idea what I did in a past life to deserve her, but waking up to her every morning is the only thing I need in life any more. "'' - [[SeanBagshaw|Sean]]%0a[[%3c%3c]]%0a%0a(:include CityBook.WerewolfNavigationBar:)
+time=1384947963
+author:1384947963=forestdevil
+diff:1384947963:1384723824:=48,50d47%0a%3c %0a%3c %0a%3c ''"I have no idea what I did in a past life to deserve her, but waking up to her every morning is the only thing I need in life any more. "'' - [[SeanBagshaw|Sean]]%0a
+host:1384947963=82.26.105.71
+author:1384723824=Ephsy
+diff:1384723824:1384720518:=47c47%0a%3c ''"Good heart on her, very happy to have met her and her man Sean.  I like hanging out with both of them."'' - [[OpheliaCollins|Lia]]%0a---%0a> ''"Good heart on her, very happy to have met her and her man Sean.  I like hanging out with both of them"'' - [[OpheliaCollins|Lia]]%0a
+host:1384723824=190.105.65.183
+author:1384720518=Devilish
+diff:1384720518:1383695465:=46,47d45%0a%3c %0a%3c ''"Good heart on her, very happy to have met her and her man Sean.  I like hanging out with both of them"'' - [[OpheliaCollins|Lia]]%0a
+host:1384720518=68.224.99.74
+author:1383695465=Ephsy
+csum:1383695465=quote
+diff:1383695465:1383423092:=43,44c43%0a%3c %0a%3c ''"At one point of my life I would have probably ended up dead in a ditch if it hasn't been for her. Or shanked to death. Or I would have committed suicide by cop. So I'll always be there for her, like she's been for me."'' - [[Aaron Buel|Rends-the-Light]]%0a---%0a> ''What Others have to Say about you''%0a
+host:1383695465=190.105.65.183
+author:1383423092=snowcrane
+diff:1383423092:1383423074:=22c22%0a%3c (:cell width=190:) snowcrane%0a---%0a> (:cell width=190:) Oscillowitz%0a
+host:1383423092=76.104.165.46
+author:1383423074=snowcrane
+diff:1383423074:1383422827:=8c8%0a%3c (:cell width=190:) 26%0a---%0a> (:cell width=190:) 28%0a
+host:1383423074=76.104.165.46
+author:1383422827=Ephsy
+csum:1383422827=pic
+diff:1383422827:1383418438:=4c4%0a%3c (:cellnr rowspan=30 width=400 align=center:) http://farm5.staticflickr.com/4076/4776959297_cb8860a322_o.png%0a---%0a> (:cellnr rowspan=30 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1383422827=190.105.65.183
+author:1383418438=snowcrane
+diff:1383418438:1383418438:=1,47d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a%3c !!%25white%25Camille Johnson%25white%25%0a%3c (:cellnr rowspan=30 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 28%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 5'8"%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Curvy%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Physician%0a%3c (:cellnr width=150 align=left:)'''Claimed by:'''%0a%3c (:cell width=190:) None%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Status: Medical 1%0a%3c %0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) Oscillowitz%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a%3c ''Place your Description Here''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_h.png%0a%3c ''Place your Public History Here''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a%3c ''What Others have to Say about you''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.WerewolfNavigationBar:)%0a\ No newline at end of file%0a
+host:1383418438=76.104.165.46

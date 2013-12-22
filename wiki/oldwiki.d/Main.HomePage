@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+host=71.0.16.129
+name=Main.HomePage
+rev=204
+targets=GameRef.GameRef,CityBook.CityBook,Players.Players,PmWiki.PmWiki,Site.Site
+text=Welcome to the Wanton Wicked 4.0 Wiki.%0a%0aThis wiki is broken out into a couple of different groups: %0a%0a'+[[GameRef.GameRef | GameRef]]+' : This section is for rules, rulings, and other out of character content that affects the game. %0a%0a%0a'+[[CityBook.CityBook | CityBook]]+' : This section is for the themes and setting pages of the game as well as other in character content managed by the storytelling team.%0a%0a%0a'+[[Players.Players | Players]]+' : This section is for player managed content. Notably, this covers pages for characters and group pages. %25red%25I recommend not making a page for a character that isn't sanctioned.%0a%0a'+[[PmWiki.PmWiki | PmWiki]]+' : These pages are for the more technical among the community. These pages provide information for how to get the most use out of the wiki.%0a%0a'+[[Site/Site]]+' : Official sitePages such as Disclaimer, Code of Conduct, etc.
+time=1373417607
+author:1373417607=ThomasH
+diff:1373417607:1372515706:=3,15c3%0a%3c This wiki is broken out into a couple of different groups: %0a%3c %0a%3c '+[[GameRef.GameRef | GameRef]]+' : This section is for rules, rulings, and other out of character content that affects the game. %0a%3c %0a%3c %0a%3c '+[[CityBook.CityBook | CityBook]]+' : This section is for the themes and setting pages of the game as well as other in character content managed by the storytelling team.%0a%3c %0a%3c %0a%3c '+[[Players.Players | Players]]+' : This section is for player managed content. Notably, this covers pages for characters and group pages. %25red%25I recommend not making a page for a character that isn't sanctioned.%0a%3c %0a%3c '+[[PmWiki.PmWiki | PmWiki]]+' : These pages are for the more technical among the community. These pages provide information for how to get the most use out of the wiki.%0a%3c %0a%3c '+[[Site/Site]]+' : Official sitePages such as Disclaimer, Code of Conduct, etc.%0a\ No newline at end of file%0a---%0a> There's not much here at the moment. We'll work on that. :)%0a\ No newline at end of file%0a
+host:1373417607=71.0.16.129
+author:1372515706=JeffV
+csum:1372515706=Initialization of the Wiki.
+diff:1372515706:1316331993:=1,3c1,12%0a%3c Welcome to the Wanton Wicked 4.0 Wiki.%0a%3c %0a%3c There's not much here at the moment. We'll work on that. :) %0a\ No newline at end of file%0a---%0a> Welcome to PmWiki!%0a> %0a> A local copy of PmWiki's%0a> documentation has been installed along with the software,%0a> and is available via the [[PmWiki/documentation index]].  %0a> %0a> To continue setting up PmWiki, see [[PmWiki/initial setup tasks]].%0a> %0a> The [[PmWiki/basic editing]] page describes how to create pages%0a> in PmWiki.  You can practice editing in the [[wiki sandbox]].%0a> %0a> More information about PmWiki is available from http://www.pmwiki.org.%0a
+host:1372515706=173.18.36.77

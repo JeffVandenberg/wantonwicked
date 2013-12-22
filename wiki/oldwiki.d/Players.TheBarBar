@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=delete
+ctime=1378769281
+host=24.20.151.3
+name=Players.TheBarBar
+rev=2
+targets=
+text=delete
+time=1378769356
+author:1378769356=JillA
+csum:1378769356=delete
+diff:1378769356:1378769281:=1c1,17%0a%3c delete%0a\ No newline at end of file%0a---%0a> (:title The Bar Bar:)%0a> [Venue or Savannah Banner]%0a> %0a> Return to: [[CityBook.?|Venue Locations]], [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a> %0a> [[#location]]%0a> !!The Bar Bar%0a> '''District:''' Historical District%0a> %0a> [Picture] Description%0a> %0a> '''Resonance:''' blah\\%0a> '''Territory:''' Falls within X's claim%0a> [[#locationend]]%0a> %0a> ----%0a> (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1378769356=24.20.151.3
+author:1378769281=JillA
+diff:1378769281:1378769281:=1,17d0%0a%3c (:title The Bar Bar:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!The Bar Bar%0a%3c '''District:''' Historical District%0a%3c %0a%3c [Picture] Description%0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1378769281=24.20.151.3

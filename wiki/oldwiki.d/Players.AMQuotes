@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36
+author=Langlois
+charset=ISO-8859-1
+csum=
+ctime=1377799573
+host=98.233.83.46
+name=Players.AMQuotes
+rev=2
+targets=
+text=(:table border=0 style=float width=90%25 align=center cellspacing=0 :)%0a(:cellnr bgcolor=#74483F align=right:)%0a%25color=White%25"Only a life lived for others is a life worthwhile."%0a->%25color=White%25- Albert Einstein %0a(:cellnr align=left:)%0a%25color=Black%25''"I have a simple philosophy: Fill what's empty. Empty what's full. Scratch where it itches."''%0a->%25color=Black%25- Alice Roosevelt Longworth %0a(:cellnr bgcolor=#74483F align=right:)%0a%25color=White%25 "Your Thoughts."%0a->%25color=White%25 - ''You''
+time=1377800145
+author:1377800145=Langlois
+diff:1377800145:1377799573:=2c2%0a%3c (:cellnr bgcolor=#74483F align=right:)%0a---%0a> (:cellnr bgcolor=#222222 align=right:)%0a8c8%0a%3c (:cellnr bgcolor=#74483F align=right:)%0a---%0a> (:cellnr bgcolor=#222222 align=right:)%0a
+host:1377800145=98.233.83.46
+author:1377799573=Langlois
+diff:1377799573:1377799573:=1,10d0%0a%3c (:table border=0 style=float width=90%25 align=center cellspacing=0 :)%0a%3c (:cellnr bgcolor=#222222 align=right:)%0a%3c %25color=White%25"Only a life lived for others is a life worthwhile."%0a%3c ->%25color=White%25- Albert Einstein %0a%3c (:cellnr align=left:)%0a%3c %25color=Black%25''"I have a simple philosophy: Fill what's empty. Empty what's full. Scratch where it itches."''%0a%3c ->%25color=Black%25- Alice Roosevelt Longworth %0a%3c (:cellnr bgcolor=#222222 align=right:)%0a%3c %25color=White%25 "Your Thoughts."%0a%3c ->%25color=White%25 - ''You''%0a\ No newline at end of file%0a
+host:1377799573=98.233.83.46

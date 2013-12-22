@@ -1,0 +1,92 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Kitsuiko
+charset=ISO-8859-1
+csum=
+ctime=1378055924
+host=24.177.193.227
+name=Players.Charlie
+rev=26
+targets=Players.HattansAegis,Players.AemryWiseman,Players.Ash,Players.Aramis,Players.Chapa,Players.Chrysopoeia,Players.QuinnBishop,Players.Transit,Players.AmberRaeVolmer
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a!!%25white%25Charlie%25white%25%0a(:cellnr rowspan=25 width=400 align=center:) %0a[[http://i697.photobucket.com/albums/vv340/griffalo/mattcommissionfinished_zps80d3df77.jpg|http://i697.photobucket.com/albums/vv340/griffalo/Charlie_zps3607de9e.jpg]]%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 30%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) 30%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5' 11"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Stout%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Professor, Mesoamerican Studies, Whitefield University%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Order Status 2 - ''Acquisitor''%0aConsilium Status 2 - ''Herald''%0a(:cellnr width=150 align=left:)'''Order:'''%0a(:cell width=190:) Mysterium%0a(:cellnr width=150 align=left:)'''Path:'''%0a(:cell width=190:) Obrimos%0a(:cellnr width=150 align=left:)'''Cabal:'''%0a(:cell width=190:) [[Hattan's Aegis]]%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Griffalo%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/playlist?list=PLGoRx6jDwQWX0dr2lpZK8CwYBeK6zd7VU&feature=mh_lolz |Charlie's Jukebox]]%0a(:tableend:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0aAn unassuming Hispanic fellow dressed casually, broad-chested and a few days of stubble on his face. When he's working he typically favours casual pants and sleeveless sweater vests.%0a:Nimbus:%0a''He appears to be lit from below by candlelight.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a''Charlie has recently returned from South America - he's a Savannah native but his first time in the city as a Mage.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a''Whitefield University'': Charlie teaches in the Mesoamerican Studies department.%0a%0a''Native'': Charlie originally hails from Savannah.%0a%0a''South America'': He's travelled extensively within the continent.%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a[[Aemry Wiseman|http://i697.photobucket.com/albums/vv340/griffalo/Aemry_zps06d11dc9.png"Aemry"]] [[Ash|http://i697.photobucket.com/albums/vv340/griffalo/Ash_zps9b0a877f.png"Ash"]] [[Aramis|http://i697.photobucket.com/albums/vv340/griffalo/Aramis_zps5b9587a5.png"Aramis"]] [[Chapa|http://i697.photobucket.com/albums/vv340/griffalo/Chapa_zpsa9b144f4.png"Chapa"]] [[Chrysopoeia|http://i697.photobucket.com/albums/vv340/griffalo/Chrys_zps95280679.png"Chrysopoeia"]] [[Quinn Bishop|http://i697.photobucket.com/albums/vv340/griffalo/quinn_zps59b82c6b.png"Quinn"]] [[Transit|http://i697.photobucket.com/albums/vv340/griffalo/transit_zps98db9fbd.png"Transit"]]%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a''Charlie is a man I not only can trust with my secrets, but one that makes me want to.  I can't think of higher praise ''%0a- '''[[Aramis]]'''%0a%0a''One day, I'll make a man out of you! *Singing the hit song from Mulan* [[http://www.youtube.com/watch?v=Jbp52Z9jRg0|That Song, You Know This One]]  ''%0a- '''[[Ash]]'''%0a%0a''Charlie makes friends easy because he sees the good in others. I hope he sees it in himself as well. ''%0a- '''[[Transit]]'''%0a%0a''He keeps on lookin' at me like I can be more an' talkin' to me like I ain't some hick what just wandered by.  I dunno... I-I dunno.''%0a- '''[[Amber Rae Volmer]]'''%0a[[%3c%3c]]%0a%0a(:include CityBook.MageNavigationBar:)
+time=1387058484
+author:1387058484=Kitsuiko
+diff:1387058484:1381908796:=60,62d59%0a%3c %0a%3c ''He keeps on lookin' at me like I can be more an' talkin' to me like I ain't some hick what just wandered by.  I dunno... I-I dunno.''%0a%3c - '''[[Amber Rae Volmer]]'''%0a
+host:1387058484=24.177.193.227
+author:1381908796=systemoftheworld
+csum:1381908796=quote
+diff:1381908796:1381183901:=57,59d56%0a%3c %0a%3c ''Charlie makes friends easy because he sees the good in others. I hope he sees it in himself as well. ''%0a%3c - '''[[Transit]]'''%0a
+host:1381908796=71.51.102.45
+author:1381183901=Griffalo
+diff:1381183901:1380690405:=19,20c19%0a%3c (:cell width=190:) Order Status 2 - ''Acquisitor''%0a%3c Consilium Status 2 - ''Herald''%0a---%0a> (:cell width=190:) Order Status 1 - ''Acquisitor''%0a
+host:1381183901=2.122.152.94
+author:1380690405=BloodyQuill
+diff:1380690405:1380690382:=54c54%0a%3c ''One day, I'll make a man out of you! *Singing the hit song from Mulan* [[http://www.youtube.com/watch?v=Jbp52Z9jRg0|That Song, You Know This One]]  ''%0a---%0a> ''One day, I'll make a man out of you! *Singing the hit song from Mulan* [[http://www.youtube.com/watch?v=Jbp52Z9jRg0|That Song, You know this one]]  ''%0a
+host:1380690405=67.204.243.249
+author:1380690382=BloodyQuill
+diff:1380690382:1380690337:=54c54%0a%3c ''One day, I'll make a man out of you! *Singing the hit song from Mulan* [[http://www.youtube.com/watch?v=Jbp52Z9jRg0|That Song, You know this one]]  ''%0a---%0a> ''One day, I'll make a man out of you! *Singing the hit song from Mulan* [[http://www.youtube.com/watch?v=Jbp52Z9jRg0|text]]  ''%0a
+host:1380690382=67.204.243.249
+author:1380690337=Scales
+csum:1380690337=Dom is 'special'
+diff:1380690337:1380689983:minor=53,54c53%0a%3c %0a%3c ''One day, I'll make a man out of you! *Singing the hit song from Mulan* [[http://www.youtube.com/watch?v=Jbp52Z9jRg0|text]]  ''%0a---%0a> ''One day, I'll make a man out of you! *Singing the hit song from Mulan* { http://www.youtube.com/watch?v=Jbp52Z9jRg0 }  ''%0a
+host:1380690337=71.219.208.104
+author:1380689983=BloodyQuill
+diff:1380689983:1380223072:=53,54d52%0a%3c ''One day, I'll make a man out of you! *Singing the hit song from Mulan* { http://www.youtube.com/watch?v=Jbp52Z9jRg0 }  ''%0a%3c - '''[[Ash]]'''%0a
+host:1380689983=67.204.243.249
+author:1380223072=Griffalo
+diff:1380223072:1379787577:=5c5%0a%3c [[http://i697.photobucket.com/albums/vv340/griffalo/mattcommissionfinished_zps80d3df77.jpg|http://i697.photobucket.com/albums/vv340/griffalo/Charlie_zps3607de9e.jpg]]%0a---%0a> http://i697.photobucket.com/albums/vv340/griffalo/Charlie_zps3607de9e.jpg%0a
+host:1380223072=2.122.152.94
+author:1379787577=Griffalo
+diff:1379787577:1379702813:=48c48%0a%3c [[Aemry Wiseman|http://i697.photobucket.com/albums/vv340/griffalo/Aemry_zps06d11dc9.png"Aemry"]] [[Ash|http://i697.photobucket.com/albums/vv340/griffalo/Ash_zps9b0a877f.png"Ash"]] [[Aramis|http://i697.photobucket.com/albums/vv340/griffalo/Aramis_zps5b9587a5.png"Aramis"]] [[Chapa|http://i697.photobucket.com/albums/vv340/griffalo/Chapa_zpsa9b144f4.png"Chapa"]] [[Chrysopoeia|http://i697.photobucket.com/albums/vv340/griffalo/Chrys_zps95280679.png"Chrysopoeia"]] [[Quinn Bishop|http://i697.photobucket.com/albums/vv340/griffalo/quinn_zps59b82c6b.png"Quinn"]] [[Transit|http://i697.photobucket.com/albums/vv340/griffalo/transit_zps98db9fbd.png"Transit"]]%0a---%0a> [[Aemry Wiseman|http://i697.photobucket.com/albums/vv340/griffalo/Aemry_zps06d11dc9.png"Aemry"]] [[Ash|http://i697.photobucket.com/albums/vv340/griffalo/Ash_zps9b0a877f.png"Ash"]] [[Aramis|http://i697.photobucket.com/albums/vv340/griffalo/Aramis_zps5b9587a5.png"Aramis"]] [[Chapa|http://i697.photobucket.com/albums/vv340/griffalo/Chapa_zpsa9b144f4.png"Chapa"]] [[Chrysopoeia|http://i697.photobucket.com/albums/vv340/griffalo/Chrys_zps95280679.png"Chrysopoeia"]] [[Quinn Bishop|http://i697.photobucket.com/albums/vv340/griffalo/quinn_zps59b82c6b.png"Quinn"]]%0a
+host:1379787577=2.122.152.94
+author:1379702813=schreier
+diff:1379702813:1379702796:=51c51%0a%3c ''Charlie is a man I not only can trust with my secrets, but one that makes me want to.  I can't think of higher praise ''%0a---%0a> '''Charlie is a man I not only can trust with my secrets, but one that makes me want to.  I can't think of higher praise '''%0a
+host:1379702813=96.234.173.132
+author:1379702796=schreier
+diff:1379702796:1379702319:=51,52c51,52%0a%3c '''Charlie is a man I not only can trust with my secrets, but one that makes me want to.  I can't think of higher praise '''%0a%3c - '''[[Aramis]]'''%0a---%0a> ''Charlie is a man I not only can trust with my secrets, but one that makes me want to.  I can't think of higher praise - %0a> '''[[Aramis]]'''%0a
+host:1379702796=96.234.173.132
+author:1379702319=schreier
+diff:1379702319:1379702150:=52c52%0a%3c '''[[Aramis]]'''%0a---%0a> '''[[Aramis]]'''''%0a
+host:1379702319=96.234.173.132
+author:1379702150=schreier
+diff:1379702150:1379702101:=51,52c51,52%0a%3c ''Charlie is a man I not only can trust with my secrets, but one that makes me want to.  I can't think of higher praise - %0a%3c '''[[Aramis]]'''''%0a---%0a> ''Charlie is a man I not only can trust with my secrets, but one that makes me want to.  I can't think of higher praise%0a> - '''[[Aramis]]'''''%0a
+host:1379702150=96.234.173.132
+author:1379702101=schreier
+diff:1379702101:1379697727:=51,52c51%0a%3c ''Charlie is a man I not only can trust with my secrets, but one that makes me want to.  I can't think of higher praise%0a%3c - '''[[Aramis]]'''''%0a---%0a> ''What Others have to Say about you''%0a
+host:1379702101=96.234.173.132
+author:1379697727=Griffalo
+diff:1379697727:1379467565:minor=48c48%0a%3c [[Aemry Wiseman|http://i697.photobucket.com/albums/vv340/griffalo/Aemry_zps06d11dc9.png"Aemry"]] [[Ash|http://i697.photobucket.com/albums/vv340/griffalo/Ash_zps9b0a877f.png"Ash"]] [[Aramis|http://i697.photobucket.com/albums/vv340/griffalo/Aramis_zps5b9587a5.png"Aramis"]] [[Chapa|http://i697.photobucket.com/albums/vv340/griffalo/Chapa_zpsa9b144f4.png"Chapa"]] [[Chrysopoeia|http://i697.photobucket.com/albums/vv340/griffalo/Chrys_zps95280679.png"Chrysopoeia"]] [[Quinn Bishop|http://i697.photobucket.com/albums/vv340/griffalo/quinn_zps59b82c6b.png"Quinn"]]%0a---%0a> [[Aemry Wiseman|http://i697.photobucket.com/albums/vv340/griffalo/Aemry_zps06d11dc9.png"Aemry"]] [[Ash|http://i697.photobucket.com/albums/vv340/griffalo/Ash_zps9b0a877f.png"Ash"]] [[Aramis|http://i697.photobucket.com/albums/vv340/griffalo/Aramis_zps5b9587a5.png"Aramis"]] [[Chapa|http://i697.photobucket.com/albums/vv340/griffalo/Chapa_zpsa9b144f4.png"Chapa"]] [[Chrysopoeia|http://i697.photobucket.com/albums/vv340/griffalo/Chrys_zps95280679.png"Chrysopoeia"]]%0a
+host:1379697727=2.122.152.94
+author:1379467565=Griffalo
+diff:1379467565:1379442287:minor=19c19%0a%3c (:cell width=190:) Order Status 1 - ''Acquisitor''%0a---%0a> (:cell width=190:) Order Status 1%0a
+host:1379467565=2.122.152.94
+author:1379442287=Griffalo
+diff:1379442287:1379406219:minor=25c25%0a%3c (:cell width=190:) [[Hattan's Aegis]]%0a---%0a> (:cell width=190:) None%0a
+host:1379442287=2.122.152.94
+author:1379406219=Griffalo
+diff:1379406219:1379403512:=48c48%0a%3c [[Aemry Wiseman|http://i697.photobucket.com/albums/vv340/griffalo/Aemry_zps06d11dc9.png"Aemry"]] [[Ash|http://i697.photobucket.com/albums/vv340/griffalo/Ash_zps9b0a877f.png"Ash"]] [[Aramis|http://i697.photobucket.com/albums/vv340/griffalo/Aramis_zps5b9587a5.png"Aramis"]] [[Chapa|http://i697.photobucket.com/albums/vv340/griffalo/Chapa_zpsa9b144f4.png"Chapa"]] [[Chrysopoeia|http://i697.photobucket.com/albums/vv340/griffalo/Chrys_zps95280679.png"Chrysopoeia"]]%0a---%0a> [[Sean Lowe|http://imageshack.us/a/img266/1203/eqdn.png"Sean"]] [[Moraceae|http://imageshack.us/a/img849/9016/aats.png"Mory"]] [[Charlie|http://imageshack.us/a/img20/9101/1qvv.png"Charlie"]] [[Chapa|http://imageshack.us/a/img405/1966/jlmg.png"Chapa"]]%0a
+host:1379406219=2.122.152.94
+author:1379403512=Griffalo
+diff:1379403512:1379381672:=45a46%0a> %0a48c49%0a%3c [[Sean Lowe|http://imageshack.us/a/img266/1203/eqdn.png"Sean"]] [[Moraceae|http://imageshack.us/a/img849/9016/aats.png"Mory"]] [[Charlie|http://imageshack.us/a/img20/9101/1qvv.png"Charlie"]] [[Chapa|http://imageshack.us/a/img405/1966/jlmg.png"Chapa"]]%0a---%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1379403512=2.122.152.94
+author:1379381672=JillA
+diff:1379381672:1379191307:=47,49d46%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1379381672=24.20.151.3
+author:1379191307=Griffalo
+diff:1379191307:1379187292:=25a26,34%0a> (:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_a.png%0a> (:cellnr width=150 align=left:)'''Forces:'''%0a> (:cell width=190:) Yes%0a> (:cellnr width=150 align=left:)'''Matter:'''%0a> (:cell width=190:) Yes%0a> (:cellnr width=150 align=left:)'''Mind:'''%0a> (:cell width=190:) Yes%0a> (:cellnr width=150 align=left:)'''Prime:'''%0a> (:cell width=190:) Yes%0a
+host:1379191307=2.122.152.94
+author:1379187292=Griffalo
+diff:1379187292:1378135360:minor=28c28%0a%3c (:cell width=190:) Yes%0a---%0a> (:cell width=190:) Initiate%0a30c30%0a%3c (:cell width=190:) Yes%0a---%0a> (:cell width=190:) Apprentice%0a32c32%0a%3c (:cell width=190:) Yes%0a---%0a> (:cell width=190:) Apprentice%0a34c34%0a%3c (:cell width=190:) Yes%0a---%0a> (:cell width=190:) Disciple%0a
+host:1379187292=2.122.152.94
+author:1378135360=Griffalo
+diff:1378135360:1378135152:=51d50%0a%3c %0a53d51%0a%3c %0a55d52%0a%3c %0a
+host:1378135360=82.71.25.5
+author:1378135152=Griffalo
+diff:1378135152:1378056422:minor=47c47%0a%3c ''Charlie has recently returned from South America - he's a Savannah native but his first time in the city as a Mage.''%0a---%0a> ''Coming Soon''%0a51,52d50%0a%3c ''Native'': Charlie originally hails from Savannah.%0a%3c ''South America'': He's travelled extensively within the continent.%0a
+host:1378135152=82.71.25.5
+author:1378056422=Griffalo
+diff:1378056422:1378055924:minor=44c44%0a%3c ''He appears to be lit from below by candlelight.''%0a---%0a> ''He appears to be lit from below by candlelight''%0a
+host:1378056422=94.10.226.127
+author:1378055924=Griffalo
+diff:1378055924:1378055924:=1,56d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a%3c !!%25white%25Charlie%25white%25%0a%3c (:cellnr rowspan=25 width=400 align=center:) %0a%3c http://i697.photobucket.com/albums/vv340/griffalo/Charlie_zps3607de9e.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 30%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) 30%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 5' 11"%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Stout%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Professor, Mesoamerican Studies, Whitefield University%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Order Status 1%0a%3c (:cellnr width=150 align=left:)'''Order:'''%0a%3c (:cell width=190:) Mysterium%0a%3c (:cellnr width=150 align=left:)'''Path:'''%0a%3c (:cell width=190:) Obrimos%0a%3c (:cellnr width=150 align=left:)'''Cabal:'''%0a%3c (:cell width=190:) None%0a%3c (:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_a.png%0a%3c (:cellnr width=150 align=left:)'''Forces:'''%0a%3c (:cell width=190:) Initiate%0a%3c (:cellnr width=150 align=left:)'''Matter:'''%0a%3c (:cell width=190:) Apprentice%0a%3c (:cellnr width=150 align=left:)'''Mind:'''%0a%3c (:cell width=190:) Apprentice%0a%3c (:cellnr width=150 align=left:)'''Prime:'''%0a%3c (:cell width=190:) Disciple%0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) Griffalo%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/playlist?list=PLGoRx6jDwQWX0dr2lpZK8CwYBeK6zd7VU&feature=mh_lolz |Charlie's Jukebox]]%0a%3c (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a%3c An unassuming Hispanic fellow dressed casually, broad-chested and a few days of stubble on his face. When he's working he typically favours casual pants and sleeveless sweater vests.%0a%3c :Nimbus:%0a%3c ''He appears to be lit from below by candlelight''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a%3c ''Coming Soon''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a%3c ''Whitefield University'': Charlie teaches in the Mesoamerican Studies department.%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1378055924=94.10.226.127

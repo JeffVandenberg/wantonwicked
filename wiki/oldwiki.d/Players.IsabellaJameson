@@ -1,0 +1,39 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=Sami
+charset=ISO-8859-1
+csum=
+ctime=1379394788
+host=86.52.75.23
+name=Players.IsabellaJameson
+rev=9
+targets=Players.JackHNorth
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Sample Name%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) http://cdn1.ouchpress.com/thumbs/celebrities/189/340209-zooey-deschanel-200.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 19%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 7'3''%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Lanky%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Student/retailer/writer.%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Giant%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Chuffy%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=CP7VcsaoqZc |Dusk to Dawn]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a''Place your Description Here''%0a%0aTall doesn't even begin to describe this woman. Standing at a frightening 7'3'', this lovely woman is often clothed in what could be thought of as... old people clothing. Blouses, simple slacks or even the occasional skirt that fell down to her calves. Also, can't forget the size 16 Dr. Martin boots that could do some serious damage if kicking was involved.%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a''Place your Public History Here''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a* '''A family of Cops''' You know the Jameson family's eldest. The tall freak that didn't joined the academy. Which is weird, cause everyone in the family dealt with police work in one way or another. Either way, if you carry a badge you should be able to pinpoint the giant rather quick for Major Jameson's daughter.%0a%0a* '''Armstrong Atlantic State University''' You part of the science department? No? Doesn't matter. You most likely saw this lumbering figure wander through campus or just haunt the library from time to time.%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a%0a"What a curious personality" - [[JackHNorth|Hunter]]%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1383487957
+author:1383487957=Sami
+diff:1383487957:1379431783:=43,44d42%0a%3c %0a%3c "What a curious personality" - [[JackHNorth|Hunter]]%0a
+host:1383487957=86.52.75.23
+author:1379431783=Chuffy
+diff:1379431783:1379431762:=24d23%0a%3c %0a
+host:1379431783=68.204.142.123
+author:1379431762=Chuffy
+diff:1379431762:1379430948:=32c32%0a%3c * '''A family of Cops''' You know the Jameson family's eldest. The tall freak that didn't joined the academy. Which is weird, cause everyone in the family dealt with police work in one way or another. Either way, if you carry a badge you should be able to pinpoint the giant rather quick for Major Jameson's daughter.%0a---%0a> * '''A family of Cops''' You know the Jameson family's eldest. The tall freak that didn't joined the academy. Which is weird, cause everyone in the family dealt with police work in one way or another. Either way, if you carry a badge you should be able to pinpoint the giant rather quick for being Commander Jameson's daughter.%0a
+host:1379431762=68.204.142.123
+author:1379430948=Chuffy
+diff:1379430948:1379395650:=24,25d23%0a%3c Tall doesn't even begin to describe this woman. Standing at a frightening 7'3'', this lovely woman is often clothed in what could be thought of as... old people clothing. Blouses, simple slacks or even the occasional skirt that fell down to her calves. Also, can't forget the size 16 Dr. Martin boots that could do some serious damage if kicking was involved.%0a%3c %0a32,35d29%0a%3c * '''A family of Cops''' You know the Jameson family's eldest. The tall freak that didn't joined the academy. Which is weird, cause everyone in the family dealt with police work in one way or another. Either way, if you carry a badge you should be able to pinpoint the giant rather quick for being Commander Jameson's daughter.%0a%3c %0a%3c * '''Armstrong Atlantic State University''' You part of the science department? No? Doesn't matter. You most likely saw this lumbering figure wander through campus or just haunt the library from time to time.%0a%3c %0a
+host:1379430948=68.204.142.123
+author:1379395650=Chuffy
+diff:1379395650:1379395210:=20c20%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=CP7VcsaoqZc |Dusk to Dawn]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/watch?v=QRgPIbSX1mg |Soon It will Be Cold Enough to Build Fires]]%0a
+host:1379395650=68.204.142.123
+author:1379395210=Chuffy
+diff:1379395210:1379395204:=
+host:1379395210=68.204.142.123
+author:1379395204=Chuffy
+diff:1379395204:1379394897:=20c20%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=QRgPIbSX1mg |Soon It will Be Cold Enough to Build Fires]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a
+host:1379395204=68.204.142.123
+author:1379394897=Chuffy
+diff:1379394897:1379394788:=18c18%0a%3c (:cell width=190:) Chuffy%0a---%0a> (:cell width=190:) %0a
+host:1379394897=68.204.142.123
+author:1379394788=Chuffy
+diff:1379394788:1379394788:=1,38d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://cdn1.ouchpress.com/thumbs/celebrities/189/340209-zooey-deschanel-200.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 19%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 7'3''%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Lanky%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Student/retailer/writer.%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Giant%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) %0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1379394788=68.204.142.123

@@ -1,0 +1,57 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+author=Setau
+charset=ISO-8859-1
+csum=
+ctime=1379277909
+host=68.171.190.177
+name=Players.RyanBrooks
+rev=15
+targets=Players.JackHNorth,Players.WilliamCross,Players.DeltaPinkerton,Players.MayMao
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a!!%25white%25Ryan Brooks%25white%25%0a(:cellnr rowspan=30 width=400 align=center:) http://images.starpulse.com/news/bloggers/684225/blog_images/sam-witwer.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 28%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 6'1%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Average%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Finding Himself%0a(:cellnr width=150 align=left:)'''Auspice:'''%0a(:cell width=190:) Irraka%0a(:cellnr width=150 align=left:)'''Tribe:'''%0a(:cell width=190:) Farsil Lunal%0a(:cellnr width=150 align=left:)'''Lodge:'''%0a(:cell width=190:) none%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Primal Urge 1%0a(:cellnr width=150 align=left:)'''Pack:'''%0a(:cell width=190:) NIL%0a(:cellnr colspan=2:)http://3-akamai.tapcdn.com/images/thumbs/taps/2013/05/winter-is-coming-6-42737310-sz282x214.jpg%0a(:cellnr width=150 align=left:)'''Cunning:''' %0a(:cell width=190:) 2%0a(:cellnr width=150 align=left:)'''Glory:''' %0a(:cell width=190:) 1%0a(:cellnr width=150 align=left:)'''Honor:''' %0a(:cell width=190:) 0%0a(:cellnr width=150 align=left:)'''Purity:''' %0a(:cell width=190:) 0%0a(:cellnr width=150 align=left:)'''Wisdom:''' %0a(:cell width=190:) 0%0a%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Setau%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=lL2ZwXj1tXM |Music]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a''He has a bit of a quiet stalker's grace about him. He tends to be quiet until he gets to know people or starts to feel comfortable''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_h.png%0a''He grew up around the area and has a bit of history with the law. Nothing too major though. It seems like he might be trying to turn over a new leaf''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_rph.png%0a''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a''What Others have to Say about you''%0a*''"One shouldn't boast without being prepared to back it up, and that said, I'm still bummed out that I didn't stick around to hear who won. Having only met him once, I can only say that he seems like a decent fellow and fortunately a good sport, otherwise I could have made myself an enemy that night. There are people out there who just can't take a joke!"'' -[[JackHNorth|Hunter]]%0a[[%3c%3c]]%0a*%25color=#74483F%25''"Iam definitely proud at the turn around.  His dedication to push through the routine is constantly proving to be greater that I originally expected."''%0a->%25right%25%25color=#74483F%25[- - ''[[William Cross|Will]]''-]%0a[[%3c%3c]]%0a*''"It just goes to show you that you should always be nice to people.  You never know when you are going to meet your new best friend.  Now that we've gotten close I don't want to know what it's like to be without his presence."'' -[[Delta Pinkerton]]%0a[[%3c%3c]]%0a*''Sweet, adorable, normal, and mine. If there's a catch somewhere, I don't know what it is.''- [[MayMao|May Mao]]%0a(:include CityBook.WerewolfNavigationBar:)
+time=1385946144
+author:1385946144=Setau
+diff:1385946144:1384574824:=18c18%0a%3c (:cell width=190:) Farsil Lunal%0a---%0a> (:cell width=190:) none%0a
+host:1385946144=68.171.190.177
+author:1384574824=Aramil98
+diff:1384574824:1384574732:=59c59%0a%3c *%25color=#74483F%25''"Iam definitely proud at the turn around.  His dedication to push through the routine is constantly proving to be greater that I originally expected."''%0a---%0a> *%25color=#74483F%25''"He's good I guess, not as motivated nor confident as I would expect.  Hopefully he can improve the way he wants."''%0a
+host:1384574824=67.238.250.80
+author:1384574732=Aramil98
+diff:1384574732:1383612287:=59c59%0a%3c *%25color=#74483F%25''"He's good I guess, not as motivated nor confident as I would expect.  Hopefully he can improve the way he wants."''%0a---%0a> %25left%25%25color=#74483F%25''"He's good I guess, not as motivated nor confident as I would expect.  Hopefully he can improve the way he wants."''%0a
+host:1384574732=67.238.250.80
+author:1383612287=Setau
+diff:1383612287:1383068350:=24c24%0a%3c (:cell width=190:) NIL%0a---%0a> (:cell width=190:) none%0a
+host:1383612287=68.171.190.177
+author:1383068350=Lurker
+diff:1383068350:1380507661:=64d63%0a%3c *''Sweet, adorable, normal, and mine. If there's a catch somewhere, I don't know what it is.''- [[MayMao|May Mao]]%0a
+host:1383068350=166.137.119.37
+author:1380507661=MaddyBelle
+diff:1380507661:1380331811:=61,63d60%0a%3c [[%3c%3c]]%0a%3c *''"It just goes to show you that you should always be nice to people.  You never know when you are going to meet your new best friend.  Now that we've gotten close I don't want to know what it's like to be without his presence."'' -[[Delta Pinkerton]]%0a%3c [[%3c%3c]]%0a
+host:1380507661=66.86.125.180
+author:1380331811=Aramil98
+diff:1380331811:1379829956:=59,60c59%0a%3c %25left%25%25color=#74483F%25''"He's good I guess, not as motivated nor confident as I would expect.  Hopefully he can improve the way he wants."''%0a%3c ->%25right%25%25color=#74483F%25[- - ''[[William Cross|Will]]''-]%0a---%0a> %0a
+host:1380331811=67.238.250.80
+author:1379829956=Sami
+diff:1379829956:1379810963:=57d56%0a%3c *''"One shouldn't boast without being prepared to back it up, and that said, I'm still bummed out that I didn't stick around to hear who won. Having only met him once, I can only say that he seems like a decent fellow and fortunately a good sport, otherwise I could have made myself an enemy that night. There are people out there who just can't take a joke!"'' -[[JackHNorth|Hunter]]%0a
+host:1379829956=84.238.20.58
+author:1379810963=ThomasH
+diff:1379810963:1379382514:=25c25%0a%3c (:cellnr colspan=2:)http://3-akamai.tapcdn.com/images/thumbs/taps/2013/05/winter-is-coming-6-42737310-sz282x214.jpg%0a---%0a> (:cellnr colspan=2:)http://3-akamai.tapcdn.com/images/thumbs/taps/2013/05/winter-is-coming-6-42737310-sz282x214.jpg?quality=80%0a
+host:1379810963=67.238.250.80
+author:1379382514=JillA
+diff:1379382514:1379278607:=51,53d50%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1379382514=24.20.151.3
+author:1379278607=Setau
+diff:1379278607:1379278087:=14c14%0a%3c (:cell width=190:) Finding Himself%0a---%0a> (:cell width=190:) trying to get into security%0a44c44%0a%3c ''He has a bit of a quiet stalker's grace about him. He tends to be quiet until he gets to know people or starts to feel comfortable''%0a---%0a> ''Place your Description Here''%0a47c47%0a%3c ''He grew up around the area and has a bit of history with the law. Nothing too major though. It seems like he might be trying to turn over a new leaf''%0a---%0a> ''Place your Public History Here''%0a
+host:1379278607=70.195.3.202
+author:1379278087=Setau
+diff:1379278087:1379278081:=
+host:1379278087=70.195.3.202
+author:1379278081=Setau
+diff:1379278081:1379278055:=
+host:1379278081=70.195.3.202
+author:1379278055=Setau
+diff:1379278055:1379277909:=25c25%0a%3c (:cellnr colspan=2:)http://3-akamai.tapcdn.com/images/thumbs/taps/2013/05/winter-is-coming-6-42737310-sz282x214.jpg?quality=80%0a---%0a> (:cellnr colspan=2:)http://all-that-is-interesting.com/wordpress/wp-content/uploads/2012/10/wolf-eating-watermelon.jpg%0a
+host:1379278055=70.195.3.202
+author:1379277909=Setau
+diff:1379277909:1379277909:=1,56d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a%3c !!%25white%25Ryan Brooks%25white%25%0a%3c (:cellnr rowspan=30 width=400 align=center:) http://images.starpulse.com/news/bloggers/684225/blog_images/sam-witwer.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 28%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 6'1%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Average%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) trying to get into security%0a%3c (:cellnr width=150 align=left:)'''Auspice:'''%0a%3c (:cell width=190:) Irraka%0a%3c (:cellnr width=150 align=left:)'''Tribe:'''%0a%3c (:cell width=190:) none%0a%3c (:cellnr width=150 align=left:)'''Lodge:'''%0a%3c (:cell width=190:) none%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Primal Urge 1%0a%3c (:cellnr width=150 align=left:)'''Pack:'''%0a%3c (:cell width=190:) none%0a%3c (:cellnr colspan=2:)http://all-that-is-interesting.com/wordpress/wp-content/uploads/2012/10/wolf-eating-watermelon.jpg%0a%3c (:cellnr width=150 align=left:)'''Cunning:''' %0a%3c (:cell width=190:) 2%0a%3c (:cellnr width=150 align=left:)'''Glory:''' %0a%3c (:cell width=190:) 1%0a%3c (:cellnr width=150 align=left:)'''Honor:''' %0a%3c (:cell width=190:) 0%0a%3c (:cellnr width=150 align=left:)'''Purity:''' %0a%3c (:cell width=190:) 0%0a%3c (:cellnr width=150 align=left:)'''Wisdom:''' %0a%3c (:cell width=190:) 0%0a%3c %0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) Setau%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=lL2ZwXj1tXM |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.WerewolfNavigationBar:)%0a\ No newline at end of file%0a
+host:1379277909=70.195.3.202

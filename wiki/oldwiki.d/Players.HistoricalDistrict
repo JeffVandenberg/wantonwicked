@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+author=kawaiiwolf
+charset=ISO-8859-1
+csum=
+ctime=1382239148
+host=108.11.201.42
+name=Players.HistoricalDistrict
+rev=1
+targets=
+text=(:redirect CityBook.HistoricalDistrict quiet=1:)
+time=1382239148
+author:1382239148=kawaiiwolf
+diff:1382239148:1382239148:=1d0%0a%3c (:redirect CityBook.HistoricalDistrict quiet=1:)%0a\ No newline at end of file%0a
+host:1382239148=108.11.201.42

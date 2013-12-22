@@ -1,0 +1,21 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+author=Langlois
+charset=ISO-8859-1
+csum=
+ctime=1381152995
+host=98.233.83.46
+name=Players.DilekQuote
+rev=3
+targets=
+text=*''[-Power is like being a lady... if you have to tell people you are, you aren't.-]'' - '''%25color=#6e68a3%25[-Margaret Thatcher-]%25color=Black%25'''
+time=1381265451
+author:1381265451=Langlois
+diff:1381265451:1381236942:=1c1%0a%3c *''[-Power is like being a lady... if you have to tell people you are, you aren't.-]'' - '''%25color=#6e68a3%25[-Margaret Thatcher-]%25color=Black%25'''%0a\ No newline at end of file%0a---%0a> *''[-Power is like being a lady... if you have to tell people you are, you aren't.-]'' - '''[-Margaret Thatcher-]'''%0a\ No newline at end of file%0a
+host:1381265451=98.233.83.46
+author:1381236942=Langlois
+diff:1381236942:1381152995:=1c1%0a%3c *''[-Power is like being a lady... if you have to tell people you are, you aren't.-]'' - '''[-Margaret Thatcher-]'''%0a\ No newline at end of file%0a---%0a> *''Power is like being a lady... if you have to tell people you are, you aren't.'' - Margaret Thatcher%0a\ No newline at end of file%0a
+host:1381236942=98.233.83.46
+author:1381152995=Langlois
+diff:1381152995:1381152995:=1d0%0a%3c *''Power is like being a lady... if you have to tell people you are, you aren't.'' - Margaret Thatcher%0a\ No newline at end of file%0a
+host:1381152995=98.233.83.46

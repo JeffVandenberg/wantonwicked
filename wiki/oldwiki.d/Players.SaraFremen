@@ -1,0 +1,42 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Desse
+charset=ISO-8859-1
+csum=
+ctime=1379282464
+host=96.231.155.110
+name=Players.SaraFremen
+rev=10
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Sara Fremen%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) %0ahttp://i.imgur.com/qWmiE1U.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 33%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'3"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Orthopedic Surgeon%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Status: Medical 2%0aFaction: Asclepius Incarnae 1 - Ace of Swords%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Desse%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a''Sara is short with brown curly hair and light brown eyes. She has an athletic build, sharp eyes, and doesn't look like she'd take much crap from anyone.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a''Dr. Fremen is relatively new in town. She moved here from Northern Virginia to take a job with Memorial Health University as an orthopedic surgeon. She's young in her field but she already has reputation for pulling some of the worst patients through when other doctors were afraid they'd lose them on the table. Most of her time is spent at the hospital but she can occassionally be found out socializing when she gets a few days off after long shifts.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a'''New in Town''' - ''Sara's new in town and eager to get to know her new home and meet people. If you're somewhere not completely illegal or ghetto she might be checking it out!''%0a%0a'''Money but Not Society''' - ''She's got the finances to run with the elite socialites of the city but not the pedigree to be one of them.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a''Allies: Hospital Staff 1''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1386224283
+author:1386224283=Desse
+diff:1386224283:1380404267:=18c18%0a%3c Faction: Asclepius Incarnae 1 - Ace of Swords%0a---%0a> Faction: Asclepius Incarnae 1%0a
+host:1386224283=96.231.155.110
+author:1380404267=Desse
+diff:1380404267:1380404254:=32d31%0a%3c %0a
+host:1380404267=71.126.140.190
+author:1380404254=Desse
+diff:1380404254:1380400978:=25c25%0a%3c ''Sara is short with brown curly hair and light brown eyes. She has an athletic build, sharp eyes, and doesn't look like she'd take much crap from anyone.''%0a---%0a> ''Place your Description Here''%0a28c28%0a%3c ''Dr. Fremen is relatively new in town. She moved here from Northern Virginia to take a job with Memorial Health University as an orthopedic surgeon. She's young in her field but she already has reputation for pulling some of the worst patients through when other doctors were afraid they'd lose them on the table. Most of her time is spent at the hospital but she can occassionally be found out socializing when she gets a few days off after long shifts.''%0a---%0a> ''Place your Public History Here''%0a31,32c31%0a%3c '''New in Town''' - ''Sara's new in town and eager to get to know her new home and meet people. If you're somewhere not completely illegal or ghetto she might be checking it out!''%0a%3c '''Money but Not Society''' - ''She's got the finances to run with the elite socialites of the city but not the pedigree to be one of them.''%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1380404254=71.126.140.190
+author:1380400978=Desse
+diff:1380400978:1380400950:=17c17%0a%3c (:cell width=190:) Status: Medical 2%0a---%0a> (:cell width=190:) Status: Medical 2//%0a
+host:1380400978=71.126.140.190
+author:1380400950=Desse
+diff:1380400950:1379972239:=4,5c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) %0a%3c http://i.imgur.com/qWmiE1U.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1380400950=71.126.140.190
+author:1379972239=Desse
+diff:1379972239:1379938753:=33c33%0a%3c ''Allies: Hospital Staff 1''%0a---%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1379972239=71.126.140.190
+author:1379938753=Desse
+diff:1379938753:1379707606:=8c8%0a%3c (:cell width=190:) 33%0a---%0a> (:cell width=190:) ?%0a10,11d9%0a%3c (:cell width=190:) 5'3"%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a12a11,12%0a> (:cellnr width=150 align=left:)'''Build:'''%0a> (:cell width=190:) ?%0a14c14%0a%3c (:cell width=190:) Orthopedic Surgeon%0a---%0a> (:cell width=190:) ?%0a16,17c16%0a%3c (:cell width=190:) Status: Medical 2//%0a%3c Faction: Asclepius Incarnae 1%0a---%0a> (:cell width=190:) ?%0a
+host:1379938753=71.126.140.190
+author:1379707606=ThomasH
+diff:1379707606:1379382211:=18c18%0a%3c (:cell width=190:) Desse%0a---%0a> (:cell width=190:) ?%0a
+host:1379707606=67.238.250.80
+author:1379382211=JillA
+diff:1379382211:1379282464:=3c3%0a%3c !!%25white%25Sara Fremen%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a30,32d29%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1379382211=24.20.151.3
+author:1379282464=Desse
+diff:1379282464:1379282464:=1,35d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1379282464=71.126.140.190

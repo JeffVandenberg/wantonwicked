@@ -1,0 +1,21 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=Devilish
+charset=ISO-8859-1
+csum=
+ctime=1384101507
+host=68.224.99.74
+name=Players.WillQuote
+rev=3
+targets=Players.WilliamCross,Players.DelilahFlower,Players.JackHNorth,Players.KadenDavis,Players.OpheliaCollins
+text=*''"I walk through the Valley of Death, and I fear no evil for I am the Shadow.  Rangers Lead the Way."'' - [[William Cross]]%0a%0a*''"Something's Differnt about him. Hopefully we will see where this trip goes."'' -[[Delilah Flower|Delilah]]%0a%0a*''"He doesn't realize what he is yet, nor how many eyes he has watching him from the darkness. He doesn't know how much she's going out of her way to protect him. He should really watch himself better when he crosses the road, it would be a shame if all that watching over went to waste..."'' -[[JackHNorth|Hunter]]%0a%0a*%25color=#33CCCC%25''"He is a darling, and willing to always be there for someone to talk to. Slowly becoming one of the people I can work out with and not need to worry if I trust him or not. He understands not everything needs to be spoken. "'' [[Kaden Davis|%25color=#33CC99%25&copy;]]%0a%0a*''"He's a super sweet guy.  Very funny and good trainer to boot.  I just think its so nice the way he protects his friend Danny.  He's going to make some girl very happy one day!"'' -[[OpheliaCollins|Lia]]
+time=1384592621
+author:1384592621=Devilish
+diff:1384592621:1384101535:=7,9c7%0a%3c *%25color=#33CCCC%25''"He is a darling, and willing to always be there for someone to talk to. Slowly becoming one of the people I can work out with and not need to worry if I trust him or not. He understands not everything needs to be spoken. "'' [[Kaden Davis|%25color=#33CC99%25&copy;]]%0a%3c %0a%3c *''"He's a super sweet guy.  Very funny and good trainer to boot.  I just think its so nice the way he protects his friend Danny.  He's going to make some girl very happy one day!"'' -[[OpheliaCollins|Lia]]%0a\ No newline at end of file%0a---%0a> *%25color=#33CCCC%25''"He is a darling, and willing to always be there for someone to talk to. Slowly becoming one of the people I can work out with and not need to worry if I trust him or not. He understands not everything needs to be spoken. "'' [[Kaden Davis|%25color=#33CC99%25&copy;]]%0a\ No newline at end of file%0a
+host:1384592621=68.224.99.74
+author:1384101535=Aramil98
+diff:1384101535:1384101507:=0a1%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a
+host:1384101535=67.238.250.80
+author:1384101507=Aramil98
+diff:1384101507:1384101507:=1,8d0%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a%3c *''"I walk through the Valley of Death, and I fear no evil for I am the Shadow.  Rangers Lead the Way."'' - [[William Cross]]%0a%3c %0a%3c *''"Something's Differnt about him. Hopefully we will see where this trip goes."'' -[[Delilah Flower|Delilah]]%0a%3c %0a%3c *''"He doesn't realize what he is yet, nor how many eyes he has watching him from the darkness. He doesn't know how much she's going out of her way to protect him. He should really watch himself better when he crosses the road, it would be a shame if all that watching over went to waste..."'' -[[JackHNorth|Hunter]]%0a%3c %0a%3c *%25color=#33CCCC%25''"He is a darling, and willing to always be there for someone to talk to. Slowly becoming one of the people I can work out with and not need to worry if I trust him or not. He understands not everything needs to be spoken. "'' [[Kaden Davis|%25color=#33CC99%25&copy;]]%0a\ No newline at end of file%0a
+host:1384101507=67.238.250.80

@@ -1,0 +1,37 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+author=JeffV
+charset=ISO-8859-1
+csum=
+ctime=1382327753
+host=173.17.121.105
+name=Players.WuNPCs
+rev=8
+targets=Players.AmandaPeel,Players.DoctorGregoryHillsfield,Players.DrEphraimGLancaster,Players.HuntTwins,Players.LukasMcCauley
+text=(:title Whitefield University Faculty and Alumni:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%0a(:newpagebox base=Players template=Players.SampleWhitefield label="Create Whitefield NPC Wiki:" value="NPC Name":)%0a(:sortable :)%0a||class=sortable id=WoDPlayers%0a||!Name||!Role||!Field of Study||%0a||[[Amanda Peel]]||Professor||Amazonian Tribes||%0a||[[Doctor Gregory Hillsfield]]||Head Librarian||Unknown||%0a||[[Dr Ephraim G Lancaster]]||Professor||African Religions||%0a||[[Hunt Twins]]||Students||Unknown||%0a||[[Lukas McCauley]]||Dean of Law School||Unknown||%0a%0a(:include CityBook.Wunavigationbar:)
+time=1382333927
+title=Whitefield University Faculty and Alumni
+author:1382333927=JeffV
+diff:1382333927:1382331428:=11d10%0a%3c ||[[Hunt Twins]]||Students||Unknown||%0a
+host:1382333927=173.17.121.105
+author:1382331428=JeffV
+diff:1382331428:1382331411:minor=10c10%0a%3c ||[[Dr Ephraim G Lancaster]]||Professor||African Religions||%0a---%0a> ||[[Dr. Ephraim G. Lancaster]]||Professor||African Religions||%0a
+host:1382331428=173.17.121.105
+author:1382331411=JeffV
+diff:1382331411:1382330891:=9,11c9,10%0a%3c ||[[Doctor Gregory Hillsfield]]||Head Librarian||Unknown||%0a%3c ||[[Dr. Ephraim G. Lancaster]]||Professor||African Religions||%0a%3c ||[[Lukas McCauley]]||Dean of Law School||Unknown||%0a---%0a> ||[[Doctor Gregory Hillsfield]]||Head Librarian||Unknown%0a> ||[[Lukas McCauley]]||Dean of Law School||Unknown%0a
+host:1382331411=173.17.121.105
+author:1382330891=JeffV
+diff:1382330891:1382329782:=10d9%0a%3c ||[[Lukas McCauley]]||Dean of Law School||Unknown%0a
+host:1382330891=173.17.121.105
+author:1382329782=JeffV
+diff:1382329782:1382329760:minor=9c9%0a%3c ||[[Doctor Gregory Hillsfield]]||Head Librarian||Unknown%0a---%0a> [[[[Doctor Gregory Hillsfield]]||Head Librarian||Unknown%0a
+host:1382329782=173.17.121.105
+author:1382329760=JeffV
+diff:1382329760:1382328082:=7,9c7,8%0a%3c ||!Name||!Role||!Field of Study||%0a%3c ||[[Amanda Peel]]||Professor||Amazonian Tribes||%0a%3c [[[[Doctor Gregory Hillsfield]]||Head Librarian||Unknown%0a---%0a> ||!Name||!Field of Study||!Mentorship||%0a> ||[[Name]]||?||?,?,?||%0a
+host:1382329760=173.17.121.105
+author:1382328082=JillA
+diff:1382328082:1382327753:=4d3%0a%3c (:newpagebox base=Players template=Players.SampleWhitefield label="Create Whitefield NPC Wiki:" value="NPC Name":)%0a
+host:1382328082=24.20.151.3
+author:1382327753=JillA
+diff:1382327753:1382327753:=1,9d0%0a%3c (:title Whitefield University Faculty and Alumni:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%3c %0a%3c (:sortable :)%0a%3c ||class=sortable id=WoDPlayers%0a%3c ||!Name||!Field of Study||!Mentorship||%0a%3c ||[[Name]]||?||?,?,?||%0a%3c %0a%3c (:include CityBook.Wunavigationbar:)%0a\ No newline at end of file%0a
+host:1382327753=24.20.151.3

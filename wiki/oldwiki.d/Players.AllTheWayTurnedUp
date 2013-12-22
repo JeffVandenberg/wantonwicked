@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.71 (KHTML, like Gecko) Version/6.1 Safari/537.71
+author=AllTheWayTurnedUp
+charset=ISO-8859-1
+csum=
+ctime=1387408073
+host=68.228.78.157
+name=Players.AllTheWayTurnedUp
+rev=1
+targets=
+text=Im just a simple guy doing simple shit.%0a%0aFriends call me Mike or Moose, depends on the stories you know or heard. No, You don't get to know my full name. OpSec. lol.%0a%0aCollege Graduate. Not telling where. OpSec.%0a%0aU.S. Marine - active duty. Errruh. Scout Sniper Platoon P.I.G (Which means in training/Student). Not saying my unit, rank, or anything specific. OpSec.%0a%0ahttp://media-cache-ak0.pinimg.com/736x/15/e1/8f/15e18f720584fbc6a06f9661bb9db738.jpg
+time=1387408073
+author:1387408073=AllTheWayTurnedUp
+diff:1387408073:1387408073:=1,9d0%0a%3c Im just a simple guy doing simple shit.%0a%3c %0a%3c Friends call me Mike or Moose, depends on the stories you know or heard. No, You don't get to know my full name. OpSec. lol.%0a%3c %0a%3c College Graduate. Not telling where. OpSec.%0a%3c %0a%3c U.S. Marine - active duty. Errruh. Scout Sniper Platoon P.I.G (Which means in training/Student). Not saying my unit, rank, or anything specific. OpSec.%0a%3c %0a%3c http://media-cache-ak0.pinimg.com/736x/15/e1/8f/15e18f720584fbc6a06f9661bb9db738.jpg%0a\ No newline at end of file%0a
+host:1387408073=68.228.78.157

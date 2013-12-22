@@ -1,0 +1,22 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0
+author=Clef
+charset=ISO-8859-1
+csum=
+ctime=1385221503
+host=24.91.201.250
+name=CityBook.FlintAndRensHome
+rev=3
+targets=CityBook.CityBook,CityBook.WilmingtonIsland
+text=(:title Mage Locations:)%0a%25height=100px%25 http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a%0aReturn to: [[CityBook.?|Venue Locations]], [[CityBook.WilmingtonIsland|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!Flint and Ren's Home%0a'''District:''' [[CityBook.WilmingtonIsland|Wilmington Island]]%0a%0ahttp://i41.tinypic.com/mhyo8h.jpg %0a%0ahttp://i39.tinypic.com/2ly1kp1.jpg%0a%0a%25width=500px%25 http://i43.tinypic.com/28b49km.jpg%0a%0aAnd their guard dog, Lady Marlene:%0a%0ahttp://i42.tinypic.com/2qdzsld.jpg%0a%0a'''Resonance:''' Unknown%0a'''Territory:''' Falls within X's claim%0a[[#locationend]]%0a%0a----%0a(:include CityBook.MageNavigationBar:)
+time=1385224588
+title=Mage Locations
+author:1385224588=Clef
+diff:1385224588:1385221570:=10,20c10,12%0a%3c http://i41.tinypic.com/mhyo8h.jpg %0a%3c %0a%3c http://i39.tinypic.com/2ly1kp1.jpg%0a%3c %0a%3c %25width=500px%25 http://i43.tinypic.com/28b49km.jpg%0a%3c %0a%3c And their guard dog, Lady Marlene:%0a%3c %0a%3c http://i42.tinypic.com/2qdzsld.jpg%0a%3c %0a%3c '''Resonance:''' Unknown%0a---%0a> [Picture] Description%0a> %0a> '''Resonance:''' blah\\%0a
+host:1385224588=24.91.201.250
+author:1385221570=Clef
+diff:1385221570:1385221503:=7c7%0a%3c !!Flint and Ren's Home%0a---%0a> !!Location Name%0a17c17%0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a---%0a> (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1385221570=24.91.201.250
+author:1385221503=Clef
+diff:1385221503:1385221503:=1,17d0%0a%3c (:title Mage Locations:)%0a%3c %25height=100px%25 http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.WilmingtonIsland|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!Location Name%0a%3c '''District:''' [[CityBook.WilmingtonIsland|Wilmington Island]]%0a%3c %0a%3c [Picture] Description%0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1385221503=24.91.201.250

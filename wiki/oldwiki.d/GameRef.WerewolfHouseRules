@@ -1,0 +1,27 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1373255873
+host=71.0.16.129
+name=GameRef.WerewolfHouseRules
+rev=5
+targets=
+text=%25center%25http://wantonwicked.gamingsandbox.com/wiki/images/werewolftheforsaken.png%0a(:Include GameRef.WerewolfRulesMaster#houserules#rulesend:)
+time=1377466598
+author:1377466598=ThomasH
+diff:1377466598:1377452405:=1c1%0a%3c %25center%25http://wantonwicked.gamingsandbox.com/wiki/images/werewolftheforsaken.png%0a---%0a> %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/WtF/500px-WerewolfForsakenLogo.png%25%25%0a
+host:1377466598=71.0.16.129
+author:1377452405=ThomasH
+diff:1377452405:1373314527:=1c1%0a%3c %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/WtF/500px-WerewolfForsakenLogo.png%25%25%0a---%0a> %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/500px-WerewolfForsakenLogo.png%25%25%0a
+host:1377452405=71.0.16.129
+author:1373314527=ThomasH
+diff:1373314527:1373314400:=
+host:1373314527=71.0.16.129
+author:1373314400=ThomasH
+diff:1373314400:1373255873:=1d0%0a%3c %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/500px-WerewolfForsakenLogo.png%25%25%0a
+host:1373314400=71.0.16.129
+author:1373255873=ThomasH
+diff:1373255873:1373255873:=1d0%0a%3c (:Include GameRef.WerewolfRulesMaster#houserules#rulesend:)%0a\ No newline at end of file%0a
+host:1373255873=71.0.16.129

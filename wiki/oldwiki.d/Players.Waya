@@ -1,0 +1,21 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Devilish
+charset=ISO-8859-1
+csum=
+ctime=1387262605
+host=68.224.99.74
+name=Players.Waya
+rev=3
+targets=
+text=(:redirect Players.Wa-ya:)
+time=1387262746
+author:1387262746=Devilish
+diff:1387262746:1387262628:=1c1%0a%3c (:redirect Players.Wa-ya:)%0a\ No newline at end of file%0a---%0a> [:redirect Players.Wa-ya:]%0a\ No newline at end of file%0a
+host:1387262746=68.224.99.74
+author:1387262628=Devilish
+diff:1387262628:1387262605:=1c1%0a%3c [:redirect Players.Wa-ya:]%0a\ No newline at end of file%0a---%0a> (:redirect http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.Wa-ya:)%0a\ No newline at end of file%0a
+host:1387262628=68.224.99.74
+author:1387262605=Devilish
+diff:1387262605:1387262605:=1d0%0a%3c (:redirect http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.Wa-ya:)%0a\ No newline at end of file%0a
+host:1387262605=68.224.99.74

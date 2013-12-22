@@ -1,0 +1,49 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1373253668
+host=71.0.16.129
+name=GameRef.VampireRulesMaster
+rev=12
+targets=
+text=(:Title Vampire:)%0a[[#vtop]]%0a%0a%25center%25http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a%0a(:table [border=3 bordercolor=#A00000 style=float width=100%25 align=center  cellspacing=0]:)%0a(:cellnr bgcolor=#A00000 align=center:)%0a(:cell bgcolor=#A00000 align=center:)%0a(:headnr [width=50%25]:)%0a%25color=#A00000%25[++'''Table of contents'''++]%0a* [[#setting | Setting]]%0a* [[#creation | Character Creation]]%0a*[[#houserules | House Rules]]%0a*[[#alternaterules | Alternate Rules in Effect]]%0a%25%25%0a%0a(:cell:)%0a[[#creation]]%0a!!Character Creation%0a%0a(:toggle hide vcreate:)%0a>>id=vcreate border='0px solid #999' padding=5px%3c%3c%0aVtR Character Creation Rules%0a%0a>>%3c%3c%0a[[#creationend]]%0a(:cellnr:)%0a[[#setting]]%0a!!SETTING%0a[[%3c%3c]]%0aThis is for the IC Setting information for Vampire the Requim%0a[[#settingend]]%0a%25width=60 height=83%25[[#vtop | http://i68.photobucket.com/albums/i5/Aramil98/180px-SkullVTR.png"Top"]]%0a(:cell:)%0a[[#houserules]]%0a!!House Rules%0a[[%3c%3c]]%0a%0a%0a%0a[[#houserulesend]]%0a%25width=60 height=83%25[[#vtop | http://i68.photobucket.com/albums/i5/Aramil98/180px-SkullVTR.png"Top"]]%0a(:tableend:)%0a%0a[[#vrContact]]%0a[++'''Contacting Your Storytellers'''++]%0a%0a(:include CityBook.VampireNavigationBar:)
+time=1377466542
+title=Vampire
+author:1377466542=ThomasH
+diff:1377466542:1377466475:=19,20c19,20%0a%3c !!Character Creation%0a%3c %0a---%0a> [++'''Character Creation'''++]%0a> %0a29c29%0a%3c !!SETTING%0a---%0a> [+++'''SETTING'''+++]%0a36c36%0a%3c !!House Rules%0a---%0a> [+++'''House Rules'''+++]%0a40,41c40,43%0a%3c %0a%3c [[#houserulesend]]%0a---%0a> [+++'''Alternate Rules in Effect'''+++]%0a> [[%3c%3c]]%0a> %0a> [[#rulesend]]%0a
+host:1377466542=71.0.16.129
+author:1377466475=ThomasH
+diff:1377466475:1373320616:=4c4%0a%3c %25center%25http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a---%0a> %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/VampireRequiemLogo.png%25%25%0a
+host:1377466475=71.0.16.129
+author:1373320616=ThomasH
+diff:1373320616:1373320565:=20c20%0a%3c %0a---%0a> [[#creationend]]%0a23a24%0a> %0a
+host:1373320616=71.0.16.129
+author:1373320565=ThomasH
+diff:1373320565:1373320544:=22,23c22%0a%3c >>id=vcreate border='0px solid #999' padding=5px%3c%3c%0a%3c VtR Character Creation Rules%0a---%0a> >>id=vcreate border='0px solid #999' padding=5px%3c%3c %3c %0a
+host:1373320565=71.0.16.129
+author:1373320544=ThomasH
+diff:1373320544:1373320476:=10c10%0a%3c %25color=#A00000%25[++'''Table of contents'''++]%0a---%0a> %25#A00000%25[++'''Table of contents'''++]%0a
+host:1373320544=71.0.16.129
+author:1373320476=ThomasH
+diff:1373320476:1373320024:=
+host:1373320476=71.0.16.129
+author:1373320024=ThomasH
+diff:1373320024:1373319912:=22c22%0a%3c >>id=vcreate border='0px solid #999' padding=5px%3c%3c %3c %0a---%0a> >>id=ccreate border='0px solid #999' padding=5px%3c%3c %3c %0a
+host:1373320024=71.0.16.129
+author:1373319912=ThomasH
+diff:1373319912:1373313908:=21,22c21,22%0a%3c (:toggle hide vcreate:)%0a%3c >>id=ccreate border='0px solid #999' padding=5px%3c%3c %3c %0a---%0a> (:toggle hide creation:)%0a> >>id=creation border='0px solid #999'%3c%3c %0a
+host:1373319912=71.0.16.129
+author:1373313908=ThomasH
+diff:1373313908:1373255630:=32c32%0a%3c [[#settingend]]%0a---%0a> %0a
+host:1373313908=71.0.16.129
+author:1373255630=ThomasH
+diff:1373255630:1373253810:=20c20%0a%3c [[#creationend]]%0a---%0a> %0a
+host:1373255630=71.0.16.129
+author:1373253810=ThomasH
+diff:1373253810:1373253668:=50c50%0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a---%0a> (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1373253810=71.0.16.129
+author:1373253668=ThomasH
+diff:1373253668:1373253668:=1,50d0%0a%3c (:Title Vampire:)%0a%3c [[#vtop]]%0a%3c %0a%3c %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/VampireRequiemLogo.png%25%25%0a%3c %0a%3c (:table [border=3 bordercolor=#A00000 style=float width=100%25 align=center  cellspacing=0]:)%0a%3c (:cellnr bgcolor=#A00000 align=center:)%0a%3c (:cell bgcolor=#A00000 align=center:)%0a%3c (:headnr [width=50%25]:)%0a%3c %25#A00000%25[++'''Table of contents'''++]%0a%3c * [[#setting | Setting]]%0a%3c * [[#creation | Character Creation]]%0a%3c *[[#houserules | House Rules]]%0a%3c *[[#alternaterules | Alternate Rules in Effect]]%0a%3c %25%25%0a%3c %0a%3c (:cell:)%0a%3c [[#creation]]%0a%3c [++'''Character Creation'''++]%0a%3c %0a%3c (:toggle hide creation:)%0a%3c >>id=creation border='0px solid #999'%3c%3c %0a%3c %0a%3c %0a%3c >>%3c%3c%0a%3c [[#creationend]]%0a%3c (:cellnr:)%0a%3c [[#setting]]%0a%3c [+++'''SETTING'''+++]%0a%3c [[%3c%3c]]%0a%3c This is for the IC Setting information for Vampire the Requim%0a%3c %0a%3c %25width=60 height=83%25[[#vtop | http://i68.photobucket.com/albums/i5/Aramil98/180px-SkullVTR.png"Top"]]%0a%3c (:cell:)%0a%3c [[#houserules]]%0a%3c [+++'''House Rules'''+++]%0a%3c [[%3c%3c]]%0a%3c %0a%3c %0a%3c [+++'''Alternate Rules in Effect'''+++]%0a%3c [[%3c%3c]]%0a%3c %0a%3c [[#rulesend]]%0a%3c %25width=60 height=83%25[[#vtop | http://i68.photobucket.com/albums/i5/Aramil98/180px-SkullVTR.png"Top"]]%0a%3c (:tableend:)%0a%3c %0a%3c [[#vrContact]]%0a%3c [++'''Contacting Your Storytellers'''++]%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1373253668=71.0.16.129

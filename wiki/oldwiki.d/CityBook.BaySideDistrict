@@ -1,0 +1,46 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=schreier
+charset=ISO-8859-1
+csum=
+ctime=1378766729
+host=96.234.173.132
+name=CityBook.BaySideDistrict
+rev=11
+targets=CityBook.DownTownDistrict,CityBook.HistoricalDistrict,Players.AbrahamTwiggs,CityBook.ThePiratesHouse,Players.Mage,CityBook.TheLastCathedral,Players.Vampire,Players.JacksonBarrett
+text=(:title Bay Side District:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0a(:newpagebox base=CityBook template=CityBook.BSTemplate label="Create Bay Side District Location:" value="Place Name":)%0a%0a!!The Savannah Underground%0a%25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25http://wantonwicked.gamingsandbox.com/wiki/images/city/city_tunnels.jpg%0aSavannah is old and built upon the backs of its previous incarnations, scoundrel exploits and mistakes just like any other city with a history as grand and nefarious as its is and is riddled and haunted by vast networks of tunnels, abandoned basements and catacombs which rumor has are only partially man made. %0a%0aPirates, Southern Heroes, The Underground Railway, and even Doctors are said to have used these tunnels for various reasons in the past from transporting yellow plague victims to press ganging drunks at the Pirate House. On the walls various vandals have scrawled their crack-induced verse, but its said hidden inside them are the mad ramblings of people that have seen what lurks at the angles between here and there and contain hidden messages in alien words within the otherwise incoherent ravings of drug induced rambling poetry. %0a%0aOver the years many people have disappeared into the tunnels never to return only to be found drown or half eaten by something in flooded passage ways or dead of apparent fright under Candler Hospital their fingers bloodied and broken as they tried to claw their way out any way they could. Rumor and Urban Mythology tell chilling and Frightful tales of Ghosts, Albino Alligators , Hairless Wolf men, Cold War bomb shelters and even a lost library in its deepest depths.%0a%0aThis underground complex stretches into the [[Historical District]] and [[Down Town District|Downtown District]].%0a%0a!!District Features:%0a>>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a'''City/Mortal''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Changeling''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Mage''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Vampire''':%0a* Domain of [[Players/Abraham Twiggs]], Invictus%0a* Location Rating: 3%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Werewolf''':%0a>>%3c%3c%0a%0a!!District Locations:%0a(:sortable align=center:)%0a||class=sortable id=SGLocations%0a||!Location||!Venue||!Owner||%0a||[[CityBook.ThePiratesHouse|The Pirates' House]]||[[Players.Mage|Any or Mage]]||Consilium||%0a||[[CityBook.TheLastCathedral|The Last Cathedral]]||[[Players.Vampire|Any or Vampire]]||[[Players.Jackson Barrett|Jackson Barrett]]||%0a(:tableend:)%0a%0a----%0a(:include CityBook.Directory:)
+time=1381936937
+title=Bay Side District
+author:1381936937=schreier
+diff:1381936937:1381758986:=44c44%0a%3c ||[[CityBook.TheLastCathedral|The Last Cathedral]]||[[Players.Vampire|Any or Vampire]]||[[Players.Jackson Barrett|Jackson Barrett]]||%0a---%0a> ||[[CityBook.TheLastCathedral|The Last Cathedral]]||[[Players.Vampire|Vampire]]||[[Players.Jackson Barrett|Jackson Barrett]]||%0a
+host:1381936937=96.234.173.132
+author:1381758986=JillA
+diff:1381758986:1381273923:=6,14c6%0a%3c !!The Savannah Underground%0a%3c %25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25http://wantonwicked.gamingsandbox.com/wiki/images/city/city_tunnels.jpg%0a%3c Savannah is old and built upon the backs of its previous incarnations, scoundrel exploits and mistakes just like any other city with a history as grand and nefarious as its is and is riddled and haunted by vast networks of tunnels, abandoned basements and catacombs which rumor has are only partially man made. %0a%3c %0a%3c Pirates, Southern Heroes, The Underground Railway, and even Doctors are said to have used these tunnels for various reasons in the past from transporting yellow plague victims to press ganging drunks at the Pirate House. On the walls various vandals have scrawled their crack-induced verse, but its said hidden inside them are the mad ramblings of people that have seen what lurks at the angles between here and there and contain hidden messages in alien words within the otherwise incoherent ravings of drug induced rambling poetry. %0a%3c %0a%3c Over the years many people have disappeared into the tunnels never to return only to be found drown or half eaten by something in flooded passage ways or dead of apparent fright under Candler Hospital their fingers bloodied and broken as they tried to claw their way out any way they could. Rumor and Urban Mythology tell chilling and Frightful tales of Ghosts, Albino Alligators , Hairless Wolf men, Cold War bomb shelters and even a lost library in its deepest depths.%0a%3c %0a%3c This underground complex stretches into the [[Historical District]] and [[Down Town District|Downtown District]].%0a---%0a> (:include GameRef.CityMaster#BS#BSEnd:)%0a
+host:1381758986=24.20.151.3
+author:1381273923=JillA
+diff:1381273923:1381273909:=35c35%0a%3c ||[[CityBook.ThePiratesHouse|The Pirates' House]]||[[Players.Mage|Any or Mage]]||Consilium||%0a---%0a> ||[[CityBook.ThePiratesHouse|The Pirates' House]]||[[Players.Mage|Mage]]||Consilium||%0a
+host:1381273923=24.20.151.3
+author:1381273909=JillA
+diff:1381273909:1381224672:=35c35%0a%3c ||[[CityBook.ThePiratesHouse|The Pirates' House]]||[[Players.Mage|Mage]]||Consilium||%0a---%0a> ||[[CityBook.ThePiratesHouse|The Pirates' House]]||[[Players.Mage|Any]]||Consilium||%0a
+host:1381273909=24.20.151.3
+author:1381224672=JillA
+diff:1381224672:1381224062:=23c23%0a%3c * Domain of [[Players/Abraham Twiggs]], Invictus%0a---%0a> * Domain of [[Players/Abraham Twiggs]]%0a
+host:1381224672=24.20.151.3
+author:1381224062=JillA
+diff:1381224062:1381224038:=36c36%0a%3c ||[[CityBook.TheLastCathedral|The Last Cathedral]]||[[Players.Vampire|Vampire]]||[[Players.Jackson Barrett|Jackson Barrett]]||%0a---%0a> ||[[CityBook.TheLastCathedral|The Last Cathedral]]||[[Players.Vampire|Any]]||[[Players.Jackson Barrett|Jackson Barrett]]||%0a
+host:1381224062=24.20.151.3
+author:1381224038=JillA
+diff:1381224038:1381202874:=23,24c23,24%0a%3c * Domain of [[Players/Abraham Twiggs]]%0a%3c * Location Rating: 3%0a---%0a> * Domain of%0a> * Location Rating:%0a
+host:1381224038=24.20.151.3
+author:1381202874=schreier
+diff:1381202874:1381125151:=36d35%0a%3c ||[[CityBook.TheLastCathedral|The Last Cathedral]]||[[Players.Vampire|Any]]||[[Players.Jackson Barrett|Jackson Barrett]]||%0a
+host:1381202874=96.234.173.132
+author:1381125151=Eiragwen
+diff:1381125151:1379293332:=9,29d8%0a%3c >>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''City/Mortal''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Changeling''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Mage''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Vampire''':%0a%3c * Domain of%0a%3c * Location Rating:%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Werewolf''':%0a%3c >>%3c%3c%0a
+host:1381125151=24.20.151.3
+author:1379293332=JillA
+diff:1379293332:1378766729:=1,18c1%0a%3c (:title Bay Side District:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c (:newpagebox base=CityBook template=CityBook.BSTemplate label="Create Bay Side District Location:" value="Place Name":)%0a%3c %0a%3c (:include GameRef.CityMaster#BS#BSEnd:)%0a%3c %0a%3c !!District Features:%0a%3c %0a%3c !!District Locations:%0a%3c (:sortable align=center:)%0a%3c ||class=sortable id=SGLocations%0a%3c ||!Location||!Venue||!Owner||%0a%3c ||[[CityBook.ThePiratesHouse|The Pirates' House]]||[[Players.Mage|Any]]||Consilium||%0a%3c (:tableend:)%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a---%0a> (:title Bay Side District:)%0a\ No newline at end of file%0a
+host:1379293332=24.20.151.3
+author:1378766729=ThomasH
+diff:1378766729:1378766729:=1d0%0a%3c (:title Bay Side District:)%0a\ No newline at end of file%0a
+host:1378766729=71.0.16.129

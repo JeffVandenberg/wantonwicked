@@ -1,0 +1,25 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1379383235
+host=24.20.151.3
+name=CityBook.SavannahMorningNews
+rev=4
+targets=CityBook.CityBook,CityBook.ChathamParkway
+text=(:title Savannah Morning News:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0aReturn to: [[CityBook.?|Venue Locations]], [[CityBook.ChathamParkway|District Locations]], [[CityBook.CityBook|The City]]%0a[[#location]]%0a!!Savannah Morning News%0a'''District:''' [[CityBook.ChathamParkway|Chatham Parkway]]%0a%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wod/locations/wod1.png%0aSavannah’s leading Daily newspaper Since 1850, Savannah Morning News has been supplying the regional area with the latest news. With a Sunday subscription base of 58,825, the Savannah Morning News supplies news for Savannah metro area and parts of South Carolina.%0aSavannah Morning News supports daily columns on:%0a%0a*News%0a*Opinion%0a*Sports%0a*Entertainment%0a*Data%0a*Multimedia%0a*Classifieds (Jobs, Auto, Real Estate, and Buy & Sell)%0a%0a'''Resonance:''' Unknown\\%0a'''Territory:''' Media%0a[[#locationend]]
+time=1379817220
+title=Savannah Morning News
+author:1379817220=JillA
+diff:1379817220:1379817198:=5c5%0a%3c [[#location]]%0a---%0a> %0a22,23c22%0a%3c '''Territory:''' Media%0a%3c [[#locationend]]%0a\ No newline at end of file%0a---%0a> '''Territory:''' Media%0a\ No newline at end of file%0a
+host:1379817220=24.20.151.3
+author:1379817198=JillA
+diff:1379817198:1379817127:=2,5d1%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.ChathamParkway|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a
+host:1379817198=24.20.151.3
+author:1379817127=JillA
+diff:1379817127:1379383235:=3c3%0a%3c '''District:''' [[CityBook.ChathamParkway|Chatham Parkway]]%0a---%0a> '''District:''' [[CityBook.NorthChatham|North Chatham]]%0a
+host:1379817127=24.20.151.3
+author:1379383235=ThomasH
+diff:1379383235:1379383235:=1,18d0%0a%3c (:title Savannah Morning News:)%0a%3c !!Savannah Morning News%0a%3c '''District:''' [[CityBook.NorthChatham|North Chatham]]%0a%3c %0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/locations/wod1.png%0a%3c Savannah’s leading Daily newspaper Since 1850, Savannah Morning News has been supplying the regional area with the latest news. With a Sunday subscription base of 58,825, the Savannah Morning News supplies news for Savannah metro area and parts of South Carolina.%0a%3c Savannah Morning News supports daily columns on:%0a%3c %0a%3c *News%0a%3c *Opinion%0a%3c *Sports%0a%3c *Entertainment%0a%3c *Data%0a%3c *Multimedia%0a%3c *Classifieds (Jobs, Auto, Real Estate, and Buy & Sell)%0a%3c %0a%3c '''Resonance:''' Unknown\\%0a%3c '''Territory:''' Media%0a\ No newline at end of file%0a
+host:1379383235=67.238.250.80

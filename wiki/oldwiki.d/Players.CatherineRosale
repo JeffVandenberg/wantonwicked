@@ -1,0 +1,63 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+author=Retias
+charset=ISO-8859-1
+csum=
+ctime=1382029702
+host=2.28.191.194
+name=Players.CatherineRosale
+rev=17
+targets=Players.DeirdreniMorrighan,Players.MadisonGray
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a!!%25white%25Catherine Rosale%25white%25%0a(:cellnr rowspan=15 width=400 align=center:)%25width=400%25http://img.photobucket.com/albums/v629/Regno/Catherine_zpsd137c081.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) Unknown%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) 26%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) Short%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Slender and curvy%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) (Apparently) homeless%0a(:cellnr width=150 align=left:)'''Covenant:'''%0a(:cell width=190:) Circle of the Crone%0a(:cellnr width=150 align=left:)'''Clan:'''%0a(:cell width=190:) Gangrel%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Aspect of the Predator, Seductive Grace 2 (Signs of the Moon, page 144), Contacts (Street walkers, homeless shelters)%0a(:cellnr width=150 align=left:)'''Coterie:'''%0a(:cell width=190:) None%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Retias%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=Fdo5IcLAAfc|Rasputina Transylvanian Concubine]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_d.png%0a''Place your Description Here''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_h.png%0aHaving recently arrived with her sire, Catherine is as yet mostly unknown within the city's politics and Kindred, but makes no secret of her place as a Maiden in the Circle of the Crone.  She's currently based in the Coffee Bluff with her sire.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_rph.png%0a*A life on the streets.  Catherine is apparently homeless and makes money for food and essentials by engaging in minor criminal activity, like running drugs or other things, as well as prostitution at times.  She has been known to offer a hand to those especially bad off, when she can, but she's pretty new to the city so far.%0a*In service.  Catherine is in service to the Invictus Knight Madison Gray, as her newest squire.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_con.png%0aSire and teacher: [[DeirdreniMorrighan | Deirdre ni Morrighan]]%0a[[%3c%3c]]%0aThe knight she serves:  [[MadisonGray | Madison Gray]]%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_q.png%0a''What Others have to Say about you''%0a%0a"Ah yes, my beloved daughter. Still young but eager to learn, in ways she is surpassing me already. Soon her Maiden nights will be achieved, and ''then'' she will show the sincerity and worth of my offering to our Mother in bringing her beyond he sunset." -''[[DeirdreniMorrighan | The Loving Mother]]''  %0a%0a[[%3c%3c]]%0a(:include CityBook.VampireNavigationBar:)
+time=1382475710
+author:1382475710=Retias
+diff:1382475710:1382475665:=42d41%0a%3c [[%3c%3c]]%0a
+host:1382475710=2.28.191.194
+author:1382475665=Retias
+diff:1382475665:1382388000:=38d37%0a%3c *In service.  Catherine is in service to the Invictus Knight Madison Gray, as her newest squire.%0a42d40%0a%3c The knight she serves:  [[MadisonGray | Madison Gray]]%0a
+host:1382475665=2.28.191.194
+author:1382388000=Wolfpact
+diff:1382388000:1382373275:=8c8%0a%3c (:cell width=190:) Unknown%0a---%0a> (:cell width=190:) 45%0a
+host:1382388000=216.69.46.30
+author:1382373275=Wolfpact
+diff:1382373275:1382360969:=44,46d43%0a%3c %0a%3c "Ah yes, my beloved daughter. Still young but eager to learn, in ways she is surpassing me already. Soon her Maiden nights will be achieved, and ''then'' she will show the sincerity and worth of my offering to our Mother in bringing her beyond he sunset." -''[[DeirdreniMorrighan | The Loving Mother]]''  %0a%3c %0a
+host:1382373275=216.69.46.30
+author:1382360969=Wolfpact
+diff:1382360969:1382189617:=40c40%0a%3c Sire and teacher: [[DeirdreniMorrighan | Deirdre ni Morrighan]]%0a---%0a> Sire and teacher: [[DeirdreniMorrighan]]%0a
+host:1382360969=216.69.46.30
+author:1382189617=Retias
+diff:1382189617:1382126593:=34c34%0a%3c Having recently arrived with her sire, Catherine is as yet mostly unknown within the city's politics and Kindred, but makes no secret of her place as a Maiden in the Circle of the Crone.  She's currently based in the Coffee Bluff with her sire.%0a---%0a> ''Place your Public History Here''%0a
+host:1382189617=2.25.141.192
+author:1382126593=Retias
+diff:1382126593:1382123945:=37c37,39%0a%3c *A life on the streets.  Catherine is apparently homeless and makes money for food and essentials by engaging in minor criminal activity, like running drugs or other things, as well as prostitution at times.  She has been known to offer a hand to those especially bad off, when she can, but she's pretty new to the city so far.%0a---%0a> *A life on the streets.  Catherine is apparently homeless and makes money for food and essentials by engaging in minor criminal activity, like running drugs or other things, as well as prostitution at times.%0a> %0a> She has been known to offer a hand to those especially bad off, when she can, but she's pretty new to the city so far.%0a
+host:1382126593=2.25.131.183
+author:1382123945=Retias
+diff:1382123945:1382123653:=22c22%0a%3c (:cell width=190:) Aspect of the Predator, Seductive Grace 2 (Signs of the Moon, page 144), Contacts (Street walkers, homeless shelters)%0a---%0a> (:cell width=190:) Aspect of the Predator, Seductive Grace 2 (Signs of the Moon, page 144)%0a
+host:1382123945=2.25.131.183
+author:1382123653=Retias
+diff:1382123653:1382123553:=28c28%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=Fdo5IcLAAfc|Rasputina Transylvanian Concubine]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a
+host:1382123653=2.25.131.183
+author:1382123553=Retias
+diff:1382123553:1382074320:=37,39c37%0a%3c *A life on the streets.  Catherine is apparently homeless and makes money for food and essentials by engaging in minor criminal activity, like running drugs or other things, as well as prostitution at times.%0a%3c %0a%3c She has been known to offer a hand to those especially bad off, when she can, but she's pretty new to the city so far.%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1382123553=2.25.131.183
+author:1382074320=Euphoric_Goth
+diff:1382074320:1382036711:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:)%25width=400%25http://img.photobucket.com/albums/v629/Regno/Catherine_zpsd137c081.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1382074320=81.166.18.133
+author:1382036711=Retias
+diff:1382036711:1382036624:=40c40%0a%3c Sire and teacher: [[DeirdreniMorrighan]]%0a---%0a> Sire and teacher: [[Deirdre ni Morrighan]]%0a
+host:1382036711=2.25.131.183
+author:1382036624=Retias
+diff:1382036624:1382031223:=
+host:1382036624=2.25.131.183
+author:1382031223=Retias
+diff:1382031223:1382030414:=40c40%0a%3c Sire and teacher: [[Deirdre ni Morrighan]]%0a---%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1382031223=2.25.131.183
+author:1382030414=Retias
+diff:1382030414:1382030379:=3c3%0a%3c !!%25white%25Catherine Rosale%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1382030414=2.25.131.183
+author:1382030379=Retias
+diff:1382030379:1382029702:=8c8%0a%3c (:cell width=190:) 45%0a---%0a> (:cell width=190:) ?%0a10c10%0a%3c (:cell width=190:) 26%0a---%0a> (:cell width=190:) ?%0a12c12%0a%3c (:cell width=190:) Short%0a---%0a> (:cell width=190:) ?%0a14c14%0a%3c (:cell width=190:) Slender and curvy%0a---%0a> (:cell width=190:) ?%0a16c16%0a%3c (:cell width=190:) (Apparently) homeless%0a---%0a> (:cell width=190:) ?%0a18c18%0a%3c (:cell width=190:) Circle of the Crone%0a---%0a> (:cell width=190:) ?%0a20c20%0a%3c (:cell width=190:) Gangrel%0a---%0a> (:cell width=190:) ?%0a22c22%0a%3c (:cell width=190:) Aspect of the Predator, Seductive Grace 2 (Signs of the Moon, page 144)%0a---%0a> (:cell width=190:) ?%0a24c24%0a%3c (:cell width=190:) None%0a---%0a> (:cell width=190:) ?%0a26c26%0a%3c (:cell width=190:) Retias%0a---%0a> (:cell width=190:) ?%0a
+host:1382030379=2.25.131.183
+author:1382029702=Retias
+diff:1382029702:1382029702:=1,45d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#9e0b0f align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Covenant:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Clan:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Coterie:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/vtr/headers/vtr_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1382029702=2.25.131.183

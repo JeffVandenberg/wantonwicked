@@ -1,0 +1,27 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=Mephi
+charset=ISO-8859-1
+csum=
+ctime=1383132281
+host=67.149.231.67
+name=Players.Mephi
+rev=5
+targets=Players.JoleneDarc,Players.ShantiFaust
+text=The demon-loving player.   Come, join the dark side, we have cookies!%0a%25height=500%25 %25width=750%25 http://i3.photobucket.com/albums/y75/majere62/come_over_to_the_dark_side_____by_shiniez-d6j3oi2.jpg Artist page: http://shiniez.deviantart.com/art/come-over-to-the-dark-side-394881482%0a%0aCurrent Characters:%0a%0a[[Jolene Darc]]%0a%0a[[Shanti Faust]]%0a%0aPrevious Characters:%0a
+time=1383178360
+author:1383178360=Mephi
+diff:1383178360:1383178307:=2c2%0a%3c %25height=500%25 %25width=750%25 http://i3.photobucket.com/albums/y75/majere62/come_over_to_the_dark_side_____by_shiniez-d6j3oi2.jpg Artist page: http://shiniez.deviantart.com/art/come-over-to-the-dark-side-394881482%0a---%0a> http://i3.photobucket.com/albums/y75/majere62/come_over_to_the_dark_side_____by_shiniez-d6j3oi2.jpg Artist page: http://shiniez.deviantart.com/art/come-over-to-the-dark-side-394881482%0a
+host:1383178360=67.149.231.67
+author:1383178307=Mephi
+diff:1383178307:1383178272:=2c2%0a%3c http://i3.photobucket.com/albums/y75/majere62/come_over_to_the_dark_side_____by_shiniez-d6j3oi2.jpg Artist page: http://shiniez.deviantart.com/art/come-over-to-the-dark-side-394881482%0a---%0a> [[http://i3.photobucket.com/albums/y75/majere62/come_over_to_the_dark_side_____by_shiniez-d6j3oi2.jpg]] Artist page: http://shiniez.deviantart.com/art/come-over-to-the-dark-side-394881482%0a
+host:1383178307=67.149.231.67
+author:1383178272=Mephi
+diff:1383178272:1383132295:=1,3c1,2%0a%3c The demon-loving player.   Come, join the dark side, we have cookies!%0a%3c [[http://i3.photobucket.com/albums/y75/majere62/come_over_to_the_dark_side_____by_shiniez-d6j3oi2.jpg]] Artist page: http://shiniez.deviantart.com/art/come-over-to-the-dark-side-394881482%0a%3c %0a---%0a> The demon-loving player.   %0a> %0a10a10,11%0a> %0a> %0a
+host:1383178272=67.149.231.67
+author:1383132295=Mephi
+diff:1383132295:1383132281:=2d1%0a%3c %0a4d2%0a%3c %0a6d3%0a%3c %0a
+host:1383132295=67.149.231.67
+author:1383132281=Mephi
+diff:1383132281:1383132281:=1,8d0%0a%3c The demon-loving player.   %0a%3c Current Characters:%0a%3c [[Jolene Darc]]%0a%3c [[Shanti Faust]]%0a%3c %0a%3c Previous Characters:%0a%3c %0a%3c %0a
+host:1383132281=67.149.231.67

@@ -1,0 +1,27 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.62 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1372645903
+host=71.0.16.129
+name=GameRef.GameRef
+rev=5
+targets=GameRef.Rules,GameRef.Venues,GameRef.GeneralHouseRules,GameRef.CharacterCreation
+text=http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0aThe Game Reference section of the wiki contains all of the out of character rules, policy, references, and character creation materials you may need while playing on Wanton Wicked. %0a%0a%25color=#365776%25[[Rules|Rules of the Game]]%25%25\\%0aIncluding an explanation of the PPS system, the book policy, and conflict of interest.%0a%0a%25color=#365776%25[[Venues|Playable Venues]]%25%25\\%0aAn explanation of the different venues and types of venues offered in the game.%0a%0a%25color=#365776%25[[General House Rules|House Rules]]%25%25\\%0aOptional and custom rules used on Wanton Wicked.%0a%0a%25color=#365776%25[[Character Creation]]%25%25\\%0aRules for creating your character.%0a
+time=1377994421
+author:1377994421=ThomasH
+diff:1377994421:1377994232:=14a15,20%0a> %0a> %25color=#365776%25[[Post Sanctioning| Post Sanctioning Resources]]%25%25\\%0a> How to create a character thread, wiki, and what to put in them. %0a> %0a> %25color=#365776%25[[Frequently Asked Questions|F.A.Q.]]%25%25\\%0a> For all your other queries and confusion.%0a\ No newline at end of file%0a
+host:1377994421=71.0.16.129
+author:1377994232=ThomasH
+diff:1377994232:1377993980:=1d0%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a10c9%0a%3c %25color=#365776%25[[General House Rules|House Rules]]%25%25\\%0a---%0a> %25color=#365776%25[[House Rules]]%25%25\\%0a
+host:1377994232=71.0.16.129
+author:1377993980=ThomasH
+diff:1377993980:1377993945:=15c15%0a%3c %25color=#365776%25[[Post Sanctioning| Post Sanctioning Resources]]%25%25\\%0a---%0a> %25color=#365776%25[[Character Threads| Post Sanctioning Resources]]%25%25\\%0a
+host:1377993980=71.0.16.129
+author:1377993945=ThomasH
+diff:1377993945:1372645903:=16a17,22%0a> %0a> %25color=#365776%25[[QuickReferences|Quick & Handy References]]%25%25\\%0a> A collection of useful references for Combat both social and physical, as well as other tidbits.%0a> %0a> %25color=#365776%25[[GameRef.GST|Guest STing]]%25%25\\%0a> An explanation of Guest Storytelling, how to find a GST, and how to volunteer as one. %0a
+host:1377993945=71.0.16.129
+author:1372645903=VerityH
+diff:1372645903:1372645903:=1,25d0%0a%3c The Game Reference section of the wiki contains all of the out of character rules, policy, references, and character creation materials you may need while playing on Wanton Wicked. %0a%3c %0a%3c %25color=#365776%25[[Rules|Rules of the Game]]%25%25\\%0a%3c Including an explanation of the PPS system, the book policy, and conflict of interest.%0a%3c %0a%3c %25color=#365776%25[[Venues|Playable Venues]]%25%25\\%0a%3c An explanation of the different venues and types of venues offered in the game.%0a%3c %0a%3c %25color=#365776%25[[House Rules]]%25%25\\%0a%3c Optional and custom rules used on Wanton Wicked.%0a%3c %0a%3c %25color=#365776%25[[Character Creation]]%25%25\\%0a%3c Rules for creating your character.%0a%3c %0a%3c %25color=#365776%25[[Character Threads| Post Sanctioning Resources]]%25%25\\%0a%3c How to create a character thread, wiki, and what to put in them. %0a%3c %0a%3c %25color=#365776%25[[QuickReferences|Quick & Handy References]]%25%25\\%0a%3c A collection of useful references for Combat both social and physical, as well as other tidbits.%0a%3c %0a%3c %25color=#365776%25[[GameRef.GST|Guest STing]]%25%25\\%0a%3c An explanation of Guest Storytelling, how to find a GST, and how to volunteer as one. %0a%3c %0a%3c %25color=#365776%25[[Frequently Asked Questions|F.A.Q.]]%25%25\\%0a%3c For all your other queries and confusion.%0a\ No newline at end of file%0a
+host:1372645903=71.0.16.129

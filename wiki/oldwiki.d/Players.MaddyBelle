@@ -1,0 +1,30 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=BelleM
+charset=ISO-8859-1
+csum=
+ctime=1378838401
+host=66.86.125.180
+name=Players.MaddyBelle
+rev=6
+targets=Players.DeltaPinkerton,Players.SirenCain,Players.TheCogClub
+text=!! MaddyBelle%0a%0aThis is an OOC landing page for my profile link for my OOC name.%0a%0a%0a!! Current Characters%0a%0aWerewolf the Forsaken:%0a[[Delta Pinkerton]]  -  A Wolf-blood from Savannah who is a member of the SWAT team and acts as their K9 handler. %0a%25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Delta/collage2_zps5a185602.png%0a%0a%0aVampire the Requiem:%0a[[Siren Cain]]  -  A Daeva member of the Ordo who has been in Savannah for 10 or so years.  She has a strange sense of style and is one of the co-owners of [[The Cog Club]]%0a%25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Cain/CainBanner_zps55f7c0c6.jpg%0a%0a%0a!!  Former Characters%0a%0aMage the Awakening:%0a[[-Momento-]]  -  Moros mage who is a member of the Mysterium and owns an antiques shop called "Sweet Repeats"%0a%25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Momento/collage1_zps1a12e2e4.png
+time=1383464652
+author:1383464652=BelleM
+diff:1383464652:1383464631:=
+host:1383464652=66.86.125.180
+author:1383464631=BelleM
+diff:1383464631:1383464567:=15c15%0a%3c %25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Cain/CainBanner_zps55f7c0c6.jpg%0a---%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.SirenCain%0a
+host:1383464631=66.86.125.180
+author:1383464567=BelleM
+diff:1383464567:1379880392:=13,18d12%0a%3c Vampire the Requiem:%0a%3c [[Siren Cain]]  -  A Daeva member of the Ordo who has been in Savannah for 10 or so years.  She has a strange sense of style and is one of the co-owners of [[The Cog Club]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.SirenCain%0a%3c %0a%3c %0a%3c !!  Former Characters%0a
+host:1383464567=66.86.125.180
+author:1379880392=MaddyBelle
+diff:1379880392:1379023673:=9c9%0a%3c [[Delta Pinkerton]]  -  A Wolf-blood from Savannah who is a member of the SWAT team and acts as their K9 handler. %0a---%0a> Delta Pinkerton  -  A Wolf-blood from Savannah who is a member of the SWAT team and acts as their K9 handler. %0a15c15%0a%3c [[-Momento-]]  -  Moros mage who is a member of the Mysterium and owns an antiques shop called "Sweet Repeats"%0a---%0a> Momento  -  Moros mage who is a member of the Mysterium and owns an antiques shop called "Sweet Repeats"%0a
+host:1379880392=208.91.39.4
+author:1379023673=MaddyBelle
+diff:1379023673:1378838401:=13d12%0a%3c %0a16d14%0a%3c %25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Momento/collage1_zps1a12e2e4.png%0a\ No newline at end of file%0a
+host:1379023673=66.86.125.180
+author:1378838401=MaddyBelle
+diff:1378838401:1378838401:=1,14d0%0a%3c !! MaddyBelle%0a%3c %0a%3c This is an OOC landing page for my profile link for my OOC name.%0a%3c %0a%3c %0a%3c !! Current Characters%0a%3c %0a%3c Werewolf the Forsaken:%0a%3c Delta Pinkerton  -  A Wolf-blood from Savannah who is a member of the SWAT team and acts as their K9 handler. %0a%3c %25%25http://i800.photobucket.com/albums/yy287/eatmyexhaust/Delta/collage2_zps5a185602.png%0a%3c %0a%3c %0a%3c Mage the Awakening:%0a%3c Momento  -  Moros mage who is a member of the Mysterium and owns an antiques shop called "Sweet Repeats"%0a
+host:1378838401=208.91.36.148

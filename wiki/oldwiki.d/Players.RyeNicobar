@@ -1,0 +1,48 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Ebram
+charset=ISO-8859-1
+csum=
+ctime=1383797090
+host=68.171.190.177
+name=Players.RyeNicobar
+rev=12
+targets=Players.Shea
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#005826 align=center:)%0a!!%25white%25Rye Nicobar%25white%25%0a(:cellnr rowspan=20 width=400 align=center:)%25width=400px%25 http://www.scifinow.co.uk/wp-content/uploads/2013/04/bilde.jpeg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_s.png%0a(:cellnr width=130 align=left:)'''Age:'''%0a(:cell width=210:) 50%0a(:cellnr width=130 align=left:)'''Apparent Age:'''%0a(:cell width=210:) 25%0a(:cellnr width=130 align=left:)'''Height:'''%0a(:cell width=210:) 5'5"%0a(:cellnr width=130 align=left:)'''Build:'''%0a(:cell width=210:) Athletic%0a(:cellnr width=130 align=left:)'''Profession:''' %0a(:cell width=210:) Jack-of-all-Trades%0a(:cellnr width=130 align=left:)'''Public Effects:'''%0a(:cell width=210:) None%0a(:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_f.png%0a(:cellnr width=130 align=left:)'''Spring:'''%0a(:cell width=210:) 0%0a(:cellnr width=130 align=left:)'''Summer:'''%0a(:cell width=210:) 2%0a(:cellnr width=130 align=left:)'''Autumn:'''%0a(:cell width=210:) Goodwill 1%0a(:cellnr width=130 align=left:)'''Winter:'''%0a(:cell width=210:) 0%0a%0a(:cellnr width=130 align=left:)'''Seeming:'''%0a(:cell width=210:) Wizened%0a(:cellnr width=130 align=left:)'''Motley:'''%0a(:cell width=210:) None so far%0a(:cellnr width=130 align=left:)'''Entitlement:'''%0a(:cell width=210:) Squire of the Broken Bough%0a%0a%0a%0a(:cellnr width=130 align=left:)'''Player:''' %0a(:cell width=210:) Ebram%0a(:cellnr width=130 align=left:)'''Theme Music:''' %0a(:cell width=210:) %0a*[[http://www.youtube.com/watch?v=fPp5iNOhOI4 |Rabblerouser]]%0a*[[http://www.youtube.com/watch?v=J7uGVRXVh0Y |Surefire]]%0a*[[http://www.youtube.com/watch?v=3kHLnHoCprY |Summer]]%0a*[[http://www.youtube.com/watch?v=zMfPvo3qYmk |The Good Left Undone]]%0a*[[http://www.youtube.com/watch?v=L4hbSW8tm2k |Wonderlust King]]%0a(:tableend:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_d.png%0a''Short and athletic, he sports some of the characteristics of the Romani, but could nearly pass for white-bread normal.''%0a%0a''The Mien: His skin looks like old and yellowed parchment with words and designs shifting and swirling over his skin.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_h.png%0a''Place your Public History Here''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_rph.png%0a*Recently took a job working at the House of Mae, a bar in the Central district.%0a*Need a job done?  Rye prides himself on being a bit of a handy-man.  Maybe you need some labor done?%0a*He's a bit too far into the idea of Fate.  He'll read tea leaves, throw the bones, or maybe even cards, if you really want to know.  Maybe they're just for entertainment value, maybe not...%0a*Romani.  That's right.  The term isn't Gypsy, it's Romani, and if you want an earful on why, he's more than happy to oblige.%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a*%25color=#004a80%25''Rye's a great guy, always ready for a good time.  Even if he did overload me with far to much information.  If you want a kick ass party, make sure he is there!"'' %0a->%25right%25%25color=#004a80%25[- - ''[[Shea]]''-]%0a%0a(:include CityBook.ChangelingNavigationBar:)
+time=1386381936
+author:1386381936=Ebram
+diff:1386381936:1385956355:=46d45%0a%3c *[[http://www.youtube.com/watch?v=L4hbSW8tm2k |Wonderlust King]]%0a
+host:1386381936=68.171.190.177
+author:1385956355=Devilish
+diff:1385956355:1385113243:=67,68d66%0a%3c *%25color=#004a80%25''Rye's a great guy, always ready for a good time.  Even if he did overload me with far to much information.  If you want a kick ass party, make sure he is there!"'' %0a%3c ->%25right%25%25color=#004a80%25[- - ''[[Shea]]''-]%0a
+host:1385956355=68.224.99.74
+author:1385113243=Ebram
+diff:1385113243:1385100734:=45d44%0a%3c *[[http://www.youtube.com/watch?v=zMfPvo3qYmk |The Good Left Undone]]%0a
+host:1385113243=68.171.190.177
+author:1385100734=Ebram
+diff:1385100734:1385100683:=3c3%0a%3c !!%25white%25Rye Nicobar%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1385100734=68.171.190.177
+author:1385100683=Ebram
+diff:1385100683:1385005851:=55d54%0a%3c *Recently took a job working at the House of Mae, a bar in the Central district.%0a
+host:1385100683=68.171.190.177
+author:1385005851=Ebram
+diff:1385005851:1383849117:=25c25%0a%3c (:cell width=210:) Goodwill 1%0a---%0a> (:cell width=210:) 0%0a
+host:1385005851=68.171.190.177
+author:1383849117=Ebram
+diff:1383849117:1383805791:=
+host:1383849117=68.171.190.177
+author:1383805791=Ebram
+diff:1383805791:1383805323:=55,57c55%0a%3c *Need a job done?  Rye prides himself on being a bit of a handy-man.  Maybe you need some labor done?%0a%3c *He's a bit too far into the idea of Fate.  He'll read tea leaves, throw the bones, or maybe even cards, if you really want to know.  Maybe they're just for entertainment value, maybe not...%0a%3c *Romani.  That's right.  The term isn't Gypsy, it's Romani, and if you want an earful on why, he's more than happy to oblige.%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1383805791=68.171.190.177
+author:1383805323=Ebram
+diff:1383805323:1383801390:=41,44c41,42%0a%3c (:cell width=210:) %0a%3c *[[http://www.youtube.com/watch?v=fPp5iNOhOI4 |Rabblerouser]]%0a%3c *[[http://www.youtube.com/watch?v=J7uGVRXVh0Y |Surefire]]%0a%3c *[[http://www.youtube.com/watch?v=3kHLnHoCprY |Summer]]%0a---%0a> (:cell width=210:) [[http://www.youtube.com/watch?v=J7uGVRXVh0Y |Surefire]]%0a> [[http://www.youtube.com/watch?v=3kHLnHoCprY |Summer]]%0a
+host:1383805323=68.171.190.177
+author:1383801390=Ebram
+diff:1383801390:1383800311:=42d41%0a%3c [[http://www.youtube.com/watch?v=3kHLnHoCprY |Summer]]%0a
+host:1383801390=68.171.190.177
+author:1383800311=Ebram
+diff:1383800311:1383797090:=41c41%0a%3c (:cell width=210:) [[http://www.youtube.com/watch?v=J7uGVRXVh0Y |Surefire]]%0a---%0a> (:cell width=210:) [[http://www.youtube.com/ |Music]]%0a
+host:1383800311=68.171.190.177
+author:1383797090=Ebram
+diff:1383797090:1383797090:=1,61d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#005826 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=20 width=400 align=center:)%25width=400px%25 http://www.scifinow.co.uk/wp-content/uploads/2013/04/bilde.jpeg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_s.png%0a%3c (:cellnr width=130 align=left:)'''Age:'''%0a%3c (:cell width=210:) 50%0a%3c (:cellnr width=130 align=left:)'''Apparent Age:'''%0a%3c (:cell width=210:) 25%0a%3c (:cellnr width=130 align=left:)'''Height:'''%0a%3c (:cell width=210:) 5'5"%0a%3c (:cellnr width=130 align=left:)'''Build:'''%0a%3c (:cell width=210:) Athletic%0a%3c (:cellnr width=130 align=left:)'''Profession:''' %0a%3c (:cell width=210:) Jack-of-all-Trades%0a%3c (:cellnr width=130 align=left:)'''Public Effects:'''%0a%3c (:cell width=210:) None%0a%3c (:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_f.png%0a%3c (:cellnr width=130 align=left:)'''Spring:'''%0a%3c (:cell width=210:) 0%0a%3c (:cellnr width=130 align=left:)'''Summer:'''%0a%3c (:cell width=210:) 2%0a%3c (:cellnr width=130 align=left:)'''Autumn:'''%0a%3c (:cell width=210:) 0%0a%3c (:cellnr width=130 align=left:)'''Winter:'''%0a%3c (:cell width=210:) 0%0a%3c %0a%3c (:cellnr width=130 align=left:)'''Seeming:'''%0a%3c (:cell width=210:) Wizened%0a%3c (:cellnr width=130 align=left:)'''Motley:'''%0a%3c (:cell width=210:) None so far%0a%3c (:cellnr width=130 align=left:)'''Entitlement:'''%0a%3c (:cell width=210:) Squire of the Broken Bough%0a%3c %0a%3c %0a%3c %0a%3c (:cellnr width=130 align=left:)'''Player:''' %0a%3c (:cell width=210:) Ebram%0a%3c (:cellnr width=130 align=left:)'''Theme Music:''' %0a%3c (:cell width=210:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_d.png%0a%3c ''Short and athletic, he sports some of the characteristics of the Romani, but could nearly pass for white-bread normal.''%0a%3c %0a%3c ''The Mien: His skin looks like old and yellowed parchment with words and designs shifting and swirling over his skin.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.ChangelingNavigationBar:)%0a\ No newline at end of file%0a
+host:1383797090=68.171.190.177

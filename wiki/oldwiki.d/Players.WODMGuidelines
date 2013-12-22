@@ -1,0 +1,25 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36
+author=IanC
+charset=ISO-8859-1
+csum=
+ctime=1377650918
+host=206.116.207.30
+name=Players.WODMGuidelines
+rev=4
+targets=
+text=[[#top]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/worldofdarknessmortal.png%0a(:title Mortal Locations:)%0a!Character Creation%0a%0a(:include GameRef.WodMMaster#Creation#CreationEnd:)%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1377994494
+title=Mortal Locations
+author:1377994494=IanC
+diff:1377994494:1377901934:=5c5,6%0a%3c %0a---%0a> (:include GameRef.CharacterCreation#restricted#restrictedend:)%0a> WIP%0a
+host:1377994494=206.116.207.30
+author:1377901934=JillA
+diff:1377901934:1377895558:=7c7%0a%3c (:include GameRef.WodMMaster#Creation#CreationEnd:)%0a---%0a> (:include GameRef.WodMMaster#Guide#GuideEnd:)%0a
+host:1377901934=24.20.151.3
+author:1377895558=JillA
+diff:1377895558:1377650918:=4,6d3%0a%3c !Character Creation%0a%3c (:include GameRef.CharacterCreation#restricted#restrictedend:)%0a%3c WIP%0a
+host:1377895558=24.20.151.3
+author:1377650918=JillA
+diff:1377650918:1377650918:=1,6d0%0a%3c [[#top]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/worldofdarknessmortal.png%0a%3c (:title Mortal Locations:)%0a%3c (:include GameRef.WodMMaster#Guide#GuideEnd:)%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1377650918=24.20.151.3

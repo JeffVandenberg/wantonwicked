@@ -1,0 +1,39 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:25.0) Gecko/20100101 Firefox/25.0
+author=SimplexCoda
+charset=ISO-8859-1
+csum=
+ctime=1386023693
+host=98.22.108.97
+name=CityBook.McAllistersPublicHouse
+rev=9
+targets=CityBook.CityBook,CityBook.HutchinsonIsland
+text=Return to: [[CityBook.?|Venue Locations]], [[CityBook.HutchinsonIsland|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a[++'''McAllisters Public House'''++]%0a%0a'''District:''' [[CityBook.HutchinsonIsland|Hutchinson Island]]%0a%0a%25width=600%25http://i46.photobucket.com/albums/f140/SimplexCoda/west-congress-street.jpg %0a[[%3c%3c]]%0a%0aMcAllister's Public House specializing in traditional Irish fare from breakfast to whiskey. We are the only Irish pub in Savannah owned and operated by Irish natives. We also offer live music Tuesday through Saturday!%0a%0aLocation: We are located at the very end of International Dr.%0a%0a[+The Inside+]%0a %0aOnce you enter the front doors you will be greeted by a large main bar room with a stage located above and behind the bar where our house band plays for your entertainment pleasure. %0a%0a%25width=600%25http://i46.photobucket.com/albums/f140/SimplexCoda/PubinteriorLondon.jpg%0a[[%3c%3c]]%0a%0aUpstairs we have a smaller bar (aprox. half the sq footage of the downstairs bar) with semi-private booths.%0a%0a%25width=600%25http://i46.photobucket.com/albums/f140/SimplexCoda/2273452505_3b8097d436_z.jpg%0a[[%3c%3c]]%0a%25width=600%25http://i46.photobucket.com/albums/f140/SimplexCoda/5768092779_282794154b_z.jpg%0a[[%3c%3c]]%0a%0a[+The Staff+]%0a%0aOur General Manager, Sarah McGowen, joined us straight out of Kinsale, County Cork, Ireland!%0a%0a%25width=300%25http://i46.photobucket.com/albums/f140/SimplexCoda/deborah_ann_woll_desktop_1998x3000_hd-wallpaper.jpg%0a%0a[[%3c%3c]]%0a%0a[+The Owner+]%0a%0a%0a%25width=300%25http://i1189.photobucket.com/albums/z424/anne_wtf/cormacampemily.jpg%0a%0a%0a%0a%0a%0a[[%3c%3c]]%0a%0a[[http://wantonwicked.gamingsandbox.com/wiki/?n=Players.CormacMcAllister | Cormac McAllister]]%0a%0a[+Customer Reviews:+]%0a[[#locationend]]%0a%0a----%0a(:include CityBook.Directory:)
+time=1386221070
+author:1386221070=SimplexCoda
+diff:1386221070:1386040031:=50d49%0a%3c [+Customer Reviews:+]%0a
+host:1386221070=98.22.108.97
+author:1386040031=SimplexCoda
+diff:1386040031:1386026455:=31c31%0a%3c Our General Manager, Sarah McGowen, joined us straight out of Kinsale, County Cork, Ireland!%0a---%0a> Our General Manager, Sarah McGinty, joined us straight out of Kinsale, County Cork, Ireland!%0a
+host:1386040031=98.22.108.97
+author:1386026455=SimplexCoda
+diff:1386026455:1386026429:=43,45c43%0a%3c %0a%3c %0a%3c %0a---%0a> [[Players.CormacMcAllister|Cormac McAllister]]%0a47,48d44%0a%3c %0a%3c [[http://wantonwicked.gamingsandbox.com/wiki/?n=Players.CormacMcAllister | Cormac McAllister]]%0a
+host:1386026455=98.22.108.97
+author:1386026429=Devilish
+diff:1386026429:1386026400:=43c43%0a%3c [[Players.CormacMcAllister|Cormac McAllister]]%0a---%0a> [[Cormac McAllister]]%0a
+host:1386026429=68.224.99.74
+author:1386026400=Devilish
+diff:1386026400:1386026359:=43c43,45%0a%3c [[Cormac McAllister]]%0a---%0a> %0a> %0a> %0a44a47,48%0a> %0a> Cormac McAllister%0a
+host:1386026400=68.224.99.74
+author:1386026359=SimplexCoda
+diff:1386026359:1386026322:=0a1,3%0a> (:McAllisters Public House:)%0a> %0a> %0a
+host:1386026359=98.22.108.97
+author:1386026322=SimplexCoda
+diff:1386026322:1386024367:=13,17d12%0a%3c %0a%3c McAllister's Public House specializing in traditional Irish fare from breakfast to whiskey. We are the only Irish pub in Savannah owned and operated by Irish natives. We also offer live music Tuesday through Saturday!%0a%3c %0a%3c Location: We are located at the very end of International Dr.%0a%3c %0a19,21c14,17%0a%3c  %0a%3c Once you enter the front doors you will be greeted by a large main bar room with a stage located above and behind the bar where our house band plays for your entertainment pleasure. %0a%3c %0a---%0a> McAllister's Public House specializes in traditional Irish Fare %0a> %0a> blah blah blah blah blah blah%0a> %0a24,26d19%0a%3c %0a%3c Upstairs we have a smaller bar (aprox. half the sq footage of the downstairs bar) with semi-private booths.%0a%3c %0a31c24,30%0a%3c %0a---%0a> blah blah blah blah blah blah%0a> %0a> %0a> %0a> %25width=300%25http://i46.photobucket.com/albums/f140/SimplexCoda/deborah_ann_woll_desktop_1998x3000_hd-wallpaper.jpg%0a> %0a> [[%3c%3c]]%0a34,39c33,35%0a%3c Our General Manager, Sarah McGinty, joined us straight out of Kinsale, County Cork, Ireland!%0a%3c %0a%3c %25width=300%25http://i46.photobucket.com/albums/f140/SimplexCoda/deborah_ann_woll_desktop_1998x3000_hd-wallpaper.jpg%0a%3c %0a%3c [[%3c%3c]]%0a%3c %0a---%0a> blah blah blah blah blah blah%0a> %0a> %25width=300%25http://i1189.photobucket.com/albums/z424/anne_wtf/cormacampemily.jpg%0a42,48c38,40%0a%3c %0a%3c %25width=300%25http://i1189.photobucket.com/albums/z424/anne_wtf/cormacampemily.jpg%0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a---%0a> blah blah blah blah blah blah%0a> %0a> %0a50,52c42,43%0a%3c %0a%3c Cormac McAllister%0a%3c %0a---%0a> '''Resonance:''' blah\\%0a> '''Territory:''' Falls within X's claim%0a
+host:1386026322=98.22.108.97
+author:1386024367=Devilish
+diff:1386024367:1386023693:=1,3c1,3%0a%3c (:McAllisters Public House:)%0a%3c %0a%3c %0a---%0a> (:title location name:)%0a> [Venue or Savannah Banner]%0a> %0a7,8c7%0a%3c [++'''McAllisters Public House'''++]%0a%3c %0a---%0a> !!McAllister's Public House%0a11,13c10%0a%3c %25width=600%25http://i46.photobucket.com/albums/f140/SimplexCoda/west-congress-street.jpg %0a%3c [[%3c%3c]]%0a%3c [+The Inside+]%0a---%0a> http://i46.photobucket.com/albums/f140/SimplexCoda/west-congress-street.jpg %0a16,41d12%0a%3c blah blah blah blah blah blah%0a%3c %0a%3c %25width=600%25http://i46.photobucket.com/albums/f140/SimplexCoda/PubinteriorLondon.jpg%0a%3c [[%3c%3c]]%0a%3c %25width=600%25http://i46.photobucket.com/albums/f140/SimplexCoda/2273452505_3b8097d436_z.jpg%0a%3c [[%3c%3c]]%0a%3c %25width=600%25http://i46.photobucket.com/albums/f140/SimplexCoda/5768092779_282794154b_z.jpg%0a%3c [[%3c%3c]]%0a%3c blah blah blah blah blah blah%0a%3c %0a%3c %0a%3c %0a%3c %25width=300%25http://i46.photobucket.com/albums/f140/SimplexCoda/deborah_ann_woll_desktop_1998x3000_hd-wallpaper.jpg%0a%3c %0a%3c [[%3c%3c]]%0a%3c [+The Staff+]%0a%3c %0a%3c blah blah blah blah blah blah%0a%3c %0a%3c %25width=300%25http://i1189.photobucket.com/albums/z424/anne_wtf/cormacampemily.jpg%0a%3c [+The Owner+]%0a%3c %0a%3c blah blah blah blah blah blah%0a%3c %0a%3c %0a%3c [[%3c%3c]]%0a
+host:1386024367=68.224.99.74
+author:1386023693=SimplexCoda
+diff:1386023693:1386023693:=1,18d0%0a%3c (:title location name:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.HutchinsonIsland|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!McAllister's Public House%0a%3c '''District:''' [[CityBook.HutchinsonIsland|Hutchinson Island]]%0a%3c %0a%3c http://i46.photobucket.com/albums/f140/SimplexCoda/west-congress-street.jpg %0a%3c McAllister's Public House specializes in traditional Irish Fare %0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1386023693=98.22.108.97

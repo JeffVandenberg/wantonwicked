@@ -1,0 +1,21 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=schreier
+charset=ISO-8859-1
+csum=
+ctime=1381512693
+host=96.234.173.132
+name=Profiles.Schreier
+rev=3
+targets=Players.MikaelJensen,Players.ShermansMarch,Players.JacksonBarrett,Players.Aramis
+text=Active PCs:%0a%0aWerewolf - [[Players.Mikael Jensen|Mikael Jensen]] - Ironmaster Irraka, runs with [[Players.Shermans March|Sherman's March]]%0a%0aVampire - [[Players.Jackson Barrett|Jackson Barrett]] - Invictus Ventrue%0a%0aInactive PCs:%0a%0aMage - [[Players.Aramis|-Aramis-]] - Silver Ladder Obrimos
+time=1381512813
+author:1381512813=schreier
+diff:1381512813:1381512761:=2,4c2,3%0a%3c %0a%3c Werewolf - [[Players.Mikael Jensen|Mikael Jensen]] - Ironmaster Irraka, runs with [[Players.Shermans March|Sherman's March]]%0a%3c %0a---%0a> Werewolf - [[Players.Mikael Jensen|Mikael Jensen]] - Ironmaster Irraka, runs with [[Shermans March]]%0a> %0a8d6%0a%3c %0a
+host:1381512813=96.234.173.132
+author:1381512761=schreier
+diff:1381512761:1381512693:=2,5c2,5%0a%3c Werewolf - [[Players.Mikael Jensen|Mikael Jensen]] - Ironmaster Irraka, runs with [[Shermans March]]%0a%3c %0a%3c Vampire - [[Players.Jackson Barrett|Jackson Barrett]] - Invictus Ventrue%0a%3c %0a---%0a> Werewolf - [[Mikael Jensen]] - Ironmaster Irraka, runs with [[Shermans March]]%0a> %0a> Vampire - [[Jackson Barrett]] - Invictus Ventrue%0a> %0a7c7%0a%3c Mage - [[Players.Aramis|-Aramis-]] - Silver Ladder Obrimos%0a\ No newline at end of file%0a---%0a> Mage - [[Aramis]] - Silver Ladder Obrimos%0a\ No newline at end of file%0a
+host:1381512761=96.234.173.132
+author:1381512693=schreier
+diff:1381512693:1381512693:=1,7d0%0a%3c Active PCs:%0a%3c Werewolf - [[Mikael Jensen]] - Ironmaster Irraka, runs with [[Shermans March]]%0a%3c %0a%3c Vampire - [[Jackson Barrett]] - Invictus Ventrue%0a%3c %0a%3c Inactive PCs:%0a%3c Mage - [[Aramis]] - Silver Ladder Obrimos%0a\ No newline at end of file%0a
+host:1381512693=96.234.173.132

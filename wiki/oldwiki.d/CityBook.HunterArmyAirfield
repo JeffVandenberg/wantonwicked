@@ -1,0 +1,37 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1378766018
+host=67.238.250.80
+name=CityBook.HunterArmyAirfield
+rev=8
+targets=Players.ZekeMacCormick
+text=(:title Hunter Army Airfield:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0a(:newpagebox base=CityBook template=CityBook.HAATemplate label="Create Hunter Army Airfield Location:" value="Place Name":)%0a%0aThe base is small, compared to most military instillations within the United States, but that doesn't prevent it from being busy.  Much to the dislike for the Police outside of the base, all too often does a stray soldier who drinks to much, or who got in a scuffle off post, gets dragged back within the fenced area that is the base after detoxing over the course of a weekend.%0a%0aOften soldiers can be seen jumping out of airplanes, gun shots from the infantry soldiers training at firing ranges and perfecting their ability to conduct urban combat operations.  Even the civilians who work there, tend to display a slight disposition towards being very orderly and properly, at least when they are on duty.%0a%0aSoldiers from the post tend to be split in factions, and most are proud of what they do.  Those with the Tan berets, honestly believe they are God's gift to the Military.%0a%0aThe houses within the base's limits are very cookie cutter, and all of them look exactly alike in shape with little alterations in colors.%0a%0a!!District Features:%0a>>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a'''City/Mortal''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Changeling''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Mage''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Vampire''':%0a* Domain of [[Players/Zeke MacCormick]], Carthian Movement%0a* Location Rating: 1%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Werewolf''':%0a>>%3c%3c%0a%0a!!District Locations:%0a(:sortable align=center:)%0a||class=sortable id=SGLocations%0a||!Location||!Venue||!Owner||%0a(:tableend:)%0a%0a----%0a(:include CityBook.Directory:)
+time=1383436111
+title=Hunter Army Airfield
+author:1383436111=ThomasH
+diff:1383436111:1383435849:=11,12d10%0a%3c %0a%3c The houses within the base's limits are very cookie cutter, and all of them look exactly alike in shape with little alterations in colors.%0a
+host:1383436111=67.238.250.80
+author:1383435849=ThomasH
+diff:1383435849:1381224914:=6,10d5%0a%3c The base is small, compared to most military instillations within the United States, but that doesn't prevent it from being busy.  Much to the dislike for the Police outside of the base, all too often does a stray soldier who drinks to much, or who got in a scuffle off post, gets dragged back within the fenced area that is the base after detoxing over the course of a weekend.%0a%3c %0a%3c Often soldiers can be seen jumping out of airplanes, gun shots from the infantry soldiers training at firing ranges and perfecting their ability to conduct urban combat operations.  Even the civilians who work there, tend to display a slight disposition towards being very orderly and properly, at least when they are on duty.%0a%3c %0a%3c Soldiers from the post tend to be split in factions, and most are proud of what they do.  Those with the Tan berets, honestly believe they are God's gift to the Military.%0a
+host:1383435849=67.238.250.80
+author:1381224914=JillA
+diff:1381224914:1381224370:=22c22%0a%3c * Domain of [[Players/Zeke MacCormick]], Carthian Movement%0a---%0a> * Domain of [[Players/Zeke MacCormick]]%0a
+host:1381224914=24.20.151.3
+author:1381224370=JillA
+diff:1381224370:1381125384:=22,23c22,23%0a%3c * Domain of [[Players/Zeke MacCormick]]%0a%3c * Location Rating: 1%0a---%0a> * Domain of%0a> * Location Rating:%0a
+host:1381224370=24.20.151.3
+author:1381125384=Eiragwen
+diff:1381125384:1379816028:=8,28d7%0a%3c >>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''City/Mortal''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Changeling''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Mage''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Vampire''':%0a%3c * Domain of%0a%3c * Location Rating:%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Werewolf''':%0a%3c >>%3c%3c%0a
+host:1381125384=24.20.151.3
+author:1379816028=JillA
+diff:1379816028:1379702972:=4,6c4,6%0a%3c (:newpagebox base=CityBook template=CityBook.HAATemplate label="Create Hunter Army Airfield Location:" value="Place Name":)%0a%3c %0a%3c %0a---%0a> (:newpagebox base=CityBook template=CityBook.ATemplate label="Create Hunter Army Airfield Location:" value="Place Name":)%0a> %0a> %0a12a13%0a> ||[[CityBook.CoastalStatePrison|Coastal State Prison]]||[[Players.Mage|Mage]]||[[Seers of the Throne]]||%0a
+host:1379816028=24.20.151.3
+author:1379702972=ThomasH
+diff:1379702972:1378766018:=1,17c1%0a%3c (:title Hunter Army Airfield:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c (:newpagebox base=CityBook template=CityBook.ATemplate label="Create Hunter Army Airfield Location:" value="Place Name":)%0a%3c %0a%3c %0a%3c !!District Features:%0a%3c %0a%3c !!District Locations:%0a%3c (:sortable align=center:)%0a%3c ||class=sortable id=SGLocations%0a%3c ||!Location||!Venue||!Owner||%0a%3c ||[[CityBook.CoastalStatePrison|Coastal State Prison]]||[[Players.Mage|Mage]]||[[Seers of the Throne]]||%0a%3c (:tableend:)%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a---%0a> (:title Hunter Army Airfield:)%0a\ No newline at end of file%0a
+host:1379702972=67.238.250.80
+author:1378766018=ThomasH
+diff:1378766018:1378766018:=1d0%0a%3c (:title Hunter Army Airfield:)%0a\ No newline at end of file%0a
+host:1378766018=71.0.16.129

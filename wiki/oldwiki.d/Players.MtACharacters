@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377466988
+host=24.20.151.3
+name=Players.MtACharacters
+rev=1
+targets=
+text=[[#top]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a%0a%0a%0a(:include CityBook.MageNavigationBar:)
+time=1377466988
+author:1377466988=JillA
+diff:1377466988:1377466988:=1,6d0%0a%3c [[#top]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a%3c %0a%3c %0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1377466988=24.20.151.3

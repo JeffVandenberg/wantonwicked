@@ -1,0 +1,31 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1381629751
+host=98.232.234.158
+name=GameRef.FightingStylesFAQ
+rev=6
+targets=
+text=(:title FAQ: Fighting Styles:)%0aA repository of the questions %25newwin%25[[http://wantonwicked.gamingsandbox.com/forum/viewtopic.php?f=562&t=42502|asked and answered]] regarding Fighting Styles.%0a%0aQ:Q- How many Fighting Styles can I use per turn?%0aA:A- You cannot use more than one fighting style per turn unless you have a merit that allows you to do so (ex. Ground and Pound). You must otherwise choose one style or the other. You declare your style at the start of the round before anyone has a turn.%0a%0aQ:Q- What is the cap on multiple attacks?%0aA:A- The most attacks you will ever get per round is two. No fighting styles will allow you to make more than one additional attack per round.
+time=1386961310
+title=FAQ: Fighting Styles
+author:1386961310=JillA
+diff:1386961310:1386959614:=8c8%0a%3c A:A- The most attacks you will ever get per round is two. No fighting styles will allow you to make more than one additional attack per round.%0a\ No newline at end of file%0a---%0a> A:A- The most attacks you will ever get per round is two. No fighting styles will allow you to make more than one attack per round.%0a\ No newline at end of file%0a
+host:1386961310=98.232.234.158
+author:1386959614=JillA
+diff:1386959614:1386959590:=1d0%0a%3c (:title FAQ: Fighting Styles:)%0a
+host:1386959614=98.232.234.158
+author:1386959590=JillA
+diff:1386959590:1381629773:=0a1%0a> %0a3,7c4,5%0a%3c Q:Q- How many Fighting Styles can I use per turn?%0a%3c A:A- You cannot use more than one fighting style per turn unless you have a merit that allows you to do so (ex. Ground and Pound). You must otherwise choose one style or the other. You declare your style at the start of the round before anyone has a turn.%0a%3c %0a%3c Q:Q- What is the cap on multiple attacks?%0a%3c A:A- The most attacks you will ever get per round is two. No fighting styles will allow you to make more than one attack per round.%0a\ No newline at end of file%0a---%0a> Q:Q- Blah%0a> A:A- Blah%0a\ No newline at end of file%0a
+host:1386959590=98.232.234.158
+author:1381629773=JillA
+diff:1381629773:1381629762:=0a1,4%0a> (:notitle:)%0a> %0a> %0a> !Fighting Styles FAQ%0a
+host:1381629773=24.20.151.3
+author:1381629762=JillA
+diff:1381629762:1381629751:=2,3d1%0a%3c %0a%3c %0a
+host:1381629762=24.20.151.3
+author:1381629751=JillA
+diff:1381629751:1381629751:=1,7d0%0a%3c (:notitle:)%0a%3c !Fighting Styles FAQ%0a%3c %0a%3c A repository of the questions %25newwin%25[[http://wantonwicked.gamingsandbox.com/forum/viewtopic.php?f=562&t=42502|asked and answered]] regarding Fighting Styles.%0a%3c %0a%3c Q:Q- Blah%0a%3c A:A- Blah%0a\ No newline at end of file%0a
+host:1381629751=24.20.151.3

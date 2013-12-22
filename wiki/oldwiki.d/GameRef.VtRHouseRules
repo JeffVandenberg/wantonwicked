@@ -1,0 +1,49 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1381042630
+host=98.232.234.158
+name=GameRef.VtRHouseRules
+rev=12
+targets=GameRef.VtRBloodlineHouseRules
+text=(:notitle:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a%0a!House Rules%0a*[[#CS|Covenant Status]]%0a*[[#BS|Blood Sorcery]]%0a*[[#CL|Carthian Law]]%0a*[[#D|Devotions]]%0a*[[#CDBS|Custom Devotions and Blood Sorceries]]%0a*[[#PT|The Predator's Taint]]%0a*[[#ABP|Average Blood Pool (ABP)]]%0a*[[#H|Haven (Location)]]%0a*[[#BP|Blood Potency]]%0a*%25newwin%25[[GameRef.VtRBloodlineHouseRules|Bloodline Specific House Rules]] - Opens to new page.%0a(:include GameRef.VtRMaster#HouseRules#HouseRulesEnd:)%0a%0a(:include CityBook.VampireNavigationBar:)
+time=1386812019
+author:1386812019=JillA
+diff:1386812019:1384201376:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a
+host:1386812019=98.232.234.158
+author:1384201376=JillA
+diff:1384201376:1384201333:=14c14,15%0a%3c *%25newwin%25[[GameRef.VtRBloodlineHouseRules|Bloodline Specific House Rules]] - Opens to new page.%0a---%0a> *[[#BHR|Bloodline House Rules]]%0a> *%25newwin%25[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=GameRef.VtRBloodlineHouseRules|Bloodlines]]%0a
+host:1384201376=98.232.234.158
+author:1384201333=JillA
+diff:1384201333:1384201102:=14d13%0a%3c *[[#BHR|Bloodline House Rules]]%0a
+host:1384201333=98.232.234.158
+author:1384201102=JeffB
+diff:1384201102:1383758561:=9d8%0a%3c *[[#CDBS|Custom Devotions and Blood Sorceries]]%0a
+host:1384201102=66.168.23.111
+author:1383758561=ThomasH
+csum:1383758561=Fixing spelling mistake, Thanks JeffB for the assist.
+diff:1383758561:1383758525:=13c13%0a%3c *%25newwin%25[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=GameRef.VtRBloodlineHouseRules|Bloodlines]]%0a---%0a> *%25newwin%25[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=GameRef.VtRBloodlineHouseRules|Blood Lines]]%0a
+host:1383758561=67.238.250.80
+author:1383758525=ThomasH
+diff:1383758525:1383756821:=13c13%0a%3c *%25newwin%25[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=GameRef.VtRBloodlineHouseRules|Blood Lines]]%0a---%0a> *[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=GameRef.VtRBloodlineHouseRules|Blood Lines]]%0a
+host:1383758525=67.238.250.80
+author:1383756821=ThomasH
+diff:1383756821:1381494144:=13d12%0a%3c *[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=GameRef.VtRBloodlineHouseRules|Blood Lines]]%0a
+host:1383756821=67.238.250.80
+author:1381494144=JillA
+diff:1381494144:1381150901:=12d11%0a%3c *[[#BP|Blood Potency]]%0a
+host:1381494144=24.20.151.3
+author:1381150901=Eiragwen
+diff:1381150901:1381145257:=10c10%0a%3c *[[#ABP|Average Blood Pool (ABP)]]%0a---%0a> *[[#ABP|Average Blood Pool (ABP]]%0a
+host:1381150901=24.20.151.3
+author:1381145257=JillA
+diff:1381145257:1381121529:=5,11c5%0a%3c *[[#CS|Covenant Status]]%0a%3c *[[#BS|Blood Sorcery]]%0a%3c *[[#CL|Carthian Law]]%0a%3c *[[#D|Devotions]]%0a%3c *[[#PT|The Predator's Taint]]%0a%3c *[[#ABP|Average Blood Pool (ABP]]%0a%3c *[[#H|Haven (Location)]]%0a---%0a> %0a
+host:1381145257=24.20.151.3
+author:1381121529=JillA
+diff:1381121529:1381042630:=4,6c4%0a%3c !House Rules%0a%3c %0a%3c (:include GameRef.VtRMaster#HouseRules#HouseRulesEnd:)%0a---%0a> The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!%0a
+host:1381121529=24.20.151.3
+author:1381042630=JillA
+diff:1381042630:1381042630:=1,6d0%0a%3c (:notitle:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a%3c %0a%3c The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!%0a%3c %0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1381042630=24.20.151.3

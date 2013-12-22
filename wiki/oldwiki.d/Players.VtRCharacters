@@ -1,0 +1,27 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1379713917
+host=98.232.234.158
+name=Players.VtRCharacters
+rev=5
+targets=Players.AbrahamTwiggs,Players.Adair,Players.AdamMorgan,Players.AnnaTisdale,Players.BrotherAtticusMilton,Players.BrotherWilliams,Players.Carl,Players.CharlesHollingshead,Players.ChrisSloane,Players.ClaraPhizer,Players.EdwardCorey,Players.Elijah,Players.ElizaWilson,Players.EstebanCypriano,Players.JamesBordeaux,Players.JohnRoark,Players.Lydia,Players.Mary,Players.MillicentStClaire,Players.OldTom,Players.WilliamTimothy,Players.ZekeMacCormick
+text=(:notitle:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a%0a(:sortable:)%0a||class=sortable id=VtRNPCs%0a||!Name ||!Covenant||!Clan||!Title/Position||%0a||[[Abraham Twiggs]]||Invictus||Nosferatu||Marquis||%0a||[[Adair]]||Circle of the Crone||Ventrue||Hierophant||%0a||[[Adam Morgan]]||Lancea Sanctum||Mekhet Osite||Monachal Creed||%0a||[[Anna Tisdale]]||Ordo Dracul||Mekhet Kogaion||Primogen, Oracle of Mysteries||%0a||[[Brother Atticus Milton]]||Lancea Sanctum||Nosferatu||Primogen||%0a||[[Brother Williams]]||Lancea Sanctum||Daeva||Tollison Creed||%0a||[[Carl]]||Ordo Dracul||Nosferatu||Grandmaster of the Axe||%0a||[[Charles Hollingshead]]||Circle of the Crone||Ventrue Gorgon||The Gorgon||%0a||[[Chris Sloane]]||Carthian Movement||Daeva||Senator, Primogen||%0a||[[Clara Phizer]]||Carthian Movement||Daeva Nelapsi||Myrmidon||%0a||[[Edward Corey]]||Carthian Movement||Ventrue||Senator||%0a||[[Elijah]]||Invictus||Ventrue Malocusian||Keeper of Elysium||%0a||[[Eliza Wilson]]||Ordo Dracul||Gangrel||Provost of the Dying Light||%0a||[[Esteban Cypriano]]||Ordo Dracul||Daeva||Grand Wyrm, Twilight Judge||%0a||[[James Bordeaux]]||Invictus||Mekhet||Seneschal Notary||%0a||[[John Roark]]||Carthian Movement||Gangrel||Senator, Primogen||%0a||[[Lydia]]||Circle of the Crone||Mekhet Alucinor||Oracle||%0a||[[Mary]]||Circle of the Crone||Gangrel Mara||The Siren||%0a||[[Millicent StClaire|Millicent St. Claire]]||Invictus||Daeva Spina||Judex||%0a||[[Old Tom]]||Circle of the Crone||Gangrel Carnon||The Goatman||%0a||[[William Timothy]]||Invictus||Ventrue||Primogen Advisor||%0a||[[Zeke MacCormick]]||Carthian Movement||Mekhet||Sheriff||%0a||[[?]]||Unaligned||?||?||%0a(:tableend:)%0a%0a(:include CityBook.VampireNavigationBar:)
+time=1386812006
+author:1386812006=JillA
+diff:1386812006:1383301108:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a
+host:1386812006=98.232.234.158
+author:1383301108=JeffB
+diff:1383301108:1381050493:=15c15%0a%3c ||[[Chris Sloane]]||Carthian Movement||Daeva||Senator, Primogen||%0a---%0a> ||[[Chris Sloane]]||Carthian Movement||Daeva||Primogen||%0a17c17%0a%3c ||[[Edward Corey]]||Carthian Movement||Ventrue||Senator||%0a---%0a> ||[[Edward Corey]]||Carthian Movement||Ventrue||Prefect||%0a22c22%0a%3c ||[[John Roark]]||Carthian Movement||Gangrel||Senator, Primogen||%0a---%0a> ||[[John Roark]]||Carthian Movement||Gangrel||Primogen||%0a
+host:1383301108=66.188.99.202
+author:1381050493=JillA
+diff:1381050493:1381048887:=7,30c7%0a%3c ||[[Abraham Twiggs]]||Invictus||Nosferatu||Marquis||%0a%3c ||[[Adair]]||Circle of the Crone||Ventrue||Hierophant||%0a%3c ||[[Adam Morgan]]||Lancea Sanctum||Mekhet Osite||Monachal Creed||%0a%3c ||[[Anna Tisdale]]||Ordo Dracul||Mekhet Kogaion||Primogen, Oracle of Mysteries||%0a%3c ||[[Brother Atticus Milton]]||Lancea Sanctum||Nosferatu||Primogen||%0a%3c ||[[Brother Williams]]||Lancea Sanctum||Daeva||Tollison Creed||%0a%3c ||[[Carl]]||Ordo Dracul||Nosferatu||Grandmaster of the Axe||%0a%3c ||[[Charles Hollingshead]]||Circle of the Crone||Ventrue Gorgon||The Gorgon||%0a%3c ||[[Chris Sloane]]||Carthian Movement||Daeva||Primogen||%0a%3c ||[[Clara Phizer]]||Carthian Movement||Daeva Nelapsi||Myrmidon||%0a%3c ||[[Edward Corey]]||Carthian Movement||Ventrue||Prefect||%0a%3c ||[[Elijah]]||Invictus||Ventrue Malocusian||Keeper of Elysium||%0a%3c ||[[Eliza Wilson]]||Ordo Dracul||Gangrel||Provost of the Dying Light||%0a%3c ||[[Esteban Cypriano]]||Ordo Dracul||Daeva||Grand Wyrm, Twilight Judge||%0a%3c ||[[James Bordeaux]]||Invictus||Mekhet||Seneschal Notary||%0a%3c ||[[John Roark]]||Carthian Movement||Gangrel||Primogen||%0a%3c ||[[Lydia]]||Circle of the Crone||Mekhet Alucinor||Oracle||%0a%3c ||[[Mary]]||Circle of the Crone||Gangrel Mara||The Siren||%0a%3c ||[[Millicent StClaire|Millicent St. Claire]]||Invictus||Daeva Spina||Judex||%0a%3c ||[[Old Tom]]||Circle of the Crone||Gangrel Carnon||The Goatman||%0a%3c ||[[William Timothy]]||Invictus||Ventrue||Primogen Advisor||%0a%3c ||[[Zeke MacCormick]]||Carthian Movement||Mekhet||Sheriff||%0a%3c ||[[?]]||Unaligned||?||?||%0a%3c (:tableend:)%0a---%0a> ||[[??]]||??||??||??||%0a
+host:1381050493=24.20.151.3
+author:1381048887=JillA
+diff:1381048887:1379713917:=1,9d0%0a%3c (:notitle:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a%3c %0a%3c (:sortable:)%0a%3c ||class=sortable id=VtRNPCs%0a%3c ||!Name ||!Covenant||!Clan||!Title/Position||%0a%3c ||[[??]]||??||??||??||%0a%3c %0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1381048887=24.20.151.3
+author:1379713917=ThomasH
+diff:1379713917:1379713917:=
+host:1379713917=67.238.250.80

@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+author=kawaiiwolf
+charset=ISO-8859-1
+csum=
+ctime=1382204357
+host=108.11.201.42
+name=Players.MorrganMille
+rev=2
+targets=
+text=(:redirect Players.MorríganÓMáille quiet=1:)
+time=1382204427
+author:1382204427=kawaiiwolf
+diff:1382204427:1382204357:=1c1%0a%3c (:redirect Players.MorríganÓMáille quiet=1:)%0a\ No newline at end of file%0a---%0a> (:redirect Players.MorríganÓMáille:)%0a\ No newline at end of file%0a
+host:1382204427=108.11.201.42
+author:1382204357=kawaiiwolf
+diff:1382204357:1382204357:=1d0%0a%3c (:redirect Players.MorríganÓMáille:)%0a\ No newline at end of file%0a
+host:1382204357=108.11.201.42

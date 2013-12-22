@@ -1,0 +1,243 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36
+author=minorremedy
+charset=ISO-8859-1
+csum=
+ctime=1380418747
+host=98.234.175.154
+name=Players.SamZou
+rev=78
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=300 bgcolor=#000000 align=center:)%0a!!%25white%25Sam Zou%25white%25%0a(:cellnr rowspan=15 width=400 align=left:) http://media.dropdo.com.s3.amazonaws.com/brO/fl4.png%0a(:cellnr width=340 colspan=2 align=Left:)%0a!![-Stats-]%0a(:cellnr width=120 align=left:)Age:%0a(:cell width=260:) 24%0a(:cellnr width=100 align=left:)Height:%0a(:cell width=240:) 6" 1'%0a(:cellnr width=120 align=left:)Build:%0a(:cell width=260:) Athletic%0a(:cellnr width=120 align=left:)Profession:%0a(:cell width=260:) Waiter%0a(:cellnr width=120 align=left:)Public Effects:%0a(:cell width=260:) SL+1%0a(:cellnr width=120 align=left:)Player:%0a(:cell width=260:) minorremedy%0a(:cellnr width=120 align=left:)Theme:%0a(:cell width=260:) %0a[[http://www.youtube.com/watch?v=HMKkbco7UFE |LSD and the Search for God - Starting Over]]%0a(:cellnr width=340 colspan=2 align=Left:)%0a!![-Description-]%0a[-He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and an acid pair of denim jeans with a pair of oxfords.-]%0a%0a!![-Story Hooks-]%0a*[-Sam is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia-]%0a*[-Suspected ties to the eco-militant group Blackroot Coalition-]%0a*[-Bi-weekly works as a Muay Thai assistant teacher.-]%0a*[-He was a long time patient at Memorial Health psychiatric ward.-]%0a(:tableend:)%0a%0a!![-Dreams-]%0a[-''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation. It was at this time I joined the Earth-Heart Initiative and decided to make an actual difference in my life for the first time."'' -Excerpt from a local public station interview-]%0a%0a!![-Network-]%0a[-Allies: Earth-Heart Initiative (•••) Blackroot Coalition (•), Contacts Asclepius Incarnae (•)-]%0a%0a!![-Rumors-]%0a[-''What Others have to Say about you''-]%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1380485467
+author:1380485467=minorremedy
+diff:1380485467:1380485433:=
+host:1380485467=98.234.175.154
+author:1380485433=minorremedy
+diff:1380485433:1380485213:=21c21%0a%3c [[http://www.youtube.com/watch?v=HMKkbco7UFE |LSD and the Search for God - Starting Over]]%0a---%0a> [[http://www.youtube.com/watch?v=HMKkbco7UFE |LSD and the Search for God - Starting Over']]%0a
+host:1380485433=98.234.175.154
+author:1380485213=minorremedy
+diff:1380485213:1380484765:=24,25c24,25%0a%3c [-He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and an acid pair of denim jeans with a pair of oxfords.-]%0a%3c %0a---%0a> He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and an acid pair of denim jeans with a pair of oxfords.%0a> %0a27,30c27,30%0a%3c *[-Sam is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia-]%0a%3c *[-Suspected ties to the eco-militant group Blackroot Coalition-]%0a%3c *[-Bi-weekly works as a Muay Thai assistant teacher.-]%0a%3c *[-He was a long time patient at Memorial Health psychiatric ward.-]%0a---%0a> *Sam is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.%0a> *Suspected ties to the eco-militant group Blackroot Coalition%0a> *Bi-weekly works as a Muay Thai assistant teacher.%0a> *He was a long time patient at Memorial Health psychiatric ward.%0a34,35c34,36%0a%3c [-''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation. It was at this time I joined the Earth-Heart Initiative and decided to make an actual difference in my life for the first time."'' -Excerpt from a local public station interview-]%0a%3c %0a---%0a> ''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation. It was at this time I joined the Earth-Heart Initiative and decided to make an actual difference in my life for the first time."'' %0a> [[%3c%3c]]-Excerpt from a local public station interview.%0a> %0a37,38c38,39%0a%3c [-Allies: Earth-Heart Initiative (•••) Blackroot Coalition (•), Contacts Asclepius Incarnae (•)-]%0a%3c %0a---%0a> Allies: Earth-Heart Initiative (•••) Blackroot Coalition (•), Contacts Asclepius Incarnae (•)%0a> %0a40c41%0a%3c [-''What Others have to Say about you''-]%0a---%0a> ''What Others have to Say about you''%0a
+host:1380485213=98.234.175.154
+author:1380484765=minorremedy
+diff:1380484765:1380484722:=21a22%0a> %0a
+host:1380484765=98.234.175.154
+author:1380484722=minorremedy
+diff:1380484722:1380483833:=3c3%0a%3c !!%25white%25Sam Zou%25white%25%0a---%0a> !!%25white%25@@Sam Zou@@%25white%25%0a6c6,7%0a%3c !![-Stats-]%0a---%0a> [[%3c%3c]]%0a> @@[++Stats++]@@%0a24c25,26%0a%3c !![-Description-]%0a---%0a> @@[++Description++]@@%0a> [[%3c%3c]]%0a27c29,30%0a%3c !![-Story Hooks-]%0a---%0a> @@[++Story Hooks++]@@%0a> [[%3c%3c]]%0a29a33%0a> *Is a waiter in a vegan bistro.%0a31a36,37%0a> %0a> %0a34c40,41%0a%3c !![-Dreams-]%0a---%0a> @@[++Dreams++]@@%0a> [[%3c%3c]]%0a37,38c44,47%0a%3c %0a%3c !![-Network-]%0a---%0a> [[%3c%3c]]%0a> [[%3c%3c]]%0a> @@[++Network++]@@%0a> [[%3c%3c]]%0a40,41c49,52%0a%3c %0a%3c !![-Rumors-]%0a---%0a> [[%3c%3c]]%0a> [[%3c%3c]]%0a> @@[++Rumors++]@@%0a> [[%3c%3c]]%0a
+host:1380484722=98.234.175.154
+author:1380483833=minorremedy
+diff:1380483833:1380483796:=
+host:1380483833=98.234.175.154
+author:1380483796=minorremedy
+diff:1380483796:1380483665:=7c7%0a%3c @@[++Stats++]@@%0a---%0a> @@[+++Stats+++]@@%0a25c25%0a%3c @@[++Description++]@@%0a---%0a> @@[+++Description+++]@@%0a29c29%0a%3c @@[++Story Hooks++]@@%0a---%0a> @@[+++Story Hooks+++]@@%0a40c40%0a%3c @@[++Dreams++]@@%0a---%0a> @@[+++Dreams+++]@@%0a46c46%0a%3c @@[++Network++]@@%0a---%0a> @@[+++Network+++]@@%0a51c51%0a%3c @@[++Rumors++]@@%0a---%0a> @@[+++Rumors+++]@@%0a
+host:1380483796=98.234.175.154
+author:1380483665=minorremedy
+diff:1380483665:1380483629:=3c3%0a%3c !!%25white%25@@Sam Zou@@%25white%25%0a---%0a> %25white%25@@Sam Zou@@%25white%25%0a
+host:1380483665=98.234.175.154
+author:1380483629=minorremedy
+diff:1380483629:1380480227:=3c3%0a%3c %25white%25@@Sam Zou@@%25white%25%0a---%0a> !!%25white%25@@Sam Zou@@%25white%25%0a
+host:1380483629=98.234.175.154
+author:1380480227=minorremedy
+diff:1380480227:1380480188:=27c27%0a%3c He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and an acid pair of denim jeans with a pair of oxfords.%0a---%0a> He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and an acid pair of denim jeans with a pair of oxfords or Doc Martens.%0a
+host:1380480227=98.234.175.154
+author:1380480188=minorremedy
+diff:1380480188:1380479985:=27c27%0a%3c He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and an acid pair of denim jeans with a pair of oxfords or Doc Martens.%0a---%0a> He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and an acid pair of denim jeans with a nice pair of vintage loafers or oxfords.%0a
+host:1380480188=98.234.175.154
+author:1380479985=minorremedy
+diff:1380479985:1380479834:=27c27%0a%3c He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and an acid pair of denim jeans with a nice pair of vintage loafers or oxfords.%0a---%0a> He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and a pair of denim jeans with a nice pair of vintage loafers or oxfords.%0a
+host:1380479985=98.234.175.154
+author:1380479834=minorremedy
+diff:1380479834:1380479801:=40c40%0a%3c @@[+++Dreams+++]@@%0a---%0a> @@[+++History+++]@@%0a
+host:1380479834=98.234.175.154
+author:1380479801=minorremedy
+diff:1380479801:1380479737:=32d31%0a%3c *Suspected ties to the eco-militant group Blackroot Coalition%0a35a35%0a> *Suspected ties to the eco-militant group Blackroot Coalition%0a
+host:1380479801=98.234.175.154
+author:1380479737=minorremedy
+diff:1380479737:1380479654:=35c35%0a%3c *Suspected ties to the eco-militant group Blackroot Coalition%0a---%0a> *Suspected ties to the eco militant group Blackroot Coalition%0a
+host:1380479737=98.234.175.154
+author:1380479654=minorremedy
+diff:1380479654:1380479604:=35c35%0a%3c *Suspected ties to the eco militant group Blackroot Coalition%0a---%0a> *Suspected ties to the eco-terrorist group Blackroot Coalition%0a
+host:1380479654=98.234.175.154
+author:1380479604=minorremedy
+diff:1380479604:1380479036:=35d34%0a%3c *Suspected ties to the eco-terrorist group Blackroot Coalition%0a
+host:1380479604=98.234.175.154
+author:1380479036=minorremedy
+diff:1380479036:1380478980:=12,21c12,21%0a%3c (:cellnr width=120 align=left:)Build:%0a%3c (:cell width=260:) Athletic%0a%3c (:cellnr width=120 align=left:)Profession:%0a%3c (:cell width=260:) Waiter%0a%3c (:cellnr width=120 align=left:)Public Effects:%0a%3c (:cell width=260:) SL+1%0a%3c (:cellnr width=120 align=left:)Player:%0a%3c (:cell width=260:) minorremedy%0a%3c (:cellnr width=120 align=left:)Theme:%0a%3c (:cell width=260:) %0a---%0a> (:cellnr width=100 align=left:)Build:%0a> (:cell width=240:) Athletic%0a> (:cellnr width=100 align=left:)Profession:%0a> (:cell width=240:) Waiter%0a> (:cellnr width=100 align=left:)Public Effects:%0a> (:cell width=240:) SL+1%0a> (:cellnr width=100 align=left:)Player:%0a> (:cell width=240:) minorremedy%0a> (:cellnr width=100 align=left:)Theme:%0a> (:cell width=240:) %0a
+host:1380479036=98.234.175.154
+author:1380478980=minorremedy
+diff:1380478980:1380478825:=8,21c8,21%0a%3c (:cellnr width=120 align=left:)Age:%0a%3c (:cell width=260:) 24%0a%3c (:cellnr width=100 align=left:)Height:%0a%3c (:cell width=240:) 6" 1'%0a%3c (:cellnr width=100 align=left:)Build:%0a%3c (:cell width=240:) Athletic%0a%3c (:cellnr width=100 align=left:)Profession:%0a%3c (:cell width=240:) Waiter%0a%3c (:cellnr width=100 align=left:)Public Effects:%0a%3c (:cell width=240:) SL+1%0a%3c (:cellnr width=100 align=left:)Player:%0a%3c (:cell width=240:) minorremedy%0a%3c (:cellnr width=100 align=left:)Theme:%0a%3c (:cell width=240:) %0a---%0a> (:cellnr width=150 align=left:)Age:%0a> (:cell width=190:) 24%0a> (:cellnr width=150 align=left:)Height:%0a> (:cell width=190:) 6" 1'%0a> (:cellnr width=150 align=left:)Build:%0a> (:cell width=190:) Athletic%0a> (:cellnr width=150 align=left:)Profession:%0a> (:cell width=190:) Waiter%0a> (:cellnr width=150 align=left:)Public Effects:%0a> (:cell width=190:) SL+1%0a> (:cellnr width=150 align=left:)Player:%0a> (:cell width=190:) minorremedy%0a> (:cellnr width=150 align=left:)Theme:%0a> (:cell width=190:) %0a
+host:1380478980=98.234.175.154
+author:1380478825=minorremedy
+diff:1380478825:1380478811:=8c8%0a%3c (:cellnr width=150 align=left:)Age:%0a---%0a> (:cellnr width=150 align=left:)@@Age:%0a
+host:1380478825=98.234.175.154
+author:1380478811=minorremedy
+diff:1380478811:1380478204:=7,8c7,8%0a%3c @@[+++Stats+++]@@%0a%3c (:cellnr width=150 align=left:)@@Age:%0a---%0a> '''@@[+++Stats+++]@@'''%0a> (:cellnr width=150 align=left:)'''Age:'''%0a10c10%0a%3c (:cellnr width=150 align=left:)Height:%0a---%0a> (:cellnr width=150 align=left:)'''Height:'''%0a12c12%0a%3c (:cellnr width=150 align=left:)Build:%0a---%0a> (:cellnr width=150 align=left:)'''Build:'''%0a14c14%0a%3c (:cellnr width=150 align=left:)Profession:%0a---%0a> (:cellnr width=150 align=left:)'''Profession:''' %0a16c16%0a%3c (:cellnr width=150 align=left:)Public Effects:%0a---%0a> (:cellnr width=150 align=left:)'''Public Effects:'''%0a18c18%0a%3c (:cellnr width=150 align=left:)Player:%0a---%0a> (:cellnr width=150 align=left:)'''Player:''' %0a20c20%0a%3c (:cellnr width=150 align=left:)Theme:%0a---%0a> (:cellnr width=150 align=left:)'''Theme:''' %0a
+host:1380478811=98.234.175.154
+author:1380478204=minorremedy
+diff:1380478204:1380478084:=25c25%0a%3c @@[+++Description+++]@@%0a---%0a> '''@@[+++Description+++]@@'''%0a29c29%0a%3c @@[+++Story Hooks+++]@@%0a---%0a> '''@@[+++Story Hooks+++]@@'''%0a39c39%0a%3c @@[+++History+++]@@%0a---%0a> '''@@[+++History+++]@@'''%0a45c45%0a%3c @@[+++Network+++]@@%0a---%0a> '''@@[+++Circle+++]@@'''%0a50c50%0a%3c @@[+++Rumors+++]@@%0a---%0a> '''@@[+++Rumors+++]@@'''%0a
+host:1380478204=98.234.175.154
+author:1380478084=minorremedy
+diff:1380478084:1380477844:=2c2%0a%3c (:cellnr colspan=3 width=300 bgcolor=#000000 align=center:)%0a---%0a> (:cellnr colspan=3 width=300 bgcolor=#6e68a3 align=center:)%0a7c7%0a%3c '''@@[+++Stats+++]@@'''%0a---%0a> @@[+++Stats+++]@@%0a25c25%0a%3c '''@@[+++Description+++]@@'''%0a---%0a> @@[+++Description+++]@@%0a29c29%0a%3c '''@@[+++Story Hooks+++]@@'''%0a---%0a> @@[+++Story Hooks+++]@@%0a39c39%0a%3c '''@@[+++History+++]@@'''%0a---%0a> @@[+++History+++]@@%0a45c45%0a%3c '''@@[+++Circle+++]@@'''%0a---%0a> @@[+++Circle+++]@@%0a50c50%0a%3c '''@@[+++Rumors+++]@@'''%0a---%0a> @@[+++Rumors+++]@@%0a
+host:1380478084=98.234.175.154
+author:1380477844=minorremedy
+diff:1380477844:1380457861:=3c3%0a%3c !!%25white%25@@Sam Zou@@%25white%25%0a---%0a> !!%25white%25Sam Zou%25white%25%0a5,7c5,6%0a%3c (:cellnr width=340 colspan=2 align=Left:)%0a%3c [[%3c%3c]]%0a%3c @@[+++Stats+++]@@%0a---%0a> (:cellnr width=340 colspan=2 align=center:)%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a24,26c23,24%0a%3c (:cellnr width=340 colspan=2 align=Left:)%0a%3c @@[+++Description+++]@@%0a%3c [[%3c%3c]]%0a---%0a> (:cellnr width=340 colspan=2 align=left:)%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a29,30c27%0a%3c @@[+++Story Hooks+++]@@%0a%3c [[%3c%3c]]%0a---%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a39,40c36%0a%3c @@[+++History+++]@@%0a%3c [[%3c%3c]]%0a---%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a45,46c41%0a%3c @@[+++Circle+++]@@%0a%3c [[%3c%3c]]%0a---%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a50,51c45%0a%3c @@[+++Rumors+++]@@%0a%3c [[%3c%3c]]%0a---%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a
+host:1380477844=98.234.175.154
+author:1380457861=minorremedy
+diff:1380457861:1380457759:=37,38c37%0a%3c ''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation. It was at this time I joined the Earth-Heart Initiative and decided to make an actual difference in my life for the first time."'' %0a%3c [[%3c%3c]]-Excerpt from a local public station interview.%0a---%0a> ''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation. It was at this time I joined the Earth-Heart Initiative and decided to make an actual difference in my life for the first time."'' -Excerpt from a local public station interview.%0a
+host:1380457861=98.234.175.154
+author:1380457759=minorremedy
+diff:1380457759:1380457350:=37c37%0a%3c ''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation. It was at this time I joined the Earth-Heart Initiative and decided to make an actual difference in my life for the first time."'' -Excerpt from a local public station interview.%0a---%0a> ''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation. It was at this time I joined the Earth-Heart Initiative and decided to make an actual difference in my life for the first time."''%0a
+host:1380457759=98.234.175.154
+author:1380457350=minorremedy
+diff:1380457350:1380457156:=31c31%0a%3c *He was a long time patient at Memorial Health psychiatric ward.%0a---%0a> *He's not a dealer but he seems to always know where to find psychedelic drugs even when there is shortage on the streets.%0a
+host:1380457350=98.234.175.154
+author:1380457156=minorremedy
+diff:1380457156:1380456832:=37c37%0a%3c ''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation. It was at this time I joined the Earth-Heart Initiative and decided to make an actual difference in my life for the first time."''%0a---%0a> ''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation."''%0a
+host:1380457156=98.234.175.154
+author:1380456832=minorremedy
+diff:1380456832:1380455845:=31c31%0a%3c *He's not a dealer but he seems to always know where to find psychedelic drugs even when there is shortage on the streets.%0a---%0a> *He's not a dealer but he seems to always know where to find psychedelic drugs even when there is shortage on the streets.'%0a
+host:1380456832=98.234.175.154
+author:1380455845=minorremedy
+diff:1380455845:1380455564:=41c41%0a%3c Allies: Earth-Heart Initiative (•••) Blackroot Coalition (•), Contacts Asclepius Incarnae (•)%0a---%0a> ''Allies: Earth-Heart Initiative (•••) Blackroot Coalition (•), Contacts Asclepius Incarnae (•)''%0a
+host:1380455845=98.234.175.154
+author:1380455564=minorremedy
+diff:1380455564:1380455535:=24c24%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a---%0a> %25%25http://wantonwickd.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a
+host:1380455564=98.234.175.154
+author:1380455535=minorremedy
+diff:1380455535:1380455485:=23c23%0a%3c (:cellnr width=340 colspan=2 align=left:)%0a---%0a> (:cellnr width=340 colspan=2 align=center:)%0a
+host:1380455535=98.234.175.154
+author:1380455485=minorremedy
+diff:1380455485:1380454767:=23,24c23,24%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwickd.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a---%0a> (:cellnr width=340 colspan=2 align=left:)%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a25a26%0a> %0a
+host:1380455485=98.234.175.154
+author:1380454767=minorremedy
+diff:1380454767:1380454645:=25c25%0a%3c He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and a pair of denim jeans with a nice pair of vintage loafers or oxfords.%0a---%0a> ''He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and a pair of denim jeans with a nice pair of vintage loafers or oxfords.''%0a
+host:1380454767=98.234.175.154
+author:1380454645=minorremedy
+diff:1380454645:1380454608:=40d39%0a%3c [[%3c%3c]]%0a43d41%0a%3c [[%3c%3c]]%0a
+host:1380454645=98.234.175.154
+author:1380454608=minorremedy
+diff:1380454608:1380453988:=27,34d26%0a%3c %0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c *Sam is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.%0a%3c *Is a waiter in a vegan bistro.%0a%3c *Bi-weekly works as a Muay Thai assistant teacher.%0a%3c *He's not a dealer but he seems to always know where to find psychedelic drugs even when there is shortage on the streets.'%0a%3c %0a%3c %0a36a29%0a> [[%3c%3c]]%0a40,41c33,46%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Allies: Earth-Heart Initiative (•••) Blackroot Coalition (•), Contacts Asclepius Incarnae (•)''%0a---%0a> [[%3c%3c]]%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a> ''• Sam is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.''%0a> [[%3c%3c]]%0a> ''• Is a waiter in a vegan bistro.''%0a> [[%3c%3c]]%0a> ''• Bi-weekly works as a Muay Thai assistant teacher.''%0a> [[%3c%3c]]%0a> ''• He's not a dealer but he seems to always know where to find psychedelic drugs even when there is shortage on the streets.''%0a> [[%3c%3c]]%0a> [[%3c%3c]]%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a> ''Allies: Earth-Heart Initiative (•••) Blackroot Coalition (•), Contacts Asclepius Incarnae (•)''%0a> [[%3c%3c]]%0a
+host:1380454608=98.234.175.154
+author:1380453988=minorremedy
+diff:1380453988:1380453741:=23c23,24%0a%3c (:cellnr width=340 colspan=2 align=left:)%0a---%0a> (:tableend:)%0a> [[%3c%3c]]%0a26,28c27%0a%3c %0a%3c (:tableend:)%0a%3c %0a---%0a> [[%3c%3c]]%0a
+host:1380453988=98.234.175.154
+author:1380453741=minorremedy
+diff:1380453741:1380453574:=22c22,25%0a%3c %0a---%0a> (:cellnr width=340 colspan=2 align=Left:)%0a> %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a> ''He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and a pair of denim jeans with a nice pair of vintage loafers or oxfords.''%0a> (:cell width=190:) %0a
+host:1380453741=98.234.175.154
+author:1380453574=minorremedy
+diff:1380453574:1380426584:=20,25c20,22%0a%3c (:cell width=190:) %0a%3c [[http://www.youtube.com/watch?v=HMKkbco7UFE |LSD and the Search for God - Starting Over']]%0a%3c (:cellnr width=340 colspan=2 align=Left:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and a pair of denim jeans with a nice pair of vintage loafers or oxfords.''%0a%3c (:cell width=190:) %0a---%0a> (:cell width=190:) [[http://www.youtube.com/watch?v=HMKkbco7UFE |LSD and the Search for God - Starting Over']]%0a> (:tableend:)%0a> [[%3c%3c]]%0a
+host:1380453574=98.234.175.154
+author:1380426584=minorremedy
+diff:1380426584:1380426508:=24c24%0a%3c ''He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. Usually can be found in overly washed shirts and a pair of denim jeans with a nice pair of vintage loafers or oxfords.''%0a---%0a> ''He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. ''%0a
+host:1380426584=98.234.175.154
+author:1380426508=minorremedy
+diff:1380426508:1380425919:=24c24%0a%3c ''He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. ''%0a---%0a> ''Tall and thin. He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. ''%0a
+host:1380426508=98.234.175.154
+author:1380425919=minorremedy
+diff:1380425919:1380425835:=28c28%0a%3c ''"In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation."''%0a---%0a> ''In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation.''%0a
+host:1380425919=98.234.175.154
+author:1380425835=minorremedy
+diff:1380425835:1380425477:=24c24%0a%3c ''Tall and thin. He has long straight hair which drapes like over a face like a veil. Sam gives an awkward smile but it's always sincere. He is coy, aloof and vague in his mannerisms. ''%0a---%0a> ''Whatever he feels like.''%0a
+host:1380425835=98.234.175.154
+author:1380425477=minorremedy
+diff:1380425477:1380425393:=24c24%0a%3c ''Whatever he feels like.''%0a---%0a> ''TBA.''%0a
+host:1380425477=98.234.175.154
+author:1380425393=minorremedy
+diff:1380425393:1380425181:=37,38d36%0a%3c [[%3c%3c]]%0a%3c ''• He's not a dealer but he seems to always know where to find psychedelic drugs even when there is shortage on the streets.''%0a
+host:1380425393=98.234.175.154
+author:1380425181=minorremedy
+diff:1380425181:1380425164:=22d21%0a%3c [[%3c%3c]]%0a
+host:1380425181=98.234.175.154
+author:1380425164=minorremedy
+diff:1380425164:1380425121:=25d24%0a%3c [[%3c%3c]]%0a29d27%0a%3c [[%3c%3c]]%0a37d34%0a%3c [[%3c%3c]]%0a40d36%0a%3c [[%3c%3c]]%0a
+host:1380425164=98.234.175.154
+author:1380425121=minorremedy
+diff:1380425121:1380425083:=29c29%0a%3c ''• Sam is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.''%0a---%0a> ''• An influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.''%0a
+host:1380425121=98.234.175.154
+author:1380425083=minorremedy
+diff:1380425083:1380425026:=33c33%0a%3c ''• Bi-weekly works as a Muay Thai assistant teacher.''%0a---%0a> ''• He is a Muay Thai assistant teacher.''%0a
+host:1380425083=98.234.175.154
+author:1380425026=minorremedy
+diff:1380425026:1380424861:=33,34d32%0a%3c ''• He is a Muay Thai assistant teacher.''%0a%3c [[%3c%3c]]%0a36c34%0a%3c ''Allies: Earth-Heart Initiative (•••) Blackroot Coalition (•), Contacts Asclepius Incarnae (•)''%0a---%0a> ''Allies: Earth-Heart Initiative (•••) Blackroot Coalition (&#9679;), Contacts Asclepius Incarnae (•)''%0a
+host:1380425026=98.234.175.154
+author:1380424861=minorremedy
+diff:1380424861:1380424787:=
+host:1380424861=98.234.175.154
+author:1380424787=minorremedy
+diff:1380424787:1380424706:=31c31%0a%3c ''• Is a waiter in a vegan bistro.''%0a---%0a> ''• He works as a waiter part time in a vegan bistro.''%0a
+host:1380424787=98.234.175.154
+author:1380424706=minorremedy
+diff:1380424706:1380424579:=14c14%0a%3c (:cell width=190:) Waiter%0a---%0a> (:cell width=190:) Waiter at the Noble Fare%0a29c29%0a%3c ''• An influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.''%0a---%0a> ''An influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.''%0a31c31%0a%3c ''• He works as a waiter part time in a vegan bistro.''%0a---%0a> ''An influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.''%0a
+host:1380424706=98.234.175.154
+author:1380424579=minorremedy
+diff:1380424579:1380424512:=29,31c29,32%0a%3c ''An influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.''%0a%3c [[%3c%3c]]%0a%3c ''An influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.''%0a---%0a> ''%0a> • He is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.%0a> • He is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.%0a> ''%0a
+host:1380424579=98.234.175.154
+author:1380424512=minorremedy
+diff:1380424512:1380424401:=29,32c29%0a%3c ''%0a%3c • He is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.%0a%3c • He is an influential member of the Earth-Heart Initiative and has organized many events against fracking in Georgia.%0a%3c ''%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1380424512=98.234.175.154
+author:1380424401=minorremedy
+diff:1380424401:1380423703:=14c14%0a%3c (:cell width=190:) Waiter at the Noble Fare%0a---%0a> (:cell width=190:) Waiter%0a
+host:1380424401=98.234.175.154
+author:1380423703=minorremedy
+diff:1380423703:1380423182:=32c32%0a%3c ''Allies: Earth-Heart Initiative (•••) Blackroot Coalition (&#9679;), Contacts Asclepius Incarnae (•)''%0a---%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1380423703=98.234.175.154
+author:1380423182=minorremedy
+diff:1380423182:1380423118:=16c16%0a%3c (:cell width=190:) SL+1%0a---%0a> (:cell width=190:) ?%0a
+host:1380423182=98.234.175.154
+author:1380423118=minorremedy
+diff:1380423118:1380422998:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=left:) http://media.dropdo.com.s3.amazonaws.com/brO/fl4.png%0a---%0a> (:cellnr rowspan=15 width=400 align=left:) http://media.dropdo.com.s3.amazonaws.com/brN/fl3.png%0a
+host:1380423118=98.234.175.154
+author:1380422998=minorremedy
+diff:1380422998:1380422861:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=left:) http://media.dropdo.com.s3.amazonaws.com/brN/fl3.png%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://media.dropdo.com.s3.amazonaws.com/brM/fl2.png%0a
+host:1380422998=98.234.175.154
+author:1380422861=minorremedy
+diff:1380422861:1380422648:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://media.dropdo.com.s3.amazonaws.com/brM/fl2.png%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a
+host:1380422861=98.234.175.154
+author:1380422648=minorremedy
+diff:1380422648:1380422460:=2c2%0a%3c (:cellnr colspan=3 width=300 bgcolor=#6e68a3 align=center:)%0a---%0a> (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a
+host:1380422648=98.234.175.154
+author:1380422460=minorremedy
+diff:1380422460:1380422432:=14c14%0a%3c (:cell width=190:) Waiter%0a---%0a> (:cell width=190:) Waiter, Muay Thai Assistant Trainer%0a
+host:1380422460=98.234.175.154
+author:1380422432=minorremedy
+diff:1380422432:1380422416:=19c19%0a%3c (:cellnr width=150 align=left:)'''Theme:''' %0a---%0a> (:cellnr width=150 align=left:)''Theme:'' %0a
+host:1380422432=98.234.175.154
+author:1380422416=minorremedy
+diff:1380422416:1380422376:=19,20c19,20%0a%3c (:cellnr width=150 align=left:)''Theme:'' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=HMKkbco7UFE |LSD and the Search for God - Starting Over']]%0a---%0a> (:cellnr width=150 align=left:)'''LSD and the Search for God - Starting Over'' %0a> (:cell width=190:) [[http://www.youtube.com/watch?v=HMKkbco7UFE |Music]]%0a
+host:1380422416=98.234.175.154
+author:1380422376=minorremedy
+diff:1380422376:1380421994:=19,20c19,20%0a%3c (:cellnr width=150 align=left:)'''LSD and the Search for God - Starting Over'' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=HMKkbco7UFE |Music]]%0a---%0a> (:cellnr width=150 align=left:)'''Theme Music:''' %0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a
+host:1380422376=98.234.175.154
+author:1380421994=minorremedy
+diff:1380421994:1380421957:=18c18%0a%3c (:cell width=190:) minorremedy%0a---%0a> (:cell width=190:) ?%0a
+host:1380421994=98.234.175.154
+author:1380421957=minorremedy
+diff:1380421957:1380421339:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a---%0a> (:cellnr rowspan=14 width=400 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a8c8%0a%3c (:cell width=190:) 24%0a---%0a> (:cell width=190:) ?%0a10c10%0a%3c (:cell width=190:) 6" 1'%0a---%0a> (:cell width=190:) ?%0a12c12%0a%3c (:cell width=190:) Athletic%0a---%0a> (:cell width=190:) ?%0a14c14%0a%3c (:cell width=190:) Waiter, Muay Thai Assistant Trainer%0a---%0a> (:cell width=190:) ?%0a
+host:1380421957=98.234.175.154
+author:1380421339=minorremedy
+diff:1380421339:1380421322:=4c4%0a%3c (:cellnr rowspan=14 width=400 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a---%0a> (:cellnr rowspan=15 width=380 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a
+host:1380421339=98.234.175.154
+author:1380421322=minorremedy
+diff:1380421322:1380421314:=4c4%0a%3c (:cellnr rowspan=15 width=380 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a---%0a> (:cellnr rowspan=15 width=38 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a
+host:1380421322=98.234.175.154
+author:1380421314=minorremedy
+diff:1380421314:1380421279:=4c4%0a%3c (:cellnr rowspan=15 width=38 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a
+host:1380421314=98.234.175.154
+author:1380421279=minorremedy
+diff:1380421279:1380420805:=23c23%0a%3c ''TBA.''%0a---%0a> ''In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation.''%0a26c26%0a%3c ''In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation.''%0a---%0a> ''Place your Public History Here''%0a
+host:1380421279=98.234.175.154
+author:1380420805=minorremedy
+diff:1380420805:1380420775:=3c3%0a%3c !!%25white%25Sam Zou%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1380420805=98.234.175.154
+author:1380420775=minorremedy
+diff:1380420775:1380419819:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://media.dropdo.com.s3.amazonaws.com/brK/fl2.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1380420775=98.234.175.154
+author:1380419819=minorremedy
+diff:1380419819:1380419428:=23c23%0a%3c ''In my naive youth I wanted to change the world. That required one to absorb oneself into it. Which was something I slowly began to retract of and eventually would become alien and foreign. Then I realized I was alone and content. Would I be content however in what I had become? The change of myself becoming an outsider seemed to create a prison--not unlike the prison of society in which I originally sought to change. At least it was a prison of my own creation, which made me feel even more responsible and guilty for my current situation.''%0a---%0a> ''Place your Description Here''%0a
+host:1380419819=98.234.175.154
+author:1380419428=minorremedy
+diff:1380419428:1380418747:=
+host:1380419428=98.234.175.154
+author:1380418747=minorremedy
+diff:1380418747:1380418747:=
+host:1380418747=98.234.175.154

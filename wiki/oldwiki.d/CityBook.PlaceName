@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1379704392
+host=67.238.250.80
+name=CityBook.PlaceName
+rev=2
+targets=CityBook.CityBook,CityBook.IndustrialDistrict
+text=(:title location name:)%0a[Venue or Savannah Banner]%0a%0aReturn to: [[CityBook.?|Venue Locations]], [[CityBook.IndustrialDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!Location Name%0a'''District:''' [[CityBook.IndustrialDistrict|Industrial District]]%0a%0a[Picture] Description%0a%0a'''Resonance:''' blah\\%0a'''Territory:''' Falls within X's claim%0a[[#locationend]]%0a%0a----%0a(:include CityBook.Directory:)
+time=1379704405
+title=location name
+author:1379704405=ThomasH
+diff:1379704405:1379704392:=8c8%0a%3c '''District:''' [[CityBook.IndustrialDistrict|Industrial District]]%0a---%0a> '''District:''' [[CityBook.IndustrialDistrict|Airport District]]%0a
+host:1379704405=67.238.250.80
+author:1379704392=ThomasH
+diff:1379704392:1379704392:=1,17d0%0a%3c (:title location name:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.IndustrialDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!Location Name%0a%3c '''District:''' [[CityBook.IndustrialDistrict|Airport District]]%0a%3c %0a%3c [Picture] Description%0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1379704392=67.238.250.80

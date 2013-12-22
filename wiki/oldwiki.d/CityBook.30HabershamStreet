@@ -1,0 +1,25 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1381001242
+host=98.232.234.158
+name=CityBook.30HabershamStreet
+rev=4
+targets=CityBook.CityBook,CityBook.HistoricalDistrict
+text=(:title 24 Habersham Street:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/mta.png%0a%0aReturn to: [[CityBook.?|Venue Locations]], [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!24 Habersham Street%0a'''District:'''[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=CityBook.HistoricalDistrict| Historic District]]%0a%0ahttp://images.neighborcity.com/images/18/5a/9a/67.jpg %0aLocated on the Corner of Habersham and E. Congress the building has recently had a change of ownership to a local Community outreach and legal resource center. %0a%0a'''Resonance:''' Power and Law%0a%0a'''Territory:''' Claimed and Maintained by the Mage CAbal  The [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.TheWardensOfBlindJustice|Wardens]]%0a[[#locationend]] of Blind Justice%0a%0a----%0a(:include CityBook.Directory:)
+time=1386812574
+title=24 Habersham Street
+author:1386812574=JillA
+diff:1386812574:1386812556:=1c1%0a%3c (:title 24 Habersham Street:)%0a---%0a> (:title location name:)%0a
+host:1386812574=98.232.234.158
+author:1386812556=JillA
+diff:1386812556:1381004529:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/mta.png%0a---%0a> '-http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png-'%0a
+host:1386812556=98.232.234.158
+author:1381004529=Worldwalker
+diff:1381004529:1381001242:=2,3c2,3%0a%3c '-http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png-'%0a%3c %0a---%0a> [Venue or Savannah Banner]%0a> %0a7,16c7,14%0a%3c !!24 Habersham Street%0a%3c '''District:'''[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=CityBook.HistoricalDistrict| Historic District]]%0a%3c %0a%3c http://images.neighborcity.com/images/18/5a/9a/67.jpg %0a%3c Located on the Corner of Habersham and E. Congress the building has recently had a change of ownership to a local Community outreach and legal resource center. %0a%3c %0a%3c '''Resonance:''' Power and Law%0a%3c %0a%3c '''Territory:''' Claimed and Maintained by the Mage CAbal  The [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.TheWardensOfBlindJustice|Wardens]]%0a%3c [[#locationend]] of Blind Justice%0a---%0a> !!Location Name%0a> '''District:''' Historic District%0a> %0a> [Picture] Description%0a> %0a> '''Resonance:''' blah\\%0a> '''Territory:''' Falls within X's claim%0a> [[#locationend]]%0a
+host:1381004529=162.195.67.141
+author:1381001242=Worldwalker
+diff:1381001242:1381001242:=1,17d0%0a%3c (:title location name:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!Location Name%0a%3c '''District:''' Historic District%0a%3c %0a%3c [Picture] Description%0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1381001242=162.195.67.141

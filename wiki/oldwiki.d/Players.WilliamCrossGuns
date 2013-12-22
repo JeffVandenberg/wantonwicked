@@ -1,0 +1,24 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=Aramil98
+charset=ISO-8859-1
+csum=
+ctime=1378710573
+host=71.0.16.129
+name=Players.WilliamCrossGuns
+rev=4
+targets=
+text=(:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a!!%25white%25William Cross%25white%25%0a(:tableend:)%0a%25lfloat width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/foto32it-1.jpg%0a%0a%25cfloat width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/700ADL040b-1.jpg%0a%0a%25rfloat width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/g20-m3-left-full-hi.jpg%0a%0a%25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/Mossberg500Tactical.jpg%0a%0a%25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/st_polymerrevo_201005-a.jpg%0a%0a%25width=250px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/img.jpg%0a
+time=1378779370
+author:1378779370=Aramil98
+diff:1378779370:1378779232:=3,9c3,10%0a%3c (:tableend:)%0a%3c %25lfloat width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/foto32it-1.jpg%0a%3c %0a%3c %25cfloat width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/700ADL040b-1.jpg%0a%3c %0a%3c %25rfloat width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/g20-m3-left-full-hi.jpg%0a%3c %0a---%0a> (:cellnr rowspan=30 width=3500 align=right:) %0a> (:cellnr:)%0a> %25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/foto32it-1.jpg%0a> (:cell:)%0a> %25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/700ADL040b-1.jpg%0a> (:cellnr:)%0a> %25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/g20-m3-left-full-hi.jpg%0a> (:cell:)%0a11c12%0a%3c %0a---%0a> (:cellnr:)%0a13c14%0a%3c %0a---%0a> (:cellnr align=center:)%0a14a16%0a> (:tableend:)%0a\ No newline at end of file%0a
+host:1378779370=71.0.16.129
+author:1378779232=Aramil98
+diff:1378779232:1378710752:=3c3%0a%3c (:cellnr rowspan=30 width=3500 align=right:) %0a---%0a> (:cellnr rowspan=30 width=3500 align=center:) %0a5c5%0a%3c %25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/foto32it-1.jpg%0a---%0a> %25width=400px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/foto32it-1.jpg%0a7,15c7%0a%3c %25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/700ADL040b-1.jpg%0a%3c (:cellnr:)%0a%3c %25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/g20-m3-left-full-hi.jpg%0a%3c (:cell:)%0a%3c %25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/Mossberg500Tactical.jpg%0a%3c (:cellnr:)%0a%3c %25width=200px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/st_polymerrevo_201005-a.jpg%0a%3c (:cellnr align=center:)%0a%3c %25width=250px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/img.jpg%0a---%0a> %25width=400px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/700ADL040b-1.jpg%0a
+host:1378779232=71.0.16.129
+author:1378710752=Aramil98
+diff:1378710752:1378710573:=5c5%0a%3c %25width=400px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/foto32it-1.jpg%0a---%0a> %25width=350px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/foto32it-1.jpg%0a7c7%0a%3c %25width=400px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/700ADL040b-1.jpg%0a---%0a> %25width=350px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/1014465_10151912240488888_1056670016_n.jpeg%0a
+host:1378710752=71.0.16.129
+author:1378710573=Aramil98
+diff:1378710573:1378710573:=1,8d0%0a%3c (:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a%3c !!%25white%25William Cross%25white%25%0a%3c (:cellnr rowspan=30 width=3500 align=center:) %0a%3c (:cellnr:)%0a%3c %25width=350px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/foto32it-1.jpg%0a%3c (:cell:)%0a%3c %25width=350px%25http://i68.photobucket.com/albums/i5/Aramil98/William%2520Cross/1014465_10151912240488888_1056670016_n.jpeg%0a%3c (:tableend:)%0a\ No newline at end of file%0a
+host:1378710573=71.0.16.129

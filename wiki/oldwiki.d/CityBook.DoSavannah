@@ -1,0 +1,16 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1379383471
+host=67.238.250.80
+name=CityBook.DoSavannah
+rev=1
+targets=CityBook.NorthChatham
+text=(:title Do Savannah:)%0a!!DoSavannah%0a'''District:''' [[CityBook.NorthChatham|North Chatham]]%0a%0a%25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25http://i.imgur.com/TeP6tRi.png%0aFor Arts and Culture, we will be focusing on DO Savannah, Savannah Morning News’ Weekly arts and culture circulate, which releases every Sunday.%0aDoSavannah supports weekly columns on:%0a%0a*Arts%0a*Community%0a*Food%0a*Movies%0a*Music%0a[[%3c%3c]]%0a'''Resonance:''' Unknown\\%0a'''Territory:''' Media
+time=1379383471
+title=Do Savannah
+author:1379383471=ThomasH
+diff:1379383471:1379383471:=1,16d0%0a%3c (:title Do Savannah:)%0a%3c !!DoSavannah%0a%3c '''District:''' [[CityBook.NorthChatham|North Chatham]]%0a%3c %0a%3c %25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25http://i.imgur.com/TeP6tRi.png%0a%3c For Arts and Culture, we will be focusing on DO Savannah, Savannah Morning News’ Weekly arts and culture circulate, which releases every Sunday.%0a%3c DoSavannah supports weekly columns on:%0a%3c %0a%3c *Arts%0a%3c *Community%0a%3c *Food%0a%3c *Movies%0a%3c *Music%0a%3c [[%3c%3c]]%0a%3c '''Resonance:''' Unknown\\%0a%3c '''Territory:''' Media%0a\ No newline at end of file%0a
+host:1379383471=67.238.250.80

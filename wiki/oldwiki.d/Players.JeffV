@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JeffV
+charset=ISO-8859-1
+csum=
+ctime=1379531746
+host=12.148.200.163
+name=Players.JeffV
+rev=1
+targets=
+text=%25bgcolor=black black%25I am the administrator of Wanton Wicked.
+time=1379531746
+author:1379531746=JeffV
+diff:1379531746:1379531746:=1d0%0a%3c %25bgcolor=black black%25I am the administrator of Wanton Wicked.%0a\ No newline at end of file%0a
+host:1379531746=12.148.200.163

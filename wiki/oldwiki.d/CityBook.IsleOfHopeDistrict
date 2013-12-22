@@ -1,0 +1,52 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1378766928
+host=67.238.250.80
+name=CityBook.IsleOfHopeDistrict
+rev=13
+targets=Players.AbrahamTwiggs,Players.Mage,CityBook.WormsloePlantation,Players.Vampire,CityBook.TheOldHouse,Players.Elijah,CityBook.BennettPlantationHouse,Players.LoreleiBennett
+text=(:title Isle of Hope District:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0a(:newpagebox base=CityBook template=CityBook.IoHTemplate label="Create Isle of Hope District Location:" value="Place Name":)%0aIsle of Hope is one of Savannah's most picturesque neighborhoods, which captivates the look of the Old South and is littered with beautiful old cottages with their tiny white picket fences which overlook the Herb and Skidaway river. Attractions in Isle of Hope include Bluff Drive, a road framed by oaks with their moss-strewn tops, which follows along the beautiful Skidaway River and Wormsloe Plantation, a historic site complete with hiking trails and a forest of 400 live oak trees. Average house prices in this area range from $200,000-$300,000.%0a%0a!!District Features:%0a>>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a'''City/Mortal''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Changeling''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Mage''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Vampire''':%0a* Domain of [[Players/Abraham Twiggs]], Invictus%0a* Location Rating: 4%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Werewolf''':%0a>>%3c%3c%0a%0a!!District Locations:%0a(:sortable align=center:)%0a||class=sortable id=SGLocations%0a||!Location||!Venue||!Owner||%0a||[[Wormsloe Plantation]]||[[Players.Mage|Mage]]||Consilium||%0a||[[The Old House]]||[[Players.Vampire|Vampire]]||Elysium, [[Players/Elijah]]||%0a||[[Bennett Plantation House]]||[[Players.Vampire|Vampire]]||[[Players/Lorelei Bennett]]||%0a(:tableend:)%0a%0a----%0a(:include CityBook.Directory:)
+time=1383413005
+title=Isle of Hope District
+author:1383413005=ThomasH
+diff:1383413005:1382208820:=
+host:1383413005=67.238.250.80
+author:1382208820=JillA
+diff:1382208820:1381570670:=5c5,6%0a%3c Isle of Hope is one of Savannah's most picturesque neighborhoods, which captivates the look of the Old South and is littered with beautiful old cottages with their tiny white picket fences which overlook the Herb and Skidaway river. Attractions in Isle of Hope include Bluff Drive, a road framed by oaks with their moss-strewn tops, which follows along the beautiful Skidaway River and Wormsloe Plantation, a historic site complete with hiking trails and a forest of 400 live oak trees. Average house prices in this area range from $200,000-$300,000.%0a---%0a> %0a> (:include GameRef.CityMaster#IoH#IoHEnd:)%0a
+host:1382208820=24.20.151.3
+author:1381570670=JillA
+diff:1381570670:1381570660:=36c36%0a%3c ||[[The Old House]]||[[Players.Vampire|Vampire]]||Elysium, [[Players/Elijah]]||%0a---%0a> ||[[the Old House]]||[[Players.Vampire|Vampire]]||Elysium, [[Players/Elijah]]||%0a
+host:1381570670=24.20.151.3
+author:1381570660=JillA
+diff:1381570660:1381225004:=36d35%0a%3c ||[[the Old House]]||[[Players.Vampire|Vampire]]||Elysium, [[Players/Elijah]]||%0a
+host:1381570660=24.20.151.3
+author:1381225004=JillA
+diff:1381225004:1381224665:=23c23%0a%3c * Domain of [[Players/Abraham Twiggs]], Invictus%0a---%0a> * Domain of [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.AbrahamTwiggs|Abraham Twiggs, Invictus]]%0a
+host:1381225004=24.20.151.3
+author:1381224665=MichelleC
+diff:1381224665:1381224522:=23c23%0a%3c * Domain of [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.AbrahamTwiggs|Abraham Twiggs, Invictus]]%0a---%0a> * Domain of [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.AbrahamTwiggs|Abraham Twiggs]]%0a
+host:1381224665=67.80.106.255
+author:1381224522=Eiragwen
+diff:1381224522:1381224349:=35,36c35%0a%3c ||[[Wormsloe Plantation]]||[[Players.Mage|Mage]]||Consilium||%0a%3c ||[[Bennett Plantation House]]||[[Players.Vampire|Vampire]]||[[Players/Lorelei Bennett]]||%0a---%0a> ||[[CityBook.WormsloePlantation|Wormsloe Plantation]]||[[Players.Mage|Any]]||Consilium||%0a
+host:1381224522=24.20.151.3
+author:1381224349=MichelleC
+diff:1381224349:1381224298:=23c23%0a%3c * Domain of [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.AbrahamTwiggs|Abraham Twiggs]]%0a---%0a> * Domain of http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.AbrahamTwiggs|Abraham Twiggs%0a
+host:1381224349=67.80.106.255
+author:1381224298=MichelleC
+diff:1381224298:1381224275:=23c23%0a%3c * Domain of http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.AbrahamTwiggs|Abraham Twiggs%0a---%0a> * Domain of http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.AbrahamTwiggs | Abraham Twiggs%0a
+host:1381224298=67.80.106.255
+author:1381224275=MichelleC
+diff:1381224275:1381125471:=23,24c23,24%0a%3c * Domain of http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.AbrahamTwiggs | Abraham Twiggs%0a%3c * Location Rating: 4%0a---%0a> * Domain of%0a> * Location Rating:%0a
+host:1381224275=67.80.106.255
+author:1381125471=Eiragwen
+diff:1381125471:1379292684:=9,29d8%0a%3c >>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''City/Mortal''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Changeling''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Mage''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Vampire''':%0a%3c * Domain of%0a%3c * Location Rating:%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Werewolf''':%0a%3c >>%3c%3c%0a
+host:1381125471=24.20.151.3
+author:1379292684=JillA
+diff:1379292684:1378766928:=1,18c1%0a%3c (:title Isle of Hope District:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c (:newpagebox base=CityBook template=CityBook.IoHTemplate label="Create Isle of Hope District Location:" value="Place Name":)%0a%3c %0a%3c (:include GameRef.CityMaster#IoH#IoHEnd:)%0a%3c %0a%3c !!District Features:%0a%3c %0a%3c !!District Locations:%0a%3c (:sortable align=center:)%0a%3c ||class=sortable id=SGLocations%0a%3c ||!Location||!Venue||!Owner||%0a%3c ||[[CityBook.WormsloePlantation|Wormsloe Plantation]]||[[Players.Mage|Any]]||Consilium||%0a%3c (:tableend:)%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a---%0a> (:title Isle of Hope District:)%0a\ No newline at end of file%0a
+host:1379292684=24.20.151.3
+author:1378766928=ThomasH
+diff:1378766928:1378766928:=1d0%0a%3c (:title Isle of Hope District:)%0a\ No newline at end of file%0a
+host:1378766928=71.0.16.129

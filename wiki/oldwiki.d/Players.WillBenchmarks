@@ -1,0 +1,30 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Aramil98
+charset=ISO-8859-1
+csum=
+ctime=1387048634
+host=67.238.250.80
+name=Players.WillBenchmarks
+rev=6
+targets=
+text=(:notitle:)%0a(:table valign=top:)%0a(:cellnr width=80 align=left:) %25color=#74483F%25 '''BENCHMARKS''' %25%25%0a(:cellnr width=40 align=left:)'''Workouts'''%0a(:cell width=40 align=left:)'''Maxes'''%0a(:cellnr width=40 align=left:) %25color=#74483F%25Fran%25%25 3:13%0a(:cell width=40 align=left:)%25color=#74483F%25Clean&Jerk%25%25 200%0a(:cellnr width=40 align=left:) %25color=#74483F%25Grace%25%25 2:19%0a(:cell width=40 align=left:)%25color=#74483F%25Snatch%25%25 160%0a(:cellnr width=40 align=left:) %25color=#74483F%25Filthy 50%25%25 0:00 %0a(:cell width=40 align=left:)%25color=#74483F%25Deadlift%25%25 345%0a(:cellnr width=40 align=left:) %25color=#74483F%25Fight Gone Bad%25%25  346%0a(:cell width=40 align=left:)%25color=#74483F%25Back Squat%25%25 295%0a(:cellnr width=40 align=left:) %25color=#74483F%25Sprint 400m%25%25  1:17%0a(:cell width=40 align=left:)%25color=#74483F%25Max Pullups%25%25 37%0a(:cellnr width=40 align=left:)%25color=#74483F%25Run 5K%25%25 21:48%0a(:tableend:)
+time=1387050557
+author:1387050557=Aramil98
+diff:1387050557:1387050028:=16d15%0a%3c (:cellnr width=40 align=left:)%25color=#74483F%25Run 5K%25%25 21:48%0a
+host:1387050557=67.238.250.80
+author:1387050028=Aramil98
+diff:1387050028:1387050016:=7c7%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Clean&Jerk%25%25 200%0a---%0a> (:cell width=40 align=left:)%25color=#74483F%25Clean&Jerk%25%25%0a
+host:1387050028=67.238.250.80
+author:1387050016=Aramil98
+diff:1387050016:1387049354:=9,10c9,10%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Snatch%25%25 160%0a%3c (:cellnr width=40 align=left:) %25color=#74483F%25Filthy 50%25%25 0:00 %0a---%0a> (:cell width=40 align=left:)%25color=#74483F%25Snatch%25%25 225%0a> (:cellnr width=40 align=left:) %25color=#74483F%25Filthy 50%25%25  %0a13c13%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Back Squat%25%25 295%0a---%0a> (:cell width=40 align=left:)%25color=#74483F%25Back Squat%25%25 180%0a
+host:1387050016=67.238.250.80
+author:1387049354=Aramil98
+diff:1387049354:1387048970:=9c9%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Snatch%25%25 225%0a---%0a> (:cell width=40 align=left:)%25color=#74483F%25Snatch%25%25%0a11,13c11,13%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Deadlift%25%25 345%0a%3c (:cellnr width=40 align=left:) %25color=#74483F%25Fight Gone Bad%25%25  346%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Back Squat%25%25 180%0a---%0a> (:cell width=40 align=left:)%25color=#74483F%25Deadlift%25%25%0a> (:cellnr width=40 align=left:) %25color=#74483F%25Fight Gone Bad%25%25  %0a> (:cell width=40 align=left:)%25color=#74483F%25Back Squat%25%25%0a15c15%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Max Pullups%25%25 37%0a---%0a> (:cell width=40 align=left:)%25color=#74483F%25Max Pullups%25%25%0a
+host:1387049354=67.238.250.80
+author:1387048970=Aramil98
+diff:1387048970:1387048634:=15,16c15%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Max Pullups%25%25%0a%3c (:tableend:)%0a\ No newline at end of file%0a---%0a> (:cell width=40 align=left:)%25color=#74483F%25Max Pullups%25%25%0a\ No newline at end of file%0a
+host:1387048970=67.238.250.80
+author:1387048634=Aramil98
+diff:1387048634:1387048634:=1,15d0%0a%3c (:notitle:)%0a%3c (:table valign=top:)%0a%3c (:cellnr width=80 align=left:) %25color=#74483F%25 '''BENCHMARKS''' %25%25%0a%3c (:cellnr width=40 align=left:)'''Workouts'''%0a%3c (:cell width=40 align=left:)'''Maxes'''%0a%3c (:cellnr width=40 align=left:) %25color=#74483F%25Fran%25%25 3:13%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Clean&Jerk%25%25%0a%3c (:cellnr width=40 align=left:) %25color=#74483F%25Grace%25%25 2:19%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Snatch%25%25%0a%3c (:cellnr width=40 align=left:) %25color=#74483F%25Filthy 50%25%25  %0a%3c (:cell width=40 align=left:)%25color=#74483F%25Deadlift%25%25%0a%3c (:cellnr width=40 align=left:) %25color=#74483F%25Fight Gone Bad%25%25  %0a%3c (:cell width=40 align=left:)%25color=#74483F%25Back Squat%25%25%0a%3c (:cellnr width=40 align=left:) %25color=#74483F%25Sprint 400m%25%25  1:17%0a%3c (:cell width=40 align=left:)%25color=#74483F%25Max Pullups%25%25%0a\ No newline at end of file%0a
+host:1387048634=67.238.250.80

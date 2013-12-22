@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0
+author=BloodyQuill
+charset=ISO-8859-1
+csum=
+ctime=1382977297
+host=67.204.243.249
+name=Players.JamesLQuote
+rev=2
+targets=Players.EleanorWoodward,Players.AugustDeRosier
+text=''After so long your mine, we are together again. Now I will never let you go your my mate, my love and my protector during the day with out you I would be vulnerable. With you I am complete.'' -[[Eleanor Woodward|The Mate, The Regent.]]%0a%0a''There is something you should know, now that you sleep forever. I envy you just as all immortal creatures do. We envy you and are jealous of you because you are mortal and in your life everything was more brilliant and beautiful because you knew it could end. Return now to your eternal rest and reward far from this world with it's shadows and nightmares.'' -[[August DeRosier|Temporary Caretaker and Brief Acquaintance]]
+time=1384749451
+author:1384749451=BloodyQuill
+diff:1384749451:1382977297:=1,3c1%0a%3c ''After so long your mine, we are together again. Now I will never let you go your my mate, my love and my protector during the day with out you I would be vulnerable. With you I am complete.'' -[[Eleanor Woodward|The Mate, The Regent.]]%0a%3c %0a%3c ''There is something you should know, now that you sleep forever. I envy you just as all immortal creatures do. We envy you and are jealous of you because you are mortal and in your life everything was more brilliant and beautiful because you knew it could end. Return now to your eternal rest and reward far from this world with it's shadows and nightmares.'' -[[August DeRosier|Temporary Caretaker and Brief Acquaintance]]%0a\ No newline at end of file%0a---%0a> ''After so long your mine, we are together again. Now I will never let you go your my mate, my love and my protector during the day with out you I would be vulnerable. With you I am complete.'' -[[Eleanor Woodward|The Mate, The Regent.]]%0a\ No newline at end of file%0a
+host:1384749451=67.204.243.249
+author:1382977297=Bottlecaps
+diff:1382977297:1382977297:=1d0%0a%3c ''After so long your mine, we are together again. Now I will never let you go your my mate, my love and my protector during the day with out you I would be vulnerable. With you I am complete.'' -[[Eleanor Woodward|The Mate, The Regent.]]%0a\ No newline at end of file%0a
+host:1382977297=50.147.19.4

@@ -1,0 +1,21 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=darthadamus
+charset=ISO-8859-1
+csum=
+ctime=1387009998
+host=96.240.28.71
+name=CityBook.SunAndMoonCafe
+rev=3
+targets=
+text=
+time=1387078312
+author:1387078312=darthadamus
+diff:1387078312:1387018345:=0a1,20%0a> (:title location name:)%0a> [Venue or Savannah Banner]%0a> %0a> Return to: [[CityBook.?|Venue Locations]], [[CityBook.SouthsideDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a> %0a> [[#location]]%0a> !!Location Name%0a> '''District:''' [[CityBook.SouthsideDistrict|Southside District]]%0a> %0a> [Picture] "COming Soon%0a> %0a> '''Resonance:''' Coming soon\\%0a> %0a> http://www.nowcultured.com/images/2013/11/examples-latte-art-from-instagram/sun-moon-outer-space-planets.jpg%0a> %0a> '''Territory:''' Falls within X's claim%0a> [[#locationend]]%0a> %0a> ----%0a> (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1387078312=96.240.28.71
+author:1387018345=darthadamus
+diff:1387018345:1387009998:=10,12c10,12%0a%3c [Picture] "COming Soon%0a%3c %0a%3c '''Resonance:''' Coming soon\\%0a---%0a> [Picture] Description%0a> %0a> '''Resonance:''' blah\\%0a
+host:1387018345=96.240.28.71
+author:1387009998=darthadamus
+diff:1387009998:1387009998:=1,20d0%0a%3c (:title location name:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.SouthsideDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!Location Name%0a%3c '''District:''' [[CityBook.SouthsideDistrict|Southside District]]%0a%3c %0a%3c [Picture] Description%0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c %0a%3c http://www.nowcultured.com/images/2013/11/examples-latte-art-from-instagram/sun-moon-outer-space-planets.jpg%0a%3c %0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1387009998=96.240.28.71

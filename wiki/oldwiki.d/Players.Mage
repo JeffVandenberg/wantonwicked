@@ -1,0 +1,46 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1373313787
+host=98.232.234.158
+name=Players.Mage
+rev=11
+targets=
+text=[[#top]]%0a(:notitle:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/mta.png%0a%0a(:Include GameRef.MtAMaster#Setting#SettingEnd:)%0a%0a(:include CityBook.MageNavigationBar:)
+time=1386812159
+author:1386812159=JillA
+diff:1386812159:1377513571:=3c3%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/mta.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a
+host:1386812159=98.232.234.158
+author:1377513571=JillA
+diff:1377513571:1377474664:=2d1%0a%3c (:notitle:)%0a
+host:1377513571=24.20.151.3
+author:1377474664=JillA
+diff:1377474664:1377464426:=1d0%0a%3c [[#top]]%0a4c3,5%0a%3c (:Include GameRef.MtAMaster#Setting#SettingEnd:)%0a---%0a> (:Include GameRef.MageRulesMaster#setting#settingend:)%0a> %0a> %0a
+host:1377474664=24.20.151.3
+author:1377464426=ThomasH
+diff:1377464426:1377112272:=
+host:1377464426=71.0.16.129
+author:1377112272=HunterV
+diff:1377112272:1376973996:=5c5%0a%3c %0a---%0a> (:Include GameRef.MageRulesMaster#setting#settingend:))%0a
+host:1377112272=74.131.61.37
+author:1376973996=JillA
+csum:1376973996=updated image host
+diff:1376973996:1376878559:=1c1%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a---%0a> http://img836.imageshack.us/img836/1480/2lio.png%0a
+host:1376973996=24.20.151.3
+author:1376878559=JillA
+diff:1376878559:1376878489:=1c1%0a%3c http://img836.imageshack.us/img836/1480/2lio.png%0a---%0a> http://imageshack.us/a/img707/6402/9dv7.png%0a
+host:1376878559=24.20.151.3
+author:1376878489=JillA
+diff:1376878489:1376350510:=1c1%0a%3c http://imageshack.us/a/img707/6402/9dv7.png%0a---%0a> %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/180px-MageAwakeningLogo.png%25%25%0a
+host:1376878489=24.20.151.3
+author:1376350510=HunterV
+diff:1376350510:1373313815:=3,7c3%0a%3c (:Include GameRef.MageRulesMaster#setting#settingend:)%0a%3c %0a%3c (:Include GameRef.MageRulesMaster#setting#settingend:))%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a---%0a> (:Include GameRef.MageRulesMaster#setting#settingend:)%0a\ No newline at end of file%0a
+host:1376350510=74.131.61.37
+author:1373313815=ThomasH
+diff:1373313815:1373313787:=
+host:1373313815=71.0.16.129
+author:1373313787=ThomasH
+diff:1373313787:1373313787:=1,3d0%0a%3c %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/180px-MageAwakeningLogo.png%25%25%0a%3c %0a%3c (:Include GameRef.MageRulesMaster#setting#settingend:)%0a\ No newline at end of file%0a
+host:1373313787=71.0.16.129

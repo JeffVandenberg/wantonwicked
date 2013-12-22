@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.59.8 (KHTML, like Gecko) Version/5.1.9 Safari/534.59.8
+author=Carlos
+charset=ISO-8859-1
+csum=
+ctime=1384891170
+host=68.196.168.125
+name=Players.AugustWinters
+rev=1
+targets=
+text=http://i74.photobucket.com/albums/i271/migeddo/830347ee-db70-4a32-8db2-958c22958aeb_zpsdb5a4758.jpg%0a%0aDAVID WINTERS
+time=1384891170
+author:1384891170=Carlos
+diff:1384891170:1384891170:=1,3d0%0a%3c http://i74.photobucket.com/albums/i271/migeddo/830347ee-db70-4a32-8db2-958c22958aeb_zpsdb5a4758.jpg%0a%3c %0a%3c DAVID WINTERS%0a\ No newline at end of file%0a
+host:1384891170=68.196.168.125

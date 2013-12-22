@@ -1,0 +1,51 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=Runestrider
+charset=ISO-8859-1
+csum=
+ctime=1378702489
+host=72.179.50.100
+name=Players.JoshConrad
+rev=13
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Sample Name%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) %25width=400%25http://zeusitup.com/wp-content/uploads/2013/05/chris-evans-to-join-stephen-kings-the-ten-oclock-people.jpg%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 35%0a(:cellnr width=150 align=left:)'''Height: '''%0a(:cell width=190:) 6'2"%0a(:cellnr width=150 align=left:)'''Build: '''%0a(:cell width=190:) Athletic%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Writer-Professor%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Status: University, Author%0a%0a(:cellnr width=150 align=left:)'''Player: ''' %0a(:cell width=190:) Runestrider%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/ |Music]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a''His mind often wanders, his expression thoughtful but distant.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a''Place your Public History Here''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%0a*Associate Professor at Blue Moon University - Creative Writing%0a*Wrote the Dark Streets series of Novels, a crime drama which also ran for 2 seasons on television.%0a*Frequents bookstores, coffee houses and libraries like a good word-nerd.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1378707377
+author:1378707377=Runestrider
+diff:1378707377:1378707229:=15c15%0a%3c (:cell width=190:) Status: University, Author%0a---%0a> (:cell width=190:) Status: University Status: Author%0a
+host:1378707377=72.179.50.100
+author:1378707229=Runestrider
+diff:1378707229:1378706132:=23c23%0a%3c ''His mind often wanders, his expression thoughtful but distant.''%0a---%0a> ''Place your Description Here''%0a
+host:1378707229=72.179.50.100
+author:1378706132=Runestrider
+diff:1378706132:1378704126:=
+host:1378706132=72.179.50.100
+author:1378704126=Runestrider
+diff:1378704126:1378704103:=29c29%0a%3c %0a---%0a> ''%0a
+host:1378704126=72.179.50.100
+author:1378704103=Runestrider
+diff:1378704103:1378704054:=29,30c29%0a%3c ''%0a%3c *Associate Professor at Blue Moon University - Creative Writing%0a---%0a> ''*Associate Professor at Blue Moon University - Creative Writing%0a
+host:1378704103=72.179.50.100
+author:1378704054=Runestrider
+diff:1378704054:1378703599:=29,31c29%0a%3c ''*Associate Professor at Blue Moon University - Creative Writing%0a%3c *Wrote the Dark Streets series of Novels, a crime drama which also ran for 2 seasons on television.%0a%3c *Frequents bookstores, coffee houses and libraries like a good word-nerd.''%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1378704054=72.179.50.100
+author:1378703599=Runestrider
+diff:1378703599:1378703584:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) %25width=400%25http://zeusitup.com/wp-content/uploads/2013/05/chris-evans-to-join-stephen-kings-the-ten-oclock-people.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) %25width=25%25http://zeusitup.com/wp-content/uploads/2013/05/chris-evans-to-join-stephen-kings-the-ten-oclock-people.jpg%0a
+host:1378703599=72.179.50.100
+author:1378703584=Runestrider
+diff:1378703584:1378703404:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) %25width=25%25http://zeusitup.com/wp-content/uploads/2013/05/chris-evans-to-join-stephen-kings-the-ten-oclock-people.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://zeusitup.com/wp-content/uploads/2013/05/chris-evans-to-join-stephen-kings-the-ten-oclock-people.jpg%0a
+host:1378703584=72.179.50.100
+author:1378703404=Runestrider
+diff:1378703404:1378703262:=4a5%0a> (:cellnr width=340 colspan=2 align=center:)%0a
+host:1378703404=72.179.50.100
+author:1378703262=Runestrider
+diff:1378703262:1378702709:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://zeusitup.com/wp-content/uploads/2013/05/chris-evans-to-join-stephen-kings-the-ten-oclock-people.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1378703262=72.179.50.100
+author:1378702709=Runestrider
+diff:1378702709:1378702641:=8c8%0a%3c (:cell width=190:) 35%0a---%0a> (:cell width=190:) ?%0a
+host:1378702709=72.179.50.100
+author:1378702641=Runestrider
+diff:1378702641:1378702489:=9,14c9,14%0a%3c (:cellnr width=150 align=left:)'''Height: '''%0a%3c (:cell width=190:) 6'2"%0a%3c (:cellnr width=150 align=left:)'''Build: '''%0a%3c (:cell width=190:) Athletic%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Writer-Professor%0a---%0a> (:cellnr width=150 align=left:)'''Height:6'2" '''%0a> (:cell width=190:) ?%0a> (:cellnr width=150 align=left:)'''Build: Athletic'''%0a> (:cell width=190:) ?%0a> (:cellnr width=150 align=left:)'''Profession:Writer-Professor''' %0a> (:cell width=190:) ?%0a16,19c16,18%0a%3c (:cell width=190:) Status: University Status: Author%0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player: ''' %0a%3c (:cell width=190:) Runestrider%0a---%0a> (:cell width=190:) ?%0a> (:cellnr width=150 align=left:)'''Player: Runestrider''' %0a> (:cell width=190:) ?%0a
+host:1378702641=72.179.50.100
+author:1378702489=Runestrider
+diff:1378702489:1378702489:=1,35d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:6'2" '''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build: Athletic'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:Writer-Professor''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Player: Runestrider''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1378702489=72.179.50.100

@@ -1,0 +1,35 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+author=Rini
+charset=ISO-8859-1
+csum=added Heidi
+ctime=1382327665
+host=64.85.232.60
+name=Players.WuCharacters
+rev=7
+targets=Players.Charlie,Players.JewelSkinner,Players.StephanieKim,Players.HeidiMorgenstern
+text=(:title Student Body and Faculty:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%0a(:sortable :)%0a||class=sortable id=WoDPlayers%0a||!Name||!Role||!Primary Venue||%0a||[[Charlie]]||Professor||Mage||%0a||[[Jewel Skinner]]||Student||Werewolf||%0a||[[Stephanie Kim|Esther Park]]||Student (Dance Major: Ballet)||Changeling||%0a||[[Heidi Morgenstern]]||Student (Comp. Religions Major)||Mortal||%0a(:include CityBook.Wunavigationbar:)
+time=1385338076
+title=Student Body and Faculty
+author:1385338076=Rini
+csum:1385338076=added Heidi
+diff:1385338076:1382648670:=10d9%0a%3c ||[[Heidi Morgenstern]]||Student (Comp. Religions Major)||Mortal||%0a
+host:1385338076=64.85.232.60
+author:1382648670=Kitsuiko
+diff:1382648670:1382418635:=9c9%0a%3c ||[[Stephanie Kim|Esther Park]]||Student (Dance Major: Ballet)||Changeling||%0a---%0a> %0a
+host:1382648670=24.183.49.4
+author:1382418635=Paper Tiger
+diff:1382418635:1382328873:=8d7%0a%3c ||[[Jewel Skinner]]||Student||Werewolf||%0a
+host:1382418635=71.204.201.241
+author:1382328873=JeffV
+diff:1382328873:1382328439:=6,7c6,7%0a%3c ||!Name||!Role||!Primary Venue||%0a%3c ||[[Charlie]]||Professor||Mage||%0a---%0a> ||!Name||!Focus of Study||!Primary Venue||%0a> ||[[Name]]||?||?||%0a
+host:1382328873=173.17.121.105
+author:1382328439=JillA
+diff:1382328439:1382328422:=1c1%0a%3c (:title Student Body and Faculty:)%0a---%0a> (:title Whitefield University Student Body and Faculty:)%0a
+host:1382328439=24.20.151.3
+author:1382328422=JillA
+diff:1382328422:1382327665:=1c1%0a%3c (:title Whitefield University Student Body and Faculty:)%0a---%0a> (:title Whitefield University Student Body:)%0a
+host:1382328422=24.20.151.3
+author:1382327665=JillA
+diff:1382327665:1382327665:=1,9d0%0a%3c (:title Whitefield University Student Body:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%3c %0a%3c (:sortable :)%0a%3c ||class=sortable id=WoDPlayers%0a%3c ||!Name||!Focus of Study||!Primary Venue||%0a%3c ||[[Name]]||?||?||%0a%3c %0a%3c (:include CityBook.Wunavigationbar:)%0a\ No newline at end of file%0a
+host:1382327665=24.20.151.3

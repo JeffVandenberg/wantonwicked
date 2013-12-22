@@ -1,0 +1,20 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1379813824
+host=24.20.151.3
+name=CityBook.WCTemplate
+rev=2
+targets=CityBook.CityBook,CityBook.WestChatham
+text=(:title location name:)%0a[Venue or Savannah Banner]%0a%0aReturn to: [[CityBook.?|Venue Locations]], [[CityBook.WestChatham|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!Location Name%0a'''District:''' [[CityBook.WestChatham|West Chatham]]%0a%0a[Picture] Description%0a%0a'''Resonance:''' blah\\%0a'''Territory:''' Falls within X's claim%0a[[#locationend]]%0a%0a----%0a(:include CityBook.Directory:)
+time=1379815201
+title=location name
+author:1379815201=JillA
+diff:1379815201:1379813824:=4,5c4,5%0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.WestChatham|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a---%0a> Return to: [[CityBook.?|Venue Locations]], [[CityBook.AirportDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a> %0a8c8%0a%3c '''District:''' [[CityBook.WestChatham|West Chatham]]%0a---%0a> '''District:''' [[CityBook.AirportDistrict|Airport District]]%0a
+host:1379815201=24.20.151.3
+author:1379813824=JillA
+csum:1379813824=Need to update Links
+diff:1379813824:1379813824:=1,17d0%0a%3c (:title location name:)%0a%3c [Venue or Savannah Banner]%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.AirportDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!Location Name%0a%3c '''District:''' [[CityBook.AirportDistrict|Airport District]]%0a%3c %0a%3c [Picture] Description%0a%3c %0a%3c '''Resonance:''' blah\\%0a%3c '''Territory:''' Falls within X's claim%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1379813824=24.20.151.3

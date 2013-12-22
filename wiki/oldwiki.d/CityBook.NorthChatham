@@ -1,0 +1,44 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1378766037
+host=67.238.250.80
+name=CityBook.NorthChatham
+rev=10
+targets=Players.ElizaWilson,CityBook.CoastalStatePrison,Players.Mage,CityBook.SeersOfTheThrone,CityBook.ChapeloftheSacrosanctLady,Players.Vampire,CityBook.CityBook,CityBook.WhitefieldUniversity
+text=(:title North Chatham:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0a(:newpagebox base=CityBook template=CityBook.NCTemplate label="Create North Chatham Location:" value="Place Name":)%0a%0a(:include GameRef.CityMaster#NC#NCEnd:)%0a%0a!!Silk Hope/Alabama Junction%0aThe Silk Hope/Alabama Junction neighborhood of Savannah is a less than reputable location, housing a disproportionate number of the city's criminal element, home to juvenile delinquents, parolees, and felons of all sort and shape, either living in the cheap housing or squatting in any number of foreclosures. The affordability of the homes here, more than half being manufactured mobile homes, also brings in a fair number of military who don't wish to live on base, and singles trying to make their own way despite the questionable nature of the neighborhood.%0a%0aMostly white trash and blue collar workers; there is a fair portion of immigrants and Mexicans occupying the neighborhood, giving it a mixed personality. The relative proximity of Whitefield and other notable locations, combined with its affordability, makes it an ideal location for students and faculty who don't have the means or desire for campus housing.%0a%0a!!District Features:%0a>>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a'''City/Mortal''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Changeling''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Mage''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Vampire''':%0a* Domain of [[Players/Eliza Wilson]], Ordo Dracul%0a* Location Rating: 2%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Werewolf''':%0a>>%3c%3c%0a%0a!!District Locations:%0a(:sortable align=center:)%0a||class=sortable id=SGLocations%0a||!Location||!Venue||!Owner||%0a||[[CityBook.CoastalStatePrison|Coastal State Prison]]||[[Players.Mage|Mage]]||[[Seers of the Throne]]||%0a||[[CityBook.ChapeloftheSacrosanctLady|Chapel of the Sacrosanct Lady]]||[[Players.Vampire|Vampire]]||[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.JesabellaWoodridge|Jesabella Woodridge]]||%0a||[[CityBook/Whitefield University]]||[[CityBook.CityBook|Any]]||None||%0a%0a(:tableend:)%0a%0a----%0a(:include CityBook.Directory:)
+time=1383412716
+title=North Chatham
+author:1383412716=ThomasH
+diff:1383412716:1383250902:=42c42%0a%3c ||[[CityBook/Whitefield University]]||[[CityBook.CityBook|Any]]||None||%0a---%0a> ||[[CityBook/Whitefield University]]||Any|| ||%0a
+host:1383412716=67.238.250.80
+author:1383250902=ThomasH
+diff:1383250902:1382407692:=7,11d6%0a%3c %0a%3c !!Silk Hope/Alabama Junction%0a%3c The Silk Hope/Alabama Junction neighborhood of Savannah is a less than reputable location, housing a disproportionate number of the city's criminal element, home to juvenile delinquents, parolees, and felons of all sort and shape, either living in the cheap housing or squatting in any number of foreclosures. The affordability of the homes here, more than half being manufactured mobile homes, also brings in a fair number of military who don't wish to live on base, and singles trying to make their own way despite the questionable nature of the neighborhood.%0a%3c %0a%3c Mostly white trash and blue collar workers; there is a fair portion of immigrants and Mexicans occupying the neighborhood, giving it a mixed personality. The relative proximity of Whitefield and other notable locations, combined with its affordability, makes it an ideal location for students and faculty who don't have the means or desire for campus housing.%0a
+host:1383250902=67.238.250.80
+author:1382407692=JillA
+diff:1382407692:1381530969:=37,38d36%0a%3c ||[[CityBook/Whitefield University]]||Any|| ||%0a%3c %0a
+host:1382407692=24.20.151.3
+author:1381530969=MaskeradeRosen
+csum:1381530969=Added location
+diff:1381530969:1381225027:=36d35%0a%3c ||[[CityBook.ChapeloftheSacrosanctLady|Chapel of the Sacrosanct Lady]]||[[Players.Vampire|Vampire]]||[[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.JesabellaWoodridge|Jesabella Woodridge]]||%0a
+host:1381530969=2.64.188.151
+author:1381225027=JillA
+diff:1381225027:1381224556:=23c23%0a%3c * Domain of [[Players/Eliza Wilson]], Ordo Dracul%0a---%0a> * Domain of [[Players/Eliza Wilson]]%0a
+host:1381225027=24.20.151.3
+author:1381224556=JillA
+diff:1381224556:1381125482:=23,24c23,24%0a%3c * Domain of [[Players/Eliza Wilson]]%0a%3c * Location Rating: 2%0a---%0a> * Domain of%0a> * Location Rating:%0a
+host:1381224556=24.20.151.3
+author:1381125482=Eiragwen
+diff:1381125482:1379816170:=9,29d8%0a%3c >>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''City/Mortal''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Changeling''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Mage''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Vampire''':%0a%3c * Domain of%0a%3c * Location Rating:%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Werewolf''':%0a%3c >>%3c%3c%0a
+host:1381125482=24.20.151.3
+author:1379816170=JillA
+diff:1379816170:1379702996:=4,6c4,6%0a%3c (:newpagebox base=CityBook template=CityBook.NCTemplate label="Create North Chatham Location:" value="Place Name":)%0a%3c %0a%3c (:include GameRef.CityMaster#NC#NCEnd:)%0a---%0a> (:newpagebox base=CityBook template=CityBook.ATemplate label="Create North Chatham Location:" value="Place Name":)%0a> %0a> (:include GameRef.CityMaster#A#AEnd:)%0a
+host:1379816170=24.20.151.3
+author:1379702996=ThomasH
+diff:1379702996:1378766037:=1,18c1%0a%3c (:title North Chatham:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c (:newpagebox base=CityBook template=CityBook.ATemplate label="Create North Chatham Location:" value="Place Name":)%0a%3c %0a%3c (:include GameRef.CityMaster#A#AEnd:)%0a%3c %0a%3c !!District Features:%0a%3c %0a%3c !!District Locations:%0a%3c (:sortable align=center:)%0a%3c ||class=sortable id=SGLocations%0a%3c ||!Location||!Venue||!Owner||%0a%3c ||[[CityBook.CoastalStatePrison|Coastal State Prison]]||[[Players.Mage|Mage]]||[[Seers of the Throne]]||%0a%3c (:tableend:)%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a---%0a> (:title North Chatham:)%0a\ No newline at end of file%0a
+host:1379702996=67.238.250.80
+author:1378766037=ThomasH
+diff:1378766037:1378766037:=1d0%0a%3c (:title North Chatham:)%0a\ No newline at end of file%0a
+host:1378766037=71.0.16.129

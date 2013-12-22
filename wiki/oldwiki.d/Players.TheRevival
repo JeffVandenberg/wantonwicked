@@ -1,0 +1,36 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+author=Rini
+charset=ISO-8859-1
+csum=
+ctime=1381427373
+host=64.85.232.60
+name=Players.TheRevival
+rev=8
+targets=Players.JonahMacnamara,Players.ReverendSilasLove,Players.RebekahFuchs,Players.StarCarson
+text=%25center%25 http://www.thecrossweb.com/images/revival_cross.jpg%0a%0a%25center%25Quote goes here%0a%0a(:table valign=stop:)%0a(:headnr width=370 bgcolor=#926b4b colspan=1:)%0a!!%25white%25Header 1%0a(:head width=370 bgcolor=#926b4b colspan=2:)%0a!!%25white%25Members%0a(:cellnr width=370 rowspan=4:)%0aText goes here%0a(:cell width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Jonahthumb_zps123b6e3f.jpg%0a(:cell:)'''[[Jonah Macnamara]]'''%0a''Clan'': Daeva%0a(:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Silasthumb_zps07f6c721.jpg%0a(:cell:)'''[[Reverend Silas Love]]'''%0a''Clan'': Daeva%0a(:cellnr width=100:)%25width=100%25http://i76.photobucket.com/albums/j17/rinijupiter/AARebekah/600full-chloe-dykstra_zps5d3d14c8.jpg%0a(:cell:)'''[[Rebekah Fuchs]]'''%0a''Clan'': Daeva%0a(:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/starthumb_zpsfd37e803.jpg%0a(:cell:)'''[[Star Carson]]'''%0a''Clan'': Daeva%0a(:headnr colspan=3 bgcolor=#926b4b:)%0a!!!%25white%25Quotes%0a(:cellnr colspan=3:) ''Something to be said''%0a%0a(:headnr colspan=3 bgcolor=#926b4b:)%0a!!!%25white%25Territory%0a(:cellnr colspan=3:) Blahblah%0a(:tableend:)%0a%0a(:include CityBook.VampireNavigationBar:)
+time=1381739437
+author:1381739437=Rini
+diff:1381739437:1381570586:=18c18%0a%3c (:cellnr width=100:)%25width=100%25http://i76.photobucket.com/albums/j17/rinijupiter/AARebekah/600full-chloe-dykstra_zps5d3d14c8.jpg%0a---%0a> (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Rebekahthumb_zps7ff785e7.jpg%0a
+host:1381739437=64.85.232.60
+author:1381570586=Griffalo
+diff:1381570586:1381532894:=21,22c21,22%0a%3c (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/starthumb_zpsfd37e803.jpg%0a%3c (:cell:)'''[[Star Carson]]'''%0a---%0a> (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Jonahthumb_zps123b6e3f.jpg%0a> (:cell:)'''[[Star Dent]]'''%0a
+host:1381570586=2.122.152.94
+author:1381532894=Griffalo
+diff:1381532894:1381532824:minor=22,23c22,23%0a%3c (:cell:)'''[[Star Dent]]'''%0a%3c ''Clan'': Daeva%0a---%0a> (:cell:)'''[[Transit]]'''%0a> ''Position'': Doorwarden%0a
+host:1381532894=2.122.152.94
+author:1381532824=Griffalo
+diff:1381532824:1381529639:=18c18%0a%3c (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Rebekahthumb_zps7ff785e7.jpg%0a---%0a> (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Jonahthumb_zps123b6e3f.jpg%0a
+host:1381532824=2.122.152.94
+author:1381529639=Griffalo
+diff:1381529639:1381524910:minor=19,20c19,20%0a%3c (:cell:)'''[[Rebekah Fuchs]]'''%0a%3c ''Clan'': Daeva%0a---%0a> (:cell:)'''[[Charlie]]'''%0a> ''Position'': Edgetender%0a
+host:1381529639=2.122.152.94
+author:1381524910=Griffalo
+diff:1381524910:1381427610:minor=15c15%0a%3c (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Silasthumb_zps07f6c721.jpg%0a---%0a> (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Jonahthumb_zps123b6e3f.jpg%0a
+host:1381524910=2.122.152.94
+author:1381427610=Griffalo
+diff:1381427610:1381427373:minor=16,17c16,17%0a%3c (:cell:)'''[[Reverend Silas Love]]'''%0a%3c ''Clan'': Daeva%0a---%0a> (:cell:)'''[[Chrysopoeia]]'''%0a> ''Position'': Hearthmaster%0a
+host:1381427610=2.122.152.94
+author:1381427373=Griffalo
+diff:1381427373:1381427373:=1,33d0%0a%3c %25center%25 http://www.thecrossweb.com/images/revival_cross.jpg%0a%3c %0a%3c %25center%25Quote goes here%0a%3c %0a%3c (:table valign=stop:)%0a%3c (:headnr width=370 bgcolor=#926b4b colspan=1:)%0a%3c !!%25white%25Header 1%0a%3c (:head width=370 bgcolor=#926b4b colspan=2:)%0a%3c !!%25white%25Members%0a%3c (:cellnr width=370 rowspan=4:)%0a%3c Text goes here%0a%3c (:cell width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Jonahthumb_zps123b6e3f.jpg%0a%3c (:cell:)'''[[Jonah Macnamara]]'''%0a%3c ''Clan'': Daeva%0a%3c (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Jonahthumb_zps123b6e3f.jpg%0a%3c (:cell:)'''[[Chrysopoeia]]'''%0a%3c ''Position'': Hearthmaster%0a%3c (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Jonahthumb_zps123b6e3f.jpg%0a%3c (:cell:)'''[[Charlie]]'''%0a%3c ''Position'': Edgetender%0a%3c (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Jonahthumb_zps123b6e3f.jpg%0a%3c (:cell:)'''[[Transit]]'''%0a%3c ''Position'': Doorwarden%0a%3c (:headnr colspan=3 bgcolor=#926b4b:)%0a%3c !!!%25white%25Quotes%0a%3c (:cellnr colspan=3:) ''Something to be said''%0a%3c %0a%3c (:headnr colspan=3 bgcolor=#926b4b:)%0a%3c !!!%25white%25Territory%0a%3c (:cellnr colspan=3:) Blahblah%0a%3c (:tableend:)%0a%3c %0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1381427373=2.122.152.94

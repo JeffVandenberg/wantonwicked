@@ -1,0 +1,16 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1379384015
+host=67.238.250.80
+name=CityBook.StJosephsGoodSamaritanClinic
+rev=1
+targets=CityBook.IndustrialDistrict
+text=(:title St. Joseph's Good Samaritan Clinic:)%0a!!St. Joseph's Good Samaritan Clinic%0a'''District:''' [[CityBook.IndustrialDistrict|Industrial District]]%0a%0a%25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/locations/wod2.png%0aIn 2008, St. Joseph's, of Garden City, opened The Good Samaritan Clinic to help serve the growing numbers of those without health insurance. The clinic, ran in partnership with the Georgia Department of Community Health and Lady of Lourdes Catholic Church, is located within west Chatham and relies on the volunteer work of healthcare professionals. The staff of the Good Samaritan Clinic is comprised of volunteer doctors, nurses, nurse practitioners, medical interpreters and clerical workers.%0a%0a6-8:30 p.m. Wednesdays, third and fourth Tuesdays, 64704 Augusta Road, Garden City. The clinic still needs volunteer physicians, nurse practitioners, physician assistants and registered nurses.%0a%0a'''Resonance:''' Unknown\\%0a'''Territory:''' Medical
+time=1379384015
+title=St. Joseph's Good Samaritan Clinic
+author:1379384015=ThomasH
+diff:1379384015:1379384015:=1,11d0%0a%3c (:title St. Joseph's Good Samaritan Clinic:)%0a%3c !!St. Joseph's Good Samaritan Clinic%0a%3c '''District:''' [[CityBook.IndustrialDistrict|Industrial District]]%0a%3c %0a%3c %25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/locations/wod2.png%0a%3c In 2008, St. Joseph's, of Garden City, opened The Good Samaritan Clinic to help serve the growing numbers of those without health insurance. The clinic, ran in partnership with the Georgia Department of Community Health and Lady of Lourdes Catholic Church, is located within west Chatham and relies on the volunteer work of healthcare professionals. The staff of the Good Samaritan Clinic is comprised of volunteer doctors, nurses, nurse practitioners, medical interpreters and clerical workers.%0a%3c %0a%3c 6-8:30 p.m. Wednesdays, third and fourth Tuesdays, 64704 Augusta Road, Garden City. The clinic still needs volunteer physicians, nurse practitioners, physician assistants and registered nurses.%0a%3c %0a%3c '''Resonance:''' Unknown\\%0a%3c '''Territory:''' Medical%0a\ No newline at end of file%0a
+host:1379384015=67.238.250.80

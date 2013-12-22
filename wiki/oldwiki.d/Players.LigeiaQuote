@@ -1,0 +1,24 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=hemlockandvervain
+charset=ISO-8859-1
+csum=
+ctime=1381820326
+host=108.249.32.164
+name=Players.LigeiaQuote
+rev=4
+targets=Players.Giallo
+text=''Horror is like a serpent; always shedding its skin, always changing. And it will always come back. It can't be hidden away like the guilty secrets we try to keep in our subconscious.'' - ''Dario Argento''%0a%0a''The work of art is to dominate the spectator: the spectator is not to dominate the work of art. The spectator is to be receptive. He is to be the violin on which the master is to play. And the more completely he can suppress his own silly views, his own foolish prejudices, his own absurd ideas of what Art should be, or should not be, the more likely he is to understand and appreciate the work of art in question.'' — ''Oscar Wilde''%0a%0a*''In the end, nobody gets to make the decision, for themselves or others. They're just chosen. If you're the regent, you have to bear the crown, even if you'll never enjoy being king.'' - ''[[Giallo]]''%0a%0a
+time=1382165143
+author:1382165143=hemlockandvervain
+diff:1382165143:1382164438:minor=5c5%0a%3c *''In the end, nobody gets to make the decision, for themselves or others. They're just chosen. If you're the regent, you have to bear the crown, even if you'll never enjoy being king.'' - ''[[Giallo]]''%0a---%0a> ''In the end, nobody gets to make the decision, for themselves or others. They're just chosen. If you're the regent, you have to bear the crown, even if you'll never enjoy being king.'' - ''[[Giallo]]''%0a
+host:1382165143=108.249.32.164
+author:1382164438=hemlockandvervain
+diff:1382164438:1381820514:minor=3,6c3%0a%3c ''The work of art is to dominate the spectator: the spectator is not to dominate the work of art. The spectator is to be receptive. He is to be the violin on which the master is to play. And the more completely he can suppress his own silly views, his own foolish prejudices, his own absurd ideas of what Art should be, or should not be, the more likely he is to understand and appreciate the work of art in question.'' — ''Oscar Wilde''%0a%3c %0a%3c ''In the end, nobody gets to make the decision, for themselves or others. They're just chosen. If you're the regent, you have to bear the crown, even if you'll never enjoy being king.'' - ''[[Giallo]]''%0a%3c %0a---%0a> ''In the end, nobody gets to make the decision, for themselves or others. They're just chosen. If you're the regent, you have to bear the crown, even if you'll never enjoy being king.'' - ''[[Giallo]]''%0a\ No newline at end of file%0a
+host:1382164438=108.249.32.164
+author:1381820514=JuvenalianSatyr
+diff:1381820514:1381820326:=1,3c1%0a%3c ''Horror is like a serpent; always shedding its skin, always changing. And it will always come back. It can't be hidden away like the guilty secrets we try to keep in our subconscious.'' - ''Dario Argento''%0a%3c %0a%3c ''In the end, nobody gets to make the decision, for themselves or others. They're just chosen. If you're the regent, you have to bear the crown, even if you'll never enjoy being king.'' - ''[[Giallo]]''%0a\ No newline at end of file%0a---%0a> "In the end, nobody gets to make the decision, for themselves or others. They're just chosen. If you're the regent, you have to bear the crown, even if you'll never enjoy being king." - [[Giallo]]%0a\ No newline at end of file%0a
+host:1381820514=98.178.147.181
+author:1381820326=JuvenalianSatyr
+diff:1381820326:1381820326:=1d0%0a%3c "In the end, nobody gets to make the decision, for themselves or others. They're just chosen. If you're the regent, you have to bear the crown, even if you'll never enjoy being king." - [[Giallo]]%0a\ No newline at end of file%0a
+host:1381820326=98.178.147.181

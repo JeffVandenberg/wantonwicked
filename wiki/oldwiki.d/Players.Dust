@@ -1,0 +1,54 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0
+author=Bottlecaps
+charset=ISO-8859-1
+csum=
+ctime=1379457782
+host=50.147.19.4
+name=Players.Dust
+rev=14
+targets=Players.Ouroboros,Players.HailSatan,Players.Glow,Players.KadenDavis
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a!!%25white%25Dust%25white%25%0a(:cellnr rowspan=25 width=400 align=center:)%25width=400%25 http://i.imgur.com/ReHVNdE.png %25width=400%25%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 23%0a(:cellnr width=150 align=left:)'''Apparent Age:'''%0a(:cell width=190:) 23%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'6%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Slender%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Trainer%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) None%0a(:cellnr width=150 align=left:)'''Order:'''%0a(:cell width=190:) Mysterium%0a(:cellnr width=150 align=left:)'''Path:'''%0a(:cell width=190:) Thyrus%0a(:cellnr width=150 align=left:)'''Cabal:'''%0a(:cell width=190:) [[Ouroboros]]%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) [[Hail Satan]]!%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=5whn4_-0j0s |Hyperactive - Riverside]]%0a(:tableend:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0aYoung and slender Dust is small for a man and looks limber. He normally wears simple inconspicuous clothing unless he's recently from a run. Then it's underarmor all the way. Dust has a variety of tattoos and piercings. Too many to list here but one of them is  a tattoo around his left ring finger, looking like a ring but more of the style of a ring you'd find in a Cracker Jack box.%0a:Nimbus:%0a''The world, people and things, seem to cast reflections of themseves that flicker in and out in an attempt to compete to occupy the same space.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a''Place your Public History Here''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a'''Mysterium''' He's a Mystie. Are you a Mystie too?%0a%0a'''Gravity is just a suggestion''' Wanna learn Parkour? Dust is quite good at it and is a teacher.%0a%0a'''American Mary''' Dust is into the Body Modification scene. He's more than happy to show off his mods.%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a%25center%25''"You’re too blurry my friend. You’re too slow. You’re too predictable. Too below. This is all I can hear in my mind . When I try to believe I’ll stand the pace of this run"'' - '''Riverside'''%25center%25%0a%0a''"Dusty, Dusty, Dust. He has been at side since we were babies and we just never parted. He has been my best friend, my lover, my soulmate... Many people travel the world to search for theirs, I only have to look to my side."'' - [[Glow]]%0a%0a%25color=#33CCCC%25''"Some times he likes to think he is batman, with how he runs all over the city, other times you think he was dropped a a child. I wonder what made him want to peruse the life he has done, either way it keeps things interesting."''[[Kaden Davis|%25color=#33CC99%25&copy;]]%0a[[%3c%3c]]%0a%0a(:include CityBook.MageNavigationBar:)
+time=1385242892
+author:1385242892=Bottlecaps
+diff:1385242892:1380995376:=52,53d51%0a%3c %0a%3c %25color=#33CCCC%25''"Some times he likes to think he is batman, with how he runs all over the city, other times you think he was dropped a a child. I wonder what made him want to peruse the life he has done, either way it keeps things interesting."''[[Kaden Davis|%25color=#33CC99%25&copy;]]%0a
+host:1385242892=50.147.19.4
+author:1380995376=Saccharine
+diff:1380995376:1380595156:=50,51d49%0a%3c %0a%3c ''"Dusty, Dusty, Dust. He has been at side since we were babies and we just never parted. He has been my best friend, my lover, my soulmate... Many people travel the world to search for theirs, I only have to look to my side."'' - [[Glow]]%0a
+host:1380995376=67.6.155.186
+author:1380595156=Hail Satan
+diff:1380595156:1379886703:=31c31%0a%3c Young and slender Dust is small for a man and looks limber. He normally wears simple inconspicuous clothing unless he's recently from a run. Then it's underarmor all the way. Dust has a variety of tattoos and piercings. Too many to list here but one of them is  a tattoo around his left ring finger, looking like a ring but more of the style of a ring you'd find in a Cracker Jack box.%0a---%0a> Young and slender Dust is small for a man and looks limber. He normally wears simple inconspicuous clothing unless he's recently from a run. Then it's underarmor all the way.%0a
+host:1380595156=108.67.129.216
+author:1379886703=Hail Satan
+diff:1379886703:1379885025:=49c49%0a%3c %25center%25''"You’re too blurry my friend. You’re too slow. You’re too predictable. Too below. This is all I can hear in my mind . When I try to believe I’ll stand the pace of this run"'' - '''Riverside'''%25center%25%0a---%0a> %25center%25''"You’re too blurry my friend. You’re too slow. You’re too predictable. Too below. This is all I can hear in my mind . When I try to believe. I’ll stand the pace of this run"'' - '''Riverside'''%25center%25%0a
+host:1379886703=108.67.129.216
+author:1379885025=Hail Satan
+diff:1379885025:1379875104:=28c28%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=5whn4_-0j0s |Hyperactive - Riverside]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a49c49%0a%3c %25center%25''"You’re too blurry my friend. You’re too slow. You’re too predictable. Too below. This is all I can hear in my mind . When I try to believe. I’ll stand the pace of this run"'' - '''Riverside'''%25center%25%0a---%0a> ''What Others have to Say about you''%0a
+host:1379885025=108.67.129.216
+author:1379875104=Hail Satan
+diff:1379875104:1379873051:=31c31%0a%3c Young and slender Dust is small for a man and looks limber. He normally wears simple inconspicuous clothing unless he's recently from a run. Then it's underarmor all the way.%0a---%0a> ''Place your Description Here''%0a
+host:1379875104=108.67.129.216
+author:1379873051=Hail Satan
+diff:1379873051:1379872903:=4c4%0a%3c (:cellnr rowspan=25 width=400 align=center:)%25width=400%25 http://i.imgur.com/ReHVNdE.png %25width=400%25%0a---%0a> (:cellnr rowspan=25 width=400 align=center:) http://i.imgur.com/ReHVNdE.png%0a
+host:1379873051=108.67.129.216
+author:1379872903=Hail Satan
+diff:1379872903:1379870994:=4c4%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://i.imgur.com/ReHVNdE.png%0a---%0a> (:cellnr rowspan=25 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1379872903=108.67.129.216
+author:1379870994=Hail Satan
+diff:1379870994:1379463520:=39,40c39,40%0a%3c '''Mysterium''' He's a Mystie. Are you a Mystie too?%0a%3c %0a---%0a> '''Mysterium'''He's a Mystie. Are you a Mystie too?%0a> %0a42,43d41%0a%3c %0a%3c '''American Mary''' Dust is into the Body Modification scene. He's more than happy to show off his mods.%0a
+host:1379870994=108.67.129.216
+author:1379463520=JillA
+diff:1379463520:1379458389:=3c3%0a%3c !!%25white%25Dust%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1379463520=24.20.151.3
+author:1379458389=Hail Satan
+diff:1379458389:1379458371:=40c40%0a%3c %0a---%0a> >>%0a
+host:1379458389=108.67.129.216
+author:1379458371=Hail Satan
+diff:1379458371:1379458350:=39,40c39%0a%3c '''Mysterium'''He's a Mystie. Are you a Mystie too?%0a%3c >>%0a---%0a> '''Mysterium'''He's a Mystie. Are you a Mystie too?>>%0a
+host:1379458371=108.67.129.216
+author:1379458350=Hail Satan
+diff:1379458350:1379457782:=39c39%0a%3c '''Mysterium'''He's a Mystie. Are you a Mystie too?>>%0a---%0a> '''Mysterium'''He's a Mystie. Are you a Mystie too? %0a
+host:1379458350=108.67.129.216
+author:1379457782=Hail Satan
+diff:1379457782:1379457782:=1,49d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#004a80 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=25 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 23%0a%3c (:cellnr width=150 align=left:)'''Apparent Age:'''%0a%3c (:cell width=190:) 23%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 5'6%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Slender%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Trainer%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) None%0a%3c (:cellnr width=150 align=left:)'''Order:'''%0a%3c (:cell width=190:) Mysterium%0a%3c (:cellnr width=150 align=left:)'''Path:'''%0a%3c (:cell width=190:) Thyrus%0a%3c (:cellnr width=150 align=left:)'''Cabal:'''%0a%3c (:cell width=190:) [[Ouroboros]]%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) [[Hail Satan]]!%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_d.png%0a%3c ''Place your Description Here''%0a%3c :Nimbus:%0a%3c ''The world, people and things, seem to cast reflections of themseves that flicker in and out in an attempt to compete to occupy the same space.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_rph.png%0a%3c '''Mysterium'''He's a Mystie. Are you a Mystie too? %0a%3c '''Gravity is just a suggestion''' Wanna learn Parkour? Dust is quite good at it and is a teacher.%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/mta/headers/mta_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1379457782=108.67.129.216

@@ -1,0 +1,22 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.62 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=delete
+ctime=1377650852
+host=24.20.151.3
+name=Players.WODMHistory
+rev=3
+targets=
+text=delete
+time=1377904070
+author:1377904070=JillA
+csum:1377904070=delete
+diff:1377904070:1377885730:=1c1,6%0a%3c delete%0a\ No newline at end of file%0a---%0a> [[#top]]%0a> http://wantonwicked.gamingsandbox.com/wiki/images/worldofdarknessmortal.png%0a> (:title Mortal History:)%0a> (:include GameRef.WodMMaster#History#Historyend:)%0a> %0a> (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1377904070=24.20.151.3
+author:1377885730=ThomasH
+diff:1377885730:1377650852:=4c4%0a%3c (:include GameRef.WodMMaster#History#Historyend:)%0a---%0a> (:include GameRef.WodMMaster#History#HistoryEnd:)%0a
+host:1377885730=71.0.16.129
+author:1377650852=JillA
+diff:1377650852:1377650852:=1,6d0%0a%3c [[#top]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/worldofdarknessmortal.png%0a%3c (:title Mortal History:)%0a%3c (:include GameRef.WodMMaster#History#HistoryEnd:)%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1377650852=24.20.151.3

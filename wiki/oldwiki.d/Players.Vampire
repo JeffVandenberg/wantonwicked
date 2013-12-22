@@ -1,0 +1,45 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1373313912
+host=98.232.234.158
+name=Players.Vampire
+rev=11
+targets=
+text=(:notitle:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a%0a(:include GameRef.VtRMaster#Introduction#IntroductionEnd:)%0a%0a(:include CityBook.VampireNavigationBar:)
+time=1386811922
+author:1386811922=JillA
+diff:1386811922:1382624462:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/vtr.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a
+host:1386811922=98.232.234.158
+author:1382624462=JillA
+diff:1382624462:1381048477:=2a3%0a> '''''The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!'''''%0a
+host:1382624462=24.20.151.3
+author:1381048477=JillA
+diff:1381048477:1381048453:=3c3%0a%3c '''''The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!'''''%0a---%0a> The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!%0a
+host:1381048477=24.20.151.3
+author:1381048453=JillA
+diff:1381048453:1380280029:=2a3%0a> (:include GameRef.VtRMaster#setting#settingend:)%0a4,5d4%0a%3c %0a%3c (:include GameRef.VtRMaster#Introduction#IntroductionEnd:)%0a
+host:1381048453=24.20.151.3
+author:1380280029=JillA
+diff:1380280029:1378869264:=4d3%0a%3c The Vampire setting is currently in development! A design discussion forum available to watch the progress. Check for updates!%0a
+host:1380280029=24.20.151.3
+author:1378869264=JillA
+diff:1378869264:1377513595:=3c3%0a%3c (:include GameRef.VtRMaster#setting#settingend:)%0a---%0a> (:include GameRef.VampireRulesMaster#setting#settingend:)%0a
+host:1378869264=24.20.151.3
+author:1377513595=JillA
+diff:1377513595:1377466560:=1d0%0a%3c (:notitle:)%0a
+host:1377513595=24.20.151.3
+author:1377466560=ThomasH
+diff:1377466560:1376974012:=
+host:1377466560=71.0.16.129
+author:1376974012=JillA
+diff:1376974012:1376878428:=1c1,2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a---%0a> http://imageshack.us/a/img17/7605/x28b.png%0a> %0a
+host:1376974012=24.20.151.3
+author:1376878428=JillA
+diff:1376878428:1373313912:=1c1,2%0a%3c http://imageshack.us/a/img17/7605/x28b.png%0a---%0a> %0a> %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/VampireRequiemLogo.png%25%25%0a
+host:1376878428=24.20.151.3
+author:1373313912=ThomasH
+diff:1373313912:1373313912:=1,6d0%0a%3c %0a%3c %25center%25%25width=600px%25 http://i68.photobucket.com/albums/i5/Aramil98/VampireRequiemLogo.png%25%25%0a%3c %0a%3c (:include GameRef.VampireRulesMaster#setting#settingend:)%0a%3c %0a%3c (:include CityBook.VampireNavigationBar:)%0a\ No newline at end of file%0a
+host:1373313912=71.0.16.129

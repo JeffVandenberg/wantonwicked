@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377651390
+host=98.232.234.158
+name=Players.MtALaw
+rev=2
+targets=
+text=[[#Top]]%0a(:Title Lex Magica:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/mta.png%0a%0a(:include GameRef.MtAMaster#LexMagica#LexMagicaEnd:)%0a%0a(:include CityBook.MageNavigationBar:)
+time=1386812190
+title=Lex Magica
+author:1386812190=JillA
+diff:1386812190:1377651390:=3c3%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/mta.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a
+host:1386812190=98.232.234.158
+author:1377651390=JillA
+diff:1377651390:1377651390:=1,7d0%0a%3c [[#Top]]%0a%3c (:Title Lex Magica:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a%3c %0a%3c (:include GameRef.MtAMaster#LexMagica#LexMagicaEnd:)%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a
+host:1377651390=24.20.151.3

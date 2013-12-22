@@ -1,0 +1,16 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.48 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1384598632
+host=98.232.234.158
+name=GameRef.PoliciesAndProcedures
+rev=1
+targets=
+text=(:title House Rules: Policies and Procedures:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0a(:include GameRef.CityMaster#PaP#PaPend:)
+time=1384598632
+title=House Rules: Policies and Procedures
+author:1384598632=JillA
+diff:1384598632:1384598632:=1,4d0%0a%3c (:title House Rules: Policies and Procedures:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c (:include GameRef.CityMaster#PaP#PaPend:)%0a\ No newline at end of file%0a
+host:1384598632=98.232.234.158

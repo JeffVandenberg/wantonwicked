@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+author=Falco1029
+charset=ISO-8859-1
+csum=
+ctime=1381911337
+host=76.192.144.173
+name=Profiles.Falco1029
+rev=1
+targets=
+text=(:redirect Players.Falco1029:)
+time=1381911337
+author:1381911337=Falco1029
+diff:1381911337:1381911337:=1d0%0a%3c (:redirect Players.Falco1029:)%0a\ No newline at end of file%0a
+host:1381911337=76.192.144.173

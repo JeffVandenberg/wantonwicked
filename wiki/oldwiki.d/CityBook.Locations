@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377040448
+host=24.20.151.3
+name=CityBook.Locations
+rev=1
+targets=
+text=[[https://mapsengine.google.com/map/edit?mid=zcnhwFneK1vg.kggyphK35g64|City Map]]
+time=1377040448
+author:1377040448=JillA
+diff:1377040448:1377040448:=1d0%0a%3c [[https://mapsengine.google.com/map/edit?mid=zcnhwFneK1vg.kggyphK35g64|City Map]]%0a\ No newline at end of file%0a
+host:1377040448=24.20.151.3

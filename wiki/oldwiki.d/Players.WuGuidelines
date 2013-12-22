@@ -1,0 +1,16 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1382295886
+host=24.20.151.3
+name=Players.WuGuidelines
+rev=1
+targets=
+text=(:title Whitefield U Player Guide:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%0a%0a(:include CityBook.Wunavigationbar:)
+time=1382295886
+title=Whitefield U Player Guide
+author:1382295886=JillA
+diff:1382295886:1382295886:=1,5d0%0a%3c (:title Whitefield U Player Guide:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wod/city_whitefieldu.png%0a%3c %0a%3c %0a%3c (:include CityBook.Wunavigationbar:)%0a\ No newline at end of file%0a
+host:1382295886=24.20.151.3

@@ -1,0 +1,25 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Macintosh; PPC Mac OS X 10_5_8) AppleWebKit/534.50.2 (KHTML, like Gecko) Version/5.0.6 Safari/533.22.3
+author=randomim
+charset=ISO-8859-1
+csum=
+ctime=1379841667
+host=97.83.20.219
+name=Players.DoraTeaQuote
+rev=4
+targets=Players.SophieAlbert,Players.AaronBuel,Players.PorcelainPenny
+text="''%25color=#00CC00%25I do love Dora, she's such a doll.%25%25''" - [[Sophie Albert | %25color=#FF6699%25Sophie%25%25]]%0a%0a''"Dora is a woman with impeccable manners. Quite impressive, I must say."'' - [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.MarissaCollins| Marissa Collins]]%0a%0a''"Being someone who's seen girls lose all traces of innocence by age 11, her's is rather... refreshing."'' - [[Aaron Buel|Light-Render]]%0a%0a''"Oh what a life it must be, to live freely as she does. To live to one's own whims and truly understand what it means to be ones own..."''- [[Porcelain Penny]]
+time=1384799598
+author:1384799598=randomim
+diff:1384799598:1382162576:=5,7c5%0a%3c ''"Being someone who's seen girls lose all traces of innocence by age 11, her's is rather... refreshing."'' - [[Aaron Buel|Light-Render]]%0a%3c %0a%3c ''"Oh what a life it must be, to live freely as she does. To live to one's own whims and truly understand what it means to be ones own..."''- [[Porcelain Penny]]%0a\ No newline at end of file%0a---%0a> ''"Being someone who's seen girls lose all traces of innocence by age 11, her's is rather... refreshing."'' - [[Aaron Buel|Light-Render]]%0a\ No newline at end of file%0a
+host:1384799598=97.83.20.219
+author:1382162576=Ephsy
+diff:1382162576:1380063699:=3,5c3%0a%3c ''"Dora is a woman with impeccable manners. Quite impressive, I must say."'' - [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.MarissaCollins| Marissa Collins]]%0a%3c %0a%3c ''"Being someone who's seen girls lose all traces of innocence by age 11, her's is rather... refreshing."'' - [[Aaron Buel|Light-Render]]%0a\ No newline at end of file%0a---%0a> ''"Dora is a woman with impeccable manners. Quite impressive, I must say."'' - [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.MarissaCollins| Marissa Collins]]%0a\ No newline at end of file%0a
+host:1382162576=190.105.65.183
+author:1380063699=MaskeradeRosen
+csum:1380063699=Quote added
+diff:1380063699:1379841667:minor=1,3c1%0a%3c "''%25color=#00CC00%25I do love Dora, she's such a doll.%25%25''" - [[Sophie Albert | %25color=#FF6699%25Sophie%25%25]]%0a%3c %0a%3c ''"Dora is a woman with impeccable manners. Quite impressive, I must say."'' - [[http://wantonwicked.gamingsandbox.com/wiki/index.php?n=Players.MarissaCollins| Marissa Collins]]%0a\ No newline at end of file%0a---%0a> "''%25color=#00CC00%25I do love Dora, she's such a doll.%25%25''" - [[Sophie Albert | %25color=#FF6699%25Sophie%25%25]]%0a\ No newline at end of file%0a
+host:1380063699=109.58.145.250
+author:1379841667=Euphoric_Goth
+diff:1379841667:1379841667:=1d0%0a%3c "''%25color=#00CC00%25I do love Dora, she's such a doll.%25%25''" - [[Sophie Albert | %25color=#FF6699%25Sophie%25%25]]%0a\ No newline at end of file%0a
+host:1379841667=81.166.18.133

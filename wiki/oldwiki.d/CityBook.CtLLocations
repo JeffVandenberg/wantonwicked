@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377904185
+host=98.232.234.158
+name=CityBook.CtLLocations
+rev=2
+targets=
+text=(:title Changeling Locations:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/ctl.png%0a(:include GameRef.CtLMaster#Locations#LocationsEnd:)%0a%0a(:include CityBook.ChangelingNavigationBar:)
+time=1386812087
+title=Changeling Locations
+author:1386812087=JillA
+diff:1386812087:1377904185:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/ctl.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/changelingthelost.png%0a
+host:1386812087=98.232.234.158
+author:1377904185=JillA
+diff:1377904185:1377904185:=1,5d0%0a%3c (:title Changeling Locations:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/changelingthelost.png%0a%3c (:include GameRef.CtLMaster#Locations#LocationsEnd:)%0a%3c %0a%3c (:include CityBook.ChangelingNavigationBar:)%0a\ No newline at end of file%0a
+host:1377904185=24.20.151.3

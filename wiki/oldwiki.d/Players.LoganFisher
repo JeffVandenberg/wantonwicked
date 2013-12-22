@@ -1,0 +1,96 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Fossy
+charset=ISO-8859-1
+csum=
+ctime=1386473606
+host=2.108.95.215
+name=Players.LoganFisher
+rev=28
+targets=Players.ColinDarrow
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#005826 align=center:)%0a!!%25white%25Logan Fisher%25white%25%0a(:cellnr rowspan=20 width=400 align=center:)http://i739.photobucket.com/albums/xx38/FossDK/Logan400.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_s.png%0a(:cellnr width=130 align=left:)'''Apparent Age:'''%0a(:cell width=210:) About 39%0a(:cellnr width=130 align=left:)'''Height:'''%0a(:cell width=210:) 6'3%0a(:cellnr width=130 align=left:)'''Build:'''%0a(:cell width=210:) Muscle-clad Monster%0a(:cellnr width=130 align=left:)'''Public Effects:'''%0a(:cell width=210:) [Freeholder]%0a[[%3c%3c]]%0a(:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_f.png%0a(:cellnr width=130 align=left:)'''Spring:'''%0a(:cell width=210:) Mantle 1%0a(:cellnr width=130 align=left:)'''Seeming:'''%0a(:cell width=210:) Beast Foo Dog%0a(:cellnr width=130 align=left:)'''Kith:'''%0a(:cell width=210:) Hunterheart%0a(:cellnr width=130 align=left:)'''Player:''' %0a(:cell width=210:) Fossy%0a(:tableend:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_d.png%0aMask:%0aLogan is a 39 year old man standing 6'3" tall and weighing around 240 lbs most of which, if not all, is muscle.  He has shockingly red hair, beard and eyebrows, all most certainly dyed and pale amber eyes, a trimmed full beard and an almost reddish deep tan to his skin. He's usually favors loose clothes for freedom of movement, most days just a pair of khaki pants and a dress shirt no matter the weather.%0a[[%3c%3c]]%0a[[%3c%3c]]%0aMein:%0aLogan is a big beast - all red skin, fur and muscle as if someone had poured a bucket of bright red paint out over him. On top of his head sits a pair of curled horns, twisted in circles making the Foo Dog look decidedly more evil than he is. %0a%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_h.png%0aCurrently occupies his time with several part time jobs, none of which means anything more to him than a chance to put food on the table for himself and his flatmate, Colin Darrow. Having escaped Faerie with the kid he's taken a shine to him, Colin being almost an anchor to the real world as well as a family of sorts to the older beast.%0a%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_rph.png%0a'''It's not easy being green:''' (Anyone)%0a..or red. Being taller than the average person and having bright red hair and matching beard makes it hard not to stand out. Never one for hiding he usually ignores the stares and whispers behind his back but sometimes his temper gets the better of him.%0a%0a'''The Protector:''' (Anyone, Lost)%0aFiercely protective of Colin Darrow, a fellow escapee.%0a%0a'''Is it summer yet?:''' (Lost, Spring Court)%0aLogan is far from the typical spring courtier and it shows despite his "best" efforts. He does try to make an effort to keep up with his court as his temper allows.%0a%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a[[%3c%3c]]%0a''"He never lets me do anything fun-- but he's always there when I need him, an' I love him for that."'' - [[ColinDarrow|Colin Darrow]]%0a[[%3c%3c]]%0a%0a(:include CityBook.ChangelingNavigationBar:)
+time=1386874120
+author:1386874120=Fossy
+diff:1386874120:1386874081:=44c44%0a%3c Fiercely protective of Colin Darrow, a fellow escapee.%0a---%0a> Fiercely protective of Colin Darrow, A fellow escapee from their Keeper.%0a
+host:1386874120=2.108.95.215
+author:1386874081=Fossy
+diff:1386874081:1386756668:=51a52,54%0a> [[%3c%3c]]%0a> [[%3c%3c]]%0a> ''"Anger issues rolled up into a big ball of red fur.."'' - [[Randomdude|A Random Dude]]%0a
+host:1386874081=2.108.95.215
+author:1386756668=Daermion
+diff:1386756668:1386606911:=55,57c55%0a%3c [[%3c%3c]]%0a%3c [[%3c%3c]]%0a%3c ''"He never lets me do anything fun-- but he's always there when I need him, an' I love him for that."'' - [[ColinDarrow|Colin Darrow]]%0a---%0a> %0a
+host:1386756668=62.182.216.224
+author:1386606911=Fossy
+diff:1386606911:1386571959:=44c44%0a%3c Fiercely protective of Colin Darrow, A fellow escapee from their Keeper.%0a---%0a> Fiercely protective of Colin Darrow, rarely leaving his side. %0a
+host:1386606911=2.108.95.215
+author:1386571959=Fossy
+diff:1386571959:1386531212:=47c47%0a%3c Logan is far from the typical spring courtier and it shows despite his "best" efforts. He does try to make an effort to keep up with his court as his temper allows.%0a---%0a> Logan is far from the typical spring courtier and it shows despite his "best" efforts. He does his best regardless and tries to keep up with his court as his temper allows.%0a
+host:1386571959=2.108.95.215
+author:1386531212=Fossy
+diff:1386531212:1386530709:=54c54%0a%3c ''"Anger issues rolled up into a big ball of red fur.."'' - [[Randomdude|A Random Dude]]%0a---%0a> ''"Anger issues rolled up into a ball of red fur.."'' - [[Randomdude|A Random Dude]]%0a
+host:1386531212=2.108.95.215
+author:1386530709=Fossy
+diff:1386530709:1386530481:=36c36%0a%3c Currently occupies his time with several part time jobs, none of which means anything more to him than a chance to put food on the table for himself and his flatmate, Colin Darrow. Having escaped Faerie with the kid he's taken a shine to him, Colin being almost an anchor to the real world as well as a family of sorts to the older beast.%0a---%0a> Coming soon to a wiki near you..%0a
+host:1386530709=2.108.95.215
+author:1386530481=Fossy
+diff:1386530481:1386528015:=20c20%0a%3c (:cell width=210:) Beast Foo Dog%0a---%0a> (:cell width=210:) Beast%0a32,33c32,33%0a%3c Logan is a big beast - all red skin, fur and muscle as if someone had poured a bucket of bright red paint out over him. On top of his head sits a pair of curled horns, twisted in circles making the Foo Dog look decidedly more evil than he is. %0a%3c %0a---%0a> Logan is a giant beast - all red skin, fur and muscle as if someone had poured a bucket of bright red paint out over him. On top of his head sits a pair of curled horns, twisted in circles making the Foo Dog look decidedly more evil than he is. %0a> %0a47a48,51%0a> %0a> [[%3c%3c]]%0a> http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_con.png%0a> ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a
+host:1386530481=2.108.95.215
+author:1386528015=Fossy
+diff:1386528015:1386519322:=41c41%0a%3c ..or red. Being taller than the average person and having bright red hair and matching beard makes it hard not to stand out. Never one for hiding he usually ignores the stares and whispers behind his back but sometimes his temper gets the better of him.%0a---%0a> ..or red. Being taller than the average person and having bright red hair and beard makes it hard not to stand out. Never one for hiding  he usually ignores the stares and whispers behind his back but sometimes his temper gets the better of him.%0a
+host:1386528015=2.108.95.215
+author:1386519322=Fossy
+diff:1386519322:1386517730:=14c14%0a%3c (:cell width=210:) [Freeholder]%0a---%0a> (:cell width=210:) [Freeholder],%0a
+host:1386519322=2.108.95.215
+author:1386517730=Fossy
+diff:1386517730:1386517687:=32c32%0a%3c Logan is a giant beast - all red skin, fur and muscle as if someone had poured a bucket of bright red paint out over him. On top of his head sits a pair of curled horns, twisted in circles making the Foo Dog look decidedly more evil than he is. %0a---%0a> Logan is a giant beast - all red fur and muscle as if someone had poured a bucket of bright red paint out over him. On top of his head sits a pair of curled horns, twisted in circles making the Foo Dog look decidedly more evil than he is. %0a
+host:1386517730=2.108.95.215
+author:1386517687=Fossy
+diff:1386517687:1386510733:=41c41%0a%3c ..or red. Being taller than the average person and having bright red hair and beard makes it hard not to stand out. Never one for hiding  he usually ignores the stares and whispers behind his back but sometimes his temper gets the better of him.%0a---%0a> ..or red. Being as tall as Logan is and having bright red hair and beard makes it hard not to stand out. Never one for hiding though he usually ignores the stares and whispers behind his back but sometimes his temper gets the better of him.%0a
+host:1386517687=2.108.95.215
+author:1386510733=Fossy
+diff:1386510733:1386510665:=28c28%0a%3c Logan is a 39 year old man standing 6'3" tall and weighing around 240 lbs most of which, if not all, is muscle.  He has shockingly red hair, beard and eyebrows, all most certainly dyed and pale amber eyes, a trimmed full beard and an almost reddish deep tan to his skin. He's usually favors loose clothes for freedom of movement, most days just a pair of khaki pants and a dress shirt no matter the weather.%0a---%0a> Logan is a 39 year old man standing 6'3" tall and weighing around 240 lbs most of which, if not all, is muscle.  He has shockingly red hair, beard and brows, all most certainly dyed and pale amber eyes, a trimmed full beard on his face and an almost reddish deep tan to his skin. He's usually favors loose clothes for freedom of movement, most days just a pair of khaki pants and a dress shirt no matter the weather.%0a
+host:1386510733=2.108.95.215
+author:1386510665=Fossy
+diff:1386510665:1386510627:=43a44%0a> [[%3c%3c]]%0a46a48%0a> [[%3c%3c]]%0a
+host:1386510665=2.108.95.215
+author:1386510627=Fossy
+diff:1386510627:1386510583:=44d43%0a%3c [[%3c%3c]]%0a48d46%0a%3c [[%3c%3c]]%0a
+host:1386510627=2.108.95.215
+author:1386510583=Fossy
+diff:1386510583:1386510568:=29d28%0a%3c [[%3c%3c]]%0a
+host:1386510583=2.108.95.215
+author:1386510568=Fossy
+diff:1386510568:1386510531:=29d28%0a%3c [[%3c%3c]]%0a
+host:1386510568=2.108.95.215
+author:1386510531=Fossy
+diff:1386510531:1386510150:=28c28%0a%3c Logan is a 39 year old man standing 6'3" tall and weighing around 240 lbs most of which, if not all, is muscle.  He has shockingly red hair, beard and brows, all most certainly dyed and pale amber eyes, a trimmed full beard on his face and an almost reddish deep tan to his skin. He's usually favors loose clothes for freedom of movement, most days just a pair of khaki pants and a dress shirt no matter the weather.%0a---%0a> Logan is a 39 year old man standing 7'1" tall and weighing around 300 lbs most of which, if not all, is muscle.  He has shockingly red hair, most certainly dyed and pale amber eyes, a trimmed red full beard on his face and an almost reddish deep tan to his skin. He's usually favors loose clothes for freedom of movement, most days just a pair of khaki pants and a dress shirt no matter the weather.%0a38,39c38,39%0a%3c '''It's not easy being green:''' (Anyone)%0a%3c ..or red. Being as tall as Logan is and having bright red hair and beard makes it hard not to stand out. Never one for hiding though he usually ignores the stares and whispers behind his back but sometimes his temper gets the better of him.%0a---%0a> ''':''' (Anyone)%0a> %0a
+host:1386510531=2.108.95.215
+author:1386510150=Fossy
+diff:1386510150:1386509930:=38,40c38,40%0a%3c ''':''' (Anyone)%0a%3c %0a%3c %0a---%0a> '''The "Gentle" Giant:''' (Anyone)%0a> Towering over most people gets you noticed, most days it sucks but Logan can be caught on a good day at times.%0a> %0a42,43c42,43%0a%3c Fiercely protective of Colin Darrow, rarely leaving his side. %0a%3c %0a---%0a> Coming soon to a wiki near you..%0a> %0a45c45%0a%3c Logan is far from the typical spring courtier and it shows despite his "best" efforts. He does his best regardless and tries to keep up with his court as his temper allows.%0a---%0a> Logan is far from the typical spring courtier and it shows despite his best efforts. He does his best regardless and tries to keep up with his court as his temper allows.%0a
+host:1386510150=2.108.95.215
+author:1386509930=Fossy
+diff:1386509930:1386509890:=56c56%0a%3c ''"Anger issues rolled up into a ball of red fur.."'' - [[Randomdude|A Random Dude]]%0a---%0a> ''"Anger issues rolled up in a ball of fur.."'' - [[Randomdude|A Random Dude]]%0a
+host:1386509930=2.108.95.215
+author:1386509890=Fossy
+diff:1386509890:1386509826:=10c10%0a%3c (:cell width=210:) 6'3%0a---%0a> (:cell width=210:) 7’1%0a56c56%0a%3c ''"Anger issues rolled up in a ball of fur.."'' - [[Randomdude|A Random Dude]]%0a---%0a> ''"Dude has anger issues.."'' - [[Randomdude|A Random Dude]]%0a
+host:1386509890=2.108.95.215
+author:1386509826=Fossy
+diff:1386509826:1386474043:=12c12%0a%3c (:cell width=210:) Muscle-clad Monster%0a---%0a> (:cell width=210:) Roid Monster%0a14,15c14%0a%3c (:cell width=210:) [Freeholder],%0a%3c [[%3c%3c]]%0a---%0a> (:cell width=210:) [Giant], [Freeholder],%0a60c59%0a%3c (:include CityBook.ChangelingNavigationBar:)%0a\ No newline at end of file%0a---%0a> (:include CityBook.ChangelingNavigationBar:)%0a
+host:1386509826=2.108.95.215
+author:1386474043=Fossy
+diff:1386474043:1386473916:=29,30c29,30%0a%3c Logan is a giant beast - all red fur and muscle as if someone had poured a bucket of bright red paint out over him. On top of his head sits a pair of curled horns, twisted in circles making the Foo Dog look decidedly more evil than he is. %0a%3c %0a---%0a> Logan is a beast - all red fur and muscle as if someone had poured a bucket of bright red paint out over him. On top of his head sits a pair of curled horns, twisted in circles making the Foo Dog look decidedly more evil than he is. %0a> %0a37c37%0a%3c '''The "Gentle" Giant:''' (Anyone)%0a---%0a> '''The Gentle Giant:''' (Anyone)%0a
+host:1386474043=2.108.95.215
+author:1386473916=Fossy
+diff:1386473916:1386473841:=4c4%0a%3c (:cellnr rowspan=20 width=400 align=center:)http://i739.photobucket.com/albums/xx38/FossDK/Logan400.jpg%0a---%0a> (:cellnr rowspan=20 width=400 align=center:)%25width=400%25http://i739.photobucket.com/albums/xx38/FossDK/Logan.jpg%0a14c14%0a%3c (:cell width=210:) [Giant], [Freeholder],%0a---%0a> (:cell width=210:) Logan usually wears a pair of worn khakis and a snug shirt, preferring to wear something loose. %0a
+host:1386473916=2.108.95.215
+author:1386473841=Bottlecaps
+diff:1386473841:1386473822:=24c24%0a%3c (:tableend:)%0a---%0a>  (:tableend:)%0a
+host:1386473841=50.147.19.4
+author:1386473822=Bottlecaps
+diff:1386473822:1386473624:=4c4%0a%3c (:cellnr rowspan=20 width=400 align=center:)%25width=400%25http://i739.photobucket.com/albums/xx38/FossDK/Logan.jpg%0a---%0a> (:cellnr rowspan=20 width=400 align=center:)http://i739.photobucket.com/albums/xx38/FossDK/Logan.jpg%0a
+host:1386473822=50.147.19.4
+author:1386473624=Fossy
+diff:1386473624:1386473606:=4c4%0a%3c (:cellnr rowspan=20 width=400 align=center:)http://i739.photobucket.com/albums/xx38/FossDK/Logan.jpg%0a---%0a> (:cellnr rowspan=20 width=400 align=center:) http://i739.photobucket.com/albums/xx38/FossDK/Logan.jpg%0a
+host:1386473624=2.108.95.215
+author:1386473606=Fossy
+diff:1386473606:1386473606:=1,59d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#005826 align=center:)%0a%3c !!%25white%25Logan Fisher%25white%25%0a%3c (:cellnr rowspan=20 width=400 align=center:) http://i739.photobucket.com/albums/xx38/FossDK/Logan.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_s.png%0a%3c (:cellnr width=130 align=left:)'''Apparent Age:'''%0a%3c (:cell width=210:) About 39%0a%3c (:cellnr width=130 align=left:)'''Height:'''%0a%3c (:cell width=210:) 7’1%0a%3c (:cellnr width=130 align=left:)'''Build:'''%0a%3c (:cell width=210:) Roid Monster%0a%3c (:cellnr width=130 align=left:)'''Public Effects:'''%0a%3c (:cell width=210:) Logan usually wears a pair of worn khakis and a snug shirt, preferring to wear something loose. %0a%3c (:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_f.png%0a%3c (:cellnr width=130 align=left:)'''Spring:'''%0a%3c (:cell width=210:) Mantle 1%0a%3c (:cellnr width=130 align=left:)'''Seeming:'''%0a%3c (:cell width=210:) Beast%0a%3c (:cellnr width=130 align=left:)'''Kith:'''%0a%3c (:cell width=210:) Hunterheart%0a%3c (:cellnr width=130 align=left:)'''Player:''' %0a%3c (:cell width=210:) Fossy%0a%3c  (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_d.png%0a%3c Mask:%0a%3c Logan is a 39 year old man standing 7'1" tall and weighing around 300 lbs most of which, if not all, is muscle.  He has shockingly red hair, most certainly dyed and pale amber eyes, a trimmed red full beard on his face and an almost reddish deep tan to his skin. He's usually favors loose clothes for freedom of movement, most days just a pair of khaki pants and a dress shirt no matter the weather.%0a%3c Mein:%0a%3c Logan is a beast - all red fur and muscle as if someone had poured a bucket of bright red paint out over him. On top of his head sits a pair of curled horns, twisted in circles making the Foo Dog look decidedly more evil than he is. %0a%3c %0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_h.png%0a%3c Coming soon to a wiki near you..%0a%3c %0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_rph.png%0a%3c '''The Gentle Giant:''' (Anyone)%0a%3c Towering over most people gets you noticed, most days it sucks but Logan can be caught on a good day at times.%0a%3c %0a%3c '''The Protector:''' (Anyone, Lost)%0a%3c Coming soon to a wiki near you..%0a%3c %0a%3c '''Is it summer yet?:''' (Lost, Spring Court)%0a%3c Logan is far from the typical spring courtier and it shows despite his best efforts. He does his best regardless and tries to keep up with his court as his temper allows.%0a%3c %0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c %0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c [[%3c%3c]]%0a%3c ''"Dude has anger issues.."'' - [[Randomdude|A Random Dude]]%0a%3c %0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.ChangelingNavigationBar:)%0a
+host:1386473606=2.108.95.215

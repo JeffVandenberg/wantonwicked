@@ -1,0 +1,37 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0
+author=JeffV
+charset=ISO-8859-1
+csum=
+ctime=1386126882
+host=173.17.121.105
+name=CityBook.TheLostPage
+rev=8
+targets=CityBook.CityBook,CityBook.BaySideDistrict,Players.BruceLangtry
+text=(:title The Lost Page:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a%0aReturn to: [[CityBook.?|Venue Locations]], [[CityBook.BaySideDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a!!The Lost Page%0a'''District:''' [[CityBook.BaySideDistrict|Bay Side District]]%0a%0a%25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25https://dl.dropboxusercontent.com/u/22816049/alley-25%2525.jpg%0aLocated in a dark alley in a questionable part of town, exists a shop with a sign near the door that reads "The Lost Page". Though you may miss it with all of the graffiti around and the alley, making the place uninviting to all bu the most determined buyers. %0a%0aInside the store is a veritable array of clutter and books. Any organization is seemingly lost in this place as places are stored seemingly where ever they were last placed rather than by any rational organization system. The shelving is laid out at odd angles rather than straight, adding to the cluttered and claustrophobic feeling of the store. %0a %0aThere is no clearly visible cash register, adding to the overall feel that the store is more akin to an ill-visited section of a library rather than a store.%0a%0a'''Owner:''' [[Players/Bruce Langtry]]\\%0a'''Resonance:''' TBD\\%0a'''Territory:''' Invictus%0a%0a%0a%0a%0a%0a%0a%0a[[#locationend]]%0a%0a----%0a(:include CityBook.Directory:)
+time=1386564112
+title=The Lost Page
+author:1386564112=JeffV
+diff:1386564112:1386443776:=15d14%0a%3c There is no clearly visible cash register, adding to the overall feel that the store is more akin to an ill-visited section of a library rather than a store.%0a
+host:1386564112=173.17.121.105
+author:1386443776=JeffV
+diff:1386443776:1386127032:=14c14%0a%3c  %0a---%0a> %0a
+host:1386443776=173.17.121.105
+author:1386127032=Eiragwen
+diff:1386127032:1386127022:=16c16%0a%3c '''Owner:''' [[Players/Bruce Langtry]]\\%0a---%0a> '''Owner:''' [[Players.Bruce Langtry]]\\%0a
+host:1386127032=98.232.234.158
+author:1386127022=JeffV
+diff:1386127022:1386127002:=19,25d18%0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a
+host:1386127022=173.17.121.105
+author:1386127002=JeffV
+diff:1386127002:1386126995:=16c16%0a%3c '''Owner:''' [[Players.Bruce Langtry]]\\%0a---%0a> '''Owner:''' [[Players.Bruce Langtry]]%0a
+host:1386127002=173.17.121.105
+author:1386126995=Eiragwen
+diff:1386126995:1386126989:=
+host:1386126995=98.232.234.158
+author:1386126989=JeffV
+diff:1386126989:1386126882:=16c16%0a%3c '''Owner:''' [[Players.Bruce Langtry]]%0a---%0a> '''Owner:''' [[Bruce Langtry]]%0a
+host:1386126989=173.17.121.105
+author:1386126882=JeffV
+diff:1386126882:1386126882:=1,22d0%0a%3c (:title The Lost Page:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/vampiretherequiem.png%0a%3c %0a%3c Return to: [[CityBook.?|Venue Locations]], [[CityBook.BaySideDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c !!The Lost Page%0a%3c '''District:''' [[CityBook.BaySideDistrict|Bay Side District]]%0a%3c %0a%3c %25lfloat text-align=center margin-top=5px margin-right=15px margin-bottom=5px margin-left=0px%25https://dl.dropboxusercontent.com/u/22816049/alley-25%2525.jpg%0a%3c Located in a dark alley in a questionable part of town, exists a shop with a sign near the door that reads "The Lost Page". Though you may miss it with all of the graffiti around and the alley, making the place uninviting to all bu the most determined buyers. %0a%3c %0a%3c Inside the store is a veritable array of clutter and books. Any organization is seemingly lost in this place as places are stored seemingly where ever they were last placed rather than by any rational organization system. The shelving is laid out at odd angles rather than straight, adding to the cluttered and claustrophobic feeling of the store. %0a%3c %0a%3c %0a%3c '''Owner:''' [[Bruce Langtry]]%0a%3c '''Resonance:''' TBD\\%0a%3c '''Territory:''' Invictus%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1386126882=173.17.121.105

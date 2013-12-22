@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=JuvenalianSatyr
+charset=ISO-8859-1
+csum=
+ctime=1380449198
+host=65.38.25.138
+name=Players.BethelQuote
+rev=2
+targets=Players.Giallo
+text="''%25color=#33CCCC%25You've gotta dance like there's nobody watching, Love like you'll never be hurt, Sing like there's nobody listening, And live like it's heaven on earth.%25%25''" - [[https://en.wikipedia.org/wiki/William_Watson_Purkey | %25color=#33CC99%25William W. Purkey]]%0a%0a"''%25color=#33CCCC%25Somebody's been paying attention, at least.%25%25''" - %25color=#33CC99%25[[Giallo]]%25%25
+time=1382055870
+author:1382055870=JuvenalianSatyr
+diff:1382055870:1380449198:=1,3c1%0a%3c "''%25color=#33CCCC%25You've gotta dance like there's nobody watching, Love like you'll never be hurt, Sing like there's nobody listening, And live like it's heaven on earth.%25%25''" - [[https://en.wikipedia.org/wiki/William_Watson_Purkey | %25color=#33CC99%25William W. Purkey]]%0a%3c %0a%3c "''%25color=#33CCCC%25Somebody's been paying attention, at least.%25%25''" - %25color=#33CC99%25[[Giallo]]%25%25%0a\ No newline at end of file%0a---%0a> "''%25color=#33CCCC%25You've gotta dance like there's nobody watching, Love like you'll never be hurt, Sing like there's nobody listening, And live like it's heaven on earth.%25%25''" - [[https://en.wikipedia.org/wiki/William_Watson_Purkey | %25color=#33CC99%25William W. Purkey]]%0a\ No newline at end of file%0a
+host:1382055870=65.38.25.138
+author:1380449198=Euphoric_Goth
+diff:1380449198:1380449198:=1d0%0a%3c "''%25color=#33CCCC%25You've gotta dance like there's nobody watching, Love like you'll never be hurt, Sing like there's nobody listening, And live like it's heaven on earth.%25%25''" - [[https://en.wikipedia.org/wiki/William_Watson_Purkey | %25color=#33CC99%25William W. Purkey]]%0a\ No newline at end of file%0a
+host:1380449198=81.166.18.133

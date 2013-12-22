@@ -1,0 +1,16 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36
+author=Aramil98
+charset=ISO-8859-1
+csum=
+ctime=1372721683
+host=71.0.16.129
+name=GameRef.HunterRules
+rev=1
+targets=GameRef.HunterRules
+text=(:title Hunter Rules:)%0a[[#htop]]%0a[[GameRef.HunterRules?action=edit|Click here to Edit]]%0a(:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a(:cellnr align=center:)%0a(:cellnr:)%0a(:cellnr bgcolor=#305d52 align=center:)%0a'''Contents'''%0a(:cellnr:) %0a*[[#hRules| Venue Code of Conduct]]%0a*[[#hChanges| Becoming a Hunter]]%0a**[[#hApplication| Hunter Application]]%0a*[[#hContact|Contacting Your Storytellers]]%0a*[[#hSchedule| Scheduling a Scene]]%0a%0a(:tableend:) %0a%0a[[#hRules]]%0a[++'''Venue Code of Conduct'''++]%0a%0a!!!• We have yet to determine whether Hunter shall be played yet, so the status of this venue is still TBD.\\%0a%0a[--%25color=#305d52%25[[#htop| Back to top]]--]%0a%0a(:include CityBook.HunterNavigationBar:)
+time=1372721683
+title=Hunter Rules
+author:1372721683=Aramil98
+diff:1372721683:1372721683:=1,25d0%0a%3c (:title Hunter Rules:)%0a%3c [[#htop]]%0a%3c [[GameRef.HunterRules?action=edit|Click here to Edit]]%0a%3c (:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a%3c (:cellnr align=center:)%0a%3c (:cellnr:)%0a%3c (:cellnr bgcolor=#305d52 align=center:)%0a%3c '''Contents'''%0a%3c (:cellnr:) %0a%3c *[[#hRules| Venue Code of Conduct]]%0a%3c *[[#hChanges| Becoming a Hunter]]%0a%3c **[[#hApplication| Hunter Application]]%0a%3c *[[#hContact|Contacting Your Storytellers]]%0a%3c *[[#hSchedule| Scheduling a Scene]]%0a%3c %0a%3c (:tableend:) %0a%3c %0a%3c [[#hRules]]%0a%3c [++'''Venue Code of Conduct'''++]%0a%3c %0a%3c !!!• We have yet to determine whether Hunter shall be played yet, so the status of this venue is still TBD.\\%0a%3c %0a%3c [--%25color=#305d52%25[[#htop| Back to top]]--]%0a%3c %0a%3c (:include CityBook.HunterNavigationBar:)%0a\ No newline at end of file%0a
+host:1372721683=71.0.16.129

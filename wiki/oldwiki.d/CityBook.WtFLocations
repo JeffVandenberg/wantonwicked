@@ -1,0 +1,19 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1377903991
+host=98.232.234.158
+name=CityBook.WtFLocations
+rev=2
+targets=
+text=(:title Werewolf Locations:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/banner/wtf.png%0a(:include GameRef.WtFMaster#Location#LocationEnd:)%0a(:include CityBook.WerewolfNavigationBar:)
+time=1386812257
+title=Werewolf Locations
+author:1386812257=JillA
+diff:1386812257:1377903991:=2c2%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/banner/wtf.png%0a---%0a> http://wantonwicked.gamingsandbox.com/wiki/images/werewolftheforsaken.png%0a
+host:1386812257=98.232.234.158
+author:1377903991=JillA
+diff:1377903991:1377903991:=1,4d0%0a%3c (:title Werewolf Locations:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/werewolftheforsaken.png%0a%3c (:include GameRef.WtFMaster#Location#LocationEnd:)%0a%3c (:include CityBook.WerewolfNavigationBar:)%0a\ No newline at end of file%0a
+host:1377903991=24.20.151.3

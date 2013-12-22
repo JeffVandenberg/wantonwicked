@@ -1,0 +1,42 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.0; rv:23.0) Gecko/20100101 Firefox/23.0
+author=Notfromrussia
+charset=ISO-8859-1
+csum=
+ctime=1378113382
+host=85.230.154.168
+name=Players.Winston
+rev=10
+targets=Players.DianeRivers
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#005826 align=center:)%0a!!%25white%25Winston%25white%25%0a(:cellnr rowspan=20 width=400 align=center:) http://i.imgur.com/lWpbg2b.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_s.png%0a(:cellnr width=130 align=left:)'''Age:'''%0a(:cell width=210:) 3%0a(:cellnr width=130 align=left:)'''Apparent Age:'''%0a(:cell width=210:) 3%0a(:cellnr width=130 align=left:)'''Height:'''%0a(:cell width=210:) 27 Inches%0a(:cellnr width=130 align=left:)'''Build:'''%0a(:cell width=210:) Strong%0a(:cellnr width=130 align=left:)'''Profession:''' %0a(:cell width=210:) Guard-dog%0a(:cellnr width=130 align=left:)'''Public Effects:'''%0a(:cell width=210:) None%0a(:cellnr width=130 align=left:)'''Owner'''%0a(:cell width=210:) [[DianeRivers|Diane Rivers]]%0a(:cellnr width=130 align=left:)'''Theme Music:''' %0a(:cell width=210:) [[http://www.youtube.com/watch?v=-hIjgofcuWU |Who am I]]%0a(:tableend:)%0a%0a%0a%0a'''A dog is the only thing on earth that loves you more than he loves himself.'''%0a%0a%0a%0ahttp://www.ealuxe.com/wp-content/uploads/2013/06/pic31.jpg%0a%0a(:include CityBook.ChangelingNavigationBar:)
+time=1378142613
+author:1378142613=Notfromrussia
+diff:1378142613:1378142581:=22c22%0a%3c (:cell width=210:) [[http://www.youtube.com/watch?v=-hIjgofcuWU |Who am I]]%0a---%0a> (:cell width=210:) [[http://www.youtube.com/watch?v=-hIjgofcuWU |Snoop Dogg - Who am I]]%0a
+host:1378142613=85.230.154.168
+author:1378142581=Notfromrussia
+diff:1378142581:1378131885:=21,22d20%0a%3c (:cellnr width=130 align=left:)'''Theme Music:''' %0a%3c (:cell width=210:) [[http://www.youtube.com/watch?v=-hIjgofcuWU |Snoop Dogg - Who am I]]%0a
+host:1378142581=85.230.154.168
+author:1378131885=Notfromrussia
+diff:1378131885:1378113724:=29,31c29%0a%3c http://www.ealuxe.com/wp-content/uploads/2013/06/pic31.jpg%0a%3c %0a%3c (:include CityBook.ChangelingNavigationBar:)%0a\ No newline at end of file%0a---%0a> http://www.ealuxe.com/wp-content/uploads/2013/06/pic31.jpg%0a\ No newline at end of file%0a
+host:1378131885=85.230.154.168
+author:1378113724=Notfromrussia
+diff:1378113724:1378113638:=29c29%0a%3c http://www.ealuxe.com/wp-content/uploads/2013/06/pic31.jpg%0a\ No newline at end of file%0a---%0a> http://hdwallpaperfresh.com/wp-content/uploads/2013/04/tibetan-mastiff.jpg%0a\ No newline at end of file%0a
+host:1378113724=85.230.154.168
+author:1378113638=Notfromrussia
+diff:1378113638:1378113595:=29c29%0a%3c http://hdwallpaperfresh.com/wp-content/uploads/2013/04/tibetan-mastiff.jpg%0a\ No newline at end of file%0a---%0a> http://proudtohave.weebly.com/uploads/1/9/2/5/19251795/2472944_orig.jpg%0a\ No newline at end of file%0a
+host:1378113638=85.230.154.168
+author:1378113595=Notfromrussia
+diff:1378113595:1378113511:=25c25%0a%3c '''A dog is the only thing on earth that loves you more than he loves himself.'''%0a---%0a> %0a
+host:1378113595=85.230.154.168
+author:1378113511=Notfromrussia
+diff:1378113511:1378113475:=21c21,28%0a%3c (:tableend:)%0a---%0a> %0a> %0a> %0a> %0a> %0a> %0a> %0a> %0a
+host:1378113511=85.230.154.168
+author:1378113475=Notfromrussia
+diff:1378113475:1378113454:=22,36c22%0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c http://proudtohave.weebly.com/uploads/1/9/2/5/19251795/2472944_orig.jpg%0a\ No newline at end of file%0a---%0a> http://proudtohave.weebly.com/uploads/1/9/2/5/19251795/2472944_orig.jpg?198%0a\ No newline at end of file%0a
+host:1378113475=85.230.154.168
+author:1378113454=Notfromrussia
+diff:1378113454:1378113382:=4c4%0a%3c (:cellnr rowspan=20 width=400 align=center:) http://i.imgur.com/lWpbg2b.jpg%0a---%0a> (:cellnr rowspan=20 width=400 align=center:) http://www.oddballdaily.com/wp-content/uploads/2011/03/6_tibetan_mastiff.jpg%0a
+host:1378113454=85.230.154.168
+author:1378113382=Notfromrussia
+diff:1378113382:1378113382:=1,22d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#005826 align=center:)%0a%3c !!%25white%25Winston%25white%25%0a%3c (:cellnr rowspan=20 width=400 align=center:) http://www.oddballdaily.com/wp-content/uploads/2011/03/6_tibetan_mastiff.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_s.png%0a%3c (:cellnr width=130 align=left:)'''Age:'''%0a%3c (:cell width=210:) 3%0a%3c (:cellnr width=130 align=left:)'''Apparent Age:'''%0a%3c (:cell width=210:) 3%0a%3c (:cellnr width=130 align=left:)'''Height:'''%0a%3c (:cell width=210:) 27 Inches%0a%3c (:cellnr width=130 align=left:)'''Build:'''%0a%3c (:cell width=210:) Strong%0a%3c (:cellnr width=130 align=left:)'''Profession:''' %0a%3c (:cell width=210:) Guard-dog%0a%3c (:cellnr width=130 align=left:)'''Public Effects:'''%0a%3c (:cell width=210:) None%0a%3c (:cellnr width=130 align=left:)'''Owner'''%0a%3c (:cell width=210:) [[DianeRivers|Diane Rivers]]%0a%3c %0a%3c http://proudtohave.weebly.com/uploads/1/9/2/5/19251795/2472944_orig.jpg?198%0a\ No newline at end of file%0a
+host:1378113382=85.230.154.168

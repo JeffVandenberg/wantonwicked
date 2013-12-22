@@ -1,0 +1,16 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1378770897
+host=71.0.16.129
+name=CityBook.BeautifulThievestemp
+rev=1
+targets=CityBook.MtALocations,CityBook.HistoricalDistrict,CityBook.CityBook,CityBook.TheMysterium
+text=(:title Beautiful Thieves:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a%0aReturn to: [[CityBook.MtALocations|Venue Locations]], [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%0a[[#location]]%0a(:include GameRef.MtAMaster#BT#BTend:)%0a%0a'''Resonance:''' Unknown\\%0a'''Territory:''' [[The Mysterium]]%0a[[#locationend]]%0a%0a----%0a(:include CityBook.Directory:)
+time=1378770897
+title=Beautiful Thieves
+author:1378770897=ThomasH
+diff:1378770897:1378770897:=1,14d0%0a%3c (:title Beautiful Thieves:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/magetheawakening.png%0a%3c %0a%3c Return to: [[CityBook.MtALocations|Venue Locations]], [[CityBook.HistoricalDistrict|District Locations]], [[CityBook.CityBook|The City]]%0a%3c %0a%3c [[#location]]%0a%3c (:include GameRef.MtAMaster#BT#BTend:)%0a%3c %0a%3c '''Resonance:''' Unknown\\%0a%3c '''Territory:''' [[The Mysterium]]%0a%3c [[#locationend]]%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a
+host:1378770897=71.0.16.129

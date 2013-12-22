@@ -1,0 +1,24 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; InfoPath.3)
+author=schreier
+charset=ISO-8859-1
+csum=
+ctime=1377794599
+host=155.178.4.11
+name=Players.MJQuotes
+rev=4
+targets=
+text=(:table border=0 style=float width=90%25 align=center cellspacing=0 :)%0a(:cellnr bgcolor=#222222 align=right:)%0a%25color=White%25"Despite what your momma told you... Violence does solve problems"%0a->%25color=White%25- Ryan Job (RIP 2009)%0a(:cellnr align=left:)%0a%25color=Black%25''"Recoil."''%0a->%25color=Black%25- ''Quote by a USMC Sniper, when asked what he felt when shooting terrorists''%0a(:cellnr bgcolor=#222222 align=right:)%0a%25color=White%25 "Your Thoughts."%0a->%25color=White%25 - ''You''
+time=1377795486
+author:1377795486=schreier
+diff:1377795486:1377795411:=6,7c6,7%0a%3c %25color=Black%25''"Recoil."''%0a%3c ->%25color=Black%25- ''Quote by a USMC Sniper, when asked what he felt when shooting terrorists''%0a---%0a> %25color=#74483F%25''"Recoil."''%0a> ->%25color=#74483F%25- ''Quote by a USMC Sniper, when asked what he felt when shooting terrorists''%0a
+host:1377795486=155.178.4.11
+author:1377795411=schreier
+diff:1377795411:1377795274:=3,4c3,4%0a%3c %25color=White%25"Despite what your momma told you... Violence does solve problems"%0a%3c ->%25color=White%25- Ryan Job (RIP 2009)%0a---%0a> %25color=#74483F%25"Despite what your momma told you... Violence does solve problems"%0a> ->%25color=#74483F%25- Ryan Job (RIP 2009)%0a9,10c9,10%0a%3c %25color=White%25 "Your Thoughts."%0a%3c ->%25color=White%25 - ''You''%0a\ No newline at end of file%0a---%0a> %25color=#74483F%25 "Your Thoughts."%0a> ->%25color=#74483F%25 - ''You''%0a\ No newline at end of file%0a
+host:1377795411=155.178.5.11
+author:1377795274=schreier
+diff:1377795274:1377794599:=3,4c3%0a%3c %25color=#74483F%25"Despite what your momma told you... Violence does solve problems"%0a%3c ->%25color=#74483F%25- Ryan Job (RIP 2009)%0a---%0a> ->%25color=#74483F%25 Quoter%0a6,10c5%0a%3c %25color=#74483F%25''"Recoil."''%0a%3c ->%25color=#74483F%25- ''Quote by a USMC Sniper, when asked what he felt when shooting terrorists''%0a%3c (:cellnr bgcolor=#222222 align=right:)%0a%3c %25color=#74483F%25 "Your Thoughts."%0a%3c ->%25color=#74483F%25 - ''You''%0a\ No newline at end of file%0a---%0a> %25color=#74483F%25''"Quote."''%0a
+host:1377795274=155.178.6.11
+author:1377794599=schreier
+diff:1377794599:1377794599:=1,5d0%0a%3c (:table border=0 style=float width=90%25 align=center cellspacing=0 :)%0a%3c (:cellnr bgcolor=#222222 align=right:)%0a%3c ->%25color=#74483F%25 Quoter%0a%3c (:cellnr align=left:)%0a%3c %25color=#74483F%25''"Quote."''%0a
+host:1377794599=155.178.4.11

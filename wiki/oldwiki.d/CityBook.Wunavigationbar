@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1382295689
+host=24.20.151.3
+name=CityBook.Wunavigationbar
+rev=2
+targets=CityBook.WhitefieldUniversity,CityBook.WuLocations,CityBook.WuHistory,Players.WuLaw,Players.WuCharacters,Players.WuNPCs,Players.WuSociety,Players.WuHouseRules,Players.WuGuidelines
+text=(:table bgcolor=#7a0026 id=wudirectory :)%0a(:head rowspan=4 width=85 valign=center:) %0a(:cell height=20 colspan=4 align=left:)%0a!!%25white%25Whitefield University%0a(:cellnr align=left width=655 height=20 valign=left:)&nbsp;%25white%25'''The Setting:''' [[CityBook.WhitefieldUniversity|Introduction]], [[CityBook.wuLocations|Locations]], [[CityBook.wuHistory|History]], [[Players.wuLaw|Law]]%0a(:cellnr align=left width=655 height=20 valign=center :)&nbsp;%25white%25'''The Cast:''' [[Players.wuCharacters| Player Characters]], [[Players.wuNPCs| Storyteller Characters]], [[Players.wuSociety| Society]]%0a(:cellnr align=left width=655 height=20 valign=center:)&nbsp;%25white%25'''The Venue:''' [[Players.wuHouseRules|House Rules]], [[Players.wuGuidelines|Player Guide]]%0a[[%3c%3c]]%0a(:tableend:)
+time=1382295725
+author:1382295725=JillA
+diff:1382295725:1382295689:=5c5%0a%3c (:cellnr align=left width=655 height=20 valign=left:)&nbsp;%25white%25'''The Setting:''' [[CityBook.WhitefieldUniversity|Introduction]], [[CityBook.wuLocations|Locations]], [[CityBook.wuHistory|History]], [[Players.wuLaw|Law]]%0a---%0a> (:cellnr align=left width=655 height=20 valign=left:)&nbsp;%25white%25'''The Setting:''' [[CityBook.WhitefieldUniversity|Introduction]], [[CityBook.wuHistory|History]], [[Players.wuLaw|Law]]%0a
+host:1382295725=24.20.151.3
+author:1382295689=JillA
+diff:1382295689:1382295689:=1,9d0%0a%3c (:table bgcolor=#7a0026 id=wudirectory :)%0a%3c (:head rowspan=4 width=85 valign=center:) %0a%3c (:cell height=20 colspan=4 align=left:)%0a%3c !!%25white%25Whitefield University%0a%3c (:cellnr align=left width=655 height=20 valign=left:)&nbsp;%25white%25'''The Setting:''' [[CityBook.WhitefieldUniversity|Introduction]], [[CityBook.wuHistory|History]], [[Players.wuLaw|Law]]%0a%3c (:cellnr align=left width=655 height=20 valign=center :)&nbsp;%25white%25'''The Cast:''' [[Players.wuCharacters| Player Characters]], [[Players.wuNPCs| Storyteller Characters]], [[Players.wuSociety| Society]]%0a%3c (:cellnr align=left width=655 height=20 valign=center:)&nbsp;%25white%25'''The Venue:''' [[Players.wuHouseRules|House Rules]], [[Players.wuGuidelines|Player Guide]]%0a%3c [[%3c%3c]]%0a%3c (:tableend:)%0a\ No newline at end of file%0a
+host:1382295689=24.20.151.3

@@ -1,0 +1,22 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36
+author=Aramil98
+charset=ISO-8859-1
+csum=
+ctime=1372721505
+host=71.0.16.129
+name=GameRef.GeistRules
+rev=3
+targets=GameRef.GeistRules
+text=(:title Geist Rules:)%0a[[#gtop]]%0a[[GameRef.GeistRules?action=edit|Click here to Edit]]%0a%0a(:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a(:cellnr align=center:)%0a(:cellnr:)%0a(:cellnr bgcolor=#70b0ca align=center:)%0a'''Contents'''%0a(:cellnr:) %0a*[[#gRules| Venue Code of Conduct]]%0a*[[#gContact|Contacting Your Storytellers]]%0a*[[#gSchedule| Scheduling a Scene]]%0a*[[#gChanges| Becoming a Geist]]%0a(:tableend:) %0a%0a[[#gRules]]%0a[++'''Venue Code of Conduct'''++]%0a%0a!!!• We have yet to determine whether Geist shall be played yet, so the status of this venue is still TBD.\\%0a %0a[--%25color=#70b0ca%25[[#gtop| Back to top]]--]%0a(:include CityBook.GeistNavigationBar:)
+time=1372722265
+title=Geist Rules
+author:1372722265=Aramil98
+diff:1372722265:1372721532:=20c20%0a%3c !!!• We have yet to determine whether Geist shall be played yet, so the status of this venue is still TBD.\\%0a---%0a> !!!• We have yet to determine whether Gheist shall be played yet, so the status of this venue is still TBD.\\%0a
+host:1372722265=71.0.16.129
+author:1372721532=Aramil98
+diff:1372721532:1372721505:=20c20%0a%3c !!!• We have yet to determine whether Gheist shall be played yet, so the status of this venue is still TBD.\\%0a---%0a> • We have yet to determine whether Gheist shall be played yet, so the status of this venue is still TBD.\\%0a
+host:1372721532=71.0.16.129
+author:1372721505=Aramil98
+diff:1372721505:1372721505:=1,23d0%0a%3c (:title Geist Rules:)%0a%3c [[#gtop]]%0a%3c [[GameRef.GeistRules?action=edit|Click here to Edit]]%0a%3c %0a%3c (:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a%3c (:cellnr align=center:)%0a%3c (:cellnr:)%0a%3c (:cellnr bgcolor=#70b0ca align=center:)%0a%3c '''Contents'''%0a%3c (:cellnr:) %0a%3c *[[#gRules| Venue Code of Conduct]]%0a%3c *[[#gContact|Contacting Your Storytellers]]%0a%3c *[[#gSchedule| Scheduling a Scene]]%0a%3c *[[#gChanges| Becoming a Geist]]%0a%3c (:tableend:) %0a%3c %0a%3c [[#gRules]]%0a%3c [++'''Venue Code of Conduct'''++]%0a%3c %0a%3c • We have yet to determine whether Gheist shall be played yet, so the status of this venue is still TBD.\\%0a%3c  %0a%3c [--%25color=#70b0ca%25[[#gtop| Back to top]]--]%0a%3c (:include CityBook.GeistNavigationBar:)%0a\ No newline at end of file%0a
+host:1372721505=71.0.16.129

@@ -1,0 +1,25 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36
+author=JillA
+charset=ISO-8859-1
+csum=
+ctime=1378235654
+host=24.20.151.3
+name=GameRef.PersonalInformation
+rev=4
+targets=
+text=(:title Game Help:)%0a!Sharing Personal Information%0aThis is all a fairly common sense but since it's become an issue:%0a%0a1) Do not post the personal information of players on this site without their express permission.%0a%0a2) If you do not want your personal information given out, do not provided it on this site.%0a%0a3) In general, speaking as an internet professional, do not post up detailed information about your life on-line and expect blanket privacy.
+time=1379372462
+title=Game Help
+author:1379372462=JillA
+diff:1379372462:1379372454:=1c1%0a%3c (:title Game Help:)%0a---%0a> (:no Game Help:)%0a
+host:1379372462=24.20.151.3
+author:1379372454=JillA
+diff:1379372454:1378235675:=1c1%0a%3c (:no Game Help:)%0a---%0a> (:notitle:)%0a
+host:1379372454=24.20.151.3
+author:1378235675=JillA
+diff:1378235675:1378235654:=1,2c1%0a%3c (:notitle:)%0a%3c !Sharing Personal Information%0a---%0a> (:title Sharing Personal Information:)%0a
+host:1378235675=24.20.151.3
+author:1378235654=JillA
+diff:1378235654:1378235654:=1,8d0%0a%3c (:title Sharing Personal Information:)%0a%3c This is all a fairly common sense but since it's become an issue:%0a%3c %0a%3c 1) Do not post the personal information of players on this site without their express permission.%0a%3c %0a%3c 2) If you do not want your personal information given out, do not provided it on this site.%0a%3c %0a%3c 3) In general, speaking as an internet professional, do not post up detailed information about your life on-line and expect blanket privacy.%0a\ No newline at end of file%0a
+host:1378235654=24.20.151.3

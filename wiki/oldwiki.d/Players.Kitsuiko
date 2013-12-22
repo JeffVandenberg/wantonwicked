@@ -1,0 +1,18 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Kitsuiko
+charset=ISO-8859-1
+csum=
+ctime=1387315239
+host=24.177.193.227
+name=Players.Kitsuiko
+rev=2
+targets=Players.AmberRaeVolmer,Players.MichaelBertramYoung,Players.StephanieKim
+text='''OOC Name:''' Kitsuiko%0a'''Characters:'''%0a%0a'+MAGE+'%0a[[Amber Rae Volmer]] ''(Sleepwalker)''%0a%0a'+VAMPIRE+'%0a[[Michael Bertram Young]] ''(Daeva Carthian)''%0a%0aFormer Characters:%0a[[Stephanie Kim]] ''(Fairest Winter Courtier)''%0a%0a'''RP Preferences:''' First and foremost I really like character relationships. Not necessarily romantic relationships; friends, rivals, enemies, mentorship -- all of that sort of interpersonal conversation and change is my bread and butter. I like building that and seeing where it goes with all of the goodness and badness that might entail. I’m comfortable with conflict in relationships; your characters don’t need to like mine and that’s okay.  And sometimes my characters will be confrontational (one in particular at current).%0a%0a'''Crossover:''' Crossover will mostly be shallow with me as I tend to be very venue heavy and rarely go out from it. It will most likely be coffee shop and as such, it's not a huge priority.%0a%0a'''Schedule:''' On weekdays, I'm usually here from after school on; 1pm Central.  Wednesdays are a crap-shoot due to RL conflicts as well as Saturday and Sunday nights depending on how cold Wisconsin is at the time.
+time=1387317054
+author:1387317054=Kitsuiko
+diff:1387317054:1387315239:=5c5%0a%3c [[Amber Rae Volmer]] ''(Sleepwalker)''%0a---%0a> [[Amber Rae Miller]] ''(Sleepwalker)''%0a
+host:1387317054=24.177.193.227
+author:1387315239=Kitsuiko
+diff:1387315239:1387315239:=1,17d0%0a%3c '''OOC Name:''' Kitsuiko%0a%3c '''Characters:'''%0a%3c %0a%3c '+MAGE+'%0a%3c [[Amber Rae Miller]] ''(Sleepwalker)''%0a%3c %0a%3c '+VAMPIRE+'%0a%3c [[Michael Bertram Young]] ''(Daeva Carthian)''%0a%3c %0a%3c Former Characters:%0a%3c [[Stephanie Kim]] ''(Fairest Winter Courtier)''%0a%3c %0a%3c '''RP Preferences:''' First and foremost I really like character relationships. Not necessarily romantic relationships; friends, rivals, enemies, mentorship -- all of that sort of interpersonal conversation and change is my bread and butter. I like building that and seeing where it goes with all of the goodness and badness that might entail. I’m comfortable with conflict in relationships; your characters don’t need to like mine and that’s okay.  And sometimes my characters will be confrontational (one in particular at current).%0a%3c %0a%3c '''Crossover:''' Crossover will mostly be shallow with me as I tend to be very venue heavy and rarely go out from it. It will most likely be coffee shop and as such, it's not a huge priority.%0a%3c %0a%3c '''Schedule:''' On weekdays, I'm usually here from after school on; 1pm Central.  Wednesdays are a crap-shoot due to RL conflicts as well as Saturday and Sunday nights depending on how cold Wisconsin is at the time.%0a\ No newline at end of file%0a
+host:1387315239=24.177.193.227

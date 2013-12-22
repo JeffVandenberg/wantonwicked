@@ -1,0 +1,35 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+author=Ebram
+charset=ISO-8859-1
+csum=
+ctime=1383358019
+host=68.171.190.177
+name=Players.JakeMiller
+rev=7
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a!!%25white%25Jake Miller%25white%25%0a(:cellnr rowspan=30 width=400 align=center:) %0a%25width=350px%25 http://www.magweb.com/picts/nm1404145.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) Early to mid-twenties%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'10"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Thin heading towards athletic%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Medical resident/Student%0a(:cellnr width=150 align=left:)'''Claimed by:'''%0a(:cell width=190:) ?%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Striking Looks 2, Medical Status 1%0a%0a%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Ebram%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) %0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a''Jake is a rather good natured young man who tends to come off as a college student or a relaxing businessman when he's not in his medical scrubs.''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_h.png%0a''Place your Public History Here''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_rph.png%0a''Jake's doing his residency at a local hospital.  Need some stitches?  A prescription?  He's a guy you can talk to.''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a''What Others have to Say about you''%0a%0a[[%3c%3c]]%0a%0a(:include CityBook.WerewolfNavigationBar:)
+time=1384536586
+author:1384536586=Ebram
+diff:1384536586:1383545831:=25c25%0a%3c (:cell width=190:) %0a---%0a> (:cell width=190:) [[http://www.youtube.com/watch?v=nIjVuRTm-dc |She Will Be Loved]]%0a
+host:1384536586=68.171.190.177
+author:1383545831=Ebram
+diff:1383545831:1383412222:=25c25%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=nIjVuRTm-dc |She Will Be Loved]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a
+host:1383545831=68.171.190.177
+author:1383412222=Ebram
+diff:1383412222:1383410342:=28,29c28,29%0a%3c ''Jake is a rather good natured young man who tends to come off as a college student or a relaxing businessman when he's not in his medical scrubs.''%0a%3c %0a---%0a> ''Place your Description Here''%0a> %0a36c36%0a%3c ''Jake's doing his residency at a local hospital.  Need some stitches?  A prescription?  He's a guy you can talk to.''%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1383412222=68.171.190.177
+author:1383410342=ThomasH
+csum:1383410342=Fixed spelling error in public effects
+diff:1383410342:1383410283:=19c19%0a%3c (:cell width=190:) Striking Looks 2, Medical Status 1%0a---%0a> (:cell width=190:) Striking Looks 2, Nedical Status 1%0a
+host:1383410342=67.238.250.80
+author:1383410283=ThomasH
+csum:1383410283=Updated to reflect Characer's name
+diff:1383410283:1383380206:=3c3%0a%3c !!%25white%25Jake Miller%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1383410283=67.238.250.80
+author:1383380206=Ebram
+diff:1383380206:1383358019:=4,5c4%0a%3c (:cellnr rowspan=30 width=400 align=center:) %0a%3c %25width=350px%25 http://www.magweb.com/picts/nm1404145.jpg%0a---%0a> (:cellnr rowspan=30 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1383380206=68.171.190.177
+author:1383358019=Ebram
+diff:1383358019:1383358019:=1,47d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#74483f align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=30 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) Early to mid-twenties%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 5'10"%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Thin heading towards athletic%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Medical resident/Student%0a%3c (:cellnr width=150 align=left:)'''Claimed by:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Striking Looks 2, Nedical Status 1%0a%3c %0a%3c %0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) Ebram%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_d.png%0a%3c ''Place your Description Here''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_h.png%0a%3c ''Place your Public History Here''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wtf/headers/wtf_q.png%0a%3c ''What Others have to Say about you''%0a%3c %0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.WerewolfNavigationBar:)%0a\ No newline at end of file%0a
+host:1383358019=68.171.190.177

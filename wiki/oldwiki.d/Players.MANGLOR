@@ -1,0 +1,15 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0
+author=MANGLOR
+charset=ISO-8859-1
+csum=
+ctime=1385597026
+host=70.79.68.110
+name=Players.MANGLOR
+rev=1
+targets=
+text=HIC SVNT MANGLOR
+time=1385597026
+author:1385597026=MANGLOR
+diff:1385597026:1385597026:=1d0%0a%3c HIC SVNT MANGLOR%0a\ No newline at end of file%0a
+host:1385597026=70.79.68.110

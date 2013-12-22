@@ -1,0 +1,33 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+author=ThomasH
+charset=ISO-8859-1
+csum=
+ctime=1376855741
+host=71.0.16.129
+name=Players.WoDCharacters
+rev=7
+targets=Players.Sample
+text=%25width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod.png%0a[[Sample]]  (Profession, Status)%0a->Quick Description of your Character%0a[[%3c%3c]]
+time=1377457679
+author:1377457679=ThomasH
+diff:1377457679:1377304586:=1c1%0a%3c %25width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/Mortal/wod.png%0a---%0a> %25width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/wodlogo.jpg%0a
+host:1377457679=71.0.16.129
+author:1377304586=ThomasH
+diff:1377304586:1376871125:=1c1%0a%3c %25width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/wodlogo.jpg%0a---%0a> %25width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/wod.png%0a
+host:1377304586=71.0.16.129
+author:1376871125=ThomasH
+diff:1376871125:1376870860:=2c2%0a%3c [[Sample]]  (Profession, Status)%0a---%0a> [[Sample]]  (Profession, Faction)%0a
+host:1376871125=71.0.16.129
+author:1376870860=ThomasH
+diff:1376870860:1376870779:=1c1%0a%3c %25width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/wod.png%0a---%0a> %25width=150px%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/vtr.png%0a
+host:1376870860=71.0.16.129
+author:1376870779=ThomasH
+diff:1376870779:1376870657:=1c1%0a%3c %25width=150px%25http://i68.photobucket.com/albums/i5/Aramil98/WantonWiki/vtr.png%0a---%0a> %25width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/wod.png%0a
+host:1376870779=71.0.16.129
+author:1376870657=ThomasH
+diff:1376870657:1376855741:=1c1%0a%3c %25width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/wod.png%0a---%0a> %25lframe width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/wod.png%0a
+host:1376870657=71.0.16.129
+author:1376855741=ThomasH
+diff:1376855741:1376855741:=1,4d0%0a%3c %25lframe width=150px%25 http://i68.photobucket.com/albums/i5/Aramil98/wod.png%0a%3c [[Sample]]  (Profession, Faction)%0a%3c ->Quick Description of your Character%0a%3c [[%3c%3c]]%0a\ No newline at end of file%0a
+host:1376855741=71.0.16.129

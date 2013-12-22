@@ -1,0 +1,24 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+author=AdanRyder
+charset=ISO-8859-1
+csum=
+ctime=1383607652
+host=71.190.138.104
+name=Players.AdanRyder
+rev=4
+targets=Players.DevonteThompson
+text=[[Devonte Thompson]]%0a%0a%0a%0a%0a%0a%0a%0acant play no checkers on a chessboard nigga%0a%0a
+time=1383618252
+author:1383618252=AdanRyder
+diff:1383618252:1383607699:=1c1%0a%3c [[Devonte Thompson]]%0a---%0a> I play [[Devonte Thompson]]%0a
+host:1383618252=71.190.138.104
+author:1383607699=AdanRyder
+diff:1383607699:1383607679:=1,8d0%0a%3c I play [[Devonte Thompson]]%0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a%3c %0a10a3%0a> I play [[Devonte Thompson]]%0a\ No newline at end of file%0a
+host:1383607699=71.190.138.104
+author:1383607679=AdanRyder
+diff:1383607679:1383607652:=3c3%0a%3c I play [[Devonte Thompson]]%0a\ No newline at end of file%0a---%0a> [[Devonte Thompson]]%0a\ No newline at end of file%0a
+host:1383607679=71.190.138.104
+author:1383607652=AdanRyder
+diff:1383607652:1383607652:=1,3d0%0a%3c cant play no checkers on a chessboard nigga%0a%3c %0a%3c [[Devonte Thompson]]%0a\ No newline at end of file%0a
+host:1383607652=71.190.138.104

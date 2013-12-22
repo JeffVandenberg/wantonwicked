@@ -1,0 +1,49 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+author=BearShark
+charset=ISO-8859-1
+csum=
+ctime=1378767338
+host=67.181.180.180
+name=CityBook.HutchinsonIsland
+rev=12
+targets=Players.ClaraPhizer,CityBook.McAllistersPublicHouse,Players.Vampire,Players.CormacMcAllister
+text=(:title Hutchinson Island:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%0a(:newpagebox base=CityBook template=CityBook.HITemplate label="Create Hutchinson Island Location:" value="Place Name":)%0a%0a(:include GameRef.CityMaster#HI#HIEnd:)%0a%0aThe island resides in the Savannah River, north of downtown Savannah proper. The island is formed where the Back River breaks off to the north from the Savannah River. The Primary use of the land is industrial, much of which supported the Port of Savannah, one of the busiest containerization cargo ports in the world. The island is roughly 7 miles long and 1 mile wide at its widest point.%0a%0a!!History%0a%0aHutchinson Island also played a major role in the capture of Savannah during the American Civil War. After capturing Atlanta, Georgia, Union Gen. William Tecumseh Sherman turned his army East, toward the Atlantic Ocean, and arrived in Savannah in December 1864. Rather than destroying Savannah, Sherman elected to demand the city's surrender. Confederate Gen. William J. Hardee led his troops under the dark of night across the Savannah River on a makeshift pontoon bridge, across Hutchinson Island and into the South Carolina wilderness.%0a%0aOn the Back River, the U.S. Army Corps of Engineers formerly maintained a tidal control system that slowed the natural filling in of the main river's shipping channel. The tide gate was abandoned after studies showed that it had increased saltwater intrusion into the upriver freshwater Savannah National Wildlife Refuge.%0a%0a!!District Features:%0a>>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a'''City/Mortal''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Changeling''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Mage''':%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Vampire''':%0a* Domain of [[Players/Clara Phizer]], Carthian Movement%0a* Location Rating: 4%0a>>%3c%3c%0a%0a>>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a'''Werewolf''':%0a>>%3c%3c%0a%0a!!District Locations:%0a(:sortable align=center:)%0a||class=sortable id=HILocations%0a||!Location||!Venue||!Owner||%0a||[[CityBook.McAllistersPublicHouse|McAllister's Public House]]||[[Players.Vampire|Any or Vampire]]||[[Players.CormacMcAllister|Cormac McAllister]]||%0a(:tableend:)%0a%0a%0a%0a----%0a(:include CityBook.Directory:)
+time=1386221389
+title=Hutchinson Island
+author:1386221389=BearShark
+diff:1386221389:1386220794:=43d42%0a%3c ||[[CityBook.McAllistersPublicHouse|McAllister's Public House]]||[[Players.Vampire|Any or Vampire]]||[[Players.CormacMcAllister|Cormac McAllister]]||%0a45c44%0a%3c %0a---%0a> ||McAllister's Public House||Vampire||Cormac McAllister||%0a
+host:1386221389=67.181.180.180
+author:1386220794=SimplexCoda
+diff:1386220794:1386035909:=44,45d43%0a%3c ||McAllister's Public House||Vampire||Cormac McAllister||%0a%3c %0a
+host:1386220794=98.22.108.97
+author:1386035909=SimplexCoda
+diff:1386035909:1386035892:=44c44%0a%3c %0a---%0a> ||McAllister's Public House||Vampire||Cormac McAllister||%0a
+host:1386035909=98.22.108.97
+author:1386035892=SimplexCoda
+diff:1386035892:1383435432:=44c44%0a%3c ||McAllister's Public House||Vampire||Cormac McAllister||%0a---%0a> %0a
+host:1386035892=98.22.108.97
+author:1383435432=ThomasH
+diff:1383435432:1383435344:=8c8%0a%3c The island resides in the Savannah River, north of downtown Savannah proper. The island is formed where the Back River breaks off to the north from the Savannah River. The Primary use of the land is industrial, much of which supported the Port of Savannah, one of the busiest containerization cargo ports in the world. The island is roughly 7 miles long and 1 mile wide at its widest point.%0a---%0a> The is a river island in the Savannah River, north of downtown Savannah proper. The island is formed where the Back River breaks off to the north from the Savannah River. The Primary use of the land is industrial, much of which supported the Port of Savannah, one of the busiest containerization cargo ports in the world. The island is roughly 7 miles long and 1 mile wide at its widest point.%0a
+host:1383435432=67.238.250.80
+author:1383435344=ThomasH
+diff:1383435344:1381224952:=7,14d6%0a%3c %0a%3c The is a river island in the Savannah River, north of downtown Savannah proper. The island is formed where the Back River breaks off to the north from the Savannah River. The Primary use of the land is industrial, much of which supported the Port of Savannah, one of the busiest containerization cargo ports in the world. The island is roughly 7 miles long and 1 mile wide at its widest point.%0a%3c %0a%3c !!History%0a%3c %0a%3c Hutchinson Island also played a major role in the capture of Savannah during the American Civil War. After capturing Atlanta, Georgia, Union Gen. William Tecumseh Sherman turned his army East, toward the Atlantic Ocean, and arrived in Savannah in December 1864. Rather than destroying Savannah, Sherman elected to demand the city's surrender. Confederate Gen. William J. Hardee led his troops under the dark of night across the Savannah River on a makeshift pontoon bridge, across Hutchinson Island and into the South Carolina wilderness.%0a%3c %0a%3c On the Back River, the U.S. Army Corps of Engineers formerly maintained a tidal control system that slowed the natural filling in of the main river's shipping channel. The tide gate was abandoned after studies showed that it had increased saltwater intrusion into the upriver freshwater Savannah National Wildlife Refuge.%0a
+host:1383435344=67.238.250.80
+author:1381224952=JillA
+diff:1381224952:1381224395:=23c23%0a%3c * Domain of [[Players/Clara Phizer]], Carthian Movement%0a---%0a> * Domain of [[Players/Clara Phizer]]%0a
+host:1381224952=24.20.151.3
+author:1381224395=JillA
+diff:1381224395:1381125459:=23,24c23,24%0a%3c * Domain of [[Players/Clara Phizer]]%0a%3c * Location Rating: 4%0a---%0a> * Domain of%0a> * Location Rating:%0a
+host:1381224395=24.20.151.3
+author:1381125459=Eiragwen
+diff:1381125459:1379816085:=9,29d8%0a%3c >>lrindent frame border='1px solid #898989' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''City/Mortal''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #005826' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Changeling''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #003471' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Mage''':%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #9e0b0f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Vampire''':%0a%3c * Domain of%0a%3c * Location Rating:%0a%3c >>%3c%3c%0a%3c %0a%3c >>lrindent frame border='1px solid #74483f' bgcolor=#eeeeee padding=15px%3c%3c%0a%3c '''Werewolf''':%0a%3c >>%3c%3c%0a
+host:1381125459=24.20.151.3
+author:1379816085=JillA
+diff:1379816085:1379704268:=6c6%0a%3c (:include GameRef.CityMaster#HI#HIEnd:)%0a---%0a> (:include GameRef.CityMaster#A#AEnd:)%0a
+host:1379816085=24.20.151.3
+author:1379704268=ThomasH
+diff:1379704268:1378767338:=1,17c1%0a%3c (:title Hutchinson Island:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/city_savannah.png%0a%3c %0a%3c (:newpagebox base=CityBook template=CityBook.HITemplate label="Create Hutchinson Island Location:" value="Place Name":)%0a%3c %0a%3c (:include GameRef.CityMaster#A#AEnd:)%0a%3c %0a%3c !!District Features:%0a%3c %0a%3c !!District Locations:%0a%3c (:sortable align=center:)%0a%3c ||class=sortable id=HILocations%0a%3c ||!Location||!Venue||!Owner||%0a%3c (:tableend:)%0a%3c %0a%3c ----%0a%3c (:include CityBook.Directory:)%0a\ No newline at end of file%0a---%0a> (:title Hutchinson Island:)%0a\ No newline at end of file%0a
+host:1379704268=67.238.250.80
+author:1378767338=ThomasH
+diff:1378767338:1378767338:=1d0%0a%3c (:title Hutchinson Island:)%0a\ No newline at end of file%0a
+host:1378767338=71.0.16.129

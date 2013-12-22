@@ -1,0 +1,63 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+author=gothicountry
+charset=ISO-8859-1
+csum=
+ctime=1378172687
+host=174.109.189.122
+name=Players.JaceMcRae
+rev=17
+targets=Players.MurdochLanz,Players.ClaytonRivers
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=325 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Jace McRae%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) %0a%0ahttp://www.crystalchrome.net/games/jace.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) Mid-20s%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 6'1"%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Strong%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Mechanic (of sorts)%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Truck, tools, sledge hammer, cigarettes%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Squeakyrat%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) (Have suggestions? Toss them at me!)%0a(:tableend:)%0a%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0aJace is tall and lean, with an athletic build. His skin is fair, hair a dark blonde to brown and kept short, eyes a pale grey. He’s generally clean-shaven though at times that he’s not, he’ll have a goatee.  On his right arm is a large but old burn scar, and on his shoulder down his arm, faded and thin blue-black ink is a detailed depiction of a thistle.  Jace carries an air of pent-up energy to him.%0a[[%3c%3c]]%0a%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0aJace has rapid-fire drawl of someone NOT from the deep south, but instead from the Appalachian hills where he was born and raised: the plate on his truck says West Virginia. The sketchy, thin tattoo along his arm is poorly done and anyone in the know could place it as a prison tattoo though it doesn't seem to have any particular group affiliation.  A hillbilly with a prison tattoo, and anything more might take some time to get from him.%0a[[%3c%3c]]%0a%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a'''Way Up Yonder:''' (Anyone)%0aAnyone who speaks Mountain Talk (or understands it) would get that he's from Appalachia - probably takes pride in it, too.%0a%0a'''It's Not Racist - It's Tribal:''' (Criminal) %0aThose with a little knowledge of the right criminal circles would pick up on the tattoo and some of Jace's tendencies and habits that he served some time. He doesn't mince words about other groups of people (nor does he seem excessively racist) and he seems to have a degree of focus and survival. If you're a criminal of sorts, and perceptive, you could pick up on this.%0a%0a'''The Weird Shit:''' (Supernatural)%0aJace seems particularly watchful over things that are.. non-normal. Not only does he buy into that stuff, but it grabs his attention. He almost seems on the lookout for it. Are you interested in those things? You might just have a guy with a sledge hammer willing to work with you.%0a%0a'''The Spiveys:'''%0aWhen Jace did time he met up with one of the Spiveys, and now being far away from home and in another city, he's gotten somewhat caught up with them again - for better or worse.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''"Ee's got the right attitude, an' sharp enough to keep 'is head down. Reckon he's worth keepin' tabs on.'' - [[MurdochLanz | Murdoch Lanz]]%0a%0a''"Jace is a good guy who seems like he's had some bad breaks in life. Reminds me of guys from home -- honest, forthright, decent. I want to help him out if I can."'' - [[ClaytonRivers | Clayton Rivers]]%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1381450651
+author:1381450651=gothicountry
+diff:1381450651:1379382132:=51,52d50%0a%3c %0a%3c ''"Jace is a good guy who seems like he's had some bad breaks in life. Reminds me of guys from home -- honest, forthright, decent. I want to help him out if I can."'' - [[ClaytonRivers | Clayton Rivers]]%0a
+host:1381450651=174.109.189.122
+author:1379382132=JillA
+diff:1379382132:1379301492:=46,48c46%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a---%0a> %0a
+host:1379382132=24.20.151.3
+author:1379301492=spehktre
+diff:1379301492:1379183713:=48c48%0a%3c ''"Ee's got the right attitude, an' sharp enough to keep 'is head down. Reckon he's worth keepin' tabs on.'' - [[MurdochLanz | Murdoch Lanz]]%0a---%0a> ''What Others have to Say about you''%0a
+host:1379301492=202.165.93.200
+author:1379183713=Squeakyrat
+diff:1379183713:1379181461:=42,44d41%0a%3c %0a%3c '''The Spiveys:'''%0a%3c When Jace did time he met up with one of the Spiveys, and now being far away from home and in another city, he's gotten somewhat caught up with them again - for better or worse.%0a
+host:1379183713=71.238.183.35
+author:1379181461=Squeakyrat
+diff:1379181461:1379181405:=3c3%0a%3c !!%25white%25Jace McRae%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a43d42%0a%3c %0a
+host:1379181461=71.238.183.35
+author:1379181405=Squeakyrat
+diff:1379181405:1379181387:=28d27%0a%3c %0a32d30%0a%3c %0a
+host:1379181405=71.238.183.35
+author:1379181387=Squeakyrat
+diff:1379181387:1379181174:=24d23%0a%3c %0a
+host:1379181387=71.238.183.35
+author:1379181174=Squeakyrat
+diff:1379181174:1379181159:=5d4%0a%3c %0a
+host:1379181174=71.238.183.35
+author:1379181159=Squeakyrat
+diff:1379181159:1379181009:=4,5c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) %0a%3c http://www.crystalchrome.net/games/jace.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://www.crystalchrome.net/games/jace.jpg%0a
+host:1379181159=71.238.183.35
+author:1379181009=Squeakyrat
+diff:1379181009:1379180955:=14c14%0a%3c (:cell width=190:) Mechanic (of sorts)%0a---%0a> (:cell width=190:) ?%0a
+host:1379181009=71.238.183.35
+author:1379180955=Squeakyrat
+diff:1379180955:1379180585:=2c2%0a%3c (:cellnr colspan=3 width=325 bgcolor=#6e68a3 align=center:)%0a---%0a> (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a
+host:1379180955=71.238.183.35
+author:1379180585=Squeakyrat
+diff:1379180585:1378174709:=4c4%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://www.crystalchrome.net/games/jace.jpg%0a---%0a> (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a
+host:1379180585=71.238.183.35
+author:1378174709=Squeakyrat
+diff:1378174709:1378174459:=33c33%0a%3c Those with a little knowledge of the right criminal circles would pick up on the tattoo and some of Jace's tendencies and habits that he served some time. He doesn't mince words about other groups of people (nor does he seem excessively racist) and he seems to have a degree of focus and survival. If you're a criminal of sorts, and perceptive, you could pick up on this.%0a---%0a> Those with a little knowledge of the right criminal circles would pick up on the tattoo as not professionally done:  a prison tattoo likely lending to Jace's ethnic heritage. Though while Jace won't mince words, he doesn't seem particularly racist. That said, he seems generally more comfortable among the criminal element.%0a
+host:1378174709=71.238.183.35
+author:1378174459=Squeakyrat
+diff:1378174459:1378173309:=29,36c29%0a%3c '''Way Up Yonder:''' (Anyone)%0a%3c Anyone who speaks Mountain Talk (or understands it) would get that he's from Appalachia - probably takes pride in it, too.%0a%3c %0a%3c '''It's Not Racist - It's Tribal:''' (Criminal) %0a%3c Those with a little knowledge of the right criminal circles would pick up on the tattoo as not professionally done:  a prison tattoo likely lending to Jace's ethnic heritage. Though while Jace won't mince words, he doesn't seem particularly racist. That said, he seems generally more comfortable among the criminal element.%0a%3c %0a%3c '''The Weird Shit:''' (Supernatural)%0a%3c Jace seems particularly watchful over things that are.. non-normal. Not only does he buy into that stuff, but it grabs his attention. He almost seems on the lookout for it. Are you interested in those things? You might just have a guy with a sledge hammer willing to work with you.%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1378174459=71.238.183.35
+author:1378173309=Squeakyrat
+diff:1378173309:1378172916:=26c26%0a%3c Jace has rapid-fire drawl of someone NOT from the deep south, but instead from the Appalachian hills where he was born and raised: the plate on his truck says West Virginia. The sketchy, thin tattoo along his arm is poorly done and anyone in the know could place it as a prison tattoo though it doesn't seem to have any particular group affiliation.  A hillbilly with a prison tattoo, and anything more might take some time to get from him.%0a---%0a> ''Place your Public History Here''%0a
+host:1378173309=71.238.183.35
+author:1378172916=Squeakyrat
+diff:1378172916:1378172687:=8c8%0a%3c (:cell width=190:) Mid-20s%0a---%0a> (:cell width=190:) ?%0a10c10%0a%3c (:cell width=190:) 6'1"%0a---%0a> (:cell width=190:) ?%0a12,13d11%0a%3c (:cell width=190:) Strong%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a14a13,14%0a> (:cellnr width=150 align=left:)'''Profession:''' %0a> (:cell width=190:) ?%0a16c16%0a%3c (:cell width=190:) Truck, tools, sledge hammer, cigarettes%0a---%0a> (:cell width=190:) ?%0a18c18%0a%3c (:cell width=190:) Squeakyrat%0a---%0a> (:cell width=190:) ?%0a20c20%0a%3c (:cell width=190:) (Have suggestions? Toss them at me!)%0a---%0a> (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a23c23%0a%3c Jace is tall and lean, with an athletic build. His skin is fair, hair a dark blonde to brown and kept short, eyes a pale grey. He’s generally clean-shaven though at times that he’s not, he’ll have a goatee.  On his right arm is a large but old burn scar, and on his shoulder down his arm, faded and thin blue-black ink is a detailed depiction of a thistle.  Jace carries an air of pent-up energy to him.%0a---%0a> ''Place your Description Here''%0a
+host:1378172916=71.238.183.35
+author:1378172687=Squeakyrat
+diff:1378172687:1378172687:=1,35d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://wantonwicked.gamingsandbox.com/wiki/images/silhouette.png%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) ?%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1378172687=71.238.183.35

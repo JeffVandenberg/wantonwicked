@@ -1,0 +1,46 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36
+author=Bacon_Lover
+charset=ISO-8859-1
+csum=
+ctime=1382867049
+host=173.48.13.148
+name=Players.SarahAlexander
+rev=11
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Sarah Aleander%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) http://i988.photobucket.com/albums/af4/Bacon_Lover/SarahAlexander_zpsc7cdc73a.gif%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 25%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 5'6%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Athletic%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) Local Radio DJ%0a(:cellnr width=150 align=left:)'''Public Effects:'''%0a(:cell width=190:) Striking Looks +1, Status 3 Local Entertainment, Fame 1 Local DJ,Barfly%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) Bacon_Lover%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=DxsSVNhyiKk|Living After Midnight]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a''Sarah is very pretty. long brown hair with hazel eyes. She is always seen wearing a leather jacket with some concert T under it, some new some vintage.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a''Place your Public History Here''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a''Sarah is a DJ at WIXV. She also does Charity work for the local homeless and other charities helping kids with out parents or homes, She can even be seen at Local Soup kitchens.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a''Sarah has Allies and is well known in the local entertainment Indistry''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1383679462
+author:1383679462=Bacon_Lover
+diff:1383679462:1383679461:=
+host:1383679462=173.48.13.148
+author:1383679461=Bacon_Lover
+diff:1383679461:1383678411:=16c16%0a%3c (:cell width=190:) Striking Looks +1, Status 3 Local Entertainment, Fame 1 Local DJ,Barfly%0a---%0a> (:cell width=190:) Striking Looks +1, Status 3 Local Entertainment, Fame 1 Local DJ%0a
+host:1383679461=173.48.13.148
+author:1383678411=Bacon_Lover
+diff:1383678411:1383602983:=29c29%0a%3c ''Sarah is a DJ at WIXV. She also does Charity work for the local homeless and other charities helping kids with out parents or homes, She can even be seen at Local Soup kitchens.''%0a---%0a> ''Sarah is a DJ at WIXV, works from 10AM to 5PM show. She also does Charity work for the local homeless and other charities helping kids with out parents or homes.''%0a
+host:1383678411=173.48.13.148
+author:1383602983=Ephsy
+csum:1383602983=typos
+diff:1383602983:1382960040:=29c29%0a%3c ''Sarah is a DJ at WIXV, works from 10AM to 5PM show. She also does Charity work for the local homeless and other charities helping kids with out parents or homes.''%0a---%0a> ''Sarah is a DJ at WIXV, works from 10AM to 5PM show. She also does Chairty work for the local homeless and other chairtys helping kids with out parents or homes.''%0a
+host:1383602983=190.105.65.183
+author:1382960040=Bacon_Lover
+diff:1382960040:1382951977:=
+host:1382960040=173.48.13.148
+author:1382951977=Bacon_Lover
+diff:1382951977:1382927030:=12c12%0a%3c (:cell width=190:) Athletic%0a---%0a> (:cell width=190:) Average%0a
+host:1382951977=173.48.13.148
+author:1382927030=Bacon_Lover
+diff:1382927030:1382888479:=14c14%0a%3c (:cell width=190:) Local Radio DJ%0a---%0a> (:cell width=190:) Local DJ%0a
+host:1382927030=173.48.13.148
+author:1382888479=Bacon_Lover
+diff:1382888479:1382867150:=32c32%0a%3c ''Sarah has Allies and is well known in the local entertainment Indistry''%0a---%0a> ''Sarah has Allies and is well known i the local entertainment Indistry''%0a
+host:1382888479=173.48.13.148
+author:1382867150=Bacon_Lover
+diff:1382867150:1382867132:=3c3%0a%3c !!%25white%25Sarah Aleander%25white%25%0a---%0a> !!%25white%25Sample Name%25white%25%0a
+host:1382867150=173.48.13.148
+author:1382867132=Bacon_Lover
+diff:1382867132:1382867049:=
+host:1382867132=173.48.13.148
+author:1382867049=Bacon_Lover
+diff:1382867049:1382867049:=1,38d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Sample Name%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://i988.photobucket.com/albums/af4/Bacon_Lover/SarahAlexander_zpsc7cdc73a.gif%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 25%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 5'6%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Average%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) Local DJ%0a%3c (:cellnr width=150 align=left:)'''Public Effects:'''%0a%3c (:cell width=190:) Striking Looks +1, Status 3 Local Entertainment, Fame 1 Local DJ%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) Bacon_Lover%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=DxsSVNhyiKk|Living After Midnight]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''Sarah is very pretty. long brown hair with hazel eyes. She is always seen wearing a leather jacket with some concert T under it, some new some vintage.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c ''Sarah is a DJ at WIXV, works from 10AM to 5PM show. She also does Chairty work for the local homeless and other chairtys helping kids with out parents or homes.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Sarah has Allies and is well known i the local entertainment Indistry''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1382867049=173.48.13.148

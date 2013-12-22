@@ -1,0 +1,57 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0
+author=Griffalo
+charset=ISO-8859-1
+csum=
+ctime=1379442396
+host=176.249.245.117
+name=Players.HattansAegis
+rev=15
+targets=Players.Chapa,Players.Chrysopoeia,Players.Charlie,Players.Transit
+text=%25center%25 http://i697.photobucket.com/albums/vv340/griffalo/HattanBanner_zps130850af.png%0a%0a%25center%25''Sapientia melior auro'' - Wisdom is better than gold%0a%0a(:table valign=stop:)%0a(:headnr width=370 bgcolor=#926b4b colspan=1:)%0a!!%25white%25Creed%0a(:head width=370 bgcolor=#926b4b colspan=2:)%0a!!%25white%25Members%0a(:cellnr width=370 rowspan=4:)%0a''To catalogue artifacts, to forge new magical items and to chart the magical flow in Savannah.''%0a%0a''To protect Sleepers from the danger of magical items and the fallout from ley flow.''%0a%0a''To reveal the secrets of magic as it leaves its mark on the Fallen World.''%0a%0aHattan's Aegis are a cabal dedicated to investigating magic made manifest - they have been charged with furthering the work of Hattan done on Savannah's ley lines. They also pursue research in alchemy, imbued items and artifacts that may be extant in the area. %0a%0aThe Mysterium have given them the privilege of being the broker's to Savannah's Conislium when it comes to the loaning and exchange of knowledge and artifacts.%0a(:cell width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Chapa_zpsa9b144f4.png%0a(:cell:)'''[[Chapa]]'''%0a''Position'': Farseeker%0a(:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Chrys_zps95280679.png%0a(:cell:)'''[[Chrysopoeia]]'''%0a''Position'': Hearthmaster%0a(:cellnr width=100:)%25width=100%25http://imageshack.us/a/img20/9101/1qvv.png%0a(:cell:)'''[[Charlie]]'''%0a''Position'': Edgetender%0a(:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/transit_zps98db9fbd.png%0a(:cell:)'''[[Transit]]'''%0a''Position'': Doorwarden%0a(:headnr colspan=3 bgcolor=#926b4b:)%0a!!!%25white%25Great Rights%0a(:cellnr colspan=3:) Hattan's Aegis observes the following Great Rights:%0a• Right of Crossing: Let no borders stop an%0aAwakened with a clear heart.%0a%0a• Right of Emeritus: Those who have earned%0arespect must be treated with respect.%0a%0a• Right of Hospitality: Those who request hospitality%0amust be granted it.%0a%0a• Right of Nemesis: When vengeance is declared,%0alet none stand in its way.%0a%0a• Right of Sanctuary: Protect your home, and%0alet no action cause it harm.%0a%0a(:headnr colspan=3 bgcolor=#926b4b:)%0a!!!%25white%25Territory%0a(:cellnr colspan=3:) Hattan's Aegis claim the area around Hilton Head International Airport as their territory.%0a(:tableend:)%0a%0a(:include CityBook.MageNavigationBar:)
+time=1386958286
+author:1386958286=Griffalo
+diff:1386958286:1380221978:=52c52%0a%3c (:cellnr colspan=3:) Hattan's Aegis claim the area around Hilton Head International Airport as their territory.%0a---%0a> (:cellnr colspan=3:) Blahblah%0a
+host:1386958286=176.249.245.117
+author:1380221978=aranok
+diff:1380221978:1379810089:=10,17c10%0a%3c (:cellnr width=370 rowspan=4:)%0a%3c ''To catalogue artifacts, to forge new magical items and to chart the magical flow in Savannah.''%0a%3c %0a%3c ''To protect Sleepers from the danger of magical items and the fallout from ley flow.''%0a%3c %0a%3c ''To reveal the secrets of magic as it leaves its mark on the Fallen World.''%0a%3c %0a%3c Hattan's Aegis are a cabal dedicated to investigating magic made manifest - they have been charged with furthering the work of Hattan done on Savannah's ley lines. They also pursue research in alchemy, imbued items and artifacts that may be extant in the area. %0a---%0a> (:cellnr width=370 rowspan=4:)Hattan's Aegis are a cabal dedicated to investigating magic made manifest - they have been charged with furthering the work of Hattan done on Savannah's ley lines. They also pursue research in alchemy, imbued items and artifacts that may be extant in the area. %0a
+host:1380221978=68.113.249.40
+author:1379810089=Griffalo
+diff:1379810089:1379787612:=10,12c10%0a%3c (:cellnr width=370 rowspan=4:)Hattan's Aegis are a cabal dedicated to investigating magic made manifest - they have been charged with furthering the work of Hattan done on Savannah's ley lines. They also pursue research in alchemy, imbued items and artifacts that may be extant in the area. %0a%3c %0a%3c The Mysterium have given them the privilege of being the broker's to Savannah's Conislium when it comes to the loaning and exchange of knowledge and artifacts.%0a---%0a> (:cellnr width=370 rowspan=4:)Blahblah%0a
+host:1379810089=2.122.152.94
+author:1379787612=Griffalo
+diff:1379787612:1379787558:=10c10%0a%3c (:cellnr width=370 rowspan=4:)Blahblah%0a---%0a> (:cellnr width=370 rowspan=3:)Blahblah%0a
+host:1379787612=2.122.152.94
+author:1379787558=Griffalo
+diff:1379787558:1379468718:=20,22d19%0a%3c (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/transit_zps98db9fbd.png%0a%3c (:cell:)'''[[Transit]]'''%0a%3c ''Position'': Doorwarden%0a
+host:1379787558=2.122.152.94
+author:1379468718=Griffalo
+diff:1379468718:1379466649:minor=41,43c41%0a%3c (:tableend:)%0a%3c %0a%3c (:include CityBook.MageNavigationBar:)%0a\ No newline at end of file%0a---%0a> (:tableend:)%0a\ No newline at end of file%0a
+host:1379468718=2.122.152.94
+author:1379466649=Griffalo
+diff:1379466649:1379447878:minor=19c19%0a%3c ''Position'': Edgetender%0a---%0a> ''Position'': Edgetender, Councilor%0a
+host:1379466649=2.122.152.94
+author:1379447878=Griffalo
+diff:1379447878:1379447024:=2,4d1%0a%3c %0a%3c %25center%25''Sapientia melior auro'' - Wisdom is better than gold%0a%3c %0a7c4%0a%3c !!%25white%25Creed%0a---%0a> !!%25white%25Motto%0a10c7%0a%3c (:cellnr width=370 rowspan=3:)Blahblah%0a---%0a> (:cellnr width=370 rowspan=3:)''Sapientia melior auro'' - Wisdom is better than gold%0a19c16%0a%3c ''Position'': Edgetender, Councilor%0a---%0a> ''Position'': Edgetender%0a21,37c18,19%0a%3c !!!%25white%25Great Rights%0a%3c (:cellnr colspan=3:) Hattan's Aegis observes the following Great Rights:%0a%3c • Right of Crossing: Let no borders stop an%0a%3c Awakened with a clear heart.%0a%3c %0a%3c • Right of Emeritus: Those who have earned%0a%3c respect must be treated with respect.%0a%3c %0a%3c • Right of Hospitality: Those who request hospitality%0a%3c must be granted it.%0a%3c %0a%3c • Right of Nemesis: When vengeance is declared,%0a%3c let none stand in its way.%0a%3c %0a%3c • Right of Sanctuary: Protect your home, and%0a%3c let no action cause it harm.%0a%3c %0a---%0a> !!!%25white%25Other Stuff?%0a> (:cellnr colspan=3:) Blahblah%0a39c21%0a%3c !!!%25white%25Territory%0a---%0a> !!!%25white%25Other Stuff?%0a
+host:1379447878=2.122.152.94
+author:1379447024=Griffalo
+diff:1379447024:1379445748:minor=9,10c9%0a%3c (:cell:)'''[[Chapa]]'''%0a%3c ''Position'': Farseeker%0a---%0a> (:cell:)[[Chapa]]%0a12,13c11%0a%3c (:cell:)'''[[Chrysopoeia]]'''%0a%3c ''Position'': Hearthmaster%0a---%0a> (:cell:)[[Chrysopoeia]]%0a15,16c13%0a%3c (:cell:)'''[[Charlie]]'''%0a%3c ''Position'': Edgetender%0a---%0a> (:cell:)[[Charlie]]%0a
+host:1379447024=2.122.152.94
+author:1379445748=Griffalo
+diff:1379445748:1379445467:=7c7%0a%3c (:cellnr width=370 rowspan=3:)''Sapientia melior auro'' - Wisdom is better than gold%0a---%0a> (:cellnr width=370 rowspan=3:)Sapientia melior auro%0a
+host:1379445748=2.122.152.94
+author:1379445467=Griffalo
+diff:1379445467:1379444371:=7,13c7,15%0a%3c (:cellnr width=370 rowspan=3:)Sapientia melior auro%0a%3c (:cell width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Chapa_zpsa9b144f4.png%0a%3c (:cell:)[[Chapa]]%0a%3c (:cellnr width=100:)%25width=100%25http://i697.photobucket.com/albums/vv340/griffalo/Chrys_zps95280679.png%0a%3c (:cell:)[[Chrysopoeia]]%0a%3c (:cellnr width=100:)%25width=100%25http://imageshack.us/a/img20/9101/1qvv.png%0a%3c (:cell:)[[Charlie]]%0a---%0a> (:cellnr width=370 rowspan=4:)Motto here%0a> (:cell width=100:)%25width=100%25CharacterPic%0a> (:cell:)Character Name/Links%0a> (:cellnr width=100:)%25width=100%25CharacterPic%0a> (:cell:)Character Name/Links%0a> (:cellnr width=100:)%25width=100%25CharacterPic%0a> (:cell:)Character Name/Links%0a> (:cellnr width=100:)%25width=100%25CharacterPic%0a> (:cell:)Character Name/Links%0a
+host:1379445467=2.122.152.94
+author:1379444371=JillA
+diff:1379444371:1379442592:=1,22c1%0a%3c %25center%25 http://i697.photobucket.com/albums/vv340/griffalo/HattanBanner_zps130850af.png%0a%3c (:table valign=stop:)%0a%3c (:headnr width=370 bgcolor=#926b4b colspan=1:)%0a%3c !!%25white%25Motto%0a%3c (:head width=370 bgcolor=#926b4b colspan=2:)%0a%3c !!%25white%25Members%0a%3c (:cellnr width=370 rowspan=4:)Motto here%0a%3c (:cell width=100:)%25width=100%25CharacterPic%0a%3c (:cell:)Character Name/Links%0a%3c (:cellnr width=100:)%25width=100%25CharacterPic%0a%3c (:cell:)Character Name/Links%0a%3c (:cellnr width=100:)%25width=100%25CharacterPic%0a%3c (:cell:)Character Name/Links%0a%3c (:cellnr width=100:)%25width=100%25CharacterPic%0a%3c (:cell:)Character Name/Links%0a%3c (:headnr colspan=3 bgcolor=#926b4b:)%0a%3c !!!%25white%25Other Stuff?%0a%3c (:cellnr colspan=3:) Blahblah%0a%3c (:headnr colspan=3 bgcolor=#926b4b:)%0a%3c !!!%25white%25Other Stuff?%0a%3c (:cellnr colspan=3:) Blahblah%0a%3c (:tableend:)%0a\ No newline at end of file%0a---%0a> %25center%25 http://i697.photobucket.com/albums/vv340/griffalo/HattanBanner_zps130850af.png%0a\ No newline at end of file%0a
+host:1379444371=24.20.151.3
+author:1379442592=Griffalo
+diff:1379442592:1379442486:=1c1%0a%3c %25center%25 http://i697.photobucket.com/albums/vv340/griffalo/HattanBanner_zps130850af.png%0a\ No newline at end of file%0a---%0a> http://i697.photobucket.com/albums/vv340/griffalo/HattanBanner_zps130850af.png%0a\ No newline at end of file%0a
+host:1379442592=2.122.152.94
+author:1379442486=Griffalo
+diff:1379442486:1379442396:=1c1%0a%3c http://i697.photobucket.com/albums/vv340/griffalo/HattanBanner_zps130850af.png%0a\ No newline at end of file%0a---%0a> http://i697.photobucket.com/albums/vv340/griffalo/HattanBanner_zpse5f143f8.png%0a\ No newline at end of file%0a
+host:1379442486=2.122.152.94
+author:1379442396=Griffalo
+diff:1379442396:1379442396:=1d0%0a%3c http://i697.photobucket.com/albums/vv340/griffalo/HattanBanner_zpse5f143f8.png%0a\ No newline at end of file%0a
+host:1379442396=2.122.152.94

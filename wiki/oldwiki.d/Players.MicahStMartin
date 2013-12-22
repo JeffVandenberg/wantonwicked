@@ -1,0 +1,54 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36
+author=Ebram
+charset=ISO-8859-1
+csum=
+ctime=1386805796
+host=68.171.190.177
+name=Players.MicahStMartin
+rev=14
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#005826 align=center:)%0a!!%25white%25Micah St. Martin%25white%25%0a(:cellnr rowspan=20 width=400 align=center:) %0a%25height=350%25http://www.youknowyoulovefashion.com/storage/trueblood/season5/0511/0511Alcide.jpg%0a%0a%25height=300%25http://fc05.deviantart.net/fs71/i/2009/357/3/4/Werewolf_roar_by_Lintufriikki.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_s.png%0a(:cellnr width=130 align=left:)'''Age:'''%0a(:cell width=210:) 34%0a(:cellnr width=130 align=left:)'''Apparent Age:'''%0a(:cell width=210:) 24%0a(:cellnr width=130 align=left:)'''Height:'''%0a(:cell width=210:) 6'1"%0a(:cellnr width=130 align=left:)'''Build:'''%0a(:cell width=210:) Muscular%0a(:cellnr width=130 align=left:)'''Profession:''' %0a(:cell width=210:) Swamp tours%0a(:cellnr width=130 align=left:)'''Public Effects:'''%0a(:cell width=210:) Striking Looks 2%0a(:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_f.png%0a(:cellnr width=130 align=left:)'''Spring:'''%0a(:cell width=210:) 0%0a(:cellnr width=130 align=left:)'''Summer:'''%0a(:cell width=210:) 0%0a(:cellnr width=130 align=left:)'''Autumn:'''%0a(:cell width=210:) 0%0a(:cellnr width=130 align=left:)'''Winter:'''%0a(:cell width=210:) 1%0a%0a(:cellnr width=130 align=left:)'''Seeming:'''%0a(:cell width=210:) Beast%0a(:cellnr width=130 align=left:)'''Motley:'''%0a(:cell width=210:) None%0a(:cellnr width=130 align=left:)'''Entitlement:'''%0a(:cell width=210:) Duchy of Truth and Loss%0a%0a%0a%0a(:cellnr width=130 align=left:)'''Player:''' %0a(:cell width=210:) Ebram%0a(:cellnr width=130 align=left:)'''Theme Music:''' %0a(:cell width=210:) %0a*[[http://www.youtube.com/watch?v=smnJ7pjg7_8|El Cu Cuy]]%0a*[[http://www.youtube.com/watch?v=n9rcpK0klaM|Winter]]%0a*[[http://www.youtube.com/watch?v=xVj70A6RmPo|My Mercy]]%0a*[[http://www.youtube.com/watch?v=N939-xgTBrM|Beloved]]%0a*[[http://www.youtube.com/watch?v=T23D193nCys|Darkness]]%0a*[[http://www.youtube.com/watch?v=Q-pXD0FXLQ8|Bother]]%0a*[[http://www.youtube.com/watch?v=evpGu3eO0pY|Illusion]]%0a(:tableend:)%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_d.png%0a''Muscular and athletic with a dark complexion.  Micah's voice has a strange accent to it, leaning more towards the swamps than towards the South.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_h.png%0a''He just seemed to appear recently, from out of the bayou.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_rph.png%0a*Bayou boy:  Any reason to be in the swamps?  Maybe you've had Micah take you out on one of his boats.%0a*Hunter:  He's good with a bow, and tends to take what he needs to survive from nature itself.  In the woods?  Have a chance to run into him hunting down dinner.%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0ahttp://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a%0a(:include CityBook.ChangelingNavigationBar:)
+time=1387657972
+author:1387657972=Ebram
+diff:1387657972:1387393984:=61d60%0a%3c *Hunter:  He's good with a bow, and tends to take what he needs to survive from nature itself.  In the woods?  Have a chance to run into him hunting down dinner.%0a
+host:1387657972=68.171.190.177
+author:1387393984=Ebram
+diff:1387393984:1387311313:=46d45%0a%3c *[[http://www.youtube.com/watch?v=n9rcpK0klaM|Winter]]%0a
+host:1387393984=68.171.190.177
+author:1387311313=Ebram
+diff:1387311313:1387311050:=5,7c5,7%0a%3c %25height=350%25http://www.youknowyoulovefashion.com/storage/trueblood/season5/0511/0511Alcide.jpg%0a%3c %0a%3c %25height=300%25http://fc05.deviantart.net/fs71/i/2009/357/3/4/Werewolf_roar_by_Lintufriikki.jpg%0a---%0a> %25height=400%25http://www.youknowyoulovefashion.com/storage/trueblood/season5/0511/0511Alcide.jpg%0a> %0a> %25height=400%25http://fc05.deviantart.net/fs71/i/2009/357/3/4/Werewolf_roar_by_Lintufriikki.jpg%0a
+host:1387311313=68.171.190.177
+author:1387311050=Ebram
+diff:1387311050:1387309253:=50d49%0a%3c *[[http://www.youtube.com/watch?v=evpGu3eO0pY|Illusion]]%0a
+host:1387311050=68.171.190.177
+author:1387309253=Ebram
+diff:1387309253:1387309061:=7c7%0a%3c %25height=400%25http://fc05.deviantart.net/fs71/i/2009/357/3/4/Werewolf_roar_by_Lintufriikki.jpg%0a---%0a> %25height=400%25http://3.bp.blogspot.com/-GSfliQ5GfHE/Thy1soRqYdI/AAAAAAAAAL0/9IGvfH95nWA/s1600/BIg%252BBad%252BWolf%252B1.jpg%0a
+host:1387309253=68.171.190.177
+author:1387309061=Ebram
+diff:1387309061:1387259546:=5c5%0a%3c %25height=400%25http://www.youknowyoulovefashion.com/storage/trueblood/season5/0511/0511Alcide.jpg%0a---%0a> %25height=400%25http://www.underwearexpert.com/wp-content/uploads/2013/06/Joe-Manganiello-in-True-Blood-Episode-6.01-01-512x614.jpg%0a
+host:1387309061=68.171.190.177
+author:1387259546=Ebram
+diff:1387259546:1386975770:=47d46%0a%3c *[[http://www.youtube.com/watch?v=N939-xgTBrM|Beloved]]%0a
+host:1387259546=68.171.190.177
+author:1386975770=Ebram
+diff:1386975770:1386975677:=48d47%0a%3c *[[http://www.youtube.com/watch?v=Q-pXD0FXLQ8|Bother]]%0a
+host:1386975770=68.171.190.177
+author:1386975677=Ebram
+diff:1386975677:1386808786:=44,47c44,45%0a%3c (:cell width=210:) %0a%3c *[[http://www.youtube.com/watch?v=smnJ7pjg7_8|El Cu Cuy]]%0a%3c *[[http://www.youtube.com/watch?v=xVj70A6RmPo|My Mercy]]%0a%3c *[[http://www.youtube.com/watch?v=T23D193nCys|Darkness]]%0a---%0a> (:cell width=210:) [[http://www.youtube.com/watch?v=smnJ7pjg7_8|El Cu Cuy]]%0a> [[http://www.youtube.com/watch?v=xVj70A6RmPo|My Mercy]]%0a
+host:1386975677=68.171.190.177
+author:1386808786=Ebram
+diff:1386808786:1386808548:=45d44%0a%3c [[http://www.youtube.com/watch?v=xVj70A6RmPo|My Mercy]]%0a
+host:1386808786=68.171.190.177
+author:1386808548=Ebram
+diff:1386808548:1386806443:=44c44%0a%3c (:cell width=210:) [[http://www.youtube.com/watch?v=smnJ7pjg7_8|El Cu Cuy]]%0a---%0a> (:cell width=210:) [[http://www.youtube.com/ |Music]]%0a
+host:1386808548=68.171.190.177
+author:1386806443=Ebram
+diff:1386806443:1386806289:=6,7d5%0a%3c %0a%3c %25height=400%25http://3.bp.blogspot.com/-GSfliQ5GfHE/Thy1soRqYdI/AAAAAAAAAL0/9IGvfH95nWA/s1600/BIg%252BBad%252BWolf%252B1.jpg%0a
+host:1386806443=68.171.190.177
+author:1386806289=Ebram
+diff:1386806289:1386805796:=45c45%0a%3c ''Muscular and athletic with a dark complexion.  Micah's voice has a strange accent to it, leaning more towards the swamps than towards the South.''%0a---%0a> ''Place your Description Here''%0a48c48%0a%3c ''He just seemed to appear recently, from out of the bayou.''%0a---%0a> ''Place your Public History Here''%0a51c51%0a%3c *Bayou boy:  Any reason to be in the swamps?  Maybe you've had Micah take you out on one of his boats.%0a---%0a> ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a
+host:1386806289=68.171.190.177
+author:1386805796=Ebram
+diff:1386805796:1386805796:=1,60d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#005826 align=center:)%0a%3c !!%25white%25Micah St. Martin%25white%25%0a%3c (:cellnr rowspan=20 width=400 align=center:) %0a%3c %25height=400%25http://www.underwearexpert.com/wp-content/uploads/2013/06/Joe-Manganiello-in-True-Blood-Episode-6.01-01-512x614.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_s.png%0a%3c (:cellnr width=130 align=left:)'''Age:'''%0a%3c (:cell width=210:) 34%0a%3c (:cellnr width=130 align=left:)'''Apparent Age:'''%0a%3c (:cell width=210:) 24%0a%3c (:cellnr width=130 align=left:)'''Height:'''%0a%3c (:cell width=210:) 6'1"%0a%3c (:cellnr width=130 align=left:)'''Build:'''%0a%3c (:cell width=210:) Muscular%0a%3c (:cellnr width=130 align=left:)'''Profession:''' %0a%3c (:cell width=210:) Swamp tours%0a%3c (:cellnr width=130 align=left:)'''Public Effects:'''%0a%3c (:cell width=210:) Striking Looks 2%0a%3c (:cellnr colspan=2:)http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_f.png%0a%3c (:cellnr width=130 align=left:)'''Spring:'''%0a%3c (:cell width=210:) 0%0a%3c (:cellnr width=130 align=left:)'''Summer:'''%0a%3c (:cell width=210:) 0%0a%3c (:cellnr width=130 align=left:)'''Autumn:'''%0a%3c (:cell width=210:) 0%0a%3c (:cellnr width=130 align=left:)'''Winter:'''%0a%3c (:cell width=210:) 1%0a%3c %0a%3c (:cellnr width=130 align=left:)'''Seeming:'''%0a%3c (:cell width=210:) Beast%0a%3c (:cellnr width=130 align=left:)'''Motley:'''%0a%3c (:cell width=210:) None%0a%3c (:cellnr width=130 align=left:)'''Entitlement:'''%0a%3c (:cell width=210:) Duchy of Truth and Loss%0a%3c %0a%3c %0a%3c %0a%3c (:cellnr width=130 align=left:)'''Player:''' %0a%3c (:cell width=210:) Ebram%0a%3c (:cellnr width=130 align=left:)'''Theme Music:''' %0a%3c (:cell width=210:) [[http://www.youtube.com/ |Music]]%0a%3c (:tableend:)%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_d.png%0a%3c ''Place your Description Here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_h.png%0a%3c ''Place your Public History Here''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_rph.png%0a%3c ''Place your Role Playing Hooks, Ways others can interact with you, here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c http://wantonwicked.gamingsandbox.com/wiki/images/ctl/headers/ctl_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.ChangelingNavigationBar:)%0a\ No newline at end of file%0a
+host:1386805796=68.171.190.177

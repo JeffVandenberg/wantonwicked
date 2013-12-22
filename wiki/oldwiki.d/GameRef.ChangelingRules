@@ -1,0 +1,22 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36
+author=Aramil98
+charset=ISO-8859-1
+csum=
+ctime=1372721762
+host=71.0.16.129
+name=GameRef.ChangelingRules
+rev=3
+targets=GameRef.ChangelingRules
+text=(:title Changeling Rules:)%0a[[#cltop]]%0a[[GameRef.ChangelingRules?action=edit|Click here to Edit]]%0a(:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a(:cellnr align=center:)%0a(:cellnr:)%0a(:cellnr bgcolor=green align=center:)%0a'''Contents'''%0a(:cellnr:) %0a*[[#clRules| Venue Code of Conduct]]%0a*[[#clContact|Contacting Your Storytellers]]%0a*[[#clSchedule| Scheduling a Scene]]%0a*[[#clChanges| Becoming a Changeling]]%0a(:tableend:) %0a%0a[[#clRules]]%0a[++'''Venue Code of Conduct'''++]%0a%0a %0a[--%25color=green%25[[#cltop| Back to top]]--]%0a%0a[[#clContact]]%0a[++'''Contacting Your Storytellers'''++]%0a%0aFor a current updated list of the venue ST [[http://wantonwicked.gamingsandbox.com/|Page TBD]].  You will be able to FPM the ST by clicking their names.%0a%0a[--%25color=green%25[[#cltop| Back to top]]--]%0a%0a[[#clSchedule]]%0a[++'''Scheduling a Scene'''++]%0a%0a%0a[--%25color=green%25[[#cltop| Back to top]]--]%0a%0a[[#clChanges]]%0a[++'''Becoming a Changeling'''++]%0a%0a%0a[--%25color=green%25[[#cltop| Back to top]]--]%0a%0a%0a%0a(:include CityBook.ChangelingNavigationBar:)
+time=1372721913
+title=Changeling Rules
+author:1372721913=Aramil98
+diff:1372721913:1372721770:=25c25%0a%3c For a current updated list of the venue ST [[http://wantonwicked.gamingsandbox.com/|Page TBD]].  You will be able to FPM the ST by clicking their names.%0a---%0a> For a current updated list of the venue ST [[http://www.wantonwicked.net/forum/memberlist.php?mode=group&g=1579|please click here]].  You will be able to FPM the ST by clicking their names.%0a
+host:1372721913=71.0.16.129
+author:1372721770=Aramil98
+diff:1372721770:1372721762:=3a4%0a> %25center%25%25width=400px%25http://i635.photobucket.com/albums/uu71/Desse_photos/Wanton%2520Wiki/Changelingheader.png%0a
+host:1372721770=71.0.16.129
+author:1372721762=Aramil98
+diff:1372721762:1372721762:=1,44d0%0a%3c (:title Changeling Rules:)%0a%3c [[#cltop]]%0a%3c [[GameRef.ChangelingRules?action=edit|Click here to Edit]]%0a%3c %25center%25%25width=400px%25http://i635.photobucket.com/albums/uu71/Desse_photos/Wanton%2520Wiki/Changelingheader.png%0a%3c (:table border=0 style=float width=40%25 align=right  cellspacing=0 :)%0a%3c (:cellnr align=center:)%0a%3c (:cellnr:)%0a%3c (:cellnr bgcolor=green align=center:)%0a%3c '''Contents'''%0a%3c (:cellnr:) %0a%3c *[[#clRules| Venue Code of Conduct]]%0a%3c *[[#clContact|Contacting Your Storytellers]]%0a%3c *[[#clSchedule| Scheduling a Scene]]%0a%3c *[[#clChanges| Becoming a Changeling]]%0a%3c (:tableend:) %0a%3c %0a%3c [[#clRules]]%0a%3c [++'''Venue Code of Conduct'''++]%0a%3c %0a%3c  %0a%3c [--%25color=green%25[[#cltop| Back to top]]--]%0a%3c %0a%3c [[#clContact]]%0a%3c [++'''Contacting Your Storytellers'''++]%0a%3c %0a%3c For a current updated list of the venue ST [[http://www.wantonwicked.net/forum/memberlist.php?mode=group&g=1579|please click here]].  You will be able to FPM the ST by clicking their names.%0a%3c %0a%3c [--%25color=green%25[[#cltop| Back to top]]--]%0a%3c %0a%3c [[#clSchedule]]%0a%3c [++'''Scheduling a Scene'''++]%0a%3c %0a%3c %0a%3c [--%25color=green%25[[#cltop| Back to top]]--]%0a%3c %0a%3c [[#clChanges]]%0a%3c [++'''Becoming a Changeling'''++]%0a%3c %0a%3c %0a%3c [--%25color=green%25[[#cltop| Back to top]]--]%0a%3c %0a%3c %0a%3c %0a%3c (:include CityBook.ChangelingNavigationBar:)%0a\ No newline at end of file%0a
+host:1372721762=71.0.16.129

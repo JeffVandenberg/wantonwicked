@@ -1,0 +1,39 @@
+version=pmwiki-2.2.52 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0
+author=AdanRyder
+charset=ISO-8859-1
+csum=
+ctime=1382673825
+host=71.190.138.104
+name=Players.DevonteThompson
+rev=9
+targets=
+text=(:table valign=top:)%0a(:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a!!%25white%25Devonte Thompson%25white%25%0a(:cellnr rowspan=15 width=400 align=center:) http://userserve-ak.last.fm/serve/500/87370315/Fredo+Santana+fredosantana.jpg%0a(:cellnr width=340 colspan=2 align=center:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a(:cellnr width=150 align=left:)'''Age:'''%0a(:cell width=190:) 23%0a(:cellnr width=150 align=left:)'''Height:'''%0a(:cell width=190:) 6'2%0a(:cellnr width=150 align=left:)'''Build:'''%0a(:cell width=190:) Slim%0a(:cellnr width=150 align=left:)'''Profession:''' %0a(:cell width=190:) "Unemployed"%0a(:cellnr width=150 align=left:)'''Player:''' %0a(:cell width=190:) AdanRyder%0a(:cellnr width=150 align=left:)'''Theme Music:''' %0a(:cell width=190:) [[http://www.youtube.com/watch?v=f0JcRGzCE50|Val Venis]]%0a(:tableend:)%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a''Tall and slim, Devonte's natural appearance would be neither intimidating nor notable. However, a predatory gaze and copious gang-related tattoos have turned the fairly unassuming young man into a truly menacing figure. ''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a''An alleged Gangster Disciples member, Devonte has only recently arrived in Savannah. Setting himself up in the infamous Frazier Homes along with a multitude of other delinquents and degenerates.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a'''Chi-Town''': Devonte has strong ties to his hometown of Chicago, those with knowledge of Chicago-based criminal elements would recognize his affiliations immediately.%0a%0a'''For The Low''': Drugs are Devonte's area of expertise, and those in need of them would do well to speak to him.%0a%0a'''Kayton/Frazier''': Despite being a newcomer, Devonte has already made himself an active member of the Kayton/Frazier Area criminal element, something bound to draw the attention of others in the neighborhood, or those with eyes on it.%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a''Place your Allies, Contacts, Mentors and PC relationships here.''%0a[[%3c%3c]]%0a%25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a''What Others have to Say about you''%0a[[%3c%3c]]%0a%0a(:include CityBook.MortalNavigationBar:)
+time=1383607610
+author:1383607610=AdanRyder
+diff:1383607610:1383607579:=29c29%0a%3c '''For The Low''': Drugs are Devonte's area of expertise, and those in need of them would do well to speak to him.%0a---%0a> '''Grindin'''': Drugs are Devonte's area of expertise, and those in need of them would do well to speak to him.%0a
+host:1383607610=71.190.138.104
+author:1383607579=AdanRyder
+diff:1383607579:1383607484:=29c29%0a%3c '''Grindin'''': Drugs are Devonte's area of expertise, and those in need of them would do well to speak to him.%0a---%0a> '''Pusha D''': Drugs are Devonte's area of expertise, and those in need of them would do well to speak to him.%0a
+host:1383607579=71.190.138.104
+author:1383607484=AdanRyder
+diff:1383607484:1383097841:=29c29%0a%3c '''Pusha D''': Drugs are Devonte's area of expertise, and those in need of them would do well to speak to him.%0a---%0a> '''Oxymoron''': Anybody in need of high grade opiates would do well to speak to Devonte.%0a
+host:1383607484=71.190.138.104
+author:1383097841=AdanRyder
+diff:1383097841:1382770268:=18c18%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=f0JcRGzCE50|Val Venis]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/watch?v=f0JcRGzCE50|Music]]%0a
+host:1383097841=71.190.138.104
+author:1382770268=AdanRyder
+diff:1382770268:1382761141:=31c31%0a%3c '''Kayton/Frazier''': Despite being a newcomer, Devonte has already made himself an active member of the Kayton/Frazier Area criminal element, something bound to draw the attention of others in the neighborhood, or those with eyes on it.%0a---%0a> '''Frazier Homes''': Despite being a newcomer, Devonte has already made himself an active member of the Frazier Homes criminal element, something bound to draw the attention of others in the area.%0a
+host:1382770268=71.190.138.104
+author:1382761141=AdanRyder
+diff:1382761141:1382741142:=18c18%0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=f0JcRGzCE50|Music]]%0a---%0a> (:cell width=190:) [[http://www.youtube.com/watch?v=GbvNA7jo-SU|Music]]%0a
+host:1382761141=71.190.138.104
+author:1382741142=AdanRyder
+diff:1382741142:1382673844:=14c14%0a%3c (:cell width=190:) "Unemployed"%0a---%0a> (:cell width=190:) All around thug%0a
+host:1382741142=71.190.138.104
+author:1382673844=AdanRyder
+diff:1382673844:1382673825:=31a32%0a> %0a
+host:1382673844=71.190.138.104
+author:1382673825=AdanRyder
+diff:1382673825:1382673825:=1,41d0%0a%3c (:table valign=top:)%0a%3c (:cellnr colspan=3 width=380 bgcolor=#6e68a3 align=center:)%0a%3c !!%25white%25Devonte Thompson%25white%25%0a%3c (:cellnr rowspan=15 width=400 align=center:) http://userserve-ak.last.fm/serve/500/87370315/Fredo+Santana+fredosantana.jpg%0a%3c (:cellnr width=340 colspan=2 align=center:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_s.png%0a%3c (:cellnr width=150 align=left:)'''Age:'''%0a%3c (:cell width=190:) 23%0a%3c (:cellnr width=150 align=left:)'''Height:'''%0a%3c (:cell width=190:) 6'2%0a%3c (:cellnr width=150 align=left:)'''Build:'''%0a%3c (:cell width=190:) Slim%0a%3c (:cellnr width=150 align=left:)'''Profession:''' %0a%3c (:cell width=190:) All around thug%0a%3c (:cellnr width=150 align=left:)'''Player:''' %0a%3c (:cell width=190:) AdanRyder%0a%3c (:cellnr width=150 align=left:)'''Theme Music:''' %0a%3c (:cell width=190:) [[http://www.youtube.com/watch?v=GbvNA7jo-SU|Music]]%0a%3c (:tableend:)%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_d.png%0a%3c ''Tall and slim, Devonte's natural appearance would be neither intimidating nor notable. However, a predatory gaze and copious gang-related tattoos have turned the fairly unassuming young man into a truly menacing figure. ''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_h.png%0a%3c ''An alleged Gangster Disciples member, Devonte has only recently arrived in Savannah. Setting himself up in the infamous Frazier Homes along with a multitude of other delinquents and degenerates.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_rph.png%0a%3c '''Chi-Town''': Devonte has strong ties to his hometown of Chicago, those with knowledge of Chicago-based criminal elements would recognize his affiliations immediately.%0a%3c %0a%3c '''Oxymoron''': Anybody in need of high grade opiates would do well to speak to Devonte.%0a%3c %0a%3c '''Frazier Homes''': Despite being a newcomer, Devonte has already made himself an active member of the Frazier Homes criminal element, something bound to draw the attention of others in the area.%0a%3c %0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_con.png%0a%3c ''Place your Allies, Contacts, Mentors and PC relationships here.''%0a%3c [[%3c%3c]]%0a%3c %25%25http://wantonwicked.gamingsandbox.com/wiki/images/wod/headers/wodm_q.png%0a%3c ''What Others have to Say about you''%0a%3c [[%3c%3c]]%0a%3c %0a%3c (:include CityBook.MortalNavigationBar:)%0a\ No newline at end of file%0a
+host:1382673825=71.190.138.104
