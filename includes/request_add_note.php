@@ -3,6 +3,7 @@
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
 use classes\request\data\RequestNote;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
@@ -26,12 +27,13 @@ if (isset($_POST['action'])) {
         $requestNoteRepository = new RequestNoteRepository();
         if($requestNoteRepository->Save($requestNote))
         {
+            SessionHelper::SetFlashMessage('Added Note to Request.');
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
             Response::Redirect('request.php?action=view&request_id=' . $requestId);
         }
         else
         {
-            die('Error Adding Note');
+            SessionHelper::SetFlashMessage('Error Adding Note to Request');
         }
     }
 }

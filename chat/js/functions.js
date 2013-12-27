@@ -1234,6 +1234,11 @@ $(function() {
         difference = (local.getTime() - (local.getTimezoneOffset() *60000)) - time;
         showClock();
     });
+
+    // patch to solve a firefox issue with the right bar
+    // it's generating a high hex character in the middle of the
+    // class name which messes up the user bar.
+    $("#userContainer").addClass('userContainer');
 });
 
 function startScroll() {

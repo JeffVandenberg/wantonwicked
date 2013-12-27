@@ -26,7 +26,7 @@ dt {
 	font-weight: bold;
 }
 dd {
-	font-style:italic;
+	font-style:normal;
 }
 
 h1 {
@@ -207,12 +207,11 @@ box-shadow: 1px 1px 4px #000000;
 margin-bottom: 10px;
 }
 
-@charset 'UTF-8';
 #navmenu {
   border: none;
-  border: 0px;
-  margin: 0px;
-  padding: 0px;
+  border: 0;
+  margin: 0;
+  padding: 0;
   font-family: "Century Gothic", Verdana, Geneva, sans-serif;
   font-size: 18px;
   color: #FFFFFF;
@@ -250,14 +249,14 @@ margin-bottom: 10px;
   font-size: 18px;
   display: block;
   line-height: 30px;
-  padding: 0px 25px;
+  padding: 0 25px;
   text-align: center;
 }
 #navmenu li a {
   color: #ffffff;
   display: block;
   line-height: 30px;
-  padding: 0px 25px;
+  padding: 0 25px;
   text-align: center;
   text-decoration: none;
 }
@@ -288,7 +287,7 @@ margin-bottom: 10px;
 #navmenu li li {
   display: block;
   float: none;
-  padding: 0px;
+  padding: 0;
   position: relative;
   width: 225px;
 }
@@ -296,7 +295,7 @@ margin-bottom: 10px;
   display: block;
   font-size: 12px;
   font-style: normal;
-  padding: 0px 10px 0px 15px;
+  padding: 0 10px 0 15px;
   text-align: left;
 }
 #navmenu li ul a:hover {
@@ -327,7 +326,7 @@ margin-bottom: 10px;
 	border-radius:8px;
 	border:1px solid #000000;
 	color:#ffffff;
-	font-family:Verdana;
+	font-family:Verdana, sans-serif;
 	font-size:14px;
 	font-weight:normal;
 	font-style:normal;
@@ -389,6 +388,10 @@ div.formInput input[type="text"] {
 
 div.formInput textarea {
     width: 90%;
+}
+
+input[type="submit"] {
+    padding: 4px;
 }
 
 /* ************************** */
@@ -467,7 +470,7 @@ table.character-sheet {
     margin-bottom: 5px;
 }
 table.character-sheet th {
-    border: 0px;
+    border: 0;
     background-color: transparent;
 	text-align: center;
 	border-top-left-radius: 20px;
@@ -604,3 +607,26 @@ table.geist_normal_text > tbody > tr > th:nth-child(even) {
 	color: #fff;
 }
 
+
+.tinymce-content {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 12px;
+}
+
+.tinymce-content p {
+    padding-bottom: 10px;
+}
+
+.tinymce-content ul, .tinymce-content ol  {
+    padding-left: 40px;
+    margin: 11px 0;
+}
+
+.flash-message {
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgb(209, 209, 209);
+    border-radius: 5px;
+    border: solid 1px #b00;
+}

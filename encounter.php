@@ -1,7 +1,7 @@
 <?php
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 
-ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
 // perform required includes
 define('IN_PHPBB', true);
@@ -39,23 +39,26 @@ $page_template = 'main_ww4.tpl';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
-        case 'login':
-            include 'cgi-bin/authenticate.php';
-            include 'cgi-bin/doLogin.php';
-            include 'includes/index_login.php';
-            // redo the userpanel and menu_bar
+        case 'create':
+            break;
+        case 'view':
+            include 'includes/encounter_view.php';
+            break;
+        case 'update':
+            break;
+        case 'archive':
+            break;
+        case 'list':
+            if(UserdataHelper::IsSt($userdata)) {
+                include 'includes/encounter_list.php';
+            }
+            else {
+                include 'includes/index_default.php';
+            }
+            break;
+        case 'st_list':
             break;
 
-        case 'logout':
-            include 'includes/index_logout.php';
-            break;
-
-        case 'storytellers':
-            include 'includes/index_storytellers.php';
-            break;
-
-        default:
-            include 'includes/index_default.php';
     }
 } else {
     include 'includes/index_default.php';

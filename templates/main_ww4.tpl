@@ -54,7 +54,7 @@
 		<div id="contenta">
 		<div id="contentb" class="contentbox">
             <!-- IF FLASH_MESSAGE -->
-            <div class="box-content">
+            <div class="flash-message">
                 {FLASH_MESSAGE}
             </div>
             <!-- ENDIF -->
