@@ -4,8 +4,7 @@
 }
 
 body {
-    background-color:#898989;
-    background-image:url('../img/main/bg1.jpg');
+    background: #898989 url('../img/main/bg1.jpg');
     font-family: Verdana, Geneva, sans-serif;
     font-size:14px;
     color:#000;
