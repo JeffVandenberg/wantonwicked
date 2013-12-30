@@ -550,16 +550,9 @@ table.character-sheet td input[type="text"] {
     padding: 2px;
 }
 
-table.character-sheet td input[type="text", size
-
-=
-"3"
-]
-{
-    border: solid 1px #000
-;
-    padding: 2px
-;
+table.character-sheet td input[type="text", size="3"] {
+    border: solid 1px #000;
+    padding: 2px;
 }
 
 table.character-sheet td select {
