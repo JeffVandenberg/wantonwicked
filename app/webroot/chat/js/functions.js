@@ -1202,8 +1202,8 @@ $(function() {
     $(document)
         .on('dblclick', '.userlist', openPmWindow);
 
-    $(document)
-        .tooltip();
+    /*$(document)
+        .tooltip();*/
 
     $(document)
         .on('click', '.chat-viewable', function() {
