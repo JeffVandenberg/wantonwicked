@@ -122,9 +122,32 @@ EOQ;
         return $characterRepository->ListSelectedCharactersForSupporter($supporterId);
     }
 
-    public function ListSupporters()
+    public function ListSupporters($onlyActive)
     {
-        $sql = <<<EOQ
+        if($onlyActive) {
+            $sql = <<<EOQ
+SELECT
+    S.id,
+    S.expires_on,
+    S.amount_paid,
+    S.number_of_characters,
+    S.characters_awarded,
+    S.updated_on,
+    U.username,
+    U.user_id,
+    UB.username as updated_by_username
+FROM
+    supporters AS S
+    LEFT JOIN phpbb_users AS U ON S.user_id = U.user_id
+    LEFT JOIN phpbb_users AS UB ON S.updated_by_id = UB.user_id
+WHERE
+    S.expires_on > NOW()
+ORDER BY
+    U.username_clean
+EOQ;
+        }
+        else {
+            $sql = <<<EOQ
 SELECT
     S.id,
     S.expires_on,
@@ -142,7 +165,7 @@ FROM
 ORDER BY
     U.username_clean
 EOQ;
-
+        }
         return $this->Query($sql)->All();
     }
 
