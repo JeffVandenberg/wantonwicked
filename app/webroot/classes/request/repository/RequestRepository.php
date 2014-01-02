@@ -204,7 +204,6 @@ WHERE
     RR.to_request_id IS NULL
     AND R.character_id = $characterId
     AND R.id != $requestId
-    AND R.request_status_id != $closed
     AND R.request_type_id != $bluebook
 ORDER BY
     title
