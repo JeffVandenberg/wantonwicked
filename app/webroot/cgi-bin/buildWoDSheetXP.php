@@ -269,7 +269,7 @@ EOQ;
     // test if stats were passed
     if ($stats != "") {
         // set sheet values based on passed stats
-        $characterId = $stats['Character_ID'];
+        $characterId = $stats['id'];
         $character_name = $stats['Character_Name'];
         $show_sheet = $stats['Show_Sheet'];
         $view_password = $stats['View_Password'];
@@ -1637,7 +1637,7 @@ function getPowers($character_id, $power_type, $sort_order, $number_of_blanks)
         }
 
 
-        $query = "select * from wod_characters_powers where characterID = $character_id and powerType = '$power_type' Order by $order_by;";
+        $query = "select * from character_powers where character_id = $character_id and powerType = '$power_type' Order by $order_by;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -1689,7 +1689,7 @@ function getRenownsRituals($character_id)
     $renown_list["rituals"] = $renown;
 
     if ($character_id) {
-        $query = "select * from wod_characters_powers where characterID = $character_id and powerType = 'Renown' Order by PowerName;";
+        $query = "select * from character_powers where character_id = $character_id and powerType = 'Renown' Order by PowerName;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -1702,7 +1702,7 @@ function getRenownsRituals($character_id)
             $renown_list[$renown_name] = $renown;
         }
 
-        $query = "select * from wod_characters_powers where characterID = $character_id and powerType = 'Rituals' Order by PowerName;";
+        $query = "select * from character_powers where character_id = $character_id and powerType = 'Rituals' Order by PowerName;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {

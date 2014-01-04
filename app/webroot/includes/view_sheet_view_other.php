@@ -7,8 +7,8 @@ if($view_character_name)
 {
   // try to get character
   $character_query = <<<EOQ
-SELECT login.*, wod_characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-FROM ((wod_characters INNER JOIN login ON wod_characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on wod_characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod_characters.last_asst_st_updated = asst_login.id
+SELECT login.*, characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
+FROM ((characters INNER JOIN login ON characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
 WHERE character_name='$view_character_name';
 EOQ;
   $character_result = mysql_query($character_query) or die(mysql_error());

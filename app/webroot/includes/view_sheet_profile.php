@@ -7,7 +7,7 @@
 	{
 		$character_name = substr($character_name, 0, strpos($character_name, '-- '));
 	}
-	$character_query = "select * from wod_characters where character_name = '$character_name';";
+	$character_query = "select * from characters where character_name = '$character_name';";
 	$character_result = mysql_query($character_query) or die(mysql_error());
 	$character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
 	//print_r($character_detail);
@@ -16,7 +16,7 @@
 		if(($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin']) && ($userdata['cell_id'] == $character_detail['Cell_ID']))
 		{
 			// display character
-			header("Location: http://www.wantonwicked.net/view_sheet.php?action=st_view_xp&view_character_id=$character_detail[Character_ID]");
+			header("Location: http://www.wantonwicked.net/view_sheet.php?action=st_view_xp&view_character_id=$character_detail[id]");
 		}
 		else
 		{
@@ -32,11 +32,11 @@ SELECT
 	favor_types.name AS favor_type_name
 FROM
 	favors
-		LEFT JOIN wod_characters AS from_character ON favors.source_id = from_character.character_id
-		LEFT JOIN wod_characters AS to_character ON favors.target_id = to_character.character_id
+		LEFT JOIN characters AS from_character ON favors.source_id = from_character.character_id
+		LEFT JOIN characters AS to_character ON favors.target_id = to_character.character_id
 		LEFT JOIN favor_types ON favors.favor_type_id = favor_types.id
 WHERE
-	favors.source_id = $character_detail[Character_ID]
+	favors.source_id = $character_detail[id]
 	AND favors.favor_type_id = 1
 	AND favors.is_broken = 1
 EOQ;
@@ -137,11 +137,11 @@ function DetermineBloodPotency($sourceCharacterId, $targetCharacter)
 	$bloodPotency = $targetCharacter['Power_Stat'];
 	// do they have obfuscate 2?
 	$characterDao = new Character();
-	if($characterDao->DoesCharacterHavePowerAtLevel($targetCharacter['Character_ID'], 'Obfuscate', 2))
+	if($characterDao->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Obfuscate', 2))
 	{
 		$bloodPotency = 'None';
 	}
-	else if($characterDao->DoesCharacterHavePowerAtLevel($targetCharacter['Character_ID'], 'Protean', 1))
+	else if($characterDao->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Protean', 1))
 	{
 		// do they have Protean 1?
 		$sourceCharacter = $characterDao->GetById($sourceCharacterId);
@@ -154,4 +154,3 @@ function DetermineBloodPotency($sourceCharacterId, $targetCharacter)
 	// otherwise return raw power_stat
 	return $bloodPotency;
 }
-?>

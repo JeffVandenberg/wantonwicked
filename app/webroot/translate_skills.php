@@ -14,14 +14,15 @@ use classes\core\repository\RepositoryManager;
 require 'cgi-bin/start_of_page.php';
 
 $db = new Database();
-$skillSql = <<<EOQ
-SELECT
-    *
-FROM
-    wod_characters
+// clean existing skills and attributes
+$cleanSql = <<<EOQ
+DELETE FROM
+    character_powers
 WHERE
-    character_id = 8551
+    power_type IN ('Attribute', 'Skill');
 EOQ;
+
+$db->Query($cleanSql)->Execute();
 
 $attributes = array(
     "Strength",
@@ -62,26 +63,66 @@ $skills = array(
     "Weaponry"
 );
 
-$characterPowerRepository = RepositoryManager::GetRepository('classes\character\data\CharacterPower');
+$currentRow = 0;
+$step = 100;
+$hasMoreRows = true;
 
-foreach($db->Query($skillSql)->All() as $character) {
-    // insert Attributes
-    foreach($attributes as $attribute) {
-        $newAttribute = new CharacterPower();
-        $newAttribute->CharacterId = $character['Character_ID'];
-        $newAttribute->PowerType = 'Attribute';
-        $newAttribute->PowerName = $attribute;
-        $newAttribute->PowerLevel = $character[$attribute];
-        $characterPowerRepository->Save($newAttribute);
-    }
+while ($hasMoreRows) {
+    $skillSql = <<<EOQ
+SELECT
+    *
+FROM
+    characters
+LIMIT
+    $currentRow, $step
+EOQ;
 
-    // insert Skills
-    foreach($skills as $skill) {
-        $newAttribute = new CharacterPower();
-        $newAttribute->CharacterId = $character['Character_ID'];
-        $newAttribute->PowerType = 'Skill';
-        $newAttribute->PowerName = $skill;
-        $newAttribute->PowerLevel = $character[$skill];
-        $characterPowerRepository->Save($newAttribute);
+    $rows = $db->Query($skillSql)->All();
+    $hasMoreRows = count($rows) > 0;
+    $currentRow += $step;
+
+    $sql = <<<EOQ
+INSERT INTO
+    character_powers
+    (
+        character_id,
+        power_type,
+        power_name,
+        power_level
+    )
+VALUES
+    (
+        ?,
+        ?,
+        ?,
+        ?
+    )
+EOQ;
+    $db->Query($sql);
+
+    foreach ($rows as $character) {
+        // insert Attributes
+        foreach ($attributes as $attribute) {
+            $params = array(
+                $character['id'],
+                'Attribute',
+                $attribute,
+                $character[$attribute]
+            );
+            $db->Execute($params);
+        }
+
+        // insert Skills
+        foreach ($skills as $skill) {
+            $params = array(
+                $character['id'],
+                'Skill',
+                $skill,
+                $character[$skill]
+            );
+            $db->Execute($params);
+        }
+
+        echo "Finished $character[character_name]<br />";
     }
 }

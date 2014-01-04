@@ -18,7 +18,7 @@ SELECT
 	character_name,
 	average_power_points
 FROM
-	wod_characters
+	characters
 WHERE
 	is_sanctioned = 'Y'
 	AND is_deleted = 'N'

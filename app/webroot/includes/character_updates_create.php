@@ -8,7 +8,7 @@ $characterQuery = <<<EOQ
 SELECT
     WC.*
 FROM
-    wod_characters AS WC
+    characters AS WC
 WHERE
     WC.character_id = $characterId
 EOQ;

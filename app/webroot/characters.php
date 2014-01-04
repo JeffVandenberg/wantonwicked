@@ -11,7 +11,7 @@ SELECT
     character_id,
     character_name
 FROM
-    wod_characters
+    characters
 WHERE
     character_name LIKE '$term%'
     AND is_sanctioned = 'Y'

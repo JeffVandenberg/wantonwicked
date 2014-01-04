@@ -7,9 +7,9 @@ class Character
 SELECT
 	character_name
 FROM
-	wod_characters
+	characters
 WHERE
-	character_id = $characterId
+	id = $characterId
 EOQ;
 
 		$result = ExecuteQuery($sql);
@@ -27,11 +27,11 @@ EOQ;
 SELECT
 	count(*) as HitCount
 FROM
-	wod_characters_powers
+	character_powers
 WHERE
-	CharacterID = $characterId
-	AND PowerName = '$powerName'
-	AND PowerLevel >= $powerLevel
+	character_id = $characterId
+	AND power_name = '$powerName'
+	AND power_level >= $powerLevel
 EOQ;
 		$result = ExecuteQuery($query);
 		$detail = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -39,4 +39,3 @@ EOQ;
 		return ($detail['HitCount'] > 0);
 	}
 }
-?>

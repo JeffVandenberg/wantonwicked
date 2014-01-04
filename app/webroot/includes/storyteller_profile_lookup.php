@@ -8,7 +8,7 @@ if ($profile_name != "")
 	$character_select="The Characters attached to $profile_name's profile are:<br>";
 	$character_query = <<<EOQ
 SELECT wod.character_name, wod.is_deleted
-FROM (login INNER JOIN login_character_index as lci ON login.id = lci.login_id) INNER JOIN wod_characters as wod ON wod.character_id = lci.character_id
+FROM (login INNER JOIN login_character_index as lci ON login.id = lci.login_id) INNER JOIN characters as wod ON wod.character_id = lci.character_id
 WHERE login.Name='$profile_name' and wod.is_deleted='N'
 ORDER BY wod.character_name;
 EOQ;
@@ -42,20 +42,20 @@ EOQ;
 			// get player to character stats
 			
 			// how many currently sanctioned PCs they have
-			$sanced_query = "select count(character_id) as SancedPCs from wod_characters where primary_login_id = $details[ID] and is_sanctioned='Y' and is_deleted='N' and is_npc='n';";
+			$sanced_query = "select count(character_id) as SancedPCs from characters where primary_login_id = $details[ID] and is_sanctioned='Y' and is_deleted='N' and is_npc='n';";
 			$sanced_result = mysql_query($sanced_query) or die(mysql_error());
 			$sanced_detail = mysql_fetch_array($sanced_result, MYSQL_ASSOC);
 			$character_select .= "Sanced PCs: $sanced_detail[SancedPCs]<br>";
 			
 			
 			// how many desanctioned (non-deleted) PCs they have
-			$sanced_query = "select count(character_id) as SancedPCs from wod_characters where primary_login_id = $details[ID] and is_sanctioned='N' and is_deleted='N' and is_npc='n';";
+			$sanced_query = "select count(character_id) as SancedPCs from characters where primary_login_id = $details[ID] and is_sanctioned='N' and is_deleted='N' and is_npc='n';";
 			$sanced_result = mysql_query($sanced_query) or die(mysql_error());
 			$sanced_detail = mysql_fetch_array($sanced_result, MYSQL_ASSOC);
 			$character_select .= "UnSanced PCs: $sanced_detail[SancedPCs]<br>";
 			
 			// how many deleted PCs they have
-			$sanced_query = "select count(character_id) as SancedPCs from wod_characters where primary_login_id = $details[ID] and is_deleted='Y' and is_npc='n';";
+			$sanced_query = "select count(character_id) as SancedPCs from characters where primary_login_id = $details[ID] and is_deleted='Y' and is_npc='n';";
 			$sanced_result = mysql_query($sanced_query) or die(mysql_error());
 			$sanced_detail = mysql_fetch_array($sanced_result, MYSQL_ASSOC);
 			$character_select .= "Deleted Characters: $sanced_detail[SancedPCs]<br>";

@@ -17,7 +17,7 @@ $result_set = "";
 
 // test if submitting anything to search for
 if ($selected_character_types || $selected_cities || $selected_splat1 || $selected_splat2 || $selected_virtues || $selected_vices) {
-    $character_query = "select * from wod_characters where is_deleted='N' and ";
+    $character_query = "select * from characters where is_deleted='N' and ";
 
     if ($only_sanctioned) {
         $character_query .= " is_sanctioned='Y' and ";
@@ -160,7 +160,7 @@ EOQ;
         $character_detail[Vice]
     </td>
     <td>
-        <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[Character_ID]">View Character</a>
+        <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[id]">View Character</a>
     </td>
 </tr>
 EOQ;

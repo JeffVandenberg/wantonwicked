@@ -65,7 +65,7 @@ SELECT
     icon,
     hide_icon
 FROM
-    wod_characters AS C
+    characters AS C
     INNER JOIN login_character_index as LCI ON C.character_id = LCI.character_id
 WHERE
     LCI.character_id = ?

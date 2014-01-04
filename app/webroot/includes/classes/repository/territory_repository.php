@@ -51,7 +51,7 @@ SELECT
 	COUNT(*) as number_of_characters
 FROM
 	characters_territories AS CT
-	LEFT JOIN wod_characters as C ON CT.character_id = C.character_id
+	LEFT JOIN characters as C ON CT.character_id = C.character_id
 WHERE
 	C.is_sanctioned = 'Y'
 	AND C.is_deleted = 'N'

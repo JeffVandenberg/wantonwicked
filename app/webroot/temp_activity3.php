@@ -8,7 +8,7 @@ select
 	Splat2, 
 	count(character_id) as Num_of_Characters 
 from 
-	wod_characters 
+	characters
 where 
 	is_sanctioned='y' 
 	and is_npc='n' 

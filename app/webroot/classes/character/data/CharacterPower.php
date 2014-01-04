@@ -24,27 +24,15 @@ class CharacterPower extends DataModel
     public $PowerLevel;
     public $CharacterId;
 
-    public $Mapping = array(
-        'PowerId' => 'PowerID',
-        'PowerType' => 'PowerType',
-        'PowerName' => 'PowerName',
-        'PowerNote' => 'PowerNote',
-        'PowerLevel' => 'PowerLevel',
-        'CharacterId' => 'CharacterID'
-    );
-
     public $BelongsTo = array(
         'Character'
     );
 
     function __construct()
     {
-        parent::__construct('wod_');
-        $this->TableName = 'wod_characters_powers';
-        $this->IdProperty = 'PowerId';
-        $this->IdColumn = 'PowerID';
+        parent::__construct();
         $this->NameProperty = 'PowerName';
-        $this->NameColumn = 'PowerName';
-        $this->SortColumn = array('PowerName', 'PowerNote', 'PowerLevel');
+        $this->NameColumn = 'power_name';
+        $this->SortColumn = array('power_name', 'power_note', 'power_level');
     }
 }

@@ -10,8 +10,8 @@ if ( !empty($_POST['character_name']) )
 {
   $character_name = str_replace( "*", "%", $_POST['character_name'] );
   
-  //$character_query = "select * from wod_characters where character_name like '$character_name' and is_deleted='n' and city='The City';";
-  $character_query = "select * from wod_characters where character_name like '$character_name' and is_deleted='n';";
+  //$character_query = "select * from characters where character_name like '$character_name' and is_deleted='n' and city='The City';";
+  $character_query = "select * from characters where character_name like '$character_name' and is_deleted='n';";
   $character_result = mysql_query($character_query) or die(mysql_error());
   //echo "$character_query : " . mysql_num_rows($character_result) . "<br>";
   
@@ -52,7 +52,7 @@ EOQ;
       $character_detail[Character_Type]
     </td>
     <td>
-      <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[Character_ID]">View Character</a>
+      <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[id]">View Character</a>
     </td>
   </tr>
 EOQ;

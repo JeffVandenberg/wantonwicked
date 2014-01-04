@@ -17,8 +17,8 @@ if (isset($_POST['submit'])) {
     // get character information
     $character_id = $_POST['character_id'] + 0;
     $character_query = <<<EOQ
-SELECT login.*, wod_characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-FROM ((wod_characters INNER JOIN login ON wod_characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on wod_characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod_characters.last_asst_st_updated = asst_login.id
+SELECT login.*, characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
+FROM ((characters INNER JOIN login ON characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
 WHERE character_id=$character_id;
 EOQ;
     $character_result = mysql_query($character_query) or die(mysql_error());
@@ -251,15 +251,15 @@ if ($view_character_id || $view_character_name) {
     // get character information
     if ($view_character_id) {
         $character_query = <<<EOQ
-SELECT login.Name, Character_ID , Is_Sanctioned, Is_NPC, Head_Sanctioned, Character_Name, Cell_ID
-FROM wod_characters INNER JOIN login On wod_characters.primary_login_id = login.id
+SELECT login.Name, id , Is_Sanctioned, Is_NPC, Head_Sanctioned, Character_Name, Cell_ID
+FROM characters INNER JOIN login On characters.primary_login_id = login.id
 WHERE character_id=$view_character_id;
 EOQ;
     }
     if ($view_character_name) {
         $character_query = <<<EOQ
-SELECT login.Name, Character_ID , Is_Sanctioned, Is_NPC, Head_Sanctioned, Character_Name, Cell_ID
-FROM wod_characters INNER JOIN login On wod_characters.primary_login_id = login.id
+SELECT login.Name, id , Is_Sanctioned, Is_NPC, Head_Sanctioned, Character_Name, Cell_ID
+FROM characters INNER JOIN login On characters.primary_login_id = login.id
 WHERE character_name='$view_character_name';
 EOQ;
     }
@@ -269,7 +269,7 @@ EOQ;
     if (mysql_num_rows($character_result)) {
         // found character
         $character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
-        CharacterLog::LogAction($character_detail['Character_ID'], ActionType::ViewCharacter, 'ST View', $userdata['user_id']);
+        CharacterLog::LogAction($character_detail['id'], ActionType::ViewCharacter, 'ST View', $userdata['user_id']);
 
         $viewSheet = true;
         if (!$userdata['is_admin']
@@ -280,7 +280,7 @@ EOQ;
         }
 
         if ($viewSheet) {
-            $character_id = $character_detail['Character_ID'];
+            $character_id = $character_detail['id'];
             if ($userdata['is_asst']) {
                 if (($character_detail['Is_NPC'] == 'N') && ($character_detail['Is_Sanctioned'] == '')) {
                     $edit_xp = "true";
@@ -300,8 +300,8 @@ EOQ;
             }
 
             $page_content = <<<EOQ
-<a href="/bluebook.php?action=st_list&character_id=$character_detail[Character_ID]">View Bluebook</a><br />
-<a href="/character.php?action=log&character_id=$character_detail[Character_ID]">View Character Log</a><br />
+<a href="/bluebook.php?action=st_list&character_id=$character_detail[id]">View Bluebook</a><br />
+<a href="/character.php?action=log&character_id=$character_detail[id]">View Character Log</a><br />
 <form name="character_sheet" id="character_sheet" method="post" action="$_SERVER[PHP_SELF]?action=st_view_xp">
 <a href="storyteller_index.php?action=profile_lookup&profile_name=$character_detail[Name]">View all of $character_detail[Name]'s characters</a>
 <div align="center" name="charSheet" id="charSheet">Loading Character Sheet...
@@ -313,8 +313,8 @@ EOQ;
             if (($character_detail['Is_NPC'] == 'Y') && ($character_detail['Head_Sanctioned'] == 'Y')) {
                 $npc_login_link = <<<EOQ
 <div align="center">
-<a href="character_interface.php?character_id=$character_detail[Character_ID]&log_npc=y" target="_blank">Log in as $character_detail[Character_Name]</a><br>
-<a href="notes.php?action=character&character_id=$character_detail[Character_ID]&log_npc=y" target="_blank">View NPC Notes</a></div>
+<a href="character_interface.php?character_id=$character_detail[id]&log_npc=y" target="_blank">Log in as $character_detail[Character_Name]</a><br>
+<a href="notes.php?action=character&character_id=$character_detail[id]&log_npc=y" target="_blank">View NPC Notes</a></div>
 <br>
 EOQ;
 

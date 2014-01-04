@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
 SELECT 
 	wod.*
 FROM 
-	wod_characters AS wod 
+	characters AS wod
 	INNER JOIN login_character_index AS lci ON wod.character_id = lci.character_id
  WHERE lci.login_id = $userdata[user_id]
    AND wod.character_id = $characterId;
@@ -116,7 +116,7 @@ SELECT
  asst_sanctioned, 
  is_npc 
 FROM 
-  wod_characters w
+  characters w
   INNER JOIN login_character_index lci
   ON w.character_id = lci.character_id
 where 

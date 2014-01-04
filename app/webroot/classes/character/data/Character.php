@@ -25,9 +25,9 @@ use classes\core\repository\RepositoryManager;
  */
 class Character extends DataModel
 {
-    public $CharacterId;
+    public $Id;
     public $CharacterName;
-    public $PrimaryLoginId;
+    public $UserId;
     public $ShowSheet;
     public $ViewPassword;
     public $CharacterType;
@@ -46,7 +46,7 @@ class Character extends DataModel
     public $Vice;
     public $Splat1;
     public $Splat2;
-    public $SubSplat;
+    public $Subsplat;
     public $Size;
     public $Speed;
     public $InitiativeMod;
@@ -65,12 +65,9 @@ class Character extends DataModel
     public $History;
     public $CharacterNotes;
     public $Goals;
-    public $HeadSanctioned;
     public $IsSanctioned;
     public $CurrentExperience;
     public $TotalExperience;
-    public $FirstLogin;
-    public $LastLogin;
     public $UpdatedById;
     public $UpdatedOn;
     public $GmNotes;
@@ -79,7 +76,6 @@ class Character extends DataModel
     public $HideIcon;
     public $Helper;
     public $Status;
-    public $LoggedToday;
     public $BonusAttribute;
     public $MiscPowers;
     public $TemporaryHealthLevels;
@@ -88,71 +84,6 @@ class Character extends DataModel
     public $WillpowerTemp;
     public $WillpowerPerm;
     public $AveragePowerPoints;
-
-    public $Mapping = array(
-        'CharacterId' => 'Character_ID',
-        'CharacterName' => 'Character_Name',
-        'PrimaryLoginId' => 'Primary_Login_ID',
-        'ShowSheet' => 'Show_Sheet',
-        'ViewPassword' => 'View_Password',
-        'CharacterType' => 'Character_Type',
-        'City' => 'City',
-        'Age' => 'Age',
-        'Sex' => 'Sex',
-        'ApparentAge' => 'ApparentAge',
-        'Concept' => 'Concept',
-        'Description' => 'Description',
-        'Url' => 'URL',
-        'SafePlace' => 'Safe_Place',
-        'Friends' => 'Friends',
-        'Icon' => 'Icon',
-        'IsNpc' => 'Is_NPC',
-        'Virtue' => 'Virtue',
-        'Vice' => 'Vice',
-        'Splat1' => 'Splat1',
-        'Splat2' => 'Splat2',
-        'SubSplat' => 'SubSplat',
-        'Size' => 'Size',
-        'Speed' => 'Speed',
-        'InitiativeMod' => 'Initiative_Mod',
-        'Defense' => 'Defense',
-        'Armor' => 'Armor',
-        'Health' => 'Health',
-        'WoundsAgg' => 'Wounds_Agg',
-        'WoundsLethal' => 'Wounds_Lethal',
-        'WoundsBashing' => 'Wounds_Bashing',
-        'PowerStat' => 'Power_Stat',
-        'PowerPoints' => 'Power_Points',
-        'Morality' => 'Morality',
-        'EquipmentPublic' => 'Equipment_Public',
-        'EquipmentPrivate' => 'Equipment_Private',
-        'PublicEffects' => 'Public_Effects',
-        'History' => 'History',
-        'CharacterNotes' => 'Character_Notes',
-        'Goals' => 'Goals',
-        'HeadSanctioned' => 'Head_Sanctioned',
-        'IsSanctioned' => 'Is_Sanctioned',
-        'CurrentExperience' => 'Current_Experience',
-        'TotalExperience' => 'Total_Experience',
-        'FirstLogin' => 'First_Login',
-        'LastLogin' => 'Last_Login',
-        'UpdatedById' => 'Last_ST_Updated',
-        'UpdatedOn' => 'When_Last_ST_Updated',
-        'GmNotes' => 'GM_Notes',
-        'SheetUpdate' => 'Sheet_Update',
-        'LoginNote' => 'Login_Note',
-        'HideIcon' => 'Hide_Icon',
-        'Helper' => 'Helper',
-        'Status' => 'Status',
-        'LoggedToday' => 'Logged_Today',
-        'BonusAttribute' => 'BonusAttribute',
-        'MiscPowers' => 'Misc_Powers',
-        'TemporaryHealthLevels' => 'Temporary_Health_Levels',
-        'NextPowerStatIncrease' => 'Next_Power_Stat_Increase',
-        'WillpowerTemp' => 'Willpower_Temp',
-        'WillpowerPerm' => 'Willpower_Perm',
-        'AveragePowerPoints' => 'Average_Power_Points'
-    );
 
     public $HasMany = array(
         'Attributes' => 'classes\character\data\CharacterPower',

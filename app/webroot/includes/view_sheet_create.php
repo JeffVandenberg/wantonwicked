@@ -19,7 +19,7 @@ if(isset($_POST['character_name']))
 		$character_name = addslashes(htmlspecialchars(str_replace($str_to_find, $str_to_replace, stripslashes($_POST['character_name']))));
 		
 		// verify that character name isn't in use already
-		$name_check_query = "select character_id from wod_characters where character_name='$character_name';";
+		$name_check_query = "select character_id from characters where character_name='$character_name';";
 		$name_check_result = mysql_query($name_check_query) or die(mysql_error());
 		if(mysql_num_rows($name_check_result))
 		{
@@ -142,14 +142,14 @@ EOQ;
 			$trans_query = "begin;";
 			$trans_result = mysql_query($trans_query) or die(mysql_error());
 			
-			$lock_query = "lock tables login_character_index write, wod_characters write;";
+			$lock_query = "lock tables login_character_index write, characters write;";
 			$lock_result = mysql_query($lock_query) or die(mysql_error());
 			
 			// get next character id
-			$character_id = getNextID($connection, "wod_characters", "character_id");
+			$character_id = getNextID($connection, "characters", "character_id");
 			
 			$insert_query = <<<EOQ
-insert into wod_characters values (
+insert into characters values (
 $character_id, 
 $userdata[user_id],
 '$character_name', 
@@ -256,7 +256,7 @@ EOQ;
 			$trans_result = mysql_query($trans_query) or die(mysql_error());
 			
 			// create post for ST forum
-			$character_query = "select Character_Name, Character_Type, City from wod_characters where primary_login_id=$userdata[user_id] and is_sanctioned='Y' and is_npc='N' and is_deleted = 'N' order by Character_Name;";
+			$character_query = "select Character_Name, Character_Type, City from characters where primary_login_id=$userdata[user_id] and is_sanctioned='Y' and is_npc='N' and is_deleted = 'N' order by Character_Name;";
 			$character_result = mysql_query($character_query) or die(mysql_error());
 			
 			$character_list = "";

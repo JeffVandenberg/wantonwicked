@@ -9,7 +9,7 @@ $page_title = "View Own Sheet";
 // test to see if this character id is linked to the player
 $character_query = <<<EOQ
 SELECT wod.*, i.Icon_Name, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-  FROM (((wod_characters AS wod INNER JOIN login_character_index AS lci ON wod.character_id = lci.character_id) LEFT JOIN icons AS i ON wod.icon = i.icon_id) LEFT JOIN login AS gm_login on wod.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod.last_asst_st_updated = asst_login.id
+  FROM (((characters AS wod INNER JOIN login_character_index AS lci ON wod.character_id = lci.character_id) LEFT JOIN icons AS i ON wod.icon = i.icon_id) LEFT JOIN login AS gm_login on wod.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod.last_asst_st_updated = asst_login.id
  WHERE lci.login_id = $userdata[user_id]
    AND wod.character_id = $character_id;
 EOQ;
@@ -62,7 +62,7 @@ if(mysql_num_rows($character_result))
 			// requery for new stats
 			$character_query = <<<EOQ
 SELECT wod.*, i.Icon_Name, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-  FROM (((wod_characters AS wod INNER JOIN login_character_index AS lci ON wod.character_id = lci.character_id) LEFT JOIN icons AS i ON wod.icon = i.icon_id) LEFT JOIN login AS gm_login on wod.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod.last_asst_st_updated = asst_login.id
+  FROM (((characters AS wod INNER JOIN login_character_index AS lci ON wod.character_id = lci.character_id) LEFT JOIN icons AS i ON wod.icon = i.icon_id) LEFT JOIN login AS gm_login on wod.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod.last_asst_st_updated = asst_login.id
  WHERE wod.character_id = $character_id;
 EOQ;
 			$character_result = mysql_query($character_query) or die(mysql_error()); 
@@ -76,7 +76,7 @@ EOQ;
 			$character_name = addslashes(htmlspecialchars(str_replace($str_to_find, $str_to_replace, stripslashes($_POST['character_name']))));
 			
 			// verify that character name isn't in use already
-			$name_check_query = "select character_id from wod_characters where character_name='$character_name' and character_id != $character_id;";
+			$name_check_query = "select character_id from characters where character_name='$character_name' and character_id != $character_id;";
 			$name_check_result = mysql_query($name_check_query) or die(mysql_error());
 			
 			if(mysql_num_rows($name_check_result))
@@ -127,7 +127,7 @@ EOQ;
 				// requery for new stats
 				$character_query = <<<EOQ
 SELECT wod.* 
-FROM wod_characters AS wod INNER JOIN login_character_index AS lci ON wod.character_id = lci.character_id
+FROM characters AS wod INNER JOIN login_character_index AS lci ON wod.character_id = lci.character_id
 WHERE lci.login_id = $userdata[user_id]
  AND wod.character_id = $character_id;
 EOQ;

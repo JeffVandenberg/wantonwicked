@@ -13,8 +13,8 @@ if(isset($_POST['submit']))
   // get character information
   $character_id = $_POST['character_id'] + 0;
   $character_query = <<<EOQ
-SELECT login.*, wod_characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-FROM ((wod_characters INNER JOIN login ON wod_characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on wod_characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod_characters.last_asst_st_updated = asst_login.id
+SELECT login.*, characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
+FROM ((characters INNER JOIN login ON characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
 WHERE character_id=$character_id;
 EOQ;
   $character_result = mysql_query($character_query) or die(mysql_error());
@@ -263,16 +263,16 @@ if($view_character_id || $view_character_name)
 	if($view_character_id)
 	{
   	$character_query = <<<EOQ
-SELECT login.*, wod_characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-FROM ((wod_characters INNER JOIN login ON wod_characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on wod_characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod_characters.last_asst_st_updated = asst_login.id
+SELECT login.*, characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
+FROM ((characters INNER JOIN login ON characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
 WHERE character_id=$view_character_id;
 EOQ;
 	}
 	if($view_character_name)
 	{
   	$character_query = <<<EOQ
-SELECT login.*, wod_characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-FROM ((wod_characters INNER JOIN login ON wod_characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on wod_characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod_characters.last_asst_st_updated = asst_login.id
+SELECT login.*, characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
+FROM ((characters INNER JOIN login ON characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
 WHERE character_name='$view_character_name';
 EOQ;
 	}
@@ -514,7 +514,7 @@ EOQ;
 		if($viewed_sheet)
 		{
 			$character_sheet = buildWoDSheet($character_detail, $character_type, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead, $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment, $edit_public_effects, $edit_group, $edit_exit_line, $edit_is_npc, $edit_attributes, $edit_skills, $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals, $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell, $calculate_derived);
-			$character_id = $character_detail['Character_ID'];
+			$character_id = $character_detail['id'];
 			
 			$sheet = <<<EOQ
 <iframe src="blank.html" name="char_info" id="char_info" width="1" height="1" border="0" frameborder="0" scrolling="no">
@@ -535,8 +535,8 @@ EOQ;
 		{
   		$npc_login_link = <<<EOQ
 <div align="center">
-<a href="character_interface.php?character_id=$character_detail[Character_ID]&log_npc=y" target="_blank">Log in as $character_detail[Character_Name]</a><br>
-<a href="notes.php?action=character&character_id=$character_detail[Character_ID]&log_npc=y" target="_blank">View NPC Notes</a></div>
+<a href="character_interface.php?character_id=$character_detail[id]&log_npc=y" target="_blank">Log in as $character_detail[Character_Name]</a><br>
+<a href="notes.php?action=character&character_id=$character_detail[id]&log_npc=y" target="_blank">View NPC Notes</a></div>
 <br>
 EOQ;
 

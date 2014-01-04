@@ -20,8 +20,8 @@ $character_id = (isset($_POST['character_id'])) ? $_POST['character_id'] +0 : 0;
 $character_id = (isset($_GET['character_id'])) ? $_GET['character_id'] +0 : $character_id;
 
 // validate that we are working on an actual character
-$character_query = "select wod.*, l.* from (wod_characters as wod inner join login_character_index as lci on wod.character_id = lci.character_id) inner join login as l on lci.login_id = l.id where wod.character_id = $character_id and lci.login_id = $userdata[user_id];";
-$character_query = "select wod.*, l.* from (wod_characters as wod inner join login_character_index as lci on wod.character_id = lci.character_id) inner join login as l on lci.login_id = l.id where wod.character_id = 1;";
+$character_query = "select wod.*, l.* from (characters as wod inner join login_character_index as lci on wod.character_id = lci.character_id) inner join login as l on lci.login_id = l.id where wod.character_id = $character_id and lci.login_id = $userdata[user_id];";
+$character_query = "select wod.*, l.* from (characters as wod inner join login_character_index as lci on wod.character_id = lci.character_id) inner join login as l on lci.login_id = l.id where wod.character_id = 1;";
 $character_result = mysql_query($character_query) or die(mysql_error());
 
 if(mysql_num_rows($character_result))

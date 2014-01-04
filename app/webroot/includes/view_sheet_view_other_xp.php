@@ -13,8 +13,8 @@ $character_sheet = '';
 if ($view_character_name) {
     // try to get character
     $character_query = <<<EOQ
-SELECT login.*, wod_characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-FROM ((wod_characters INNER JOIN login ON wod_characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on wod_characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod_characters.last_asst_st_updated = asst_login.id
+SELECT login.*, characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
+FROM ((characters INNER JOIN login ON characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
 WHERE character_name='$view_character_name';
 EOQ;
     $character_result = mysql_query($character_query) or die(mysql_error());
@@ -23,7 +23,7 @@ EOQ;
         $character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
 
         if (($character_detail['Show_Sheet'] == 'Y') && ($character_detail['View_Password'] == $_POST['viewpwd'])) {
-            CharacterLog::LogAction($character_detail['Character_ID'], ActionType::ViewCharacter, 'Other Player View - Full View', $userdata['user_id']);
+            CharacterLog::LogAction($character_detail['id'], ActionType::ViewCharacter, 'Other Player View - Full View', $userdata['user_id']);
 
             // show full sheet
             $edit_show_sheet = false;
@@ -63,7 +63,7 @@ EOQ;
             $character_sheet = buildWoDSheetXP($character_detail, $character_type, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead, $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment, $edit_public_effects, $edit_group, $edit_exit_line, $edit_is_npc, $edit_attributes, $edit_skills, $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals, $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell, $calculate_derived, $edit_xp);
         } else {
             // show partial sheet
-            CharacterLog::LogAction($character_detail['Character_ID'], ActionType::ViewCharacter, 'Other Player View - Partial View', $userdata['user_id']);
+            CharacterLog::LogAction($character_detail['id'], ActionType::ViewCharacter, 'Other Player View - Partial View', $userdata['user_id']);
 
             $character_sheet = <<<EOQ
 <table border="0" cellpadding="2" cellspacing="2" class="normal_text">

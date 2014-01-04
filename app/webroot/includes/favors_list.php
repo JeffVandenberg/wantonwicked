@@ -34,8 +34,8 @@ SELECT
 	favor_types.name AS favor_type_name
 FROM
 	favors
-		LEFT JOIN wod_characters AS from_character ON favors.source_id = from_character.character_id
-		LEFT JOIN wod_characters AS to_character ON favors.target_id = to_character.character_id
+		LEFT JOIN characters AS from_character ON favors.source_id = from_character.character_id
+		LEFT JOIN characters AS to_character ON favors.target_id = to_character.character_id
 		LEFT JOIN favor_types ON favors.favor_type_id = favor_types.id
 WHERE
 	favors.target_id = $characterId
@@ -60,8 +60,8 @@ SELECT
 	favor_types.name AS favor_type_name
 FROM
 	favors
-		LEFT JOIN wod_characters AS from_character ON favors.source_id = from_character.character_id
-		LEFT JOIN wod_characters AS to_character ON favors.target_id = to_character.character_id
+		LEFT JOIN characters AS from_character ON favors.source_id = from_character.character_id
+		LEFT JOIN characters AS to_character ON favors.target_id = to_character.character_id
 		LEFT JOIN favor_types ON favors.favor_type_id = favor_types.id
 WHERE
 	favors.source_id = $characterId

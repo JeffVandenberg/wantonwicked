@@ -54,7 +54,7 @@ SELECT
 	avg(morality) as morality,
 	avg(total_experience) as total_experience
 FROM
-	wod_characters
+	characters
 WHERE
 	is_sanctioned = 'N'
 	AND is_npc = 'N'
@@ -109,7 +109,7 @@ SELECT
 	avg(morality) as morality,
 	avg(total_experience) as total_experience
 FROM
-	wod_characters
+	characters
 WHERE
 	is_sanctioned = 'N'
 	AND is_npc = 'N'

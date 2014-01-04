@@ -24,7 +24,7 @@ function updateWoDSheetXP($stats, $edit_show_sheet = false, $edit_name = false,
     $character_id = (int) $stats['character_id'];
 
     // verify that character name isn't in use already
-    $name_check_query = "select character_id from wod_characters where character_name='$character_name' and character_id != $character_id;";
+    $name_check_query = "select character_id from characters where character_name='$character_name' and character_id != $character_id;";
     $name_check_result = mysql_query($name_check_query) or die(mysql_error());
     if (mysql_num_rows($name_check_result) && ($edit_name))
     {
@@ -126,13 +126,13 @@ EOQ;
         $trans_query = "begin;";
         $trans_result = mysql_query($trans_query) or die(mysql_error());
 
-        //$lock_query = "lock tables login_character_index write, wod_characters, wod_characters_powers write;";
+        //$lock_query = "lock tables login_character_index write, characters, character_powers write;";
         //$lock_result = mysql_query($lock_query) or die(mysql_error());
 
         if (!$character_id)
         {
             $insert_query = <<<EOQ
-insert into wod_characters
+insert into characters
 (
 Primary_Login_ID,
 Character_Name,
@@ -306,7 +306,7 @@ EOQ;
         {
             //echo "Do General Update!<br>";
             // start query
-            $update_query = "UPDATE wod_characters SET ";
+            $update_query = "UPDATE characters SET ";
 
             // run through permissions
             if ($edit_show_sheet)
@@ -477,7 +477,7 @@ EOQ;
 
             if ($may_edit)
             {
-                if ($update_query != "update wod_characters set ")
+                if ($update_query != "update characters set ")
                 {
                     $update_query = substr($update_query, 0, strlen($update_query) - 2);
                     $update_query .= " where character_id = $stats[character_id];";
@@ -608,13 +608,13 @@ function SavePower($powerType, $fieldName, $stats, $character_id)
                 // update
                 $query = <<<EOQ
 UPDATE
-    wod_characters_powers
+    character_powers
 SET
-    PowerName='$name',
-    PowerNote='$note',
-    PowerLevel='$level'
+    power_name='$name',
+    power_note='$note',
+    power_level='$level'
 WHERE
-    PowerID = $id;
+    id = $id;
 EOQ;
             }
             else
@@ -622,13 +622,13 @@ EOQ;
                 // insert
                 $query = <<<EOQ
 INSERT INTO
-    wod_characters_powers
+    character_powers
     (
-        PowerType,
-        PowerName,
-        PowerNote,
-        PowerLevel,
-        CharacterID
+        power_type,
+        power_name,
+        power_note,
+        power_level,
+        character_id
     )
 VALUES
     (
@@ -647,7 +647,7 @@ EOQ;
             if ($id)
             {
                 // delete
-                $query = "DELETE FROM wod_characters_powers WHERE powerID = $id;";
+                $query = "DELETE FROM character_powers WHERE id = $id;";
             }
         }
 
@@ -677,12 +677,12 @@ function saveSpecialtiesXP($stats, $character_id)
             if ($skill_spec_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$skill_spec', PowerNote='$skill_spec_selected' where PowerID = $skill_spec_id;";
+                $query = "update character_powers set power_name='$skill_spec', power_note='$skill_spec_selected' where id = $skill_spec_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, CharacterID) values ('Specialty', '$skill_spec', '$skill_spec_selected', $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, character_id) values ('Specialty', '$skill_spec', '$skill_spec_selected', $character_id);";
             }
         }
         else
@@ -691,7 +691,7 @@ function saveSpecialtiesXP($stats, $character_id)
             if ($skill_spec_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where PowerID = $skill_spec_id;";
+                $query = "delete from character_powers where id = $skill_spec_id;";
             }
         }
 
@@ -723,12 +723,12 @@ function saveMeritsXP($stats, $character_id)
             if ($merit_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$merit_name', PowerNote='$merit_note', PowerLevel='$merit' where PowerID = $merit_id;";
+                $query = "update character_powers set power_name='$merit_name', power_note='$merit_note', power_level='$merit' where id = $merit_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Merit', '$merit_name', '$merit_note', $merit, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Merit', '$merit_name', '$merit_note', $merit, $character_id);";
             }
         }
         else
@@ -737,7 +737,7 @@ function saveMeritsXP($stats, $character_id)
             if ($merit_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $merit_id;";
+                $query = "delete from character_powers where id = $merit_id;";
             }
         }
 
@@ -767,12 +767,12 @@ function saveFlawsXP($stats, $character_id)
             if ($flaw_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$flaw_name' where PowerID = $flaw_id;";
+                $query = "update character_powers set power_name='$flaw_name' where id = $flaw_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, CharacterID) values ('Flaw', '$flaw_name', $character_id);";
+                $query = "insert into character_powers (power_type, power_name, character_id) values ('Flaw', '$flaw_name', $character_id);";
             }
         }
         else
@@ -781,7 +781,7 @@ function saveFlawsXP($stats, $character_id)
             if ($flaw_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where PowerID = $flaw_id;";
+                $query = "delete from character_powers where id = $flaw_id;";
             }
         }
 
@@ -812,12 +812,12 @@ function saveMiscXP($stats, $character_id)
             if ($misc_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$misc_name' where PowerID = $misc_id;";
+                $query = "update character_powers set power_name='$misc_name' where id = $misc_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, CharacterID) values ('Misc', '$misc_name', $character_id);";
+                $query = "insert into character_powers (power_type, power_name, character_id) values ('Misc', '$misc_name', $character_id);";
             }
         }
         else
@@ -826,7 +826,7 @@ function saveMiscXP($stats, $character_id)
             if ($misc_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where PowerID = $misc_id;";
+                $query = "delete from character_powers where id = $misc_id;";
             }
         }
 
@@ -859,12 +859,12 @@ function saveICDiscXP($stats, $character_id)
                 // update
                 $query = <<<EOQ
 UPDATE
-    wod_characters_powers
+    character_powers
 SET
-    PowerName='$icdisc_name',
-    PowerLevel='$icdisc'
+    power_name='$icdisc_name',
+    power_level='$icdisc'
 WHERE
-    PowerID = $icdisc_id;
+    id = $icdisc_id;
 EOQ;
 
             }
@@ -873,13 +873,13 @@ EOQ;
                 // insert
                 $query = <<<EOQ
 INSERT INTO
-    wod_characters_powers
+    character_powers
     (
-        PowerType,
-        PowerName,
-        PowerNote,
-        PowerLevel,
-        CharacterID
+        power_type,
+        power_name,
+        power_note,
+        power_level,
+        character_id
     )
 VALUES
     (
@@ -898,7 +898,7 @@ EOQ;
             if ($icdisc_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $icdisc_id;";
+                $query = "delete from character_powers where id = $icdisc_id;";
             }
         }
 
@@ -930,12 +930,12 @@ function saveOOCDiscXP($stats, $character_id)
             if ($oocdisc_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$oocdisc_name', PowerLevel='$oocdisc' where PowerID = $oocdisc_id;";
+                $query = "update character_powers set power_name='$oocdisc_name', power_level='$oocdisc' where id = $oocdisc_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('OOCDisc', '$oocdisc_name', '$oocdisc_note', $oocdisc, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('OOCDisc', '$oocdisc_name', '$oocdisc_note', $oocdisc, $character_id);";
             }
         }
         else
@@ -944,7 +944,7 @@ function saveOOCDiscXP($stats, $character_id)
             if ($oocdisc_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $oocdisc_id;";
+                $query = "delete from character_powers where id = $oocdisc_id;";
             }
         }
 
@@ -976,12 +976,12 @@ function saveDevotionsXP($stats, $character_id)
             if ($devotion_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$devotion_name', PowerLevel='$devotion' where PowerID = $devotion_id;";
+                $query = "update character_powers set power_name='$devotion_name', power_level='$devotion' where id = $devotion_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Devotion', '$devotion_name', '$devotion_note', $devotion, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Devotion', '$devotion_name', '$devotion_note', $devotion, $character_id);";
             }
         }
         else
@@ -990,7 +990,7 @@ function saveDevotionsXP($stats, $character_id)
             if ($devotion_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $devotion_id;";
+                $query = "delete from character_powers where id = $devotion_id;";
             }
         }
 
@@ -1022,12 +1022,12 @@ function saveAffGiftXP($stats, $character_id)
             if ($affgift_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$affgift_name', PowerNote='$affgift_list', PowerLevel='$affgift' where PowerID = $affgift_id;";
+                $query = "update character_powers set power_name='$affgift_name', power_note='$affgift_list', power_level='$affgift' where id = $affgift_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('AffGift', '$affgift_name', '$affgift_list', $affgift, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('AffGift', '$affgift_name', '$affgift_list', $affgift, $character_id);";
             }
         }
         else
@@ -1036,7 +1036,7 @@ function saveAffGiftXP($stats, $character_id)
             if ($affgift_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $affgift_id;";
+                $query = "delete from character_powers where id = $affgift_id;";
             }
         }
 
@@ -1068,12 +1068,12 @@ function saveNonAffGiftXP($stats, $character_id)
             if ($nonaffgift_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$nonaffgift_name', PowerNote='$nonaffgift_list', PowerLevel='$nonaffgift' where PowerID = $nonaffgift_id;";
+                $query = "update character_powers set power_name='$nonaffgift_name', power_note='$nonaffgift_list', power_level='$nonaffgift' where id = $nonaffgift_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('NonAffGift', '$nonaffgift_name', '$nonaffgift_list', $nonaffgift, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('NonAffGift', '$nonaffgift_name', '$nonaffgift_list', $nonaffgift, $character_id);";
             }
         }
         else
@@ -1082,7 +1082,7 @@ function saveNonAffGiftXP($stats, $character_id)
             if ($nonaffgift_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $nonaffgift_id;";
+                $query = "delete from character_powers where id = $nonaffgift_id;";
             }
         }
 
@@ -1113,12 +1113,12 @@ function saveRitualXP($stats, $character_id)
             if ($ritual_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$ritual_name', PowerLevel='$ritual' where PowerID = $ritual_id;";
+                $query = "update character_powers set power_name='$ritual_name', power_level='$ritual' where id = $ritual_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Ritual', '$ritual_name', '', $ritual, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Ritual', '$ritual_name', '', $ritual, $character_id);";
             }
         }
         else
@@ -1127,7 +1127,7 @@ function saveRitualXP($stats, $character_id)
             if ($ritual_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $ritual_id;";
+                $query = "delete from character_powers where id = $ritual_id;";
             }
         }
 
@@ -1155,12 +1155,12 @@ function saveRitualsRenownXP($stats, $character_id)
         if ($renown_id)
         {
             // update
-            $query = "update wod_characters_powers set PowerLevel='$renown_level' where PowerID = $renown_id;";
+            $query = "update character_powers set power_level='$renown_level' where id = $renown_id;";
         }
         else
         {
             // insert
-            $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Renown', '$renown_name', '', $renown_level, $character_id);";
+            $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Renown', '$renown_name', '', $renown_level, $character_id);";
         }
 
         if ($query != "")
@@ -1174,11 +1174,11 @@ function saveRitualsRenownXP($stats, $character_id)
     $rituals_id = $stats["rituals_id"] + 0;
     if ($rituals_id)
     {
-        $query = "update wod_characters_powers set PowerLevel='$rituals' where PowerID = $rituals_id;";
+        $query = "update character_powers set power_level='$rituals' where id = $rituals_id;";
     }
     else
     {
-        $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Rituals', 'Rituals', '', $rituals, $character_id);";
+        $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Rituals', 'Rituals', '', $rituals, $character_id);";
     }
 
     if ($query != "")
@@ -1206,12 +1206,12 @@ function saveRulingArcanaXP($stats, $character_id)
             if ($rulingarcana_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$rulingarcana_name', PowerLevel='$rulingarcana' where PowerID = $rulingarcana_id;";
+                $query = "update character_powers set power_name='$rulingarcana_name', power_level='$rulingarcana' where id = $rulingarcana_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('RulingArcana', '$rulingarcana_name', '$rulingarcana_note', $rulingarcana, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('RulingArcana', '$rulingarcana_name', '$rulingarcana_note', $rulingarcana, $character_id);";
             }
         }
         else
@@ -1220,7 +1220,7 @@ function saveRulingArcanaXP($stats, $character_id)
             if ($rulingarcana_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $rulingarcana_id;";
+                $query = "delete from character_powers where id = $rulingarcana_id;";
             }
         }
 
@@ -1252,12 +1252,12 @@ function saveCommonArcanaXP($stats, $character_id)
             if ($commonarcana_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$commonarcana_name', PowerLevel='$commonarcana' where PowerID = $commonarcana_id;";
+                $query = "update character_powers set power_name='$commonarcana_name', power_level='$commonarcana' where id = $commonarcana_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('CommonArcana', '$commonarcana_name', '$commonarcana_note', $commonarcana, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('CommonArcana', '$commonarcana_name', '$commonarcana_note', $commonarcana, $character_id);";
             }
         }
         else
@@ -1266,7 +1266,7 @@ function saveCommonArcanaXP($stats, $character_id)
             if ($commonarcana_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $commonarcana_id;";
+                $query = "delete from character_powers where id = $commonarcana_id;";
             }
         }
 
@@ -1298,12 +1298,12 @@ function saveInferiorArcanaXP($stats, $character_id)
             if ($inferiorarcana_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$inferiorarcana_name', PowerLevel='$inferiorarcana' where PowerID = $inferiorarcana_id;";
+                $query = "update character_powers set power_name='$inferiorarcana_name', power_level='$inferiorarcana' where id = $inferiorarcana_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('InferiorArcana', '$inferiorarcana_name', '$inferiorarcana_note', $inferiorarcana, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('InferiorArcana', '$inferiorarcana_name', '$inferiorarcana_note', $inferiorarcana, $character_id);";
             }
         }
         else
@@ -1312,7 +1312,7 @@ function saveInferiorArcanaXP($stats, $character_id)
             if ($inferiorarcana_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $inferiorarcana_id;";
+                $query = "delete from character_powers where id = $inferiorarcana_id;";
             }
         }
 
@@ -1344,12 +1344,12 @@ function saveRoteXP($stats, $character_id)
             if ($rote_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$rote_name', PowerNote='$rote_note', PowerLevel='$rote' where PowerID = $rote_id;";
+                $query = "update character_powers set power_name='$rote_name', power_note='$rote_note', power_level='$rote' where id = $rote_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Rote', '$rote_name', '$rote_note', $rote, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Rote', '$rote_name', '$rote_note', $rote, $character_id);";
             }
         }
         else
@@ -1358,7 +1358,7 @@ function saveRoteXP($stats, $character_id)
             if ($rote_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $rote_id;";
+                $query = "delete from character_powers where id = $rote_id;";
             }
         }
 
@@ -1390,12 +1390,12 @@ function savePsychicMeritXP($stats, $character_id)
             if ($psychicmerit_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$psychicmerit_name', PowerNote='$psychicmerit_note', PowerLevel='$psychicmerit' where PowerID = $psychicmerit_id;";
+                $query = "update character_powers set power_name='$psychicmerit_name', power_note='$psychicmerit_note', power_level='$psychicmerit' where id = $psychicmerit_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('PsychicMerit', '$psychicmerit_name', '$psychicmerit_note', $psychicmerit, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('PsychicMerit', '$psychicmerit_name', '$psychicmerit_note', $psychicmerit, $character_id);";
             }
         }
         else
@@ -1404,7 +1404,7 @@ function savePsychicMeritXP($stats, $character_id)
             if ($psychicmerit_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $psychicmerit_id;";
+                $query = "delete from character_powers where id = $psychicmerit_id;";
             }
         }
 
@@ -1436,12 +1436,12 @@ function saveThaumaturgeMeritXP($stats, $character_id)
             if ($thaumaturgemerit_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$thaumaturgemerit_name', PowerNote='$thaumaturgemerit_note', PowerLevel='$thaumaturgemerit' where PowerID = $thaumaturgemerit_id;";
+                $query = "update character_powers set power_name='$thaumaturgemerit_name', power_note='$thaumaturgemerit_note', power_level='$thaumaturgemerit' where id = $thaumaturgemerit_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('ThaumaturgeMerit', '$thaumaturgemerit_name', '$thaumaturgemerit_note', $thaumaturgemerit, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('ThaumaturgeMerit', '$thaumaturgemerit_name', '$thaumaturgemerit_note', $thaumaturgemerit, $character_id);";
             }
         }
         else
@@ -1450,7 +1450,7 @@ function saveThaumaturgeMeritXP($stats, $character_id)
             if ($thaumaturgemerit_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $thaumaturgemerit_id;";
+                $query = "delete from character_powers where id = $thaumaturgemerit_id;";
             }
         }
 
@@ -1481,12 +1481,12 @@ function saveBestowmentXP($stats, $character_id)
             if ($bestowment_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$bestowment_name', PowerLevel='$bestowment' where PowerID = $bestowment_id;";
+                $query = "update character_powers set power_name='$bestowment_name', power_level='$bestowment' where id = $bestowment_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Bestowment', '$bestowment_name', '', $bestowment, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Bestowment', '$bestowment_name', '', $bestowment, $character_id);";
             }
         }
         else
@@ -1495,7 +1495,7 @@ function saveBestowmentXP($stats, $character_id)
             if ($bestowment_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $bestowment_id;";
+                $query = "delete from character_powers where id = $bestowment_id;";
             }
         }
 
@@ -1527,12 +1527,12 @@ function saveAffTransXP($stats, $character_id)
             if ($afftrans_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$afftrans_name', PowerNote='$afftrans_list', PowerLevel='$afftrans' where PowerID = $afftrans_id;";
+                $query = "update character_powers set power_name='$afftrans_name', power_note='$afftrans_list', power_level='$afftrans' where id = $afftrans_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('AffTrans', '$afftrans_name', '$afftrans_list', $afftrans, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('AffTrans', '$afftrans_name', '$afftrans_list', $afftrans, $character_id);";
             }
         }
         else
@@ -1541,7 +1541,7 @@ function saveAffTransXP($stats, $character_id)
             if ($afftrans_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $afftrans_id;";
+                $query = "delete from character_powers where id = $afftrans_id;";
             }
         }
 
@@ -1573,12 +1573,12 @@ function saveNonAffTransXP($stats, $character_id)
             if ($nonafftrans_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$nonafftrans_name', PowerNote='$nonafftrans_list', PowerLevel='$nonafftrans' where PowerID = $nonafftrans_id;";
+                $query = "update character_powers set power_name='$nonafftrans_name', power_note='$nonafftrans_list', power_level='$nonafftrans' where id = $nonafftrans_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('NonAffTrans', '$nonafftrans_name', '$nonafftrans_list', $nonafftrans, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('NonAffTrans', '$nonafftrans_name', '$nonafftrans_list', $nonafftrans, $character_id);";
             }
         }
         else
@@ -1587,7 +1587,7 @@ function saveNonAffTransXP($stats, $character_id)
             if ($nonafftrans_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $nonafftrans_id;";
+                $query = "delete from character_powers where id = $nonafftrans_id;";
             }
         }
 
@@ -1619,12 +1619,12 @@ function saveAffContXP($stats, $character_id)
             if ($affcont_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$affcont_name', PowerNote='$affcont_list', PowerLevel='$affcont' where PowerID = $affcont_id;";
+                $query = "update character_powers set power_name='$affcont_name', power_note='$affcont_list', power_level='$affcont' where id = $affcont_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('AffContract', '$affcont_name', '$affcont_list', $affcont, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('AffContract', '$affcont_name', '$affcont_list', $affcont, $character_id);";
             }
         }
         else
@@ -1633,7 +1633,7 @@ function saveAffContXP($stats, $character_id)
             if ($affcont_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $affcont_id;";
+                $query = "delete from character_powers where id = $affcont_id;";
             }
         }
 
@@ -1665,12 +1665,12 @@ function saveNonAffContXP($stats, $character_id)
             if ($nonaffcont_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$nonaffcont_name', PowerNote='$nonaffcont_list', PowerLevel='$nonaffcont' where PowerID = $nonaffcont_id;";
+                $query = "update character_powers set power_name='$nonaffcont_name', power_note='$nonaffcont_list', power_level='$nonaffcont' where id = $nonaffcont_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('NonAffContract', '$nonaffcont_name', '$nonaffcont_list', $nonaffcont, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('NonAffContract', '$nonaffcont_name', '$nonaffcont_list', $nonaffcont, $character_id);";
             }
         }
         else
@@ -1679,7 +1679,7 @@ function saveNonAffContXP($stats, $character_id)
             if ($nonaffcont_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $nonaffcont_id;";
+                $query = "delete from character_powers where id = $nonaffcont_id;";
             }
         }
 
@@ -1710,12 +1710,12 @@ function saveGobContXP($stats, $character_id)
             if ($gobcont_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$gobcont_name', PowerLevel='$gobcont' where PowerID = $gobcont_id;";
+                $query = "update character_powers set power_name='$gobcont_name', power_level='$gobcont' where id = $gobcont_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('GoblinContract', '$gobcont_name', '', $gobcont, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('GoblinContract', '$gobcont_name', '', $gobcont, $character_id);";
             }
         }
         else
@@ -1724,7 +1724,7 @@ function saveGobContXP($stats, $character_id)
             if ($gobcont_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $gobcont_id;";
+                $query = "delete from character_powers where id = $gobcont_id;";
             }
         }
 
@@ -1755,12 +1755,12 @@ function saveEndowmentXP($stats, $character_id)
             if ($endowment_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$endowment_name', PowerNote='$endowment_note', PowerLevel='$endowment' where PowerID = $endowment_id;";
+                $query = "update character_powers set power_name='$endowment_name', power_note='$endowment_note', power_level='$endowment' where id = $endowment_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Endowment', '$endowment_name', '$endowment_note', $endowment, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Endowment', '$endowment_name', '$endowment_note', $endowment, $character_id);";
             }
         }
         else
@@ -1769,7 +1769,7 @@ function saveEndowmentXP($stats, $character_id)
             if ($endowment_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $endowment_id;";
+                $query = "delete from character_powers where id = $endowment_id;";
             }
         }
 
@@ -1800,12 +1800,12 @@ function saveTacticXP($stats, $character_id)
             if ($tactic_id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$tactic_name', PowerLevel='$tactic_cost' where PowerID = $tactic_id;";
+                $query = "update character_powers set power_name='$tactic_name', power_level='$tactic_cost' where id = $tactic_id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Tactic', '$tactic_name', '', $tactic_cost, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Tactic', '$tactic_name', '', $tactic_cost, $character_id);";
             }
         }
         else
@@ -1814,7 +1814,7 @@ function saveTacticXP($stats, $character_id)
             if ($tactic_id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $tactic_id;";
+                $query = "delete from character_powers where id = $tactic_id;";
             }
         }
 
@@ -1843,12 +1843,12 @@ function saveKeyXP($stats, $character_id)
             if ($id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$name' where PowerID = $id;";
+                $query = "update character_powers set power_name='$name' where id = $id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Key', '$name', '', 0, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Key', '$name', '', 0, $character_id);";
             }
         }
         else
@@ -1857,7 +1857,7 @@ function saveKeyXP($stats, $character_id)
             if ($id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $id;";
+                $query = "delete from character_powers where id = $id;";
             }
         }
 
@@ -1886,12 +1886,12 @@ function saveMomentoXP($stats, $character_id)
             if ($id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$name' where PowerID = $id;";
+                $query = "update character_powers set power_name='$name' where id = $id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Momento', '$name', '', 0, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Momento', '$name', '', 0, $character_id);";
             }
         }
         else
@@ -1900,7 +1900,7 @@ function saveMomentoXP($stats, $character_id)
             if ($id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $id;";
+                $query = "delete from character_powers where id = $id;";
             }
         }
 
@@ -1930,12 +1930,12 @@ function saveCeremoniesXP($stats, $character_id)
             if ($id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$name', PowerLevel = $level where PowerID = $id;";
+                $query = "update character_powers set power_name='$name', power_level = $level where id = $id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Ceremonies', '$name', '', $level, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Ceremonies', '$name', '', $level, $character_id);";
             }
         }
         else
@@ -1944,7 +1944,7 @@ function saveCeremoniesXP($stats, $character_id)
             if ($id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $id;";
+                $query = "delete from character_powers where id = $id;";
             }
         }
 
@@ -1974,12 +1974,12 @@ function saveManifestationXP($stats, $character_id)
             if ($id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$name', PowerLevel = $level where PowerID = $id;";
+                $query = "update character_powers set power_name='$name', power_level = $level where id = $id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Manifestation', '$name', '', $level, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Manifestation', '$name', '', $level, $character_id);";
             }
         }
         else
@@ -1988,7 +1988,7 @@ function saveManifestationXP($stats, $character_id)
             if ($id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $id;";
+                $query = "delete from character_powers where id = $id;";
             }
         }
 
@@ -2017,12 +2017,12 @@ function saveNuminaXP($stats, $character_id)
             if ($id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$name' where PowerID = $id;";
+                $query = "update character_powers set power_name='$name' where id = $id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Numina', '$name', '', 0, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Numina', '$name', '', 0, $character_id);";
             }
         }
         else
@@ -2031,7 +2031,7 @@ function saveNuminaXP($stats, $character_id)
             if ($id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $id;";
+                $query = "delete from character_powers where id = $id;";
             }
         }
 
@@ -2061,12 +2061,12 @@ function saveSiddhiXP($stats, $character_id)
             if ($id)
             {
                 // update
-                $query = "update wod_characters_powers set PowerName='$name', PowerLevel = $level where PowerID = $id;";
+                $query = "update character_powers set power_name='$name', power_level = $level where id = $id;";
             }
             else
             {
                 // insert
-                $query = "insert into wod_characters_powers (PowerType, PowerName, PowerNote, PowerLevel, CharacterID) values ('Siddhi', '$name', '', $level, $character_id);";
+                $query = "insert into character_powers (power_type, power_name, power_note, power_level, character_id) values ('Siddhi', '$name', '', $level, $character_id);";
             }
         }
         else
@@ -2075,7 +2075,7 @@ function saveSiddhiXP($stats, $character_id)
             if ($id)
             {
                 // delete
-                $query = "delete from wod_characters_powers where powerID = $id;";
+                $query = "delete from character_powers where id = $id;";
             }
         }
 

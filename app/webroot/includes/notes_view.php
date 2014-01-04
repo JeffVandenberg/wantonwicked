@@ -25,7 +25,7 @@ if($character_id)
 	{
 		$character_query = <<<EOQ
 SELECT wod.*, Character_Name, l.Name
-FROM (wod_characters as wod INNER JOIN login_character_index as lci ON wod.character_id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
+FROM (characters as wod INNER JOIN login_character_index as lci ON wod.character_id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
 WHERE wod.character_id = $character_id
 	AND is_npc = 'Y';
 EOQ;
@@ -34,7 +34,7 @@ EOQ;
 	{
 		$character_query = <<<EOQ
 SELECT wod.*, Character_Name, l.Name
-FROM (wod_characters as wod INNER JOIN login_character_index as lci ON wod.character_id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
+FROM (characters as wod INNER JOIN login_character_index as lci ON wod.character_id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
 WHERE wod.character_id = $character_id
 	AND lci.login_id = $userdata[user_id]
 EOQ;

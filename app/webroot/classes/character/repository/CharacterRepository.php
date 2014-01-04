@@ -48,7 +48,7 @@ EOQ;
 SELECT
     *
 FROM
-    wod_characters
+    characters
 WHERE
     character_id = $characterId
 EOQ;
@@ -66,7 +66,7 @@ EOQ;
 SELECT
     C.*
 FROM
-    wod_characters AS C
+    characters AS C
     INNER JOIN supporter_characters AS SC ON C.character_id = SC.character_id
 WHERE
     SC.supporter_id = ?
@@ -88,7 +88,7 @@ EOQ;
     {
         $sql = <<<EOQ
 UPDATE
-    wod_characters
+    characters
 SET
     bonus_received = 0;
 EOQ;
@@ -101,7 +101,7 @@ EOQ;
         $date = date('Y-m-d');
         $sql = <<<EOQ
 UPDATE
-    wod_characters AS C
+    characters AS C
     INNER JOIN supporter_characters AS SC ON C.character_id = SC.character_id
     INNER JOIN supporters AS S ON SC.supporter_id = S.id
 SET
@@ -121,16 +121,16 @@ EOQ;
 
         $sql = <<<EOQ
 SELECT
-    character_id
+    id
 FROM
-    wod_characters AS C
+    characters AS C
 WHERE
     bonus_received = ?
 EOQ;
 
         $characters = $this->Query($sql)->All(array($bonusXp));
         foreach($characters as $character) {
-            CharacterLog::LogAction($character['character_id'], ActionType::SupporterXP, 'Awarded Bonus XP for: ' . $date);
+            CharacterLog::LogAction($character['id'], ActionType::SupporterXP, 'Awarded Bonus XP for: ' . $date);
         }
 
         // set supporters
@@ -142,8 +142,8 @@ SET
         SELECT
             COUNT(*)
         FROM
-            wod_characters AS C
-            INNER JOIN supporter_characters AS SC ON C.character_id = SC.character_id
+            characters AS C
+            INNER JOIN supporter_characters AS SC ON C.id = SC.character_id
         WHERE
             C.is_sanctioned = 'Y'
             AND C.is_deleted = 'N'
@@ -164,7 +164,7 @@ EOQ;
 SELECT
     C.*
 FROM
-    wod_characters AS C
+    characters AS C
     INNER JOIN supporter_characters AS SC ON C.character_id = SC.character_id
     INNER JOIN supporters AS S ON SC.supporter_id = S.id
 WHERE
@@ -181,9 +181,9 @@ EOQ;
 SELECT
     *
 FROM
-    wod_characters AS C
+    characters AS C
 WHERE
-    C.character_id = ?
+    C.id = ?
 EOQ;
 
         return $this->PopulateObject($this->Query($sql)->Single(array($characterId)));
@@ -193,16 +193,16 @@ EOQ;
     {
         $sql = <<<EOQ
 SELECT
-    C.character_id,
+    C.id,
     C.character_name,
     C.is_sanctioned,
     U.username as updated_by_name,
-    C.when_last_st_updated as updated_on
+    C.updated_on
 FROM
-    wod_characters AS C
-    LEFT JOIN phpbb_users as U ON C.last_st_updated = U.user_id
+    characters AS C
+    LEFT JOIN phpbb_users as U ON C.updated_by_id = U.user_id
 WHERE
-    C.primary_login_id = ?
+    C.user_id = ?
     AND C.is_deleted = 'N'
 ORDER BY
     is_sanctioned ASC,

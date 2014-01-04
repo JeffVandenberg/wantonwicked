@@ -36,18 +36,18 @@ if (!empty($_POST['start_date']))
 		$order_by_string = "";
 		if ($_POST['order'] == 'city')
 		{
-			$order_by_string = "wod_characters.city, wod_characters.character_name";
+			$order_by_string = "characters.city, characters.character_name";
 		}
 		if ($_POST['order'] == 'name')
 		{
-			$order_by_string = "login.name, wod_characters.city, wod_characters.character_name";
+			$order_by_string = "login.name, characters.city, characters.character_name";
 		}
 		if ($_POST['order'] == 'last_ip_address')
 		{
 			$order_by_string = "login.last_ip, login.name, city, character_name";
 		}
 
-		$character_query = "select wod_characters.*, login.Name, login.Last_IP from wod_characters, login where wod_characters.last_login >= '$start_date' and is_sanctioned = 'y' and is_npc = 'n' and is_deleted='n' and wod_characters.primary_login_id = login.id order by $order_by_string;";
+		$character_query = "select characters.*, login.Name, login.Last_IP from characters, login where characters.last_login >= '$start_date' and is_sanctioned = 'y' and is_npc = 'n' and is_deleted='n' and characters.primary_login_id = login.id order by $order_by_string;";
 		$character_result = mysql_query($character_query) or die(mysql_error());
 
 		$result_set .= mysql_num_rows($character_result) . " records found.<br>";
@@ -97,7 +97,7 @@ EOQ;
 		$character_detail[Character_Type]
 		</td>
 		<td>
-		  <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[Character_ID]">Look up $character_detail[Character_Name]</a>
+		  <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[id]">Look up $character_detail[Character_Name]</a>
 		</td>
 	</tr>
 EOQ;
@@ -161,7 +161,7 @@ EOQ;
 			$character_detail[Character_Type]
 		</td>
 		<td>
-		  <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[Character_ID]">Look up $character_detail[Character_Name]</a>
+		  <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[id]">Look up $character_detail[Character_Name]</a>
 		</td>
 	</tr>
 EOQ;
@@ -237,7 +237,7 @@ EOQ;
 			$character_detail[Character_Type]
 		</td>
 		<td>
-		  <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[Character_ID]">Look up $character_detail[Character_Name]</a>
+		  <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[id]">Look up $character_detail[Character_Name]</a>
 		</td>
 	</tr>
 EOQ;

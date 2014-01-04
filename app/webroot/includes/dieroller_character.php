@@ -134,7 +134,7 @@ if (isset($_POST['submit_die_roller'])) {
 
         // update relevant stats
         if (($used_wp == 'Y') || ($used_pp == 'Y')) {
-            $update_query = "update wod_characters set ";
+            $update_query = "update characters set ";
             if ($used_wp == 'Y') {
                 $update_query .= "willpower_temp = willpower_temp - 1, ";
                 $willpower_temp--;
@@ -183,7 +183,7 @@ if (isset($_POST['submit_update_stats'])) {
 
     $update_query = <<<EOQ
 UPDATE
-	wod_characters 
+	characters
 set 
 	wounds_agg = $wounds_agg, 
 	wounds_lethal = $wounds_lethal, 

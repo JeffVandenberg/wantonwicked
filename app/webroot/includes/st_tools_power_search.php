@@ -18,8 +18,8 @@ SELECT
 	powerNote AS power_note,
 	PowerLevel AS power_level
 FROM
-	wod_characters AS C
-	LEFT JOIN wod_characters_powers AS CP ON C.character_id = CP.characterId
+	characters AS C
+	LEFT JOIN character_powers AS CP ON C.character_id = CP.characterId
 WHERE
 	C.is_sanctioned = 'Y'
 	AND C.is_deleted = 'N'

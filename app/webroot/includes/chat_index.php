@@ -60,16 +60,16 @@ ob_start();
                 <?php echo $character['updated_on']; ?>
             </td>
             <td>
-                <a href="/view_sheet.php?action=view_own_xp&character_id=<?php echo $character['character_id']; ?>" target="_blank">
+                <a href="/view_sheet.php?action=view_own_xp&character_id=<?php echo $character['id']; ?>" target="_blank">
                     <img src="/img/gp_view.png" alt="View <?php echo $character['character_name']; ?>" title="View <?php echo $character['character_name']; ?>"/>
                 </a>
-                <a href="/character.php?action=interface&character_id=<?php echo $character['character_id']; ?>" target="_blank">
+                <a href="/character.php?action=interface&character_id=<?php echo $character['id']; ?>" target="_blank">
                     <img src="/img/gp_tools.png" alt="Interface for <?php echo $character['character_name']; ?>" title="Interface for <?php echo $character['character_name']; ?>"/>
                 </a>
-                <a href="/chat?character_id=<?php echo $character['character_id']; ?>" target="_blank">
+                <a href="/chat?character_id=<?php echo $character['id']; ?>" target="_blank">
                     <img src="/img/gp_chat.png" alt="Chat as <?php echo $character['character_name']; ?>" title="Chat as <?php echo $character['character_name']; ?>"/>
                 </a>
-                <a href="/chat.php?action=delete&character_id=<?php echo $character['character_id']; ?>" class="delete-link">
+                <a href="/chat.php?action=delete&character_id=<?php echo $character['id']; ?>" class="delete-link">
                     <img src="/img/gp_delete.png" alt="Delete <?php echo $character['character_name']; ?>" title="Delete <?php echo $character['character_name']; ?>"/>
                 </a>
             </td>
