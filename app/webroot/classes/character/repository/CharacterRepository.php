@@ -113,7 +113,7 @@ WHERE
     AND S.number_of_characters > S.characters_awarded
     AND C.is_sanctioned = 'Y'
     AND C.is_deleted = 'N'
-    AND C.bonus_xp = 0
+    AND C.bonus_received = 0
 EOQ;
 
         $parameters = array('xp' => $bonusXp);

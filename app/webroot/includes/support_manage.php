@@ -14,13 +14,15 @@ if(Request::IsPost())
 $supporterRepository = RepositoryManager::GetRepository('classes\support\data\Supporter');
 /* @var SupporterRepository $supporterRepository */
 
-$supporters = $supporterRepository->ListSupporters();
+$onlyActive = Request::GetValue('active', '1') == 1;
+$supporters = $supporterRepository->ListSupporters($onlyActive);
 
 /* @var array $supporters */
 
 ob_start();
 ?>
 <a href="support.php?action=add" class="button">Add Supporter</a>
+<a href="support.php?action=manage&active=<?php echo !$onlyActive; ?>" class="button">Toggle Active</a>
 <table>
     <tr>
         <th>
