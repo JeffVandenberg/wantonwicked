@@ -10,16 +10,16 @@ $character_id = Request::GetValue('character_id', 0);
 // get character information
 $characterQuery = <<<EOQ
 SELECT
-    wod.id,
+    C.id,
     Character_Name
 FROM
-    characters as wod
+    characters AS C
     INNER JOIN login_character_index as lci
-        ON wod.character_id = lci.character_id
+        ON C.id = lci.character_id
 WHERE
     lci.login_id = $userdata[user_id]
-    AND wod.is_deleted = 'N'
-    AND wod.id = $character_id;
+    AND C.is_deleted = 'N'
+    AND C.id = $character_id;
 EOQ;
 $character = ExecuteQueryItem($characterQuery);
 

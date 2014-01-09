@@ -10,7 +10,6 @@ $extra_headers = <<<EOQ
       type="text/javascript"></script>
     <script src="js/gpolygon.gen.js" type="text/javascript"></script>
     <script src="js/map.js" type="text/javascript"></script>
-    <script src="js/xmlHTTP.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="http://www.wantonwicked.net/wicked_map.css">
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 EOQ;

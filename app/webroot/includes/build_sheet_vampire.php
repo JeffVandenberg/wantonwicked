@@ -1,372 +1,362 @@
 <?php
-$vitals_table = <<<EOQ
-<table class="character-sheet $table_class">
-    <tr>
-        <th colspan="4">
-            Vitals
-        </th>
-    </tr>
-    <tr>
-        <td width="15%">
-            <b>Name</b>
-        </td>
-        <td width="35%">
-            $character_name
-        </td>
-        <td width="15%">
-            <b>Character Type</b>
-        </td>
-        <td width="35%">
-            $character_type_select
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Location</b>
-        </td>
-        <td>
-            $location
-        </td>
-        <td>
-            <b>Sex:</b>
-        </td>
-        <td>
-            $sex
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Virtue</b>
-        </td>
-        <td>
-            $virtue
-        </td>
-        <td>
-            <b>Vice</b>
-        </td>
-        <td>
-            $vice
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Clan</b>
-        </td>
-        <td>
-            $splat1
-        </td>
-        <td>
-            <b>Bloodline</b>
-        </td>
-        <td>
-            $subsplat
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Covenant</b>
-        </td>
-        <td>
-            $splat2
-        </td>
-        <td>
-            <b>Icon</b>
-        </td>
-        <td>
-            $icon
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Age</b>
-        </td>
-        <td>
-            $age
-        </td>
-        <td>
-            <b>Apparent Age</b>
-        </td>
-        <td>
-            $apparent_age
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Is NPC</b>
-        </td>
-        <td>
-            $is_npc
-        </td>
-        <td>
-            <b>Status</b>
-        </td>
-        <td>
-            $status
-        </td>
-    </tr>
-</table>
-EOQ;
+/* @var array $element_type */
+/* @var int $max_dots */
 
-$information_table = <<<EOQ
-<table class="character-sheet $table_class">
-    <tr>
-        <th colspan="2">
-            Information
-        </th>
-    </tr>
-    <tr>
-        <td width="25%">
-            <b>Concept</b>
-        </td>
-        <td width="75%">
-            $concept
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Description</b>
-        </td>
-        <td>
-            $description
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Daily Equipment</b>
-        </td>
-        <td>
-            $equipment_public
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Other Equipment</b>
-        </td>
-        <td>
-            $equipment_hidden
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Public Effects</b>
-        </td>
-        <td>
-            $public_effects
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Sire</b>
-        </td>
-        <td>
-            $friends
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Haven</b>
-        </td>
-        <td>
-            $safe_place
-        </td>
-    </tr>
-</table>
-EOQ;
+use classes\core\helpers\FormHelper;
+
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>">
+        <tr>
+            <th colspan="4">
+                Vitals
+            </th>
+        </tr>
+        <tr>
+            <td width="15%">
+                <b>Name</b>
+            </td>
+            <td width="35%">
+                <?php echo $character_name; ?>
+            </td>
+            <td width="15%">
+                <b>Character Type</b>
+            </td>
+            <td width="35%">
+                <?php echo $character_type_select; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Location</b>
+            </td>
+            <td>
+                <?php echo $location; ?>
+            </td>
+            <td>
+                <b>Sex:</b>
+            </td>
+            <td>
+                <?php echo $sex; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Virtue</b>
+            </td>
+            <td>
+                <?php echo $virtue; ?>
+            </td>
+            <td>
+                <b>Vice</b>
+            </td>
+            <td>
+                <?php echo $vice; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Clan</b>
+            </td>
+            <td>
+                <?php echo $splat1; ?>
+            </td>
+            <td>
+                <b>Bloodline</b>
+            </td>
+            <td>
+                <?php echo $subsplat; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Covenant</b>
+            </td>
+            <td>
+                <?php echo $splat2; ?>
+            </td>
+            <td>
+                <b>Icon</b>
+            </td>
+            <td>
+                <?php echo $icon; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Age</b>
+            </td>
+            <td>
+                <?php echo $age; ?>
+            </td>
+            <td>
+                <b>Apparent Age</b>
+            </td>
+            <td>
+                <?php echo $apparent_age; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Is NPC</b>
+            </td>
+            <td>
+                <?php echo $is_npc; ?>
+            </td>
+            <td>
+                <b>Status</b>
+            </td>
+            <td>
+                <?php echo $status; ?>
+            </td>
+        </tr>
+    </table>
+<?php
+$vitals_table = ob_get_clean();
+
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>">
+        <tr>
+            <th colspan="2">
+                Information
+            </th>
+        </tr>
+        <tr>
+            <td style="width:25%;">
+                <b>Concept</b>
+            </td>
+            <td style="width:75%;">
+                <?php echo $concept; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Description</b>
+            </td>
+            <td>
+                <?php echo $description; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Daily Equipment</b>
+            </td>
+            <td>
+                <?php echo $equipment_public; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Other Equipment</b>
+            </td>
+            <td>
+                <?php echo $equipment_hidden; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Public Effects</b>
+            </td>
+            <td>
+                <?php echo $public_effects; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Sire</b>
+            </td>
+            <td>
+                <?php echo $friends; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Haven</b>
+            </td>
+            <td>
+                <?php echo $safe_place; ?>
+            </td>
+        </tr>
+    </table>
+<?php
+$information_table = ob_get_clean();
+
 
 // in clan
 $disciplines_list = "";
-if ($edit_powers) {
-    $disciplines_list .= <<<EOQ
-<a href="#" onClick="addDisc('icdisc');return false;">Add In-Clan Discipline</a><br>
-EOQ;
-} else {
-    $disciplines_list .= "In-Clan Disciplines<br>";
-}
 
-$disciplines_list .= <<<EOQ
-<table class="normal_text" name="icdisc_list" id="icdisc_list">
-  <tr>
-    <th width="50%">
-      Name
-    </th>
-    <th width="50%">
-      Level
-    </th>
-  </tr>
-EOQ;
+$powers = getPowers($characterId, 'ICDisc', NAMENOTE, 3);
 
-$icdiscs = getPowers($characterId, 'ICDisc', NAMENOTE, 3);
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="icdisc_list">
+        <tr>
+            <th colspan="2">
+                In-Clan Disciplines
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addDisc('icdisc');return false;">
+                        <img src="/img/plus.png" title="Add In-Clan Discipline"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td style="width:50%;" class="header-row">
+                Name
+            </td>
+            <td style="width:50%;" class="header-row">
+                Level
+            </td>
+        </tr>
+        <?php foreach($powers as $i => $power): ?>
+        <?php $discipline_dots = FormHelper::Dots("icdisc${i}", $power->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp); ?>
+        <tr>
+            <td>
+                <?php if ($edit_powers): ?>
+                    <label for="icdisc<?php echo $i; ?>_name"></label><input type="text" name="icdisc<?php echo $i; ?>_name" id="icdisc<?php echo $i; ?>_name" size="15"
+                           value="<?php echo $power->getPowerName(); ?>">
+                <?php else: ?>
+                    <?php echo $power->getPowerName(); ?>
+                <?php endif; ?>
+            </td>
+            <td>
+                <?php echo $discipline_dots; ?>
+                <input type="hidden" name="icdisc<?php echo $i; ?>_id" id="icdisc<?php echo $i; ?>_id" value="<?php echo $power->getPowerID(); ?>">
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$inclanDisciplines = ob_get_clean();
 
-for ($i = 0; $i < sizeof($icdiscs); $i++) {
-    $discipline_dots = makeDotsXP("icdisc${i}", $element_type['supernatural'], $character_type, $max_dots, $icdiscs[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
 
-    $discipline_name = $icdiscs[$i]->getPowerName();
-    $discipline_id = $icdiscs[$i]->getPowerID();
+$powers = getPowers($characterId, 'OOCDisc', NAMENOTE, 2);
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="oocdisc_list">
+        <tr>
+            <th colspan="2">
+                Out-of-Clan Disciplines
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addDisc('oocdisc');return false;">
+                        <img src="/img/plus.png" title="Add Out-of-Clan Discipline"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td style="width:50%;" class="header-row">
+                Name
+            </td>
+            <td style="width:50%;" class="header-row">
+                Level
+            </td>
+        </tr>
+        <?php foreach($powers as $i => $power): ?>
+            <?php $discipline_dots = FormHelper::Dots("oocdisc${i}", $powers[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="oocdisc<?php echo $i; ?>_name"></label><input type="text" name="oocdisc<?php echo $i; ?>_name" id="oocdisc<?php echo $i; ?>_name" size="15"
+                               value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php echo $discipline_dots; ?>
+                    <input type="hidden" name="oocdisc<?php echo $i; ?>_id" id="oocdisc<?php echo $i; ?>_id" value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$oocDisciplines = ob_get_clean();
 
-    if ($edit_powers) {
-        $discipline_name = <<<EOQ
-<input type="text" name="icdisc${i}_name" id="icdisc${i}_name" size="15" class="$input_class" value="$discipline_name">
-EOQ;
-    }
-
-    $disciplines_list .= <<<EOQ
-  <tr>
-    <td>
-      $discipline_name
-    </td>
-    <td>
-      $discipline_dots
-      <input type="hidden" name="icdisc${i}_id" id="icdisc${i}_id" value="$discipline_id">
-    </td>
-  </tr>
-EOQ;
-
-}
-$disciplines_list .= "</table>";
-
-// out of clan
-if ($edit_powers) {
-    $disciplines_list .= <<<EOQ
-<br>
-<a href="#" onClick="addDisc('oocdisc');return false;">Add Out-of-Clan Discipline</a><br>
-EOQ;
-} else {
-    $disciplines_list .= "Out-of-Clan Disciplines<br>";
-}
-
-$disciplines_list .= <<<EOQ
-<table name="oocdisc_list" id="oocdisc_list">
-  <tr>
-    <th width="50%">
-      Name
-    </th>
-    <th width="50%">
-      Level
-    </th>
-  </tr>
-EOQ;
-
-$oocdiscs = getPowers($characterId, 'OOCDisc', NAMENOTE, 4);
-
-for ($i = 0; $i < sizeof($oocdiscs); $i++) {
-    $discipline_dots = makeDotsXP("oocdisc${i}", $element_type['supernatural'], $character_type, $max_dots, $oocdiscs[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
-
-    $discipline_name = $oocdiscs[$i]->getPowerName();
-    $discipline_id = $oocdiscs[$i]->getPowerID();
-
-    if ($edit_powers) {
-        $discipline_name = <<<EOQ
-<input type="text" name="oocdisc${i}_name" id="oocdisc${i}_name" size="15" class="$input_class" value="$discipline_name">
-EOQ;
-    }
-
-    $disciplines_list .= <<<EOQ
-  <tr>
-    <td>
-      $discipline_name
-    </td>
-    <td>
-      $discipline_dots
-      <input type="hidden" name="oocdisc${i}_id" id="oocdisc${i}_id" value="$discipline_id">
-    </td>
-  </tr>
-EOQ;
-}
-$disciplines_list .= "</table>";
-
-// devotions
-$supernatural_xp_js = "";
+$powers = getPowers($characterId, 'Devotion', NAMENOTE, 2);
 if ($edit_xp) {
     $supernatural_xp_js = " onChange=\"updateXP($element_type[supernatural])\" ";
 }
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="devotion_list">
+        <tr>
+            <th colspan="2">
+                Devotions/Rituals/Other
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addDevotion();return false;">
+                        <img src="/img/plus.png" title="Add Devotion/Ritual/Other"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td style="width:50%;" class="header-row">
+                Name
+            </td>
+            <td style="width:50%;" class="header-row">
+                Cost
+            </td>
+        </tr>
+        <?php foreach($powers as $i => $power): ?>
+            <?php $level = $power->getPowerLevel(); ?>
+            <?php $discipline_id = $power->getPowerID(); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="devotion<?php echo $i; ?>_name"></label><input type="text" name="devotion<?php echo $i; ?>_name" id="devotion<?php echo $i; ?>_name" size="15"
+                               value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if($edit_powers): ?>
+                        <label for="devotion<?php echo $i; ?>"></label><input type="text" name="devotion<?php echo $i; ?>" id="devotion<?php echo $i; ?>" size="3" maxlength="2" value="<?php echo $level; ?>" <?php echo $supernatural_xp_js; ?>>
+                    <?php else: ?>
+                        <?php echo $level; ?>
+                    <?php endif; ?>
+                    <input type="hidden" name="oocdisc<?php echo $i; ?>_id" id="oocdisc<?php echo $i; ?>_id" value="<?php echo $discipline_id; ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$devotions = ob_get_clean();
 
-if ($edit_powers) {
-    $disciplines_list .= <<<EOQ
-<br>
-<a href="#" onClick="addDevotion();return false;">Add Devotion/Ritual/Other</a><br>
-EOQ;
-} else {
-    $disciplines_list .= "Devotions/Rituals/Other<br>";
-}
-
-$disciplines_list .= <<<EOQ
-<table name="devotion_list" id="devotion_list">
-  <tr>
-    <th width="50%">
-      Name
-    </th>
-    <th width="50%">
-      Cost
-    </th>
-  </tr>
-EOQ;
-
-$devotions = getPowers($characterId, 'Devotion', NAMENOTE, 2);
-
-for ($i = 0; $i < sizeof($devotions); $i++) {
-    $devotion_name = $devotions[$i]->getPowerName();
-    $devotion_cost = $devotions[$i]->getPowerLevel();
-    $devotion_id = $devotions[$i]->getPowerID();
-
-    if ($edit_powers) {
-        $devotion_name = <<<EOQ
-<input type="text" name="devotion${i}_name" id="devotion${i}_name" size="15" class="$input_class" value="$devotion_name">
-
-EOQ;
-        $devotion_cost = <<<EOQ
-<input type="text" name="devotion{$i}" id="devotion{$i}" size="3" maxlength="2" class="$input_class" value="$devotion_cost" $supernatural_xp_js>
-EOQ;
-    }
-
-    $disciplines_list .= <<<EOQ
-  <tr>
-    <td>
-      $devotion_name
-    </td>
-    <td>
-      $devotion_cost
-      <input type="hidden" name="devotion${i}_id" id="devotion${i}_id" value="$devotion_id" $supernatural_xp_js>
-    </td>
-  </tr>
-EOQ;
-}
-
-
-$disciplines_list .= "</table>";
-
-$traits_table = <<<EOQ
-<table class="character-sheet $table_class">
-    <tr>
-        <th colspan="3" width="50%">
-            Merits
-			$abilities_help
-        </th>
-        <th colspan="3" width="50%">
-            Disciplines
-			$abilities_help
-        </th>
-    </tr>
-    <tr valign="top">
-        <td colspan="3">
-            $character_merit_list
-        </td>
-        <td colspan="3" rowspan="3">
-            $disciplines_list
-        </td>
-    </tr>
-    <tr>
-        <th colspan="3">
-            Flaws/Derangements
-			$abilities_help
-        </th>
-    </tr>
-    <tr>
-        <td colspan="3" valign="top">
-            $character_flaw_list
-        </td>
-    </tr>
-</table>
-<table class="character-sheet $table_class">
+ob_start();
+?>
+<div style="width:50%;float:left;">
+    <table class="character-sheet <?php echo $table_class; ?>">
+        <tr>
+            <th colspan="3">
+                Merits
+            </th>
+        </tr>
+        <tr style="vertical-align: top;">
+            <td colspan="3">
+                <?php echo $character_merit_list; ?>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="3">
+                Flaws/Derangements
+            </th>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top">
+                <?php echo $character_flaw_list; ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="width:50%;float:left;">
+    <?php echo $inclanDisciplines; ?>
+    <?php echo $oocDisciplines; ?>
+    <?php echo $devotions; ?>
+</div>
+<table class="character-sheet <?php echo $table_class; ?>">
     <tr>
         <th colspan="6">
             Traits
@@ -377,13 +367,13 @@ $traits_table = <<<EOQ
             Health
         </td>
         <td colspan="2" width="30%">
-            $health_dots
+            <?php echo $health_dots; ?>
         </td>
           <td colspan="1" width="15%">
         Wounds
       </td>
       <td colspan="2" width="40%">
-        Bashing: $wounds_bashing Lethal: $wounds_lethal Agg: $wounds_aggravated
+        Bashing: <?php echo $wounds_bashing; ?> Lethal: <?php echo $wounds_lethal; ?> Agg: <?php echo $wounds_aggravated; ?>
       </td>
 </tr>
     <tr>
@@ -391,25 +381,13 @@ $traits_table = <<<EOQ
         Blood Potency
       </td>
       <td colspan="2">
-        $power_trait_dots
+        <?php echo $power_trait_dots; ?>
       </td>
       <td colspan="1">
         Size
       </td>
       <td colspan="2">
-        $size
-      </td>
-    </tr>
-    <tr>
-      <td colspan="1">
-        BP Auto Increase
-      </td>
-      <td colspan="2">
-            $next_power_stat_increase
-      </td>
-      <td colspan="1">
-      </td>
-      <td colspan="2">
+        <?php echo $size; ?>
       </td>
     </tr>
     <tr>
@@ -417,13 +395,13 @@ $traits_table = <<<EOQ
         Humanity
       </td>
       <td colspan="2">
-        $morality_dots
+        <?php echo $morality_dots; ?>
       </td>
       <td colspan="1">
         Defense
       </td>
       <td colspan="2">
-        $defense
+        <?php echo $defense; ?>
       </td>
     </tr>
     <tr>
@@ -431,13 +409,13 @@ $traits_table = <<<EOQ
         Willpower Perm
       </td>
       <td colspan="2">
-        $willpower_perm_dots
+        <?php echo $willpower_perm_dots; ?>
       </td>
       <td colspan="1">
         Initiative Mod
       </td>
       <td colspan="2">
-        $initiative_mod
+        <?php echo $initiative_mod; ?>
       </td>
     </tr>
     <tr>
@@ -445,13 +423,13 @@ $traits_table = <<<EOQ
         Willpower Temp
       </td>
       <td colspan="2">
-        $willpower_temp_dots
+        <?php echo $willpower_temp_dots; ?>
       </td>
       <td colspan="1">
         Speed
       </td>
       <td colspan="2">
-        $speed
+        <?php echo $speed; ?>
       </td>
     </tr>
     <tr>
@@ -459,13 +437,13 @@ $traits_table = <<<EOQ
             Blood
         </td>
         <td colspan="2">
-            $power_points_dots
+            <?php echo $power_points_dots; ?>
         </td>
         <td colspan="1">
             Armor
         </td>
         <td colspan="2">
-            $armor
+            <?php echo $armor; ?>
         </td>
     </tr>
     <tr>
@@ -473,20 +451,16 @@ $traits_table = <<<EOQ
             ABP
         </td>
         <td colspan="2">
-            $average_power_points
-            <a href="abp.php?action=show_modifiers&character_id=$characterId" target="_blank">Explanation</a>
+            <?php echo $average_power_points; ?>
+            <a href="abp.php?action=show_modifiers&character_id=<?php echo $characterId; ?>" target="_blank">Explanation</a>
         </td>
         <td>
             ABP Modifier
         </td>
         <td colspan="2">
-            $power_points_modifier
+            <?php echo $power_points_modifier; ?>
         </td>
     </tr>
 </table>
-<script language="javascript">
-	$(function(){
-		$("#next_power_stat_increase").datepicker();
-	});
-</script>
-EOQ;
+<?php
+$traits_table = ob_get_clean();

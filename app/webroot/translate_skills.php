@@ -117,7 +117,7 @@ EOQ;
             $params = array(
                 $character['id'],
                 'Skill',
-                $skill,
+                str_replace('_', ' ', $skill),
                 $character[$skill]
             );
             $db->Execute($params);

@@ -17,21 +17,21 @@ function buildWoDSheetXP(
     $sheet = "";
 
     // element types
-    $element_type['attribute'] = 1;
-    $element_type['skill'] = 2;
-    $element_type['merit'] = 3;
+    $element_type['attribute']    = 1;
+    $element_type['skill']        = 2;
+    $element_type['merit']        = 3;
     $element_type['supernatural'] = 4;
-    $element_type['power_trait'] = 5;
-    $element_type['morality'] = 6;
+    $element_type['power_trait']  = 5;
+    $element_type['morality']     = 6;
 
     // initialize sheet values
-    $attribute_xp = 135;
-    $skill_xp = 105;
-    $merit_xp = 32;
-    $general_xp = 35;
-    $supernatural_xp = 0;
+    $attribute_xp          = 135;
+    $skill_xp              = 105;
+    $merit_xp              = 32;
+    $general_xp            = 35;
+    $supernatural_xp       = 0;
     $number_of_specialties = 3;
-    $number_of_merits = 5;
+    $number_of_merits      = 5;
 
     //$character_types = array("Mortal", "Vampire", "Werewolf", "Mage", "Ghoul", "Psychic", "Thaumaturge", "Promethean", "Changeling", "Hunter", "Geist", "Purified", "Possessed");
     $character_types = array("Mortal", "Vampire", "Werewolf", "Mage", "Ghoul", "Changeling", "Geist");
@@ -47,7 +47,7 @@ function buildWoDSheetXP(
     $input_class = "normal_input";
 
     $experience_help = "";
-    $abilities_help = "";
+    $abilities_help  = "";
     if ($edit_xp) {
         $experience_help = <<<EOQ
 <span id="xp_sheet_xp_help_button" class="xp_sheet_help" onMouseOver="showHelp('xp_sheet_xp_help_box', event);") onMouseOut="hideHelp('xp_sheet_xp_help_box');">What's This?</span>
@@ -64,53 +64,177 @@ EOQ;
 </div>  				
 EOQ;
     }
-    $characterId = 0;
+    $characterId    = 0;
     $character_name = "";
-    $show_sheet = "N";
-    $view_password = "";
-    $hide_icon = "N";
+    $show_sheet     = "N";
+    $view_password  = "";
+    $hide_icon      = "N";
 
-    $location = "";
-    $virtue = "";
-    $vice = "";
-    $splat1 = "";
+    $location      = "";
+    $virtue        = "";
+    $vice          = "";
+    $splat1        = "";
     $splat1_groups = "";
-    $splat2 = "";
+    $splat2        = "";
     $splat2_groups = "";
-    $subsplat = "";
-    $icon = 'city.png';
-    $sex = "";
-    $age = "18+";
-    $apparent_age = "18+";
-    $is_npc = "N";
-    $status = "";
-    $is_deleted = "N";
-    $xp_per_day = .5;
+    $subsplat      = "";
+    $icon          = 'city.png';
+    $sex           = "";
+    $age           = "18+";
+    $apparent_age  = "18+";
+    $is_npc        = "N";
+    $status        = "";
 
-    $concept = "";
-    $description = "";
-    $url = "";
+    $concept          = "";
+    $description      = "";
+    $url              = "";
     $equipment_public = "";
     $equipment_hidden = "";
-    $public_effects = "";
-    $friends = ""; // pack/coterie/whatever
-    $helper = ""; // Totem/Familiar/whatever
-    $safe_place = "";
-    $exit_line = "";
-    $misc_powers = "";
+    $public_effects   = "";
+    $friends          = ""; // pack/coterie/whatever
+    $helper           = ""; // Totem/Familiar/whatever
+    $safe_place       = "";
+    $exit_line        = "";
+    $misc_powers      = "";
+
+    $power_trait           = 1;
+    $willpower_perm        = 0;
+    $willpower_temp        = 0;
+    $morality              = 7;
+    $power_points          = 10;
+    $average_power_points  = 0;
+    $power_points_modifier = 0;
+    $health                = 0;
+    $size                  = 5;
+    $defense               = 0;
+    $initiative_mod        = 0;
+    $speed                 = 0;
+    $armor                 = "0/0";
+    $wounds_bashing        = 0;
+    $wounds_lethal         = 0;
+    $wounds_aggravated     = 0;
+
+    $history = "";
+    $notes   = "";
+    $goals   = "";
+
+    $cell_id              = "";
+    $login_note           = "";
+    $current_experience   = 0;
+    $total_experience     = 0;
+    $bonus_received       = 0;
+    $first_login          = "";
+    $last_login           = "";
+    $last_st_updated      = "";
+    $when_last_st_updated = "";
+    $gm_notes             = "";
+    $sheet_updates        = "";
+    $head_sanctioned      = "";
+    $is_sanctioned        = "";
+    $asst_sanctioned      = "";
+    $view_status          = "";
+    $bonus_attribute      = "";
 
     $attributes = InitializeAttributes();
-    $skills = InitializeSkills();
+    $skills     = InitializeSkills();
+
+    // mods for ghouls
+    if ($character_type == "Ghoul") {
+        $morality     = 6;
+        $power_points = GetPowerByName($attributes, "Stamina");
+    }
+
+    $history_edit = "readonly";
+    $goals_edit   = "readonly";
+    $notes_edit   = "readonly";
+
+    // test if stats were passed
+    if ($stats != "") {
+        // set sheet values based on passed stats
+        $characterId    = $stats['id'];
+        $character_name = $stats['character_name'];
+        $character_type = $stats['character_type'];
+        $show_sheet     = $stats['show_sheet'];
+        $view_password  = $stats['view_password'];
+        $hide_icon      = $stats['hide_icon'];
+
+        $location     = $stats['city'];
+        $virtue       = $stats['virtue'];
+        $vice         = $stats['vice'];
+        $splat1       = $stats['splat1'];
+        $splat2       = $stats['splat2'];
+        $subsplat     = $stats['Subsplat'];
+        $icon         = $stats['icon'];
+        $sex          = $stats['sex'];
+        $age          = $stats['age'];
+        $apparent_age = $stats['apparent_age'];
+        $is_npc       = $stats['is_npc'];
+        $status       = $stats['status'];
+
+        $concept          = $stats['concept'];
+        $description      = $stats['description'];
+        $url              = $stats['url'];
+        $equipment_public = $stats['equipment_public'];
+        $equipment_hidden = $stats['equipment_hidden'];
+        $public_effects   = $stats['public_effects'];
+        $friends          = $stats['friends']; // pack/coterie/whatever
+        $helper           = $stats['helper']; // Totem/Familiar/whatever/Regnent
+        $safe_place       = $stats['safe_place'];
+        $exit_line        = $stats['exit_line'];
+        $misc_powers      = $stats['misc_powers'];
+
+        $power_trait           = $stats['power_stat'];
+        $willpower_perm        = $stats['willpower_perm'];
+        $willpower_temp        = $stats['willpower_temp'];
+        $morality              = $stats['morality'];
+        $power_points          = $stats['power_points'];
+        $average_power_points  = $stats['average_power_points'];
+        $power_points_modifier = $stats['power_points_modifier'];
+        $health                = $stats['health'];
+        $size                  = $stats['size'];
+        $defense               = $stats['defense'];
+        $initiative_mod        = $stats['initiative_mod'];
+        $speed                 = $stats['speed'];
+        $armor                 = $stats['armor'];
+        $wounds_bashing        = $stats['wounds_bashing'];
+        $wounds_lethal         = $stats['wounds_lethal'];
+        $wounds_aggravated     = $stats['wounds_agg'];
+
+        $history = $stats['history'];
+        $notes   = $stats['character_notes'];
+        $goals   = $stats['goals'];
+
+        $current_experience   = $stats['current_experience'];
+        $total_experience     = $stats['total_experience'];
+        $bonus_received       = $stats['bonus_received'];
+        $last_st_updated      = $stats['updated_by_name'];
+        $when_last_st_updated = $stats['updated_on'];
+        $gm_notes             = $stats['gm_notes'];
+        $sheet_updates        = $stats['sheet_update'];
+        $is_sanctioned        = $stats['is_sanctioned'];
+        $asst_sanctioned      = $stats['asst_sanctioned'];
+        $bonus_attribute      = $stats['bonus_attribute'];
+
+        $attributes = getPowers($stats['id'], 'Attribute', NAMELEVEL, 0);
+        $skills     = getPowers($stats['id'], 'Skill', NAMELEVEL, 0);
+        if (!$edit_xp && ($bonus_attribute != '')) {
+            foreach ($attributes as $attribute) {
+                if ($attribute->getPowerName() == $bonus_attribute) {
+                    $attribute->setPowerLevel($attribute->getPowerLevel() + 1);
+                }
+            }
+        }
+    }
 
     // set page colors based on type of character and supernatural XP
     switch ($character_type) {
         case 'Mortal':
             $table_class = "mortal_normal_text";
             break;
-		case 'Sleepwalker':
+        case 'Sleepwalker':
             $table_class = "mage_normal_text";
             break;
-		case 'Wolfblood':
+        case 'Wolfblood':
             $table_class = "werewolf_normal_text";
             break;
 
@@ -119,76 +243,76 @@ EOQ;
             break;
 
         case 'Thaumaturge':
-            $table_class = "mortal_normal_text";
-            $splat1_groups = array("Ceremonial Magician", "Hedge Witch", "Shaman", "Taoist Alchemist", "Vodoun", "Apostle");
+            $table_class     = "mortal_normal_text";
+            $splat1_groups   = array("Ceremonial Magician", "Hedge Witch", "Shaman", "Taoist Alchemist", "Vodoun", "Apostle");
             $supernatural_xp = 0;
             break;
 
         case 'Vampire':
-            $table_class = "vampire_normal_text";
-            $splat1_groups = array("Daeva", "Gangrel", "Mekhet", "Nosferatu", "Ventrue");
-            $splat2_groups = array("Carthian", "Circle of the Crone", "Invictus", "Lancea Sanctum", "Ordo Dracul", "Unaligned");
+            $table_class     = "vampire_normal_text";
+            $splat1_groups   = array("Daeva", "Gangrel", "Mekhet", "Nosferatu", "Ventrue");
+            $splat2_groups   = array("Carthian", "Circle of the Crone", "Invictus", "Lancea Sanctum", "Ordo Dracul", "Unaligned");
             $supernatural_xp = 40;
             break;
 
         case 'Werewolf':
-            $table_class = "werewolf_normal_text";
-            $splat1_groups = array("Rahu", "Cahalith", "Elodoth", "Ithaeur", "Irraka", "None");
-            $splat2_groups = array("Blood Talons", "Bone Shadows", "Hunters in Darkness", "Iron Masters", "Storm Lords", "Ghost Wolves", "Fire-Touched", "Ivory Claws", "Predator Kings");
-            $supernatural_xp = 40;
+            $table_class           = "werewolf_normal_text";
+            $splat1_groups         = array("Rahu", "Cahalith", "Elodoth", "Ithaeur", "Irraka", "None");
+            $splat2_groups         = array("Blood Talons", "Bone Shadows", "Hunters in Darkness", "Iron Masters", "Storm Lords", "Ghost Wolves", "Fire-Touched", "Ivory Claws", "Predator Kings");
+            $supernatural_xp       = 40;
             $number_of_specialties = 4;
             break;
 
         case 'Mage':
-            $table_class = "mage_normal_text";
-            $splat1_groups = array("Acanthus", "Mastigos", "Moros", "Obrimos", "Thyrsus");
-            $splat2_groups = array("The Adamantine Arrows", "Free Council", "Guardians of the Veil", "The Mysterium", "The Silver Ladder", "Apostate", "Seer of the Throne", "Banisher");
+            $table_class     = "mage_normal_text";
+            $splat1_groups   = array("Acanthus", "Mastigos", "Moros", "Obrimos", "Thyrsus");
+            $splat2_groups   = array("The Adamantine Arrows", "Free Council", "Guardians of the Veil", "The Mysterium", "The Silver Ladder", "Apostate", "Seer of the Throne", "Banisher");
             $supernatural_xp = 75;
             break;
 
         case 'Ghoul':
-            $table_class = "ghoul_normal_text";
+            $table_class     = "ghoul_normal_text";
             $supernatural_xp = 10;
             break;
 
         case 'Promethean':
-            $table_class = "promethean_normal_text";
-            $splat1_groups = array("Frankenstein", "Galatea", "Osiris", "Tammuz", "Uglan", "Pandoran", "Unfleshed", "Zeka");
-            $splat2_groups = array("Aurum", "Cuprum", "Ferrum", "Mercurius", "Stannum", "Centimani", "Aes", "Argentum", "Cobalus", "Plumbum");
+            $table_class     = "promethean_normal_text";
+            $splat1_groups   = array("Frankenstein", "Galatea", "Osiris", "Tammuz", "Uglan", "Pandoran", "Unfleshed", "Zeka");
+            $splat2_groups   = array("Aurum", "Cuprum", "Ferrum", "Mercurius", "Stannum", "Centimani", "Aes", "Argentum", "Cobalus", "Plumbum");
             $supernatural_xp = 30;
             break;
 
         case 'Changeling':
-            $table_class = "changeling_normal_text";
-            $splat1_groups = array("Beast", "Darkling", "Elemental", "Fairest", "Ogre", "Wizened");
-            $splat2_groups = array("Spring", "Summer", "Autumn", "Winter", "Courtless");
-            $supernatural_xp = 40;
-            $apparent_age = "0";
+            $table_class           = "changeling_normal_text";
+            $splat1_groups         = array("Beast", "Darkling", "Elemental", "Fairest", "Ogre", "Wizened");
+            $splat2_groups         = array("Spring", "Summer", "Autumn", "Winter", "Courtless");
+            $supernatural_xp       = 40;
+            $apparent_age          = "0";
             $number_of_specialties = 4;
             break;
 
         case 'Hunter':
-            $table_class = "mortal_normal_text";
+            $table_class   = "mortal_normal_text";
             $splat1_groups = array("Academic", "Artist", "Athlete", "Cop", "Criminal", "Detective", "Doctor", "Engineer", "Hacker", "Hit man", "Journalist", "Laborer", "Occultist", "Outdoorsman", "Professional", "Religious Leader", "Scientist", "Socialite", "Soldier", "Technician", "Vagrant");
             $splat2_groups = array("");
             break;
 
         case 'Geist':
-            $table_class = "geist_normal_text";
-            $splat1_groups = array("Advocate", "Bonepicker", "Celebrant", "Gatekeeper", "Mourner", "Necromancer", "Pilgrim", "Reaper");
-            $splat2_groups = array("Forgotten", "Prey", "Silent", "Stricken", "Torn");
+            $table_class     = "geist_normal_text";
+            $splat1_groups   = array("Advocate", "Bonepicker", "Celebrant", "Gatekeeper", "Mourner", "Necromancer", "Pilgrim", "Reaper");
+            $splat2_groups   = array("Forgotten", "Prey", "Silent", "Stricken", "Torn");
             $supernatural_xp = 44;
             break;
 
         case 'Purified':
-            $table_class = "mortal_normal_text";
+            $table_class     = "mortal_normal_text";
             $supernatural_xp = 52;
-            $merit_xp = 38;
-            $skill_xp = 141;
+            $merit_xp        = 38;
+            $skill_xp        = 141;
             break;
 
         case 'Possessed':
-            $table_class = "vampire_normal_text";
+            $table_class     = "vampire_normal_text";
             $supernatural_xp = 30;
             break;
 
@@ -197,147 +321,13 @@ EOQ;
             break;
     }
 
-    $power_trait = 1;
-    $willpower_perm = 0;
-    $willpower_temp = 0;
-    $morality = 7;
-    $power_points = 10;
-    $average_power_points = 0;
-    $power_points_modifer = 0;
-    $health = 0;
-    $size = 5;
-    $defense = 0;
-    $initiative_mod = 0;
-    $speed = 0;
-    $armor = "0/0";
-    $wounds_bashing = 0;
-    $wounds_lethal = 0;
-    $wounds_aggravated = 0;
-
-    $history = "";
-    $notes = "";
-    $goals = "";
-
-    $cell_id = "";
-    $login_note = "";
-    $current_experience = 0;
-    $total_experience = 0;
-    $bonus_received = 0;
-    $first_login = "";
-    $last_login = "";
-    $last_st_updated = "";
-    $when_last_st_updated = "";
-    $last_asst_st_updated = "";
-    $when_last_asst_st_updated = "";
-    $gm_notes = "";
-    $sheet_updates = "";
-    $head_sanctioned = "";
-    $is_sanctioned = "";
-    $asst_sanctioned = "";
-    $view_status = "";
-    $bonus_attribute = "";
-
-    $history_edit = "readonly";
-    $goals_edit = "readonly";
-    $notes_edit = "readonly";
-
-    // mods for ghouls
-    if ($character_type == "Ghoul") {
-        $morality = 6;
-        $power_points = GetPowerByName($attributes, "Stamina");
-    }
-
-    // test if stats were passed
-    if ($stats != "") {
-        // set sheet values based on passed stats
-        $characterId = $stats['id'];
-        $character_name = $stats['Character_Name'];
-        $show_sheet = $stats['Show_Sheet'];
-        $view_password = $stats['View_Password'];
-        $hide_icon = $stats['Hide_Icon'];
-
-        $location = $stats['City'];
-        $virtue = $stats['Virtue'];
-        $vice = $stats['Vice'];
-        $splat1 = $stats['Splat1'];
-        $splat2 = $stats['Splat2'];
-        $subsplat = $stats['SubSplat'];
-        $icon = $stats['Icon'];
-        $sex = $stats['Sex'];
-        $age = $stats['Age'];
-        $apparent_age = $stats['Apparent_Age'];
-        $is_npc = $stats['Is_NPC'];
-        $status = $stats['Status'];
-        $is_deleted = $stats['Is_Deleted'];
-        $xp_per_day = $stats['XP_Per_Day'];
-
-        $concept = $stats['Concept'];
-        $description = $stats['Description'];
-        $url = $stats['URL'];
-        $equipment_public = $stats['Equipment_Public'];
-        $equipment_hidden = $stats['Equipment_Hidden'];
-        $public_effects = $stats['Public_Effects'];
-        $friends = $stats['Friends']; // pack/coterie/whatever
-        $helper = $stats['Helper']; // Totem/Familiar/whatever/Regnent
-        $safe_place = $stats['Safe_Place'];
-        $exit_line = $stats['Exit_Line'];
-        $misc_powers = $stats['Misc_Powers'];
-
-        $power_trait = $stats['Power_Stat'];
-        $willpower_perm = $stats['Willpower_Perm'];
-        $willpower_temp = $stats['Willpower_Temp'];
-        $morality = $stats['Morality'];
-        $power_points = $stats['Power_Points'];
-        $average_power_points = $stats['Average_Power_Points'];
-        $power_points_modifier = $stats['Power_Points_Modifier'];
-        $health = $stats['Health'];
-        $size = $stats['Size'];
-        $defense = $stats['Defense'];
-        $initiative_mod = $stats['Initiative_Mod'];
-        $speed = $stats['Speed'];
-        $armor = $stats['Armor'];
-        $wounds_bashing = $stats['Wounds_Bashing'];
-        $wounds_lethal = $stats['Wounds_Lethal'];
-        $wounds_aggravated = $stats['Wounds_Agg'];
-
-        $history = $stats['History'];
-        $notes = $stats['Character_Notes'];
-        $goals = $stats['Goals'];
-
-        $cell_id = $stats['Cell_ID'];
-        $login_note = $stats['Login_Note'];
-        $current_experience = $stats['Current_Experience'];
-        $total_experience = $stats['Total_Experience'];
-        $bonus_received = $stats['bonus_received'];
-        $first_login = $stats['First_Login'];
-        $last_login = $stats['Last_Login'];
-        $last_st_updated = $stats['ST_Name'];
-        $when_last_st_updated = $stats['When_Last_ST_Updated'];
-        $last_asst_st_updated = $stats['Asst_Name'];
-        $when_last_asst_st_updated = $stats['When_Last_Asst_ST_Updated'];
-        $gm_notes = $stats['GM_Notes'];
-        $sheet_updates = $stats['Sheet_Update'];
-        $head_sanctioned = $stats['Head_Sanctioned'];
-        $is_sanctioned = $stats['Is_Sanctioned'];
-        $asst_sanctioned = $stats['Asst_Sanctioned'];
-        $bonus_attribute = $stats['Bonus_Attribute'];
-
-        if (!$edit_xp && ($bonus_attribute != '')) {
-
-            ${strtolower($bonus_attribute)}++;
-        }
-
-        $attributes = getPowers($stats['id'], 'Attribute', NAMELEVEL, 0);
-        $skills = getPowers($stats['id'], 'Skill', NAMELEVEL, 0);
-    }
-
     $show_sheet_table = "";
     if ($edit_show_sheet) {
         $show_sheet_yes_check = ($show_sheet == 'Y') ? "checked" : "";
-        $show_sheet_no_check = ($show_sheet == 'N') ? "checked" : "";
+        $show_sheet_no_check  = ($show_sheet == 'N') ? "checked" : "";
 
         $hide_icon_yes_check = ($hide_icon == 'Y') ? "checked" : "";
-        $hide_icon_no_check = ($hide_icon == 'N') ? "checked" : "";
+        $hide_icon_no_check  = ($hide_icon == 'N') ? "checked" : "";
 
         $show_sheet_table = <<<EOQ
 <table class="character-sheet $table_class">
@@ -395,22 +385,23 @@ EOQ;
 
     if ($edit_vitals) {
         // edit character type
-        $character_type_js = "onChange=\"changeSheet(window.document.character_sheet.character_type.value)\";";
-        $character_type_select = buildSelect($character_type, $character_types, $character_types, "character_type", $character_type_js);
+        $character_type_js     = "onChange=\"changeSheet(window.document.character_sheet.character_type.value)\";";
+        $character_type_select = buildSelect($character_type, $character_types, $character_types, "character_type",
+                                             $character_type_js);
 
         // location
         $locations = array("Savannah", "San Diego", "The City", "Side Game");
-        $location = buildSelect($location, $locations, $locations, "location");
+        $location  = buildSelect($location, $locations, $locations, "location");
 
         // sex
         $sexes = array("Male", "Female");
-        $sex = buildSelect($sex, $sexes, $sexes, "sex");
+        $sex   = buildSelect($sex, $sexes, $sexes, "sex");
 
         // virtue & vice
         $virtues = array("Charity", "Faith", "Fortitude", "Hope", "Justice", "Prudence", "Temperance");
-        $virtue = buildSelect($virtue, $virtues, $virtues, "virtue");
-        $vices = array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath");
-        $vice = buildSelect($vice, $vices, $vices, "vice");
+        $virtue  = buildSelect($virtue, $virtues, $virtues, "virtue");
+        $vices   = array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath");
+        $vice    = buildSelect($vice, $vices, $vices, "vice");
 
         $splat1_select_js = "";
         $splat2_select_js = "";
@@ -445,7 +436,8 @@ EOQ;
         $apparent_age = <<<EOQ
 <input type="text" name="apparent_age" id="apparent_age" value="$apparent_age" size="4" maxlength="4">
 EOQ;
-    } else {
+    }
+    else {
         // have a hidden form field for character dots
         $character_type_select = <<<EOQ
 $character_type
@@ -466,7 +458,7 @@ EOQ;
 
     if ($edit_is_dead) {
         $statuses = array("Ok", "Imprisoned", "Hospitalized", "Torpored", "Dead");
-        $status = buildSelect($status, $statuses, $statuses, "status");
+        $status   = buildSelect($status, $statuses, $statuses, "status");
     }
 
     // concept
@@ -482,20 +474,29 @@ EOQ;
         $icon_query = "";
         if ($view_is_admin || $view_is_head) {
             $icon_query = "select * from icons where Admin_Viewable='Y' order by Icon_Name;";
-        } else if ($view_is_gm) {
-            $icon_query = "select * from icons where GM_Viewable='Y' order by Icon_Name;";
-        } else if ($view_is_asst) {
-            $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
-        } else if ($icon_query == "") {
-            $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
+        }
+        else {
+            if ($view_is_st) {
+                $icon_query = "select * from icons where GM_Viewable='Y' order by Icon_Name;";
+            }
+            else {
+                if ($view_is_asst) {
+                    $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
+                }
+                else {
+                    if ($icon_query == "") {
+                        $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
+                    }
+                }
+            }
         }
         $icon_result = mysql_query($icon_query) or die(mysql_error());
 
-        $icon_ids = "";
+        $icon_ids   = "";
         $icon_names = "";
 
         while ($icon_detail = mysql_fetch_array($icon_result, MYSQL_ASSOC)) {
-            $icon_ids[] = $icon_detail['Icon_ID'];
+            $icon_ids[]   = $icon_detail['Icon_ID'];
             $icon_names[] = $icon_detail['Icon_Name'];
         }
         $icon = buildSelect($icon, $icon_ids, $icon_names, "icon");
@@ -550,35 +551,18 @@ EOQ;
 EOQ;
     }
 
-
-    /*reset($attribute_list);
-
-    while (list($key, $attribute) = each($attribute_list)) {
-        $attribute_dots = $attribute . "_dots";
-        $$attribute_dots = makeDotsXP($attribute, $element_type['attribute'], $character_type, $max_dots, $$attribute, $edit_attributes, $calculate_derived, $edit_xp);
-    }
-
-    reset($skill_list);
-
-    while (list($key, $skill) = each($skill_list)) {
-        $skill_dots = $skill . "_dots";
-        $skill_spec = $skill . "_spec";
-        if ($edit_skills) {
-            $$skill_spec = <<<EOQ
-<input type="text" name="$skill_spec" id="$skill_spec" value="${$skill_spec}" size="10" maxlength="100">
-EOQ;
-        }
-
-        $$skill_dots = makeDotsXP($skill, $element_type['skill'], $character_type, $max_dots, $$skill, $edit_skills, false, $edit_xp);
-    }*/
-
-
-    $power_trait_dots = makeDotsXP("power_trait", $element_type['power_trait'], $character_type, 10, $power_trait, $edit_perm_traits, false, $edit_xp);
-    $willpower_perm_dots = makeDotsXP("willpower_perm", 0, $character_type, 10, $willpower_perm, $edit_perm_traits, false);
-    $willpower_temp_dots = makeDotsXP("willpower_temp", 0, $character_type, 10, $willpower_temp, (($edit_temp_traits && $is_sanctioned == "") || ($view_is_asst || $view_is_st || $view_is_head || $view_is_admin)), false);
-    $morality_dots = makeDotsXP("morality", $element_type['morality'], $character_type, 10, $morality, $edit_perm_traits, false, $edit_xp);
-    $power_points_dots = makeDotsXP("power_points", 0, $character_type, 20, $power_points, $edit_temp_traits, false);
-    $health_dots = makeDotsXP("health", 0, $character_type, 15, $health, $edit_perm_traits, false);
+    $power_trait_dots    = FormHelper::Dots("power_trait", $power_trait, $element_type['power_trait'], $character_type,
+                                            10, $edit_perm_traits, false, $edit_xp);
+    $willpower_perm_dots = FormHelper::Dots("willpower_perm", $willpower_perm, 0, $character_type, 10,
+                                            $edit_perm_traits, false);
+    $willpower_temp_dots = FormHelper::Dots("willpower_temp", $willpower_temp, 0, $character_type, 10,
+        (($edit_temp_traits && $is_sanctioned == "") || ($view_is_asst || $view_is_st || $view_is_head || $view_is_admin)),
+                                            false);
+    $morality_dots       = FormHelper::Dots("morality", $morality, $element_type['morality'], $character_type, 10,
+                                            $edit_perm_traits, false, $edit_xp);
+    $power_points_dots   = FormHelper::Dots("power_points", $power_points, 0, $character_type, 20, $edit_temp_traits,
+                                            false);
+    $health_dots         = FormHelper::Dots("health", $health, 0, $character_type, 15, $edit_perm_traits, false);
 
     if ($edit_perm_traits) {
         $size = <<<EOQ
@@ -604,12 +588,6 @@ EOQ;
         $power_points_modifier = <<<EOQ
 <input type="text" name="power_points_modifier" id="power_points_modifier" size="5" maxlength="4" value="$power_points_modifier">
 EOQ;
-
-        if ($stats) {
-            $next_power_stat_increase = <<<EOQ
-<input type="text" name="next_power_stat_increase" id="next_power_stat_increase" size="10" maxlength="10" value="$next_power_stat_increase">
-EOQ;
-        }
     }
 
     if ($edit_temp_traits) {
@@ -660,11 +638,12 @@ EOQ;
 
     // process merit list
     for ($i = 0; $i < sizeof($merits); $i++) {
-        $merit_dots = makeDotsXP("merit${i}", $element_type['merit'], $character_type, $max_dots, $merits[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+        $merit_dots = FormHelper::Dots("merit${i}", $merits[$i]->getPowerLevel(), $element_type['merit'],
+                                       $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
         $merit_name = $merits[$i]->getPowerName();
         $merit_note = $merits[$i]->getPowerNote();
-        $merit_id = $merits[$i]->getPowerID();
+        $merit_id   = $merits[$i]->getPowerID();
 
         if ($edit_powers) {
             $merit_name = <<<EOQ
@@ -717,11 +696,11 @@ EOQ;
     // make blank list
     for ($i = 0; $i < sizeof($flaws); $i++) {
         $flaw_name = $flaws[$i]->getPowerName();
-        $flaw_id = $flaws[$i]->getPowerID();
+        $flaw_id   = $flaws[$i]->getPowerID();
 
         if ($edit_powers) {
             $flaw_name = <<<EOQ
-<input type="text" name="flaw${i}_name" id="flaw${i}_name" size="15" maxlength="40" class="$input_class" value="$flaw_name" $flaw_js>
+<input type="text" name="flaw${i}_name" id="flaw${i}_name" size="15" maxlength="40" class="$input_class" value="$flaw_name">
 EOQ;
         }
 
@@ -796,8 +775,8 @@ EOQ;
     if ($show_st_notes_table) {
         if ($view_is_head) {
             $head_sanc_yes_check = ($head_sanctioned == 'Y') ? "checked" : "";
-            $head_sanc_no_check = ($head_sanctioned == 'N') ? "checked" : "";
-            $head_sanctioned = <<<EOQ
+            $head_sanc_no_check  = ($head_sanctioned == 'N') ? "checked" : "";
+            $head_sanctioned     = <<<EOQ
 Yes: <input type="radio" name="head_sanctioned" value="Y" $head_sanc_yes_check>
 No: <input type="radio" name="head_sanctioned" value="N" $head_sanc_no_check>
 EOQ;
@@ -805,8 +784,8 @@ EOQ;
 
         if ($view_is_st) {
             $sanc_yes_check = ($is_sanctioned == 'Y') ? "checked" : "";
-            $sanc_no_check = ($is_sanctioned == 'N') ? "checked" : "";
-            $is_sanctioned = <<<EOQ
+            $sanc_no_check  = ($is_sanctioned == 'N') ? "checked" : "";
+            $is_sanctioned  = <<<EOQ
 Yes: <input type="radio" name="is_sanctioned" value="Y" $sanc_yes_check>
 No: <input type="radio" name="is_sanctioned" value="N" $sanc_no_check>
 EOQ;
@@ -814,8 +793,8 @@ EOQ;
 
         if ($view_is_asst) {
             $asst_sanc_yes_check = ($asst_sanctioned == 'Y') ? "checked" : "";
-            $asst_sanc_no_check = ($asst_sanctioned == 'N') ? "checked" : "";
-            $asst_sanctioned = <<<EOQ
+            $asst_sanc_no_check  = ($asst_sanctioned == 'N') ? "checked" : "";
+            $asst_sanctioned     = <<<EOQ
 Yes: <input type="radio" name="asst_sanctioned" value="Y" $asst_sanc_yes_check>
 No: <input type="radio" name="asst_sanctioned" value="N" $asst_sanc_no_check>
 EOQ;
@@ -912,10 +891,10 @@ EOQ;
             $asst_sanctioned
         </td>
         <td width="25%">
-            Last Asst ST Updated
+
         </td>
         <td width="25%">
-            $last_asst_st_updated
+
         </td>
     </tr>
     <tr>
@@ -929,7 +908,7 @@ EOQ;
             When Last Asst ST Updated
         </td>
         <td width="25%">
-            $when_last_asst_st_updated
+
         </td>
     </tr>
     <tr>
@@ -979,65 +958,60 @@ EOQ;
 </table>
 EOQ;
 
-    } else {
-        $st_notes_table = <<<EOQ
-<table class="character-sheet $table_class">
-    <tr>
-        <th colspan="3" align="center">
-            Player Information
-        </th>
-    </tr>
-    <tr>
-        <td colspan="3">
-            Login Note:
-            $login_note
-        </td>
-    </tr>
-    <tr>
-        <td>
-        </td>
-        <td>
-            Monthly Bonus XP Cap: 5
-        </td>
-        <td>
-            Bonus Received: $bonus_received
-        </td>
-    </tr>
-    <tr>
-        <td width="34%">
-        Status:
-        $view_status
-        </td>
-        <td width="33%">
-            Experience Unspent:
-            $current_experience
-        </td>
-        <td width="33%">
-            Total Experience Earned:
-            $total_experience
-        </td>
-    </tr>
-    <tr>
-        <td width="34%">
-            Last ST to View:
-            $last_st_updated
-        </td>
-        <td width="33%">
-            Updated On:
-            $when_last_st_updated
-        </td>
-        <td width="33%">
-            Created On:
-            $first_login
-        </td>
-    </tr>
-</table>
-EOQ;
+    }
+    else {
+        ob_start();
+        ?>
+        <table class="character-sheet <?php echo $table_class; ?>">
+            <tr>
+                <th colspan="3">
+                    Player Information
+                </th>
+            </tr>
+            <tr>
+                <td style="width:34%;">
+                    Status:
+                    <?php echo $view_status; ?>
+                </td>
+                <td style="width:33%;">
+                    Experience Unspent:
+                    <?php echo $current_experience; ?>
+                </td>
+                <td style="width:33%;">
+                    Total Experience Earned:
+                    <?php echo $total_experience; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Last ST to View:
+                    <?php echo $last_st_updated; ?>
+                </td>
+                <td>
+                    Updated On:
+                    <?php echo $when_last_st_updated; ?>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Monthly Bonus XP Cap: 5
+                </td>
+                <td>
+                    Bonus Received: <?php echo $bonus_received; ?>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+        <?php
+        $st_notes_table = ob_get_clean();
     }
 
-    $vitals_table = "Vitals Not Done Yet<br>";
+    $vitals_table      = "Vitals Not Done Yet<br>";
     $information_table = "Information Not Done Yet<br>";
-    $traits_table = "Traits Not Done Yet<br>";
+    $traits_table      = "Traits Not Done Yet<br>";
     switch ($character_type) {
         case 'Mortal':
         case 'Wolfblooded':
@@ -1115,128 +1089,149 @@ EOQ;
     $xp_row = "";
     if ($edit_xp) {
         ob_start();
-?>
-<tr>
-    <th colspan="6">
-        <b>Experience Remaining</b>
-        $experience_help
-    </th>
-</tr>
-<tr>
-    <th colspan="6" style="background-color: transparent; border-top-left-radius:0; border-top-right-radius:0; color:#000; border:1px solid #898989;">
-        <label for="attribute_xp">Attributes:</label>
-        <input type="text" name="attribute_xp" id="attribute_xp" size="3" value="<?php echo $attribute_xp; ?>" readonly>
-        &nbsp;&nbsp;
-        <label for="skill_xp">Skills:</label>
-        <input type="text" name="skill_xp" id="skill_xp" size="3" value="<?php echo $skill_xp; ?>" readonly>
-        &nbsp;&nbsp;
-        <label for="merit_xp">Merits:</label>
-        <input type="text" name="merit_xp" id="merit_xp" size="3" value="<?php echo $merit_xp; ?>" readonly>
-        &nbsp;&nbsp;
-        <label for="supernatural_xp">Supernatural:</label>
-        <input type="text" name="supernatural_xp" id="supernatural_xp" size="3" value="<?php echo $supernatural_xp; ?>" readonly>
-        &nbsp;&nbsp;
-        <label for="general_xp">General:</label>
-        <input type="text" name="general_xp" id="general_xp" size="3" value="<?php echo $general_xp; ?>" readonly>
-    </th>
-</tr>
-<?php
+        ?>
+        <tr>
+            <th colspan="6">
+                <b>Experience Remaining</b>
+                <?php echo $experience_help; ?>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="6"
+                style="background-color: transparent; border-top-left-radius:0; border-top-right-radius:0; color:#000; border:1px solid #898989;">
+                <label for="attribute_xp">Attributes:</label>
+                <input type="text" name="attribute_xp" id="attribute_xp" size="3" value="<?php echo $attribute_xp; ?>"
+                       readonly>
+                &nbsp;&nbsp;
+                <label for="skill_xp">Skills:</label>
+                <input type="text" name="skill_xp" id="skill_xp" size="3" value="<?php echo $skill_xp; ?>" readonly>
+                &nbsp;&nbsp;
+                <label for="merit_xp">Merits:</label>
+                <input type="text" name="merit_xp" id="merit_xp" size="3" value="<?php echo $merit_xp; ?>" readonly>
+                &nbsp;&nbsp;
+                <label for="supernatural_xp">Supernatural:</label>
+                <input type="text" name="supernatural_xp" id="supernatural_xp" size="3"
+                       value="<?php echo $supernatural_xp; ?>" readonly>
+                &nbsp;&nbsp;
+                <label for="general_xp">General:</label>
+                <input type="text" name="general_xp" id="general_xp" size="3" value="<?php echo $general_xp; ?>"
+                       readonly>
+            </th>
+        </tr>
+        <?php
         $xp_row = ob_get_clean();
     }
 
     $attributeIndex = 0;
     ob_start();
-?>
-<table class="character-sheet <?php echo $table_class; ?>">
-    <?php echo $xp_row; ?>
-    <tr>
-        <th colspan="6" style="text-align: center;">
-            Attributes
-            <span id="attribute_div"></span>
-            <input type="hidden" name="bonus_attribute" id="bonus_attribute" value="<?php echo $bonus_attribute; ?>">
-        </th>
-    </tr>
-    <tr>
-        <td>
-            <b>Intelligence</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Intelligence', $element_type['attribute'], $attributeIndex++, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-        <td>
-            <b>Strength</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Strength', $element_type['attribute'], $attributeIndex++, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-        <td>
-            <b>Presence</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Presence', $element_type['attribute'], $attributeIndex++, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Wits</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Wits', $element_type['attribute'], $attributeIndex++, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-        <td>
-            <b>Dexterity</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Dexterity', $element_type['attribute'], $attributeIndex++, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-        <td>
-            <b>Manipulation</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Manipulation', $element_type['attribute'], $attributeIndex++, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Resolve</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Resolve', $element_type['attribute'], $attributeIndex++, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-        <td>
-            <b>Stamina</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Stamina', $element_type['attribute'], $attributeIndex++, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-        <td>
-            <b>Composure</b>
-        </td>
-        <td>
-            <?php
-            echo MakeBaseStatDots($attributes, 'Composure', $element_type['attribute'], $attributeIndex, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
-            ?>
-        </td>
-    </tr>
-</table>
-EOQ;
-<?php
+    ?>
+    <table class="character-sheet <?php echo $table_class; ?>">
+        <?php echo $xp_row; ?>
+        <tr>
+            <th colspan="6" style="text-align: center;">
+                Attributes
+                <span id="attribute_div"></span>
+                <input type="hidden" name="bonus_attribute" id="bonus_attribute"
+                       value="<?php echo $bonus_attribute; ?>">
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <b>Intelligence</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Intelligence', 'attribute', $attributeIndex++,
+                                      $element_type['attribute'], $character_type, $edit_attributes, $calculate_derived,
+                                      $edit_xp, $max_dots);
+                ?>
+            </td>
+            <td>
+                <b>Strength</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Strength', 'attribute', $attributeIndex++,
+                                      $element_type['attribute'], $character_type, $edit_attributes, $calculate_derived,
+                                      $edit_xp, $max_dots);
+                ?>
+            </td>
+            <td>
+                <b>Presence</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Presence', 'attribute', $attributeIndex++,
+                                      $element_type['attribute'], $character_type, $edit_attributes, $calculate_derived,
+                                      $edit_xp, $max_dots);
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Wits</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Wits', 'attribute', $attributeIndex++, $element_type['attribute'],
+                                      $character_type, $edit_attributes, $calculate_derived, $edit_xp, $max_dots);
+                ?>
+            </td>
+            <td>
+                <b>Dexterity</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Dexterity', 'attribute', $attributeIndex++,
+                                      $element_type['attribute'], $character_type, $edit_attributes, $calculate_derived,
+                                      $edit_xp, $max_dots);
+                ?>
+            </td>
+            <td>
+                <b>Manipulation</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Manipulation', 'attribute', $attributeIndex++,
+                                      $element_type['attribute'], $character_type, $edit_attributes, $calculate_derived,
+                                      $edit_xp, $max_dots);
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Resolve</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Resolve', 'attribute', $attributeIndex++,
+                                      $element_type['attribute'], $character_type, $edit_attributes, $calculate_derived,
+                                      $edit_xp, $max_dots);
+                ?>
+            </td>
+            <td>
+                <b>Stamina</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Stamina', 'attribute', $attributeIndex++,
+                                      $element_type['attribute'], $character_type, $edit_attributes, $calculate_derived,
+                                      $edit_xp, $max_dots);
+                ?>
+            </td>
+            <td>
+                <b>Composure</b>
+            </td>
+            <td>
+                <?php
+                echo MakeBaseStatDots($attributes, 'Composure', 'attribute', $attributeIndex,
+                                      $element_type['attribute'], $character_type, $edit_attributes, $calculate_derived,
+                                      $edit_xp, $max_dots);
+                ?>
+            </td>
+        </tr>
+    </table>
+    <?php
     $attribute_table = ob_get_clean();
 
     // make list of specialties
@@ -1270,18 +1265,21 @@ EOQ;
     $specialties = getPowers($characterId, "Specialty", NOTENAME, $number_of_specialties);
     for ($i = 0; $i < sizeof($specialties); $i++) {
         $specialty_skill = $specialties[$i]->getPowerNote();
-        $specialty_name = $specialties[$i]->getPowerName();
-        $specialty_id = $specialties[$i]->getPowerID();
+        $specialty_name  = $specialties[$i]->getPowerName();
+        $specialty_id    = $specialties[$i]->getPowerID();
 
         if ($character_type == 'Mage') {
-            $specialties_dropdown = buildSelect($specialty_skill, $skill_list_proper_mage, $skill_list_proper_mage, "skill_spec${i}_selected", "class=\"$input_class\" $specialty_js");
-        } else {
-            $specialties_dropdown = buildSelect($specialty_skill, $skill_list_proper, $skill_list_proper, "skill_spec${i}_selected", "class=\"$input_class\" $specialty_js");
+            $specialties_dropdown = buildSelect($specialty_skill, $skill_list_proper_mage, $skill_list_proper_mage,
+                                                "skill_spec${i}_selected", "class=\"$input_class\" $specialty_js");
+        }
+        else {
+            $specialties_dropdown = buildSelect($specialty_skill, $skill_list_proper, $skill_list_proper,
+                                                "skill_spec${i}_selected", "class=\"$input_class\" $specialty_js");
         }
 
         if ($edit_skills) {
             $specialty_skill = $specialties_dropdown;
-            $specialty_name = <<<EOQ
+            $specialty_name  = <<<EOQ
 <input type="text" name="skill_spec${i}" id="skill_spec${i}" class="$input_class" $specialty_js value="$specialty_name">
 EOQ;
         }
@@ -1304,22 +1302,22 @@ EOQ;
 
     $skillIndex = 0;
     ob_start();
-?>
+    ?>
 
-<table class="character-sheet <?php echo $table_class; ?>">
+    <table class="character-sheet <?php echo $table_class; ?>">
     <tr>
-      <th colspan="2">
-        Mental skills
-      </th>
-      <th colspan="2">
-        Physical Skills
-      </th>
-      <th colspan="2">
-        Social Skills
-      </th>
-      <th>
-        Specialties
-      </th>
+        <th colspan="2">
+            Mental skills
+        </th>
+        <th colspan="2">
+            Physical Skills
+        </th>
+        <th colspan="2">
+            Social Skills
+        </th>
+        <th>
+            Specialties
+        </th>
     </tr>
     <tr style="vertical-align: top;">
         <td>
@@ -1327,7 +1325,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Academics', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Academics', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1335,7 +1334,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Athletics', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Athletics', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1343,7 +1343,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Animal Ken', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Animal Ken', 'skill', $skillIndex++, $element_type['skill'],
+                                  $character_type, $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td rowspan="11" style="vertical-align: top;">
@@ -1356,7 +1357,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Computer', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Computer', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1364,7 +1366,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Brawl', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Brawl', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1372,7 +1375,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Empathy', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Empathy', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
     </tr>
@@ -1382,7 +1386,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Crafts', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Crafts', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1390,7 +1395,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Drive', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Drive', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1398,7 +1404,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Expression', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Expression', 'skill', $skillIndex++, $element_type['skill'],
+                                  $character_type, $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
     </tr>
@@ -1408,7 +1415,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Investigation', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Investigation', 'skill', $skillIndex++, $element_type['skill'],
+                                  $character_type, $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1416,7 +1424,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Firearms', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Firearms', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1424,7 +1433,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Intimidation', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Intimidation', 'skill', $skillIndex++, $element_type['skill'],
+                                  $character_type, $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
     </tr>
@@ -1434,7 +1444,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Medicine', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Medicine', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1442,7 +1453,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Larceny', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Larceny', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1450,7 +1462,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Persuasion', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Persuasion', 'skill', $skillIndex++, $element_type['skill'],
+                                  $character_type, $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
     </tr>
@@ -1460,7 +1473,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Occult', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Occult', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1468,7 +1482,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Stealth', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Stealth', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1476,7 +1491,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Socialize', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Socialize', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
     </tr>
@@ -1486,7 +1502,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Politics', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Politics', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1494,7 +1511,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Survival', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Survival', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1502,7 +1520,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Streetwise', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Streetwise', 'skill', $skillIndex++, $element_type['skill'],
+                                  $character_type, $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
     </tr>
@@ -1512,7 +1531,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Science', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Science', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1520,7 +1540,8 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Weaponry', $element_type['skill'], $skillIndex++, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Weaponry', 'skill', $skillIndex++, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
         <td>
@@ -1528,51 +1549,55 @@ EOQ;
         </td>
         <td>
             <?php
-            echo MakeBaseStatDots($skills, 'Subterfuge', $element_type['skill'], $skillIndex, $character_type, $edit_skills, $calculate_derived, $edit_xp, $attributes, $element_type, $max_dots);
+            echo MakeBaseStatDots($skills, 'Subterfuge', 'skill', $skillIndex, $element_type['skill'], $character_type,
+                                  $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
         </td>
     </tr>
     <tr>
-      <td colspan="6">
-      </td>
+        <td colspan="6">
+        </td>
     </tr>
-</table>
-<?php
+    </table>
+    <?php
     $skill_table = ob_get_clean();
 
-
     ob_start();
-?>
-<table class="character-sheet <?php echo $table_class; ?>">
-    <tr>
-        <th colspan="2" style="text-align: center;">
-            History
-        </th>
-    </tr>
-    <tr>
-        <td style="width: 40%;">
-            <label for="goals">Goals &amp; Beliefs</label>
-            <textarea rows="8" name="goals" id="goals" style="width:100%" <?php echo $goals_edit; ?>><?php echo $goals; ?></textarea>
-        </td>
-        <td style="width: 60%;">
-            <label for="misc_powers">Misc Powers/Abilities</label>
-            <textarea rows="8" name="misc_powers" id="misc_powers" style="width:100%" <?php echo $edit_powers; ?>><?php echo $misc_powers; ?></textarea>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <label for="history">History</label>
-            <textarea rows="8" name="history" id="history" style="width:100%" <?php echo $history_edit; ?>><?php echo $history; ?></textarea>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <label for="notes">Notes</label>
-            <textarea rows="8" name="notes" id="notes" style="width:100%" <?php echo $notes_edit; ?>><?php echo $notes; ?></textarea>
-        </td>
-    </tr>
-</table>
-<?php
+    ?>
+    <table class="character-sheet <?php echo $table_class; ?>">
+        <tr>
+            <th colspan="2" style="text-align: center;">
+                History
+            </th>
+        </tr>
+        <tr>
+            <td style="width: 40%;">
+                <label for="goals">Goals &amp; Beliefs</label>
+                <textarea rows="8" name="goals" id="goals"
+                          style="width:100%" <?php echo $goals_edit; ?>><?php echo $goals; ?></textarea>
+            </td>
+            <td style="width: 60%;">
+                <label for="misc_powers">Misc Powers/Abilities</label>
+                <textarea rows="8" name="misc_powers" id="misc_powers"
+                          style="width:100%" <?php echo $edit_powers; ?>><?php echo $misc_powers; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label for="history">History</label>
+                <textarea rows="8" name="history" id="history"
+                          style="width:100%" <?php echo $history_edit; ?>><?php echo $history; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label for="notes">Notes</label>
+                <textarea rows="8" name="notes" id="notes"
+                          style="width:100%" <?php echo $notes_edit; ?>><?php echo $notes; ?></textarea>
+            </td>
+        </tr>
+    </table>
+    <?php
     $history_table = ob_get_clean();
 
     // put sheet pieces together
@@ -1597,12 +1622,14 @@ EOQ;
     return $sheet;
 }
 
-function MakeBaseStatDots($powers, $powerName, $powerType, $position, $element_type, $character_type, $edit_attributes, $calculate_derived, $edit_xp, $element_type, $max_dots)
+function MakeBaseStatDots($powers, $powerName, $powerType, $position, $element_type, $character_type, $edit, $calculate_derived, $edit_xp, $max_dots)
 {
-    $power = GetPowerByName($powers, $powerName);
-    $output = FormHelper::Hidden($powerType.$position.'_id', $power->getPowerID());
-    $output .= FormHelper::Hidden($powerType.$position.'_name', $power->getPowerID());
-    $output .= FormHelper::Dots($powerType.$position, $power->getPowerLevel(), $element_type, $character_type, $max_dots, $edit_attributes, $calculate_derived, $edit_xp);
+    $power  = GetPowerByName($powers, $powerName);
+    $output = FormHelper::Hidden($powerType . $position . '_id', $power->getPowerID());
+    $output .= FormHelper::Hidden($powerType . $position . '_name', $power->getPowerName());
+    $output .= FormHelper::Dots($powerType . $position, $power->getPowerLevel(), $element_type, $character_type,
+                                $max_dots, $edit, $calculate_derived, $edit_xp);
+
     return $output;
 }
 
@@ -1621,37 +1648,38 @@ function getPowers($character_id, $power_type, $sort_order, $number_of_blanks)
     if ($character_id) {
         switch ($sort_order) {
             case NAMELEVEL:
-                $order_by = "PowerName, PowerLevel";
+                $order_by = "power_name, power_level";
                 break;
             case NOTELEVEL:
-                $order_by = "PowerNote, PowerLevel";
+                $order_by = "power_note, power_level";
                 break;
             case NOTENAME:
-                $order_by = "PowerNote, PowerName";
+                $order_by = "power_note, power_name";
                 break;
             case NAMENOTE:
-                $order_by = "PowerName, PowerNote";
+                $order_by = "power_name, power_note";
                 break;
             default:
-                $order_by = "PowerName, PowerLevel";
+                $order_by = "power_name, power_level";
                 break;
         }
 
 
-        $query = "select * from character_powers where character_id = $character_id and powerType = '$power_type' Order by $order_by;";
+        $query = "select * from character_powers where character_id = $character_id and power_type = '$power_type' Order by $order_by;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
             $power = new Power();
 
-            $power->setPowerName($detail['PowerName']);
-            $power->setPowerNote($detail['PowerNote']);
-            $power->setPowerLevel($detail['PowerLevel']);
-            $power->setPowerID($detail['PowerID']);
+            $power->setPowerName($detail['power_name']);
+            $power->setPowerNote($detail['power_note']);
+            $power->setPowerLevel($detail['power_level']);
+            $power->setPowerID($detail['id']);
 
             $power_list[] = $power;
         }
-    } else {
+    }
+    else {
         for ($i = 0; $i < $number_of_blanks; $i++) {
             $power = new Power();
 
@@ -1690,27 +1718,27 @@ function getRenownsRituals($character_id)
     $renown_list["rituals"] = $renown;
 
     if ($character_id) {
-        $query = "select * from character_powers where character_id = $character_id and powerType = 'Renown' Order by PowerName;";
+        $query = "select * from character_powers where character_id = $character_id and power_type = 'Renown' Order by power_name;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
             $renown = new Power();
-            $renown->setPowerName($detail["PowerName"]);
-            $renown->setPowerLevel($detail["PowerLevel"]);
-            $renown->setPowerID($detail["PowerID"]);
-            $renown_name = strtolower($detail["PowerName"]);
+            $renown->setPowerName($detail["power_name"]);
+            $renown->setPowerLevel($detail["power_level"]);
+            $renown->setPowerID($detail["id"]);
+            $renown_name = strtolower($detail["power_name"]);
 
             $renown_list[$renown_name] = $renown;
         }
 
-        $query = "select * from character_powers where character_id = $character_id and powerType = 'Rituals' Order by PowerName;";
+        $query = "select * from character_powers where character_id = $character_id and power_type = 'Rituals' Order by power_name;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
             $renown = new Power();
-            $renown->setPowerName($detail["PowerName"]);
-            $renown->setPowerLevel($detail["PowerLevel"]);
-            $renown->setPowerID($detail["PowerID"]);
+            $renown->setPowerName($detail["power_name"]);
+            $renown->setPowerLevel($detail["power_level"]);
+            $renown->setPowerID($detail["id"]);
 
             $renown_list["rituals"] = $renown;
         }
@@ -1719,27 +1747,31 @@ function getRenownsRituals($character_id)
     return $renown_list;
 }
 
-function InitializeAttributes() {
+function InitializeAttributes()
+{
     $attribute_list = array("strength", "dexterity", "stamina", "presence", "manipulation", "composure", "intelligence", "wits", "resolve");
-    $attributes = array();
-    foreach($attribute_list as $attribute) {
+    $attributes     = array();
+    foreach ($attribute_list as $attribute) {
         $power = new Power();
         $power->setPowerLevel(1);
         $power->setPowerName(ucfirst($attribute));
         $attributes[] = $power;
     }
+
     return $attributes;
 }
 
-function InitializeSkills() {
+function InitializeSkills()
+{
     $skill_list = array("academics", "computer", "crafts", "investigation", "medicine", "occult", "politics", "science", "athletics", "brawl", "drive", "firearms", "larceny", "stealth", "survival", "weaponry", "animal ken", "empathy", "expression", "intimidation", "persuasion", "socialize", "streetwise", "subterfuge");
-    $skills = array();
-    foreach($skill_list as $skill) {
+    $skills     = array();
+    foreach ($skill_list as $skill) {
         $power = new Power();
         $power->setPowerLevel(0);
         $power->setPowerName(ucwords(str_replace('_', ' ', $skill)));
         $skills[] = $power;
     }
+
     return $skills;
 }
 
@@ -1749,12 +1781,14 @@ function InitializeSkills() {
  * @param string $name
  * @return \Power
  */
-function GetPowerByName($powers, $name) {
-    foreach($powers as $power) {
-        if(strtolower($power->getPowerName()) == strtolower($name)) {
+function GetPowerByName($powers, $name)
+{
+    foreach ($powers as $power) {
+        if (strtolower($power->getPowerName()) == strtolower($name)) {
             return $power;
         }
     }
+
     return null;
 }
 

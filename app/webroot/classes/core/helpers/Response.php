@@ -24,4 +24,9 @@ class Response {
         echo json_encode($value);
         exit();
     }
+
+    public static function PreventCache()
+    {
+        header("Cache-Control: no-store, no-cache, must-revalidate");
+    }
 }

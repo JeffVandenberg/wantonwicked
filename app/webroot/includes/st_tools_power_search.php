@@ -1,7 +1,7 @@
 <?php
 $page_title = 'Power and Merit Search';
 
-$powerType = htmlspecialchars($_POST['powerType']);
+$power_type = htmlspecialchars($_POST['power_type']);
 $powerName = htmlspecialchars($_POST['powerName']);
 $powerNote = htmlspecialchars($_POST['powerNote']);
 
@@ -13,20 +13,19 @@ SELECT
 	character_name,
 	character_type,
 	C.character_id,
-	powerType AS power_type,
-	powerName AS power_name,
-	powerNote AS power_note,
-	PowerLevel AS power_level
+	power_type,
+	power_name,
+	power_note,
+	power_level
 FROM
 	characters AS C
 	LEFT JOIN character_powers AS CP ON C.character_id = CP.characterId
 WHERE
 	C.is_sanctioned = 'Y'
 	AND C.is_deleted = 'N'
-	AND C.cell_id = '$userdata[cell_id]'
-	AND CP.powerType = '$powerType'
-	AND CP.powerName LIKE '%$powerName%'
-	AND CP.powerNote LIKE '%$powerNote%'
+	AND CP.power_type = '$power_type'
+	AND CP.power_name LIKE '%$powerName%'
+	AND CP.power_note LIKE '%$powerNote%'
 ORDER BY
 	character_type,
 	character_name
@@ -90,10 +89,10 @@ EOQ;
 	}
 }
 
-$powerTypes = array("Merit", "ICDisc", "OOCDisc", "Devotion", "Derangement");
-$powerTypeNames = array("Merit", "In-Clan Discipline", "Out-of-Clan Disc.", "Devotion/Ritual/Misc.", "Derangement");
+$power_types = array("Merit", "ICDisc", "OOCDisc", "Devotion", "Derangement");
+$power_typeNames = array("Merit", "In-Clan Discipline", "Out-of-Clan Disc.", "Devotion/Ritual/Misc.", "Derangement");
 
-$powerTypeSelect = buildSelect($powerType, $powerTypes, $powerTypeNames, "powerType");
+$power_typeSelect = buildSelect($power_type, $power_types, $power_typeNames, "power_type");
 
 $page_content = <<<EOQ
 <h1>Power &amp; Merit Search</h1>
@@ -114,7 +113,7 @@ $page_content = <<<EOQ
 </div>
 <div class="tableRow" style="clear:both;width:574px;">
 	<div class="firstCell cell" style="width:150px;height:26px;">
-		$powerTypeSelect
+		$power_typeSelect
 	</div>
 	<div class="cell" style="width:150px;">
 		<input type="text" value="$powerName" name="powerName" style="width:95%;" />

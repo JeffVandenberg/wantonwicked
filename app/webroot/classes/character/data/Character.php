@@ -94,10 +94,7 @@ class Character extends DataModel
 
     function __construct()
     {
-        parent::__construct('wod_');
-        $this->IdProperty = 'CharacterId';
-        $this->NameProperty = 'CharacterName';
-        $this->InitializeDerivedValues();
+        parent::__construct();
     }
 
     public function __get($property)

@@ -213,16 +213,18 @@ EOQ;
     public static function Dots($name, $value, $elementType, $characterType = 'mortal', $maxDots = 7, $edit = false, $updateTraits = false, $updateXp = false)
     {
         $id = self::ConvertNameToID($name);
-
         $input = "";
         $character_type = strtolower($characterType);
 
         for($i = 1; $i <= $maxDots; $i++)
         {
             $js = "";
+            $dotName = $name.'_dot'.$i;
+            $dotId = self::ConvertNameToID($dotName);
+
             if($edit)
             {
-                $js .= "changeDots($elementType, '${$id}', ${i}, $maxDots, true);";
+                $js .= "changeDots($elementType, '".$id."', ${i}, $maxDots, true);";
             }
 
             if($updateTraits)
@@ -240,17 +242,16 @@ EOQ;
                 $js = "onClick=\"$js\"";
             }
 
-
             if($i <= $value)
             {
                 $input .= <<<EOQ
-<img src="img/{$character_type}_filled.gif" name="${$name}_dot${i}" id="${$id}_dot${i}" style="border:none;" $js />
+<img src="img/{$character_type}_filled.gif" name="$dotName" id="$$dotId" style="border:none;" $js />
 EOQ;
             }
             else
             {
                 $input .= <<<EOQ
-<img src="img/empty.gif" name="${$name}_dot${i}" id="${$id}_dot${i}" border="0" hspace="0" vspace="0" $js />
+<img src="img/empty.gif" name="$dotName" id="$dotId" style="border:none;" $js />
 EOQ;
             }
 
@@ -261,7 +262,6 @@ EOQ;
         }
 
         $input .= self::Hidden($name, $value);
-
         return $input;
     }
 

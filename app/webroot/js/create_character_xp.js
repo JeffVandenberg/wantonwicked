@@ -12,11 +12,38 @@ var power_trait = 5;
 var morality = 6;
 
 // lists
-var attribute_list = new Array("intelligence", "wits", "resolve", "strength", "dexterity", "stamina", "presence", "manipulation", "composure");
-var skill_list = new Array("academics", "computer", "crafts", "investigation", "medicine", "occult", "politics", "science", "athletics", "brawl", "drive", "firearms", "larceny", "stealth", "survival", "weaponry", "animal_ken", "empathy", "expression", "intimidation", "persuasion", "socialize", "streetwise", "subterfuge");
-var skill_list_proper = new Array("Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry");
-var skill_list_proper_mage = new Array("Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry", "Rote Specialty");
-var renown_list = new Array("purity", "glory", "honor", "wisdom", "cunning");
+var attribute_list = [];
+var i;
+for (i = 0; i < 9; i++) {
+    attribute_list.push('attribute' + i);
+}
+var attributes = {
+    intelligence: 'attribute0',
+    wits        : 'attribute3',
+    resolve     : 'attribute6',
+    strength    : 'attribute1',
+    dexterity   : 'attribute4',
+    stamina     : 'attribute7',
+    presence    : 'attribute2',
+    manipulation: 'attribute5',
+    composure   : 'attribute8',
+    getId: function(attributeName) {
+        var name = attributeName.toLowerCase();
+        return this[name];
+    }
+};
+
+var skill_list = [];
+for (i = 0; i < 21; i++) {
+    skill_list.push('skill' + i);
+}
+var skills = {
+    academics: 'skill0'
+};
+
+var skill_list_proper = ["Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry"];
+var skill_list_proper_mage = ["Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry", "Rote Specialty"];
+var renown_list = ["purity", "glory", "honor", "wisdom", "cunning"];
 
 // experience
 var attribute_xp_base = 135;
@@ -42,7 +69,8 @@ var possessed_xp_base = 40;
 
 function changeDots(element_type, element_name, value, number_of_dots, remove) {
     // if is the same value then set to 0
-    if ((value == document.getElementById(element_name).value) && remove) {
+    var element = $("#" + element_name);
+    if ((value == element.val()) && remove) {
         if ((element_type == attribute) || (element_type == power_trait) || (element_type == morality)) {
             value = 1;
         }
@@ -57,50 +85,50 @@ function changeDots(element_type, element_name, value, number_of_dots, remove) {
     // cycle through the dots to fill up the values up to the selected value
     for (var i = 1; i <= Number(number_of_dots); i++) {
         if (i <= value) {
-            document.getElementById(element_name + "_dot" + i).src = "img/" + character_type + "_filled.gif";
+            $("#" + element_name + "-dot" + i).attr('src', "img/" + character_type + "_filled.gif");
         }
         else {
-            document.getElementById(element_name + "_dot" + i).src = "img/empty.gif";
+            $("#" + element_name + "-dot" + i).attr('src', "img/empty.gif");
         }
     }
 
-    document.getElementById(element_name).value = value;
+    element.val(value);
 }
 
 function updateTraits() {
     // willpower
-    var resolve = Number(document.getElementById("resolve").value) + checkBonusAttribute('resolve');
-    var composure = Number(document.getElementById("composure").value) + checkBonusAttribute('composure');
+    var resolve = Number($("#" + attributes.resolve).val()) + checkBonusAttribute(attributes.resolve);
+    var composure = Number($("#" + attributes.composure).val()) + checkBonusAttribute(attributes.composure);
 
-    changeDots(0, "willpower_perm", (resolve + composure), 10, false);
-    changeDots(0, "willpower_temp", (resolve + composure), 10, false);
+    changeDots(0, "willpower-perm", (resolve + composure), 10, false);
+    changeDots(0, "willpower-temp", (resolve + composure), 10, false);
 
     // health
-    var stamina = Number(document.getElementById("stamina").value) + checkBonusAttribute('stamina');
-    var size = Number(document.getElementById("size").value);
+    var stamina = Number($("#" + attributes.stamina).val()) + checkBonusAttribute(attributes.stamina);
+    var size = Number($("#size").val());
     changeDots(0, "health", (stamina + size), 15, false);
 
     // defense
-    var wits = Number(document.getElementById("wits").value) + checkBonusAttribute('wits');
-    var dexterity = Number(document.getElementById("dexterity").value) + checkBonusAttribute('dexterity');
+    var wits = Number($("#" + attributes.wits).val()) + checkBonusAttribute(attributes.wits);
+    var dexterity = Number($("#" + attributes.dexterity).val()) + checkBonusAttribute(attributes.dexterity);
     var defense = wits;
 
     if (dexterity < wits) {
         defense = dexterity;
     }
-    document.getElementById("defense").value = defense;
+    $("#defense").val(defense);
 
     // initiative
-    document.getElementById("initiative_mod").value = (dexterity + composure);
+    $("#initiative_mod").val((dexterity + composure));
 
     // speed
-    var strength = Number(document.getElementById("strength").value) + checkBonusAttribute('strength');
+    var strength = Number($("#" + attributes.strength).val()) + checkBonusAttribute(attributes.strength);
 
-    document.getElementById("speed").value = (size + strength + dexterity);
+    $("#speed").val((size + strength + dexterity));
 }
 
 function checkBonusAttribute(attribute) {
-    if (document.getElementById('bonus_attribute').value.toLowerCase() == attribute) {
+    if ($('#bonus_attribute').val().toLowerCase() == attribute) {
         return 1;
     }
     else {
@@ -138,7 +166,7 @@ function updateAttributeXP() {
     var i;
     attribute_xp = attribute_xp_base;
     for (i = 0; i < attribute_list.length; i++) {
-        var attribute_value = document.getElementById(attribute_list[i]).value;
+        var attribute_value = $("#"+attribute_list[i]).val();
         attribute_xp -= ((Number(attribute_value) * (Number(attribute_value) + 1)) * 5) / 2 - 5;
     }
 
@@ -175,9 +203,9 @@ function updateSkillXP() {
         i++;
     }
 
-    if ((getCharacterType() != 'Werewolf'
-        && getCharacterType() != 'Changeling' )
-        && (getCharacterType() != 'Hunter')) {
+    if ((character_type != 'Werewolf'
+        && character_type != 'Changeling' )
+        && (character_type != 'Hunter')) {
         if (specialties > 3) {
             skill_xp -= ((specialties - 3) * 3);
         }
@@ -204,7 +232,7 @@ function updateSkillXP() {
 }
 
 function updateMeritXP() {
-    var i = 0;
+    i = 0;
     var character_type = getCharacterType();
     if (character_type === 'Purified') {
         merit_xp = purified_merit_xp_base;
@@ -225,7 +253,7 @@ function updateMeritXP() {
         merit_xp -= ((Number(power_trait_value) * (Number(power_trait_value) + 1)) * 8) / 2 - 8;
     }
 
-    if (getCharacterType() == 'Werewolf') {
+    if (character_type == 'Werewolf') {
         var rites_multiplier;
         if (getSplat1() == 'Ithaeur') {
             rites_multiplier = 1;
@@ -702,10 +730,18 @@ function contractDiscounted(list, level, hashtable) {
 function updateGeneralXP() {
     general_xp = general_xp_base;
 
-    if (attribute_xp < 0) general_xp += attribute_xp;
-    if (skill_xp < 0) general_xp += skill_xp;
-    if (merit_xp < 0) general_xp += merit_xp;
-    if (supernatural_xp < 0) general_xp += supernatural_xp;
+    if (attribute_xp < 0) {
+        general_xp += attribute_xp;
+    }
+    if (skill_xp < 0) {
+        general_xp += skill_xp;
+    }
+    if (merit_xp < 0) {
+        general_xp += merit_xp;
+    }
+    if (supernatural_xp < 0) {
+        general_xp += supernatural_xp;
+    }
 
     var morality_base = 7;
     if (getCharacterType() == 'Ghoul') {
@@ -726,36 +762,7 @@ function updateGeneralXP() {
 }
 
 function getSkillCost(index, dots, character_type) {
-    var cost = ((Number(dots) * (Number(dots) + 1)) * 3) / 2;
-    // This isn't quite implemented right. Commented out for now. -MarcD 16/08/2010
-    // The actual rule is:
-    // Professional Training 3: Asset Skill specialties cost 2XP
-    // Professional Training 4: Asset Skills cost x2 but non-Asset Skills at level 1 cost 4XP
-    //if((character_type == "Hunter") && isProfessionSkill(getSplat1(), skill_list[index]))
-    //{
-    //if(hasMerit("Professional Training", skill_list[index], 3))
-    //{
-    // give discount
-    //	cost = ((Number(dots) * (Number(dots) +1))*2)/2 - 6;
-    //}
-    //else if(hasMerit("Professional Training", skill_list[index], 2))
-    //{
-    //	// give second dot free
-    //	cost -= 9;
-    //}
-    //else
-    //{
-    //	// justs give first dot for free
-    //	cost -= 3;
-    //}
-    //
-    //if(cost < 0)
-    //{
-    //	cost = 0;
-    //}
-    //}
-
-    return cost;
+    return ((Number(dots) * (Number(dots) + 1)) * 3) / 2;
 }
 
 function getMeritCost(index, dots, character_type) {
@@ -782,29 +789,29 @@ function getMeritCost(index, dots, character_type) {
 function getVampireMeritCost(index, dots) {
     var merit_cost = ((Number(dots) * (Number(dots) + 1)) * 2) / 2;
     /*if (getSplat2().indexOf("Carthian") > -1) {
-        switch (getMeritName(index).toLowerCase()) {
-            case 'allies':
-            case 'contacts':
-            case 'haven':
-            case 'herd':
-                if (hasStatus(getSplat2())) {
-                    merit_cost = merit_cost / 2;
-                }
-                break;
-        }
-    }
-    if (getSplat2() == "Invictus") {
-        switch (getMeritName(index).toLowerCase()) {
-            case 'herd':
-            case 'mentor':
-            case 'resources':
-            case 'retainer':
-                if (hasStatus(getSplat2())) {
-                    merit_cost = merit_cost / 2;
-                }
-                break;
-        }
-    }*/
+     switch (getMeritName(index).toLowerCase()) {
+     case 'allies':
+     case 'contacts':
+     case 'haven':
+     case 'herd':
+     if (hasStatus(getSplat2())) {
+     merit_cost = merit_cost / 2;
+     }
+     break;
+     }
+     }
+     if (getSplat2() == "Invictus") {
+     switch (getMeritName(index).toLowerCase()) {
+     case 'herd':
+     case 'mentor':
+     case 'resources':
+     case 'retainer':
+     if (hasStatus(getSplat2())) {
+     merit_cost = merit_cost / 2;
+     }
+     break;
+     }
+     }*/
 
     return merit_cost;
 }
@@ -858,7 +865,7 @@ function getChangelingMeritcost(index, dots) {
 
 function isCourtMantle(index) {
     if (getMeritName(index).toLowerCase() == 'mantle') {
-        var merit_note = document.getElementById('merit' + index + '_note').value;
+        var merit_note = $('#merit' + index + '-note').val();
         if ((merit_note != '') && (getSplat2().toLowerCase().indexOf(merit_note.toLowerCase()) > -1)) {
             return true;
         }
@@ -870,9 +877,9 @@ function hasMerit(name, note, level) {
     var i = 0;
     var found_merit = false;
 
-    while (document.getElementById('merit' + i) && !found_merit) {
-        if (document.getElementById('merit' + i + '_name').value.toLowerCase() == name.toLowerCase()) {
-            if (note.toLowerCase().indexOf(document.getElementById('merit' + i + '_note').value.toLowerCase()) > -1) {
+    while ($('#merit' + i).length > 0 && !found_merit) {
+        if ($('#merit' + i + '-name').val().toLowerCase() == name.toLowerCase()) {
+            if (note.toLowerCase().indexOf($('#merit' + i + '-note').val().toLowerCase()) > -1) {
                 if (document.getElementById('merit' + i).value >= level) {
                     found_merit = true;
                     break;
@@ -888,10 +895,11 @@ function hasMerit(name, note, level) {
 function hasStatus(group_name) {
     var i = 0;
     var found_status = false;
-    while (document.getElementById('merit' + i) && !found_status) {
-        if (document.getElementById('merit' + i + '_name').value.toLowerCase() == 'status') {
-            if (group_name.toLowerCase().indexOf(document.getElementById('merit' + i + '_note').value.toLowerCase()) > -1) {
-                if (document.getElementById('merit' + i).value > 0) {
+    //noinspection JSJQueryEfficiency
+    while (($('#merit' + i).length > 0) && !found_status) {
+        if ($('#merit' + i + '-name').val().toLowerCase() == 'status') {
+            if (group_name.toLowerCase().indexOf($('#merit' + i + '-note').val().toLowerCase()) > -1) {
+                if ($('#merit' + i).value > 0) {
                     found_status = true;
                     break;
                 }
@@ -915,8 +923,8 @@ function getNumOfPowersInList(power_list, list_name) {
     var index = 0;
     var number_of_powers = 0;
 
-    while (document.getElementById(power_list + index)) {
-        if (document.getElementById(power_list + index + '_note').value == list_name) {
+    while ($("#"+power_list + index).length > 0) {
+        if ($("#"+power_list + index + '-note').val() == list_name) {
             number_of_powers++;
         }
         index++;
@@ -926,7 +934,7 @@ function getNumOfPowersInList(power_list, list_name) {
 }
 
 function displayFreeWerewolfRenown() {
-    if (document.getElementById("character_id").value == 0) {
+    if ($("#character-id").val() == 0) {
         var i;
         var dots;
         for (i = 0; i < renown_list.length; i++) {
@@ -938,8 +946,12 @@ function displayFreeWerewolfRenown() {
 
 function getNumberOfFreeRenownDots(renown) {
     var dots = 0;
-    if (isAffinityRenown(getSplat1(), renown)) dots++;
-    if (isAffinityRenown(getSplat2(), renown)) dots++;
+    if (isAffinityRenown(getSplat1(), renown)) {
+        dots++;
+    }
+    if (isAffinityRenown(getSplat2(), renown)) {
+        dots++;
+    }
     return dots;
 }
 
@@ -1091,8 +1103,8 @@ function updateBonusAttribute() {
     if (character_type == 'Vampire') {
         var option1;
         var option2;
-        var bonus_attribute_select = document.getElementById('bonus_attribute_select');
-        bonus_attribute_select.length = 0;
+        var bonus_attribute_select = $('#bonus_attribute_select');
+        bonus_attribute_select.empty();
 
         switch (splat1) {
             case 'Daeva':
@@ -1117,19 +1129,17 @@ function updateBonusAttribute() {
                 break;
         }
 
-        var newOption = new Option;
-        newOption.value = option1;
-        newOption.text = option1;
-        bonus_attribute_select.options[0] = newOption;
-        newOption = new Option;
-        newOption.value = option2;
-        newOption.text = option2;
-        bonus_attribute_select.options[1] = newOption;
+        var newOption = $("<option></option>");
+        newOption.val(option1);
+        newOption.text(option1);
+        bonus_attribute_select.append(newOption);
+        newOption = $("<option></option>");
+        newOption.val(option2);
+        newOption.text(option2);
+        bonus_attribute_select.append(newOption);
 
         var old_bonus = document.getElementById('bonus_attribute').value;
-        //alert(old_bonus);
         if ((old_bonus != '') && ((old_bonus == option1) || (old_bonus == option2))) {
-            //alert("set select to: " + document.getElementById('bonus_attribute').value);
             bonus_attribute_select.value = document.getElementById('bonus_attribute').value;
         }
     }
@@ -1144,31 +1154,31 @@ function updateBonusAttribute() {
 function displayBonusDot() {
     if ((getCharacterType() == 'Vampire') || (getCharacterType() == 'Mage')) {
         // remove old dot
-        var old_bonus = document.getElementById('bonus_attribute').value.toLowerCase();
+        var bonus_attribute = $("#bonus_attribute");
+        var old_bonus = bonus_attribute.val().toLowerCase();
         var attribute_level;
         if (old_bonus != '') {
-            attribute_level = Number(document.getElementById(old_bonus).value) + 1;
-            document.getElementById(old_bonus + '_dot' + attribute_level).src = "img/empty.gif";
+            attribute_level = Number($("#"+attributes.getId(old_bonus)).val()) + 1;
+            $("#"+attributes.getId(old_bonus) + '-dot' + attribute_level).attr('src', "img/empty.gif");
         }
 
         // set bonus_attribute value
         var new_bonus;
         if (getCharacterType() == 'Vampire') {
-            new_bonus = document.getElementById('bonus_attribute_select').value;
+            new_bonus = $('#bonus_attribute_select').val();
         }
         else {
             new_bonus = getMageBonusAttribute();
             addMageBonusAttibuteText(new_bonus);
         }
 
-        document.getElementById('bonus_attribute').value = new_bonus;
+        $('#bonus_attribute').val(new_bonus);
 
         new_bonus = new_bonus.toLowerCase();
         // add new dot
-        var character_type = getCharacterType().toLowerCase();
-        attribute_level = Number(document.getElementById(new_bonus).value) + 1;
+        attribute_level = Number($("#"+attributes.getId(new_bonus)).val()) + 1;
         if (attribute_level < 8) {
-            document.getElementById(new_bonus + '_dot' + attribute_level).src = "img/bonus_filled.gif";
+            $("#"+attributes.getId(new_bonus) + '-dot' + attribute_level).attr('src', 'img/bonus_filled.gif');
         }
 
         updateTraits();
@@ -1656,6 +1666,9 @@ function SubmitCharacter() {
     }
 }
 
+function setXpEdit(xp_edit) {
+    edit_xp = xp_edit;
+}
 function loadNew(xp_edit) {
     edit_xp = xp_edit;
     var url = "view_sheet.php?action=get&type=new&character_type=Mortal";
@@ -1682,9 +1695,10 @@ function loadCharacterSTView(view_character_id, xp_edit) {
 
 function changeSheet(character_type) {
     var sheet = $("#charSheet");
-    sheet.html("Loading new character sheet...");
     var url = "view_sheet.php?action=get&type=" + page_action + "&character_type=" + character_type + "&character_id=" + character_id;
-    sheet.load(url, drawSheet);
+    sheet
+        .html("Loading new character sheet...")
+        .load(url, drawSheet);
 }
 
 function drawSheet() {
@@ -1744,7 +1758,9 @@ function buildSelect(selected, values_list, names_list, select_name, extra_tags)
 }
 
 function makeDotsXP(element_name, element_type, character_type, number_of_dots, value, edit, update_traits, update_xp) {
-    return_value = "";
+    var return_value = "";
+    var element_id = element_name.replace('_', '-');
+
     character_type = character_type.toLowerCase();
 
     for (var i = 1; i <= number_of_dots; i++) {
@@ -1767,32 +1783,33 @@ function makeDotsXP(element_name, element_type, character_type, number_of_dots, 
 
 
         if (i <= value) {
-            return_value += "<img src=\"img/" + character_type + "_filled.gif\" name=\"" + element_name + "_dot" + i + "\" id=\"" + element_name + "_dot" + i + "\" border=\"0\" hspace=\"0\" vspace=\"0\" " + js + "/>";
+            return_value += "<img src=\"img/" + character_type + "_filled.gif\" id=\"" + element_id + "-dot" + i + "\" style=\"border:none;\" " + js + "/>";
         }
         else {
-            return_value += "<img src=\"img/empty.gif\" name=\"" + element_name + "_dot" + i + "\" id=\"" + element_name + "_dot" + i + "\" border=\"0\" hspace=\"0\" vspace=\"0\" " + js + "/>";
+            return_value += "<img src=\"img/empty.gif\" id=\"" + element_id + "-dot" + i + "\" style=\"border:none;\" " + js + "/>";
         }
 
         if ((i % 10) == 0) {
-            return_value += "<br>";
+            return_value += "<br />";
         }
     }
 
-    return_value += "<input type=\"hidden\" name=\"" + element_name + "\" id=\"" + element_name + "\" value=\"" + value + "\">";
+    return_value += "<input type=\"hidden\" name=\"" + element_name + "\" id=\"" + element_id + "\" value=\"" + value + "\">";
 
     return return_value;
 }
 
 function showHelp(element, event) {
-    var e = event;
-    if (e.pageX || e.pageY) {
-        posx = e.pageX + 1;
-        posy = e.pageY + 1;
+    var posx;
+    var posy;
+    if (event.pageX || event.pageY) {
+        posx = event.pageX + 1;
+        posy = event.pageY + 1;
     }
-    else if (e.clientX || e.clientY) {
-        posx = e.clientX + document.body.scrollLeft
+    else if (event.clientX || event.clientY) {
+        posx = event.clientX + document.body.scrollLeft
             + document.documentElement.scrollLeft;
-        posy = e.clientY + document.body.scrollTop
+        posy = event.clientY + document.body.scrollTop
             + document.documentElement.scrollTop;
     }
     document.getElementById(element).style.visibility = "visible";

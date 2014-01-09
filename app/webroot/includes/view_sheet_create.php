@@ -120,25 +120,12 @@ EOQ;
 			$current_experience = 0;
 			$total_experience = 0;
 			$xp_per_day = .5;
-			$first_login = $now;
-			$last_login = $now;
-			$last_st_updated = 1;
-			$when_last_st_updated = 0;
-			$last_asst_st_updated = 1;
-			$when_last_asst_st_updated = 0;
 			$gm_notes = '';
 			$sheet_update = '';
 			$login_note = '';
-			$cell_id = $_POST['cell_id'];
 			$hide_icon = $_POST['hide_icon'];
 			$status = $_POST['status'];
-			$last_scene_date = '0000-00-00 00:00:00';
-			$logged_today = 'N';
-			$granted_xp = 0;
-			$updated_pp = 0;
-			$udf9 = '';
-			$udf10 = '';
-			
+
 			$trans_query = "begin;";
 			$trans_result = mysql_query($trans_query) or die(mysql_error());
 			
@@ -149,8 +136,27 @@ EOQ;
 			$character_id = getNextID($connection, "characters", "character_id");
 			
 			$insert_query = <<<EOQ
-insert into characters values (
-$character_id, 
+insert into
+    characters
+    (
+        user_id,
+        character_name,
+        show_sheet,
+        view_password,
+        character_type,
+        city,
+        age,
+        sex,
+        apparent_age,
+        concept,
+        description,
+        url,
+        safe_place,
+        friends,
+        exit_line
+    )
+values
+(
 $userdata[user_id],
 '$character_name', 
 '$show_sheet',
@@ -173,27 +179,7 @@ $icon,
 '$splat1', 
 '$splat2',
 '$subsplat',
-EOQ;
-
-			// add attributes
-			while(list($key, $attribute) = each($attribute_list))
-			{
-				$insert_query .= $$attribute .", ";
-			}
-
-			reset($attribute_list);
-
-			// add skills
-			while(list($key, $skill) = each($skill_list))
-			{
-				$skill_spec = $skill . "_spec";
-				$insert_query .= $$skill . ", '" . $$skill_spec . "', ";
-			}
-
-			reset($skill_list);
-			
-			$insert_query .= <<<EOQ
-$size, 
+$size,
 $speed, 
 $initiative_mod, 
 $defense, 
@@ -223,25 +209,12 @@ $morality,
 $current_experience, 
 $total_experience,
 $xp_per_day,
-'$first_login',
-'$last_login',
-$last_st_updated,
-'$when_last_st_updated',
-$last_asst_st_updated,
-'$when_last_asst_st_updated',
 '$gm_notes',
 '$sheet_update',
 '$login_note',
-'$cell_id',
 '$hide_icon',
 '$helper',
-'$status',
-'$last_scene_date',
-'$logged_today',
-$granted_xp,
-$updated_pp,
-'$udf9',
-'$udf10');
+'$status');
 EOQ;
 			//echo "$insert_query<br>";
 			$insert_result = mysql_query($insert_query) or die(mysql_error());

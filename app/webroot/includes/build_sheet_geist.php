@@ -1,5 +1,7 @@
 <?php
 /* @var string $table_class */
+use classes\core\helpers\FormHelper;
+
 $vitals_table = <<<EOQ
 <table class="character-sheet $table_class">
     <tr>
@@ -235,7 +237,7 @@ EOQ;
 $powers = getPowers($characterId, 'manifestation', NAMENOTE, 4);
 
 for ($i = 0; $i < sizeof($powers); $i++) {
-    $power_dots = makeDotsXP("manifestation${i}", $element_type['supernatural'], $character_type, $max_dots, $powers[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $power_dots = FormHelper::Dots("manifestation${i}", $powers[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $power_name = $powers[$i]->getPowerName();
     $power_id = $powers[$i]->getPowerID();
@@ -286,7 +288,7 @@ EOQ;
 $powers = getPowers($characterId, 'Ceremonies', NAMENOTE, 2);
 
 for ($i = 0; $i < sizeof($powers); $i++) {
-    $power_dots = makeDotsXP("ceremony${i}", $element_type['merit'], $character_type, $max_dots, $powers[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $power_dots = FormHelper::Dots("ceremony${i}", $powers[$i]->getPowerLevel(), $element_type['merit'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $power_name = $powers[$i]->getPowerName();
     $power_id = $powers[$i]->getPowerID();

@@ -4,9 +4,9 @@ $character_id = isset($_POST['character_id']) ? $_POST['character_id'] + 0 : 0;
 $character_id = isset($_GET['character_id']) ? $_GET['character_id'] + 0: $character_id;
 
 $character_query = <<<EOQ
-SELECT wod.*, Character_Name, l.Name
-FROM (characters as wod INNER JOIN login_character_index as lci ON wod.character_id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
-WHERE wod.character_id = $character_id
+SELECT C.*, Character_Name, l.Name
+FROM (characters AS C INNER JOIN login_character_index as lci ON C.id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
+WHERE C.id = $character_id
 	AND lci.login_id = $userdata[user_id]
 EOQ;
 

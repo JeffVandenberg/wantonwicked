@@ -1,4 +1,5 @@
 <?php
+use classes\character\repository\CharacterRepository;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
@@ -12,17 +13,11 @@ $npc_login_link = "";
 $sheet = "";
 $logins = "";
 
+$characterRepository = new $characterRepository;
 // test if updating
 if (isset($_POST['submit'])) {
     // get character information
-    $character_id = $_POST['character_id'] + 0;
-    $character_query = <<<EOQ
-SELECT login.*, characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-FROM ((characters INNER JOIN login ON characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
-WHERE character_id=$character_id;
-EOQ;
-    $character_result = mysql_query($character_query) or die(mysql_error());
-    $character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
+    $character_detail = $characterRepository->FindById($_POST['character_id']);
 
     // determine what type of update
     $viewed_sheet = false;
@@ -98,140 +93,71 @@ EOQ;
 
     if (!$viewed_sheet && $userdata['is_gm']) {
         $viewed_sheet = true;
-        if (($character_detail['is_npc'] == 'Y')) {
-            // partial update
-            $edit_show_sheet = false;
-            $edit_name = false;
-            $edit_vitals = false;
-            $edit_is_npc = false;
-            $edit_is_dead = true;
-            $edit_location = false;
-            $edit_concept = false;
-            $edit_description = true;
-            $edit_url = false;
-            $edit_equipment = true;
-            $edit_public_effects = false;
-            $edit_group = true;
-            $edit_exit_line = true;
-            $edit_attributes = false;
-            $edit_skills = false;
-            $edit_perm_traits = false;
-            $edit_temp_traits = true;
-            $edit_powers = false;
-            $edit_history = false;
-            $edit_goals = true;
-            $edit_login_note = false;
-            $edit_experience = false;
-            $show_st_notes = true;
-            $view_is_asst = false;
-            $view_is_st = false;
-            $view_is_head = false;
-            $view_is_admin = false;
-            $may_edit = true;
-            $edit_cell = false;
-            $calculate_derived = false;
-        } else {
-            // open update
-            $edit_show_sheet = false;
-            $edit_name = true;
-            $edit_vitals = true;
-            $edit_is_npc = true;
-            $edit_is_dead = true;
-            $edit_location = true;
-            $edit_concept = true;
-            $edit_description = true;
-            $edit_url = true;
-            $edit_equipment = true;
-            $edit_public_effects = true;
-            $edit_group = true;
-            $edit_exit_line = true;
-            $edit_attributes = true;
-            $edit_skills = true;
-            $edit_perm_traits = true;
-            $edit_temp_traits = true;
-            $edit_powers = true;
-            $edit_history = true;
-            $edit_goals = true;
-            $edit_login_note = true;
-            $edit_experience = true;
-            $show_st_notes = true;
-            $view_is_asst = false;
-            $view_is_st = true;
-            $view_is_head = false;
-            $view_is_admin = false;
-            $may_edit = true;
-            $edit_cell = true;
-            $calculate_derived = false;
-        }
+        // open update
+        $edit_show_sheet = false;
+        $edit_name = true;
+        $edit_vitals = true;
+        $edit_is_npc = true;
+        $edit_is_dead = true;
+        $edit_location = true;
+        $edit_concept = true;
+        $edit_description = true;
+        $edit_url = true;
+        $edit_equipment = true;
+        $edit_public_effects = true;
+        $edit_group = true;
+        $edit_exit_line = true;
+        $edit_attributes = true;
+        $edit_skills = true;
+        $edit_perm_traits = true;
+        $edit_temp_traits = true;
+        $edit_powers = true;
+        $edit_history = true;
+        $edit_goals = true;
+        $edit_login_note = true;
+        $edit_experience = true;
+        $show_st_notes = true;
+        $view_is_asst = false;
+        $view_is_st = true;
+        $view_is_head = false;
+        $view_is_admin = false;
+        $may_edit = true;
+        $edit_cell = true;
+        $calculate_derived = false;
     }
 
     if (!$viewed_sheet && $userdata['is_asst']) {
         $viewed_sheet = true;
-        $may_full_view = (($character_detail['Is_NPC'] == 'N') && (($character_detail['Is_Sanctioned'] == '') || ($character_detail['Cell_ID'] == $userdata['cell_id']) || ($character_detail['Cell_ID'] == 'No Preference') || ($character_detail['Cell_ID'] == '')));
-
-        if ($may_full_view) {
-            $edit_show_sheet = false;
-            $edit_name = true;
-            $edit_vitals = true;
-            $edit_is_npc = true;
-            $edit_is_dead = true;
-            $edit_location = true;
-            $edit_concept = true;
-            $edit_description = true;
-            $edit_url = true;
-            $edit_equipment = true;
-            $edit_public_effects = true;
-            $edit_group = true;
-            $edit_exit_line = true;
-            $edit_attributes = true;
-            $edit_skills = true;
-            $edit_perm_traits = true;
-            $edit_temp_traits = true;
-            $edit_powers = true;
-            $edit_history = true;
-            $edit_goals = true;
-            $edit_login_note = true;
-            $edit_experience = true;
-            $show_st_notes = true;
-            $view_is_asst = true;
-            $view_is_st = false;
-            $view_is_head = false;
-            $view_is_admin = false;
-            $may_edit = true;
-            $edit_cell = true;
-            $calculate_derived = false;
-        } else {
-            $edit_show_sheet = false;
-            $edit_name = false;
-            $edit_vitals = false;
-            $edit_is_npc = false;
-            $edit_is_dead = true;
-            $edit_location = false;
-            $edit_concept = false;
-            $edit_description = true;
-            $edit_url = false;
-            $edit_equipment = true;
-            $edit_public_effects = false;
-            $edit_group = true;
-            $edit_exit_line = true;
-            $edit_attributes = false;
-            $edit_skills = false;
-            $edit_perm_traits = false;
-            $edit_temp_traits = true;
-            $edit_powers = false;
-            $edit_history = false;
-            $edit_goals = true;
-            $edit_login_note = false;
-            $edit_experience = false;
-            $show_st_notes = true;
-            $view_is_asst = false;
-            $view_is_st = false;
-            $view_is_head = false;
-            $view_is_admin = false;
-            $may_edit = true;
-            $edit_cell = true;
-            $calculate_derived = false;
-        }
+        $edit_show_sheet = false;
+        $edit_name = true;
+        $edit_vitals = true;
+        $edit_is_npc = true;
+        $edit_is_dead = true;
+        $edit_location = true;
+        $edit_concept = true;
+        $edit_description = true;
+        $edit_url = true;
+        $edit_equipment = true;
+        $edit_public_effects = true;
+        $edit_group = true;
+        $edit_exit_line = true;
+        $edit_attributes = true;
+        $edit_skills = true;
+        $edit_perm_traits = true;
+        $edit_temp_traits = true;
+        $edit_powers = true;
+        $edit_history = true;
+        $edit_goals = true;
+        $edit_login_note = true;
+        $edit_experience = true;
+        $show_st_notes = true;
+        $view_is_asst = true;
+        $view_is_st = false;
+        $view_is_head = false;
+        $view_is_admin = false;
+        $may_edit = true;
+        $edit_cell = true;
+        $calculate_derived = false;
     }
     if ($viewed_sheet) {
         CharacterLog::LogAction($_POST['character_id'], ActionType::UpdateCharacter, 'ST Updated Sheet', $userdata['user_id']);
@@ -327,7 +253,6 @@ EOQ;
 
 
 $java_script .= <<<EOQ
-<script src="js/xmlHTTP.js" type="text/javascript"></script>
 <script src="js/create_character_xp.js" type="text/javascript"></script>
 <script>
     $(function() {

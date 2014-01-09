@@ -1,4 +1,6 @@
 <?php
+use classes\core\helpers\FormHelper;
+
 $vitals_table = <<<EOQ
 <table class="character-sheet $table_class">
     <tr>
@@ -183,7 +185,7 @@ EOQ;
 $icdiscs = getPowers($characterId, 'ICDisc', NAMENOTE, 2);
 
 for ($i = 0; $i < sizeof($icdiscs); $i++) {
-    $discipline_dots = makeDotsXP("icdisc${i}", $element_type['supernatural'], $character_type, $max_dots, $icdiscs[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $discipline_dots = FormHelper::Dots("icdisc${i}", $icdiscs[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $discipline_name = $icdiscs[$i]->getPowerName();
     $discipline_id = $icdiscs[$i]->getPowerID();
@@ -234,7 +236,7 @@ EOQ;
 $oocdiscs = getPowers($characterId, 'OOCDisc', NAMENOTE, 2);
 
 for ($i = 0; $i < sizeof($oocdiscs); $i++) {
-    $discipline_dots = makeDotsXP("oocdisc${i}", $element_type['supernatural'], $character_type, $max_dots, $oocdiscs[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $discipline_dots = FormHelper::Dots("oocdisc${i}", $oocdiscs[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $discipline_name = $oocdiscs[$i]->getPowerName();
     $discipline_id = $oocdiscs[$i]->getPowerID();

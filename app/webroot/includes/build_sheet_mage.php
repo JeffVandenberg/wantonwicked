@@ -1,5 +1,7 @@
 <?php
 /* @var string $table_class */
+use classes\core\helpers\FormHelper;
+
 /* @var string $table_class */
 
 $vitals_table = <<<EOQ
@@ -201,7 +203,7 @@ EOQ;
 $arcanas = getPowers($characterId, 'RulingArcana', NAMENOTE, 2);
 
 for ($i = 0; $i < sizeof($arcanas); $i++) {
-    $arcana_dots = makeDotsXP("rulingarcana${i}", $element_type['supernatural'], $character_type, $max_dots, $arcanas[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $arcana_dots = FormHelper::Dots("rulingarcana${i}", $arcanas[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
     $arcana_name = $arcanas[$i]->getPowerName();
     $arcana_id = $arcanas[$i]->getPowerID();
 
@@ -250,7 +252,7 @@ EOQ;
 $arcanas = getPowers($characterId, 'CommonArcana', NAMENOTE, 3);
 
 for ($i = 0; $i < sizeof($arcanas); $i++) {
-    $arcana_dots = makeDotsXP("commonarcana${i}", $element_type['supernatural'], $character_type, $max_dots, $arcanas[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $arcana_dots = FormHelper::Dots("commonarcana${i}", $arcanas[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $arcana_name = $arcanas[$i]->getPowerName();
     $arcana_id = $arcanas[$i]->getPowerID();
@@ -298,7 +300,7 @@ $arcana_list .= <<<EOQ
   </tr>
 EOQ;
 for ($i = 0; $i < sizeof($arcanas); $i++) {
-    $arcana_dots = makeDotsXP("inferiorarcana${i}", $element_type['supernatural'], $character_type, $max_dots, $arcanas[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $arcana_dots = FormHelper::Dots("inferiorarcana${i}", $arcanas[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $arcana_name = $arcanas[$i]->getPowerName();
     $arcana_id = $arcanas[$i]->getPowerID();

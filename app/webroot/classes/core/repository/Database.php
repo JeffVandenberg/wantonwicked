@@ -294,4 +294,8 @@ class Database
         $this->Statement->execute($parameters);
         return $this->Statement->fetchColumn();
     }
+
+    public function GetInsertId() {
+        return $this->Handler->lastInsertId();
+    }
 }

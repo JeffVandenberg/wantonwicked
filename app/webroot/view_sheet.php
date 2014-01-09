@@ -1,4 +1,6 @@
 <?php
+use classes\core\helpers\SessionHelper;
+
 ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
 include 'cgi-bin/buildWoDSheet.php';
@@ -122,13 +124,12 @@ $template->set_custom_template('templates', 'main_ww4');
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
-        "TOP_IMAGE" => $page_image,
-        "PAGE_CONTENT" => $page_content,
-        "EXTRA_TAGS" => $body_params,
         "EXTRA_HEADERS" => $extra_headers,
         "USER_PANEL" => $user_panel,
 		"MENU_BAR" => $menu_bar,
-        "CONTENT_HEADER" => $contentHeader
+        "PAGE_CONTENT" => $page_content,
+        "CONTENT_HEADER" => $contentHeader,
+        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage()
     )
 );
 

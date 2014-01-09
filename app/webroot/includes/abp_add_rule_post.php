@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST')
 }
 
 $ruleName = htmlspecialchars($_POST['ruleName']);
-$powerType = htmlspecialchars($_POST['powerType']);
+$power_type = htmlspecialchars($_POST['power_type']);
 $powerName = htmlspecialchars($_POST['powerName']);
 $powerNote = htmlspecialchars($_POST['powerNote']);
 $isShared = isset($_POST['isShared']) ? 1 : 0;
@@ -32,7 +32,7 @@ VALUES
 	(
 		'$ruleName',
 		1,
-		'$powerType',
+		'$power_type',
 		'$powerName',
 		'$powerNote',
 		$isShared,

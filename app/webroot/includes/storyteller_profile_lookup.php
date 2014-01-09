@@ -7,10 +7,10 @@ if ($profile_name != "")
 {
 	$character_select="The Characters attached to $profile_name's profile are:<br>";
 	$character_query = <<<EOQ
-SELECT wod.character_name, wod.is_deleted
-FROM (login INNER JOIN login_character_index as lci ON login.id = lci.login_id) INNER JOIN characters as wod ON wod.character_id = lci.character_id
-WHERE login.Name='$profile_name' and wod.is_deleted='N'
-ORDER BY wod.character_name;
+SELECT C.character_name, C.is_deleted
+FROM (login INNER JOIN login_character_index as lci ON login.id = lci.login_id) INNER JOIN characters AS C ON C.id = lci.character_id
+WHERE login.Name='$profile_name' and C.is_deleted='N'
+ORDER BY C.character_name;
 EOQ;
 
 	$detail_query = <<<EOQ

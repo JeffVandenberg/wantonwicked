@@ -1,5 +1,7 @@
 <?php
-			$vitals_table = <<<EOQ
+use classes\core\helpers\FormHelper;
+
+$vitals_table = <<<EOQ
 <table class="character-sheet $table_class" width="100%">
     <tr>
         <th colspan="4" align="center">
@@ -221,7 +223,7 @@ EOQ;
       
       for($i = 0; $i < sizeof($icdiscs); $i++)
       {
-      	$power_dots = makeDotsXP("affcont${i}", $element_type['supernatural'], $character_type, $max_dots, $icdiscs[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+      	$power_dots = FormHelper::Dots("affcont${i}", $icdiscs[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
       	
       	$power_name = $icdiscs[$i]->getPowerName();
       	$power_note = $icdiscs[$i]->getPowerNote();
@@ -287,7 +289,7 @@ EOQ;
       
       for($i = 0; $i < sizeof($oocdiscs); $i++)
       {
-      	$power_dots = makeDotsXP("nonaffcont${i}", $element_type['supernatural'], $character_type, $max_dots, $oocdiscs[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+      	$power_dots = FormHelper::Dots("nonaffcont${i}", $oocdiscs[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
       	
       	$power_name = $oocdiscs[$i]->getPowerName();
       	$power_note = $oocdiscs[$i]->getPowerNote();
@@ -356,7 +358,7 @@ EOQ;
       
       for($i = 0; $i < sizeof($powers); $i++)
       {
-        $power_dots = makeDotsXP("gobcont${i}", $element_type['supernatural'], $character_type, $max_dots, $powers[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+        $power_dots = FormHelper::Dots("gobcont${i}", $powers[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
         $power_name = $powers[$i]->getPowerName();
         $power_id = $powers[$i]->getPowerID();
         

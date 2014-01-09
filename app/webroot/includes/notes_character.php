@@ -18,18 +18,18 @@ include 'cgi-bin/buildSortForm.php';
 if(($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin']) && ($log_npc == 'y'))
 {
 	$character_query = <<<EOQ
-SELECT wod.*, Character_Name, l.Name
-FROM (characters as wod INNER JOIN login_character_index as lci ON wod.character_id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
-WHERE wod.character_id = $characterId
+SELECT C.*, Character_Name, l.Name
+FROM (characters AS C INNER JOIN login_character_index as lci ON C.id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
+WHERE C.id = $characterId
 	AND is_npc = 'Y';
 EOQ;
 }
 else
 {
 	$character_query = <<<EOQ
-SELECT wod.*, Character_Name, l.Name
-FROM (characters as wod INNER JOIN login_character_index as lci ON wod.character_id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
-WHERE wod.character_id = $characterId
+SELECT C.*, Character_Name, l.Name
+FROM (characters AS C INNER JOIN login_character_index as lci ON C.id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
+WHERE C.id = $characterId
 	AND lci.login_id = $userdata[user_id]
 EOQ;
 }

@@ -20,12 +20,13 @@ class CharacterSheetHelper
 
     public static function MakeHeaderView(Character $character)
     {
-        $tableClass = self::GetTableClassForCharacterType($character->CharacterType);
+        $tableClass   = self::GetTableClassForCharacterType($character->CharacterType);
         $showSheetYes = FormHelper::Radio('show_sheet', 'Y', $character->ShowSheet == 'Y');
-        $showSheetNo = FormHelper::Radio('show_sheet', 'N', $character->ShowSheet == 'N');
-        $hideIconYes = FormHelper::Radio('hide_icon', 'Y', $character->HideIcon === 'Y');
-        $hideIconNo = FormHelper::Radio('hide_icon', 'N', $character->HideIcon === 'N');
-        $viewPassword = FormHelper::Text('view_password', $character->ViewPassword, array('size' => 20, 'maxlength' => 30));
+        $showSheetNo  = FormHelper::Radio('show_sheet', 'N', $character->ShowSheet == 'N');
+        $hideIconYes  = FormHelper::Radio('hide_icon', 'Y', $character->HideIcon === 'Y');
+        $hideIconNo   = FormHelper::Radio('hide_icon', 'N', $character->HideIcon === 'N');
+        $viewPassword = FormHelper::Text('view_password', $character->ViewPassword,
+                                         array('size' => 20, 'maxlength' => 30));
 
         ob_start();
         ?>
@@ -116,30 +117,40 @@ class CharacterSheetHelper
             default:
                 break;
         }
+
         return $tableClass;
     }
 
     public static function MakeAttributesView(Character $character)
     {
         $intelligence = $character->getAttribute('Intelligence')->PowerLevel;
-        $wits = $character->getAttribute('Wits')->PowerLevel;
-        $resolve = $character->getAttribute('Resolve')->PowerLevel;
-        $strength = $character->getAttribute('Strength')->PowerLevel;
-        $dexterity = $character->getAttribute('Dexterity')->PowerLevel;
-        $stamina = $character->getAttribute('Stamina')->PowerLevel;
-        $presence = $character->getAttribute('Presence')->PowerLevel;
+        $wits         = $character->getAttribute('Wits')->PowerLevel;
+        $resolve      = $character->getAttribute('Resolve')->PowerLevel;
+        $strength     = $character->getAttribute('Strength')->PowerLevel;
+        $dexterity    = $character->getAttribute('Dexterity')->PowerLevel;
+        $stamina      = $character->getAttribute('Stamina')->PowerLevel;
+        $presence     = $character->getAttribute('Presence')->PowerLevel;
         $manipulation = $character->getAttribute('Manipulation')->PowerLevel;
-        $composure = $character->getAttribute('Composure')->PowerLevel;
+        $composure    = $character->getAttribute('Composure')->PowerLevel;
 
-        $intelligence = FormHelper::Dots('intelligence', $intelligence, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
-        $wits = FormHelper::Dots('manipulation', $wits, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
-        $resolve = FormHelper::Dots('resolve', $resolve, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
-        $strength = FormHelper::Dots('strength', $strength, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
-        $dexterity = FormHelper::Dots('dexterity', $dexterity, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
-        $stamina = FormHelper::Dots('stamina', $stamina, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
-        $presence = FormHelper::Dots('presence', $presence, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
-        $manipulation = FormHelper::Dots('manipulation', $manipulation, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
-        $composure = FormHelper::Dots('composure', $composure, ElementType::Attribute, $character->CharacterType, 7, false, false, false);
+        $intelligence = FormHelper::Dots('intelligence', $intelligence, ElementType::Attribute,
+                                         $character->CharacterType, 7, false, false, false);
+        $wits         = FormHelper::Dots('manipulation', $wits, ElementType::Attribute, $character->CharacterType, 7,
+                                         false, false, false);
+        $resolve      = FormHelper::Dots('resolve', $resolve, ElementType::Attribute, $character->CharacterType, 7,
+                                         false, false, false);
+        $strength     = FormHelper::Dots('strength', $strength, ElementType::Attribute, $character->CharacterType, 7,
+                                         false, false, false);
+        $dexterity    = FormHelper::Dots('dexterity', $dexterity, ElementType::Attribute, $character->CharacterType, 7,
+                                         false, false, false);
+        $stamina      = FormHelper::Dots('stamina', $stamina, ElementType::Attribute, $character->CharacterType, 7,
+                                         false, false, false);
+        $presence     = FormHelper::Dots('presence', $presence, ElementType::Attribute, $character->CharacterType, 7,
+                                         false, false, false);
+        $manipulation = FormHelper::Dots('manipulation', $manipulation, ElementType::Attribute,
+                                         $character->CharacterType, 7, false, false, false);
+        $composure    = FormHelper::Dots('composure', $composure, ElementType::Attribute, $character->CharacterType, 7,
+                                         false, false, false);
 
         ob_start();
         ?>
@@ -238,219 +249,219 @@ class CharacterSheetHelper
         $skills = array("Academics", "Animal_Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry");
 
         foreach ($skills as $skill) {
-            $skillLower = strtolower($skill);
+            $skillLower  = strtolower($skill);
             $$skillLower = FormHelper::Dots(
-                $skillLower,
-                $character->getSkill($skill)->PowerLevel,
-                ElementType::Skill,
-                $character->CharacterType
+                                     $skillLower,
+                                     $character->getSkill($skill)->PowerLevel,
+                                     ElementType::Skill,
+                                     $character->CharacterType
             );
         }
 
         ob_start();
         ?>
         <table class="character-sheet <?php echo self::GetTableClassForCharacterType($character->CharacterType); ?>">
-            <tr>
-                <th colspan="7" style="text-align: center;">
-                    Skills
-                </th>
-            </tr>
-            <tr>
-                <th colspan="2">
-                    Mental
-                </th>
-                <th colspan="2">
-                    Physical
-                </th>
-                <th colspan="2">
-                    Social
-                </th>
-                <th>
-                    Specialties
-                </th>
-            </tr>
-            <tr style="vertical-align: top;">
-                <td>
-                    Academics
-                </td>
-                <td>
-                    <?php echo $academics; ?>
-                </td>
-                <td>
-                    Athletics
-                </td>
-                <td>
-                    <?php echo $athletics; ?>
-                </td>
-                <td>
-                    Animal Ken
-                </td>
-                <td>
-                    <?php echo $animal_ken; ?>
-                </td>
-                <td rowspan="11" style="vertical-align: top;">
-                    <table>
+        <tr>
+            <th colspan="7" style="text-align: center;">
+                Skills
+            </th>
+        </tr>
+        <tr>
+            <th colspan="2">
+                Mental
+            </th>
+            <th colspan="2">
+                Physical
+            </th>
+            <th colspan="2">
+                Social
+            </th>
+            <th>
+                Specialties
+            </th>
+        </tr>
+        <tr style="vertical-align: top;">
+            <td>
+                Academics
+            </td>
+            <td>
+                <?php echo $academics; ?>
+            </td>
+            <td>
+                Athletics
+            </td>
+            <td>
+                <?php echo $athletics; ?>
+            </td>
+            <td>
+                Animal Ken
+            </td>
+            <td>
+                <?php echo $animal_ken; ?>
+            </td>
+            <td rowspan="11" style="vertical-align: top;">
+                <table>
+                    <tr>
+                        <th>
+                            Skill
+                        </th>
+                        <th>
+                            Specialty
+                        </th>
+                    </tr>
+                    <?php foreach ($character->Specialties as $specialty): ?>
                         <tr>
-                            <th>
-                                Skill
-                            </th>
-                            <th>
-                                Specialty
-                            </th>
+                            <td>
+                                <?php echo $specialty->PowerNote; ?>
+                            </td>
+                            <td>
+                                <?php echo $specialty->PowerName; ?>
+                            </td>
                         </tr>
-                    <?php foreach($character->Specialties as $specialty): ?>
-                            <tr>
-                                <td>
-                                    <?php echo $specialty->PowerNote; ?>
-                                </td>
-                                <td>
-                                    <?php echo $specialty->PowerName; ?>
-                                </td>
-                            </tr>
                     <?php endforeach; ?>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Computer
-                </td>
-                <td>
-                    <?php echo $computer; ?>
-                </td>
-                <td>
-                    Brawl
-                </td>
-                <td>
-                    <?php echo $brawl; ?>
-                </td>
-                <td>
-                    Empathy
-                </td>
-                <td>
-                    <?php echo $empathy; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Crafts
-                </td>
-                <td>
-                    <?php echo $crafts; ?>
-                </td>
-                <td>
-                    Drive
-                </td>
-                <td>
-                    <?php echo $drive; ?>
-                </td>
-                <td>
-                    Expression
-                </td>
-                <td>
-                    <?php echo $expression; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Investigation
-                </td>
-                <td>
-                    <?php echo $investigation; ?>
-                </td>
-                <td>
-                    Firearms
-                </td>
-                <td>
-                    <?php echo $firearms; ?>
-                </td>
-                <td>
-                    Intimidation
-                </td>
-                <td>
-                    <?php echo $intimidation; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Medicine
-                </td>
-                <td>
-                    <?php echo $medicine; ?>
-                </td>
-                <td>
-                    Larceny
-                </td>
-                <td>
-                    <?php echo $larceny; ?>
-                </td>
-                <td>
-                    Persuasion
-                </td>
-                <td>
-                    <?php echo $persuasion; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Occult
-                </td>
-                <td>
-                    <?php echo $occult; ?>
-                </td>
-                <td>
-                    Stealth
-                </td>
-                <td>
-                    <?php echo $stealth; ?>
-                </td>
-                <td>
-                    Socialize
-                </td>
-                <td>
-                    <?php echo $socialize; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Politics
-                </td>
-                <td>
-                    <?php echo $politics; ?>
-                </td>
-                <td>
-                    Survival
-                </td>
-                <td>
-                    <?php echo $survival; ?>
-                </td>
-                <td>
-                    Streetwise
-                </td>
-                <td>
-                    <?php echo $streetwise; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Science
-                </td>
-                <td>
-                    <?php echo $science; ?>
-                </td>
-                <td>
-                    Weaponry
-                </td>
-                <td>
-                    <?php echo $weaponry; ?>
-                </td>
-                <td>
-                    Subterfuge
-                </td>
-                <td>
-                    <?php echo $subterfuge; ?>
-                </td>
-            </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Computer
+            </td>
+            <td>
+                <?php echo $computer; ?>
+            </td>
+            <td>
+                Brawl
+            </td>
+            <td>
+                <?php echo $brawl; ?>
+            </td>
+            <td>
+                Empathy
+            </td>
+            <td>
+                <?php echo $empathy; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Crafts
+            </td>
+            <td>
+                <?php echo $crafts; ?>
+            </td>
+            <td>
+                Drive
+            </td>
+            <td>
+                <?php echo $drive; ?>
+            </td>
+            <td>
+                Expression
+            </td>
+            <td>
+                <?php echo $expression; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Investigation
+            </td>
+            <td>
+                <?php echo $investigation; ?>
+            </td>
+            <td>
+                Firearms
+            </td>
+            <td>
+                <?php echo $firearms; ?>
+            </td>
+            <td>
+                Intimidation
+            </td>
+            <td>
+                <?php echo $intimidation; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Medicine
+            </td>
+            <td>
+                <?php echo $medicine; ?>
+            </td>
+            <td>
+                Larceny
+            </td>
+            <td>
+                <?php echo $larceny; ?>
+            </td>
+            <td>
+                Persuasion
+            </td>
+            <td>
+                <?php echo $persuasion; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Occult
+            </td>
+            <td>
+                <?php echo $occult; ?>
+            </td>
+            <td>
+                Stealth
+            </td>
+            <td>
+                <?php echo $stealth; ?>
+            </td>
+            <td>
+                Socialize
+            </td>
+            <td>
+                <?php echo $socialize; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Politics
+            </td>
+            <td>
+                <?php echo $politics; ?>
+            </td>
+            <td>
+                Survival
+            </td>
+            <td>
+                <?php echo $survival; ?>
+            </td>
+            <td>
+                Streetwise
+            </td>
+            <td>
+                <?php echo $streetwise; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Science
+            </td>
+            <td>
+                <?php echo $science; ?>
+            </td>
+            <td>
+                Weaponry
+            </td>
+            <td>
+                <?php echo $weaponry; ?>
+            </td>
+            <td>
+                Subterfuge
+            </td>
+            <td>
+                <?php echo $subterfuge; ?>
+            </td>
+        </tr>
         </table>
 
         <?php
@@ -459,7 +470,7 @@ class CharacterSheetHelper
 
     public static function MakeVitalsViewOwn(Character $character)
     {
-        switch($character->CharacterType) {
+        switch ($character->CharacterType) {
             case 'Vampire':
                 return self::MakeVitalsViewOwnVampire($character);
                 break;
@@ -586,17 +597,499 @@ class CharacterSheetHelper
         $icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
         if ($type == 'admin') {
             $icon_query = "select * from icons where Admin_Viewable='Y' order by Icon_Name;";
-        } else if ($type == 'st') {
-            $icon_query = "select * from icons where GM_Viewable='Y' order by Icon_Name;";
+        }
+        else {
+            if ($type == 'st') {
+                $icon_query = "select * from icons where GM_Viewable='Y' order by Icon_Name;";
+            }
         }
 
-        $icons = Database::GetInstance()->Query($icon_query)->All();
-        $ids = array();
+        $icons  = Database::GetInstance()->Query($icon_query)->All();
+        $ids    = array();
         $values = array();
-        foreach($icons as $icon) {
-            $ids[] = $icon['Icon_ID'];
+        foreach ($icons as $icon) {
+            $ids[]    = $icon['Icon_ID'];
             $values[] = $icon['Icon_Name'];
         }
+
         return buildSelect($character->Icon, $ids, $values, "icon");
+    }
+
+    public function MakeStView($stats, $userdata, $characterType)
+    {
+        $viewed_sheet        = false;
+        $edit_show_sheet     = false;
+        $edit_name           = false;
+        $edit_vitals         = false;
+        $edit_is_dead        = false;
+        $edit_location       = false;
+        $edit_concept        = false;
+        $edit_description    = false;
+        $edit_url            = false;
+        $edit_equipment      = false;
+        $edit_public_effects = false;
+        $edit_group          = false;
+        $edit_exit_line      = false;
+        $edit_is_npc         = false;
+        $edit_attributes     = false;
+        $edit_skills         = false;
+        $edit_perm_traits    = false;
+        $edit_temp_traits    = false;
+        $edit_powers         = false;
+        $edit_history        = false;
+        $edit_goals          = false;
+        $edit_login_note     = false;
+        $edit_experience     = false;
+        $show_st_notes       = false;
+        $view_is_asst        = false;
+        $view_is_st          = false;
+        $view_is_head        = false;
+        $view_is_admin       = false;
+        $may_edit            = false;
+        $edit_cell           = false;
+        $calculate_derived   = false;
+        $edit_xp             = false;
+
+        if ($userdata['is_admin']) {
+            $viewed_sheet        = true;
+            $edit_show_sheet     = true;
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_is_npc         = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_login_note     = true;
+            $edit_experience     = true;
+            $show_st_notes       = true;
+            $view_is_asst        = true;
+            $view_is_st          = true;
+            $view_is_head        = true;
+            $view_is_admin       = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+            if ($stats['is_sanctioned'] == '') {
+                $edit_xp = true;
+            }
+        }
+
+        if (!$viewed_sheet && $userdata['is_head']) {
+            $viewed_sheet        = true;
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_is_npc         = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_login_note     = true;
+            $edit_experience     = true;
+            $show_st_notes       = true;
+            $view_is_asst        = true;
+            $view_is_st          = true;
+            $view_is_head        = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+            if ($stats['is_sanctioned'] == '') {
+                $edit_xp = true;
+            }
+        }
+
+        if (!$viewed_sheet && $userdata['is_gm']) {
+            $viewed_sheet = true;
+            // open update
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_is_npc         = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_login_note     = true;
+            $edit_experience     = true;
+            $show_st_notes       = true;
+            $view_is_st          = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+            if ($stats['is_sanctioned'] == '') {
+                $edit_xp = true;
+            }
+        }
+
+        if (!$viewed_sheet && $userdata['is_asst']) {
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_is_npc         = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_login_note     = true;
+            $edit_experience     = true;
+            $show_st_notes       = true;
+            $view_is_asst        = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+            if ($stats['is_sanctioned'] == '') {
+                $edit_xp = true;
+            }
+        }
+
+        return buildWoDSheetXP($stats, $characterType, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc,
+                               $edit_is_dead, $edit_location, $edit_concept, $edit_description, $edit_url,
+                               $edit_equipment, $edit_public_effects, $edit_group, $edit_exit_line, $edit_is_npc,
+                               $edit_attributes, $edit_skills, $edit_perm_traits, $edit_temp_traits, $edit_powers,
+                               $edit_history, $edit_goals, $edit_login_note, $edit_experience, $show_st_notes,
+                               $view_is_asst, $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell,
+                               $calculate_derived, $edit_xp);
+
+    }
+
+    public function MakeViewOwn($stats, $characterType)
+    {
+        $edit_show_sheet     = false;
+        $edit_name           = false;
+        $edit_vitals         = false;
+        $edit_is_dead        = false;
+        $edit_location       = false;
+        $edit_concept        = false;
+        $edit_description    = false;
+        $edit_url            = false;
+        $edit_equipment      = false;
+        $edit_public_effects = false;
+        $edit_group          = false;
+        $edit_exit_line      = false;
+        $edit_is_npc         = false;
+        $edit_attributes     = false;
+        $edit_skills         = false;
+        $edit_perm_traits    = false;
+        $edit_temp_traits    = false;
+        $edit_powers         = false;
+        $edit_history        = false;
+        $edit_goals          = false;
+        $edit_login_note     = false;
+        $edit_experience     = false;
+        $show_st_notes       = false;
+        $view_is_asst        = false;
+        $view_is_st          = false;
+        $view_is_head        = false;
+        $view_is_admin       = false;
+        $may_edit            = false;
+        $edit_cell           = false;
+        $calculate_derived   = false;
+        $edit_xp             = false;
+
+        if (($stats['asst_sanctioned'] == 'Y') || ($stats['is_sanctioned'] == 'Y')) {
+            $edit_show_sheet  = true;
+            $edit_description = true;
+            $edit_url         = true;
+            $edit_exit_line   = true;
+            $edit_temp_traits = true;
+            $edit_goals       = true;
+            $may_edit         = true;
+        }
+        else {
+            $edit_show_sheet     = true;
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_is_npc         = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_experience     = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+            $calculate_derived   = true;
+            $edit_xp             = true;
+        }
+
+        return buildWoDSheetXP($stats, $characterType, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc,
+                               $edit_is_dead, $edit_location, $edit_concept, $edit_description, $edit_url,
+                               $edit_equipment, $edit_public_effects, $edit_group, $edit_exit_line, $edit_is_npc,
+                               $edit_attributes, $edit_skills, $edit_perm_traits, $edit_temp_traits, $edit_powers,
+                               $edit_history, $edit_goals, $edit_login_note, $edit_experience, $show_st_notes,
+                               $view_is_asst, $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell,
+                               $calculate_derived, $edit_xp);
+
+    }
+
+    public function MakeNewView($stats, $characterType)
+    {
+        $edit_show_sheet     = true;
+        $edit_name           = true;
+        $edit_vitals         = true;
+        $edit_is_dead        = true;
+        $edit_location       = true;
+        $edit_concept        = true;
+        $edit_description    = true;
+        $edit_url            = true;
+        $edit_equipment      = true;
+        $edit_public_effects = true;
+        $edit_group          = true;
+        $edit_exit_line      = true;
+        $edit_is_npc         = true;
+        $edit_attributes     = true;
+        $edit_skills         = true;
+        $edit_perm_traits    = true;
+        $edit_temp_traits    = true;
+        $edit_powers         = true;
+        $edit_history        = true;
+        $edit_goals          = true;
+        $edit_login_note     = false;
+        $edit_experience     = true;
+        $show_st_notes       = false;
+        $view_is_asst        = false;
+        $view_is_st          = false;
+        $view_is_head        = false;
+        $view_is_admin       = false;
+        $may_edit            = true;
+        $edit_cell           = true;
+        $calculate_derived   = true;
+        $edit_xp             = true;
+
+        return buildWoDSheetXP($stats, $characterType, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc,
+                               $edit_is_dead, $edit_location, $edit_concept, $edit_description, $edit_url,
+                               $edit_equipment, $edit_public_effects, $edit_group, $edit_exit_line, $edit_is_npc,
+                               $edit_attributes, $edit_skills, $edit_perm_traits, $edit_temp_traits, $edit_powers,
+                               $edit_history, $edit_goals, $edit_login_note, $edit_experience, $show_st_notes,
+                               $view_is_asst, $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell,
+                               $calculate_derived, $edit_xp);
+    }
+
+    public function MakeLockedView($stats, $characterType)
+    {
+        $edit_show_sheet     = false;
+        $edit_name           = false;
+        $edit_vitals         = false;
+        $edit_is_dead        = false;
+        $edit_location       = false;
+        $edit_concept        = false;
+        $edit_description    = false;
+        $edit_url            = false;
+        $edit_equipment      = false;
+        $edit_public_effects = false;
+        $edit_group          = false;
+        $edit_exit_line      = false;
+        $edit_is_npc         = false;
+        $edit_attributes     = false;
+        $edit_skills         = false;
+        $edit_perm_traits    = false;
+        $edit_temp_traits    = false;
+        $edit_powers         = false;
+        $edit_history        = false;
+        $edit_goals          = false;
+        $edit_login_note     = false;
+        $edit_experience     = false;
+        $show_st_notes       = false;
+        $view_is_asst        = false;
+        $view_is_st          = false;
+        $view_is_head        = false;
+        $view_is_admin       = false;
+        $may_edit            = false;
+        $edit_cell           = false;
+        $calculate_derived   = false;
+        $edit_xp             = false;
+
+        return buildWoDSheetXP($stats, $characterType, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc,
+                               $edit_is_dead, $edit_location, $edit_concept, $edit_description, $edit_url,
+                               $edit_equipment, $edit_public_effects, $edit_group, $edit_exit_line, $edit_is_npc,
+                               $edit_attributes, $edit_skills, $edit_perm_traits, $edit_temp_traits, $edit_powers,
+                               $edit_history, $edit_goals, $edit_login_note, $edit_experience, $show_st_notes,
+                               $view_is_asst, $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell,
+                               $calculate_derived, $edit_xp);
+    }
+
+    public function UpdateOwnLimited($oldValues, $newValues)
+    {
+        $edit_show_sheet     = true;
+        $edit_name           = false;
+        $edit_vitals         = false;
+        $edit_is_npc         = false;
+        $edit_is_dead        = false;
+        $edit_location       = false;
+        $edit_concept        = false;
+        $edit_description    = true;
+        $edit_url            = true;
+        $edit_equipment      = false;
+        $edit_public_effects = false;
+        $edit_group          = false;
+        $edit_exit_line      = true;
+        $edit_attributes     = false;
+        $edit_skills         = false;
+        $edit_perm_traits    = false;
+        $edit_temp_traits    = true;
+        $edit_powers         = false;
+        $edit_history        = false;
+        $edit_goals          = true;
+        $edit_login_note     = false;
+        $edit_experience     = false;
+        $show_st_notes       = false;
+        $view_is_asst        = false;
+        $view_is_st          = false;
+        $view_is_head        = false;
+        $view_is_admin       = false;
+        $may_edit            = true;
+        $edit_cell           = false;
+
+        $error = updateWoDSheetXP($newValues, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
+                                  $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment,
+                                  $edit_public_effects, $edit_group, $edit_exit_line, $edit_attributes, $edit_skills,
+                                  $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
+                                  $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
+                                  $view_is_head, $view_is_admin, $may_edit, $edit_cell);
+        if ($error == '') {
+            $this->LogChanges($oldValues, $newValues);
+        }
+    }
+
+    public function UpdateOwnFull($oldValues, $newValues)
+    {
+        $edit_show_sheet     = true;
+        $edit_name           = true;
+        $edit_vitals         = true;
+        $edit_is_npc         = true;
+        $edit_is_dead        = true;
+        $edit_location       = true;
+        $edit_concept        = true;
+        $edit_description    = true;
+        $edit_url            = true;
+        $edit_equipment      = true;
+        $edit_public_effects = true;
+        $edit_group          = true;
+        $edit_exit_line      = true;
+        $edit_attributes     = true;
+        $edit_skills         = true;
+        $edit_perm_traits    = true;
+        $edit_temp_traits    = true;
+        $edit_powers         = true;
+        $edit_history        = true;
+        $edit_goals          = true;
+        $edit_login_note     = false;
+        $edit_experience     = false;
+        $show_st_notes       = false;
+        $view_is_asst        = false;
+        $view_is_st          = false;
+        $view_is_head        = false;
+        $view_is_admin       = false;
+        $may_edit            = true;
+        $edit_cell           = true;
+
+        $error = updateWoDSheetXP($_POST, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
+                                  $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment,
+                                  $edit_public_effects, $edit_group, $edit_exit_line, $edit_attributes, $edit_skills,
+                                  $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
+                                  $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
+                                  $view_is_head, $view_is_admin, $may_edit, $edit_cell);
+        if ($error == '') {
+            $this->LogChanges($oldValues, $newValues);
+        }
+    }
+
+    private function LogChanges($oldValues, $newValues)
+    {
+    }
+
+    public function UpdateNew($stats)
+    {
+        $edit_show_sheet     = true;
+        $edit_name           = true;
+        $edit_vitals         = true;
+        $edit_is_npc         = true;
+        $edit_is_dead        = true;
+        $edit_location       = true;
+        $edit_concept        = true;
+        $edit_description    = true;
+        $edit_url            = true;
+        $edit_equipment      = true;
+        $edit_public_effects = true;
+        $edit_group          = true;
+        $edit_exit_line      = true;
+        $edit_attributes     = true;
+        $edit_skills         = true;
+        $edit_perm_traits    = true;
+        $edit_temp_traits    = true;
+        $edit_powers         = true;
+        $edit_history        = true;
+        $edit_goals          = true;
+        $edit_login_note     = false;
+        $edit_experience     = false;
+        $show_st_notes       = false;
+        $view_is_asst        = false;
+        $view_is_st          = false;
+        $view_is_head        = false;
+        $view_is_admin       = false;
+        $may_edit            = true;
+        $edit_cell           = true;
+
+        return updateWoDSheetXP($stats, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc,
+                                $edit_is_dead, $edit_location, $edit_concept, $edit_description,
+                                $edit_url, $edit_equipment, $edit_public_effects, $edit_group,
+                                $edit_exit_line, $edit_attributes, $edit_skills, $edit_perm_traits,
+                                $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
+                                $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst,
+                                $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell);
+
     }
 }

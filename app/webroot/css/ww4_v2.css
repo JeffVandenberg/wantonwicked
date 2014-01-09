@@ -528,6 +528,10 @@ table.character-sheet {
     margin-bottom: 5px;
 }
 
+table.character-sheet label {
+    display: inline;
+}
+
 table.character-sheet th {
     border: 0;
     background-color: transparent;
@@ -540,6 +544,11 @@ table.character-sheet td {
     background-color: transparent;
 }
 
+table.character-sheet td.header-row {
+    font-weight: bold;;
+    text-align: center;
+    font-size: 14px;
+}
 table.character-sheet tr:nth-child(even) td {
     background-color: transparent;
 }

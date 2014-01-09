@@ -46,14 +46,18 @@ EOQ;
         $characterId = (int) $characterId;
         $sql = <<<EOQ
 SELECT
-    *
+    U.username,
+    C.*,
+    UU.username
 FROM
-    characters
+    characters AS C
+    INNER JOIN phpbb_users AS U ON C.user_id = U.user_id
+    LEFT JOIN phpbb_users AS UU ON C.updated_by_id = UU.user_id
 WHERE
-    character_id = $characterId
+    C.id = ?
 EOQ;
-
-        return ExecuteQueryItem($sql);
+        $params = array($characterId);
+        return $this->Query($sql)->Single($params);
     }
 
     /**
@@ -210,5 +214,25 @@ ORDER BY
 EOQ;
 
         return $this->Query($sql)->All(array($userId));
+    }
+
+    public function FindByName($characterName)
+    {
+        $query = <<<EOQ
+SELECT
+    U.username,
+    C.*,
+    UU.username
+FROM
+    characters AS C
+    INNER JOIN phpbb_users AS U ON C.user_id = U.user_id
+    LEFT JOIN phpbb_users AS UU ON C.updated_by_id = UU.user_id
+    LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
+WHERE
+    character_name = ?
+EOQ;
+
+        $params = array($characterName);
+        return $this->Query($query)->Single($params);
     }
 }

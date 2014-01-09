@@ -1,5 +1,7 @@
 <?php
 /** @var $table_class string */
+use classes\core\helpers\FormHelper;
+
 /** @var $characterId int */
 /** @var $max_dots int */
 /** @var $input_class string */
@@ -209,7 +211,7 @@ EOQ;
 $gifts = getPowers($characterId, 'AffGift', NOTELEVEL, 5);
 
 for ($i = 0; $i < sizeof($gifts); $i++) {
-    $gift_dots = makeDotsXP("affgift${i}", $element_type['supernatural'], $character_type, $max_dots, $gifts[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $gift_dots = FormHelper::Dots("affgift${i}", $gifts[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $gift_note = $gifts[$i]->getPowerNote();
     $gift_name = $gifts[$i]->getPowerName();
@@ -267,7 +269,7 @@ EOQ;
 $gifts = getPowers($characterId, 'NonAffGift', NOTELEVEL, 3);
 
 for ($i = 0; $i < sizeof($gifts); $i++) {
-    $gift_dots = makeDotsXP("nonaffgift${i}", $element_type['supernatural'], $character_type, $max_dots, $gifts[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $gift_dots = FormHelper::Dots("nonaffgift${i}", $gifts[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $gift_note = $gifts[$i]->getPowerNote();
     $gift_name = $gifts[$i]->getPowerName();
@@ -316,7 +318,7 @@ EOQ;
 
 $renowns = getRenownsRituals($characterId);
 
-$rituals_dots = makeDotsXP("rituals", $element_type['supernatural'], $character_type, $max_dots, $renowns["rituals"]->getPowerLevel(), $edit_powers, false, $edit_xp);
+$rituals_dots = FormHelper::Dots("rituals", $renowns["rituals"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 $rituals_id = $renowns["rituals"]->getPowerID();
 
 $ritual_list .= <<<EOQ
@@ -342,7 +344,7 @@ EOQ;
 $rituals = getPowers($characterId, 'Ritual', NAMENOTE, 2);
 
 for ($i = 0; $i < sizeof($rituals); $i++) {
-    $ritual_dots = makeDotsXP("ritual${i}", $element_type['merit'], $character_type, $max_dots, $rituals[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+    $ritual_dots = FormHelper::Dots("ritual${i}", $rituals[$i]->getPowerLevel(), $element_type['merit'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 
     $ritual_name = $rituals[$i]->getPowerName();
     $ritual_id = $rituals[$i]->getPowerID();
@@ -368,19 +370,19 @@ EOQ;
 
 $ritual_list .= "</table>";
 
-$purity_dots = makeDotsXP("purity", $element_type['supernatural'], $character_type, $max_dots, $renowns["purity"]->getPowerLevel(), $edit_powers, false, $edit_xp);
+$purity_dots = FormHelper::Dots("purity", $renowns["purity"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 $purity_id = $renowns["purity"]->getPowerID();
 
-$glory_dots = makeDotsXP("glory", $element_type['supernatural'], $character_type, $max_dots, $renowns["glory"]->getPowerLevel(), $edit_powers, false, $edit_xp);
+$glory_dots = FormHelper::Dots("glory", $renowns["glory"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 $glory_id = $renowns["glory"]->getPowerID();
 
-$honor_dots = makeDotsXP("honor", $element_type['supernatural'], $character_type, $max_dots, $renowns["honor"]->getPowerLevel(), $edit_powers, false, $edit_xp);
+$honor_dots = FormHelper::Dots("honor", $renowns["honor"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 $honor_id = $renowns["honor"]->getPowerID();
 
-$wisdom_dots = makeDotsXP("wisdom", $element_type['supernatural'], $character_type, $max_dots, $renowns["wisdom"]->getPowerLevel(), $edit_powers, false, $edit_xp);
+$wisdom_dots = FormHelper::Dots("wisdom", $renowns["wisdom"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 $wisdom_id = $renowns["wisdom"]->getPowerID();
 
-$cunning_dots = makeDotsXP("cunning", $element_type['supernatural'], $character_type, $max_dots, $renowns["cunning"]->getPowerLevel(), $edit_powers, false, $edit_xp);
+$cunning_dots = FormHelper::Dots("cunning", $renowns["cunning"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 $cunning_id = $renowns["cunning"]->getPowerID();
 
 $traits_table = <<<EOQ
