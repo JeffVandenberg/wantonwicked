@@ -1,6 +1,7 @@
 <?php
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
+use classes\log\data\ActionType;
 use classes\support\SupportManager;
 
 ini_set('display_errors', 1);
@@ -17,13 +18,13 @@ include 'cgi-bin/start_of_page.php';
 //$abp->AdjustCurrentBlood();
 
 $enrollmentManager = new SupportManager();
-if(date('d') == 1) {
+if (date('d') == 1) {
     $enrollmentManager->AwardBonusXP();
 }
 $enrollmentManager->SendReminderEmails();
 $enrollmentManager->ExpireSupporterStatus();
 
-$db = new Database();
+$db          = new Database();
 $autoBpQuery = <<<EOQ
 UPDATE 
 	wod_characters
@@ -40,16 +41,15 @@ EOQ;
 
 $db->Query($autoBpQuery)->Execute();
 
-if(date('D') == 'Fri')
-{
-	$update_experience_query = "update wod_characters set current_experience = current_experience + 3, total_experience = total_experience + 3 where is_sanctioned='Y';";
-	$db->Query($update_experience_query)->Execute();
+if (date('D') == 'Fri') {
+    $update_experience_query = "update wod_characters set current_experience = current_experience + 3, total_experience = total_experience + 3 where is_sanctioned='Y';";
+    $db->Query($update_experience_query)->Execute();
 }
 $update_willpower_query = "update wod_characters set willpower_temp = willpower_temp + 1 where willpower_temp < willpower_perm;";
 $db->Query($update_willpower_query)->Execute();
 
 // unsanction characters more than 1 month inactive
-$month_ago = date('Y-m-d', mktime(0, 0, 0, date('m')-1, date('d'), date('Y')));
+$month_ago = date('Y-m-d', mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')));
 
 $unsanc_query = <<<EOQ
 UPDATE
@@ -66,13 +66,16 @@ WHERE
         FROM
             log_characters
         WHERE
-            created >= :month
-            AND action_type_id = :login
+            created >= ?
+            AND action_type_id = ?
     )
 EOQ;
-//$desancedCharacters = $db->Query($unsanc_query)->Bind('month', $month_ago)->Bind('login', ActionType::Login)->Execute();
 
-$now = date("Y-m-d H:i:s");
+$params = array($month_ago, ActionType::Login);
+
+$desancedCharacters = $db->Query($unsanc_query)->Execute($params);
+
+$now     = date("Y-m-d H:i:s");
 $message = <<<EOQ
 maintence completed on: $now
 Desanctioned Characters: $desancedCharacters
