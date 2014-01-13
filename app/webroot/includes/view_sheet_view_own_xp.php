@@ -47,6 +47,7 @@ $java_script .= <<<EOQ
 <script src="js/create_character_xp.js" type="text/javascript"></script>
 <script>
     setXpEdit($edit_xp); ?>
+    drawSheet();
 </script>
 EOQ;
 

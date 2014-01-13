@@ -14,6 +14,8 @@ use classes\character\data\Character;
 use classes\character\data\ElementType;
 use classes\core\helpers\FormHelper;
 use classes\core\repository\Database;
+use classes\log\CharacterLog;
+use classes\log\data\ActionType;
 
 class CharacterSheetHelper
 {
@@ -681,9 +683,6 @@ class CharacterSheetHelper
             $view_is_admin       = true;
             $may_edit            = true;
             $edit_cell           = true;
-            if ($stats['is_sanctioned'] == '') {
-                $edit_xp = true;
-            }
         }
 
         if (!$viewed_sheet && $userdata['is_head']) {
@@ -715,9 +714,6 @@ class CharacterSheetHelper
             $view_is_head        = true;
             $may_edit            = true;
             $edit_cell           = true;
-            if ($stats['is_sanctioned'] == '') {
-                $edit_xp = true;
-            }
         }
 
         if (!$viewed_sheet && $userdata['is_gm']) {
@@ -748,9 +744,6 @@ class CharacterSheetHelper
             $view_is_st          = true;
             $may_edit            = true;
             $edit_cell           = true;
-            if ($stats['is_sanctioned'] == '') {
-                $edit_xp = true;
-            }
         }
 
         if (!$viewed_sheet && $userdata['is_asst']) {
@@ -779,9 +772,9 @@ class CharacterSheetHelper
             $view_is_asst        = true;
             $may_edit            = true;
             $edit_cell           = true;
-            if ($stats['is_sanctioned'] == '') {
-                $edit_xp = true;
-            }
+        }
+        if ($stats['is_sanctioned'] == '') {
+            $edit_xp = true;
         }
 
         return buildWoDSheetXP($stats, $characterType, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc,
@@ -1036,7 +1029,7 @@ class CharacterSheetHelper
         $may_edit            = true;
         $edit_cell           = true;
 
-        $error = updateWoDSheetXP($_POST, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
+        $error = updateWoDSheetXP($newValues, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
                                   $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment,
                                   $edit_public_effects, $edit_group, $edit_exit_line, $edit_attributes, $edit_skills,
                                   $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
@@ -1047,11 +1040,11 @@ class CharacterSheetHelper
         }
     }
 
-    private function LogChanges($oldValues, $newValues)
+    private function LogChanges($newValues, $oldValues)
     {
     }
 
-    public function UpdateNew($stats)
+    public function UpdateNew($newStats)
     {
         $edit_show_sheet     = true;
         $edit_name           = true;
@@ -1083,13 +1076,185 @@ class CharacterSheetHelper
         $may_edit            = true;
         $edit_cell           = true;
 
-        return updateWoDSheetXP($stats, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc,
-                                $edit_is_dead, $edit_location, $edit_concept, $edit_description,
-                                $edit_url, $edit_equipment, $edit_public_effects, $edit_group,
-                                $edit_exit_line, $edit_attributes, $edit_skills, $edit_perm_traits,
-                                $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
-                                $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst,
-                                $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell);
+        $error = updateWoDSheetXP($newStats, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
+                                  $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment,
+                                  $edit_public_effects, $edit_group, $edit_exit_line, $edit_attributes, $edit_skills,
+                                  $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
+                                  $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
+                                  $view_is_head, $view_is_admin, $may_edit, $edit_cell);
+        if ($error == '') {
+            $this->LogChanges($newStats, array());
+        }
+    }
 
+    public function UpdateSt($newStats, $oldStats, $userdata)
+    {
+        $viewed_sheet        = false;
+        $edit_show_sheet     = false;
+        $edit_name           = false;
+        $edit_vitals         = false;
+        $edit_is_npc         = false;
+        $edit_is_dead        = false;
+        $edit_location       = false;
+        $edit_concept        = false;
+        $edit_description    = false;
+        $edit_url            = false;
+        $edit_equipment      = false;
+        $edit_public_effects = false;
+        $edit_group          = false;
+        $edit_exit_line      = false;
+        $edit_attributes     = false;
+        $edit_skills         = false;
+        $edit_perm_traits    = false;
+        $edit_temp_traits    = false;
+        $edit_powers         = false;
+        $edit_history        = false;
+        $edit_goals          = false;
+        $edit_login_note     = false;
+        $edit_experience     = false;
+        $show_st_notes       = false;
+        $view_is_asst        = false;
+        $view_is_st          = false;
+        $view_is_head        = false;
+        $view_is_admin       = false;
+        $may_edit            = false;
+        $edit_cell           = false;
+
+        if ($userdata['is_admin']) {
+            $viewed_sheet        = true;
+            $edit_show_sheet     = true;
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_npc         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_login_note     = true;
+            $edit_experience     = true;
+            $show_st_notes       = true;
+            $view_is_asst        = true;
+            $view_is_st          = true;
+            $view_is_head        = true;
+            $view_is_admin       = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+        }
+
+        if (!$viewed_sheet && $userdata['is_head']) {
+            $viewed_sheet        = true;
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_npc         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_login_note     = true;
+            $edit_experience     = true;
+            $show_st_notes       = true;
+            $view_is_asst        = true;
+            $view_is_st          = true;
+            $view_is_head        = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+        }
+
+        if (!$viewed_sheet && $userdata['is_gm']) {
+            $viewed_sheet = true;
+            // open update
+            $edit_show_sheet     = false;
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_npc         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_login_note     = true;
+            $edit_experience     = true;
+            $show_st_notes       = true;
+            $view_is_st          = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+        }
+
+        if (!$viewed_sheet && $userdata['is_asst']) {
+            $viewed_sheet        = true;
+            $edit_name           = true;
+            $edit_vitals         = true;
+            $edit_is_npc         = true;
+            $edit_is_dead        = true;
+            $edit_location       = true;
+            $edit_concept        = true;
+            $edit_description    = true;
+            $edit_url            = true;
+            $edit_equipment      = true;
+            $edit_public_effects = true;
+            $edit_group          = true;
+            $edit_exit_line      = true;
+            $edit_attributes     = true;
+            $edit_skills         = true;
+            $edit_perm_traits    = true;
+            $edit_temp_traits    = true;
+            $edit_powers         = true;
+            $edit_history        = true;
+            $edit_goals          = true;
+            $edit_login_note     = true;
+            $edit_experience     = true;
+            $show_st_notes       = true;
+            $view_is_asst        = true;
+            $may_edit            = true;
+            $edit_cell           = true;
+        }
+        if ($viewed_sheet) {
+            CharacterLog::LogAction($newStats['character_id'], ActionType::UpdateCharacter, 'ST Updated Sheet',
+                                    $userdata['user_id']);
+            $error = updateWoDSheetXP($newStats, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
+                                      $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment,
+                                      $edit_public_effects, $edit_group, $edit_exit_line, $edit_attributes, $edit_skills,
+                                      $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
+                                      $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
+                                      $view_is_head, $view_is_admin, $may_edit, $edit_cell);
+            if ($error == '') {
+                $this->LogChanges($newStats, $oldStats);
+            }
+        }
     }
 }

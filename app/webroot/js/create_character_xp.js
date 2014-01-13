@@ -1669,6 +1669,10 @@ function SubmitCharacter() {
 function setXpEdit(xp_edit) {
     edit_xp = xp_edit;
 }
+function setPageAction(action) {
+    page_action = action;
+}
+
 function loadNew(xp_edit) {
     edit_xp = xp_edit;
     var url = "view_sheet.php?action=get&type=new&character_type=Mortal";
@@ -1695,7 +1699,7 @@ function loadCharacterSTView(view_character_id, xp_edit) {
 
 function changeSheet(character_type) {
     var sheet = $("#charSheet");
-    var url = "view_sheet.php?action=get&type=" + page_action + "&character_type=" + character_type + "&character_id=" + character_id;
+    var url = "view_sheet.php?action=get&type=" + page_action + "&character_type=" + character_type + "&character_id=" + $("#character_id").val();
     sheet
         .html("Loading new character sheet...")
         .load(url, drawSheet);
@@ -1703,7 +1707,6 @@ function changeSheet(character_type) {
 
 function drawSheet() {
     var character_type = getCharacterType();
-
     if (edit_xp) {
         if (character_type == 'Vampire') {
             addVampAttributeSelect();

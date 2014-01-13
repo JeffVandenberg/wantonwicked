@@ -48,7 +48,7 @@ EOQ;
 SELECT
     U.username,
     C.*,
-    UU.username
+    UU.username as updated_by_username
 FROM
     characters AS C
     INNER JOIN phpbb_users AS U ON C.user_id = U.user_id
@@ -222,17 +222,43 @@ EOQ;
 SELECT
     U.username,
     C.*,
-    UU.username
+    UU.username as updated_by_username
 FROM
     characters AS C
     INNER JOIN phpbb_users AS U ON C.user_id = U.user_id
     LEFT JOIN phpbb_users AS UU ON C.updated_by_id = UU.user_id
-    LEFT JOIN login AS asst_login ON characters.last_asst_st_updated = asst_login.id
 WHERE
     character_name = ?
 EOQ;
 
         $params = array($characterName);
         return $this->Query($query)->Single($params);
+    }
+
+    public function AutocompleteSearch($characterName, $onlySanctioned)
+    {
+        $sql = <<<EOQ
+SELECT
+    C.id,
+    C.character_name
+FROM
+    characters AS C
+WHERE
+    C.is_deleted = 'N'
+    AND (
+        (C.is_sanctioned = 'Y' AND (:only_sanctioned = 1))
+        OR
+        (:only_sanctioned = 0)
+    )
+    AND C.character_name like :character_name
+ORDER BY
+    C.character_name
+LIMIT 20
+EOQ;
+        $params = array(
+            'only_sanctioned' => (int) $onlySanctioned,
+            'character_name' => $characterName.'%'
+        );
+        return $this->Query($sql)->All($params);
     }
 }

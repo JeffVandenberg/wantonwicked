@@ -34,6 +34,7 @@ $java_script .= <<<EOQ
 <script>
     $(function() {
         setXpEdit(true);
+        setPageAction('view_own');
         drawSheet();
     });
 </script>

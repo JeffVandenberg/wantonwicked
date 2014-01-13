@@ -153,7 +153,6 @@ EOQ;
         // set sheet values based on passed stats
         $characterId    = $stats['id'];
         $character_name = $stats['character_name'];
-        $character_type = $stats['character_type'];
         $show_sheet     = $stats['show_sheet'];
         $view_password  = $stats['view_password'];
         $hide_icon      = $stats['hide_icon'];
@@ -207,7 +206,7 @@ EOQ;
         $current_experience   = $stats['current_experience'];
         $total_experience     = $stats['total_experience'];
         $bonus_received       = $stats['bonus_received'];
-        $last_st_updated      = $stats['updated_by_name'];
+        $last_st_updated      = $stats['updated_by_username'];
         $when_last_st_updated = $stats['updated_on'];
         $gm_notes             = $stats['gm_notes'];
         $sheet_updates        = $stats['sheet_update'];
@@ -748,7 +747,6 @@ EOQ;
     // create human readable version of status
     $temp_asst = ($asst_sanctioned == "") ? "X" : $asst_sanctioned;
     $temp_sanc = ($is_sanctioned == "") ? "X" : $is_sanctioned;
-    $temp_head = ($head_sanctioned == "") ? "X" : $head_sanctioned;
 
     $temp_status = $temp_sanc . $temp_asst;
 
@@ -762,7 +760,7 @@ EOQ;
             $view_status = "Presanctioned";
             break;
         case 'XX':
-            $view_status = "Unviewed";
+            $view_status = "New";
             break;
         case 'XN':
         case 'NY':
@@ -774,12 +772,6 @@ EOQ;
 
     if ($show_st_notes_table) {
         if ($view_is_head) {
-            $head_sanc_yes_check = ($head_sanctioned == 'Y') ? "checked" : "";
-            $head_sanc_no_check  = ($head_sanctioned == 'N') ? "checked" : "";
-            $head_sanctioned     = <<<EOQ
-Yes: <input type="radio" name="head_sanctioned" value="Y" $head_sanc_yes_check>
-No: <input type="radio" name="head_sanctioned" value="N" $head_sanc_no_check>
-EOQ;
         }
 
         if ($view_is_st) {
@@ -822,14 +814,6 @@ EOQ;
         </th>
     </tr>
     <tr>
-        <td>
-            Login Note:
-        </td>
-        <td colspan="3">
-            $login_note
-        </td>
-    </tr>
-    <tr>
         <td width="25%">
             Created On:
         </td>
@@ -848,25 +832,13 @@ EOQ;
             Login Name:
         </td>
         <td width="25%">
-            $stats[Name]
+            $stats[username]
         </td>
         <td width="25%">
+            Status:
         </td>
         <td width="25%">
-        </td>
-    </tr>
-    <tr>
-        <td width="25%">
-            Head Sanctioned
-        </td>
-        <td width="25%">
-            $head_sanctioned
-        </td>
-        <td width="25%">
-            Last ST Updated
-        </td>
-        <td width="25%">
-            $last_st_updated
+            $view_status
         </td>
     </tr>
     <tr>
@@ -877,10 +849,10 @@ EOQ;
             $is_sanctioned
         </td>
         <td width="25%">
-            When Last ST Updated
+            Last ST Updated
         </td>
         <td width="25%">
-            $when_last_st_updated
+            $last_st_updated
         </td>
     </tr>
     <tr>
@@ -891,24 +863,10 @@ EOQ;
             $asst_sanctioned
         </td>
         <td width="25%">
-
+            When Last ST Updated
         </td>
         <td width="25%">
-
-        </td>
-    </tr>
-    <tr>
-        <td width="25%">
-            Status:
-        </td>
-        <td width="25%">
-            $view_status
-        </td>
-        <td width="25%">
-            When Last Asst ST Updated
-        </td>
-        <td width="25%">
-
+            $when_last_st_updated
         </td>
     </tr>
     <tr>

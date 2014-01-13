@@ -29,8 +29,8 @@ EOQ;
         $input .= self::AppendOptions($options);
 
         $input .= " />";
-
-        return self::CreateLabel($name) . $input;
+        $input = self::CreateLabel($name) . $input;
+        return $input;
     }
 
     private static function ConvertNameToID($name)
@@ -73,6 +73,7 @@ EOQ;
         $input .= self::AppendOptionValues($values, array($selectedValue));
 
         $input .= "</select>";
+        $input = self::CreateLabel($name) . $input;
         return $input;
     }
 
@@ -108,6 +109,7 @@ EOQ;
         $input .= self::AppendOptions($options);
 
         $input .= '>' . $value . '</textarea>';
+        $input = self::CreateLabel($name) . $input;
         return $input;
     }
 
@@ -143,6 +145,7 @@ EOQ;
     {
         self::CheckOptions($options);
         $id = self::ConvertNameToID($name);
+        $label = self::CreateLabel($name);
 
         $checked = ($checked === true) ? 'checked' : '';
 
@@ -154,7 +157,7 @@ EOQ;
         $input .= self::AppendOptions($options);
 
         $input .= " />";
-
+        $input = $label . $input;
         return $input;
     }
 
@@ -172,6 +175,7 @@ EOQ;
         $input .= self::AppendOptionValues($values, $selectedValues);
 
         $input .= "</select>";
+        $input = self::CreateLabel($name) . $input;
         return $input;
     }
 
@@ -206,6 +210,7 @@ EOQ;
         $input .= self::AppendOptions($options);
 
         $input .= " />";
+        $input = self::CreateLabel($name) . $input;
 
         return $input;
     }
@@ -245,7 +250,7 @@ EOQ;
             if($i <= $value)
             {
                 $input .= <<<EOQ
-<img src="img/{$character_type}_filled.gif" name="$dotName" id="$$dotId" style="border:none;" $js />
+<img src="img/{$character_type}_filled.gif" name="$dotName" id="$dotId" style="border:none;" $js />
 EOQ;
             }
             else
@@ -262,6 +267,7 @@ EOQ;
         }
 
         $input .= self::Hidden($name, $value);
+        $input = self::CreateLabel($name) . $input;
         return $input;
     }
 

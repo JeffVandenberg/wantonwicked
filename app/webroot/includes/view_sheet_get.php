@@ -14,7 +14,7 @@ $stats          = '';
 
 $characterRepository = new CharacterRepository();
 $stats               = $characterRepository->FindById($characterId);
-$character_type      = Request::GetValue('character_type', $stats['Character_Type']);
+//$character_type      = Request::GetValue('character_type', $stats['character_type']);
 
 $characterSheetHelper = new CharacterSheetHelper();
 
