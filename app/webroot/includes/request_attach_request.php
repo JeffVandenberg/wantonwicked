@@ -3,6 +3,7 @@
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::GetValue('request_id', 0);
@@ -19,6 +20,7 @@ if (isset($_POST['action'])) {
         $fromRequestId = $_POST['from_request_id'];
         if($requestRepository->AttachRequestToRequest($requestId, $fromRequestId)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
+            SessionHelper::SetFlashMessage('Attached Request');
             Response::Redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {

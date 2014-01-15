@@ -51,7 +51,7 @@ SELECT
 FROM
     requests AS R
     LEFT JOIN groups as G ON R.group_id = G.id
-    LEFT JOIN characters AS C on R.character_id = C.character_id
+    LEFT JOIN characters AS C on R.character_id = C.id
 WHERE
     R.id = $id;
 EOQ;
@@ -431,12 +431,12 @@ FROM
     LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
     LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
     LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
-    LEFT JOIN characters AS C ON R.character_id = C.character_id
+    LEFT JOIN characters AS C ON R.character_id = C.id
     LEFT JOIN groups as G ON R.group_id = G.id
 WHERE
     R.group_id IN ($groupListPlaceholders)
     AND C.is_deleted = 'N'
-    AND ((C.character_id = ?) OR (? = 0))
+    AND ((C.id = ?) OR (? = 0))
 EOQ;
         $parameters = $groups;
         $parameters[] = $characterId;
@@ -501,11 +501,11 @@ EOQ;
 
         $sql = <<<EOQ
 SELECT
-    C.character_id,
+    C.id,
     C.character_name
 FROM
     requests AS R
-    LEFT JOIN characters AS C2 ON R.character_id = C2.character_id
+    LEFT JOIN characters AS C2 ON R.character_id = C2.id
     LEFT JOIN characters AS C ON C2.city = C.city
 WHERE
     R.id = $requestId
@@ -574,7 +574,7 @@ SELECT
     RC.is_approved
 FROM
     requests as R
-    LEFT JOIN characters AS C ON R.character_id = C.character_id
+    LEFT JOIN characters AS C ON R.character_id = C.id
     LEFT JOIN request_characters AS RC ON R.id = RC.request_id
 WHERE
     R.request_type_id != $blueBook
@@ -595,7 +595,7 @@ SELECT
     COUNT(*) AS `count`
 FROM
     requests as R
-    LEFT JOIN characters AS C ON R.character_id = C.character_id
+    LEFT JOIN characters AS C ON R.character_id = C.id
 WHERE
     R.group_id IN ($groupListPlaceholders)
 EOQ;
@@ -722,7 +722,7 @@ FROM
         ) as closed
     FROM
         requests AS R
-        INNER JOIN characters as C ON R.character_id = C.character_id
+        INNER JOIN characters as C ON R.character_id = C.id
     ) AS A
 WHERE
     created IS NOT NULL

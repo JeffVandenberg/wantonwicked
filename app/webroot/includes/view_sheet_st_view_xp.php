@@ -2,6 +2,7 @@
 use classes\character\helper\CharacterSheetHelper;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\FormHelper;
+use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\SessionHelper;
 use classes\log\CharacterLog;
@@ -65,13 +66,13 @@ if ($view_character_id || $view_character_name) {
     }
 }
 
+$storytellerMenu = require_once('helpers/storyteller_menu.php');
+$menu = MenuHelper::GenerateMenu($storytellerMenu);
 ob_start();
 ?>
 
     <div>
-        <span class="highlight">Quick Links</span>:
-        <a href="storyteller_index.php">Storyteller Homepage</a>
-
+        <?php echo $menu; ?>
         <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <table style="width: 450px;">
                 <tr>

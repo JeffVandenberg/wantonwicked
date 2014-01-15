@@ -32,10 +32,10 @@ class CharacterRepository extends AbstractRepository
 SELECT
     COUNT(*) As `rows`
 FROM
-    login_character_index AS LCI
+    characters
 WHERE
-    login_id = $userId
-    AND character_id = $characterId;
+    user_id = $userId
+    AND id = $characterId;
 EOQ;
         $item = ExecuteQueryItem($sql);
         return $item['rows'] > 0;
@@ -71,7 +71,7 @@ SELECT
     C.*
 FROM
     characters AS C
-    INNER JOIN supporter_characters AS SC ON C.character_id = SC.character_id
+    INNER JOIN supporter_characters AS SC ON C.id = SC.character_id
 WHERE
     SC.supporter_id = ?
     AND C.is_sanctioned = 'Y'
@@ -106,7 +106,7 @@ EOQ;
         $sql = <<<EOQ
 UPDATE
     characters AS C
-    INNER JOIN supporter_characters AS SC ON C.character_id = SC.character_id
+    INNER JOIN supporter_characters AS SC ON C.id = SC.character_id
     INNER JOIN supporters AS S ON SC.supporter_id = S.id
 SET
     bonus_received = :xp,
@@ -169,7 +169,7 @@ SELECT
     C.*
 FROM
     characters AS C
-    INNER JOIN supporter_characters AS SC ON C.character_id = SC.character_id
+    INNER JOIN supporter_characters AS SC ON C.id = SC.character_id
     INNER JOIN supporters AS S ON SC.supporter_id = S.id
 WHERE
     C.is_sanctioned = 'Y'

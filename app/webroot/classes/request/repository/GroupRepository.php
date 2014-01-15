@@ -21,7 +21,7 @@ SELECT
     G.name
 FROM
     groups AS G
-    LEFT JOIN characters AS C ON (G.name = C.character_type AND C.character_id = $characterId)
+    LEFT JOIN characters AS C ON (G.name = C.character_type AND C.id = $characterId)
 WHERE
     (G.group_type_id = 2
     OR C.character_type IS NOT NULL)
@@ -43,7 +43,7 @@ FROM
     groups AS G
     LEFT JOIN characters AS C ON G.name = C.character_type
 WHERE
-    C.character_id = $characterId
+    C.id = $characterId
 EOQ;
 
         return ExecuteQueryItem($sql);

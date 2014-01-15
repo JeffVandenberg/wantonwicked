@@ -41,31 +41,24 @@ if (isset($_GET['action'])) {
             break;
         case 'give':
             include 'includes/favors_give.php';
-            $templateName = 'empty_template4.tpl';
             break;
         case 'add':
             include 'includes/favors_add.php';
-            $templateName = 'empty_template4.tpl';
             break;
         case 'view':
             include 'includes/favors_view.php';
-            $templateName = 'empty_template4.tpl';
             break;
         case 'transfer':
             include 'includes/favors_transfer.php';
-            $templateName = 'empty_template4.tpl';
             break;
         case 'transferFavor':
             include 'includes/favors_transferFavor.php';
-            $templateName = 'empty_template4.tpl';
             break;
         case 'discharge':
             include 'includes/favors_discharge.php';
-            $templateName = 'empty_template4.tpl';
             break;
         case 'break':
             include 'includes/favors_break.php';
-            $templateName = 'empty_template4.tpl';
             break;
         default:
             include 'includes/index_default.php';

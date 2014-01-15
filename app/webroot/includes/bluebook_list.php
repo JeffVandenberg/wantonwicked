@@ -39,7 +39,7 @@ if(($count / $pageSize) > $page) {
     $hasNext = true;
 }
 
-$contentHeader = $page_title = "Bluebook Entries for " . $character['Character_Name'];
+$contentHeader = $page_title = "Bluebook Entries for " . $character['character_name'];
 
 require_once('helpers/character_menu.php');
 /* @var array $characterMenu */

@@ -40,7 +40,7 @@ if (isset($_GET['action'])) {
         case 'player':
             break;
         case 'view':
-            $page_template = "main_ww4.tpl";
+            $page_template = "blank_ww4.tpl";
             include 'includes/notes_view.php';
             break;
         default:

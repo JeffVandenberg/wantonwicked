@@ -34,8 +34,8 @@ SELECT
 	favor_types.name AS favor_type_name
 FROM
 	favors
-		LEFT JOIN characters AS from_character ON favors.source_id = from_character.character_id
-		LEFT JOIN characters AS to_character ON favors.target_id = to_character.character_id
+		LEFT JOIN characters AS from_character ON favors.source_id = from_character.id
+		LEFT JOIN characters AS to_character ON favors.target_id = to_character.id
 		LEFT JOIN favor_types ON favors.favor_type_id = favor_types.id
 WHERE
 	favors.target_id = $characterId
@@ -60,8 +60,8 @@ SELECT
 	favor_types.name AS favor_type_name
 FROM
 	favors
-		LEFT JOIN characters AS from_character ON favors.source_id = from_character.character_id
-		LEFT JOIN characters AS to_character ON favors.target_id = to_character.character_id
+		LEFT JOIN characters AS from_character ON favors.source_id = from_character.id
+		LEFT JOIN characters AS to_character ON favors.target_id = to_character.id
 		LEFT JOIN favor_types ON favors.favor_type_id = favor_types.id
 WHERE
 	favors.source_id = $characterId
@@ -95,7 +95,7 @@ ob_start();
         </div>
     </div>
     <div class="paragraph">
-        <a href="#" onclick="return giveFavor(<?php echo $characterId; ?>);">Give Favor to another Character</a>
+        <a href="favors.php?action=give&character_id=<?php echo $characterId; ?>">Give Favor to another Character</a>
     </div>
     <h3 style="clear:both;">
         Favors Owed to <?php echo $character->CharacterName; ?>

@@ -3,6 +3,7 @@
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::GetValue('request_id', 0);
@@ -19,6 +20,7 @@ if (isset($_POST['action'])) {
         $bluebookId = $_POST['bluebook_id'];
         if($requestRepository->AttachBluebookToRequest($requestId, $bluebookId)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
+            SessionHelper::SetFlashMessage('Attached Bluebook Entry');
             Response::Redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {

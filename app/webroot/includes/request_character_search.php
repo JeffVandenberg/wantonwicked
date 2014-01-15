@@ -15,7 +15,7 @@ $list = array();
 foreach($characters as $i => $character)
 {
     $list[$i]['label'] = $character['character_name'];
-    $list[$i]['id'] = $character['character_id'];
+    $list[$i]['id'] = $character['id'];
 }
 
 if(count($list) == 0)

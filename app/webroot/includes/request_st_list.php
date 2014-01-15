@@ -1,6 +1,7 @@
 <?php
 /* @var array $userdata */
 use classes\core\helpers\FormHelper;
+use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Pagination;
 use classes\core\helpers\Request;
 use classes\core\repository\StorytellerRepository;
@@ -53,10 +54,12 @@ $requestTypes = array('All') + $requestTypes;
 $requestStatuses = $requestStatusRepository->SimpleListAll();
 $requestStatuses = array(0 => 'Open', -1 => 'All') + $requestStatuses;
 
+$storytellerMenu = require_once('helpers/storyteller_menu.php');
+$menu = MenuHelper::GenerateMenu($storytellerMenu);
 
 ob_start();
 ?>
-
+    <?php echo $menu; ?>
     <table>
         <tr>
             <th>

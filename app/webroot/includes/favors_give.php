@@ -1,33 +1,35 @@
 <?php
+/* @var array $userdata */
+
 // get character id
-$character_id = isset($_POST['character_id']) ? $_POST['character_id'] + 0 : 0;
-$character_id = isset($_GET['character_id']) ? $_GET['character_id'] + 0: $character_id;
+use classes\character\repository\CharacterRepository;
+use classes\core\helpers\Request;
+use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
+use classes\core\repository\RepositoryManager;
 
-$character_query = <<<EOQ
-SELECT C.*, Character_Name, l.Name
-FROM (characters AS C INNER JOIN login_character_index as lci ON C.id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
-WHERE C.id = $character_id
-	AND lci.login_id = $userdata[user_id]
-EOQ;
+$characterId = Request::GetValue('character_id');
 
-$character_result = mysql_query($character_query) or die(mysql_error());
-if(!mysql_num_rows($character_result))
-{
-	die('illegal character');
+$characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
+/* @var CharacterRepository $characterRepository */
+
+if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
+    SessionHelper::SetFlashMessage('Not a valid character to view!');
+    Response::Redirect('');
 }
 
 $page_title = "Give Favor";
+$favorType = 0;
 
-if($_POST['formSubmit'])
-{
-	// attempt to save favor
-	$favorTypeId = $_POST['favorTypeId'] + 0;
-	$targetCharacterId = $_POST['targetCharacterId'] + 0;
-	$description = htmlspecialchars($_POST['favorDescription']);
-	$notes = htmlspecialchars($_POST['favorNotes']);
-	$now = date('Y-m-d h:i:s');
-	
-	$createFavorQuery = <<<EOQ
+if ($_POST['formSubmit']) {
+    // attempt to save favor
+    $favorTypeId       = $_POST['favorTypeId'] + 0;
+    $targetCharacterId = $_POST['targetCharacterId'] + 0;
+    $description       = htmlspecialchars($_POST['favorDescription']);
+    $notes             = htmlspecialchars($_POST['favorNotes']);
+    $now               = date('Y-m-d h:i:s');
+
+    $createFavorQuery = <<<EOQ
 INSERT INTO
 	favors
 	(
@@ -42,7 +44,7 @@ INSERT INTO
 	)
 VALUES
 	(
-		$character_id,
+		$characterId,
 		1,
 		$targetCharacterId,
 		1,
@@ -53,11 +55,10 @@ VALUES
 	)
 EOQ;
 
-	$createFavorResult = mysql_query($createFavorQuery) or die(mysql_error());
-	
-	$page_message = <<<EOQ
-<span class="pageMessage">Favor has been created.</span><br />
-EOQ;
+    $createFavorResult = mysql_query($createFavorQuery) or die(mysql_error());
+
+    SessionHelper::SetFlashMessage('Favor has been created');
+    Response::Redirect('favors.php?action=list&character_id='.$characterId);
 }
 
 
@@ -65,109 +66,88 @@ $favorTypeQuery = "SELECT * FROM favor_types";
 $favorTypeResult = mysql_query($favorTypeQuery) or die(mysql_error());
 
 $ids = $names = "";
-while($favorTypeDetail = mysql_fetch_array($favorTypeResult, MYSQL_ASSOC))
-{
-	$ids[] = $favorTypeDetail['id'];
-	$names[] = $favorTypeDetail['name'];
+while ($favorTypeDetail = mysql_fetch_array($favorTypeResult, MYSQL_ASSOC)) {
+    $ids[]   = $favorTypeDetail['id'];
+    $names[] = $favorTypeDetail['name'];
 }
 
 $favorTypeSelect = buildSelect($favorType, $ids, $names, "favorTypeId");
 
-$page_content = <<<EOQ
-<h2>Give Favor to another Character/Group</h2>
-$page_message
-
-<form id="giveFavorForm">
-<div class="formInput">
-	<label>Give Favor to:</label>
-	<input type="hidden" name="targetCharacterId" id="targetCharacterId" value="" />
-	<input type="text" name="targetCharacter" id="targetCharacter" value="$targetCharacter"><br />
-</div>
-<div class="formInput">
-	<label>Favor Type:</label>
-	$favorTypeSelect
-</div>
-<div class="formInput">
-	<label>Favor Description:</label>
-	<input type="text" name="favorDescription" id="favorDescription" value="$favorDescription"><br />
-</div>
-<div class="formInput">
-	<label>Favor Notes:</label>
-	<textarea name="favorNotes" rows="5" cols="50">$favorNotes</textarea>
-</div>
-<div class="formInput">
-	<input type="hidden" name="sourceCharacterId" value="$character_id" />
-	<input type="button" name="formSubmit" id="formSubmit" value="Grant Favor" />
-</div>
-</form>
-<script language="javascript">
-	$(document).ready(function(){
-		$('input:text').keypress(function(e){
-			if(e.keyCode == 13)
-			{
-				return false;
-			}
-		});
-		$('#formSubmit').click(function(){
-			var errors = '';
-			if($.trim($('#targetCharacterId').val()) == '')
-			{
-				errors += " - Select a character to give the favor to.\\r\\n";
-			}
-			if($.trim($('#favorDescription').val()) == '')
-			{
-				errors += ' - Provide a brief description of the favor being given.\\r\\n';
-			}
-			
-			if(errors == '')
-			{
-				$.ajax({
-					url: "/favors.php?action=add",
-					data: $('#giveFavorForm').serialize(),
-					type: "post",
-					dataType: "html",
-					success: function(response, status, request) {
-						alert(response);
-						//window.location.reload();
-					},
-					error: function(request, message, exception) {
-						alert('There was an error submitting the request. Please try again.');
-					}
-				});
-			}
-			else
-			{
-				alert('Please correct the following errors: \\r\\n' + errors);
-			}
-		});
-		$('#targetCharacter').autocomplete({
-			source: function(request, response){
-				$.ajax({
-					url: "/characters.php?action=quick_search",
-					type: "post", 
-					dataType: "json",
-					data: {
-						term: request.term,
-						maxResults: 20
-					},
-					success: function(data){
-						response($.map(data, function(item){
-							return {
-								name: item.characterName,
-								value: item.characterName,
-								id: item.id
-							}
-						}))
-					}
-				});
-			},
-			minLength: 2,
-			select: function(event, ui){
-				$('#targetCharacterId').val(ui.item.id);
-			}
-		});
-	});
-</script>
-
-EOQ;
+ob_start();
 ?>
+    <h2>Give Favor to another Character/Group</h2>
+
+    <form id="giveFavorForm" method="post">
+        <div class="formInput">
+            <label>Give Favor to:</label>
+            <input type="hidden" name="targetCharacterId" id="targetCharacterId" value=""/>
+            <input type="text" name="targetCharacter" id="targetCharacter" value="<?php echo $targetCharacter; ?>"><br/>
+        </div>
+        <div class="formInput">
+            <label>Favor Type:</label>
+            <?php echo $favorTypeSelect; ?>
+        </div>
+        <div class="formInput">
+            <label>Favor Description:</label>
+            <input type="text" name="favorDescription" id="favorDescription" value="<?php echo $favorDescription; ?>"><br/>
+        </div>
+        <div class="formInput">
+            <label>Favor Notes:</label>
+            <textarea name="favorNotes" rows="5" cols="50"><?php echo $favorNotes; ?></textarea>
+        </div>
+        <div class="formInput">
+            <input type="hidden" name="sourceCharacterId" value="<?php echo $characterId; ?>"/>
+            <input type="submit" name="formSubmit" id="formSubmit" value="Grant Favor"/>
+        </div>
+    </form>
+    <script language="javascript">
+        $(document).ready(function () {
+            $('input:text').keypress(function (e) {
+                return e.keyCode != 13;
+
+            });
+            $('#giveFavorForm').submit(function () {
+                var errors = '';
+                if ($.trim($('#targetCharacterId').val()) == '') {
+                    errors += " - Select a character to give the favor to.\\r\\n";
+                }
+                if ($.trim($('#favorDescription').val()) == '') {
+                    errors += ' - Provide a brief description of the favor being given.\\r\\n';
+                }
+
+                if (errors != '') {
+                    alert('Please correct the following errors: \\r\\n' + errors);
+                    return false;
+                }
+                return true;
+            });
+            $('#targetCharacter').autocomplete({
+                source   : function (request, response) {
+                    $.ajax({
+                        url     : "/characters.php?action=quick_search",
+                        type    : "post",
+                        dataType: "json",
+                        data    : {
+                            term      : request.term,
+                            maxResults: 20
+                        },
+                        success : function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    name : item.characterName,
+                                    value: item.characterName,
+                                    id   : item.id
+                                }
+                            }))
+                        }
+                    });
+                },
+                minLength: 2,
+                select   : function (event, ui) {
+                    $('#targetCharacterId').val(ui.item.id);
+                }
+            });
+        });
+    </script>
+<?php
+$page_content = ob_get_clean();

@@ -1,5 +1,6 @@
 <?php
 /* @var array $userdata */
+use classes\core\helpers\MenuHelper;
 use classes\core\repository\PermissionRepository;
 
 $page_title = "List ST Permissions";
@@ -8,7 +9,7 @@ $contentHeader = $page_title;
 // test if removing any permissions
 if (isset($_POST['action'])) {
     if (($_POST['action'] == 'update') && isset($_POST['delete'])) {
-        $list = $_POST['delete'];
+        $list                 = $_POST['delete'];
         $permissionRepository = new PermissionRepository();
         foreach ($list as $value) {
             $permissionRepository->RemovePermissions($value);
@@ -36,12 +37,17 @@ ORDER BY
 EOQ;
 $storytellers = ExecuteQueryData($login_query);
 
+$storytellerMenu = require_once('helpers/storyteller_menu.php');
+$menu = MenuHelper::GenerateMenu($storytellerMenu);
 ob_start();
 ?>
-    <a href="/storyteller_index.php?action=permissions_add">Add ST Permission</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="/storyteller_index.php?action=permissions" onClick="submitForm();return false;">Delete ST Permissions</a>
-
+<?php echo $menu; ?>
+    <div class="paragraph">
+        <a href="/storyteller_index.php?action=permissions_add">Add ST Permission</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/storyteller_index.php?action=permissions" onClick="submitForm();return false;">Delete ST
+            Permissions</a>
+    </div>
     <form name="gm_list" id="gm_list" method="post">
         <input type="hidden" name="action" id="action" value="update">
         <table>
@@ -109,7 +115,8 @@ ob_start();
                     <td style="background-color: <?php echo ($login_detail['Side_Game'] == 'Y') ? '#ada' : '#baa'; ?>">
                         <?php echo $login_detail['Side_Game']; ?>
                     </td>
-                    <td style="background-color: <?php echo ($login_detail['Wiki_Manager'] == 'Y') ? '#ada' : '#baa'; ?>">
+                    <td style="background-color: <?php echo ($login_detail['Wiki_Manager'] == 'Y') ? '#ada'
+                        : '#baa'; ?>">
                         <?php echo $login_detail['Wiki_Manager']; ?>
                     </td>
                 </tr>
@@ -117,8 +124,7 @@ ob_start();
         </table>
     </form>
     <script language="JavaScript">
-        function submitForm ( )
-        {
+        function submitForm() {
             window.document.gm_list.submit();
         }
     </script>

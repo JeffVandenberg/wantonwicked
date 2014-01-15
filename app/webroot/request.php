@@ -151,6 +151,16 @@ if (isset($_GET['action'])) {
         case 'update_request_character':
             include 'includes/request_update_request_character.php';
             break;
+        case 'admin_time_report':
+            if(UserdataHelper::IsHead($userdata))
+            {
+                include 'includes/request_admin_time_report.php';
+            }
+            else
+            {
+                include 'includes/index_redirect.php';
+            }
+            break;
         default:
             include 'includes/index_redirect.php';
             break;

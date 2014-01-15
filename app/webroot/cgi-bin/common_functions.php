@@ -13,3 +13,22 @@ include_once ROOT_PATH . 'cgi-bin/makeDots.php';
 include_once ROOT_PATH . 'cgi-bin/getMaxPowerPoints.php';
 include_once ROOT_PATH . 'includes/database/mysql.php';
 include_once ROOT_PATH . 'includes/helpers/security.php';
+
+/**
+ * @param $array
+ * @return array
+ */
+function array_valuekeys($array)
+{
+    $list = array();
+    foreach ($array as $key => $value) {
+        if(is_array($value)) {
+            $list[$key] = array_valuekeys($value);
+        }
+        else {
+            $list[$value] = $value;
+        }
+    }
+    return $list;
+}
+
