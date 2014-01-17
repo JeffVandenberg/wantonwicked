@@ -230,7 +230,15 @@ class MenuComponent extends Component {
 
         if($this->Permissions->IsST()) {
             $this->menu['Tools']['submenu']['Storyteller Tools'] = array(
-                'link' => '/storyteller_index.php'
+                'link' => '/storyteller_index.php',
+                'submenu' => array(
+                    'Character Lookup' => array(
+                        'link' => 'view_sheet.php?action=st_view_xp',
+                    ),
+                    'Request Dashboard' => array(
+                        'link' => 'request.php?action=st_list'
+                    )
+                )
             );
         }
 

@@ -13,6 +13,10 @@ EOQ;
 if ($userdata['is_gm'] || $userdata['is_asst'] || $userdata['is_head']) {
     $gamemaster_link = <<<EOQ
 <a href='/storyteller_index.php' target="_blank"><span>Storyteller Tools</span></a>
+<ul>
+    <li><a href="view_sheet.php?action=st_view_xp"><span>Character Lookup</span></a></li>
+    <li><a href="request.php?action=st_list"><span>Request Dashboard</span></a></li>
+</ul>
 EOQ;
 }
 

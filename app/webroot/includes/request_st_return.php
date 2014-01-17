@@ -46,6 +46,8 @@ if (isset($_POST['action'])) {
 }
 $request = $requestRepository->GetById($requestId);
 /* @var \classes\request\data\Request $request */
+$requestNoteRepository = new RequestNoteRepository();
+$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
 
 $page_title = 'Return Request: ' . $request->Title;
 $contentHeader = $page_title;
