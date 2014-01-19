@@ -92,9 +92,9 @@ ob_start();
             <th>
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('C.character_name'); ?>">Character</a>
             </th>
-            <!--<th>
-                <a href="request.php?action=st_list&<?php echo $pagination->GetSortLink('G.name'); ?>">Group</a>
-            </th>-->
+            <th>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('G.name'); ?>">Group</a>
+            </th>
             <th>
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.title'); ?>">Name</a>
             </th>
@@ -122,9 +122,9 @@ ob_start();
             <td>
                 <?php echo FormHelper::Text('filter[character_name]', $filter['character_name']); ?>
             </td>
-            <!--<td>
+            <td>
 
-            </td>-->
+            </td>
             <td>
                 <?php echo FormHelper::Text('filter[title]', $filter['title']); ?>
             </td>
@@ -156,9 +156,9 @@ ob_start();
                             <?php echo $request['character_name']; ?>
                         </a>
                     </td>
-                    <!--<td>
+                    <td>
                         <?php echo $request['group_name']; ?>
-                    </td>-->
+                    </td>
                     <td>
                         <?php echo $request['title']; ?>
                     </td>

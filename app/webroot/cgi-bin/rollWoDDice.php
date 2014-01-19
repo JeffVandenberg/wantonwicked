@@ -90,7 +90,7 @@ function rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, 
 				do
 				{
 					// do roll
-					$selected_index = mt_rand(0,sizeof($num_array)-1);
+					$selected_index = SysRand(0,sizeof($num_array)-1);
 					$roll = $num_array[$selected_index];
 					
 					// determine success
