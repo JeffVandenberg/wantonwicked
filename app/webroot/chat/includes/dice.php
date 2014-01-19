@@ -11,6 +11,7 @@ require_once("session.php");
 require_once("config.php");
 require_once("functions.php");
 require_once('../../cgi-bin/rollWoDDice.php');
+require_once('../../cgi-bin/sysDice.php');
 
 
 if (!isset($_SESSION['user_id'])) {
