@@ -12,8 +12,11 @@ namespace classes\core\helpers;
 
 class Response {
 
-    public static function Redirect($url)
+    public static function Redirect($url, $message = null)
     {
+        if($message) {
+            SessionHelper::SetFlashMessage($message);
+        }
         header('location:http://' . $_SERVER['SERVER_NAME'] . '/' . $url);
         exit();
     }

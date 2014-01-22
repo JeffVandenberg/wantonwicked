@@ -1,5 +1,9 @@
 <?php
+use classes\character\data\Character;
+use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
+use classes\core\helpers\Response;
+use classes\request\data\RequestType;
 
 $contentHeader = "Delete Character";
 $page_title = "Delete Character Confirmation";
@@ -8,40 +12,34 @@ $page_title = "Delete Character Confirmation";
 $character_id = Request::GetValue('character_id', 0);
 
 // get character information
-$characterQuery = <<<EOQ
-SELECT
-    wod.Character_ID,
-    Character_Name
-FROM
-    wod_characters as wod
-    INNER JOIN login_character_index as lci
-        ON wod.character_id = lci.character_id
-WHERE
-    lci.login_id = $userdata[user_id]
-    AND wod.is_deleted = 'N'
-    AND wod.character_id = $character_id;
-EOQ;
-$character = ExecuteQueryItem($characterQuery);
+$characterRepository = new CharacterRepository();
+$character = $characterRepository->GetById($character_id);
+/* @var Character $character; */
 
-if ($character) {
-    $page_content = <<<EOQ
-Are you sure you want to delete $character[Character_Name]? If so, click the confirm button, otherwise click, Go Back.<br>
+if(!$character) {
+    Response::Redirect('chat.php', 'Unable to find character.');
+}
+if($character->IsSanctioned == 'Y') {
+    Response::Redirect('request.php?action=create&request_type_id='.RequestType::Sanction.'&character_id='.$character->CharacterId.'&title=Desanction '.$character->CharacterName);
+}
+
+ob_start();
+?>
+
+Are you sure you want to delete <?php echo $character->CharacterName; ?>? If so, click the confirm button, otherwise click, Go Back.<br>
 <br>
 <br>
 Think about it.. hard..<br>
 <br>
 <br>
-<form method="post" action="$_SERVER[PHP_SELF]?action=delete_confirmed" onsubmit="return confirm('Are you REALLY sure about this and this is not just the result of having a bad day?');">
-  <input type="hidden" name="character_id" value="$character_id">
-  <input type="submit" value="Delete $character[Character_Name]">
+<form method="post" action="chat.php?action=delete_confirmed" onsubmit="return confirm('Are you REALLY sure about this and this is not just the result of having a bad day?');">
+  <input type="hidden" name="character_id" value="<?php echo $character_id; ?>">
+  <input type="submit" value="Delete <?php echo $character->CharacterName; ?>">
 </form>
 <br />
 <br />
-<form method="post" action="$_SERVER[PHP_SELF]">
+<form method="post" action="chat.php">
   <input type="submit" value="Go Back">
 </form>
-EOQ;
-} else {
-    // didn't find the PC
-    $page_content = "Unable to find Character to Delete.";
-}
+<?php
+$page_content = ob_get_clean();

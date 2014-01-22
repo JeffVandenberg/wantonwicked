@@ -19,6 +19,11 @@ if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id']))
     die();
 }
 
+$title = Request::GetValue('title');
+$requestTypeId = Request::GetValue('request_type_id', 0);
+$groupId = Request::GetValue('group_id');
+$body = Request::GetValue('body');
+
 if (Request::IsPost()) {
     if ($_POST['action'] == 'Cancel') {
         Response::Redirect('request.php?action=list&character_id=' . $characterId);
@@ -27,11 +32,11 @@ if (Request::IsPost()) {
     {
         $request = new \classes\request\data\Request();
         $request->CharacterId = $characterId;
-        $request->Title = htmlspecialchars(Request::GetValue('title'));
-        $request->RequestTypeId = Request::GetValue('request_type_id', 0);
-        $request->GroupId = Request::GetValue('group_id', 0);
+        $request->Title = htmlspecialchars($title);
+        $request->RequestTypeId = $requestTypeId;
+        $request->GroupId = $groupId;
         $request->RequestStatusId = RequestStatus::NewRequest;
-        $request->Body = Request::GetValue('body');
+        $request->Body = $body;
         $request->CreatedById = $userdata['user_id'];
         $request->CreatedOn = date('Y-m-d H:i:s');
         $request->UpdatedById = $userdata['user_id'];
@@ -57,7 +62,7 @@ $character = $characterRepository->FindById($characterId);
 
 $requestTypeRepository = new RequestTypeRepository();
 $requestTypes = $requestTypeRepository->SimpleListAll();
-$page_title = 'Create Request for ' . $character['Character_Name'];
+$page_title = 'Create Request for ' . $character['character_name'];
 $contentHeader = $page_title;
 
 $groupRepository = new GroupRepository();
@@ -75,7 +80,7 @@ ob_start();
     <form method="post">
         <div class="formInput">
             <label for="title">Title:</label>
-            <?php echo FormHelper::Text('title', ''); ?>
+            <?php echo FormHelper::Text('title', $title); ?>
         </div>
         <div class="formInput">
             <label for="title">Group:</label>
@@ -83,11 +88,11 @@ ob_start();
         </div>
         <div class="formInput">
             <label for="request-type">Request Type:</label>
-            <?php echo FormHelper::Select($requestTypes, 'request_type_id', ''); ?>
+            <?php echo FormHelper::Select($requestTypes, 'request_type_id', $requestTypeId); ?>
         </div>
         <div class="formInput">
             <label for="request-type">Body:</label>
-            <?php echo FormHelper::Textarea('body'); ?>
+            <?php echo FormHelper::Textarea('body', $body); ?>
         </div>
         <div class="formInput">
             <?php echo FormHelper::Hidden('character_id', $characterId); ?>
