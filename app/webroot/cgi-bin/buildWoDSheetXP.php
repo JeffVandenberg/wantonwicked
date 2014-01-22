@@ -429,11 +429,11 @@ EOQ;
 EOQ;
 
         $age = <<<EOQ
-<input type="text" name="age" id="age" value="$age" size="4" maxlength="4">
+<input type="text" name="age" id="age" value="$age" size="3" maxlength="4">
 EOQ;
 
         $apparent_age = <<<EOQ
-<input type="text" name="apparent_age" id="apparent_age" value="$apparent_age" size="4" maxlength="4">
+<input type="text" name="apparent_age" id="apparent_age" value="$apparent_age" size="3" maxlength="4">
 EOQ;
     }
     else {
@@ -581,11 +581,11 @@ EOQ;
 EOQ;
 
         $armor = <<<EOQ
-<input type="text" name="armor" id="armor" size="5" maxlength="4" value="$armor">
+<input type="text" name="armor" id="armor" size="3" maxlength="4" value="$armor">
 EOQ;
 
         $power_points_modifier = <<<EOQ
-<input type="text" name="power_points_modifier" id="power_points_modifier" size="5" maxlength="4" value="$power_points_modifier">
+<input type="text" name="power_points_modifier" id="power_points_modifier" size="3" maxlength="4" value="$power_points_modifier">
 EOQ;
     }
 
@@ -604,117 +604,171 @@ EOQ;
 EOQ;
     }
 
-    $character_merit_list = "";
+    $powers = getPowers($characterId, 'Merit', NAMENOTE, 5);
+    ob_start();
+    ?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="merit_list">
+        <tr>
+            <th colspan="3">
+                Merits
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addMerit();return false;">
+                        <img src="/img/plus.png" title="Add Merit"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Name
+            </td>
+            <td class="header-row">
+                Note
+            </td>
+            <td class="header-row">
+                Level
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <?php $dots = FormHelper::Dots("merit${i}", $power->getPowerLevel(),
+                                           $element_type['merit'], $character_type, $max_dots,
+                                           $edit_powers, false, $edit_xp); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="merit<?php echo $i; ?>_name"></label><input type="text"
+                                                                                name="merit<?php echo $i; ?>_name"
+                                                                                id="merit<?php echo $i; ?>_name"
+                                                                                size="15"
+                                                                                value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="merit<?php echo $i; ?>_note"></label><input type="text"
+                                                                                name="merit<?php echo $i; ?>_note"
+                                                                                id="merit<?php echo $i; ?>_note"
+                                                                                size="20"
+                                                                                value="<?php echo $power->getPowerNote(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerNote(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php echo $dots; ?>
+                    <input type="hidden" name="merit<?php echo $i; ?>_id" id="merit<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <?php
+    $character_merit_list = ob_get_clean();
 
-    if ($edit_powers) {
-        // update merits
-        $character_merit_list = <<<EOQ
-<a href="#" onClick="addMerit();return false;">Add Merit</a><br>
-EOQ;
-    }
+    $powers = getPowers($characterId, 'Flaw', NAMENOTE, 2);
+    ob_start();
+    ?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="flaw_list">
+        <tr>
+            <th colspan="1">
+                Flaws
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addFlaw();return false;">
+                        <img src="/img/plus.png" title="Add Flaw"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Name
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="flaw<?php echo $i; ?>_name"></label><input type="text"
+                                                                               name="flaw<?php echo $i; ?>_name"
+                                                                               id="flaw<?php echo $i; ?>_name"
+                                                                               size="15"
+                                                                               value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                    <input type="hidden" name="flaw<?php echo $i; ?>_id" id="flaw<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <?php
+    $character_flaw_list = ob_get_clean();
 
-    $merit_js = "";
-    if ($edit_xp) {
-        $merit_js = " onChange=\"updateXP($element_type[merit]);\" ";
-    }
+    $powers = getPowers($characterId, 'Misc', NAMENOTE, 2);
+    ob_start();
+    ?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="misc_list">
+        <tr>
+            <th colspan="3">
+                Misc Traits
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addMiscTrait();return false;">
+                        <img src="/img/plus.png" title="Add Misc Trait"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Name
+            </td>
+            <td class="header-row">
+                Note
+            </td>
+            <td class="header-row">
+                Level
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="misc<?php echo $i; ?>_name"></label><input type="text"
+                                                                               name="misc<?php echo $i; ?>_name"
+                                                                               id="misc<?php echo $i; ?>_name"
+                                                                               size="15"
+                                                                               value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="misc<?php echo $i; ?>_note"></label><input type="text"
+                                                                               name="misc<?php echo $i; ?>_note"
+                                                                               id="misc<?php echo $i; ?>_note"
+                                                                               size="15"
+                                                                               value="<?php echo $power->getPowerNote(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerNote(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
 
-    $character_merit_list .= <<<EOQ
-<table name="merit_list" id="merit_list" border="0" cellspacing="1" cellpadding="1" class="normal_text">
-  <tr>
-    <th>
-      Merit Name
-    </th>
-    <th>
-      Notes
-    </th>
-    <th>
-      Level
-    </th>
-  </tr>
-EOQ;
-
-    $merits = getPowers($characterId, "Merit", NAMENOTE, 5);
-
-    // process merit list
-    for ($i = 0; $i < sizeof($merits); $i++) {
-        $merit_dots = FormHelper::Dots("merit${i}", $merits[$i]->getPowerLevel(), $element_type['merit'],
-                                       $character_type, $max_dots, $edit_powers, false, $edit_xp);
-
-        $merit_name = $merits[$i]->getPowerName();
-        $merit_note = $merits[$i]->getPowerNote();
-        $merit_id   = $merits[$i]->getPowerID();
-
-        if ($edit_powers) {
-            $merit_name = <<<EOQ
-<input type="text" name="merit${i}_name" id="merit${i}_name" size="15" maxlength="40" class="$input_class" value="$merit_name" $merit_js>
-EOQ;
-            $merit_note = <<<EOQ
-<input type="text" name="merit${i}_note" id="merit${i}_note" size="20" maxlength="40" class="$input_class" value="$merit_note" $merit_js>
-EOQ;
-        }
-
-        $character_merit_list .= <<<EOQ
-<tr>
-<td>
-$merit_name
-</td>
-<td>
-$merit_note
-</td>
-<td>
-$merit_dots
-<input type="hidden" name="merit${i}_id" id="merit${i}_id" value="$merit_id">
-</td>
-</tr>
-EOQ;
-    }
-
-    $character_merit_list .= "</table>";
-
-    // flaws
-    $character_flaw_list = "";
-
-    if ($edit_powers) {
-        // update flaws
-        $character_flaw_list = <<<EOQ
-<a href="#" onClick="addFlaw();return false;">Add Flaw/Derangement</a><br>
-EOQ;
-    }
-
-    $character_flaw_list .= <<<EOQ
-<table name="flaw_list" id="flaw_list" border="0" cellspacing="1" cellpadding="1" class="normal_text">
-  <tr>
-    <th>
-      Flaw Name
-    </th>
-  </tr>
-EOQ;
-
-    $flaws = getPowers($characterId, 'Flaw', NAMENOTE, 2);
-
-    // make blank list
-    for ($i = 0; $i < sizeof($flaws); $i++) {
-        $flaw_name = $flaws[$i]->getPowerName();
-        $flaw_id   = $flaws[$i]->getPowerID();
-
-        if ($edit_powers) {
-            $flaw_name = <<<EOQ
-<input type="text" name="flaw${i}_name" id="flaw${i}_name" size="15" maxlength="40" class="$input_class" value="$flaw_name">
-EOQ;
-        }
-
-        $character_flaw_list .= <<<EOQ
-<tr>
-<td>
-$flaw_name
-<input type="hidden" name="flaw${i}_id" id="flaw${i}_id" value="$flaw_id">
-</td>
-</tr>
-EOQ;
-    }
-
-    $character_flaw_list .= "</table>";
-
+                    <label for="misc<?php echo $i; ?>"></label>
+                    <input type="text" name="misc<?php echo $i; ?>" id="misc<?php echo $i; ?>" size="3" maxlength="2"
+                           value="<?php echo $power->getPowerLevel(); ?>"/>
+                    <input type="hidden" name="misc<?php echo $i; ?>_id" id="misc<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <?php
+    $characterMiscList = ob_get_clean();
 
     if ($edit_history) {
         $history_edit = "";
@@ -727,21 +781,9 @@ EOQ;
 
     $notes_box = "";
     if ($edit_cell) {
-        $cell_query = "select distinct Cell_ID from gm_permissions order by Cell_ID;";
-        $cell_result = mysql_query($cell_query) or die(mysql_error());
-
-        $cell_ids = "";
-        while ($cell_detail = mysql_fetch_array($cell_result, MYSQL_ASSOC)) {
-            $cell_ids[] = $cell_detail['Cell_ID'];
-        }
-
-        $cell_id = buildSelect($cell_id, $cell_ids, $cell_ids, "cell_id");
     }
 
     if ($edit_login_note) {
-        $login_note = <<<EOQ
-<input type="text" name="login_note" id="login_note" value="$login_note" size="70" maxlength="250">
-EOQ;
     }
 
     // create human readable version of status
@@ -1192,76 +1234,68 @@ EOQ;
     <?php
     $attribute_table = ob_get_clean();
 
-    // make list of specialties
-    $specialties_list = "";
-
-    if ($edit_skills) {
-        $specialties_list .= <<<EOQ
-<a href="#" onClick="addSpecialty();return false;">Add Specialty</a><br>
-EOQ;
-
-    }
-
-    $specialties_list .= <<<EOQ
-<table name="specialties_list" id="specialties_list">
-    <tr>
-        <th>
-            Skill
-        </th>
-        <th>
-            Specialty
-        </th>
-  </tr>
-EOQ;
-
-    $specialty_js = "";
+    $powers       = getPowers($characterId, 'Specialty', NOTENAME, $number_of_specialties);
+    $specialty_js = '';
     if ($edit_xp) {
         $specialty_js = " onChange=\"updateXP($element_type[skill])\" ";
     }
-
-    // get specialties
-    $specialties = getPowers($characterId, "Specialty", NOTENAME, $number_of_specialties);
-    for ($i = 0; $i < sizeof($specialties); $i++) {
-        $specialty_skill = $specialties[$i]->getPowerNote();
-        $specialty_name  = $specialties[$i]->getPowerName();
-        $specialty_id    = $specialties[$i]->getPowerID();
-
-        if ($character_type == 'Mage') {
-            $specialties_dropdown = buildSelect($specialty_skill, $skill_list_proper_mage, $skill_list_proper_mage,
-                                                "skill_spec${i}_selected", "class=\"$input_class\" $specialty_js");
-        }
-        else {
-            $specialties_dropdown = buildSelect($specialty_skill, $skill_list_proper, $skill_list_proper,
-                                                "skill_spec${i}_selected", "class=\"$input_class\" $specialty_js");
-        }
-
-        if ($edit_skills) {
-            $specialty_skill = $specialties_dropdown;
-            $specialty_name  = <<<EOQ
-<input type="text" name="skill_spec${i}" id="skill_spec${i}" class="$input_class" $specialty_js value="$specialty_name">
-EOQ;
-        }
-
-        $specialties_list .= <<<EOQ
-  <tr>
-    <td>
-      $specialty_skill
-    </td>
-    <td>
-      $specialty_name
-      <input type="hidden" name="skill_spec${i}_id" id="skill_spec${i}_id" value="$specialty_id">
-    </td>
-  </tr>
-EOQ;
-
+    if ($character_type == 'Mage') {
+        $skill_list_proper = $skill_list_proper_mage;
     }
+    ob_start();
+    ?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="specialties_list">
+        <tr>
+            <th colspan="2">
+                Specialties
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addSpecialty();return false;">
+                        <img src="/img/plus.png" title="Add Specialty"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td style="width:50%;" class="header-row">
+                Skill
+            </td>
+            <td style="width:50%;" class="header-row">
+                Specialty
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <tr>
+                <td>
+                    <?php if ($edit_skills): ?>
+                        <?php echo buildSelect($power->getPowerNote(), $skill_list_proper, $skill_list_proper,
+                                               "skill_spec${i}_selected", "class=\"$input_class\" $specialty_js"); ?>
+                    <?php else: ?>
+                        <?php echo $power->getPowerNote(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($edit_skills): ?>
+                        <input type="text" name="skill_spec<?php echo $i; ?>"
+                               id="skill_spec<?php echo $i; ?>" <?php echo $specialty_js; ?>
+                               value="<?php echo $power->getPowerName(); ?>"/>
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                    <input type="hidden" name="skill_spec<?php echo $i; ?>_id" id="skill_spec<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <?php
+    $specialties_list = ob_get_clean();
 
-    $specialties_list .= "</table>";
 
     $skillIndex = 0;
     ob_start();
     ?>
 
+    <div style="float:left;width:75%;">
     <table class="character-sheet <?php echo $table_class; ?>">
     <tr>
         <th colspan="2">
@@ -1272,9 +1306,6 @@ EOQ;
         </th>
         <th colspan="2">
             Social Skills
-        </th>
-        <th>
-            Specialties
         </th>
     </tr>
     <tr style="vertical-align: top;">
@@ -1304,9 +1335,6 @@ EOQ;
             echo MakeBaseStatDots($skills, 'Animal Ken', 'skill', $skillIndex++, $element_type['skill'],
                                   $character_type, $edit_skills, $calculate_derived, $edit_xp, $max_dots);
             ?>
-        </td>
-        <td rowspan="11" style="vertical-align: top;">
-            <?php echo $specialties_list; ?>
         </td>
     </tr>
     <tr>
@@ -1512,11 +1540,11 @@ EOQ;
             ?>
         </td>
     </tr>
-    <tr>
-        <td colspan="6">
-        </td>
-    </tr>
     </table>
+    </div>
+    <div style="width:25%;float:left;">
+        <?php echo $specialties_list; ?>
+    </div>
     <?php
     $skill_table = ob_get_clean();
 
@@ -1559,25 +1587,60 @@ EOQ;
     $history_table = ob_get_clean();
 
     // put sheet pieces together
-    $sheet .= <<<EOQ
-<table id="character_table"width="800px">
-<tr>
-<td>
-$show_sheet_table
-$vitals_table
-$information_table
-$attribute_table
-$skill_table
-$traits_table
-$history_table
-$st_notes_table
-$submit_button
-</td>
-</tr>
-</table>
-EOQ;
-
-    return $sheet;
+    ob_start();
+    ?>
+    <div id="character-tabs">
+        <ul>
+            <li><a href="#character_table">Sheet</a></li>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#equipment">Equipment</a></li>
+        </ul>
+        <div id="character_table">
+            <?php echo $show_sheet_table; ?>
+            <?php echo $vitals_table; ?>
+            <?php echo $information_table; ?>
+            <?php echo $attribute_table; ?>
+            <?php echo $skill_table; ?>
+            <?php echo $traits_table; ?>
+            <?php echo $history_table; ?>
+            <?php echo $st_notes_table; ?>
+        </div>
+        <div id="profile">
+            <?php echo FormHelper::Textarea('public_profile', '', array('class' => 'profile')); ?>
+        </div>
+        <div id="equipment">
+            Equipment list here!
+        </div>
+    </div>
+    <div>
+        <?php echo $submit_button; ?>
+    </div>
+    <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector : "textarea.profile",
+            theme: 'modern',
+            menubar  : false,
+            height   : 200,
+            plugins  : [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace wordcount visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste textcolor template"
+            ],
+            toolbar1  : "undo redo | bold italic | styleselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+            toolbar2  : "template",
+            templates: [
+                {
+                    title      : 'Test Template',
+                    content        : 'Test Content here!',
+                    description: 'A Test Template'
+                }
+            ]
+        });
+        $("#character-tabs").tabs();
+    </script>
+    <?php
+    return ob_get_clean();
 }
 
 function MakeBaseStatDots($powers, $powerName, $powerType, $position, $element_type, $character_type, $edit, $calculate_derived, $edit_xp, $max_dots)

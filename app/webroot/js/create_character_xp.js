@@ -1232,6 +1232,23 @@ function addFlaw() {
     newNameCell.innerHTML = "<input type=\"text\" name=\"flaw" + index + "_name\" id=\"flaw" + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\" >";
 }
 
+function addMiscTrait() {
+    var list = document.getElementById('misc_list');
+    var row_id = list.rows.length;
+    var index = row_id - 1;
+    var newRow = list.insertRow(row_id);
+    var newNameCell = newRow.insertCell(0);
+    var js = "";
+    if (edit_xp) {
+        js = " onChange=\"updateXP(" + merit + ")\" ";
+    }
+    newNameCell.innerHTML = "<input type=\"text\" name=\"misc" + index + "_name\" id=\"misc" + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\" />";
+    var newNoteCell = newRow.insertCell(1);
+    newNoteCell.innerHTML = "<input type=\"text\" name=\"misc" + index + "_note\" id=\"misc" + index + "_note\" size=\"20\" maxlength=\"40\" class=\"normal_input\" />";
+    var newCostCell = newRow.insertCell(2);
+    newCostCell.innerHTML = "<input type=\"text\" name=\"misc" + index + "\" id=\"misc" + index + "\" size=\"3\" maxlength=\"2\" class=\"normal_input\" value=\"0\" />";
+}
+
 function addMisc() {
     var misc_list = document.getElementById('misc_list');
     var row_id = misc_list.rows.length;

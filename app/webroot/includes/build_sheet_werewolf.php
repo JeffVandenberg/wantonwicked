@@ -185,127 +185,202 @@ if ($edit_xp) {
     $werewolfupdate_js = " onChange=\"updateXP($element_type[supernatural])\" ";
 }
 
-if ($edit_powers) {
-    $gift_list .= <<<EOQ
-<a href="#" onClick="addGift('affgift');return false;">Add Affinity Gift</a><br>
-EOQ;
-} else {
-    $gift_list .= "Affinity Gifts<br>";
-}
+$powers = getPowers($characterId, 'AffGift', NOTELEVEL, 5);
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="affgift_list">
+        <tr>
+            <th colspan="3">
+                Affinity Gifts
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addGift('affgift');return false;">
+                        <img src="/img/plus.png" title="Add Affinity Gift"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Gift List
+            </td>
+            <td class="header-row">
+                Gift Name
+            </td>
+            <td class="header-row">
+                Rank
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <?php $dots = FormHelper::Dots("affgift${i}", $power->getPowerLevel(),
+                                           $element_type['supernatural'], $character_type, $max_dots,
+                                           $edit_powers, false, $edit_xp); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="affgift<?php echo $i; ?>_note"></label><input type="text"
+                                                                                name="affgift<?php echo $i; ?>_note"
+                                                                                id="affgift<?php echo $i; ?>_note"
+                                                                                size="20"
+                                                                                value="<?php echo $power->getPowerNote(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerNote(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="affgift<?php echo $i; ?>_name"></label><input type="text"
+                                                                                  name="affgift<?php echo $i; ?>_name"
+                                                                                  id="affgift<?php echo $i; ?>_name"
+                                                                                  size="15"
+                                                                                  value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php echo $dots; ?>
+                    <input type="hidden" name="affgift<?php echo $i; ?>_id" id="affgift<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$affinityGiftList = ob_get_clean();
 
-$gift_list .= <<<EOQ
-<table class="normal_text" name="affgift_list" id="affgift_list" width="100%">
-  <tr>
-    <th width="35%">
-      Gift List
-    </th>
-    <th width="35%">
-      Gift Name
-    </th>
-    <th width="30%">
-      Gift Rank
-    </th>
-  </tr>
-EOQ;
+$powers = getPowers($characterId, 'NonAffGift', NOTELEVEL, 3);
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="nonaffgift_list">
+        <tr>
+            <th colspan="3">
+                Non-Affinity Gifts
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addGift('nonaffgift');return false;">
+                        <img src="/img/plus.png" title="Add Non-Affinity Gift"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Gift List
+            </td>
+            <td class="header-row">
+                Gift Name
+            </td>
+            <td class="header-row">
+                Rank
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <?php $dots = FormHelper::Dots("nonaffgift${i}", $power->getPowerLevel(),
+                                           $element_type['supernatural'], $character_type, $max_dots,
+                                           $edit_powers, false, $edit_xp); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="nonaffgift<?php echo $i; ?>_note"></label><input type="text"
+                                                                                name="nonaffgift<?php echo $i; ?>_note"
+                                                                                id="nonaffgift<?php echo $i; ?>_note"
+                                                                                size="20"
+                                                                                value="<?php echo $power->getPowerNote(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerNote(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="nonaffgift<?php echo $i; ?>_name"></label><input type="text"
+                                                                                  name="nonaffgift<?php echo $i; ?>_name"
+                                                                                  id="nonaffgift<?php echo $i; ?>_name"
+                                                                                  size="15"
+                                                                                  value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php echo $dots; ?>
+                    <input type="hidden" name="nonaffgift<?php echo $i; ?>_id" id="nonaffgift<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$nonaffinityGiftList = ob_get_clean();
 
-$gifts = getPowers($characterId, 'AffGift', NOTELEVEL, 5);
+$renowns = getRenownsRituals($characterId);
+$powers = getPowers($characterId, 'Ritual', NAMENOTE, 3);
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="nonaffgift_list">
+        <tr>
+            <th colspan="2">
+                Rituals
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addRitual();return false;">
+                        <img src="/img/plus.png" title="Add Ritual"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Ritual Level
+            </td>
+            <td>
+                <?php echo FormHelper::Dots("rituals", $renowns["rituals"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp); ?>
 
-for ($i = 0; $i < sizeof($gifts); $i++) {
-    $gift_dots = FormHelper::Dots("affgift${i}", $gifts[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
+            </td>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Name
+            </td>
+            <td class="header-row">
+                Level
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <?php $dots = FormHelper::Dots("ritual${i}", $power->getPowerLevel(),
+                                           $element_type['merit'], $character_type, $max_dots,
+                                           $edit_powers, false, $edit_xp); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="nonaffgift<?php echo $i; ?>_note"></label><input type="text"
+                                                                                     name="nonaffgift<?php echo $i; ?>_note"
+                                                                                     id="nonaffgift<?php echo $i; ?>_note"
+                                                                                     size="20"
+                                                                                     value="<?php echo $power->getPowerNote(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerNote(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="nonaffgift<?php echo $i; ?>_name"></label><input type="text"
+                                                                                     name="nonaffgift<?php echo $i; ?>_name"
+                                                                                     id="nonaffgift<?php echo $i; ?>_name"
+                                                                                     size="15"
+                                                                                     value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php echo $dots; ?>
+                    <input type="hidden" name="nonaffgift<?php echo $i; ?>_id" id="nonaffgift<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$rituals = ob_get_clean();
 
-    $gift_note = $gifts[$i]->getPowerNote();
-    $gift_name = $gifts[$i]->getPowerName();
-    $gift_id = $gifts[$i]->getPowerID();
-
-    if ($edit_powers) {
-        $gift_note = <<<EOQ
-<input type="text" name="affgift${i}_note" id="affgift${i}_note" size="15" class="$input_class" value="$gift_note">
-EOQ;
-        $gift_name = <<<EOQ
-<input type="text" name="affgift${i}_name" id="affgift${i}_name" size="15" class="$input_class" value="$gift_name">
-EOQ;
-    }
-
-    $gift_list .= <<<EOQ
-  <tr>
-    <td>
-      $gift_note
-    </td>
-    <td>
-      $gift_name
-    </td>
-    <td align="center">
-      $gift_dots
-      <input type="hidden" name="affgift${i}_id" id="affgift${i}_id" value="$gift_id">
-    </td>
-  </tr>
-EOQ;
-}
-$gift_list .= "</table>";
-
-if ($edit_powers) {
-    $gift_list .= <<<EOQ
-<a href="#" onClick="addGift('nonaffgift');return false;">Add Non-Affinity Gift</a><br>
-EOQ;
-} else {
-    $gift_list .= "Non-Affinity Gifts<br>";
-}
-
-$gift_list .= <<<EOQ
-<table class="normal_text" name="nonaffgift_list" id="nonaffgift_list" width="100%">
-  <tr>
-    <th width="35%">
-      Gift List
-    </th>
-    <th width="35%">
-      Gift Name
-    </th>
-    <th width="30%">
-      Gift Rank
-    </th>
-  </tr>
-EOQ;
-
-$gifts = getPowers($characterId, 'NonAffGift', NOTELEVEL, 3);
-
-for ($i = 0; $i < sizeof($gifts); $i++) {
-    $gift_dots = FormHelper::Dots("nonaffgift${i}", $gifts[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
-
-    $gift_note = $gifts[$i]->getPowerNote();
-    $gift_name = $gifts[$i]->getPowerName();
-    $gift_id = $gifts[$i]->getPowerID();
-
-    if ($edit_powers) {
-        $gift_note = <<<EOQ
-<input type="text" name="nonaffgift${i}_note" id="nonaffgift${i}_note" size="15" class="$input_class" value="$gift_note">
-EOQ;
-        $gift_name = <<<EOQ
-<input type="text" name="nonaffgift${i}_name" id="nonaffgift${i}_name" size="15" class="$input_class" value="$gift_name">
-EOQ;
-    }
-
-    $gift_list .= <<<EOQ
-  <tr>
-    <td>
-      $gift_note
-    </td>
-    <td>
-      $gift_name
-    </td>
-    <td align="center">
-      $gift_dots
-      <input type="hidden" name="nonaffgift${i}_id" id="nonaffgift${i}_id" value="$gift_id">
-    </td>
-  </tr>
-EOQ;
-}
-
-$gift_list .= "</table>";
-
-$merit_js = "";
-if ($edit_xp) {
-    $werewolfupdate_js = " onChange=\"updateXP($element_type[merit])\" ";
-}
 
 $ritual_list = "";
 if ($edit_powers) {
@@ -316,7 +391,6 @@ EOQ;
     $ritual_list .= "Rituals<br>";
 }
 
-$renowns = getRenownsRituals($characterId);
 
 $rituals_dots = FormHelper::Dots("rituals", $renowns["rituals"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 $rituals_id = $renowns["rituals"]->getPowerID();
@@ -385,7 +459,15 @@ $wisdom_id = $renowns["wisdom"]->getPowerID();
 $cunning_dots = FormHelper::Dots("cunning", $renowns["cunning"]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
 $cunning_id = $renowns["cunning"]->getPowerID();
 
-$traits_table = <<<EOQ
+ob_start()
+?>
+    <div style="width:50%;float:left;">
+        <?php echo $character_merit_list; ?>
+    </div>
+    <div style="width:50%;float:left;">
+        <?php echo $character_flaw_list; ?>
+        <?php echo $characterMiscList; ?>
+    </div>
 <table class="character-sheet $table_class">
     <tr>
     </tr>
@@ -574,4 +656,5 @@ $traits_table = <<<EOQ
         </td>
     </tr>
 </table>
-EOQ;
+<?php
+$traits_table = ob_get_clean();
