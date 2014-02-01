@@ -667,7 +667,7 @@ EOQ;
     <?php
     $character_merit_list = ob_get_clean();
 
-    $powers = getPowers($characterId, 'Flaw', NAMENOTE, 2);
+    $powers = getPowers($characterId, 'Flaw', NAMENOTE, 1);
     ob_start();
     ?>
     <table class="character-sheet <?php echo $table_class; ?>" id="flaw_list">
@@ -707,7 +707,7 @@ EOQ;
     <?php
     $character_flaw_list = ob_get_clean();
 
-    $powers = getPowers($characterId, 'Misc', NAMENOTE, 2);
+    $powers = getPowers($characterId, 'Misc', NAMENOTE, 1);
     ob_start();
     ?>
     <table class="character-sheet <?php echo $table_class; ?>" id="misc_list">
