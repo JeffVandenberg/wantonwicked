@@ -1589,13 +1589,13 @@ EOQ;
     // put sheet pieces together
     ob_start();
     ?>
-    <div id="character-tabs">
+    <!--<div id="character-tabs">
         <ul>
             <li><a href="#character_table">Sheet</a></li>
             <li><a href="#profile">Profile</a></li>
             <li><a href="#equipment">Equipment</a></li>
         </ul>
-        <div id="character_table">
+        <div id="character_table">-->
             <?php echo $show_sheet_table; ?>
             <?php echo $vitals_table; ?>
             <?php echo $information_table; ?>
@@ -1604,14 +1604,14 @@ EOQ;
             <?php echo $traits_table; ?>
             <?php echo $history_table; ?>
             <?php echo $st_notes_table; ?>
-        </div>
+        <!--</div>
         <div id="profile">
             <?php echo FormHelper::Textarea('public_profile', '', array('class' => 'profile')); ?>
         </div>
         <div id="equipment">
             Equipment list here!
         </div>
-    </div>
+    </div>-->
     <div>
         <?php echo $submit_button; ?>
     </div>

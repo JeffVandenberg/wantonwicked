@@ -108,8 +108,8 @@ $vitals_table = <<<EOQ
     </tr>
 </table>
 EOQ;
-		
-			$information_table = <<<EOQ
+
+$information_table = <<<EOQ
 <table class="character-sheet $table_class" width="100%">
     <tr>
         <th colspan="2" align="center">
@@ -191,199 +191,201 @@ EOQ;
 </table>
 EOQ;
 
-      // affinity contracts
-      $power_list = "";
-      if($edit_powers)
-      {
-        $power_list .= <<<EOQ
-<a href="#" onClick="addContract('affcont');return false;">Add Affinity Contract</a><br>
-EOQ;
-      }
-      else
-      {
-        $power_list .= "Affinity Contracts<br>";
-      }
-      
-      $power_list .= <<<EOQ
-<table border="0" cellspacing="1" cellpadding="1" class="normal_text" name="affcont_list" id="affcont_list" width="100%">
-  <tr>
-    <th width="35%">
-      Name
-    </th>
-    <th width="35%">
-      Note
-    </th>
-    <th width="30%">
-      Level
-    </th>
-  </tr>
-EOQ;
+// affinity contracts
+$powers = getPowers($characterId, 'AffContract', NAMENOTE, 3);
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="affcont_list">
+        <tr>
+            <th colspan="3">
+                Affinity Contracts
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addContract('affcont');return false;">
+                        <img src="/img/plus.png" title="Add Affinity Contract"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Name
+            </td>
+            <td class="header-row">
+                Note
+            </td>
+            <td class="header-row">
+                Level
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <?php $dots = FormHelper::Dots("affcont${i}", $power->getPowerLevel(),
+                                           $element_type['supernatural'], $character_type, $max_dots,
+                                           $edit_powers, false, $edit_xp); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="affcont<?php echo $i; ?>_name"></label>
+                        <input type="text"
+                               name="affcont<?php echo $i; ?>_name"
+                               id="affcont<?php echo $i; ?>_name"
+                               size="20"
+                               value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="affcont<?php echo $i; ?>_note"></label>
+                        <input type="text"
+                               name="affcont<?php echo $i; ?>_note"
+                               id="affcont<?php echo $i; ?>_note"
+                               size="15"
+                               value="<?php echo $power->getPowerNote(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerNote(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php echo $dots; ?>
+                    <input type="hidden" name="affcont<?php echo $i; ?>_id" id="affcont<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$affinityContracts = ob_get_clean();
 
-      $icdiscs = getPowers($characterId, 'AffContract', NAMENOTE, 3);
-      
-      for($i = 0; $i < sizeof($icdiscs); $i++)
-      {
-      	$power_dots = FormHelper::Dots("affcont${i}", $icdiscs[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
-      	
-      	$power_name = $icdiscs[$i]->getPowerName();
-      	$power_note = $icdiscs[$i]->getPowerNote();
-      	$power_id = $icdiscs[$i]->getPowerID();
-      	
-      	if($edit_powers)
-      	{
-        	$power_name = <<<EOQ
-<input type="text" name="affcont${i}_name" id="affcont${i}_name" size="15" class="$input_class" value="$power_name">
-EOQ;
+// nonaffinity contracts
+$powers = getPowers($characterId, 'NonAffContract', NAMENOTE, 3);
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="nonaffcont_list">
+        <tr>
+            <th colspan="3">
+                Non-Affinity Contracts
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addContract('nonaffcont');return false;">
+                        <img src="/img/plus.png" title="Add Non-Affinity Contract"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Name
+            </td>
+            <td class="header-row">
+                Note
+            </td>
+            <td class="header-row">
+                Level
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <?php $dots = FormHelper::Dots("nonaffcont${i}", $power->getPowerLevel(),
+                                           $element_type['supernatural'], $character_type, $max_dots,
+                                           $edit_powers, false, $edit_xp); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="nonaffcont<?php echo $i; ?>_name"></label>
+                        <input type="text"
+                               name="nonaffcont<?php echo $i; ?>_name"
+                               id="nonaffcont<?php echo $i; ?>_name"
+                               size="20"
+                               value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="nonaffcont<?php echo $i; ?>_note"></label>
+                        <input type="text"
+                               name="nonaffcont<?php echo $i; ?>_note"
+                               id="nonaffcont<?php echo $i; ?>_note"
+                               size="15"
+                               value="<?php echo $power->getPowerNote(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerNote(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php echo $dots; ?>
+                    <input type="hidden" name="nonaffcont<?php echo $i; ?>_id" id="affcont<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$nonaffinityContracts = ob_get_clean();
 
-        	$power_note = <<<EOQ
-<input type="text" name="affcont${i}_note" id="affcont${i}_note" size="15" class="$input_class" value="$power_note">
-EOQ;
-      	}
-      	
-      	$power_list .= <<<EOQ
-  <tr>
-    <td>
-      $power_name
-    </td>
-    <td>
-      $power_note
-    </td>
-    <td align="center">
-      $power_dots
-      <input type="hidden" name="affcont${i}_id" id="affcont${i}_id" value="$power_id">
-    </td>
-  </tr>
-EOQ;
-      }
-      $power_list .= "</table>";
-      
-      // non affinity contracts
-      if($edit_powers)
-      {
-        $power_list .= <<<EOQ
-<br>
-<a href="#" onClick="addContract('nonaffcont');return false;">Add Non-Affinity Contract</a><br>
-EOQ;
-      }
-      else
-      {
-        $power_list .= "Nonaffinity Contracts<br>";
-      }
-      
-      $power_list .= <<<EOQ
-<table border="0" cellspacing="1" cellpadding="1" class="normal_text" name="nonaffcont_list" id="nonaffcont_list" width="100%">
-  <tr>
-    <th width="35%">
-      Name
-    </th>
-    <th width="35%">
-      Note
-    </th>
-    <th width="30%">
-      Level
-    </th>
-  </tr>
-EOQ;
-      
-      $oocdiscs = getPowers($characterId, 'NonAffContract', NAMENOTE, 3);
-      
-      for($i = 0; $i < sizeof($oocdiscs); $i++)
-      {
-      	$power_dots = FormHelper::Dots("nonaffcont${i}", $oocdiscs[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
-      	
-      	$power_name = $oocdiscs[$i]->getPowerName();
-      	$power_note = $oocdiscs[$i]->getPowerNote();
-      	$power_id = $oocdiscs[$i]->getPowerID();
-      	
-      	if($edit_powers)
-      	{
-        	$power_name = <<<EOQ
-<input type="text" name="nonaffcont${i}_name" id="nonaffcont${i}_name" size="15" class="$input_class" value="$power_name">
-EOQ;
+// goblin contracts
+// Goblin Contracts
+$supernatural_xp_js = "";
+if ($edit_xp) {
+    $supernatural_xp_js = " onChange=\"updateXP($element_type[supernatural])\" ";
+}
+$powers = getPowers($characterId, 'GoblinContract', NAMENOTE, 2);
+ob_start();
+?>
+    <table class="character-sheet <?php echo $table_class; ?>" id="gobcont_list">
+        <tr>
+            <th colspan="3">
+                Goblin Contracts
+                <?php if ($edit_powers): ?>
+                    <a href="#" onClick="addContract('gobcont');return false;">
+                        <img src="/img/plus.png" title="Add Goblin Contract"/>
+                    </a>
+                <?php endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="header-row">
+                Name
+            </td>
+            <td class="header-row">
+                Level
+            </td>
+        </tr>
+        <?php foreach ($powers as $i => $power): ?>
+            <?php $dots = FormHelper::Dots("gobcont${i}", $power->getPowerLevel(),
+                                           $element_type['supernatural'], $character_type, $max_dots,
+                                           $edit_powers, false, $edit_xp); ?>
+            <tr>
+                <td>
+                    <?php if ($edit_powers): ?>
+                        <label for="gobcont<?php echo $i; ?>_name"></label>
+                        <input type="text"
+                               name="gobcont<?php echo $i; ?>_name"
+                               id="gobcont<?php echo $i; ?>_name"
+                               size="20"
+                               value="<?php echo $power->getPowerName(); ?>">
+                    <?php else: ?>
+                        <?php echo $power->getPowerName(); ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php echo $dots; ?>
+                    <input type="hidden" name="gobcont<?php echo $i; ?>_id" id="affcont<?php echo $i; ?>_id"
+                           value="<?php echo $power->getPowerID(); ?>">
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php
+$goblinContracts = ob_get_clean();
 
-        	$power_note = <<<EOQ
-<input type="text" name="nonaffcont${i}_note" id="nonaffcont${i}_note" size="15" class="$input_class" value="$power_note">
-EOQ;
-      	}
-      	
-      	$power_list .= <<<EOQ
-<tr>
-    <td>
-        $power_name
-    </td>
-    <td>
-        $power_note
-    </td>
-    <td align="center">
-        $power_dots
-        <input type="hidden" name="nonaffcont${i}_id" id="nonaffcont${i}_id" value="$power_id">
-    </td>
-</tr>
-EOQ;
-      }
-      $power_list .= "</table>";
-      
-      // Goblin Contracts
-      $supernatural_xp_js = "";
-      if($edit_xp)
-      {
-        $supernatural_xp_js = " onChange=\"updateXP($element_type[supernatural])\" ";
-      }
-      
-      if($edit_powers)
-      {
-        $power_list .= <<<EOQ
-<br>
-<a href="#" onClick="addContract('gobcont');return false;">Add Goblin Contract</a><br>
-EOQ;
-      }
-      else
-      {
-        $power_list .= "Goblin Contracts<br>";
-      }
-      
-      $power_list .= <<<EOQ
-<table border="0" cellspacing="1" cellpadding="1" class="normal_text" name="gobcont_list" id="gobcont_list" width="100%">
-  <tr>
-    <th width="70%">
-      Name
-    </th>
-    <th width="30%">
-      Level
-    </th>
-  </tr>
-EOQ;
+ob_start();
+?>
 
-      $powers = getPowers($characterId, 'GoblinContract', NAMENOTE, 2);
-      
-      for($i = 0; $i < sizeof($powers); $i++)
-      {
-        $power_dots = FormHelper::Dots("gobcont${i}", $powers[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
-        $power_name = $powers[$i]->getPowerName();
-        $power_id = $powers[$i]->getPowerID();
-        
-      	if($edit_powers)
-      	{
-        	$power_name = <<<EOQ
-<input type="text" name="gobcont${i}_name" id="gobcont${i}_name" size="15" class="$input_class" value="$power_name">
-EOQ;
-      	}
-      	
-      	$power_list .= <<<EOQ
-  <tr>
-    <td>
-      $power_name
-    </td>
-    <td align="center">
-      $power_dots
-      <input type="hidden" name="gobcont${i}_id" id="gobcont${i}_id" value="$power_id" $supernatural_xp_js>
-    </td>
-  </tr>
-EOQ;
-      }
-      $power_list .= "</table>";
-      
-			$traits_table = <<<EOQ
+<?php
+$traits_table = ob_get_clean();
+
+$traits_table = <<<EOQ
 <table class="character-sheet $table_class"  width="100%">
     <tr>
         <th colspan="3" align="center" width="50%">
