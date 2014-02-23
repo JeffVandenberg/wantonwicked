@@ -1468,7 +1468,6 @@ function addContract(type) {
         newNameCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_name\" id=\"" + type + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
 
         var newLevelCell = newRow.insertCell(1);
-        newLevelCell.style.textAlign = "center";
         newLevelCell.innerHTML = makeDotsXP(type + index, supernatural, getCharacterType(), 7, 0, true, false, edit_xp);
         newLevelCell.innerHTML += "<input type=\"hidden\" name=\"" + type + index + "_id\" id=\"" + type + index + "_id\" value=\"0\">";
     }
@@ -1480,7 +1479,6 @@ function addContract(type) {
         newNameCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_note\" id=\"" + type + index + "_note\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
 
         var newLevelCell = newRow.insertCell(2);
-        newLevelCell.style.textAlign = "center";
         newLevelCell.innerHTML = makeDotsXP(type + index, supernatural, getCharacterType(), 7, 0, true, false, edit_xp);
         newLevelCell.innerHTML += "<input type=\"hidden\" name=\"" + type + index + "_id\" id=\"" + type + index + "_id\" value=\"0\">";
     }

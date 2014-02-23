@@ -381,131 +381,106 @@ $goblinContracts = ob_get_clean();
 
 ob_start();
 ?>
-
+    <div style="width:50%;float:left;">
+        <?php echo $character_merit_list; ?>
+        <?php echo $character_flaw_list; ?>
+        <?php echo $characterMiscList; ?>
+    </div>
+    <div style="width:50%;float:left;">
+        <?php echo $affinityContracts; ?>
+        <?php echo $nonaffinityContracts; ?>
+        <?php echo $goblinContracts; ?>
+    </div>
+    <table class="character-sheet <?php echo $table_class; ?>">
+        <tr>
+            <th colspan="6">
+                Traits
+            </th>
+        </tr>
+        <tr>
+            <td style="width:15%">
+                Health
+            </td>
+            <td colspan="2" style="width:50%">
+                <?php echo $health_dots; ?>
+            </td>
+            <td colspan="1" style="width:15%">
+                Size
+            </td>
+            <td colspan="2" style="width:20%">
+                <?php echo $size; ?>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1">
+                Wyrd
+            </td>
+            <td colspan="2">
+                <?php echo $power_trait_dots; ?>
+            </td>
+            <td colspan="1">
+                Size
+            </td>
+            <td colspan="2">
+                <?php echo $size; ?>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1">
+                Clarity
+            </td>
+            <td colspan="2">
+                <?php echo $morality_dots; ?>
+            </td>
+            <td colspan="1">
+                Defense
+            </td>
+            <td colspan="2">
+                <?php echo $defense; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Willpower Perm
+            </td>
+            <td colspan="2">
+                <?php echo $willpower_perm_dots; ?>
+            </td>
+            <td colspan="1">
+                Initiative Mod
+            </td>
+            <td colspan="2">
+                <?php echo $initiative_mod; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Willpower Temp
+            </td>
+            <td colspan="2">
+                <?php echo $willpower_temp_dots; ?>
+            </td>
+            <td colspan="1">
+                Speed
+            </td>
+            <td colspan="2">
+                <?php echo $speed; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Glamour
+            </td>
+            <td colspan="2">
+                <?php echo $power_points_dots; ?>
+            </td>
+            <td colspan="1">
+                Armor
+            </td>
+            <td colspan="2">
+                <?php echo $armor; ?>
+            </td>
+        </tr>
+    </table>
 <?php
 $traits_table = ob_get_clean();
-
-$traits_table = <<<EOQ
-<table class="character-sheet $table_class"  width="100%">
-    <tr>
-        <th colspan="3" align="center" width="50%">
-            Merits
-			$abilities_help
-        </th>
-        <th colspan="3" align="center" width="50%">
-            Contracts
-			$abilities_help
-        </th>
-    </tr>
-    <tr valign="top">
-        <td colspan="3">
-            $character_merit_list
-        </td>
-        <td colspan="3" rowspan="3">
-            $power_list
-        </td>
-    </tr>
-    <tr>
-        <th colspan="3" align="center">
-            Flaws/Derangements
-			$abilities_help
-        </th>
-    </tr>
-    <tr>
-        <td colspan="3" valign="top">
-            $character_flaw_list
-        </td>
-    </tr>
-</table>
-<table class="character-sheet $table_class"  width="100%">
-    <tr>
-        <th colspan="6">
-            Traits
-        </th>
-    </tr>
-    <tr>
-        <td width="15%">
-            Health
-        </td>
-        <td colspan="2" width="30%">
-            $health_dots
-        </td>
-        <td colspan="1" width="15%">
-            Wounds
-        </td>
-        <td colspan="2" width="40%">
-            Bashing: $wounds_bashing Lethal: $wounds_lethal Agg: $wounds_aggravated
-        </td>
-    </tr>
-    <tr>
-        <td colspan="1">
-            Wyrd
-        </td>
-        <td colspan="2">
-            $power_trait_dots
-        </td>
-        <td colspan="1">
-            Size
-        </td>
-        <td colspan="2">
-            $size
-        </td>
-    </tr>
-    <tr>
-        <td colspan="1">
-            Clarity
-        </td>
-        <td colspan="2">
-            $morality_dots
-        </td>
-        <td colspan="1">
-            Defense
-        </td>
-        <td colspan="2">
-            $defense
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Willpower Perm
-        </td>
-        <td colspan="2">
-            $willpower_perm_dots
-        </td>
-        <td colspan="1">
-            Initiative Mod
-        </td>
-        <td colspan="2">
-            $initiative_mod
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Willpower Temp
-        </td>
-        <td colspan="2">
-            $willpower_temp_dots
-        </td>
-        <td colspan="1">
-            Speed
-        </td>
-        <td colspan="2">
-            $speed
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Glamour
-        </td>
-        <td colspan="2">
-            $power_points_dots
-        </td>
-        <td colspan="1">
-            Armor
-        </td>
-        <td colspan="2">
-            $armor
-        </td>
-    </tr>
-</table>
-EOQ;
