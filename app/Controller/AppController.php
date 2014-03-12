@@ -55,6 +55,8 @@ class AppController extends Controller {
     {
         $this->Auth->authenticate = array('Phpbb');
         $this->Auth->authorize = array('Controller');
+        $this->Auth->loginRedirect = '/forum/ucp.php?mode=login';
+
         if(!$this->Auth->loggedIn())
         {
             $this->Auth->login();
