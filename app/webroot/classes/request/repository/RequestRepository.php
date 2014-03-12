@@ -598,6 +598,7 @@ FROM
     LEFT JOIN wod_characters AS C ON R.character_id = C.character_id
 WHERE
     R.group_id IN ($groupListPlaceholders)
+    AND C.is_deleted = 'N'
 EOQ;
         $parameters = $groups;
         if($filter['character_name'] != '') {
