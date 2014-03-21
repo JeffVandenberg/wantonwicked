@@ -523,6 +523,14 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
                 "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewSheet(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
                     "<img style='vertical-align:middle;' src='images/usermenu/profile.gif'>" +
                     "<span style='padding-left:10px;'>View Sheet</span>" +
+                "</div>" +
+                "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewDice(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
+                    "<img style='vertical-align:middle;' src='images/usermenu/profile.gif'>" +
+                    "<span style='padding-left:10px;'>Dice Roller</span>" +
+                "</div>" +
+                "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewRequests(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
+                    "<img style='vertical-align:middle;' src='images/usermenu/profile.gif'>" +
+                    "<span style='padding-left:10px;'>Requests</span>" +
                 "</div>";
         }
 
@@ -640,6 +648,14 @@ function viewProfile(uID,uUser) {
 
 function viewSheet(characterId) {
     window.open('/view_sheet.php?action=view_own_xp&character_id='+characterId);
+}
+
+function viewDice(characterId) {
+    window.open('/dieroller.php?action=character&character_id='+characterId);
+}
+
+function viewRequests(characterId) {
+    window.open('/request.php?action=list&character_id='+characterId);
 }
 
 /*
