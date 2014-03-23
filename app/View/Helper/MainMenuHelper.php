@@ -48,16 +48,14 @@ EOQ;
                         }
                     }
                     $icon = (isset($item['icon'])) ? '<img src="' . $item['icon'] . '" />' : '';
-                    $id = (isset($item['id'])) ? $item['id'] : null;
-                    $class = (isset($item['class'])) ? $item['class'] : null;
 
-                    $liTag = "<li ";
-                    if($id != null) {
-                        $liTag .= "id=\"$id\" ";
+                    $liTag = "<li";
+                    if(isset($item['id'])) {
+                        $liTag .= ' id="' . $item['id'] . '" ';
                     }
 
-                    if($id != null) {
-                        $liTag .="class=\"$class\"";
+                    if(isset($item['class'])) {
+                        $liTag .= ' class="' . $item['class'] . '" ';
                     }
                     $liTag .= ">";
 
@@ -65,11 +63,15 @@ EOQ;
 
                     $text = '<span>' . $icon . $label . '</span>';
 
-                    //if($link != '#') {
-                        $text = '<a href="' . $link. '">'.$text.'</a>';
-                    //}
+                    $link = '<a href="' . $link . '" ';
 
-                    $menuLevel .= $text;
+                    if(isset($item['target'])) {
+                        $link .= ' target="' . $item['target'] . '" ';
+                    }
+
+                    $link .= $text . '</a>';
+
+                    $menuLevel .= $link;
 
                     if(isset($item['submenu'])) {
                         $menuLevel .= $this->AppendLevel($item['submenu']);

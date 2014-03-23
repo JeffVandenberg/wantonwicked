@@ -34,89 +34,89 @@ class MenuComponent extends Component {
                 'link' => '#',
                 'submenu' => array(
                     'The City' => array(
-                        'link' => 'wiki/index.php?n=City.City'
+                        'link' => '/wiki/index.php?n=City.City'
                     ),
                     'Changeling' => array(
-                        'link' => 'wiki/index.php?n=Changeling.Changeling',
+                        'link' => '/wiki/index.php?n=Changeling.Changeling',
                         'submenu' => array(
                             'House Rules' => array(
-                                'link' => 'wiki/index.php?n=Changeling.HouseRules'
+                                'link' => '/wiki/index.php?n=Changeling.HouseRules'
                             ),
                             'Player Guide' => array(
-                                'link' => 'wiki/index.php?n=Changeling.PlayerGuide'
+                                'link' => '/wiki/index.php?n=Changeling.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => 'wiki/index.php?n=Players.Changeling'
+                                'link' => '/wiki/index.php?n=Players.Changeling'
                             ),
                         )
                     ),
                     'Geist' => array(
-                        'link' => 'wiki/index.php?n=Geist.Geist',
+                        'link' => '/wiki/index.php?n=Geist.Geist',
                         'submenu' => array(
                             'House Rules' => array(
-                                'link' => 'wiki/index.php?n=Geist.HouseRules'
+                                'link' => '/wiki/index.php?n=Geist.HouseRules'
                             ),
                             'Player Guide' => array(
-                                'link' => 'wiki/index.php?n=Geist.PlayerGuide'
+                                'link' => '/wiki/index.php?n=Geist.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => 'wiki/index.php?n=Players.Geist'
+                                'link' => '/wiki/index.php?n=Players.Geist'
                             ),
                         )
                     ),
                     'Mage' => array(
-                        'link' => 'wiki/index.php?n=Mage.Mage',
+                        'link' => '/wiki/index.php?n=Mage.Mage',
                         'submenu' => array(
                             'House Rules' => array(
-                                'link' => 'wiki/index.php?n=Mage.HouseRules'
+                                'link' => '/wiki/index.php?n=Mage.HouseRules'
                             ),
                             'Player Guide' => array(
-                                'link' => 'wiki/index.php?n=Mage.PlayerGuide'
+                                'link' => '/wiki/index.php?n=Mage.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => 'wiki/index.php?n=Players.Mage'
+                                'link' => '/wiki/index.php?n=Players.Mage'
                             ),
                         )
                     ),
                     'Mortal' => array(
-                        'link' => 'wiki/index.php?n=Mortal.Mortal',
+                        'link' => '/wiki/index.php?n=Mortal.Mortal',
                         'submenu' => array(
                             'House Rules' => array(
-                                'link' => 'wiki/index.php?n=Mortal.HouseRules'
+                                'link' => '/wiki/index.php?n=Mortal.HouseRules'
                             ),
                             'Player Guide' => array(
-                                'link' => 'wiki/index.php?n=Mortal.PlayerGuide'
+                                'link' => '/wiki/index.php?n=Mortal.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => 'wiki/index.php?n=Players.Mortal'
+                                'link' => '/wiki/index.php?n=Players.Mortal'
                             ),
                         )
                     ),
                     'Vampire' => array(
-                        'link' => 'wiki/index.php?n=Vampire.Vampire',
+                        'link' => '/wiki/index.php?n=Vampire.Vampire',
                         'submenu' => array(
                             'House Rules' => array(
-                                'link' => 'wiki/index.php?n=Vampire.HouseRules'
+                                'link' => '/wiki/index.php?n=Vampire.HouseRules'
                             ),
                             'Player Guide' => array(
-                                'link' => 'wiki/index.php?n=Vampire.PlayerGuide'
+                                'link' => '/wiki/index.php?n=Vampire.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => 'wiki/index.php?n=Players.Vampire'
+                                'link' => '/wiki/index.php?n=Players.Vampire'
                             ),
                         )
                     ),
                     'Werewolf' => array(
-                        'link' => 'wiki/index.php?n=Werewolf.Werewolf',
+                        'link' => '/wiki/index.php?n=Werewolf.Werewolf',
                         'submenu' => array(
                             'House Rules' => array(
-                                'link' => 'wiki/index.php?n=Werewolf.HouseRules'
+                                'link' => '/wiki/index.php?n=Werewolf.HouseRules'
                             ),
                             'Player Guide' => array(
-                                'link' => 'wiki/index.php?n=Werewolf.PlayerGuide'
+                                'link' => '/wiki/index.php?n=Werewolf.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => 'wiki/index.php?n=Players.Werewolf'
+                                'link' => '/wiki/index.php?n=Players.Werewolf'
                             ),
                         )
                     ),
@@ -124,23 +124,23 @@ class MenuComponent extends Component {
                         'link' => '#',
                         'submenu' => array(
                             'Whitefield' => array(
-                                'link' => 'wiki/index.php?n=Whitefield.Whitefield',
+                                'link' => '/wiki/index.php?n=Whitefield.Whitefield',
                                 'submenu' => array(
                                     'House Rules' => array(
-                                        'link' => 'wiki/index.php?n=Whitefield.HouseRules'
+                                        'link' => '/wiki/index.php?n=Whitefield.HouseRules'
                                     ),
                                     'Player Guide' => array(
-                                        'link' => 'wiki/index.php?n=Whitefield.PlayerGuide'
+                                        'link' => '/wiki/index.php?n=Whitefield.PlayerGuide'
                                     ),
                                     'Cast' => array(
-                                        'link' => 'wiki/index.php?n=Players.Whitefield'
+                                        'link' => '/wiki/index.php?n=Players.Whitefield'
                                     ),
                                 )
                             ),
                         )
                     ),
                     'The Cast' => array(
-                        'link' => 'wiki/index.php?n=Players'
+                        'link' => '/wiki/index.php?n=Players'
                     )
                 )
             ),
@@ -148,32 +148,32 @@ class MenuComponent extends Component {
                 'link' => '#',
                 'submenu' => array(
                     'House Rules' => array(
-                        'link' => 'wiki/index.php?n=GameRef.HouseRules',
+                        'link' => '/wiki/index.php?n=GameRef.HouseRules',
                         'submenu' => array(
                             'Crossover Errata' => array(
-                                'link' => 'wiki/index.php?n=GameRef.CrossoverErrata'
+                                'link' => '/wiki/index.php?n=GameRef.CrossoverErrata'
                             )
                         )
                     ),
                     'Character Creation' => array(
-                        'link' => 'wiki/index.php?n=GameRef.CharacterCreation',
+                        'link' => '/wiki/index.php?n=GameRef.CharacterCreation',
                         'submenu' => array(
                             'Sanctioning Checklist' => array(
-                                'link' => 'wiki/index.php?n=GameRef.SanctioningGuide'
+                                'link' => '/wiki/index.php?n=GameRef.SanctioningGuide'
                             ),
                             'Book Policy' => array(
-                                'link' => 'wiki/index.php?n=GameRef.BookPolicy'
+                                'link' => '/wiki/index.php?n=GameRef.BookPolicy'
                             ),
                         )
                     ),
                     'Experience Guide' => array(
-                        'link' => 'wiki/index.php?n=GameRef.ExperienceGuide'
+                        'link' => '/wiki/index.php?n=GameRef.ExperienceGuide'
                     ),
                     'Policies and Practices' => array(
-                        'link' => 'wiki/index.php?n=GameRef.PoliciesandPractices',
+                        'link' => '/wiki/index.php?n=GameRef.PoliciesandPractices',
                         'submenu' => array(
                             'Crossover Policy' => array(
-                                'link' => 'wiki/index.php?n=GameRef.CrossoverPolicy'
+                                'link' => '/wiki/index.php?n=GameRef.CrossoverPolicy'
                             )
                         )
                     ),
@@ -183,13 +183,13 @@ class MenuComponent extends Component {
                 'link' => '#',
                 'submenu' => array(
                     'Help' => array(
-                        'link' => 'wiki/index.php?n=GameRef.Help',
+                        'link' => '/wiki/index.php?n=GameRef.Help',
                         'submenu' => array(
                             'Request System' => array(
-                                'link' => 'wiki/index.php?n=GameRef.RequestSystemHelp',
+                                'link' => '/wiki/index.php?n=GameRef.RequestSystemHelp',
                             ),
                             'Chat Interface' => array(
-                                'link' => 'wiki/index.php?n=GameRef.ChatHelp',
+                                'link' => '/wiki/index.php?n=GameRef.ChatHelp',
                             )
                         )
                     ),
@@ -208,15 +208,15 @@ class MenuComponent extends Component {
                         'link' => array('controller' => 'home', 'action' => 'staff')
                     ),
                     'Code of Conduct' => array(
-                        'link' => 'wiki/index.php?n=GameRef.CodeOfConduct',
+                        'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
                         'submenu' => array(
                             'Personal Information' => array(
-                                'link' => 'wiki/index.php?n=GameRef.PersonalInformation',
+                                'link' => '/wiki/index.php?n=GameRef.PersonalInformation',
                             )
                         )
                     ),
                     'Disclaimer' => array(
-                        'link' => 'wiki/index.php?n=GameRef.Disclaimer',
+                        'link' => '/wiki/index.php?n=GameRef.Disclaimer',
                     )
                 )
             )
@@ -233,10 +233,14 @@ class MenuComponent extends Component {
                 'link' => '/storyteller_index.php',
                 'submenu' => array(
                     'Character Lookup' => array(
-                        'link' => 'view_sheet.php?action=st_view_xp',
+                        'link' => '/view_sheet.php?action=st_view_xp',
                     ),
                     'Request Dashboard' => array(
-                        'link' => 'request.php?action=st_list'
+                        'link' => '/request.php?action=st_list'
+                    ),
+                    'Chat Login' => array(
+                        'link' => '/chat/?st_login',
+                        'target' => '_blank'
                     )
                 )
             );
