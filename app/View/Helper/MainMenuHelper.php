@@ -68,7 +68,7 @@ EOQ;
                     if(isset($item['target'])) {
                         $link .= ' target="' . $item['target'] . '" ';
                     }
-
+                    $link .= '>';
                     $link .= $text . '</a>';
 
                     $menuLevel .= $link;

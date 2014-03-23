@@ -250,7 +250,6 @@ class MenuComponent extends Component {
                 );
                 $this->menu['Tools']['submenu']['Character List']['submenu'][$character['Character']['character_name']] = $characterMenu;
             }
-
         }
 
         if($this->Permissions->IsST()) {
