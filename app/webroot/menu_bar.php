@@ -99,7 +99,6 @@ if ($user->data['user_id'] != ANONYMOUS) {
    </li>
    <li><span>Tools</span>
       <ul>
-         <li><a href='/chat.php'><span>Game/Chat Interface</span></a></li>
          <li><a href='/wiki/index.php?n=GameRef.Help'><span>Help</span></a>
             <ul>
             	<li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
@@ -109,6 +108,7 @@ if ($user->data['user_id'] != ANONYMOUS) {
          <li><a href='/support.php'><span>Site Supporter</span></a>
                $supporter
 		 </li>
+         <li><a href='/chat.php'><span>Character List</span></a></li>
          <li>$gamemaster_link</li>
       </ul>
    </li>

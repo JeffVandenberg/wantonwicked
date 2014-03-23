@@ -2,6 +2,7 @@
 namespace classes\core\data;
 
 use classes\core\helpers\SlugHelper;
+use classes\core\repository\DatabaseMapper;
 use classes\core\repository\RepositoryManager;
 use classes\request\data\RequestType;
 use Exception;
@@ -91,8 +92,12 @@ abstract class DataModel
      */
     protected $ForeignId;
 
-    function __construct($tablePrefix = '', $database = 'gamingsa_wanton_test')
+    function __construct($tablePrefix = '', $database = null)
     {
+        if($database === null) {
+            $params = DatabaseMapper::GetPrimary();
+            $database = $params['db'];
+        }
         $this->Database = $database;
         $this->FullClassName = get_class($this);
         $this->ClassName = substr($this->FullClassName, strrpos($this->FullClassName, '\\') + 1);

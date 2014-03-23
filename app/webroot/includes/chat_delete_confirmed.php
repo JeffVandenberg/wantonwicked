@@ -24,7 +24,7 @@ if($character)
   $id = mysql_num_rows($id_result);
   
   // mark the character as deleted
-  $update_query = "update characters set is_deleted='Y', character_name = '${temp_name}_$id' where character_id = $character_id;";
+  $update_query = "update characters set is_deleted='Y', character_name = '${temp_name}_$id' where id = $character_id;";
   //echo "$update_query<br>";
   $update_result = mysql_query($update_query) or die(mysql_error());
   

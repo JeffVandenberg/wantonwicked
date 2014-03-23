@@ -34,13 +34,10 @@ var attributes = {
 };
 
 var skill_list = [];
-for (i = 0; i < 21; i++) {
+for (i = 0; i < 24; i++) {
     skill_list.push('skill' + i);
 }
-var skills = {
-    academics: 'skill0'
-};
-
+var attributesList = ['intelligence', 'strength', 'presence', 'wits', 'dexterity', 'manipulation', 'resolve', 'stamina', 'composure'];
 var skill_list_proper = ["Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry"];
 var skill_list_proper_mage = ["Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry", "Rote Specialty"];
 var renown_list = ["purity", "glory", "honor", "wisdom", "cunning"];
@@ -128,7 +125,8 @@ function updateTraits() {
 }
 
 function checkBonusAttribute(attribute) {
-    if ($('#bonus_attribute').val().toLowerCase() == attribute) {
+    var attributeId = attributesList.indexOf($('#bonus_attribute').val().toLowerCase());
+    if ('attribute'+attributeId == attribute) {
         return 1;
     }
     else {
@@ -142,6 +140,10 @@ function updateXP(element_type) {
             updateAttributeXP();
             displayBonusDot();
             break;
+            for (var j = 0; j < attribute_xp.length; j++) {
+                var obj = attribute_xp[j];
+                
+            }
         case skill:
             updateSkillXP();
             break;
@@ -196,7 +198,7 @@ function updateSkillXP() {
     i = 0;
     var specialties = 0;
     while (document.getElementById('skill_spec' + i)) {
-        if ((document.getElementById('skill_spec' + i).value != '')
+        if ((document.getElementById('skill_spec' + i ).value != '')
             && (document.getElementById('skill_spec' + i + '_selected').value != 'Rote Specialty')) {
             specialties++;
         }
@@ -748,17 +750,17 @@ function updateGeneralXP() {
         morality_base = 6;
     }
 
-    if (document.getElementById('morality').value < morality_base) {
-        general_xp += ((morality_base - Number(document.getElementById('morality').value)) * 5);
+    if ($('#morality').val() < morality_base) {
+        general_xp += ((morality_base - Number($('#morality').val())) * 5);
     }
     else {
-        var morality_value = document.getElementById('morality').value;
+        var morality_value = $('#morality').val();
         var morality_base_cost = ((Number(morality_base) * (Number(morality_base) + 1)) * 3) / 2;
         general_xp -= (((Number(morality_value) * (Number(morality_value) + 1)) * 3) / 2 - morality_base_cost);
     }
 
 
-    document.getElementById('general_xp').value = general_xp;
+    $('#general_xp').val(general_xp);
 }
 
 function getSkillCost(index, dots, character_type) {
@@ -865,7 +867,7 @@ function getChangelingMeritcost(index, dots) {
 
 function isCourtMantle(index) {
     if (getMeritName(index).toLowerCase() == 'mantle') {
-        var merit_note = $('#merit' + index + '-note').val();
+        var merit_note = $('#merit' + index + '_note').val();
         if ((merit_note != '') && (getSplat2().toLowerCase().indexOf(merit_note.toLowerCase()) > -1)) {
             return true;
         }
@@ -878,8 +880,8 @@ function hasMerit(name, note, level) {
     var found_merit = false;
 
     while ($('#merit' + i).length > 0 && !found_merit) {
-        if ($('#merit' + i + '-name').val().toLowerCase() == name.toLowerCase()) {
-            if (note.toLowerCase().indexOf($('#merit' + i + '-note').val().toLowerCase()) > -1) {
+        if ($('#merit' + i + '_name').val().toLowerCase() == name.toLowerCase()) {
+            if (note.toLowerCase().indexOf($('#merit' + i + '_note').val().toLowerCase()) > -1) {
                 if (document.getElementById('merit' + i).value >= level) {
                     found_merit = true;
                     break;
@@ -897,8 +899,8 @@ function hasStatus(group_name) {
     var found_status = false;
     //noinspection JSJQueryEfficiency
     while (($('#merit' + i).length > 0) && !found_status) {
-        if ($('#merit' + i + '-name').val().toLowerCase() == 'status') {
-            if (group_name.toLowerCase().indexOf($('#merit' + i + '-note').val().toLowerCase()) > -1) {
+        if ($('#merit' + i + '_name').val().toLowerCase() == 'status') {
+            if (group_name.toLowerCase().indexOf($('#merit' + i + '_note').val().toLowerCase()) > -1) {
                 if ($('#merit' + i).value > 0) {
                     found_status = true;
                     break;
@@ -924,7 +926,7 @@ function getNumOfPowersInList(power_list, list_name) {
     var number_of_powers = 0;
 
     while ($("#"+power_list + index).length > 0) {
-        if ($("#"+power_list + index + '-note').val() == list_name) {
+        if ($("#"+power_list + index + '_note').val() == list_name) {
             number_of_powers++;
         }
         index++;
@@ -1208,7 +1210,7 @@ function getMeritName(index) {
 function addMerit() {
     var merit_list = document.getElementById('merit_list');
     var row_id = merit_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = merit_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1225,7 +1227,7 @@ function addMerit() {
 function addFlaw() {
     var flaw_list = document.getElementById('flaw_list');
     var row_id = flaw_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = flaw_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
 
@@ -1235,7 +1237,7 @@ function addFlaw() {
 function addMiscTrait() {
     var list = document.getElementById('misc_list');
     var row_id = list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1252,7 +1254,7 @@ function addMiscTrait() {
 function addMisc() {
     var misc_list = document.getElementById('misc_list');
     var row_id = misc_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = misc_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1269,7 +1271,7 @@ function addMisc() {
 function addSpecialty() {
     var specialties_list = document.getElementById('specialties_list');
     var row_id = specialties_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = specialties_list.insertRow(row_id);
     var newSkillCell = newRow.insertCell(0);
     var js = "";
@@ -1293,7 +1295,7 @@ function addSpecialty() {
 function addDisc(type) {
     var disc_list = document.getElementById(type + '_list');
     var row_id = disc_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = disc_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     newNameCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_name\" id=\"" + type + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
@@ -1306,7 +1308,7 @@ function addDisc(type) {
 function addDevotion() {
     var devotion_list = document.getElementById('devotion_list');
     var row_id = devotion_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = devotion_list.insertRow(row_id);
 
     var newNameCell = newRow.insertCell(0);
@@ -1324,7 +1326,7 @@ function addDevotion() {
 function addGift(type) {
     var gift_list = document.getElementById(type + '_list');
     var row_id = gift_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = gift_list.insertRow(row_id);
 
     var newListCell = newRow.insertCell(0);
@@ -1353,7 +1355,7 @@ function addRitual() {
 function addArcana(type) {
     var arcana_list = document.getElementById(type + '_list');
     var row_id = arcana_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = arcana_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     newNameCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_name\" id=\"" + type + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
@@ -1367,7 +1369,7 @@ function addArcana(type) {
 function addRote() {
     var rote_list = document.getElementById('rote_list');
     var row_id = rote_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = rote_list.insertRow(row_id);
 
     var newNameCell = newRow.insertCell(0);
@@ -1389,7 +1391,7 @@ function addRote() {
 function addPsychicMerit() {
     var merit_list = document.getElementById('psychic_merit_list');
     var row_id = merit_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = merit_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1407,7 +1409,7 @@ function addPsychicMerit() {
 function addThaumaturgeMerit() {
     var merit_list = document.getElementById('thaumaturge_merit_list');
     var row_id = merit_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = merit_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1425,7 +1427,7 @@ function addThaumaturgeMerit() {
 function addBestowment() {
     var bestowment_list = document.getElementById('bestowment_list');
     var row_id = bestowment_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = bestowment_list.insertRow(row_id);
 
     var newNameCell = newRow.insertCell(0);
@@ -1443,7 +1445,7 @@ function addBestowment() {
 function addTrans(type) {
     var trans_list = document.getElementById(type + '_list');
     var row_id = trans_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = trans_list.insertRow(row_id);
 
     var newListCell = newRow.insertCell(0);
@@ -1460,7 +1462,7 @@ function addTrans(type) {
 function addContract(type) {
     var cont_list = document.getElementById(type + '_list');
     var row_id = cont_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = cont_list.insertRow(row_id);
 
     if (type == "gobcont") {
@@ -1487,7 +1489,7 @@ function addContract(type) {
 function addKey() {
     var key_list = document.getElementById('key_list');
     var row_id = key_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = key_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1502,7 +1504,7 @@ function addKey() {
 function addManifestation() {
     var list = document.getElementById('manifestation_list');
     var row_id = list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     newNameCell.innerHTML = "<input type=\"text\" name=\"manifestation" + index + "_name\" id=\"manifestation" + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
@@ -1515,7 +1517,7 @@ function addManifestation() {
 function addMomento() {
     var list = document.getElementById('momento_list');
     var row_id = list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1529,7 +1531,7 @@ function addMomento() {
 function addCeremony() {
     var list = document.getElementById('ceremony_list');
     var row_id = list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     newNameCell.innerHTML = "<input type=\"text\" name=\"ceremony" + index + "_name\" id=\"ceremony" + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
@@ -1542,7 +1544,7 @@ function addCeremony() {
 function addNumina() {
     var key_list = document.getElementById('numina_list');
     var row_id = key_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = key_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1557,7 +1559,7 @@ function addNumina() {
 function addSiddhi() {
     var list = document.getElementById('siddhi_list');
     var row_id = list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     newNameCell.innerHTML = "<input type=\"text\" name=\"siddhi" + index + "_name\" id=\"siddhi" + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
@@ -1638,7 +1640,7 @@ function addThaumaturgeDefiningMerit() {
 function addEndowment() {
     var power_list = document.getElementById('endowments_list');
     var row_id = power_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = power_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     var js = "";
@@ -1656,7 +1658,7 @@ function addEndowment() {
 function addTactic() {
     var power_list = document.getElementById('tactics_list');
     var row_id = power_list.rows.length;
-    var index = row_id - 1;
+    var index = row_id - 2;
     var newRow = power_list.insertRow(row_id);
 
     var newNameCell = newRow.insertCell(0);
@@ -1784,7 +1786,7 @@ function makeDotsXP(element_name, element_type, character_type, number_of_dots, 
     for (var i = 1; i <= number_of_dots; i++) {
         var js = "";
         if (edit) {
-            js += "changeDots(" + element_type + ", '" + element_name + "'," + i + "," + number_of_dots + ", true);";
+            js += "changeDots(" + element_type + ", '" + element_name + "'," + i + "," + number_of_dots + ", true);updateXP(" + element_type + ");";
         }
 
         if (update_traits) {

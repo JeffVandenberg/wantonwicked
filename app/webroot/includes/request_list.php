@@ -18,7 +18,7 @@ $sort = Request::GetValue('sort', 'updated_on DESC');
 $filter = Request::GetValue('filter', array('title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
 
 $characterRepository = new CharacterRepository();
-if (!$userdata['is_admin'] && !$characterRepository->MayfViewCharacter($characterId, $userdata['user_id'])) {
+if (!$userdata['is_admin'] && !$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
     include 'index_redirect.php';
     die();
 }

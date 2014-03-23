@@ -46,8 +46,10 @@ if ($character['is_sanctioned'] == '' && $character['asst_sanctioned'] == '') {
 $java_script .= <<<EOQ
 <script src="js/create_character_xp.js" type="text/javascript"></script>
 <script>
-    setXpEdit($edit_xp); ?>
-    drawSheet();
+    $(function() {
+        setXpEdit($edit_xp);
+        drawSheet();
+    });
 </script>
 EOQ;
 

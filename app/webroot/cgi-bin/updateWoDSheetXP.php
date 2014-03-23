@@ -446,7 +446,6 @@ EOQ;
             foreach ($powers as $key => $value) {
                 SavePower($key, $value, $stats, $character_id);
             }
-
         }
 
         $trans_query = "commit;";

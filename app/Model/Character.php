@@ -9,6 +9,22 @@
 class Character extends AppModel {
     public $name = 'Character';
 
+    public function ListSanctionedForUser($userId) {
+        return $this->find('all', array(
+            'conditions' => array(
+                'Character.user_id' => $userId,
+                'Character.is_sanctioned' => 'Y',
+                'Character.is_deleted' => 'N'
+            ),
+            'fields' => array(
+                'Character.id',
+                'Character.character_name'
+            ),
+            'order' => array(
+                'Character.character_name'
+            )
+        ));
+    }
     public function ListByCity($city) {
         return $this->find('all', array(
             'conditions' => array(

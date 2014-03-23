@@ -7,6 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
+die('do not do this');
 use classes\character\data\CharacterPower;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;

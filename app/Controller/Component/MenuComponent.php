@@ -223,13 +223,38 @@ class MenuComponent extends Component {
         );
 
         if($this->Auth->loggedIn()) {
-            $this->menu['Tools']['submenu']['Game/Chat Interface'] = array(
+            $this->menu['Tools']['submenu']['Character List'] = array(
                 'link' => '/chat.php'
             );
+            App::uses('AppModel', 'Model');
+            App::uses('Character', 'Model');
+            $characterRepo = new Character();
+            $sanctionedCharacters = $characterRepo->ListSanctionedForUser($this->Auth->user('user_id'));
+            foreach($sanctionedCharacters as $character) {
+                $characterMenu = array(
+                    'link' => '/character.php?action=interface&character_id='.$character['Character']['id'],
+                    'submenu' => array(
+                        'Login' => array(
+                            'link' => '/chat/?character_id='.$character['Character']['id']
+                        ),
+                        'Requests' => array(
+                            'link' => '/request.php?action=list&character_id=' . $character['Character']['id']
+                        ),
+                        'Bluebook' => array(
+                            'link' => '/bluebook.php?action=list&character_id=' . $character['Character']['id']
+                        ),
+                        'Sheet' => array(
+                            'link' => '/view_sheet.php?action=view_own_xp&character_id=' . $character['Character']['id']
+                        )
+                    )
+                );
+                $this->menu['Tools']['submenu']['Character List']['submenu'][$character['Character']['character_name']] = $characterMenu;
+            }
+
         }
 
         if($this->Permissions->IsST()) {
-            $this->menu['Tools']['submenu']['Storyteller Tools'] = array(
+            $this->menu['Tools']['submenu']['ST Tools'] = array(
                 'link' => '/storyteller_index.php',
                 'submenu' => array(
                     'Character Lookup' => array(

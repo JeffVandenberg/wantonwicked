@@ -20,7 +20,7 @@ if(!$character) {
     Response::Redirect('chat.php', 'Unable to find character.');
 }
 if($character->IsSanctioned == 'Y') {
-    Response::Redirect('request.php?action=create&request_type_id='.RequestType::Sanction.'&character_id='.$character->CharacterId.'&title=Desanction '.$character->CharacterName);
+    Response::Redirect('request.php?action=create&request_type_id='.RequestType::Sanction.'&character_id='.$character->Id.'&title=Desanction '.$character->CharacterName);
 }
 
 ob_start();
