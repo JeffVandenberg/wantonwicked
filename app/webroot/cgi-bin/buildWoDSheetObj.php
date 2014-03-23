@@ -1523,7 +1523,7 @@ function getPowers($character_id, $power_type, $sort_order, $number_of_blanks)
         }
 
 
-        $query = "select * from wod_characters_powers where characterID = $character_id and powerType = '$power_type' Order by $order_by;";
+        $query = "select * from character_powers where character_id = $character_id and power_type = '$power_type' Order by $order_by;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -1575,7 +1575,7 @@ function getRenownsRituals($character_id)
     $renown_list["rituals"] = $renown;
 
     if ($character_id) {
-        $query = "select * from wod_characters_powers where characterID = $character_id and powerType = 'Renown' Order by PowerName;";
+        $query = "select * from character_powers where character_id = $character_id and power_type = 'Renown' Order by PowerName;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -1588,7 +1588,7 @@ function getRenownsRituals($character_id)
             $renown_list[$renown_name] = $renown;
         }
 
-        $query = "select * from wod_characters_powers where characterID = $character_id and powerType = 'Rituals' Order by PowerName;";
+        $query = "select * from character_powers where character_id = $character_id and power_type = 'Rituals' Order by PowerName;";
         $result = mysql_query($query) or die(mysql_error());
 
         while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {

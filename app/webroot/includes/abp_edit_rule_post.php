@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST')
 }
 
 $ruleName = htmlspecialchars($_POST['ruleName']);
-$powerType = htmlspecialchars($_POST['powerType']);
+$power_type = htmlspecialchars($_POST['power_type']);
 $powerName = htmlspecialchars($_POST['powerName']);
 $powerNote = htmlspecialchars($_POST['powerNote']);
 $isShared = isset($_POST['isShared']) ? 1 : 0;
@@ -18,7 +18,7 @@ UPDATE
 	territory_rules
 SET
 	rule_name = '$ruleName',
-	power_type = '$powerType',
+	power_type = '$power_type',
 	power_name = '$powerName',
 	power_note = '$powerNote',
 	is_shared = $isShared,

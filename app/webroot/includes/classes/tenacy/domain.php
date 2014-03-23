@@ -18,7 +18,7 @@ SELECT
 		SELECT
 			survival
 		FROM
-			wod_characters
+			characters
 		WHERE
 			character_id = $characterId
 	) AS survival,
@@ -75,7 +75,7 @@ EOQ;
 		
 		while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
 		{
-			$poachingCharacterSql = "SELECT character_name FROM wod_characters WHERE character_id = $characterId;";
+			$poachingCharacterSql = "SELECT character_name FROM characters WHERE character_id = $characterId;";
 			$poachingCharacterResult = ExecuteQuery($poachingCharacterSql);
 			$poachingCharacter = mysql_fetch_array($poachingCharacterResult, MYSQL_ASSOC);
 			
@@ -83,7 +83,7 @@ EOQ;
 			$territoryName = addslashes($detail['territory_name']);
 			$noteSql = <<<EOQ
 UPDATE
-	wod_characters
+	characters
 SET
 	login_note = '$characterName was caught poaching in $territoryName.'
 WHERE
@@ -103,7 +103,7 @@ SELECT
 	T.territory_name,
 	T.id
 FROM
-	wod_characters AS C
+	characters AS C
 	LEFT JOIN characters_territories AS CT on CT.character_id = C.character_id
 	LEFT JOIN territories AS T ON T.id = CT.territory_id
 WHERE

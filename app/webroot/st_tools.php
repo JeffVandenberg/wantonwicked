@@ -46,9 +46,6 @@ if (UserdataHelper::IsSt($userdata) || UserdataHelper::IsWikiManager($userdata))
             case 'character_search':
                 include 'includes/st_tools_character_search.php';
                 break;
-            case 'character_activity':
-                include 'includes/st_tools_character_activity.php';
-                break;
             case 'power_search':
                 include 'includes/st_tools_power_search.php';
                 break;

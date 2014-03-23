@@ -78,7 +78,7 @@ else
 	{
 		$character_name = substr($character_name, 0, strpos($character_name, '-- '));
 	}
-	$character_query = "select * from wod_characters where character_name = '$character_name';";
+	$character_query = "select * from characters where character_name = '$character_name';";
 	$character_result = mysql_query($character_query) or die(mysql_error());
 	$character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
 	$character_id = $character_detail['Character_ID'];

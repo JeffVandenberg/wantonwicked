@@ -91,7 +91,7 @@ abstract class DataModel
      */
     protected $ForeignId;
 
-    function __construct($tablePrefix = '', $database = 'gamingsa_wanton')
+    function __construct($tablePrefix = '', $database = 'gamingsa_wanton_test')
     {
         $this->Database = $database;
         $this->FullClassName = get_class($this);

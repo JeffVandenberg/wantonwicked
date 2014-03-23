@@ -4,7 +4,7 @@ SELECT
 	character_id,
 	character_name
 FROM
-	wod_characters AS C
+	characters AS C
 WHERE
 	C.is_sanctioned = 'Y'
 	AND C.is_deleted = 'N'

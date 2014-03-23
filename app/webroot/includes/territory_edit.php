@@ -9,7 +9,7 @@ SELECT
 	C.character_name
 FROM
 	territories as T
-	LEFT JOIN wod_characters AS C on T.character_id = C.character_id
+	LEFT JOIN characters AS C on T.character_id = C.character_id
 WHERE
 	T.id = $id
 	AND T.is_active = 1

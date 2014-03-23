@@ -161,11 +161,11 @@ EOQ;
                 '<a href="/dieroller.php?action=view_roll&r=' . $rollId . '" target="_blank" class="chat-viewable">View Roll</a>'
             );
             if ($spendWP && ($characterId > 0)) {
-                $sql = "update wod_characters set willpower_temp = willpower_temp -1 where character_id = ?";
+                $sql = "update characters set willpower_temp = willpower_temp -1 where character_id = ?";
                 $dbh->prepare($sql)->execute(array($characterId));
             }
             if ($spendPP && ($characterId > 0)) {
-                $sql = "update wod_characters set power_points = power_points - 1 where character_id = ?";
+                $sql = "update characters set power_points = power_points - 1 where character_id = ?";
                 $dbh->prepare($sql)->execute(array($characterId));
             }
         }
@@ -182,7 +182,7 @@ EOQ;
 
         if ($_SESSION['user_type_id'] == 3) {
             // load character for modifier
-            $sql = "select initiative_mod from wod_characters where character_id = ?";
+            $sql = "select initiative_mod from characters where character_id = ?";
             $dbh = db_connect();
             $query = $dbh->prepare($sql);
             $query->execute(array($_SESSION['userid']));

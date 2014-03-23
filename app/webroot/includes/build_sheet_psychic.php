@@ -1,5 +1,7 @@
 <?php
-			$vitals_table = <<<EOQ
+use classes\core\helpers\FormHelper;
+
+$vitals_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -195,7 +197,7 @@ EOQ;
       
       for($i = 0; $i < sizeof($psychic_merits); $i++)
       {
-      	$psychic_merit_dots = makeDotsXP("psychicmerit${i}", $element_type['merit'], $character_type, $max_dots, $psychic_merits[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+      	$psychic_merit_dots = FormHelper::Dots("psychicmerit${i}", $psychic_merits[$i]->getPowerLevel(), $element_type['merit'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
       	
       	$psychic_merit_note = $psychic_merits[$i]->getPowerNote();
       	$psychic_merit_name = $psychic_merits[$i]->getPowerName();

@@ -1,5 +1,7 @@
 <?php
-			$vitals_table = <<<EOQ
+use classes\core\helpers\FormHelper;
+
+$vitals_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -209,7 +211,7 @@ EOQ;
       
       for($i = 0; $i < sizeof($thaumaturge_merits); $i++)
       {
-      	$thaumaturge_merit_dots = makeDotsXP("thaumaturgemerit${i}", $element_type['merit'], $character_type, $max_dots, $thaumaturge_merits[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+      	$thaumaturge_merit_dots = FormHelper::Dots("thaumaturgemerit${i}", $thaumaturge_merits[$i]->getPowerLevel(), $element_type['merit'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
       	
       	$thaumaturge_merit_note = $thaumaturge_merits[$i]->getPowerNote();
       	$thaumaturge_merit_name = $thaumaturge_merits[$i]->getPowerName();

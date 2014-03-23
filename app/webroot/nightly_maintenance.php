@@ -27,7 +27,7 @@ $enrollmentManager->ExpireSupporterStatus();
 $db          = new Database();
 $autoBpQuery = <<<EOQ
 UPDATE 
-	wod_characters
+	characters
 SET 
 	Next_Power_Stat_Increase = DATE_ADD(Next_Power_Stat_Increase, INTERVAL 6 MONTH),
 	Power_Stat = Power_Stat + 1
@@ -41,11 +41,12 @@ EOQ;
 
 $db->Query($autoBpQuery)->Execute();
 
-if (date('D') == 'Fri') {
-    $update_experience_query = "update wod_characters set current_experience = current_experience + 3, total_experience = total_experience + 3 where is_sanctioned='Y';";
+if(date('D') == 'Fri')
+{
+	$update_experience_query = "update characters set current_experience = current_experience + 3, total_experience = total_experience + 3 where is_sanctioned='Y';";
     $db->Query($update_experience_query)->Execute();
 }
-$update_willpower_query = "update wod_characters set willpower_temp = willpower_temp + 1 where willpower_temp < willpower_perm;";
+$update_willpower_query = "update characters set willpower_temp = willpower_temp + 1 where willpower_temp < willpower_perm;";
 $db->Query($update_willpower_query)->Execute();
 
 // unsanction characters more than 1 month inactive
@@ -53,7 +54,7 @@ $month_ago = date('Y-m-d', mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')))
 
 $unsanc_query = <<<EOQ
 UPDATE
-    wod_characters
+    characters
 SET
     is_sanctioned='n'
 WHERE

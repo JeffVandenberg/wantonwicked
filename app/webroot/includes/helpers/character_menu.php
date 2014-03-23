@@ -15,13 +15,8 @@ $characterMenu = array(
             'Login' => array(
                 'link' => "/chat/?character_id=$characterId",
                 'target' => '_blank'
-            )
-        )
-    ),
-    'Home' => array(
-        'link' => '#',
-        'submenu' => array(
-            'Character Interface' => array(
+            ),
+            'Interface' => array(
                 'link' => "/character.php?action=interface&character_id=$characterId"
             )
         )
@@ -71,7 +66,7 @@ $characterMenu = array(
             )
         )
     ),
-    'Reference' => array(
+    /*'Reference' => array(
         'link' => '#',
         'submenu' => array(
             'Forum' => array(
@@ -90,5 +85,5 @@ $characterMenu = array(
                 'link' => '/wiki/?n=Players.' . $privateCharacter->CharacterType
             )
         )
-    )
+    )*/
 );

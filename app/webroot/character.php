@@ -37,15 +37,14 @@ include 'menu_bar_player_content.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
-        case 'login':
-            $page_template = "main_ww4.tpl";
-            include 'includes/character_login.php';
-            break;
         case 'interface':
             include 'includes/character_interface.php';
             break;
         case 'log':
             include 'includes/character_log.php';
+            break;
+        case 'search':
+            include 'includes/character_search.php';
             break;
         default:
     }

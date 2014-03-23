@@ -96,7 +96,7 @@ while(list($key, $value) = each($master_keys))
   //echo "$value<br>";
   
   // build SQL
-  $character_query = "select primary_login_id from wod_characters where is_sanctioned='Y' and is_npc='N' and is_deleted='n'";
+  $character_query = "select primary_login_id from characters where is_sanctioned='Y' and is_npc='N' and is_deleted='n'";
   while(list($column_name, $column_value) = each($master_array[$value]))
   {
     //echo "$column_name: $column_value<br>";

@@ -102,7 +102,7 @@ EOQ;
 SELECT
 	powerlevel AS power_level
 FROM
-	wod_characters_powers
+	character_powers
 WHERE
 	characterid = $characterId
 	AND powertype = '$rulesDetail[power_type]'
@@ -128,7 +128,7 @@ EOQ;
 SELECT
 	Power_Points_Modifier
 FROM
-	wod_characters
+	characters
 WHERE
 	character_id = $characterId;
 EOQ;
@@ -143,7 +143,7 @@ EOQ;
 SELECT
 	Morality
 FROM
-	wod_characters
+	characters
 WHERE
 	character_id = $characterId;
 EOQ;
@@ -168,7 +168,7 @@ EOQ;
 		$currentAbp = $this->GetABP($characterId);
 		$sql = <<<EOQ
 UPDATE
-	wod_characters AS C
+	characters AS C
 SET
 	average_power_points = $currentAbp
 WHERE
@@ -183,7 +183,7 @@ EOQ;
 SELECT
 	character_id
 FROM
-	wod_characters
+	characters
 WHERE
 	character_type = 'Vampire'
 	AND is_sanctioned = 'Y'
@@ -224,7 +224,7 @@ EOQ;
 	{
 		$sql = <<<EOQ
 UPDATE 
-	wod_characters AS C
+	characters AS C
 SET
 	power_points = power_points + IF(CEILING(average_power_points/5) > (average_power_points - power_points), average_power_points - power_points, CEILING(average_power_points/5))
 WHERE
@@ -237,7 +237,7 @@ EOQ;
 
 		$sql = <<<EOQ
 UPDATE 
-	wod_characters AS C
+	characters AS C
 SET
 	power_points = power_points - 1
 WHERE

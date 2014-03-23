@@ -20,7 +20,7 @@ SELECT
 	IF(CT.id IS NULL, 0, 1) AS in_territory
 FROM
 	territories as T
-	LEFT JOIN wod_characters AS C ON T.character_id = C.character_id
+	LEFT JOIN characters AS C ON T.character_id = C.character_id
 	LEFT JOIN characters_territories AS CT ON 
     (CT.is_active = 1 
     AND T.id = CT.territory_id 

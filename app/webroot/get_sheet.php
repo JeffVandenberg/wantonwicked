@@ -30,10 +30,14 @@ if($character_id)
 	{
 		case 'view_own':
 			$character_query = <<<EOQ
-SELECT wod.* 
-  FROM wod_characters AS wod INNER JOIN login_character_index AS lci ON wod.character_id = lci.character_id
- WHERE lci.login_id = $userdata[user_id]
-   AND wod.character_id = $character_id;
+SELECT
+    C.*
+FROM
+    characters AS C
+    INNER JOIN login_character_index AS lci ON C.id = lci.character_id
+WHERE
+    lci.login_id = $userdata[user_id]
+    AND C.id = $character_id;
 EOQ;
 			$character_result = mysql_query($character_query) or die(mysql_error()); 
 			
@@ -46,9 +50,16 @@ EOQ;
 			
 		case 'st_view':
 			$character_query = <<<EOQ
-SELECT login.*, wod_characters.*, gm_login.Name as GM_Name, asst_login.Name as Asst_Name
-FROM ((wod_characters INNER JOIN login ON wod_characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on wod_characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod_characters.last_asst_st_updated = asst_login.id
-WHERE character_id=$character_id;
+SELECT
+    users.*,
+    C.*,
+    st_users.username as st_username
+FROM
+    characters AS C
+    INNER JOIN phpbb_users ON C.user_id = phpbb_users.user_id
+    INNER JOIN phpbb_users AS st_users ON C.updated_by_id = st_users.user_id
+WHERE
+    id=$character_id;
 EOQ;
 
 			$character_result = mysql_query($character_query) or die(mysql_error());
@@ -59,7 +70,7 @@ EOQ;
 			}
 			else
 			{
-  			die();
+  	    		die();
 			}
 		  break;
 

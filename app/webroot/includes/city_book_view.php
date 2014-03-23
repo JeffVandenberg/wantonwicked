@@ -38,16 +38,16 @@ FROM
       ON city_book.approved_by = approved.id) 
     LEFT JOIN login AS submitted 
       ON city_book.submitted_by = submitted.id)
-  INNER JOIN wod_characters
-    ON wod_characters.friends = city_book.group_name
+  INNER JOIN characters
+    ON characters.friends = city_book.group_name
 WHERE 
   city_book.group_name = '$group_name' 
-  AND wod_characters.friends = '$group_name' 
-  AND wod_characters.primary_login_id = $userdata[user_id]
+  AND characters.friends = '$group_name'
+  AND characters.primary_login_id = $userdata[user_id]
   AND is_approved='Y' 
-  and wod_characters.is_deleted='N'
+  and characters.is_deleted='N'
   AND city_book.is_deleted='N'
-  AND wod_characters.character_id = $character_id;
+  AND characters.character_id = $character_id;
 EOQ;
 }
 

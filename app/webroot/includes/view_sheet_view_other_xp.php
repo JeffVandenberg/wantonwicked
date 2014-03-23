@@ -1,142 +1,108 @@
 <?php
 /* @var array $userdata */
 
+use classes\character\helper\CharacterSheetHelper;
+use classes\character\repository\CharacterRepository;
+use classes\core\helpers\Request;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
 $page_title = "View Character Sheet";
-$view_character_name = (isset($_POST['view_character_name'])) ? htmlspecialchars($_POST['view_character_name']) : "";
-
-// test if looking up a character
+$characterName = htmlspecialchars(Request::GetValue('view_character_name'));
 $character_sheet = '';
 
-if ($view_character_name) {
+$characterRepository = new CharacterRepository();
+
+if ($characterName) {
     // try to get character
-    $character_query = <<<EOQ
-SELECT login.*, wod_characters.*, gm_login.Name as ST_Name, asst_login.Name as Asst_Name
-FROM ((wod_characters INNER JOIN login ON wod_characters.primary_login_id = login.id) LEFT JOIN login AS gm_login on wod_characters.last_st_updated = gm_login.id) LEFT JOIN login AS asst_login ON wod_characters.last_asst_st_updated = asst_login.id
-WHERE character_name='$view_character_name';
-EOQ;
-    $character_result = mysql_query($character_query) or die(mysql_error());
+    $character = $characterRepository->FindByName($characterName);
+    $characterSheetHelper = new CharacterSheetHelper();
 
-    if (mysql_num_rows($character_result)) {
-        $character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
-
-        if (($character_detail['Show_Sheet'] == 'Y') && ($character_detail['View_Password'] == $_POST['viewpwd'])) {
-            CharacterLog::LogAction($character_detail['Character_ID'], ActionType::ViewCharacter, 'Other Player View - Full View', $userdata['user_id']);
-
-            // show full sheet
-            $edit_show_sheet = false;
-            $edit_name = false;
-            $edit_vitals = false;
-            $edit_is_npc = false;
-            $edit_is_dead = false;
-            $edit_location = false;
-            $edit_concept = false;
-            $edit_description = false;
-            $edit_url = false;
-            $edit_equipment = false;
-            $edit_public_effects = false;
-            $edit_group = false;
-            $edit_exit_line = false;
-            $edit_is_npc = false;
-            $edit_attributes = false;
-            $edit_skills = false;
-            $edit_perm_traits = false;
-            $edit_temp_traits = false;
-            $edit_powers = false;
-            $edit_history = false;
-            $edit_goals = false;
-            $edit_login_note = false;
-            $edit_experience = false;
-            $show_st_notes = false;
-            $view_is_asst = false;
-            $view_is_st = false;
-            $view_is_head = false;
-            $view_is_admin = false;
-            $may_edit = false;
-            $edit_cell = false;
-            $calculate_derived = false;
-            $edit_xp = false;
-
-            $character_type = $character_detail['Character_Type'];
-            $character_sheet = buildWoDSheetXP($character_detail, $character_type, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead, $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment, $edit_public_effects, $edit_group, $edit_exit_line, $edit_is_npc, $edit_attributes, $edit_skills, $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals, $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st, $view_is_head, $view_is_admin, $may_edit, $edit_cell, $calculate_derived, $edit_xp);
-        } else {
-            // show partial sheet
-            CharacterLog::LogAction($character_detail['Character_ID'], ActionType::ViewCharacter, 'Other Player View - Partial View', $userdata['user_id']);
-
-            $character_sheet = <<<EOQ
-<table border="0" cellpadding="2" cellspacing="2" class="normal_text">
-    <tr>
-        <td class="highlight">
-            Character Name
-        </td>
-        <td>
-            $character_detail[Character_Name]
-        </td>
-    </tr>
-    <tr>
-        <td class="highlight">
-            City
-        </td>
-        <td>
-            $character_detail[City]
-        </td>
-    </tr>
-    <tr>
-        <td class="highlight">
-            Description
-        </td>
-        <td>
-            $character_detail[Description]
-        </td>
-    </tr>
-    <tr>
-        <td class="highlight">
-            Public Effects
-        </td>
-        <td>
-            $character_detail[Public_Effects]
-        </td>
-    </tr>
-    <tr>
-        <td class="highlight">
-            Daily Equipment
-        </td>
-        <td colspan="3">
-            $character_detail[Equipment_Public]
-        </td>
-    </tr>
-</table>
-EOQ;
+    if ($character !== false) {
+        if (($character['show_sheet'] == 'Y') && ($character['view_password'] == $_POST['viewpwd'])) {
+            CharacterLog::LogAction($character['id'], ActionType::ViewCharacter, 'Other Player View - Full View',
+                                    $userdata['user_id']);
+            $characterSheetHelper->MakeLockedView($character, $character['character_type']);
         }
-    } else {
+        else {
+            // show partial sheet
+            CharacterLog::LogAction($character['id'], ActionType::ViewCharacter, 'Other Player View - Partial View',
+                                    $userdata['user_id']);
+
+            ob_start();
+            ?>
+            <table>
+                <tr>
+                    <td class="highlight">
+                        Character Name
+                    </td>
+                    <td>
+                        <?php echo $character['character_name']; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight">
+                        City
+                    </td>
+                    <td>
+                        <?php echo $character['city']; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight">
+                        Description
+                    </td>
+                    <td>
+                        <?php echo $character['description']; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight">
+                        Public Effects
+                    </td>
+                    <td>
+                        <?php echo $character['public_effects']; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight">
+                        Daily Equipment
+                    </td>
+                    <td colspan="3">
+                        <?php echo $character['equipment_public']; ?>
+                    </td>
+                </tr>
+            </table>
+            <?php
+            $character_sheet = ob_get_clean();
+        }
+    }
+    else {
         $character_sheet = "That character doesn't exist.";
     }
 }
 
-$character_query_form = <<<EOQ
-<form name="view_others" method="post">
-    Enter the name and, if required, the <br /> password to view another player's character sheet<br>
-    <label>
-        Character Name:
-        <input type="text" name="view_character_name" size="25" maxlength="35">
-    </label>
-    <br>
-    <label>
-        View Password:
-        <input type="password" name="viewpwd" size="25" maxlength="30">
-    </label><br>
-    <input type="submit" name="submit" value="View the sheet">
-</form>
-EOQ;
+ob_start();
+?>
 
-$page_content = <<<EOQ
-<div align="left">
-$character_query_form
-</div>
-<br>
-<div align="center">
-$character_sheet
-</div>
-EOQ;
+    <div>
+        <form name="view_others" method="post">
+            Enter the name and, if required, the <br/> password to view another player's character sheet<br>
+            <label>
+                Character Name:
+                <input type="text" name="view_character_name" size="25" maxlength="35">
+            </label>
+            <br>
+            <label>
+                View Password:
+                <input type="password" name="viewpwd" size="25" maxlength="30">
+            </label><br>
+            <input type="submit" name="submit" value="View the sheet">
+        </form>
+    </div>
+    <br>
+    <div>
+        <?php echo $character_sheet; ?>
+    </div>
+<?
+$page_content = ob_get_clean();

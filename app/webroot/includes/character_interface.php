@@ -20,9 +20,9 @@ $character_type = "";
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
-$character = $characterRepository->FindByIdObj($characterId);
+$character = $characterRepository->GetById($characterId);
 /* @var Character $character */
-if($character->CharacterId == 0) {
+if($character->Id == 0) {
     SessionHelper::SetFlashMessage("Invalid Character");
     Response::Redirect('chat.php');
 }
@@ -35,7 +35,7 @@ if($character->IsNpc == 'Y') {
     }
 }
 else {
-    if($character->PrimaryLoginId != $userdata['user_id']) {
+    if($character->UserId != $userdata['user_id']) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface', $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::Redirect('');

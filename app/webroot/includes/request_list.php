@@ -18,7 +18,7 @@ $sort = Request::GetValue('sort', 'updated_on DESC');
 $filter = Request::GetValue('filter', array('title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
 
 $characterRepository = new CharacterRepository();
-if (!$userdata['is_admin'] && !$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
+if (!$userdata['is_admin'] && !$characterRepository->MayfViewCharacter($characterId, $userdata['user_id'])) {
     include 'index_redirect.php';
     die();
 }
@@ -55,7 +55,7 @@ $requestTypes = array('All') + $requestTypes;
 $requestStatuses = $requestStatusRepository->SimpleListAll();
 $requestStatuses = array('All') + $requestStatuses;
 
-$contentHeader = $page_title = "Requests for " . $character['Character_Name'];
+$contentHeader = $page_title = "Requests for " . $character['character_name'];
 
 require_once('helpers/character_menu.php');
 $characterMenu['Help'] = array(

@@ -64,62 +64,6 @@ else {
                 }
                 break;
 
-            case 'plot_list':
-                include 'includes/storyteller_plot_list.php';
-                break;
-
-            case 'plot_types_admin':
-                if ($userdata['is_head'] || $userdata['is_admin']) {
-                    $page_template = "blank_layout.tpl";
-                    include 'includes/storyteller_plot_types_admin.php';
-                }
-                else {
-                    include 'includes/storyteller_index.php';
-                }
-                break;
-
-            case 'plot_add':
-                include 'includes/storyteller_plot_add.php';
-                break;
-
-            case 'plot_view':
-                include 'includes/storyteller_plot_view.php';
-                break;
-
-            case 'plot_search':
-                include 'includes/storyteller_plot_search.php';
-                break;
-
-            case 'plot_events':
-                $page_template = "blank_layout.tpl";
-                include 'includes/storyteller_plot_events.php';
-                break;
-
-            case 'plot_events_add':
-                $page_template = "blank_layout.tpl";
-                include 'includes/storyteller_plot_events_add.php';
-                break;
-
-            case 'plot_events_view':
-                $page_template = "blank_layout.tpl";
-                include 'includes/storyteller_plot_events_view.php';
-                break;
-
-            case 'plot_characters':
-                $page_template = "blank_layout.tpl";
-                include 'includes/storyteller_plot_characters.php';
-                break;
-
-            case 'plot_characters_add':
-                $page_template = "blank_layout.tpl";
-                include 'includes/storyteller_plot_characters_add.php';
-                break;
-
-            case 'plot_characters_view':
-                $page_template = "blank_layout.tpl";
-                include 'includes/storyteller_plot_characters_view.php';
-                break;
-
             case 'profile_lookup':
                 include 'includes/storyteller_profile_lookup.php';
                 break;

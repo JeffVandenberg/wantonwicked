@@ -29,4 +29,21 @@ class SessionHelper
         }
         return $message;
     }
+
+    public static function Read($index, $default = null)
+    {
+        if(isset($_SESSION[$index])) {
+            return $_SESSION[$index];
+        }
+        return $default;
+    }
+
+    public static function Write($index, $value)
+    {
+        $_SESSION[$index] = $value;
+    }
+
+    public static function Has($index) {
+        return isset($_SESSION[$index]);
+    }
 }

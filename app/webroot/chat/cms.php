@@ -65,11 +65,10 @@ SELECT
     icon,
     hide_icon
 FROM
-    wod_characters AS C
-    INNER JOIN login_character_index as LCI ON C.character_id = LCI.character_id
+    characters AS C
 WHERE
-    LCI.character_id = ?
-	AND LCI.login_id = ?
+    C.id = ?
+	AND C.user_id = ?
 EOQ;
 
     /* @var PDO $dbh */

@@ -8,7 +8,7 @@ if(isset($_POST['action']))
 	$is_suspended = $_POST['is_suspended'] + 0;
 	$query = <<<EOQ
 UPDATE
-	wod_characters
+	characters
 SET
 	is_suspended = $is_suspended
 WHERE
@@ -24,7 +24,7 @@ SELECT
 	DISTINCT
 	Character_Type
 FROM
-	wod_characters
+	characters
 WHERE
 	is_suspended = 1
 ORDER BY

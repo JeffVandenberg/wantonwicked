@@ -1,5 +1,7 @@
 <?php
-			$vitals_table = <<<EOQ
+use classes\core\helpers\FormHelper;
+
+$vitals_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -86,7 +88,7 @@
 </table>
 EOQ;
 
-			$information_table = <<<EOQ
+$information_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -158,26 +160,22 @@ EOQ;
 </table>
 EOQ;
 
-      // Numina
-      $power_list = "";
-      $supernatural_xp_js = "";
-      if($edit_xp)
-      {
-        $supernatural_xp_js = " onBlur=\"updateXP($element_type[supernatural])\" ";
-      }
-      
-      if($edit_powers)
-      {
-        $power_list .= <<<EOQ
+// Numina
+$power_list = "";
+$supernatural_xp_js = "";
+if ($edit_xp) {
+    $supernatural_xp_js = " onBlur=\"updateXP($element_type[supernatural])\" ";
+}
+
+if ($edit_powers) {
+    $power_list .= <<<EOQ
 <a href="#" onClick="addNumina();return false;">Add Numina</a><br>
 EOQ;
-      }
-      else
-      {
-        $power_list .= "Numina<br>";
-      }
-      
-      $power_list .= <<<EOQ
+} else {
+    $power_list .= "Numina<br>";
+}
+
+$power_list .= <<<EOQ
 <table border="0" cellspacing="1" cellpadding="1" class="normal_text" name="numina_list" id="numina_list" width="100%">
   <tr>
     <th width="10%">
@@ -186,21 +184,19 @@ EOQ;
   </tr>
 EOQ;
 
-      $powers = getPowers($characterId, 'Numina', NAMENOTE, 2);
-      
-      for($i = 0; $i < sizeof($powers); $i++)
-      {
-      	$power_name = $powers[$i]->getPowerName();
-      	$power_id = $powers[$i]->getPowerID();
-      	
-      	if($edit_powers)
-      	{
-        	$power_name = <<<EOQ
+$powers = getPowers($characterId, 'Numina', NAMENOTE, 2);
+
+for ($i = 0; $i < sizeof($powers); $i++) {
+    $power_name = $powers[$i]->getPowerName();
+    $power_id = $powers[$i]->getPowerID();
+
+    if ($edit_powers) {
+        $power_name = <<<EOQ
 <input type="text" name="numina${i}_name" id="numina${i}_name" size="15" class="$input_class" value="$power_name" $supernatural_xp_js>
 EOQ;
-      	}
-      	
-      	$power_list .= <<<EOQ
+    }
+
+    $power_list .= <<<EOQ
   <tr>
     <td>
       $power_name
@@ -208,23 +204,20 @@ EOQ;
     </td>
   </tr>
 EOQ;
-      }
-      $power_list .= "</table>";
-      
-      // Siddhi
-      if($edit_powers)
-      {
-        $power_list .= <<<EOQ
+}
+$power_list .= "</table>";
+
+// Siddhi
+if ($edit_powers) {
+    $power_list .= <<<EOQ
 <br>
 <a href="#" onClick="addSiddhi();return false;">Add Siddhi</a><br>
 EOQ;
-      }
-      else
-      {
-        $power_list .= "Siddhi<br>";
-      }
-      
-      $power_list .= <<<EOQ
+} else {
+    $power_list .= "Siddhi<br>";
+}
+
+$power_list .= <<<EOQ
 <table border="0" cellspacing="1" cellpadding="1" class="normal_text" name="siddhi_list" id="siddhi_list" width="100%">
   <tr>
     <th width="60%">
@@ -235,24 +228,22 @@ EOQ;
     </th>
   </tr>
 EOQ;
-      
-      $powers = getPowers($characterId, 'Siddhi', NAMENOTE, 4);
-      
-      for($i = 0; $i < sizeof($powers); $i++)
-      {
-      	$power_dots = makeDotsXP("siddhi${i}", $element_type['supernatural'], $character_type, $max_dots, $powers[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
-      	
-      	$power_name = $powers[$i]->getPowerName();
-      	$power_id = $powers[$i]->getPowerID();
-      	
-      	if($edit_powers)
-      	{
-        	$power_name = <<<EOQ
+
+$powers = getPowers($characterId, 'Siddhi', NAMENOTE, 4);
+
+for ($i = 0; $i < sizeof($powers); $i++) {
+    $power_dots = FormHelper::Dots("siddhi${i}", $powers[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
+
+    $power_name = $powers[$i]->getPowerName();
+    $power_id = $powers[$i]->getPowerID();
+
+    if ($edit_powers) {
+        $power_name = <<<EOQ
 <input type="text" name="siddhi${i}_name" id="siddhi${i}_name" size="15" class="$input_class" value="$power_name">
 EOQ;
-      	}
-      	
-      	$power_list .= <<<EOQ
+    }
+
+    $power_list .= <<<EOQ
   <tr>
     <td>
       $power_name
@@ -263,11 +254,11 @@ EOQ;
     </td>
   </tr>
 EOQ;
-      }
-      $power_list .= "</table>";
-      
-    
-			$traits_table = <<<EOQ
+}
+$power_list .= "</table>";
+
+
+$traits_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -401,5 +392,5 @@ EOQ;
 </table>
 EOQ;
 
-	
+
 ?>	

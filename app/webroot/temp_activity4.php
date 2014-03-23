@@ -22,7 +22,7 @@ SELECT
 			COUNT(*)
 		FROM
 			character_logins AS CL
-			LEFT JOIN wod_characters AS C ON CL.character_id = C.character_id
+			LEFT JOIN characters AS C ON CL.character_id = C.character_id
 		WHERE
 			C.is_sanctioned = 'Y'
 			AND C.is_npc = 'N'
@@ -34,7 +34,7 @@ SELECT
 	) AS percentage
 FROM
 	character_logins AS CL
-	LEFT JOIN wod_characters AS C ON CL.character_id = C.character_id
+	LEFT JOIN characters AS C ON CL.character_id = C.character_id
 WHERE
 	C.is_sanctioned = 'Y'
 	AND C.is_npc = 'N'

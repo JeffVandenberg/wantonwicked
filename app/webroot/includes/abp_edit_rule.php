@@ -16,10 +16,10 @@ if(mysql_num_rows($result))
 {
 	$ruleDetail = mysql_fetch_array($result, MYSQL_ASSOC);
 	
-	$powerTypes = array("Merit", "ICDisc", "OOCDisc", "Devotion", "Derangement");
-	$powerTypeNames = array("Merit", "In-Clan Discipline", "Out-of-Clan Disc.", "Devotion/Ritual/Misc.", "Derangement");
+	$power_types = array("Merit", "ICDisc", "OOCDisc", "Devotion", "Derangement");
+	$power_typeNames = array("Merit", "In-Clan Discipline", "Out-of-Clan Disc.", "Devotion/Ritual/Misc.", "Derangement");
 
-	$powerTypeSelect = buildSelect($ruleDetail['power_type'], $powerTypes, $powerTypeNames, "powerType");
+	$power_typeSelect = buildSelect($ruleDetail['power_type'], $power_types, $power_typeNames, "power_type");
 	
 	$sharedChecked = ($ruleDetail[is_shared]) ? "checked" : "";
 
@@ -33,7 +33,7 @@ if(mysql_num_rows($result))
 </div>
 <div class="formInput">
 	<label>Power Type:</label>
-	$powerTypeSelect
+	$power_typeSelect
 </div>
 <div class="formInput">
 	<label>Power Name:</label>
@@ -74,7 +74,7 @@ if(mysql_num_rows($result))
 			{
 				errors += " - Enter a name for the Rule.\\r\\n";
 			}
-			if($.trim($('#powerType').val()) == '')
+			if($.trim($('#power_type').val()) == '')
 			{
 				errors += ' - Enter a power Type (Merit, ICDisc, OOCDisc, Devotion, Derangement).\\r\\n';
 			}

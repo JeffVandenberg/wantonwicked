@@ -22,7 +22,7 @@ SELECT
     C.character_name
 FROM
     request_characters AS RC
-    LEFT JOIN wod_characters AS C ON RC.character_id = C.character_id
+    LEFT JOIN characters AS C ON RC.character_id = C.id
 WHERE
     RC.request_id = $requestId
 ORDER BY

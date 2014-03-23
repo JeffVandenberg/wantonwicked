@@ -6,7 +6,7 @@ function updateWoDSheet($stats, $edit_show_sheet = false, $edit_name = false, $e
 	$skill_list = array("academics", "computer", "crafts", "investigation", "medicine", "occult", "politics", "science", "athletics", "brawl", "drive", "firearms", "larceny", "stealth", "survival", "weaponry", "animal_ken", "empathy", "expression", "intimidation", "persuasion", "socialize", "streetwise", "subterfuge");
 	
 	$now = date('Y-m-d h:i:s');
-	$update_query = "update wod_characters set ";
+	$update_query = "update characters set ";
 	global $userdata;
 	
 	if($edit_show_sheet)
@@ -236,7 +236,7 @@ EOQ;
 	
 	if($may_edit)
 	{
-		if($update_query != "update wod_characters set ")
+		if($update_query != "update characters set ")
 		{
 			$update_query = substr($update_query, 0, strlen($update_query) -2);
 			$update_query .= " where character_id = $stats[character_id];";

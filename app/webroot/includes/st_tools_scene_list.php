@@ -48,7 +48,7 @@ if(isset($_POST['action']))
     	$update_list = substr($update_list, 0, strlen($update_list) - 4);
     	$insert_list = substr($insert_list, 0, strlen($insert_list) - 1);
     	
-    	$update_query = "update wod_characters set last_scene_date = '$now' where $update_list;";
+    	$update_query = "update characters set last_scene_date = '$now' where $update_list;";
     	$insert_query = "insert into scene_record values $insert_list;";
     	
     	//echo "$update_query<br>$insert_query<br>";
@@ -64,13 +64,13 @@ if(($userdata['is_asst']) && (in_array($userdata['city'], $cities)))
 {
   $character_query = <<<EOQ
 SELECT
-  wc.Character_ID, 
+  wc.id, 
   wc.Character_Name,
   wc.City,
   s1.Scene_Date, 
   s1.Scene_Description 
 FROM 
-wod_characters wc 
+characters wc
   LEFT JOIN scene_record s1 
     ON wc.character_id = s1.character_id 
   LEFT JOIN scene_record s2 
@@ -90,13 +90,13 @@ else
 {
   $character_query = <<<EOQ
 SELECT
-  wc.Character_ID, 
+  wc.id, 
   wc.Character_Name,
   wc.City,
   s1.Scene_Date, 
   s1.Scene_Description 
 FROM 
-wod_characters wc 
+characters wc
   LEFT JOIN scene_record s1 
     ON wc.character_id = s1.character_id 
   LEFT JOIN scene_record s2 
@@ -151,7 +151,7 @@ while($character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC))
   $character_list .= <<<EOQ
   <tr bgcolor="$row_color">
     <td>
-      <input type="checkbox" value="$character_detail[Character_ID]" name="character_ids[]">
+      <input type="checkbox" value="$character_detail[id]" name="character_ids[]">
     </td>
     <td>
       $character_detail[Character_Name]

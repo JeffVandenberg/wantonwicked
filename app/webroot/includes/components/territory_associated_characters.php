@@ -15,7 +15,7 @@ SELECT
 	CT.created_on
 FROM
 	characters_territories as CT
-	LEFT JOIN wod_characters as C ON CT.character_id = C.character_id
+	LEFT JOIN characters as C ON CT.character_id = C.character_id
 WHERE
 	CT.territory_id = $id
 	AND CT.is_active = 1

@@ -1,5 +1,7 @@
 <?php
-			$vitals_table = <<<EOQ
+use classes\core\helpers\FormHelper;
+
+$vitals_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -113,8 +115,8 @@
 	</tr>
 </table>
 EOQ;
-		
-			$information_table = <<<EOQ
+
+$information_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -194,29 +196,25 @@ EOQ;
 </table>
 EOQ;
 
-      // powers
-      $powers_list = "";
-      
-      // bestowments
-      $supernatural_xp_js = "";
-      
-      if($edit_xp)
-      {
-        $supernatural_xp_js = " onChange=\"updateXP($element_type[supernatural])\" ";
-      }
-      
-      if($edit_powers)
-      {
-        $powers_list .= <<<EOQ
+// powers
+$powers_list = "";
+
+// bestowments
+$supernatural_xp_js = "";
+
+if ($edit_xp) {
+    $supernatural_xp_js = " onChange=\"updateXP($element_type[supernatural])\" ";
+}
+
+if ($edit_powers) {
+    $powers_list .= <<<EOQ
 <a href="#" onClick="addBestowment();return false;">Add Bestowment</a><br>
 EOQ;
-      }
-      else
-      {
-        $powers_list .= "Bestowments<br>";
-      }
-      
-      $powers_list .= <<<EOQ
+} else {
+    $powers_list .= "Bestowments<br>";
+}
+
+$powers_list .= <<<EOQ
 <table border="0" cellspacing="1" cellpadding="1" class="normal_text" name="bestowment_list" id="bestowment_list" width="100%">
   <tr>
     <th width="50%">
@@ -228,26 +226,24 @@ EOQ;
   </tr>
 EOQ;
 
-      $bestowments = getPowers($characterId, 'Bestowment', NAMELEVEL, 2);
-      
-      for($i = 0; $i < sizeof($bestowments); $i++)
-      {
-        $bestowment_name = $bestowments[$i]->getPowerName();
-        $bestowment_cost = $bestowments[$i]->getPowerLevel();
-        $bestowment_id = $bestowments[$i]->getPowerID();
-        
-        if($edit_powers)
-        {
-          $bestowment_name = <<<EOQ
+$bestowments = getPowers($characterId, 'Bestowment', NAMELEVEL, 2);
+
+for ($i = 0; $i < sizeof($bestowments); $i++) {
+    $bestowment_name = $bestowments[$i]->getPowerName();
+    $bestowment_cost = $bestowments[$i]->getPowerLevel();
+    $bestowment_id = $bestowments[$i]->getPowerID();
+
+    if ($edit_powers) {
+        $bestowment_name = <<<EOQ
 <input type="text" name="bestowment${i}_name" id="bestowment${i}_name" size="15" class="$input_class" value="$bestowment_name">
 EOQ;
 
-          $bestowment_cost = <<<EOQ
+        $bestowment_cost = <<<EOQ
 <input type="text" name="bestowment{$i}_cost" id="bestowment{$i}_cost" size="3" maxlength="2" class="$input_class" value="$bestowment_cost" $supernatural_xp_js>
 EOQ;
-        }
-        
-      	$powers_list .= <<<EOQ
+    }
+
+    $powers_list .= <<<EOQ
   <tr>
     <td>
       $bestowment_name
@@ -258,23 +254,20 @@ EOQ;
     </td>
   </tr>
 EOQ;
-      }
-      $powers_list .= "</table>";
-      
-      // affinity transmutations
-      if($edit_powers)
-      {
-        $powers_list .= <<<EOQ
+}
+$powers_list .= "</table>";
+
+// affinity transmutations
+if ($edit_powers) {
+    $powers_list .= <<<EOQ
 <br>
 <a href="#" onClick="addTrans('afftrans');return false;">Add Affinity Transmutation</a><br>
 EOQ;
-      }
-      else
-      {
-        $powers_list .= "Affinity Transmutations<br>";
-      }
-      
-      $powers_list .= <<<EOQ
+} else {
+    $powers_list .= "Affinity Transmutations<br>";
+}
+
+$powers_list .= <<<EOQ
 <table border="0" cellspacing="1" cellpadding="1" class="normal_text" name="afftrans_list" id="afftrans_list" width="100%">
   <tr>
     <th width="35%">
@@ -289,28 +282,26 @@ EOQ;
   </tr>
 EOQ;
 
-      $powers = getPowers($characterId, 'AffTrans', NOTELEVEL, 4);
-      
-      for($i = 0; $i < sizeof($powers); $i++)
-      {
-      	$afftrans_dots = makeDotsXP("afftrans${i}", $element_type['supernatural'], $character_type, $max_dots, $powers[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
-      	
-      	$afftrans_list = $powers[$i]->getPowerNote();
-      	$afftrans_name = $powers[$i]->getPowerName();
-      	$afftrans_id = $powers[$i]->getPowerID();
-      	
-      	if($edit_powers)
-        {
-          $afftrans_list = <<<EOQ
+$powers = getPowers($characterId, 'AffTrans', NOTELEVEL, 4);
+
+for ($i = 0; $i < sizeof($powers); $i++) {
+    $afftrans_dots = FormHelper::Dots("afftrans${i}", $powers[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
+
+    $afftrans_list = $powers[$i]->getPowerNote();
+    $afftrans_name = $powers[$i]->getPowerName();
+    $afftrans_id = $powers[$i]->getPowerID();
+
+    if ($edit_powers) {
+        $afftrans_list = <<<EOQ
 <input type="text" name="afftrans${i}_list" id="afftrans${i}_list" size="15" class="$input_class" value="$afftrans_list">
 EOQ;
 
-          $afftrans_name = <<<EOQ
+        $afftrans_name = <<<EOQ
 <input type="text" name="afftrans${i}_name" id="afftrans${i}_name" size="15" class="$input_class" value="$afftrans_name">
 EOQ;
-        }
-      	
-      	$powers_list .= <<<EOQ
+    }
+
+    $powers_list .= <<<EOQ
   <tr>
     <td>
       $afftrans_list
@@ -324,23 +315,20 @@ EOQ;
     </td>
   </tr>
 EOQ;
-      }
-      $powers_list .= "</table>";
-      
-      // out of clan
-      if($edit_powers)
-      {
-        $powers_list .= <<<EOQ
+}
+$powers_list .= "</table>";
+
+// out of clan
+if ($edit_powers) {
+    $powers_list .= <<<EOQ
 <br>
 <a href="#" onClick="addTrans('nonafftrans');return false;">Add Non-Affinity Transmutation</a><br>
 EOQ;
-      }
-      else
-      {
-        $powers_list .= "Non-Affinity Transmutations<br>";
-      }
-      
-      $powers_list .= <<<EOQ
+} else {
+    $powers_list .= "Non-Affinity Transmutations<br>";
+}
+
+$powers_list .= <<<EOQ
 <table border="0" cellspacing="1" cellpadding="1" class="normal_text" name="nonafftrans_list" id="nonafftrans_list" width="100%">
   <tr>
     <th width="35%">
@@ -355,28 +343,26 @@ EOQ;
   </tr>
 EOQ;
 
-      $powers = getPowers($characterId, 'NonAffTrans', NOTELEVEL, 2);
-      
-      for($i = 0; $i < sizeof($powers); $i++)
-      {
-      	$nonafftrans_dots = makeDotsXP("nonafftrans${i}", $element_type['supernatural'], $character_type, $max_dots, $powers[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
-      	
-      	$nonafftrans_list = $powers[$i]->getPowerNote();
-      	$nonafftrans_name = $powers[$i]->getPowerName();
-      	$nonafftrans_id = $powers[$i]->getPowerID();
-      	
-      	if($edit_powers)
-        {
-          $nonafftrans_list = <<<EOQ
+$powers = getPowers($characterId, 'NonAffTrans', NOTELEVEL, 2);
+
+for ($i = 0; $i < sizeof($powers); $i++) {
+    $nonafftrans_dots = FormHelper::Dots("nonafftrans${i}", $powers[$i]->getPowerLevel(), $element_type['supernatural'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
+
+    $nonafftrans_list = $powers[$i]->getPowerNote();
+    $nonafftrans_name = $powers[$i]->getPowerName();
+    $nonafftrans_id = $powers[$i]->getPowerID();
+
+    if ($edit_powers) {
+        $nonafftrans_list = <<<EOQ
 <input type="text" name="nonafftrans${i}_list" id="nonafftrans${i}_list" size="15" class="$input_class" value="$nonafftrans_list">
 EOQ;
 
-          $nonafftrans_name = <<<EOQ
+        $nonafftrans_name = <<<EOQ
 <input type="text" name="nonafftrans${i}_name" id="nonafftrans${i}_name" size="15" class="$input_class" value="$nonafftrans_name">
 EOQ;
-        }
-      	
-      	$powers_list .= <<<EOQ
+    }
+
+    $powers_list .= <<<EOQ
   <tr>
     <td>
       $nonafftrans_list
@@ -390,10 +376,10 @@ EOQ;
     </td>
   </tr>
 EOQ;
-      }
-      $powers_list .= "</table>";
-      
-			$traits_table = <<<EOQ
+}
+$powers_list .= "</table>";
+
+$traits_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>

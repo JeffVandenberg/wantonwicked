@@ -12,8 +12,8 @@ use classes\request\repository\RequestTypeRepository;
 $characterId = Request::GetValue('character_id', 0);
 $characterRepository = new CharacterRepository();
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    /*include 'index_redirect.php';
-    die();*/
+    include 'index_redirect.php';
+    die();
 }
 
 if (isset($_POST['action'])) {
@@ -51,7 +51,7 @@ $character = $characterRepository->FindById($characterId);
 
 $requestTypeRepository = new RequestTypeRepository();
 $requestTypes = $requestTypeRepository->SimpleListAll();
-$page_title = 'Create Bluebook Entry for ' . $character['Character_Name'];
+$page_title = 'Create Bluebook Entry for ' . $character['character_name'];
 $contentHeader = $page_title;
 
 ob_start();

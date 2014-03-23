@@ -1,5 +1,7 @@
 <?php
-			$vitals_table = <<<EOQ
+use classes\core\helpers\FormHelper;
+
+$vitals_table = <<<EOQ
 <table bgcolor="$table_bg_color" border="0" cellpadding="1" cellspacing="0" width="100%">
 	<tr>
 	  <td>
@@ -220,7 +222,7 @@ EOQ;
       
       for($i = 0; $i < sizeof($powers); $i++)
       {
-      	$power_dots = makeDotsXP("endowment${i}", $element_type['merit'], $character_type, $max_dots, $powers[$i]->getPowerLevel(), $edit_powers, false, $edit_xp);
+      	$power_dots = FormHelper::Dots("endowment${i}", $powers[$i]->getPowerLevel(), $element_type['merit'], $character_type, $max_dots, $edit_powers, false, $edit_xp);
       	
       	$power_name = $powers[$i]->getPowerName();
 				$power_note = $powers[$i]->getPowerNote();

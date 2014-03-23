@@ -1,30 +1,26 @@
 <?php
+use classes\core\helpers\FormHelper;
+use classes\core\helpers\MenuHelper;
+use classes\core\helpers\Request;
 use classes\core\repository\Database;
 
 $contentHeader = $page_title = "Character Type Search";
 
 // get posted information
-$selected_character_types = isset($_POST['character_types']) ? $_POST['character_types'] : "";
-$selected_cities = isset($_POST['cities']) ? $_POST['cities'] : "";
-$selected_splat1 = isset($_POST['splat1']) ? $_POST['splat1'] : "";
-$selected_splat2 = isset($_POST['splat2']) ? $_POST['splat2'] : "";
-$selected_virtues = isset($_POST['virtues']) ? $_POST['virtues'] : "";
-$selected_vices = isset($_POST['vices']) ? $_POST['vices'] : "";
-$only_sanctioned = isset($_POST['only_sanctioned']) ? true : false;
-$only_new = isset($_POST['only_new']) ? true : false;
-
-$result_set = "";
+$selected_character_types = isset($_POST['character_types']) ? $_POST['character_types'] : array();
+$selected_cities = isset($_POST['cities']) ? $_POST['cities'] : array();
+$selected_splat1 = isset($_POST['splat1']) ? $_POST['splat1'] : array();
+$selected_splat2 = isset($_POST['splat2']) ? $_POST['splat2'] : array();
+$selected_virtues = isset($_POST['virtues']) ? $_POST['virtues'] : array();
+$selected_vices = isset($_POST['vices']) ? $_POST['vices'] : array();
+$only_sanctioned = isset($_POST['only_sanctioned']) ? $_POST['only_sanctioned'] == 1 : false;
 
 // test if submitting anything to search for
-if ($selected_character_types || $selected_cities || $selected_splat1 || $selected_splat2 || $selected_virtues || $selected_vices) {
-    $character_query = "select * from wod_characters where is_deleted='N' and ";
+if (Request::IsPost()) {
+    $character_query = "select * from characters where is_deleted='N' and ";
 
     if ($only_sanctioned) {
         $character_query .= " is_sanctioned='Y' and ";
-    }
-
-    if ($only_new) {
-        $character_query .= " is_sanctioned='' AND first_login > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND ";
     }
 
     if ($selected_character_types) {
@@ -89,16 +85,137 @@ if ($selected_character_types || $selected_cities || $selected_splat1 || $select
 
     $character_query = substr($character_query, 0, strlen($character_query) - 5) . " Order by Is_NPC desc, City, Character_Type, Character_Name;";
     $characters = Database::GetInstance()->Query($character_query)->All();
+}
 
-    if (count($characters) > 0) {
-        $num_of_chars = count($characters);
 
-        $result_set = <<<EOQ
+// build form
+$character_types = array("Mortal", "Ghoul", "Vampire", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker", "Psychic", "Thaumaturge", "Promethean", "Changeling", "Hunter", "Geist");
+$characterTypes = array_valuekeys($character_types);
+sort($character_types);
+$cities = array("Savannah", "San Diego", "The City", "Side Game");
+$cities = array_valuekeys($cities);
+
+$splat1 = array(
+    'None',
+    'Vampire' => array(
+        "Daeva", "Gangrel", "Mekhet", "Nosferatu", "Ventrue",
+    ),
+    'Werewolf' => array(
+        "Rahu", "Cahalith", "Elodoth", "Ithaeur", "Irraka",
+    ),
+    'Mage' => array(
+        "Acanthus", "Mastigos", "Moros", "Obrimos", "Thyrsus",
+    ),
+    'Changeling' => array(
+        "Beast", "Darkling", "Elemental", "Fairest", "Ogre", "Wizened",
+    ),
+    'Hunter' => array(
+        "Academic", "Artist", "Athlete", "Cop", "Criminal", "Detective", "Doctor", "Engineer", "Hacker", "Hit man", "Journalist", "Laborer", "Occultist", "Professional", "Religious Leader", "Scientist", "Soldier", "Technician", "Vagrant"
+    )
+);
+$splat1 = array_valuekeys($splat1);
+$splat2 = array(
+    'Vampire' => array(
+        "Carthian", "Circle of the Crone", "Invictus", "Lancea Sanctum", "Ordo Dracul", "Unaligned",
+    ),
+    'Werewolf' => array(
+        "Blood Talons", "Bone Shadows", "Hunters in Darkness", "Iron Masters", "Storm Lords", "Ghost Wolves", "Fire-Touched", "Ivory Claws", "Predator Kings",
+    ),
+    'Mage' => array(
+        "The Adamantine Arrows", "Free Council", "Guardians of the Veil", "The Mysterium", "The Silver Ladder", "Apostate", "Seer of the Throne", "Banisher",
+    ),
+    'Changeling' => array(
+        "Spring", "Summer", "Autumn", "Winter", "Courtless"
+    )
+);
+$splat2 = array_valuekeys($splat2);
+$virtues = array_valuekeys(array("Charity", "Faith", "Fortitude", "Hope", "Justice", "Prudence", "Temperance"));
+$vices = array_valuekeys(array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath"));
+
+$storytellerMenu = require_once('helpers/storyteller_menu.php');
+$menu = MenuHelper::GenerateMenu($storytellerMenu);
+
+ob_start();
+?>
+
+<?php echo $menu; ?>
+<form name="character_search" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?action=character_search">
+    <table>
+        <tr>
+            <th colspan="4">
+                Character Type Search
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Character Type:
+            </td>
+            <td>
+                <?php echo FormHelper::Multiselect($characterTypes, 'character_types[]', $selected_character_types); ?>
+            </td>
+            <td>
+                City:
+            </td>
+            <td>
+                <?php echo FormHelper::Multiselect($cities, 'cities[]', $selected_cities); ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Splat 1<br>
+                (Clan/Auspice/Path)
+            </td>
+            <td>
+                <?php echo FormHelper::Multiselect($splat1, 'splat1[]', $selected_splat1, array('size' => 10)); ?>
+            </td>1
+            <td>
+                Splat 2<br>
+                (Covenant/Tribe/Order)
+            </td>
+            <td>
+                <?php echo FormHelper::Multiselect($splat2, 'splat2[]', $selected_splat2, array('size' => 10)); ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Virtue:
+            </td>
+            <td>
+                <?php echo FormHelper::Multiselect($virtues, 'virtues[]', $selected_virtues); ?>
+            </td>
+            <td>
+                Vice:
+            </td>
+            <td>
+                <?php echo FormHelper::Multiselect($vices, 'vices[]', $selected_vices); ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Only Sanctioned
+            </td>
+            <td>
+                <?php echo FormHelper::Checkbox('only_sanctioned', 1, $only_sanctioned); ?>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input type="submit" value="Find Characters">
+            </td>
+        </tr>
+    </table>
+</form>
+<?php if(isset($characters)): ?>
+    <?php if (count($characters) > 0): ?>
 <br><br>
 <table>
     <tr>
         <th colspan="9">
-            Number of characters found: $num_of_chars
+            Number of characters found: <?php echo count($characters); ?>
         </th>
     </tr>
     <tr>
@@ -129,153 +246,42 @@ if ($selected_character_types || $selected_cities || $selected_splat1 || $select
         <th>
         </th>
     </tr>
-EOQ;
-
-        foreach ($characters as $character_detail) {
-
-            $result_set .= <<<EOQ
-<tr>
-    <td>
-        $character_detail[Character_Name]
-    </td>
-    <td>
-        $character_detail[Is_NPC]
-    </td>
-    <td>
-        $character_detail[City]
-    </td>
-    <td>
-        $character_detail[Character_Type]
-    </td>
-    <td>
-        $character_detail[Splat1]
-    </td>
-    <td>
-        $character_detail[Splat2]
-    </td>
-    <td>
-        $character_detail[Virtue]
-    </td>
-    <td>
-        $character_detail[Vice]
-    </td>
-    <td>
-        <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[Character_ID]">View Character</a>
-    </td>
-</tr>
-EOQ;
-        }
-
-        $result_set .= "</table>";
-    }
-    else {
-        $result_set = "<br><br>No Characters matching that criteria.";
-    }
-}
-
-
-// build form
-$character_types = array("Mortal", "Ghoul", "Vampire", "Werewolf", "Mage", "Psychic", "Thaumaturge", "Promethean", "Changeling", "Hunter", "Geist");
-$cities = array("Savannah", "San Diego", "The City", "Side Game");
-$splat1 = array("Daeva", "Gangrel", "Mekhet", "Nosferatu", "Ventrue", "Rahu", "Cahalith", "Elodoth", "Ithaeur", "Irraka", "None", "Acanthus", "Mastigos", "Moros", "Obrimos", "Thyrsus", "Beast", "Darkling", "Elemental", "Fairest", "Ogre", "Wizened", "Academic", "Artist", "Athlete", "Cop", "Criminal", "Detective", "Doctor", "Engineer", "Hacker", "Hit man", "Journalist", "Laborer", "Occultist", "Professional", "Religious Leader", "Scientist", "Soldier", "Technician", "Vagrant");
-$splat2 = array("Carthian", "Circle of the Crone", "Invictus", "Lancea Sanctum", "Ordo Dracul", "Unaligned", "Blood Talons", "Bone Shadows", "Hunters in Darkness", "Iron Masters", "Storm Lords", "Ghost Wolves", "Fire-Touched", "Ivory Claws", "Predator Kings", "The Adamantine Arrows", "Free Council", "Guardians of the Veil", "The Mysterium", "The Silver Ladder", "Apostate", "Seer of the Throne", "Banisher", "Spring", "Summer", "Autumn", "Winter", "Courtless");
-$virtues = array("Charity", "Faith", "Fortitude", "Hope", "Justice", "Prudence", "Temperance");
-$vices = array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath");
-
-$character_type_select = buildMultiSelect($selected_character_types, $character_types, $character_types, "character_types[]", 3, true);
-$city_select = buildMultiSelect($selected_cities, $cities, $cities, "cities[]", 3, true);
-$splat1_select = buildMultiSelect($selected_splat1, $splat1, $splat1, "splat1[]", 6, true);
-$splat2_select = buildMultiSelect($selected_splat2, $splat2, $splat2, "splat2[]", 6, true);
-$virtue_select = buildMultiSelect($selected_virtues, $virtues, $virtues, "virtues[]", 3, true);
-$vice_select = buildMultiSelect($selected_vices, $vices, $vices, "vices[]", 3, true);
-$sanctioned_check = ($only_sanctioned) ? "checked" : "";
-$new_check = ($only_new) ? "checked" : "";
-
-$form = <<<EOQ
-<form name="character_search" method="post" action="$_SERVER[PHP_SELF]?action=character_search">
-    <table border="0" cellpadding="2" cellspacing="2" class="normal_text">
-        <tr>
-            <th colspan="4">
-                Character Type Search
-            </th>
-        </tr>
-        <tr>
-            <td>
-                Character Type:
-            </td>
-            <td>
-                $character_type_select
-            </td>
-            <td>
-                City:
-            </td>
-            <td>
-                $city_select
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Splat 1<br>
-                (Clan/Auspice/Path)
-            </td>
-            <td>
-                $splat1_select
-            </td>
-            <td>
-                Splat 2<br>
-                (Covenant/Tribe/Order)
-            </td>
-            <td>
-                $splat2_select
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Virtue:
-            </td>
-            <td>
-                $virtue_select
-            </td>
-            <td>
-                Vice:
-            </td>
-            <td>
-                $vice_select
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Only Sanctioned
-            </td>
-            <td>
-                <input type="checkbox" name="only_sanctioned" value="Y" $sanctioned_check>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Only New
-            </td>
-            <td>
-                <input type="checkbox" name="only_new" value="Y" $new_check>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <input type="submit" value="Find Characters">
-                <input type="reset" value="Clear Form">
-            </td>
-        </tr>
+    <?php foreach ($characters as $character_detail): ?>
+    <tr>
+        <td>
+            <?php echo $character_detail['character_name']; ?>
+        </td>
+        <td>
+            <?php echo $character_detail['is_npc']; ?>
+        </td>
+        <td>
+            <?php echo $character_detail['city']; ?>
+        </td>
+        <td>
+            <?php echo $character_detail['character_type']; ?>
+        </td>
+        <td>
+            <?php echo $character_detail['splat1']; ?>
+        </td>
+        <td>
+            <?php echo $character_detail['splat2']; ?>
+        </td>
+        <td>
+            <?php echo $character_detail['virtue']; ?>
+        </td>
+        <td>
+            <?php echo $character_detail['vice']; ?>
+        </td>
+        <td>
+            <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $character_detail['id']; ?>" target="">View</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
     </table>
-</form>
-EOQ;
-
-$page_content = $form . $result_set;
+    <?php else: ?>
+        <br><br>No Characters matching that criteria.
+    <?php endif; ?>
+<?php endif; ?>
+<?php
+$page_content = ob_get_clean();
 

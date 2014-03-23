@@ -1,132 +1,192 @@
 <?php
-$page_title = 'Power and Merit Search';
+use classes\core\helpers\FormHelper;
+use classes\core\helpers\MenuHelper;
+use classes\core\helpers\Request;
+use classes\core\repository\Database;
 
-$powerType = htmlspecialchars($_POST['powerType']);
-$powerName = htmlspecialchars($_POST['powerName']);
-$powerNote = htmlspecialchars($_POST['powerNote']);
+$contentHeader = $page_title = 'Power and Merit Search';
 
-$searchResults = "";
-if($_POST['action'])
-{
-	$sql = <<<EOQ
+$powerType = Request::GetValue('power_type');
+$powerName = Request::GetValue('power_name');
+$powerNote = Request::GetValue('power_note');
+$minPowerLevel = Request::GetValue('min_power_level', 0);
+$maxPowerLevel = Request::GetValue('max_power_level', 8);
+
+if (Request::IsPost()) {
+    $sql    = <<<EOQ
 SELECT
 	character_name,
 	character_type,
-	C.character_id,
-	powerType AS power_type,
-	powerName AS power_name,
-	powerNote AS power_note,
-	PowerLevel AS power_level
+	is_npc,
+	C.id,
+	power_type,
+	power_name,
+	power_note,
+	power_level
 FROM
-	wod_characters AS C
-	LEFT JOIN wod_characters_powers AS CP ON C.character_id = CP.characterId
+	characters AS C
+	LEFT JOIN character_powers AS CP ON C.id = CP.character_id
 WHERE
 	C.is_sanctioned = 'Y'
 	AND C.is_deleted = 'N'
-	AND C.cell_id = '$userdata[cell_id]'
-	AND CP.powerType = '$powerType'
-	AND CP.powerName LIKE '%$powerName%'
-	AND CP.powerNote LIKE '%$powerNote%'
+	AND CP.power_type = ?
+	AND CP.power_name LIKE ?
+	AND CP.power_note LIKE ?
+	AND CP.power_level >= ?
+	AND CP.power_level <= ?
 ORDER BY
 	character_type,
 	character_name
 EOQ;
-	$rows = ExecuteQueryData($sql);
-	
-	$i = 0;
-	
-	$searchResults = <<<EOQ
-<h1>Search Results</h1>
-<div class="tableRowHeader" style="width:746px;">
-	<div class="tableRowHeaderCell firstCell cell" style="width:180px;">
-		Character Name
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:100px;">
-		Character Type
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:150px;">
-		Power Name
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:200px;">
-		Power Note
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:40px;">
-		Level
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:40px;">
-		&nbsp;
-	</div>
-</div>
-EOQ;
-
-	foreach($rows as $row)
-	{
-		$rowAlt = (($i++)%2) ? "Alt" : "";
-		
-		$searchResults .= <<<EOQ
-<div class="tableRow$rowAlt" style="width:746px;">
-	<div class="firstCell cell" style="width:180px;">
-		$row[character_name]
-	</div>
-	<div class="cell" style="width:100px;">
-		$row[character_type]
-	</div>
-	<div class="cell" style="width:150px;">
-		$row[power_name]
-	</div>
-	<div class="cell" style="width:200px;">
-		$row[power_note]
-		&nbsp;
-	</div>
-	<div class="cell" style="width:40px;">
-		$row[power_level]
-	</div>
-	<div class="cell" style="width:40px;">
-		<a href="/view_sheet.php?action=st_view_xp&view_character_id=$row[character_id]">View</a>
-	</div>
-</div>
-EOQ;
-
-	}
+    $params = array($powerType, $powerName . '%', $powerNote . '%', $minPowerLevel, $maxPowerLevel);
+    $powers = Database::GetInstance()->Query($sql)->All($params);
 }
 
-$powerTypes = array("Merit", "ICDisc", "OOCDisc", "Devotion", "Derangement");
-$powerTypeNames = array("Merit", "In-Clan Discipline", "Out-of-Clan Disc.", "Devotion/Ritual/Misc.", "Derangement");
+$powerTypes = array(
+    'Attribute'  => 'Attribute',
+    'Skill'      => 'Skill',
+    "Merit"      => "Merit",
+    "Flaw"       => "Flaw",
+    "Misc"       => "Misc Traits",
+    'Equipment'  => 'Equipment',
+    'Vampire'    => array(
+        "ICDisc"   => 'In-Clan Discipline',
+        "OOCDisc"  => 'Out-of-Clan Discipline',
+        "Devotion" => 'Devotion',
+    ),
+    'Werewolf'   => array(
+        'AffGift'    => 'Affinity Gifts',
+        'NonAffGift' => 'Non-Affinity Gifts',
+        'Ritual'     => 'Rituals',
+        'Ritulas'    => 'Ritual Rating',
+        'Cunning'    => 'Cunning',
+        'Glory'      => 'Glory',
+        'Honor'      => 'Honor',
+        'Purity'     => 'Purity',
+        'Wisdom'     => 'Wisdom',
 
-$powerTypeSelect = buildSelect($powerType, $powerTypes, $powerTypeNames, "powerType");
+    ),
+    'Mage'       => array(
+        'RulingArcana'   => 'Ruling Arcana',
+        'CommonArcana'   => 'Common Arcana',
+        'InferiorArcana' => 'Inferior Arcana',
+        'Rote'           => 'Rote'
+    ),
+    'Changeling' => array(
+        'AffContract'    => 'Affinity Contracts',
+        'NonAffContract' => 'Non-Affiny Contracts',
+        'GoblinContract' => 'Goblin Contracts'
+    ),
+    'Geist'      => array(
+        'Key'           => 'Key',
+        'Manifestation' => 'Manifestation',
+        'Ceremonies'    => 'Ceremony'
+    )
+);
 
-$page_content = <<<EOQ
-<h1>Power &amp; Merit Search</h1>
-<form method="post" action="/st_tools.php?action=power_search">
-<div class="tableRowHeader" style="width:574px;">
-	<div class="tableRowHeaderCell firstCell cell" style="width:150px;">
-		Power Type
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:150px;">
-		Type
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:150px;">
-		Name
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:100px;">
-		&nbsp;
-	</div>
-</div>
-<div class="tableRow" style="clear:both;width:574px;">
-	<div class="firstCell cell" style="width:150px;height:26px;">
-		$powerTypeSelect
-	</div>
-	<div class="cell" style="width:150px;">
-		<input type="text" value="$powerName" name="powerName" style="width:95%;" />
-	</div>
-	<div class="cell" style="width:150px;">
-		<input type="text" value="$powerNote" name="powerNote" style="width:95%;" />
-	</div>
-	<div class="cell" style="width:100px;">
-		<input type="submit" value="Search" name="action" />
-	</div>
-</div>
-</form>
-$searchResults
-EOQ;
+
+$storytellerMenu = require_once('helpers/storyteller_menu.php');
+$menu = MenuHelper::GenerateMenu($storytellerMenu);
+ob_start();
 ?>
+    <?php echo $menu; ?>
+    <form method="post" action="/st_tools.php?action=power_search">
+        <table>
+            <tr>
+                <td>
+                    Power Type
+                </td>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Note
+                </td>
+                <td>
+                    Min Level
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo FormHelper::Select($powerTypes, 'power_type', $powerType); ?>
+                </td>
+                <td>
+                    <?php echo FormHelper::Text('power_name', $powerName); ?>
+                </td>
+                <td>
+                    <?php echo FormHelper::Text('power_note', $powerNote); ?>
+                </td>
+                <td>
+                    <?php echo FormHelper::Text('min_power_level', $minPowerLevel); ?>
+                </td>
+                <td>
+                    <?php echo FormHelper::Text('max_power_level', $maxPowerLevel); ?>
+                </td>
+                <td>
+                    <?php echo FormHelper::Button('action', 'Search'); ?>
+                </td>
+            </tr>
+        </table>
+    </form>
+<?php if (isset($powers)): ?>
+    <?php if (count($powers) > 0): ?>
+        <h3>Search Results</h3>
+        <table>
+            <tr>
+                <th>
+                    Character Name
+                </th>
+                <th>
+                    Character Type
+                </th>
+                <th>
+                    NPC
+                </th>
+                <th>
+                    Power Name
+                </th>
+                <th>
+                    Power Note
+                </th>
+                <th>
+                    Power Level
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            <?php foreach ($powers as $row): ?>
+                <tr>
+                    <td>
+                        <?php echo $row['character_name']; ?>
+                    </td>
+                    <td>
+                        <?php echo $row['character_type']; ?>
+                    </td>
+                    <td>
+                        <?php echo $row['is_npc']; ?>
+                    </td>
+                    <td>
+                        <?php echo $row['power_name']; ?>
+                    </td>
+                    <td>
+                        <?php echo $row['power_note']; ?>
+                    </td>
+                    <td>
+                        <?php echo $row['power_level']; ?>
+                    </td>
+                    <td>
+                        <a href="/view_sheet.php?action=st_view_xp&view_character_id=$row[id]">View</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php else: ?>
+        No Results Found
+    <?php endif; ?>
+<?php endif; ?>
+<?php
+$page_content = ob_get_clean();
