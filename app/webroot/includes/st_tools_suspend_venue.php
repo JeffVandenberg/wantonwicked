@@ -52,6 +52,5 @@ ob_start();
 </form>
 
 <?php
-$page_content = ob_get_contents();
-ob_end_clean();
+$page_content = ob_get_clean();
 ?>

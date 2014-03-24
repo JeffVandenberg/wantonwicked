@@ -217,7 +217,7 @@ EOQ;
 }
 
 // test if they are a vamp for blood spending
-if (($character['Character_Type'] == 'Vampire') && ($power_points > 0)) {
+if (($character['character_type'] == 'Vampire') && ($power_points > 0)) {
     $extra_row .= <<<EOQ
 Spend Blood: <input type="checkbox" name="spend_pp" value="y">
 EOQ;
@@ -225,22 +225,22 @@ EOQ;
 
 // show extra status areas
 $extra_status = "";
-if ($character['Character_Type'] == 'Vampire') {
+if ($character['character_type'] == 'Vampire') {
     $extra_status = <<<EOQ
 Blood: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
 EOQ;
 }
-if ($character['Character_Type'] == 'Ghoul') {
+if ($character['character_type'] == 'Ghoul') {
     $extra_status = <<<EOQ
 Blood: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
 EOQ;
 }
-if ($character['Character_Type'] == 'Mage') {
+if ($character['character_type'] == 'Mage') {
     $extra_status = <<<EOQ
 Mana: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
 EOQ;
 }
-if ($character['Character_Type'] == 'Werewolf') {
+if ($character['character_type'] == 'Werewolf') {
     $extra_status  = <<<EOQ
 Essence: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
 EOQ;
@@ -250,12 +250,12 @@ EOQ;
 Form: $form_select<br>
 EOQ;
 }
-if ($character['Character_Type'] == 'Changeling') {
+if ($character['character_type'] == 'Changeling') {
     $extra_status = <<<EOQ
 Glamour: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
 EOQ;
 }
-if ($character['Character_Type'] == 'Geist') {
+if ($character['character_type'] == 'Geist') {
     $extra_status = <<<EOQ
 Plasm: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
 EOQ;
@@ -269,7 +269,7 @@ if ($wounds_agg >= $health) {
 }
 
 if (!$found_status && (($wounds_agg + $wounds_lethal) >= $health)) {
-    if ($character['Character_Type'] == 'Vampire') {
+    if ($character['character_type'] == 'Vampire') {
         $status = "On the ground in Torpor(No Actions)<br>";
     }
     else {
@@ -279,7 +279,7 @@ if (!$found_status && (($wounds_agg + $wounds_lethal) >= $health)) {
 }
 
 if (!$found_status && (($wounds_agg + $wounds_lethal + $wounds_bashing) >= $health)) {
-    if ($character['Character_Type'] == 'Vampire') {
+    if ($character['character_type'] == 'Vampire') {
         $status = "Gravely wounded<br>";
     }
     else {
@@ -476,7 +476,7 @@ ob_start();
                 <form method="post"
                       action="<?php echo $_SERVER['PHP_SELF']; ?>?action=character&character_id=<?php echo $characterId; ?>">
                     Name: <input type="text" name="character_name" size="20" maxlength="35"
-                                 value="<?php echo $character['Character_Name']; ?>">
+                                 value="<?php echo $character['character_name']; ?>">
                     Action: <input type="text" name="action" size="20" maxlength="50" value="">
                     Dice: <input type="text" name="dice" size="3" maxlength="2" value=""><br>
                     10-Again: <input type="radio" name="reroll" value="10again" checked> &nbsp;-&nbsp;
@@ -519,7 +519,7 @@ ob_start();
                                 <?php echo $werewolf_form; ?>
                                 <br>
                                 Willpower:<br>
-                                - Permanent: <?php echo $character['Willpower_Perm']; ?><br>
+                                - Permanent: <?php echo $character['willpower_perm']; ?><br>
                                 - Current: <?php echo $willpower_temp; ?><br>
                                 <?php echo $extra_spend_willpower; ?>
                                 <br>

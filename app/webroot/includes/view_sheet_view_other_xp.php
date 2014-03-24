@@ -17,12 +17,13 @@ if ($characterName) {
     // try to get character
     $character = $characterRepository->FindByName($characterName);
     $characterSheetHelper = new CharacterSheetHelper();
-
     if ($character !== false) {
         if (($character['show_sheet'] == 'Y') && ($character['view_password'] == $_POST['viewpwd'])) {
             CharacterLog::LogAction($character['id'], ActionType::ViewCharacter, 'Other Player View - Full View',
                                     $userdata['user_id']);
-            $characterSheetHelper->MakeLockedView($character, $character['character_type']);
+            ob_start();
+            echo $characterSheetHelper->MakeLockedView($character, $character['character_type']);
+            $character_sheet = ob_get_clean();
         }
         else {
             // show partial sheet
