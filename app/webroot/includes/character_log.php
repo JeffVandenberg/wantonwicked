@@ -108,7 +108,11 @@ ob_start();
             </td>
             <td>
                 <?php if ($record->ActionTypeId == ActionType::ViewRequest): ?>
-                    <a href="request.php?action=view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
+                    <?php if(UserdataHelper::IsHead($userdata)): ?>
+                        <a href="request.php?action=st_view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
+                    <?php else: ?>
+                        <a href="request.php?action=view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
+                    <?php endif; ?>
                 <?php endif; ?>
             </td>
         </tr>

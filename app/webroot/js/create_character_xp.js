@@ -140,10 +140,6 @@ function updateXP(element_type) {
             updateAttributeXP();
             displayBonusDot();
             break;
-            for (var j = 0; j < attribute_xp.length; j++) {
-                var obj = attribute_xp[j];
-                
-            }
         case skill:
             updateSkillXP();
             break;
@@ -249,9 +245,9 @@ function updateMeritXP() {
         i++;
     }
 
-    if (document.getElementById('power_trait')) {
+    if (document.getElementById('power-trait')) {
         // power stat
-        var power_trait_value = document.getElementById('power_trait').value;
+        var power_trait_value = document.getElementById('power-trait').value;
         merit_xp -= ((Number(power_trait_value) * (Number(power_trait_value) + 1)) * 8) / 2 - 8;
     }
 

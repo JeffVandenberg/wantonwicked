@@ -368,13 +368,13 @@ EOQ;
         if ($edit_powers) {
             SavePower('Merit', 'merit', $stats, $character_id);
             SavePower('Flaw', 'flaw', $stats, $character_id);
+            SavePower('Misc', 'misc', $stats, $character_id);
+
             //saveMeritsXP($stats, $character_id);
             //saveFlawsXP($stats, $character_id);
             $powers = array();
             switch ($character_type) {
                 case "Mortal":
-                    SavePower('Misc', 'misc', $stats, $character_id);
-                    //saveMiscXP($stats, $character_id);
                     break;
                 case "Vampire":
                 case "Ghoul":

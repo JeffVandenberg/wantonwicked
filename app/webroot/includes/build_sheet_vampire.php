@@ -336,7 +336,7 @@ ob_start();
                     <?php else: ?>
                         <?php echo $level; ?>
                     <?php endif; ?>
-                    <input type="hidden" name="oocdisc<?php echo $i; ?>_id" id="oocdisc<?php echo $i; ?>_id"
+                    <input type="hidden" name="devotion<?php echo $i; ?>_id" id="devotion<?php echo $i; ?>_id"
                            value="<?php echo $discipline_id; ?>">
                 </td>
             </tr>
