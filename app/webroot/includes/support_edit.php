@@ -80,7 +80,7 @@ ob_start()
             <?php foreach($supporter->Characters as $character): ?>
                 <tr>
                     <td colspan="4">
-                        <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $character->CharacterId; ?>">
+                        <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $character->Id; ?>">
                             <?php echo $character->CharacterName; ?>
                         </a>
                     </td>

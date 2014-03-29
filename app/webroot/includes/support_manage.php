@@ -53,7 +53,7 @@ ob_start();
     <?php foreach($supporters as $supporter): ?>
         <tr>
             <td>
-                <?php echo $supporter['username']; ?>
+                <a href="support.php?action=edit&id=<?php echo $supporter['id']; ?>"><?php echo $supporter['username']; ?></a>
             </td>
             <td>
                 <?php echo $supporter['number_of_characters']; ?>
@@ -74,7 +74,6 @@ ob_start();
                 <?php echo date('m/d/Y h:i:sa', strtotime($supporter['updated_on'])); ?>
             </td>
             <td>
-                <a href="support.php?action=edit&id=<?php echo $supporter['id']; ?>">Edit</a>
             </td>
         </tr>
     <?php endforeach; ?>

@@ -95,6 +95,8 @@ class Character extends DataModel
     function __construct()
     {
         parent::__construct();
+        $this->NameColumn = 'character_name';
+        $this->SortColumn = 'character_name';
     }
 
     public function __get($property)

@@ -38,20 +38,20 @@ if($supporter->ExpiresOn < date('Y-m-d H:i:s')) {
     SessionHelper::SetFlashMessage('Your support has expired');
     Response::Redirect('support.php');
 }
-$characters = $characterRepository->ListByPrimaryLoginIdAndIsSanctionedAndIsDeleted($userdata['user_id'], 'Y', 'N');
+$characters = $characterRepository->ListByUserIdAndIsSanctionedAndIsDeleted($userdata['user_id'], 'Y', 'N');
 /* @var Character[] $characters */
 
 $characterList = array();
 foreach($characters as $character)
 {
-    $characterList[$character->CharacterId] = $character->CharacterName;
+    $characterList[$character->Id] = $character->CharacterName;
 }
 
 $selectedCharacters = $supporterRepository->ListSelectedCharactersForSupporter($supporter->Id);
 $selectedList = array();
 foreach($selectedCharacters as $item)
 {
-    $selectedList[] = $item->CharacterId;
+    $selectedList[] = $item->Id;
 }
 ob_start();
 ?>

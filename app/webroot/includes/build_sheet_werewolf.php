@@ -352,14 +352,14 @@ ob_start();
             <tr>
                 <td>
                     <?php if ($edit_powers): ?>
-                        <label for="ritual<?php echo $i; ?>_note"></label>
+                        <label for="ritual<?php echo $i; ?>_name"></label>
                         <input type="text"
-                               name="ritual<?php echo $i; ?>_note"
-                               id="ritual<?php echo $i; ?>_note"
+                               name="ritual<?php echo $i; ?>_name"
+                               id="ritual<?php echo $i; ?>_name"
                                size="20"
-                               value="<?php echo $power->getPowerNote(); ?>">
+                               value="<?php echo $power->getPowerName(); ?>">
                     <?php else: ?>
-                        <?php echo $power->getPowerNote(); ?>
+                        <?php echo $power->getPowerName(); ?>
                     <?php endif; ?>
                 </td>
                 <td>

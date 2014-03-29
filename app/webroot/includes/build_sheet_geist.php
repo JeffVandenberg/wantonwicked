@@ -15,7 +15,7 @@ ob_start();
             <b>Name</b>
         </td>
         <td style="width:35%;">
-            <?php $character_name; ?>
+            <?php echo $character_name; ?>
         </td>
         <td style="width:15%;">
             <b>Character Type</b>
@@ -193,7 +193,7 @@ ob_start();
                     Name
                 </td>
             </tr>
-            <?php foreach($powers as $power): ?>
+            <?php foreach($powers as $i => $power): ?>
                 <tr>
                     <td>
                         <?php if ($edit_powers): ?>

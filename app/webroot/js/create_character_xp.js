@@ -1339,7 +1339,7 @@ function addGift(type) {
 function addRitual() {
     var ritual_list = document.getElementById('ritual_list');
     var row_id = ritual_list.rows.length;
-    var index = row_id - 2;
+    var index = row_id - 3;
     var newRow = ritual_list.insertRow(row_id);
     var newNameCell = newRow.insertCell(0);
     newNameCell.innerHTML = "<input type=\"text\" name=\"ritual" + index + "_name\" id=\"ritual" + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";

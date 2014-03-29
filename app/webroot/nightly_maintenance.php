@@ -25,21 +25,6 @@ $enrollmentManager->SendReminderEmails();
 $enrollmentManager->ExpireSupporterStatus();
 
 $db          = new Database();
-$autoBpQuery = <<<EOQ
-UPDATE 
-	characters
-SET 
-	Next_Power_Stat_Increase = DATE_ADD(Next_Power_Stat_Increase, INTERVAL 6 MONTH),
-	Power_Stat = Power_Stat + 1
-WHERE
-	character_type = 'Vampire'
-	AND is_sanctioned = 'Y'
-	AND is_npc = 'N'
-	AND city = 'San Diego'
-	AND Next_Power_Stat_Increase < NOW();
-EOQ;
-
-$db->Query($autoBpQuery)->Execute();
 
 if(date('D') == 'Fri')
 {
@@ -60,7 +45,7 @@ SET
 WHERE
     is_sanctioned='y'
     AND is_npc='n'
-    AND character_id NOT IN (
+    AND id NOT IN (
         SELECT
             DISTINCT
             character_id
