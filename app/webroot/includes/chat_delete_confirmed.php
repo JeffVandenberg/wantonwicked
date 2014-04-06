@@ -1,5 +1,7 @@
 <?php
 /* @var array $userdata */
+use classes\core\repository\Database;
+
 $page_title    = "Character Deleted";
 $contentHeader = $page_title;
 
@@ -13,27 +15,25 @@ SELECT
     character_name
 FROM
     characters AS C
-    INNER JOIN login_character_index as lci ON C.id = lci.character_id
 WHERE
-    C.login_id = ?
+    C.user_id = ?
     AND C.is_deleted = 'N'
     AND C.id = ?
 EOQ;
 
-$params = array($userdata['user_id'], $character_id);
-$character       = ExecuteQueryItem($character_query);
+$params    = array($userdata['user_id'], $character_id);
+$character = Database::GetInstance()->Query($character_query)->Single($params);;
 
 if ($character) {
     // get # of characters with the same name
     $temp_name = addslashes($character['character_name']);
-    $id_query  = "select * from characters where character_name like '$temp_name%';";
+    $id_query  = "select count(*) from characters where character_name like '$temp_name%';";
     $id_result = mysql_query($id_query) or die(mysql_error());
-    $id = mysql_num_rows($id_result);
+    $id = Database::GetInstance()->Query($id_query)->Value();
 
     // mark the character as deleted
     $update_query = "update characters set is_deleted='Y', character_name = '${temp_name}_$id' where id = $character_id;";
-    //echo "$update_query<br>";
-    $update_result = mysql_query($update_query) or die(mysql_error());
+    $update_result = Database::GetInstance()->Query($update_query)->Execute();
 
     $page_content = <<<EOQ
 $character[character_name] has been deleted. This is a permanent action. It can not and will not be undone.<br>
