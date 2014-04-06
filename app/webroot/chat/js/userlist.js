@@ -513,26 +513,38 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewProfile(\""+profileID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/profile.gif'><span style='padding-left:10px;'>"+lang36+"</span></div>";
 		}
 
-		if(uID != targetUserId && share)
-		{
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"shareFiles\",\"280\",\"300\",\"200\",\"plugins/share/?shareWithUserId="+targetUserId+"\",\"\");' class='highliteOff'><img style='vertical-align:middle;' src='images/share.gif'><span style='padding-left:7px;'>Share Files</span></div>";
-		}
-
         if((uID == targetUserId) && userTypeId == 3) {
             newdiv.innerHTML +=
                 "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewSheet(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
                     "<img style='vertical-align:middle;' src='images/usermenu/profile.gif'>" +
                     "<span style='padding-left:10px;'>View Sheet</span>" +
-                "</div>" +
-                "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewDice(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
+                    "</div>" +
+                    "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewDice(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
                     "<img style='vertical-align:middle;' src='images/usermenu/profile.gif'>" +
                     "<span style='padding-left:10px;'>Dice Roller</span>" +
-                "</div>" +
-                "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewRequests(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
+                    "</div>" +
+                    "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewRequests(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
                     "<img style='vertical-align:middle;' src='images/usermenu/profile.gif'>" +
                     "<span style='padding-left:10px;'>Requests</span>" +
-                "</div>";
+                    "</div>";
         }
+
+        if((admin && uID != targetUserId) || (moderator && uID != targetUserId))
+        {
+            // view sheet
+            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/view_sheet.php?action=st_view_xp&view_character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Sheet</span></div>";
+
+            // view requests
+            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/request.php?action=st_list&character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Requests</span></div>";
+
+            // view log
+            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/character.php?action=log&character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Log</span></div>";
+        }
+
+        if(uID != targetUserId && share)
+		{
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"shareFiles\",\"280\",\"300\",\"200\",\"plugins/share/?shareWithUserId="+targetUserId+"\",\"\");' class='highliteOff'><img style='vertical-align:middle;' src='images/share.gif'><span style='padding-left:7px;'>Share Files</span></div>";
+		}
 
 		if(uID != targetUserId && uBlock == 1)
 		{
@@ -557,21 +569,12 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
             // ban
             newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='adminControls(\""+targetUserId+"\",\"BAN\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>"+lang42+"</span></div>";
 		}
-		
-		if((admin && uID != targetUserId) || (moderator && uID != targetUserId))
-		{
-            // view sheet
-            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/view_sheet.php?action=st_view_xp&view_character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Sheet</span></div>";
 
-            // view requests
-            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/request.php?action=st_list&character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Requests</span></div>";
-
-            // view log
-            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/character.php?action=log&character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Log</span></div>";
-
-			// show IP
-			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('http://www.infosniper.net/index.php?ip_address="+uIP+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>IP: "+uIP+"</span></div>";
-		}
+        if((admin && uID != targetUserId) || (moderator && uID != targetUserId))
+        {
+            // show IP
+            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('http://www.infosniper.net/index.php?ip_address="+uIP+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>IP: "+uIP+"</span></div>";
+        }
 
 		if(admin && uID == targetUserId)
 		{

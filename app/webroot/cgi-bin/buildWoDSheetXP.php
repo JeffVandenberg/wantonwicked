@@ -162,7 +162,7 @@ EOQ;
         $vice         = $stats['vice'];
         $splat1       = $stats['splat1'];
         $splat2       = $stats['splat2'];
-        $subsplat     = $stats['Subsplat'];
+        $subsplat     = $stats['subsplat'];
         $icon         = $stats['icon'];
         $sex          = $stats['sex'];
         $age          = $stats['age'];

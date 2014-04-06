@@ -50,7 +50,7 @@ $temporary_health_levels = $character['temporary_health_levels'];
 $total_health = $temporary_health_levels;
 $size = $character['size'];
 $werewolf_form = "";
-$current_form = (isset($_POST['current_form'])) ? $_POST['current_form'] : "Hishu";
+$current_form = Request::GetValue('current_form', "Hishu");
 $updated_pp = $character['updated_pp'];
 
 $max_power_points = getMaxPowerPoints($character['power_stat']);
@@ -200,7 +200,7 @@ where
 	id = $characterId;
 EOQ;
     $update_result = Database::GetInstance()->Query($update_query)->Execute();
-    Response::Redirect('dieroller.php?action=character&character_id='.$characterId);
+    Response::Redirect('dieroller.php?action=character&character_id='.$characterId.'&current_form='.$current_form);
 }
 
 $extra_row = "";
