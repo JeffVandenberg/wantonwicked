@@ -433,10 +433,12 @@ ob_start();
                 <?php echo $health_dots; ?>
             </td>
             <td colspan="1" style="width:15%">
-                Size
+                Wounds
             </td>
             <td colspan="2" style="width:20%">
-                <?php echo $size; ?>
+                Bashing: <?php echo $wounds_bashing; ?>
+                Lethal: <?php echo $wounds_lethal; ?>
+                Agg: <?php echo $wounds_aggravated; ?>
             </td>
         </tr>
         <tr>
