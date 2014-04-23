@@ -33,7 +33,7 @@ ob_start();
     <?php echo $menu; ?>
     <form name="icon_list" id="icon_list" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?action=icons_list">
         <a href="icons_add.php"
-           onClick="window.open('$_SERVER[PHP_SELF]?action=icons_add', 'addIcon', 'width=300,height=300,resizable,scrollbars');return false;">Add
+           onClick="window.open('<?php echo $_SERVER['PHP_SELF']; ?>?action=icons_add', 'addIcon', 'width=300,height=300,resizable,scrollbars');return false;">Add
             Icon</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <a href="#" onclick="submitForm();">Delete Icon(s)</a>

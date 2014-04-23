@@ -55,7 +55,7 @@ function submitForm ( )
 }
 </script>
 <form name="icon_list" id="icon_list" method="post" action="$_SERVER[PHP_SELF]">
-<a href="icons_add.php" onClick="window.open('icons_add.php', 'addIcon', 'width=300,height=300,resizable,scrollbars');return false;">Add Icon</a>
+<a href="icons_add.php" onClick="window.open('/icons_add.php', 'addIcon', 'width=300,height=300,resizable,scrollbars');return false;">Add Icon</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#" onclick="submitForm();">Delete Icon(s)</a>
 <input type="hidden" name="action" id="action" value="update">
