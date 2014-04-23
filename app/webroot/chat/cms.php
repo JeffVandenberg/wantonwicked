@@ -123,6 +123,9 @@ EOQ;
     if($character['is_sanctioned'] == 'N') {
         $icon = 'desanctioned.png';
     }
+    if($character['location'] == 'Side Game') {
+        $icon = 'sidegames.png';
+    }
 
     $_SESSION['username'] = str_replace('\'', '\\\'', C_CUSTOM_USERNAME);
     $_SESSION['userid'] = C_CUSTOM_USERID;
