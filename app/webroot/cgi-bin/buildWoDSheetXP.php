@@ -286,7 +286,6 @@ EOQ;
             $splat1_groups         = array("Beast", "Darkling", "Elemental", "Fairest", "Ogre", "Wizened");
             $splat2_groups         = array("Spring", "Summer", "Autumn", "Winter", "Courtless");
             $supernatural_xp       = 40;
-            $apparent_age          = "0";
             $number_of_specialties = 4;
             break;
 
