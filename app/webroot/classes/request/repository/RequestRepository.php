@@ -580,6 +580,8 @@ WHERE
     R.request_type_id != $blueBook
     AND R.request_status_id NOT IN ($terminal)
     AND RC.character_id = $characterId
+    AND C.is_sanctioned = 'Y'
+    AND C.is_deleted = 'N'
 ORDER BY
     R.title
 EOQ;
