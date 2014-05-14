@@ -1036,12 +1036,22 @@ class CharacterSheetHelper
                                   $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
                                   $view_is_head, $view_is_admin, $may_edit, $edit_cell);
         if ($error == '') {
-            $this->LogChanges($oldValues, $newValues);
+            $this->LogChanges($newValues, $oldValues);
         }
     }
 
     private function LogChanges($newValues, $oldValues)
     {
+        global $userdata;
+        if($newValues['is_sanctioned'] != $oldValues['is_sanctioned'])
+        {
+            if($newValues['is_sanctioned'] == 'Y') {
+                CharacterLog::LogAction($newValues['character_id'], ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
+            }
+            if($newValues['is_sanctioned'] == 'N') {
+                CharacterLog::LogAction($newValues['character_id'], ActionType::Desanctioned, 'ST Desanctioned Character', $userdata['user_id']);
+            }
+        }
     }
 
     public function UpdateNew($newStats)

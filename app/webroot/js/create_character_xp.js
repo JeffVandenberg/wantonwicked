@@ -1136,10 +1136,7 @@ function updateBonusAttribute() {
         newOption.text(option2);
         bonus_attribute_select.append(newOption);
 
-        var old_bonus = document.getElementById('bonus_attribute').value;
-        if ((old_bonus != '') && ((old_bonus == option1) || (old_bonus == option2))) {
-            bonus_attribute_select.value = document.getElementById('bonus_attribute').value;
-        }
+        bonus_attribute_select.val($('#bonus_attribute').val());
     }
 
     if (character_type == 'Mage') {
@@ -1567,7 +1564,10 @@ function addSiddhi() {
 
 
 function addVampAttributeSelect() {
-    document.getElementById('attribute_div').innerHTML = "-- Bonus Attribute: <select name=\"bonus_attribute_select\" id=\"bonus_attribute_select\" onChange=\"displayBonusDot();\"></select>";
+    document.getElementById('attribute_div').innerHTML =
+        "-- Bonus Attribute: " +
+            "<select name=\"bonus_attribute_select\" id=\"bonus_attribute_select\" onChange=\"displayBonusDot();\">" +
+            "</select>";
     updateBonusAttribute();
 }
 

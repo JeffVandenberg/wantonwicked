@@ -141,7 +141,7 @@ EOQ;
     // mods for ghouls
     if ($character_type == "Ghoul") {
         $morality     = 6;
-        $power_points = GetPowerByName($attributes, "Stamina");
+        $power_points = GetPowerByName($attributes, "Stamina")->getPowerLevel();
     }
 
     $history_edit = "readonly";

@@ -285,7 +285,7 @@ EOQ;
             }
 
             if ($edit_perm_traits) {
-                $update_query .= "power_stat = $power_stat, willpower_perm = $willpower_perm, morality = $morality, health = $health, size = $size, defense = $defense, initiative_mod = $initiative_mod, speed = $speed, armor = '$armor', power_points_modifier = $power_points_modifier, ";
+                $update_query .= "power_stat = $power_stat, willpower_perm = $willpower_perm, morality = $morality, health = $health, size = $size, defense = $defense, initiative_mod = $initiative_mod, speed = $speed, armor = '$armor', power_points_modifier = $power_points_modifier, bonus_attribute='$bonus_attribute', ";
             }
 
             if ($edit_temp_traits) {
@@ -382,18 +382,12 @@ EOQ;
                     SavePower('ICDisc', 'icdisc', $stats, $character_id);
                     SavePower('OOCDisc', 'oocdisc', $stats, $character_id);
                     SavePower('Devotion', 'devotion', $stats, $character_id);
-//                    saveICDiscXP($stats, $character_id);
-//                    saveOOCDiscXP($stats, $character_id);
-//                    saveDevotionsXP($stats, $character_id);
                     break;
                 case "Werewolf":
                     SavePower('AffGift', 'affgift', $stats, $character_id);
                     SavePower('NonAffGift', 'nonaffgift', $stats, $character_id);
                     SavePower('Ritual', 'ritual', $stats, $character_id);
 
-//                    saveAffGiftXP($stats, $character_id);
-//                    saveNonAffGiftXP($stats, $character_id);
-//                    saveRitualXP($stats, $character_id);
                     saveRitualsRenownXP($stats, $character_id);
                     break;
                 case "Mage":
@@ -401,11 +395,6 @@ EOQ;
                     SavePower('CommonArcana', 'commonarcana', $stats, $character_id);
                     SavePower('InferiorArcana', 'inferiorarcana', $stats, $character_id);
                     SavePower('Rote', 'rote', $stats, $character_id);
-
-//                    saveRulingArcanaXP($stats, $character_id);
-//                    saveCommonArcanaXP($stats, $character_id);
-//                    saveInferiorArcanaXP($stats, $character_id);
-//                    saveRoteXP($stats, $character_id);
                     break;
                 case "Psychic":
                     savePsychicMeritXP($stats, $character_id);

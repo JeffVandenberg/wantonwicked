@@ -23,6 +23,7 @@ class ActionType extends DataModel
     const InvalidAccess = 7;
     const BlueBookList = 8;
     const BlueBookView = 9;
+    const Desanctioned = 10;
 
     public $Id;
     public $Name;
