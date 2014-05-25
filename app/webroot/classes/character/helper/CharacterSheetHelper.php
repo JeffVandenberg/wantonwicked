@@ -1043,7 +1043,7 @@ class CharacterSheetHelper
     private function LogChanges($newValues, $oldValues)
     {
         global $userdata;
-        if($newValues['is_sanctioned'] != $oldValues['is_sanctioned'])
+        if(isset($newValues['is_sanctioned']) && isset($oldValues['is_sanctioned']) && ($newValues['is_sanctioned'] != $oldValues['is_sanctioned']))
         {
             if($newValues['is_sanctioned'] == 'Y') {
                 CharacterLog::LogAction($newValues['character_id'], ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
