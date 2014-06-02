@@ -302,7 +302,7 @@ function createSelectRoomdiv(room, roomid, roomdel)
 		var opt = document.createElement("option");
 		opt.setAttribute("id","select_"+roomid);
 		opt.value = roomid;
-		opt.text = decodeURI(room.replace("+"," "));
+		opt.text = decodeURIComponent(room.replace("+"," "));
 
 		if(roomID == roomid)
 		{
