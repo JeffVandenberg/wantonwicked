@@ -94,7 +94,7 @@ ob_start();
                 "searchreplace wordcount visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste textcolor"
             ],
-            toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent"
+            toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | copy paste "
         });
     </script>
 <?php
