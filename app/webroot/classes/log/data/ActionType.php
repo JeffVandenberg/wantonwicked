@@ -24,6 +24,7 @@ class ActionType extends DataModel
     const BlueBookList = 8;
     const BlueBookView = 9;
     const Desanctioned = 10;
+    const XPModification = 11;
 
     public $Id;
     public $Name;

@@ -14,6 +14,8 @@ use classes\core\data\DataModel;
 class RepositoryManager
 {
     public static $repositories;
+    public static $cache;
+
     /**
      * @param $className
      * @return AbstractRepository
@@ -36,5 +38,10 @@ class RepositoryManager
             self::$repositories[$repositoryClass] = $repository;
         }
         return self::$repositories[$repositoryClass];
+    }
+
+    public static function ClearCache()
+    {
+        self::$cache = null;
     }
 }

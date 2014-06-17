@@ -12,13 +12,20 @@ namespace classes\character\helper;
 
 use classes\character\data\Character;
 use classes\character\data\ElementType;
+use classes\character\repository\CharacterRepository;
 use classes\core\helpers\FormHelper;
 use classes\core\repository\Database;
+use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
 class CharacterSheetHelper
 {
+    private $CharacterRepository;
+
+    function __construct() {
+        $this->CharacterRepository = new CharacterRepository();
+    }
 
     public static function MakeHeaderView(Character $character)
     {
@@ -789,26 +796,20 @@ class CharacterSheetHelper
 
     public function MakeViewOwn($stats, $characterType)
     {
-        $edit_show_sheet     = false;
         $edit_name           = false;
         $edit_vitals         = false;
         $edit_is_dead        = false;
         $edit_location       = false;
         $edit_concept        = false;
-        $edit_description    = false;
-        $edit_url            = false;
         $edit_equipment      = false;
         $edit_public_effects = false;
         $edit_group          = false;
-        $edit_exit_line      = false;
         $edit_is_npc         = false;
         $edit_attributes     = false;
         $edit_skills         = false;
         $edit_perm_traits    = false;
-        $edit_temp_traits    = false;
         $edit_powers         = false;
         $edit_history        = false;
-        $edit_goals          = false;
         $edit_login_note     = false;
         $edit_experience     = false;
         $show_st_notes       = false;
@@ -816,7 +817,6 @@ class CharacterSheetHelper
         $view_is_st          = false;
         $view_is_head        = false;
         $view_is_admin       = false;
-        $may_edit            = false;
         $edit_cell           = false;
         $calculate_derived   = false;
         $edit_xp             = false;
@@ -954,7 +954,7 @@ class CharacterSheetHelper
                                $calculate_derived, $edit_xp);
     }
 
-    public function UpdateOwnLimited($oldValues, $newValues)
+    public function UpdateOwnLimited(Character $oldCharacter, $newStats)
     {
         $edit_show_sheet     = true;
         $edit_name           = false;
@@ -986,18 +986,20 @@ class CharacterSheetHelper
         $may_edit            = true;
         $edit_cell           = false;
 
-        $error = updateWoDSheetXP($newValues, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
+        $error = updateWoDSheetXP($newStats, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
                                   $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment,
                                   $edit_public_effects, $edit_group, $edit_exit_line, $edit_attributes, $edit_skills,
                                   $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
                                   $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
                                   $view_is_head, $view_is_admin, $may_edit, $edit_cell);
         if ($error == '') {
-            $this->LogChanges($oldValues, $newValues);
+            $newCharacter = $this->CharacterRepository->GetById($newStats['character_id']);
+            /* @var Character $newCharacter */
+            $this->LogChanges($oldCharacter, $newCharacter);
         }
     }
 
-    public function UpdateOwnFull($oldValues, $newValues)
+    public function UpdateOwnFull(Character $oldCharacter, $newStats)
     {
         $edit_show_sheet     = true;
         $edit_name           = true;
@@ -1029,29 +1031,109 @@ class CharacterSheetHelper
         $may_edit            = true;
         $edit_cell           = true;
 
-        $error = updateWoDSheetXP($newValues, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
+        $error = updateWoDSheetXP($newStats, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
                                   $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment,
                                   $edit_public_effects, $edit_group, $edit_exit_line, $edit_attributes, $edit_skills,
                                   $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
                                   $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
                                   $view_is_head, $view_is_admin, $may_edit, $edit_cell);
         if ($error == '') {
-            $this->LogChanges($newValues, $oldValues);
+            $newCharacter = $this->CharacterRepository->GetById($newStats['character_id']);
+            /* @var Character $newCharacter */
+            $this->LogChanges($newCharacter, $oldCharacter);
         }
     }
 
-    private function LogChanges($newValues, $oldValues)
+    private function LogChanges(Character $newCharacter, Character $oldCharacter)
     {
         global $userdata;
-        if(isset($newValues['is_sanctioned']) && isset($oldValues['is_sanctioned']) && ($newValues['is_sanctioned'] != $oldValues['is_sanctioned']))
+
+        if($newCharacter->IsSanctioned != $oldCharacter->IsSanctioned)
         {
-            if($newValues['is_sanctioned'] == 'Y') {
-                CharacterLog::LogAction($newValues['character_id'], ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
+            if($newCharacter->IsSanctioned == 'Y') {
+                CharacterLog::LogAction($newCharacter['character_id'], ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
             }
-            if($newValues['is_sanctioned'] == 'N') {
-                CharacterLog::LogAction($newValues['character_id'], ActionType::Desanctioned, 'ST Desanctioned Character', $userdata['user_id']);
+            if($newCharacter->IsSanctioned == 'N') {
+                CharacterLog::LogAction($newCharacter['character_id'], ActionType::Desanctioned, 'ST Desanctioned Character', $userdata['user_id']);
             }
         }
+
+        $excludedProperties = array(
+            'IsSanctioned',
+            'SheetUpdate',
+        );
+
+        $changedProperties = array();
+        foreach($newCharacter as $property => $value) {
+            if(!in_array($property, $excludedProperties)) {
+                if($newCharacter->$property != $oldCharacter->$property) {
+                    $changedProperties[] = $property;
+                }
+            }
+        }
+
+        $note = "";
+        if(count($changedProperties) > 0) {
+            foreach($changedProperties as $property) {
+                $note .= $property . ' changed from ' . $oldCharacter->$property . ' to ' . $newCharacter->$property . "\n";
+            }
+        }
+
+        $newPowerList = $newCharacter->CharacterPower;
+        $oldPowerList = $oldCharacter->CharacterPower;
+
+        $changedPowerList = array();
+
+        foreach($newCharacter->CharacterPower as $i => $newPower) {
+            foreach($oldCharacter->CharacterPower as $j => $oldPower) {
+                // if they are the same
+                if($newPower->Id == $oldPower->Id) {
+                    if(($newPower->PowerName == $oldPower->PowerName)
+                        && ($newPower->PowerNote == $oldPower->PowerNote)
+                        && ($newPower->PowerLevel == $oldPower->PowerLevel)
+                    ) {
+                    }
+                    else {
+                        $changedPowerList[] = array(
+                            'old' => $oldPower,
+                            'new' => $newPower
+                        );
+                    }
+                    unset($newPowerList[$i]);
+                    unset($oldPowerList[$j]);
+                }
+            }
+        }
+
+        foreach($newPowerList as $newPower) {
+            $note .= 'Added Power: ' . $newPower->PowerType .
+                ' Name: ' . $newPower->PowerName .
+                ' Note: ' . $newPower->PowerNote .
+                ' Level: ' . $newPower->PowerLevel . " \n";
+        }
+
+        foreach($oldPowerList as $oldPower) {
+            $note .= 'Removed Power: ' . $oldPower->PowerType .
+                ' Name: ' . $oldPower->PowerName .
+                ' Note: ' . $oldPower->PowerNote .
+                ' Level: ' . $oldPower->PowerLevel . " \n";
+        }
+
+        foreach($changedPowerList as $power) {
+            $note .= 'Changed Power: ' . $power['new']->PowerType .
+                ' OLD: ' .
+                ' Name: ' . $power['old']->PowerName .
+                ' Note: ' . $power['old']->PowerNote .
+                ' Level: ' . $power['old']->PowerLevel .
+                ' NEW ' .
+                ' Name: ' . $power['new']->PowerName .
+                ' Note: ' . $power['new']->PowerNote .
+                ' Level: ' . $power['new']->PowerLevel . " \n";
+            ;
+        }
+
+        CharacterLog::LogAction($newCharacter->Id, ActionType::UpdateCharacter, str_replace("\n", "<br/>", $note),
+                                $userdata['user_id']);
     }
 
     public function UpdateNew($newStats)
@@ -1093,11 +1175,11 @@ class CharacterSheetHelper
                                   $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
                                   $view_is_head, $view_is_admin, $may_edit, $edit_cell);
         if ($error == '') {
-            $this->LogChanges($newStats, array());
+            //$this->LogChanges($newStats, array());
         }
     }
 
-    public function UpdateSt($newStats, $oldStats, $userdata)
+    public function UpdateSt(array $newStats, Character $oldStats, array $userdata)
     {
         $viewed_sheet        = false;
         $edit_show_sheet     = false;
@@ -1254,8 +1336,12 @@ class CharacterSheetHelper
             $edit_cell           = true;
         }
         if ($viewed_sheet) {
-            CharacterLog::LogAction($newStats['character_id'], ActionType::UpdateCharacter, 'ST Updated Sheet',
-                                    $userdata['user_id']);
+            if($newStats['xp_spent'] > 0) {
+                CharacterLog::LogAction($newStats['character_id'], ActionType::XPModification, 'Removed ' . $newStats['xp_gained'] . 'XP: ' . $newStats['xp_note'], $userdata['user_id']);
+            }
+            if($newStats['xp_gained'] > 0) {
+                CharacterLog::LogAction($newStats['character_id'], ActionType::XPModification, 'Added ' . $newStats['xp_gained'] . 'XP: ' . $newStats['xp_note'], $userdata['user_id']);
+            }
             $error = updateWoDSheetXP($newStats, $edit_show_sheet, $edit_name, $edit_vitals, $edit_is_npc, $edit_is_dead,
                                       $edit_location, $edit_concept, $edit_description, $edit_url, $edit_equipment,
                                       $edit_public_effects, $edit_group, $edit_exit_line, $edit_attributes, $edit_skills,
@@ -1263,7 +1349,10 @@ class CharacterSheetHelper
                                       $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
                                       $view_is_head, $view_is_admin, $may_edit, $edit_cell);
             if ($error == '') {
-                $this->LogChanges($newStats, $oldStats);
+                RepositoryManager::ClearCache();
+                $newCharacter = $this->CharacterRepository->GetById($newStats['character_id']);
+                /* @var Character $newCharacter */
+                $this->LogChanges($newCharacter, $oldStats);
             }
         }
     }

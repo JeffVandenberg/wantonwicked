@@ -64,6 +64,71 @@ var geist_xp_base = 44;
 var purified_xp_base = 38;
 var possessed_xp_base = 40;
 
+$(function() {
+    $("#xp-spent").blur(function() {
+        var amount = parseInt($("#xp-spent").val());
+        if(isNaN(amount)) {
+            $(this).val('0');
+        }
+        else {
+            if(amount <= 0) {
+                $(this).val('0')
+            }
+            else {
+                if($("#xp-gained").val() != '0') {
+                    alert('You may not add and remove XP at the same time.');
+                    $(this).val('0');
+                }
+                if(amount > parseInt($("#current-experience").val())) {
+                    alert('You may not spend more than their current experience.');
+                    $(this).val('0');
+                }
+            }
+        }
+    });
+    $("#xp-gained").blur(function() {
+        var amount = parseInt($("#xp-gained").val());
+        if(isNaN(amount)) {
+            $(this).val('0');
+        }
+        else {
+            if(amount <= 0) {
+                $(this).val('0')
+            }
+            else {
+                if($("#xp-spent").val() != '0') {
+                    alert('You may not add and remove XP at the same time.');
+                    $(this).val('0');
+                }
+                var allowedBonus = parseInt($("#bonus-xp-cap").val()) - parseInt($("#bonus-received").val());
+                if(amount > allowedBonus) {
+                    alert('You may not give more than ' + allowedBonus);
+                    $(this).val('0');
+                }
+            }
+        }
+    });
+
+    $("form").submit(function() {
+        // check if ST edit mode
+        if(page_action == "st_view") {
+            if(($("#xp-spent").val() != '0') || ($("#xp-gained").val() != '0')) {
+                if($.trim($("#xp-note").val()) === '') {
+                    alert('You must provide a note explaining the XP Modification');
+                    return false;
+                }
+
+                if(parseInt($('#xp-gained').val()) + parseInt($("#bonus-received").val()) > parseInt($("#bonus-xp-cap").val())) {
+                    alert('You can\'t go above the character\'s monthly bonus cap.');
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    });
+});
+
 function changeDots(element_type, element_name, value, number_of_dots, remove) {
     // if is the same value then set to 0
     var element = $("#" + element_name);
@@ -169,10 +234,10 @@ function updateAttributeXP() {
     }
 
     if (attribute_xp > 0) {
-        document.getElementById('attribute_xp').value = attribute_xp;
+        $('#attribute_xp').val(attribute_xp);
     }
     else {
-        document.getElementById('attribute_xp').value = 0;
+        $('#attribute_xp').val(0);
     }
 }
 
@@ -222,10 +287,10 @@ function updateSkillXP() {
     }
 
     if (skill_xp > 0) {
-        document.getElementById('skill_xp').value = skill_xp;
+        $('#skill_xp').val(skill_xp);
     }
     else {
-        document.getElementById('skill_xp').value = 0;
+        $('#skill_xp').val(0);
     }
 }
 
@@ -239,15 +304,17 @@ function updateMeritXP() {
         merit_xp = merit_xp_base;
     }
 
+    var dots;
+    var merit_cost;
     while (document.getElementById('merit' + i)) {
-        var dots = document.getElementById('merit' + i).value;
+        dots = $('#merit' + i).val();
         merit_xp -= getMeritCost(i, dots, character_type);
         i++;
     }
 
     if (document.getElementById('power-trait')) {
         // power stat
-        var power_trait_value = document.getElementById('power-trait').value;
+        var power_trait_value = $('#power-trait').value;
         merit_xp -= ((Number(power_trait_value) * (Number(power_trait_value) + 1)) * 8) / 2 - 8;
     }
 
@@ -264,14 +331,14 @@ function updateMeritXP() {
         i = 0;
         var merit_xp_before_rituals = merit_xp;
         while (document.getElementById('ritual' + i)) {
-            var ritual_value = document.getElementById('ritual' + i).value;
+            var ritual_value = $('#ritual' + i).val();
             merit_xp -= (Number(ritual_value) * rites_multiplier);
             i++;
         }
 
         // refund xp for rituals dots
         if (document.getElementById('rituals').value > 0) {
-            var rituals = document.getElementById('rituals').value;
+            var rituals = $('#rituals').val();
             merit_xp += (Number(rituals) * (Number(rituals) + 1 )) / 2 * rites_multiplier;
 
             if (merit_xp > merit_xp_before_rituals) {
@@ -296,9 +363,8 @@ function updateMeritXP() {
     if (character_type == "Psychic") {
         // cycle through psychic merits
         while (document.getElementById('psychicmerit' + i)) {
-            var dots = document.getElementById('psychicmerit' + i).value;
-            var merit_cost = getMeritCost(i, dots, character_type);
-            merit_xp -= merit_cost;
+            dots = $('#psychicmerit' + i).val();
+            merit_xp -= getMeritCost(i, dots, character_type);
             i++;
         }
     }
@@ -306,16 +372,14 @@ function updateMeritXP() {
     if (character_type == "Hunter") {
         i = 0;
         while (document.getElementById('endowment' + i)) {
-            var dots = document.getElementById('endowment' + i).value;
-            var merit_cost = getMeritCost(i, dots, character_type);
-            merit_xp -= merit_cost;
+            dots = $('#endowment' + i).val();
+            merit_xp -= getMeritCost(i, dots, character_type);
             i++;
         }
 
         i = 0;
         while (document.getElementById('tactic' + i + '_cost')) {
-            var merit_cost = Number(document.getElementById('tactic' + i + '_cost').value);
-            merit_xp -= merit_cost;
+            merit_xp -= Number(document.getElementById('tactic' + i + '_cost').value);;
             i++;
         }
     }
@@ -323,17 +387,17 @@ function updateMeritXP() {
     if (character_type == "Geist") {
         var i = 0;
         while (document.getElementById('ceremony' + i)) {
-            var value = document.getElementById('ceremony' + i).value;
+            var value = $('#ceremony' + i).val();
             merit_xp -= getMeritCost(i, value, character_type);
             i++;
         }
     }
 
     if (merit_xp > 0) {
-        document.getElementById('merit_xp').value = merit_xp;
+        $('#merit_xp').val(merit_xp);
     }
     else {
-        document.getElementById('merit_xp').value = 0;
+        $('merit_xp').val(0);
     }
 }
 

@@ -63,18 +63,18 @@ abstract class AbstractRepository extends Database
      */
     public function GetById($id)
     {
-        if(!isset(self::$cache[$this->ManagedObject->getRepositoryClass()][$id]))
+        if(!isset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$id]))
         {
             $tableName = $this->ManagedObject->getTableName();
             $idColumn = $this->ManagedObject->getIdColumn();
 
             $sSql = <<<EOQ
-    SELECT
-        *
-    FROM
-        $tableName
-    WHERE
-        $idColumn = :id
+SELECT
+    *
+FROM
+    $tableName
+WHERE
+    $idColumn = :id
 EOQ;
 
             $class = $this->ManagedObject->getFullClassName();
@@ -84,9 +84,9 @@ EOQ;
             {
                 $oItem = $this->PopulateObject($row);
             }
-            self::$cache[$this->ManagedObject->getRepositoryClass()][$id] = $oItem;
+            RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$id] = $oItem;
         }
-        return self::$cache[$this->ManagedObject->getRepositoryClass()][$id];
+        return clone RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$id];
     }
 
     /**
@@ -220,8 +220,8 @@ sortColumn;
     {
         $this->BeforeSave($item);
         $idProperty = $item->getIdProperty();
-        if(isset(self::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty])) {
-            unset(self::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty]);
+        if(isset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty])) {
+            unset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty]);
         }
         $tableName = $this->ManagedObject->getTableName();
         $idColumn = $this->ManagedObject->getIdColumn();
