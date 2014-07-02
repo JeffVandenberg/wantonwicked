@@ -993,9 +993,10 @@ class CharacterSheetHelper
                                   $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
                                   $view_is_head, $view_is_admin, $may_edit, $edit_cell);
         if ($error == '') {
+            RepositoryManager::ClearCache();
             $newCharacter = $this->CharacterRepository->GetById($newStats['character_id']);
             /* @var Character $newCharacter */
-            $this->LogChanges($oldCharacter, $newCharacter);
+            $this->LogChanges($newCharacter, $oldCharacter);
         }
     }
 
@@ -1038,6 +1039,7 @@ class CharacterSheetHelper
                                   $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
                                   $view_is_head, $view_is_admin, $may_edit, $edit_cell);
         if ($error == '') {
+            RepositoryManager::ClearCache();
             $newCharacter = $this->CharacterRepository->GetById($newStats['character_id']);
             /* @var Character $newCharacter */
             $this->LogChanges($newCharacter, $oldCharacter);
