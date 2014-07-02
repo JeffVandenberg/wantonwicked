@@ -1,4 +1,5 @@
 <?php
+use classes\character\data\Character;
 use classes\character\helper\CharacterSheetHelper;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\FormHelper;
@@ -25,11 +26,13 @@ $characterSheetHelper = new CharacterSheetHelper();
 // test if updating
 if(Request::IsPost()) {
     // get character information
-    $character = $characterRepository->FindById($_POST['character_id']);
+    $oldCharacter = $characterRepository->GetById($_POST['character_id']);
+    /* @var Character $oldCharacter */
+    $powers = $oldCharacter->CharacterPower;
 
     // determine what type of update
     $viewed_sheet = false;
-    $characterSheetHelper->UpdateSt($_POST, $character, $userdata);
+    $characterSheetHelper->UpdateSt($_POST, $oldCharacter, $userdata);
 }
 
 $edit_xp = "false";

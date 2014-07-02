@@ -17,8 +17,8 @@ $pageSize = Request::GetValue('page_size', 25);
 $characterId = Request::GetValue('character_id', 0);
 $characterRepository = new CharacterRepository();
 if ((!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) && !UserdataHelper::IsSt($userdata)) {
-    include 'index_redirect.php';
-    die();
+//    include 'index_redirect.php';
+//    die();
 }
 
 $logCharacterRepository = RepositoryManager::GetRepository('classes\character\data\LogCharacter');

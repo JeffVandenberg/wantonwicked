@@ -22,6 +22,7 @@ use classes\core\repository\RepositoryManager;
  * @property CharacterPower[] InClanDisciplines
  * @property CharacterPower[] OutOfClanDisciplines
  * @property CharacterPower[] Devotions
+ * @property CharacterPower[] CharacterPower
  */
 class Character extends DataModel
 {
@@ -60,7 +61,7 @@ class Character extends DataModel
     public $PowerPoints;
     public $Morality;
     public $EquipmentPublic;
-    public $EquipmentPrivate;
+    public $EquipmentHidden;
     public $PublicEffects;
     public $History;
     public $CharacterNotes;
@@ -89,7 +90,8 @@ class Character extends DataModel
         'Attributes' => 'classes\character\data\CharacterPower',
         'Skills' => 'classes\character\data\CharacterPower',
         'Specialities' => 'classes\character\data\CharacterPower',
-        'Merits' => 'classes\character\data\CharacterPower'
+        'Merits' => 'classes\character\data\CharacterPower',
+        'CharacterPower'
     );
 
     function __construct()

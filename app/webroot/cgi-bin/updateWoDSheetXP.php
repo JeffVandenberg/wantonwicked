@@ -101,9 +101,9 @@ EOQ;
         $hide_icon             = mysql_real_escape_string($stats['hide_icon']);
         $status                = mysql_real_escape_string($stats['status']);
         $bonus_attribute       = mysql_real_escape_string($stats['bonus_attribute']);
-        $current_experience    = (int)$stats['current_experience'];
-        $total_experience      = (int)$stats['total_experience'];
-        $bonus_received        = (int)$stats['bonus_received'];
+        //$current_experience    = (int)$stats['current_experience'];
+        //$total_experience      = (int)$stats['total_experience'];
+        //$bonus_received        = (int)$stats['bonus_received'];
         $misc_powers           = mysql_real_escape_string(htmlspecialchars($stats['misc_powers']));
 
         // check for bonus dot from sanctioning
@@ -318,18 +318,26 @@ EOQ;
                 }
 
                 if ($edit_experience) {
-                    $update_query .= "current_experience = $current_experience, total_experience = $total_experience, bonus_received = $bonus_received, ";
+                    if($stats['xp_spent'] > 0) {
+                        $update_query .= 'current_experience = current_experience - ' . $stats['xp_spent'] .', ';
+                        $update_query .= 'total_experience = total_experience - ' . $stats['xp_spent'] .', ';
+                    }
+                    if($stats['xp_gained'] > 0) {
+                        $update_query .= 'current_experience = current_experience + ' . $stats['xp_spent'] .', ';
+                        $update_query .= 'total_experience = total_experience + ' . $stats['xp_gained'] .', ';
+                        $update_query .= 'bonus_received = bonus_received + ' . $stats['xp_gained'] .', ';
+                    }
                 }
 
                 // add ST Updates field
                 $short_now     = date('Y-m-d');
-                $sheet_updates = <<<EOQ
-$stats[sheet_updates]
-$stats[new_sheet_updates]
-$userdata[username] on $short_now
-EOQ;
-                $sheet_updates = mysql_real_escape_string(htmlspecialchars($sheet_updates));
-                $update_query .= "sheet_update = '$sheet_updates', ";
+//                $sheet_updates = <<<EOQ
+//$stats[sheet_updates]
+//$stats[new_sheet_updates]
+//$userdata[username] on $short_now
+//EOQ;
+//                $sheet_updates = mysql_real_escape_string(htmlspecialchars($sheet_updates));
+//                $update_query .= "sheet_update = '$sheet_updates', ";
 
                 // test if new st notes
                 if (!empty($stats['new_gm_notes'])) {

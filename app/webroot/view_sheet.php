@@ -81,6 +81,9 @@ if (isset($_GET['action'])) {
         case 'view_own_xp':
             include 'includes/view_sheet_view_own_xp.php';
             break;
+        case 'update_own_xp':
+            include 'includes/view_sheet_update_own_xp.php';
+            break;
         case 'view_own_obj':
             include 'includes/view_sheet_view_own_obj.php';
             break;

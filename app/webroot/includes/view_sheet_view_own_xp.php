@@ -1,5 +1,6 @@
 <?php
 /* @var array $userdata */
+use classes\character\data\Character;
 use classes\character\helper\CharacterSheetHelper;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\MenuHelper;
@@ -24,17 +25,18 @@ if($character['user_id'] != $userdata['user_id']) {
 // save
 if (Request::IsPost()) {
     // test to make sure that a person's viewing their own
-    if ($character !== false) {
-        if (($character['asst_sanctioned'] != '') || ($character['is_sanctioned'] != '')) {
-            $characterSheetHelper->UpdateOwnLimited($character, $_POST);
-        }
-        else {
-            $characterSheetHelper->UpdateOwnFull($character, $_POST);
-        }
-        SessionHelper::SetFlashMessage('Updated Character');
-        Response::Redirect('view_sheet.php?action=view_own_xp&character_id='.$characterId);
+    $oldCharacter = $characterRepository->GetById($characterId);
+    /* @var Character $oldCharacter */
+    $powers = $oldCharacter->CharacterPower;
+
+    if (($character['asst_sanctioned'] != '') || ($character['is_sanctioned'] != '')) {
+        $characterSheetHelper->UpdateOwnLimited($oldCharacter, $_POST);
     }
-    $character   = $characterRepository->FindById($characterId);
+    else {
+        $characterSheetHelper->UpdateOwnFull($oldCharacter, $_POST);
+    }
+    SessionHelper::SetFlashMessage('Updated Character');
+    Response::Redirect('view_sheet.php?action=view_own_xp&character_id='.$characterId);
 }
 
 

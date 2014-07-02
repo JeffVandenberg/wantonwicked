@@ -39,7 +39,7 @@ FROM
 WHERE
     is_sanctioned = 'Y'
 EOQ;
-    $db->Query($xpLogQuery)->Execute(array(ActionType::UpdateCharacter));
+    $db->Query($xpLogQuery)->Execute(array(ActionType::XPModification));
 }
 $update_willpower_query = "update characters set willpower_temp = willpower_temp + 1 where willpower_temp < willpower_perm;";
 $db->Query($update_willpower_query)->Execute();

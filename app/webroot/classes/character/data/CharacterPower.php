@@ -17,7 +17,7 @@ use classes\core\data\DataModel;
  */
 class CharacterPower extends DataModel
 {
-    public $PowerId;
+    public $Id;
     public $PowerType;
     public $PowerName;
     public $PowerNote;

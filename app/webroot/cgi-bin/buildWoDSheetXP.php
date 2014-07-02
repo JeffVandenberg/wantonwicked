@@ -834,7 +834,7 @@ EOQ;
         }
 
         if ($edit_experience) {
-            $current_experience = <<<EOQ
+            /*$current_experience = <<<EOQ
 <input type="text" name="current_experience" value="$current_experience" size="5" maxlength="7">
 EOQ;
 
@@ -844,10 +844,11 @@ EOQ;
 
             $bonus_received = <<<EOQ
 <input type="text" name="bonus_received" value="$bonus_received" size="5" maxlength="7">
-EOQ;
+EOQ;*/
         }
 
-        $st_notes_table = <<<EOQ
+        ob_start();
+?>
 <table class="character-sheet $table_class">
     <tr>
         <th colspan="4">
@@ -855,107 +856,133 @@ EOQ;
         </th>
     </tr>
     <tr>
-        <td width="25%">
+        <td style="width:25%">
             Created On:
         </td>
-        <td width="25%">
-            $first_login
+        <td style="width:25%">
+            <?php echo $first_login; ?>
         </td>
-        <td width="25%">
+        <td style="width:25%">
             Last Login
         </td>
-        <td width="25%">
-            $last_login
+        <td style="width:25%">
+            <?php echo $last_login; ?>
         </td>
     </tr>
     <tr>
-        <td width="25%">
+        <td>
             Login Name:
         </td>
-        <td width="25%">
-            $stats[username]
+        <td>
+            <?php echo $stats['username']; ?>
         </td>
-        <td width="25%">
+        <td>
             Status:
         </td>
-        <td width="25%">
-            $view_status
+        <td>
+            <?php echo $view_status; ?>
         </td>
     </tr>
     <tr>
-        <td width="25%">
+        <td>
             Is Sanctioned
         </td>
-        <td width="25%">
-            $is_sanctioned
+        <td>
+            <?php echo $is_sanctioned; ?>
         </td>
-        <td width="25%">
+        <td>
             Last ST Updated
         </td>
-        <td width="25%">
-            $last_st_updated
+        <td>
+            <?php echo $last_st_updated; ?>
         </td>
     </tr>
     <tr>
-        <td width="25%">
+        <td>
             Pre-Sanctioned
         </td>
-        <td width="25%">
-            $asst_sanctioned
+        <td>
+            <?php echo $asst_sanctioned; ?>
         </td>
-        <td width="25%">
+        <td>
             When Last ST Updated
         </td>
-        <td width="25%">
-            $when_last_st_updated
+        <td>
+            <?php echo $when_last_st_updated; ?>
         </td>
     </tr>
     <tr>
-        <td width="25%">
-            Experience Unspent:
+        <td>
+            Current Experience:
         </td>
-        <td width="25%">
-            $current_experience
+        <td>
+            <?php echo $current_experience; ?>
+            <?php echo FormHelper::Hidden('current_experience', $current_experience); ?>
         </td>
-        <td width="25%">
-            Total Experience Earned:
+        <td>
+            Total Experience:
         </td>
-        <td width="25%">
-            $total_experience
+        <td>
+            <?php echo $total_experience; ?>
         </td>
     </tr>
     <tr>
-        <td width="25%">
+        <td>
             Monthly Bonus XP Cap:
         </td>
-        <td width="25%">
+        <td>
             5
+            <?php echo FormHelper::Hidden('bonus_xp_cap', 5); ?>
         </td>
-        <td width="25%">
-            Bonus Received:
+        <td>
+            Bonus XP Received:
         </td>
-        <td width="25%">
-            $bonus_received
+        <td>
+            <?php echo $bonus_received; ?>
+            <?php echo FormHelper::Hidden('bonus_received', $bonus_received); ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            XP Spent
+        </td>
+        <td>
+            <input type="text" name="xp_spent" id="xp-spent" value="0" />
+        </td>
+        <td>
+            XP Gained
+        </td>
+        <td>
+            <input type="text" name="xp_gained" id="xp-gained" value="0" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            XP Adjustment Explanation
+        </td>
+        <td colspan="3">
+            <input type="text" name="xp_note" id="xp-note" style="width: 98%;" value="" />
         </td>
     </tr>
     <tr>
         <td colspan="2">
             Past ST Updates: Write all updates you do to a character sheet here. *MANDATORY*<br>
-            <textarea name="sheet_updates" rows="6" cols="40" readonly>$sheet_updates</textarea>
+            <textarea name="sheet_updates" rows="6" cols="40" readonly><?php echo $sheet_updates; ?></textarea>
             <br>
             Your Updates to add:<br>
             <textarea name="new_sheet_updates" rows="6" cols="40"></textarea>
         </td>
         <td colspan="2">
             Past ST Notes: Personal notes and comments about the character. Not a mandatory field.<br>
-            <textarea name="gm_notes" rows="6" cols="40" readonly>$gm_notes</textarea>
+            <textarea name="gm_notes" rows="6" cols="40" readonly><?php echo $gm_notes; ?></textarea>
             <br>
             Your Notes to add:<br>
             <textarea name="new_gm_notes" rows="6" cols="40"></textarea>
         </td>
     </tr>
 </table>
-EOQ;
+<?php
+        $st_notes_table = ob_get_clean();
 
     }
     else {
