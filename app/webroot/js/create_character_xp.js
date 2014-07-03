@@ -397,7 +397,7 @@ function updateMeritXP() {
         $('#merit_xp').val(merit_xp);
     }
     else {
-        $('merit_xp').val(0);
+        $('#merit_xp').val(0);
     }
 }
 
