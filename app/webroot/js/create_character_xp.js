@@ -314,7 +314,7 @@ function updateMeritXP() {
 
     if (document.getElementById('power-trait')) {
         // power stat
-        var power_trait_value = $('#power-trait').value;
+        var power_trait_value = $('#power-trait').val();
         merit_xp -= ((Number(power_trait_value) * (Number(power_trait_value) + 1)) * 8) / 2 - 8;
     }
 
