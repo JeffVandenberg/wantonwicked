@@ -1053,10 +1053,10 @@ class CharacterSheetHelper
         if($newCharacter->IsSanctioned != $oldCharacter->IsSanctioned)
         {
             if($newCharacter->IsSanctioned == 'Y') {
-                CharacterLog::LogAction($newCharacter['character_id'], ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
+                CharacterLog::LogAction($newCharacter->Id, ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
             }
             if($newCharacter->IsSanctioned == 'N') {
-                CharacterLog::LogAction($newCharacter['character_id'], ActionType::Desanctioned, 'ST Desanctioned Character', $userdata['user_id']);
+                CharacterLog::LogAction($newCharacter->Id, ActionType::Desanctioned, 'ST Desanctioned Character', $userdata['user_id']);
             }
         }
 
