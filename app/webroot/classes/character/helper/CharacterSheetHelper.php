@@ -1090,12 +1090,10 @@ class CharacterSheetHelper
             foreach($oldCharacter->CharacterPower as $j => $oldPower) {
                 // if they are the same
                 if($newPower->Id == $oldPower->Id) {
-                    if(($newPower->PowerName == $oldPower->PowerName)
-                        && ($newPower->PowerNote == $oldPower->PowerNote)
-                        && ($newPower->PowerLevel == $oldPower->PowerLevel)
+                    if(($newPower->PowerName != $oldPower->PowerName)
+                        || ($newPower->PowerNote != $oldPower->PowerNote)
+                        || ($newPower->PowerLevel != $oldPower->PowerLevel)
                     ) {
-                    }
-                    else {
                         $changedPowerList[] = array(
                             'old' => $oldPower,
                             'new' => $newPower

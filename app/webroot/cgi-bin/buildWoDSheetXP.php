@@ -965,15 +965,15 @@ EOQ;*/
         </td>
     </tr>
     <tr>
-        <td colspan="2">
-            Past ST Updates: Write all updates you do to a character sheet here. *MANDATORY*<br>
+        <td colspan="2" style="vertical-align: top;">
+            Past ST Updates (archival)<br>
             <textarea name="sheet_updates" rows="6" cols="40" readonly><?php echo $sheet_updates; ?></textarea>
             <br>
-            Your Updates to add:<br>
-            <textarea name="new_sheet_updates" rows="6" cols="40"></textarea>
+<!--            Your Updates to add:<br>-->
+<!--            <textarea name="new_sheet_updates" rows="6" cols="40"></textarea>-->
         </td>
         <td colspan="2">
-            Past ST Notes: Personal notes and comments about the character. Not a mandatory field.<br>
+            ST Notes: Personal notes and comments about the character. Not a mandatory field.<br>
             <textarea name="gm_notes" rows="6" cols="40" readonly><?php echo $gm_notes; ?></textarea>
             <br>
             Your Notes to add:<br>
