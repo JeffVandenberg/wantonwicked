@@ -255,7 +255,15 @@ class CharacterSheetHelper
 
     public static function MakeSkillsView(Character $character)
     {
-        $skills = array("Academics", "Animal_Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry");
+        $skills = array("Academics", "Animal_Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy",
+                        "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult",
+                        "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge",
+                        "Survival", "Weaponry");
+
+        $academics = $animal_ken = $athletics = $brawl = $computer = $crafts = $drive = $empathy
+                   = $expression = $firearms = $intimidation = $investigation = $larceny = $medicine = $occult
+                   = $persuasion = $politics = $science = $socialize = $stealth = $streetwise = $subterfuge
+                   = $survival = $weaponry = 0;
 
         foreach ($skills as $skill) {
             $skillLower  = strtolower($skill);
@@ -551,7 +559,7 @@ class CharacterSheetHelper
                     <b>Bloodline</b>
                 </td>
                 <td>
-                    <?php echo $character->SubSplat; ?>
+                    <?php echo $character->Subsplat; ?>
                 </td>
             </tr>
             <tr>
