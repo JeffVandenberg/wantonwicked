@@ -315,6 +315,7 @@ EOQ;
                 }
 
                 if ($view_is_asst) {
+                    $update_query .= "asst_sanctioned = '$stats[asst_sanctioned]', updated_by_id = $userdata[user_id], updated_on = '$now', ";
                 }
 
                 if ($edit_experience) {
