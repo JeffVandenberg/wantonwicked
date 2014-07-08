@@ -257,7 +257,8 @@ EOQ;
 
 $requestRepository = new RequestRepository();
 $newRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::NewRequest);
-$stRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::$Storyteller);
+$stRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::Submitted);
+$stViewedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::InProgress);
 $returnedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::Returned);
 $approvedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::Approved);
 $rejectedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::Denied);
@@ -303,6 +304,16 @@ ob_start();
                         <td>
                             <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::Submitted; ?>&character_id=<?php echo $characterId; ?>&action=list">
                                 <?php echo $stRequests; ?>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Viewed by ST
+                        </td>
+                        <td>
+                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::InProgress; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                                <?php echo $stViewedRequests; ?>
                             </a>
                         </td>
                     </tr>

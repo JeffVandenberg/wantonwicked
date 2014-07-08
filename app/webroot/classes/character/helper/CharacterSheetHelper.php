@@ -255,7 +255,15 @@ class CharacterSheetHelper
 
     public static function MakeSkillsView(Character $character)
     {
-        $skills = array("Academics", "Animal_Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry");
+        $skills = array("Academics", "Animal_Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy",
+                        "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult",
+                        "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge",
+                        "Survival", "Weaponry");
+
+        $academics = $animal_ken = $athletics = $brawl = $computer = $crafts = $drive = $empathy
+                   = $expression = $firearms = $intimidation = $investigation = $larceny = $medicine = $occult
+                   = $persuasion = $politics = $science = $socialize = $stealth = $streetwise = $subterfuge
+                   = $survival = $weaponry = 0;
 
         foreach ($skills as $skill) {
             $skillLower  = strtolower($skill);
@@ -551,7 +559,7 @@ class CharacterSheetHelper
                     <b>Bloodline</b>
                 </td>
                 <td>
-                    <?php echo $character->SubSplat; ?>
+                    <?php echo $character->Subsplat; ?>
                 </td>
             </tr>
             <tr>
@@ -1053,16 +1061,17 @@ class CharacterSheetHelper
         if($newCharacter->IsSanctioned != $oldCharacter->IsSanctioned)
         {
             if($newCharacter->IsSanctioned == 'Y') {
-                CharacterLog::LogAction($newCharacter['character_id'], ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
+                CharacterLog::LogAction($newCharacter->Id, ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
             }
             if($newCharacter->IsSanctioned == 'N') {
-                CharacterLog::LogAction($newCharacter['character_id'], ActionType::Desanctioned, 'ST Desanctioned Character', $userdata['user_id']);
+                CharacterLog::LogAction($newCharacter->Id, ActionType::Desanctioned, 'ST Desanctioned Character', $userdata['user_id']);
             }
         }
 
         $excludedProperties = array(
             'IsSanctioned',
             'SheetUpdate',
+            'GmNotes'
         );
 
         $changedProperties = array();
@@ -1090,12 +1099,10 @@ class CharacterSheetHelper
             foreach($oldCharacter->CharacterPower as $j => $oldPower) {
                 // if they are the same
                 if($newPower->Id == $oldPower->Id) {
-                    if(($newPower->PowerName == $oldPower->PowerName)
-                        && ($newPower->PowerNote == $oldPower->PowerNote)
-                        && ($newPower->PowerLevel == $oldPower->PowerLevel)
+                    if(($newPower->PowerName != $oldPower->PowerName)
+                        || ($newPower->PowerNote != $oldPower->PowerNote)
+                        || ($newPower->PowerLevel != $oldPower->PowerLevel)
                     ) {
-                    }
-                    else {
                         $changedPowerList[] = array(
                             'old' => $oldPower,
                             'new' => $newPower

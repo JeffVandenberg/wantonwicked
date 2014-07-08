@@ -315,15 +315,15 @@ EOQ;
                 }
 
                 if ($view_is_asst) {
+                    $update_query .= "asst_sanctioned = '$stats[asst_sanctioned]', updated_by_id = $userdata[user_id], updated_on = '$now', ";
                 }
 
                 if ($edit_experience) {
                     if($stats['xp_spent'] > 0) {
                         $update_query .= 'current_experience = current_experience - ' . $stats['xp_spent'] .', ';
-                        $update_query .= 'total_experience = total_experience - ' . $stats['xp_spent'] .', ';
                     }
                     if($stats['xp_gained'] > 0) {
-                        $update_query .= 'current_experience = current_experience + ' . $stats['xp_spent'] .', ';
+                        $update_query .= 'current_experience = current_experience + ' . $stats['xp_gained'] .', ';
                         $update_query .= 'total_experience = total_experience + ' . $stats['xp_gained'] .', ';
                         $update_query .= 'bonus_received = bonus_received + ' . $stats['xp_gained'] .', ';
                     }
