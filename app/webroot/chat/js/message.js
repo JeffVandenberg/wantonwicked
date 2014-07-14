@@ -287,6 +287,28 @@ function addMessage(inputMDiv,displayMDiv)
         }
     }
 
+    if(ircCommand[0] == '/ghost') {
+        if(ircCommand.length == 1) {
+            ghost.help();
+            return false;
+        }
+
+        if(ircCommand[1].toLowerCase() == 'off') {
+            ghost.off(inputMDiv);
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else if(ircCommand[1].toLowerCase() == 'on') {
+            ghost.on(inputMDiv);
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else {
+            ghost.help();
+            return false;
+        }
+    }
+
     // add bold font
 	if(mBold == 1)
 	{
@@ -566,7 +588,7 @@ function handleMessages()
 				intellibotRoomID = roomID;
 			}
 
-			createUsersDiv('-1', '-1', intelliBotName, intelliBotAvi, '0', intellibotRoomID, intellibotRoomID, '1','','','',1);
+			createUsersDiv('-1', '-1', intelliBotName, intelliBotAvi, '0', intellibotRoomID, intellibotRoomID, '1','','','',1,0);
 		}
 		
 		for (var i = 0; i < xmldoc.getElementsByTagName("userlist").length;)
@@ -628,7 +650,8 @@ function handleMessages()
 						userListArray[22], // active time
 						userListArray[23], // last active time
 						userListArray[24], // ip address
-                        userListArray[25] // usertype
+                        userListArray[25], // usertype
+                        userListArray[26] // invisible
 				);
 
 			// loop
@@ -1294,7 +1317,7 @@ nick.change = function(commandLine) {
                 if(response.status == true) {
                     // set nick information
                     userName = remainder;
-                    updateDisplayName(uID, remainder, roomID);
+                    updateDisplayName(uID, remainder, roomID, invisible);
                 }
                 else {
                     alert(response.message);
@@ -1352,5 +1375,42 @@ var dice = {
     },
     helpRoll: function() {
         alert('The format for the command is /dice roll "my action" <dice> [WP] [Blood]');
+    }
+};
+
+var ghost = {
+    off: function() {
+        $.post(
+            '/chat/includes/ghost.php',
+            {
+                action: 'off'
+            },
+            function(response) {
+                if(response.status) {
+                    message = userAvatar+"|"+textColor+"|"+textSize+"|"+textFamily+"|"+' [b]Ghost Mode Off[/b]'+"|1|0";
+                    createMessageDiv('0', uID, displayMDiv, showMessages+1, message, sfx, userName, '',(new Date().getTime()/1000));
+                }
+                else {
+                    alert(response.message);
+                }
+            }
+        );
+    },
+    on: function() {
+        $.post(
+            '/chat/includes/ghost.php',
+            {
+                action: 'on'
+            },
+            function(response) {
+                if(response.status) {
+                    message = userAvatar+"|"+textColor+"|"+textSize+"|"+textFamily+"|"+' [b]Ghost Mode On[/b]'+"|1|0";
+                    createMessageDiv('0', uID, displayMDiv, showMessages+1, message, sfx, userName, '',(new Date().getTime()/1000));
+                }
+                else {
+                    alert(response.message);
+                }
+            }
+        );
     }
 };

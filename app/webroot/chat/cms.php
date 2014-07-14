@@ -55,6 +55,7 @@ define('C_CUSTOM_LOGIN','1'); // 0 OFF, 1 ON
 // Enter your CMS Global values below
 $loggedIn = false;
 $userTypeId = 0;
+$isInvisible = 0;
 if(isset($_GET['character_id'])) {
     $characterId = (int) $_GET['character_id'];
     $query = <<<EOQ
@@ -219,6 +220,7 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
 
         addUser($icon, $userTypeId);
 
+        $isInvisible = isset($_GET['invisible']) + 0;
         $admin = ($row['Is_Admin'] == 'Y') ? 1 : 0;
         $mod = 0;
         if(($row['Is_Asst'] == 'Y') || ($row['Is_GM'] == 'Y') || ($row['Is_Head'] == 'Y')) {
@@ -234,7 +236,8 @@ SET
     guest = '0',
     admin = '$admin',
     moderator = '$mod',
-    avatar = '$icon'
+    avatar = '$icon',
+    is_invisible = $isInvisible
 WHERE
     username = :username
     AND userid = :userid

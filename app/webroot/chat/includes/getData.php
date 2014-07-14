@@ -194,7 +194,8 @@ SELECT
     admin,
     moderator,
     speaker,
-    user_type_id
+    user_type_id,
+    is_invisible
 FROM
     prochatrooms_users
 WHERE
@@ -212,9 +213,9 @@ EOQ;
     foreach ($action as $i) {
         $showAllUsers = 1;
 
-        if (invisibleAdmins($i['id'])) {
+        /*if (invisibleAdmins($i['id'])) {
             $showAllUsers = 0;
-        }
+        }*/
 
         if ($showAllUsers == 1) {
             $i['userid'] = empty($i['userid']) ? "0" : $i['userid'];
@@ -246,6 +247,13 @@ EOQ;
                     logoutUser($i['id'], $i['room']);
                 }
             }
+            else {
+                if($i['is_invisible'] == 1) {
+                    if(!$admin && !$mod) {
+                        $onlineStatus = '0';
+                    }
+                }
+            }
 
             $xml .= $onlineStatus . "||"; // 11
             $xml .= $i['status'] . "||"; // 12
@@ -275,6 +283,7 @@ EOQ;
 
             $xml .= $ip . "||"; // 24
             $xml .= $i['user_type_id'] . "||"; // 25
+            $xml .= $i['is_invisible'] . "||"; // 26
 
             $xml .= '</userlist>';
         }

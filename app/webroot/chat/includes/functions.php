@@ -555,12 +555,14 @@ function getUser($prevRoom, $roomID)
     $blockedList = '';
     $guest = '';
     $userTypeId = '';
+    $isInvisible = 0;
+
     try {
         $dbh = db_connect();
         $params = array(
             'id' => $_SESSION['user_id']
         );
-        $query = "SELECT id, userid, avatar, kick, ban, blocked, room, guest, userGroup, user_type_id
+        $query = "SELECT id, userid, avatar, kick, ban, blocked, room, guest, userGroup, user_type_id, is_invisible
 				  FROM prochatrooms_users 
 				  WHERE id = :id
 				  LIMIT 1
@@ -576,6 +578,7 @@ function getUser($prevRoom, $roomID)
             $blockedList = $i['blocked'];
             $guest = $i['guest'];
             $userTypeId = $i['user_type_id'];
+            $isInvisible = $i['is_invisible'];
 
             $_SESSION['userGroup'] = $i['userGroup'];
             $_SESSION['myProfileID'] = $id;
@@ -661,7 +664,7 @@ EOQ;
     }
 
     // return details
-    return array($id, $avatar, $loginError, $blockedList, $guest, $userTypeId);
+    return array($id, $avatar, $loginError, $blockedList, $guest, $userTypeId, $isInvisible);
 
 }
 
@@ -3083,12 +3086,25 @@ function invisibleAdmins($userId)
 
     $result = '0';
 
-    if ($CONFIG['invisibleAdminsPlugin']) {
-        if (file_exists(getDocPath() . "plugins/invisible/index.js.php")) {
-            $result = getAdmin($userId);
-        }
+    $sql = <<<EOQ
+SELECT
+    is_invisible
+FROM
+    prochatrooms_users
+WHERE
+    id = ?
+EOQ;
+    $params = array($userId);
+
+    $dbh = db_connect();
+    $action = $dbh->prepare($sql);
+    $action->execute($params);
+
+    foreach ($action as $i) {
+        $result = $i['is_invisible'];
     }
 
+    $dbh = null;
     return $result;
 }
 

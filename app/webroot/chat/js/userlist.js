@@ -10,7 +10,7 @@ var share = 0;
 *
 */
 
-function createUsersDiv(uuID, userID, uUser, uDisplay, uAvatar, uWebcam, uPrevRoom, uRoom, uActivity, uStatus, uWatch, uAdmin, uModerator, uSpeaker, uActive, uLastActive, uIP, userTypeId)
+function createUsersDiv(uuID, userID, uUser, uDisplay, uAvatar, uWebcam, uPrevRoom, uRoom, uActivity, uStatus, uWatch, uAdmin, uModerator, uSpeaker, uActive, uLastActive, uIP, userTypeId, invisible)
 {
 	// sender has closed webcam window
 	if(document.getElementById("cam_"+uuID) && uWebcam == 0)
@@ -93,7 +93,7 @@ function createUsersDiv(uuID, userID, uUser, uDisplay, uAvatar, uWebcam, uPrevRo
 		updateAvatar(uuID, uAvatar, uRoom);
 
         // update user display name
-        updateDisplayName(uuID, uDisplay, uRoom);
+        updateDisplayName(uuID, uDisplay, uRoom, invisible);
 
 		// show blocked user icon
 		if(uUser && blockedList.indexOf("|"+uuID+"|") != '-1')
@@ -265,9 +265,16 @@ function updateAvatar(uID, uAvatar, uRoom)
 *
 */
 
-function updateDisplayName(userId, displayName, roomID)
+function updateDisplayName(userId, displayName, roomID, invisible)
 {
-    $("#userlist_"+userId+roomID).find('.username').html(displayName);
+    var userListEntry = $("#userlist_"+userId+roomID);
+    userListEntry.find('.username').html(displayName);
+    if(invisible == 1) {
+        userListEntry.find('.username').addClass('ghost');
+    }
+    else {
+        userListEntry.find('.username').removeClass('ghost');
+    }
 }
 
 /*

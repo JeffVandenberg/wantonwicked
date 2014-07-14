@@ -390,7 +390,7 @@ if($_POST['isGuest'])
 	//updateGuestAvatar($_REQUEST['genderID']);
 }
 
-list($id,$avatar,$loginError,$blockedList,$guestUser, $userTypeId) = getUser($prevRoom,$roomID);
+list($id,$avatar,$loginError,$blockedList,$guestUser, $userTypeId, $isInvisible) = getUser($prevRoom,$roomID);
 
 /*
 * assign user group

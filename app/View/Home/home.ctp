@@ -82,7 +82,7 @@
 <br/>
 -Jeff Vandenberg<br/>
 <h2>Log In OOC</h2>
-<form method="post" action="/app/webroot/chat/index.php">
+<form method="post" action="/chat/index.php">
     Name: <input type="text" name="username"/>
     <input type="submit" value="Log in">
 </form>

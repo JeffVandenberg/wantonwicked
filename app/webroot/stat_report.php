@@ -164,7 +164,7 @@ tr:nth-child(even) {
 		<?php foreach($row as $key => $value): ?>
 		<td>
 			<?php if($key == 'character_type'): ?>
-				<a href="/app/webroot/stat_report.php?character_type=<?php echo $value; ?>"><?php echo $value; ?></a>
+				<a href="stat_report.php?character_type=<?php echo $value; ?>"><?php echo $value; ?></a>
 			<?php else: ?>
 				<?php if(is_numeric($value)): ?>
 					<?php echo round($value, 2); ?>

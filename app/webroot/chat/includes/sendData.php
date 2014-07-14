@@ -9,6 +9,8 @@ include("ini.php");
 include("session.php");
 include("functions.php");
 include("config.php");
+include("../lang/english.php");
+
 /* @var array $CONFIG */
 
 /*
@@ -156,8 +158,14 @@ if ($_POST) {
             $_POST['umessage'] = 'WEBCAM_ACCEPT||' . $_SESSION['myStreamID'];
         }
 
-        // send message
+        // if they are invisible don't post entry messages
+        if((strpos($_POST['umessage'], C_LANG99) !== false) || (strpos($_POST['umessage'], C_LANG100) !== false)) {
+            if(invisibleAdmins($_SESSION['user_id']) && ($admin || $mod)) {
+                die();
+            }
+        }
 
+        // send message
         $chatMessTableName = "prochatrooms_message";
 
         if ($CONFIG['moderatedChatPlugin'] && moderatedChat()) {

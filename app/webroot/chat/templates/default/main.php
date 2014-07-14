@@ -41,6 +41,7 @@ var userTypeId = <?php echo $userTypeId; ?>;
 var userAvatar = '<?php echo $avatar;?>';
 var roomOwner = <?php echo $roomOwner;?>;
 var blockedList = '<?php echo $blockedList;?>';
+var isInvisible = <?php echo $isInvisible; ?>;
 
 /* room details */
 var totalRooms = <?php echo $totalRooms;?>;

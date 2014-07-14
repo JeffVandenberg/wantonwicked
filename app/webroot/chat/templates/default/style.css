@@ -1118,6 +1118,10 @@ body
     color: #f94f55;
 }
 
+.ghost {
+    color: #999999;
+}
+
 .floatingtooltip {
     border: solid 1px #000;
     background-color: #ddd;
