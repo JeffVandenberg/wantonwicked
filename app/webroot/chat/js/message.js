@@ -83,7 +83,8 @@ function addMessage(inputMDiv,displayMDiv)
 
 	// get user message
 	message = document.getElementById(inputMDiv).value;
-	
+	var wrapMessageWithFormat = true;
+
 	message = message.replace(/&/gi,"&amp;");
 	message = message.replace(/</gi,"&#60;");
 	message = message.replace(/>/gi,"&#62;");
@@ -156,6 +157,7 @@ function addMessage(inputMDiv,displayMDiv)
 			message  = "/BROADCAST " + encodeURI(message.slice(ircCommand[0].length));
 
 			iRC = '1';
+            wrapMessageWithFormat = false;
 		}
 		else
 		{
@@ -309,23 +311,25 @@ function addMessage(inputMDiv,displayMDiv)
         }
     }
 
-    // add bold font
-	if(mBold == 1)
-	{
-		message = "[b]"+message+" [/b]";
-	}
+    if(wrapMessageWithFormat) {
+        // add bold font
+        if(mBold == 1)
+        {
+            message = "[b]"+message+" [/b]";
+        }
 
-	// add italic font
-	if(mItalic == 1)
-	{
-		message = "[i]"+message+" [/i]";
-	}
+        // add italic font
+        if(mItalic == 1)
+        {
+            message = "[i]"+message+" [/i]";
+        }
 
-	// add italic font
-	if(mUnderline == 1)
-	{
-		message = "[u]"+message+" [/u]";
-	}
+        // add italic font
+        if(mUnderline == 1)
+        {
+            message = "[u]"+message+" [/u]";
+        }
+    }
 
 	// search message for line breaks
 	var addLineBreaks = 0;

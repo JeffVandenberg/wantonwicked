@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
 
 list($admin, $mod, $speaker, $userTypeId) = adminPermissions();
 
-if(!$admin || !$mod) {
+if(!$admin && !$mod) {
     die('You are not allowed to ghost');
 
 }
