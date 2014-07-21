@@ -1317,7 +1317,7 @@ nick.change = function(commandLine) {
                 if(response.status == true) {
                     // set nick information
                     userName = remainder;
-                    updateDisplayName(uID, remainder, roomID, invisible);
+                    updateDisplayName(uID, remainder, roomID, isInvisible);
                 }
                 else {
                     alert(response.message);
