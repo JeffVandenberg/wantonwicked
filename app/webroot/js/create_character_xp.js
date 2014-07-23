@@ -65,7 +65,7 @@ var purified_xp_base = 38;
 var possessed_xp_base = 40;
 
 $(function() {
-    general_xp_base = $("#general_xp").attr('value');
+    general_xp_base = parseInt($("#general_xp").attr('value'));
     general_xp = general_xp_base;
 
     $("#xp-spent").blur(function() {
