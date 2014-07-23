@@ -87,4 +87,10 @@ if(UserdataHelper::IsHead($userdata)) {
     );
 }
 
+if(UserdataHelper::IsAdmin($userdata)) {
+    $storytellerMenu['Tools']['submenu']['Configuration'] = array(
+        'link' => '/configuration'
+    );
+}
+
 return $storytellerMenu;

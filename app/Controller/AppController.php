@@ -55,11 +55,18 @@ class AppController extends Controller {
     {
         $this->Auth->authenticate = array('Phpbb');
         $this->Auth->authorize = array('Controller');
+        $this->Auth->unauthorizedRedirect = '/forum/ucp.php?mode=login';
         $this->Auth->loginRedirect = '/forum/ucp.php?mode=login';
 
         if(!$this->Auth->loggedIn())
         {
             $this->Auth->login();
+        }
+        else {
+            global $userdata;
+            if($userdata['user_id'] == 1) {
+                $this->Auth->logout();
+            }
         }
         $this->Menu->InitializeMenu();
         $this->Auth->deny();

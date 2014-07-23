@@ -26,4 +26,9 @@ class UserdataHelper
     {
         return ($userdata['is_head'] || $userdata['is_admin']);
     }
+
+    public static function IsAdmin($userdata)
+    {
+        return ($userdata['is_admin']);
+    }
 }

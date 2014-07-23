@@ -1,4 +1,5 @@
 <?php
+use classes\core\helpers\Configuration;
 use classes\core\helpers\FormHelper;
 
 function buildWoDSheetXP(
@@ -28,7 +29,7 @@ function buildWoDSheetXP(
     $attribute_xp          = 135;
     $skill_xp              = 105;
     $merit_xp              = 32;
-    $general_xp            = 35;
+    $general_xp            = Configuration::read('GENERAL_XP');
     $supernatural_xp       = 0;
     $number_of_specialties = 3;
     $number_of_merits      = 5;
