@@ -64,8 +64,9 @@ class AppController extends Controller {
         }
         else {
             global $userdata;
-            if($userdata['user_id'] == $this->Auth->user('user_id')) {
+            if($userdata['user_id'] != $this->Auth->user('user_id')) {
                 $this->Auth->logout();
+                $this->Auth->login();
             }
         }
         $this->Menu->InitializeMenu();
