@@ -64,7 +64,7 @@ class AppController extends Controller {
         }
         else {
             global $userdata;
-            if($userdata['user_id'] == 1) {
+            if($userdata['user_id'] == $this->Auth->user('user_id')) {
                 $this->Auth->logout();
             }
         }
