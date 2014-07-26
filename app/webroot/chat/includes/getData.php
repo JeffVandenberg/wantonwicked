@@ -22,8 +22,6 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
 header("Content-Type: text/xml; charset=utf-8");
 
-$seed = mt_rand(100000, 999999);
-$startTime = microtime(true);
 $dbh = db_connect();
 
 if (!isset($_SESSION['user_id'])) {
@@ -37,71 +35,17 @@ EOQ;
     exit;
 }
 
-/**
- * @param $seed
- * @param $message
- * @param $startTime
- * @param $dbh
- * @param null $data
- */
-function CreateSiteLog($seed, $message, $startTime, PDO $dbh, $data = null)
-{
-    $timespan = microtime(true) - $startTime;
-    $query = <<<EOQ
-INSERT INTO
-    site_logs
-    (
-        `note`,
-        `time`,
-        `created_on`,
-        `extra_data`,
-        `remote_ip`
-    )
-VALUES
-    (
-        '$seed - $message',
-        $timespan,
-        now(),
-        '$data',
-        '$_SERVER[REMOTE_ADDR]'
-    )
-EOQ;
-    $action = $dbh->prepare($query);
-    $action->execute();
-}
-
 /*
 * check users permissions
 *
 */
 
 list($admin, $mod, $speaker, $userTypeId) = adminPermissions();
-//CreateSiteLog($seed, 'Admin Permissions', $startTime, $dbh);
+
 //;.if($_GET['roomID'] == 1) { die(); }
 /*
 * update user
 *
-*/
-// check room ID
-/*$sql = <<<EOQ
-SELECT
-    count(*) as `count`
-FROM
-    prochatrooms_users
-WHERE
-    room = ?
-    AND username = ?
-    AND online = 1
-EOQ;
-$queryParams = array($_GET['roomID'], $_SESSION['username']);
-$statement = $dbh->prepare($sql);
-$statement->execute($queryParams);
-$result = $statement->fetchColumn();
-if($result == 0) {
-    //mail('jeffvandenberg@gmail.com', 'Chat Abuse', $_SESSION['username'] . ' attempted to be logged into multiple rooms');
-    //logoutUser($_SESSION['username'], $_GET['roomID']);
-    die();
-}
 */
 updateUser();
 
