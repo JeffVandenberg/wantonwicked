@@ -60,4 +60,29 @@ WHERE
 EOQ;
         return ExecuteQueryItem($sql);
     }
+
+    public function ListForGroupId($groupId)
+    {
+        $sql = <<<EOQ
+SELECT
+    RT.*
+FROM
+    request_types as RT
+    INNER JOIN groups_request_types as GRT ON RT.id = GRT.request_type_id
+WHERE
+    GRT.group_id = ?
+ORDER BY
+    RT.name
+EOQ;
+
+        $params = array($groupId);
+
+        $list = array();
+        foreach($this->Query($sql)->All($params) as $item)
+        {
+            $list[] = $this->PopulateObject($item);
+        }
+
+        return $list;
+    }
 }

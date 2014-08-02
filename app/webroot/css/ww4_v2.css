@@ -710,3 +710,12 @@ table.geist_normal_text > tbody > tr > th:nth-child(even) {
     border-radius: 5px;
     border: solid 1px #b00;
 }
+
+.error-message {
+    color: #f00;
+    font-weight: bold;
+}
+
+.error-message:before {
+    content: '* '
+}

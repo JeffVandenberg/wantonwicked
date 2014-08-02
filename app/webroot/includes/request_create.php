@@ -60,8 +60,6 @@ if (Request::IsPost()) {
 
 $character = $characterRepository->FindById($characterId);
 
-$requestTypeRepository = new RequestTypeRepository();
-$requestTypes = $requestTypeRepository->SimpleListAll();
 $page_title = 'Create Request for ' . $character['character_name'];
 $contentHeader = $page_title;
 
@@ -73,7 +71,13 @@ foreach($availableGroups as $group)
     $groups[$group['id']] = $group['name'];
 }
 $defaultGroup = $groupRepository->FindDefaultGroupForCharacter($characterId);
-
+$requestTypeRepository = new RequestTypeRepository();
+$requestTypes = $requestTypeRepository->ListForGroupId($defaultGroup['id']);
+$requestTypeOptions = array();
+foreach($requestTypes as $requestType)
+{
+    $requestTypeOptions[$requestType->Id] = $requestType->Name;
+}
 ob_start();
 ?>
 
@@ -88,11 +92,11 @@ ob_start();
         </div>
         <div class="formInput">
             <label for="request-type">Request Type:</label>
-            <?php echo FormHelper::Select($requestTypes, 'request_type_id', $requestTypeId); ?>
+            <?php echo FormHelper::Select($requestTypeOptions   , 'request_type_id', $requestTypeId); ?>
         </div>
         <div class="formInput">
             <label for="request-type">Body:</label>
-            <?php echo FormHelper::Textarea('body', $body); ?>
+            <?php echo FormHelper::Textarea('body', $body, array('class' => 'tinymce-request-input')); ?>
         </div>
         <div class="formInput">
             <?php echo FormHelper::Hidden('character_id', $characterId); ?>
@@ -104,15 +108,16 @@ ob_start();
     <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         tinymce.init({
-            selector: "textarea",
+                selector: "textarea.tinymce-request-input",
             menubar: false,
             height: 200,
             plugins: [
                 "advlist autolink lists link image charmap print preview anchor",
                 "searchreplace wordcount visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste textcolor"
+                "insertdatetime media table contextmenu paste textcolor template"
             ],
-            toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | copy paste "
+            toolbar1: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | copy paste | template",
+            templates: '/requestTemplates/getList'
         });
 
         $(function() {
@@ -125,7 +130,23 @@ ob_start();
                 else {
                     return false;
                 }
-            })
+            });
+            $("#group-id").change(function() {
+                $.get(
+                    '/groups/listRequestTypes/' + $(this).val() + '.json',
+                    function(data) {
+                        var list = $("#request-type-id");
+                        list.empty();
+                        for(var i = 0; i < data.list.length; i++) {
+                            var item = data.list[i];
+                            list.append(
+                                $('<option>')
+                                    .text(item.name)
+                                    .val(item.id)
+                            );
+                        }
+                    });
+            });
         });
     </script>
 <?php

@@ -186,3 +186,7 @@ function refreshAbpRuleList(data) {
     $("#abpRuleList").load("/abp.php?action=get_abp_rule_list");
 }
 
+$(function () {
+    $(".menu")
+        .menubar();
+});

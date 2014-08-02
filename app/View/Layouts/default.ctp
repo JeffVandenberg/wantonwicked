@@ -12,10 +12,10 @@
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
     <?php
     echo $this->Html->css(array(
+        'ww4_v2',
+        'gaming-sandbox',
         'wanton/jquery-ui-1.10.3.custom.min',
         'wanton/jquery.ui.menubar',
-        'gaming-sandbox',
-        'ww4_v2',
     ));
 
     echo $this->Html->script(array(
@@ -75,6 +75,9 @@
         </div>
         <div id="contenta">
             <div id="contentb" class="contentbox">
+                <?php if(isset($submenu)): ?>
+                    <?php echo $this->SubMenu->Create($submenu); ?>
+                <?php endif; ?>
                 <?php echo $this->Session->flash(); ?>
 
                 <?php echo $this->fetch('content'); ?>

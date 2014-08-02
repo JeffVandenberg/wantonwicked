@@ -1,17 +1,20 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: jvandenberg
- * Date: 9/30/13
- * Time: 4:23 PM
+ * Date: 12/27/13
+ * Time: 1:51 PM
+ * @property HtmlHelper Html
  */
 
-namespace classes\core\helpers;
-
-
-class MenuHelper
+class SubMenuHelper extends AppHelper
 {
-    public static function GenerateMenu($menuItems) {
+    public $helpers = array(
+        'Html'
+    );
+
+    public function Create($menuItems) {
         $menuId = mt_rand(1000000, 9999999);
 
         $menu = <<<EOQ
@@ -19,7 +22,7 @@ class MenuHelper
 EOQ;
         if(is_array($menuItems))
         {
-            $menu .= self::AppendMenuLevel($menuItems, true);
+            $menu .= $this->AppendLevel($menuItems, true);
         }
 
         $menu .= <<<EOQ
@@ -28,7 +31,7 @@ EOQ;
         return $menu;
     }
 
-    private static function AppendMenuLevel($menuItems, $firstLayer)
+    private function AppendLevel($menuItems, $firstLayer = false)
     {
         $menuLevel = "";
         if(!$firstLayer) {
@@ -40,7 +43,15 @@ EOQ;
         foreach($menuItems as $label => $item) {
             if($item !== 'break') {
                 if(is_array($item)) {
-                    $link = (isset($item['link'])) ? $item['link'] : '#';
+                    $link = "#";
+                    if(isset($item['link'])) {
+                        if(is_array($item['link'])) {
+                            $link = $this->Html->url($item['link']);
+                        }
+                        else {
+                            $link = $item['link'];
+                        }
+                    }
                     $icon = (isset($item['icon'])) ? '<img src="' . $item['icon'] . '" />' : '';
                     $id = (isset($item['id'])) ? $item['id'] : null;
                     $class = (isset($item['class'])) ? $item['class'] : null;
@@ -59,7 +70,7 @@ EOQ;
                     $menuLevel .= $liTag . '<a href="' . $link. '" ' . $target . '>' . $icon . $label . '</a>';
 
                     if(isset($item['submenu'])) {
-                        $menuLevel .= self::AppendMenuLevel($item['submenu'], false);
+                        $menuLevel .= $this->AppendLevel($item['submenu'], false);
                     }
 
                     $menuLevel .= '</li>';
@@ -79,5 +90,4 @@ EOQ;
 
         return $menuLevel;
     }
-
-} 
+}
