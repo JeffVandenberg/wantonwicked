@@ -150,6 +150,7 @@ class GroupsController extends AppController
             );
         }
 
+        $this->response->disableCache();
         $this->set(compact('list'));
         $this->set('_serialize', array('list'));
     }
