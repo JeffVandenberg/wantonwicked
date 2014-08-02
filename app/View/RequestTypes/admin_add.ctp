@@ -5,7 +5,7 @@
 <?php echo $this->Form->create('RequestType'); ?>
 	<?php
 		echo $this->Form->input('name');
-		echo $this->Form->input('Group');
+		echo $this->Form->input('Group', array('size' => 6));
 	?>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>

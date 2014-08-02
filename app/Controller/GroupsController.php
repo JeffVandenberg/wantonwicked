@@ -138,6 +138,7 @@ class GroupsController extends AppController
                 'RequestType'
             ),
         );
+        $this->Group->recursive = false;
         $group = $this->Group->find('first', $options);
 
         $list = array();

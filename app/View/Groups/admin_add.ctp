@@ -6,7 +6,9 @@
 	<?php
 		echo $this->Form->input('name');
 		echo $this->Form->input('group_type_id');
-		echo $this->Form->input('RequestType');
+        echo $this->Form->input('RequestType', array(
+            'size' => 6
+        ));
 	?>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
