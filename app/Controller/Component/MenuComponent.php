@@ -46,7 +46,7 @@ class MenuComponent extends Component {
                                 'link' => '/wiki/index.php?n=Changeling.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => '/wiki/index.php?n=Players.Changeling'
+                                'link' => '/characters/cast/Changeling'
                             ),
                         )
                     ),
@@ -60,7 +60,7 @@ class MenuComponent extends Component {
                                 'link' => '/wiki/index.php?n=Geist.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => '/wiki/index.php?n=Players.Geist'
+                                'link' => '/characters/cast/Geist'
                             ),
                         )
                     ),
@@ -74,7 +74,7 @@ class MenuComponent extends Component {
                                 'link' => '/wiki/index.php?n=Mage.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => '/wiki/index.php?n=Players.Mage'
+                                'link' => '/characters/cast/Mage'
                             ),
                         )
                     ),
@@ -88,7 +88,7 @@ class MenuComponent extends Component {
                                 'link' => '/wiki/index.php?n=Mortal.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => '/wiki/index.php?n=Players.Mortal'
+                                'link' => '/characters/cast/Mortal'
                             ),
                         )
                     ),
@@ -102,7 +102,7 @@ class MenuComponent extends Component {
                                 'link' => '/wiki/index.php?n=Vampire.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => '/wiki/index.php?n=Players.Vampire'
+                                'link' => '/characters/cast/Vampire'
                             ),
                         )
                     ),
@@ -116,7 +116,7 @@ class MenuComponent extends Component {
                                 'link' => '/wiki/index.php?n=Werewolf.PlayerGuide'
                             ),
                             'Cast' => array(
-                                'link' => '/wiki/index.php?n=Players.Werewolf'
+                                'link' => '/characters/cast/Werewolf'
                             ),
                         )
                     ),
@@ -132,15 +132,12 @@ class MenuComponent extends Component {
                                     'Player Guide' => array(
                                         'link' => '/wiki/index.php?n=Whitefield.PlayerGuide'
                                     ),
-                                    'Cast' => array(
-                                        'link' => '/wiki/index.php?n=Players.Whitefield'
-                                    ),
                                 )
                             ),
                         )
                     ),
                     'The Cast' => array(
-                        'link' => '/wiki/index.php?n=Players'
+                        'link' => '/characters/cast'
                     )
                 )
             ),

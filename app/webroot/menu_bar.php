@@ -16,6 +16,7 @@ if ($userdata['is_gm'] || $userdata['is_asst'] || $userdata['is_head']) {
 <ul>
     <li><a href="view_sheet.php?action=st_view_xp"><span>Character Lookup</span></a></li>
     <li><a href="request.php?action=st_list"><span>Request Dashboard</span></a></li>
+    <li><a href="/chat/?st_login"><span>Chat Login</span></a></li>
 </ul>
 EOQ;
 }
@@ -33,8 +34,8 @@ if ($user->data['user_id'] != ANONYMOUS) {
          <li><a href='/wiki/index.php?n=Changeling.Changeling'><span>Changeling</span></a>
          	<ul>
 			   <li><a href='/wiki/index.php?n=Changeling.HouseRules'><span>Changeling House Rules</span></a></li>
-			   <li><a href='/characters/cast/changeling'><span>Changeling Player Guide</span></a></li>
-			   <li><a href='/wiki/index.php?n=Players.Changeling'><span>Changeling Cast</span></a></li>
+			   <li><a href='/wiki/index.php?n=Changeling.PlayerGuide'><span>Changeling Player Guide</span></a></li>
+			   <li><a href='/characters/cast/changeling'><span>Changeling Cast</span></a></li>
             </ul></li>
             <li><a href='/wiki/index.php?n=Geist.Geist'><span>Geist</span></a>
          	<ul>

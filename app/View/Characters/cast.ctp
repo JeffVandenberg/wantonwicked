@@ -26,7 +26,6 @@ $this->Paginator->options(array(
             <?php endif; ?>
             <th><?php echo $this->Paginator->sort('splat1'); ?></th>
             <th><?php echo $this->Paginator->sort('splat2'); ?></th>
-            <th><?php echo $this->Paginator->sort('friends'); ?></th>
             <th><?php echo $this->Paginator->sort('is_npc'); ?></th>
         </tr>
         </thead>
