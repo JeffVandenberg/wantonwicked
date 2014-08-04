@@ -36,7 +36,7 @@ class CharactersController extends AppController
     {
         $this->Character->recursive = 0;
         $this->Paginator->settings = array(
-            'limit' => 40,
+            'limit' => 30,
             'conditions' => array(
                 'Character.is_sanctioned' => 'Y',
                 'Character.city' => 'Savannah',
