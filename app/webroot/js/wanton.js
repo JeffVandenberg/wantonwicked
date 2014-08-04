@@ -44,6 +44,14 @@ $(function () {
         showClock();
     });
 
+    $(document).ajaxStart(
+        function() {
+            $("#busy-indicator").fadeIn();
+        });
+    $(document).ajaxComplete(
+        function() {
+            $("#busy-indicator").fadeOut();
+        });
     $("#logo").click(function() {
         document.location = "/";
     });

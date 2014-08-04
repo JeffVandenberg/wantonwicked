@@ -7,16 +7,15 @@ $this->set('title_for_layout', ucfirst($type) . ' Characters');
 $this->Paginator->options(array(
                               'update'      => '#page-content',
                               'evalScripts' => true,
-                              'before'      => $this->Js->get('#busy-indicator')->effect(
-                                                        'fadeIn',
-                                                        array('buffer' => false)
-                                  ),
-                              'complete'    => $this->Js->get('#busy-indicator')->effect(
-                                                        'fadeOut',
-                                                        array('buffer' => false)
-                                  ),
                           ));?>
 <div id="page-content">
+    <div style="text-align: center;">
+        <label for="character_id" style="display: inline;">Character Type</label>
+        <?php echo $this->Form->select('character_type', $characterTypes, array('value' => ucfirst($type),
+                                                                                'empty' => false,
+                                                                                )
+        ); ?>
+    </div>
     <div class="paging">
         <?php
         echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
@@ -76,4 +75,11 @@ $this->Paginator->options(array(
         ?>
     </div>
     <?php echo $this->Js->writeBuffer(); ?>
+    <script>
+        $(function() {
+            $("#character_type").change(function() {
+                document.location = '/characters/cast/' + $(this).val().toLowerCase();
+            });
+        });
+    </script>
 </div>

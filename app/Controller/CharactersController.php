@@ -48,8 +48,11 @@ class CharactersController extends AppController
         if(strtolower($type) !== 'all') {
             $this->Paginator->settings['conditions']['Character.character_type'] = $type;
         }
+        $characterTypes = array("All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
+                                "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', "Mage" => 'Mage',
+                                "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
         $this->set('characters', $this->Paginator->paginate());
-        $this->set('type', $type);
+        $this->set(compact('type', 'characterTypes'));
     }
 
     public function isAuthorized($user)
