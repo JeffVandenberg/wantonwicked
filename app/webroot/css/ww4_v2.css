@@ -722,6 +722,7 @@ table.geist_normal_text > tbody > tr > th:nth-child(even) {
 
 .paging {
     margin: 10px 0;
+    text-align: center;
 }
 
 .paging span {
