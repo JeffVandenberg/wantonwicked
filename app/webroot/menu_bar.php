@@ -33,37 +33,37 @@ if ($user->data['user_id'] != ANONYMOUS) {
          <li><a href='/wiki/index.php?n=Changeling.Changeling'><span>Changeling</span></a>
          	<ul>
 			   <li><a href='/wiki/index.php?n=Changeling.HouseRules'><span>Changeling House Rules</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/changeling'><span>Changeling Player Guide</span></a></li>
+			   <li><a href='/characters/cast/changeling'><span>Changeling Player Guide</span></a></li>
 			   <li><a href='/wiki/index.php?n=Players.Changeling'><span>Changeling Cast</span></a></li>
             </ul></li>
             <li><a href='/wiki/index.php?n=Geist.Geist'><span>Geist</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Geist.HouseRules'><span>Geist House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Geist.PlayerGuide'><span>Geist Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/geist'><span>Geist Cast</span></a></li></ul></li>
+			   <li><a href='/characters/cast/geist'><span>Geist Cast</span></a></li></ul></li>
          <li><a href='/wiki/index.php?n=Mage.Mage'><span>Mage</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Mage.HouseRules'><span>Mage House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Mage.PlayerGuide'><span>Mage Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/mage'><span>Mage Cast</span></a></li>
+			   <li><a href='/characters/cast/mage'><span>Mage Cast</span></a></li>
             </ul></li>
          <li><a href='/wiki/index.php?n=Mortal.Mortal'><span>Mortal</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Mortal.HouseRules'><span>Mortal House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Mortal.PlayerGuide'><span>Mortal Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/mortal'><span>Mortal Cast</span></a></li>
+			   <li><a href='/characters/cast/mortal'><span>Mortal Cast</span></a></li>
             </ul></li>
          <li><a href='/wiki/index.php?n=Vampire.Vampire'><span>Vampire</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Vampire.HouseRules'><span>Vampire House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Vampire.PlayerGuide'><span>Vampire Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/vampire'><span>Vampire Cast</span></a></li>
+			   <li><a href='/characters/cast/vampire'><span>Vampire Cast</span></a></li>
             </ul></li>
          <li><a href='/wiki/index.php?n=Werewolf.Werewolf'><span>Werewolf</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Werewolf.HouseRules'><span>Werewolf House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Werewolf.PlayerGuide'><span>Werewolf Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/werewolf'><span>Werewolf Cast</span></a></li>
+			   <li><a href='/characters/cast/werewolf'><span>Werewolf Cast</span></a></li>
             </ul></li>
             <li><a href=''><span>Crossover Sub-venues</span></a>
          	<ul>
@@ -74,7 +74,7 @@ if ($user->data['user_id'] != ANONYMOUS) {
             </ul>
 			   </li>
             </ul></li>
-         <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/'><span>The Cast</span></a></li>
+         <li><a href='/characters/cast/'><span>The Cast</span></a></li>
       </ul>
    </li>
    <li><span>Game Guide</span>
@@ -139,37 +139,37 @@ $menu_bar .= <<<EOQ
          <li><a href='/wiki/index.php?n=Changeling.Changeling'><span>Changeling</span></a>
          	<ul>
 			   <li><a href='/wiki/index.php?n=Changeling.HouseRules'><span>Changeling House Rules</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/changeling'><span>Changeling Player Guide</span></a></li>
+			   <li><a href='/characters/cast/changeling'><span>Changeling Player Guide</span></a></li>
 			   <li><a href='/wiki/index.php?n=Players.Changeling'><span>Changeling Cast</span></a></li>
             </ul></li>
             <li><a href='/wiki/index.php?n=Geist.Geist'><span>Geist</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Geist.HouseRules'><span>Geist House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Geist.PlayerGuide'><span>Geist Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/geist'><span>Geist Cast</span></a></li></ul></li>
+			   <li><a href='/characters/cast/geist'><span>Geist Cast</span></a></li></ul></li>
          <li><a href='/wiki/index.php?n=Mage.Mage'><span>Mage</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Mage.HouseRules'><span>Mage House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Mage.PlayerGuide'><span>Mage Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/mage'><span>Mage Cast</span></a></li>
+			   <li><a href='/characters/cast/mage'><span>Mage Cast</span></a></li>
             </ul></li>
          <li><a href='/wiki/index.php?n=Mortal.Mortal'><span>Mortal</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Mortal.HouseRules'><span>Mortal House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Mortal.PlayerGuide'><span>Mortal Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/mortal'><span>Mortal Cast</span></a></li>
+			   <li><a href='/characters/cast/mortal'><span>Mortal Cast</span></a></li>
             </ul></li>
          <li><a href='/wiki/index.php?n=Vampire.Vampire'><span>Vampire</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Vampire.HouseRules'><span>Vampire House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Vampire.PlayerGuide'><span>Vampire Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/vampire'><span>Vampire Cast</span></a></li>
+			   <li><a href='/characters/cast/vampire'><span>Vampire Cast</span></a></li>
             </ul></li>
          <li><a href='/wiki/index.php?n=Werewolf.Werewolf'><span>Werewolf</span></a>
          	<ul>
                <li><a href='/wiki/index.php?n=Werewolf.HouseRules'><span>Werewolf House Rules</span></a></li>
 			   <li><a href='/wiki/index.php?n=Werewolf.PlayerGuide'><span>Werewolf Player Guide</span></a></li>
-			   <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/werewolf'><span>Werewolf Cast</span></a></li>
+			   <li><a href='/characters/cast/werewolf'><span>Werewolf Cast</span></a></li>
             </ul></li>
             <li><a href=''><span>Crossover Sub-venues</span></a>
          	<ul>
@@ -180,7 +180,7 @@ $menu_bar .= <<<EOQ
             </ul>
 			   </li>
             </ul></li>
-         <li><a href='http://wantonwicked.gamingsandbox.com/characters/cast/'><span>The Cast</span></a></li>
+         <li><a href='/characters/cast/'><span>The Cast</span></a></li>
       </ul>
    </li>
    <li><span>Game Guide</span>
