@@ -196,7 +196,7 @@ class MenuComponent extends Component {
                 )
             ),
             'Forums' => array(
-                'link' => 'forum/index.php'
+                'link' => '/forum/index.php'
             ),
             'Site Info' => array(
                 'link' => '#',
