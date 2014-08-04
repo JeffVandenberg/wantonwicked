@@ -105,5 +105,10 @@
         </div>
     </div>
 </div>
-</body>
+<?php
+echo $this->Html->image(
+                'indicator.gif',
+                array('id' => 'busy-indicator')
+);
+?></body>
 </html>

@@ -719,3 +719,30 @@ table.geist_normal_text > tbody > tr > th:nth-child(even) {
 .error-message:before {
     content: '* '
 }
+
+.paging {
+    margin: 10px 0;
+}
+
+.paging span {
+    padding-right: 5px;
+}
+.paging span.prev {
+    text-transform: uppercase;
+}
+
+.paging span.next {
+    text-transform: uppercase;
+}
+
+.paging span.current {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#busy-indicator {
+    display: none;
+    position: absolute;
+    left: 100px;
+    top: 130px;
+}
