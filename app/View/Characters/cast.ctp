@@ -40,7 +40,7 @@ $this->Paginator->options(array(
                 <td>
                     <?php echo $this->Html->link(
                                           $character['Character']['character_name'],
-                                          '/wiki/?n=Players.' . str_replace(' ', '',
+                                          '/wiki/?n=Players.' . preg_replace('/[^\w]+/', '',
                                                                             $character['Character']['character_name']
                                           )
                     ); ?>
