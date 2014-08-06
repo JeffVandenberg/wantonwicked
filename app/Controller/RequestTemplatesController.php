@@ -15,7 +15,7 @@ class RequestTemplatesController extends AppController
     {
         parent::beforeFilter();
         $this->Auth->allow(array(
-            'list'
+            'getList'
         ));
     }
 
