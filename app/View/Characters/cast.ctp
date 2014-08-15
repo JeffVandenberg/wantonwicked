@@ -27,6 +27,7 @@ $this->Paginator->options(array(
         <thead>
         <tr>
             <th><?php echo $this->Paginator->sort('character_name'); ?></th>
+            <th><?php echo $this->Paginator->sort('username', 'Player'); ?></th>
             <?php if (strtolower($type) == 'all'): ?>
                 <th><?php echo $this->Paginator->sort('character_type'); ?></th>
             <?php endif; ?>
@@ -44,6 +45,9 @@ $this->Paginator->options(array(
                                                                             $character['Character']['character_name']
                                           )
                     ); ?>
+                </td>
+                <td>
+                    <?php echo $character['Player']['username']; ?>
                 </td>
                 <?php if (strtolower($type) == 'all'): ?>
                     <td>

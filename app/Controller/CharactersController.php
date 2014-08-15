@@ -42,7 +42,10 @@ class CharactersController extends AppController
                 'Character.city' => 'Savannah',
                 'Character.is_deleted' => 'N'
             ),
-            'order' => 'Character.character_name'
+            'order' => 'Character.character_name',
+            'contain' => array(
+                'Player'
+            )
         );
 
         if(strtolower($type) !== 'all') {

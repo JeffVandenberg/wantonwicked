@@ -56,4 +56,22 @@ class Character extends AppModel {
             )
         ));
     }
+
+    public $belongsTo = array(
+        'Player' => array(
+            'className' => 'User',
+            'foreignKey' => 'user_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        ),
+        'UpdatedBy' => array(
+            'className' => 'User',
+            'foreignKey' => 'updated_by_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        ),
+    );
+
 } 
