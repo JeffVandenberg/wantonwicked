@@ -33,8 +33,8 @@ if ($user->data['user_id'] != ANONYMOUS) {
          <li><a href='/wiki/index.php?n=Changeling.Changeling'><span>Changeling</span></a>
          	<ul>
 			   <li><a href='/wiki/index.php?n=Changeling.HouseRules'><span>Changeling House Rules</span></a></li>
-			   <li><a href='/characters/cast/changeling'><span>Changeling Player Guide</span></a></li>
-			   <li><a href='/wiki/index.php?n=Players.Changeling'><span>Changeling Cast</span></a></li>
+			   <li><a href='/wiki/index.php?n=Changeling.PlayerGuide'><span>Changeling Player Guide</span></a></li>
+			   <li><a href='/characters/cast/changeling'><span>Changeling Cast</span></a></li>
             </ul></li>
             <li><a href='/wiki/index.php?n=Geist.Geist'><span>Geist</span></a>
          	<ul>
@@ -65,20 +65,34 @@ if ($user->data['user_id'] != ANONYMOUS) {
 			   <li><a href='/wiki/index.php?n=Werewolf.PlayerGuide'><span>Werewolf Player Guide</span></a></li>
 			   <li><a href='/characters/cast/werewolf'><span>Werewolf Cast</span></a></li>
             </ul></li>
-            <li><a href=''><span>Crossover Sub-venues</span></a>
+            <li><a href=''><span>Crossover Sub-venues ►</span></a>
          	<ul>
-               <li><a href='/wiki/index.php?n=Whitefield.Whitefield'><span>Whitefield University</span></a>
-			   <ul>
-               <li><a href='/wiki/index.php?n=Whitefield.HouseRules'><span>Whitefield House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Whitefield.PlayerGuide'><span>Whitefield Player Guide</span></a></li>
-            </ul>
-			   </li>
+               <li><a href='/wiki/index.php?n=Whitefield.Whitefield'><span>Whitefield University</span></a></li>
+			   <li><a href='/wiki/index.php?n=Shadow.Shadow'><span>The Shadow</span></a></li>
             </ul></li>
          <li><a href='/characters/cast/'><span>The Cast</span></a></li>
       </ul>
    </li>
    <li><span>Game Guide</span>
       <ul>
+	  <li><a href='/staff'><span>Meet The Team</span></a></li>
+	  <li><a href=''><span>Site Policy</span> ►</a>
+	  		<ul>
+				<li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a></li>
+				<li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
+				<li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Other Policies</span></a></li>
+				<li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
+	            <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
+            </ul>
+         </li>
+		 <li><a href=''><span>Help Guides  ►</span></a>
+		 	<ul>
+				 <li><a href='/wiki/index.php?n=GameRef.Help'><span>New Player</span></a><li>
+				 <li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
+				 <li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
+				 <li><a href='/wiki/index.php?n=GameRef.ExperienceGuide'><span>Experience Guide</span></a></li>
+			</ul>
+			</li>
          <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>House Rules</span></a>
             <ul>
                <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
@@ -89,20 +103,10 @@ if ($user->data['user_id'] != ANONYMOUS) {
          <li><a href='/wiki/index.php?n=GameRef.SanctioningGuide'><span>Sanctioning Checklist</span></a></li>
          <li><a href='/wiki/index.php?n=GameRef.BookPolicy'><span>Book Policy</span></a></li>
          </ul></li>
-         <li><a href='/wiki/index.php?n=GameRef.ExperienceGuide'><span>Experience Guide</span></a></li>
-		 <li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Policies and Practices</span></a>
-         <ul>
-		 <li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
-		 </ul></li>
-      </ul>
+       </ul>
    </li>
    <li><span>Tools</span>
       <ul>
-         <li><a href='/wiki/index.php?n=GameRef.Help'><span>Help</span></a>
-            <ul>
-            	<li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
-            	<li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
-            </ul>
          </li>
          <li><a href='/support.php'><span>Site Supporter</span></a>
                $supporter
@@ -112,18 +116,7 @@ if ($user->data['user_id'] != ANONYMOUS) {
       </ul>
    </li>
    <li><a href='/forum/index.php'><span>Forums</span></a></li>
-   <li class='has-sub last'><span>Site Info</span>
-      <ul>
-	     <li><a href='/staff'><span>The Team</span></a></li>
-         <li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a>
-            <ul>
-               <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
-            </ul>
-         </li>
-         <li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
-         <li><a href='/site_content.php?action=view&content_uid=links'><span>Links</span></a></li>
-      </ul>
-   </li>
+   <li class='last'><a href='/sitemap.php'><span>Sitemap</span></a></li>
 </ul>
 </div>
 EOQ;
@@ -173,22 +166,35 @@ $menu_bar .= <<<EOQ
             </ul></li>
             <li><a href=''><span>Crossover Sub-venues</span></a>
          	<ul>
-               <li><a href='/wiki/index.php?n=Whitefield.Whitefield'><span>Whitefield University</span></a>
-			   <ul>
-               <li><a href='/wiki/index.php?n=Whitefield.HouseRules'><span>Whitefield House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Whitefield.PlayerGuide'><span>Whitefield Player Guide</span></a></li>
-            </ul>
-			   </li>
+               <li><a href='/wiki/index.php?n=Whitefield.Whitefield'><span>Whitefield University</span></a></li>
+			   <li><a href='/wiki/index.php?n=Shadow.Shadow'><span>The Shadow</span></a></li>
             </ul></li>
          <li><a href='/characters/cast/'><span>The Cast</span></a></li>
       </ul>
    </li>
-   <li><span>Game Guide</span>
+    <li><span>Game Guide</span>
       <ul>
+	  <li><a href='/staff'><span>Meet The Team</span></a></li>
+	  <li><a href=''><span>Site Policy</span> ►</a>
+	  		<ul>
+				<li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a></li>
+				<li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
+				<li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Other Policies</span></a></li>
+				<li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
+	            <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
+            </ul>
+         </li>
+		 <li><a href=''><span>Help Guides  ►</a>
+		 	<ul>
+				 <li><a href='/wiki/index.php?n=GameRef.Help'><span>New Player</span></a><li>
+				 <li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
+				 <li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
+				 <li><a href='/wiki/index.php?n=GameRef.ExperienceGuide'><span>Experience Guide</span></a></li>
+			</ul>
+			</li>
          <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>House Rules</span></a>
             <ul>
-			   <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
-               <li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Policies and Practices</span></a></li>
+               <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
             </ul>
          </li>
          <li><a href='/wiki/index.php?n=GameRef.CharacterCreation'><span>Character Creation</span></a>
@@ -196,34 +202,14 @@ $menu_bar .= <<<EOQ
          <li><a href='/wiki/index.php?n=GameRef.SanctioningGuide'><span>Sanctioning Checklist</span></a></li>
          <li><a href='/wiki/index.php?n=GameRef.BookPolicy'><span>Book Policy</span></a></li>
          </ul></li>
-         <li><a href='/wiki/index.php?n=GameRef.ExperienceGuide'><span>Experience Guide</span></a></li>
-         <li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
-      </ul>
+       </ul>
    </li>
    <li><span>Tools</span>
-      <ul>
-        <li><a href='/wiki/index.php?n=GameRef.Help'><span>Help</span></a>
-            <ul>
-				<li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
-               <li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
-            </ul>
-         </li>
-         <li><a href='/support.php'><span>Site Supporter</span></a></li>
+      <li><a href='/support.php'><span>Site Supporter</span></a></li>
       </ul>
    </li>
    <li><a href='/forum/index.php'><span>Forums</span></a></li>
-   <li class='has-sub last'><span>Site Info</span>
-      <ul>
-	  <li><a href='/index.php?action=storytellers'><span>The Team</span></a></li>
-         <li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a>
-            <ul>
-               <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
-            </ul>
-         </li>
-         <li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
-         <li><a href='/site_content.php?action=view&content_uid=links'><span>Links</span></a></li>
-      </ul>
-   </li>
+   <li class='last'><a href='/sitemap.php'><span>Sitemap</span></a></li>
 </ul>
 </div>
 EOQ;
