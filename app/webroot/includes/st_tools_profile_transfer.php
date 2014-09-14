@@ -23,7 +23,7 @@ if (Request::IsPost()) {
 
     if ($character && $login) {
         // set the login's id as the primary login id
-        $char_update_query = "update characters set user_id = $login[user_id] where character_id = $character_detail[id];";
+        $char_update_query = "update characters set user_id = $login[user_id] where character_id = $character[id];";
         Database::GetInstance()->Query($char_update_query)->Execute();
         SessionHelper::SetFlashMessage("$character_name has been moved to $profile_name.");
     }
