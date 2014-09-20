@@ -11,7 +11,7 @@ namespace classes\character\helper;
 
 class CharacterHelper {
 
-    public static function IncreaseAttribute($stats, $bonusAttribute)
+    public static function IncreaseAttribute(&$stats, $bonusAttribute)
     {
         for($i = 0; $i < 9; $i++) {
             if(strtolower($stats['attribute'.$i.'_name']) == strtolower($bonusAttribute)) {
