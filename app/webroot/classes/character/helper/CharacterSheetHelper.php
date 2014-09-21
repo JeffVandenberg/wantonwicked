@@ -1186,6 +1186,7 @@ class CharacterSheetHelper
         if ($error == '') {
             //$this->LogChanges($newStats, array());
         }
+        return $error;
     }
 
     public function UpdateSt(array $newStats, Character $oldStats, array $userdata)
