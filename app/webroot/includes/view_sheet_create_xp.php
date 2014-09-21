@@ -32,7 +32,7 @@ if (isset($_POST['character_name'])) {
 $java_script .= <<<EOQ
 EOQ;
 
-$characterSheet = $characterSheetHelper->MakeNewView($_POST, $characterType);
+$characterSheet = $characterSheetHelper->MakeNewView('', $characterType);
 
 ob_start();
 ?>
