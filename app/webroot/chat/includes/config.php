@@ -25,7 +25,7 @@ $CONFIG['dispLastMess'] = '20';
 
 /*
 * set maximum chat room users
-* shows on login page
+* shows on login page       
 */
 
 $CONFIG['maxUsers'] = '100';
@@ -171,7 +171,7 @@ $CONFIG['text'] = array();
 $CONFIG['text']['bold'] = '0'; 
 $CONFIG['text']['underline'] = '0'; 
 $CONFIG['text']['italic'] = '0'; 
-$CONFIG['text']['color'] = '#000000'; 
+$CONFIG['text']['color'] = '#cccccc'; 
 $CONFIG['text']['size'] = '12px'; 
 $CONFIG['text']['family'] = 'verdana'; 
 

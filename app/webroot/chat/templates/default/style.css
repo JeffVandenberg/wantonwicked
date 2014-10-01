@@ -1,4 +1,4 @@
-/** 
+/**
 
 CSS Notes: 
 
@@ -62,17 +62,13 @@ body
 { 
 	margin: 0 0 0 0; 
 	padding: 2px 2px 2px 2px;
-	border: 1px solid #000000; 
 	top: 80px;
 	left: 5px;
 	position:absolute;
     overflow-y: auto;
 	overflow-x: auto;
 	word-wrap:break-word;
-    background: #dddddd no-repeat center center;
-
-    -moz-border-radius: 5px;
-	border-radius: 5px;	
+    background-color: #ddd;
 }
 
 .userContainer 
@@ -83,7 +79,7 @@ body
 	top: 106px;
 	right: 5px;
 	position:absolute;
-	background-color: #000000;
+	background-color: transparent;
 	overflow-y: auto;
 	overflow-x: hidden;
 	color: #ffffff;
@@ -126,6 +122,7 @@ body
 	bottom: 5px;
 	height: 120px;
 	position:absolute;
+	background-color: transparent;
     /*background: #999999 url('../../templates/default/images/bg2.jpg') repeat;*/
     -moz-border-radius: 8px;
 	border-radius: 8px;	
@@ -218,13 +215,13 @@ body
 {
 	margin: 0 0 0 0; 
 	padding: 2px 2px 2px 2px; 
-	border: 1px solid #000000; 
+	border: 1px solid #888888; 
 	left: 5px;
 	bottom: 25px;
 	height: 50px;
 	width: 100%;
 	position:absolute;
-	background-color: #FFFFFF;
+	background-color: #ddd;
 	-moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -242,7 +239,7 @@ body
     cursor:pointer;
 	font-weight: bold;
 	color: #FFFFFF;
-    background: #FFFFFF url('../../templates/default/images/send.jpg') repeat-x;
+    background: #000000 url('../../templates/default/images/send.jpg') repeat-x;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -618,7 +615,7 @@ body
 	border: 1px solid #666666;
     height: 300px;
 	width: 400px;
-    background: #FFFFFF url('../../images/private.jpg') no-repeat center center;
+    background: #000 url('../../images/private.jpg') no-repeat center center;
 
     -moz-border-radius: 8px;
 	border-radius: 8px;		
@@ -644,6 +641,7 @@ body
 	height: 210px;
 	overflow: auto;
 	word-wrap:break-word; 
+	background-color: #dddddd;
 }
 
 .psendbox
@@ -676,7 +674,7 @@ body
 {
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 1px solid #666666; 
+	border: 1px solid #999999; 
 	right: 5px;
 	bottom: 4px;
 	height: 28px;
@@ -696,7 +694,7 @@ body
 	position:absolute; 
 	margin: 0 0 0 0; 
 	padding: 0 2px 2px 2px;
-	background-color: #FFFFFF;
+	background-color: #ddd;
 	border: 1px solid #666666; 
 	height: 24px;
 	width: 330px;
@@ -808,6 +806,7 @@ body
 	height: 26px;
 	padding: 2px 0 0 0;
 	cursor: pointer;
+	background-color: #000;
 }
 
 /*
@@ -864,7 +863,7 @@ body
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
 	border: 1px solid #666666;
-	background-color:#FFFFFF;
+	background-color:#000;
 	visibility: hidden;	
 }
 
@@ -878,7 +877,7 @@ body
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
 	border: 1px solid #666666;
-	background-color:#FFFFFF;
+	background-color:#000;
 	visibility: hidden;
 }
 
@@ -892,7 +891,7 @@ body
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
 	border: 1px solid #666666;
-	background-color:#FFFFFF;
+	background-color:#000;
 	visibility: hidden;
 	overflow-y: scroll;
 }
@@ -907,7 +906,7 @@ body
 	cursor:pointer;
 	padding: 1px 1px 3px 1px; 
 	border: 1px solid #666666;
-	background-color:#FFFFFF;
+	background-color:#000;
 	visibility: hidden;
 	overflow-y: none;
 }
@@ -922,7 +921,7 @@ body
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
 	border: 1px solid #666666;
-	background-color:#FFFFFF;
+	background-color:#000;
 	visibility: hidden;
 	overflow-y: none;
 }
@@ -937,7 +936,7 @@ body
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
 	border: 1px solid #666666;
-	background-color:#FFFFFF;
+	background-color:#000;
 	visibility: hidden;
 	overflow-y: none;
 }
@@ -951,8 +950,9 @@ body
 	height:auto;
 	padding: 1px 1px 0 1px; 
 	border: 1px solid #666666;
-	background-color:#FFFFFF;
+	background-color:#000;
 	visibility: hidden;
+	color: #fff;
 }
 
 /*
@@ -961,30 +961,33 @@ body
 */
 
 .welcomeMessage 
-{ 
-	padding: 2px 2px 2px 2px; 
-	border: 1px solid #c4df9b; 
+{
+	padding: 2px 2px 2px 2px;
+	border: 1px solid blue;
 	height: auto;
-	background-color: #c4df9b;
+	background-color: #fff;
+	color: black;
 } 
 
 .chatMessage
 {
 	padding: 2px 2px 2px 2px;
-	border-bottom: 1px solid #bbbbbb; 	
-	background-color: #eeeeee;
+	border-bottom: 1px solid #bbb; 	
+	background-color: transparent;
 	min-height: 40px;
 	height: auto;
 	clear:both;
+	color: #000;
 }
 
 .whisperMessage
 {
 	padding: 2px 2px 2px 2px;
-	border: 1px solid #7accc8; 	
-	background-color: #7accc8;
+	border: 1px solid #bbb; 	
+	background-color: #dddddd;
 	min-height: 40px;
 	height: auto;
+	color: #000;
 }
 
 /*
@@ -1076,7 +1079,7 @@ body
 {
 	width: 80px;
 	height: 14px;
-	background-color: #FFFFFF;
+	background-color: #999999;
 	border: 1px solid #000000;
 	-moz-border-radius: 5px;
 	border-radius: 5px;	

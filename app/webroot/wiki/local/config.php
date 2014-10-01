@@ -18,12 +18,12 @@ include_once("cookbook/break_page.php");
 //include_once("$FarmD/cookbook/FacebookLikeButton.php");
 
 ## set group patterns
-$GroupPattern = '(?:Players|City|Changeling|Geist|Hunter|Mage|Mortal|Vampire|Werewolf|Whitefield|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
+$GroupPattern = '(?:Players|City|Changeling|Geist|Hunter|Mage|Mortal|Vampire|Werewolf|Whitefield|Shadow|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
 $isST = false;
 if(($userdata['is_asst'] || $userdata['is_gm'] || $userdata['wiki_manager']|| $userdata['is_head'] || $userdata['is_admin']) && (!$userdata['cell_id']))
 {
   $isST = true;
-  $GroupPattern = '(?:Players|City|Changeling|Geist|Hunter||Mage|Mortal|Vampire|Werewolf|Whitefield|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox|Storytellers)';
+  $GroupPattern = '(?:Players|City|Changeling|Geist|Hunter||Mage|Mortal|Vampire|Werewolf|Whitefield|Shadow|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox|Storytellers)';
 }
 $DeleteKeyPattern = "^\\s*123This Page Is Removed321\\s*$";
 
@@ -192,6 +192,7 @@ $WikiStyle['mage']['color']    ='#004a80';
 $WikiStyle['mortal']['color']    ='#6e68a3';
 $WikiStyle['vampire']['color']    ='#9e0b0f';
 $WikiStyle['werewolf']['color']    ='#74483f';
+$WikiStyle['shadow']['color']    ='#464646';
 
 $MarkupCss = true;
 
