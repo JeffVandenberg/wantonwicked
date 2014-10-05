@@ -1,217 +1,256 @@
 <?php
 global $userdata;
 // check if they are an ST
-$gamemaster_link = "";
 
-$supporter = "";
-if ($userdata['is_admin']) {
-    $supporter = <<<EOQ
-<ul><li><a href='/support.php?action=manage'><span>Manage Supporters</span></a></li></ul>
-EOQ;
+use classes\character\repository\CharacterRepository;
+use classes\core\helpers\MenuHelper;
+use classes\core\helpers\UserdataHelper;
+
+$mainMenu = array(
+    'Home' => array(
+        'link' => '/',
+        'target' => '_top'
+    ),
+    'The Setting' => array(
+        'link' => '#',
+        'submenu' => array(
+            'The City' => array(
+                'link' => '/wiki/index.php?n=City.City'
+            ),
+            'Changeling' => array(
+                'link' => '/wiki/index.php?n=Changeling.Changeling',
+                'submenu' => array(
+                    'House Rules' => array(
+                        'link' => '/wiki/index.php?n=Changeling.HouseRules'
+                    ),
+                    'Player Guide' => array(
+                        'link' => '/wiki/index.php?n=Changeling.PlayerGuide'
+                    ),
+                    'Cast' => array(
+                        'link' => '/characters/cast/Changeling'
+                    ),
+                )
+            ),
+            'Geist' => array(
+                'link' => '/wiki/index.php?n=Geist.Geist',
+                'submenu' => array(
+                    'House Rules' => array(
+                        'link' => '/wiki/index.php?n=Geist.HouseRules'
+                    ),
+                    'Player Guide' => array(
+                        'link' => '/wiki/index.php?n=Geist.PlayerGuide'
+                    ),
+                    'Cast' => array(
+                        'link' => '/characters/cast/Geist'
+                    ),
+                )
+            ),
+            'Mage' => array(
+                'link' => '/wiki/index.php?n=Mage.Mage',
+                'submenu' => array(
+                    'House Rules' => array(
+                        'link' => '/wiki/index.php?n=Mage.HouseRules'
+                    ),
+                    'Player Guide' => array(
+                        'link' => '/wiki/index.php?n=Mage.PlayerGuide'
+                    ),
+                    'Cast' => array(
+                        'link' => '/characters/cast/Mage'
+                    ),
+                )
+            ),
+            'Mortal' => array(
+                'link' => '/wiki/index.php?n=Mortal.Mortal',
+                'submenu' => array(
+                    'House Rules' => array(
+                        'link' => '/wiki/index.php?n=Mortal.HouseRules'
+                    ),
+                    'Player Guide' => array(
+                        'link' => '/wiki/index.php?n=Mortal.PlayerGuide'
+                    ),
+                    'Cast' => array(
+                        'link' => '/characters/cast/Mortal'
+                    ),
+                )
+            ),
+            'Vampire' => array(
+                'link' => '/wiki/index.php?n=Vampire.Vampire',
+                'submenu' => array(
+                    'House Rules' => array(
+                        'link' => '/wiki/index.php?n=Vampire.HouseRules'
+                    ),
+                    'Player Guide' => array(
+                        'link' => '/wiki/index.php?n=Vampire.PlayerGuide'
+                    ),
+                    'Cast' => array(
+                        'link' => '/characters/cast/Vampire'
+                    ),
+                )
+            ),
+            'Werewolf' => array(
+                'link' => '/wiki/index.php?n=Werewolf.Werewolf',
+                'submenu' => array(
+                    'House Rules' => array(
+                        'link' => '/wiki/index.php?n=Werewolf.HouseRules'
+                    ),
+                    'Player Guide' => array(
+                        'link' => '/wiki/index.php?n=Werewolf.PlayerGuide'
+                    ),
+                    'Cast' => array(
+                        'link' => '/characters/cast/Werewolf'
+                    ),
+                )
+            ),
+            'Crossover Sub-venues' => array(
+                'link' => '#',
+                'submenu' => array(
+                    'Whitefield' => array(
+                        'link' => '/wiki/index.php?n=Whitefield.Whitefield',
+                        'submenu' => array(
+                            'House Rules' => array(
+                                'link' => '/wiki/index.php?n=Whitefield.HouseRules'
+                            ),
+                            'Player Guide' => array(
+                                'link' => '/wiki/index.php?n=Whitefield.PlayerGuide'
+                            ),
+                        )
+                    ),
+                )
+            ),
+            'The Cast' => array(
+                'link' => '/characters/cast'
+            )
+        )
+    ),
+    'Game Guide' => array(
+        'link' => '#',
+        'submenu' => array(
+            'House Rules' => array(
+                'link' => '/wiki/index.php?n=GameRef.HouseRules',
+                'submenu' => array(
+                    'Crossover Errata' => array(
+                        'link' => '/wiki/index.php?n=GameRef.CrossoverErrata'
+                    )
+                )
+            ),
+            'Character Creation' => array(
+                'link' => '/wiki/index.php?n=GameRef.CharacterCreation',
+                'submenu' => array(
+                    'Sanctioning Checklist' => array(
+                        'link' => '/wiki/index.php?n=GameRef.SanctioningGuide'
+                    ),
+                    'Book Policy' => array(
+                        'link' => '/wiki/index.php?n=GameRef.BookPolicy'
+                    ),
+                )
+            ),
+            'Experience Guide' => array(
+                'link' => '/wiki/index.php?n=GameRef.ExperienceGuide'
+            ),
+            'Policies and Practices' => array(
+                'link' => '/wiki/index.php?n=GameRef.PoliciesandPractices',
+                'submenu' => array(
+                    'Crossover Policy' => array(
+                        'link' => '/wiki/index.php?n=GameRef.CrossoverPolicy'
+                    )
+                )
+            ),
+        )
+    ),
+    'Tools' => array(
+        'link' => '#',
+        'submenu' => array(
+            'Help' => array(
+                'link' => '/wiki/index.php?n=GameRef.Help',
+                'submenu' => array(
+                    'Request System' => array(
+                        'link' => '/wiki/index.php?n=GameRef.RequestSystemHelp',
+                    ),
+                    'Chat Interface' => array(
+                        'link' => '/wiki/index.php?n=GameRef.ChatHelp',
+                    )
+                )
+            ),
+            'Site Supporter' => array(
+                'link' => 'support.php'
+            )
+        )
+    ),
+    'Forums' => array(
+        'link' => '/forum/index.php'
+    ),
+    'Site Info' => array(
+        'link' => '#',
+        'submenu' => array(
+            'The Team' => array(
+                'link' => array('controller' => 'home', 'action' => 'staff')
+            ),
+            'Code of Conduct' => array(
+                'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
+                'submenu' => array(
+                    'Personal Information' => array(
+                        'link' => '/wiki/index.php?n=GameRef.PersonalInformation',
+                    )
+                )
+            ),
+            'Disclaimer' => array(
+                'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+            )
+        )
+    )
+);
+
+if($userdata['user_id'] != ANONYMOUS) {
+    $mainMenu['Tools']['submenu']['Character List'] = array(
+        'link' => '/chat.php'
+    );
+
+    $characterRepository = new CharacterRepository();
+    $sanctionedCharacters = $characterRepository->ListSanctionedCharactersByPlayerId($userdata['user_id']);
+    foreach($sanctionedCharacters as $character) {
+        $characterMenu = array(
+            'link' => '/character.php?action=interface&character_id='.$character['id'],
+            'submenu' => array(
+                'Login' => array(
+                    'link' => '/chat/?character_id='.$character['id']
+                ),
+                'Requests' => array(
+                    'link' => '/request.php?action=list&character_id=' . $character['id']
+                ),
+                'Bluebook' => array(
+                    'link' => '/bluebook.php?action=list&character_id=' . $character['id']
+                ),
+                'Sheet' => array(
+                    'link' => '/view_sheet.php?action=view_own_xp&character_id=' . $character['id']
+                )
+            )
+        );
+        $mainMenu['Tools']['submenu']['Character List']['submenu'][$character['character_name']] = $characterMenu;
+    }
 }
 
-if ($userdata['is_gm'] || $userdata['is_asst'] || $userdata['is_head']) {
-    $gamemaster_link = <<<EOQ
-<a href='/storyteller_index.php' target="_blank"><span>ST Tools</span></a>
-<ul>
-    <li><a href="view_sheet.php?action=st_view_xp"><span>Character Lookup</span></a></li>
-    <li><a href="request.php?action=st_list"><span>Request Dashboard</span></a></li>
-    <li><a href="/chat/?st_login"><span>Chat Login</span></a></li>
-</ul>
-EOQ;
+if(UserdataHelper::IsSt($userdata)) {
+    $mainMenu['Tools']['submenu']['ST Tools'] = array(
+        'link' => '/storyteller_index.php',
+        'submenu' => array(
+            'Character Lookup' => array(
+                'link' => '/view_sheet.php?action=st_view_xp',
+            ),
+            'Request Dashboard' => array(
+                'link' => '/request.php?action=st_list'
+            ),
+            'Chat Login' => array(
+                'link' => '/chat/?st_login',
+                'target' => '_blank'
+            )
+        )
+    );
 }
 
+if(UserdataHelper::IsAdmin($userdata)) {
+    $mainMenu['Tools']['submenu']['Site Supporter']['submenu']['Manage Support'] = array(
+        'link' => '/support.php?action=manage'
+    );
+}
 
-// check if user is logged in
-if ($user->data['user_id'] != ANONYMOUS) {
-    $menu_bar = <<<EOQ
-<div id='navmenu'>
-<ul>
-   <li class='active'><a href='/index.php'><span>Home</span></a></li>
-   <li><span>The Setting</span>
-      <ul>
-         <li><a href='/wiki/index.php?n=City.City'><span>The City</span></a></li>
-         <li><a href='/wiki/index.php?n=Changeling.Changeling'><span>Changeling</span></a>
-         	<ul>
-			   <li><a href='/wiki/index.php?n=Changeling.HouseRules'><span>Changeling House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Changeling.PlayerGuide'><span>Changeling Player Guide</span></a></li>
-			   <li><a href='/characters/cast/changeling'><span>Changeling Cast</span></a></li>
-            </ul></li>
-            <li><a href='/wiki/index.php?n=Geist.Geist'><span>Geist</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Geist.HouseRules'><span>Geist House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Geist.PlayerGuide'><span>Geist Player Guide</span></a></li>
-			   <li><a href='/characters/cast/geist'><span>Geist Cast</span></a></li></ul></li>
-         <li><a href='/wiki/index.php?n=Mage.Mage'><span>Mage</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Mage.HouseRules'><span>Mage House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Mage.PlayerGuide'><span>Mage Player Guide</span></a></li>
-			   <li><a href='/characters/cast/mage'><span>Mage Cast</span></a></li>
-            </ul></li>
-         <li><a href='/wiki/index.php?n=Mortal.Mortal'><span>Mortal</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Mortal.HouseRules'><span>Mortal House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Mortal.PlayerGuide'><span>Mortal Player Guide</span></a></li>
-			   <li><a href='/characters/cast/mortal'><span>Mortal Cast</span></a></li>
-            </ul></li>
-         <li><a href='/wiki/index.php?n=Vampire.Vampire'><span>Vampire</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Vampire.HouseRules'><span>Vampire House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Vampire.PlayerGuide'><span>Vampire Player Guide</span></a></li>
-			   <li><a href='/characters/cast/vampire'><span>Vampire Cast</span></a></li>
-            </ul></li>
-         <li><a href='/wiki/index.php?n=Werewolf.Werewolf'><span>Werewolf</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Werewolf.HouseRules'><span>Werewolf House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Werewolf.PlayerGuide'><span>Werewolf Player Guide</span></a></li>
-			   <li><a href='/characters/cast/werewolf'><span>Werewolf Cast</span></a></li>
-            </ul></li>
-            <li><a href=''><span>Crossover Sub-venues ►</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Whitefield.Whitefield'><span>Whitefield University</span></a></li>
-			   <li><a href='/wiki/index.php?n=Shadow.Shadow'><span>The Shadow</span></a></li>
-            </ul></li>
-         <li><a href='/characters/cast/'><span>The Cast</span></a></li>
-      </ul>
-   </li>
-   <li><span>Game Guide</span>
-      <ul>
-	  <li><a href='/staff'><span>Meet The Team</span></a></li>
-	  <li><a href=''><span>Site Policy</span> ►</a>
-	  		<ul>
-				<li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a></li>
-				<li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
-				<li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Other Policies</span></a></li>
-				<li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
-	            <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
-            </ul>
-         </li>
-		 <li><a href=''><span>Help Guides  ►</span></a>
-		 	<ul>
-				 <li><a href='/wiki/index.php?n=GameRef.Help'><span>New Player</span></a><li>
-				 <li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
-				 <li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
-				 <li><a href='/wiki/index.php?n=GameRef.ExperienceGuide'><span>Experience Guide</span></a></li>
-			</ul>
-			</li>
-         <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>House Rules</span></a>
-            <ul>
-               <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
-            </ul>
-         </li>
-         <li><a href='/wiki/index.php?n=GameRef.CharacterCreation'><span>Character Creation</span></a>
-         <ul>
-         <li><a href='/wiki/index.php?n=GameRef.SanctioningGuide'><span>Sanctioning Checklist</span></a></li>
-         <li><a href='/wiki/index.php?n=GameRef.BookPolicy'><span>Book Policy</span></a></li>
-         </ul></li>
-       </ul>
-   </li>
-   <li><span>Tools</span>
-      <ul>
-         </li>
-         <li><a href='/support.php'><span>Site Supporter</span></a>
-               $supporter
-		 </li>
-         <li><a href='/chat.php'><span>Character List</span></a></li>
-         <li>$gamemaster_link</li>
-      </ul>
-   </li>
-   <li><a href='/forum/index.php'><span>Forums</span></a></li>
-   <li class='last'><a href='/sitemap.php'><span>Sitemap</span></a></li>
-</ul>
-</div>
-EOQ;
-}
-else {
-$menu_bar .= <<<EOQ
-<div id='navmenu'>
-<ul>
-   <li class='active'><a href='/index.php'><span>Home</span></a></li>
-     <li><span>The Setting</span>
-      <ul>
-         <li><a href='/wiki/index.php?n=City.City'><span>The City</span></a></li>
-         <li><a href='/wiki/index.php?n=Changeling.Changeling'><span>Changeling</span></a>
-         	<ul>
-			   <li><a href='/wiki/index.php?n=Changeling.HouseRules'><span>Changeling House Rules</span></a></li>
-			   <li><a href='/characters/cast/changeling'><span>Changeling Player Guide</span></a></li>
-			   <li><a href='/wiki/index.php?n=Players.Changeling'><span>Changeling Cast</span></a></li>
-            </ul></li>
-            <li><a href='/wiki/index.php?n=Geist.Geist'><span>Geist</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Geist.HouseRules'><span>Geist House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Geist.PlayerGuide'><span>Geist Player Guide</span></a></li>
-			   <li><a href='/characters/cast/geist'><span>Geist Cast</span></a></li></ul></li>
-         <li><a href='/wiki/index.php?n=Mage.Mage'><span>Mage</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Mage.HouseRules'><span>Mage House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Mage.PlayerGuide'><span>Mage Player Guide</span></a></li>
-			   <li><a href='/characters/cast/mage'><span>Mage Cast</span></a></li>
-            </ul></li>
-         <li><a href='/wiki/index.php?n=Mortal.Mortal'><span>Mortal</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Mortal.HouseRules'><span>Mortal House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Mortal.PlayerGuide'><span>Mortal Player Guide</span></a></li>
-			   <li><a href='/characters/cast/mortal'><span>Mortal Cast</span></a></li>
-            </ul></li>
-         <li><a href='/wiki/index.php?n=Vampire.Vampire'><span>Vampire</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Vampire.HouseRules'><span>Vampire House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Vampire.PlayerGuide'><span>Vampire Player Guide</span></a></li>
-			   <li><a href='/characters/cast/vampire'><span>Vampire Cast</span></a></li>
-            </ul></li>
-         <li><a href='/wiki/index.php?n=Werewolf.Werewolf'><span>Werewolf</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Werewolf.HouseRules'><span>Werewolf House Rules</span></a></li>
-			   <li><a href='/wiki/index.php?n=Werewolf.PlayerGuide'><span>Werewolf Player Guide</span></a></li>
-			   <li><a href='/characters/cast/werewolf'><span>Werewolf Cast</span></a></li>
-            </ul></li>
-            <li><a href=''><span>Crossover Sub-venues</span></a>
-         	<ul>
-               <li><a href='/wiki/index.php?n=Whitefield.Whitefield'><span>Whitefield University</span></a></li>
-			   <li><a href='/wiki/index.php?n=Shadow.Shadow'><span>The Shadow</span></a></li>
-            </ul></li>
-         <li><a href='/characters/cast/'><span>The Cast</span></a></li>
-      </ul>
-   </li>
-    <li><span>Game Guide</span>
-      <ul>
-	  <li><a href='/staff'><span>Meet The Team</span></a></li>
-	  <li><a href=''><span>Site Policy</span> ►</a>
-	  		<ul>
-				<li><a href='/wiki/index.php?n=GameRef.CodeOfConduct'><span>Code of Conduct</span></a></li>
-				<li><a href='/wiki/index.php?n=GameRef.CrossoverPolicy'><span>Crossover Policy</span></a></li>
-				<li><a href='/wiki/index.php?n=GameRef.PoliciesandPractices'><span>Other Policies</span></a></li>
-				<li><a href='/wiki/index.php?n=GameRef.Disclaimer'><span>Disclaimer</span></a></li>
-	            <li><a href='/wiki/index.php?n=GameRef.PersonalInformation'><span>Personal Information</span></a></li>
-            </ul>
-         </li>
-		 <li><a href=''><span>Help Guides  ►</a>
-		 	<ul>
-				 <li><a href='/wiki/index.php?n=GameRef.Help'><span>New Player</span></a><li>
-				 <li><a href='/wiki/index.php?n=GameRef.ChatHelp'><span>Chat Interface</span></a></li>
-				 <li><a href='/wiki/index.php?n=GameRef.RequestSystemHelp'><span>Request System</span></a></li>
-				 <li><a href='/wiki/index.php?n=GameRef.ExperienceGuide'><span>Experience Guide</span></a></li>
-			</ul>
-			</li>
-         <li><a href='/wiki/index.php?n=GameRef.HouseRules'><span>House Rules</span></a>
-            <ul>
-               <li><a href='/wiki/index.php?n=GameRef.CrossoverErrata'><span>Crossover Errata</span></a></li>
-            </ul>
-         </li>
-         <li><a href='/wiki/index.php?n=GameRef.CharacterCreation'><span>Character Creation</span></a>
-         <ul>
-         <li><a href='/wiki/index.php?n=GameRef.SanctioningGuide'><span>Sanctioning Checklist</span></a></li>
-         <li><a href='/wiki/index.php?n=GameRef.BookPolicy'><span>Book Policy</span></a></li>
-         </ul></li>
-       </ul>
-   </li>
-   <li><span>Tools</span>
-      <li><a href='/support.php'><span>Site Supporter</span></a></li>
-      </ul>
-   </li>
-   <li><a href='/forum/index.php'><span>Forums</span></a></li>
-   <li class='last'><a href='/sitemap.php'><span>Sitemap</span></a></li>
-</ul>
-</div>
-EOQ;
-}
+$menu_bar = MenuHelper::GenerateMenu($mainMenu);

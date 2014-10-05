@@ -38,6 +38,9 @@ function showClock() {
 }
 
 $(function () {
+    $(".menu")
+        .menubar();
+
     $.get('/server_time.php', null, function(time) {
         var local = new Date();
         difference = (local.getTime() - (local.getTimezoneOffset() *60000)) - time;
@@ -193,8 +196,3 @@ function refreshAbpRuleList(data) {
     }
     $("#abpRuleList").load("/abp.php?action=get_abp_rule_list");
 }
-
-$(function () {
-    $(".menu")
-        .menubar();
-});

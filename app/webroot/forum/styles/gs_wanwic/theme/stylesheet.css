@@ -982,3 +982,7 @@ pre {
 .username-coloured {
     font-weight: normal;
 }
+
+#main-menu {
+    margin-top: 9px;
+}

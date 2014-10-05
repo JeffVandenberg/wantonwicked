@@ -49,7 +49,6 @@ $contentHeader = "";
 require_once('user_panel.php');
 // build links
 include 'menu_bar.php';
-include 'menu_bar_player_content.php';
 
 if (isset($_GET['action'])) {
     //echo $_GET['action']."<br>";

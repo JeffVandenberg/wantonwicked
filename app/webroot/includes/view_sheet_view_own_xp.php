@@ -1,4 +1,4 @@
-<?php
+-<?php
 /* @var array $userdata */
 use classes\character\data\Character;
 use classes\character\helper\CharacterSheetHelper;

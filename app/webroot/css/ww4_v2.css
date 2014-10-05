@@ -747,3 +747,7 @@ table.geist_normal_text > tbody > tr > th:nth-child(even) {
     left: 100px;
     top: 130px;
 }
+
+#main-menu {
+    margin-top: 9px;
+}
