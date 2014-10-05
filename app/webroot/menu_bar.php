@@ -113,10 +113,10 @@ $mainMenu = array(
                 		'link' => '/wiki/index.php?n=Changeling.History'),
 					'Locations' => array(
                 		'link' => '/wiki/index.php?n=Changeling.Locations'),
-					'Changeling Guide' => array(
-                		'link' => '/wiki/index.php?n=Changeling.Guide'),
+					'Changeling House Rules' => array(
+                		'link' => '/wiki/index.php?n=Changeling.HouseRules'),
 					'Character Creation' => array(
-                		'link' => '/wiki/index.php?n=Changeling.CharacterCreation'),
+                		'link' => '/wiki/index.php?n=Changeling.PlayerGuide'),
 					'Changeling Forums' => array(
                 		'link' => '/forum/viewforum.php?f=615'),
             		'Cast List' => array(
@@ -134,10 +134,10 @@ $mainMenu = array(
                 		'link' => '/wiki/index.php?n=Geist.History'),
 					'Locations' => array(
                 		'link' => '/wiki/index.php?n=Geist.Locations'),
-					'Geist Guide' => array(
-                		'link' => '/wiki/index.php?n=Geist.Guide'),
+					'Geist House Rules' => array(
+                		'link' => '/wiki/index.php?n=Geist.HouseRules'),
 					'Character Creation' => array(
-                		'link' => '/wiki/index.php?n=Geist.CharacterCreation'),
+                		'link' => '/wiki/index.php?n=Geist.PlayerGuide'),
 					'Geist Forums' => array(
                 		'link' => '/forum/viewforum.php?f=716'),
             		'Cast List' => array(
@@ -155,10 +155,10 @@ $mainMenu = array(
                 		'link' => '/wiki/index.php?n=Mage.History'),
 					'Locations' => array(
                 		'link' => '/wiki/index.php?n=Mage.Locations'),
-					'Mage Guide' => array(
-                		'link' => '/wiki/index.php?n=Mage.Guide'),
+					'Mage House Rules' => array(
+                		'link' => '/wiki/index.php?n=Mage.HouseRules'),
 					'Character Creation' => array(
-                		'link' => '/wiki/index.php?n=Mage.CharacterCreation'),
+                		'link' => '/wiki/index.php?n=Mage.PlayerGuide'),
 					'Mage Forums' => array(
                 		'link' => '/forum/viewforum.php?f=624'),
             		'Cast List' => array(
@@ -176,10 +176,10 @@ $mainMenu = array(
                 		'link' => '/wiki/index.php?n=Mortal.History'),
 					'Locations' => array(
                 		'link' => '/wiki/index.php?n=Mortal.Locations'),
-					'Mortal Guide' => array(
-                		'link' => '/wiki/index.php?n=Mortal.Guide'),
+					'Mortal House Rules' => array(
+                		'link' => '/wiki/index.php?n=Mortal.HouseRules'),
 					'Character Creation' => array(
-                		'link' => '/wiki/index.php?n=Mortal.CharacterCreation'),
+                		'link' => '/wiki/index.php?n=Mortal.PlayerGuide'),
 					'Mortal Forums' => array(
                 		'link' => '/forum/viewforum.php?f=625'),
             		'Cast List' => array(
@@ -197,10 +197,10 @@ $mainMenu = array(
                 		'link' => '/wiki/index.php?n=Vampire.History'),
 					'Locations' => array(
                 		'link' => '/wiki/index.php?n=Vampire.Locations'),
-					'Vampire Guide' => array(
-                		'link' => '/wiki/index.php?n=Vampire.Guide'),
+					'Vampire House Rules' => array(
+                		'link' => '/wiki/index.php?n=Vampire.HouseRules'),
 					'Character Creation' => array(
-                		'link' => '/wiki/index.php?n=Vampire.CharacterCreation'),
+                		'link' => '/wiki/index.php?n=Vampire.PlayerGuide'),
 					'Vampire Forums' => array(
                 		'link' => '/forum/viewforum.php?f=665'),
             		'Cast List' => array(
@@ -218,10 +218,10 @@ $mainMenu = array(
                 		'link' => '/wiki/index.php?n=Werewolf.History'),
 					'Locations' => array(
                 		'link' => '/wiki/index.php?n=Werewolf.Locations'),
-					'Werewolf Guide' => array(
-                		'link' => '/wiki/index.php?n=Werewolf.Guide'),
+					'Werewolf House Rules' => array(
+                		'link' => '/wiki/index.php?n=Werewolf.HouseRules'),
 					'Character Creation' => array(
-                		'link' => '/wiki/index.php?n=Werewolf.CharacterCreation'),
+                		'link' => '/wiki/index.php?n=Werewolf.PlayerGuide'),
 					'Werewolf Forums' => array(
                 		'link' => '/forum/viewforum.php?f=626'),
             		'Cast List' => array(
