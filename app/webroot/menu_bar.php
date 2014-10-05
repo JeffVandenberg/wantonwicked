@@ -7,212 +7,255 @@ use classes\core\helpers\MenuHelper;
 use classes\core\helpers\UserdataHelper;
 
 $mainMenu = array(
-    'Home' => array(
-        'link' => '/',
+    'Home'       => array(
+        'link'   => '/',
         'target' => '_top'
     ),
-    'The Setting' => array(
-        'link' => '#',
-        'submenu' => array(
-            'The City' => array(
-                'link' => '/wiki/index.php?n=City.City'
-            ),
-            'Changeling' => array(
-                'link' => '/wiki/index.php?n=Changeling.Changeling',
-                'submenu' => array(
-                    'House Rules' => array(
-                        'link' => '/wiki/index.php?n=Changeling.HouseRules'
-                    ),
-                    'Player Guide' => array(
-                        'link' => '/wiki/index.php?n=Changeling.PlayerGuide'
-                    ),
-                    'Cast' => array(
-                        'link' => '/characters/cast/Changeling'
-                    ),
-                )
-            ),
-            'Geist' => array(
-                'link' => '/wiki/index.php?n=Geist.Geist',
-                'submenu' => array(
-                    'House Rules' => array(
-                        'link' => '/wiki/index.php?n=Geist.HouseRules'
-                    ),
-                    'Player Guide' => array(
-                        'link' => '/wiki/index.php?n=Geist.PlayerGuide'
-                    ),
-                    'Cast' => array(
-                        'link' => '/characters/cast/Geist'
-                    ),
-                )
-            ),
-            'Mage' => array(
-                'link' => '/wiki/index.php?n=Mage.Mage',
-                'submenu' => array(
-                    'House Rules' => array(
-                        'link' => '/wiki/index.php?n=Mage.HouseRules'
-                    ),
-                    'Player Guide' => array(
-                        'link' => '/wiki/index.php?n=Mage.PlayerGuide'
-                    ),
-                    'Cast' => array(
-                        'link' => '/characters/cast/Mage'
-                    ),
-                )
-            ),
-            'Mortal' => array(
-                'link' => '/wiki/index.php?n=Mortal.Mortal',
-                'submenu' => array(
-                    'House Rules' => array(
-                        'link' => '/wiki/index.php?n=Mortal.HouseRules'
-                    ),
-                    'Player Guide' => array(
-                        'link' => '/wiki/index.php?n=Mortal.PlayerGuide'
-                    ),
-                    'Cast' => array(
-                        'link' => '/characters/cast/Mortal'
-                    ),
-                )
-            ),
-            'Vampire' => array(
-                'link' => '/wiki/index.php?n=Vampire.Vampire',
-                'submenu' => array(
-                    'House Rules' => array(
-                        'link' => '/wiki/index.php?n=Vampire.HouseRules'
-                    ),
-                    'Player Guide' => array(
-                        'link' => '/wiki/index.php?n=Vampire.PlayerGuide'
-                    ),
-                    'Cast' => array(
-                        'link' => '/characters/cast/Vampire'
-                    ),
-                )
-            ),
-            'Werewolf' => array(
-                'link' => '/wiki/index.php?n=Werewolf.Werewolf',
-                'submenu' => array(
-                    'House Rules' => array(
-                        'link' => '/wiki/index.php?n=Werewolf.HouseRules'
-                    ),
-                    'Player Guide' => array(
-                        'link' => '/wiki/index.php?n=Werewolf.PlayerGuide'
-                    ),
-                    'Cast' => array(
-                        'link' => '/characters/cast/Werewolf'
-                    ),
-                )
-            ),
-            'Crossover Sub-venues' => array(
-                'link' => '#',
-                'submenu' => array(
-                    'Whitefield' => array(
-                        'link' => '/wiki/index.php?n=Whitefield.Whitefield',
-                        'submenu' => array(
-                            'House Rules' => array(
-                                'link' => '/wiki/index.php?n=Whitefield.HouseRules'
-                            ),
-                            'Player Guide' => array(
-                                'link' => '/wiki/index.php?n=Whitefield.PlayerGuide'
-                            ),
-                        )
-                    ),
-                )
-            ),
-            'The Cast' => array(
-                'link' => '/characters/cast'
-            )
-        )
+	    'Forums'       => array(
+        'link'   => '/forum/index.php',
     ),
-    'Game Guide' => array(
-        'link' => '#',
+    'Site Tools' => array(
+        'link'    => '#',
         'submenu' => array(
-            'House Rules' => array(
-                'link' => '/wiki/index.php?n=GameRef.HouseRules',
-                'submenu' => array(
-                    'Crossover Errata' => array(
-                        'link' => '/wiki/index.php?n=GameRef.CrossoverErrata'
-                    )
-                )
-            ),
-            'Character Creation' => array(
-                'link' => '/wiki/index.php?n=GameRef.CharacterCreation',
-                'submenu' => array(
-                    'Sanctioning Checklist' => array(
-                        'link' => '/wiki/index.php?n=GameRef.SanctioningGuide'
-                    ),
-                    'Book Policy' => array(
-                        'link' => '/wiki/index.php?n=GameRef.BookPolicy'
-                    ),
-                )
-            ),
-            'Experience Guide' => array(
-                'link' => '/wiki/index.php?n=GameRef.ExperienceGuide'
-            ),
-            'Policies and Practices' => array(
-                'link' => '/wiki/index.php?n=GameRef.PoliciesandPractices',
-                'submenu' => array(
-                    'Crossover Policy' => array(
-                        'link' => '/wiki/index.php?n=GameRef.CrossoverPolicy'
-                    )
-                )
-            ),
-        )
-    ),
-    'Tools' => array(
-        'link' => '#',
-        'submenu' => array(
-            'Help' => array(
-                'link' => '/wiki/index.php?n=GameRef.Help',
-                'submenu' => array(
-                    'Request System' => array(
-                        'link' => '/wiki/index.php?n=GameRef.RequestSystemHelp',
-                    ),
-                    'Chat Interface' => array(
-                        'link' => '/wiki/index.php?n=GameRef.ChatHelp',
-                    )
-                )
-            ),
             'Site Supporter' => array(
                 'link' => 'support.php'
             )
         )
     ),
-    'Forums' => array(
-        'link' => '/forum/index.php'
-    ),
-    'Site Info' => array(
-        'link' => '#',
+    'Help'       => array(
+        'link'    => '#',
         'submenu' => array(
-            'The Team' => array(
-                'link' => array('controller' => 'home', 'action' => 'staff')
+            'Meet the Team'      => array(
+                'link' => array('controller' => 'home', 'action' => 'staff'
+                )
             ),
-            'Code of Conduct' => array(
-                'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
+            'Site Policy'        => array(
+                'link'    => '#',
                 'submenu' => array(
-                    'Personal Information' => array(
-                        'link' => '/wiki/index.php?n=GameRef.PersonalInformation',
+                    'Code of Conduct' => array(
+                        'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
+                    ),
+                    'Other Policies'  => array(
+                        'link' => '/wiki/index.php?n=GameRef.PoliciesandPractices',
+                    ),
+                    'Disclaimer'      => array(
+                        'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                    ),
+                    'Book Policy'     => array(
+                        'link' => '/wiki/index.php?n=GameRef.BookPolicy',
                     )
                 )
             ),
-            'Disclaimer' => array(
-                'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+            'Help Guides'        => array(
+                'link'    => '#',
+                'submenu' => array(
+                    'New Player Help'   => array(
+                        'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
+                    ),
+                    'Chat Help'              => array(
+                        'link' => '/wiki/index.php?n=GameRef.PoliciesandPractices',
+                    ),
+                    'Request System'    => array(
+                        'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                    ),
+                    'Experience Guide'  => array(
+                        'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                    ),
+                    'Sanctioning Guide' => array(
+                        'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                    )
+                )
+            ),
+            'House Rules'        => array(
+                'link' => '/wiki/index.php?n=GameRef.HouseRules',
+            ),
+            'Crossover Rules'    => array(
+                'link' => '/wiki/index.php?n=GameRef.CrossoverErrata'
+            ),
+            'Character Creation' => array(
+                'link' => '/wiki/index.php?n=GameRef.CharacterCreation'
+            )
+        )
+    ),
+    'The City'   => array(
+        'link'    => '#',
+        'submenu' => array(
+            'Setting Introduction' => array(
+                'link' => '/wiki/index.php?n=City.City'),
+            'City Map'             => array(
+                'link' => '/ww4map/map.html'),
+            'City Districts'       => array(
+                'link' => '/wiki/index.php?n=City.Districts'),
+            'Cast List'            => array(
+                'link' => '/characters/cast/'),
+            'Crossover Venues'     => array(
+                'link' => '#',
+                'submenu' => array(
+					'The Shadow' => array(
+						'link' => '/wiki/index.php?n=Shadow.Shadow'),
+					'Whitefield University' => array(
+						'link' => '/wiki/index.php?n=Whitefield.Whitefield'),
+                )
+            )
+        )
+    ),
+   'The Venues'   => array(
+        'link'    => '#',
+        'submenu' => array(
+			'Changeling' => array(
+				'link'    => '#',
+				'submenu' => array(
+            		'Overview' => array(
+                		'link' => '/wiki/index.php?n=Changeling.Changeling'),
+					'Society' => array(
+                		'link' => '/wiki/index.php?n=Changeling.Society'),
+					'History' => array(
+                		'link' => '/wiki/index.php?n=Changeling.History'),
+					'Locations' => array(
+                		'link' => '/wiki/index.php?n=Changeling.Locations'),
+					'Changeling Guide' => array(
+                		'link' => '/wiki/index.php?n=Changeling.Guide'),
+					'Character Creation' => array(
+                		'link' => '/wiki/index.php?n=Changeling.CharacterCreation'),
+					'Changeling Forums' => array(
+                		'link' => '/forum/viewforum.php?f=615'),
+            		'Cast List' => array(
+                		'link' => '/characters/cast/changeling')
+        		)
+    		),
+        	'Geist' => array(
+				'link'    => '#',
+				'submenu' => array(
+            		'Overview' => array(
+                		'link' => '/wiki/index.php?n=Geist.Geist'),
+					'Society' => array(
+                		'link' => '/wiki/index.php?n=Geist.Society'),
+					'History' => array(
+                		'link' => '/wiki/index.php?n=Geist.History'),
+					'Locations' => array(
+                		'link' => '/wiki/index.php?n=Geist.Locations'),
+					'Geist Guide' => array(
+                		'link' => '/wiki/index.php?n=Geist.Guide'),
+					'Character Creation' => array(
+                		'link' => '/wiki/index.php?n=Geist.CharacterCreation'),
+					'Geist Forums' => array(
+                		'link' => '/forum/viewforum.php?f=716'),
+            		'Cast List' => array(
+                		'link' => '/characters/cast/geist')
+        		)
+    		),
+			'Mage' => array(
+				'link'    => '#',
+				'submenu' => array(
+            		'Overview' => array(
+                		'link' => '/wiki/index.php?n=Mage.Mage'),
+					'Society' => array(
+                		'link' => '/wiki/index.php?n=Mage.Society'),
+					'History' => array(
+                		'link' => '/wiki/index.php?n=Mage.History'),
+					'Locations' => array(
+                		'link' => '/wiki/index.php?n=Mage.Locations'),
+					'Mage Guide' => array(
+                		'link' => '/wiki/index.php?n=Mage.Guide'),
+					'Character Creation' => array(
+                		'link' => '/wiki/index.php?n=Mage.CharacterCreation'),
+					'Mage Forums' => array(
+                		'link' => '/forum/viewforum.php?f=624'),
+            		'Cast List' => array(
+                		'link' => '/characters/cast/mage')
+        		)
+    		),
+			'Mortal' => array(
+				'link'    => '#',
+				'submenu' => array(
+            		'Overview' => array(
+                		'link' => '/wiki/index.php?n=Mortal.Mortal'),
+					'Society' => array(
+                		'link' => '/wiki/index.php?n=Mortal.Society'),
+					'History' => array(
+                		'link' => '/wiki/index.php?n=Mortal.History'),
+					'Locations' => array(
+                		'link' => '/wiki/index.php?n=Mortal.Locations'),
+					'Mortal Guide' => array(
+                		'link' => '/wiki/index.php?n=Mortal.Guide'),
+					'Character Creation' => array(
+                		'link' => '/wiki/index.php?n=Mortal.CharacterCreation'),
+					'Mortal Forums' => array(
+                		'link' => '/forum/viewforum.php?f=625'),
+            		'Cast List' => array(
+                		'link' => '/characters/cast/mortal')
+        		)
+    		),
+			'Vampire' => array(
+				'link'    => '#',
+				'submenu' => array(
+            		'Overview' => array(
+                		'link' => '/wiki/index.php?n=Vampire.Vampire'),
+					'Society' => array(
+                		'link' => '/wiki/index.php?n=Vampire.Society'),
+					'History' => array(
+                		'link' => '/wiki/index.php?n=Vampire.History'),
+					'Locations' => array(
+                		'link' => '/wiki/index.php?n=Vampire.Locations'),
+					'Vampire Guide' => array(
+                		'link' => '/wiki/index.php?n=Vampire.Guide'),
+					'Character Creation' => array(
+                		'link' => '/wiki/index.php?n=Vampire.CharacterCreation'),
+					'Vampire Forums' => array(
+                		'link' => '/forum/viewforum.php?f=665'),
+            		'Cast List' => array(
+                		'link' => '/characters/cast/vampire')
+        		)
+    		),
+			'Werewolf' => array(
+				'link'    => '#',
+				'submenu' => array(
+            		'Overview' => array(
+                		'link' => '/wiki/index.php?n=Werewolf.Werewolf'),
+					'Society' => array(
+                		'link' => '/wiki/index.php?n=Werewolf.Society'),
+					'History' => array(
+                		'link' => '/wiki/index.php?n=Werewolf.History'),
+					'Locations' => array(
+                		'link' => '/wiki/index.php?n=Werewolf.Locations'),
+					'Werewolf Guide' => array(
+                		'link' => '/wiki/index.php?n=Werewolf.Guide'),
+					'Character Creation' => array(
+                		'link' => '/wiki/index.php?n=Werewolf.CharacterCreation'),
+					'Werewolf Forums' => array(
+                		'link' => '/forum/viewforum.php?f=626'),
+            		'Cast List' => array(
+                		'link' => '/characters/cast/werewolf')
+        		)
+    		),
+		)
+    ),
+    'Sidegames'  => array(
+        'link'    => '#',
+        'submenu' => array(
+            'Sidegame List'   => array(
+                'link' => '/wiki/index.php?n=Sidegames.Sidegames'
+            ),
+            'Sidegame Forums' => array(
+                'link' => '/forum/viewforum.php?f=763'
             )
         )
     )
 );
 
-if($userdata['user_id'] != ANONYMOUS) {
-    $mainMenu['Tools']['submenu']['Character List'] = array(
+if ($userdata['user_id'] != ANONYMOUS) {
+    $mainMenu['Site Tools']['submenu']['Character List'] = array(
         'link' => '/chat.php'
     );
 
-    $characterRepository = new CharacterRepository();
+    $characterRepository  = new CharacterRepository();
     $sanctionedCharacters = $characterRepository->ListSanctionedCharactersByPlayerId($userdata['user_id']);
-    foreach($sanctionedCharacters as $character) {
-        $characterMenu = array(
-            'link' => '/character.php?action=interface&character_id='.$character['id'],
+    foreach ($sanctionedCharacters as $character) {
+        $characterMenu                                                                                = array(
+            'link'    => '/character.php?action=interface&character_id=' . $character['id'],
             'submenu' => array(
-                'Login' => array(
-                    'link' => '/chat/?character_id='.$character['id']
+                'Login'    => array(
+                    'link' => '/chat/?character_id=' . $character['id']
                 ),
                 'Requests' => array(
                     'link' => '/request.php?action=list&character_id=' . $character['id']
@@ -220,36 +263,30 @@ if($userdata['user_id'] != ANONYMOUS) {
                 'Bluebook' => array(
                     'link' => '/bluebook.php?action=list&character_id=' . $character['id']
                 ),
-                'Sheet' => array(
+                'Sheet'    => array(
                     'link' => '/view_sheet.php?action=view_own_xp&character_id=' . $character['id']
                 )
             )
         );
-        $mainMenu['Tools']['submenu']['Character List']['submenu'][$character['character_name']] = $characterMenu;
+        $mainMenu['Site Tools']['submenu']['Character List']['submenu'][$character['character_name']] = $characterMenu;
     }
 }
 
-if(UserdataHelper::IsSt($userdata)) {
-    $mainMenu['Tools']['submenu']['ST Tools'] = array(
-        'link' => '/storyteller_index.php',
+if (UserdataHelper::IsSt($userdata)) {
+    $mainMenu['Site Tools']['submenu']['ST Tools'] = array(
+        'link'    => '/storyteller_index.php',
         'submenu' => array(
-            'Character Lookup' => array(
+            'Character Lookup'  => array(
                 'link' => '/view_sheet.php?action=st_view_xp',
             ),
             'Request Dashboard' => array(
                 'link' => '/request.php?action=st_list'
             ),
-            'Chat Login' => array(
-                'link' => '/chat/?st_login',
+            'Chat Login'        => array(
+                'link'   => '/chat/?st_login',
                 'target' => '_blank'
             )
         )
-    );
-}
-
-if(UserdataHelper::IsAdmin($userdata)) {
-    $mainMenu['Tools']['submenu']['Site Supporter']['submenu']['Manage Support'] = array(
-        'link' => '/support.php?action=manage'
     );
 }
 
