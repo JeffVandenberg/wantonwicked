@@ -318,7 +318,12 @@ class MenuComponent extends Component {
 
         if($this->Auth->loggedIn()) {
             $this->menu['Site Tools']['submenu']['Character List'] = array(
-                'link' => '/chat.php'
+                'link' => '/chat.php',
+                'submenu' => array(
+                    'Create a Character' => array(
+                        'link' => '/view_sheet.php?action=create_xp'
+                    )
+                )
             );
             App::uses('AppModel', 'Model');
             App::uses('Character', 'Model');

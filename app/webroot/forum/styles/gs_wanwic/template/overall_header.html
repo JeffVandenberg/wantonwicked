@@ -187,7 +187,7 @@ function marklist(id, name, state)
         <li><a href="/forum/index.php"><span>Forums</span></a></li>
         <li><a href="#"><span>Site Tools</span></a>
             <ul>
-                <li><a href="support.php"><span>Site Supporter</span></a>
+                <li><a href="/support.php"><span>Site Supporter</span></a>
                     <!-- IF U_IS_ADMIN -->
                     <ul>
                         <li><a href="/support.php?action=manage"><span>Manage Support</span></a></li>
@@ -195,7 +195,11 @@ function marklist(id, name, state)
                     <!-- ENDIF -->
                 </li>
                 <!-- IF S_USER_LOGGED_IN -->
-                <li><a href="chat.php">Character List</a></li>
+                <li><a href="/chat.php">Character List</a>
+                    <ul>
+                        <li><a href="/view_sheet.php?action=create_xp"><span>Create A Character</span></a></li>
+                    </ul>
+                </li>
                 <!-- ENDIF -->
                 <!-- IF U_IS_STORYTELLER -->
                 <li><a href="/storyteller_index.php"><span>ST Tools</span></a>
