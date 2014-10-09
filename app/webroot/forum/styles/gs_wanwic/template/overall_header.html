@@ -96,7 +96,7 @@ function marklist(id, name, state)
 	}
 
 	var rb = parent.getElementsByTagName('input');
-	
+
 	for (var r = 0; r < rb.length; r++)
 	{
 		if (rb[r].name.substr(0, name.length) == name)
@@ -168,7 +168,7 @@ function marklist(id, name, state)
 </div>
 <div id="wrapper">
 <div id="login">
-<div id="logina"> 
+<div id="logina">
 <div id="loginb" valign="center"><!-- IF not S_IS_BOT --><a href="{U_LOGIN_LOGOUT}"><font color="#FFFFFF"> {L_LOGIN_LOGOUT}</font></a>&nbsp;<!-- ENDIF --> <!-- IF not S_IS_BOT -->
 					<!-- IF S_USER_LOGGED_IN -->
 						<!-- IF S_DISPLAY_PM --> <font color="#FFFFFF">|</font> <a href="{U_PRIVATEMSGS}"><font color="#FFFFFF">{PRIVATE_MESSAGE_INFO}<!-- IF PRIVATE_MESSAGE_INFO_UNREAD -->, {PRIVATE_MESSAGE_INFO_UNREAD}<!-- ENDIF --></font></a><!-- ENDIF -->
@@ -184,107 +184,152 @@ function marklist(id, name, state)
 <div id="nav">
     <ul class='menu' id='main-menu'>
         <li><a href="/" target="_top"><span>Home</span></a></li>
-        <li><a href="#"><span>The Setting</span></a>
+        <li><a href="/forum/index.php"><span>Forums</span></a></li>
+        <li><a href="#"><span>Site Tools</span></a>
             <ul>
-                <li><a href="/wiki/index.php?n=City.City"><span>The City</span></a></li>
-                <li><a href="/wiki/index.php?n=Changeling.Changeling"><span>Changeling</span></a>
+                <li><a href="support.php"><span>Site Supporter</span></a>
+                    <!-- IF U_IS_ADMIN -->
                     <ul>
-                        <li><a href="/wiki/index.php?n=Changeling.HouseRules"><span>House Rules</span></a></li>
-                        <li><a href="/wiki/index.php?n=Changeling.PlayerGuide"><span>Player Guide</span></a></li>
-                        <li><a href="/characters/cast/Changeling"><span>Cast</span></a></li>
+                        <li><a href="/support.php?action=manage"><span>Manage Support</span></a></li>
+                    </ul>
+                    <!-- ENDIF -->
+                </li>
+                <!-- IF S_USER_LOGGED_IN -->
+                <li><a href="chat.php">Character List</a></li>
+                <!-- ENDIF -->
+                <!-- IF U_IS_STORYTELLER -->
+                <li><a href="/storyteller_index.php"><span>ST Tools</span></a>
+                    <ul>
+                        <li><a href="/view_sheet.php?action=st_view_xp"><span>Character Lookup</span></a></li>
+                        <li><a href="/request.php?action=st_list"><span>Request Dashboard</span></a></li>
+                        <li><a href="/chat/?st_login" target="_blank"><span>Chat Login</span></a></li>
                     </ul>
                 </li>
-                <li><a href="/wiki/index.php?n=Geist.Geist"><span>Geist</span></a>
-                    <ul>
-                        <li><a href="/wiki/index.php?n=Geist.HouseRules"><span>House Rules</span></a></li>
-                        <li><a href="/wiki/index.php?n=Geist.PlayerGuide"><span>Player Guide</span></a></li>
-                        <li><a href="/characters/cast/Geist"><span>Cast</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="/wiki/index.php?n=Mage.Mage"><span>Mage</span></a>
-                    <ul>
-                        <li><a href="/wiki/index.php?n=Mage.HouseRules"><span>House Rules</span></a></li>
-                        <li><a href="/wiki/index.php?n=Mage.PlayerGuide"><span>Player Guide</span></a></li>
-                        <li><a href="/characters/cast/Mage"><span>Cast</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="/wiki/index.php?n=Mortal.Mortal"><span>Mortal</span></a>
-                    <ul>
-                        <li><a href="/wiki/index.php?n=Mortal.HouseRules"><span>House Rules</span></a></li>
-                        <li><a href="/wiki/index.php?n=Mortal.PlayerGuide"><span>Player Guide</span></a></li>
-                        <li><a href="/characters/cast/Mortal"><span>Cast</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="/wiki/index.php?n=Vampire.Vampire"><span>Vampire</span></a>
-                    <ul>
-                        <li><a href="/wiki/index.php?n=Vampire.HouseRules"><span>House Rules</span></a></li>
-                        <li><a href="/wiki/index.php?n=Vampire.PlayerGuide"><span>Player Guide</span></a></li>
-                        <li><a href="/characters/cast/Vampire"><span>Cast</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="/wiki/index.php?n=Werewolf.Werewolf"><span>Werewolf</span></a>
-                    <ul>
-                        <li><a href="/wiki/index.php?n=Werewolf.HouseRules"><span>House Rules</span></a></li>
-                        <li><a href="/wiki/index.php?n=Werewolf.PlayerGuide"><span>Player Guide</span></a></li>
-                        <li><a href="/characters/cast/Werewolf"><span>Cast</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><span>Crossover Sub-venues</span></a>
-                    <ul>
-                        <li><a href="/wiki/index.php?n=Whitefield.Whitefield"><span>Whitefield</span></a>
-                            <ul>
-                                <li><a href="/wiki/index.php?n=Whitefield.HouseRules"><span>House Rules</span></a></li>
-                                <li><a href="/wiki/index.php?n=Whitefield.PlayerGuide"><span>Player Guide</span></a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="/characters/cast"><span>The Cast</span></a></li>
+                <!-- ENDIF -->
             </ul>
         </li>
-        <li><a href="#"><span>Game Guide</span></a>
+        <li><a href="#"><span>Help</span></a>
             <ul>
-                <li><a href="/wiki/index.php?n=GameRef.HouseRules"><span>House Rules</span></a>
+                <li><a href="/staff"><span>Meet the Team</span></a></li>
+                <li><a href="#"><span>Site Policy</span></a>
                     <ul>
-                        <li><a href="/wiki/index.php?n=GameRef.CrossoverErrata"><span>Crossover Errata</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="/wiki/index.php?n=GameRef.CharacterCreation"><span>Character Creation</span></a>
-                    <ul>
-                        <li><a href="/wiki/index.php?n=GameRef.SanctioningGuide"><span>Sanctioning Checklist</span></a></li>
+                        <li><a href="/wiki/index.php?n=GameRef.CodeOfConduct"><span>Code of Conduct</span></a></li>
+                        <li><a href="/wiki/index.php?n=GameRef.PoliciesandPractices"><span>Other Policies</span></a>
+                        </li>
+                        <li><a href="/wiki/index.php?n=GameRef.Disclaimer"><span>Disclaimer</span></a></li>
                         <li><a href="/wiki/index.php?n=GameRef.BookPolicy"><span>Book Policy</span></a></li>
                     </ul>
                 </li>
-                <li><a href="/wiki/index.php?n=GameRef.ExperienceGuide"><span>Experience Guide</span></a></li>
-                <li><a href="/wiki/index.php?n=GameRef.PoliciesandPractices"><span>Policies and Practices</span></a>
+                <li><a href="#"><span>Help Guides</span></a>
                     <ul>
-                        <li><a href="/wiki/index.php?n=GameRef.CrossoverPolicy"><span>Crossover Policy</span></a></li>
+                        <li><a href="/wiki/index.php?n=GameRef.CodeOfConduct"><span>New Player Help</span></a></li>
+                        <li><a href="/wiki/index.php?n=GameRef.PoliciesandPractices"><span>Chat Help</span></a></li>
+                        <li><a href="/wiki/index.php?n=GameRef.Disclaimer"><span>Request System</span></a></li>
+                        <li><a href="/wiki/index.php?n=GameRef.Disclaimer"><span>Experience Guide</span></a></li>
+                        <li><a href="/wiki/index.php?n=GameRef.Disclaimer"><span>Sanctioning Guide</span></a></li>
                     </ul>
                 </li>
+                <li><a href="/wiki/index.php?n=GameRef.HouseRules"><span>House Rules</span></a></li>
+                <li><a href="/wiki/index.php?n=GameRef.CrossoverErrata"><span>Crossover Rules</span></a></li>
+                <li><a href="/wiki/index.php?n=GameRef.CharacterCreation"><span>Character Creation</span></a></li>
             </ul>
         </li>
-        <li><a href="#"><span>Tools</span></a>
+        <li><a href="#"><span>The City</span></a>
             <ul>
-                <li><a href="/wiki/index.php?n=GameRef.Help"><span>Help</span></a>
+                <li><a href="/wiki/index.php?n=City.City"><span>Setting Introduction</span></a></li>
+                <li><a href="/ww4map/map.html"><span>City Map</span></a></li>
+                <li><a href="/wiki/index.php?n=City.Districts"><span>City Districts</span></a></li>
+                <li><a href="/characters/cast/"><span>Cast List</span></a></li>
+                <li><a href="#"><span>Crossover Venues</span></a>
                     <ul>
-                        <li><a href="/wiki/index.php?n=GameRef.RequestSystemHelp"><span>Request System</span></a></li>
-                        <li><a href="/wiki/index.php?n=GameRef.ChatHelp"><span>Chat Interface</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="support.php"><span>Site Supporter</span></a></li>
-            </ul>
-        </li>
-        <li><a href="/forum/index.php"><span>Forums</span></a></li>
-        <li><a href="#"><span>Site Info</span></a>
-            <ul>
-                <li><a href="/staff"><span>The Team</span></a></li>
-                <li><a href="/wiki/index.php?n=GameRef.CodeOfConduct"><span>Code of Conduct</span></a>
-                    <ul>
-                        <li><a href="/wiki/index.php?n=GameRef.PersonalInformation"><span>Personal Information</span></a>
+                        <li><a href="/wiki/index.php?n=Shadow.Shadow"><span>The Shadow</span></a></li>
+                        <li><a href="/wiki/index.php?n=Whitefield.Whitefield"><span>Whitefield University</span></a>
                         </li>
                     </ul>
                 </li>
-                <li><a href="/wiki/index.php?n=GameRef.Disclaimer"><span>Disclaimer</span></a></li>
+            </ul>
+        </li>
+        <li><a href="#"><span>The Venues</span></a>
+            <ul>
+                <li><a href="#"><span>Changeling</span></a>
+                    <ul>
+                        <li><a href="/wiki/index.php?n=Changeling.Changeling"><span>Overview</span></a></li>
+                        <li><a href="/wiki/index.php?n=Changeling.Society"><span>Society</span></a></li>
+                        <li><a href="/wiki/index.php?n=Changeling.History"><span>History</span></a></li>
+                        <li><a href="/wiki/index.php?n=Changeling.Locations"><span>Locations</span></a></li>
+                        <li><a href="/wiki/index.php?n=Changeling.HouseRules"><span>Changeling House Rules</span></a>
+                        </li>
+                        <li><a href="/wiki/index.php?n=Changeling.PlayerGuide"><span>Character Creation</span></a></li>
+                        <li><a href="/forum/viewforum.php?f=615"><span>Changeling Forums</span></a></li>
+                        <li><a href="/characters/cast/changeling"><span>Cast List</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span>Geist</span></a>
+                    <ul>
+                        <li><a href="/wiki/index.php?n=Geist.Geist"><span>Overview</span></a></li>
+                        <li><a href="/wiki/index.php?n=Geist.Society"><span>Society</span></a></li>
+                        <li><a href="/wiki/index.php?n=Geist.History"><span>History</span></a></li>
+                        <li><a href="/wiki/index.php?n=Geist.Locations"><span>Locations</span></a></li>
+                        <li><a href="/wiki/index.php?n=Geist.HouseRules"><span>Geist House Rules</span></a></li>
+                        <li><a href="/wiki/index.php?n=Geist.PlayerGuide"><span>Character Creation</span></a></li>
+                        <li><a href="/forum/viewforum.php?f=716"><span>Geist Forums</span></a></li>
+                        <li><a href="/characters/cast/geist"><span>Cast List</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span>Mage</span></a>
+                    <ul>
+                        <li><a href="/wiki/index.php?n=Mage.Mage"><span>Overview</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mage.Society"><span>Society</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mage.History"><span>History</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mage.Locations"><span>Locations</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mage.HouseRules"><span>Mage House Rules</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mage.PlayerGuide"><span>Character Creation</span></a></li>
+                        <li><a href="/forum/viewforum.php?f=624"><span>Mage Forums</span></a></li>
+                        <li><a href="/characters/cast/mage"><span>Cast List</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span>Mortal</span></a>
+                    <ul>
+                        <li><a href="/wiki/index.php?n=Mortal.Mortal"><span>Overview</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mortal.Society"><span>Society</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mortal.History"><span>History</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mortal.Locations"><span>Locations</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mortal.HouseRules"><span>Mortal House Rules</span></a></li>
+                        <li><a href="/wiki/index.php?n=Mortal.PlayerGuide"><span>Character Creation</span></a></li>
+                        <li><a href="/forum/viewforum.php?f=625"><span>Mortal Forums</span></a></li>
+                        <li><a href="/characters/cast/mortal"><span>Cast List</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span>Vampire</span></a>
+                    <ul>
+                        <li><a href="/wiki/index.php?n=Vampire.Vampire"><span>Overview</span></a></li>
+                        <li><a href="/wiki/index.php?n=Vampire.Society"><span>Society</span></a></li>
+                        <li><a href="/wiki/index.php?n=Vampire.History"><span>History</span></a></li>
+                        <li><a href="/wiki/index.php?n=Vampire.Locations"><span>Locations</span></a></li>
+                        <li><a href="/wiki/index.php?n=Vampire.HouseRules"><span>Vampire House Rules</span></a></li>
+                        <li><a href="/wiki/index.php?n=Vampire.PlayerGuide"><span>Character Creation</span></a></li>
+                        <li><a href="/forum/viewforum.php?f=665"><span>Vampire Forums</span></a></li>
+                        <li><a href="/characters/cast/vampire"><span>Cast List</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span>Werewolf</span></a>
+                    <ul>
+                        <li><a href="/wiki/index.php?n=Werewolf.Werewolf"><span>Overview</span></a></li>
+                        <li><a href="/wiki/index.php?n=Werewolf.Society"><span>Society</span></a></li>
+                        <li><a href="/wiki/index.php?n=Werewolf.History"><span>History</span></a></li>
+                        <li><a href="/wiki/index.php?n=Werewolf.Locations"><span>Locations</span></a></li>
+                        <li><a href="/wiki/index.php?n=Werewolf.HouseRules"><span>Werewolf House Rules</span></a></li>
+                        <li><a href="/wiki/index.php?n=Werewolf.PlayerGuide"><span>Character Creation</span></a></li>
+                        <li><a href="/forum/viewforum.php?f=626"><span>Werewolf Forums</span></a></li>
+                        <li><a href="/characters/cast/werewolf"><span>Cast List</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="#"><span>Sidegames</span></a>
+            <ul>
+                <li><a href="/wiki/index.php?n=Sidegames.Sidegames"><span>Sidegame List</span></a></li>
+                <li><a href="/forum/viewforum.php?f=763"><span>Sidegame Forums</span></a></li>
             </ul>
         </li>
     </ul>
@@ -306,15 +351,15 @@ function marklist(id, name, state)
 		</tr>
 		</table>
 	</div>
-    
+
 	<div id="menubar">
 		<table width="100%" cellspacing="0">
 		<tr>
 			<td class="genmed">
-				
+
 				<!-- IF U_RESTORE_PERMISSIONS --> &nbsp;<a href="{U_RESTORE_PERMISSIONS}"><img src="{T_THEME_PATH}/images/icon_mini_login.gif" width="12" height="13" alt="*" /> {L_RESTORE_PERMISSIONS}</a><!-- ENDIF -->
 				<!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN --> &nbsp;<span style="color: red;">{L_BOARD_DISABLED}</span><!-- ENDIF -->
-				
+
 			</td>
 			<td class="genmed" align="{S_CONTENT_FLOW_END}">
 				<a href="{U_FAQ}"><img src="{T_THEME_PATH}/images/icon_mini_faq.gif" width="12" height="13" alt="*" /> {L_FAQ}</a>
@@ -334,7 +379,7 @@ function marklist(id, name, state)
 	<!-- INCLUDE breadcrumbs.html -->
 	<!-- IF S_DISPLAY_SEARCH -->
 	<p class="searchbar">
-		<span style="float: {S_CONTENT_FLOW_END};"><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a> | <a href="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</a> | 
+		<span style="float: {S_CONTENT_FLOW_END};"><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a> | <a href="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</a> |
 		<!-- IF S_USER_LOGGED_IN or S_LOAD_UNREADS -->
 		<!-- IF S_LOAD_UNREADS --><a href="{U_SEARCH_UNREAD}"><b>{L_SEARCH_UNREAD}</b></a><!-- IF S_USER_LOGGED_IN --> | <!-- ENDIF --><!-- ENDIF --><!-- IF S_USER_LOGGED_IN --><a href="{U_SEARCH_NEW}">{L_SEARCH_NEW}</a> | <a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a><!-- ENDIF --></span>
 		<!-- ENDIF -->
