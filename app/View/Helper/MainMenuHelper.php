@@ -16,21 +16,24 @@ class MainMenuHelper extends AppHelper
 
     public function Create($menu) {
         $renderedMenu = <<<EOQ
-<div id='navmenu'>
+<ul class='menu' id='main-menu'>
 EOQ;
 
         $renderedMenu .= $this->AppendLevel($menu, true);
         $renderedMenu .= <<<EOQ
-</div>
+</ul>
 EOQ;
         return $renderedMenu;
     }
 
-    private function AppendLevel($menu)
+    private function AppendLevel($menu, $firstLayer)
     {
-        $menuLevel = <<<EOQ
-<ul>
-EOQ;
+        $menuLevel = '';
+
+        if(!$firstLayer)
+        {
+            $menuLevel .= '<ul>';
+        }
 
         foreach($menu as $label => $item) {
             if($item !== 'break') {
@@ -74,7 +77,7 @@ EOQ;
                     $menuLevel .= $link;
 
                     if(isset($item['submenu'])) {
-                        $menuLevel .= $this->AppendLevel($item['submenu']);
+                        $menuLevel .= $this->AppendLevel($item['submenu'], false);
                     }
                     $menuLevel .= '</li>';
                 }
@@ -87,7 +90,10 @@ EOQ;
             }
         }
 
-        $menuLevel .= "</ul>";
+        if(!$firstLayer)
+        {
+            $menuLevel .= '</ul>';
+        }
 
         return $menuLevel;
     }

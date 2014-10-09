@@ -214,7 +214,6 @@ $page_content .= "</table>";
 // build links
 include 'user_panel.php';
 include 'menu_bar.php';
-include 'menu_bar_player_content.php';
 
 $template->assign_vars(array(
 "PAGE_TITLE" => $page_title,

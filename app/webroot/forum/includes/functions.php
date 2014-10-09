@@ -4561,7 +4561,10 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		}
 	}
 
-	// The following assigns all _common_ variables that may be used at any point in a template.
+    $isSt = ($user->data['is_asst'] || $user->data['is_gm'] || $user->data['is_head'] || $user->data['is_admin']);
+    $isAdmin = $user->data['is_admin'];
+
+    // The following assigns all _common_ variables that may be used at any point in a template.
 	$template->assign_vars(array(
 		'SITENAME'						=> $config['sitename'],
 		'SITE_DESCRIPTION'				=> $config['site_desc'],
@@ -4615,6 +4618,8 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'U_PRIVACY'				=> append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=privacy'),
 		'U_RESTORE_PERMISSIONS'	=> ($user->data['user_perm_from'] && $auth->acl_get('a_switchperm')) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'mode=restore_perm') : '',
 		'U_FEED'				=> generate_board_url() . "/feed.$phpEx",
+        'U_IS_STORYTELLER'      => $isSt,
+        'U_IS_ADMIN'            => $isAdmin,
 
 		'S_USER_LOGGED_IN'		=> ($user->data['user_id'] != ANONYMOUS) ? true : false,
 		'S_AUTOLOGIN_ENABLED'	=> ($config['allow_autologin']) ? true : false,

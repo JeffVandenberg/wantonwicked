@@ -196,7 +196,7 @@ $WikiStyle['shadow']['color']    ='#464646';
 
 $MarkupCss = true;
 
-include_once('../cgi-bin/timezoneAdjustment.php');
+include_once('../cgi-bin/start_of_page.php');
 include_once('../user_panel.php');
 
 $FmtPV['$ServerTime'] = "$server_time";
@@ -206,7 +206,6 @@ $FmtPV['$SiteUPName'] = 'getUpName()';
 $FmtPV['$LogInOut'] = 'getUpLogInOut()';
 
 include_once('../menu_bar.php');
-include_once('../menu_bar_player_content.php');
 
 function getMenuBar()
 {

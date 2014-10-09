@@ -41,7 +41,6 @@ $template_file = 'main_ww4.tpl';
 include 'user_panel.php';
 include 'menu_bar.php';
 include 'menu_bar_city_book.php';
-include 'menu_bar_player_content.php';
 
 if(isset($_GET['action']))
 {

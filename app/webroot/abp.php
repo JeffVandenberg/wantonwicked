@@ -32,7 +32,6 @@ $template_file = 'main_layout';
 include 'user_panel.php';
 include 'menu_bar.php';
 include 'menu_bar_city_book.php';
-include 'menu_bar_player_content.php';
 
 // common includes
 include 'includes/classes/tenacy/abp/abp.php';

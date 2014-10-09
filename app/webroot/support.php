@@ -39,7 +39,6 @@ $contentHeader = "";
 // build links
 include 'user_panel.php';
 include 'menu_bar.php';
-include 'menu_bar_player_content.php';
 
 if(isset($_GET['action']))
 {

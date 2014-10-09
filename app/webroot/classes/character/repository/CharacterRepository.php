@@ -216,6 +216,29 @@ EOQ;
         return $this->Query($sql)->All(array($userId));
     }
 
+    public function ListSanctionedCharactersByPlayerId($userId)
+    {
+        $sql = <<<EOQ
+SELECT
+    C.id,
+    C.character_name,
+    C.is_sanctioned,
+    U.username as updated_by_name,
+    C.updated_on
+FROM
+    characters AS C
+    LEFT JOIN phpbb_users as U ON C.updated_by_id = U.user_id
+WHERE
+    C.user_id = ?
+    AND C.is_deleted = 'N'
+    AND C.is_sanctioned = 'Y'
+ORDER BY
+    character_name
+EOQ;
+
+        return $this->Query($sql)->All(array($userId));
+    }
+
     public function FindByName($characterName)
     {
         $query = <<<EOQ

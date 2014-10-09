@@ -12,10 +12,8 @@ namespace classes\core\helpers;
 class MenuHelper
 {
     public static function GenerateMenu($menuItems) {
-        $menuId = mt_rand(1000000, 9999999);
-
         $menu = <<<EOQ
-<ul class="menu" id="menu-$menuId">
+<ul class="menu" id="main-menu">
 EOQ;
         if(is_array($menuItems))
         {

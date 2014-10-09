@@ -99,7 +99,6 @@ if (isset($_GET['action'])) {
 include 'user_panel.php';
 // build links
 include 'menu_bar.php';
-include 'menu_bar_player_content.php';
 
 
 $template->set_custom_template('templates', substr($template_layout, 0, strlen($template_layout) - 4));
