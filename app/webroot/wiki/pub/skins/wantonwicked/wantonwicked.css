@@ -468,3 +468,7 @@ dt {
 dd {
     font-style: italic;
 }
+
+#main-menu {
+    margin-top: 9px;
+}
