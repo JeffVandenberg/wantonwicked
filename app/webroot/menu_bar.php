@@ -50,19 +50,22 @@ $mainMenu = array(
                 'link'    => '#',
                 'submenu' => array(
                     'New Player Help'   => array(
-                        'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
+                        'link' => '/wiki/index.php?n=GameRef.Help',
+                    ),
+					'Wiki Guide'         => array(
+                        'link' => '/wiki/index.php?n=GameRef.WikiGuide',
                     ),
                     'Chat Help'         => array(
-                        'link' => '/wiki/index.php?n=GameRef.PoliciesandPractices',
+                        'link' => '/wiki/index.php?n=GameRef.ChatHelp',
                     ),
                     'Request System'    => array(
-                        'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                        'link' => '/wiki/index.php?n=GameRef.RequestSystemHelp',
                     ),
                     'Experience Guide'  => array(
-                        'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                        'link' => '/wiki/index.php?n=GameRef.ExperienceGuide',
                     ),
                     'Sanctioning Guide' => array(
-                        'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                        'link' => '/wiki/index.php?n=GameRef.SanctioningGuide',
                     )
                 )
             ),
@@ -248,8 +251,11 @@ $mainMenu = array(
                     'Vampire Forums'      => array(
                         'link' => '/forum/viewforum.php?f=665'
                     ),
-                    'Cast List'           => array(
+                    'Vampire Cast List'           => array(
                         'link' => '/characters/cast/vampire'
+                    ),
+					'Ghoul Cast List'           => array(
+                        'link' => '/characters/cast/ghoul'
                     )
                 )
             ),
@@ -277,8 +283,11 @@ $mainMenu = array(
                     'Werewolf Forums'      => array(
                         'link' => '/forum/viewforum.php?f=626'
                     ),
-                    'Cast List'            => array(
+                    'Werewolf Cast List'            => array(
                         'link' => '/characters/cast/werewolf'
+                    ),
+					'Wolfblooded Cast List'            => array(
+                        'link' => '/characters/cast/wolfblooded'
                     )
                 )
             ),
