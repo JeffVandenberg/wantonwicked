@@ -358,4 +358,10 @@ if (UserdataHelper::IsSt($userdata)) {
     );
 }
 
+if (UserdataHelper::IsAdmin($userdata)) {
+    $mainMenu['Site Tools']['submenu']['Manage Support'] = array(
+        'link' => '/support.php?action=manage'
+    );
+}
+
 $menu_bar = MenuHelper::GenerateMenu($mainMenu);
