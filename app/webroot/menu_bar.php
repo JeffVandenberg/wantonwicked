@@ -359,7 +359,7 @@ if (UserdataHelper::IsSt($userdata)) {
 }
 
 if (UserdataHelper::IsAdmin($userdata)) {
-    $mainMenu['Site Tools']['submenu']['Manage Support'] = array(
+    $mainMenu['Site Tools']['submenu']['Site Supporter']['submenu']['Manage Support'] = array(
         'link' => '/support.php?action=manage'
     );
 }

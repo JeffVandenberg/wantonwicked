@@ -21,9 +21,15 @@ if(Request::IsPost())
         Response::Redirect('support.php');
     }
     if(Request::GetValue('action') == 'Update') {
-        $supporterRepository->UpdateCharactersForSupporter($userdata['user_id'], Request::GetValue('character_id'));
-        SessionHelper::SetFlashMessage('Your characters have been set.');
-        Response::Redirect('support.php');
+        $characterIds = Request::GetValue('character_id');
+        if(is_array($characterIds)) {
+            $supporterRepository->UpdateCharactersForSupporter($userdata['user_id'], Request::GetValue('character_id'));
+            SessionHelper::SetFlashMessage('Your characters have been set.');
+            Response::Redirect('support.php');
+        }
+        else {
+            SessionHelper::SetFlashMessage('You didn\'t select any characters.');
+        }
     }
 }
 
