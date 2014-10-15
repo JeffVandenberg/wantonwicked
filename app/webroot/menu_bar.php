@@ -26,8 +26,7 @@ $mainMenu = array(
         'link'    => '#',
         'submenu' => array(
             'Meet the Team'      => array(
-                'link' => array('controller' => 'home', 'action' => 'staff'
-                )
+                'link' => '/staff'
             ),
             'Site Policy'        => array(
                 'link'    => '#',
@@ -52,7 +51,7 @@ $mainMenu = array(
                     'New Player Help'   => array(
                         'link' => '/wiki/index.php?n=GameRef.Help',
                     ),
-					'Wiki Guide'         => array(
+                    'Wiki Guide'        => array(
                         'link' => '/wiki/index.php?n=GameRef.WikiGuide',
                     ),
                     'Chat Help'         => array(
@@ -251,10 +250,10 @@ $mainMenu = array(
                     'Vampire Forums'      => array(
                         'link' => '/forum/viewforum.php?f=665'
                     ),
-                    'Vampire Cast List'           => array(
+                    'Vampire Cast List'   => array(
                         'link' => '/characters/cast/vampire'
                     ),
-					'Ghoul Cast List'           => array(
+                    'Ghoul Cast List'     => array(
                         'link' => '/characters/cast/ghoul'
                     )
                 )
@@ -262,31 +261,31 @@ $mainMenu = array(
             'Werewolf'   => array(
                 'link'    => '#',
                 'submenu' => array(
-                    'Overview'             => array(
+                    'Overview'              => array(
                         'link' => '/wiki/index.php?n=Werewolf.Werewolf'
                     ),
-                    'Society'              => array(
+                    'Society'               => array(
                         'link' => '/wiki/index.php?n=Werewolf.Society'
                     ),
-                    'History'              => array(
+                    'History'               => array(
                         'link' => '/wiki/index.php?n=Werewolf.History'
                     ),
-                    'Locations'            => array(
+                    'Locations'             => array(
                         'link' => '/wiki/index.php?n=Werewolf.Locations'
                     ),
-                    'Werewolf House Rules' => array(
+                    'Werewolf House Rules'  => array(
                         'link' => '/wiki/index.php?n=Werewolf.HouseRules'
                     ),
-                    'Character Creation'   => array(
+                    'Character Creation'    => array(
                         'link' => '/wiki/index.php?n=Werewolf.PlayerGuide'
                     ),
-                    'Werewolf Forums'      => array(
+                    'Werewolf Forums'       => array(
                         'link' => '/forum/viewforum.php?f=626'
                     ),
-                    'Werewolf Cast List'            => array(
+                    'Werewolf Cast List'    => array(
                         'link' => '/characters/cast/werewolf'
                     ),
-					'Wolfblooded Cast List'            => array(
+                    'Wolfblooded Cast List' => array(
                         'link' => '/characters/cast/wolfblooded'
                     )
                 )
@@ -308,7 +307,7 @@ $mainMenu = array(
 
 if ($userdata['user_id'] != ANONYMOUS) {
     $mainMenu['Site Tools']['submenu']['Character List'] = array(
-        'link' => '/chat.php',
+        'link'    => '/chat.php',
         'submenu' => array(
             'Create a Character' => array(
                 'link' => '/view_sheet.php?action=create_xp'
