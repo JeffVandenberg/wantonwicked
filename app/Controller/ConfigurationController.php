@@ -20,6 +20,27 @@ class ConfigurationController extends AppController {
         $this->set('configs', $this->Configuration->find('all'));
     }
 
+    public function read($configName)
+    {
+        App::uses('Configuration', 'Model');
+        $config           = new Configuration();
+        $configValue = $config->find(
+            'first',
+            array(
+                'conditions' => array(
+                    'key' => $configName
+                ),
+                'fields' => array(
+                    'value'
+                )
+            )
+        );
+
+        $this->set(compact('configValue'));
+
+        $this->set('_serialize', array('configValue'));
+    }
+
     public function edit() {
         if($this->request->is('post')) {
             // try to save
@@ -40,6 +61,9 @@ class ConfigurationController extends AppController {
             case 'index':
             case 'edit':
                 return $this->Permissions->IsAdmin();
+                break;
+            case 'read':
+                return true;
                 break;
         }
         return false;
