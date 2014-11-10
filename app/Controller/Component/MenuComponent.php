@@ -78,13 +78,13 @@ class MenuComponent extends Component {
                                 'link' => '/wiki/index.php?n=GameRef.ChatHelp',
                             ),
                             'Request System'    => array(
-                                'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                                'link' => '/wiki/index.php?n=GameRef.RequestSystemHelp',
                             ),
                             'Experience Guide'  => array(
-                                'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                                'link' => '/wiki/index.php?n=GameRef.ExperienceGuide',
                             ),
                             'Sanctioning Guide' => array(
-                                'link' => '/wiki/index.php?n=GameRef.Disclaimer',
+                                'link' => '/wiki/index.php?n=GameRef.SanctioningGuide',
                             )
                         )
                     ),
