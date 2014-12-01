@@ -28,7 +28,7 @@ FROM
 WHERE
     RN.request_id = $requestId
 ORDER BY
-    created_on DESC
+    created_on ASC
 EOQ;
 
         return ExecuteQueryData($sql);
