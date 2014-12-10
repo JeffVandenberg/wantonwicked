@@ -295,7 +295,7 @@ EOQ;
             {
                 $labelText = self::$_label;
             }
-            $label = self::Label($fieldName, $labelText);
+            $label = self::Label($fieldName, $labelText) . ' ';
         }
         return $label;
     }
