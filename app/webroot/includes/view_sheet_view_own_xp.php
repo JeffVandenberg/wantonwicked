@@ -1,4 +1,4 @@
--<?php
+<?php
 /* @var array $userdata */
 use classes\character\data\Character;
 use classes\character\helper\CharacterSheetHelper;
@@ -30,12 +30,17 @@ if (Request::IsPost()) {
     $powers = $oldCharacter->CharacterPower;
 
     if (($character['asst_sanctioned'] != '') || ($character['is_sanctioned'] != '')) {
-        $characterSheetHelper->UpdateOwnLimited($oldCharacter, $_POST);
+        $error = $characterSheetHelper->UpdateOwnLimited($oldCharacter, $_POST);
     }
     else {
-        $characterSheetHelper->UpdateOwnFull($oldCharacter, $_POST);
+        $error = $characterSheetHelper->UpdateOwnFull($oldCharacter, $_POST);
     }
-    SessionHelper::SetFlashMessage('Updated Character');
+    if($error == '') {
+        SessionHelper::SetFlashMessage('Updated Character');
+    }
+    else {
+        SessionHelper::SetFlashMessage($error);
+    }
     Response::Redirect('view_sheet.php?action=view_own_xp&character_id='.$characterId);
 }
 

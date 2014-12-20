@@ -1006,6 +1006,8 @@ class CharacterSheetHelper
             /* @var Character $newCharacter */
             $this->LogChanges($newCharacter, $oldCharacter);
         }
+
+        return $error;
     }
 
     public function UpdateOwnFull(Character $oldCharacter, $newStats)
@@ -1052,6 +1054,8 @@ class CharacterSheetHelper
             /* @var Character $newCharacter */
             $this->LogChanges($newCharacter, $oldCharacter);
         }
+
+        return $error;
     }
 
     private function LogChanges(Character $newCharacter, Character $oldCharacter)
