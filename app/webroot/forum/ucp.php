@@ -77,6 +77,7 @@ switch ($mode)
 		{
 			redirect(append_sid("{$phpbb_root_path}index.$phpEx"));
 		}
+
 		login_box(request_var('redirect', "index.$phpEx"));
 	break;
 
@@ -317,12 +318,6 @@ if ($module->is_active('zebra', 'friends'))
 if (!$config['allow_topic_notify'] && !$config['allow_forum_notify'])
 {
 	$module->set_display('main', 'subscribed', false);
-}
-
-// Do not display signature panel if not authed to do so
-if (!$auth->acl_get('u_sig'))
-{
-	$module->set_display('profile', 'signature', false);
 }
 
 // Select the active module
