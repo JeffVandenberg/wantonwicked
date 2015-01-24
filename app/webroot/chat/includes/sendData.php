@@ -158,6 +158,17 @@ if ($_POST) {
             $_POST['umessage'] = 'WEBCAM_ACCEPT||' . $_SESSION['myStreamID'];
         }
 
+        $dbh = db_connect();
+
+        // check if they were logging in, logging out, or moving room
+        if(strpos($_POST['umessage'], C_LANG100)  // left the room
+            || strpos($_POST['umessage'], C_LANG99) // joined the room
+        )
+        {
+            // update the user count
+            updateRoomUserCount($dbh);
+        }
+
         // if they are invisible don't post entry messages
         if((strpos($_POST['umessage'], C_LANG99) !== false) || (strpos($_POST['umessage'], C_LANG100) !== false)) {
             if(invisibleAdmins($_SESSION['user_id']) && ($admin || $mod)) {
@@ -243,7 +254,6 @@ if ($_POST) {
             $senderName = $_SESSION['display_name'];
         }
 
-        $dbh = db_connect();
         // if user is not silenced
         if (!$_SESSION['silenceStart'] || $_SESSION['silenceStart'] < (date("U") - $CONFIG['silent'] * 60)) {
             unset($_SESSION['silenceStart']);

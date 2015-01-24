@@ -1739,6 +1739,7 @@ function getUserGenders($userGender)
 
 function getProfileGenders($userGender)
 {
+    $gender = '';
     try {
         $dbh = db_connect();
         $params = array('');
@@ -1778,6 +1779,7 @@ function getProfileGenders($userGender)
 
 function getUserRooms($id)
 {
+    $html = '';
     try {
         $dbh = db_connect();
 
@@ -1842,6 +1844,7 @@ function getUserRooms($id)
 
 function getLoginNews()
 {
+    $html = '';
     try {
         $dbh = db_connect();
         $params = array('');
@@ -3127,7 +3130,7 @@ function showPlugins($page)
 
     if (($page == "login" || $page = "main") && file_exists(getDocPath() . "plugins/adver/functions.js")) {
         $html .= '<!-- Adverts Plugin -->';
-        $html .= '<script type="text/javascript">var refreshBanner = 30;</script>';
+        $html .= '<script type="text/javascript">var refreshBanner = 3600;</script>';
         $html .= '<script type="text/javascript" src="plugins/adver/functions.js"></script>';
 
         $plugin .= 'showBannerAds();';
@@ -3169,4 +3172,21 @@ function showPlugins($page)
     return $html;
 }
 
-?>
+function updateRoomUserCount(PDO $dbh)
+{
+    // update room user count
+    $query = <<<EOQ
+UPDATE prochatrooms_rooms AS R set roomusers = (
+    SELECT
+        count(*)
+    FROM
+        prochatrooms_users AS U
+    WHERE
+        U.room = R.id
+        AND U.online = 1
+        AND U.is_invisible = 0
+)
+EOQ;
+
+    $dbh->query($query)->execute();
+}

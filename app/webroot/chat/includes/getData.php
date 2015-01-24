@@ -4,6 +4,7 @@
 * include files
 *
 */
+$start = microtime(true);
 
 include("ini.php");
 include("session.php");
@@ -99,6 +100,7 @@ $onlineTime = getTime() - 300;
 $offlineTime = getTime() - $CONFIG['activeTimeout'];
 
 // get users
+$userLoggedOut = false;
 try {
     if ($_REQUEST['s']) { // if single room
         $params = array(
@@ -189,6 +191,7 @@ EOQ;
                 if ($i['online'] == '1') {
                     // update user status
                     logoutUser($i['id'], $i['room']);
+                    $userLoggedOut = true;
                 }
             }
             else {
@@ -239,21 +242,9 @@ EOQ;
     debugError($error);
 }
 
-// update room user count
-$query = <<<EOQ
-UPDATE prochatrooms_rooms AS R set roomusers = (
-    SELECT
-        count(*)
-    FROM
-        prochatrooms_users AS U
-    WHERE
-        U.room = R.id
-        AND U.online = 1
-        AND U.is_invisible = 0
-)
-EOQ;
-
-$dbh->query($query)->execute();
+if($userLoggedOut) {
+    updateRoomUserCount($dbh);
+}
 
 /*
 * get messages from database
@@ -461,6 +452,7 @@ $dbh = null;
 *
 */
 
+//$xml .= '<time>'.(microtime(true) - $start).'</time>';
 $xml .= '</root>';
 
 /*
