@@ -10,6 +10,7 @@
 namespace classes\request\repository;
 
 
+use classes\core\data\DataModel;
 use classes\core\repository\AbstractRepository;
 use classes\core\repository\RepositoryManager;
 use classes\request\data\Request;
@@ -25,8 +26,10 @@ class RequestRepository extends AbstractRepository
         parent::__construct('classes\request\data\Request');
     }
 
-    public function Save(Request $request)
+    public function Save(DataModel $request)
     {
+        /* @var Request $request */
+
         $result = parent::Save($request);
         if($result) {
             $requestStatusHistory = new RequestStatusHistory();

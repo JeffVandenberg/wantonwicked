@@ -29,3 +29,7 @@ Thumbs.db
 /app/webroot/cgi-bin/dbconnect.php
 /app/webroot/chat/includes/db.php
 /app/webroot/forum/images/avatars/upload/
+
+# composer ignores
+composer.lock
+vendor

@@ -1,14 +1,17 @@
 <?php
 /* @var array $userdata */
 
+use classes\core\data\User;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\repository\RepositoryManager;
 use classes\request\data\RequestNote;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
+use classes\request\RequestMailer;
 
 $requestId = Request::GetValue('request_id', 0);
 $requestRepository = new RequestRepository();
@@ -32,6 +35,20 @@ if (isset($_POST['action'])) {
 
                 $requestNoteRepository = new RequestNoteRepository();
                 if($requestNoteRepository->Save($requestNote)) {
+                    // send notice to the player
+                    $request = $requestRepository->GetById($requestId);
+                    /* @var \classes\request\data\Request $request */
+                    $userRepository = RepositoryManager::GetRepository('classes\core\data\User');
+                    $user = $userRepository->GetById($request->CreatedById);
+                    /* @var User $user */
+                    $mailer = new RequestMailer();
+                    $mailer->SendMailToPlayer(
+                        $user->UserEmail,
+                        $userdata['username'],
+                        'Approved',
+                        $requestNote->Note,
+                        $request
+                    );
                     SessionHelper::SetFlashMessage('Approved Request');
                     Response::Redirect('request.php?action=st_list');
                 }

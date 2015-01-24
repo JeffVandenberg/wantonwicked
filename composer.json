@@ -1,0 +1,20 @@
+{
+  "name": "JeffVandenberg/WantonWicked",
+  "description": "WantonWicked Code Base",
+  "type": "site",
+  "keywords": ["wantonwicked"],
+  "homepage": "https://wantonwicked.gamingsandbox.com",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Jeff Vandenberg",
+      "homepage": "http://gamingsandbox.com",
+      "role": "Author"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "composer/installers": "*",
+    "phpmailer/phpmailer": "v5.2.9"
+  }
+}
