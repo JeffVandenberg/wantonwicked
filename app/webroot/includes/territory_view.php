@@ -18,7 +18,7 @@ SELECT
 FROM
 	territories as T
 	LEFT JOIN characters_territories AS CT ON T.id = CT.territory_id
-	LEFT JOIN characters AS C ON T.character_id = C.character_id
+	LEFT JOIN characters AS C ON T.character_id = C.id
 WHERE
 	T.is_active = 1
 	AND T.id = $id

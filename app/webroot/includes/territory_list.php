@@ -12,7 +12,7 @@ SELECT
 			COUNT(*)
 		FROM
 			characters_territories AS CT
-			LEFT JOIN characters as C2 ON CT.character_id = C2.character_id
+			LEFT JOIN characters as C2 ON CT.character_id = C2.id
 		WHERE
 			CT.is_active = 1
 			AND (CT.updated_on IS NULL OR CT.updated_on > NOW())
@@ -28,7 +28,7 @@ SELECT
 	T.optimal_population
 FROM
 	territories as T
-	LEFT JOIN characters AS C ON T.character_id = C.character_id
+	LEFT JOIN characters AS C ON T.character_id = C.id
 WHERE
 	T.is_active = 1
 	AND C.is_sanctioned = 'Y'
