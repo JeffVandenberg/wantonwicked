@@ -14,7 +14,7 @@ if(isset($_GET['sort']))
 
 $query = <<<EOQ
 SELECT
-	character_id,
+	id,
 	character_name,
 	average_power_points
 FROM
@@ -23,7 +23,7 @@ WHERE
 	is_sanctioned = 'Y'
 	AND is_deleted = 'N'
 	AND is_npc = 'N'
-	AND city = 'San Diego'
+	AND city = 'Savannah'
 	AND character_type = 'Vampire'
 ORDER BY
 	$orderBy

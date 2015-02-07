@@ -11,14 +11,14 @@ SELECT
 	favor_types.name AS favor_type_name
 FROM
 	favors
-		LEFT JOIN characters AS from_character ON favors.source_id = from_character.character_id
-		LEFT JOIN characters AS to_character ON favors.target_id = to_character.character_id
+		LEFT JOIN characters AS from_character ON favors.source_id = from_character.id
+		LEFT JOIN characters AS to_character ON favors.target_id = to_character.id
 		LEFT JOIN favor_types ON favors.favor_type_id = favor_types.id
 WHERE
 	favors.favor_id = $favorId
 	AND (
-		from_character.primary_login_id = $userdata[user_id]
-		OR to_character.primary_login_id = $userdata[user_id]
+		from_character.user_id = $userdata[user_id]
+		OR to_character.user_id = $userdata[user_id]
 	)
 EOQ;
 $favorResult = mysql_query($favorQuery) or die(mysql_error());
@@ -48,8 +48,6 @@ else
 	die("Unable to find favor.");
 }
 ?>
-<h2>View Favor</h2>
-
 <div class="formInput">
 	<label>From:</label>
 	<?php echo $fromCharacter; ?>

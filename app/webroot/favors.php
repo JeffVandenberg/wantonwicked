@@ -46,18 +46,23 @@ if (isset($_GET['action'])) {
             break;
         case 'view':
             include 'includes/favors_view.php';
+            $templateName = 'empty.tpl';
             break;
         case 'transfer':
             include 'includes/favors_transfer.php';
+            $templateName = 'empty.tpl';
             break;
         case 'transferFavor':
             include 'includes/favors_transferFavor.php';
+            $templateName = 'empty.tpl';
             break;
         case 'discharge':
             include 'includes/favors_discharge.php';
+            $templateName = 'empty.tpl';
             break;
         case 'break':
             include 'includes/favors_break.php';
+            $templateName = 'empty.tpl';
             break;
         default:
             include 'includes/index_default.php';

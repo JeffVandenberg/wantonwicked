@@ -87,12 +87,6 @@ ob_start();
 
 <?php echo $menu; ?>
     <div id="favorPane" style="display:none;">
-        <div id="favorPaneClose">
-            Close
-        </div>
-        <div id="favorPaneContent">
-            Favor Pane
-        </div>
     </div>
     <div class="paragraph">
         <a href="favors.php?action=give&character_id=<?php echo $characterId; ?>">Give Favor to another Character</a>
@@ -192,7 +186,7 @@ ob_start();
                     <td>
                         <a href="#" onclick="return viewFavor(<?php echo $row['favor_id']; ?>);">View</a>
                         <a href="#" onclick="return transferFavor(<?php echo $row['favor_id']; ?>);">Transfer</a>
-                        <a href="#" onclick="return dischargeFavor(<?php echo $row['favor_id']; ?>);">Discharge</a>
+                        <a href="#" onclick="return breakFavor(<?php echo $row['favor_id']; ?>);">Break</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -207,19 +201,19 @@ ob_start();
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#favorPaneClose").click(function () {
-                $("#favorPane").css("display", "none");
-            });
-            $(document).keypress(function (e) {
-                if (e.keyCode == 27) {
-                    $("#favorPane").css("display", "none");
-                }
-            });
-            $(document).keydown(function (e) {
-                if (e.keyCode == 27) {
-                    $("#favorPane").css("display", "none");
-                }
-            });
+//            $("#favorPaneClose").click(function () {
+//                $("#favorPane").css("display", "none");
+//            });
+//            $(document).keypress(function (e) {
+//                if (e.keyCode == 27) {
+//                    $("#favorPane").css("display", "none");
+//                }
+//            });
+//            $(document).keydown(function (e) {
+//                if (e.keyCode == 27) {
+//                    $("#favorPane").css("display", "none");
+//                }
+//            });
         });
     </script>
 <?php

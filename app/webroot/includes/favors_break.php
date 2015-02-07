@@ -1,4 +1,6 @@
 <?php
+use classes\core\repository\Database;
+
 $favorId = $_GET['favorId'] + 0;
 
 $dischargeQuery = <<<EOQ
@@ -8,11 +10,16 @@ SET
 	is_broken = 1,
 	date_broken = now()
 WHERE
-	favor_id = $favorId;
+	favor_id = ?;
 EOQ;
-$dischargeResult = mysql_query($dischargeQuery) or die(mysql_error());
 
-if(mysql_affected_rows())
+$result = Database::GetInstance()->Query($dischargeQuery)->Execute(
+    array(
+        $favorId
+    )
+);
+
+if($result)
 {
 	$message = "Successfully broke favor.";
 }

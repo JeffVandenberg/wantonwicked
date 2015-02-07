@@ -26,7 +26,7 @@ $top_image = "";
 $page_content = "";
 $java_script = "";
 $extra_tags = "onLoad='showClock();'";
-$template_file = 'main_layout';
+$template_file = "main_ww4.tpl";
 
 // build links
 include 'user_panel.php';
@@ -100,7 +100,7 @@ if(isset($_GET['action']))
 			if(Security::HasAnySTPermissions())
 			{
 				include 'includes/abp_add_rule.php';
-				$template_file = 'empty_template';
+				$template_file = 'empty_template.tpl';
 			}
 			else
 			{
@@ -111,7 +111,7 @@ if(isset($_GET['action']))
 			if(Security::HasAnySTPermissions())
 			{
 				include 'includes/abp_add_rule_post.php';
-				$template_file = 'empty_template';
+				$template_file = 'empty_template.tpl';
 			}
 			else
 			{
@@ -122,7 +122,7 @@ if(isset($_GET['action']))
 			if(Security::HasAnySTPermissions())
 			{
 				include 'includes/abp_delete_rule.php';
-				$template_file = 'empty_template';
+				$template_file = 'empty_template.tpl';
 			}
 			else
 			{
@@ -133,7 +133,7 @@ if(isset($_GET['action']))
 			if(Security::HasAnySTPermissions())
 			{
 				include 'includes/abp_edit_rule.php';
-				$template_file = 'empty_template';
+				$template_file = 'empty_template.tpl';
 			}
 			else
 			{
@@ -144,7 +144,7 @@ if(isset($_GET['action']))
 			if(Security::HasAnySTPermissions())
 			{
 				include 'includes/abp_edit_rule_post.php';
-				$template_file = 'empty_template';
+				$template_file = 'empty_template.tpl';
 			}
 			else
 			{
@@ -155,7 +155,7 @@ if(isset($_GET['action']))
 			if(Security::HasAnySTPermissions())
 			{
 				include 'includes/abp_get_abp_rule_list.php';
-				$template_file = 'empty_template';
+				$template_file = 'empty_template.tpl';
 			}
 			else
 			{
@@ -185,7 +185,7 @@ else
 	}
 }
 
-$template->set_custom_template('templates', $template_file);
+$template->set_custom_template('templates', substr($template_file, strlen($template_file) - 4));
 $template->assign_vars(array(
 	"PAGE_TITLE" => $page_title,
 	"CSS_URL" => $css_url, 
@@ -199,7 +199,6 @@ $template->assign_vars(array(
 );
 
 $template->set_filenames(array(
-		'body' => ($template_file . '.tpl'))
+		'body' => $template_file)
 );
 $template->display('body');
-?>

@@ -1,7 +1,7 @@
 <?php
 $sql = <<<EOQ
 SELECT
-	character_id,
+	id,
 	character_name
 FROM
 	characters AS C
@@ -9,7 +9,7 @@ WHERE
 	C.is_sanctioned = 'Y'
 	AND C.is_deleted = 'N'
 	AND C.character_type = 'Vampire'
-	AND C.city = 'San Diego'
+	AND C.city = 'Savannah'
 ORDER BY
 	character_name
 EOQ;
@@ -21,7 +21,7 @@ $abp = new ABP();
 
 while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
 {
-	$abp->UpdateABP($detail['character_id']);
+	$abp->UpdateABP($detail['id']);
 	
 	$characterList .= <<<EOQ
 Updated: <a href="http://www.wantonwicked.net/view_sheet.php?action=st_view_xp&view_character_id=$detail[character_id]">$detail[character_name]</a><br />

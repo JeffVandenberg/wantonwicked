@@ -6,6 +6,7 @@ use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 
 $characterId = Request::GetValue('character_id');
@@ -44,18 +45,27 @@ INSERT INTO
 	)
 VALUES
 	(
-		$characterId,
+		?,
 		1,
-		$targetCharacterId,
+		?,
 		1,
-		$favorTypeId,
-		'$description',
-		'$notes',
-		'$now'
+		?,
+		?,
+		?,
+		?
 	)
 EOQ;
 
-    $createFavorResult = mysql_query($createFavorQuery) or die(mysql_error());
+    $createFavorResult = Database::GetInstance()->Query($createFavorQuery)->Execute(
+        array(
+            $characterId,
+            $targetCharacterId,
+            $favorTypeId,
+            $description,
+            $notes,
+            $now
+        )
+    );
 
     SessionHelper::SetFlashMessage('Favor has been created');
     Response::Redirect('favors.php?action=list&character_id='.$characterId);

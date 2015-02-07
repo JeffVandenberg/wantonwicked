@@ -20,7 +20,7 @@ SELECT
 		FROM
 			characters
 		WHERE
-			character_id = $characterId
+			id = $characterId
 	) AS survival,
 	(
 		SELECT
@@ -97,21 +97,21 @@ EOQ;
 	{
 		$sql = <<<EOQ
 SELECT
-	C.character_id,
+	C.id,
 	C.character_name,
 	CT.is_poaching,
 	T.territory_name,
 	T.id
 FROM
 	characters AS C
-	LEFT JOIN characters_territories AS CT on CT.character_id = C.character_id
+	LEFT JOIN characters_territories AS CT on CT.character_id = C.id
 	LEFT JOIN territories AS T ON T.id = CT.territory_id
 WHERE
 	T.is_active = 1
 	AND CT.is_active = 1
 	AND (CT.updated_on IS NULL OR CT.updated_on > NOW())
 	AND C.is_sanctioned = 'Y'
-	AND C.city = 'San Diego'
+	AND C.city = 'Savannah'
 	AND C.is_deleted = 'N'
 ORDER BY
 	C.character_name,

@@ -100,14 +100,14 @@ EOQ;
 			
 			$modifierSql = <<<EOQ
 SELECT
-	powerlevel AS power_level
+	power_level AS power_level
 FROM
 	character_powers
 WHERE
-	characterid = $characterId
-	AND powertype = '$rulesDetail[power_type]'
-	AND powername LIKE '$powerName%'
-	AND powernote LIKE '$powerNote%'
+	character_id = $characterId
+	AND power_type = '$rulesDetail[power_type]'
+	AND power_name LIKE '$powerName%'
+	AND power_note LIKE '$powerNote%'
 EOQ;
 
 			$modifierResult = ExecuteQuery($modifierSql);
@@ -130,7 +130,7 @@ SELECT
 FROM
 	characters
 WHERE
-	character_id = $characterId;
+	id = $characterId;
 EOQ;
 
 		$result = ExecuteQueryData($sql);
@@ -145,7 +145,7 @@ SELECT
 FROM
 	characters
 WHERE
-	character_id = $characterId;
+	id = $characterId;
 EOQ;
 
 		$result = ExecuteQueryData($sql);
@@ -172,7 +172,7 @@ UPDATE
 SET
 	average_power_points = $currentAbp
 WHERE
-	character_id = $characterId
+	id = $characterId
 EOQ;
 		ExecuteNonQuery($sql);
 	}
@@ -231,7 +231,7 @@ WHERE
 	power_points < average_power_points
 	AND C.is_sanctioned = 'Y'
 	AND C.character_type = 'Vampire'
-	AND C.city = 'San Diego';
+	AND C.city = 'Savannah';
 EOQ;
 		ExecuteNonQuery($sql);
 
@@ -244,7 +244,7 @@ WHERE
 	power_points > average_power_points
 	AND C.is_sanctioned = 'Y'
 	AND C.character_type = 'Vampire'
-	AND C.city = 'San Diego';
+	AND C.city = 'Savannah';
 EOQ;
 		ExecuteNonQuery($sql);
 	}

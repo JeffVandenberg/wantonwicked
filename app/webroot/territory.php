@@ -26,7 +26,7 @@ $top_image = "";
 $page_content = "";
 $java_script = "";
 $extra_tags = "onLoad='showClock();'";
-$template_file = 'main_ww4';
+$page_template = "main_ww4.tpl";
 
 // build links
 include 'user_panel.php';
@@ -65,43 +65,43 @@ if(isset($_GET['action']))
 			break;
 		case 'add':
 			include 'includes/territory_add.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'add_post':
 			include 'includes/territory_add_post.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'admin_add_character':
 			include 'includes/territory_admin_add_character.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'admin_add_character_post':
 			include 'includes/territory_admin_add_character_post.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'poach':
 			include 'includes/territory_poach.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'feed':
 			include 'includes/territory_feed.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'admin_remove_character':
 			include 'includes/territory_admin_remove_character.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'edit_post':
 			include 'includes/territory_edit_post.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'get_admin_associated_characters':
 			include 'includes/territory_get_admin_associated_characters.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		case 'view':
 			include 'includes/territory_view.php';
-			$template_file = 'empty_template';
+			$template_file = 'empty_template.tpl';
 			break;
 		default:
 			include 'includes/index_default.php';
@@ -127,7 +127,7 @@ $template->assign_vars(array(
 );
 
 $template->set_filenames(array(
-		'body' => ($template_file . '.tpl'))
+		'body' => ($template_file))
 );
 $template->display('body');
 ?>

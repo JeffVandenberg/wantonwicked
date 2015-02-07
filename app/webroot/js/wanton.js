@@ -68,14 +68,18 @@ function giveFavor(characterId) {
 }
 
 function viewFavor(favorId) {
-    $("#favorPaneContent").load("/favors.php?action=view&favor_id=" + favorId, function () {
-        $("#favorPane").css("display", "block")
+    $.get("/favors.php?action=view&favor_id=" + favorId, function(content) {
+        $("#favorPaneContent").html(content).dialog({
+            title: 'View Favor'
+        });
     });
     return false;
 }
 function transferFavor(favorId) {
-    $("#favorPaneContent").load("/favors.php?action=transfer&favor_id=" + favorId, function () {
-        $("#favorPane").css("display", "block")
+    $.get("/favors.php?action=transfer&favor_id=" + favorId, function(content) {
+        $("#favorPaneContent").html(content).dialog({
+            title: 'Transfer Favor'
+        });
     });
     return false;
 }
@@ -99,17 +103,8 @@ function dischargeFavor(favorId) {
 
 function breakFavor(favorId) {
     if (confirm('Are you sure you want to break the favor?')) {
-        $.ajax({
-            url: "/favors.php?action=break&favorId=" + favorId,
-            type: "post",
-            dataType: "html",
-            success: function (response, status, request) {
-                alert(response);
-                //window.location.reload();
-            },
-            error: function (request, message, exception) {
-                alert('There was an error submitting the request. Please try again.');
-            }
+        $.get("/favors.php?action=break&favorId=" + favorId, function(content) {
+            alert(content);
         });
     }
     return false;
