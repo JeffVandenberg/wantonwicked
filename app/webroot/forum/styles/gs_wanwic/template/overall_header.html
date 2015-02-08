@@ -11,14 +11,18 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
     <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
-    <link type="text/css" href="../css/wanton/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
-    <link type="text/css" href="../css/wanton/jquery.ui.menubar.css" rel="stylesheet"/>
-    <script type="text/javascript" src="../js/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="../js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.watermark.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.ui.menubar.js"></script>
-    <script type="text/javascript" src="../js/wanton.js"></script>
-<script type="text/javascript" src="../js/gaming-sandbox.js"></script>
+    <link type="text/css" href="/css/wanton/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
+    <link type="text/css" href="/css/wanton/jquery.ui.menubar.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.watermark.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.ui.menubar.js"></script>
+    <script type="text/javascript" src="/js/server_time.js"></script>
+    <script type="text/javascript" src="/js/wanton.js"></script>
+    <script type="text/javascript" src="/js/gaming-sandbox.js"></script>
+    <script type="application/javascript">
+        wantonWickedTime.serverTime = {SERVER_TIME};
+    </script>
 {META}
 <title>Wanton Wicked &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
 
@@ -169,7 +173,7 @@ function marklist(id, name, state)
 <div id="wrapper">
 <div id="login">
 <div id="logina">
-<div id="loginb" valign="center"><!-- IF not S_IS_BOT --><a href="{U_LOGIN_LOGOUT}"><font color="#FFFFFF"> {L_LOGIN_LOGOUT}</font></a>&nbsp;<!-- ENDIF --> <!-- IF not S_IS_BOT -->
+<div id="loginb" valign="center"><!-- IF not S_IS_BOT --><a href="{c}"><font color="#FFFFFF"> {L_LOGIN_LOGOUT}</font></a>&nbsp;<!-- ENDIF --> <!-- IF not S_IS_BOT -->
 					<!-- IF S_USER_LOGGED_IN -->
 						<!-- IF S_DISPLAY_PM --> <font color="#FFFFFF">|</font> <a href="{U_PRIVATEMSGS}"><font color="#FFFFFF">{PRIVATE_MESSAGE_INFO}<!-- IF PRIVATE_MESSAGE_INFO_UNREAD -->, {PRIVATE_MESSAGE_INFO_UNREAD}<!-- ENDIF --></font></a><!-- ENDIF -->
 					<!-- ELSEIF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) --> <font color="#FFFFFF">|</font> <a href="{U_REGISTER}"><font color="#FFFFFF">{L_REGISTER}</font></a>

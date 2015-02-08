@@ -13,10 +13,14 @@
     <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
     <script type="text/javascript" src="js/jquery.ui.menubar.js"></script>
+    <script type="text/javascript" src="js/server_time.js"></script>
     <script type="text/javascript" src="js/wanton.js"></script>
     <script type="text/javascript" src="js/gaming-sandbox.js"></script>
 </head>
 {JAVA_SCRIPT}
+<script>
+    wantonWicked.serverTime = {SERVER_TIME};
+</script>
 <body>
 <div id="gs-header-bar">
     <div id="gs-header-inner">

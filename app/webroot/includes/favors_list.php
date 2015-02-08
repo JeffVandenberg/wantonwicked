@@ -86,7 +86,7 @@ ob_start();
 ?>
 
 <?php echo $menu; ?>
-    <div id="favorPane" style="display:none;">
+    <div id="favorPaneContent" style="display:none;">
     </div>
     <div class="paragraph">
         <a href="favors.php?action=give&character_id=<?php echo $characterId; ?>">Give Favor to another Character</a>

@@ -1194,6 +1194,11 @@ $.fn.textWidth = function(){
 };
 var isScrolling = false;
 
+var wantonWicked =  {
+    difference: 0,
+    serverTime: 0
+};
+
 $(function() {
     $(document)
         .on('mouseenter', '.scrollable', startScroll)
@@ -1229,11 +1234,7 @@ $(function() {
         }
     });
 
-    $.get('/server_time.php', null, function(time) {
-        var local = new Date();
-        difference = (local.getTime() - (local.getTimezoneOffset() *60000)) - time;
-        showClock();
-    });
+    wantonWickedTime.runClock('#server-time');
 
     // patch for Firefox. Not sure why it's doing this.
     $('#userContainer').addClass('userContainer');
@@ -1277,42 +1278,4 @@ function endScroll() {
 function openPmWindow() {
     //alert($(this).html());
     //createPChatDiv(userName,uUser,uuID,uID);
-}
-
-var difference = 0;
-function UpdateTime() {
-    setTimeout("UpdateTime();", 1000);
-    $("#server-time").html(MakeTime());
-}
-
-/**
- * @return {string}
- */
-function MakeTime() {
-    var timer = new Date(new Date().getTime() - difference);
-
-    var hhN = timer.getHours();
-    var hh, AP;
-    if (hhN > 12) {
-        hh = String(hhN - 12);
-        AP = "pm";
-    }
-    else if (hhN == 12) {
-        hh = "12";
-        AP = "pm";
-    }
-    else if (hhN == 0) {
-        hh = "12";
-        AP = "am";
-    }
-    else {
-        hh = String(hhN);
-        AP = "am";
-    }
-    var mm = String(timer.getMinutes());
-    return "<label>Server Time:</label> " + hh + ((mm < 10) ? ":0" : ":") + mm + AP;
-}
-
-function showClock() {
-    UpdateTime();
 }

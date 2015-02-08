@@ -84,7 +84,8 @@ $template->assign_vars(array(
         "TOP_IMAGE" => $page_image,
         "PAGE_CONTENT" => $page_content,
         "CONTENT_HEADER" => $contentHeader,
-        'FLASH_MESSAGE' => SessionHelper::GetFlashMessage()
+        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
+        "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
     )
 );
 

@@ -1,4 +1,6 @@
 <?php
+use classes\core\helpers\SessionHelper;
+
 include 'cgi-bin/start_of_page.php';
 
 define('IN_PHPBB', true);
@@ -88,7 +90,9 @@ $template->assign_vars(array(
         "TOP_IMAGE" => $page_image,
         "PAGE_CONTENT" => $page_content,
         "EXTRA_TAGS" => $extra_tags,
-        "CONTENT_HEADER" => $contentHeader
+        "CONTENT_HEADER" => $contentHeader,
+        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
+        "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
     )
 );
 

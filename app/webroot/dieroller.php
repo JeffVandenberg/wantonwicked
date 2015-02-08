@@ -1,5 +1,6 @@
 <?
 use classes\core\helpers\Request;
+use classes\core\helpers\SessionHelper;
 
 include 'cgi-bin/start_of_page.php';
 include 'cgi-bin/rollWoDDice.php';
@@ -74,7 +75,9 @@ $template->assign_vars(array(
         "MENU_BAR" => $menu_bar,
         "TOP_IMAGE" => $page_image,
         "PAGE_CONTENT" => $page_content,
-        "CONTENT_HEADER" => $contentHeader
+        "CONTENT_HEADER" => $contentHeader,
+        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
+        "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
     )
 );
 

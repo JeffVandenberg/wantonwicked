@@ -23,6 +23,7 @@
 <script type="text/javascript" src="/chat/js/newRoom.js?v=<?php echo $CONFIG['version']; ?>"></script>
 <script type="text/javascript" src="/chat/js/swfobject.js?v=<?php echo $CONFIG['version']; ?>"></script>
 <script type="text/javascript" src="/chat/js/playSnd.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/js/server_time.js?v=<?php echo $CONFIG['version']; ?>"></script>
 
 <!-- Intellibot -->
 <script type="text/javascript" src="/chat/js/intellibotRes.js"></script>
@@ -52,6 +53,8 @@ var publicWelcome = "<?php echo $roomDesc;?>";
 
 /* last message ID */
 var lastMessageID = <?php echo $lastMessageID;?>;
+
+wantonWicked.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 
 //-->
 </script>

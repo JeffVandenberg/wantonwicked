@@ -188,7 +188,8 @@ $template->assign_vars(array(
         "EXTRA_HEADERS" => $extra_headers,
         "USER_PANEL" => $user_panel,
         "CONTENT_HEADER" => $contentHeader,
-        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage()
+        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
+        "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
     )
 );
 

@@ -751,3 +751,37 @@ table.geist_normal_text > tbody > tr > th:nth-child(even) {
 #main-menu {
     margin-top: 9px;
 }
+
+div.formInput
+{
+    margin-bottom:10px;
+}
+
+div.cell
+{
+    float: left;
+    border-bottom: solid 1px #ffffff;
+    padding: 3px;
+}
+
+div.firstCell
+{
+    clear: left;
+}
+
+div.tableRow
+{
+    overflow:auto;
+}
+
+div.tableRowAlt
+{
+    overflow:auto;
+    background-color: #555555;
+}
+
+div.tableRowHeaderCell
+{
+    background-color: #ffffff;
+    font-weight:bold;
+}

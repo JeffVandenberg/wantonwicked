@@ -1,52 +1,9 @@
-var difference = 0;
-function UpdateTime() {
-    setTimeout("UpdateTime();", 1000);
-    $("#server-time").html(MakeTime());
-}
-
-/**
- * @return {string}
- */
-function MakeTime() {
-    var timer = new Date(new Date().getTime() - difference);
-
-    var hhN = timer.getHours();
-    var hh, AP;
-    if (hhN > 12) {
-        hh = String(hhN - 12);
-        AP = "pm";
-    }
-    else if (hhN == 12) {
-        hh = "12";
-        AP = "pm";
-    }
-    else if (hhN == 0) {
-        hh = "12";
-        AP = "am";
-    }
-    else {
-        hh = String(hhN);
-        AP = "am";
-    }
-    var mm = String(timer.getMinutes());
-    var ss = String(timer.getSeconds());
-    return "Server Time: " + hh + ((mm < 10) ? ":0" : ":") + mm + ((ss < 10) ? ":0" : ":") + ss + AP;
-}
-
-function showClock() {
-    UpdateTime();
-}
 
 $(function () {
     $(".menu")
         .menubar();
 
-    $.get('/server_time.php', null, function(time) {
-        var local = new Date();
-        difference = (local.getTime() - (local.getTimezoneOffset() *60000)) - time;
-        showClock();
-    });
-
+    wantonWickedTime.runClock('#server-time');
     $(document).ajaxStart(
         function() {
             $("#busy-indicator").fadeIn();

@@ -4684,7 +4684,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'U_FEED'				=> generate_board_url() . "/feed.$phpEx",
         'U_IS_STORYTELLER'      => $isSt,
         'U_IS_ADMIN'            => $isAdmin,
-
+        'SERVER_TIME'           => (microtime(true) + date('Z'))*1000,
 		'S_USER_LOGGED_IN'		=> ($user->data['user_id'] != ANONYMOUS) ? true : false,
 		'S_AUTOLOGIN_ENABLED'	=> ($config['allow_autologin']) ? true : false,
 		'S_BOARD_DISABLED'		=> ($config['board_disable']) ? true : false,

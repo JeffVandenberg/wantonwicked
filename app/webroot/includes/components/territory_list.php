@@ -17,7 +17,7 @@ EOQ;
 	}
 	
 	$territoryList .= <<<EOQ
-<div class="tableRowHeader" style="width:730px;">
+<div class="tableRowHeader" style="width:770px;">
 	<div class="tableRowHeaderCell firstCell cell" style="width:150px;">
 		Territory Name
 	</div>
@@ -45,7 +45,7 @@ EOQ;
 	<div class="tableRowHeaderCell cell" style="width:70px;">
 		O. P.
 	</div>
-	<div class="tableRowHeaderCell cell" style="width:80px;">
+	<div class="tableRowHeaderCell cell" style="width:120px;">
 		&nbsp;
 	</div>
 </div>
@@ -59,8 +59,8 @@ EOQ;
 			$rowAlt = (($row++)%2) ? "Alt" : "";
 			
 			$territoryList .= <<<EOQ
-<div class="tableRow$rowAlt" style="clear:both;width:730px;" id="territoryRow$territoryDetail[id]">
-	<div class="firstCell cell" style="width:150px;">
+<div class="tableRow$rowAlt" style="clear:both;width:770px;" id="territoryRow$territoryDetail[id]">
+	<div class="firstCell cell" style="width:120px;">
 		$territoryDetail[territory_name]
 	</div>
 	<div class="cell" style="width:60px;">
@@ -87,7 +87,7 @@ EOQ;
 	<div class="cell" style="width:70px;">
 		$territoryDetail[optimal_population]
 	</div>
-	<div class="cell" style="width:80px;">
+	<div class="cell" style="width:150px;">
 		<a href="#" onclick="return viewTerritory($territoryDetail[id]);">View</a>
 		<a href="/territory.php?action=edit&id=$territoryDetail[id]">Manage</a>
 	</div>

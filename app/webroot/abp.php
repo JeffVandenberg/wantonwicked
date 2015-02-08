@@ -1,4 +1,6 @@
 <?php
+use classes\core\helpers\SessionHelper;
+
 ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
 // perform required includes
@@ -194,7 +196,9 @@ $template->assign_vars(array(
 	"MENU_BAR" => $menu_bar, 
 	"TOP_IMAGE" => $page_image, 
 	"PAGE_CONTENT" => $page_content,
-	"EXTRA_TAGS" => $extra_tags
+	"EXTRA_TAGS" => $extra_tags,
+    "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
+    "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
 	)
 );
 
