@@ -134,14 +134,6 @@ $information_table = <<<EOQ
     </tr>
     <tr>
         <td>
-            <b>URL</b>
-        </td>
-        <td>
-            $url
-        </td>
-    </tr>
-    <tr>
-        <td>
             <b>Daily Equipment</b>
         </td>
         <td>
