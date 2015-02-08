@@ -54,7 +54,7 @@ var publicWelcome = "<?php echo $roomDesc;?>";
 /* last message ID */
 var lastMessageID = <?php echo $lastMessageID;?>;
 
-wantonWicked.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
+wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 
 //-->
 </script>
