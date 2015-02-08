@@ -10,16 +10,16 @@ var wantonWickedTime =  {
         this.serverTimeElementId = elementId;
 
         var local = new Date();
-        wantonWicked.difference = (local.getTime() - (local.getTimezoneOffset() *60000)) - wantonWicked.serverTime;
+        this.difference = (local.getTime() - (local.getTimezoneOffset() *60000)) - this.serverTime;
         this.updateTime();
 
     },
     updateTime: function() {
-        setTimeout("wantonWicked.updateTime();", 60000);
+        setTimeout("wantonWickedTime.updateTime();", 60000);
         $(this.serverTimeElementId).html(this.makeTime());
     },
     makeTime: function() {
-        var timer = new Date(new Date().getTime() - wantonWicked.difference);
+        var timer = new Date(new Date().getTime() - this.difference);
 
         var hhN = timer.getHours();
         var hh, AP;

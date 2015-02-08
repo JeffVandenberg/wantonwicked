@@ -81,6 +81,7 @@ class AppController extends Controller {
         $this->layout = ($this->request->is("ajax")) ? "ajax" : "default";
         $this->set('menu', $this->Menu->GetMenu());
         $this->set('supporter', $this->Supporter->GetStatus());
+        $this->set('serverTime', (microtime(true) + date('Z'))*1000);
     }
 
 }

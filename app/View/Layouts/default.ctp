@@ -23,6 +23,7 @@
         'jquery-ui-1.10.3.custom.min',
         'jquery.watermark.min',
         'jquery.ui.menubar',
+        'server_time',
         'wanton',
         'gaming-sandbox'
     ));
@@ -31,6 +32,9 @@
     echo $this->fetch('css');
     echo $this->fetch('script');
     ?>
+    <script type="application/javascript">
+        wantonWickedTime.serverTime = <?php echo $serverTime; ?>;
+    </script>
 </head>
 <body>
 <div id="gs-header-bar">

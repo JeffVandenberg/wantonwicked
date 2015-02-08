@@ -136,6 +136,7 @@ ob_start();
     <script>
         $(function () {
             $("#view-character-name").autocomplete({
+                autoFocus: true,
                 source: function (request, response) {
                     $.ajax({
                         url     : 'character.php?action=search',
@@ -168,6 +169,7 @@ ob_start();
                 select: function (e, ui) {
                     $("#view-character-id").val(ui.item.value);
                     $("#view-character-name").val(ui.item.label);
+                    $(this).closest('form').submit();
                     return false;
                 }
             });

@@ -199,7 +199,7 @@ $MarkupCss = true;
 include_once('../cgi-bin/start_of_page.php');
 include_once('../user_panel.php');
 
-$FmtPV['$ServerTime'] = "$server_time";
+$FmtPV['$ServerTime'] = ((microtime(true) + date('Z'))*1000);
 $FmtPV['$UserControlPanel'] = "getUserControlPanel()";
 $FmtPV['$SiteUserName'] = "\"$userdata[username]\"";
 $FmtPV['$SiteUPName'] = 'getUpName()';
