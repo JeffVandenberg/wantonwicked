@@ -17,6 +17,9 @@ $storytellerMenu = array(
             ),
             'Partial Name Search' => array(
                 'link' => 'st_tools.php?action=character_name_lookup'
+            ),
+            'Goals' => array(
+                'link' => '/admin/characters/goals'
             )
         )
     ),

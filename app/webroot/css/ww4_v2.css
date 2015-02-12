@@ -15,6 +15,7 @@ body {
 #server-time {
     float: right;
     width: 200px;
+    text-align: right;
 }
 
 ul {

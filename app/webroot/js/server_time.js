@@ -41,6 +41,6 @@ var wantonWickedTime =  {
         }
         var mm = String(timer.getMinutes());
         var ss = String(timer.getSeconds());
-        return "Server Time: " + hh + ((mm < 10) ? ":0" : ":") + mm + ((ss < 10) ? ":0" : ":") + ss + AP;
+        return "Server Time: " + hh + ((mm < 10) ? ":0" : ":") + mm + AP;
     }
 };

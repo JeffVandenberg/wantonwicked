@@ -401,6 +401,13 @@ class MenuComponent extends Component {
                     ),
                     'Partial Name Search' => array(
                         'link' => '/st_tools.php?action=character_name_lookup'
+                    ),
+                    'Goals' => array(
+                        'link' => array(
+                            'admin' => true,
+                            'controller' => 'characters',
+                            'action' => 'goals'
+                        )
                     )
                 )
             ),

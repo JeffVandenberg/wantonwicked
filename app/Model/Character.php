@@ -9,6 +9,8 @@
 class Character extends AppModel {
     public $name = 'Character';
 
+    public $displayField = 'character_name';
+
     public function ListSanctionedForUser($userId) {
         return $this->find('all', array(
             'conditions' => array(

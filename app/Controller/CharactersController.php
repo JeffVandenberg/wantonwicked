@@ -6,6 +6,8 @@ App::uses('AppController', 'Controller');
  *
  * @property Character $Character
  * @property PaginatorComponent $Paginator
+ * @property PermissionsComponent Permissions
+ * @property MenuComponent Menu
  */
 class CharactersController extends AppController
 {
@@ -15,7 +17,10 @@ class CharactersController extends AppController
      *
      * @var array
      */
-    public $components = array('Paginator');
+    public $components = array(
+        'Paginator',
+        'Menu'
+    );
 
     public function beforeFilter()
     {
@@ -58,8 +63,46 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes'));
     }
 
+    public function admin_goals($type = 'all')
+    {
+        $storytellerMenu = $this->Menu->createStorytellerMenu();
+        $this->set('submenu', $storytellerMenu);
+        $this->Character->recursive = 0;
+        $this->Paginator->settings = array(
+            'limit' => 30,
+            'conditions' => array(
+                'Character.is_sanctioned' => 'Y',
+                'Character.city' => 'Savannah',
+                'Character.is_deleted' => 'N'
+            ),
+            'order' => 'Character.character_name',
+            'field' => array(
+                'character_name',
+                'goals'
+            ),
+            'contain' => array(
+                'Player'
+            )
+        );
+
+        if(strtolower($type) !== 'all') {
+            $this->Paginator->settings['conditions']['Character.character_type'] = $type;
+        }
+        $characterTypes = array("All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
+                                "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', "Mage" => 'Mage',
+                                "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
+        $this->set('characters', $this->Paginator->paginate());
+        $this->set(compact('type', 'characterTypes'));
+    }
+
     public function isAuthorized($user)
     {
+        switch($this->request->params['action'])
+        {
+            case 'admin_goals':
+                return $this->Permissions->IsST();
+                break;
+        }
         return false;
     }
 
