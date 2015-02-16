@@ -26,6 +26,7 @@
  */
 	Router::connect('/', array('controller' => 'home', 'action' => 'home'));
 	Router::connect('/staff', array('controller' => 'home', 'action' => 'staff'));
+	Router::connect('/gsNews', array('controller' => 'home', 'action' => 'gsNews'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
