@@ -34,4 +34,10 @@ class HomeController extends AppController
 
         $this->set(compact('admins', 'sts', 'assts', 'wikis'));
     }
+
+    function gsNews() {
+        $news = $this->Config->Read('gs_frontpage');
+        echo $news;
+        die();
+    }
 } 
