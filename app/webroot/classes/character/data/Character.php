@@ -73,14 +73,12 @@ class Character extends DataModel
     public $UpdatedOn;
     public $GmNotes;
     public $SheetUpdate;
-    public $LoginNote;
     public $HideIcon;
     public $Helper;
     public $Status;
     public $BonusAttribute;
     public $MiscPowers;
     public $TemporaryHealthLevels;
-    public $NextPowerStatIncrease;
     public $IsSuspended;
     public $WillpowerTemp;
     public $WillpowerPerm;

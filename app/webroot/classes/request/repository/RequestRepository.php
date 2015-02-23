@@ -760,4 +760,32 @@ EOQ;
         $params = array_merge(array(RequestType::BlueBook, $characterId), $requestStatuses);
         return $this->Query($sql)->Value($params);
     }
+
+    public function GetStatusReport()
+    {
+        $statusParamsHolders = implode(
+            ',',
+            array_fill(0, count(RequestStatus::$Terminal), '?')
+        );
+
+        $sql = <<<EOQ
+SELECT
+    G.name as `group_name`,
+    RS.name as `status_name`,
+    count(*) as `total`
+FROM
+    requests AS R
+    LEFT JOIN groups AS G ON R.group_id = G.id
+    LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
+WHERE
+    R.request_status_id NOT IN ($statusParamsHolders)
+    AND R.request_type_id != ?
+GROUP BY
+  G.name,
+  RS.name
+EOQ;
+        $params = array_merge(RequestStatus::$Terminal, array(RequestType::BlueBook));
+
+        return $this->Query($sql)->All($params);
+    }
 }
