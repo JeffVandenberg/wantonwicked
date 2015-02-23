@@ -788,4 +788,20 @@ EOQ;
 
         return $this->Query($sql)->All($params);
     }
+
+    public function CloseRequestsForCharacter($characterId)
+    {
+        $characterId = (int) $characterId;
+        $sql = <<<EOQ
+UPDATE
+    requests
+SET
+    request_status_id = ?
+WHERE
+    character_id = ?
+EOQ;
+        $params = array(RequestStatus::Closed, $characterId);
+
+        return $this->Query($sql)->Execute($params);
+    }
 }

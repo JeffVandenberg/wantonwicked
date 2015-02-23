@@ -13,44 +13,25 @@ use classes\request\RequestMailer;
 
 require_once 'cgi-bin/start_of_page.php';
 
-$messages = array();
-if(Request::IsPost())
+$db = Database::GetInstance();
+
+$sql = <<<EOQ
+UPDATE
+    requests AS R
+    INNER JOIN characters as C ON R.character_id = C.id
+SET
+    request_status_id = ?
+WHERE
+    C.is_deleted = 'Y'
+EOQ;
+
+$params = array(RequestStatus::Closed);
+
+$rows = $db->Query($sql)->Execute($params);
+
+echo "<pre>";
+echo count($rows);
+foreach($rows as $row)
 {
-    $characterRepository = new CharacterRepository();
-//    $historyRepository = new Histo
-    $file = fopen($_FILES['characters']['tmp_name'], 'r');
-
-    while($row = fgetcsv($file))
-    {
-        $character = $characterRepository->FindByCharacterName($row[0]);
-        /* @var Character $character */
-
-//        var_dump($character);
-        if($character->Id)
-        {
-            $messages[] = 'Award ' . $row[1] . ' xp to ' . $character->CharacterName . '<br />';
-            $character->TotalExperience += $row[1];
-            $character->CurrentExperience += $row[1];
-            $characterRepository->Save($character);
-
-            CharacterLog::LogAction($character->Id, ActionType::XPModification, 'Awarded ' . $row[1] . ' for ' . $row[2]);
-        }
-        else
-        {
-            $messages[] = 'unable to find ' . $row[0];
-        }
-    }
-
-    fclose($file);
+    //var_dump($row);
 }
-
-?>
-
-<?php foreach($messages as $message): ?>
-    <?php echo $message; ?><br />
-<?php endforeach; ?>
-
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-    <input type="file" name="characters" />
-    <input type="submit" value="Upload Characters" />
-</form>

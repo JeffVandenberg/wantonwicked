@@ -91,7 +91,7 @@ if(UserdataHelper::IsHead($userdata)) {
     $storytellerMenu['Reports']['submenu']['Request Time Report'] = array(
         'link' => 'request.php?action=admin_time_report'
     );
-    $storytellerMenu['Reports']['submenu']['Request Time Report'] = array(
+    $storytellerMenu['Reports']['submenu']['Request Status Report'] = array(
         'link' => 'request.php?action=admin_status_report'
     );
 }

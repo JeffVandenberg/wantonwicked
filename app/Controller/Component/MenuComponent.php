@@ -476,7 +476,7 @@ class MenuComponent extends Component {
             $menu['Reports']['submenu']['Request Time Report'] = array(
                 'link' => '/request.php?action=admin_time_report'
             );
-            $menu['Reports']['submenu']['Request Time Report'] = array(
+            $menu['Reports']['submenu']['Request Status 1Report'] = array(
                 'link' => '/request.php?action=admin_status_report'
             );
         }
