@@ -68,6 +68,9 @@ $storytellerMenu = array(
             'Character Type' => array(
                 'link' => 'st_tools.php?action=character_search'
             ),
+            'Character Population' => array(
+                'link' => 'st_tools.php?action=character_population_report'
+            ),
             'Power Search' => array(
                 'link' => 'st_tools.php?action=power_search'
             ),
