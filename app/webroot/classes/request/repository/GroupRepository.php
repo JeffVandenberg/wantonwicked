@@ -10,7 +10,14 @@
 namespace classes\request\repository;
 
 
-class GroupRepository {
+use classes\core\repository\AbstractRepository;
+
+class GroupRepository extends AbstractRepository {
+
+    function __construct()
+    {
+        parent::__construct('classes\core\data\Group');
+    }
 
     public function ListAvailableForCharacter($characterId)
     {
@@ -29,7 +36,7 @@ ORDER BY
     G.name
 EOQ;
 
-        return ExecuteQueryData($sql);
+        return $this->Query($sql)->All();
     }
 
     public function FindDefaultGroupForCharacter($characterId)

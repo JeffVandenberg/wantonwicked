@@ -60,6 +60,9 @@ if($linkedCharacterId == 0) {
         );
     }
     if ($request->RequestStatusId != RequestStatus::Closed) {
+        $characterMenu['Actions']['submenu']['Forward Request'] = array(
+            'link' => 'request.php?action=forward&request_id=' . $requestId
+        );
         $characterMenu['Actions']['submenu']['Close Request'] = array(
             'link' => 'request.php?action=close&request_id=' . $requestId
         );

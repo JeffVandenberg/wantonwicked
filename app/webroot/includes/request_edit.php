@@ -43,12 +43,7 @@ if(Request::IsPost())
 
 $contentHeader = $page_title = 'Edit Request: ' . $request->Title;;
 $groupRepository = new GroupRepository();
-$availableGroups = $groupRepository->ListAvailableForCharacter($request->CharacterId);
-$groups = array();
-foreach($availableGroups as $group)
-{
-    $groups[$group['id']] = $group['name'];
-}
+$groups = $groupRepository->SimpleListAll();
 $requestTypeRepository = new RequestTypeRepository();
 $requestTypes = $requestTypeRepository->SimpleListAll();
 

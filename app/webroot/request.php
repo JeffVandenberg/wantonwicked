@@ -169,6 +169,19 @@ if (isset($_GET['action'])) {
         case 'close':
             include 'includes/request_close.php';
             break;
+        case 'forward':
+            include 'includes/request_forward.php';
+            break;
+        case 'st_forward':
+            if(UserdataHelper::IsSt($userdata))
+            {
+                include 'includes/request_st_forward.php';
+            }
+        else
+            {
+                include 'includes/index_redirect.php';
+            }
+            break;
         case 'update_request_character':
             include 'includes/request_update_request_character.php';
             break;

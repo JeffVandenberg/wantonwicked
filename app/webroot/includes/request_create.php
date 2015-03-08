@@ -64,12 +64,7 @@ $page_title = 'Create Request for ' . $character['character_name'];
 $contentHeader = $page_title;
 
 $groupRepository = new GroupRepository();
-$availableGroups = $groupRepository->ListAvailableForCharacter($characterId);
-$groups = array();
-foreach($availableGroups as $group)
-{
-    $groups[$group['id']] = $group['name'];
-}
+$groups = $groupRepository->SimpleListAll($characterId);
 $defaultGroup = $groupRepository->FindDefaultGroupForCharacter($characterId);
 $requestTypeRepository = new RequestTypeRepository();
 $requestTypes = $requestTypeRepository->ListForGroupId($defaultGroup['id']);
