@@ -7,16 +7,16 @@ use classes\core\repository\Database;
 $contentHeader = $page_title = "Character Type Search";
 
 // get posted information
-$selected_character_types = isset($_POST['character_types']) ? $_POST['character_types'] : array();
-$selected_cities = isset($_POST['cities']) ? $_POST['cities'] : array();
-$selected_splat1 = isset($_POST['splat1']) ? $_POST['splat1'] : array();
-$selected_splat2 = isset($_POST['splat2']) ? $_POST['splat2'] : array();
-$selected_virtues = isset($_POST['virtues']) ? $_POST['virtues'] : array();
-$selected_vices = isset($_POST['vices']) ? $_POST['vices'] : array();
-$only_sanctioned = isset($_POST['only_sanctioned']) ? $_POST['only_sanctioned'] == 1 : false;
+$selected_character_types = Request::GetValue('character_types', array());
+$selected_cities = Request::GetValue('cities', array());
+$selected_splat1 = Request::GetValue('splat1', array());
+$selected_splat2 = Request::GetValue('splat2', array());
+$selected_virtues = Request::GetValue('virtues', array());
+$selected_vices = Request::GetValue('vices', array());
+$only_sanctioned = Request::GetValue('only_sanctioned', false);
 
 // test if submitting anything to search for
-if (Request::IsPost()) {
+if (count($selected_cities) || count($selected_splat1) || count($selected_splat2) || Request::IsPost()) {
     $character_query = "select * from characters where is_deleted='N' and ";
 
     if ($only_sanctioned) {
@@ -167,7 +167,7 @@ ob_start();
             </td>
             <td>
                 <?php echo FormHelper::Multiselect($splat1, 'splat1[]', $selected_splat1, array('size' => 10)); ?>
-            </td>1
+            </td>
             <td>
                 Splat 2<br>
                 (Covenant/Tribe/Order)
