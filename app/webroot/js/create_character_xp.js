@@ -55,7 +55,7 @@ var general_xp_base = 35;
 var general_xp = 35;
 var supernatural_xp = 0;
 var vampire_xp_base = 30;
-var werewolf_xp_base = 40;
+var werewolf_xp_base = 16;
 var mage_xp_base = 75;
 var ghoul_xp_base = 30;
 var promethean_xp_base = 30;
@@ -494,37 +494,18 @@ function updateVampireXP(character_type) {
 }
 
 function updateWerewolfXP() {
-    var i = 0;
     supernatural_xp = werewolf_xp_base;
     var penalty;
     var powers_in_list;
-    while (document.getElementById('affgift' + i)) {
-        var affgift_value = document.getElementById('affgift' + i).value;
-        powers_in_list = getNumOfPowersInList("affgift", document.getElementById('affgift' + i + '_note').value);
-        penalty = (affgift_value - powers_in_list) * 3;
-        if (penalty < 0) {
-            penalty = 0;
-        }
-        supernatural_xp -= Number(affgift_value) * 5 + penalty;
-        i++;
-    }
-
-    i = 0;
-    while (document.getElementById('nonaffgift' + i)) {
-        var nonaffgift_value = document.getElementById('nonaffgift' + i).value;
-        powers_in_list = getNumOfPowersInList("nonaffgift", document.getElementById('nonaffgift' + i + '_note').value);
-        penalty = (nonaffgift_value - powers_in_list) * 3;
-        if (penalty < 0) {
-            penalty = 0;
-        }
-        supernatural_xp -= Number(nonaffgift_value) * 7 + penalty;
-        i++;
-    }
+    var renownCounts = [0, 0, 0, 0, 0, 0];
 
     var multiplier;
     var renown_cost;
-    for (i = 0; i < renown_list.length; i++) {
-        var renown_value = document.getElementById(renown_list[i]).value;
+    for (var i = 0; i < renown_list.length; i++) {
+        var renown_value = $('#' + renown_list[i]).val();
+        for (var j = renown_value; j > 0; j--) {
+            renownCounts[j] = renownCounts[j] + 1;
+        }
         multiplier = 8;
         if ((isAffinityRenown(getSplat1(), renown_list[i])) || (isAffinityRenown(getSplat2(), renown_list[i]))) {
             multiplier = 6;
@@ -534,6 +515,46 @@ function updateWerewolfXP() {
             renown_cost = 0;
         }
         supernatural_xp -= renown_cost;
+    }
+
+    console.debug(renownCounts);
+
+    i = 0;
+    var value = 0;
+    while ($('#affgift' + i).length > 0) {
+        value = $('#affgift' + i).val();
+        powers_in_list = getNumOfPowersInList("affgift", $('#affgift' + i + '_note').val());
+        penalty = (value - powers_in_list) * 3;
+        if (penalty < 0) {
+            penalty = 0;
+        }
+
+        if((renownCounts[value] > 0) && (penalty == 0)) {
+            renownCounts[value] = renownCounts[value] - 1;
+        }
+        else {
+            console.debug(renownCounts[value], penalty);
+            supernatural_xp -= Number(value) * 5 + penalty;
+        }
+        i++;
+    }
+
+    i = 0;
+    while ($('#nonaffgift' + i).length > 0) {
+        value = $('#nonaffgift' + i).val();
+        powers_in_list = getNumOfPowersInList("nonaffgift", $('#nonaffgift' + i + '_note').val());
+        penalty = (value - powers_in_list) * 3;
+        if (penalty < 0) {
+            penalty = 0;
+        }
+
+        if((renownCounts[value] > 0) && (penalty == 0)) {
+            renownCounts[value] = renownCounts[value] - 1;
+        }
+        else {
+            supernatural_xp -= Number(value) * 5 + penalty;
+        }
+        i++;
     }
 
     // Rituals

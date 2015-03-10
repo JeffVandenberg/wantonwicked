@@ -19,7 +19,7 @@
 </head>
 {JAVA_SCRIPT}
 <script>
-    wantonWicked.serverTime = {SERVER_TIME};
+    wantonWickedTime.serverTime = {SERVER_TIME};
 </script>
 <body>
 <div id="gs-header-bar">

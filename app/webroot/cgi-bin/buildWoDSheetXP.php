@@ -252,14 +252,14 @@ EOQ;
             $table_class     = "vampire_normal_text";
             $splat1_groups   = array("Daeva", "Gangrel", "Mekhet", "Nosferatu", "Ventrue");
             $splat2_groups   = array("Carthian", "Circle of the Crone", "Invictus", "Lancea Sanctum", "Ordo Dracul", "Unaligned");
-            $supernatural_xp = 40;
+            $supernatural_xp = 20;
             break;
 
         case 'Werewolf':
             $table_class           = "werewolf_normal_text";
             $splat1_groups         = array("Rahu", "Cahalith", "Elodoth", "Ithaeur", "Irraka", "None");
             $splat2_groups         = array("Blood Talons", "Bone Shadows", "Hunters in Darkness", "Iron Masters", "Storm Lords", "Ghost Wolves", "Fire-Touched", "Ivory Claws", "Predator Kings");
-            $supernatural_xp       = 40;
+            $supernatural_xp       = 16;
             $number_of_specialties = 4;
             break;
 
