@@ -289,6 +289,28 @@ function addMessage(inputMDiv,displayMDiv)
         }
     }
 
+    if(ircCommand[0] == '/roll') {
+        if(ircCommand.length == 1) {
+            dice.help();
+            return false;
+        }
+        if(ircCommand[1].toLowerCase() == 'dice') {
+            dice.roll(message, displayMDiv);
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else if(ircCommand[1].toLowerCase() == 'list') {
+            dice.listRolls();
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else if(ircCommand[1].toLowerCase() == 'help') {
+            dice.help();
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+    }
+
     if(ircCommand[0] == '/ghost') {
         if(ircCommand.length == 1) {
             ghost.help();
