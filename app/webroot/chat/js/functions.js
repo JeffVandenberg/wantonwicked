@@ -1141,8 +1141,13 @@ function showInfoBox(info,height,width,top,url,txt)
 	newdiv.className = "innerInfo";
 	newdiv.style.height = height+"px";
 	newdiv.style.width = width+"px";
-	newdiv.style.top = top+"px";
-	
+	//newdiv.style.top = top+"px";
+	ni.style.height = height+"px";
+	ni.style.width = width+"px";
+	ni.style.top = top+"px";
+	ni.style.left = (($(document).width()/2) - (parseInt(width) / 2))+'px';
+
+
 	if(info == 'games' || info == 'shareFiles')
 	{
 		newdiv.style.overflow = "hidden";	
@@ -1153,7 +1158,9 @@ function showInfoBox(info,height,width,top,url,txt)
 	document.getElementById("oInfo").style.visibility = "visible";
 	document.getElementById(info).style.visibility = "visible";
 	
-	$( "#oInfo" ).draggable();
+	$( "#oInfo" ).draggable({
+		containment: 'window'
+	});
 }
 	
 /*
