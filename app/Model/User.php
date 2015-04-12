@@ -43,25 +43,24 @@ EOQ;
     {
         foreach($data['group_id'] as $row => $groupId)
         {
-            if($data['is_member'][$row]) {
+            if($data['is_member'][$groupId]) {
                 // set member data
                 $this->addUserGroupRole($data['user_id'], $groupId,
-                    $data['is_member'][$row], $data['group_leader'][$row]);
+                    $data['is_member'][$groupId], $data['group_leader'][$groupId]);
             }
             else {
                 // attempt to delete row
                 $this->deleteUserGroup($data['user_id'], $groupId);
             }
         }
-
         return true;
     }
 
     private function addUserGroupRole($userId, $groupId, $isMember, $isGroupLeader) {
         $userId = (int) $userId;
         $groupId = (int) $groupId;
-        $isMember = (bool) $isMember;
-        $isGroupLeader = (bool) $isGroupLeader;
+        $isMember = (int) $isMember;
+        $isGroupLeader = (int) $isGroupLeader;
 
         $sql = <<<EOQ
 SELECT
@@ -74,8 +73,7 @@ WHERE
 EOQ;
 
         $result = $this->query($sql);
-
-        if($result[0]['access_rows'] > 0) {
+        if($result[0][0]['access_rows'] > 0) {
             $sql = <<<EOQ
 UPDATE
     phpbb_user_group

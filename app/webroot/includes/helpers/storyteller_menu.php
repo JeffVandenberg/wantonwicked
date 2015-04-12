@@ -85,6 +85,9 @@ if(UserdataHelper::IsHead($userdata)) {
     $storytellerMenu['Tools']['submenu']['Permissions'] = array(
         'link' => 'storyteller_index.php?action=permissions'
     );
+    $storytellerMenu['Tools']['submenu']['Assign Forums'] = array(
+        'link' => '/users/assignGroups'
+    );
     $storytellerMenu['Tools']['submenu']['Icons'] = array(
         'link' => 'st_tools.php?action=icons_list'
     );

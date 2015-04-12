@@ -8,11 +8,16 @@
 
 App::uses('AppController', 'Controller');
 
+/**
+ * Characters Controller
+ *
+ * @property PermissionsComponent Permissions
+ */
 class UsersController extends AppController
 {
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow();
+        $this->Auth->allow('login');
     }
 
     public function login() {
@@ -61,6 +66,19 @@ class UsersController extends AppController
                 ));
             }
         }
-
+        $storytellerMenu = $this->Menu->createStorytellerMenu();
+        $this->set('submenu', $storytellerMenu);
     }
-} 
+
+    public function isAuthorized($user)
+    {
+        switch($this->request->params['action'])
+        {
+            case 'assignGroups':
+                return $this->Permissions->IsHead();
+                break;
+        }
+        return false;
+    }
+
+}
