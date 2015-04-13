@@ -18,4 +18,49 @@ class UsersController extends AppController
     public function login() {
         $this->redirect('/forum/ucp.php?mode=login');
     }
+
+    public function assignGroups($userId=0) {
+        if($this->request->is('post')) {
+            // lookup user or save
+            App::uses('User', 'Model');
+            App::uses('ForumGroup', 'Model');
+            $user = new User();
+
+            if(isset($this->request->data['action'])) {
+                // trying to save user groups
+                if($user->saveUserGroups($this->request->data)) {
+                    $this->Session->setFlash('Updated User Groups');
+                    $this->redirect('');
+                }
+                else {
+                    $this->Session->setFlash('Error updating user Groups');
+                }
+            }
+            if($this->request->data['user_id']) {
+                $userData = $user->find('first', array(
+                    'fields' => array(
+                        'User.user_id',
+                        'User.username',
+                    ),
+                    'conditions' => array(
+                        'User.user_id' => $this->request->data['user_id']
+                    )
+                ));
+                $userGroups = $user->listUserGroups($userData['User']['user_id']);
+                $userGroupList = array();
+                foreach($userGroups as $userGroup) {
+                    $userGroupList[$userGroup['UserGroup']['group_id']] = $userGroup;
+                }
+                $forumGroup = new ForumGroup();
+                $groups = $forumGroup->listGroups();
+
+                $this->set(array(
+                    'user' => $userData,
+                    'groups' => $groups,
+                    'userGroups' => $userGroupList
+                ));
+            }
+        }
+
+    }
 } 

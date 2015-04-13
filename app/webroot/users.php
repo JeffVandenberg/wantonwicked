@@ -43,8 +43,10 @@ include 'user_panel.php';
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'search':
-            $page_template = "main_ww4.tpl";
             include 'includes/users_search.php';
+            break;
+        case 'assign_groups':
+            include 'includes/users_assign_groups.php';
             break;
         default:
             include 'includes/index_default.php';
