@@ -38,15 +38,15 @@
                     'value' => $groupId)); ?>
             </td>
             <td>
-                <?php echo $this->Form->checkbox('is_member[]', array(
-                    'name' => 'data[is_member][]',
+                <?php echo $this->Form->checkbox('is_member['. $groupId .']', array(
+                    'name' => 'data[is_member][' . $groupId .']',
                     'value' => 1,
                     'checked' => $userGroups[$groupId][0]['is_member'])); ?>
             </td>
             <td>
-                <?php echo $this->Form->checkbox('group_leader[]', array(
+                <?php echo $this->Form->checkbox('group_leader['. $groupId .']', array(
                     'value' => 1,
-                    'name' => 'data[group_leader][]',
+                    'name' => 'data[group_leader][' . $groupId .']',
                     'checked' => $userGroups[$groupId]['UserGroup']['group_leader'])); ?>
             </td>
         </tr>

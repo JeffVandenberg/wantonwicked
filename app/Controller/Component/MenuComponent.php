@@ -470,6 +470,12 @@ class MenuComponent extends Component {
             $menu['Tools']['submenu']['Permissions'] = array(
                 'link' => '/storyteller_index.php?action=permissions'
             );
+            $menu['Tools']['submenu']['Permissions'] = array(
+                'link' => array(
+                    'controller' => 'users',
+                    'action' => 'assignGroups'
+                )
+            );
             $menu['Tools']['submenu']['Icons'] = array(
                 'link' => '/st_tools.php?action=icons_list'
             );
