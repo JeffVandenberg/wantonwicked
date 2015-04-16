@@ -458,6 +458,11 @@ EOQ;
             $parameters[] = RequestType::BlueBook;
         }
 
+        if($filter['title'] != '') {
+            $sql .= ' AND R.title LIKE ? ';
+            $parameters[] = $filter['title'] . '%';
+        }
+
         if($filter['request_status_id'] != '0') {
             if($filter['request_status_id'] != -1) {
                 $sql .= ' AND R.request_status_id = ? ';
