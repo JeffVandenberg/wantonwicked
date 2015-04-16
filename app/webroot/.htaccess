@@ -30,7 +30,3 @@
         Header append Vary User-Agent env=!dont-vary
     </IfModule>
 </IfModule>
-<FilesMatch "dice\.php$">
-SecFilterEngine Off
-SecFilterScanPOST Off
-</FilesMatch>
