@@ -104,7 +104,7 @@ $(function() {
                     $(this).val('0');
                 }
                 var allowedBonus = parseInt($("#bonus-xp-cap").val()) - parseInt($("#bonus-received").val());
-                if(amount > allowedBonus) {
+                if((amount != 0) && (amount > allowedBonus)) {
                     alert('You may not give more than ' + allowedBonus);
                     $(this).val('0');
                 }

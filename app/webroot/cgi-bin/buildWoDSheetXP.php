@@ -1,6 +1,7 @@
 <?php
 use classes\core\helpers\Configuration;
 use classes\core\helpers\FormHelper;
+use classes\core\helpers\UserdataHelper;
 
 function buildWoDSheetXP(
     $stats, $character_type = 'Mortal', $edit_show_sheet = false, $edit_name = false,
@@ -848,6 +849,14 @@ EOQ;
 EOQ;*/
         }
 
+        $monthlyBonusXPCap = 5;
+        // this is bad, please don't do this me!e
+        global $userdata;
+        if(UserdataHelper::IsHead($userdata)) {
+            $monthlyBonusXPCap = '99999';
+        }
+
+
         ob_start();
 ?>
 <table class="character-sheet $table_class">
@@ -932,8 +941,8 @@ EOQ;*/
             Monthly Bonus XP Cap:
         </td>
         <td>
-            5
-            <?php echo FormHelper::Hidden('bonus_xp_cap', 5); ?>
+            <?php echo $monthlyBonusXPCap; ?>
+            <?php echo FormHelper::Hidden('bonus_xp_cap', $monthlyBonusXPCap); ?>
         </td>
         <td>
             Bonus XP Received:
