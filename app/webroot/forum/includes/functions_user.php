@@ -337,7 +337,6 @@ VALUES
 	'$user_row[username]',
 	'')
 EOQ;
-	echo $ww_query."<br>";
 	$db->sql_query($ww_query);
 
 	return $user_id;

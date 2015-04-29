@@ -37,7 +37,12 @@ class MenuComponent extends Component {
                 'link'    => '#',
                 'submenu' => array(
                     'Site Supporter' => array(
-                        'link' => 'support.php'
+                        'link' => 'support.php',
+                        'submenu' => array(
+                            'Support Information' => array(
+                                'link' => '/wiki/index.php?n=GameRef.5For5Offer'
+                            )
+                        )
                     )
                 )
             ),
@@ -358,6 +363,12 @@ class MenuComponent extends Component {
                 );
                 $this->menu['Site Tools']['submenu']['Character List']['submenu'][$character['Character']['character_name']] = $characterMenu;
             }
+        }
+
+        if($this->Permissions->IsSupporter()) {
+            $this->menu['Site Tools']['submenu']['Site Supporter']['submenu']['Update Supporter Status'] = array(
+                'link' => '/support.php?action=setCharacters'
+            );
         }
 
         if($this->Permissions->IsST()) {

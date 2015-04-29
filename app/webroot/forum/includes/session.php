@@ -1498,7 +1498,7 @@ class session
 
     private function getLegacyPermisisons($userId, $db)
     {
-        $userId = $userId + 0;
+        $userId = (int) $userId;
         $gm_permissions_query = "select * from gm_permissions where id = " .$userId;
         $gm_permissions_result = $db->sql_query($gm_permissions_query);
         $gm_permissions_detail = $db->sql_fetchrow($gm_permissions_result);
@@ -1512,6 +1512,12 @@ class session
         $data['cell_id'] = $gm_permissions_detail['Cell_ID'];
         $data['side_game'] = $gm_permissions_detail['Side_Game'];
         $data['wiki_manager'] = $gm_permissions_detail['Wiki_Manager'];
+
+        $supporterQuery = 'select count(*) as `is_supporter` from supporters where user_id = ' . $userId . ' AND expires_on >= "' . date('Y-m-d H:i:s') .'"';
+        $supporterResult = $db->sql_query($supporterQuery);
+        $supporterDetail = $db->sql_fetchrow($supporterResult);
+
+        $data['is_supporter'] = ($supporterDetail['is_supporter'] > 0);
         return $data;
 	}
 }
