@@ -104,6 +104,7 @@ EOQ;
     $willpower_temp        = 0;
     $morality              = 7;
     $power_points          = 10;
+    $maxPowerPoints        = 20;
     $average_power_points  = 0;
     $power_points_modifier = 0;
     $health                = 0;
@@ -302,6 +303,7 @@ EOQ;
             $splat1_groups   = array("Advocate", "Bonepicker", "Celebrant", "Gatekeeper", "Mourner", "Necromancer", "Pilgrim", "Reaper");
             $splat2_groups   = array("Forgotten", "Prey", "Silent", "Stricken", "Torn");
             $supernatural_xp = 44;
+            $maxPowerPoints  = 30;
             break;
 
         case 'Purified':
@@ -560,7 +562,7 @@ EOQ;
                                             false);
     $morality_dots       = FormHelper::Dots("morality", $morality, $element_type['morality'], $character_type, 10,
                                             $edit_perm_traits, false, $edit_xp);
-    $power_points_dots   = FormHelper::Dots("power_points", $power_points, 0, $character_type, 20, $edit_temp_traits,
+    $power_points_dots   = FormHelper::Dots("power_points", $power_points, 0, $character_type, $maxPowerPoints, $edit_temp_traits,
                                             false);
     $health_dots         = FormHelper::Dots("health", $health, 0, $character_type, 15, $edit_perm_traits, false);
 
