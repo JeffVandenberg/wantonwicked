@@ -10,26 +10,40 @@
 namespace classes\request\repository;
 
 
-class RequestCharacterRepository {
+use classes\core\repository\AbstractRepository;
+use classes\request\data\RequestCharacter;
 
+class RequestCharacterRepository extends AbstractRepository
+{
+    function __construct()
+    {
+        parent::__construct('classes\request\data\RequestCharacter');
+    }
+
+    /**
+     * @param $requestId
+     * @return RequestCharacter[]s
+     */
     public function ListByRequestId($requestId)
     {
-        $requestId = (int) $requestId;
-
         $sql = <<<EOQ
 SELECT
-    RC.*,
-    C.character_name
+    RC.*
 FROM
     request_characters AS RC
     LEFT JOIN characters AS C ON RC.character_id = C.id
 WHERE
-    RC.request_id = $requestId
+    RC.request_id = ?
 ORDER BY
     C.character_name
 EOQ;
 
-        return ExecuteQueryData($sql);
+        $params = array($requestId);
+        $list = array();
+        foreach($this->Query($sql)->All($params) as $row) {
+            $list[] = $this->PopulateObject($row);
+        }
+        return $list;
     }
 
     public function FindById($id)

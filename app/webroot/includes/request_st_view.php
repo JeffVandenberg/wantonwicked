@@ -133,12 +133,12 @@ ob_start();
     <dl>
         <?php foreach ($requestCharacters as $character): ?>
             <dt>
-                <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $note['character_id']; ?>"><?php echo $character['character_name']; ?></a>
+                <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $note['character_id']; ?>"><?php echo $character->Character->CharacterName; ?></a>
                 - Approved:
-                <?php echo ($character['is_approved']) ? 'Yes' : 'No'; ?>
+                <?php echo ($character->IsApproved) ? 'Yes' : 'No'; ?>
             </dt>
             <dd>
-                <?php echo $character['note']; ?>
+                <?php echo $character->Note; ?>
             </dd>
         <?php endforeach; ?>
     </dl>

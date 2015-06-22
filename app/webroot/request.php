@@ -185,10 +185,16 @@ if (isset($_GET['action'])) {
         case 'update_request_character':
             include 'includes/request_update_request_character.php';
             break;
+        case 'dashboard':
+            include_once 'includes/request_dashboard.php';
+            break;
         default:
-            include 'includes/index_redirect.php';
+            include_once 'includes/request_dashboard.php';
             break;
     }
+}
+else {
+    include_once 'includes/request_dashboard.php';
 }
 
 $template->set_custom_template('templates', 'main_ww4');

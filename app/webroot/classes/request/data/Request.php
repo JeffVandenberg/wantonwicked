@@ -19,6 +19,7 @@ use classes\core\helpers\SlugHelper;
  * @property Group Group
  * @property RequestType RequestType
  * @property RequestStatus RequestStatus
+ * @property RequestCharacter RequestCharacter
  * @property RequestStatusHistory[] RequestStatusHistory
  */
 class Request extends DataModel
@@ -47,10 +48,11 @@ class Request extends DataModel
         'Character' => 'classes\character\data\Character',
         'Group' => 'classes\core\data\Group',
         'RequestType',
-        'RequestStatus'
+        'RequestStatus',
     );
 
     public $HasMany = array(
-        'RequestStatusHistory'
+        'RequestStatusHistory',
+        'RequestCharacter'
     );
 }

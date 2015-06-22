@@ -804,4 +804,75 @@ EOQ;
 
         return $this->Query($sql)->Execute($params);
     }
+
+    /**
+     * @param $userId
+     * @param $page
+     * @param $pageSize
+     * @param $sort
+     * @param int $statusId
+     * @param $filter
+     * @return \classes\request\data\Request[]
+     */
+    public function ListByUserId($userId, $page, $pageSize, $sort, $statusId = 0, $filter)
+    {
+        $openStatuses = RequestStatus::$Player;
+        if($statusId != 0) {
+            $openStatuses = array($statusId);
+        }
+        $startIndex = ($page - 1) * $pageSize;
+        $sort = mysql_real_escape_string($sort);
+
+        $sql = <<<EOQ
+SELECT
+    R.*,
+    RT.name as request_type_name,
+    RS.name as request_status_name,
+    UB.username AS updated_by_username
+FROM
+    requests as R
+    LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
+    LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
+    LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
+WHERE
+    R.created_by_id = ?
+EOQ;
+        $parameters = array($userId);
+        if($filter['title'] !== '') {
+            $sql .= ' AND R.title LIKE ? ';
+            $parameters[] = $filter['title'] . '%';
+        }
+
+        if($filter['request_type_id'] != 0) {
+            $sql .= ' AND R.request_type_id = ? ';
+            $parameters[] = $filter['request_type_id'];
+        }
+        else {
+            $sql .= ' AND R.request_type_id != ? ';
+            $parameters[] = RequestType::BlueBook;
+        }
+
+        if($filter['request_status_id'] != 0) {
+            $sql .= ' AND R.request_status_id = ? ';
+            $parameters[] = $filter['request_status_id'];
+        }
+        else {
+            $sql .= ' AND R.request_status_id IN (' . implode(',', array_fill(0, count($openStatuses), '?')) . ') ';
+            $parameters = array_merge($parameters, $openStatuses);
+        }
+
+        $sql .= <<<EOQ
+        ORDER BY
+    $sort
+LIMIT
+    $startIndex, $pageSize
+EOQ;
+
+        $list = array();
+        foreach($this->Query($sql)->All($parameters) as $row) {
+            $list[] = $this->PopulateObject($row);
+        }
+
+        return $list;
+    }
 }

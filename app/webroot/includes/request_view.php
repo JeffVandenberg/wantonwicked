@@ -185,14 +185,14 @@ ob_start();
 <?php if (count($requestCharacters) > 0): ?>
     <h3>Assisting Characters</h3>
     <dl>
-        <?php foreach ($requestCharacters as $character): ?>
+        <?php foreach ($requestCharacters as $requestCharacter): ?>
             <dt>
-                <?php echo $character['character_name']; ?>
+                <?php echo $requestCharacter->Character->CharacterName; ?>
                 - Approved:
-                <?php echo ($character['is_approved']) ? 'Yes' : 'No'; ?>
+                <?php echo ($requestCharacter->IsApproved) ? 'Yes' : 'No'; ?>
             </dt>
             <dd>
-                <?php echo $character['note']; ?>
+                <?php echo $requestCharacter->Note; ?>
             </dd>
         <?php endforeach; ?>
     </dl>
