@@ -41,4 +41,10 @@ class PermissionsComponent extends Component {
         $userdata = AuthComponent::user();
         return ($userdata['is_admin']);
     }
+
+    public function IsSupporter()
+    {
+        $userdata = AuthComponent::user();
+        return ($userdata['is_supporter']);
+    }
 }

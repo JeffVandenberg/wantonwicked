@@ -104,7 +104,7 @@ $(function() {
                     $(this).val('0');
                 }
                 var allowedBonus = parseInt($("#bonus-xp-cap").val()) - parseInt($("#bonus-received").val());
-                if(amount > allowedBonus) {
+                if((amount != 0) && (amount > allowedBonus)) {
                     alert('You may not give more than ' + allowedBonus);
                     $(this).val('0');
                 }
@@ -1546,11 +1546,13 @@ function addContract(type) {
     var index = row_id - 2;
     var newRow = cont_list.insertRow(row_id);
 
+    var newNameCell = null,
+        newLevelCell = null;
     if (type == "gobcont") {
-        var newNameCell = newRow.insertCell(0);
+        newNameCell = newRow.insertCell(0);
         newNameCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_name\" id=\"" + type + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
 
-        var newLevelCell = newRow.insertCell(1);
+        newLevelCell = newRow.insertCell(1);
         newLevelCell.innerHTML = makeDotsXP(type + index, supernatural, getCharacterType(), 7, 0, true, false, edit_xp);
         newLevelCell.innerHTML += "<input type=\"hidden\" name=\"" + type + index + "_id\" id=\"" + type + index + "_id\" value=\"0\">";
     }
@@ -1558,10 +1560,10 @@ function addContract(type) {
         var newListCell = newRow.insertCell(0);
         newListCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_name\" id=\"" + type + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
 
-        var newNameCell = newRow.insertCell(1);
+        newNameCell = newRow.insertCell(1);
         newNameCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_note\" id=\"" + type + index + "_note\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
 
-        var newLevelCell = newRow.insertCell(2);
+        newLevelCell = newRow.insertCell(2);
         newLevelCell.innerHTML = makeDotsXP(type + index, supernatural, getCharacterType(), 7, 0, true, false, edit_xp);
         newLevelCell.innerHTML += "<input type=\"hidden\" name=\"" + type + index + "_id\" id=\"" + type + index + "_id\" value=\"0\">";
     }

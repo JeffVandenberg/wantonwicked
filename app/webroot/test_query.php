@@ -14,50 +14,47 @@ require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
-select
-	id, 
-	character_name,
-	total_experience - (select count(*) * 5 from log_characters AS LC WHERE LC.character_id = C.id AND LC.action_type_id = 5) AS `total_earned` 
-from
-	characters as C
+SELECT
+	UG.user_id,
+	U.username,
+	C.character_name
+FROM
+	phpbb_user_group AS UG
+	INNER JOIN phpbb_users as U ON UG.user_id = U.user_Id
+	LEFT JOIN characters as C ON U.user_id = C.user_id
 WHERE
-	total_experience - (select count(*) * 5 from log_characters AS LC WHERE LC.character_id = C.id AND LC.action_type_id = 5) < 35 
+	UG.group_id = ?
 	AND C.is_sanctioned = 'Y'
-	AND C.is_npc = 'N'
-	AND C.city = 'Savannah'
 ORDER BY
-	character_name
+	U.username,
+	C.character_name
 EOQ;
 
-$rows = Database::GetInstance()->Query($query)->All();
+$params = array(1729);
+$rows = Database::GetInstance()->Query($query)->All($params);
 ?>
-<form method="post" enctype="multipart/form-data">
-    <textarea name="character_list"></textarea>
-    <input type="submit" value="Upload File" />
-</form>
+
+<?php if(count($rows) > 0): ?>
 <table>
 	<thead>
 	<tr>
-		<th>
-		ID
-		</th>
-		<th>
-			Name
-		</th>
-		<th>
-			XP Earned
-		</th>
-		<th>
-			Bonus to apply
-		</th>
+		<?php foreach($rows[0] as $header => $value): ?>
+			<th>
+				<?php echo $header; ?>
+			</th>
+		<?php endforeach; ?>
 	</tr>
 	</thead>
 	<?php foreach($rows as $row): ?>
 	<tr>
-		<td><?php echo $row['id']; ?></td>
-		<td><?php echo $row['character_name']; ?></td>
-		<td><?php echo $row['total_earned']; ?></td>
-		<td><?php echo 35-$row['total_earned']; ?></td>
-		
+		<?php foreach($row as $cell): ?>
+			<td>
+				<?php echo $cell; ?>
+			</td>
+		<?php endforeach; ?>
+	</tr>
 	<?php endforeach; ?>
 </table>
+<?php else: ?>
+	No records
+<?php endif; ?>

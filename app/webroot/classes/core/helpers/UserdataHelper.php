@@ -31,4 +31,9 @@ class UserdataHelper
     {
         return ($userdata['is_admin']);
     }
+
+    public static function IsSupporter($userdata)
+    {
+        return ($userdata['is_supporter']);
+    }
 }

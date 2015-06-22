@@ -68,6 +68,7 @@ function buildWoDSheet($stats, $character_type='Mortal', $edit_show_sheet = fals
 	$willpower_temp = 0;
 	$morality = 7;
 	$power_points = 10;
+    $maxPowerPoints = 20;
 	$health = 0;
 	$size = 5;
 	$defense = 0; 
@@ -255,6 +256,8 @@ function buildWoDSheet($stats, $character_type='Mortal', $edit_show_sheet = fals
 			$table_class = "geist_normal_text";
 			$splat1_groups = array("Advocate", "Bonepicker", "Celebrant", "Gatekeeper", "Mourner", "Necromancer", "Pilgrim", "Reaper");
 			$splat2_groups = array("Forgotten", "Prey", "Silent", "Stricken", "Torn");
+            $maxPowerPoints = 30;
+            die($maxPowerPoints);
 			break;
 		case 'Ghoul':
 			$table_bg_color = "#9e0b0f";
@@ -533,7 +536,7 @@ EOQ;
 	$willpower_perm_dots = makeDots("willpower_perm", $character_type, 10, $willpower_perm, $edit_perm_traits);
 	$willpower_temp_dots = makeDots("willpower_temp", $character_type, 10, $willpower_temp, (($edit_temp_traits && $is_sanctioned == "") || ($view_is_asst || $view_is_st || $view_is_head || $view_is_admin)));
 	$morality_dots = makeDots("morality", $character_type, 10, $morality, $edit_perm_traits);
-	$power_points_dots = makeDots("power_points", $character_type, 20, $power_points, $edit_temp_traits);
+	$power_points_dots = makeDots("power_points", $character_type, $maxPowerPoints, $power_points, $edit_temp_traits);
 	$health_dots = makeDots("health", $character_type, 15, $health, $edit_perm_traits);
 	
 	if($edit_perm_traits)

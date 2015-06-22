@@ -18,7 +18,12 @@ $mainMenu = array(
         'link'    => '#',
         'submenu' => array(
             'Site Supporter' => array(
-                'link' => 'support.php'
+                'link' => 'support.php',
+                'submenu' => array(
+                    'Support Information' => array(
+                        'link' => '/wiki/index.php?n=GameRef.5For5Offer'
+                    )
+                )
             )
         )
     ),
@@ -360,6 +365,12 @@ if (UserdataHelper::IsSt($userdata)) {
 if (UserdataHelper::IsAdmin($userdata)) {
     $mainMenu['Site Tools']['submenu']['Site Supporter']['submenu']['Manage Support'] = array(
         'link' => '/support.php?action=manage'
+    );
+}
+
+if (UserdataHelper::IsSupporter($userdata)) {
+    $mainMenu['Site Tools']['submenu']['Site Supporter']['submenu']['Update Update Status'] = array(
+        'link' => '/support.php?action=setCharacters'
     );
 }
 

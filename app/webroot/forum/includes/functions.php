@@ -4627,6 +4627,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 
     $isSt = ($user->data['is_asst'] || $user->data['is_gm'] || $user->data['is_head'] || $user->data['is_admin']);
     $isAdmin = $user->data['is_admin'];
+    $isSupporter = $user->data['is_supporter'];
 
 	// The following assigns all _common_ variables that may be used at any point in a template.
 	$template->assign_vars(array(
@@ -4684,6 +4685,7 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'U_FEED'				=> generate_board_url() . "/feed.$phpEx",
         'U_IS_STORYTELLER'      => $isSt,
         'U_IS_ADMIN'            => $isAdmin,
+        'U_IS_SUPPORTER'        => $isSupporter,
         'SERVER_TIME'           => (microtime(true) + date('Z'))*1000,
 		'S_USER_LOGGED_IN'		=> ($user->data['user_id'] != ANONYMOUS) ? true : false,
 		'S_AUTOLOGIN_ENABLED'	=> ($config['allow_autologin']) ? true : false,

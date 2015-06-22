@@ -192,11 +192,15 @@ function marklist(id, name, state)
         <li><a href="#"><span>Site Tools</span></a>
             <ul>
                 <li><a href="/support.php"><span>Site Supporter</span></a>
+                <ul>
+                    <li><a href="/wiki/index.php?n=GameRef.5For5Offer"><span>Support Information</span></a></li>
                     <!-- IF U_IS_ADMIN -->
-                    <ul>
                         <li><a href="/support.php?action=manage"><span>Manage Support</span></a></li>
-                    </ul>
                     <!-- ENDIF -->
+                    <!-- IF U_IS_SUPPORTER -->
+                        <li><a href="/support.php?action=setCharacters"><span>Update Support Status</span></a></li>
+                    <!-- ENDIF -->
+                    </ul>
                 </li>
                 <!-- IF S_USER_LOGGED_IN -->
                 <li><a href="/chat.php">Character List</a>
