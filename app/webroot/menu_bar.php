@@ -320,6 +320,10 @@ if ($userdata['user_id'] != ANONYMOUS) {
         )
     );
 
+    $mainMenu['Site Tools']['submenu']['Requests'] = array(
+        'link' => '/request.php'
+    );
+
     $characterRepository  = new CharacterRepository();
     $sanctionedCharacters = $characterRepository->ListSanctionedCharactersByPlayerId($userdata['user_id']);
     foreach ($sanctionedCharacters as $character) {

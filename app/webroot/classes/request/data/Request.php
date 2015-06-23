@@ -12,6 +12,7 @@ namespace classes\request\data;
 use classes\character\data\Character;
 use classes\core\data\DataModel;
 use classes\core\data\Group;
+use classes\core\data\User;
 use classes\core\helpers\SlugHelper;
 
 /**
@@ -21,6 +22,7 @@ use classes\core\helpers\SlugHelper;
  * @property RequestStatus RequestStatus
  * @property RequestCharacter RequestCharacter
  * @property RequestStatusHistory[] RequestStatusHistory
+ * @property User UpdatedBy
  */
 class Request extends DataModel
 {
@@ -49,6 +51,7 @@ class Request extends DataModel
         'Group' => 'classes\core\data\Group',
         'RequestType',
         'RequestStatus',
+        'UpdatedBy' => 'classes\core\data\User'
     );
 
     public $HasMany = array(

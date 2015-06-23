@@ -31,6 +31,11 @@ $java_script = "";
 $template_layout = 'main_ww4.tpl';
 $contentHeader = "";
 
+// check if user is logged in
+include 'user_panel.php';
+// build links
+include 'menu_bar.php';
+
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'login':
@@ -95,10 +100,6 @@ if (isset($_GET['action'])) {
     include 'includes/chat_index.php';
 }
 
-// check if user is logged in
-include 'user_panel.php';
-// build links
-include 'menu_bar.php';
 
 
 $template->set_custom_template('templates', substr($template_layout, 0, strlen($template_layout) - 4));
