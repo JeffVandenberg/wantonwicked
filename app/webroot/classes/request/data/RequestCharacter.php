@@ -22,6 +22,8 @@ class RequestCharacter extends DataModel
     public $RequestId;
     public $CharacterId;
     public $IsPrimary;
+    public $IsApproved;
+    public $Note;
 
     public $BelongsTo = array(
         'Request',
