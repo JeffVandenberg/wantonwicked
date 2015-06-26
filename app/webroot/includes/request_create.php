@@ -6,17 +6,19 @@ use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\core\repository\RepositoryManager;
+use classes\request\data\RequestCharacter;
 use classes\request\data\RequestStatus;
-use classes\request\data\RequestStatusHistory;
 use classes\request\repository\GroupRepository;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestTypeRepository;
 
 $characterId = Request::GetValue('character_id', 0);
-$characterRepository = new CharacterRepository();
-if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+if ($characterId) {
+    $characterRepository = new CharacterRepository();
+    if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
+        include 'index_redirect.php';
+        die();
+    }
 }
 
 $title = Request::GetValue('title');
@@ -26,10 +28,13 @@ $body = Request::GetValue('body');
 
 if (Request::IsPost()) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=list&character_id=' . $characterId);
-    }
-    elseif(($_POST['action'] == 'Submit Request') || ($_POST['action'] == 'Add Attachments'))
-    {
+        if($characterId) {
+            Response::Redirect('request.php?action=list&character_id=' . $characterId);
+        }
+        else {
+            Response::Redirect('request.php?action=dashboard');
+        }
+    } elseif (($_POST['action'] == 'Submit Request') || ($_POST['action'] == 'Add Attachments')) {
         $request = new \classes\request\data\Request();
         $request->CharacterId = $characterId;
         $request->Title = htmlspecialchars($title);
@@ -43,34 +48,47 @@ if (Request::IsPost()) {
         $request->UpdatedOn = date('Y-m-d H:i:s');
 
         $requestRepository = new RequestRepository();
-        if(!$requestRepository->Save($request))
-        {
+        if (!$requestRepository->Save($request)) {
             SessionHelper::SetFlashMessage("Error Creating Your Request.");
-        }
-        else
-        {
-            if($_POST['action'] == 'Submit Request') {
+        } else {
+            if ($characterId) {
+//                $requestCharacter = new RequestCharacter();
+//                $requestCharacter->CharacterId = $characterId;
+//                $requestCharacter->RequestId = $request->Id;
+//                $requestCharacter->IsPrimary = true;
+//                $requestCharacterRepository = RepositoryManager::GetRepository('classes\request\data\RequestCharacter');
+//                $requestCharacterRepository->Save($requestCharacter);
+            }
+            if ($_POST['action'] == 'Submit Request') {
                 $request->RequestStatusId = RequestStatus::Submitted;
                 $requestRepository->Save($request);
             }
-            Response::Redirect('request.php?action=view&request_id='.$request->Id);
+            Response::Redirect('request.php?action=view&request_id=' . $request->Id);
         }
     }
 }
 
-$character = $characterRepository->FindById($characterId);
+$groupRepository = new GroupRepository();
+$requestTypeRepository = new RequestTypeRepository();
 
-$page_title = 'Create Request for ' . $character['character_name'];
+$page_title = 'Create Request';
+if ($characterId) {
+    $character = $characterRepository->FindById($characterId);
+    $page_title .= ' for ' . $character['character_name'];
+    $defaultGroup = $groupRepository->FindDefaultGroupForCharacter($characterId);
+    $defaultGroupId = $defaultGroup['id'];
+
+} else {
+    $defaultGroupId = 1;
+}
+
 $contentHeader = $page_title;
 
-$groupRepository = new GroupRepository();
-$groups = $groupRepository->SimpleListAll($characterId);
-$defaultGroup = $groupRepository->FindDefaultGroupForCharacter($characterId);
-$requestTypeRepository = new RequestTypeRepository();
-$requestTypes = $requestTypeRepository->ListForGroupId($defaultGroup['id']);
+// prepare variables for page
+$groups = $groupRepository->SimpleListAll();
+$requestTypes = $requestTypeRepository->ListForGroupId($defaultGroupId);
 $requestTypeOptions = array();
-foreach($requestTypes as $requestType)
-{
+foreach ($requestTypes as $requestType) {
     $requestTypeOptions[$requestType->Id] = $requestType->Name;
 }
 ob_start();
@@ -83,11 +101,11 @@ ob_start();
         </div>
         <div class="formInput">
             <label for="title">Group:</label>
-            <?php echo FormHelper::Select($groups, 'group_id', $defaultGroup['id']); ?>
+            <?php echo FormHelper::Select($groups, 'group_id', $defaultGroupId); ?>
         </div>
         <div class="formInput">
             <label for="request-type">Request Type:</label>
-            <?php echo FormHelper::Select($requestTypeOptions   , 'request_type_id', $requestTypeId); ?>
+            <?php echo FormHelper::Select($requestTypeOptions, 'request_type_id', $requestTypeId); ?>
         </div>
         <div class="formInput">
             <label for="request-type">Body:</label>
@@ -103,7 +121,7 @@ ob_start();
     <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         tinymce.init({
-                selector: "textarea.tinymce-request-input",
+            selector: "textarea.tinymce-request-input",
             menubar: false,
             height: 200,
             plugins: [
@@ -115,10 +133,10 @@ ob_start();
             templates: '/requestTemplates/getList'
         });
 
-        $(function() {
+        $(function () {
             var submitted = true;
-            $('form').submit(function() {
-                if(submitted) {
+            $('form').submit(function () {
+                if (submitted) {
                     submitted = true;
                     return true;
                 }
@@ -126,13 +144,13 @@ ob_start();
                     return false;
                 }
             });
-            $("#group-id").change(function() {
+            $("#group-id").change(function () {
                 $.get(
                     '/groups/listRequestTypes/' + $(this).val() + '.json',
-                    function(data) {
+                    function (data) {
                         var list = $("#request-type-id");
                         list.empty();
-                        for(var i = 0; i < data.list.length; i++) {
+                        for (var i = 0; i < data.list.length; i++) {
                             var item = data.list[i];
                             list.append(
                                 $('<option>')
