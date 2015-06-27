@@ -152,7 +152,6 @@ if (isset($_GET['action'])) {
                 include 'includes/index_redirect.php';
             }
             break;
-            break;
         case 'admin_status_report':
             if(UserdataHelper::IsHead($userdata))
             {
@@ -163,6 +162,15 @@ if (isset($_GET['action'])) {
                 include 'includes/index_redirect.php';
             }
             break;
+        case 'admin_activity_report':
+            if(UserdataHelper::IsHead($userdata))
+            {
+                include 'includes/request_admin_activity_report.php';
+            }
+            else
+            {
+                include 'includes/index_redirect.php';
+            }
             break;
         case 'submit':
             include 'includes/request_submit.php';

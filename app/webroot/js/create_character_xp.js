@@ -1802,7 +1802,7 @@ function loadCharacterSTView(view_character_id, xp_edit) {
 
 function changeSheet(character_type) {
     var sheet = $("#charSheet");
-    var url = "view_sheet.php?action=get&type=" + page_action + "&character_type=" + character_type + "&character_id=" + $("#character_id").val();
+    var url = "view_sheet.php?action=get&type=" + page_action + "&character_type=" + encodeURIComponent(character_type) + "&character_id=" + $("#character_id").val();
     sheet
         .html("Loading new character sheet...")
         .load(url, drawSheet);

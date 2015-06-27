@@ -900,4 +900,37 @@ EOQ;
         ) , RequestStatus::$Player);
         return $this->Query($sql)->Value($params);
     }
+
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @return array
+     */
+    public function GetSTActivityReport($startDate, $endDate)
+    {
+        $sql = <<<EOQ
+SELECT
+    U.user_id,
+    U.username,
+    RS.name as status_name,
+    COUNT(*) AS total
+FROM
+    phpbb_users AS U
+    INNER JOIN gm_permissions AS P ON U.user_id = P.ID
+    LEFT JOIN request_status_histories AS RSH ON U.user_id = RSH.created_by_id
+    LEFT JOIN request_statuses AS RS ON RSH.request_status_id = RS.id
+WHERE
+    RSH.created_on >= ?
+    AND RSH.created_on <= ?
+GROUP BY
+    U.user_id,
+    RS.id
+ORDER BY
+    U.username,
+    RS.name
+EOQ;
+        $params = array($startDate, $endDate);
+
+        return $this->Query($sql)->All($params);
+    }
 }

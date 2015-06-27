@@ -36,7 +36,7 @@ function buildWoDSheetXP(
     $number_of_merits      = 5;
 
     //$character_types = array("Mortal", "Vampire", "Werewolf", "Mage", "Ghoul", "Psychic", "Thaumaturge", "Promethean", "Changeling", "Hunter", "Geist", "Purified", "Possessed");
-    $character_types = array("Mortal", "Vampire", "Ghoul", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker", "Changeling", "Geist");
+    $character_types = array("Mortal", "Vampire", "Ghoul", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker", "Changeling", "Geist", "Changing Breed");
 
     $max_dots = 7;
 
