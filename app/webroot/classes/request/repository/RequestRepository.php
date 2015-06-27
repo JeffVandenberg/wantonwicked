@@ -880,4 +880,24 @@ EOQ;
 
         return $list;
     }
+
+    public function getOpenByUserId($userId)
+    {
+        $statusPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Player), '?'));
+        $sql = <<<EOQ
+SELECT
+    count(*)
+FROM
+    requests
+WHERE
+    request_type_id != ?
+    AND created_by_id = ?
+    AND request_status_id IN ($statusPlaceholders)
+EOQ;
+        $params = array_merge(array(
+            RequestType::BlueBook,
+            $userId
+        ) , RequestStatus::$Player);
+        return $this->Query($sql)->Value($params);
+    }
 }

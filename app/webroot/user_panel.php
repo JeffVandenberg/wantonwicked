@@ -1,5 +1,7 @@
 <?php
 global $userdata;
+use classes\request\repository\RequestRepository;
+
 $get_vars = "";
 $is_first = true;
 while(list($key, $value) = each($_GET))
@@ -46,12 +48,20 @@ EOQ;
 -
 <a href="forum/ucp.php">User Control Panel</a>
 EOQ;
+
+    $requestRepository = new RequestRepository();
+    $requestCount = $requestRepository->getOpenByUserId($userdata['user_id']);
+    $requestDashboard = <<<EOQ
+- <a href="/request.php">Open Requests ($requestCount)</a>
+EOQ;
 }
+
 
 $user_panel = <<<EOQ
 $up_name - 
 $up_loginout
 $userControlPanel
+$requestDashboard
 <span id="server-time"></span>
 EOQ;
 

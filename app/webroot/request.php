@@ -47,7 +47,7 @@ $extra_headers = "";
 $template_name = 'main_ww4.tpl';
 $contentHeader = "";
 
-require_once('user_panel.php');
+require_once 'user_panel.php';
 include 'menu_bar.php';
 
 if (isset($_GET['action'])) {
@@ -199,6 +199,8 @@ else {
 }
 
 $template->set_custom_template('templates', 'main_ww4');
+
+$menu_bar = MenuHelper::GenerateMenu($mainMenu);
 
 $menu_bar = MenuHelper::GenerateMenu($mainMenu);
 $template->assign_vars(array(

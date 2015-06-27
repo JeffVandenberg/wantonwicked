@@ -14,12 +14,8 @@ $userRequests = $requestRepository->ListByUserId($userdata['user_id'], 1, 25, 'u
 
 // requests sent to the users groups
 
-$mainMenu['Actions'] = array(
-    'submenu' => array(
-        'New Request' => array(
-            'link' => '/request.php?action=create'
-        )
-    )
+$mainMenu['Actions']['submenu']['New Request'] = array(
+    'link' => '/request.php?action=create'
 );
 
 ob_start();
