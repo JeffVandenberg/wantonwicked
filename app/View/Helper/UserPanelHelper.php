@@ -22,6 +22,19 @@ EOQ;
         if(AuthComponent::user('username') !== null) {
             // show user name
             $userName = AuthComponent::user('username');
+            App::uses('Request', 'Model');
+            $request = new Request();
+
+            $requestCount = $request->find(
+                'count',
+                array(
+                    'conditions' => array(
+                        'Request.request_type_id != 4',
+                        'Request.created_by_id' => AuthComponent::user('user_id'),
+                        'Request.request_status_id IN (1,2,3,4,5,6)'
+                    )
+                )
+            );
             $logout = $this->Html->link('Logout', $this->Html->url('/').'forum/ucp.php?mode=logout&sid='.AuthComponent::user('session_id'));
 
             $panel = <<<EOQ
@@ -29,7 +42,9 @@ EOQ;
 -
 $logout
 -
-<a href="forum/ucp.php">User Control Panel</a>
+<a href="/forum/ucp.php">User Control Panel</a>
+-
+<a href="/request.php">Open Requests ($requestCount)</a>
 EOQ;
 
         }

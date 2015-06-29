@@ -9,6 +9,7 @@
 
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
+use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 
@@ -163,7 +164,7 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'admin_activity_report':
-            if(UserdataHelper::IsHead($userdata))
+            if(UserdataHelper::IsSt($userdata))
             {
                 include 'includes/request_admin_activity_report.php';
             }
@@ -207,8 +208,6 @@ else {
 }
 
 $template->set_custom_template('templates', 'main_ww4');
-
-$menu_bar = MenuHelper::GenerateMenu($mainMenu);
 
 $menu_bar = MenuHelper::GenerateMenu($mainMenu);
 $template->assign_vars(array(

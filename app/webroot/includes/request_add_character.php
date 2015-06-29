@@ -13,6 +13,8 @@ if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     die();
 }
 
+$onlySanctioned = Request::GetValue('only_sanctioned', true);
+$isPrimary = Request::GetValue('is_primary', false);
 $note = "";
 $characterId = "";
 $characterName = "";
@@ -24,9 +26,9 @@ if (Request::IsPost()) {
         $characterId = Request::GetValue('character_id', 0);
         $characterName = Request::GetValue('character_name');
         $note = htmlspecialchars(Request::GetValue('note'));
-        if($requestRepository->AddCharacter($requestId, $characterId, $note)) {
+        if($requestRepository->AddCharacter($requestId, $characterId, $isPrimary)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
-            SessionHelper::SetFlashMessage('Attached Character');
+            SessionHelper::SetFlashMessage('Attached ' . $characterName);
             Response::Redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {
@@ -36,7 +38,15 @@ if (Request::IsPost()) {
 }
 $request = $requestRepository->FindById($requestId);
 
-$page_title = 'Add Character to: ' . $request['title'];
+$primaryOptions = array(
+);
+
+if($requestRepository->RequestHasPrimaryCharacter($requestId)) {
+    $primaryOptions['disabled'] = 'disabled';
+}
+
+
+    $page_title = 'Add Character to: ' . $request['title'];
 $contentHeader = $page_title;
 
 ob_start();
@@ -53,28 +63,22 @@ ob_start();
                         <?php echo FormHelper::Text('character_name', $characterName); ?>
                         <?php echo FormHelper::Hidden('character_id', $characterId); ?>
                     </div>
-                </td>
-                <td>
                     <div class="formInput">
                         <label>
                             Only Sanctioned Characters
                         </label>
-                        <?php echo FormHelper::Checkbox('only_sanctioned', 1, true); ?>
+                        <?php echo FormHelper::Checkbox('only_sanctioned', 1, $onlySanctioned); ?>
                     </div>
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2">
+                <td style="vertical-align: top">
                     <div class="formInput">
-                        <label>
-                            Note
-                        </label>
-                        <?php echo FormHelper::Text('note', $note); ?>
+                        <label>Is Primary</label>
+                        <?php echo FormHelper::Checkbox('is_primary', 1, $isPrimary, $primaryOptions); ?>
                     </div>
                 </td>
             </tr>
         </table>
-        <div class="formInput">
+        <div class="formInput centeredText">
             <?php echo FormHelper::Hidden('request_id', $requestId); ?>
             <?php echo FormHelper::Button('action', 'Add Character', 'submit', array('id' => 'save-button')); ?>
             <?php echo FormHelper::Button('action', 'Cancel', 'submit', array('id' => 'cancel-button')); ?>
@@ -93,6 +97,7 @@ ob_start();
                 }
             });
             $("#character-name").autocomplete({
+                autoFocus: true,
                 source: function(request, response) {
                     $.ajax({
                         url: 'request.php?action=character_search',

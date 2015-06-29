@@ -94,6 +94,20 @@ ob_start();
         </dd>
     </dl>
 
+<?php if (count($requestCharacters) > 0): ?>
+    <h3>Attached Characters</h3>
+    <dl>
+        <?php foreach ($requestCharacters as $character): ?>
+            <dt>
+                <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $note['character_id']; ?>"><?php echo $character->Character->CharacterName; ?></a>
+                - Primary :
+                <?php echo ($character->IsPrimary) ? 'Yes' : 'No'; ?>
+            </dt>
+        <?php endforeach; ?>
+    </dl>
+<?php endif; ?>
+
+
 <?php if (count($supportingRolls) > 0): ?>
     <h3>Supporting Rolls</h3>
     <ul class="wicked">
@@ -126,22 +140,6 @@ ob_start();
             </li>
         <?php endforeach; ?>
     </ul>
-<?php endif; ?>
-
-<?php if (count($requestCharacters) > 0): ?>
-    <h3>Assisting Characters</h3>
-    <dl>
-        <?php foreach ($requestCharacters as $character): ?>
-            <dt>
-                <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $note['character_id']; ?>"><?php echo $character->Character->CharacterName; ?></a>
-                - Approved:
-                <?php echo ($character->IsApproved) ? 'Yes' : 'No'; ?>
-            </dt>
-            <dd>
-                <?php echo $character->Note; ?>
-            </dd>
-        <?php endforeach; ?>
-    </dl>
 <?php endif; ?>
 
     <h3>Notes</h3>

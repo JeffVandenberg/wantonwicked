@@ -4,6 +4,7 @@ use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\request\data\RequestCharacter;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::GetValue('request_id', 0);
@@ -29,11 +30,13 @@ if (isset($_POST['action'])) {
     }
 }
 $request = $requestRepository->FindById($requestId);
+$linkedCharacter = $requestCharacterRepository->FindLinkedCharacterForUser($requestId, $userdata['user_id']);
+/* @var RequestCharacter $linkedCharacter */
 
 $page_title = 'Attach Request to: ' . $request['title'];
 $contentHeader = $page_title;
 
-$unattachedRequests = $requestRepository->GetOpenRequestsNotAttachedToRequest($requestId, $request['character_id']);
+$unattachedRequests = $requestRepository->GetOpenRequestsNotAttachedToRequest($requestId, $linkedCharacter->CharacterId);
 $requests = array();
 foreach ($unattachedRequests as $unattachedRequest) {
     $requests[$unattachedRequest['id']] = $unattachedRequest['title'];

@@ -10,11 +10,12 @@ use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId         = Request::GetValue('request_id', 0);
 $linkedCharacterId = Request::GetValue('character_id', 0);
 $requestRepository = new RequestRepository();
 
-if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'], $linkedCharacterId)) {
+if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])
+) {
     SessionHelper::SetFlashMessage('Unable to view Request');
     Response::Redirect('/');
 }
@@ -22,39 +23,39 @@ if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $u
 $request = $requestRepository->GetById($requestId);
 /* @var \classes\request\data\Request $request */
 
-$requestNoteRepository = new RequestNoteRepository();
-$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
+$requestNoteRepository      = new RequestNoteRepository();
+$requestNotes               = $requestNoteRepository->ListByRequestId($requestId);
 $requestCharacterRepository = new RequestCharacterRepository();
-$requestCharacters = $requestCharacterRepository->ListByRequestId($requestId);
+$requestCharacters          = $requestCharacterRepository->ListByRequestId($requestId);
 
-$supportingRequests = $requestRepository->ListSupportingRequests($requestId);
-$supportingRolls = $requestRepository->ListSupportingRolls($requestId);
+$supportingRequests  = $requestRepository->ListSupportingRequests($requestId);
+$supportingRolls     = $requestRepository->ListSupportingRolls($requestId);
 $supportingBluebooks = $requestRepository->ListSupportingBluebookEntries($requestId);
 
 $contentHeader = $page_title = 'Request: ' . $request->Title;
 
-if($request->RequestStatusId == RequestStatus::NewRequest) {
+if ($request->RequestStatusId == RequestStatus::NewRequest) {
     SessionHelper::SetFlashMessage('This request is not yet submitted to STs.');
 }
 
 $characterId = $request->CharacterId;
-if($linkedCharacterId != 0) {
+if ($linkedCharacterId != 0) {
     $characterId = $linkedCharacterId;
 }
 require_once('helpers/character_menu.php');
 $characterMenu['Actions'] = array(
-    'link' => '#',
+    'link'    => '#',
     'submenu' => array(
-        'Back' => array(
+        'Back'         => array(
             'link' => 'request.php?action=list&character_id=' . $characterId
         ),
-        'View History' => array (
+        'View History' => array(
             'link' => 'request.php?action=history&request_id=' . $request->Id
         )
     )
 );
-if($linkedCharacterId == 0) {
-    if($request->RequestStatusId == RequestStatus::NewRequest) {
+if ($linkedCharacterId == 0) {
+    if ($request->RequestStatusId == RequestStatus::NewRequest) {
         $characterMenu['Actions']['submenu']['Edit Request'] = array(
             'link' => 'request.php?action=edit&request_id=' . $requestId
         );
@@ -63,7 +64,7 @@ if($linkedCharacterId == 0) {
         $characterMenu['Actions']['submenu']['Forward Request'] = array(
             'link' => 'request.php?action=forward&request_id=' . $requestId
         );
-        $characterMenu['Actions']['submenu']['Close Request'] = array(
+        $characterMenu['Actions']['submenu']['Close Request']   = array(
             'link' => 'request.php?action=close&request_id=' . $requestId
         );
     }
@@ -72,34 +73,34 @@ if($linkedCharacterId == 0) {
             'link' => 'request.php?action=submit&request_id=' . $requestId
         );
     }
-    if($request->RequestStatusId == RequestStatus::NewRequest) {
+    if ($request->RequestStatusId == RequestStatus::NewRequest) {
         $characterMenu['Actions']['submenu']['Delete Request'] = array(
             'link' => 'request.php?action=delete&request_id=' . $requestId
         );
     }
 
-    if(!in_array($request->RequestStatusId, RequestStatus::$Terminal)) {
+    if (!in_array($request->RequestStatusId, RequestStatus::$Terminal)) {
         $characterMenu['Attach'] = array(
-            'link' => '#',
+            'link'    => '#',
             'submenu' => array(
                 'New Note' => array(
                     'link' => 'request.php?action=add_note&request_id=' . $requestId
                 )
             )
         );
-        if(in_array($request->RequestStatusId, RequestStatus::$PlayerEdit)) {
-            $characterMenu['Attach']['submenu']['Character'] = array(
-                    'link' => 'request.php?action=add_character&request_id=' . $requestId
-                );
-            $characterMenu['Attach']['submenu']['Request'] = array(
-                    'link' => 'request.php?action=attach_request&request_id=' . $requestId
-                );
+        if (in_array($request->RequestStatusId, RequestStatus::$PlayerEdit)) {
+            $characterMenu['Attach']['submenu']['Character']      = array(
+                'link' => 'request.php?action=add_character&request_id=' . $requestId
+            );
+            $characterMenu['Attach']['submenu']['Request']        = array(
+                'link' => 'request.php?action=attach_request&request_id=' . $requestId
+            );
             $characterMenu['Attach']['submenu']['Bluebook Entry'] = array(
-                    'link' => 'request.php?action=attach_bluebook&request_id=' . $requestId
-                );
-            $characterMenu['Attach']['submenu']['Dice Roll'] = array(
-                    'link' => 'dieroller.php?action=character&character_id=' . $request->CharacterId
-                );
+                'link' => 'request.php?action=attach_bluebook&request_id=' . $requestId
+            );
+            $characterMenu['Attach']['submenu']['Dice Roll']      = array(
+                'link' => 'dieroller.php?action=character&character_id=' . $request->CharacterId
+            );
         }
     }
 }
@@ -145,6 +146,21 @@ ob_start();
         </dd>
     </dl>
 
+<?php if (count($requestCharacters) > 0): ?>
+    <h3>Attached Characters</h3>
+    <?php foreach ($requestCharacters as $requestCharacter): ?>
+        <?php if ($requestCharacter->IsPrimary): ?>
+            <strong>
+        <?php endif; ?>
+        <?php echo $requestCharacter->Character->CharacterName; ?>
+        <?php if ($requestCharacter->IsPrimary): ?>
+            </strong>
+        <?php endif; ?>
+        <br />
+    <?php endforeach; ?>
+    <br />
+<?php endif; ?>
+
 <?php if (count($supportingRolls) > 0): ?>
     <h3>Supporting Rolls</h3>
     <ul class="wicked">
@@ -180,22 +196,6 @@ ob_start();
             </li>
         <?php endforeach; ?>
     </ul>
-<?php endif; ?>
-
-<?php if (count($requestCharacters) > 0): ?>
-    <h3>Assisting Characters</h3>
-    <dl>
-        <?php foreach ($requestCharacters as $requestCharacter): ?>
-            <dt>
-                <?php echo $requestCharacter->Character->CharacterName; ?>
-                - Approved:
-                <?php echo ($requestCharacter->IsApproved) ? 'Yes' : 'No'; ?>
-            </dt>
-            <dd>
-                <?php echo $requestCharacter->Note; ?>
-            </dd>
-        <?php endforeach; ?>
-    </dl>
 <?php endif; ?>
 
 
@@ -236,9 +236,9 @@ ob_start();
                     function () {
                         $(this)
                             .dialog({
-                                modal: true,
+                                modal : true,
                                 height: 600,
-                                width: 800
+                                width : 800
                             });
                     }
                 );

@@ -44,14 +44,11 @@ EOQ;
 <a href="$logout">Logout</a>
 EOQ;
 
-    $userControlPanel = <<<EOQ
--
-<a href="forum/ucp.php">User Control Panel</a>
-EOQ;
-
     $requestRepository = new RequestRepository();
     $requestCount = $requestRepository->getOpenByUserId($userdata['user_id']);
-    $requestDashboard = <<<EOQ
+
+    $userControlPanel = <<<EOQ
+- <a href="forum/ucp.php">User Control Panel</a>
 - <a href="/request.php">Open Requests ($requestCount)</a>
 EOQ;
 }
@@ -61,7 +58,6 @@ $user_panel = <<<EOQ
 $up_name - 
 $up_loginout
 $userControlPanel
-$requestDashboard
 <span id="server-time"></span>
 EOQ;
 

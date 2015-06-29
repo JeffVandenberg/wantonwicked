@@ -43,7 +43,7 @@ class MenuComponent extends Component {
                                 'link' => '/wiki/index.php?n=GameRef.5For5Offer'
                             )
                         )
-                    )
+                    ),
                 )
             ),
             'Help'       => array(
@@ -339,6 +339,10 @@ class MenuComponent extends Component {
                     )
                 )
             );
+            $this->menu['Site Tools']['submenu']['Requests'] = array(
+                'link' => '/request.php'
+            );
+
             App::uses('AppModel', 'Model');
             App::uses('Character', 'Model');
             $characterRepo = new Character();

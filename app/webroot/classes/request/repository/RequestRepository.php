@@ -14,6 +14,7 @@ use classes\core\data\DataModel;
 use classes\core\repository\AbstractRepository;
 use classes\core\repository\RepositoryManager;
 use classes\request\data\Request;
+use classes\request\data\RequestCharacter;
 use classes\request\data\RequestStatus;
 use classes\request\data\RequestStatusHistory;
 use classes\request\data\RequestType;
@@ -49,12 +50,10 @@ class RequestRepository extends AbstractRepository
         $sql = <<<EOQ
 SELECT
     R.*,
-    C.character_name,
     G.name as group_name
 FROM
     requests AS R
     LEFT JOIN groups as G ON R.group_id = G.id
-    LEFT JOIN characters AS C on R.character_id = C.id
 WHERE
     R.id = $id;
 EOQ;
@@ -167,7 +166,7 @@ EOQ;
         return $count;
     }
 
-    public function MayViewRequest($requestId, $userId, $linkedCharacterId = 0)
+    public function MayViewRequest($requestId, $userId)
     {
         $requestId = (int) $requestId;
         $userId = (int) $userId;
@@ -178,15 +177,16 @@ SELECT
 FROM
     requests as R
     LEFT JOIN request_characters AS RC ON R.id = RC.request_id
+    LEFT JOIN characters AS C ON RC.character_id = C.id
 WHERE
     R.id = ?
     AND (
         R.created_by_id = ?
         OR
-        RC.character_id = ?
+        C.user_id = ?
     )
 EOQ;
-        $parameters = array($requestId, $userId, $linkedCharacterId);
+        $parameters = array($requestId, $userId, $userId);
         $rows = $this->Query($sql)->Value($parameters);
         return ($rows > 0);
     }
@@ -268,10 +268,11 @@ SELECT
     R.*
 FROM
     requests AS R
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
 WHERE
     request_status_id NOT IN ($edittable)
     AND request_type_id != $blueBook
-    AND character_id = $characterId
+    AND RC.character_id = $characterId
 ORDER BY
     title
 EOQ;
@@ -503,58 +504,45 @@ EOQ;
 
     public function SearchCharactersForRequest($requestId, $onlySanctioned, $characterName)
     {
-        $requestId = (int) $requestId;
         $onlySanctioned = (int) $onlySanctioned;
-        $characterName = mysql_real_escape_string($characterName);
 
         $sql = <<<EOQ
 SELECT
-    C.id,
-    C.character_name
+    C.character_name,
+    C.id
 FROM
-    requests AS R
-    LEFT JOIN characters AS C2 ON R.character_id = C2.id
-    LEFT JOIN characters AS C ON C2.city = C.city
+    characters AS C
 WHERE
-    R.id = $requestId
-    AND (
-        (C.is_sanctioned = 'Y' AND ($onlySanctioned = 1))
+    (
+        (C.is_sanctioned = 'Y' AND (? = 1))
         OR
-        ($onlySanctioned = 0)
+        (? = 0)
     )
     AND C.is_deleted = 'N'
-    AND C.character_name like '$characterName%'
+    AND C.character_name like ?
 ORDER BY
     C.character_name
 LIMIT 20
 EOQ;
 
-        return ExecuteQueryData($sql);
+        $params = array(
+            $onlySanctioned,
+            $onlySanctioned,
+            $characterName . '%'
+        );
+
+        return $this->Query($sql)->All($params);
     }
 
-    public function AddCharacter($requestId, $characterId, $note)
+    public function AddCharacter($requestId, $characterId, $isPrimary)
     {
-        $requestId = (int) $requestId;
-        $characterId = (int) $characterId;
-        $note = mysql_real_escape_string($note);
+        $requestCharacter = new RequestCharacter();
+        $requestCharacter->RequestId = $requestId;
+        $requestCharacter->CharacterId = $characterId;
+        $requestCharacter->IsPrimary = $isPrimary;
 
-        $sql = <<<EOQ
-INSERT INTO
-    request_characters
-    (
-        request_id,
-        character_id,
-        note
-    )
-VALUES
-    (
-        $requestId,
-        $characterId,
-        '$note'
-    )
-EOQ;
-
-        return ExecuteQuery($sql);
+        $requestCharacterRepository = new RequestCharacterRepository();
+        return $requestCharacterRepository->Save($requestCharacter);
     }
 
     public function UpdateStatus($requestId, $requestStatusId, $userId)
@@ -590,6 +578,7 @@ WHERE
     AND RC.character_id = $characterId
     AND C.is_sanctioned = 'Y'
     AND C.is_deleted = 'N'
+    AND RC.is_primary = 0
 ORDER BY
     R.title
 EOQ;
@@ -902,11 +891,12 @@ EOQ;
     }
 
     /**
+     * @param $userId
      * @param $startDate
      * @param $endDate
      * @return array
      */
-    public function GetSTActivityReport($startDate, $endDate)
+    public function GetSTActivityReport($userId, $startDate, $endDate)
     {
         $sql = <<<EOQ
 SELECT
@@ -922,15 +912,80 @@ FROM
 WHERE
     RSH.created_on >= ?
     AND RSH.created_on <= ?
-GROUP BY
+EOQ;
+        $params = array($startDate, $endDate);
+
+        if($userId) {
+            $sql .= ' AND U.user_id = ? ';
+            $params[] = $userId;
+        }
+
+        $sql .= <<<EOQ
+ GROUP BY
     U.user_id,
     RS.id
 ORDER BY
     U.username,
     RS.name
 EOQ;
-        $params = array($startDate, $endDate);
 
         return $this->Query($sql)->All($params);
     }
+
+    public function RequestHasPrimaryCharacter($requestId)
+    {
+        $sql = <<<EOQ
+SELECT
+    count(*)
+FROM
+    request_characters
+WHERE
+    request_id = ?
+    AND is_primary = 1
+EOQ;
+
+        $params = array($requestId);
+
+        return ($this->Query($sql)->Value($params) > 0);
+    }
+
+    public function ListRequestsLinkedByCharacterForUser($userId)
+    {
+        $requestStatusPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Player), '?'));
+        $sql = <<<EOQ
+SELECT
+    R.*,
+    RT.name as request_type_name,
+    RS.name as request_status_name,
+    UB.username AS updated_by_username
+FROM
+    requests as R
+    LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
+    LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
+    LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
+    LEFT JOIN characters AS C ON RC.character_id = C.id
+WHERE
+    C.user_id = ?
+    AND RC.is_primary = 0
+    AND R.request_type_id != ?
+    AND R.request_status_id IN ($requestStatusPlaceholders)
+ORDER BY
+    R.updated_on DESC
+EOQ;
+
+        $params = array_merge(array(
+            $userId,
+            RequestType::BlueBook
+        ), RequestStatus::$Player);
+
+        $list = array();
+
+        foreach($this->Query($sql)->All($params) as $row) {
+            $list[] = $this->PopulateObject($row);
+        }
+
+        return $list;
+    }
+
 }

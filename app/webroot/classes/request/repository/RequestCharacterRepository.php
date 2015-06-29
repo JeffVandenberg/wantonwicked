@@ -35,6 +35,7 @@ FROM
 WHERE
     RC.request_id = ?
 ORDER BY
+    RC.is_primary DESC,
     C.character_name
 EOQ;
 
@@ -77,5 +78,24 @@ WHERE
 EOQ;
 
         return ExecuteQuery($sql);
+    }
+
+    public function FindLinkedCharacterForUser($requestId, $userId)
+    {
+        $sql = <<<EOQ
+SELECT
+    RC.*
+FROM
+    request_characters AS RC
+    LEFT JOIN characters AS C on RC.character_id = C.id
+WHERE
+    RC.request_id = ?
+    AND C.user_id = ?
+EOQ;
+        $params = array($requestId, $userId);
+
+        return $this->PopulateObject(
+            $this->Query($sql)->Single($params)
+        );
     }
 }

@@ -208,7 +208,7 @@ ob_start();
         </table>
     </form>
 <?php if (count($associatedRequests) > 0): ?>
-    <h3>Requests to Approve</h3>
+    <h3>Requests <?php echo $character['character_name']; ?> is linked to</h3>
     <table>
         <tr>
             <th>
@@ -216,9 +216,6 @@ ob_start();
             </th>
             <th>
                 Request
-            </th>
-            <th>
-                Note
             </th>
             <th>
 
@@ -233,17 +230,9 @@ ob_start();
                     <?php echo $request['title']; ?>
                 </td>
                 <td>
-                    <?php echo $request['note']; ?>
-                </td>
-                <td>
                     <a href="/request.php?action=view&request_id=<?php echo $request['request_id']; ?>&character_id=<?php echo $characterId; ?>">
                         <img src="/img/rs_view.png" title="View" alt="View"/>
                     </a>
-                    <?php if ($request['is_approved']): ?>
-                        <a href="/request.php?action=update_request_character&is_approved=0&request_character_id=<?php echo $request['request_character_id']; ?>&character_id=<?php echo $characterId; ?>">Deny</a>
-                    <?php else: ?>
-                        <a href="/request.php?action=update_request_character&is_approved=1&request_character_id=<?php echo $request['request_character_id']; ?>&character_id=<?php echo $characterId; ?>">Approve</a>
-                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

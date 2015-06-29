@@ -36,7 +36,6 @@ if (Request::IsPost()) {
         }
     } elseif (($_POST['action'] == 'Submit Request') || ($_POST['action'] == 'Add Attachments')) {
         $request = new \classes\request\data\Request();
-        $request->CharacterId = $characterId;
         $request->Title = htmlspecialchars($title);
         $request->RequestTypeId = $requestTypeId;
         $request->GroupId = $groupId;
@@ -52,12 +51,12 @@ if (Request::IsPost()) {
             SessionHelper::SetFlashMessage("Error Creating Your Request.");
         } else {
             if ($characterId) {
-//                $requestCharacter = new RequestCharacter();
-//                $requestCharacter->CharacterId = $characterId;
-//                $requestCharacter->RequestId = $request->Id;
-//                $requestCharacter->IsPrimary = true;
-//                $requestCharacterRepository = RepositoryManager::GetRepository('classes\request\data\RequestCharacter');
-//                $requestCharacterRepository->Save($requestCharacter);
+                $requestCharacter = new RequestCharacter();
+                $requestCharacter->CharacterId = $characterId;
+                $requestCharacter->RequestId = $request->Id;
+                $requestCharacter->IsPrimary = true;
+                $requestCharacterRepository = RepositoryManager::GetRepository('classes\request\data\RequestCharacter');
+                $requestCharacterRepository->Save($requestCharacter);
             }
             if ($_POST['action'] == 'Submit Request') {
                 $request->RequestStatusId = RequestStatus::Submitted;
