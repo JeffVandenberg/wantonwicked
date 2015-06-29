@@ -55,12 +55,6 @@ ob_start();
 <?php endif; ?>
     <dl>
         <dt>
-            Character:
-        </dt>
-        <dd>
-            <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $request['character_id']; ?>" target="_blank"><?php echo $request['character_name']; ?></a>
-        </dd>
-        <dt>
             Group:
         </dt>
         <dd>
@@ -99,12 +93,13 @@ ob_start();
     <dl>
         <?php foreach ($requestCharacters as $character): ?>
             <dt>
-                <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $note['character_id']; ?>"><?php echo $character->Character->CharacterName; ?></a>
+                <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $character->Character->Id; ?>" target="_blank"><?php echo $character->Character->CharacterName; ?></a>
                 - Primary :
                 <?php echo ($character->IsPrimary) ? 'Yes' : 'No'; ?>
             </dt>
         <?php endforeach; ?>
     </dl>
+    <br />
 <?php endif; ?>
 
 

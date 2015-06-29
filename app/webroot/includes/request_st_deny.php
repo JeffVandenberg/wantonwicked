@@ -75,13 +75,6 @@ ob_start();
     <form method="post">
         <div class="formInput">
             <label>
-                Character
-            </label>
-            <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $request->CharacterId; ?>"
-               target="_blank"><?php echo $request->Character->CharacterName; ?></a>
-        </div>
-        <div class="formInput">
-            <label>
                 Note
             </label>
             <?php echo FormHelper::Textarea('note', ''); ?>
