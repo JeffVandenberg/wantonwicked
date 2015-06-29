@@ -123,6 +123,13 @@ ob_start();
             selector: "textarea",
             menubar: false,
             height: 200,
+            paste_preprocess : function(pl, o) {
+                //example: keep bold,italic,underline and paragraphs
+                //o.content = strip_tags( o.content,'<b><u><i><p>' );
+
+                // remove all tags => plain text
+                o.content = strip_tags( o.content,'<br>' );
+            },
             plugins: [
                 "advlist autolink lists link image charmap print preview anchor",
                 "searchreplace wordcount visualblocks code fullscreen",

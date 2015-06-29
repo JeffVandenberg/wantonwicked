@@ -77,11 +77,12 @@ SELECT
     UB.username AS updated_by_username
 FROM
     requests as R
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
     LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
     LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
     LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
 WHERE
-    R.character_id = ?
+    RC.character_id = ?
 EOQ;
         $parameters = array($characterId);
         if($filter['title'] !== '') {
@@ -426,29 +427,25 @@ EOQ;
 SELECT
     R.*,
     G.name AS group_name,
-    C.character_name,
     RT.name as request_type_name,
     RS.name as request_status_name,
-    UB.username AS updated_by_username
+    UB.username AS updated_by_username,
+    CB.username as created_by_username
 FROM
     requests as R
     LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
     LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
     LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
-    LEFT JOIN characters AS C ON R.character_id = C.id
     LEFT JOIN groups as G ON R.group_id = G.id
+    LEFT JOIN phpbb_users as CB ON R.created_by_id = CB.user_id
 WHERE
     R.group_id IN ($groupListPlaceholders)
-    AND C.is_deleted = 'N'
-    AND ((C.id = ?) OR (? = 0))
 EOQ;
         $parameters = $groups;
-        $parameters[] = $characterId;
-        $parameters[] = $characterId;
 
-        if($filter['character_name'] != '') {
-            $sql .= ' AND C.character_name LIKE ? ';
-            $parameters[] = $filter['character_name'] . '%';
+        if($filter['username'] != '') {
+            $sql .= ' AND CB.username_clean LIKE ? ';
+            $parameters[] = strtolower($filter['username']) . '%';
         }
         if($filter['request_type_id'] != '0') {
             $sql .= ' AND R.request_type_id = ? ';
@@ -471,7 +468,7 @@ EOQ;
             }
         }
         else {
-            $sql .= ' AND R.request_status_id IN (' . $storytellerPlaceholders . ')';
+            $sql .= ' AND R.request_status_id IN (' . $storytellerPlaceholders . ') ';
             $parameters = array_merge($parameters, RequestStatus::$Storyteller);
         }
 

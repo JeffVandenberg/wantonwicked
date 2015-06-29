@@ -15,7 +15,7 @@ $characterId = Request::GetValue('character_id', 0);
 $page = Request::GetValue('page', 1);
 $pageSize = Request::GetValue('page_size', 20);
 $sort = Request::GetValue('sort', 'updated_on DESC');
-$filter = Request::GetValue('filter', array('character_name' => '', 'title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
+$filter = Request::GetValue('filter', array('username' => '', 'title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
 
 $pagination = new Pagination();
 $pagination->SetSort($sort);
@@ -93,7 +93,7 @@ ob_start();
     <table>
         <tr>
             <th>
-                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('C.character_name'); ?>">Character</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('CB.username_clean'); ?>">User</a>
             </th>
             <th>
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('G.name'); ?>">Group</a>
@@ -123,7 +123,7 @@ ob_start();
 
         <tr>
             <td>
-                <?php echo FormHelper::Text('filter[character_name]', $filter['character_name']); ?>
+                <?php echo FormHelper::Text('filter[username]', $filter['username']); ?>
             </td>
             <td>
 
@@ -155,9 +155,7 @@ ob_start();
             <?php foreach ($requests as $request): ?>
                 <tr>
                     <td>
-                        <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $request['character_id']; ?>" target="_blank">
-                            <?php echo $request['character_name']; ?>
-                        </a>
+                        <?php echo $request['created_by_username']; ?>
                     </td>
                     <td>
                         <?php echo $request['group_name']; ?>
