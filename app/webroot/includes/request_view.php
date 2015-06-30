@@ -5,6 +5,7 @@ use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\request\data\RequestCharacter;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestNoteRepository;
@@ -42,12 +43,20 @@ $characterId = $request->CharacterId;
 if ($linkedCharacterId != 0) {
     $characterId = $linkedCharacterId;
 }
+$linkedCharacter = $requestCharacterRepository->FindLinkedCharacterForUser($requestId, $userdata['user_id']);
+/* @var RequestCharacter $linkedCharacter */
+
+$backLink = '/request.php?action=dashboard';
+if ($linkedCharacter->Id != 0) {
+    $backLink = 'request.php?action=list&character_id=' . $linkedCharacter->CharacterId;
+}
+
 require_once('helpers/character_menu.php');
 $characterMenu['Actions'] = array(
     'link'    => '#',
     'submenu' => array(
         'Back'         => array(
-            'link' => 'request.php?action=list&character_id=' . $characterId
+            'link' => $backLink
         ),
         'View History' => array(
             'link' => 'request.php?action=history&request_id=' . $request->Id

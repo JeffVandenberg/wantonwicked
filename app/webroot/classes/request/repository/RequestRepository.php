@@ -83,6 +83,7 @@ FROM
     LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
 WHERE
     RC.character_id = ?
+    AND RC.is_primary = 1
 EOQ;
         $parameters = array($characterId);
         if($filter['title'] !== '') {
@@ -983,6 +984,25 @@ EOQ;
         }
 
         return $list;
+    }
+
+    public function MayEditRequest($requestId, $userId)
+    {
+        $requestId = (int) $requestId;
+        $userId = (int) $userId;
+
+        $sql = <<<EOQ
+SELECT
+    count(*) AS `rows`
+FROM
+    requests as R
+WHERE
+    R.id = ?
+    AND R.created_by_id = ?
+EOQ;
+        $parameters = array($requestId, $userId);
+        $rows = $this->Query($sql)->Value($parameters);
+        return ($rows > 0);
     }
 
 }
