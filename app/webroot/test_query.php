@@ -14,24 +14,37 @@ require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
+EXPLAIN
 SELECT
-	UG.user_id,
-	U.username,
-	C.character_name
+    DISTINCT
+    id
 FROM
-	phpbb_user_group AS UG
-	INNER JOIN phpbb_users as U ON UG.user_id = U.user_Id
-	LEFT JOIN characters as C ON U.user_id = C.user_id
+    characters AS C
+    LEFT JOIN (
+        SELECT
+            LC.character_id,
+            count(*) AS `rows`
+        FROM
+            log_characters AS LC
+        WHERE
+            LC.created >= ?
+            AND LC.action_type_id IN (?, ?)
+		GROUP BY
+			LC.character_id
+    ) AS A ON C.id = A.character_id
 WHERE
-	UG.group_id = ?
-	AND C.is_sanctioned = 'Y'
-ORDER BY
-	U.username,
-	C.character_name
+    C.is_sanctioned = 'Y'
+    AND C.is_npc = 'N'
+	AND A.rows IS NULL
 EOQ;
 
-$params = array(1729);
+$params = array(
+	date('Y-m-d', mktime(0, 0, 0, date('m') - 0, date('d') - 1, date('Y'))),
+	ActionType::Login,
+	ActionType::Sanctioned
+);
 $rows = Database::GetInstance()->Query($query)->All($params);
+
 ?>
 
 <?php if(count($rows) > 0): ?>

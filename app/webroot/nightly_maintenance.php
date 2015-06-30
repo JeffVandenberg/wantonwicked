@@ -1,7 +1,9 @@
 <?php
+use classes\character\repository\CharacterRepository;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 use classes\log\data\ActionType;
+use classes\request\repository\RequestRepository;
 use classes\support\SupportManager;
 
 ini_set('display_errors', 1);
@@ -46,62 +48,10 @@ $db->Query($update_willpower_query)->Execute();
 
 // unsanction characters more than 1 month inactive
 $month_ago = date('Y-m-d', mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')));
+$characterRepository = new CharacterRepository();
 
-$unsanctionLogQuery = <<<EOQ
-INSERT INTO
-    log_characters
-    (
-        character_id,
-        action_type_id,
-        note,
-        created
-    )
-SELECT
-    id,
-    ?,
-    'Auto-Desanction for inactivity',
-    NOW()
-FROM
-    characters
-WHERE
-    is_sanctioned = 'Y'
-    AND is_npc = 'N'
-    AND id NOT IN (
-        SELECT
-            DISTINCT
-            character_id
-        FROM
-            log_characters
-        WHERE
-            created >= ?
-            AND action_type_id IN (?, ?)
-    )
-EOQ;
-$params             = array(ActionType::Desanctioned, $month_ago, ActionType::Login, ActionType::Sanctioned);
-$db->Query($unsanctionLogQuery)->Execute($params);
+$desancedCharacters = $characterRepository->UnsanctionInactiveCharacters($month_ago);
 
-$unsanc_query = <<<EOQ
-UPDATE
-    characters
-SET
-    is_sanctioned='n'
-WHERE
-    is_sanctioned='y'
-    AND is_npc='n'
-    AND id NOT IN (
-        SELECT
-            DISTINCT
-            character_id
-        FROM
-            log_characters
-        WHERE
-            created >= ?
-            AND action_type_id IN (?, ?)
-    )
-EOQ;
-
-$params             = array($month_ago, ActionType::Login, ActionType::Sanctioned);
-$desancedCharacters = $db->Query($unsanc_query)->Execute($params);
 
 $now     = date("Y-m-d H:i:s");
 $message = <<<EOQ

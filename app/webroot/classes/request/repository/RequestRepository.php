@@ -781,18 +781,24 @@ EOQ;
         return $this->Query($sql)->All($params);
     }
 
-    public function CloseRequestsForCharacter($characterId)
+    public function CloseRequestsForCharacter($characterIds)
     {
-        $characterId = (int) $characterId;
+        if(!is_array($characterIds)) {
+            $characterIds = array($characterIds);
+        }
+        $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
+
         $sql = <<<EOQ
 UPDATE
-    requests
+    requests AS R
+    LEFT JOIN request_characters AS RC
 SET
     request_status_id = ?
 WHERE
-    character_id = ?
+    RC.character_id IN ($characterIdPlaceholders)
+    AND RC.is_primary = 1
 EOQ;
-        $params = array(RequestStatus::Closed, $characterId);
+        $params = array_merge(array(RequestStatus::Closed), $characterIds);
 
         return $this->Query($sql)->Execute($params);
     }

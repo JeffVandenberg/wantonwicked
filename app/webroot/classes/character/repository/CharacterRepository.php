@@ -14,6 +14,7 @@ use classes\character\data\Character;
 use classes\core\repository\AbstractRepository;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
+use classes\request\repository\RequestRepository;
 
 class CharacterRepository extends AbstractRepository
 {
@@ -25,8 +26,8 @@ class CharacterRepository extends AbstractRepository
 
     public function MayViewCharacter($characterId, $userId)
     {
-        $characterId = (int) $characterId;
-        $userId = (int) $userId;
+        $characterId = (int)$characterId;
+        $userId = (int)$userId;
 
         $sql = <<<EOQ
 SELECT
@@ -43,7 +44,7 @@ EOQ;
 
     public function FindById($characterId)
     {
-        $characterId = (int) $characterId;
+        $characterId = (int)$characterId;
         $sql = <<<EOQ
 SELECT
     U.username,
@@ -81,8 +82,7 @@ ORDER BY
 EOQ;
 
         $list = array();
-        foreach($this->Query($sql)->Bind(1, $supporterId)->All() as $row)
-        {
+        foreach ($this->Query($sql)->Bind(1, $supporterId)->All() as $row) {
             $list[] = $this->PopulateObject($row);
         }
         return $list;
@@ -133,7 +133,7 @@ WHERE
 EOQ;
 
         $characters = $this->Query($sql)->All(array($bonusXp));
-        foreach($characters as $character) {
+        foreach ($characters as $character) {
             CharacterLog::LogAction($character['id'], ActionType::SupporterXP, 'Awarded Bonus XP for: ' . $date);
         }
 
@@ -279,9 +279,85 @@ ORDER BY
 LIMIT 20
 EOQ;
         $params = array(
-            'only_sanctioned' => (int) $onlySanctioned,
-            'character_name' => $characterName.'%'
+            'only_sanctioned' => (int)$onlySanctioned,
+            'character_name' => $characterName . '%'
         );
         return $this->Query($sql)->All($params);
+    }
+
+    public function UnsanctionInactiveCharacters($cutoffDate)
+    {
+        // get list of characters
+        $characterListQuery = <<<EOQ
+SELECT
+    DISTINCT
+    id
+FROM
+    characters AS C
+    LEFT JOIN (
+        SELECT
+            LC.character_id,
+            count(*) AS `rows`
+        FROM
+            log_characters AS LC
+        WHERE
+            LC.created >= ?
+            AND LC.action_type_id IN (?, ?)
+		GROUP BY
+			LC.character_id
+    ) AS A ON C.id = A.character_id
+WHERE
+    C.is_sanctioned = 'Y'
+    AND C.is_npc = 'N'
+	AND A.rows IS NULL
+EOQ;
+
+        $unsanctionLogParams = array($cutoffDate, ActionType::Sanctioned, ActionType::Login);
+
+        $characterList = $this->Query($characterListQuery)->All($unsanctionLogParams);
+        $characterIds = array_column($characterList, 'id');
+        $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
+
+        // add desanction note to character log
+        $unsanctionLogQuery = <<<EOQ
+INSERT INTO
+    log_characters
+    (
+        character_id,
+        action_type_id,
+        note,
+        created
+    )
+SELECT
+    id,
+    ?,
+    'Auto-Desanction for inactivity',
+    NOW()
+FROM
+    characters
+WHERE
+    id IN ($characterIdPlaceholders)
+EOQ;
+        $unsanctionLogParams = array_merge(array(ActionType::Desanctioned), $characterIds);
+        $this->Query($unsanctionLogQuery)->Execute($unsanctionLogParams);
+
+        // desanction the characters
+        $unsanctionQuery = <<<EOQ
+UPDATE
+    characters
+SET
+    is_sanctioned='n'
+WHERE
+    id IN ($characterIdPlaceholders)
+EOQ;
+
+        $unsanctionParams = $characterIds;
+        $this->Query($unsanctionQuery)->Execute($unsanctionParams);
+
+        // close all requests attached to the characters
+        $requestRepository = new RequestRepository();
+        $requestRepository->CloseRequestsForCharacter($characterIds);
+
+        return count($characterIds);
     }
 }
