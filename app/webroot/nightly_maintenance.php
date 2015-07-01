@@ -11,11 +11,11 @@ ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
 
 $enrollmentManager = new SupportManager();
-if (date('d') == 1) {
-    $enrollmentManager->AwardBonusXP();
-}
-$enrollmentManager->SendReminderEmails();
-$enrollmentManager->ExpireSupporterStatus();
+//if (date('d') == 1) {
+//    $enrollmentManager->AwardBonusXP();
+//}
+//$enrollmentManager->SendReminderEmails();
+//$enrollmentManager->ExpireSupporterStatus();
 
 $db = new Database();
 
@@ -44,7 +44,7 @@ EOQ;
     $db->Query($xpLogQuery)->Execute(array(ActionType::XPModification));
 }
 $update_willpower_query = "update characters set willpower_temp = willpower_temp + 1 where willpower_temp < willpower_perm;";
-$db->Query($update_willpower_query)->Execute();
+//$db->Query($update_willpower_query)->Execute();
 
 // unsanction characters more than 1 month inactive
 $month_ago = date('Y-m-d', mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')));
