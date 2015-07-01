@@ -742,10 +742,12 @@ EOQ;
 SELECT
     count(*) as `total`
 FROM
-    requests
+    requests AS R
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
 WHERE
     request_type_id != ?
-    AND character_id = ?
+    AND RC.character_id = ?
+    AND RC.is_primary = 1
     AND request_status_id IN ($statusPlaceholders)
 EOQ;
 
