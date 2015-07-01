@@ -8,41 +8,28 @@
 
 use classes\core\helpers\Request;
 use classes\core\repository\Database;
+use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
 require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
-EXPLAIN
 SELECT
-    DISTINCT
-    id
+	distinct
+	character_id
 FROM
-    characters AS C
-    LEFT JOIN (
-        SELECT
-            LC.character_id,
-            count(*) AS `rows`
-        FROM
-            log_characters AS LC
-        WHERE
-            LC.created >= ?
-            AND LC.action_type_id IN (?, ?)
-		GROUP BY
-			LC.character_id
-    ) AS A ON C.id = A.character_id
+	log_characters
 WHERE
-    C.is_sanctioned = 'Y'
-    AND C.is_npc = 'N'
-	AND A.rows IS NULL
+	action_type_id = 5
+	AND created > '2015-07-01'
+ORDER BY
+	id DESC
 EOQ;
 
 $params = array(
-	date('Y-m-d', mktime(0, 0, 0, date('m') - 0, date('d') - 1, date('Y'))),
-	ActionType::Login,
-	ActionType::Sanctioned
 );
+
 $rows = Database::GetInstance()->Query($query)->All($params);
 
 ?>

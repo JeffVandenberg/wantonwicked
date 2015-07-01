@@ -11,11 +11,11 @@ ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
 
 $enrollmentManager = new SupportManager();
-//if (date('d') == 1) {
-//    $enrollmentManager->AwardBonusXP();
-//}
-//$enrollmentManager->SendReminderEmails();
-//$enrollmentManager->ExpireSupporterStatus();
+if (date('d') == 1) {
+    $enrollmentManager->AwardBonusXP();
+}
+$enrollmentManager->SendReminderEmails();
+$enrollmentManager->ExpireSupporterStatus();
 
 $db = new Database();
 
