@@ -316,10 +316,11 @@ EOQ;
 
         $characterList = $this->Query($characterListQuery)->All($unsanctionLogParams);
         $characterIds = array_column($characterList, 'id');
-        $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
+        if(count($characterIds)) {
+            $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
 
-        // add desanction note to character log
-        $unsanctionLogQuery = <<<EOQ
+            // add desanction note to character log
+            $unsanctionLogQuery = <<<EOQ
 INSERT INTO
     log_characters
     (
@@ -338,11 +339,11 @@ FROM
 WHERE
     id IN ($characterIdPlaceholders)
 EOQ;
-        $unsanctionLogParams = array_merge(array(ActionType::Desanctioned), $characterIds);
-        $this->Query($unsanctionLogQuery)->Execute($unsanctionLogParams);
+            $unsanctionLogParams = array_merge(array(ActionType::Desanctioned), $characterIds);
+            $this->Query($unsanctionLogQuery)->Execute($unsanctionLogParams);
 
-        // desanction the characters
-        $unsanctionQuery = <<<EOQ
+            // desanction the characters
+            $unsanctionQuery = <<<EOQ
 UPDATE
     characters
 SET
@@ -351,12 +352,13 @@ WHERE
     id IN ($characterIdPlaceholders)
 EOQ;
 
-        $unsanctionParams = $characterIds;
-        $this->Query($unsanctionQuery)->Execute($unsanctionParams);
+            $unsanctionParams = $characterIds;
+            $this->Query($unsanctionQuery)->Execute($unsanctionParams);
 
-        // close all requests attached to the characters
-        $requestRepository = new RequestRepository();
-        $requestRepository->CloseRequestsForCharacter($characterIds);
+            // close all requests attached to the characters
+            $requestRepository = new RequestRepository();
+            $requestRepository->CloseRequestsForCharacter($characterIds);
+        }
 
         return count($characterIds);
     }
