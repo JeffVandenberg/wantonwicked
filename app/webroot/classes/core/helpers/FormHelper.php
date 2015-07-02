@@ -219,7 +219,7 @@ EOQ;
     {
         $id = self::ConvertNameToID($name);
         $input = "";
-        $character_type = strtolower($characterType);
+        $character_type = preg_replace('/\s/', '_', strtolower($characterType));
 
         for($i = 1; $i <= $maxDots; $i++)
         {

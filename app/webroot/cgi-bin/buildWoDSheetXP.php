@@ -318,6 +318,13 @@ EOQ;
             $supernatural_xp = 30;
             break;
 
+        case 'Changing Breed':
+            $table_class     = "mortal_normal_text";
+            $splat1_groups   = array("Commie", "Murican");
+            $splat2_groups   = array("Patriot", "Mutant");
+            $supernatural_xp = 100;
+            break;
+
         default:
             $table_class = "mortal_normal_text";
             break;
@@ -1074,8 +1081,7 @@ EOQ;*/
             break;
 
         case 'Vampire':
-            /** @noinspection PhpIncludeInspection */
-            include 'includes/build_sheet_vampire.php';
+            include ROOT_PATH . '/includes/build_sheet_vampire.php';
             break;
 
         case 'Mage':
@@ -1116,6 +1122,10 @@ EOQ;*/
         case 'Possessed':
             /** @noinspection PhpIncludeInspection */
             include 'includes/build_sheet_possessed.php';
+            break;
+
+        case 'Changing Breed':
+            include ROOT_PATH . '/includes/build_sheet_changing_breed.php';
             break;
 
         default:

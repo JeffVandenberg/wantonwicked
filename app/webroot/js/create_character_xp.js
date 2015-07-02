@@ -63,6 +63,7 @@ var changeling_xp_base = 40;
 var geist_xp_base = 44;
 var purified_xp_base = 38;
 var possessed_xp_base = 40;
+var changing_breed_xp_base = 1000;
 
 $(function() {
     general_xp_base = parseInt($("#general_xp").attr('value'));
@@ -145,7 +146,7 @@ function changeDots(element_type, element_name, value, number_of_dots, remove) {
     }
 
     // determine character type
-    var character_type = getCharacterType().toLowerCase();
+    var character_type = getCharacterType().toLowerCase().replace(/\s/g, '_');
 
     // cycle through the dots to fill up the values up to the selected value
     for (var i = 1; i <= Number(number_of_dots); i++) {
@@ -441,6 +442,9 @@ function updateSupernaturalXP() {
             break;
         case 'Possessed':
             updateVampireXP(3);
+            break;
+        case 'Changing Breed':
+            updateChangingBreedXp();
             break;
         default:
             alert('Unknown Character Type: ' + character_type);
@@ -753,6 +757,35 @@ function updateGeistXP() {
 function updatePurifiedXP() {
     var i = 0;
     supernatural_xp = purified_xp_base;
+
+    // numina
+    while (document.getElementById('numina' + i + '_name')) {
+        if (document.getElementById('numina' + i + '_name').value != '') {
+            supernatural_xp -= 10;
+        }
+        i++;
+    }
+
+    // Siddhi
+    i = 0;
+    while (document.getElementById('siddhi' + i)) {
+        var value = document.getElementById('siddhi' + i).value;
+        var cost = ((Number(value) * (Number(value) + 1)) * 7) / 2;
+        supernatural_xp -= Number(cost);
+        i++;
+    }
+
+    if (supernatural_xp > 0) {
+        document.getElementById('supernatural_xp').value = supernatural_xp;
+    }
+    else {
+        document.getElementById('supernatural_xp').value = 0;
+    }
+}
+
+function updateChangingBreedXp() {
+    var i = 0;
+    supernatural_xp = changing_breed_xp_base;
 
     // numina
     while (document.getElementById('numina' + i + '_name')) {
