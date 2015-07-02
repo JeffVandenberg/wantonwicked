@@ -315,7 +315,9 @@ EOQ;
         $unsanctionLogParams = array($cutoffDate, ActionType::Sanctioned, ActionType::Login);
 
         $characterList = $this->Query($characterListQuery)->All($unsanctionLogParams);
-        $characterIds = array_column($characterList, 'id');
+        $characterIds = array_map(function($item) {
+            return $item['id'];
+        }, $characterList);
         if(count($characterIds)) {
             $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
 
