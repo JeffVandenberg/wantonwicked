@@ -792,7 +792,7 @@ EOQ;
         $sql = <<<EOQ
 UPDATE
     requests AS R
-    LEFT JOIN request_characters AS RC
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
 SET
     request_status_id = ?
 WHERE
