@@ -589,18 +589,17 @@ EOQ;
 
         $sql = <<<EOQ
 SELECT
-    COUNT(*) AS `count`
+    COUNT( * ) AS `count`
 FROM
     requests as R
-    LEFT JOIN characters AS C ON R.character_id = C.id
+    LEFT JOIN phpbb_users AS U ON R.created_by_id = U.user_id
 WHERE
     R.group_id IN ($groupListPlaceholders)
-    AND C.is_deleted = 'N'
 EOQ;
         $parameters = $groups;
-        if($filter['character_name'] != '') {
-            $sql .= ' AND C.character_name LIKE ? ';
-            $parameters[] = $filter['character_name'] . '%';
+        if($filter['username'] != '') {
+            $sql .= ' AND CB.username_clean LIKE ? ';
+            $parameters[] = strtolower($filter['username']) . '%';
         }
         if($filter['request_type_id'] != '0') {
             $sql .= ' AND R.request_type_id = ? ';

@@ -36,6 +36,7 @@ CREATE TABLE
 (
   id            INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name          VARCHAR(100) NOT NULL,
+  summary   varchar(255),
   run_by_id     INT UNSIGNED,
   run_on_date   DATETIME,
   description   TEXT,
@@ -46,3 +47,15 @@ CREATE TABLE
   updated_on    DATETIME,
   index(run_by_id)
 );
+
+create table
+    scene_characters
+    (
+        id int unsigned not null auto_increment primary key,
+        scene_id int unsigned not null,
+        character_id int unsigned not null,
+        note text,
+        added_on datetime not null,
+        index (scene_id),
+        index (character_id)
+    );
