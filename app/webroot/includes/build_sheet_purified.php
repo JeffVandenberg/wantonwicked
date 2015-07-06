@@ -312,7 +312,7 @@ $traits_table = <<<EOQ
 					  <td colspan="1" bgcolor="$cell_bg_color" width="15%">
 				    Wounds
 				  </td>
-				  <td colspan="2" bgcolor="$cell_bg_color" width="40%">
+				  <td colspan="2" bgcolor="$cell_bg_color" width="40%" style="white-space: nowrap;">
 				    Bashing: $wounds_bashing Lethal: $wounds_lethal Agg: $wounds_aggravated
 				  </td>
 			</tr>

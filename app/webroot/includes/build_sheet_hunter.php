@@ -383,7 +383,7 @@ EOQ;
 					<td colspan="1" bgcolor="$cell_bg_color">
 				    Wounds
 				  </td>
-				  <td colspan="2" bgcolor="$cell_bg_color">
+				  <td colspan="2" bgcolor="$cell_bg_color" style="white-space: nowrap;">
 				    Bashing: $wounds_bashing Lethal: $wounds_lethal Agg: $wounds_aggravated
 				  </td>
 				  <td colspan="1" bgcolor="$cell_bg_color">

@@ -345,7 +345,7 @@ ob_start();
             <td colspan="1" style="width:15%">
                 Wounds
             </td>
-            <td colspan="2" style="width:20%">
+            <td colspan="2" style="width:20%;white-space: nowrap;">
                 Bashing: <?php echo $wounds_bashing; ?>
                 Lethal: <?php echo $wounds_lethal; ?>
                 Agg: <?php echo $wounds_aggravated; ?>
