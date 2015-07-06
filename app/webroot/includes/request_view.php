@@ -40,12 +40,9 @@ if ($request->RequestStatusId == RequestStatus::NewRequest) {
     SessionHelper::SetFlashMessage('This request is not yet submitted to STs.');
 }
 
-$characterId = $request->CharacterId;
-if ($linkedCharacterId != 0) {
-    $characterId = $linkedCharacterId;
-}
 $linkedCharacter = $requestCharacterRepository->FindLinkedCharacterForUser($requestId, $userdata['user_id']);
 /* @var RequestCharacter $linkedCharacter */
+$characterId = $linkedCharacter->CharacterId;
 
 $backLink = '/request.php?action=dashboard';
 if ($linkedCharacter->Id != 0) {
