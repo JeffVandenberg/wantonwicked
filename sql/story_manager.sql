@@ -36,6 +36,7 @@ CREATE TABLE
 (
   id            INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name          VARCHAR(100) NOT NULL,
+  summary       VARCHAR(255),
   run_by_id     INT UNSIGNED,
   run_on_date   DATETIME,
   description   TEXT,
@@ -44,5 +45,43 @@ CREATE TABLE
   created_on    DATETIME,
   updated_by_id INT UNSIGNED NOT NULL,
   updated_on    DATETIME,
-  index(run_by_id)
-);
+  INDEX (run_by_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE
+  scene_characters
+(
+  id           INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  scene_id     INT UNSIGNED NOT NULL,
+  character_id INT UNSIGNED NOT NULL,
+  note         TEXT,
+  added_on     DATETIME     NOT NULL,
+  INDEX (scene_id),
+  INDEX (character_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE
+  scene_requests
+(
+  id       INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  scene_id INT UNSIGNED NOT NULL,
+  request_id int UNSIGNED not null,
+  note TEXT,
+  added_on DATETIME not null,
+  index (scene_id),
+  index (request_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE `scene_statuses` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO
+  scene_statuses
+  (id, name)
+VALUES
+  (1, 'Open'),
+  (2, 'Completed'),
+  (3, 'Cancelled');

@@ -1,5 +1,4 @@
 <?php
-/* @var array $userdata */
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
@@ -7,10 +6,12 @@ use classes\core\helpers\SessionHelper;
 use classes\request\data\RequestCharacter;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
+use classes\scene\repository\SceneRepository;
 
-$requestId = Request::GetValue('request_id', 0);
-$requestRepository = new RequestRepository();
+$requestId                  = Request::GetValue('request_id', 0);
+$requestRepository          = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
+$sceneRepository = new SceneRepository();
 
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     include 'index_redirect.php';
@@ -20,51 +21,55 @@ if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
         Response::Redirect('request.php?action=view&request_id=' . $requestId);
-    } elseif ($_POST['action'] == 'Attach Request') {
-        $fromRequestId = $_POST['from_request_id'];
-        if($requestRepository->AttachRequestToRequest($requestId, $fromRequestId)) {
+    }
+    elseif ($_POST['action'] == 'Attach Scene') {
+        $sceneId = Request::GetValue('scene_id');
+        $note = Request::GetValue('note');
+        if ($requestRepository->AttachSceneToRequest($requestId, $sceneId, $note)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
-            SessionHelper::SetFlashMessage('Attached Request');
+            SessionHelper::SetFlashMessage('Attached Scene');
             Response::Redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {
-            die('Unable to attach Request');
+            die('Unable to attach Bluebook Entry');
         }
     }
 }
-$request = $requestRepository->FindById($requestId);
+$request         = $requestRepository->FindById($requestId);
 $linkedCharacter = $requestCharacterRepository->FindLinkedCharacterForUser($requestId, $userdata['user_id']);
 /* @var RequestCharacter $linkedCharacter */
 
-$page_title = 'Attach Request to: ' . $request['title'];
+$page_title    = 'Attach Scene to: ' . $request['title'];
 $contentHeader = $page_title;
 
-$unattachedRequests = $requestRepository->GetOpenRequestsNotAttachedToRequest($requestId, $linkedCharacter->CharacterId);
-$requests = array();
-foreach ($unattachedRequests as $unattachedRequest) {
-    $requests[$unattachedRequest['id']] = $unattachedRequest['title'];
-}
+$scenes = $sceneRepository->ListScenesForCharacter($linkedCharacter->CharacterId);
+
 ob_start();
 ?>
 
-    <?php if(count($requests) > 0): ?>
+<?php if (count($scenes) > 0): ?>
     <form method="post">
         <div class="formInput">
             <label>
-                Request to Attach
+                Scene to Attach
             </label>
-            <?php echo FormHelper::Select($requests, 'from_request_id', ''); ?>
+            <?php echo FormHelper::Select($scenes, 'scene_id', ''); ?>
+        </div>
+        <div class="formInput">
+            <label>
+                Note
+            </label>
+            <?php echo FormHelper::Textarea('note', '', array('class' => 'tinymce-textarea')); ?>
         </div>
         <div class="formInput">
             <?php echo FormHelper::Hidden('request_id', $requestId); ?>
-            <?php echo FormHelper::Button('action', 'Attach Request'); ?>
+            <?php echo FormHelper::Button('action', 'Attach Scene'); ?>
             <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
-    <?php else: ?>
-        No Requests to Attach<br />
-        <a href="request.php?action=view&request_id=<?php echo $requestId; ?>">Back</a>
-    <?php endif; ?>
+<?php else: ?>
+    <a href="request.php?action=view&request_id=<?php echo $requestId; ?>">Back</a>
+<?php endif; ?>
 
 <?php
 $page_content = ob_get_clean();

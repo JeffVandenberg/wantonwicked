@@ -589,18 +589,17 @@ EOQ;
 
         $sql = <<<EOQ
 SELECT
-    COUNT(*) AS `count`
+    COUNT( * ) AS `count`
 FROM
     requests as R
-    LEFT JOIN characters AS C ON R.character_id = C.id
+    LEFT JOIN phpbb_users AS U ON R.created_by_id = U.user_id
 WHERE
     R.group_id IN ($groupListPlaceholders)
-    AND C.is_deleted = 'N'
 EOQ;
         $parameters = $groups;
-        if($filter['character_name'] != '') {
-            $sql .= ' AND C.character_name LIKE ? ';
-            $parameters[] = $filter['character_name'] . '%';
+        if($filter['username'] != '') {
+            $sql .= ' AND U.username_clean LIKE ? ';
+            $parameters[] = strtolower($filter['username']) . '%';
         }
         if($filter['request_type_id'] != '0') {
             $sql .= ' AND R.request_type_id = ? ';
@@ -793,7 +792,7 @@ EOQ;
         $sql = <<<EOQ
 UPDATE
     requests AS R
-    LEFT JOIN request_characters AS RC
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
 SET
     request_status_id = ?
 WHERE
@@ -1011,6 +1010,46 @@ EOQ;
         $parameters = array($requestId, $userId);
         $rows = $this->Query($sql)->Value($parameters);
         return ($rows > 0);
+    }
+
+    public function AttachSceneToRequest($requestId, $sceneId, $note)
+    {
+        $sql = <<<EOQ
+INSERT INTO
+  scene_requests
+  (scene_id, request_id, note, added_on)
+VALUES
+  (?, ?, ?, ?)
+EOQ;
+
+        $params = array(
+            $sceneId,
+            $requestId,
+            $note,
+            date('Y-m-d H:i:s')
+        );
+
+        return $this->Query($sql)->Execute($params);
+    }
+
+    public function ListSupportingScenes($requestId)
+    {
+        $sql = <<<EOQ
+SELECT
+    S.name,
+    S.slug,
+    SR.note
+FROM
+    scene_requests AS SR
+    INNER JOIN scenes AS S ON SR.scene_id = S.id
+WHERE
+    SR.request_id = ?
+ORDER BY
+    S.name
+EOQ;
+        $params = array($requestId);
+
+        return $this->Query($sql)->All($params);
     }
 
 }

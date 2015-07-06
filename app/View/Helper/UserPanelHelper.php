@@ -32,7 +32,8 @@ EOQ;
                         'Request.request_type_id != 4',
                         'Request.created_by_id' => AuthComponent::user('user_id'),
                         'Request.request_status_id IN (1,2,3,4,5,6)'
-                    )
+                    ),
+                    'contain' => false
                 )
             );
             $logout = $this->Html->link('Logout', $this->Html->url('/').'forum/ucp.php?mode=logout&sid='.AuthComponent::user('session_id'));

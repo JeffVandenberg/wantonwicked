@@ -786,3 +786,12 @@ div.tableRowHeaderCell
     background-color: #ffffff;
     font-weight:bold;
 }
+
+div.checkbox label
+{
+    display: inline;
+}
+
+div.submit {
+    display: inline;
+}

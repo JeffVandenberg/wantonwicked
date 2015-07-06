@@ -14,7 +14,8 @@
   ],
   "require": {
     "php": ">=5.3.0",
-    "composer/installers": "*",
-    "phpmailer/phpmailer": "v5.2.9"
+    "composer/installers": "v1.0.20",
+    "phpmailer/phpmailer": "v5.2.9",
+    "phpunit/phpunit": "4.7.6"
   }
 }

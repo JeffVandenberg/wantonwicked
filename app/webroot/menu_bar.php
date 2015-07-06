@@ -24,6 +24,9 @@ $mainMenu = array(
                         'link' => '/wiki/index.php?n=GameRef.5For5Offer'
                     )
                 )
+            ),
+            'Scenes' => array(
+                'link' => '/scenes'
             )
         )
     ),
