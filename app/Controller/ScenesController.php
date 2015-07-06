@@ -9,6 +9,7 @@ App::uses('AppController', 'Controller');
  * @property Scene $Scene
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
+ * @property ScenesEmailComponent SceneEmail
  */
 class ScenesController extends AppController
 {
@@ -18,7 +19,9 @@ class ScenesController extends AppController
      *
      * @var array
      */
-    public $components = array('Paginator');
+    public $components = array(
+        'ScenesEmail'
+    );
 
     public $paginate = array(
         'order' => array(
@@ -251,6 +254,7 @@ class ScenesController extends AppController
                 );
 
                 if ($sceneCharacter->save($data)) {
+                    $this->SceneEmail->SendJoinEmail($scene, $data);
                     $this->Session->setFlash('Added character to scene');
                     $this->redirect(array('action' => 'view', $slug));
                 }

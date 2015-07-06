@@ -1473,6 +1473,14 @@ var scenes = {
 	},
 
 	list: function() {
+		//$("#sub-panel").load('/scenes', function() {
+		//	$(this).dialog({
+		//		width: 500,
+		//		height: 500,
+		//		title: 'Upcoming Scenes'
+		//	});
+		//});
+
 		window.open('/scenes');
 	},
 
