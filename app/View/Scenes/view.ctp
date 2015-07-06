@@ -61,7 +61,7 @@ $this->set('menu', $menu);
         </td>
         <td>
             <b>Scheduled For</b>
-            <?php echo h($scene['Scene']['run_on_date']); ?>
+            <?php echo date('Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>
         </td>
     </tr>
     <tr>

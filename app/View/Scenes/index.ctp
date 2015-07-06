@@ -30,8 +30,12 @@ else {
     $this->set('title_for_layout', 'Upcoming Scenes');
 }
 $this->set('menu', $menu);
+$this->Paginator->options(array(
+    'update'      => '#page-content',
+    'evalScripts' => true,
+));
 ?>
-<div class="scenes index">
+<div id="page-content" class="scenes index">
     <h2><?php echo __('Scenes'); ?></h2>
     <table cellpadding="0" cellspacing="0">
         <tr>
@@ -48,7 +52,7 @@ $this->set('menu', $menu);
                 <td>
                     <?php echo $scene['RunBy']['username']; ?>
                 </td>
-                <td><?php echo h($scene['Scene']['run_on_date']); ?>&nbsp;</td>
+                <td><?php echo date('Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>&nbsp;</td>
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $scene['Scene']['slug'])); ?>
                     <?php if ($mayEdit || AuthComponent::user('user_id') == $scene['Scene']['created_by_id']): ?>
@@ -76,5 +80,6 @@ $this->set('menu', $menu);
         echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
         ?>
     </div>
+    <?php echo $this->Js->writeBuffer(); ?>
 </div>
 

@@ -745,7 +745,8 @@ table.geist_normal_text > tbody > tr > th:nth-child(even) {
 #busy-indicator {
     display: none;
     position: absolute;
-    left: 100px;
+    left: 50%;
+    margin-left: -400px;
     top: 130px;
 }
 

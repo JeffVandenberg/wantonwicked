@@ -18,6 +18,10 @@ $this->set('menu', $menu);
         <?php echo $this->Form->select('character_id', $characters, array('required' => true)); ?>
     </div>
     <div>
+        <b>Summary</b><br />
+        <?php echo $scene['Scene']['summary']; ?>
+    </div>
+    <div>
         Extra notes on their participation:
         <?php echo $this->Form->textarea('note', array('class' => 'tinymce-textarea')); ?>
     </div>

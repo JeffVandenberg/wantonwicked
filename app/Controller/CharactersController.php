@@ -18,8 +18,6 @@ class CharactersController extends AppController
      * @var array
      */
     public $components = array(
-        'Paginator',
-        'Menu'
     );
 
     public function beforeFilter()
