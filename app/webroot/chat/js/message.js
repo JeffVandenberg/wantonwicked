@@ -335,22 +335,22 @@ function addMessage(inputMDiv,displayMDiv)
 
     if(ircCommand[0] == '/scene') {
         if(ircCommand.length == 1) {
-            ghost.help();
+            scenes.help();
             return false;
         }
 
         if(ircCommand[1].toLowerCase() == 'list') {
-            ghost.off(inputMDiv);
+            scenes.list();
             clrMessageInput(inputMDiv);
             return false;
         }
-        else if(ircCommand[1].toLowerCase() == 'on') {
-            ghost.on(inputMDiv);
+        else if(ircCommand[1].toLowerCase() == 'add') {
+            scenes.add();
             clrMessageInput(inputMDiv);
             return false;
         }
         else {
-            ghost.help();
+            scenes.help();
             return false;
         }
     }
