@@ -44,6 +44,12 @@ class MenuComponent extends Component {
                             )
                         )
                     ),
+                    'Scenes' => array(
+                        'link' => array(
+                            'controller' => 'scenes',
+                            'action' => 'index'
+                        )
+                    )
                 )
             ),
             'Help'       => array(

@@ -83,6 +83,9 @@ if (isset($_GET['action'])) {
         case 'attach_bluebook':
             include 'includes/request_attach_bluebook.php';
             break;
+        case 'attach_scene':
+            include 'includes/request_attach_scene.php';
+            break;
         case 'st_list':
             if(UserdataHelper::IsSt($userdata))
             {

@@ -59,6 +59,31 @@ class Character extends AppModel {
         ));
     }
 
+    public function FindCharactersForScene($sceneId) {
+        $sceneId = (int) $sceneId;
+
+        $query = <<<EOQ
+SELECT
+    SceneCharacter.id,
+    SceneCharacter.note,
+    SceneCharacter.character_id,
+    SceneCharacter.scene_id,
+    SceneCharacter.added_on,
+    Character.character_name
+FROM
+    characters AS `Character`
+    INNER JOIN scene_characters AS SceneCharacter ON Character.id = SceneCharacter.character_id
+WHERE
+    SceneCharacter.scene_id = $sceneId
+ORDER BY
+    Character.character_name
+EOQ;
+
+        $data = $this->query($query);
+
+        return $data;
+    }
+
     public $belongsTo = array(
         'Player' => array(
             'className' => 'User',
@@ -74,6 +99,22 @@ class Character extends AppModel {
             'fields' => '',
             'order' => ''
         ),
+    );
+
+    public $hasMany = array(
+        'SceneCharacter' => array(
+            'className'    => 'SceneCharacter',
+            'foreignKey'   => 'character_id',
+            'dependent'    => false,
+            'conditions'   => '',
+            'fields'       => '',
+            'order'        => '',
+            'limit'        => '',
+            'offset'       => '',
+            'exclusive'    => '',
+            'finderQuery'  => '',
+            'counterQuery' => ''
+        )
     );
 
 } 

@@ -209,3 +209,30 @@ function strip_tags (str, allowed_tags)
     }
     return str;
 }
+
+tinymce.init({
+    selector: "textarea.tinymce-textarea",
+    menubar: false,
+    height: 200,
+    paste_preprocess : function(pl, o) {
+        //example: keep bold,italic,underline and paragraphs
+        //o.content = strip_tags( o.content,'<b><u><i><p>' );
+
+        // remove all tags => plain text
+        o.content = strip_tags( o.content,'<br>' );
+    },
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace wordcount visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste textcolor"
+    ],
+    toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent"
+});
+
+// general method for removing required properties when cancelling out of a form
+$(function() {
+    $("input[value='Cancel']").click(function() {
+        $("form").find('input, select').prop('required', false);
+    });
+});
+

@@ -598,7 +598,7 @@ WHERE
 EOQ;
         $parameters = $groups;
         if($filter['username'] != '') {
-            $sql .= ' AND CB.username_clean LIKE ? ';
+            $sql .= ' AND U.username_clean LIKE ? ';
             $parameters[] = strtolower($filter['username']) . '%';
         }
         if($filter['request_type_id'] != '0') {
@@ -1010,6 +1010,46 @@ EOQ;
         $parameters = array($requestId, $userId);
         $rows = $this->Query($sql)->Value($parameters);
         return ($rows > 0);
+    }
+
+    public function AttachSceneToRequest($requestId, $sceneId, $note)
+    {
+        $sql = <<<EOQ
+INSERT INTO
+  scene_requests
+  (scene_id, request_id, note, added_on)
+VALUES
+  (?, ?, ?, ?)
+EOQ;
+
+        $params = array(
+            $sceneId,
+            $requestId,
+            $note,
+            date('Y-m-d H:i:s')
+        );
+
+        return $this->Query($sql)->Execute($params);
+    }
+
+    public function ListSupportingScenes($requestId)
+    {
+        $sql = <<<EOQ
+SELECT
+    S.name,
+    S.slug,
+    SR.note
+FROM
+    scene_requests AS SR
+    INNER JOIN scenes AS S ON SR.scene_id = S.id
+WHERE
+    SR.request_id = ?
+ORDER BY
+    S.name
+EOQ;
+        $params = array($requestId);
+
+        return $this->Query($sql)->All($params);
     }
 
 }

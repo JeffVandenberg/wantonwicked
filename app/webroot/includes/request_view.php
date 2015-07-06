@@ -32,6 +32,7 @@ $requestCharacters          = $requestCharacterRepository->ListByRequestId($requ
 $supportingRequests  = $requestRepository->ListSupportingRequests($requestId);
 $supportingRolls     = $requestRepository->ListSupportingRolls($requestId);
 $supportingBluebooks = $requestRepository->ListSupportingBluebookEntries($requestId);
+$supportingScenes    = $requestRepository->ListSupportingScenes($requestId);
 
 $contentHeader = $page_title = 'Request: ' . $request->Title;
 
@@ -109,6 +110,9 @@ if ($linkedCharacterId == 0) {
             );
             $characterMenu['Attach']['submenu']['Dice Roll']      = array(
                 'link' => 'dieroller.php?action=character&character_id=' . $request->CharacterId
+            );
+            $characterMenu['Attach']['submenu']['Scene']      = array(
+                'link' => 'request.php?action=attach_scene&request_id=' . $requestId
             );
         }
     }
@@ -205,6 +209,21 @@ ob_start();
             </li>
         <?php endforeach; ?>
     </ul>
+<?php endif; ?>
+
+<?php if (count($supportingScenes) > 0): ?>
+    <h3>Supporting Scenes</h3>
+    <dl class="wicked">
+        <?php foreach ($supportingScenes as $supportingScene): ?>
+            <dt>
+                <a href="/scenes/view/<?php echo $supportingScene['slug']; ?>"
+                   class="ajax-link"><?php echo $supportingScene['name']; ?></a>
+            </dt>
+            <dd class="tinymce-content">
+                <?php echo $supportingScene['note']; ?>
+            </dd>
+        <?php endforeach; ?>
+    </dl>
 <?php endif; ?>
 
 

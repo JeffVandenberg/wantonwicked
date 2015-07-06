@@ -13,6 +13,7 @@
     <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
     <script type="text/javascript" src="js/jquery.ui.menubar.js"></script>
+    <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript" src="js/server_time.js"></script>
     <script type="text/javascript" src="js/wanton.js"></script>
     <script type="text/javascript" src="js/gaming-sandbox.js"></script>

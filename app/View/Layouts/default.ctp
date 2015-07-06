@@ -23,6 +23,7 @@
         'jquery-ui-1.10.3.custom.min',
         'jquery.watermark.min',
         'jquery.ui.menubar',
+        'tinymce/tinymce.min',
         'server_time',
         'wanton',
         'gaming-sandbox'

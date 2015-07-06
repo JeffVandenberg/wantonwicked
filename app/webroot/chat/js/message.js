@@ -333,6 +333,28 @@ function addMessage(inputMDiv,displayMDiv)
         }
     }
 
+    if(ircCommand[0] == '/scene') {
+        if(ircCommand.length == 1) {
+            ghost.help();
+            return false;
+        }
+
+        if(ircCommand[1].toLowerCase() == 'list') {
+            ghost.off(inputMDiv);
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else if(ircCommand[1].toLowerCase() == 'on') {
+            ghost.on(inputMDiv);
+            clrMessageInput(inputMDiv);
+            return false;
+        }
+        else {
+            ghost.help();
+            return false;
+        }
+    }
+
     if(wrapMessageWithFormat) {
         // add bold font
         if(mBold == 1)
@@ -1405,6 +1427,9 @@ var dice = {
 };
 
 var ghost = {
+	help: function() {
+		alert('Valid options for the /dice command are:\n - off\n - on');
+	},
     off: function() {
         $.post(
             '/chat/includes/ghost.php',
@@ -1439,4 +1464,19 @@ var ghost = {
             }
         );
     }
+};
+
+var scenes = {
+	help: function() {
+		alert('Valid options for the /scenes command are:\n - list\n - add');
+
+	},
+
+	list: function() {
+		window.open('/scenes');
+	},
+
+	add: function() {
+		window.open('/scenes/add');
+	}
 };
