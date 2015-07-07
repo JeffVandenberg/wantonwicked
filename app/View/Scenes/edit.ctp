@@ -12,7 +12,8 @@ $this->set('title_for_layout', 'Edit: ' . $this->request->data['Scene']['name'])
             <td style="width:50%">
                 <?php echo $this->Form->input('run_by_name', array(
                     'label' => 'Run By',
-                    'value' => $this->request->data['RunBy']['username']
+                    'value' => $this->request->data['RunBy']['username'],
+                    'required' => 'required'
                 )); ?>
                 <?php echo $this->Form->hidden('run_by_id'); ?>
             </td>

@@ -9,7 +9,7 @@ App::uses('AppController', 'Controller');
  * @property Scene $Scene
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
- * @property ScenesEmailComponent SceneEmail
+ * @property ScenesEmailComponent ScenesEmail
  */
 class ScenesController extends AppController
 {
@@ -46,6 +46,7 @@ class ScenesController extends AppController
      */
     public function index($includePast = false)
     {
+        App::uses('SceneStatus', 'Model');
         $this->Scene->recursive    = 0;
         $this->Paginator->settings = array(
             'fields' => array(
@@ -57,6 +58,9 @@ class ScenesController extends AppController
                 'CreatedBy.username',
                 'UpdatedBy.username',
                 'RunBy.username'
+            ),
+            'conditions' => array(
+                'Scene.scene_status_id !=' => SceneStatus::Cancelled
             ),
             'order'  => array(
                 'Scene.run_on_date' => 'asc'
@@ -171,11 +175,31 @@ class ScenesController extends AppController
                 $this->redirect(array('action' => 'view', $scene['Scene']['slug']));
             }
             if ($this->request->data['action'] == 'Update') {
-                $scene                           = $this->request->data;
+                $scene   = $this->request->data;
+                $newDate = $scene['Scene']['run_on_date']['year'] . '-' .
+                    $scene['Scene']['run_on_date']['month'] . '-' .
+                    $scene['Scene']['run_on_date']['day'] . ' ' .
+                    $scene['Scene']['run_on_date']['hour'] . ':' .
+                    $scene['Scene']['run_on_date']['min'] . ' ' .
+                    $scene['Scene']['run_on_date']['meridian'];
+
+                $newRunDate = date('Y-m-d H:i:s', strtotime($newDate));
+                $oldScene = $this->Scene->find('first', array(
+                    'conditions' => array(
+                        'Scene.id' => $scene['Scene']['id']
+                    ),
+                    'contain' => false
+                ));
+
                 $scene['Scene']['updated_by_id'] = $this->Auth->user('user_id');
                 $scene['Scene']['updated_on']    = date('Y-m-d H:i:s');
 
                 if ($this->Scene->save($scene)) {
+                    if($oldScene['Scene']['run_on_date'] != $newRunDate) {
+                        $scene['Scene']['run_on_date'] = $newRunDate;
+                        $this->ScenesEmail->SendScheduleChange($scene, $oldScene);
+                    }
+
                     $this->Session->setFlash(__('The scene has been saved.'));
 
                     $this->redirect(array('action' => 'view', $scene['Scene']['slug']));
@@ -254,7 +278,7 @@ class ScenesController extends AppController
                 );
 
                 if ($sceneCharacter->save($data)) {
-                    $this->SceneEmail->SendJoinEmail($scene, $data);
+                    $this->ScenesEmail->SendJoinEmail($scene, $data);
                     $this->Session->setFlash('Added character to scene');
                     $this->redirect(array('action' => 'view', $slug));
                 }
@@ -266,22 +290,18 @@ class ScenesController extends AppController
 
         App::uses('Character', 'Model');
         $character  = new Character();
-        $characters = $character->find('list', array(
-            'conditions' => array(
-                'Character.user_id'       => $this->Auth->user('user_id'),
-                'Character.is_sanctioned' => 'Y',
-                'Character.is_deleted'    => 'N'
-            ),
-            'order'      => array(
-                'character_name' => 'desc'
-            ),
-            'contain'    => false
-        ));
+        $characters = $character->FindCharactersNotInScene($this->Auth->user('user_id'), $scene['Scene']['id']);
+
+        if(count($characters) == 0) {
+            $this->Session->setFlash('You have no sanctioned characters, or all of your characters have joined the scene.');
+            $this->redirect(array('action' => 'view', $slug));
+        }
 
         $this->set(compact('characters', 'scene'));
     }
 
-    public function cancel($slug) {
+    public function cancel($slug)
+    {
         $scene = $this->Scene->find('first', array(
             'conditions' => array(
                 'Scene.slug' => $slug
@@ -296,7 +316,8 @@ class ScenesController extends AppController
         App::uses('SceneStatus', 'Model');
         $scene['Scene']['scene_status_id'] = SceneStatus::Cancelled;
 
-        if($this->Scene->save($scene)) {
+        if ($this->Scene->save($scene)) {
+            $this->ScenesEmail->SendCancelEmails($scene);
             $this->Session->setFlash('Scene Cancelled');
         }
         else {
@@ -305,7 +326,8 @@ class ScenesController extends AppController
         $this->redirect(array('action' => 'view', $slug));
     }
 
-    public function complete($slug) {
+    public function complete($slug)
+    {
         $scene = $this->Scene->find('first', array(
             'conditions' => array(
                 'Scene.slug' => $slug
@@ -321,7 +343,7 @@ class ScenesController extends AppController
         App::uses('SceneStatus', 'Model');
         $scene['Scene']['scene_status_id'] = SceneStatus::Completed;
 
-        if($this->Scene->save($scene)) {
+        if ($this->Scene->save($scene)) {
             $this->Session->setFlash('Scene Completed');
         }
         else {
@@ -337,6 +359,42 @@ class ScenesController extends AppController
             default:
                 return true || $this->Permissions->IsAdmin();
         }
+    }
+
+    public function test()
+    {
+        $scene = $this->Scene->find('first', array(
+            'conditions' => array(
+                'Scene.id' => 22
+            ),
+            'contain'    => false
+        ));
+
+        App::uses('SceneCharacter', 'Model');
+        $sceneCharacters = new SceneCharacter();
+        $sceneCharacter  = $sceneCharacters->find('first', array(
+            'conditions' => array(
+                'SceneCharacter.id' => 19
+            ),
+            'contain'    => false
+        ));
+
+        $this->set(compact('scene', 'sceneCharacter'));
+
+
+        App::uses('CakeEmail', 'Network/Email');
+        $emailer = new CakeEmail();
+        $emailer->to('jeffvandenberg@gmail.com');
+        $emailer->from('wantonwicked@gamingsandbox.com');
+        $emailer->subject('Test Message');
+        $emailer->emailFormat('html');
+        $emailer->template('scene_join', 'wantonwicked')->viewVars(
+            array(
+                'scene'          => $scene,
+                'sceneCharacter' => $sceneCharacter
+            )
+        );
+        $emailer->send();
     }
 
 }
