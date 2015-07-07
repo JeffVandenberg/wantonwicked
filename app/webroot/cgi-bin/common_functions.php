@@ -1,6 +1,4 @@
 <?php
-//set_include_path('/mnt/Target01/331671/349277/www.wantonwicked.net/web/content/');
-
 include_once ROOT_PATH . 'cgi-bin/buildInput.php';
 include_once ROOT_PATH . 'cgi-bin/buildSelect.php';
 include_once ROOT_PATH . 'cgi-bin/buildMultiSelect.php';
