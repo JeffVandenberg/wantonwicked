@@ -25,5 +25,4 @@ spl_autoload_register(
         }
     }
 );
-date_default_timezone_set('America/Chicago');
 
