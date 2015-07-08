@@ -46,6 +46,7 @@ class ScenesController extends AppController
      */
     public function index($includePast = false)
     {
+        App::uses('SceneStatus', 'Model');
         $this->Scene->recursive    = 0;
         $this->Paginator->settings = array(
             'fields' => array(
@@ -57,6 +58,9 @@ class ScenesController extends AppController
                 'CreatedBy.username',
                 'UpdatedBy.username',
                 'RunBy.username'
+            ),
+            'conditions' => array(
+                'Scene.scene_status_id !=' => SceneStatus::Cancelled
             ),
             'order'  => array(
                 'Scene.run_on_date' => 'asc'
@@ -286,17 +290,12 @@ class ScenesController extends AppController
 
         App::uses('Character', 'Model');
         $character  = new Character();
-        $characters = $character->find('list', array(
-            'conditions' => array(
-                'Character.user_id'       => $this->Auth->user('user_id'),
-                'Character.is_sanctioned' => 'Y',
-                'Character.is_deleted'    => 'N'
-            ),
-            'order'      => array(
-                'character_name' => 'desc'
-            ),
-            'contain'    => false
-        ));
+        $characters = $character->FindCharactersNotInScene($this->Auth->user('user_id'), $scene['Scene']['id']);
+
+        if(count($characters) == 0) {
+            $this->Session->setFlash('You have no sanctioned characters, or all of your characters have joined the scene.');
+            $this->redirect(array('action' => 'view', $slug));
+        }
 
         $this->set(compact('characters', 'scene'));
     }

@@ -74,13 +74,18 @@ $this->set('menu', $menu);
         </td>
     </tr>
 </table>
-<div style="width: 50%;">
+<div style="width: 50%;margin-top: 10px;">
     <h3>Participating Characters</h3>
     <?php if (count($sceneCharacters)): ?>
         <dl>
             <?php foreach ($sceneCharacters as $sceneCharacter): ?>
-                <dt><?php echo $sceneCharacter['Character']['character_name']; ?></dt>
-                <dd><?php echo $sceneCharacter['SceneCharacter']['note']; ?></dd>
+                <dt>
+                    <?php echo $sceneCharacter['Character']['character_name']; ?><br />
+                </dt>
+                <dd>
+                    <span class="secondary-text">Joined: <?php echo date('Y-m-d g:i A', strtotime($sceneCharacter['SceneCharacter']['added_on'])); ?></span><br />
+                    <div class="tinymce-content"><?php echo $sceneCharacter['SceneCharacter']['note']; ?></div>
+                </dd>
             <?php endforeach; ?>
         </dl>
     <?php else: ?>

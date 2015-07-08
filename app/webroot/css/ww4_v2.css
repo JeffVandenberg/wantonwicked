@@ -796,3 +796,7 @@ div.checkbox label
 div.submit {
     display: inline;
 }
+
+.secondary-text {
+    color: #444444;
+}

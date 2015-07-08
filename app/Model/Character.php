@@ -84,6 +84,36 @@ EOQ;
         return $data;
     }
 
+    public function FindCharactersNotInScene($userId, $sceneId) {
+        $userId = (int) $userId;
+        $sceneId = (int) $sceneId;
+
+        $sql = <<<EOQ
+SELECT
+    Character.id,
+    Character.character_name
+FROM
+    characters AS `Character`
+    LEFT JOIN scene_characters AS SceneCharacter ON (Character.id = SceneCharacter.character_id AND SceneCharacter.scene_id = $sceneId)
+WHERE
+    Character.user_id = $userId
+    AND SceneCharacter.id IS NULL
+    AND Character.is_sanctioned = 'Y'
+    AND Character.is_deleted = 'N'
+ORDER BY
+    Character.character_name
+EOQ;
+
+        $characters = $this->query($sql);
+        $list = array();
+        foreach($characters as $character)
+        {
+            $list[$character['Character']['id']] = $character['Character']['character_name'];
+        }
+
+        return $list;
+
+    }
     public $belongsTo = array(
         'Player' => array(
             'className' => 'User',

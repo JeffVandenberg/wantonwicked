@@ -10,7 +10,7 @@ $this->set('title_for_layout', 'Add Scene');
             <?php echo $this->Form->input('name'); ?>
             </td>
             <td style="width:50%">
-                <?php echo $this->Form->input('run_by_name', array('label' => 'Run By')); ?>
+                <?php echo $this->Form->input('run_by_name', array('label' => 'Run By', 'required' => 'required')); ?>
                 <?php echo $this->Form->hidden('run_by_id'); ?>
             </td>
         </tr>
