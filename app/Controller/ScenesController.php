@@ -31,12 +31,7 @@ class ScenesController extends AppController
 
     public function beforeFilter()
     {
-//        $this->redirect('/');
         parent::beforeFilter();
-        $this->Auth->allow(array(
-                               'index',
-                               'view'
-                           ));
     }
 
     /**
@@ -367,6 +362,40 @@ class ScenesController extends AppController
             default:
                 return true || $this->Permissions->IsAdmin();
         }
+    }
+
+    public function my_scenes()
+    {
+        App::uses('SceneStatus', 'Model');
+        $this->Scene->recursive    = 0;
+        $this->Paginator->settings = array(
+            'fields' => array(
+                'Scene.id',
+                'Scene.name',
+                'Scene.run_on_date',
+                'Scene.summary',
+                'Scene.slug',
+                'CreatedBy.username',
+                'UpdatedBy.username',
+                'RunBy.username'
+            ),
+            'conditions' => array(
+                'Scene.scene_status_id !=' => SceneStatus::Cancelled,
+                'or' => array(
+                    'Scene.created_by_id' => $this->Auth->user('user_id'),
+                    ''
+                )
+            ),
+            'order'  => array(
+                'Scene.run_on_date' => 'asc'
+            )
+        );
+
+        $this->set('scenes', $this->Paginator->paginate());
+        $this->set('mayEdit', $this->Permissions->IsST());
+        $this->set('mayAdd', $this->Auth->user('id') != 1);
+        $this->set(compact('includePast'));
+
     }
 
     public function test()
