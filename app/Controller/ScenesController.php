@@ -1,6 +1,4 @@
 <?php
-use classes\core\helpers\SlugHelper;
-
 App::uses('AppController', 'Controller');
 
 /**
@@ -308,13 +306,6 @@ class ScenesController extends AppController
             $this->Session->setFlash('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
-
-        $oldScene = $this->Scene->find('first', array(
-            'conditions' => array(
-                'Scene.id' => $scene['Scene']['id']
-            ),
-            'contain'    => false
-        ));
 
         App::uses('SceneStatus', 'Model');
         $scene['Scene']['scene_status_id'] = SceneStatus::Cancelled;
