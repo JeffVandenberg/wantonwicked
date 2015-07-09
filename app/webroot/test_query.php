@@ -16,15 +16,16 @@ require_once('cgi-bin/start_of_page.php');
 
 $query = <<<EOQ
 SELECT
-	distinct
-	character_id
+  floor(total_experience / 20) * 20 as `bracket`,
+  count(*) as `characters`
 FROM
-	log_characters
+  characters
 WHERE
-	action_type_id = 5
-	AND created > '2015-07-01'
-ORDER BY
-	id DESC
+  is_sanctioned = 'Y'
+  AND is_npc = 'N'
+  AND characters.is_deleted = 'N'
+GROUP BY
+  bracket
 EOQ;
 
 $params = array(
