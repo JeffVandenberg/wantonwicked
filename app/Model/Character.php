@@ -69,7 +69,8 @@ SELECT
     SceneCharacter.character_id,
     SceneCharacter.scene_id,
     SceneCharacter.added_on,
-    Character.character_name
+    Character.character_name,
+    Character.user_id
 FROM
     characters AS `Character`
     INNER JOIN scene_characters AS SceneCharacter ON Character.id = SceneCharacter.character_id
@@ -112,8 +113,99 @@ EOQ;
         }
 
         return $list;
-
     }
+
+    public function ListCharacterActivity()
+    {
+        $query = <<<EOQ
+SELECT
+    date_format(created, '%m%d') as `monthDay`,
+    date_format(created, '%m') as `month`,
+    date_format(created, '%d') as `day`,
+    count(*)
+FROM
+  log_characters
+WHERE
+  created > '2015-07-01'
+  AND action_type_id = 2
+GROUP BY
+  monthDay
+EOQ;
+
+        return $this->query($query);
+    }
+
+    public function ListBarelyPlaying()
+    {
+        $query = <<<EOQ
+SELECT
+  *
+FROM
+  (
+    SELECT
+        LC.character_id,
+        C.character_name,
+        date_format(created, '%y') AS `year`,
+        date_format(created, '%m') AS `month`,
+        count(*) AS total
+    FROM
+      log_characters AS LC
+      INNER JOIN characters AS C ON LC.character_id = C.id
+    WHERE
+      action_type_id = 2
+      AND C.is_deleted = 'N'
+      AND C.is_npc = 'N'
+      AND C.is_sanctioned = 'Y'
+    GROUP BY
+      character_id,
+      `year`,
+      `month`
+  ) AS activity
+WHERE
+  total < 3
+ORDER BY
+  character_name,
+  `year`,
+  `month`
+EOQ;
+        return $this->query($query);
+    }
+
+    public function ListAllLoginActivity()
+    {
+        $query = <<<EOQ
+SELECT
+  *
+FROM
+  (
+    SELECT
+        LC.character_id,
+        C.character_name,
+        date_format(created, '%y') AS `year`,
+        date_format(created, '%m') AS `month`,
+        count(*) AS total
+    FROM
+      log_characters AS LC
+      INNER JOIN characters AS C ON LC.character_id = C.id
+    WHERE
+      action_type_id = 2
+      AND created > '2015-01-01'
+      AND C.is_deleted = 'N'
+      AND C.is_npc = 'N'
+      AND C.is_sanctioned = 'Y'
+    GROUP BY
+      character_id,
+      `year`,
+      `month`
+  ) AS activity
+ORDER BY
+  character_name,
+  `year`,
+  `month`
+EOQ;
+        return $this->query($query);
+    }
+
     public $belongsTo = array(
         'Player' => array(
             'className' => 'User',

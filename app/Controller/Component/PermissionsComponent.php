@@ -47,4 +47,22 @@ class PermissionsComponent extends Component {
         $userdata = AuthComponent::user();
         return ($userdata['is_supporter']);
     }
+
+    public function MayEditCharacter($characterId)
+    {
+        App::uses('Character', 'Model');
+        $characterRepo = new Character();
+
+        $character = $characterRepo->find('first', array(
+            'conditions' => array(
+                'Character.id' => $characterId
+            ),
+            'fields' => array(
+                'user_id'
+            ),
+            'contain' => false
+        ));
+
+         return $character['Character']['user_id'] == AuthComponent::user('user_id');
+    }
 }

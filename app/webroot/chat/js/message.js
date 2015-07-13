@@ -333,7 +333,7 @@ function addMessage(inputMDiv,displayMDiv)
         }
     }
 
-    if(ircCommand[0] == '/scene') {
+    if((ircCommand[0] == '/scene') || (ircCommand[0] == '/scenes')) {
         if(ircCommand.length == 1) {
             scenes.help();
             return false;

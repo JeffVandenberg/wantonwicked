@@ -42,7 +42,7 @@ class ScenesController extends AppController
         App::uses('SceneStatus', 'Model');
         $this->Scene->recursive    = 0;
         $this->Paginator->settings = array(
-            'fields' => array(
+            'fields'     => array(
                 'Scene.id',
                 'Scene.name',
                 'Scene.run_on_date',
@@ -55,7 +55,7 @@ class ScenesController extends AppController
             'conditions' => array(
                 'Scene.scene_status_id !=' => SceneStatus::Cancelled
             ),
-            'order'  => array(
+            'order'      => array(
                 'Scene.run_on_date' => 'asc'
             )
         );
@@ -96,6 +96,8 @@ class ScenesController extends AppController
             )
         ));
         if (!$scene) {
+            print_r($this->request->params);
+            die($slug);
             $this->Session->setFlash('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
@@ -177,18 +179,18 @@ class ScenesController extends AppController
                     $scene['Scene']['run_on_date']['meridian'];
 
                 $newRunDate = date('Y-m-d H:i:s', strtotime($newDate));
-                $oldScene = $this->Scene->find('first', array(
+                $oldScene   = $this->Scene->find('first', array(
                     'conditions' => array(
                         'Scene.id' => $scene['Scene']['id']
                     ),
-                    'contain' => false
+                    'contain'    => false
                 ));
 
                 $scene['Scene']['updated_by_id'] = $this->Auth->user('user_id');
                 $scene['Scene']['updated_on']    = date('Y-m-d H:i:s');
 
                 if ($this->Scene->save($scene)) {
-                    if($oldScene['Scene']['run_on_date'] != $newRunDate) {
+                    if ($oldScene['Scene']['run_on_date'] != $newRunDate) {
                         $scene['Scene']['run_on_date'] = $newRunDate;
                         $this->ScenesEmail->SendScheduleChange($scene, $oldScene);
                     }
@@ -285,7 +287,7 @@ class ScenesController extends AppController
         $character  = new Character();
         $characters = $character->FindCharactersNotInScene($this->Auth->user('user_id'), $scene['Scene']['id']);
 
-        if(count($characters) == 0) {
+        if (count($characters) == 0) {
             $this->Session->setFlash('You have no sanctioned characters, or all of your characters have joined the scene.');
             $this->redirect(array('action' => 'view', $slug));
         }
@@ -360,25 +362,50 @@ class ScenesController extends AppController
         App::uses('SceneStatus', 'Model');
         $this->Scene->recursive    = 0;
         $this->Paginator->settings = array(
-            'fields' => array(
+            'fields'     => array(
                 'Scene.id',
                 'Scene.name',
                 'Scene.run_on_date',
                 'Scene.summary',
                 'Scene.slug',
+                'Scene.run_by_id',
+                'SceneStatus.name',
                 'CreatedBy.username',
                 'UpdatedBy.username',
                 'RunBy.username'
             ),
             'conditions' => array(
-                'Scene.scene_status_id !=' => SceneStatus::Cancelled,
-                'or' => array(
-                    'Scene.created_by_id' => $this->Auth->user('user_id'),
-                    ''
+//                'Scene.scene_status_id !=' => SceneStatus::Cancelled,
+                'or'                       => array(
+                    'Scene.run_by_id' => $this->Auth->user('user_id'),
+                    'Character.user_id' => $this->Auth->user('user_id')
                 )
             ),
-            'order'  => array(
+            'order'      => array(
                 'Scene.run_on_date' => 'asc'
+            ),
+            'contain' => array(
+                'SceneStatus',
+                'RunBy',
+                'CreatedBy',
+                'UpdatedBy',
+                'SceneCharacter' => array(
+                    'Character'
+                )
+            ),
+            'joins' => array(
+                array(
+                    'alias' => 'SceneCharacter',
+                    'table' => 'scene_characters',
+                    'type' => 'LEFT',
+                    'conditions' => '`Scene`.`id` = `SceneCharacter`.`scene_id`'
+                ),
+                array(
+                    'alias' => 'Character',
+                    'table' => 'characters',
+                    'type' => 'LEFT',
+                    'conditions' => '`SceneCharacter`.`character_id` = `Character`.`id`'
+                )
             )
         );
 
@@ -387,6 +414,40 @@ class ScenesController extends AppController
         $this->set('mayAdd', $this->Auth->user('id') != 1);
         $this->set(compact('includePast'));
 
+    }
+
+    public function leave($slug, $characterId)
+    {
+        $scene = $this->Scene->find('first', array(
+            'conditions' => array(
+                'Scene.slug' => $slug
+            ),
+            'contain'    => false
+        ));
+
+        if (!$this->Permissions->MayEditCharacter($characterId)) {
+            $this->Session->setFlash('You may not act on that character');
+            $this->redirect(array(
+                                'action' => 'view',
+                                $slug
+                            ));
+        }
+        App::uses('SceneCharacter', 'Model');
+        $sceneCharacterRepo = new SceneCharacter();
+        if ($sceneCharacterRepo->deleteAll(array(
+                                            'SceneCharacter.scene_id'     => $scene['Scene']['id'],
+                                            'SceneCharacter.character_id' => $characterId
+                                        ))
+        ) {
+            $this->Session->setFlash('Removed your character from the scene');
+        }
+        else {
+            $this->Session->setFlash('Unable to remove your character from the scene');
+        }
+        $this->redirect(array(
+                            'action' => 'view',
+                            $slug
+                        ));
     }
 
     public function test()

@@ -80,7 +80,15 @@ $this->set('menu', $menu);
         <dl>
             <?php foreach ($sceneCharacters as $sceneCharacter): ?>
                 <dt>
-                    <?php echo $sceneCharacter['Character']['character_name']; ?><br />
+                    <?php echo $sceneCharacter['Character']['character_name']; ?>
+                    <?php if(AuthComponent::user('user_id') == $sceneCharacter['Character']['user_id']): ?>
+                    <span id="leave-scene" class="clickable link" scene-id="<?php echo $scene['Scene']['slug']; ?>"
+                          character-id="<?php echo $sceneCharacter['SceneCharacter']['character_id']; ?>"
+                        >
+                        Leave
+                    </span>
+                    <?php endif; ?>
+                    <br />
                 </dt>
                 <dd>
                     <span class="secondary-text">Joined: <?php echo date('Y-m-d g:i A', strtotime($sceneCharacter['SceneCharacter']['added_on'])); ?></span><br />
@@ -96,6 +104,11 @@ $this->set('menu', $menu);
 </div>
 <script type="application/javascript">
     $(function() {
+        $("#leave-scene").click(function(e) {
+           if(confirm('Are you sure you want to leave the scene?')) {
+               window.document.location.href = '/scenes/leave/' + $(this).attr('scene-id') + '/' + $(this).attr('character-id');
+           }
+        });
         $("#complete-link").click(function() {
             return confirm('Are you sure you want to COMPLETE this scene?');
         });

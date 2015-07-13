@@ -13,64 +13,48 @@ if ($mayAdd) {
     );
 }
 
-if(AuthComponent::user('user_id') != 1) {
-    $menu['Actions']['submenu']['My Scenes'] = array(
-        'link' => array(
-            'action' => 'my_scenes'
-        )
-    );
-}
+$menu['Actions']['submenu']['Upcoming Scenes'] = array(
+    'link' => array(
+        'action' => 'index'
+    )
+);
 
-if ($includePast) {
-    $menu['Actions']['submenu']['View Upcoming Scenes'] = array(
-        'link' => array(
-            0
-        )
-    );
-    $this->set('title_for_layout', 'All Scenes');
-}
-else {
-    $menu['Actions']['submenu']['View All Scenes'] = array(
-        'link' => array(
-            1
-        )
-    );
-    $this->set('title_for_layout', 'Upcoming Scenes');
-}
 $this->set('menu', $menu);
+$this->set('title_for_layout', 'My Scenes');
 $this->Paginator->options(array(
-    'update'      => '#page-content',
-    'evalScripts' => true,
-));
+                              'update'      => '#page-content',
+                              'evalScripts' => true,
+                          ));
 ?>
 <div id="page-content" class="scenes index">
     <table cellpadding="0" cellspacing="0">
         <tr>
             <th><?php echo $this->Paginator->sort('name'); ?></th>
+            <th>Role</th>
             <th><?php echo $this->Paginator->sort('summary'); ?></th>
-            <th><?php echo $this->Paginator->sort('RunBy.username', 'Run By'); ?></th>
+            <th><?php echo $this->Paginator->sort('SceneStatus.name', 'Status'); ?></th>
             <th><?php echo $this->Paginator->sort('run_on_date', 'Scheduled For'); ?></th>
             <th class="actions"><?php echo __('Actions'); ?></th>
         </tr>
         <?php foreach ($scenes as $scene): ?>
             <tr>
                 <td><?php echo h($scene['Scene']['name']); ?>&nbsp;</td>
-                <td><?php echo h($scene['Scene']['summary']); ?>&nbsp;</td>
                 <td>
-                    <?php echo $scene['RunBy']['username']; ?>
+                    <?php if ($scene['Scene']['run_by_id'] == AuthComponent::user('user_id')): ?>
+                        Running
+                    <?php else: ?>
+                        Playing
+                    <?php endif; ?>
                 </td>
+                <td><?php echo h($scene['Scene']['summary']); ?>&nbsp;</td>
+                <td><?php echo h($scene['SceneStatus']['name']); ?>&nbsp;</td>
                 <td><?php echo date('Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>&nbsp;</td>
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $scene['Scene']['slug'])); ?>
-                    <?php if(AuthComponent::user('user_id') != 1): ?>
-                        <?php echo $this->Html->link(__('Join'), array('action' => 'join', $scene['Scene']['slug'])); ?>
-                    <?php endif; ?>
-                    <?php if ($mayEdit || AuthComponent::user('user_id') == $scene['Scene']['created_by_id']): ?>
+                    <?php if (($mayEdit || ($scene['Scene']['run_by_id'] == AuthComponent::user('user_id'))) && SceneStatus::Cancelled != $scene['SceneStatus']['id']): ?>
                         <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $scene['Scene']['slug'])); ?>
-<!--                        --><?php //echo $this->Form->postLink(__('Delete'),
-//                                                         array('action' => 'delete', $scene['Scene']['id']),
-//                                                         null, __('Are you sure you want to delete # %s?',
-//                                                                  $scene['Scene']['id'])); ?>
+                        <?php echo $this->Html->link(__('Cancel'),
+                                                     array('action' => 'cancel', $scene['Scene']['slug'])); ?>
                     <?php endif; ?>
                 </td>
             </tr>

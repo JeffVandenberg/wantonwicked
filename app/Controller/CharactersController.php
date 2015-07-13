@@ -26,13 +26,20 @@ class CharactersController extends AppController
         $this->Auth->allow(
                    array(
                        'city',
-                       'cast'
+                       'cast',
+                       'activity'
                    ));
     }
 
     public function city($city = 'Savannah')
     {
         $this->set('characters', $this->Character->ListByCity($city));
+    }
+
+    public function activity()
+    {
+        $this->set('data', $this->Character->ListBarelyPlaying());
+        $this->set('data2', $this->Character->ListAllLoginActivity());
     }
 
     public function cast($type = 'All')
