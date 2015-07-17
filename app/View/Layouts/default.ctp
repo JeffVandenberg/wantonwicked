@@ -61,7 +61,7 @@
         <div id="logina">
             <div id="loginb">
                 <?php echo $this->UserPanel->Create($this->Html->url()); ?>
-                <span id="server-time"></span>
+                <span id="server-time" class="server-time"></span>
             </div>
         </div>
     </div>

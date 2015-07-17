@@ -59,7 +59,7 @@ $this->Paginator->options(array(
                 <td>
                     <?php echo $scene['RunBy']['username']; ?>
                 </td>
-                <td><?php echo date('Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>&nbsp;</td>
+                <td class="server-time"><?php echo date('Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>&nbsp;</td>
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $scene['Scene']['slug'])); ?>
                     <?php if(AuthComponent::user('user_id') != 1): ?>

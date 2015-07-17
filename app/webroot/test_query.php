@@ -16,41 +16,20 @@ require_once('cgi-bin/start_of_page.php');
 
 $query = <<<EOQ
 SELECT
-`Scene`.`id`,
-`Scene`.`name`,
-`Scene`.`run_on_date`,
-`Scene`.`summary`,
-`Scene`.`scene_status_id`,
-`Scene`.run_by_id,
-`Character`.user_id
-# `Scene`.`slug`,
-# `SceneStatus`.`name`,
-# `CreatedBy`.`username`,
-# `UpdatedBy`.`username`,
-# `RunBy`.`username`,
-# `RunBy`.`user_id`,
-# `CreatedBy`.`user_id`,
-# `UpdatedBy`.`user_id`,
-# `SceneStatus`.`id`
+    R.*,
+    RT.name as request_type_name,
+    RS.name as request_status_name,
+    UB.username AS updated_by_username
 FROM
-  `gamingsandbox_wanton`.`scenes` AS `Scene`
-  LEFT JOIN `gamingsandbox_wanton`.`scene_characters` AS `SceneCharacter` ON (`Scene`.`id` = `SceneCharacter`.`scene_id`)
-  LEFT JOIN `gamingsandbox_wanton`.`characters` AS `Character` ON (`SceneCharacter`.`character_id` = `Character`.`id`)
-  LEFT JOIN `gamingsandbox_wanton`.`phpbb_users` AS `RunBy` ON (`Scene`.`run_by_id` = `RunBy`.`user_id`)
-  LEFT JOIN `gamingsandbox_wanton`.`phpbb_users` AS `CreatedBy` ON (`Scene`.`created_by_id` = `CreatedBy`.`user_id`)
-  LEFT JOIN `gamingsandbox_wanton`.`phpbb_users` AS `UpdatedBy` ON (`Scene`.`updated_by_id` = `UpdatedBy`.`user_id`)
-  LEFT JOIN `gamingsandbox_wanton`.`scene_statuses` AS `SceneStatus` ON (`Scene`.`scene_status_id` = `SceneStatus`.`id`)
+    requests as R
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
+    LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
+    LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
+    LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
 WHERE
-  1 = 1
-  AND `Scene`.`scene_status_id` != 3
-#   AND (
-#     (`Scene`.`run_by_id` = 8)
-#     OR
-#     (`Character`.`user_id` = '8')
-#   )
-ORDER BY
-  `Scene`.`run_on_date` ASC
-#LIMIT 20
+    RC.character_id = 12443
+    AND RC.is_primary = 1
+
 EOQ;
 
 //$query = <<<EOQ

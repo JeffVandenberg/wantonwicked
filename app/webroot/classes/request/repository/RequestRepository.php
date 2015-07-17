@@ -204,10 +204,11 @@ SELECT
     R.*
 FROM
     requests AS R
+    LEFT JOIN request_characters as RC ON R.id = RC.request_id
     LEFT JOIN request_requests AS RR ON (R.id = RR.from_request_id AND RR.to_request_id = $requestId)
 WHERE
     RR.to_request_id IS NULL
-    AND R.character_id = $characterId
+    AND RC.character_id = $characterId
     AND R.id != $requestId
     AND R.request_type_id != $bluebook
 ORDER BY
