@@ -43,7 +43,7 @@ var wantonWickedTime =  {
     },
 
     renderDate: function(timer) {
-        return timer.getFullYear() + '-' + (parseInt(timer.getMonth()) + 1) + '-' + timer.getDate();
+        return timer.getFullYear() + '-' + ((timer.getMonth() < 10) ? '0' : '') + (parseInt(timer.getMonth()) + 1) + '-' + timer.getDate();
     },
 
     makeTime: function() {
@@ -66,7 +66,12 @@ $(function() {
                     datePart = '';
 
                 if(timeResult !== null) {
-                    var hours = parseInt(timeResult[1]) + ((timeResult[3].toLowerCase() === 'am') ? 0 : 12);
+                    var hours = parseInt(timeResult[1]);
+                    if(hours == 12) {
+                        hours = 0;
+                    }
+                    hours += ((timeResult[3].toLowerCase() === 'am') ? 0 : 12);
+
                     serverTime.setHours(hours);
                     serverTime.setMinutes(timeResult[2]);
                 }
