@@ -15,21 +15,16 @@ require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
-SELECT
+select
     R.*,
-    RT.name as request_type_name,
-    RS.name as request_status_name,
-    UB.username AS updated_by_username
-FROM
-    requests as R
-    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
-    LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
-    LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
-    LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
-WHERE
-    RC.character_id = 12443
-    AND RC.is_primary = 1
-
+    G.name
+from
+    requests AS R
+    INNER JOIN groups AS G ON R.group_id = G.id
+where
+    R.created_by_id = 4701
+ORDER BY
+    R.created_on DESC
 EOQ;
 
 //$query = <<<EOQ

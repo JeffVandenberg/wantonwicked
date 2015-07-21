@@ -27,11 +27,17 @@ $request = $requestRepository->GetById($requestId);
 $primaryCharacter = $requestCharacterRepository->FindByRequestIdAndIsPrimary($requestId, true);
 /* @var RequestCharacter $primaryCharacter */
 
-if($requestRepository->Delete($requestId)) {
-    SessionHelper::SetFlashMessage('Request ' . $request->Title .' has been succesfully deleted.');
+if($request->RequestStatusId == 1) {
+    if($requestRepository->Delete($requestId)) {
+        SessionHelper::SetFlashMessage('Request ' . $request->Title .' has been succesfully deleted.');
+    }
+    else {
+        SessionHelper::SetFlashMessage('Error deleting Request.');
+    }
+
 }
 else {
-    SessionHelper::SetFlashMessage('Error deleting Request.');
+    SessionHelper::SetFlashMessage('Can not delete a request that has been submitted.');
 }
 
 // redirect to appropriate place
