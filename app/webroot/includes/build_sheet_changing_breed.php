@@ -67,7 +67,7 @@ ob_start();
         </tr>
         <tr>
             <td>
-                <b>Accord</b>
+                <b>Breed</b>
             </td>
             <td>
                 <?php echo $splat2; ?>
