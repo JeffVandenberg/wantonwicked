@@ -6,8 +6,9 @@ use classes\core\helpers\FormHelper;
 /** @var $max_dots int */
 /** @var $input_class string */
 
-$vitals_table = <<<EOQ
-<table class="character-sheet $table_class">
+ob_start();
+?>
+<table class="character-sheet <?php echo $table_class; ?>">
     <tr>
         <th colspan="4" align="center">
             Vitals
@@ -18,13 +19,13 @@ $vitals_table = <<<EOQ
             <b>Name</b>
         </td>
         <td width="35%">
-            $character_name
+            <?php echo $character_name; ?>
         </td>
         <td width="15%">
             <b>Character Type</b>
         </td>
         <td width="35%">
-            $character_type_select
+            <?php echo $character_type_select; ?>
         </td>
     </tr>
     <tr>
@@ -32,13 +33,13 @@ $vitals_table = <<<EOQ
             <b>Location</b>
         </td>
         <td>
-            $location
+            <?php echo $location; ?>
         </td>
         <td>
             <b>Sex:</b>
         </td>
         <td>
-            $sex
+            <?php echo $sex; ?>
         </td>
     </tr>
     <tr>
@@ -46,13 +47,13 @@ $vitals_table = <<<EOQ
             <b>Virtue</b>
         </td>
         <td>
-            $virtue
+            <?php echo $virtue; ?>
         </td>
         <td>
             <b>Vice</b>
         </td>
         <td>
-            $vice
+            <?php echo $vice; ?>
         </td>
     </tr>
     <tr>
@@ -60,13 +61,13 @@ $vitals_table = <<<EOQ
             <b>Auspice</b>
         </td>
         <td>
-            $splat1
+            <?php echo $splat1; ?>
         </td>
         <td>
             <b>Lodge</b>
         </td>
         <td>
-            $subsplat
+            <?php echo $subsplat; ?>
         </td>
     </tr>
     <tr>
@@ -74,13 +75,13 @@ $vitals_table = <<<EOQ
             <b>Tribe</b>
         </td>
         <td>
-            $splat2
+            <?php echo $splat2; ?>
         </td>
         <td>
             <b>Icon</b>
         </td>
         <td>
-            $icon
+            <?php echo $icon; ?>
         </td>
     </tr>
     <tr>
@@ -88,13 +89,13 @@ $vitals_table = <<<EOQ
             <b>Age</b>
         </td>
         <td>
-            $age
+            <?php echo $age; ?>
         </td>
         <td>
             <b>Pack</b>
         </td>
         <td>
-            $friends
+            <?php echo $friends; ?>
         </td>
     </tr>
     <tr>
@@ -102,20 +103,22 @@ $vitals_table = <<<EOQ
             <b>Is NPC</b>
         </td>
         <td>
-            $is_npc
+            <?php echo $is_npc; ?>
         </td>
         <td>
             <b>Status</b>
         </td>
         <td>
-            $status
+            <?php echo $status; ?>
         </td>
     </tr>
 </table>
-EOQ;
+<?php
+$vitals_table = ob_get_clean();
 
-$information_table = <<<EOQ
-<table class="character-sheet $table_class">
+ob_start();
+?>
+<table class="character-sheet <?php echo $table_class; ?>">
     <tr>
         <th colspan="2" align="center">
             Information
@@ -126,7 +129,7 @@ $information_table = <<<EOQ
             <b>Concept</b>
         </td>
         <td width="75%">
-            $concept
+            <?php echo $concept; ?>
         </td>
     </tr>
     <tr>
@@ -134,7 +137,7 @@ $information_table = <<<EOQ
             <b>Description</b>
         </td>
         <td>
-            $description
+            <?php echo $description; ?>
         </td>
     </tr>
     <tr>
@@ -142,7 +145,7 @@ $information_table = <<<EOQ
             <b>Daily Equipment</b>
         </td>
         <td>
-            $equipment_public
+            <?php echo $equipment_public; ?>
         </td>
     </tr>
     <tr>
@@ -150,7 +153,7 @@ $information_table = <<<EOQ
             <b>Other Equipment</b>
         </td>
         <td>
-            $equipment_hidden
+            <?php echo $equipment_hidden; ?>
         </td>
     </tr>
     <tr>
@@ -158,7 +161,7 @@ $information_table = <<<EOQ
             <b>Public Effects</b>
         </td>
         <td>
-            $public_effects
+            <?php echo $public_effects; ?>
         </td>
     </tr>
     <tr>
@@ -166,7 +169,7 @@ $information_table = <<<EOQ
             <b>Totem</b>
         </td>
         <td>
-            $helper
+            <?php echo $helper; ?>
         </td>
     </tr>
     <tr>
@@ -174,15 +177,16 @@ $information_table = <<<EOQ
             <b>Territory/Loci</b>
         </td>
         <td>
-            $safe_place
+            <?php echo $safe_place; ?>
         </td>
     </tr>
 </table>
-EOQ;
+<?php
+$information_table = ob_get_clean();
 
-$werewolfupdate_js = "";
+$updateJs = "";
 if ($edit_xp) {
-    $werewolfupdate_js = " onChange=\"updateXP($element_type[supernatural])\" ";
+    $updateJs = " onChange=\"updateXP($element_type[supernatural])\" ";
 }
 
 $powers = getPowers($characterId, 'AffGift', NOTELEVEL, 5);
