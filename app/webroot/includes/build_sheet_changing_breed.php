@@ -180,7 +180,7 @@ ob_start();
 $information_table = ob_get_clean();
 
 
-$powers = getPowers($characterId, 'Aspect', NAMENOTE, 5);
+$powers = getPowers($characterId, 'Aspect', NAMENOTE, 3);
 
 ob_start();
 ?>
@@ -189,7 +189,7 @@ ob_start();
             <th colspan="2">
                 Aspects
                 <?php if ($edit_powers): ?>
-                    <a href="#" onClick="addAspect('icdisc');return false;">
+                    <a href="#" onClick="addAspect();return false;">
                         <img src="/img/plus.png" title="Add Aspect"/>
                     </a>
                 <?php endif; ?>

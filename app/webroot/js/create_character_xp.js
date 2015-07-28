@@ -63,7 +63,7 @@ var changeling_xp_base = 40;
 var geist_xp_base = 44;
 var purified_xp_base = 38;
 var possessed_xp_base = 40;
-var changing_breed_xp_base = 1000;
+var changing_breed_xp_base = 76;
 
 $(function() {
     general_xp_base = parseInt($("#general_xp").attr('value'));
@@ -521,8 +521,6 @@ function updateWerewolfXP() {
         supernatural_xp -= renown_cost;
     }
 
-    console.debug(renownCounts);
-
     i = 0;
     var value = 0;
     while ($('#affgift' + i).length > 0) {
@@ -566,11 +564,9 @@ function updateWerewolfXP() {
     //var rites_multiplier;
     if (getSplat1() == 'Ithaeur') {
         rituals_multiplier = 4;
-        //rites_multiplier = 1;
     }
     else {
         rituals_multiplier = 5;
-        //rites_multiplier = 2;
     }
 
     var rituals_value = document.getElementById('rituals').value;
@@ -578,10 +574,10 @@ function updateWerewolfXP() {
     supernatural_xp -= (Number(rituals_value) * (Number(rituals_value) + 1) * rituals_multiplier) / 2;
 
     if (supernatural_xp > 0) {
-        document.getElementById('supernatural_xp').value = supernatural_xp;
+        $('#supernatural_xp').val(supernatural_xp);
     }
     else {
-        document.getElementById('supernatural_xp').value = 0;
+        $('#supernatural_xp').val(0);
     }
 }
 
@@ -784,31 +780,54 @@ function updatePurifiedXP() {
 }
 
 function updateChangingBreedXp() {
-    var i = 0;
     supernatural_xp = changing_breed_xp_base;
 
-    // numina
-    while (document.getElementById('numina' + i + '_name')) {
-        if (document.getElementById('numina' + i + '_name').value != '') {
-            supernatural_xp -= 10;
-        }
-        i++;
-    }
+    var penalty;
+    var powers_in_list;
+    var renownCounts = [0, 0, 0, 0, 0, 0];
 
-    // Siddhi
-    i = 0;
-    while (document.getElementById('siddhi' + i)) {
-        var value = document.getElementById('siddhi' + i).value;
-        var cost = ((Number(value) * (Number(value) + 1)) * 7) / 2;
+    var multiplier;
+    var renown_cost;
+    $.each(renown_list, function(item) {
+        var renown_value = $('#' + renown_list[item]).val();
+        for (var j = renown_value; j > 0; j--) {
+            renownCounts[j] = renownCounts[j] + 1;
+        }
+        multiplier = 6;
+        renown_cost = ((Number(renown_value) * (Number(renown_value) + 1)) * multiplier) / 2;
+        if (renown_cost < 0) {
+            renown_cost = 0;
+        }
+        supernatural_xp -= renown_cost;
+    });
+
+    $("#affgift_list").find('.trait-value').each(function() {
+        var value = $('#affgift' + i).val();
+        powers_in_list = getNumOfPowersInList("affgift", $('#affgift' + i + '_note').val());
+        penalty = (value - powers_in_list) * 3;
+        if (penalty < 0) {
+            penalty = 0;
+        }
+
+        if((renownCounts[value] > 0) && (penalty == 0)) {
+            renownCounts[value] = renownCounts[value] - 1;
+        }
+        else {
+            supernatural_xp -= Number(value) * 5 + penalty;
+        }
+    });
+
+    $("#aspect_list").find(".trait-value").each(function() {
+        var value = $(this).val();
+        var cost = ((Number(value) * (Number(value) + 1)) * 5) / 2;
         supernatural_xp -= Number(cost);
-        i++;
-    }
+    });
 
     if (supernatural_xp > 0) {
-        document.getElementById('supernatural_xp').value = supernatural_xp;
+        $('#supernatural_xp').val(supernatural_xp);
     }
     else {
-        document.getElementById('supernatural_xp').value = 0;
+        $('#supernatural_xp').val(0);
     }
 }
 

@@ -266,7 +266,7 @@ EOQ;
             }
         }
 
-        $input .= self::Hidden($name, $value);
+        $input .= self::Hidden($name, $value, array('class' => 'trait-value'));
         $input = self::CreateLabel($name) . $input;
         return $input;
     }
