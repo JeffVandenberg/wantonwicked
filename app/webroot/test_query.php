@@ -15,16 +15,7 @@ require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
-select
-    R.*,
-    G.name
-from
-    requests AS R
-    INNER JOIN groups AS G ON R.group_id = G.id
-where
-    R.created_by_id = 4701
-ORDER BY
-    R.created_on DESC
+EXPLAIN SELECT t.*, p.root_level, p.message_time, p.message_subject, p.icon_id, p.to_address, p.message_attachment, p.bcc_address, u.username, u.username_clean, u.user_colour, p.message_reported FROM phpbb_privmsgs_to t, phpbb_privmsgs p, phpbb_users u WHERE t.user_id = 8 AND p.author_id = u.user_id AND t.folder_id = 0 AND t.msg_id = p.msg_id ORDER BY p.message_time DESC
 EOQ;
 
 //$query = <<<EOQ

@@ -518,10 +518,10 @@ function createMdiv(ndiv,nWin)
 
 function closeMdiv(ndiv)
 {
-	if(document.getElementById(ndiv))
+	var element = $("#" + ndiv);
+	if(element.length > 0)
 	{
-		var el = document.getElementById(ndiv);
-		el.parentNode.removeChild(el);
+		element.parent().empty().hide();
 	}
 }
 
@@ -1155,12 +1155,13 @@ function showInfoBox(info,height,width,top,url,txt)
 	
 	ni.appendChild(newdiv);
 
-	document.getElementById("oInfo").style.visibility = "visible";
-	document.getElementById(info).style.visibility = "visible";
-	
+	//document.getElementById("oInfo").style.visibility = "visible";
+	//document.getElementById(info).style.visibility = "visible";
+
+	$("#" + info).show();
 	$( "#oInfo" ).draggable({
 		containment: 'window'
-	});
+	}).show();
 }
 	
 /*
