@@ -113,6 +113,24 @@ $(function() {
         }
     });
 
+    //$("input.autocomplete").autocomplete({
+    //    source: function(request, response) {
+    //        $.ajax({
+    //            url: '/character/searchPowers',
+    //            data: {
+    //                term: request.term,
+    //                type: $(this)[0].element.attr('powertype')
+    //            },
+    //            success: function(data) {
+    //                response(data);
+    //            }
+    //        });
+    //    },
+    //    search: function(e, ui) {
+    //        alert('hello');
+    //    }
+    //});
+
     $("form").submit(function() {
         // check if ST edit mode
         if(page_action == "st_view") {
