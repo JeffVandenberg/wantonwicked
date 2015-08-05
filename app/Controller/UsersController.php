@@ -17,7 +17,7 @@ class UsersController extends AppController
 {
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('login');
+        $this->Auth->allow('login', 'receiveUser');
     }
 
     public function login() {
@@ -68,6 +68,12 @@ class UsersController extends AppController
         }
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $this->set('submenu', $storytellerMenu);
+    }
+
+    public function receiveUser() {
+        // receive a user from the main site for migration. Whoo!
+        var_dump($this->request->data);
+        die();
     }
 
     public function isAuthorized($user)

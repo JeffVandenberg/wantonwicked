@@ -20,7 +20,6 @@ class PhpbbAuthenticate extends BaseAuthenticate {
 
     public function logout($user)
     {
-        global $userdata;
         $user = null;
         return '/';
     }
