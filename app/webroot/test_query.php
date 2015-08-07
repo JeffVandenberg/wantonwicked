@@ -15,7 +15,12 @@ require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
-EXPLAIN SELECT t.*, p.root_level, p.message_time, p.message_subject, p.icon_id, p.to_address, p.message_attachment, p.bcc_address, u.username, u.username_clean, u.user_colour, p.message_reported FROM phpbb_privmsgs_to t, phpbb_privmsgs p, phpbb_users u WHERE t.user_id = 8 AND p.author_id = u.user_id AND t.folder_id = 0 AND t.msg_id = p.msg_id ORDER BY p.message_time DESC
+SELECT
+    *
+FROM
+    requests
+WHERE
+    title LIKE 'Fishy %'
 EOQ;
 
 //$query = <<<EOQ
@@ -44,7 +49,7 @@ $rows = Database::GetInstance()->Query($query)->All($params);
             <tr>
                 <?php foreach ($row as $cell): ?>
                     <td>
-                        <?php echo $cell; ?>
+                        <?php echo ($cell !== null) ? $cell : 'NULL'; ?>
                     </td>
                 <?php endforeach; ?>
             </tr>

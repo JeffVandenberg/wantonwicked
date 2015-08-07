@@ -569,8 +569,8 @@ SELECT
     RC.is_approved
 FROM
     requests as R
-    LEFT JOIN characters AS C ON R.character_id = C.id
     LEFT JOIN request_characters AS RC ON R.id = RC.request_id
+    LEFT JOIN characters AS C ON RC.character_id = C.id
 WHERE
     R.request_type_id != $blueBook
     AND R.request_status_id NOT IN ($terminal)
