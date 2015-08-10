@@ -413,7 +413,7 @@ ob_start();
         </tr>
         <tr>
             <td colspan="1">
-                Power Trait
+                Primal Urge
             </td>
             <td colspan="2">
                 <?php echo $power_trait_dots; ?>
@@ -427,7 +427,7 @@ ob_start();
         </tr>
         <tr>
             <td colspan="1">
-                Morality
+                Harmony
             </td>
             <td colspan="2">
                 <?php echo $morality_dots; ?>

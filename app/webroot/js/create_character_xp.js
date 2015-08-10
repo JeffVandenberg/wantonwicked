@@ -1503,6 +1503,18 @@ function addRitual() {
     newDotsCell.innerHTML += "<input type=\"hidden\" name=\"ritual" + index + "_id\" id=\"ritual" + index + "_id\" value=\"0\">";
 }
 
+function addAspect() {
+    var list = document.getElementById('aspect_list');
+    var row_id = list.rows.length;
+    var index = row_id - 2;
+    var newRow = list.insertRow(row_id);
+    var newNameCell = newRow.insertCell(0);
+    newNameCell.innerHTML = "<input type=\"text\" name=\"aspect" + index + "_name\" id=\"aspect" + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
+    var newDotsCell = newRow.insertCell(1);
+    newDotsCell.innerHTML = makeDotsXP("aspect" + index, supernatural, getCharacterType(), 7, 0, true, false, edit_xp);
+    newDotsCell.innerHTML += "<input type=\"hidden\" name=\"ritual" + index + "_id\" id=\"ritual" + index + "_id\" value=\"0\">";
+}
+
 function addArcana(type) {
     var arcana_list = document.getElementById(type + '_list');
     var row_id = arcana_list.rows.length;
