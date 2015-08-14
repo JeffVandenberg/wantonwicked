@@ -72,7 +72,16 @@ class UsersController extends AppController
 
     public function receiveUser() {
         // receive a user from the main site for migration. Whoo!
-        var_dump($this->request->data);
+        $user = $this->request->data['user'];
+
+        $result = array(
+            'result' => false,
+            'message' => 'Unknown Error'
+        );
+        $userName = $user['username'];
+
+        header('content-type: application/json');
+        echo json_encode($result);
         die();
     }
 
