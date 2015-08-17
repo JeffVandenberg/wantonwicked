@@ -10,6 +10,7 @@ use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
+use classes\dice\repository\DiceRepository;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\request\repository\RequestRepository;
@@ -19,6 +20,9 @@ $characterId = Request::GetValue('character_id', 0);
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
+$diceRepository = RepositoryManager::GetRepository('classes\dice\data\Dice');
+/* @var DiceRepository $diceRepository */
+
 $character = $characterRepository->FindById($characterId);
 if ($character === false) {
     //Response::Redirect('');
@@ -52,6 +56,8 @@ $total_health            = $temporary_health_levels;
 $size                    = $character['size'];
 $werewolf_form           = "";
 $current_form            = Request::GetValue('current_form', SessionHelper::Read('current_form', "Hishu"));
+$showOnlyMyRolls = Request::GetValue('show_only_my_rolls', false);
+
 SessionHelper::Write('current_form', $current_form);
 $updated_pp = $character['updated_pp'];
 
@@ -365,19 +371,12 @@ if ($wounds) {
 }
 
 $page_size = 20;
-$page      = (isset($_POST['page'])) ? $_POST['page'] + 0 : 1;
-$page      = (isset($_GET['page'])) ? $_GET['page'] + 0 : $page;
+$page = Request::GetValue('page', 1);
 if ($page < 1) {
     $page = 1;
 }
 
-$count_query = <<<EOQ
-SELECT
-	COUNT(*) AS count
-FROM
-	wod_dierolls
-EOQ;
-$count_data  = ExecuteQueryItem($count_query);
+$count_data = $diceRepository->findCountOfRolls($showOnlyMyRolls, $characterId);
 
 $count = $count_data['count'];
 $pages = round($count / $page_size, 0);
@@ -401,25 +400,14 @@ if ($page != 1) {
 }
 
 // get past rolls
-$roll_query = <<<EOQ
-SELECT
-	*
-FROM
-	wod_dierolls 
-ORDER BY
-	roll_id DESC
-LIMIT 
-	$current_row, $page_size;
-EOQ;
-$roll_result = mysql_query($roll_query) or die(mysql_error());
+$rollData = $diceRepository->loadRolls($showOnlyMyRolls, $characterId, $page, $page_size);
 
 $rolls = <<<EOQ
 <table border="0" class="normal_text" width="100%" cellspacing="0" cellpadding="4">
 EOQ;
 
-$i = 0;
-while ($roll_detail = mysql_fetch_array($roll_result, MYSQL_ASSOC)) {
-    $row_color    = (($i++) % 2) ? "#443a33" : "#000000";
+foreach($rollData as $i => $roll_detail) {
+    $row_color    = ($i% 2) ? "#443a33" : "#000000";
     $wp           = "";
     $pp           = "";
     $chance       = "";
@@ -624,42 +612,31 @@ ob_start();
         <h2>Past Rolls</h2>
     </div>
     <br>
-    <div>
-        <form method="get" action="dieroller.php">
+    <div id="dice-roll-display">
+        <form method="get" action="dieroller.php" id="dice-page-form">
             Page <input type="text" value="<?php echo $page; ?>" name="page" style="width:30px;"/>
             of <?php echo $pages; ?>
             <input type="hidden" name="action" value="character"/>
             <input type="hidden" name="character_id" value="<?php echo $characterId; ?>"/>
-            <input type="hidden" name="log_npc" value="$log_npc"/>
+            <?php echo FormHelper::Hidden('show_only_my_rolls', $showOnlyMyRolls); ?>
             <input type="submit" value="Go to Page"/>
             <?php if ($showPrev): ?>
-                <a href="dieroller.php?action=character&character_id=<?php echo $characterId; ?>&log_npc=<?php echo $log_npc; ?>&page=<?php echo($page - 1); ?>">
+                <a href="dieroller.php?action=character&show_only_my_rolls=<?php echo $showOnlyMyRolls; ?>&character_id=<?php echo $characterId; ?>&page=<?php echo($page - 1); ?>">
                     &lt; &lt; Prev</a>
             <?php endif; ?>
             <?php if ($showNext): ?>
-                <a href="dieroller.php?action=character&character_id=<?php echo $characterId; ?>&log_npc=<?php echo $log_npc; ?>&page=<?php echo($page + 1); ?>">Next
+                <a href="dieroller.php?action=character&show_only_my_rolls=<?php echo $showOnlyMyRolls; ?>&character_id=<?php echo $characterId; ?>&page=<?php echo($page + 1); ?>">Next
                     &gt; &gt;</a>
             <?php endif; ?>
+            <div class="checkbox" style="display:inline;">
+                <?php echo FormHelper::Checkbox('show_only_my_rolls', 1, $showOnlyMyRolls, array(
+                    'label' => 'Only Show My Rolls',
+                    'id' => 'show-only-my-rolls-check'
+                )); ?>
+            </div>
         </form>
 
         <?php echo $rolls; ?>
-
-        <form method="get" action="dieroller.php">
-            Page <input type="text" value="<?php echo $page; ?>" name="page" style="width:30px;"/>
-            of <?php echo $pages; ?>
-            <input type="hidden" name="action" value="character"/>
-            <input type="hidden" name="character_id" value="<?php echo $characterId; ?>"/>
-            <input type="hidden" name="log_npc" value="$log_npc"/>
-            <input type="submit" value="Go to Page"/>
-            <?php if ($showPrev): ?>
-                <a href="dieroller.php?action=character&character_id=<?php echo $characterId; ?>&log_npc=<?php echo $log_npc; ?>&page=<?php echo($page - 1); ?>">
-                    &lt; &lt; Prev</a>
-            <?php endif; ?>
-            <?php if ($showNext): ?>
-                <a href="dieroller.php?action=character&character_id=<?php echo $characterId; ?>&log_npc=<?php echo $log_npc; ?>&page=<?php echo($page + 1); ?>">Next
-                    &gt; &gt;</a>
-            <?php endif; ?>
-        </form>
     </div>
     <script>
         $(function () {
@@ -694,6 +671,9 @@ ob_start();
                     $("#spend-willpower").hide().attr('disabled', true);
                     $("#number-of-rolls-cell").css('display', 'inline');
                 }
+            });
+            $("#show-only-my-rolls-check").click(function() {
+                $("#dice-page-form").submit();
             });
         });
     </script>
