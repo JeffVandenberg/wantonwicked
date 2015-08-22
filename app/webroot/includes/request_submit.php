@@ -4,20 +4,29 @@
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\request\data\RequestCharacter;
 use classes\request\data\RequestStatus;
+use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::GetValue('request_id', 0);
 $requestRepository = new RequestRepository();
-if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+$requestCharacterRepository = new RequestCharacterRepository();
+
+if (!$requestRepository->MayEditRequest($requestId, $userdata['user_id'])) {
+    Response::Redirect('/');
 }
 
-$requestRepository->UpdateStatus($requestId, RequestStatus::Submitted, $userdata['user_id']);
 $request = $requestRepository->GetById($requestId);
-/* @var \classes\request\data\Request $request */
+$requestRepository->UpdateStatus($requestId, RequestStatus::Submitted, $userdata['user_id']);
+SessionHelper::SetFlashMessage('Submitted Request: ' . $request->Title);
 
-SessionHelper::SetFlashMessage('Submitted Request: ' . $request->Title, 'request');
+$primaryCharacter = $requestCharacterRepository->FindByRequestIdAndIsPrimary($requestId, true);
+/* @var RequestCharacter $primaryCharacter */
 
-Response::Redirect('request.php?action=list&character_id=' . $request->CharacterId);
+if($primaryCharacter->Id && $primaryCharacter->Character->UserId == $userdata['user_id']) {
+    Response::Redirect('request.php?action=list&character_id=' . $primaryCharacter->CharacterId);
+}
+else {
+    Response::Redirect('request.php');
+}

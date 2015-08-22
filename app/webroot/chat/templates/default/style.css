@@ -1087,7 +1087,7 @@ body
 }
 
 .scrollable-container {
-    width:200px;
+    /*width:200px;*/
     overflow:hidden;
     white-space: nowrap;
 }
