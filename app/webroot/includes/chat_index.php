@@ -1,17 +1,27 @@
 <?php
 use classes\character\repository\CharacterRepository;
+use classes\core\helpers\Request;
+use classes\core\helpers\Response;
+use classes\core\helpers\UserdataHelper;
 use classes\core\repository\RepositoryManager;
 
 /* @var array $userdata */
 
 $contentHeader = "Chat Interface";
 $page_title = "Wanton Wicked Chat Interface";
-$user_id = (isset($_GET['user_id'])) ? $_GET['user_id'] : $userdata['user_id'];
+
+if(!UserdataHelper::IsLoggedIn($userdata)) {
+    Response::Redirect('/', 'You are not logged in');
+}
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 
-$characters = $characterRepository->ListCharactersByPlayerId($userdata['user_id']);
+$id = $userdata['user_id'];
+if(UserdataHelper::IsAdmin($userdata)) {
+    $id = Request::GetValue('u', $id);
+}
+$characters = $characterRepository->ListCharactersByPlayerId($id);
 
 ob_start();
 ?>

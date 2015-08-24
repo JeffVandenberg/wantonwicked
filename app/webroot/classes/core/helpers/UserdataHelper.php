@@ -36,4 +36,9 @@ class UserdataHelper
     {
         return ($userdata['is_supporter']);
     }
+
+    public static function IsLoggedIn($userdata)
+    {
+        return ($userdata != null) && ($userdata['user_id'] != 1);
+    }
 }
