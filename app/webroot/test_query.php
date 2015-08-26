@@ -15,19 +15,13 @@ require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
-select * from gm_permissions;
+select
+    U.username,
+    G.*
+from
+    gm_permissions AS G
+    INNER JOIN phpbb_users AS U ON G.ID = U.user_id;
 EOQ;
-
-//CREATE TABLE `permissions` (
-//`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-// `permission_name` varchar(45) NOT NULL,
-// PRIMARY KEY (`id`)
-//) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1
-//
-//$query = <<<EOQ
-//update scenes set run_by_id = 8 where slug = 'a_crow_visits'
-//EOQ;
-
 
 $params = array();
 

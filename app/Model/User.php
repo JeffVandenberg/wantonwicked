@@ -15,9 +15,37 @@ class User extends AppModel {
     public $primaryKey = 'user_id';
     public $useTable = 'phpbb_users';
 
-    public function CheckUserPermission($userId, $permissionId)
+    public function CheckUserPermission($userId, $permissionIds)
     {
-        return false;
+        if(!$userId || !$permissionIds) {
+            return false;
+        }
+        if(!is_array($permissionIds)) {
+            $permissionIds = array($permissionIds);
+        }
+        $permissions = implode(',', $permissionIds);
+        $count = $this->query("SELECT count(*) AS Count FROM permissions_users where user_id = $userId AND permission_id IN ($permissions);");
+        return $count[0][0]['Count'] > 0;
+    }
+
+    public function CheckUserSupporterStatus($userId)
+    {
+        if(!$userId) {
+            return false;
+        }
+
+        $date = 'Y-m-d H:i:s';
+        $sql = <<<EOQ
+SELECT
+    count(user_id) AS Count
+FROM
+    supporters
+WHERE
+    user_id = $userId
+    AND expires_on > '$date'
+EOQ;
+        $count = $this->query($sql);
+        return $count[0][0]['Count'] > 0;
     }
 
     public function listUserGroups($userId) {
@@ -116,4 +144,27 @@ EOQ;
         $this->query($sql);
         return true;
     }
+
+    /**
+     * hasAndBelongsToMany associations
+     *
+     * @var array
+     */
+    public $hasAndBelongsToMany = array(
+        'Permission' => array(
+            'className' => 'Permission',
+            'joinTable' => 'permissions_users',
+            'foreignKey' => 'user_id',
+            'associationForeignKey' => 'permission_id',
+            'unique' => 'keepExisting',
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+            'deleteQuery' => '',
+            'insertQuery' => ''
+        )
+    );
 }

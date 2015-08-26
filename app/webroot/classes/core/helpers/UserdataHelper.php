@@ -87,4 +87,9 @@ EOQ;
         $supporterRepository = new SupporterRepository();
         return $supporterRepository->CheckIsCurrentSupporter($userdata['user_id']);
     }
+
+    public static function IsLoggedIn($userdata)
+    {
+        return (($userdata != null) && ($userdata['user_id'] != 1));
+    }
 }
