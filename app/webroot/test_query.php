@@ -15,23 +15,39 @@ require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
-SELECT
-    *
-FROM
-    requests
-WHERE
-    title LIKE 'Fishy %'
+select
+    U.username,
+    G.*
+from
+    gm_permissions AS G
+    INNER JOIN phpbb_users AS U ON G.ID = U.user_id;
 EOQ;
-
-//$query = <<<EOQ
-//update scenes set run_by_id = 8 where slug = 'a_crow_visits'
-//EOQ;
-
 
 $params = array();
 
 $rows = Database::GetInstance()->Query($query)->All($params);
 
+$permissions = array(
+    'Is_Asst' => 4,
+    'Is_GM' => 3,
+    'Is_Head' => 2,
+    'Is_Admin' => 1,
+    'Wiki_Manager' => 5
+);
+
+foreach($rows as $row) {
+    // migrate users
+    echo "Migrating: " . $row['ID'] . '<br />';
+    foreach($row as $column => $value)
+    {
+        if($value == 'Y') {
+            echo 'Give ' . $permissions[$column] . ' permission to user.<br />';
+            $sql = 'INSERT INTO permissions_users VALUES (?, ?)';
+            $params = array($row['ID'], $permissions[$column]);
+            //Database::GetInstance()->Query($sql)->Execute($params);
+        }
+    }
+}
 ?>
 
 <?php if (count($rows) > 0): ?>

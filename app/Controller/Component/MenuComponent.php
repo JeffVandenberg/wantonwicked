@@ -375,7 +375,7 @@ class MenuComponent extends Component {
             }
         }
 
-        if($this->Permissions->IsSupporter()) {
+        if($this->Permissions->IsSupporter(AuthComponent::user('user_id'))) {
             $this->menu['Site Tools']['submenu']['Site Supporter']['submenu']['Update Supporter Status'] = array(
                 'link' => '/support.php?action=setCharacters'
             );

@@ -22,30 +22,53 @@ class PermissionsComponent extends Component {
     public function IsST() {
         $userdata = AuthComponent::user();
         return ($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin']);
+        App::uses('Permission', 'Model');
+        return $this->CheckPermission($userdata['user_id'], array(
+            Permission::$IsAsst,
+            Permission::$IsST,
+            Permission::$IsHead,
+            Permission::$IsAdmin,
+        ));
     }
 
-    public static function IsWikiManager()
+    public function IsWikiManager()
     {
         $userdata = AuthComponent::user();
         return $userdata['wiki_manager'];
+        App::uses('Permission', 'Model');
+        return $this->CheckPermission($userdata['user_id'], array(
+            Permission::$WikiManager
+        ));
     }
 
-    public static function IsHead()
+    public function IsHead()
     {
         $userdata = AuthComponent::user();
         return ($userdata['is_head'] || $userdata['is_admin']);
+        App::uses('Permission', 'Model');
+        return $this->CheckPermission($userdata['user_id'], array(
+            Permission::$IsHead,
+            Permission::$IsAdmin,
+        ));
     }
 
-    public static function IsAdmin()
+    public function IsAdmin()
     {
         $userdata = AuthComponent::user();
         return ($userdata['is_admin']);
+        App::uses('Permission', 'Model');
+        return $this->CheckPermission($userdata['user_id'], array(
+            Permission::$IsAdmin,
+        ));
     }
 
-    public function IsSupporter()
+    public function IsSupporter($userId)
     {
         $userdata = AuthComponent::user();
         return ($userdata['is_supporter']);
+        App::uses('User', 'Model');
+        $user = new User();
+        return $user->CheckUserSupporterStatus($userId);
     }
 
     public function MayEditCharacter($characterId)
