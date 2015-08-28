@@ -12,22 +12,22 @@ App::uses('Component', 'Controller');
 class PermissionsComponent extends Component {
     public $uses = array('User');
 
-    public function CheckPermission($userId, $permissionId)
+    public function CheckSitePermission($userId, $SitePermissionId)
     {
         App::uses('User', 'Model');
         $user = new User();
-        return $user->CheckUserPermission($userId, $permissionId);
+        return $user->CheckUserSitePermission($userId, $SitePermissionId);
     }
 
     public function IsST() {
         $userdata = AuthComponent::user();
         return ($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin']);
-        App::uses('Permission', 'Model');
-        return $this->CheckPermission($userdata['user_id'], array(
-            Permission::$IsAsst,
-            Permission::$IsST,
-            Permission::$IsHead,
-            Permission::$IsAdmin,
+        App::uses('SiteSitePermission', 'Model');
+        return $this->CheckSitePermission($userdata['user_id'], array(
+            SitePermission::$IsAsst,
+            SitePermission::$IsST,
+            SitePermission::$IsHead,
+            SitePermission::$IsAdmin,
         ));
     }
 
@@ -35,9 +35,9 @@ class PermissionsComponent extends Component {
     {
         $userdata = AuthComponent::user();
         return $userdata['wiki_manager'];
-        App::uses('Permission', 'Model');
-        return $this->CheckPermission($userdata['user_id'], array(
-            Permission::$WikiManager
+        App::uses('SitePermission', 'Model');
+        return $this->CheckSitePermission($userdata['user_id'], array(
+            SitePermission::$WikiManager
         ));
     }
 
@@ -45,10 +45,10 @@ class PermissionsComponent extends Component {
     {
         $userdata = AuthComponent::user();
         return ($userdata['is_head'] || $userdata['is_admin']);
-        App::uses('Permission', 'Model');
-        return $this->CheckPermission($userdata['user_id'], array(
-            Permission::$IsHead,
-            Permission::$IsAdmin,
+        App::uses('SitePermission', 'Model');
+        return $this->CheckSitePermission($userdata['user_id'], array(
+            SitePermission::$IsHead,
+            SitePermission::$IsAdmin,
         ));
     }
 
@@ -56,9 +56,9 @@ class PermissionsComponent extends Component {
     {
         $userdata = AuthComponent::user();
         return ($userdata['is_admin']);
-        App::uses('Permission', 'Model');
-        return $this->CheckPermission($userdata['user_id'], array(
-            Permission::$IsAdmin,
+        App::uses('SitePermission', 'Model');
+        return $this->CheckSitePermission($userdata['user_id'], array(
+            SitePermission::$IsAdmin,
         ));
     }
 

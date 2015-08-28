@@ -152,7 +152,7 @@ EOQ;
      */
     public $hasAndBelongsToMany = array(
         'Permission' => array(
-            'className' => 'Permission',
+            'className' => 'SitePermission',
             'joinTable' => 'permissions_users',
             'foreignKey' => 'user_id',
             'associationForeignKey' => 'permission_id',

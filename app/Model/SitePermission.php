@@ -5,7 +5,7 @@ App::uses('AppModel', 'Model');
  *
  * @property User $User
  */
-class Permission extends AppModel {
+class SitePermission extends AppModel {
 
     public static $IsAdmin = 1;
     public static $IsHead = 2;
@@ -13,6 +13,7 @@ class Permission extends AppModel {
     public static $IsAsst = 4;
     public static $WikiManager = 5;
 
+	public $useTable = 'permissions';
 /**
  * Display field
  *
