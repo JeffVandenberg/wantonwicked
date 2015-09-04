@@ -1,4 +1,6 @@
 <?
+use classes\core\helpers\UserdataHelper;
+
 ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
 include 'cgi-bin/buildWoDSheet.php';
@@ -85,7 +87,7 @@ switch($action)
 		// determine what sort of view to use
 		$viewed_sheet = false;
 		
-		if($userdata['is_admin'])
+		if(UserdataHelper::IsAdmin($userdata))
 		{
 			$viewed_sheet = true;
 			$edit_show_sheet = true;
@@ -121,7 +123,7 @@ switch($action)
 			$calculate_derived = false;
 		}
 		
-		if(!$viewed_sheet && $userdata['is_head'])
+		if(!$viewed_sheet && UserdataHelper::IsHead($userdata))
 		{
 			$viewed_sheet = true;
 			$edit_show_sheet = false;
@@ -157,7 +159,7 @@ switch($action)
 			$calculate_derived = false;
 		}
 		
-		if(!$viewed_sheet && $userdata['is_gm'])
+		if(!$viewed_sheet && UserdataHelper::IsOnlySt($userdata))
 		{
 			$viewed_sheet = true;
 			if(($stats['is_sanctioned'] == 'Y') && ($stats['is_npc'] == 'Y'))
@@ -232,7 +234,7 @@ switch($action)
 			}
 		}
 		
-		if(!$viewed_sheet && $userdata['is_asst'])
+		if(!$viewed_sheet && UserdataHelper::IsAsst($userdata))
 		{
 			$viewed_sheet = true;
 			$may_full_view = ($stats['Is_NPC'] == 'N') && ($stats['City'] == $userdata['city']) && (($stats['Is_Sanctioned'] == '') || ($stats['Cell_ID'] == $userdata['cell_id']) || ($stats['Cell_ID'] == 'No Preference'));

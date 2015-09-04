@@ -146,10 +146,17 @@ EOQ;
         self::CheckOptions($options);
         $id = self::ConvertNameToID($name);
         $label = self::CreateLabel($name);
-
+        $includeHidden = true;
+        if(isset($options['include_hidden'])) {
+            $includeHidden = $options['include_hidden'];
+            unset($options['include_hidden']);
+        }
         $checked = ($checked === true) ? 'checked' : '';
 
-        $input = self::Hidden($name, '0', array('id' => $id . '_'));
+        $input = '';
+        if($includeHidden) {
+            $input .= self::Hidden($name, '0', array('id' => $id . '_'));
+        }
         $input .= <<<EOQ
 <input type="checkbox" name="$name" id="$id" value="$value" $checked
 EOQ;
@@ -159,6 +166,29 @@ EOQ;
         $input .= " />";
         $input = $label . $input;
         return $input;
+    }
+
+
+    public static function CheckboxList($name, $options, $selected)
+    {
+        self::CheckOptions($options);
+
+        $html = '<div class="checkboxlist">';
+        foreach($options as $id => $value) {
+            $checked = (array_search($id, $selected) !== false);
+            $options = array(
+                'include_hidden' => false,
+                'label' => $value,
+                'id' => $name . $id
+            );
+            $html .=
+                '<div class="item">'.
+                self::Checkbox($name, $id, $checked, $options).
+                '</div>'
+            ;
+        }
+        $html .= '</div>';
+        return $html;
     }
 
     public static function Multiselect($values, $name, $selectedValues, $options = null)

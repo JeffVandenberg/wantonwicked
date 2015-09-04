@@ -1,4 +1,6 @@
 <?
+use classes\core\helpers\UserdataHelper;
+
 include 'cgi-bin/start_of_page.php';
 // perform required includes
 define('IN_PHPBB', true);
@@ -15,7 +17,7 @@ init_userprefs($userdata);
 // End session management
 //
 
-if(!$userdata['is_head'] && !$userdata['is_admin'])
+if(!UserdataHelper::IsHead($userdata));
 {
 	die();
 }
@@ -51,7 +53,7 @@ $letters_moderator = "N";
 $letters_moderator_check = "";
 
 // test if submitting values
-if(isset($_POST['icon_name']) && isset($_POST['icon_id']) && ($userdata['is_head'] || $userdata['is_admin']))
+if(isset($_POST['icon_name']) && isset($_POST['icon_id']) && (UserdataHelper::IsHead($userdata)))
 {
 	// set variables
   $icon_name = htmlspecialchars($_POST['icon_name']);

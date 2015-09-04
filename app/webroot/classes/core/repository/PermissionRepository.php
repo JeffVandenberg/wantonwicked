@@ -12,13 +12,22 @@ namespace classes\core\repository;
 
 class PermissionRepository extends AbstractRepository
 {
+
+    /**
+     * PermissionRepository constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct('classes\core\data\Permission');
+    }
+
     public function RemovePermissions($userId)
     {
         $sql = <<<EOQ
 DELETE FROM
-    gm_permissions
+    permissions_users
 WHERE
-    id = ?
+    user_id = ?
 EOQ;
 
         $this->Query($sql)->Execute(array($userId));
@@ -31,5 +40,54 @@ WHERE
 EOQ;
 
         return $this->Query($sql)->Execute(array($userId));
+    }
+
+    public function ListPermissionsForUser($userId)
+    {
+        $sql = <<<EOQ
+SELECT
+    permission_id
+FROM
+    permissions_users
+WHERE
+    user_id = ?
+EOQ;
+        $params = array($userId);
+
+        $list = array();
+        foreach($this->Query($sql)->All($params) as $item) {
+            $list[] = $item['permission_id'];
+        }
+        return $list;
+    }
+
+    public function SavePermissionsForUser($userId, $permissions)
+    {
+        $sql = <<<EOQ
+DELETE FROM permissions_users WHERE user_id = ?
+EOQ;
+        $params = array($userId);
+        $this->Query($sql)->Execute($params);
+
+
+        foreach ($permissions as $permission) {
+            $query = <<<EOQ
+INSERT INTO
+    permissions_users
+    (
+        permission_id,
+        user_id
+    )
+VALUES
+    ( ?, ? )
+EOQ;
+            $params = array(
+                $permission,
+                $userId
+            );
+
+            Database::GetInstance()->Query($query)->Execute($params);
+        }
+
     }
 }

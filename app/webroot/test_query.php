@@ -15,13 +15,32 @@ require_once('cgi-bin/start_of_page.php');
 
 
 $query = <<<EOQ
-select
-    U.username,
-    G.*
-from
-    gm_permissions AS G
-    INNER JOIN phpbb_users AS U ON G.ID = U.user_id;
+EXPLAIN SELECT
+	t.*,
+	p.root_level,
+	p.message_time,
+	p.message_subject,
+	p.icon_id, p.to_address,
+	p.message_attachment,
+	p.bcc_address,
+	u.username,
+	u.username_clean,
+	u.user_colour,
+	p.message_reported
+FROM
+	phpbb_privmsgs_to t
+	INNER JOIN phpbb_privmsgs p ON t.msg_id = p.msg_id
+	INNER JOIN phpbb_users u ON p.author_id = u.user_id
+WHERE
+	t.user_id = 8
+	AND t.folder_id = 0
+ORDER BY p.message_time DESC
+	LIMIT 50
 EOQ;
+//$query = <<<EOQ
+//show create table phpbb_privmsgs_to
+//EOQ;
+
 
 $params = array();
 
@@ -35,7 +54,7 @@ $permissions = array(
     'Wiki_Manager' => 5
 );
 
-foreach($rows as $row) {
+/*foreach($rows as $row) {
     // migrate users
     echo "Migrating: " . $row['ID'] . '<br />';
     foreach($row as $column => $value)
@@ -44,10 +63,10 @@ foreach($rows as $row) {
             echo 'Give ' . $permissions[$column] . ' permission to user.<br />';
             $sql = 'INSERT INTO permissions_users VALUES (?, ?)';
             $params = array($row['ID'], $permissions[$column]);
-            //Database::GetInstance()->Query($sql)->Execute($params);
+            Database::GetInstance()->Query($sql)->Execute($params);
         }
     }
-}
+}*/
 ?>
 
 <?php if (count($rows) > 0): ?>

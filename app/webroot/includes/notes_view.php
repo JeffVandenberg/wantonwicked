@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\Request;
+use classes\core\helpers\UserdataHelper;
 
 /* @var array $userdata */
 
@@ -21,7 +22,7 @@ $may_view_note = false;
 // if not assume it's a personal rather than character note
 if($character_id)
 {
-	if(($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin']) && ($log_npc == 'y'))
+	if(UserdataHelper::IsSt($userdata))
 	{
 		$character_query = <<<EOQ
 SELECT C.*, Character_Name, l.Name

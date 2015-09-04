@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 
 ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
@@ -93,20 +94,10 @@ if (isset($_GET['action'])) {
             include 'includes/view_sheet_view_other_xp.php';
             break;
         case 'st_view':
-            // Obsolete ST View functionality now just redirects - MarcD, 6th Oct 2009
-            //if($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin'])
-            //
-            //{
-            //	include 'includes/view_sheet_st_view.php';
-            //}
-            //else
-            //{
             include 'includes/index_redirect.php';
-            //}
-
             break;
         case 'st_view_xp':
-            if ($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin']) {
+            if(UserdataHelper::IsSt($userdata)) {
                 include 'includes/view_sheet_st_view_xp.php';
             } else {
                 include 'includes/index_redirect.php';

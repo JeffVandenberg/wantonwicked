@@ -1,4 +1,6 @@
 <?
+use classes\core\helpers\UserdataHelper;
+
 include 'cgi-bin/start_of_page.php';
 // perform required includes
 define('IN_PHPBB', true);
@@ -15,7 +17,7 @@ init_userprefs($userdata);
 // End session management
 //
 
-if(!$userdata['is_head'] && !$userdata['is_admin'])
+if(!UserdataHelper::IsHead($userdata))
 {
 	die();
 }

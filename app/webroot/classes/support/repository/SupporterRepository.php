@@ -22,10 +22,10 @@ class SupporterRepository extends AbstractRepository
 
     function __construct()
     {
-        parent::__construct('classes\support\data\supporter');
+        parent::__construct('classes\support\data\Supporter');
     }
 
-    public function Save(Supporter $item)
+    public function Save(DataModel $item)
     {
         $result = parent::Save($item);
         if ($result) {

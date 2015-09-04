@@ -1,5 +1,6 @@
 <?php
 use classes\character\repository\CharacterRepository;
+use classes\core\helpers\UserdataHelper;
 
 /* @var array $userdata */
 
@@ -22,7 +23,7 @@ if (isset($_POST['submit'])) {
     // determine what type of update
     $viewed_sheet = false;
 
-    if ($userdata['is_admin']) {
+    if (UserdataHelper::IsAdmin($userdata)) {
         $viewed_sheet        = true;
         $edit_show_sheet     = true;
         $edit_name           = true;
@@ -56,7 +57,7 @@ if (isset($_POST['submit'])) {
         $calculate_derived   = false;
     }
 
-    if (!$viewed_sheet && $userdata['is_head']) {
+    if (!$viewed_sheet && UserdataHelper::IsHead($userdata)) {
         $viewed_sheet        = true;
         $edit_show_sheet     = false;
         $edit_name           = true;
@@ -90,7 +91,7 @@ if (isset($_POST['submit'])) {
         $calculate_derived   = false;
     }
 
-    if (!$viewed_sheet && $userdata['is_gm']) {
+    if (!$viewed_sheet && UserdataHelper::IsOnlySt($userdata)) {
         $viewed_sheet = true;
         if (($character['is_npc'] == 'Y')) {
             // partial update
@@ -160,7 +161,7 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    if (!$viewed_sheet && $userdata['is_asst']) {
+    if (!$viewed_sheet && UserdataHelper::IsAsst($userdata)) {
         $viewed_sheet = true;
         $edit_show_sheet     = false;
         $edit_name           = true;
@@ -220,7 +221,7 @@ if ($view_character_id || $view_character_name) {
         // determine what sort of view to use
         $viewed_sheet = false;
 
-        if ($userdata['is_admin']) {
+        if (UserdataHelper::IsAdmin($userdata)) {
             $viewed_sheet        = true;
             $edit_show_sheet     = true;
             $edit_name           = true;
@@ -255,7 +256,7 @@ if ($view_character_id || $view_character_name) {
             $calculate_derived   = false;
         }
 
-        if (!$viewed_sheet && $userdata['is_head']) {
+        if (!$viewed_sheet && UserdataHelper::IsHead($userdata)) {
             $viewed_sheet        = true;
             $edit_show_sheet     = false;
             $edit_name           = true;
@@ -290,7 +291,7 @@ if ($view_character_id || $view_character_name) {
             $calculate_derived   = false;
         }
 
-        if (!$viewed_sheet && $userdata['is_gm']) {
+        if (!$viewed_sheet && UserdataHelper::IsOnlySt($userdata)) {
             $viewed_sheet = true;
             if (($character['is_npc'] == 'Y')) {
                 // partial update
@@ -362,9 +363,8 @@ if ($view_character_id || $view_character_name) {
             }
         }
 
-        if (!$viewed_sheet && $userdata['is_asst']) {
+        if (!$viewed_sheet && UserdataHelper::IsAsst($userdata)) {
             $viewed_sheet = true;
-            //echo $character['Is_NPC'] . " : " . $character['City'] . " : " . $userdata['city'] . " : " . $character['Is_Sanctioned'] . " : " . $character['Cell_ID'] . " : " . $userdata['cell_id'] . "<br>";
             $may_full_view = (($character['Is_NPC'] == 'N') && ((($character['City'] == $userdata['city']) || ($character['Is_Sanctioned'] == '')) && (($character['Is_Sanctioned'] == '') || ($character['Cell_ID'] == $userdata['cell_id']) || ($character['Cell_ID'] == 'No Preference') || ($character['Cell_ID'] == ''))));
 
             if ($may_full_view) {

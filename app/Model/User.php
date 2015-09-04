@@ -34,7 +34,7 @@ class User extends AppModel {
             return false;
         }
 
-        $date = 'Y-m-d H:i:s';
+        $date = date('Y-m-d H:i:s');
         $sql = <<<EOQ
 SELECT
     count(user_id) AS Count

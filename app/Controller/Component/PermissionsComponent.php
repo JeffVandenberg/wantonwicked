@@ -16,13 +16,12 @@ class PermissionsComponent extends Component {
     {
         App::uses('User', 'Model');
         $user = new User();
-        return $user->CheckUserSitePermission($userId, $SitePermissionId);
+        return $user->CheckUserPermission($userId, $SitePermissionId);
     }
 
     public function IsST() {
         $userdata = AuthComponent::user();
-        return ($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin']);
-        App::uses('SiteSitePermission', 'Model');
+        App::uses('SitePermission', 'Model');
         return $this->CheckSitePermission($userdata['user_id'], array(
             SitePermission::$IsAsst,
             SitePermission::$IsST,
@@ -34,7 +33,6 @@ class PermissionsComponent extends Component {
     public function IsWikiManager()
     {
         $userdata = AuthComponent::user();
-        return $userdata['wiki_manager'];
         App::uses('SitePermission', 'Model');
         return $this->CheckSitePermission($userdata['user_id'], array(
             SitePermission::$WikiManager
@@ -44,7 +42,6 @@ class PermissionsComponent extends Component {
     public function IsHead()
     {
         $userdata = AuthComponent::user();
-        return ($userdata['is_head'] || $userdata['is_admin']);
         App::uses('SitePermission', 'Model');
         return $this->CheckSitePermission($userdata['user_id'], array(
             SitePermission::$IsHead,
@@ -55,7 +52,6 @@ class PermissionsComponent extends Component {
     public function IsAdmin()
     {
         $userdata = AuthComponent::user();
-        return ($userdata['is_admin']);
         App::uses('SitePermission', 'Model');
         return $this->CheckSitePermission($userdata['user_id'], array(
             SitePermission::$IsAdmin,
@@ -64,8 +60,6 @@ class PermissionsComponent extends Component {
 
     public function IsSupporter($userId)
     {
-        $userdata = AuthComponent::user();
-        return ($userdata['is_supporter']);
         App::uses('User', 'Model');
         $user = new User();
         return $user->CheckUserSupporterStatus($userId);

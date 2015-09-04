@@ -1,6 +1,8 @@
 <?php
 /* @var array $userdata */
 use classes\core\helpers\MenuHelper;
+use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 use classes\core\repository\PermissionRepository;
 
 $page_title = "List ST Permissions";
@@ -9,52 +11,62 @@ $contentHeader = $page_title;
 // test if removing any permissions
 if (isset($_POST['action'])) {
     if (($_POST['action'] == 'update') && isset($_POST['delete'])) {
-        $list                 = $_POST['delete'];
+        $list = $_POST['delete'];
         $permissionRepository = new PermissionRepository();
         foreach ($list as $value) {
             $permissionRepository->RemovePermissions($value);
         }
+        SessionHelper::SetFlashMessage('Removed Users');
     }
 }
 
 // get details of GM Permissions from database
 $login_query = <<<EOQ
 SELECT
-    group_concat(G.name separator ', ') as groups,
+    (
+      SELECT group_concat(
+        G.name SEPARATOR ', '
+      )
+      FROM
+        st_groups AS SG
+        LEFT JOIN groups AS G ON SG.group_id = G.id
+      WHERE
+        SG.user_id = L.user_id
+      ORDER BY
+        G.name
+    ) AS groups,
+    group_concat(DISTINCT P.permission_name SEPARATOR ', ') AS permissions,
     L.user_id,
-    L.username as Name,
-    GP.*
+    L.username
 FROM
     phpbb_users AS L
-    INNER JOIN gm_permissions AS GP ON L.user_id = GP.ID
-    LEFT JOIN st_groups AS SG ON GP.ID = SG.user_id
-    LEFT JOIN groups AS G ON SG.group_id = G.id
+    INNER JOIN permissions_users AS PU ON L.user_id = PU.user_id
+    INNER JOIN permissions AS P ON PU.permission_id = P.id
 GROUP BY
     L.user_id
 ORDER BY
-    GP.Side_Game DESC,
-    L.username;
+    L.username,
+    P.permission_name;
 EOQ;
 $storytellers = ExecuteQueryData($login_query);
 
 $storytellerMenu = require_once('helpers/storyteller_menu.php');
+$storytellerMenu['Action']['submenu']['Add Permission'] = array(
+    'link' => '/storyteller_index.php?action=permissions_add'
+);
 $menu = MenuHelper::GenerateMenu($storytellerMenu);
 ob_start();
 ?>
 <?php echo $menu; ?>
-    <div class="paragraph">
-        <a href="/storyteller_index.php?action=permissions_add">Add ST Permission</a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="/storyteller_index.php?action=permissions" onClick="submitForm();return false;">Delete ST
-            Permissions</a>
-    </div>
     <form name="gm_list" id="gm_list" method="post">
         <input type="hidden" name="action" id="action" value="update">
         <table>
             <tr>
-                <th>
-                    Delete
-                </th>
+                <?php if (UserdataHelper::IsAdmin($userdata)): ?>
+                    <th>
+                        Delete
+                    </th>
+                <?php endif; ?>
                 <th>
                     Login
                 </th>
@@ -62,70 +74,44 @@ ob_start();
                     Group(s)
                 </th>
                 <th>
-                    Asst
-                </th>
-                <th>
-                    ST
-                </th>
-                <th>
-                    Head
-                </th>
-                <th>
-                    Admin
-                </th>
-                <th>
-                    Side
-                </th>
-                <th>
-                    Wiki
+                    Permissions
                 </th>
             </tr>
             <?php foreach ($storytellers as $login_detail): ?>
                 <tr>
-                    <?php if ($userdata['is_admin'] || $login_detail['Is_Admin'] != 'Y'): ?>
+                    <?php if (UserdataHelper::IsHead($userdata)): ?>
                         <td>
                             <label>
                                 <input type="checkbox" name="delete[]" value="<?php echo $login_detail['user_id']; ?>">
                             </label>
                         </td>
-                    <?php else: ?>
-                        <td>
-                            &nbsp;
-                        </td>
                     <?php endif; ?>
                     <td>
-                        <a href="/storyteller_index.php?action=permissions_view&permission_id=<?php echo $login_detail['Permission_ID']; ?>"
-                           Name><?php echo $login_detail['Name']; ?></a>
+                        <a href="/storyteller_index.php?action=permissions_view&user_id=<?php echo $login_detail['user_id']; ?>"
+                           ><?php echo $login_detail['username']; ?></a>
                     </td>
                     <td>
                         <?php echo $login_detail['groups']; ?>
                     </td>
-                    <td style="background-color: <?php echo ($login_detail['Is_Asst'] == 'Y') ? '#ada' : '#baa'; ?>">
-                        <?php echo $login_detail['Is_Asst']; ?>
-                    </td>
-                    <td style="background-color: <?php echo ($login_detail['Is_GM'] == 'Y') ? '#ada' : '#baa'; ?>">
-                        <?php echo $login_detail['Is_GM']; ?>
-                    </td>
-                    <td style="background-color: <?php echo ($login_detail['Is_Head'] == 'Y') ? '#ada' : '#baa'; ?>">
-                        <?php echo $login_detail['Is_Head']; ?>
-                    </td>
-                    <td style="background-color: <?php echo ($login_detail['Is_Admin'] == 'Y') ? '#ada' : '#baa'; ?>">
-                        <?php echo $login_detail['Is_Admin']; ?>
-                    </td>
-                    <td style="background-color: <?php echo ($login_detail['Side_Game'] == 'Y') ? '#ada' : '#baa'; ?>">
-                        <?php echo $login_detail['Side_Game']; ?>
-                    </td>
-                    <td style="background-color: <?php echo ($login_detail['Wiki_Manager'] == 'Y') ? '#ada'
-                        : '#baa'; ?>">
-                        <?php echo $login_detail['Wiki_Manager']; ?>
+                    <td>
+                        <?php echo $login_detail['permissions']; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
+            <?php if (UserdataHelper::IsHead($userdata)): ?>
+                <tfoot>
+                <tr>
+                    <th colspan="4">
+                        <input type="submit" value="Remove Selected"/>
+                    </th>
+                </tr>
+                </tfoot>
+            <?php endif; ?>
         </table>
     </form>
     <script language="JavaScript">
         function submitForm() {
-            window.document.gm_list.submit();
+            $("#gm_list").submit();
         }
     </script>
 

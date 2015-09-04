@@ -37,7 +37,7 @@ class MenuComponent extends Component {
                 'link'    => '#',
                 'submenu' => array(
                     'Site Supporter' => array(
-                        'link' => 'support.php',
+                        'link' => '/support.php',
                         'submenu' => array(
                             'Support Information' => array(
                                 'link' => '/wiki/index.php?n=GameRef.5For5Offer'

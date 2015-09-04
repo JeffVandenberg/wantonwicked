@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 
 include 'cgi-bin/start_of_page.php';
 
@@ -33,14 +34,14 @@ $contentHeader = "";
 include 'user_panel.php';
 include 'menu_bar.php';
 
-if ((!$userdata['is_asst']) && (!$userdata['is_gm']) && (!$userdata['is_head']) && (!$userdata['is_admin'])) {
+if (!UserdataHelper::IsSt($userdata)) {
     include 'includes/index_redirect.php';
 }
 else {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'permissions_view':
-                if ($userdata['is_head'] || $userdata['is_admin']) {
+                if (UserdataHelper::IsHead($userdata)) {
                     include 'includes/storyteller_permissions_view.php';
                 }
                 else {
@@ -49,7 +50,7 @@ else {
                 break;
 
             case 'permissions_add':
-                if ($userdata['is_head'] || $userdata['is_admin']) {
+                if (UserdataHelper::IsHead($userdata)) {
                     include 'includes/storyteller_permissions_add.php';
                 }
                 else {
@@ -58,7 +59,7 @@ else {
                 break;
 
             case 'permissions':
-                if ($userdata['is_head'] || $userdata['is_admin']) {
+                if (UserdataHelper::IsHead($userdata)) {
                     include 'includes/storyteller_permissions.php';
                 }
                 else {

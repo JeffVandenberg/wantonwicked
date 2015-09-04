@@ -1,8 +1,15 @@
 <?php
 /* @var array $userdata */
 
+use classes\core\data\Permission;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
+use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
+use classes\core\repository\Database;
+use classes\core\repository\PermissionRepository;
+use classes\request\repository\GroupRepository;
 
 $page_title = "Add ST";
 $contentHeader = $page_title;
@@ -17,115 +24,33 @@ $mode = "debug";
 // form variables
 $login_name = "";
 $login_id = 0;
-$is_asst = "N";
-$is_gm = "N";
-$is_head = "N";
-$is_admin = "N";
-$side_game = "N";
-$wiki_manager = "N";
+$userId = 0;
+$userPermissions = array();
 $selectedGroups = array();
 
 // test if submitting values
-if (Request::IsPost() && ($userdata['is_head'] || $userdata['is_admin'])) {
-    // set variables
-    $login_name = $_POST['login_name'];
-    $is_asst = (!empty($_POST['is_asst'])) ? "Y" : "N";
-    $is_gm = (!empty($_POST['is_gm'])) ? "Y" : "N";
-    $is_head = (!empty($_POST['is_head'])) ? "Y" : "N";
-    $side_game = (!empty($_POST['side_game'])) ? "Y" : "N";
-    $wiki_manager = (!empty($_POST['wiki_manager'])) ? "Y" : "N";
-    if ($userdata['is_admin']) {
-        if (!empty($_POST['is_admin'])) {
-            $is_admin = "Y";
-        }
-    }
+$permissionRepository = new PermissionRepository();
+$groupsRepository = new GroupRepository();
 
+if (Request::IsPost() && UserdataHelper::IsHead($userdata)) {
+    $userId = Request::GetValue('user_id');
     $selectedGroups = $_POST['groups'];
-
-    // test of working on a valid login
-    $login_check_query = "select user_id from phpbb_users where username='$login_name';";
-    $login = ExecuteQueryItem($login_check_query);
-
-    if (($login != null) && $show_form) {
-
-        $permissions_query = <<<EOQ
-INSERT INTO
-    gm_permissions
-    (
-        id,
-        is_asst,
-        is_gm,
-        is_head,
-        is_admin,
-        side_game,
-        wiki_manager
-    )
-VALUES
-    (
-        $login[user_id],
-        '$is_asst',
-        '$is_gm',
-        '$is_head',
-        '$is_admin',
-        '$side_game',
-        '$wiki_manager'
-    );
-
-EOQ;
-        //echo "$permissions_query<br>";
-        ExecuteQuery($permissions_query);
-
-        foreach($selectedGroups as $group)
-        {
-            $query = <<<EOQ
-INSERT INTO
-    st_groups
-    (
-        user_id,
-        group_id
-    )
-VALUES
-    (
-        $login[user_id],
-        $group
-    )
-EOQ;
-            ExecuteQuery($query);
-        }
-
-
-        // add js
-        $java_script = <<<EOQ
-<script language="JavaScript">
-window.location.href="$_SERVER[PHP_SELF]?action=permissions";
-</script>
-EOQ;
-    }
-    else {
-        $page_content .= "Please enter a valid login name.<br>";
+    $userPermissions = $_POST['permissions'];
+    if (!$userId) {
+        SessionHelper::SetFlashMessage('No User Indicated');
+    } else {
+        $permissionRepository->SavePermissionsForUser($userId, $userPermissions);
+        $groupsRepository->SaveGroupsForUser($userId, $selectedGroups);
+        Response::Redirect('/storyteller_index.php?action=permissions', 'Set Permissions for ' . Request::GetValue('login_name'));
     }
 }
 
-// get groups
-$group_query = <<<EOQ
-SELECT
-    G.id,
-    G.name
-FROM
-    groups AS G
-ORDER BY
-    name
-EOQ;
-
-$group_list = ExecuteQueryData($group_query);
-$groups = array();
-foreach ($group_list as $group) {
-    $groups[$group['id']] = $group['name'];
-}
+$groups = $groupsRepository->SimpleListAll();
+$permissions = $permissionRepository->SimpleListAll();
 
 ob_start();
 ?>
-    <form name="skill_form" id="skill_form" method="post"
+    <form id="permission-form" method="post"
           action="<?php echo $_SERVER['PHP_SELF']; ?>?action=permissions_add">
         <table class="normal_text">
             <tr>
@@ -134,6 +59,7 @@ ob_start();
                 </td>
                 <td>
                     <?php echo FormHelper::Text('login_name', $login_name); ?>
+                    <?php echo FormHelper::Hidden('user_id', $userId); ?>
                 </td>
             </tr>
             <tr>
@@ -146,58 +72,49 @@ ob_start();
             </tr>
             <tr>
                 <td>
-                    Is Asst:
+                    Permissions
                 </td>
                 <td>
-                    <?php echo FormHelper::Checkbox('is_asst', 'Y', $is_asst == 'Y'); ?>
+                    <?php echo FormHelper::CheckboxList('permissions[]',
+                        $permissions,
+                        $userPermissions);
+                    ?>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    Is ST:
-                </td>
-                <td>
-                    <?php echo FormHelper::Checkbox('is_gm', 'Y', $is_gm == 'Y'); ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Is Head:
-                </td>
-                <td>
-                    <?php echo FormHelper::Checkbox('is_head', 'Y', $is_head == 'Y'); ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Side Game:
-                </td>
-                <td>
-                    <?php echo FormHelper::Checkbox('side_game', 'Y', $side_game == 'Y'); ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Wiki Manager:
-                </td>
-                <td>
-                    <?php echo FormHelper::Checkbox('wiki_manager', 'Y', $wiki_manager == 'Y'); ?>
-                </td>
-            </tr>
-            <?php if ($userdata['is_admin']): ?>
-                <tr>
-                    <td>
-                        Is Admin:
-                    </td>
-                    <td>
-                        <?php echo FormHelper::Checkbox('is_admin', 'Y', $is_admin == 'Y'); ?>
-                    </td>
-                </tr>
-            <?php endif; ?>
         </table>
         <div style="text-align: center;">
             <?php echo FormHelper::Button('action', 'Submit', 'submit'); ?>
         </div>
     </form>
+    <script>
+        $(function () {
+            $(function () {
+                $("#login-name").autocomplete({
+                    source: '/users.php?action=search&email=0',
+                    minLength: 2,
+                    autoFocus: true,
+                    focus: function () {
+                        return false;
+                    },
+                    select: function (e, ui) {
+                        $("#user-id").val(ui.item.value);
+                        console.debug(ui);
+                        $("#login-name").val(ui.item.label);
+                        return false;
+                    }
+                });
+                $('#permission-form').submit(function (e) {
+                    var userId = parseInt($("#user-id").val());
+
+                    if (isNaN(userId) || (userId == 0)) {
+                        alert('Please type a user name');
+                        e.preventDefault();
+                        return false;
+                    }
+                    return true;
+                });
+            });
+        });
+    </script>
 <?php
 $page_content .= ob_get_clean();

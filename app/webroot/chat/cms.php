@@ -35,6 +35,10 @@
 // Enable custom login details
 
 // perform required includes
+use classes\core\helpers\UserdataHelper;
+use classes\core\repository\PermissionRepository;
+use classes\support\repository\SupporterRepository;
+
 define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
@@ -48,6 +52,8 @@ include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 $user->session_begin();
 $auth->acl($user->data);
 $userdata = $user->data;
+
+include_once __DIR__ . '/../../../app/webroot/cgi-bin/start_of_page.php';
 
 define('C_CUSTOM_LOGIN','1'); // 0 OFF, 1 ON
 
@@ -188,12 +194,7 @@ EOQ;
     $loggedIn = true;
 }
 else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
-    $query = "SELECT * FROM gm_permissions WHERE id = :id";
-    $dbh = db_connect();
-    $action = $dbh->prepare($query);
-    $action->bindValue('id', $userdata['user_id'], PDO::PARAM_INT);
-    $action->execute();
-    if($action->rowCount() > 0) {
+    if(UserdataHelper::IsSt($userdata)) {
         define('C_CUSTOM_USERNAME', $userdata['username']);
         define('C_CUSTOM_USERID', $userdata['user_id']);
 
@@ -202,30 +203,30 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
         $_SESSION['userGroup'] = 3;
         $_SESSION['is_invisible'] = isset($_GET['invisible']);
 
-        $row = $action->fetch(PDO::FETCH_ASSOC);
         $icon = 'st.png';
         $userTypeId = 4; // regular ST
-        if($row['Is_Asst'] == 'Y') {
+        $admin = 0;
+        $mod = 1;
+        if(UserdataHelper::IsAsst($userdata)) {
             // $icon = 'asst.png';
             $userTypeId = 5;
+            $mod = 1;
         }
-        if($row['Is_Admin'] == 'Y') {
+        if(UserdataHelper::IsAdmin($userdata)) {
             $icon = 'admin.png';
             $userTypeId = 6;
+            $admin = 1;
+            $mod = 1;
         }
-        else if($row['Wiki_Manager'] == 'Y') {
+        else if(UserdataHelper::IsWikiManager($userdata)) {
             $icon = 'wiki.png';
             $userTypeId = 7;
+            $mod = 0;
         }
 
         addUser($icon, $userTypeId);
 
         $isInvisible = isset($_GET['invisible']) + 0;
-        $admin = ($row['Is_Admin'] == 'Y') ? 1 : 0;
-        $mod = 0;
-        if(($row['Is_Asst'] == 'Y') || ($row['Is_GM'] == 'Y') || ($row['Is_Head'] == 'Y')) {
-            $mod = 1;
-        }
 
         $query = <<<EOQ
 UPDATE
@@ -243,6 +244,7 @@ WHERE
     AND userid = :userid
 EOQ;
 
+        $dbh = db_connect();
         $action = $dbh->prepare($query);
         $action->bindValue('userid', $userdata['user_id'], PDO::PARAM_INT);
         $action->bindValue('username', $userdata['username']);
@@ -286,19 +288,8 @@ else if($userdata['username'] !== 'Anonymous') {
     $dbh = db_connect();
 
     // check if they are a supporter
-    $sql = <<<EOQ
-SELECT
-    user_id
-FROM
-    supporters
-WHERE
-    user_id = ?
-    AND expires_on > NOW()
-EOQ;
-
-    $statement = $dbh->prepare($sql);
-    $statement->execute(array($userdata['user_id']));
-    if($statement->fetch()) {
+    $supporterRepository = new SupporterRepository();
+    if($supporterRepository->CheckIsCurrentSupporter($userdata['user_id'])) {
         $icon = 'supporter.png';
     }
 

@@ -55,4 +55,54 @@ EOQ;
 
         return ExecuteQueryItem($sql);
     }
+
+    public function ListGroupsForUser($userId)
+    {
+        $sql = <<<EOQ
+SELECT
+    group_id
+FROM
+    st_groups
+WHERE
+    user_id = ?
+EOQ;
+        $params = array($userId);
+
+        $list = array();
+        foreach($this->Query($sql)->All($params) as $item)
+        {
+            $list[] = $item['group_id'];
+        }
+        return $list;
+    }
+
+    public function SaveGroupsForUser($userId, $groups)
+    {
+        $query = <<<EOQ
+DELETE FROM
+    st_groups
+WHERE
+    user_id = ?
+EOQ;
+        $params = array($userId);
+        $this->Query($query)->Execute($params);
+
+        foreach($groups as $group)
+        {
+            $query = <<<EOQ
+INSERT INTO
+    st_groups
+    (
+        user_id,
+        group_id
+    )
+VALUES
+    ( ?, ? )
+EOQ;
+            $params = array($userId, $group);
+            $this->Query($query)->Execute($params);
+        }
+
+
+    }
 }

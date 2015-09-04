@@ -23,6 +23,8 @@ class UserdataHelper
         'wiki_manager' => 5
     );
 
+    private static $userPermissions = array();
+
     public static function CheckPermission($userId, $userPerms)
     {
         if(!is_array($userPerms)) {
@@ -30,62 +32,78 @@ class UserdataHelper
         }
 
         $placeholders = implode(',', array_fill(0, count($userPerms), '?'));
+        sort($userPerms);
+        $key = implode('-', $userPerms);
 
-        $sql = <<<EOQ
+        if(!isset(self::$userPermissions[$key])) {
+            $sql = <<<EOQ
 SELECT
     count(*)
 FROM
-    from permissions_users
+    permissions_users
 WHERE
     user_id = ?
     AND permission_id IN ($placeholders)
 EOQ;
-        $params = array_merge(array($userId), $userPerms);
+            $params = array_merge(array($userId), $userPerms);
 
-        return (Database::GetInstance()->Query($sql)->Value($params) > 0);
+            self::$userPermissions[$key] = (Database::GetInstance()->Query($sql)->Value($params) > 0);
+        }
+        return self::$userPermissions[$key];
     }
 
     public static function IsSt($userdata)
     {
-        return ($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin']);
-        return self::CheckPermission($userdata['user_id'], array(
-            self::$permissions['is_asst'],
-            self::$permissions['is_gm'],
-            self::$permissions['is_head'],
-            self::$permissions['is_admin']
-        ));
+        if(!isset(self::$userPermissions['IsSt'])) {
+            self::$userPermissions['IsSt'] = self::CheckPermission($userdata['user_id'], array(
+                self::$permissions['is_asst'],
+                self::$permissions['is_gm'],
+                self::$permissions['is_head'],
+                self::$permissions['is_admin']
+            ));
+        }
+        return self::$userPermissions['IsSt'];
     }
 
     public static function IsWikiManager($userdata)
     {
-        return $userdata['wiki_manager'];
-        return self::CheckPermission($userdata['user_id'], array(
-            self::$permissions['wiki_manager']
-        ));
+        if(!isset(self::$userPermissions['IsWikiManager'])) {
+            self::$userPermissions['IsWikiManager'] = self::CheckPermission($userdata['user_id'], array(
+                self::$permissions['wiki_manager']
+            ));
+        }
+        return self::$userPermissions['IsWikiManager'];
     }
 
     public static function IsHead($userdata)
     {
-        return ($userdata['is_head'] || $userdata['is_admin']);
-        return self::CheckPermission($userdata['user_id'], array(
-            self::$permissions['is_head'],
-            self::$permissions['is_admin']
-        ));
+        if(!isset(self::$userPermissions['IsHead'])) {
+            self::$userPermissions['IsHead'] = self::CheckPermission($userdata['user_id'], array(
+                self::$permissions['is_head'],
+                self::$permissions['is_admin']
+            ));
+        }
+        return self::$userPermissions['IsHead'];
     }
 
     public static function IsAdmin($userdata)
     {
-        return ($userdata['is_admin']);
-        return self::CheckPermission($userdata['user_id'], array(
-            self::$permissions['is_admin']
-        ));
+        if(!isset(self::$userPermissions['IsAdmin'])) {
+            self::$userPermissions['IsAdmin'] = self::CheckPermission($userdata['user_id'], array(
+                self::$permissions['is_admin']
+            ));
+        }
+        return self::$userPermissions['IsAdmin'];
     }
 
     public static function IsSupporter($userdata)
     {
-        return ($userdata['is_supporter']);
-        $supporterRepository = new SupporterRepository();
-        return $supporterRepository->CheckIsCurrentSupporter($userdata['user_id']);
+        if(!isset(self::$userPermissions['IsSupporter'])) {
+            $supporterRepository = new SupporterRepository();
+            self::$userPermissions['IsSupporter'] =
+                $supporterRepository->CheckIsCurrentSupporter($userdata['user_id']);;
+        }
+        return self::$userPermissions['IsSupporter'];
     }
 
     public static function IsLoggedIn($userdata)
@@ -93,8 +111,23 @@ EOQ;
         return (($userdata != null) && ($userdata['user_id'] != 1));
     }
 
-    public static function IsLoggedIn($userdata)
+    public static function IsAsst($userdata)
     {
-        return ($userdata != null) && ($userdata['user_id'] != 1);
+        if(!isset(self::$userPermissions['IsAsst'])) {
+            self::$userPermissions['IsAsst'] = self::CheckPermission($userdata['user_id'], array(
+                self::$permissions['is_asst']
+            ));
+        }
+        return self::$userPermissions['IsAsst'];
+    }
+
+    public static function IsOnlySt($userdata)
+    {
+        if(!isset(self::$userPermissions['IsOnlySt'])) {
+            self::$userPermissions['IsOnlySt'] = self::CheckPermission($userdata['user_id'], array(
+                self::$permissions['is_gm']
+            ));
+        }
+        return self::$userPermissions['IsOnlySt'];
     }
 }

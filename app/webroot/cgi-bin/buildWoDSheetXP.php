@@ -320,7 +320,7 @@ EOQ;
 
         case 'Changing Breed':
             $table_class     = "mortal_normal_text";
-            $splat1_groups   = array('Bastet', 'Land Titans', 'Laughing Strangers', 'The Pack', 'Royal Apes', 'Spinner-Kin', 'Ursara', 'Wind-Runners', 'Wing-Folk');
+            $splat1_groups   = array('Bastet', 'Land Titans', 'Laughing Strangers', 'The Pack', 'Royal Apes', 'Shadow-Beast', 'Spinner-Kin', 'Ursara', 'Wind-Runners', 'Wing-Folk');
             $splat2_groups   = array('Den-Warder', 'Heart-Ripper', 'Root-Weaver', 'Sun-Chaser', 'Wind-Dancer');
             $supernatural_xp = 100;
             $number_of_specialties = 4;

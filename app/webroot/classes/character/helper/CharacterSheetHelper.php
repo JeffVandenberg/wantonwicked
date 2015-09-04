@@ -14,6 +14,7 @@ use classes\character\data\Character;
 use classes\character\data\ElementType;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\FormHelper;
+use classes\core\helpers\UserdataHelper;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
@@ -667,7 +668,7 @@ class CharacterSheetHelper
         $calculate_derived   = false;
         $edit_xp             = false;
 
-        if ($userdata['is_admin']) {
+        if (UserdataHelper::IsAdmin($userdata)) {
             $viewed_sheet        = true;
             $edit_show_sheet     = true;
             $edit_name           = true;
@@ -700,7 +701,7 @@ class CharacterSheetHelper
             $edit_cell           = true;
         }
 
-        if (!$viewed_sheet && $userdata['is_head']) {
+        if (!$viewed_sheet && UserdataHelper::IsHead($userdata)) {
             $viewed_sheet        = true;
             $edit_name           = true;
             $edit_vitals         = true;
@@ -731,7 +732,7 @@ class CharacterSheetHelper
             $edit_cell           = true;
         }
 
-        if (!$viewed_sheet && $userdata['is_gm']) {
+        if (!$viewed_sheet && UserdataHelper::IsOnlySt($userdata)) {
             $viewed_sheet = true;
             // open update
             $edit_name           = true;
@@ -761,7 +762,7 @@ class CharacterSheetHelper
             $edit_cell           = true;
         }
 
-        if (!$viewed_sheet && $userdata['is_asst']) {
+        if (!$viewed_sheet && UserdataHelper::IsAsst($userdata)) {
             $edit_name           = true;
             $edit_vitals         = true;
             $edit_is_dead        = true;
@@ -1226,7 +1227,7 @@ class CharacterSheetHelper
         $may_edit            = false;
         $edit_cell           = false;
 
-        if ($userdata['is_admin']) {
+        if (UserdataHelper::IsAdmin($userdata)) {
             $viewed_sheet        = true;
             $edit_show_sheet     = true;
             $edit_name           = true;
@@ -1259,7 +1260,7 @@ class CharacterSheetHelper
             $edit_cell           = true;
         }
 
-        if (!$viewed_sheet && $userdata['is_head']) {
+        if (!$viewed_sheet && UserdataHelper::IsHead($userdata)) {
             $viewed_sheet        = true;
             $edit_name           = true;
             $edit_vitals         = true;
@@ -1290,7 +1291,7 @@ class CharacterSheetHelper
             $edit_cell           = true;
         }
 
-        if (!$viewed_sheet && $userdata['is_gm']) {
+        if (!$viewed_sheet && UserdataHelper::IsOnlySt($userdata)) {
             $viewed_sheet = true;
             // open update
             $edit_show_sheet     = false;
@@ -1321,7 +1322,7 @@ class CharacterSheetHelper
             $edit_cell           = true;
         }
 
-        if (!$viewed_sheet && $userdata['is_asst']) {
+        if (!$viewed_sheet && UserdataHelper::IsAsst($userdata)) {
             $viewed_sheet        = true;
             $edit_name           = true;
             $edit_vitals         = true;

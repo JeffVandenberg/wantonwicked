@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 
 ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
@@ -45,13 +46,13 @@ if(isset($_GET['action']))
 	switch($_GET['action'])
 	{
 		case 'list':
-			if($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin'])
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/territory_list.php';
 			}
 			break;
 		case 'update_all':
-			if($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin'])
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/territory_update_all.php';
 			}

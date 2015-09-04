@@ -228,7 +228,13 @@ class dbal_mysqli extends dbal
 
 		$query .= "\n LIMIT " . ((!empty($offset)) ? $offset . ', ' . $total : $total);
 
-		return $this->sql_query($query, $cache_ttl);
+//		$startTime = microtime(true);
+		$result = $this->sql_query($query, $cache_ttl);
+//		echo '<div>';
+//		echo $query;
+//		echo (microtime(true) - $startTime);
+//		echo '</div>';
+		return $result;
 	}
 
 	/**

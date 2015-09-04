@@ -1,4 +1,6 @@
 <?
+use classes\core\helpers\UserdataHelper;
+
 include 'cgi-bin/start_of_page.php';
 include 'cgi-bin/buildWoDSheet.php';
 include 'cgi-bin/buildWoDSheetXP.php';
@@ -66,9 +68,7 @@ if(isset($_GET['action']))
 			include 'includes/view_sheet_view_other_xp.php';
 			break;
 		case 'st_view':
-			if(($userdata['is_asst'] && ($userdata['Cell_ID'] == $characterSheet['Cell_ID'])) ||
-				($userdata['is_gm']   && ($userdata['Cell_ID'] == $characterSheet['Cell_ID'])) ||
-				$userdata['is_head'] || $userdata['is_admin'])
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/view_sheet_st_view.php';
 			}
@@ -79,7 +79,7 @@ if(isset($_GET['action']))
 			
 			break;
 		case 'st_view_xp':
-			if($userdata['is_asst'] || $userdata['is_gm'] || $userdata['is_head'] || $userdata['is_admin'])
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/view_sheet_st_view_xp.php';
 			}

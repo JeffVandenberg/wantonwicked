@@ -5,16 +5,6 @@ $_SESSION['user_name']="Guest User";
 $_SESSION['user_pass']="-------";
 $_SESSION['is_logged_in'] = false;
 $_SESSION['user_id'] = 0;
-$_SESSION['letters_moderator'] = false;
-$_SESSION['is_asst'] = false;
-$_SESSION['is_gm'] = false;
-$_SESSION['is_head'] = false;
-$_SESSION['is_admin'] = false;
-$_SESSION['site_admin'] = false;
-$_SESSION['news_mod'] = false;
-$_SESSION['fiction_mod'] = false;
-$_SESSION['site_id'] = "0000";
-$_SESSION['theme_id'] = 0;
 
 // log out of phpBB
 define("IN_LOGIN", true);
