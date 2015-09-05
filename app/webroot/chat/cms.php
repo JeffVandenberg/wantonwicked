@@ -235,10 +235,10 @@ SET
     display_name = :name,
     usergroup = '3',
     guest = '0',
-    admin = '$admin',
-    moderator = '$mod',
-    avatar = '$icon',
-    is_invisible = $isInvisible
+    admin = :admin,
+    moderator = :mod,
+    avatar = :icon,
+    is_invisible = :isInvisible
 WHERE
     username = :username
     AND userid = :userid
@@ -249,6 +249,10 @@ EOQ;
         $action->bindValue('userid', $userdata['user_id'], PDO::PARAM_INT);
         $action->bindValue('username', $userdata['username']);
         $action->bindValue('name', C_CUSTOM_USERNAME);
+        $action->bindValue('admin', $admin);
+        $action->bindValue('mod', $mod);
+        $action->bindValue('icon', $icon);
+        $action->bindValue('isInvisible', $isInvisible);
         $action->execute();
         $loggedIn = true;
     }
@@ -267,6 +271,7 @@ WHERE
     username = :username
     AND userid = :userid
 EOQ;
+        $dbh = db_connect();
         $action = $dbh->prepare($query);
         $action->bindValue('userid', C_CUSTOM_USERID, PDO::PARAM_INT);
         $action->bindValue('username', C_CUSTOM_USERNAME);
@@ -305,7 +310,7 @@ SET
     admin = '0',
     moderator = '0',
     guest = '0',
-    avatar = '$icon'
+    avatar = :icon
 WHERE
     username = :username
     AND userid = :userid
@@ -315,6 +320,7 @@ EOQ;
     $action->bindValue('userid', C_CUSTOM_USERID, PDO::PARAM_INT);
     $action->bindValue('username', C_CUSTOM_USERNAME);
     $action->bindValue('name', C_CUSTOM_USERNAME);
+    $action->bindValue('icon', $icon);
     $action->execute();
     $loggedIn = true;
 }
