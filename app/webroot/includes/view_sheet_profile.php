@@ -1,21 +1,26 @@
 <?php
+use classes\character\repository\CharacterRepository;
+use classes\core\helpers\Request;
+use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
 use classes\core\repository\Database;
 
-include_once 'includes/classes/character/character.php';
+/* @var array $userdata */
 
-$character_name = $_GET['username'];
+$character_name = Request::GetValue('username');
 if (strpos($character_name, '-- ') > 0) {
     $character_name = substr($character_name, 0, strpos($character_name, '-- '));
 }
-$character_query = "select * from characters where character_name = '$character_name';";
-$character_result = mysql_query($character_query) or die(mysql_error());
-$character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
-//print_r($character_detail);
+$character_query = "select * from characters where character_name = ?;";
+$params = array(
+    $character_name
+);
+
+$character_detail = Database::GetInstance()->Query($character_query)->Single($character_detail);
 if ($character_detail) {
-    if (false && UserdataHelper::IsSt($userdata)) {
+    if (UserdataHelper::IsSt($userdata)) {
         // display character
-        header("Location: http://www.wantonwicked.net/view_sheet.php?action=st_view_xp&view_character_id=$character_detail[id]");
+        Response::Redirect('/view_sheet.php?action=st_view_xp&view_character_id=' . $character_detail['id']);
     } else {
         $profile_query = "select username from phpbb_users where user_id = ?";
 		$params = array(
@@ -133,12 +138,12 @@ function DetermineBloodPotency($sourceCharacterId, $targetCharacter)
 {
     $bloodPotency = $targetCharacter['Power_Stat'];
     // do they have obfuscate 2?
-    $characterDao = new Character();
-    if ($characterDao->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Obfuscate', 2)) {
+    $repository = new CharacterRepository();
+    if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Obfuscate', 2)) {
         $bloodPotency = 'None';
-    } else if ($characterDao->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Protean', 1)) {
+    } else if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Protean', 1)) {
         // do they have Protean 1?
-        $sourceCharacter = $characterDao->GetById($sourceCharacterId);
+        $sourceCharacter = $repository->GetById($sourceCharacterId);
         if ($targetCharacter['Power_Stat'] < $sourceCharacter['Power_Stat']) {
             $bloodPotency = $sourceCharacter['Power_Stat'];
         }

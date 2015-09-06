@@ -12,6 +12,7 @@ namespace classes\character\repository;
 
 use classes\character\data\Character;
 use classes\core\repository\AbstractRepository;
+use classes\core\repository\Database;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\request\repository\RequestRepository;
@@ -363,5 +364,27 @@ EOQ;
         }
 
         return count($characterIds);
+    }
+
+    public function DoesCharacterHavePowerAtLevel($characterId, $powerName, $powerLevel)
+    {
+        $query = <<<EOQ
+SELECT
+	count(*) as HitCount
+FROM
+	character_powers
+WHERE
+	character_id = ?
+	AND power_name = ?
+	AND power_level >= ?
+EOQ;
+        $params = array(
+            $characterId,
+            $powerName,
+            $powerLevel
+        );
+
+        $row = Database::GetInstance()->Query($query)->Single($params);
+        return ($row['HitCount'] > 0);
     }
 }

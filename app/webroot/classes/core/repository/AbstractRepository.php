@@ -74,12 +74,15 @@ SELECT
 FROM
     $tableName
 WHERE
-    $idColumn = :id
+    $idColumn = ?
 EOQ;
 
             $class = $this->ManagedObject->getFullClassName();
             $oItem = new $class();
-            $row = $this->Query($sSql)->Bind(':id', $id)->Single();
+            $params = array(
+                $id
+            );
+            $row = $this->Query($sSql)->Single($params);
             if($row !== false)
             {
                 $oItem = $this->PopulateObject($row);

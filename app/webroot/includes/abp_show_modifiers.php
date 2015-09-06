@@ -1,4 +1,6 @@
 <?php
+use classes\character\repository\CharacterRepository;
+
 include_once 'includes/classes/character/character.php';
 
 $characterId = $_GET['character_id'] + 0;
@@ -9,7 +11,7 @@ $extraDomains = $abp->GetExtraDomains($characterId);
 $otherModifiers = $abp->GetOtherModifiers($characterId);
 $humanityModifier = $abp->GetHumanityModifier($characterId);
 
-$character = new Character();
+$repository = new CharacterRepository();
 $characterDetail = $character->GetById($characterId);
 
 
