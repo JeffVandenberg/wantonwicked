@@ -1,11 +1,10 @@
 <?php
-global $userdata;
-// check if they are an ST
 
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\UserdataHelper;
 
+/* @var array $userdata */
 $mainMenu = array(
     'Home'       => array(
         'link'   => '/',

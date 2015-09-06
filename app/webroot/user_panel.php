@@ -1,7 +1,7 @@
 <?php
-global $userdata;
 use classes\request\repository\RequestRepository;
 
+/* @var array $userdata */
 $get_vars = "";
 $is_first = true;
 while(list($key, $value) = each($_GET))
