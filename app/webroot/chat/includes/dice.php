@@ -11,7 +11,6 @@ require_once("session.php");
 require_once("config.php");
 require_once("functions.php");
 require_once('../../cgi-bin/rollWoDDice.php');
-require_once('../../cgi-bin/SysRand.php');
 
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
