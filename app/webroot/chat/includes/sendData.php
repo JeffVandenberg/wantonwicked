@@ -354,13 +354,11 @@ if ($_POST) {
                     }
                 }
             } catch (PDOException $e) {
-                var_dump('ON LINE: ' . __LINE__);
                 $error = "Action: Send Message to DB\n";
                 $error .= "File: " . basename(__FILE__) . "\n";
                 $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
                 debugError($error);
-                var_dump($error);
             }
 
             // update users active time
@@ -381,7 +379,6 @@ if ($_POST) {
                 $error = "Action: Update Users Active Time\n";
                 $error .= "File: " . basename(__FILE__) . "\n";
                 $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-                var_dump($error);
                 debugError($error);
             }
         }

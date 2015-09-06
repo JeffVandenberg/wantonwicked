@@ -2214,24 +2214,24 @@ function updateProfile($id, $profileRealname, $profileAge, $profileGender, $uplo
 
         if ($password[1] != '') {
             $params = array(
-                'password' => md5($password),
-                'email' => makeSafe($email),
-                'id' => $id
+                makeSafe($email),
+                md5($password),
+                $id
             );
             $query = "UPDATE prochatrooms_users 
-					  SET email = '" . $email . "', 
-					      password='" . md5($password) . "' 
-					  WHERE id = '" . $id . "'
+					  SET email = ?,
+					      password= ?
+					  WHERE id = ?
 					  ";
         }
         else {
             $params = array(
-                'email' => makeSafe($email),
-                'id' => $id
+                makeSafe($email),
+                $id
             );
             $query = "UPDATE prochatrooms_users 
-					  SET email = '" . $email . "'
-					  WHERE id = '" . $id . "'
+					  SET email = ?
+					  WHERE id = ?
 					  ";
         }
 
@@ -2837,14 +2837,15 @@ function banKickUser($message, $toUserId)
     // set user to offline
     try {
         $dbh = db_connect();
-        $params = array(
-            'active' => getTime() - 180,
-            'username' => makeSafe($toUserId)
-        );
         $offlineTime = getTime() - $CONFIG['activeTimeout'];
-        $query = "UPDATE prochatrooms_users 
-				  SET active = '" . $offlineTime . "', online = '0' 
-				  WHERE id = '" . makeSafe($toUserId) . "'
+        $params = array(
+            $offlineTime,
+            $toUserId
+        );
+        $query = "UPDATE prochatrooms_users
+				  SET active = ?,
+				  online = '0'
+				  WHERE id = ?
 				  ";
         $action = $dbh->prepare($query);
         $action->execute($params);

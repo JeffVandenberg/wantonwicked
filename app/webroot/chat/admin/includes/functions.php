@@ -2121,7 +2121,6 @@ EOQ;
 		$error  = "Function: ".__FUNCTION__."\n";
 		$error .= "File: ".basename(__FILE__)."\n";	
 		$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
-		var_dump($error);
 		debugError($error);
 	}					
 				

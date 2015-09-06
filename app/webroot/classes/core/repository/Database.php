@@ -55,9 +55,7 @@ class Database
             );
             $this->Handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $pdoException) {
-            var_dump($pdoException);
-            die();
-            //ErrorHelper::HandleError($pdoException, debug_backtrace());
+            throw $pdoException;
         }
     }
 
@@ -77,9 +75,7 @@ class Database
             );
             $this->Handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $pdoException) {
-            var_dump($pdoException);
-            die();
-            //ErrorHelper::HandleError($pdoException, debug_backtrace());
+            throw $pdoException;
         }
         return $this;
     }
@@ -110,9 +106,7 @@ class Database
         }
         catch(PDOException $pdoException)
         {
-            var_dump($pdoException);
-            die();
-            //ErrorHelper::HandleError($pdoException, debug_backtrace());
+            throw $pdoException;
         }
 
         return $this;
@@ -148,9 +142,7 @@ class Database
         }
         catch(PDOException $pdoException)
         {
-            var_dump($pdoException);
-            die();
-            //ErrorHelper::HandleError($pdoException, debug_backtrace());
+            throw $pdoException;
         }
         return $this;
     }
@@ -169,9 +161,7 @@ class Database
         }
         catch(PDOException $pdoException)
         {
-            var_dump($pdoException);
-            die();
-            //ErrorHelper::HandleError($pdoException, debug_backtrace());
+            throw $pdoException;
         }
         return 0;
     }
@@ -190,9 +180,7 @@ class Database
         }
         catch(PDOException $pdoException)
         {
-            var_dump($pdoException);
-            die();
-            //ErrorHelper::HandleError($pdoException, debug_backtrace());
+            throw $pdoException;
         }
         return null;
     }
@@ -211,9 +199,7 @@ class Database
         }
         catch(PDOException $pdoException)
         {
-            var_dump($pdoException);
-            die();
-            //ErrorHelper::HandleError($pdoException, debug_backtrace());
+            throw $pdoException;
         }
         return false;
     }
@@ -231,9 +217,7 @@ class Database
         }
         catch(PDOException $pdoException)
         {
-            var_dump($pdoException);
-            die();
-            //ErrorHelper::HandleError($pdoException, debug_backtrace());
+            throw $pdoException;
         }
         return null;
     }

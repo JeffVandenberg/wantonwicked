@@ -96,8 +96,6 @@ class ScenesController extends AppController
             )
         ));
         if (!$scene) {
-            print_r($this->request->params);
-            die($slug);
             $this->Session->setFlash('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
