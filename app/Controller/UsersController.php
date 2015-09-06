@@ -80,9 +80,8 @@ class UsersController extends AppController
         );
         $userName = $user['username'];
 
-        header('content-type: application/json');
-        echo json_encode($result);
-        die();
+        $this->set(compact('result'));
+        $this->set('_serialize', array('result'));
     }
 
     public function isAuthorized($user)
