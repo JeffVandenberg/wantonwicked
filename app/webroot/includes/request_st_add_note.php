@@ -27,7 +27,7 @@ if (isset($_POST['action'])) {
         }
         else
         {
-            die('Error Adding Note');
+            Response::EndRequest('Error adding Note');
         }
     }
 }

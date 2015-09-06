@@ -8,38 +8,36 @@ use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
 use classes\scene\repository\SceneRepository;
 
-$requestId                  = Request::GetValue('request_id', 0);
-$requestRepository          = new RequestRepository();
+/* @var array $userdata */
+$requestId = Request::GetValue('request_id', 0);
+$requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
 $sceneRepository = new SceneRepository();
 
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/', 'Unable to view that request');
 }
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
         Response::Redirect('request.php?action=view&request_id=' . $requestId);
-    }
-    elseif ($_POST['action'] == 'Attach Scene') {
+    } elseif ($_POST['action'] == 'Attach Scene') {
         $sceneId = Request::GetValue('scene_id');
         $note = Request::GetValue('note');
         if ($requestRepository->AttachSceneToRequest($requestId, $sceneId, $note)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
             SessionHelper::SetFlashMessage('Attached Scene');
             Response::Redirect('request.php?action=view&request_id=' . $requestId);
-        }
-        else {
-            die('Unable to attach Bluebook Entry');
+        } else {
+            Response::EndRequest('Unable to attach Scene');
         }
     }
 }
-$request         = $requestRepository->FindById($requestId);
+$request = $requestRepository->FindById($requestId);
 $linkedCharacter = $requestCharacterRepository->FindLinkedCharacterForUser($requestId, $userdata['user_id']);
 /* @var RequestCharacter $linkedCharacter */
 
-$page_title    = 'Attach Scene to: ' . $request['title'];
+$page_title = 'Attach Scene to: ' . $request['title'];
 $contentHeader = $page_title;
 
 $scenes = $sceneRepository->ListScenesForCharacter($linkedCharacter->CharacterId);

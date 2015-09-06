@@ -1,5 +1,7 @@
 <?php
-	$message = "Nothing Posted";
+use classes\core\repository\Database;
+
+$message = "Nothing Posted";
 	
 	if(isset($_POST['targetCharacterId']))
 	{
@@ -38,9 +40,9 @@ VALUES
 	)
 EOQ;
 
-		$createFavorResult = mysql_query($createFavorQuery) || die(mysql_error());
-		
-		if(mysql_affected_rows())
+		$rows = Database::GetInstance()->Query($createFavorQuery)->Execute();
+
+		if($rows)
 		{
 			$message = "Successfully added favor.";
 		}

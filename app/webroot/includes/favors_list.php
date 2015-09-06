@@ -8,6 +8,7 @@ use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 
 $characterId = Request::GetValue('character_id', 0);
@@ -64,17 +65,19 @@ FROM
 		LEFT JOIN characters AS to_character ON favors.target_id = to_character.id
 		LEFT JOIN favor_types ON favors.favor_type_id = favor_types.id
 WHERE
-	favors.source_id = $characterId
+	favors.source_id = ?
 	AND is_broken = 0
 	AND date_discharged IS NULL
 ORDER BY
 	favor_type_id,
 	to_character.character_name
 EOQ;
-$result = mysql_query($sql) || die(mysql_error());
+$params = array(
+    $characterId
+);
 
 $favorsFromCharacter = array();
-while ($row = mysql_fetch_assoc($result)) {
+foreach (Database::GetInstance()->Query($sql)->All($params) as $row) {
     $favorsFromCharacter[] = $row;
 }
 
@@ -144,8 +147,8 @@ ob_start();
         <?php endif; ?>
     </table>
 
-<br />
-<br />
+    <br/>
+    <br/>
     <h3>
         Favors Owed by <?php echo $character->CharacterName; ?>
     </h3>

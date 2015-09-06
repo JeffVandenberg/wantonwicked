@@ -1,7 +1,9 @@
 <?php
+use classes\core\helpers\Response;
+
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
-	die('Illegal Action');
+	Response::EndRequest('Illegal Action');
 }
 
 $territoryName = htmlspecialchars($_POST['territoryName']);

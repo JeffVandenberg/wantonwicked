@@ -63,8 +63,11 @@ if (isset($_POST['action'])) {
     if ($_POST['action'] == 'update') {
         $note_list = $_POST['delete'];
         while (list($key, $value) = each($note_list)) {
-            $delete_query = "update personal_notes set is_deleted='Y' where personal_note_id=$value;";
-            $delete_result = mysql_query($delete_query) || die(mysql_error());
+            $delete_query = "update personal_notes set is_deleted='Y' where personal_note_id=?;";
+            $params = array(
+                $value
+            );
+            Database::GetInstance()->Query($delete_query)->Execute($params);
         }
     }
     if ($_POST['action'] == 'sort') {

@@ -1,7 +1,10 @@
 <?php
 // get character id
-$favorId = isset($_POST['favor_id']) ? $_POST['favor_id'] + 0 : 0;
-$favorId = isset($_GET['favor_id']) ? $_GET['favor_id'] + 0: $favor_id;
+use classes\core\helpers\Request;
+use classes\core\helpers\Response;
+use classes\core\repository\Database;
+
+$favorId = Request::GetValue('favor_id', 0);
 
 $favorQuery = <<<EOQ
 SELECT
@@ -21,54 +24,52 @@ WHERE
 		OR to_character.user_id = $userdata[user_id]
 	)
 EOQ;
-$favorResult = mysql_query($favorQuery) || die(mysql_error());
+$params = array(
+    $favorId,
+    $userdata['user_id'],
+    $userdata['user_id']
+);
+$favorDetail = Database::GetInstance()->Query($favorQuery)->Single($params);
 
-if(mysql_num_rows($favorResult))
-{
-	$favorDetail = mysql_fetch_array($favorResult, MYSQLI_ASSOC) || die(mysql_error());
-	
-	$fromCharacter = $favorDetail['from_character_name'];
-	$toCharacter = $favorDetail['to_character_name'];
-	$favorType = $favorDetail['favor_type_name'];
-	$description = $favorDetail['description'];
-	$notes = str_replace("\r\n", "<br />", $favorDetail['notes']);
-	$dateGiven = $favorDetail['date_given'];
-	$status = "Open";
-	if($favorDetail['is_broken'] != 0)
-	{
-		$status = "Broken";
-	}
-	if($favorDetail['date_discharged'] != null)
-	{
-		$status = "Discharged on $favorDetail[date_discharged]";
-	}
-}
-else
-{
-	die("Unable to find favor.");
+if ($favorDetail) {
+    $fromCharacter = $favorDetail['from_character_name'];
+    $toCharacter = $favorDetail['to_character_name'];
+    $favorType = $favorDetail['favor_type_name'];
+    $description = $favorDetail['description'];
+    $notes = str_replace("\r\n", "<br />", $favorDetail['notes']);
+    $dateGiven = $favorDetail['date_given'];
+    $status = "Open";
+    if ($favorDetail['is_broken'] != 0) {
+        $status = "Broken";
+    }
+    if ($favorDetail['date_discharged'] != null) {
+        $status = "Discharged on $favorDetail[date_discharged]";
+    }
+} else {
+    Response::EndRequest('Unable to find favor');
 }
 ?>
 <div class="formInput">
-	<label>From:</label>
-	<?php echo $fromCharacter; ?>
+    <label>From:</label>
+    <?php echo $fromCharacter; ?>
 </div>
 <div class="formInput">
-	<label>To:</label>
-	<?php echo $toCharacter; ?>
+    <label>To:</label>
+    <?php echo $toCharacter; ?>
 </div>
 <div class="formInput">
-	<label>Status:</label>
-	<?php echo $status; ?>
+    <label>Status:</label>
+    <?php echo $status; ?>
 </div>
 <div class="formInput">
-	<label>Favor Type:</label>
-	<?php echo $favorType; ?>
+    <label>Favor Type:</label>
+    <?php echo $favorType; ?>
 </div>
 <div class="formInput">
-	<label>Favor Description:</label>
-	<?php echo $description; ?>
+    <label>Favor Description:</label>
+    <?php echo $description; ?>
 </div>
 <div class="formInput">
-	<label>Favor Notes:</label>
-	<?php echo $notes; ?>
+    <label>Favor Notes:</label>
+    <?php echo $notes; ?>
 </div>

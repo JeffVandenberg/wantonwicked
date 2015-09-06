@@ -1,4 +1,6 @@
 <?php
+use classes\core\helpers\Response;
+
 $page_content = 'Character Update List';
 
 $characterId = (isset($_GET['character_id'])) ? (int) $_GET['character_id'] : 0;
@@ -23,7 +25,7 @@ if(mysql_num_rows($characterResult))
 }
 else
 {
-    die('Unknown Character');
+    Response::EndRequest('Unknown Character');
 }
 $page_title = 'Character Updates for ' . $character['Character_Name'];
 

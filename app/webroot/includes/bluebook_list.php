@@ -5,14 +5,14 @@ use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Pagination;
 use classes\core\helpers\Request;
+use classes\core\helpers\Response;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 
 $characterId = Request::GetValue('character_id', 0);
 $characterRepository = new CharacterRepository();
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/', 'Unable to view that character');
 }
 
 $character = $characterRepository->FindById($characterId);

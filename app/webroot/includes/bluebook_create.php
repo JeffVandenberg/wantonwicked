@@ -4,6 +4,7 @@ use classes\character\repository\CharacterRepository;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
 use classes\request\data\RequestStatus;
 use classes\request\data\RequestType;
 use classes\request\repository\RequestRepository;
@@ -12,8 +13,7 @@ use classes\request\repository\RequestTypeRepository;
 $characterId = Request::GetValue('character_id', 0);
 $characterRepository = new CharacterRepository();
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/');
 }
 
 if (isset($_POST['action'])) {
@@ -37,8 +37,7 @@ if (isset($_POST['action'])) {
         $requestRepository = new RequestRepository();
         if(!$requestRepository->Save($request))
         {
-            echo mysql_error();
-            die();
+            SessionHelper::SetFlashMessage('Error Saving Request');
         }
         else
         {

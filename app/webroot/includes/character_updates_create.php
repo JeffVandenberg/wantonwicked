@@ -1,4 +1,6 @@
 <?php
+use classes\core\helpers\Response;
+
 $characterId = (isset($_GET['character_id'])) ? (int) $_GET['character_id'] : 0;
 $characterId = (isset($_POST['character_id'])) ? (int) $_POST['character_id'] : $characterId;
 
@@ -21,7 +23,7 @@ if(mysql_num_rows($characterResult))
 }
 else
 {
-    die('Unknown Character');
+    Response::EndRequest('Unknown Character');
 }
 $page_title = 'Create update for ' . $character['Character_Name'];
 

@@ -13,8 +13,7 @@ $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
 
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/', 'Unable to view that request');
 }
 
 if (isset($_POST['action'])) {
@@ -28,7 +27,7 @@ if (isset($_POST['action'])) {
             Response::Redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {
-            die('Unable to attach Request');
+            Response::EndRequest('Unable to attach Request');
         }
     }
 }

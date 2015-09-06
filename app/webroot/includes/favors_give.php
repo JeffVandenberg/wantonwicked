@@ -76,7 +76,7 @@ $favorTypeQuery = "SELECT * FROM favor_types";
 $favorTypeResult = mysql_query($favorTypeQuery) || die(mysql_error());
 
 $ids = $names = "";
-while ($favorTypeDetail = mysql_fetch_array($favorTypeResult, MYSQL_ASSOC)) {
+foreach(Database::GetInstance()->Query($favorTypeQuery)->All() as $favorTypeDetail) {
     $ids[]   = $favorTypeDetail['id'];
     $names[] = $favorTypeDetail['name'];
 }

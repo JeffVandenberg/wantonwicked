@@ -51,9 +51,6 @@ if (isset($_GET['action'])) {
         case 'get':
             include 'includes/view_sheet_get.php';
             break;
-        case 'view_own':
-            include 'includes/view_sheet_view_own.php';
-            break;
         case 'view_own_xp':
             include 'includes/view_sheet_view_own_xp.php';
             break;

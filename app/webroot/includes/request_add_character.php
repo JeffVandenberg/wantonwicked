@@ -9,8 +9,7 @@ use classes\request\repository\RequestRepository;
 $requestId = Request::GetValue('request_id', 0);
 $requestRepository = new RequestRepository();
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/', 'Unable to view that request');
 }
 
 $onlySanctioned = Request::GetValue('only_sanctioned', true);

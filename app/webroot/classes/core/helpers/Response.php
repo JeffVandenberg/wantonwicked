@@ -33,8 +33,11 @@ class Response {
         header("Cache-Control: no-store, no-cache, must-revalidate");
     }
 
-    public static function EndRequest()
+    public static function EndRequest($message = null)
     {
+        if($message) {
+            echo $message;
+        }
         exit;
     }
 }

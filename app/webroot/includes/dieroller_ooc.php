@@ -1,4 +1,8 @@
 <?php
+use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
+use classes\core\repository\Database;
+
 $page_title = "General Die Roller";
 
 // test if doing an update or dice roll
@@ -58,23 +62,22 @@ if(isset($_POST['submit_die_roller']))
 		$insert_query = "insert into wod_dierolls values (null, 0, '$now', '$character_name', '$description', $dice, '$ten_again', '$nine_again', '$eight_again', '$one_cancel', '$used_wp', '$used_pp', '$result[result]', '$result[note]', $result[num_of_successes], '$chance_die', '$bias', '$is_rote');";
 		
 		//echo $insert_query;
-		$insert_result = mysql_query($insert_query) || die(mysql_error());
+		$result = Database::GetInstance()->Query($insert_query)->Execute();
+		if(!$row) {
+			SessionHelper::SetFlashMessage('Error Saving Roll');
+		}
 	}
 }
 
 
 // get past rolls
 $roll_query = "select * from wod_dierolls order by roll_id desc limit 20;";
-$roll_result = mysql_query($roll_query) || die(mysql_error());
 
 $rolls = <<<EOQ
 <table border="0" class="normal_text" width="100%">
 EOQ;
 
-$i = 0;
-while($roll_detail = mysql_fetch_array($roll_result, MYSQL_ASSOC))
-{
-	$row_color = (($i++)%2) ? "#443a33" : "";
+foreach(Database::GetInstance()->Query($roll_query)->All() as $roll_detail) {
 	$wp = "";
 	$pp = "";
 	$chance = "";
@@ -125,7 +128,7 @@ while($roll_detail = mysql_fetch_array($roll_result, MYSQL_ASSOC))
 	}
 	
 	$rolls .= <<<EOQ
-<tr bgcolor="$row_color" valign="top">
+<tr valign="top">
 	<td width="5%">
 		<a href="/dieroller.php?action=view_roll&r=$roll_detail[Roll_ID]" target="_blank">Link to Roll</a>
 	</td>

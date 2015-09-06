@@ -7,6 +7,7 @@ use classes\character\repository\LogCharacterRepository;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
+use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
 use classes\core\repository\RepositoryManager;
 use classes\log\data\ActionType;
@@ -17,8 +18,7 @@ $pageSize = Request::GetValue('page_size', 25);
 $characterId = Request::GetValue('character_id', 0);
 $characterRepository = new CharacterRepository();
 if ((!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) && !UserdataHelper::IsSt($userdata)) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/', 'Unable to view that character');
 }
 
 $logCharacterRepository = RepositoryManager::GetRepository('classes\character\data\LogCharacter');

@@ -1,6 +1,7 @@
 <?php
 use classes\core\helpers\Request;
 use classes\core\helpers\UserdataHelper;
+use classes\core\repository\Database;
 
 /* @var array $userdata */
 
@@ -27,23 +28,30 @@ if($character_id)
 		$character_query = <<<EOQ
 SELECT C.*, Character_Name, l.Name
 FROM (characters AS C INNER JOIN login_character_index as lci ON C.id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
-WHERE C.id = $character_id
+WHERE C.id = ?
 	AND is_npc = 'Y';
 EOQ;
+		$params = array(
+			$character_id
+		);
 	}
 	else
 	{
 		$character_query = <<<EOQ
 SELECT C.*, Character_Name, l.Name
 FROM (characters AS C INNER JOIN login_character_index as lci ON C.id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
-WHERE C.id = $character_id
-	AND lci.login_id = $userdata[user_id]
+WHERE C.id = ?
+	AND lci.login_id = ?
 EOQ;
+		$params = array(
+			$character_id,
+			$userdata['user_id']
+		);
 	}
-	
-	$character_result = mysql_query($character_query) || die(mysql_error());
-	
-	if(mysql_num_rows($character_result))
+
+	$character = Database::GetInstance()->Query($character_query)->Single($params);
+
+	if($character)
 	{
 		$may_view_note = true;
 	}
@@ -74,13 +82,13 @@ if($may_view_note)
 			// insert note
 			$personal_note_id = getNextID($connection, "personal_notes", "personal_note_id");
 			$insert_query = "insert into personal_notes values ($personal_note_id, $userdata[user_id], $character_id, 'N', '$is_favorite', '$title', '$body', '$now', '$now', '', '', '', '', '');";
-			$insert_result = mysql_query($insert_query) || die(mysql_error());
+			Database::GetInstance()->Query($insert_query)->Execute();
 		}
 		else
 		{
 			// update note
 			$update_query = "update personal_notes set is_favorite='$is_favorite', title='$title', body='$body', update_date='$now' where personal_note_id = $personal_note_id;";
-			$update_query = mysql_query($update_query) || die(mysql_error());
+			Database::GetInstance()->Query($update_query)->Execute();
 		}
 		
 		// update_previous page
@@ -95,13 +103,10 @@ EOQ;
 	if(!(isset($_POST['action'])) && ($personal_note_id))
 	{
 		$note_query = "select * from personal_notes where personal_note_id=$personal_note_id;";
-		$note_result = mysql_query($note_query) || die(mysql_error());
-		
-		if(mysql_num_rows($note_result))
+		$note_detail = Database::GetInstance()->Query($note_query)->Single();
+
+		if($note_detail)
 		{
-			// found a note
-			$note_detail = mysql_fetch_array($note_result, MYSQL_ASSOC);
-			
 			// test if looking for personal note, compare user_ids
 			if((!$character_id) && ($note_detail['Login_ID'] != ($userdata['user_id'])))
 			{
@@ -173,5 +178,3 @@ EOQ;
 
 	$page_content = $error . $note;
 }
-
-?>

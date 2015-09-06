@@ -12,8 +12,7 @@ $requestId = Request::GetValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/', 'Unable to view that request');
 }
 
 if (isset($_POST['action'])) {
@@ -27,7 +26,7 @@ if (isset($_POST['action'])) {
             Response::Redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {
-            die('Unable to attach Bluebook Entry');
+            Response::EndRequest('Unable to attach bluebook');
         }
     }
 }

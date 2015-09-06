@@ -31,6 +31,8 @@
 // Enable custom login details
 
 // perform required includes
+use classes\core\helpers\Request;
+use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
 use classes\support\repository\SupporterRepository;
 
@@ -80,7 +82,7 @@ EOQ;
     $character = $action->fetch(PDO::FETCH_ASSOC);
 
     if($character === false) {
-        die('Not allowed');
+        Response::EndRequest('Not Allowed');
     }
     define('C_CUSTOM_USERNAME', $character['character_name']); // username
     define('C_CUSTOM_USERID', $characterId); // userid
@@ -270,7 +272,7 @@ EOQ;
         $action->bindValue('userid', C_CUSTOM_USERID, PDO::PARAM_INT);
         $action->bindValue('username', C_CUSTOM_USERNAME);
         $action->execute();
-        die('You do not have ST Permissions');
+        Response::EndRequest('You do not have ST Permissions');
     }
 }
 else if($userdata['username'] !== 'Anonymous') {
@@ -352,13 +354,12 @@ EOQ;
     $loggedIn = true;
 }
 else {
-    header('location:/login_ooc.php');
-    die();
+    Response::Redirect('/login_ooc.php');
 }
 
 if(!$loggedIn)
 {
-	die("Not Logged In.");
+    Response::EndRequest('Not Logged In');
 }
 
 $sql = <<<EOQ

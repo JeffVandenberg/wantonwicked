@@ -1,5 +1,8 @@
 <?php
-$favorId = $_GET['favorId'] + 0;
+use classes\core\helpers\Request;
+use classes\core\repository\Database;
+
+$favorId = Request::GetValue('favorId', 0);
 
 $dischargeQuery = <<<EOQ
 UPDATE
@@ -7,19 +10,14 @@ UPDATE
 SET
 	date_discharged = now()
 WHERE
-	favor_id = $favorId;
+	favor_id = ?
 EOQ;
-$dischargeResult = mysql_query($dischargeQuery) || die(mysql_error());
-
-if(mysql_affected_rows())
-{
-	$message = "Successfully discharged favor.";
+$params = array(
+    $favorId
+);
+$rows = Database::GetInstance()->Query($dischargeQuery)->Execute($params);
+if ($rows) {
+    echo "Successfully discharged favor.";
+} else {
+    echo "There was an error. Please try again later.";
 }
-else
-{
-	$message = "There was an error. Please try again later.";
-}
-?>
-
-
-<?php echo $message; ?>

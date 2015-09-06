@@ -52,10 +52,6 @@ if (isset($_GET['action'])) {
         case 'delete_confirmed':
             include 'includes/chat_delete_confirmed.php';
             break;
-        case 'remoteaccess':
-            $template_layout = 'empty_template.tpl';
-            include 'includes/chat_remoteaccess.php';
-            break;
         default:
             include 'includes/chat_index.php';
             break;

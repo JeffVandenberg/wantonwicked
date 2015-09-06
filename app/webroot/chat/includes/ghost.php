@@ -12,13 +12,14 @@ require_once("config.php");
 require_once("functions.php");
 
 if (!isset($_SESSION['user_id'])) {
-    die();
+    return;
 }
 
 list($admin, $mod, $speaker, $userTypeId) = adminPermissions();
 
 if(!$admin && !$mod) {
-    die('You are not allowed to ghost');
+    echo 'You are not allowed to ghost';
+    return;
 
 }
 

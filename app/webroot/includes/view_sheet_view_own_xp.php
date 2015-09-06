@@ -19,7 +19,7 @@ $characterId = Request::GetValue('character_id', 0);
 $character = $characterRepository->FindById($characterId);
 
 if($character['user_id'] != $userdata['user_id']) {
-    die("You may only view your own sheets.");
+    Response::Redirect('/', 'You may only view your own characters');
 }
 
 // save

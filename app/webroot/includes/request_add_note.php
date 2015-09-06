@@ -10,8 +10,7 @@ use classes\request\repository\RequestRepository;
 $requestId = Request::GetValue('request_id', 0);
 $requestRepository = new RequestRepository();
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/', 'Unable to view that request');
 }
 
 if (isset($_POST['action'])) {
@@ -31,7 +30,7 @@ if (isset($_POST['action'])) {
         }
         else
         {
-            die('Error Adding Note');
+            Response::EndRequest('Error updating request');
         }
     }
 }

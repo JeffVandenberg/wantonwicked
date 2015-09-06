@@ -3,6 +3,7 @@
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::GetValue('bluebook_id', 0);
@@ -33,8 +34,7 @@ if(Request::IsPost())
         $newRequest->UpdatedOn = date('Y-m-d H:i:s');
         if(!$requestRepository->Save($newRequest))
         {
-            echo mysql_error();
-            die();
+            SessionHelper::SetFlashMessage('Error Saving Request');
         }
         else
         {

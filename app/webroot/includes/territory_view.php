@@ -1,4 +1,6 @@
 <?php
+use classes\core\helpers\Response;
+
 $id = (isset($_GET['id'])) ? $_GET['id'] : 0;
 include 'includes/components/territory_associated_characters.php';
 
@@ -46,7 +48,7 @@ if(mysql_num_rows($result))
 }
 else
 {
-	die("Unknown Territory");
+	Response::EndRequest('Unknown Territory');
 }
 ?>
 

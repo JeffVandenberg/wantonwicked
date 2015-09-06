@@ -16,8 +16,7 @@ $characterId = Request::GetValue('character_id', 0);
 if ($characterId) {
     $characterRepository = new CharacterRepository();
     if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-        include 'index_redirect.php';
-        die();
+        Response::Redirect('/', 'Unable to view that request');
     }
 }
 

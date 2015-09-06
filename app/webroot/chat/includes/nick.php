@@ -17,18 +17,19 @@ include("functions.php");
 *
 */
 
-header("Expires: Mon, 26 Jul 1997 05:00:00 GMT" );
-header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" );
-header("Cache-Control: no-cache, must-revalidate" );
-header("Pragma: no-cache" );
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
 header("Content-Type: text/xml; charset=utf-8");
 
-$seed = mt_rand(100000,999999);
+$seed = mt_rand(100000, 999999);
 $startTime = microtime(true);
 $dbh = db_connect();
 
-if(!isset($_SESSION['user_id'])) {
-    die('No ID');
+if (!isset($_SESSION['user_id'])) {
+    echo 'No ID';
+    return;
 }
 
 $response = array(
@@ -36,19 +37,17 @@ $response = array(
     'message' => 'Unknown action'
 );
 
-list($admin,$mod,$speaker,$userTypeId) = adminPermissions();
-if(!$admin && !$mod) {
+list($admin, $mod, $speaker, $userTypeId) = adminPermissions();
+if (!$admin && !$mod) {
     header('content-type: application/json');
     $response['message'] = 'Not admin or moderator. User ID: ' . $_SESSION['user_id'];
     echo json_encode($response);
-    die();
-}
-
-$sql = '';
-$parameters = null;
-switch($_POST['action']) {
-    case 'change':
-        $sql = <<<EOQ
+} else {
+    $sql = '';
+    $parameters = null;
+    switch ($_POST['action']) {
+        case 'change':
+            $sql = <<<EOQ
 UPDATE
     prochatrooms_users
 SET
@@ -56,32 +55,32 @@ SET
 WHERE
     id = ?
 EOQ;
-        $parameters = array(
-            $_POST['new_name'],
-            $_SESSION['user_id']
-        );
-        break;
-    default:
-        break;
-}
-
-if($sql !== '') {
-    $statement = $dbh->prepare($sql);
-    $result = $statement->execute($parameters);
-    if($result) {
-        $_SESSION['display_name'] = $_POST['new_name'];
-        $response = array(
-            'status' => true,
-            'message' => 'Updated Nick'
-        );
+            $parameters = array(
+                $_POST['new_name'],
+                $_SESSION['user_id']
+            );
+            break;
+        default:
+            break;
     }
-    else {
-        $response = array(
-            'status' => false,
-            'message' => implode(',', $dbh->errorInfo())
-        );
-    }
-}
 
-header('content-type: application/json');
-echo json_encode($response);
+    if ($sql !== '') {
+        $statement = $dbh->prepare($sql);
+        $result = $statement->execute($parameters);
+        if ($result) {
+            $_SESSION['display_name'] = $_POST['new_name'];
+            $response = array(
+                'status' => true,
+                'message' => 'Updated Nick'
+            );
+        } else {
+            $response = array(
+                'status' => false,
+                'message' => implode(',', $dbh->errorInfo())
+            );
+        }
+    }
+
+    header('content-type: application/json');
+    echo json_encode($response);
+}

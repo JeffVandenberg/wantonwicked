@@ -12,8 +12,7 @@ use classes\request\repository\RequestTypeRepository;
 $requestId = Request::GetValue('request_id', 0);
 $requestRepository = new RequestRepository();
 if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/', 'Unable to view that request');
 }
 
 $request = $requestRepository->GetById($requestId);

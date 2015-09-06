@@ -19,7 +19,7 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
 
 if (!isset($_SESSION['user_id'])) {
-    die();
+    return;
 }
 
 $response = array(

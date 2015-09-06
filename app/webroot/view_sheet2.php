@@ -38,78 +38,67 @@ $java_script = "";
 $body_params = "";
 $extra_headers = "";
 
-if(isset($_GET['action']))
-{
-	//echo $_GET['action']."<br>";
-	switch($_GET['action'])
-	{
-		case 'create':
-			include 'includes/view_sheet_create.php';
-			break;
-		case 'create_xp':
-			include 'includes/view_sheet_create_xp.php';
-			break;
-	  case 'fragment':
-	    include 'includes/view_sheet_fragment.php';
-	    break;
-		case 'get':
-		  include 'includes/view_sheet_get.php';
-		  break;
-		case 'view_own':
-			include 'includes/view_sheet_view_own.php';
-			break;
-		case 'view_own_xp':
-			include 'includes/view_sheet_view_own_xp.php';
-			break;
-		case 'view_other':
-			include 'includes/view_sheet_view_other.php';
-			break;
-		case 'view_other_xp':
-			include 'includes/view_sheet_view_other_xp.php';
-			break;
-		case 'st_view':
-			if(UserdataHelper::IsSt($userdata))
-			{
-				include 'includes/view_sheet_st_view.php';
-			}
-			else
-			{
-				include 'includes/index_redirect.php';
-			}
-			
-			break;
-		case 'st_view_xp':
-			if(UserdataHelper::IsSt($userdata))
-			{
-				include 'includes/view_sheet_st_view_xp.php';
-			}
-			else
-			{
-				include 'includes/index_redirect.php';
-			}
-			
-			break;
-		default:
-		  include 'includes/index_redirect.php';
-		  break;
-	}
+if (isset($_GET['action'])) {
+    //echo $_GET['action']."<br>";
+    switch ($_GET['action']) {
+        case 'create':
+            include 'includes/view_sheet_create.php';
+            break;
+        case 'create_xp':
+            include 'includes/view_sheet_create_xp.php';
+            break;
+        case 'fragment':
+            include 'includes/view_sheet_fragment.php';
+            break;
+        case 'get':
+            include 'includes/view_sheet_get.php';
+            break;
+        case 'view_own_xp':
+            include 'includes/view_sheet_view_own_xp.php';
+            break;
+        case 'view_other':
+            include 'includes/view_sheet_view_other.php';
+            break;
+        case 'view_other_xp':
+            include 'includes/view_sheet_view_other_xp.php';
+            break;
+        case 'st_view':
+            if (UserdataHelper::IsSt($userdata)) {
+                include 'includes/view_sheet_st_view.php';
+            } else {
+                include 'includes/index_redirect.php';
+            }
+
+            break;
+        case 'st_view_xp':
+            if (UserdataHelper::IsSt($userdata)) {
+                include 'includes/view_sheet_st_view_xp.php';
+            } else {
+                include 'includes/index_redirect.php';
+            }
+
+            break;
+        default:
+            include 'includes/index_redirect.php';
+            break;
+    }
 }
 
-	$template->assign_vars(array(
-	"PAGE_TITLE" => $page_title,
-	"CSS_URL" => $css_url, 
-	"JAVA_SCRIPT" => $java_script,
-	"TOP_IMAGE" => $page_image, 
-	"PAGE_CONTENT" => $page_content,
-	"BODY_PARAMS" => $body_params,
-	"EXTRA_HEADERS" => $extra_headers
-	)
+$template->assign_vars(array(
+        "PAGE_TITLE" => $page_title,
+        "CSS_URL" => $css_url,
+        "JAVA_SCRIPT" => $java_script,
+        "TOP_IMAGE" => $page_image,
+        "PAGE_CONTENT" => $page_content,
+        "BODY_PARAMS" => $body_params,
+        "EXTRA_HEADERS" => $extra_headers
+    )
 );
 
 // initialize template
 $template->set_custom_template('templates', 'main_ww4');
 $template->set_filenames(array(
-		'body' => 'main_ww4.tpl')
+        'body' => 'main_ww4.tpl')
 );
 $template->display('body');
 ?>
