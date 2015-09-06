@@ -1,9 +1,7 @@
 <?php
 use classes\character\repository\CharacterRepository;
 use classes\core\repository\Database;
-use classes\core\repository\RepositoryManager;
 use classes\log\data\ActionType;
-use classes\request\repository\RequestRepository;
 use classes\support\SupportManager;
 
 ini_set('display_errors', 1);

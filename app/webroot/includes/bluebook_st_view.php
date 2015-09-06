@@ -1,9 +1,6 @@
 <?php
 /* @var array $userdata */
 use classes\core\helpers\Request;
-use classes\core\helpers\Response;
-use classes\core\helpers\SessionHelper;
-use classes\core\helpers\UserdataHelper;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\request\data\RequestStatus;

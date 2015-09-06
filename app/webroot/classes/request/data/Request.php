@@ -13,7 +13,6 @@ use classes\character\data\Character;
 use classes\core\data\DataModel;
 use classes\core\data\Group;
 use classes\core\data\User;
-use classes\core\helpers\SlugHelper;
 
 /**
  * @property Character Character

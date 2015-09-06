@@ -9,11 +9,8 @@
 
 namespace classes\core\repository;
 
-use classes\character\data\Character;
 use classes\core\data\DataModel;
 use classes\core\helpers\SlugHelper;
-use classes\log\CharacterLog;
-use classes\log\data\ActionType;
 use Exception;
 use PDO;
 use ReflectionClass;

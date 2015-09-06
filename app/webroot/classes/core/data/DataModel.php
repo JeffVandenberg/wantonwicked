@@ -4,7 +4,6 @@ namespace classes\core\data;
 use classes\core\helpers\SlugHelper;
 use classes\core\repository\DatabaseMapper;
 use classes\core\repository\RepositoryManager;
-use classes\request\data\RequestType;
 use Exception;
 
 /**

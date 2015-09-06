@@ -2,7 +2,6 @@
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
-use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 
 $characterId = Request::GetValue('character_id', 11552);

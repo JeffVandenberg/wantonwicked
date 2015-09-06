@@ -4,7 +4,6 @@ use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
-use classes\core\repository\RepositoryManager;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::GetValue('request_id', 0);
