@@ -1,5 +1,11 @@
 <?php
+namespace classes\support\data;
+
 use classes\support\repository\SupporterRepository;
+use classes\character\data\Character;
+use classes\core\data\DataModel;
+use classes\core\data\User;
+use classes\core\repository\RepositoryManager;
 
 /**
  * Created by PhpStorm.
@@ -8,14 +14,6 @@ use classes\support\repository\SupporterRepository;
  * Time: 3:56 PM
  */
 
-namespace classes\support\data;
-
-
-use classes\character\data\Character;
-use classes\core\data\DataModel;
-use classes\core\data\User;
-use classes\core\repository\RepositoryManager;
-use classes\support\repository\SupporterRepository;
 
 /**
  * @property User User
@@ -46,15 +44,14 @@ class Supporter extends DataModel
 
     function __get($propertyName)
     {
-        if($propertyName == 'Characters') {
-            if(!isset($this->Characters)) {
+        if ($propertyName == 'Characters') {
+            if (!isset($this->Characters)) {
                 $supporterRepository = RepositoryManager::GetRepository('classes\support\data\Supporter');
                 /* @var SupporterRepository $supporterRepository */
                 $this->Characters = $supporterRepository->ListSelectedCharactersForSupporter($this->Id);
             }
             return $this->Characters;
-        }
-        else {
+        } else {
             return parent::__get($propertyName);
         }
     }
