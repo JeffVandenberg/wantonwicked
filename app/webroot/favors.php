@@ -74,7 +74,6 @@ if (isset($_GET['action'])) {
 }
 
 
-//print_r($template);
 // initialize template
 
 $template->set_custom_template('templates', 'main_ww4');

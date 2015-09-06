@@ -54,11 +54,6 @@ if($_POST['action'] == 'add') {
         }
 
         if ($roomId == 0) {
-            // if room doesnt exist
-            /*if (validChars($_POST['newRoomName'])) {
-                die("invalid room name");
-            }*/
-
             // create room
             try {
                 $dbh = db_connect();

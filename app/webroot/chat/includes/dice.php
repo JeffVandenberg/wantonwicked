@@ -87,7 +87,6 @@ switch ($_POST['action']) {
         $result = rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias, $isRote);
 
         $now = date('Y-m-d H:i:s');
-        //$bias = 'normal';
         $characterId = ($_SESSION['user_type_id'] == 3) ? $_SESSION['userid'] : '0';
 
         $sql = <<<EOQ

@@ -146,7 +146,6 @@ abstract class DataModel
                 $targetRepository = RepositoryManager::GetRepository($targetModel->getFullClassName());
 
                 $method = 'GetById';
-                //$idColumn = $targetModel->getIdProperty();
                 $idColumn = $property . 'Id';
 
                 $this->$property = $targetRepository->$method($this->$idColumn);

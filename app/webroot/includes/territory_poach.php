@@ -35,7 +35,6 @@ if(ExecuteNonQuery($sql))
 	$domain = new Domain($territoryId);
 	if($domain->IsCharacterCaughtPoaching($characterId))
 	{
-		//$message .= " You were caught!";
 		$domain->AddNoteToDomainHolder($characterId);
 	}
 	

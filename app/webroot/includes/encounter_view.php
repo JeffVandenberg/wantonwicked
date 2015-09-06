@@ -38,7 +38,6 @@ if(Request::IsPost()) {
             SessionHelper::SetFlashMessage('It is not the best blood, but easy hunting. (3 blood)');
         }
     }
-    //Response::Redirect('encounter.php?action=generate');
 }
 
 $page_title = $contentHeader = 'Encounter on the Street';

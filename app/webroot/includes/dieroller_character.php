@@ -25,7 +25,7 @@ $diceRepository = RepositoryManager::GetRepository('classes\dice\data\Dice');
 
 $character = $characterRepository->FindById($characterId);
 if ($character === false) {
-    //Response::Redirect('');
+    Response::Redirect('/');
 }
 /* @var Character $character */
 if ($character['is_npc'] == 'Y') {
@@ -490,11 +490,6 @@ foreach ($openRequests as $request) {
     $requests[$request['id']] = $request['title'];
 }
 
-// BETA die roller drop downs
-//$options = array("None", "---ATTRIBUTES:", "Intelligence", "Wits", "Resolve", "Strength", "Dexterity", "Stamina", "Presence", "Manipulation", "Composure", "---SKILLS:", "Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry", "---OTHER:", "Power Stat");
-/*$dropdown1 = buildMultiSelect("", $options, $options, "dieroll_part_1", 7, true);
-$dropdown2 = buildMultiSelect("", $options, $options, "dieroll_part_2", 7, true);
-$dropdown3 = buildSelect("", $options, $options, "dieroll_part_3");*/
 /*************************************************************************************
  * POST handling
  *************************************************************************************/

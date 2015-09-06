@@ -100,9 +100,6 @@ EOQ;
         $hide_icon = mysql_real_escape_string($stats['hide_icon']);
         $status = mysql_real_escape_string($stats['status']);
         $bonus_attribute = mysql_real_escape_string($stats['bonus_attribute']);
-        //$current_experience    = (int)$stats['current_experience'];
-        //$total_experience      = (int)$stats['total_experience'];
-        //$bonus_received        = (int)$stats['bonus_received'];
         $misc_powers = mysql_real_escape_string(htmlspecialchars($stats['misc_powers']));
 
         // check for bonus dot from sanctioning
@@ -510,7 +507,6 @@ EOQ;
 
 function saveSpecialtiesXP($stats, $character_id)
 {
-    //echo "Saving Skill Specialties<br>";
     $i = 0;
     while (isset($stats["skill_spec$i"])) {
         $skill_spec_selected = mysql_real_escape_string(htmlspecialchars($stats["skill_spec${i}_selected"]));
@@ -546,7 +542,6 @@ function saveSpecialtiesXP($stats, $character_id)
 
 function saveMeritsXP($stats, $character_id)
 {
-    //echo "Saving merits<br>";
     $i = 0;
     while (isset($stats["merit$i"])) {
         $merit_name = htmlspecialchars($stats["merit${i}_name"]);
@@ -583,7 +578,6 @@ function saveMeritsXP($stats, $character_id)
 
 function saveFlawsXP($stats, $character_id)
 {
-    //echo "Saving flaws<br>";
     $i = 0;
     while (isset($stats["flaw${i}_name"])) {
         $flaw_name = htmlspecialchars($stats["flaw${i}_name"]);
@@ -617,7 +611,6 @@ function saveFlawsXP($stats, $character_id)
 
 function saveMiscXP($stats, $character_id)
 {
-    //echo "Saving misc<br>";
     $i = 0;
     while (isset($stats["misc${i}_name"])) {
         $misc_name = htmlspecialchars($stats["misc${i}_name"]);
@@ -715,7 +708,6 @@ EOQ;
 
 function saveOOCDiscXP($stats, $character_id)
 {
-    //echo "Saving oocdiscs<br>";
     $i = 0;
     while (isset($stats["oocdisc$i"])) {
         $oocdisc_name = htmlspecialchars($stats["oocdisc${i}_name"]);
@@ -751,7 +743,6 @@ function saveOOCDiscXP($stats, $character_id)
 
 function saveDevotionsXP($stats, $character_id)
 {
-    //echo "Saving devotions<br>";
     $i = 0;
     while (isset($stats["devotion${i}_cost"])) {
         $devotion_name = htmlspecialchars($stats["devotion${i}_name"]);
@@ -787,7 +778,6 @@ function saveDevotionsXP($stats, $character_id)
 
 function saveAffGiftXP($stats, $character_id)
 {
-    //echo "Saving affgifts<br>";
     $i = 0;
     while (isset($stats["affgift$i"])) {
         $affgift_name = htmlspecialchars($stats["affgift${i}_name"]);
@@ -823,7 +813,6 @@ function saveAffGiftXP($stats, $character_id)
 
 function saveNonAffGiftXP($stats, $character_id)
 {
-    //echo "Saving nonaffgifts<br>";
     $i = 0;
     while (isset($stats["nonaffgift$i"])) {
         $nonaffgift_name = htmlspecialchars($stats["nonaffgift${i}_name"]);
@@ -859,7 +848,6 @@ function saveNonAffGiftXP($stats, $character_id)
 
 function saveRitualXP($stats, $character_id)
 {
-    //echo "Saving rituals<br>";
     $i = 0;
     while (isset($stats["ritual$i"])) {
         $ritual_name = htmlspecialchars($stats["ritual${i}_name"]);
@@ -894,7 +882,6 @@ function saveRitualXP($stats, $character_id)
 
 function saveRitualsRenownXP($stats, $character_id)
 {
-    //echo "Saving renowns<br>";
     $renowns = array("purity", "glory", "honor", "wisdom", "cunning");
 
     for ($i = 0; $i < 5; $i++) {
@@ -930,7 +917,6 @@ function saveRitualsRenownXP($stats, $character_id)
 
 function saveRulingArcanaXP($stats, $character_id)
 {
-    //echo "Saving rulingarcanas<br>";
     $i = 0;
     while (isset($stats["rulingarcana$i"])) {
         $rulingarcana_name = htmlspecialchars($stats["rulingarcana${i}_name"]);
@@ -966,7 +952,6 @@ function saveRulingArcanaXP($stats, $character_id)
 
 function saveCommonArcanaXP($stats, $character_id)
 {
-    //echo "Saving commonarcanas<br>";
     $i = 0;
     while (isset($stats["commonarcana$i"])) {
         $commonarcana_name = htmlspecialchars($stats["commonarcana${i}_name"]);
@@ -1002,7 +987,6 @@ function saveCommonArcanaXP($stats, $character_id)
 
 function saveInferiorArcanaXP($stats, $character_id)
 {
-    //echo "Saving inferiorarcanas<br>";
     $i = 0;
     while (isset($stats["inferiorarcana$i"])) {
         $inferiorarcana_name = htmlspecialchars($stats["inferiorarcana${i}_name"]);
@@ -1146,7 +1130,6 @@ function saveThaumaturgeMeritXP($stats, $character_id)
 
 function saveBestowmentXP($stats, $character_id)
 {
-    //echo "Saving bestowments<br>";
     $i = 0;
     while (isset($stats["bestowment${i}_cost"])) {
         $bestowment_name = htmlspecialchars($stats["bestowment${i}_name"]);
@@ -1181,7 +1164,6 @@ function saveBestowmentXP($stats, $character_id)
 
 function saveAffTransXP($stats, $character_id)
 {
-    //echo "Saving afftranss<br>";
     $i = 0;
     while (isset($stats["afftrans$i"])) {
         $afftrans_name = htmlspecialchars($stats["afftrans${i}_name"]);
@@ -1217,7 +1199,6 @@ function saveAffTransXP($stats, $character_id)
 
 function saveNonAffTransXP($stats, $character_id)
 {
-    //echo "Saving nonafftranss<br>";
     $i = 0;
     while (isset($stats["nonafftrans$i"])) {
         $nonafftrans_name = htmlspecialchars($stats["nonafftrans${i}_name"]);
@@ -1253,7 +1234,6 @@ function saveNonAffTransXP($stats, $character_id)
 
 function saveAffContXP($stats, $character_id)
 {
-    //echo "Saving affconts<br>";
     $i = 0;
     while (isset($stats["affcont$i"])) {
         $affcont_name = htmlspecialchars($stats["affcont${i}_list"]);
@@ -1289,7 +1269,6 @@ function saveAffContXP($stats, $character_id)
 
 function saveNonAffContXP($stats, $character_id)
 {
-    //echo "Saving nonaffconts<br>";
     $i = 0;
     while (isset($stats["nonaffcont$i"])) {
         $nonaffcont_name = htmlspecialchars($stats["nonaffcont${i}_list"]);
@@ -1325,7 +1304,6 @@ function saveNonAffContXP($stats, $character_id)
 
 function saveGobContXP($stats, $character_id)
 {
-    //echo "Saving gobconts<br>";
     $i = 0;
     while (isset($stats["gobcont$i"])) {
         $gobcont_name = htmlspecialchars($stats["gobcont${i}_name"]);
@@ -1395,7 +1373,6 @@ function saveEndowmentXP($stats, $character_id)
 
 function saveTacticXP($stats, $character_id)
 {
-    //echo "Saving tactics<br>";
     $i = 0;
     while (isset($stats["tactic${i}_cost"])) {
         $tactic_name = htmlspecialchars($stats["tactic${i}_name"]);

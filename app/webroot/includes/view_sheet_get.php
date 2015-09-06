@@ -14,7 +14,6 @@ $stats          = '';
 
 $characterRepository = new CharacterRepository();
 $stats               = $characterRepository->FindById($characterId);
-//$character_type      = Request::GetValue('character_type', $stats['character_type']);
 
 $characterSheetHelper = new CharacterSheetHelper();
 
@@ -34,4 +33,4 @@ switch ($type) {
         echo $characterSheetHelper->MakeLockedView($stats, $character_type);
         break;
 }
-die();
+Response::EndRequest();

@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\MenuHelper;
+use classes\core\repository\Database;
 
 $page_title   = "Look up Character Names";
 $page_content = "Look up Character";
@@ -11,11 +12,13 @@ $result_set     = "";
 if (isset($_GET['character_name'])) {
     $character_name = str_replace("*", "%", $_GET['character_name']);
 
-    $character_query = "select * from characters where character_name like '$character_name' and is_deleted='n';";
-    $character_result = mysql_query($character_query) || die(mysql_error());
-    //echo "$character_query : " . mysql_num_rows($character_result) . "<br>";
+    $character_query = "select * from characters where character_name like ? and is_deleted='n';";
+    $params = array(
+        $character_name
+    );
+    $character = Database::GetInstance()->Query($character_query)->All($params);
 
-    if (mysql_num_rows($character_result)) {
+    if (count($character) > 0) {
         $result_set = <<<EOQ
 <br><br>
 <table border="0" cellpadding="2" cellspacing="2" class="normal_text">
@@ -35,7 +38,7 @@ if (isset($_GET['character_name'])) {
 EOQ;
 
         $i = 0;
-        while ($character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC)) {
+        foreach($character as $character_detail) {
             $row_color = (($i++) % 2) ? "#443f33" : "";
 
             $result_set .= <<<EOQ

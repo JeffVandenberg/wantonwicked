@@ -38,11 +38,8 @@ $body_params = "";
 $extra_headers = "";
 
 if (isset($_GET['action'])) {
-    //echo $_GET['action']."<br>";
     switch ($_GET['action']) {
         case 'create':
-            // Obsolete -MarcD 6th Oct 2009
-            //include 'includes/view_sheet_create.php';
             include 'includes/index_redirect.php';
             break;
         case 'create_xp':

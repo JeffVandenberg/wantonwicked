@@ -73,7 +73,6 @@ if ($_SESSION['eCreditsInit'] == '1') {
 *
 */
 
-//CreateSiteLog($seed, 'Get Data', date('Y-m-d H:i:s'), $dbh, print_r($_SESSION, true));
 $xml = '<?xml version="1.0" ?><root>';
 
 /*
@@ -158,10 +157,6 @@ EOQ;
 
     foreach ($action as $i) {
         $showAllUsers = 1;
-
-        /*if (invisibleAdmins($i['id'])) {
-            $showAllUsers = 0;
-        }*/
 
         if ($showAllUsers == 1) {
             $i['userid'] = empty($i['userid']) ? "0" : $i['userid'];
@@ -326,7 +321,6 @@ EOQ;
 
     foreach ($action as $i) {
         if (!$i['username']) {
-            //die("error: username value null");
         }
 
         $xml .= '<usermessage>';
@@ -443,8 +437,6 @@ EOQ;
     debugError($error);
 }
 
-//CreateSiteLog($seed, 'Get Rooms', $startTime, $dbh);
-//CreateSiteLog($seed, 'Finish Page', $startTime, $dbh);
 $dbh = null;
 
 /*
@@ -452,7 +444,6 @@ $dbh = null;
 *
 */
 
-//$xml .= '<time>'.(microtime(true) - $start).'</time>';
 $xml .= '</root>';
 
 /*

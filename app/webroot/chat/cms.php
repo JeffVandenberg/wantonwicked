@@ -18,10 +18,6 @@
 // define('C_CUSTOM_LOGIN','1'); // 0 OFF, 1 ON
 // define('C_CUSTOM_USERNAME',$_SESSION['username']); // username
 // define('C_CUSTOM_USERID',$_SESSION['userid']); // userid
-// if(!isset($_SESSION['userid']) || empty($_SESSION['userid']))
-// {
-//	 die("userid value is null");
-// }
 
 // You will be able to link directly to the chat room by adding 
 // an <a href> link to your web pages like shown below and only 
@@ -207,7 +203,6 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
         $admin = 0;
         $mod = 1;
         if(UserdataHelper::IsAsst($userdata)) {
-            // $icon = 'asst.png';
             $userTypeId = 5;
             $mod = 1;
         }

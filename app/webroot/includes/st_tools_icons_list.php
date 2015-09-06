@@ -10,9 +10,7 @@ if (isset($_POST['action'])) {
     if ($_POST['action'] == 'update') {
         $skill_list = $_POST['delete'];
         while (list($key, $value) = each($skill_list)) {
-            //echo "delete: $key: $value<br>";
             $delete_query = "delete from icons where id=$value;";
-            //echo $delete_query."<br>";
             $delete_result = mysql_query($delete_query);
         }
     }

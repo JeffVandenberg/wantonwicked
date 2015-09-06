@@ -52,7 +52,6 @@ Thanks,
 Jeff Vandenberg
 EOQ;
 
-            //var_dump('send email to ' . $user['username']);
             mail($user['user_email'], 'Your Supporter Status Expires in 2 weeks', $message, 'from: support@gamingsandbox.com');
         }
     }

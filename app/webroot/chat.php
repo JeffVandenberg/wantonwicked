@@ -46,48 +46,12 @@ if (isset($_GET['action'])) {
             $template_layout = "blank_layout4.tpl";
             include 'includes/chat_ooc_login.php';
             break;
-        /*		case 'zombie':
-                  $template_layout = "blank_layout.tpl";
-                  include 'includes/chat_zombie.php';
-                  break;*/
         case 'delete':
             include 'includes/chat_delete.php';
             break;
         case 'delete_confirmed':
             include 'includes/chat_delete_confirmed.php';
             break;
-        /*case 'event_list':
-            include 'includes/chat_event_list.php';
-            break;
-        case 'event_add':
-            include 'includes/chat_event_add.php';
-            break;
-        case 'event_view':
-            include 'includes/chat_event_view.php';
-            break;
-        case 'event_signins':
-            $template_layout = 'blank_layout.tpl';
-            include 'includes/chat_event_signins.php';
-            break;
-        case 'event_signins_character':
-            $template_layout = 'blank_layout.tpl';
-            include 'includes/chat_event_signins_character.php';
-            break;*/
-        case 'application':
-            $template_layout = 'no_menu_layout4.tpl';
-            include 'includes/chat_application.php';
-            break;
-        /*case 'buddies_list':
-            $template_layout = "blank_layout.tpl";
-            include 'includes/chat_buddies_list.php';
-            break;
-        case 'buddies_add':
-            $template_layout = "blank_layout.tpl";
-            include 'includes/chat_buddies_add.php';
-            break;
-        case 'validate_name':
-            include 'includes/chat_validate_name.php';
-            break;*/
         case 'remoteaccess':
             $template_layout = 'empty_template.tpl';
             include 'includes/chat_remoteaccess.php';

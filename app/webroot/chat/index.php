@@ -251,7 +251,6 @@ if(isset($_REQUEST['logout']) && isset($_SESSION['user_id']))
 
 if(!$_REQUEST['roomID'][0])
 {
-//	include("templates/".$CONFIG['template']."/login.php");
 	header('location:/');
 	die;
 }
@@ -265,7 +264,6 @@ if(!isset($_SESSION['username']) && empty($_REQUEST['userName']))
 {
 	$loginError = C_LANG1;
 
-//	include("templates/".$CONFIG['template']."/login.php");
 	header('location:/');
 	die;
 }
@@ -274,7 +272,6 @@ if(empty($_REQUEST['userName']) && isset($_REQUEST['login']))
 {
 	$loginError = C_LANG1;
 
-//	include("templates/".$CONFIG['template']."/login.php");
 	header('location:/');
 	die;
 }
@@ -391,7 +388,6 @@ $guestUser = '0';
 
 if($_POST['isGuest'])
 {
-	//updateGuestAvatar($_REQUEST['genderID']);
 }
 
 list($id,$avatar,$loginError,$blockedList,$guestUser, $userTypeId, $isInvisible) = getUser($prevRoom,$roomID);

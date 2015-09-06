@@ -95,7 +95,6 @@ if ($_POST) {
     $_POST['room'] = !isset($_POST['room']) ? "0" : checkNumeric($_POST['room']);
     $_POST['addRoom'] = !isset($_POST['addRoom']) ? "0" : checkNumeric($_POST['addRoom']);
     $_POST['newRoomOwner'] = !isset($_POST['newRoomOwner']) ? "0" : checkNumeric($_POST['newRoomOwner']);
-    //$_POST['status'] = !isset($_POST['status']) ? "0" : checkNumeric($_POST['status']);
 
     // send message
     if (isset($_POST['umessage']) && !empty($_POST['umessage'])) {

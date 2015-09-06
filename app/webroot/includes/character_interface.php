@@ -43,7 +43,6 @@ else {
 }
 
 
-//CharacterLog::LogAction($character->CharacterId, ActionType::Login, '', $userdata['user_id']);
 // found a character
 $page_title = "Interface for $character->CharacterName";
 $contentHeader = $character->CharacterName;

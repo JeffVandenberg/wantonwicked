@@ -1,5 +1,5 @@
 <?php
-$page_title = "Side Game Dieroller";
+use classes\core\helpers\Response;use classes\core\repository\Database;$page_title = "Side Game Dieroller";
 $contentHeader = $page_title;
 
 // Action Logic
@@ -50,9 +50,7 @@ EOQ;
 
         ExecuteNonQuery($query);
 
-        header("Location: dieroller.php?action=custom");
-        die();
-        //die($query);
+        Response::Redirect('/dieroller.php?action=custom');
     }
 }
 
@@ -65,7 +63,7 @@ SELECT
 FROM
 	die_rolls
 EOQ;
-$count_data = ExecuteQueryItem($count_query);
+$count_data = Database::GetInstance()->Query($count_query)->Single();;
 
 $count = $count_data['count'];
 $pages = round($count / $page_size, 0);
