@@ -6,7 +6,7 @@ use classes\core\repository\Database;
 include 'cgi-bin/start_of_page.php';
 $characterId = Request::GetValue('character_id', 0);
 $includeAll = Request::GetValue('include_all', false);
-$term = $_POST['term'] . '%';
+$term = Request::GetValue('term') . '%';
 
 $characterQuery = <<<EOQ
 SELECT
