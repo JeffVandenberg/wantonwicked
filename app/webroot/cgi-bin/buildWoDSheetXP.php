@@ -1,7 +1,11 @@
 <?php
+use character\repository\CharacterPowerRepository;
+use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Configuration;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\UserdataHelper;
+use classes\core\repository\Database;
+use classes\core\repository\RepositoryManager;
 
 function buildWoDSheetXP(
     $stats, $character_type = 'Mortal', $edit_show_sheet = false, $edit_name = false,
@@ -500,12 +504,11 @@ EOQ;
                 }
             }
         }
-        $icon_result = mysql_query($icon_query) or die(mysql_error());
 
         $icon_ids   = "";
         $icon_names = "";
 
-        while ($icon_detail = mysql_fetch_array($icon_result, MYSQL_ASSOC)) {
+        foreach(Database::GetInstance()->Query($icon_query)->All() as $icon_detail) {
             $icon_ids[]   = $icon_detail['Icon_ID'];
             $icon_names[] = $icon_detail['Icon_Name'];
         }
@@ -1735,10 +1738,10 @@ function getPowers($character_id, $power_type, $sort_order, $number_of_blanks)
         }
 
 
-        $query = "select * from character_powers where character_id = $character_id and power_type = '$power_type' Order by $order_by;";
-        $result = mysql_query($query) or die(mysql_error());
+        $repo = RepositoryManager::GetRepository('classes\Character\Data\CharacterPower');
+        /* @var CharacterPowerRepository $repo */
 
-        while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        foreach($repo->ListPowersForCharacter($character_id, $power_type, $order_by) as $detail) {
             $power = new Power();
 
             $power->setPowerName($detail['power_name']);
@@ -1788,10 +1791,10 @@ function getRenownsRituals($character_id)
     $renown_list["rituals"] = $renown;
 
     if ($character_id) {
-        $query = "select * from character_powers where character_id = $character_id and power_type = 'Renown' Order by power_name;";
-        $result = mysql_query($query) or die(mysql_error());
+        $repo = RepositoryManager::GetRepository('classes\Character\Data\CharacterPower');
+        /* @var CharacterPowerRepository $repo */
 
-        while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        foreach($repo->ListPowersForCharacter($character_id, 'Renown', 'power_name') as $detail) {
             $renown = new Power();
             $renown->setPowerName($detail["power_name"]);
             $renown->setPowerLevel($detail["power_level"]);
@@ -1801,10 +1804,7 @@ function getRenownsRituals($character_id)
             $renown_list[$renown_name] = $renown;
         }
 
-        $query = "select * from character_powers where character_id = $character_id and power_type = 'Rituals' Order by power_name;";
-        $result = mysql_query($query) or die(mysql_error());
-
-        while ($detail = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        foreach($repo->ListPowersForCharacter($character_id, 'Rituals', 'power_name') as $detail) {
             $renown = new Power();
             $renown->setPowerName($detail["power_name"]);
             $renown->setPowerLevel($detail["power_level"]);

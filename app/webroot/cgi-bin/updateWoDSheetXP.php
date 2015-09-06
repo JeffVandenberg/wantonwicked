@@ -111,8 +111,7 @@ EOQ;
             $bonus_attribute = '';
         }
 
-        $trans_query = "begin;";
-        $trans_result = mysql_query($trans_query) or die(mysql_error());
+        Database::GetInstance()->StartTransaction();
 
         if (!$character_id) {
             $insert_query = <<<EOQ
@@ -441,8 +440,8 @@ EOQ;
             }
         }
 
-        $trans_query = "commit;";
-        $trans_result = mysql_query($trans_query) or die(mysql_error());
+        
+        Database::GetInstance()->CommitTransaction();
     }
 
     return $error;
@@ -538,8 +537,7 @@ function saveSpecialtiesXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -576,7 +574,7 @@ function saveMeritsXP($stats, $character_id)
 
         if ($query != "") {
             //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -610,8 +608,7 @@ function saveFlawsXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -647,7 +644,7 @@ function saveMiscXP($stats, $character_id)
 
         if ($query != "") {
             //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -709,8 +706,7 @@ EOQ;
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -746,8 +742,7 @@ function saveOOCDiscXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -783,8 +778,7 @@ function saveDevotionsXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -820,8 +814,7 @@ function saveAffGiftXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -857,8 +850,7 @@ function saveNonAffGiftXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -893,8 +885,7 @@ function saveRitualXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -920,8 +911,7 @@ function saveRitualsRenownXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo "$renown_name: " . $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
     }
 
@@ -934,8 +924,7 @@ function saveRitualsRenownXP($stats, $character_id)
     }
 
     if ($query != "") {
-        //echo $query."<br>";
-        $result = mysql_query($query) or die(mysql_error());
+        Database::GetInstance()->Query($query)->Execute();
     }
 }
 
@@ -968,8 +957,7 @@ function saveRulingArcanaXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1005,8 +993,7 @@ function saveCommonArcanaXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1042,8 +1029,7 @@ function saveInferiorArcanaXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1079,8 +1065,7 @@ function saveRoteXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1116,8 +1101,7 @@ function savePsychicMeritXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1153,8 +1137,7 @@ function saveThaumaturgeMeritXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1189,8 +1172,7 @@ function saveBestowmentXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1226,8 +1208,7 @@ function saveAffTransXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1263,8 +1244,7 @@ function saveNonAffTransXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1300,8 +1280,7 @@ function saveAffContXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1337,8 +1316,7 @@ function saveNonAffContXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1373,8 +1351,7 @@ function saveGobContXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1409,8 +1386,7 @@ function saveEndowmentXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1445,8 +1421,7 @@ function saveTacticXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1479,8 +1454,7 @@ function saveKeyXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1513,8 +1487,7 @@ function saveMomentoXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1548,8 +1521,7 @@ function saveCeremoniesXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1583,8 +1555,7 @@ function saveManifestationXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1617,8 +1588,7 @@ function saveNuminaXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
@@ -1652,8 +1622,7 @@ function saveSiddhiXP($stats, $character_id)
         }
 
         if ($query != "") {
-            //echo $query."<br>";
-            $result = mysql_query($query) or die(mysql_error());
+            Database::GetInstance()->Query($query)->Execute();
         }
 
         $i++;
