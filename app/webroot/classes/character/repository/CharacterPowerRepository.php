@@ -6,7 +6,7 @@
  * Time: 12:58 PM
  */
 
-namespace character\repository;
+namespace classes\character\repository;
 
 
 use classes\core\repository\AbstractRepository;

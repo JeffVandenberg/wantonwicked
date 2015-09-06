@@ -1,6 +1,5 @@
 <?php
-use character\repository\CharacterPowerRepository;
-use classes\character\repository\CharacterRepository;
+use classes\character\repository\CharacterPowerRepository;
 use classes\core\helpers\Configuration;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\UserdataHelper;
@@ -1737,8 +1736,7 @@ function getPowers($character_id, $power_type, $sort_order, $number_of_blanks)
                 break;
         }
 
-
-        $repo = RepositoryManager::GetRepository('classes\Character\Data\CharacterPower');
+        $repo = RepositoryManager::GetRepository('classes\character\data\CharacterPower');
         /* @var CharacterPowerRepository $repo */
 
         foreach($repo->ListPowersForCharacter($character_id, $power_type, $order_by) as $detail) {
