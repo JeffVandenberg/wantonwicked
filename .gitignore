@@ -33,3 +33,7 @@ Thumbs.db
 # composer ignores
 composer.lock
 vendor
+
+# application specific
+app/webroot/forum
+app/webroot/wiki
