@@ -862,9 +862,7 @@ EOQ;*/
         }
 
         $monthlyBonusXPCap = 5;
-        // this is bad, please don't do this me!e
-        global $userdata;
-        if(UserdataHelper::IsHead($userdata)) {
+        if($view_is_head) {
             $monthlyBonusXPCap = '99999';
         }
 

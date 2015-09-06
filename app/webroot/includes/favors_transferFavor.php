@@ -1,11 +1,11 @@
 <?php
-$favorId = isset($_POST['favorId']) ? $_POST['favorId'] + 0 : 0;
-$favorId = isset($_GET['favorId']) ? $_GET['favorId'] + 0: $favorId;
+use classes\core\helpers\Request;
+use classes\core\repository\Database;
 
-$transferCharacterId = $_POST['transferCharacterId'] + 0;
+$favorId = Request::GetValue('favorId', 0);
+$transferCharacterId = Request::GetValue('transferCharacterId', 0);
 
-$transactionQuery = "begin;";
-$transactionResult = mysql_query($transactionQuery) || die(mysql_error());
+Database::GetInstance()->StartTransaction();
 
 $transferQuery = <<<EOQ
 INSERT INTO 
@@ -25,7 +25,7 @@ INSERT INTO
 SELECT
 	source_id,
 	source_type_id,
-	$transferCharacterId,
+	?,
 	1,
 	favor_id,
 	favor_type_id,
@@ -36,46 +36,39 @@ SELECT
 FROM
 	favors
 WHERE
-	favor_id = $favorId
+	favor_id = ?
 EOQ;
-$transferResult = mysql_query($transferQuery) || die(rollback());
+$params = array(
+    $transferCharacterId,
+    $favorId
+);
 
-if(mysql_affected_rows())
-{
-	$updateQuery = <<<EOQ
+$rows = Database::GetInstance()->Query($transferQuery)->Execute($params);
+
+if ($rows > 0) {
+    $updateQuery = <<<EOQ
 UPDATE
 	favors
 SET
 	date_discharged = now()
 WHERE 
-	favor_id = $favorId
+	favor_id = ?
 EOQ;
-	$updateResult = mysql_query($updateQuery) || die(rollback());
-	
-	if(mysql_affected_rows())
-	{
-		$message = "Successfully Transferred Favor.";
-	}
-	else
-	{
-		$message = "There was an error cancelling your favor. Please try again later.";
-	}
-}
-else
-{
-	$message = "There was an error. Please try again later.";
+	$params = array(
+		$favorId
+	);
+    $rows = Database::GetInstance()->Query($updateQuery)->Execute($params);
+
+    if ($rows > 0) {
+        $message = "Successfully Transferred Favor.";
+    } else {
+		Database::GetInstance()->RollBackTransaction();
+        $message = "There was an error cancelling your favor. Please try again later.";
+    }
+} else {
+    $message = "There was an error. Please try again later.";
 }
 
-$transactionQuery = "commit;";
-$transactionResult = mysql_query($transactionQuery) || die(mysql_error());
+Database::GetInstance()->CommitTransaction();
 
-function rollBack()
-{
-	$message = mysql_error();
-	$query = "rollback;";
-	$result = mysql_query($query);
-	return $message;
-}
-?>
-
-<?php echo $message ?>
+echo $message;

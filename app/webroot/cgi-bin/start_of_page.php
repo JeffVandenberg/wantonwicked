@@ -9,10 +9,6 @@ include ROOT_PATH . 'cgi-bin/timezoneAdjustment.php';
 require_once ROOT_PATH . '../../vendor/autoload.php';
 
 session_start();
-function debug($var)
-{
-    echo "<pre>".print_r($var, true)."</pre>";
-}
 
 ini_set('memory_limit', "64M");
 spl_autoload_extensions('.php');

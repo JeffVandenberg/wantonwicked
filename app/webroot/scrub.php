@@ -6,42 +6,42 @@
  * Time: 1:26 AM
  */
 
-$locationsUrl     = 'http://locator.wizards.com/Service/LocationService.svc/GetLocations';
-$eventTypes       = array(
+$locationsUrl = 'http://locator.wizards.com/Service/LocationService.svc/GetLocations';
+$eventTypes = array(
     'GT',
     'PPTQ'
 );
-$salesBrandCode   = array(//    'MG'
+$salesBrandCode = array(//    'MG'
 );
 $productLineCodes = array(//    'MG'
 );
-$payload          = array(
-    'language'            => "en-us",
-    'request'             => array(
-        'North'                  => 47.43051911539,
-        'East'                   => -122.15397811701,
-        'South'                  => 46.98346908461,
-        'West'                   => -122.81202808299,
-        'LocalTime'              => "/Date(" . getDateForRequest() . ")/",
-        'ProductLineCodes'       => $productLineCodes,
-        'EventTypeCodes'         => $eventTypes,
-        'PlayFormatCodes'        => array(),
-        'SalesBrandCodes'        => $salesBrandCode,
-        'MarketingProgramCodes'  => array(),
+$payload = array(
+    'language' => "en-us",
+    'request' => array(
+        'North' => 47.43051911539,
+        'East' => -122.15397811701,
+        'South' => 46.98346908461,
+        'West' => -122.81202808299,
+        'LocalTime' => "/Date(" . Scrub::getDateForRequest() . ")/",
+        'ProductLineCodes' => $productLineCodes,
+        'EventTypeCodes' => $eventTypes,
+        'PlayFormatCodes' => array(),
+        'SalesBrandCodes' => $salesBrandCode,
+        'MarketingProgramCodes' => array(),
         'EarliestEventStartDate' => null,
-        'LatestEventStartDate'   => null
+        'LatestEventStartDate' => null
     ),
-    'page'                => 1,
-    'count'               => 30,
+    'page' => 1,
+    'count' => 30,
     'filter_mass_markets' => true,
 );
 
 ?>
-<h3>
-    Events for <?php echo implode(', ', $eventTypes); ?>
-</h3>
+    <h3>
+        Events for <?php echo implode(', ', $eventTypes); ?>
+    </h3>
 <?php
-$stores = performRequest($locationsUrl, $payload);
+$stores = Scrub::performRequest($locationsUrl, $payload);
 foreach ($stores['d']['Results'] as $store) {
     ?>
     Store: <?php echo $store['Organization']['Name']; ?><br/>
@@ -57,73 +57,75 @@ foreach ($stores['d']['Results'] as $store) {
     <?php echo $store['Address']['StateProvinceCode']; ?>
     <?php echo $store['Address']['PostalCode']; ?>
     <br/>
-    <?php echo printEventDetails($eventTypes, $store['Address']['Id'], $store['Organization']['Id']); ?>
+    <?php echo Scrub::printEventDetails($eventTypes, $store['Address']['Id'], $store['Organization']['Id']); ?>
     <br/>
     <?php
 }
 
-function printEventDetails($eventTypes, $addressId, $organizationId)
+class Scrub
 {
-    $url = 'http://locator.wizards.com/Service/LocationService.svc/GetLocationDetails';
+    public static function printEventDetails($eventTypes, $addressId, $organizationId)
+    {
+        $url = 'http://locator.wizards.com/Service/LocationService.svc/GetLocationDetails';
 
-    $params = array(
-        'language' => "en-us",
-        'request'  => array(
-            'BusinessAddressId'      => $addressId,
-            'OrganizationId'         => $organizationId,
-            'EventTypeCodes'         => $eventTypes,
-            'PlayFormatCodes'        => array(),
-            'ProductLineCodes'       => array(),
-            'LocalTime'              => '/Date(' . getDateForRequest() . ')/',
-            'EarliestEventStartDate' => null,
-            'LatestEventStartDate'   => null
-        )
-    );
+        $params = array(
+            'language' => "en-us",
+            'request' => array(
+                'BusinessAddressId' => $addressId,
+                'OrganizationId' => $organizationId,
+                'EventTypeCodes' => $eventTypes,
+                'PlayFormatCodes' => array(),
+                'ProductLineCodes' => array(),
+                'LocalTime' => '/Date(' . self::getDateForRequest() . ')/',
+                'EarliestEventStartDate' => null,
+                'LatestEventStartDate' => null
+            )
+        );
 
-    $data = performRequest($url, $params);
-    $Info = '';
-    foreach($data['d']['Result']['EventsAtVenue'] as $event) {
-        if(in_array($event['EventTypeCode'], $eventTypes)) {
-            preg_match('/(\d+)/', $event['StartDate'], $matches);
-            $Info .= 'Event: ' . $event['Name'];
-            $Info .= ' Date: ' . date('Y-m-d', $matches[0]/1000);
-            $Info .= ' Format: ' . $event['PlayFormatCode'];
-            $Info .= '<br />';
+        $data = self::performRequest($url, $params);
+        $Info = '';
+        foreach ($data['d']['Result']['EventsAtVenue'] as $event) {
+            if (in_array($event['EventTypeCode'], $eventTypes)) {
+                preg_match('/(\d+)/', $event['StartDate'], $matches);
+                $Info .= 'Event: ' . $event['Name'];
+                $Info .= ' Date: ' . date('Y-m-d', $matches[0] / 1000);
+                $Info .= ' Format: ' . $event['PlayFormatCode'];
+                $Info .= '<br />';
+            }
         }
+        return $Info;
     }
-    return $Info;
-}
 
-function getDateForRequest()
-{
-    return ((int)(microtime(true) * 1000));
-}
-
-
-/**
- * @param $locationsUrl
- * @param $payload
- * @return array
- */
-function performRequest($locationsUrl, $payload)
-{
-    $curl = curl_init($locationsUrl);
-    curl_setopt_array($curl, array(
-                               CURLOPT_POST           => 1,
-                               CURLOPT_POSTFIELDS     => json_encode($payload),
-                               CURLOPT_RETURNTRANSFER => 1,
-                               CURLOPT_HTTPHEADER     => array(
-                                   'Content-Type: application/json',
-                                   'Content-Length: ' . strlen(json_encode($payload))
-                               )
-                           )
-    );
-
-//    echo json_encode($payload).'<br />';
-    $result = curl_exec($curl);
-    $data = json_decode($result, true);
-    if(!$data) {
-        die($result);
+    public static function getDateForRequest()
+    {
+        return ((int)(microtime(true) * 1000));
     }
-    return $data;
+
+
+    /**
+     * @param $locationsUrl
+     * @param $payload
+     * @return array
+     */
+    public static function performRequest($locationsUrl, $payload)
+    {
+        $curl = curl_init($locationsUrl);
+        curl_setopt_array($curl, array(
+                CURLOPT_POST => 1,
+                CURLOPT_POSTFIELDS => json_encode($payload),
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen(json_encode($payload))
+                )
+            )
+        );
+
+        $result = curl_exec($curl);
+        $data = json_decode($result, true);
+        if (!$data) {
+            die($result);
+        }
+        return $data;
+    }
 }
