@@ -195,8 +195,9 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 }
 
                 $update_query = substr($update_query, 0, strlen($update_query) - 2);
-                $update_query .= " where id = $characterId;";
-                $update_result = mysql_query($update_query) or die(mysql_error());
+                $update_query .= " where id = ?;";
+                $params = array($characterId);
+                Database::GetInstance()->Query($update_query)->Execute($params);
             }
 
             // test if attaching to a request
@@ -233,20 +234,30 @@ if (isset($_POST['submit_update_stats'])) {
 
     $willpower_temp = (isset($_POST['extra_spend_willpower'])) ? --$willpower_temp : $willpower_temp;
 
+    $params = array(
+        $wounds_agg,
+        $wounds_lethal,
+        $wounds_bashing,
+        $power_points,
+        $willpower_temp,
+        $temporary_health_levels,
+        $characterId
+    );
     $update_query  = <<<EOQ
 UPDATE
 	characters
 set 
-	wounds_agg = $wounds_agg, 
-	wounds_lethal = $wounds_lethal, 
-	wounds_bashing = $wounds_bashing, 
-	power_points = $power_points, 
-	willpower_temp = $willpower_temp,
-	temporary_health_levels = $temporary_health_levels
+	wounds_agg = ?,
+	wounds_lethal = ?,
+	wounds_bashing = ?,
+	power_points = ?,
+	willpower_temp = ?,
+	temporary_health_levels = ?
 where 
-	id = $characterId;
+	id = ?
 EOQ;
-    $update_result = Database::GetInstance()->Query($update_query)->Execute();
+    $update_result = Database::GetInstance()->Query($update_query)->Execute($params);
+
     Response::Redirect('dieroller.php?action=character&character_id=' . $characterId);
 }
 

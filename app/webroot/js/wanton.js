@@ -13,7 +13,68 @@ $(function () {
             $("#busy-indicator").fadeOut();
         });
     $("#logo").click(function() {
-        document.location = "/";
+        document.location.href = "/";
+    });
+    $('.button').button();
+    $('.button.add').button({
+        icons: {
+            primary: 'ui-icon-plus'
+        }
+    });
+    $('.button.add.no-text').button({
+        icons: {
+            primary: 'ui-icon-plus'
+        },
+        text: false
+    });
+    $(".button.calendar").button({
+        icons: {
+            primary: 'ui-icon-calendar'
+        }
+    });
+    $(".button.view").button({
+        icons: {
+            primary: 'ui-icon-search'
+        },
+    });
+    $(".button.view.no-text").button({
+        icons: {
+            primary: 'ui-icon-search'
+        },
+        text: false
+    });
+    $(".button.edit").button({
+        icons: {
+            primary: 'ui-icon-pencil'
+        },
+    });
+    $(".button.edit.no-text").button({
+        icons: {
+            primary: 'ui-icon-pencil'
+        },
+        text: false
+    });
+    $(".button.delete").button({
+        icons: {
+            primary: 'ui-icon-trash'
+        }
+    });
+    $(".button.delete.no-text").button({
+        icons: {
+            primary: 'ui-icon-trash'
+        },
+        text: false
+    });
+    $(".button.gear").button({
+        icons: {
+            primary: 'ui-icon-gear'
+        }
+    });
+    $(".button.gear.no-text").button({
+        icons: {
+            primary: 'ui-icon-gear'
+        },
+        text: false
     });
 });
 

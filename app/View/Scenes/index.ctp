@@ -71,12 +71,12 @@ $this->Paginator->options(array(
                 <td class="server-time"><?php echo date('Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>
                     &nbsp;</td>
                 <td class="actions">
-                    <?php echo $this->Html->link(__('View'), array('action' => 'view', $scene['Scene']['slug']), array('class' => array('button', 'view'))); ?>
+                    <?php echo $this->Html->link(__('View'), array('action' => 'view', $scene['Scene']['slug']), array('class' => array('button', 'view', 'no-text'))); ?>
                     <?php if (AuthComponent::user('user_id') != 1): ?>
-                        <?php echo $this->Html->link(__('Join'), array('action' => 'join', $scene['Scene']['slug']), array('class' => array('button', 'join'))); ?>
+                        <?php echo $this->Html->link(__('Join'), array('action' => 'join', $scene['Scene']['slug']), array('class' => array('button', 'join', 'no-text'))); ?>
                     <?php endif; ?>
                     <?php if ($mayEdit || AuthComponent::user('user_id') == $scene['Scene']['created_by_id']): ?>
-                        <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $scene['Scene']['slug']), array('class' => array('button', 'edit'))); ?>
+                        <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $scene['Scene']['slug']), array('class' => array('button', 'edit', 'no-text'))); ?>
                     <?php endif; ?>
                 </td>
             </tr>
@@ -99,34 +99,12 @@ $this->Paginator->options(array(
     <?php echo $this->Js->writeBuffer(); ?>
 </div>
 <script>
-    $(function () {
-        $('.button.add').button({
-            icons: {
-                primary: 'ui-icon-plus'
-            }
-        });
-        $(".button.calendar").button({
-            icons: {
-                primary: 'ui-icon-calendar'
-            }
-        });
-        $(".button.view").button({
-            icons: {
-                primary: 'ui-icon-search'
-            },
-            text: false
-        });
-        $(".button.edit").button({
-            icons: {
-                primary: 'ui-icon-pencil'
-            },
-            text: false
-        });
+    $(function() {
         $(".button.join").button({
             icons: {
                 primary: 'ui-icon-link'
             },
             text: false
         });
-    })
+    });
 </script>

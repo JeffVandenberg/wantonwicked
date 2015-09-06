@@ -36,7 +36,6 @@
 
 // perform required includes
 use classes\core\helpers\UserdataHelper;
-use classes\core\repository\PermissionRepository;
 use classes\support\repository\SupporterRepository;
 
 define('IN_PHPBB', true);

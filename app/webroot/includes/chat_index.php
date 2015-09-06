@@ -7,10 +7,10 @@ use classes\core\repository\RepositoryManager;
 
 /* @var array $userdata */
 
-$contentHeader = "Chat Interface";
+$contentHeader = "Characters";
 $page_title = "Wanton Wicked Chat Interface";
 
-if(!UserdataHelper::IsLoggedIn($userdata)) {
+if (!UserdataHelper::IsLoggedIn($userdata)) {
     Response::Redirect('/', 'You are not logged in');
 }
 
@@ -18,18 +18,22 @@ $characterRepository = RepositoryManager::GetRepository('classes\character\data\
 /* @var CharacterRepository $characterRepository */
 
 $id = $userdata['user_id'];
-if(UserdataHelper::IsAdmin($userdata)) {
+if (UserdataHelper::IsAdmin($userdata)) {
     $id = Request::GetValue('u', $id);
 }
 $characters = $characterRepository->ListCharactersByPlayerId($id);
 
 ob_start();
 ?>
+    <div class="callout-navigation">
+        <a href="view_sheet.php?action=create_xp" target="_blank" class="button add">New Character</a>
+        <a href="/chat" target="_blank" class="button">Log in OOC</a>
+        <a href="/view_sheet.php?action=view_other_xp" target="viewother" class="button view">View Another Character
+            Sheet</a>
+        <a href="/dieroller.php?action=ooc" target="ooc_dieroller" class="button">OOC Die Roller</a>
+        <a href="/dieroller.php?action=custom" target="_blank" class="button">Side Game Die Roller</a>
+    </div>
 
-    <h2>
-        Characters
-    </h2>
-    <a href="view_sheet.php?action=create_xp" target="_blank" class="button">New Character</a>
 <?php if (count($characters) > 0): ?>
     <table>
         <tr>
@@ -49,62 +53,60 @@ ob_start();
                 Actions
             </th>
         </tr>
-    <?php foreach ($characters as $character): ?>
-        <tr>
-            <td>
-                <?php echo $character['character_name']; ?>
-            </td>
-            <td>
-                <?php if($character['is_sanctioned'] == 'Y'): ?>
-                    Sanctioned
-                <?php elseif($character['is_sanctioned'] == 'N'): ?>
-                    Unsanctioned
-                <?php else: ?>
-                    New
-                <?Php endif; ?>
-            </td>
-            <td>
-                <?php echo $character['updated_by_name']; ?>
-            </td>
-            <td>
-                <?php echo $character['updated_on']; ?>
-            </td>
-            <td>
-                <a href="/view_sheet.php?action=view_own_xp&character_id=<?php echo $character['id']; ?>" target="_blank">
-                    <img src="/img/gp_view.png" alt="View <?php echo $character['character_name']; ?>" title="View <?php echo $character['character_name']; ?>"/>
-                </a>
-                <a href="/character.php?action=interface&character_id=<?php echo $character['id']; ?>" target="_blank">
-                    <img src="/img/gp_tools.png" alt="Interface for <?php echo $character['character_name']; ?>" title="Interface for <?php echo $character['character_name']; ?>"/>
-                </a>
-                <a href="/chat?character_id=<?php echo $character['id']; ?>" target="_blank">
-                    <img src="/img/gp_chat.png" alt="Chat as <?php echo $character['character_name']; ?>" title="Chat as <?php echo $character['character_name']; ?>"/>
-                </a>
-                <a href="/chat.php?action=delete&character_id=<?php echo $character['id']; ?>" class="delete-link">
-                    <img src="/img/gp_delete.png" alt="Delete <?php echo $character['character_name']; ?>" title="Delete <?php echo $character['character_name']; ?>"/>
-                </a>
-            </td>
-        </tr>
-    <?php endforeach; ?>
+        <?php foreach ($characters as $character): ?>
+            <tr>
+                <td>
+                    <?php echo $character['character_name']; ?>
+                </td>
+                <td>
+                    <?php if ($character['is_sanctioned'] == 'Y'): ?>
+                        Sanctioned
+                    <?php elseif ($character['is_sanctioned'] == 'N'): ?>
+                        Unsanctioned
+                    <?php else: ?>
+                        New
+                    <?Php endif; ?>
+                </td>
+                <td>
+                    <?php echo $character['updated_by_name']; ?>
+                </td>
+                <td>
+                    <?php echo $character['updated_on']; ?>
+                </td>
+                <td>
+                    <a href="/view_sheet.php?action=view_own_xp&character_id=<?php echo $character['id']; ?>"
+                       target="_blank" class="button view no-text">View <?php echo $character['character_name']; ?>
+                    </a>
+                    <a href="/character.php?action=interface&character_id=<?php echo $character['id']; ?>"
+                       target="_blank" class="button gear no-text">Interface for <?php echo $character['character_name']; ?>
+                    </a>
+                    <a href="/chat?character_id=<?php echo $character['id']; ?>" target="_blank"
+                        class="button chat no-text">Chat as <?php echo $character['character_name']; ?>
+                    </a>
+                    <a href="/chat.php?action=delete&character_id=<?php echo $character['id']; ?>"
+                       class="delete-link button delete no-text">Delete <?php echo $character['character_name']; ?>
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
     </table>
 <?php else: ?>
     <div class="paragraph">
         You have no characters currently.
     </div>
 <?php endif; ?>
-    <h2>
-        Other Tools
-    </h2>
-    <a href="/chat" target="_blank" class="button">Log in OOC</a>
-    <a href="/view_sheet.php?action=view_other_xp" target="viewother" class="button">View Another Character Sheet</a>
-    <a href="/dieroller.php?action=ooc" target="ooc_dieroller" class="button">OOC Die Roller</a>
-    <a href="/dieroller.php?action=custom" target="_blank" class="button">Side Game Die Roller</a>
-<script>
-    $(function() {
-        $('.button').button();
-        $(".delete-link").click(function() {
-           return confirm('Are you sure you want to delete ' + $.trim($(this).closest('tr').find('td:first').text()) + '?');
-        });
-    })
-</script>
+    <script>
+        $(function () {
+            $(".delete-link").click(function () {
+                return confirm('Are you sure you want to delete ' + $.trim($(this).closest('tr').find('td:first').text()) + '?');
+            });
+            $(".button.chat").button({
+                icons: {
+                    primary: 'ui-icon-comment'
+                },
+                text: false
+            })
+        })
+    </script>
 <?php
 $page_content = ob_get_clean();
