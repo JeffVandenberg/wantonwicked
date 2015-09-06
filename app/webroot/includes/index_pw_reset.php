@@ -10,7 +10,7 @@ if(!empty($_POST['login_name']))
 {
 	$login_query = "select * from login INNER JOIN permissions on login.id = permissions.id where name='$_POST[login_name]';";
 	//echo $login_query."<br>";
-	$login_result = mysql_query($login_query) or die(mysql_Error());
+	$login_result = mysql_query($login_query) || die(mysql_Error());
 	
 	if(mysql_num_rows($login_result))
 	{
@@ -37,12 +37,12 @@ if(!empty($_POST['login_name']))
 	  // update login
 	  $update_query = "update login set password='$md5_pass' where name='$temp_name';";
 	  //echo "$update_query<br>";
-	  $update_result = mysql_query($update_query) or die(mysql_error());
+	  $update_result = mysql_query($update_query) || die(mysql_error());
 	  
 	  // update phpbb_users
 	  $update_query = "update phpbb_users set user_password = '$md5_pass' where username = '$temp_name';";
 	  //echo "$update_query<br>";
-	  $update_result = mysql_query($update_query) or die(mysql_error());
+	  $update_result = mysql_query($update_query) || die(mysql_error());
 	  		  
 		$recipient_email = $login_detail['Email'];
 		$email_title = "Wanton Wicked Password Reset";

@@ -73,7 +73,7 @@ EOQ;
 
 
 $favorTypeQuery = "SELECT * FROM favor_types";
-$favorTypeResult = mysql_query($favorTypeQuery) or die(mysql_error());
+$favorTypeResult = mysql_query($favorTypeQuery) || die(mysql_error());
 
 $ids = $names = "";
 while ($favorTypeDetail = mysql_fetch_array($favorTypeResult, MYSQL_ASSOC)) {

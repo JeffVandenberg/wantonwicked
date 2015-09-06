@@ -7,6 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
+use classes\core\helpers\Response;
+
 ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
 // perform required includes
@@ -72,7 +74,7 @@ if(isset($_GET['action']))
 }
 else
 {
-    include 'includes/index_default.php';
+    Response::Redirect('/');
 }
 
 

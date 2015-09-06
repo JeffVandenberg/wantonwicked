@@ -18,7 +18,7 @@ if(isset($_POST['action']))
 {
 	// get old values, used for districts
 	$entry_query = "select * from city_book where entry_id=$entry_id;";
-	$entry_result = mysql_query($entry_query) or die(mysql_error());
+	$entry_result = mysql_query($entry_query) || die(mysql_error());
 	$entry_detail = mysql_fetch_array($entry_result, MYSQL_ASSOC);
 	
 	// get values
@@ -44,7 +44,7 @@ if(isset($_POST['action']))
 	$group_name = (isset($_POST['group_name'])) ? $_POST['group_name'] : "";
 	
 	$update_query = "update city_book set entry_name='$entry_name', entry_category='$entry_category', public_information='$public_information', private_information='$private_information', secret_information='$secret_information', district_rank=$district_rank, population_rank=$population_rank, relative_wealth=$relative_wealth, crime=$crime, appearance=$appearance, imperial_rank=$imperial_rank, production=$production, political_influence=$political_influence, corruption=$corruption, popularity=$popularity, is_approved='$is_approved', approved_by=$userdata[user_id], approved_on='$now', city='$city', group_name='$group_name' where entry_id=$entry_id;";
-	$update_result = mysql_query($update_query) or die(mysql_error());
+	$update_result = mysql_query($update_query) || die(mysql_error());
 	
 	
 }
@@ -56,7 +56,7 @@ FROM (city_book LEFT JOIN login AS approved ON city_book.approved_by = approved.
 WHERE city_book.entry_id = $entry_id;
 EOQ;
 
-$entry_result = mysql_query($entry_query) or die(mysql_error());
+$entry_result = mysql_query($entry_query) || die(mysql_error());
 
 // make sure that there is an actual entry
 if(mysql_num_rows($entry_result))

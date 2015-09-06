@@ -20,7 +20,7 @@ if(isset($_POST['character_name']))
 		
 		// verify that character name isn't in use already
 		$name_check_query = "select character_id from characters where character_name='$character_name';";
-		$name_check_result = mysql_query($name_check_query) or die(mysql_error());
+		$name_check_result = mysql_query($name_check_query) || die(mysql_error());
 		if(mysql_num_rows($name_check_result))
 		{
 			// warn that there is already a character with that name
@@ -127,10 +127,10 @@ EOQ;
 			$status = $_POST['status'];
 
 			$trans_query = "begin;";
-			$trans_result = mysql_query($trans_query) or die(mysql_error());
+			$trans_result = mysql_query($trans_query) || die(mysql_error());
 			
 			$lock_query = "lock tables login_character_index write, characters write;";
-			$lock_result = mysql_query($lock_query) or die(mysql_error());
+			$lock_result = mysql_query($lock_query) || die(mysql_error());
 			
 			// get next character id
 			$character_id = getNextID($connection, "characters", "character_id");
@@ -217,20 +217,20 @@ $xp_per_day,
 '$status');
 EOQ;
 			//echo "$insert_query<br>";
-			$insert_result = mysql_query($insert_query) or die(mysql_error());
+			$insert_result = mysql_query($insert_query) || die(mysql_error());
 			
 			$login_query = "insert into login_character_index values (null, $userdata[user_id], $character_id);";
-			$login_query = mysql_query($login_query) or die(mysql_error());
+			$login_query = mysql_query($login_query) || die(mysql_error());
 			
 			$lock_query = "unlock tables;";
-			$lock_result = mysql_query($lock_query) or die(mysql_error());
+			$lock_result = mysql_query($lock_query) || die(mysql_error());
 			
 			$trans_query = "commit;";
-			$trans_result = mysql_query($trans_query) or die(mysql_error());
+			$trans_result = mysql_query($trans_query) || die(mysql_error());
 			
 			// create post for ST forum
 			$character_query = "select Character_Name, Character_Type, City from characters where primary_login_id=$userdata[user_id] and is_sanctioned='Y' and is_npc='N' and is_deleted = 'N' order by Character_Name;";
-			$character_result = mysql_query($character_query) or die(mysql_error());
+			$character_result = mysql_query($character_query) || die(mysql_error());
 			
 			$character_list = "";
 			while($character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC))
@@ -250,7 +250,7 @@ EOQ;
 			}
 
 			$login_query = "select * from login where ID=$userdata[user_id];";
-			$login_result = mysql_query($login_query) or die(mysql_error());
+			$login_result = mysql_query($login_query) || die(mysql_error());
 			$login_detail = mysql_fetch_array($login_result, MYSQL_ASSOC);
 			
 			$message = <<<EOQ

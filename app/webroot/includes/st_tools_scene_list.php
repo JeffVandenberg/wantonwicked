@@ -52,8 +52,8 @@ if(isset($_POST['action']))
     	$insert_query = "insert into scene_record values $insert_list;";
     	
     	//echo "$update_query<br>$insert_query<br>";
-    	$update_result = mysql_query($update_query) or die(mysql_error());
-    	$insert_result = mysql_query($insert_query) or die(mysql_error());
+    	$update_result = mysql_query($update_query) || die(mysql_error());
+    	$insert_result = mysql_query($insert_query) || die(mysql_error());
   	}
 	}
 }
@@ -112,7 +112,7 @@ ORDER BY
 EOQ;
 }
 
-$character_result = mysql_query($character_query) or die(mysql_error());
+$character_result = mysql_query($character_query) || die(mysql_error());
 
 $character_list = <<<EOQ
 When updating characters, please also include a very brief description of the scene, 

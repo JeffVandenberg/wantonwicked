@@ -70,7 +70,7 @@ if (isset($_POST['submit'])) {
 
         // verify that character name isn't in use already
         $name_check_query = "select character_id from characters where character_name='$character_name' and character_id != $characterId;";
-        $name_check_result = mysql_query($name_check_query) or die(mysql_error());
+        $name_check_result = mysql_query($name_check_query) || die(mysql_error());
 
         if (mysql_num_rows($name_check_result)) {
             // warn that there is already a character with that name
@@ -122,7 +122,7 @@ FROM characters AS C INNER JOIN login_character_index AS lci ON C.id = lci.chara
 WHERE lci.login_id = $userdata[user_id]
  AND C.id = $characterId;
 EOQ;
-            $character_result = mysql_query($character_query) or die(mysql_error());
+            $character_result = mysql_query($character_query) || die(mysql_error());
             $character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
         }
     }

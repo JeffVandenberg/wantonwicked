@@ -41,7 +41,7 @@ WHERE C.id = $character_id
 EOQ;
 	}
 	
-	$character_result = mysql_query($character_query) or die(mysql_error());
+	$character_result = mysql_query($character_query) || die(mysql_error());
 	
 	if(mysql_num_rows($character_result))
 	{
@@ -74,13 +74,13 @@ if($may_view_note)
 			// insert note
 			$personal_note_id = getNextID($connection, "personal_notes", "personal_note_id");
 			$insert_query = "insert into personal_notes values ($personal_note_id, $userdata[user_id], $character_id, 'N', '$is_favorite', '$title', '$body', '$now', '$now', '', '', '', '', '');";
-			$insert_result = mysql_query($insert_query) or die(mysql_error()); 
+			$insert_result = mysql_query($insert_query) || die(mysql_error());
 		}
 		else
 		{
 			// update note
 			$update_query = "update personal_notes set is_favorite='$is_favorite', title='$title', body='$body', update_date='$now' where personal_note_id = $personal_note_id;";
-			$update_query = mysql_query($update_query) or die(mysql_error());
+			$update_query = mysql_query($update_query) || die(mysql_error());
 		}
 		
 		// update_previous page
@@ -95,7 +95,7 @@ EOQ;
 	if(!(isset($_POST['action'])) && ($personal_note_id))
 	{
 		$note_query = "select * from personal_notes where personal_note_id=$personal_note_id;";
-		$note_result = mysql_query($note_query) or die(mysql_error());
+		$note_result = mysql_query($note_query) || die(mysql_error());
 		
 		if(mysql_num_rows($note_result))
 		{

@@ -24,7 +24,7 @@ ORDER BY
   map_features.FeatureType;
 EOQ;
 
-$feature_result = mysql_query($feature_query) or die(mysql_error());
+$feature_result = mysql_query($feature_query) || die(mysql_error());
 
 while($feature_detail = mysql_fetch_array($feature_result, MYSQL_ASSOC))
 {
@@ -46,7 +46,7 @@ FROM
 WHERE
   map_points.FeatureID = $feature_detail[FeatureID]
 EOQ;
-  $point_result = mysql_query($point_query) or die(mysql_error());
+  $point_result = mysql_query($point_query) || die(mysql_error());
 
   if($feature_detail['FeatureType'] == "Territory")
   {

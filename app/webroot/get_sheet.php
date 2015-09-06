@@ -41,7 +41,7 @@ WHERE
     lci.login_id = $userdata[user_id]
     AND C.id = $character_id;
 EOQ;
-			$character_result = mysql_query($character_query) or die(mysql_error()); 
+			$character_result = mysql_query($character_query) || die(mysql_error());
 			
 			if(mysql_num_rows($character_result))
 			{
@@ -64,7 +64,7 @@ WHERE
     id=$character_id;
 EOQ;
 
-			$character_result = mysql_query($character_query) or die(mysql_error());
+			$character_result = mysql_query($character_query) || die(mysql_error());
 			
 			if(mysql_num_rows($character_result))
 			{

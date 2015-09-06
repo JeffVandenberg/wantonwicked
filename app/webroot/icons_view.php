@@ -61,7 +61,7 @@ if(isset($_POST['icon_name']) && isset($_POST['icon_id']) && (UserdataHelper::Is
   
 	$icon_query = "update icons set icon_name='$icon_name', icon_id=$icon_id, player_viewable='$player_viewable', gm_viewable='$gm_viewable', admin_viewable='$admin_viewable' where id=$id;";
 	//echo "$icon_query<br>";
-	$icon_result = mysql_query($icon_query) or die(mysql_error());
+	$icon_result = mysql_query($icon_query) || die(mysql_error());
 		
 	// add js
 	$java_script = <<<EOQ
@@ -76,7 +76,7 @@ EOQ;
 
 // get details
 $icon_query = "select * from icons where id = $id;";
-$icon_result = mysql_query($icon_query) or die(mysql_error());
+$icon_result = mysql_query($icon_query) || die(mysql_error());
 
 if(mysql_num_rows($icon_result))
 {

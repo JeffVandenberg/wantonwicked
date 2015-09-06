@@ -38,7 +38,7 @@ if(isset($_POST['action']))
 	
 	// compare uid against database
 	$uid_query = "SELECT * FROM site_content WHERE content_uid='$content_uid' AND content_id != $content_id;";
-	$uid_result = mysql_query($uid_query) or die(mysql_error());
+	$uid_result = mysql_query($uid_query) || die(mysql_error());
 	
 	if(mysql_num_rows($uid_result))
 	{
@@ -56,7 +56,7 @@ if(isset($_POST['action']))
 			$content_id = getNextID($mysqli, "site_content", "content_id");
 		
 			$create_query = "insert into site_content values ($content_id, '$content_uid', 0, '$content_name', '$content_body', '$is_top_level', '$section', $section_rank, '$description', '', '');";
-			$create_result = mysql_query($create_query) or die(mysql_error());
+			$create_result = mysql_query($create_query) || die(mysql_error());
 		}
 		if($_POST['action'] == 'update')
 		{
@@ -64,7 +64,7 @@ if(isset($_POST['action']))
 			$content_id = $_POST['content_id'] +0;
 			
 			$update_query = "update site_content set content_uid='$content_uid', content_name='$content_name', content_body='$content_body', is_top_level='$is_top_level', section='$section', section_rank=$section_rank, description='$description' where content_id=$content_id;";
-			$update_result = mysql_query($update_query) or die(mysql_error());
+			$update_result = mysql_query($update_query) || die(mysql_error());
 		}
 	}
 }
@@ -84,7 +84,7 @@ if($view_action == 'Y')
 	{
 		// attempt to retrieve page content
 		$content_query = "select * from site_content where content_uid='$view_content_uid';";
-		$content_result = mysql_query($content_query) or die(mysql_error());
+		$content_result = mysql_query($content_query) || die(mysql_error());
 		
 		if(mysql_num_rows($content_result))
 		{

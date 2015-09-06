@@ -152,7 +152,7 @@ class TempWodCharacter
   function TempWodCharacter()
   {
     $this->db_connection = mysql_connect("localhost", "wanton00_jeffv", "dragon");
-    mysql_select_db("wanton00_phpbb1", $this->db_connection) or die(mysql_error($this->db_connection));
+    mysql_select_db("wanton00_phpbb1", $this->db_connection) || die(mysql_error($this->db_connection));
   }
    
   function getLoginID ( )
@@ -251,7 +251,7 @@ class TempWodCharacter
     
     // try to pull it from the database;
     $character_query = "select * from wod_temp_characters where login_id = " . $this->login_id . ";";
-    $character_result = mysql_query($character_query, $this->db_connection) or die(mysql_error($this->db_connection));
+    $character_result = mysql_query($character_query, $this->db_connection) || die(mysql_error($this->db_connection));
     
     // test if a login id has been set
     if($this->login_id > 0)
@@ -280,7 +280,7 @@ class TempWodCharacter
         // insert a blank record
         echo "Inserting a blank record<br>";
         $new_character_query = "insert into wod_temp_characters (login_id) values (" . $this->login_id .");";
-        //$new_character_result = mysql_query($new_character_query, $this->db_connection) or die(mysql_error($this->db_connection));
+        //$new_character_result = mysql_query($new_character_query, $this->db_connection) || die(mysql_error($this->db_connection));
         $found_character = true;
       }
     }

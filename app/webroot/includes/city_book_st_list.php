@@ -17,7 +17,7 @@ if(isset($_POST['delete']))
 		//echo "delete: $key: $value<br>";
 		$delete_query = "update city_book set is_deleted='Y' where entry_id=$value;";
 		//echo $delete_query."<br>";
-		$delete_result = mysql_query($delete_query) or die(mysql_error());
+		$delete_result = mysql_query($delete_query) || die(mysql_error());
 	}
 }
 
@@ -76,7 +76,7 @@ else
 	$entry_query = "select login.Name, city_book.* from city_book left join login on city_book.submitted_by = login.id where is_approved !='Y' and is_deleted='N' and site_id=$userdata[site_id] order by is_approved desc, city, entry_category, entry_name, entry_id;";
 }
 
-$entry_result = mysql_query($entry_query) or die(mysql_error());
+$entry_result = mysql_query($entry_query) || die(mysql_error());
 
 $col_span = ($userdata['is_head'] || $userdata['is_admin']) ? 7 : 5;
 

@@ -51,7 +51,7 @@ WHERE
 EOQ;
 }
 
-$entry_result = mysql_query($entry_query) or die(mysql_error());
+$entry_result = mysql_query($entry_query) || die(mysql_error());
 //echo "$entry_query<br>";
 
 // make sure that there is an actual entry

@@ -382,7 +382,7 @@ EOQ;
 		{
 			$icon_query = "select * from icons where Player_Viewable='Y' order by Icon_Name;";
 		}
-		$icon_result = mysql_query($icon_query) or die(mysql_error());
+		$icon_result = mysql_query($icon_query) || die(mysql_error());
 
 		$icon_ids = "";
 		$icon_names = "";
@@ -599,7 +599,7 @@ EOQ;
 	if($edit_cell)
 	{
 		$cell_query = "select distinct Cell_ID from gm_permissions order by Cell_ID;";
-		$cell_result = mysql_query($cell_query) or die(mysql_error());
+		$cell_result = mysql_query($cell_query) || die(mysql_error());
 		
 		$cell_ids = "";
 		while($cell_detail = mysql_fetch_array($cell_result, MYSQL_ASSOC))

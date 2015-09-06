@@ -40,11 +40,11 @@ VALUES
   );
 EOQ;
 //echo $feature_query."<br><br>";
-$feature_result = mysql_query($feature_query) or die(mysql_error());
+$feature_result = mysql_query($feature_query) || die(mysql_error());
 
 // get the most recent feature ID
 $id_query = "select max(FeatureID) as FeatureID from map_features";
-$id_result = mysql_query($id_query) or die(mysql_error());
+$id_result = mysql_query($id_query) || die(mysql_error());
 $id_detail = mysql_fetch_array($id_result, MYSQL_ASSOC);
 $feature_id = $id_detail['FeatureID'];
 //$feature_id = 1;
@@ -69,7 +69,7 @@ VALUES
   )
 EOQ;
   //echo $point_query."<br><br>";
-  $point_result = mysql_query($point_query) or die(mysql_error());
+  $point_result = mysql_query($point_query) || die(mysql_error());
 }
 
 $status_page = <<<EOQ

@@ -194,7 +194,7 @@ if ($img!=null) {
 	if ( function_exists('imagecreate') ) {
 		header ("Content-type: image/png");
 		$im = @imagecreate (100, 100)
-		    or die ("Cannot initialize new GD image stream");
+		    || die ("Cannot initialize new GD image stream");
 		$background_color = imagecolorallocate ($im, 255, 255, 255);
 		$text_color = imagecolorallocate ($im, 0,0,0);
 		imagestring ($im, 2, 5, 5,  "IMAGE ERROR", $text_color);

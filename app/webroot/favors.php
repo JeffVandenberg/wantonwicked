@@ -1,4 +1,5 @@
 <?php
+use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 
 ini_set('display_errors', 1);
@@ -65,11 +66,11 @@ if (isset($_GET['action'])) {
             $templateName = 'empty.tpl';
             break;
         default:
-            include 'includes/index_default.php';
+            Response::Redirect('/');
             break;
     }
 } else {
-    include 'includes/index_default.php';
+    Response::Redirect('/');
 }
 
 

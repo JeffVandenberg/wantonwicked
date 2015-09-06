@@ -54,7 +54,7 @@ if(isset($_POST['action']))
 	$entry_id = getNextID($connection, "city_book", "entry_id");
 	
 	$insert_query = "insert into city_book values ($entry_id, $userdata[site_id], '$entry_name', '$entry_category', '$public_information', '$private_information', '$secret_information', $district_rank, $population_rank, $relative_wealth, $crime, $appearance, $imperial_rank, $production, $political_influence, $corruption, $popularity, '$is_approved', $userdata[user_id], '$now', 0, '0', '$is_deleted', '$city', '$group_name', '$udf4');";
-	$insert_result = mysql_query($insert_query) or die(mysql_error());
+	$insert_result = mysql_query($insert_query) || die(mysql_error());
 	
 	$java_script = <<<EOQ
 <script language="javascript">

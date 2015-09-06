@@ -58,14 +58,14 @@ if(isset($_POST['submit_die_roller']))
 		$insert_query = "insert into wod_dierolls values (null, 0, '$now', '$character_name', '$description', $dice, '$ten_again', '$nine_again', '$eight_again', '$one_cancel', '$used_wp', '$used_pp', '$result[result]', '$result[note]', $result[num_of_successes], '$chance_die', '$bias', '$is_rote');";
 		
 		//echo $insert_query;
-		$insert_result = mysql_query($insert_query) or die(mysql_error());
+		$insert_result = mysql_query($insert_query) || die(mysql_error());
 	}
 }
 
 
 // get past rolls
 $roll_query = "select * from wod_dierolls order by roll_id desc limit 20;";
-$roll_result = mysql_query($roll_query) or die(mysql_error());
+$roll_result = mysql_query($roll_query) || die(mysql_error());
 
 $rolls = <<<EOQ
 <table border="0" class="normal_text" width="100%">

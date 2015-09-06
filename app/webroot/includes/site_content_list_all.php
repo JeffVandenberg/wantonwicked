@@ -3,7 +3,7 @@ $page_title = "List all Site Content";
 
 // get content
 $content_query = "SELECT * from site_content;";
-$content_result = mysql_query($content_query) or die(mysql_error());
+$content_result = mysql_query($content_query) || die(mysql_error());
 
 // layout content
 $page_content = <<<EOQ

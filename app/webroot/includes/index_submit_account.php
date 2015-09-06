@@ -11,7 +11,7 @@ if($account['is_valid'])
 	$now = date('Y-m-d H:i:s');
 
 	$lock_query = "lock tables login write, permissions write, phpbb_users write, phpbb_groups write, phpbb_user_group write;";
-	$lock_result = mysql_query($lock_query) or die(mysql_error());
+	$lock_result = mysql_query($lock_query) || die(mysql_error());
 
 	$name = addslashes($_POST['user_name']);
 	$pass = md5($_POST['password1']);
@@ -20,17 +20,17 @@ if($account['is_valid'])
 	$email = addslashes($_POST['email']);
 	
 	$trans_query = "begin;";
-	$trans_result = mysql_query($trans_query) or die(mysql_error());
+	$trans_result = mysql_query($trans_query) || die(mysql_error());
 	
 	$login_id = getNextID($connection, "login", "ID");
 
 	$login_query = "insert into login values ($login_id, '$name', '$account[birth_date]', '$pass', '', '$_SERVER[REMOTE_ADDR]', '$_SERVER[REMOTE_ADDR]', '$now', '$now',  $verification_number, 'N',  '$email' );";
 	
-	$login_result = mysql_query($login_query) or die(mysql_error()."1");
+	$login_result = mysql_query($login_query) || die(mysql_error()."1");
 
 	//echo "1<br>";
 	$permissions_query = "insert into permissions values (null, $login_id, 'Y', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N');";
-	$permissions_result = mysql_query($permissions_query) or die(mysql_error());
+	$permissions_result = mysql_query($permissions_query) || die(mysql_error());
 	
 	// insert record into PHPBB
   // insert into phpbb_users
@@ -42,7 +42,7 @@ if($account['is_valid'])
   
   //echo "$user_query<br>";
   
-  mysql_query($user_query) or die(mysql_error());
+  mysql_query($user_query) || die(mysql_error());
   
   //die(transactionRollback($mysqli, "debug"));
 
@@ -51,14 +51,14 @@ if($account['is_valid'])
   
   $group_query = "insert into phpbb_groups values ($group_id, 1, '', 'Personal User', 0, 1);";
 
-  mysql_query($group_query) or die(mysql_error());
+  mysql_query($group_query) || die(mysql_error());
   
   // insert into phpbb_user_group
   $user_group_query = "insert into phpbb_user_group values ($group_id, $user_id, 0);";
-  mysql_query($user_group_query) or die(mysql_error());
+  mysql_query($user_group_query) || die(mysql_error());
   
 	$trans_query = "commit;";
-	$trans_result = mysql_query($trans_query) or die(mysql_error());
+	$trans_result = mysql_query($trans_query) || die(mysql_error());
 	
 	$unlock_query = "unlock tables;";
 	$unlock_result = mysql_query($unlock_query);

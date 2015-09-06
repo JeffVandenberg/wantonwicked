@@ -25,7 +25,7 @@ WHERE
   FeatureID = $id;
 EOQ;
 //echo $feature_query."<br><br>";
-$feature_result = mysql_query($feature_query) or die(mysql_error());
+$feature_result = mysql_query($feature_query) || die(mysql_error());
 
 $status_page = <<<EOQ
 <?xml version="1.0" ?>

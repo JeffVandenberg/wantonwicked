@@ -85,7 +85,7 @@ function submitForm ( )
 EOQ;
 
 $icon_query = "select * from icons where site_id = $userdata[site_id] order by Icon_Name";
-$icon_result = mysql_query($icon_query) or die(mysql_error());;
+$icon_result = mysql_query($icon_query) || die(mysql_error());;
 
 $row = 0;
 while ($icon = mysql_fetch_array($icon_result, MYSQL_ASSOC))

@@ -40,7 +40,7 @@ function buildCityBookEntry($entry_detail="", $show_public=true, $show_private=f
 
 	// get public references
 	$public_reference_query = "select city_book.* from city_book_references left join city_book on city_book_references.target_entry_id = city_book.entry_id where city_book_references.source_entry_id = $entry_detail[Entry_ID] and type='public' and is_approved='Y' and is_deleted='N' order by entry_reference_id;";
-	$public_reference_result = mysql_query($public_reference_query) or die(mysql_error());
+	$public_reference_result = mysql_query($public_reference_query) || die(mysql_error());
 		
 	$public_references = "";
 	while($public_reference_detail = mysql_fetch_array($public_reference_result, MYSQL_ASSOC))
@@ -58,7 +58,7 @@ EOQ;
 	
 	// get private references
 	$private_reference_query = "select city_book.* from city_book_references left join city_book on city_book_references.target_entry_id = city_book.entry_id where city_book_references.source_entry_id = $entry_detail[Entry_ID] and type='private' and is_approved='Y' and is_deleted='N' order by entry_reference_id;";
-	$private_reference_result = mysql_query($private_reference_query) or die(mysql_error());
+	$private_reference_result = mysql_query($private_reference_query) || die(mysql_error());
 		
 	$private_references = "";
 	while($private_reference_detail = mysql_fetch_array($private_reference_result, MYSQL_ASSOC))
@@ -76,7 +76,7 @@ EOQ;
 	
 	// get secret references
 	$secret_reference_query = "select city_book.* from city_book_references left join city_book on city_book_references.target_entry_id = city_book.entry_id where city_book_references.source_entry_id = $entry_detail[Entry_ID] and type='secret' and is_approved='Y' and is_deleted='N' order by entry_reference_id;";
-	$secret_reference_result = mysql_query($secret_reference_query) or die(mysql_error());
+	$secret_reference_result = mysql_query($secret_reference_query) || die(mysql_error());
 		
 	$secret_references = "";
 	while($secret_reference_detail = mysql_fetch_array($secret_reference_result, MYSQL_ASSOC))

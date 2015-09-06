@@ -31,7 +31,7 @@ if ($characterRepository->MayViewCharacter($character_id, $userdata['user_id']))
         // get # of characters with the same name
         $temp_name = addslashes($character['character_name']);
         $id_query  = "select count(*) from characters where character_name like '$temp_name%';";
-        $id_result = mysql_query($id_query) or die(mysql_error());
+        $id_result = mysql_query($id_query) || die(mysql_error());
         $id = Database::GetInstance()->Query($id_query)->Value();
 
         // mark the character as deleted

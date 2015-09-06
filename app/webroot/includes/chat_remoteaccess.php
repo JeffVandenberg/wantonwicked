@@ -1,6 +1,6 @@
 <?php
 	$character_query = "select * from characters where character_name = '$_GET[username]';";
-  $character_result = mysql_query($character_query) or die(mysql_error());
+  $character_result = mysql_query($character_query) || die(mysql_error());
   $character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
 	$mayLogin = 0;
 	

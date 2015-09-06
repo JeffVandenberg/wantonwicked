@@ -5,7 +5,7 @@ $site_id = (isset($_GET['site_id'])) ? $_GET['site_id'] +0 : 1000;
 
 // get content details from the database
 $content_query = "select * from site_content where content_uid='$content_uid';";
-$content_result = mysql_query($content_query) or die(mysql_error());
+$content_result = mysql_query($content_query) || die(mysql_error());
 
 $page_content = "No Contents";
 $pate_title = "No Title";

@@ -1,4 +1,5 @@
 <?php
+use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 
@@ -52,7 +53,7 @@ if (isset($_GET['action'])) {
                 include 'includes/encounter_list.php';
             }
             else {
-                include 'includes/index_default.php';
+                Response::Redirect('/');
             }
             break;
         case 'st_list':
@@ -60,7 +61,7 @@ if (isset($_GET['action'])) {
 
     }
 } else {
-    include 'includes/index_default.php';
+    Response::Redirect('/');
 }
 
 // initialize template

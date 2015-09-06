@@ -9,7 +9,7 @@ SET
 WHERE
 	favor_id = $favorId;
 EOQ;
-$dischargeResult = mysql_query($dischargeQuery) or die(mysql_error());
+$dischargeResult = mysql_query($dischargeQuery) || die(mysql_error());
 
 if(mysql_affected_rows())
 {

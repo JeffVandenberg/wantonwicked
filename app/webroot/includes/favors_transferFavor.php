@@ -5,7 +5,7 @@ $favorId = isset($_GET['favorId']) ? $_GET['favorId'] + 0: $favorId;
 $transferCharacterId = $_POST['transferCharacterId'] + 0;
 
 $transactionQuery = "begin;";
-$transactionResult = mysql_query($transactionQuery) or die(mysql_error());
+$transactionResult = mysql_query($transactionQuery) || die(mysql_error());
 
 $transferQuery = <<<EOQ
 INSERT INTO 
@@ -38,7 +38,7 @@ FROM
 WHERE
 	favor_id = $favorId
 EOQ;
-$transferResult = mysql_query($transferQuery) or die(rollback());
+$transferResult = mysql_query($transferQuery) || die(rollback());
 
 if(mysql_affected_rows())
 {
@@ -50,7 +50,7 @@ SET
 WHERE 
 	favor_id = $favorId
 EOQ;
-	$updateResult = mysql_query($updateQuery) or die(rollback());
+	$updateResult = mysql_query($updateQuery) || die(rollback());
 	
 	if(mysql_affected_rows())
 	{
@@ -67,7 +67,7 @@ else
 }
 
 $transactionQuery = "commit;";
-$transactionResult = mysql_query($transactionQuery) or die(mysql_error());
+$transactionResult = mysql_query($transactionQuery) || die(mysql_error());
 
 function rollBack()
 {

@@ -241,7 +241,7 @@ EOQ;
 			$update_query = substr($update_query, 0, strlen($update_query) -2);
 			$update_query .= " where character_id = $stats[character_id];";
 			//echo $update_query."<br>";
-			$update_result = mysql_query($update_query) or die(mysql_error());
+			$update_result = mysql_query($update_query) || die(mysql_error());
 		}
 	}
 }

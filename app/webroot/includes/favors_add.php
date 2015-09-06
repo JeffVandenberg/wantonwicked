@@ -38,7 +38,7 @@ VALUES
 	)
 EOQ;
 
-		$createFavorResult = mysql_query($createFavorQuery) or die(mysql_error());
+		$createFavorResult = mysql_query($createFavorQuery) || die(mysql_error());
 		
 		if(mysql_affected_rows())
 		{

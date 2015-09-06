@@ -1,7 +1,7 @@
 <?
 $page_title = "Site Content";
 $content_query = "select * from site_content order by Section_Rank, Section, Content_Name;";
-$content_result = mysql_query($content_query) or die(mysql_error());
+$content_result = mysql_query($content_query) || die(mysql_error());
 
 $page_content = "Site Content<br>";
 

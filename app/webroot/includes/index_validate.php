@@ -14,7 +14,7 @@ if(!empty($_GET['account_name']) && !empty($_GET['validation_number'] ) && !empt
 	if ($account== "activate")
 	{
 		$confirm_query = "select * from login where ID=$id and confirmation_number='$valid';";
-		$confirm_result = mysql_query($confirm_query) or die(mysql_error());
+		$confirm_result = mysql_query($confirm_query) || die(mysql_error());
 
 		if (mysql_num_rows($confirm_result))
 		{
@@ -23,7 +23,7 @@ if(!empty($_GET['account_name']) && !empty($_GET['validation_number'] ) && !empt
 Your account has been activated. You may login your account now. <a href="$_SERVER[PHP_SELF]">Continue to WantonWicked.net.</a>
 EOQ;
 			$query = "update login set is_confirmed='y', confirmation_number=0 where ID=$id;";
-			$result = mysql_query($query) or die(mysql_error());
+			$result = mysql_query($query) || die(mysql_error());
 		}
 		else
 		{

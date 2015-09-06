@@ -64,7 +64,7 @@ function confirmAccount($settings)
   	
  	$name = addslashes($settings['user_name']);
   $login_check_query = "select * from login where name='$name';";
-  $login_check_result = mysql_query($login_check_query) or die(mysql_error());
+  $login_check_result = mysql_query($login_check_query) || die(mysql_error());
   
   if(mysql_num_rows($login_check_result))
 	{

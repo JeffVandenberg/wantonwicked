@@ -105,7 +105,7 @@ while(list($key, $value) = each($master_keys))
   
   echo $character_query."<br>";
   
-  $character_result = mysql_query($character_query) or die(mysql_error());
+  $character_result = mysql_query($character_query) || die(mysql_error());
   
   // build list of user ids that matched.
   $login_ids = "";
@@ -120,7 +120,7 @@ while(list($key, $value) = each($master_keys))
   // remove those that don't match from the phpbb_user_group table
   $delete_query = "delete from phpbb_user_group where group_id = $value and user_id not in ($login_ids);";
   echo "$delete_query<br><br>";
-  mysql_query($delete_query) or die(mysql_error());
+  mysql_query($delete_query) || die(mysql_error());
 }
 
 ?>

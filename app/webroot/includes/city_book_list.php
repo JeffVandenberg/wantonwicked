@@ -40,7 +40,7 @@ else
 
 }
 
-$entry_result = mysql_query($entry_query) or die(mysql_error());;
+$entry_result = mysql_query($entry_query) || die(mysql_error());;
 
 $entry_list = <<<EOQ
 <table border="0" cellspacing="2" cellpadding="2" class="normal_text">

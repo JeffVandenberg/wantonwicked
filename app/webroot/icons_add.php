@@ -64,7 +64,7 @@ if(isset($_POST['icon_name']) && isset($_POST['icon_id']) && (UserdataHelper::Is
   
 	$icon_query = "insert into icons values (null, '$icon_name', $icon_id, $userdata[site_id], '$player_viewable', '$gm_viewable', '$admin_viewable');";
 	//echo "$icon_query<br>";
-	$icon_result = mysql_query($icon_query) or die(mysql_error());
+	$icon_result = mysql_query($icon_query) || die(mysql_error());
 		
 	// add js
 	$java_script = <<<EOQ

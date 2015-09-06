@@ -12,7 +12,7 @@ if (isset($_GET['character_name'])) {
     $character_name = str_replace("*", "%", $_GET['character_name']);
 
     $character_query = "select * from characters where character_name like '$character_name' and is_deleted='n';";
-    $character_result = mysql_query($character_query) or die(mysql_error());
+    $character_result = mysql_query($character_query) || die(mysql_error());
     //echo "$character_query : " . mysql_num_rows($character_result) . "<br>";
 
     if (mysql_num_rows($character_result)) {

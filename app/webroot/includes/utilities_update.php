@@ -5,7 +5,7 @@ $show_form = true;
 $notes = "";
 
 $login_information_query = "select * from login where id=$userdata[user_id];";
-$login_information_result = mysql_query($login_information_query) or die(mysql_error());
+$login_information_result = mysql_query($login_information_query) || die(mysql_error());
 $login_information_detail = mysql_fetch_array($login_information_result, MYSQL_ASSOC);
 	
 if(isset($_POST['update_submit']))
@@ -78,11 +78,11 @@ if(isset($_POST['update_submit']))
 		
 		// begin transaction
 		$transaction_query = "begin;";
-		$transaction_result = mysql_query($transaction_query) or die(mysql_error());
+		$transaction_result = mysql_query($transaction_query) || die(mysql_error());
 		
 		// perform login_query
 		//echo $login_query."<br>";
-		$login_result = mysql_query($login_query) or die(mysql_error());
+		$login_result = mysql_query($login_query) || die(mysql_error());
 		
 		// test if any additions were made to the phpbb_query
 		if($phpbb_query != "update phpbb_users set ")
@@ -92,11 +92,11 @@ if(isset($_POST['update_submit']))
   		
   		$phpbb_query .= " where username = '$_POST[login_name]';";
   		//echo $phpbb_query."<br>";
-  		$phpbb_result = mysql_query($phpbb_query) or die(mysql_error());
+  		$phpbb_result = mysql_query($phpbb_query) || die(mysql_error());
 		}
 		
 		$transaction_query = "commit;";
-		$transaction_result = mysql_query($transaction_query) or die(mysql_error());
+		$transaction_result = mysql_query($transaction_query) || die(mysql_error());
 		
 		if($confirmation_number)
 		{

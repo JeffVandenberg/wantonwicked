@@ -45,7 +45,7 @@ ORDER BY
 	favor_type_id,
 	from_character.character_name
 EOQ;
-$result = mysql_query($sql) or die(mysql_error());
+$result = mysql_query($sql) || die(mysql_error());
 
 $favorsToCharacter = array();
 while ($row = mysql_fetch_assoc($result)) {
@@ -71,7 +71,7 @@ ORDER BY
 	favor_type_id,
 	to_character.character_name
 EOQ;
-$result = mysql_query($sql) or die(mysql_error());
+$result = mysql_query($sql) || die(mysql_error());
 
 $favorsFromCharacter = array();
 while ($row = mysql_fetch_assoc($result)) {

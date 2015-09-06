@@ -21,11 +21,11 @@ WHERE
 		OR to_character.user_id = $userdata[user_id]
 	)
 EOQ;
-$favorResult = mysql_query($favorQuery) or die(mysql_error());
+$favorResult = mysql_query($favorQuery) || die(mysql_error());
 
 if(mysql_num_rows($favorResult))
 {
-	$favorDetail = mysql_fetch_array($favorResult, MYSQLI_ASSOC) or die(mysql_error());
+	$favorDetail = mysql_fetch_array($favorResult, MYSQLI_ASSOC) || die(mysql_error());
 	
 	$fromCharacter = $favorDetail['from_character_name'];
 	$toCharacter = $favorDetail['to_character_name'];

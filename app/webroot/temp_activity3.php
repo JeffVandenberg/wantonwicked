@@ -18,7 +18,7 @@ group by
 	character_type, 
 	Splat2
 EOQ;
-$result = mysql_query($query) or die(mysql_error());
+$result = mysql_query($query) || die(mysql_error());
 
 while($detail = mysql_fetch_array($result))
 {

@@ -635,7 +635,7 @@ function updateAdminGames($data)
 		}
 		else
 		{
-			copy($img_tmp_name, $folder . "/" . $img_name) or die("Error: could not upload image");
+			copy($img_tmp_name, $folder . "/" . $img_name) || die("Error: could not upload image");
 		}
 		
 		// do .swf upload
@@ -649,7 +649,7 @@ function updateAdminGames($data)
 		}
 		else
 		{
-			copy($swf_tmp_name, $folder . "/" . $swf_name) or die("Error: could not upload .swf file");
+			copy($swf_tmp_name, $folder . "/" . $swf_name) || die("Error: could not upload .swf file");
 		}
 
 		try {
@@ -2805,7 +2805,7 @@ function updateAdminDatabase($data)
 
 				// create index.html file
 				$newfile = fopen($dir."index.html", 'w') 
-							or die("can't open file");
+							|| die("can't open file");
 
 				fclose($newfile);
 			}

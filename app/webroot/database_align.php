@@ -4,7 +4,7 @@ phpinfo();
 /*include 'cgi-bin/dbconnect.php';
 
 $query = "select * from phpbb_users;";
-$result = mysql_query($query) or die(mysql_error());
+$result = mysql_query($query) || die(mysql_error());
 
 while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
 {
@@ -25,7 +25,7 @@ $detail[user_id],
 );
 EOQ;
 
-	$login_result = mysql_query($login_query) or die(mysql_error());
+	$login_result = mysql_query($login_query) || die(mysql_error());
 	
 	$permissions_query = <<<EOQ
 insert into permissions values
@@ -45,7 +45,7 @@ $detail[user_id],
 'N'
 );
 EOQ;
-	$permissions_result = mysql_query($permissions_query) or die(mysql_error());
+	$permissions_result = mysql_query($permissions_query) || die(mysql_error());
 	
 	echo "Updated $detail[username].<br>";
 }*/
