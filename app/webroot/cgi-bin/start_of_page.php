@@ -10,7 +10,6 @@ require_once ROOT_PATH . '../../vendor/autoload.php';
 
 session_start();
 
-ini_set('memory_limit', "64M");
 spl_autoload_extensions('.php');
 spl_autoload_register(
     function ($className) {

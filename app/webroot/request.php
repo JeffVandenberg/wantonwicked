@@ -13,7 +13,7 @@ use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 
-ini_set('display_errors', 1);
+
 include 'cgi-bin/start_of_page.php';
 include 'cgi-bin/submitPost.php';
 

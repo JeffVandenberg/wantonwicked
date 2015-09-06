@@ -2,7 +2,7 @@
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 
-ini_set('display_errors', 1);
+
 include 'cgi-bin/start_of_page.php';
 include 'cgi-bin/buildWoDSheet.php';
 include 'cgi-bin/buildWoDSheetXP.php';

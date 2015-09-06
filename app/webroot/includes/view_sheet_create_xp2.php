@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1);
+
 $page_title = "Create Character V2 - Test / Pre-Alpha";
 $characterName = "";
 

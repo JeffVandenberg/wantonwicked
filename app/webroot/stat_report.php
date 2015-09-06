@@ -1,5 +1,4 @@
 <?php
-ini_set('display_errors',1);
 include 'cgi-bin/dbconnect.php';
 include 'includes/database/mysql.php';
 

@@ -4,7 +4,7 @@ use classes\core\repository\Database;
 use classes\log\data\ActionType;
 use classes\support\SupportManager;
 
-ini_set('display_errors', 1);
+
 
 include 'cgi-bin/start_of_page.php';
 

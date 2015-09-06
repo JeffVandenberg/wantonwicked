@@ -1,7 +1,6 @@
 <?php
 use classes\core\helpers\SessionHelper;
 
-ini_set('display_errors', 1);
 include 'cgi-bin/start_of_page.php';
 // perform required includes
 define('IN_PHPBB', true);
