@@ -1713,7 +1713,6 @@ function getPowers($character_id, $power_type, $sort_order, $number_of_blanks)
 {
     $power_list = array();
 
-
     if ($character_id) {
         switch ($sort_order) {
             case NAMELEVEL:

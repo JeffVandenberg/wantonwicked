@@ -62,6 +62,9 @@ if (isset($_GET['action'])) {
         case 'create_xp':
             include 'includes/view_sheet_create_xp.php';
             break;
+        case 'create_xp2':
+            include 'includes/view_sheet_create_xp2.php';
+            break;
         case 'get_fragment':
             $template_name = 'empty_template.tpl';
             include 'includes/view_sheet_get_fragment.php';
