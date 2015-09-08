@@ -189,7 +189,7 @@ class Psychic extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("psychicmerit${i}", $power->getPowerLevel(),
-                    WodSheet::Merit, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::MERIT, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'],
                     false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>

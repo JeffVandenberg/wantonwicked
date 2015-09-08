@@ -194,7 +194,7 @@ class Ghoul extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $discipline_dots = FormHelper::Dots("icdisc${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
@@ -244,7 +244,7 @@ class Ghoul extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $discipline_dots = FormHelper::Dots("oocdisc${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
@@ -272,7 +272,7 @@ class Ghoul extends SheetRenderer
         $supernatural_xp_js = '';
         $powers = $sheet->getPowers($sheet->stats['id'], 'Devotion', WodSheet::NAMENOTE, 2);
         if ($sheet->viewOptions['xp_create_mode']) {
-            $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::Supernatural . ')" ';
+            $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::SUPERNATURAL . ')" ';
         }
         ob_start();
         ?>

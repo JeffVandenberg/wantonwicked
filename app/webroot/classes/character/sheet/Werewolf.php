@@ -228,7 +228,7 @@ class Werewolf extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("affgift${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
@@ -291,7 +291,7 @@ class Werewolf extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("nonaffgift${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
@@ -348,7 +348,7 @@ class Werewolf extends SheetRenderer
                 </td>
                 <td>
                     <?php echo FormHelper::Dots("rituals", $renowns["rituals"]->getPowerLevel(),
-                        WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                        WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                         $sheet->viewOptions['edit_powers'],
                         false, $sheet->viewOptions['xp_create_mode']); ?>
 
@@ -364,7 +364,7 @@ class Werewolf extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("ritual${i}", $power->getPowerLevel(),
-                    WodSheet::Merit, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::MERIT, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
@@ -391,27 +391,27 @@ class Werewolf extends SheetRenderer
         $rituals = ob_get_clean();
 
 
-        $purity_dots = FormHelper::Dots("purity", $renowns["purity"]->getPowerLevel(), WodSheet::Supernatural,
+        $purity_dots = FormHelper::Dots("purity", $renowns["purity"]->getPowerLevel(), WodSheet::SUPERNATURAL,
             $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
             $sheet->viewOptions['xp_create_mode']);
         $purity_id = $renowns["purity"]->getPowerID();
 
-        $glory_dots = FormHelper::Dots("glory", $renowns["glory"]->getPowerLevel(), WodSheet::Supernatural,
+        $glory_dots = FormHelper::Dots("glory", $renowns["glory"]->getPowerLevel(), WodSheet::SUPERNATURAL,
             $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
             $sheet->viewOptions['xp_create_mode']);
         $glory_id = $renowns["glory"]->getPowerID();
 
-        $honor_dots = FormHelper::Dots("honor", $renowns["honor"]->getPowerLevel(), WodSheet::Supernatural,
+        $honor_dots = FormHelper::Dots("honor", $renowns["honor"]->getPowerLevel(), WodSheet::SUPERNATURAL,
             $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
             $sheet->viewOptions['xp_create_mode']);
         $honor_id = $renowns["honor"]->getPowerID();
 
-        $wisdom_dots = FormHelper::Dots("wisdom", $renowns["wisdom"]->getPowerLevel(), WodSheet::Supernatural,
+        $wisdom_dots = FormHelper::Dots("wisdom", $renowns["wisdom"]->getPowerLevel(), WodSheet::SUPERNATURAL,
             $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
             $sheet->viewOptions['xp_create_mode']);
         $wisdom_id = $renowns["wisdom"]->getPowerID();
 
-        $cunning_dots = FormHelper::Dots("cunning", $renowns["cunning"]->getPowerLevel(), WodSheet::Supernatural,
+        $cunning_dots = FormHelper::Dots("cunning", $renowns["cunning"]->getPowerLevel(), WodSheet::SUPERNATURAL,
             $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
             $sheet->viewOptions['xp_create_mode']);
         $cunning_id = $renowns["cunning"]->getPowerID();

@@ -198,7 +198,7 @@ class Promethean extends SheetRenderer
 
         $supernatural_xp_js = '';
         if ($sheet->viewOptions['xp_create_mode']) {
-            $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::Supernatural . ')" ';
+            $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::SUPERNATURAL . ')" ';
         }
         ob_start();
         ?>
@@ -280,7 +280,7 @@ class Promethean extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("afftrans${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
@@ -342,7 +342,7 @@ class Promethean extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("nonafftrans${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>

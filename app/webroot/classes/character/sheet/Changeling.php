@@ -228,7 +228,7 @@ class Changeling extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("affcont${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
@@ -294,7 +294,7 @@ class Changeling extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("nonaffcont${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
@@ -357,7 +357,7 @@ class Changeling extends SheetRenderer
             </tr>
             <?php foreach ($powers as $i => $power): ?>
                 <?php $dots = FormHelper::Dots("gobcont${i}", $power->getPowerLevel(),
-                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>

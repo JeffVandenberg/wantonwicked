@@ -225,7 +225,7 @@ class Mage extends SheetRenderer
                 </td>
             </tr>
             <?php foreach ($powers as $i => $power): ?>
-                <?php $dots = FormHelper::Dots("rulingarcana${i}", $power->getPowerLevel(), WodSheet::Supernatural,
+                <?php $dots = FormHelper::Dots("rulingarcana${i}", $power->getPowerLevel(), WodSheet::SUPERNATURAL,
                     $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
                     $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
@@ -276,7 +276,7 @@ class Mage extends SheetRenderer
                 </td>
             </tr>
             <?php foreach ($powers as $i => $power): ?>
-                <?php $dots = FormHelper::Dots("commonarcana${i}", $power->getPowerLevel(), WodSheet::Supernatural,
+                <?php $dots = FormHelper::Dots("commonarcana${i}", $power->getPowerLevel(), WodSheet::SUPERNATURAL,
                     $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
                     $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
@@ -327,7 +327,7 @@ class Mage extends SheetRenderer
                 </td>
             </tr>
             <?php foreach ($powers as $i => $power): ?>
-                <?php $dots = FormHelper::Dots("inferiorarcana${i}", $power->getPowerLevel(), WodSheet::Supernatural,
+                <?php $dots = FormHelper::Dots("inferiorarcana${i}", $power->getPowerLevel(), WodSheet::SUPERNATURAL,
                     $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
                     $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
@@ -358,7 +358,7 @@ class Mage extends SheetRenderer
         $powers = $sheet->getPowers($sheet->stats['id'], 'Rote', WodSheet::NAMENOTE, 5);
         $supernatural_xp_js = "";
         if ($sheet->viewOptions['xp_create_mode']) {
-            $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::Supernatural . ')" ';
+            $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::SUPERNATURAL . ')" ';
         }
 
         ob_start();
