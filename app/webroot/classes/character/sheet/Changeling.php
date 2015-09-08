@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: jvandenberg
  * Date: 9/7/2015
- * Time: 1:10 AM
+ * Time: 11:47 PM
  */
 
 namespace classes\character\sheet;
@@ -11,23 +11,22 @@ namespace classes\character\sheet;
 
 use classes\core\helpers\FormHelper;
 
-class Vampire extends SheetRenderer
+class Changeling extends SheetRenderer
 {
     public function render(WodSheet $sheet, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
-                           $icon, $age, $is_npc, $status, $concept, $description, $equipment_public,
-                           $equipment_hidden, $public_effects, $safe_place, $character_merit_list,
-                           $character_flaw_list, $characterMiscList, $health_dots, $size, $wounds_bashing,
-                           $wounds_lethal, $wounds_aggravated, $defense, $morality_dots, $initiative_mod,
-                           $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                           $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1,
-                           $subsplat, $splat2, $friends, $power_points_dots, $power_trait_dots,
-                           $apparent_age, $average_power_points, $power_points_modifier)
+                           $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                           $public_effects, $safe_place, $character_merit_list, $character_flaw_list,
+                           $characterMiscList, $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated,
+                           $defense, $morality_dots, $initiative_mod, $willpower_perm_dots, $speed,
+                           $willpower_temp_dots, $armor, $st_notes_table, $history_table, $skill_table,
+                           $attribute_table, $show_sheet_table, $splat1, $subsplat, $splat2, $friends,
+                           $power_points_dots, $power_trait_dots, $apparent_age)
     {
-        ob_start();
+        ob_start()
         ?>
-        <table class="character-sheet <?php echo $sheet->table_class; ?>">
+        <table class="character-sheet <?php echo $sheet->table_class; ?>" width="100%">
             <tr>
-                <th colspan="4">
+                <th colspan="4" align="center">
                     Vitals
                 </th>
             </tr>
@@ -53,7 +52,7 @@ class Vampire extends SheetRenderer
                     <?php echo $location; ?>
                 </td>
                 <td>
-                    <b>Sex:</b>
+                    <b>Sex</b>
                 </td>
                 <td>
                     <?php echo $sex; ?>
@@ -75,13 +74,13 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    <b>Clan</b>
+                    <b>Seeming</b>
                 </td>
                 <td>
                     <?php echo $splat1; ?>
                 </td>
                 <td>
-                    <b>Bloodline</b>
+                    <b>Kith</b>
                 </td>
                 <td>
                     <?php echo $subsplat; ?>
@@ -89,7 +88,7 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    <b>Covenant</b>
+                    <b>Court</b>
                 </td>
                 <td>
                     <?php echo $splat2; ?>
@@ -109,7 +108,7 @@ class Vampire extends SheetRenderer
                     <?php echo $age; ?>
                 </td>
                 <td>
-                    <b>Apparent Age</b>
+                    <b>Years Missing (real)</b>
                 </td>
                 <td>
                     <?php echo $apparent_age; ?>
@@ -135,17 +134,17 @@ class Vampire extends SheetRenderer
 
         ob_start();
         ?>
-        <table class="character-sheet <?php echo $sheet->table_class; ?>">
+        <table class="character-sheet <?php echo $sheet->table_class; ?>" width="100%">
             <tr>
-                <th colspan="2">
+                <th colspan="2" align="center">
                     Information
                 </th>
             </tr>
             <tr>
-                <td style="width:25%;">
+                <td width="25%">
                     <b>Concept</b>
                 </td>
-                <td style="width:75%;">
+                <td width="75%">
                     <?php echo $concept; ?>
                 </td>
             </tr>
@@ -183,7 +182,7 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    <b>Sire</b>
+                    <b>Motley</b>
                 </td>
                 <td>
                     <?php echo $friends; ?>
@@ -191,7 +190,7 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    <b>Haven</b>
+                    <b>Hollow</b>
                 </td>
                 <td>
                     <?php echo $safe_place; ?>
@@ -201,166 +200,188 @@ class Vampire extends SheetRenderer
         <?php
         $information_table = ob_get_clean();
 
-        // in clan
-        $powers = $sheet->getPowers($sheet->stats['id'], 'ICDisc', WodSheet::NAMENOTE, 3);
-
+        // affinity contracts
+        $powers = getPowers($sheet->stats['id'], 'AffContract', WodSheet::NAMENOTE, 3);
         ob_start();
         ?>
-        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="icdisc_list">
+        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="affcont_list">
             <tr>
-                <th colspan="2">
-                    In-Clan Disciplines
+                <th colspan="3">
+                    Affinity Contracts
                     <?php if ($sheet->viewOptions['edit_powers']): ?>
-                        <a href="#" onClick="addDisc('icdisc');return false;">
-                            <img src="/img/plus.png" title="Add In-Clan Discipline"/>
+                        <a href="#" onClick="addContract('affcont');return false;">
+                            <img src="/img/plus.png" title="Add Affinity Contract"/>
                         </a>
                     <?php endif; ?>
                 </th>
             </tr>
             <tr>
-                <td style="width:50%;" class="header-row">
+                <td class="header-row">
                     Name
                 </td>
-                <td style="width:50%;" class="header-row">
+                <td class="header-row">
+                    Note
+                </td>
+                <td class="header-row">
                     Level
                 </td>
             </tr>
             <?php foreach ($powers as $i => $power): ?>
-                <?php $discipline_dots = FormHelper::Dots("icdisc${i}", $power->getPowerLevel(),
+                <?php $dots = FormHelper::Dots("affcont${i}", $power->getPowerLevel(),
                     WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
                         <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="icdisc<?php echo $i; ?>_name"></label><input type="text"
-                                                                                     name="icdisc<?php echo $i; ?>_name"
-                                                                                     id="icdisc<?php echo $i; ?>_name"
-                                                                                     size="15"
-                                                                                     value="<?php echo $power->getPowerName(); ?>">
+                            <label for="affcont<?php echo $i; ?>_name"></label>
+                            <input type="text"
+                                   name="affcont<?php echo $i; ?>_name"
+                                   id="affcont<?php echo $i; ?>_name"
+                                   size="20"
+                                   value="<?php echo $power->getPowerName(); ?>">
                         <?php else: ?>
                             <?php echo $power->getPowerName(); ?>
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?php echo $discipline_dots; ?>
-                        <input type="hidden" name="icdisc<?php echo $i; ?>_id" id="icdisc<?php echo $i; ?>_id"
+                        <?php if ($sheet->viewOptions['edit_powers']): ?>
+                            <label for="affcont<?php echo $i; ?>_note"></label>
+                            <input type="text"
+                                   name="affcont<?php echo $i; ?>_note"
+                                   id="affcont<?php echo $i; ?>_note"
+                                   size="15"
+                                   value="<?php echo $power->getPowerNote(); ?>">
+                        <?php else: ?>
+                            <?php echo $power->getPowerNote(); ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php echo $dots; ?>
+                        <input type="hidden" name="affcont<?php echo $i; ?>_id" id="affcont<?php echo $i; ?>_id"
                                value="<?php echo $power->getPowerID(); ?>">
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
         <?php
-        $inclanDisciplines = ob_get_clean();
+        $affinityContracts = ob_get_clean();
 
-
-        $powers = $sheet->getPowers($sheet->stats['id'], 'OOCDisc', WodSheet::NAMENOTE, 2);
+// nonaffinity contracts
+        $powers = getPowers($sheet->stats['id'], 'NonAffContract', NAMENOTE, 3);
         ob_start();
         ?>
-        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="oocdisc_list">
+        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="nonaffcont_list">
             <tr>
-                <th colspan="2">
-                    Out-of-Clan Disciplines
+                <th colspan="3">
+                    Non-Affinity Contracts
                     <?php if ($sheet->viewOptions['edit_powers']): ?>
-                        <a href="#" onClick="addDisc('oocdisc');return false;">
-                            <img src="/img/plus.png" title="Add Out-of-Clan Discipline"/>
+                        <a href="#" onClick="addContract('nonaffcont');return false;">
+                            <img src="/img/plus.png" title="Add Non-Affinity Contract"/>
                         </a>
                     <?php endif; ?>
                 </th>
             </tr>
             <tr>
-                <td style="width:50%;" class="header-row">
+                <td class="header-row">
                     Name
                 </td>
-                <td style="width:50%;" class="header-row">
+                <td class="header-row">
+                    Note
+                </td>
+                <td class="header-row">
                     Level
                 </td>
             </tr>
             <?php foreach ($powers as $i => $power): ?>
-                <?php $discipline_dots = FormHelper::Dots("oocdisc${i}", $powers[$i]->getPowerLevel(),
+                <?php $dots = FormHelper::Dots("nonaffcont${i}", $power->getPowerLevel(),
                     WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
                         <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="oocdisc<?php echo $i; ?>_name"></label><input type="text"
-                                                                                      name="oocdisc<?php echo $i; ?>_name"
-                                                                                      id="oocdisc<?php echo $i; ?>_name"
-                                                                                      size="15"
-                                                                                      value="<?php echo $power->getPowerName(); ?>">
+                            <label for="nonaffcont<?php echo $i; ?>_name"></label>
+                            <input type="text"
+                                   name="nonaffcont<?php echo $i; ?>_name"
+                                   id="nonaffcont<?php echo $i; ?>_name"
+                                   size="20"
+                                   value="<?php echo $power->getPowerName(); ?>">
                         <?php else: ?>
                             <?php echo $power->getPowerName(); ?>
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?php echo $discipline_dots; ?>
-                        <input type="hidden" name="oocdisc<?php echo $i; ?>_id" id="oocdisc<?php echo $i; ?>_id"
+                        <?php if ($sheet->viewOptions['edit_powers']): ?>
+                            <label for="nonaffcont<?php echo $i; ?>_note"></label>
+                            <input type="text"
+                                   name="nonaffcont<?php echo $i; ?>_note"
+                                   id="nonaffcont<?php echo $i; ?>_note"
+                                   size="15"
+                                   value="<?php echo $power->getPowerNote(); ?>">
+                        <?php else: ?>
+                            <?php echo $power->getPowerNote(); ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php echo $dots; ?>
+                        <input type="hidden" name="nonaffcont<?php echo $i; ?>_id" id="affcont<?php echo $i; ?>_id"
                                value="<?php echo $power->getPowerID(); ?>">
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
         <?php
-        $oocDisciplines = ob_get_clean();
+        $nonaffinityContracts = ob_get_clean();
 
-        $powers = $sheet->getPowers($sheet->stats['id'], 'Devotion', WodSheet::NAMENOTE, 2);
-        $supernatural_xp_js = '';
-        if ($sheet->viewOptions['xp_create_mode']) {
-            $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::Supernatural . ')" ';
-        }
+        // Goblin Contracts
+        $powers = getPowers($sheet->stats['id'], 'GoblinContract', NAMENOTE, 2);
         ob_start();
         ?>
-        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="devotion_list">
+        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="gobcont_list">
             <tr>
-                <th colspan="2">
-                    Devotions/Rituals/Other
+                <th colspan="3">
+                    Goblin Contracts
                     <?php if ($sheet->viewOptions['edit_powers']): ?>
-                        <a href="#" onClick="addDevotion();return false;">
-                            <img src="/img/plus.png" title="Add Devotion/Ritual/Other"/>
+                        <a href="#" onClick="addContract('gobcont');return false;">
+                            <img src="/img/plus.png" title="Add Goblin Contract"/>
                         </a>
                     <?php endif; ?>
                 </th>
             </tr>
             <tr>
-                <td style="width:50%;" class="header-row">
+                <td class="header-row">
                     Name
                 </td>
-                <td style="width:50%;" class="header-row">
-                    Cost
+                <td class="header-row">
+                    Level
                 </td>
             </tr>
             <?php foreach ($powers as $i => $power): ?>
-                <?php $level = $power->getPowerLevel(); ?>
-                <?php $discipline_id = $power->getPowerID(); ?>
+                <?php $dots = FormHelper::Dots("gobcont${i}", $power->getPowerLevel(),
+                    WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
+                    $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
                     <td>
                         <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="devotion<?php echo $i; ?>_name"></label><input type="text"
-                                                                                       name="devotion<?php echo $i; ?>_name"
-                                                                                       id="devotion<?php echo $i; ?>_name"
-                                                                                       size="15"
-                                                                                       value="<?php echo $power->getPowerName(); ?>">
+                            <label for="gobcont<?php echo $i; ?>_name"></label>
+                            <input type="text"
+                                   name="gobcont<?php echo $i; ?>_name"
+                                   id="gobcont<?php echo $i; ?>_name"
+                                   size="20"
+                                   value="<?php echo $power->getPowerName(); ?>">
                         <?php else: ?>
                             <?php echo $power->getPowerName(); ?>
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="devotion<?php echo $i; ?>"></label><input type="text"
-                                                                                  name="devotion<?php echo $i; ?>"
-                                                                                  id="devotion<?php echo $i; ?>" size="3"
-                                                                                  maxlength="2"
-                                                                                  value="<?php echo $level; ?>" <?php echo $supernatural_xp_js; ?>>
-                        <?php else: ?>
-                            <?php echo $level; ?>
-                        <?php endif; ?>
-                        <input type="hidden" name="devotion<?php echo $i; ?>_id" id="devotion<?php echo $i; ?>_id"
-                               value="<?php echo $discipline_id; ?>">
+                        <?php echo $dots; ?>
+                        <input type="hidden" name="gobcont<?php echo $i; ?>_id" id="affcont<?php echo $i; ?>_id"
+                               value="<?php echo $power->getPowerID(); ?>">
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
         <?php
-        $devotions = ob_get_clean();
+        $goblinContracts = ob_get_clean();
 
         ob_start();
         ?>
@@ -370,9 +391,9 @@ class Vampire extends SheetRenderer
             <?php echo $characterMiscList; ?>
         </div>
         <div style="width:50%;float:left;">
-            <?php echo $inclanDisciplines; ?>
-            <?php echo $oocDisciplines; ?>
-            <?php echo $devotions; ?>
+            <?php echo $affinityContracts; ?>
+            <?php echo $nonaffinityContracts; ?>
+            <?php echo $goblinContracts; ?>
         </div>
         <table class="character-sheet <?php echo $sheet->table_class; ?>">
             <tr>
@@ -398,7 +419,7 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td colspan="1">
-                    Blood Potency
+                    Wyrd
                 </td>
                 <td colspan="2">
                     <?php echo $power_trait_dots; ?>
@@ -412,7 +433,7 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td colspan="1">
-                    Humanity
+                    Clarity
                 </td>
                 <td colspan="2">
                     <?php echo $morality_dots; ?>
@@ -454,7 +475,7 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    Blood
+                    Glamour
                 </td>
                 <td colspan="2">
                     <?php echo $power_points_dots; ?>
@@ -464,21 +485,6 @@ class Vampire extends SheetRenderer
                 </td>
                 <td colspan="2">
                     <?php echo $armor; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    ABP
-                </td>
-                <td colspan="2">
-                    <?php echo $average_power_points; ?>
-                    <a href="abp.php?action=show_modifiers&character_id=<?php echo $sheet->stats['id']; ?>" target="_blank">Explanation</a>
-                </td>
-                <td>
-                    ABP Modifier
-                </td>
-                <td colspan="2">
-                    <?php echo $power_points_modifier; ?>
                 </td>
             </tr>
         </table>

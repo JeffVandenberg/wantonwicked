@@ -59,7 +59,9 @@ $options = array(
     'user_type' => 'player'
 );
 
-$characterSheet = $wodSheet->buildSheet('Mortal', array('id' => 1), $options);
+$characterType = Request::GetValue('type', 'Mortal');
+$id = Request::GetValue('id', null);
+$characterSheet = $wodSheet->buildSheet($characterType, array('id' => $id), $options);
 //$characterSheet = $characterSheetHelper->MakeNewView('', $characterType);
 
 ob_start();

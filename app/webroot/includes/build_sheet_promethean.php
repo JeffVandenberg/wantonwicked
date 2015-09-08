@@ -512,4 +512,3 @@ $traits_table = <<<EOQ
 	</tr>
 </table>
 EOQ;
-?>

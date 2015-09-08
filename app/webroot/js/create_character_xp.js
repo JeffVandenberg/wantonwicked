@@ -1339,7 +1339,12 @@ function displayBonusDot() {
 }
 
 function getCharacterType() {
-    return $("#character_type").val();
+    var oldType = $("#character_type").val(),
+        newType = $("#character-type").val();
+    if(oldType.length == null) {
+        return newType;
+    }
+    return oldType;
 }
 
 function getSplat1() {
@@ -1612,7 +1617,7 @@ function addTrans(type) {
     var newRow = trans_list.insertRow(row_id);
 
     var newListCell = newRow.insertCell(0);
-    newListCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_list\" id=\"" + type + index + "_list\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
+    newListCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_note\" id=\"" + type + index + "_note\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";
 
     var newNameCell = newRow.insertCell(1);
     newNameCell.innerHTML = "<input type=\"text\" name=\"" + type + index + "_name\" id=\"" + type + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\">";

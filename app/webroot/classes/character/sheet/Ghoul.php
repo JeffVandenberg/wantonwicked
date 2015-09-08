@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: jvandenberg
  * Date: 9/7/2015
- * Time: 1:10 AM
+ * Time: 11:33 PM
  */
 
 namespace classes\character\sheet;
@@ -11,23 +11,21 @@ namespace classes\character\sheet;
 
 use classes\core\helpers\FormHelper;
 
-class Vampire extends SheetRenderer
+class Ghoul extends SheetRenderer
 {
     public function render(WodSheet $sheet, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
-                           $icon, $age, $is_npc, $status, $concept, $description, $equipment_public,
-                           $equipment_hidden, $public_effects, $safe_place, $character_merit_list,
-                           $character_flaw_list, $characterMiscList, $health_dots, $size, $wounds_bashing,
-                           $wounds_lethal, $wounds_aggravated, $defense, $morality_dots, $initiative_mod,
-                           $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                           $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1,
-                           $subsplat, $splat2, $friends, $power_points_dots, $power_trait_dots,
-                           $apparent_age, $average_power_points, $power_points_modifier)
+                           $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                           $public_effects, $safe_place, $character_merit_list, $character_flaw_list,
+                           $characterMiscList, $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated,
+                           $defense, $morality_dots, $initiative_mod, $willpower_perm_dots, $speed,
+                           $willpower_temp_dots, $armor, $st_notes_table, $history_table, $skill_table,
+                           $attribute_table, $show_sheet_table, $friends, $apparent_age, $power_points_dots)
     {
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>">
             <tr>
-                <th colspan="4">
+                <th colspan="4" align="center">
                     Vitals
                 </th>
             </tr>
@@ -60,45 +58,23 @@ class Vampire extends SheetRenderer
                 </td>
             </tr>
             <tr>
-                <td>
-                    <b>Virtue</b>
-                </td>
-                <td>
-                    <?php echo $virtue; ?>
-                </td>
-                <td>
-                    <b>Vice</b>
-                </td>
-                <td>
-                    <?php echo $vice; ?>
-                </td>
+                <td><b> Virtue</b></td>
+                <td><?php echo $virtue; ?></td>
+                <td><b>Vice</b></td>
+                <td><?php echo $vice; ?></td>
             </tr>
             <tr>
-                <td>
-                    <b>Clan</b>
-                </td>
-                <td>
-                    <?php echo $splat1; ?>
-                </td>
-                <td>
-                    <b>Bloodline</b>
-                </td>
-                <td>
-                    <?php echo $subsplat; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>Covenant</b>
-                </td>
-                <td>
-                    <?php echo $splat2; ?>
-                </td>
                 <td>
                     <b>Icon</b>
                 </td>
                 <td>
                     <?php echo $icon; ?>
+                </td>
+                <td>
+                    <b>Domitor</b>
+                </td>
+                <td>
+                    <?php echo $friends; ?>
                 </td>
             </tr>
             <tr>
@@ -137,15 +113,15 @@ class Vampire extends SheetRenderer
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>">
             <tr>
-                <th colspan="2">
+                <th colspan="2" align="center">
                     Information
                 </th>
             </tr>
             <tr>
-                <td style="width:25%;">
+                <td width="25%">
                     <b>Concept</b>
                 </td>
-                <td style="width:75%;">
+                <td width="75%">
                     <?php echo $concept; ?>
                 </td>
             </tr>
@@ -183,15 +159,7 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    <b>Sire</b>
-                </td>
-                <td>
-                    <?php echo $friends; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>Haven</b>
+                    <b>Home</b>
                 </td>
                 <td>
                     <?php echo $safe_place; ?>
@@ -201,7 +169,6 @@ class Vampire extends SheetRenderer
         <?php
         $information_table = ob_get_clean();
 
-        // in clan
         $powers = $sheet->getPowers($sheet->stats['id'], 'ICDisc', WodSheet::NAMENOTE, 3);
 
         ob_start();
@@ -253,7 +220,7 @@ class Vampire extends SheetRenderer
         $inclanDisciplines = ob_get_clean();
 
 
-        $powers = $sheet->getPowers($sheet->stats['id'], 'OOCDisc', WodSheet::NAMENOTE, 2);
+        $powers = getPowers($sheet->stats['id'], 'OOCDisc', WodSheet::NAMENOTE, 2);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="oocdisc_list">
@@ -276,7 +243,7 @@ class Vampire extends SheetRenderer
                 </td>
             </tr>
             <?php foreach ($powers as $i => $power): ?>
-                <?php $discipline_dots = FormHelper::Dots("oocdisc${i}", $powers[$i]->getPowerLevel(),
+                <?php $discipline_dots = FormHelper::Dots("oocdisc${i}", $power->getPowerLevel(),
                     WodSheet::Supernatural, $sheet->stats['character_type'], $sheet->max_dots,
                     $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
                 <tr>
@@ -302,8 +269,8 @@ class Vampire extends SheetRenderer
         <?php
         $oocDisciplines = ob_get_clean();
 
-        $powers = $sheet->getPowers($sheet->stats['id'], 'Devotion', WodSheet::NAMENOTE, 2);
         $supernatural_xp_js = '';
+        $powers = $sheet->getPowers($sheet->stats['id'], 'Devotion', WodSheet::NAMENOTE, 2);
         if ($sheet->viewOptions['xp_create_mode']) {
             $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::Supernatural . ')" ';
         }
@@ -347,7 +314,8 @@ class Vampire extends SheetRenderer
                         <?php if ($sheet->viewOptions['edit_powers']): ?>
                             <label for="devotion<?php echo $i; ?>"></label><input type="text"
                                                                                   name="devotion<?php echo $i; ?>"
-                                                                                  id="devotion<?php echo $i; ?>" size="3"
+                                                                                  id="devotion<?php echo $i; ?>"
+                                                                                  size="3"
                                                                                   maxlength="2"
                                                                                   value="<?php echo $level; ?>" <?php echo $supernatural_xp_js; ?>>
                         <?php else: ?>
@@ -376,46 +344,32 @@ class Vampire extends SheetRenderer
         </div>
         <table class="character-sheet <?php echo $sheet->table_class; ?>">
             <tr>
-                <th colspan="6">
+                <th colspan="6" align="center">
                     Traits
                 </th>
             </tr>
             <tr>
-                <td style="width:15%">
+                <td width="15%">
                     Health
                 </td>
-                <td colspan="2" style="width:50%">
+                <td colspan="2" width="50%">
                     <?php echo $health_dots; ?>
                 </td>
-                <td colspan="1" style="width:15%">
-                    Wounds
-                </td>
-                <td colspan="2" style="width:20%;white-space: nowrap;">
-                    Bashing: <?php echo $wounds_bashing; ?>
-                    Lethal: <?php echo $wounds_lethal; ?>
-                    Agg: <?php echo $wounds_aggravated; ?>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="1">
-                    Blood Potency
-                </td>
-                <td colspan="2">
-                    <?php echo $power_trait_dots; ?>
-                </td>
-                <td colspan="1">
+                <td colspan="1" width="15%">
                     Size
                 </td>
-                <td colspan="2">
+                <td colspan="2" width="20%">
                     <?php echo $size; ?>
                 </td>
             </tr>
             <tr>
                 <td colspan="1">
-                    Humanity
+                    Wounds
                 </td>
-                <td colspan="2">
-                    <?php echo $morality_dots; ?>
+                <td colspan="2" style="white-space: nowrap;">
+                    Bashing: <?php echo $wounds_bashing; ?>
+                    Lethal: <?php echo $wounds_lethal; ?>
+                    Agg: <?php echo $wounds_aggravated; ?>
                 </td>
                 <td colspan="1">
                     Defense
@@ -425,11 +379,11 @@ class Vampire extends SheetRenderer
                 </td>
             </tr>
             <tr>
-                <td>
-                    Willpower Perm
+                <td colspan="1">
+                    Morality
                 </td>
                 <td colspan="2">
-                    <?php echo $willpower_perm_dots; ?>
+                    <?php echo $morality_dots; ?>
                 </td>
                 <td colspan="1">
                     Initiative Mod
@@ -440,10 +394,10 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    Willpower Temp
+                    Willpower Perm
                 </td>
                 <td colspan="2">
-                    <?php echo $willpower_temp_dots; ?>
+                    <?php echo $willpower_perm_dots; ?>
                 </td>
                 <td colspan="1">
                     Speed
@@ -454,10 +408,10 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    Blood
+                    Willpower Temp
                 </td>
                 <td colspan="2">
-                    <?php echo $power_points_dots; ?>
+                    <?php echo $willpower_temp_dots; ?>
                 </td>
                 <td colspan="1">
                     Armor
@@ -468,17 +422,16 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    ABP
+                    Blood
                 </td>
                 <td colspan="2">
-                    <?php echo $average_power_points; ?>
-                    <a href="abp.php?action=show_modifiers&character_id=<?php echo $sheet->stats['id']; ?>" target="_blank">Explanation</a>
+                    <?php echo $power_points_dots; ?>
                 </td>
-                <td>
-                    ABP Modifier
+                <td colspan="1">
+
                 </td>
                 <td colspan="2">
-                    <?php echo $power_points_modifier; ?>
+
                 </td>
             </tr>
         </table>

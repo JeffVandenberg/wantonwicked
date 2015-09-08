@@ -14,6 +14,7 @@ use classes\core\helpers\Configuration;
 use classes\core\helpers\FormHelper;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
+use classes\utility\ArrayTools;
 use Power;
 
 class WodSheet
@@ -67,14 +68,6 @@ class WodSheet
         $this->stats['character_type'] = $character_type;
         $this->max_dots = 7;
 
-//        // element types
-//        self::Attribute = 1;
-//        self::Skill = 2;
-//        $element_type['merit'] = 3;
-//        self::Supernatural = 4;
-//        $element_type['power_trait'] = 5;
-//        $element_type['morality'] = 6;
-
         // initialize sheet values
         $attribute_xp = 135;
         $skill_xp = 105;
@@ -83,7 +76,8 @@ class WodSheet
         $supernatural_xp = 0;
         $number_of_specialties = 3;
 
-        $character_types = array("Mortal", "Vampire", "Ghoul", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker", "Changeling", "Geist", "Changing Breed");
+        $character_types = array("Mortal", "Vampire", "Ghoul", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker", "Changeling", "Geist", "Changing Breed", 'Psychic', 'Thaumaturge', 'Promethean');
+        sort($character_types);
 
         $skill_list_proper = array("Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry");
         $skill_list_proper_mage = array("Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry", "Rote Specialty");
@@ -179,13 +173,13 @@ EOQ;
         $view_status = "";
         $bonus_attribute = "";
 
-        $attributes = InitializeAttributes();
-        $skills = InitializeSkills();
+        $attributes = $this->initializeAttributes();
+        $skills = $this->initializeSkills();
 
         // mods for ghouls
         if ($character_type == "Ghoul") {
             $morality = 6;
-            $power_points = GetPowerByName($attributes, "Stamina")->getPowerLevel();
+            $power_points = $this->getPowerByName($attributes, "Stamina")->getPowerLevel();
         }
 
         $history_edit = "readonly";
@@ -216,14 +210,12 @@ EOQ;
 
             $concept = $stats['concept'];
             $description = $stats['description'];
-            $url = $stats['url'];
             $equipment_public = $stats['equipment_public'];
             $equipment_hidden = $stats['equipment_hidden'];
             $public_effects = $stats['public_effects'];
             $friends = $stats['friends']; // pack/coterie/whatever
             $helper = $stats['helper']; // Totem/Familiar/whatever/Regnent
             $safe_place = $stats['safe_place'];
-            $exit_line = $stats['exit_line'];
             $misc_powers = $stats['misc_powers'];
 
             $power_trait = $stats['power_stat'];
@@ -258,12 +250,14 @@ EOQ;
             $asst_sanctioned = $stats['asst_sanctioned'];
             $bonus_attribute = $stats['bonus_attribute'];
 
-            $attributes = $this->getPowers($stats['id'], 'Attribute', self::NAMELEVEL, 0);
-            $skills = $this->getPowers($stats['id'], 'Skill', self::NAMELEVEL, 0);
-            if (!$this->viewOptions['xp_create_mode'] && ($bonus_attribute != '')) {
-                foreach ($attributes as $attribute) {
-                    if ($attribute->getPowerName() == $bonus_attribute) {
-                        $attribute->setPowerLevel($attribute->getPowerLevel() + 1);
+            if ($characterId) {
+                $attributes = $this->getPowers($stats['id'], 'Attribute', self::NAMELEVEL, 0);
+                $skills = $this->getPowers($stats['id'], 'Skill', self::NAMELEVEL, 0);
+                if (!$this->viewOptions['xp_create_mode'] && ($bonus_attribute != '')) {
+                    foreach ($attributes as $attribute) {
+                        if ($attribute->getPowerName() == $bonus_attribute) {
+                            $attribute->setPowerLevel($attribute->getPowerLevel() + 1);
+                        }
                     }
                 }
             }
@@ -417,45 +411,82 @@ EOQ;
 
         if ($this->viewOptions['edit_vitals']) {
             // edit character type
-            $character_type_js = "onChange=\"changeSheet(window.document.character_sheet.character_type.value)\";";
-            $character_type_select = buildSelect($character_type, $character_types, $character_types, "character_type",
-                $character_type_js);
+
+            $character_type_select = FormHelper::Select(
+                ArrayTools::array_valuekeys($character_types),
+                'character_type',
+                $character_type,
+                array(
+                    'onChange' => '"changeSheet(window.document.character_sheet.character_type.value)";',
+                    'id' => 'character_type'
+                )
+            );
 
             // location
             $locations = array("Savannah", "San Diego", "The City", "Side Game");
-            $location = buildSelect($location, $locations, $locations, "location");
+            $location = FormHelper::Select(
+                ArrayTools::array_valuekeys($locations),
+                'location',
+                $location
+            );
 
             // sex
             $sexes = array("Male", "Female");
-            $sex = buildSelect($sex, $sexes, $sexes, "sex");
+            $sex = FormHelper::Select(
+                ArrayTools::array_valuekeys($sexes),
+                'sex',
+                $sex
+            );
 
             // virtue & vice
             $virtues = array("Charity", "Faith", "Fortitude", "Hope", "Justice", "Prudence", "Temperance");
-            $virtue = buildSelect($virtue, $virtues, $virtues, "virtue");
+            $virtue = FormHelper::Select(
+                ArrayTools::array_valuekeys($virtues),
+                'virtue',
+                $virtue
+            );
             $vices = array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath");
-            $vice = buildSelect($vice, $vices, $vices, "vice");
+            $vice = FormHelper::Select(
+                ArrayTools::array_valuekeys($vices),
+                'vice',
+                $vice
+            );
 
-            $splat1_select_js = "";
-            $splat2_select_js = "";
+            $splat1Options = array();
+            $splat2Options = array();
             if ($this->viewOptions['xp_create_mode']) {
                 if ($character_type == 'Vampire') {
-                    $splat1_select_js = ' onChange="updateBonusAttribute();" ';
+                    $splat1Options['onChange'] = '"updateBonusAttribute();"';
                 }
                 if ($character_type == 'Mage') {
-                    $splat1_select_js = ' onChange="displayBonusDot();" ';
-                    $splat2_select_js = ' onChange="updateXP(' . self::Merit . ');" ';
+                    $splat1Options['onChange'] = '"displayBonusDot();"';
+                    $splat2Options['onChange'] = '"updateXP(' . self::Merit . ');" ';
                 }
                 if ($character_type == 'Werewolf') {
-                    $splat1_select_js = ' onChange="displayFreeWerewolfRenown();updateXP(' . self::Supernatural . ');" ';
-                    $splat2_select_js = ' onChange="displayFreeWerewolfRenown();updateXP(' . self::Supernatural . ');" ';
+                    $splat1Options['onChange'] = '"displayFreeWerewolfRenown();updateXP(' . self::Supernatural . ');" ';
+                    $splat2Options['onChange'] = '"displayFreeWerewolfRenown();updateXP(' . self::Supernatural . ');" ';
                 }
                 if ($character_type == "Thaumaturge") {
-                    $splat1_select_js = ' onChange="addThaumaturgeDefiningMerit();updateXP(' . self::Merit . ');" ';
+                    $splat1Options['onChange'] = '"addThaumaturgeDefiningMerit();updateXP(' . self::Merit . ');" ';
                 }
             }
 
-            $splat1 = buildSelect($splat1, $splat1_groups, $splat1_groups, "splat1", $splat1_select_js);
-            $splat2 = buildSelect($splat2, $splat2_groups, $splat2_groups, "splat2", $splat2_select_js);
+            if(is_array($splat1_groups)) {
+                $splat1 = FormHelper::Select(
+                    ArrayTools::array_valuekeys($splat1_groups),
+                    'splat1',
+                    $splat1,
+                    $splat1Options
+                );
+            }
+            if(is_array($splat2_groups)) {
+                $splat2 = FormHelper::Select(
+                    ArrayTools::array_valuekeys($splat2_groups),
+                    'splat2',
+                    $splat2,
+                    $splat2Options
+                );
+            }
 
             $subsplat = <<<EOQ
 <input type="text" name="subsplat" id="subsplat" value="$subsplat" size="20" maxlength="30">
@@ -515,14 +546,11 @@ EOQ;
 
             }
 
-            $icon_ids = "";
-            $icon_names = "";
-
+            $icons = array();
             foreach (Database::GetInstance()->Query($icon_query)->All() as $icon_detail) {
-                $icon_ids[] = $icon_detail['Icon_ID'];
-                $icon_names[] = $icon_detail['Icon_Name'];
+                $icons[$icon_detail['Icon_ID']] = $icon_detail['Icon_Name'];
             }
-            $icon = buildSelect($icon, $icon_ids, $icon_names, "icon");
+            $icon = FormHelper::Select($icons, 'icon', $icon);
 
             $description = <<<EOQ
 <input type="text" name="description" id="description" value="$description" size="50" maxlength="400">
@@ -1590,9 +1618,9 @@ EOQ;
                 break;
 
             case 'Psychic':
-                return $this->buildSheetPsychic($character_name, $character_type_select, $location, $sex, $virtue,
-                    $vice,
-                    $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                $psychic = new Psychic();
+                return $psychic->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                    $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                     $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
@@ -1600,13 +1628,13 @@ EOQ;
                 break;
 
             case 'Thaumaturge':
-                return $this->buildSheetThaumaturge($character_name, $character_type_select, $location, $sex, $virtue,
-                    $vice,
-                    $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                $thaumaturge = new Thaumaturge();
+                return $thaumaturge->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                    $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                     $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                    $history_table, $skill_table, $attribute_table, $show_sheet_table);
+                    $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1, $friends);
                 break;
 
             case 'Werewolf':
@@ -1644,32 +1672,37 @@ EOQ;
                 break;
 
             case 'Ghoul':
-                return $this->buildSheetGhoul($character_name, $character_type_select, $location, $sex, $virtue, $vice,
+                $ghoul = new Ghoul();
+                return $ghoul->render($this, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
                     $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                     $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                    $history_table, $skill_table, $attribute_table, $show_sheet_table);
+                    $history_table, $skill_table, $attribute_table, $show_sheet_table, $friends, $apparent_age,
+                    $power_points_dots);
                 break;
 
             case 'Promethean':
-                return $this->buildSheetPromethean($character_name, $character_type_select, $location, $sex, $virtue,
+                $promethean = new Promethean();
+                return $promethean->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                     $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
                     $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1, $subsplat, $splat2,
-                    $friends, $helper, $power_points_dots, $power_trait_dots);
+                    $friends, $power_points_dots, $power_trait_dots);
                 break;
-            
+
             case 'Changeling':
-                return $this->buildSheetChangeling($character_name, $character_type_select, $location, $sex, $virtue,
-                    $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
-                    $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
-                    $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
-                    $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                    $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1, $subsplat, $splat2,
-                    $friends, $helper, $power_points_dots, $power_trait_dots);
+                $changeling = new Changeling();
+                return $changeling->render($this, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
+                    $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                    $public_effects, $safe_place, $character_merit_list, $character_flaw_list,
+                    $characterMiscList, $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated,
+                    $defense, $morality_dots, $initiative_mod, $willpower_perm_dots, $speed,
+                    $willpower_temp_dots, $armor, $st_notes_table, $history_table, $skill_table,
+                    $attribute_table, $show_sheet_table, $splat1, $subsplat, $splat2, $friends,
+                    $power_points_dots, $power_trait_dots, $apparent_age);
                 break;
 
             case 'Hunter':
@@ -1737,8 +1770,7 @@ EOQ;
     public function getPowers($characterId, $powerType, $sort, $minCount)
     {
         $power_list = array();
-
-        if ($characterId) {
+        if ($characterId != null) {
             switch ($sort) {
                 case self::NAMELEVEL:
                     $order_by = "power_name, power_level";
@@ -1795,27 +1827,48 @@ EOQ;
         return $mayEdit;
     }
 
-    private function buildSheetPsychic($character_name, $character_type_select, $location, $sex, $virtue, $vice, $icon,
-                                       $age, $is_npc, $status, $concept, $description, $equipment_public,
-                                       $equipment_hidden, $public_effects, $safe_place, $character_merit_list,
-                                       $character_flaw_list, $characterMiscList, $health_dots, $size, $wounds_bashing,
-                                       $wounds_lethal, $wounds_aggravated, $defense, $morality_dots, $initiative_mod,
-                                       $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                                       $history_table, $skill_table, $attribute_table, $show_sheet_table)
+    private function initializeAttributes()
     {
-        return 'Not Translated Yet.';
+        $attribute_list = array("strength", "dexterity", "stamina", "presence", "manipulation", "composure", "intelligence", "wits", "resolve");
+        $attributes = array();
+        foreach ($attribute_list as $attribute) {
+            $power = new Power();
+            $power->setPowerLevel(1);
+            $power->setPowerName(ucfirst($attribute));
+            $attributes[] = $power;
+        }
+
+        return $attributes;
     }
 
-    private function buildSheetThaumaturge($character_name, $character_type_select, $location, $sex, $virtue, $vice,
-                                           $icon, $age, $is_npc, $status, $concept, $description, $equipment_public,
-                                           $equipment_hidden, $public_effects, $safe_place, $character_merit_list,
-                                           $character_flaw_list, $characterMiscList, $health_dots, $size,
-                                           $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense,
-                                           $morality_dots, $initiative_mod, $willpower_perm_dots, $speed,
-                                           $willpower_temp_dots, $armor, $st_notes_table, $history_table, $skill_table,
-                                           $attribute_table, $show_sheet_table)
+    private function initializeSkills()
     {
-        return 'Not Translated Yet.';
+        $skill_list = array("academics", "computer", "crafts", "investigation", "medicine", "occult", "politics", "science", "athletics", "brawl", "drive", "firearms", "larceny", "stealth", "survival", "weaponry", "animal ken", "empathy", "expression", "intimidation", "persuasion", "socialize", "streetwise", "subterfuge");
+        $skills = array();
+        foreach ($skill_list as $skill) {
+            $power = new Power();
+            $power->setPowerLevel(0);
+            $power->setPowerName(ucwords(str_replace('_', ' ', $skill)));
+            $skills[] = $power;
+        }
+
+        return $skills;
+    }
+
+    /**
+     * @param Power[] $powers
+     * @param string $name
+     * @return Power
+     */
+    private function getPowerByName($powers, $name)
+    {
+        foreach ($powers as $power) {
+            if (strtolower($power->getPowerName()) == strtolower($name)) {
+                return $power;
+            }
+        }
+
+        return null;
     }
 
 }
