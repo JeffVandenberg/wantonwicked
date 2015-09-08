@@ -5,6 +5,7 @@ use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Pagination;
 use classes\core\helpers\Request;
+use classes\core\helpers\Response;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestStatusRepository;
@@ -19,8 +20,7 @@ $filter = Request::GetValue('filter', array('title' => '', 'request_type_id' => 
 
 $characterRepository = new CharacterRepository();
 if (!$userdata['is_admin'] && !$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    include 'index_redirect.php';
-    die();
+    Response::Redirect('/');
 }
 
 $pagination = new Pagination();

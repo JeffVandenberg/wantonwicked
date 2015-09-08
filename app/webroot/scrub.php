@@ -42,24 +42,26 @@ $payload = array(
     </h3>
 <?php
 $stores = Scrub::performRequest($locationsUrl, $payload);
-foreach ($stores['d']['Results'] as $store) {
-    ?>
-    Store: <?php echo $store['Organization']['Name']; ?><br/>
-    Id: <?php echo $store['Organization']['Id']; ?><br/>
-    Phone: <?php echo $store['Organization']['Phone']; ?><br/>
-    Email: <?php echo $store['Organization']['Email']; ?><br/>
-    URL: <?php echo $store['Organization']['PrimaryUrl']; ?><br/>
-    Address:
-    <?php echo $store['Address']['Line1']; ?><br/>
-    <?php if ($store['Address']['Line2']): ?><?php echo $store['Address']['Line2']; ?><br/><?php endif; ?>
-    <?php if ($store['Address']['Line3']): ?><?php echo $store['Address']['Line3']; ?><br/><?php endif; ?>
-    <?php echo $store['Address']['City']; ?>,
-    <?php echo $store['Address']['StateProvinceCode']; ?>
-    <?php echo $store['Address']['PostalCode']; ?>
-    <br/>
-    <?php echo Scrub::printEventDetails($eventTypes, $store['Address']['Id'], $store['Organization']['Id']); ?>
-    <br/>
-    <?php
+if($stores) {
+    foreach ($stores['d']['Results'] as $store) {
+        ?>
+        Store: <?php echo $store['Organization']['Name']; ?><br/>
+        Id: <?php echo $store['Organization']['Id']; ?><br/>
+        Phone: <?php echo $store['Organization']['Phone']; ?><br/>
+        Email: <?php echo $store['Organization']['Email']; ?><br/>
+        URL: <?php echo $store['Organization']['PrimaryUrl']; ?><br/>
+        Address:
+        <?php echo $store['Address']['Line1']; ?><br/>
+        <?php if ($store['Address']['Line2']): ?><?php echo $store['Address']['Line2']; ?><br/><?php endif; ?>
+        <?php if ($store['Address']['Line3']): ?><?php echo $store['Address']['Line3']; ?><br/><?php endif; ?>
+        <?php echo $store['Address']['City']; ?>,
+        <?php echo $store['Address']['StateProvinceCode']; ?>
+        <?php echo $store['Address']['PostalCode']; ?>
+        <br/>
+        <?php echo Scrub::printEventDetails($eventTypes, $store['Address']['Id'], $store['Organization']['Id']); ?>
+        <br/>
+        <?php
+    }
 }
 
 class Scrub
@@ -84,13 +86,15 @@ class Scrub
 
         $data = self::performRequest($url, $params);
         $Info = '';
-        foreach ($data['d']['Result']['EventsAtVenue'] as $event) {
-            if (in_array($event['EventTypeCode'], $eventTypes)) {
-                preg_match('/(\d+)/', $event['StartDate'], $matches);
-                $Info .= 'Event: ' . $event['Name'];
-                $Info .= ' Date: ' . date('Y-m-d', $matches[0] / 1000);
-                $Info .= ' Format: ' . $event['PlayFormatCode'];
-                $Info .= '<br />';
+        if($data) {
+            foreach ($data['d']['Result']['EventsAtVenue'] as $event) {
+                if (in_array($event['EventTypeCode'], $eventTypes)) {
+                    preg_match('/(\d+)/', $event['StartDate'], $matches);
+                    $Info .= 'Event: ' . $event['Name'];
+                    $Info .= ' Date: ' . date('Y-m-d', $matches[0] / 1000);
+                    $Info .= ' Format: ' . $event['PlayFormatCode'];
+                    $Info .= '<br />';
+                }
             }
         }
         return $Info;
@@ -124,7 +128,8 @@ class Scrub
         $result = curl_exec($curl);
         $data = json_decode($result, true);
         if (!$data) {
-            die($result);
+            echo $result;
+            return null;
         }
         return $data;
     }

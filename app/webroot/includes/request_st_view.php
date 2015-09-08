@@ -56,6 +56,12 @@ ob_start();
 <?php endif; ?>
     <dl>
         <dt>
+            User
+        </dt>
+        <dd>
+            <?php echo $request['username']; ?>
+        </dd>
+        <dt>
             Group:
         </dt>
         <dd>

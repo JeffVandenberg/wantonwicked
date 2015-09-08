@@ -3,6 +3,7 @@
 
 // get character id
 use classes\character\repository\CharacterRepository;
+use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
@@ -21,8 +22,11 @@ if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id']))
 
 $page_title = "Give Favor";
 $favorType = 0;
+$targetCharacter = Request::GetValue('targetCharacter');
+$favorDescription = Request::GetValue('favorDescription');
+$favorNotes = Request::GetValue('favorNotes');
 
-if ($_POST['formSubmit']) {
+if (Request::IsPost()) {
     // attempt to save favor
     $favorTypeId       = $_POST['favorTypeId'] + 0;
     $targetCharacterId = $_POST['targetCharacterId'] + 0;
@@ -73,15 +77,12 @@ EOQ;
 
 
 $favorTypeQuery = "SELECT * FROM favor_types";
-$favorTypeResult = mysql_query($favorTypeQuery) || die(mysql_error());
 
 $ids = $names = "";
+$favorTypes = array();
 foreach(Database::GetInstance()->Query($favorTypeQuery)->All() as $favorTypeDetail) {
-    $ids[]   = $favorTypeDetail['id'];
-    $names[] = $favorTypeDetail['name'];
+    $favorTypes[$favorTypeDetail['id']] = $favorTypeDetail['name'];
 }
-
-$favorTypeSelect = buildSelect($favorType, $ids, $names, "favorTypeId");
 
 ob_start();
 ?>
@@ -89,21 +90,21 @@ ob_start();
 
     <form id="giveFavorForm" method="post">
         <div class="formInput">
-            <label>Give Favor to:</label>
+            <label for="targetCharacter">Give Favor to:</label>
             <input type="hidden" name="targetCharacterId" id="targetCharacterId" value=""/>
             <input type="text" name="targetCharacter" id="targetCharacter" value="<?php echo $targetCharacter; ?>"><br/>
         </div>
         <div class="formInput">
             <label>Favor Type:</label>
-            <?php echo $favorTypeSelect; ?>
+            <?php echo FormHelper::Select($favorTypes, 'favorTypeId', $favorType); ?>
         </div>
         <div class="formInput">
-            <label>Favor Description:</label>
+            <label for="favorDescription">Favor Description:</label>
             <input type="text" name="favorDescription" id="favorDescription" value="<?php echo $favorDescription; ?>"><br/>
         </div>
         <div class="formInput">
-            <label>Favor Notes:</label>
-            <textarea name="favorNotes" rows="5" cols="50"><?php echo $favorNotes; ?></textarea>
+            <label for="favorNotes">Favor Notes:</label>
+            <textarea name="favorNotes" id="favorNotes" rows="5" cols="50"><?php echo $favorNotes; ?></textarea>
         </div>
         <div class="formInput">
             <input type="hidden" name="sourceCharacterId" value="<?php echo $characterId; ?>"/>

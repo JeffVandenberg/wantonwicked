@@ -50,14 +50,18 @@ class RequestRepository extends AbstractRepository
         $sql = <<<EOQ
 SELECT
     R.*,
-    G.name as group_name
+    G.name as group_name,
+    U.username
 FROM
     requests AS R
     LEFT JOIN groups as G ON R.group_id = G.id
+    LEFT JOIN phpbb_users as U ON R.created_by_id = U.user_id
 WHERE
-    R.id = $id;
+    R.id = ?
 EOQ;
-        return ExecuteQueryItem($sql);
+        $params = array($id);
+
+        return $this->Query($sql)->Single($params);
     }
 
     public function ListByCharacterId($characterId, $page, $pageSize, $sort, $statusId = 0, $filter)
