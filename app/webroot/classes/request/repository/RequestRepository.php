@@ -201,7 +201,6 @@ EOQ;
     {
         $requestId = (int) $requestId;
         $characterId = (int) $characterId;
-        $closed = RequestStatus::Closed;
         $bluebook = RequestType::BlueBook;
         $sql = <<<EOQ
 SELECT
