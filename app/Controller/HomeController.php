@@ -40,4 +40,4 @@ class HomeController extends AppController
         $this->layout = 'blank';
         $this->set(compact('news'));
     }
-} 
+}
