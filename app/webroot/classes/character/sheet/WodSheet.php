@@ -77,7 +77,8 @@ class WodSheet
         $number_of_specialties = 3;
 
         $character_types = array("Mortal", "Vampire", "Ghoul", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker",
-            "Changeling", "Geist", "Changing Breed", 'Psychic', 'Thaumaturge', 'Promethean', 'Hunter');
+            "Changeling", "Geist", "Changing Breed", 'Psychic', 'Thaumaturge', 'Promethean', 'Hunter', 'Purified',
+            'Possessed');
         sort($character_types);
 
         $skill_list_proper = array("Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry");
@@ -120,14 +121,12 @@ EOQ;
 
         $concept = "";
         $description = "";
-        $url = "";
         $equipment_public = "";
         $equipment_hidden = "";
         $public_effects = "";
         $friends = ""; // pack/coterie/whatever
         $helper = ""; // Totem/Familiar/whatever
         $safe_place = "";
-        $exit_line = "";
         $misc_powers = "";
 
         $power_trait = 1;
@@ -1709,49 +1708,53 @@ EOQ;
                 break;
 
             case 'Geist':
-                return $this->buildSheetGeist($character_name, $character_type_select, $location, $sex, $virtue, $vice,
+                $geist = new Geist();
+                return $geist->render($this, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
                     $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                     $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                    $history_table, $skill_table, $attribute_table, $show_sheet_table);
+                    $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1, $splat2, $friends,
+                    $power_trait_dots, $power_points_dots);
                 break;
 
             case 'Purified':
-                return $this->buildSheetPurified($character_name, $character_type_select, $location, $sex, $virtue,
-                    $vice,
-                    $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                $purified = new Purified();
+                return $purified->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                    $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                     $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                    $history_table, $skill_table, $attribute_table, $show_sheet_table);
+                    $history_table, $skill_table, $attribute_table, $show_sheet_table, $power_trait_dots,
+                    $power_points_dots);
                 break;
 
             case 'Possessed':
-                return $this->buildSheetPossessed($character_name, $character_type_select, $location, $sex, $virtue,
-                    $vice,
-                    $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                $possessed = new Possessed();
+                return $possessed->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                    $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                     $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                    $history_table, $skill_table, $attribute_table, $show_sheet_table);
+                    $history_table, $skill_table, $attribute_table, $show_sheet_table, $apparent_age, $power_trait_dots,
+                    $power_points_dots);
                 break;
 
             case 'Changing Breed':
-                return $this->buildSheetChangingBreed($character_name, $character_type_select, $location, $sex, $virtue,
-                    $vice,
-                    $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                $changingBreed = new ChangingBreed();
+                return $changingBreed->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                    $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                     $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                    $history_table, $skill_table, $attribute_table, $show_sheet_table);
+                    $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1, $splat2, $subsplat,
+                    $apparent_age, $friends, $power_trait_dots, $power_points_dots);
                 break;
 
             default:
                 return "Not implemented yet.  $character_type_select<br>";
                 break;
         }
-        return '';
     }
 
     /**
@@ -1863,6 +1866,59 @@ EOQ;
         }
 
         return null;
+    }
+
+    /**
+     * @param $characterId
+     * @return Power[]
+     */
+    public function getRenownsRituals($characterId)
+    {
+        $renown_list = array();
+
+        $renowns = array("purity", "honor", "glory", "wisdom", "cunning");
+
+        for ($i = 0; $i < 5; $i++) {
+            $renown = new Power();
+            $renown->setPowerName("");
+            $renown->setPowerLevel("");
+            $renown->setPowerID(0);
+
+            $renown_list[$renowns[$i]] = $renown;
+        }
+
+        $renown = new Power();
+        $renown->setPowerName("");
+        $renown->setPowerLevel(0);
+        $renown->setPowerID(0);
+
+        $renown_list["rituals"] = $renown;
+
+        if ($characterId) {
+            $repo = RepositoryManager::GetRepository('classes\Character\Data\CharacterPower');
+            /* @var CharacterPowerRepository $repo */
+
+            foreach ($repo->ListPowersForCharacter($characterId, 'Renown', 'power_name') as $detail) {
+                $renown = new Power();
+                $renown->setPowerName($detail["power_name"]);
+                $renown->setPowerLevel($detail["power_level"]);
+                $renown->setPowerID($detail["id"]);
+                $renown_name = strtolower($detail["power_name"]);
+
+                $renown_list[$renown_name] = $renown;
+            }
+
+            foreach ($repo->ListPowersForCharacter($characterId, 'Rituals', 'power_name') as $detail) {
+                $renown = new Power();
+                $renown->setPowerName($detail["power_name"]);
+                $renown->setPowerLevel($detail["power_level"]);
+                $renown->setPowerID($detail["id"]);
+
+                $renown_list["rituals"] = $renown;
+            }
+        }
+
+        return $renown_list;
     }
 
 }

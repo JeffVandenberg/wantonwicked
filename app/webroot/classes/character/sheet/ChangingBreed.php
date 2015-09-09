@@ -2,29 +2,30 @@
 /**
  * Created by PhpStorm.
  * User: jvandenberg
- * Date: 9/7/2015
- * Time: 1:13 AM
+ * Date: 9/8/2015
+ * Time: 11:30 PM
  */
 
 namespace classes\character\sheet;
 
+
 use classes\core\helpers\FormHelper;
 
-class Werewolf extends SheetRenderer
+class ChangingBreed extends SheetRenderer
 {
-    public function render(WodSheet $sheet, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
-                           $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+    public function render(WodSheet $sheet, $character_name, $character_type_select, $location, $sex, $virtue,
+                           $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                            $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                            $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
                            $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
-                           $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1, $subsplat, $splat2,
-                           $friends, $helper, $power_points_dots, $power_trait_dots)
+                           $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1, $splat2,
+                           $subsplat, $apparent_age, $friends, $power_trait_dots, $power_points_dots)
     {
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>">
             <tr>
-                <th colspan="4" align="center">
+                <th colspan="4">
                     Vitals
                 </th>
             </tr>
@@ -72,24 +73,10 @@ class Werewolf extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    <b>Auspice</b>
+                    <b>Accord</b>
                 </td>
                 <td>
                     <?php echo $splat1; ?>
-                </td>
-                <td>
-                    <b>Lodge</b>
-                </td>
-                <td>
-                    <?php echo $subsplat; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>Tribe</b>
-                </td>
-                <td>
-                    <?php echo $splat2; ?>
                 </td>
                 <td>
                     <b>Icon</b>
@@ -100,16 +87,30 @@ class Werewolf extends SheetRenderer
             </tr>
             <tr>
                 <td>
+                    <b>Breed</b>
+                </td>
+                <td>
+                    <?php echo $splat2; ?>
+                </td>
+                <td>
+                    <b>Species</b>
+                </td>
+                <td>
+                    <?php echo $subsplat; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <b>Age</b>
                 </td>
                 <td>
                     <?php echo $age; ?>
                 </td>
                 <td>
-                    <b>Pack</b>
+                    <b>Apparent Age</b>
                 </td>
                 <td>
-                    <?php echo $friends; ?>
+                    <?php echo $apparent_age; ?>
                 </td>
             </tr>
             <tr>
@@ -134,15 +135,15 @@ class Werewolf extends SheetRenderer
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>">
             <tr>
-                <th colspan="2" align="center">
+                <th colspan="2">
                     Information
                 </th>
             </tr>
             <tr>
-                <td width="25%">
+                <td style="width:25%;">
                     <b>Concept</b>
                 </td>
-                <td width="75%">
+                <td style="width:75%;">
                     <?php echo $concept; ?>
                 </td>
             </tr>
@@ -180,15 +181,15 @@ class Werewolf extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    <b>Totem</b>
+                    <b>Friends</b>
                 </td>
                 <td>
-                    <?php echo $helper; ?>
+                    <?php echo $friends; ?>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <b>Territory/Loci</b>
+                    <b>Safe Place</b>
                 </td>
                 <td>
                     <?php echo $safe_place; ?>
@@ -198,7 +199,58 @@ class Werewolf extends SheetRenderer
         <?php
         $information_table = ob_get_clean();
 
-        $powers = getPowers($sheet->stats['id'], 'AffGift', WodSheet::NOTELEVEL, 5);
+
+        $powers = $sheet->getPowers($sheet->stats['id'], 'Aspect', WodSheet::NAMENOTE, 3);
+
+        ob_start();
+        ?>
+        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="aspect_list">
+            <tr>
+                <th colspan="2">
+                    Aspects
+                    <?php if ($sheet->viewOptions['edit_powers']): ?>
+                        <a href="#" onClick="addAspect();return false;">
+                            <img src="/img/plus.png" title="Add Aspect"/>
+                        </a>
+                    <?php endif; ?>
+                </th>
+            </tr>
+            <tr>
+                <td style="width:50%;" class="header-row">
+                    Name
+                </td>
+                <td style="width:50%;" class="header-row">
+                    Level
+                </td>
+            </tr>
+            <?php foreach ($powers as $i => $power): ?>
+                <?php $dots = FormHelper::Dots("aspect${i}", $power->getPowerLevel(),
+                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
+                    $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
+                <tr>
+                    <td>
+                        <?php if ($sheet->viewOptions['edit_powers']): ?>
+                            <label for="aspect<?php echo $i; ?>_name"></label><input type="text"
+                                                                                     name="aspect<?php echo $i; ?>_name"
+                                                                                     id="aspect<?php echo $i; ?>_name"
+                                                                                     size="15"
+                                                                                     value="<?php echo $power->getPowerName(); ?>">
+                        <?php else: ?>
+                            <?php echo $power->getPowerName(); ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php echo $dots; ?>
+                        <input type="hidden" name="aspect<?php echo $i; ?>_id" id="aspect<?php echo $i; ?>_id"
+                               value="<?php echo $power->getPowerID(); ?>">
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php
+        $aspects = ob_get_clean();
+
+        $powers = getPowers($sheet->stats['id'], 'AffGift', NOTELEVEL, 5);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="affgift_list">
@@ -261,156 +313,26 @@ class Werewolf extends SheetRenderer
         <?php
         $affinityGiftList = ob_get_clean();
 
-        $powers = getPowers($sheet->stats['id'], 'NonAffGift', WodSheet::NOTELEVEL, 3);
-        ob_start();
-        ?>
-        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="nonaffgift_list">
-            <tr>
-                <th colspan="3">
-                    Non-Affinity Gifts
-                    <?php if ($sheet->viewOptions['edit_powers']): ?>
-                        <a href="#" onClick="addGift('nonaffgift');return false;">
-                            <img src="/img/plus.png" title="Add Non-Affinity Gift"/>
-                        </a>
-                    <?php endif; ?>
-                </th>
-            </tr>
-            <tr>
-                <td class="header-row">
-                    Gift List
-                </td>
-                <td class="header-row">
-                    Gift Name
-                </td>
-                <td class="header-row">
-                    Rank
-                </td>
-            </tr>
-            <?php foreach ($powers as $i => $power): ?>
-                <?php $dots = FormHelper::Dots("nonaffgift${i}", $power->getPowerLevel(),
-                    WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
-                    $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
-                <tr>
-                    <td>
-                        <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="nonaffgift<?php echo $i; ?>_note"></label><input type="text"
-                                                                                         name="nonaffgift<?php echo $i; ?>_note"
-                                                                                         id="nonaffgift<?php echo $i; ?>_note"
-                                                                                         size="20"
-                                                                                         value="<?php echo $power->getPowerNote(); ?>">
-                        <?php else: ?>
-                            <?php echo $power->getPowerNote(); ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="nonaffgift<?php echo $i; ?>_name"></label><input type="text"
-                                                                                         name="nonaffgift<?php echo $i; ?>_name"
-                                                                                         id="nonaffgift<?php echo $i; ?>_name"
-                                                                                         size="15"
-                                                                                         value="<?php echo $power->getPowerName(); ?>">
-                        <?php else: ?>
-                            <?php echo $power->getPowerName(); ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php echo $dots; ?>
-                        <input type="hidden" name="nonaffgift<?php echo $i; ?>_id" id="nonaffgift<?php echo $i; ?>_id"
-                               value="<?php echo $power->getPowerID(); ?>">
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php
-        $nonaffinityGiftList = ob_get_clean();
-
         $renowns = $sheet->getRenownsRituals($sheet->stats['id']);
-        $powers = $sheet->getPowers($sheet->stats['id'], 'Ritual', WodSheet::NAMENOTE, 3);
-        ob_start();
-        ?>
-        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="ritual_list">
-            <tr>
-                <th colspan="2">
-                    Rituals
-                    <?php if ($sheet->viewOptions['edit_powers']): ?>
-                        <a href="#" onClick="addRitual();return false;">
-                            <img src="/img/plus.png" title="Add Ritual"/>
-                        </a>
-                    <?php endif; ?>
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    Rituals Level
-                </td>
-                <td>
-                    <?php echo FormHelper::Dots("rituals", $renowns["rituals"]->getPowerLevel(),
-                        WodSheet::SUPERNATURAL, $sheet->stats['character_type'], $sheet->max_dots,
-                        $sheet->viewOptions['edit_powers'],
-                        false, $sheet->viewOptions['xp_create_mode']); ?>
-
-                </td>
-            </tr>
-            <tr>
-                <td class="header-row">
-                    Name
-                </td>
-                <td class="header-row">
-                    Rank
-                </td>
-            </tr>
-            <?php foreach ($powers as $i => $power): ?>
-                <?php $dots = FormHelper::Dots("ritual${i}", $power->getPowerLevel(),
-                    WodSheet::MERIT, $sheet->stats['character_type'], $sheet->max_dots,
-                    $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']); ?>
-                <tr>
-                    <td>
-                        <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="ritual<?php echo $i; ?>_name"></label>
-                            <input type="text"
-                                   name="ritual<?php echo $i; ?>_name"
-                                   id="ritual<?php echo $i; ?>_name"
-                                   size="20"
-                                   value="<?php echo $power->getPowerName(); ?>">
-                        <?php else: ?>
-                            <?php echo $power->getPowerName(); ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php echo $dots; ?>
-                        <input type="hidden" name="ritual<?php echo $i; ?>_id" id="ritual<?php echo $i; ?>_id"
-                               value="<?php echo $power->getPowerID(); ?>">
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php
-        $rituals = ob_get_clean();
-
 
         $purity_dots = FormHelper::Dots("purity", $renowns["purity"]->getPowerLevel(), WodSheet::SUPERNATURAL,
-            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
-            $sheet->viewOptions['xp_create_mode']);
+            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']);
         $purity_id = $renowns["purity"]->getPowerID();
 
         $glory_dots = FormHelper::Dots("glory", $renowns["glory"]->getPowerLevel(), WodSheet::SUPERNATURAL,
-            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
-            $sheet->viewOptions['xp_create_mode']);
+            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']);
         $glory_id = $renowns["glory"]->getPowerID();
 
         $honor_dots = FormHelper::Dots("honor", $renowns["honor"]->getPowerLevel(), WodSheet::SUPERNATURAL,
-            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
-            $sheet->viewOptions['xp_create_mode']);
+            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']);
         $honor_id = $renowns["honor"]->getPowerID();
 
         $wisdom_dots = FormHelper::Dots("wisdom", $renowns["wisdom"]->getPowerLevel(), WodSheet::SUPERNATURAL,
-            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
-            $sheet->viewOptions['xp_create_mode']);
+            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']);
         $wisdom_id = $renowns["wisdom"]->getPowerID();
 
         $cunning_dots = FormHelper::Dots("cunning", $renowns["cunning"]->getPowerLevel(), WodSheet::SUPERNATURAL,
-            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false,
-            $sheet->viewOptions['xp_create_mode']);
+            $sheet->stats['character_type'], $sheet->max_dots, $sheet->viewOptions['edit_powers'], false, $sheet->viewOptions['xp_create_mode']);
         $cunning_id = $renowns["cunning"]->getPowerID();
 
         ob_start();
@@ -470,18 +392,17 @@ class Werewolf extends SheetRenderer
         <?php
         $renownList = ob_get_clean();
 
-        ob_start()
+        ob_start();
         ?>
         <div style="width:50%;float:left;">
             <?php echo $character_merit_list; ?>
             <?php echo $character_flaw_list; ?>
             <?php echo $characterMiscList; ?>
-            <?php echo $rituals; ?>
         </div>
         <div style="width:50%;float:left;">
+            <?php echo $aspects; ?>
             <?php echo $renownList; ?>
             <?php echo $affinityGiftList; ?>
-            <?php echo $nonaffinityGiftList; ?>
         </div>
         <table class="character-sheet <?php echo $sheet->table_class; ?>">
             <tr>
@@ -563,7 +484,7 @@ class Werewolf extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    Essence
+                    Power Points
                 </td>
                 <td colspan="2">
                     <?php echo $power_points_dots; ?>
@@ -578,9 +499,8 @@ class Werewolf extends SheetRenderer
         </table>
         <?php
         $traits_table = ob_get_clean();
-
+        
         return $this->renderSheet($sheet, $show_sheet_table, $vitals_table, $information_table, $attribute_table,
             $skill_table, $traits_table, $history_table, $st_notes_table);
-
     }
 }
