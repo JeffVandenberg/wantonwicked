@@ -1,16 +1,12 @@
 <?php
 /* @var array $userdata */
 
-use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\request\data\RequestCharacter;
-use classes\request\data\RequestStatus;
-use classes\request\repository\GroupRepository;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
-use classes\request\repository\RequestTypeRepository;
 
 $requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();

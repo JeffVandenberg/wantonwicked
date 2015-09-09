@@ -1,6 +1,5 @@
 <?php
 // check page actions
-use classes\core\helpers\UserdataHelper;
 use classes\core\repository\Database;
 
 $contentHeader = $page_title = "Icon Add";

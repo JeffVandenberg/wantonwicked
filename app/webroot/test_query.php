@@ -6,10 +6,7 @@
  * Time: 5:09 PM
  */
 
-use classes\core\helpers\Request;
 use classes\core\repository\Database;
-use classes\log\CharacterLog;
-use classes\log\data\ActionType;
 
 require_once('cgi-bin/start_of_page.php');
 

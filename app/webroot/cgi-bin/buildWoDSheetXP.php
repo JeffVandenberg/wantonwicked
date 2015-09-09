@@ -2,7 +2,6 @@
 use classes\character\repository\CharacterPowerRepository;
 use classes\core\helpers\Configuration;
 use classes\core\helpers\FormHelper;
-use classes\core\helpers\UserdataHelper;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 

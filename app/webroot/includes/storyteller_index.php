@@ -2,7 +2,6 @@
 /* @var array $userdata */
 
 use classes\core\helpers\MenuHelper;
-use classes\core\helpers\UserdataHelper;
 
 $contentHeader = $page_title = "Storyteller Utilities";
 

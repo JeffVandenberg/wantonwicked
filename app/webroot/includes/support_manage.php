@@ -1,8 +1,6 @@
 <?php
 use classes\core\helpers\Request;
-use classes\core\helpers\SessionHelper;
 use classes\core\repository\RepositoryManager;
-use classes\support\data\Supporter;
 use classes\support\repository\SupporterRepository;
 
 $page_title = 'Manage Supporters';

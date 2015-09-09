@@ -1,15 +1,7 @@
 <?php
 
-use classes\character\data\Character;
-use classes\character\repository\CharacterRepository;
-use classes\core\helpers\FormHelper;
-use classes\core\helpers\Request;
 use classes\core\repository\Database;
-use classes\log\CharacterLog;
-use classes\log\data\ActionType;
 use classes\request\data\RequestStatus;
-use classes\request\data\RequestType;
-use classes\request\RequestMailer;
 
 require_once 'cgi-bin/start_of_page.php';
 
