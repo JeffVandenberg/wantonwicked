@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\Response;
+use classes\core\repository\Database;
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
@@ -45,7 +46,7 @@ VALUES
 	)
 EOQ;
 
-if(ExecuteNonQuery($query))
+if(Database::GetInstance()->Query($query)->Execute())
 {
 	$page_content = "Successfully created territory.";
 }
@@ -53,4 +54,3 @@ else
 {
 	$page_content = "There was an error creating the territory.";
 }
-?>

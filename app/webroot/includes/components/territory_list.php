@@ -1,7 +1,7 @@
 <?php
 function CreateTerritoryList($territoryResult, $mayEdit = false)
 {
-	if($territoryResult == null)
+	if($territoryResult === null)
 	{
 		return "No territories.";
 	}

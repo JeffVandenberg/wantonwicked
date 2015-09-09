@@ -1,7 +1,7 @@
 <?php
 function CreateRuleList($ruleResult, $mayManage = true)
 {
-	if($ruleResult == null)
+	if($ruleResult === null)
 	{
 		return "No rules.";
 	}

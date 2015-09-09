@@ -1,5 +1,7 @@
 <?php
-include_once 'includes/classes/tenacy/abp/abp_modifier.php';
+use classes\core\repository\Database;
+
+include_once ROOT_PATH . '/includes/classes/tenacy/abp/abp_modifier.php';
 
 class ABP
 {
@@ -170,11 +172,16 @@ EOQ;
 UPDATE
 	characters AS C
 SET
-	average_power_points = $currentAbp
+	average_power_points = ?
 WHERE
-	id = $characterId
+	id = ?
 EOQ;
-		ExecuteNonQuery($sql);
+        $params = array(
+            $currentAbp,
+            $characterId
+        );
+
+        Database::GetInstance()->Query($sql)->Execute($params);
 	}
 	
 	public function UpdateAllABP()
@@ -233,7 +240,7 @@ WHERE
 	AND C.character_type = 'Vampire'
 	AND C.city = 'Savannah';
 EOQ;
-		ExecuteNonQuery($sql);
+		Database::GetInstance()->Query($sql)->Execute();
 
 		$sql = <<<EOQ
 UPDATE 
@@ -246,19 +253,19 @@ WHERE
 	AND C.character_type = 'Vampire'
 	AND C.city = 'Savannah';
 EOQ;
-		ExecuteNonQuery($sql);
+		Database::GetInstance()->Query($sql)->Execute();
 	}
-	
+
 	private function ApplyRules($characterId)
 	{
 		$extraABP = 0;
 		$list = $this->GetOtherModifiers($characterId);
-		
+
 		foreach($list as $item)
 		{
 			$extraABP += $item->GetModifierValue();
 		}
-		
+
 		if($extraABP >= 0)
 		{
 			$extraABP = floor($extraABP);
@@ -270,4 +277,3 @@ EOQ;
 		return $extraABP;
 	}
 }
-?>

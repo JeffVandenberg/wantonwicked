@@ -1,4 +1,6 @@
 <?php
+use classes\core\repository\Database;
+
 $id = $_GET['id'] + 0;
 
 $sql = <<<EOQ
@@ -12,7 +14,7 @@ WHERE
 	id = $id
 EOQ;
 
-if(ExecuteNonQuery($sql))
+if(Database::GetInstance()->Query($sql)->Execute())
 {
 	echo "Successfully removed character";
 	$sql = <<<EOQ
@@ -21,11 +23,12 @@ SELECT
 FROM
 	characters_territories
 WHERE
-	id = $id
+	id = ?
 EOQ;
-	
-	$result = ExecuteQuery($sql);
-	$detail = mysql_fetch_array($result, MYSQL_ASSOC);
+	$params = array(
+		$id
+	);
+	$detail = Database::GetInstance()->Query($sql)->Single($params);
 	
 	$abp = new ABP();
 	$abp->UpdateABP($detail['character_id']);
@@ -34,4 +37,3 @@ else
 {
 	echo "Error removing character.";
 }
-?>

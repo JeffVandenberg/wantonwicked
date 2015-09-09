@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\Response;
+use classes\core\repository\Database;
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
@@ -32,7 +33,7 @@ VALUES
 EOQ;
 
 
-if(ExecuteNonQuery($sql))
+if(Database::GetInstance()->Query($sql)->Execute())
 {
 	echo "Successfully added character to territory.";
 }
@@ -40,4 +41,3 @@ else
 {
 	echo "Unable to add character to territory.";
 }
-?>

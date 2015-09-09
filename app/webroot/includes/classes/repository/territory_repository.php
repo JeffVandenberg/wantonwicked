@@ -1,4 +1,6 @@
 <?php
+use classes\core\repository\Database;
+
 class TerritoryRepository
 {
 	public function UpdateAll()
@@ -18,10 +20,13 @@ SELECT
 FROM
 	territories
 WHERE
-	is_active = $isActive
+	is_active = ?
 EOQ;
+		$params = array(
+			$isActive
+		);
 
-		return ExecuteQueryData($sql);
+		return Database::GetInstance()->Query($sql)->All($params);
 	}
 	
 	public function UpdateCurrentQualityForTerritory(&$territory)
@@ -38,9 +43,13 @@ UPDATE
 SET
 	current_quality = $quality
 WHERE
-	id = $territory[id]
+	id = ?
 EOQ;
-		ExecuteNonQuery($updateSql);
+		$params = array(
+			$territory['id']
+		);
+
+		Database::GetInstance()->Query($updateSql)->Execute($params);
 		$territory['current_quality'] = $quality;
 	}
 	
@@ -55,12 +64,17 @@ FROM
 WHERE
 	C.is_sanctioned = 'Y'
 	AND C.is_deleted = 'N'
-	and CT.territory_id = $territoryId
+	and CT.territory_id = ?
 	AND (CT.updated_on IS NULL OR CT.updated_on > NOW())
 EOQ;
+		$params = array(
+			$territoryId
+		);
 
-		$currentPopulationDetail = ExecuteQueryData($currentPopulationSql);
-		$currentPopulation = $currentPopulationDetail[0]['number_of_characters'];
+		$currentPopulationDetail = Database::GetInstance()
+			->Query($currentPopulationSql)
+			->Single($params);
+		$currentPopulation = $currentPopulationDetail['number_of_characters'];
 		$currentPopulationModifier = 0;
 		if($currentPopulation > 0)
 		{
@@ -73,4 +87,3 @@ EOQ;
 		return $currentPopulationModifier;
 	}
 }
-?>

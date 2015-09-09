@@ -1,36 +1,6 @@
 <?php
 $isDebug = true;
 
-function ExecuteNonQuery($sql = null, $connection = null)
-{
-	global $isDebug;
-	if($sql == null)
-	{
-		return false;
-	}
-	
-	if($connection == null)
-	{
-		global $connection;
-	}
-	
-	$result = mysql_query($sql, $connection);
-	
-	if(!$result)
-	{
-		if($isDebug)
-		{
-			echo mysql_error() . "\r\n" . $sql;
-		}
-		else
-		{
-			echo "There was an error with the database. Please inform Jeff V of what you were attempting to do.";
-		}
-		return false;
-	}
-	return true;
-}
-
 function ExecuteQuery($sql = null, $connection = null)
 {
 	global $isDebug;

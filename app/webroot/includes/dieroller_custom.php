@@ -38,17 +38,24 @@ INSERT INTO
 	)
 VALUES
 	(
-		'$description',
-		$number_of_dice,
-		$sides,
-		$modifier,
-		$total,
-		'$rolls',
+		?,
+		?,
+		?,
+		?,
+		?,
+		?,
 		now()
 	)
 EOQ;
-
-        ExecuteNonQuery($query);
+        $params = array(
+                $description,
+                $number_of_dice,
+                $sides,
+                $modifier,
+                $total,
+                $rolls
+        );
+        Database::GetInstance()->Query($query)->Execute($params);
 
         Response::Redirect('/dieroller.php?action=custom');
     }
@@ -221,5 +228,4 @@ ob_start();
         });
     </script>
 <?php
-$page_content = ob_get_contents();
-ob_end_clean();
+$page_content = ob_get_clean();

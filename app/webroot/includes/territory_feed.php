@@ -1,4 +1,6 @@
 <?php
+use classes\core\repository\Database;
+
 $territoryId = $_GET['id'] + 0;
 $characterId = $_GET['character_id'] + 0;
 $oneWeekInFuture = date('Y-m-d', strtotime("+7 days"));
@@ -24,7 +26,7 @@ VALUES
 	)
 EOQ;
 
-if(ExecuteNonQuery($sql))
+if(Database::GetInstance()->Query($sql)->Execute())
 {
 	$message = "You are now feeding from the domain.";
 	
@@ -37,4 +39,3 @@ else
 {
 	echo "There was an error adding you to the domain. Try again later.";
 }
-?>

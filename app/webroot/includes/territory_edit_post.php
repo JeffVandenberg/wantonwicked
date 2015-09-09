@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\Response;
+use classes\core\repository\Database;
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
@@ -37,7 +38,7 @@ WHERE
 	id = $id
 EOQ;
 
-if(ExecuteNonQuery($query))
+if(Database::GetInstance()->Query($query)->Execute())
 {
 	$page_content = "Successfully updated the territory.";
 }
@@ -45,4 +46,3 @@ else
 {
 	$page_content = "There was an error updating the territory.";
 }
-?>

@@ -8,13 +8,12 @@
  */
 namespace classes\log;
 
-class CharacterLog {
+use classes\core\repository\Database;
+
+class CharacterLog
+{
     public static function LogAction($characterId, $actionTypeId, $note, $userId = null, $referenceId = null)
     {
-        $note = mysql_real_escape_string($note);
-        $userId = ($userId != null) ? (int) $userId : 'NULL';
-        $referenceId = ($referenceId != null) ? (int) $referenceId : 'NULL';
-
         $sql = <<<EOQ
 INSERT INTO
     log_characters
@@ -28,14 +27,21 @@ INSERT INTO
     )
 VALUES
     (
-        $characterId,
-        $actionTypeId,
-        '$note',
-        $referenceId,
-        $userId,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
         NOW()
     )
 EOQ;
-        ExecuteNonQuery($sql);
+        $params = array(
+            $characterId,
+            $actionTypeId,
+            $note,
+            $referenceId,
+            $userId
+        );
+        Database::GetInstance()->Query($sql)->Execute($params);
     }
 }

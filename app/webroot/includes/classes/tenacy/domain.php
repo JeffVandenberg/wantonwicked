@@ -1,4 +1,6 @@
 <?php
+use classes\core\repository\Database;
+
 class Domain
 {
 	private $territoryId;
@@ -85,11 +87,15 @@ EOQ;
 UPDATE
 	characters
 SET
-	login_note = '$characterName was caught poaching in $territoryName.'
+	login_note = ?
 WHERE
-	character_id = $detail[character_id];
+	character_id = ?;
 EOQ;
-			$noteResult = ExecuteNonQuery($noteSql);
+			$params = array(
+				$characterName .' was caught poaching in ' .$territoryName .'.',
+				$detail['character_id']
+			);
+			Database::GetInstance()->Query($noteSql)->Execute($params);
 		}
 	}
 

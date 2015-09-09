@@ -47,7 +47,7 @@ abstract class AbstractRepository extends Database
     function __construct($className = null, $connection = null)
     {
         parent::__construct($connection);
-        if($className != null)
+        if($className !== null)
         {
             $this->ManagedObject = new $className();
         }
@@ -398,7 +398,7 @@ EOQ;
     {
         $sql = 'SELECT ';
 
-        if ($select != null) {
+        if ($select !== null) {
             if (is_array($select)) {
                 $sql .= $this->ProcessSelect('', $select);
             } else {
@@ -412,7 +412,7 @@ EOQ;
 
         $sql .= ' FROM ';
 
-        if ($from != null) {
+        if ($from !== null) {
             if (is_array($from)) {
                 $sql .= $this->ProcessFrom('', $from);
             } else {
@@ -422,7 +422,7 @@ EOQ;
             $sql .= ' ' . $this->ManagedObject->getTableName() . ' ';
         }
 
-        if ($where != null) {
+        if ($where !== null) {
             if (is_array($where)) {
                 if (count($where) > 0) {
                     $sql .= ' WHERE ';
@@ -447,7 +447,7 @@ EOQ;
             }
         }
 
-        if ($orderBy != null) {
+        if ($orderBy !== null) {
             $sql .= ' ORDER BY ';
 
             if (is_array($orderBy)) {
@@ -473,7 +473,7 @@ EOQ;
             $sql .= ' ORDER BY ' . $this->ManagedObject->getSortColumn() . ' ';
         }
 
-        if ($paginate != null) {
+        if ($paginate !== null) {
             $sql .= ' LIMIT ' . $paginate['start_index'] . ',' . $paginate['page_size'];
             return $sql;
         }

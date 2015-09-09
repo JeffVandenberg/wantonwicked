@@ -1,6 +1,8 @@
 <?php
 use classes\core\helpers\Response;
+use classes\core\repository\Database;
 
+/* @var array $userdata */
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
 	Response::EndRequest('Illegal Action');
@@ -32,21 +34,32 @@ INSERT INTO
 	)
 VALUES
 	(
-		'$ruleName',
+		?,
 		1,
-		'$power_type',
-		'$powerName',
-		'$powerNote',
-		$isShared,
-		$multiplier,
-		$modifier,
+		?,
+		?,
+		?,
+		?,
+		?,
+		?,
 		1,
-		$userdata[user_id],
+		?,
 		now()
 	)
 EOQ;
 
-if(ExecuteNonQuery($query))
+$params = array(
+	$ruleName,
+	$power_type,
+	$powerName,
+	$powerNote,
+	$isShared,
+	$multiplier,
+	$modifier,
+	$userdata['user_id'],
+);
+
+if(Database::GetInstance()->Query($query)->Execute($params))
 {
 	$page_content = "Successfully created ABP rule.";
 	$abp = new ABP();
@@ -56,4 +69,3 @@ else
 {
 	$page_content = "There was an error creating the ABP rule.";
 }
-?>
