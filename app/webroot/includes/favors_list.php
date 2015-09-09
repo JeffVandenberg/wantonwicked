@@ -50,10 +50,7 @@ $params = array(
     $characterId
 );
 
-$favorsToCharacter = array();
-foreach(Database::GetInstance()->Query($sql)->All($params) as $row) {
-    $favorsToCharacter[] = $row;
-}
+$favorsToCharacter = Database::GetInstance()->Query($sql)->All($params);
 
 $sql = <<<EOQ
 SELECT
