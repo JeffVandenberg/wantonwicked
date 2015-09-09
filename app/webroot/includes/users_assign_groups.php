@@ -14,7 +14,7 @@ ORDER BY
     group_name
 EOQ;
 
-$groups = Database::GetInstance()->Query($groupSql)->All();
+$groups = Database::getInstance()->query($groupSql)->all();
 
 ob_start();
 ?>

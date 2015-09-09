@@ -53,7 +53,7 @@ if (isset($_GET['action'])) {
                 include 'includes/encounter_list.php';
             }
             else {
-                Response::Redirect('/');
+                Response::redirect('/');
             }
             break;
         case 'st_list':
@@ -61,7 +61,7 @@ if (isset($_GET['action'])) {
 
     }
 } else {
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 
 // initialize template

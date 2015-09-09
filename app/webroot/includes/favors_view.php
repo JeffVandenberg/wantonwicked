@@ -4,7 +4,7 @@ use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\repository\Database;
 
-$favorId = Request::GetValue('favor_id', 0);
+$favorId = Request::getValue('favor_id', 0);
 
 $favorQuery = <<<EOQ
 SELECT
@@ -29,7 +29,7 @@ $params = array(
     $userdata['user_id'],
     $userdata['user_id']
 );
-$favorDetail = Database::GetInstance()->Query($favorQuery)->Single($params);
+$favorDetail = Database::getInstance()->query($favorQuery)->single($params);
 
 if ($favorDetail) {
     $fromCharacter = $favorDetail['from_character_name'];
@@ -46,7 +46,7 @@ if ($favorDetail) {
         $status = "Discharged on $favorDetail[date_discharged]";
     }
 } else {
-    Response::EndRequest('Unable to find favor');
+    Response::endRequest('Unable to find favor');
 }
 ?>
 <div class="formInput">

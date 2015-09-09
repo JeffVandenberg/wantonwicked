@@ -26,6 +26,6 @@ WHERE
 EOQ;
         $params = array($key);
 
-        return $db->Query($sql)->Value($params);
+        return $db->query($sql)->value($params);
     }
 } 

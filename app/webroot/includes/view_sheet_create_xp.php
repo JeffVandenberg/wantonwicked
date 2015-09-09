@@ -6,7 +6,7 @@ use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 
 $contentHeader = $page_title = "Create Character";
-$characterType = Request::GetValue('character_type', 'Mortal');
+$characterType = Request::getValue('character_type', 'Mortal');
 $characterSheetHelper = new CharacterSheetHelper();
 
 if (isset($_POST['character_name'])) {
@@ -15,7 +15,7 @@ if (isset($_POST['character_name'])) {
         $error = $characterSheetHelper->UpdateNew($_POST);
         if ($error == '') {
             SessionHelper::SetFlashMessage('Added ' . $_POST['character_name'] . ' to your profile');
-            Response::Redirect('chat.php');
+            Response::redirect('chat.php');
         }
         else {
             SessionHelper::SetFlashMessage($error);
@@ -23,7 +23,7 @@ if (isset($_POST['character_name'])) {
     }
     else {
         SessionHelper::SetFlashMessage("You're not logged in");
-        Response::Redirect('/');
+        Response::redirect('/');
     }
 }
 

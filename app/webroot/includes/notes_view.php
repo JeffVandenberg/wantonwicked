@@ -6,9 +6,9 @@ use classes\core\repository\Database;
 /* @var array $userdata */
 
 // grab passed variables
-$character_id = Request::GetValue('character_id', 0);
-$log_npc = Request::GetValue('log_npc', 'n');
-$personal_note_id = Request::GetValue('personal_note_id', 0);
+$character_id = Request::getValue('character_id', 0);
+$log_npc = Request::getValue('log_npc', 'n');
+$personal_note_id = Request::getValue('personal_note_id', 0);
 
 // set up page variables
 $title = "";
@@ -49,7 +49,7 @@ EOQ;
 		);
 	}
 
-	$character = Database::GetInstance()->Query($character_query)->Single($params);
+	$character = Database::getInstance()->query($character_query)->single($params);
 
 	if($character)
 	{
@@ -82,13 +82,13 @@ if($may_view_note)
 			// insert note
 			$personal_note_id = getNextID($connection, "personal_notes", "personal_note_id");
 			$insert_query = "insert into personal_notes values ($personal_note_id, $userdata[user_id], $character_id, 'N', '$is_favorite', '$title', '$body', '$now', '$now', '', '', '', '', '');";
-			Database::GetInstance()->Query($insert_query)->Execute();
+			Database::getInstance()->query($insert_query)->execute();
 		}
 		else
 		{
 			// update note
 			$update_query = "update personal_notes set is_favorite='$is_favorite', title='$title', body='$body', update_date='$now' where personal_note_id = $personal_note_id;";
-			Database::GetInstance()->Query($update_query)->Execute();
+			Database::getInstance()->query($update_query)->execute();
 		}
 		
 		// update_previous page
@@ -103,7 +103,7 @@ EOQ;
 	if(!(isset($_POST['action'])) && ($personal_note_id))
 	{
 		$note_query = "select * from personal_notes where personal_note_id=$personal_note_id;";
-		$note_detail = Database::GetInstance()->Query($note_query)->Single();
+		$note_detail = Database::getInstance()->query($note_query)->single();
 
 		if($note_detail)
 		{

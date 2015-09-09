@@ -5,11 +5,11 @@ use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 
-Response::PreventCache();
+Response::preventCache();
 
-$character_type = Request::GetValue('character_type', 'Mortal');
-$characterId    = Request::GetValue('character_id', 0);
-$type           = Request::GetValue('type');
+$character_type = Request::getValue('character_type', 'Mortal');
+$characterId    = Request::getValue('character_id', 0);
+$type           = Request::getValue('type');
 $stats          = '';
 
 $characterRepository = new CharacterRepository();
@@ -33,4 +33,4 @@ switch ($type) {
         echo $characterSheetHelper->MakeLockedView($stats, $character_type);
         break;
 }
-Response::EndRequest();
+Response::endRequest();

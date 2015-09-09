@@ -36,7 +36,7 @@ ORDER BY
     G.name
 EOQ;
 
-        return $this->Query($sql)->All();
+        return $this->query($sql)->all();
     }
 
     public function FindDefaultGroupForCharacter($characterId)
@@ -69,7 +69,7 @@ EOQ;
         $params = array($userId);
 
         $list = array();
-        foreach($this->Query($sql)->All($params) as $item)
+        foreach($this->query($sql)->all($params) as $item)
         {
             $list[] = $item['group_id'];
         }
@@ -85,7 +85,7 @@ WHERE
     user_id = ?
 EOQ;
         $params = array($userId);
-        $this->Query($query)->Execute($params);
+        $this->query($query)->execute($params);
 
         foreach($groups as $group)
         {
@@ -100,7 +100,7 @@ VALUES
     ( ?, ? )
 EOQ;
             $params = array($userId, $group);
-            $this->Query($query)->Execute($params);
+            $this->query($query)->execute($params);
         }
 
 

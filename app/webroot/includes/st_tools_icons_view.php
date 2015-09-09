@@ -15,7 +15,7 @@ $player_viewable_check = "";
 $gm_viewable_check = "";
 $admin_viewable_check = "";
 
-$id = Request::GetValue('id', 0);
+$id = Request::getValue('id', 0);
 
 // test if submitting values
 if(isset($_POST['icon_name']) && isset($_POST['icon_id']))
@@ -29,7 +29,7 @@ if(isset($_POST['icon_name']) && isset($_POST['icon_id']))
   
 	$icon_query = "update icons set icon_name=?, icon_id=?, player_viewable=?, gm_viewable=?, admin_viewable=? where id=?;";
 	//echo "$icon_query<br>";
-    Database::GetInstance()->Query($icon_query)->Execute(array($icon_name, $icon_id, $player_viewable, $gm_viewable, $admin_viewable, $id));
+    Database::getInstance()->query($icon_query)->execute(array($icon_name, $icon_id, $player_viewable, $gm_viewable, $admin_viewable, $id));
 
 	// add js
 	$java_script = <<<EOQ
@@ -44,7 +44,7 @@ EOQ;
 
 // get details
 $icon_query = "select * from icons where id = ?";
-$icon = Database::GetInstance()->Query($icon_query)->Single(array($id));
+$icon = Database::getInstance()->query($icon_query)->single(array($id));
 
 if($icon !== false)
 {

@@ -12,18 +12,18 @@ $page_title = $contentHeader = 'Update Supporter';
 
 $supporterRepository = RepositoryManager::GetRepository('classes\support\data\Supporter');
 /* @var SupporterRepository $supporterRepository */
-$supporter = $supporterRepository->GetById(Request::GetValue('id', 0));
+$supporter = $supporterRepository->getById(Request::getValue('id', 0));
 /* @var Supporter $supporter */
 
-if(Request::IsPost())
+if(Request::isPost())
 {
-    $supporter->AmountPaid = Request::GetValue('amount_paid', 0);
-    $supporter->ExpiresOn = date('Y-m-d', strtotime(Request::GetValue('expires_on')));
-    $supporter->NumberOfCharacters = Request::GetValue('number_of_characters', 0);
+    $supporter->AmountPaid = Request::getValue('amount_paid', 0);
+    $supporter->ExpiresOn = date('Y-m-d', strtotime(Request::getValue('expires_on')));
+    $supporter->NumberOfCharacters = Request::getValue('number_of_characters', 0);
     $supporter->UpdatedById = $userdata['user_id'];
     $supporter->UpdatedOn = date('Y-m-d H:i:s');
 
-    if($supporterRepository->Save($supporter)) {
+    if($supporterRepository->save($supporter)) {
         $message = <<<EOQ
 Your Wicked Supporter account has been updated.
 
@@ -40,7 +40,7 @@ EOQ;
 
         mail($supporter->User->UserEmail, 'Wicked Support', $message, 'from: support@gamingsandbox.com');
         SessionHelper::SetFlashMessage('Updated Supporter');
-        Response::Redirect('support.php?action=manage');
+        Response::redirect('support.php?action=manage');
     }
     else {
         SessionHelper::SetFlashMessage('Failed to update supporter');

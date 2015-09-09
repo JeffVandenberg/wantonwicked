@@ -11,16 +11,16 @@ use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestStatusRepository;
 use classes\request\repository\RequestTypeRepository;
 
-$characterId = Request::GetValue('character_id', 0);
-$statusId = Request::GetValue('status_id', 0);
-$page = Request::GetValue('page', 1);
-$pageSize = Request::GetValue('page_size', 10);
-$sort = Request::GetValue('sort', 'updated_on DESC');
-$filter = Request::GetValue('filter', array('title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
+$characterId = Request::getValue('character_id', 0);
+$statusId = Request::getValue('status_id', 0);
+$page = Request::getValue('page', 1);
+$pageSize = Request::getValue('page_size', 10);
+$sort = Request::getValue('sort', 'updated_on DESC');
+$filter = Request::getValue('filter', array('title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
 
 $characterRepository = new CharacterRepository();
 if (!$userdata['is_admin'] && !$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 
 $pagination = new Pagination();
@@ -50,9 +50,9 @@ if (($count / $pageSize) > $page) {
 $associatedRequests = $requestRepository->ListRequestAssociatedWith($characterId);
 $requestStatusRepository = new RequestStatusRepository();
 $requestTypeRepository = new RequestTypeRepository();
-$requestTypes = $requestTypeRepository->SimpleListAll();
+$requestTypes = $requestTypeRepository->simpleListAll();
 $requestTypes = array('All') + $requestTypes;
-$requestStatuses = $requestStatusRepository->SimpleListAll();
+$requestStatuses = $requestStatusRepository->simpleListAll();
 $requestStatuses = array('All') + $requestStatuses;
 
 $contentHeader = $page_title = "Requests for " . $character['character_name'];

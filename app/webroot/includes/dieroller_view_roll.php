@@ -5,18 +5,18 @@ use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\core\repository\Database;
 
-$rollId = Request::GetValue('r', 0);
+$rollId = Request::getValue('r', 0);
 if ($rollId === 0) {
     SessionHelper::SetFlashMessage('No roll to look up');
-    Response::Redirect('');
+    Response::redirect('');
 }
 
 $sql = "SELECT * FROM wod_dierolls where roll_id = ?";
-$roll = Database::GetInstance()->Query($sql)->Single(array($rollId));
+$roll = Database::getInstance()->query($sql)->single(array($rollId));
 
 if ($roll === false) {
     SessionHelper::SetFlashMessage('Unable to find that roll.');
-    Response::Redirect('');
+    Response::redirect('');
 }
 
 $page_title = $contentHeader = "View Roll: #$rollId";

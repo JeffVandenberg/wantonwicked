@@ -25,7 +25,7 @@ if(mysql_num_rows($characterResult))
 }
 else
 {
-    Response::EndRequest('Unknown Character');
+    Response::endRequest('Unknown Character');
 }
 $page_title = 'Character Updates for ' . $character['Character_Name'];
 

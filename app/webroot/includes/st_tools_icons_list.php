@@ -16,7 +16,7 @@ if (isset($_POST['action'])) {
     }
 }
 $icon_query = "select * from icons order by Icon_Name";
-$icons = Database::GetInstance()->Query($icon_query)->All();
+$icons = Database::getInstance()->query($icon_query)->all();
 
 $storytellerMenu = require_once('helpers/storyteller_menu.php');
 $menu = MenuHelper::GenerateMenu($storytellerMenu);

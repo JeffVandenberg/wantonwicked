@@ -66,11 +66,11 @@ if (isset($_GET['action'])) {
             $templateName = 'empty.tpl';
             break;
         default:
-            Response::Redirect('/');
+            Response::redirect('/');
             break;
     }
 } else {
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 
 

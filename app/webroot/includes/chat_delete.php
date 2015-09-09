@@ -9,18 +9,18 @@ $contentHeader = "Delete Character";
 $page_title = "Delete Character Confirmation";
 
 // get character id
-$character_id = Request::GetValue('character_id', 0);
+$character_id = Request::getValue('character_id', 0);
 
 // get character information
 $characterRepository = new CharacterRepository();
-$character = $characterRepository->GetById($character_id);
+$character = $characterRepository->getById($character_id);
 /* @var Character $character; */
 
 if(!$character) {
-    Response::Redirect('chat.php', 'Unable to find character.');
+    Response::redirect('chat.php', 'Unable to find character.');
 }
 if($character->IsSanctioned == 'Y') {
-    Response::Redirect('request.php?action=create&request_type_id='.RequestType::Sanction.'&character_id='.$character->Id.'&title=Desanction '.$character->CharacterName);
+    Response::redirect('request.php?action=create&request_type_id='.RequestType::Sanction.'&character_id='.$character->Id.'&title=Desanction '.$character->CharacterName);
 }
 
 ob_start();

@@ -6,17 +6,17 @@ use classes\core\repository\Database;
 /* @var array $userdata */
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
-	Response::EndRequest('Illegal Action');
+	Response::endRequest('Illegal Action');
 }
 
-$ruleName = htmlspecialchars(Request::GetValue('ruleName'));
-$power_type = htmlspecialchars(Request::GetValue('power_type'));
-$powerName = htmlspecialchars(Request::GetValue('powerName'));
-$powerNote = htmlspecialchars(Request::GetValue('powerNote'));
-$isShared = (Request::GetValue('isShared')) ? 1 : 0;
-$multiplier = Request::GetValue('multiplier');
-$modifier = Request::GetValue('modifier');
-$id = Request::GetValue('id');
+$ruleName = htmlspecialchars(Request::getValue('ruleName'));
+$power_type = htmlspecialchars(Request::getValue('power_type'));
+$powerName = htmlspecialchars(Request::getValue('powerName'));
+$powerNote = htmlspecialchars(Request::getValue('powerNote'));
+$isShared = (Request::getValue('isShared')) ? 1 : 0;
+$multiplier = Request::getValue('multiplier');
+$modifier = Request::getValue('modifier');
+$id = Request::getValue('id');
 
 $query = <<<EOQ
 UPDATE
@@ -47,7 +47,7 @@ $params = array(
 	$id
 );
 
-if(Database::GetInstance()->Query($query)->Execute($params))
+if(Database::getInstance()->query($query)->execute($params))
 {
 	$page_content = "Successfully updated ABP rule.";
 	$abp = new ABP();

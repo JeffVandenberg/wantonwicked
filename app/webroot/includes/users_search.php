@@ -3,8 +3,8 @@ use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\repository\Database;
 
-Request::PreventCache();
-$email = Request::GetValue('email', false);
+Request::preventCache();
+$email = Request::getValue('email', false);
 
 if ($email) {
     $query = <<<EOQ
@@ -37,7 +37,7 @@ LIMIT 20;
 EOQ;
 }
 $db    = new Database();
-$users = $db->Query($query)->Bind('term', strtolower($_GET['term']) . '%')->All();
+$users = $db->query($query)->bind('term', strtolower($_GET['term']) . '%')->all();
 
 $list = array();
 foreach ($users as $row) {
@@ -56,4 +56,4 @@ if (count($list) == 0) {
     $list[] = array("value" => '0', 'label' => 'No Matches');
 }
 
-Response::SendJson($list);
+Response::sendJson($list);

@@ -15,17 +15,17 @@ $show_form = true;
 $characterRepository = new CharacterRepository();
 $characterSheetHelper = new CharacterSheetHelper();
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 $character = $characterRepository->FindById($characterId);
 
 if($character['user_id'] != $userdata['user_id']) {
-    Response::Redirect('/', 'You may only view your own characters');
+    Response::redirect('/', 'You may only view your own characters');
 }
 
 // save
-if (Request::IsPost()) {
+if (Request::isPost()) {
     // test to make sure that a person's viewing their own
-    $oldCharacter = $characterRepository->GetById($characterId);
+    $oldCharacter = $characterRepository->getById($characterId);
     /* @var Character $oldCharacter */
     $powers = $oldCharacter->CharacterPower;
 
@@ -41,7 +41,7 @@ if (Request::IsPost()) {
     else {
         SessionHelper::SetFlashMessage($error);
     }
-    Response::Redirect('view_sheet.php?action=view_own_xp&character_id='.$characterId);
+    Response::redirect('view_sheet.php?action=view_own_xp&character_id='.$characterId);
 }
 
 

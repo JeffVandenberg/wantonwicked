@@ -14,7 +14,7 @@ use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 
 // includes for sortable forms
 include 'cgi-bin/js_doSort.php';
@@ -22,12 +22,12 @@ include 'cgi-bin/buildSortForm.php';
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
-$character = $characterRepository->GetById($characterId);
+$character = $characterRepository->getById($characterId);
 /* @var Character $character */
 
 if ($character->Id == 0) {
     SessionHelper::SetFlashMessage("Invalid Character");
-    Response::Redirect('chat.php');
+    Response::redirect('chat.php');
 }
 
 if ($character->IsNpc == 'Y') {
@@ -35,7 +35,7 @@ if ($character->IsNpc == 'Y') {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character notes',
                                 $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::Redirect('');
+        Response::redirect('');
     }
 }
 else {
@@ -43,7 +43,7 @@ else {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character notes',
                                 $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::Redirect('');
+        Response::redirect('');
     }
 }
 
@@ -67,7 +67,7 @@ if (isset($_POST['action'])) {
             $params = array(
                 $value
             );
-            Database::GetInstance()->Query($delete_query)->Execute($params);
+            Database::getInstance()->query($delete_query)->execute($params);
         }
     }
     if ($_POST['action'] == 'sort') {
@@ -83,7 +83,7 @@ if (isset($_POST['action'])) {
 
 // query database
 $note_query = "select * from personal_notes where character_id = $characterId and is_deleted='n' order by $order_by;";
-$notes = Database::GetInstance()->Query($note_query)->All();
+$notes = Database::getInstance()->query($note_query)->all();
 
 require_once('helpers/character_menu.php');
 /* @var array $characterMenu */

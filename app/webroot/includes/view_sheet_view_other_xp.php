@@ -8,7 +8,7 @@ use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
 $page_title = "View Character Sheet";
-$characterName = htmlspecialchars(Request::GetValue('view_character_name'));
+$characterName = htmlspecialchars(Request::getValue('view_character_name'));
 $character_sheet = '';
 
 $characterRepository = new CharacterRepository();

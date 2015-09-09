@@ -9,18 +9,18 @@ use classes\core\helpers\Response;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 $characterRepository = new CharacterRepository();
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    Response::Redirect('/', 'Unable to view that character');
+    Response::redirect('/', 'Unable to view that character');
 }
 
 $character = $characterRepository->FindById($characterId);
 
-$page = Request::GetValue('page', 1);
-$pageSize = Request::GetValue('page_size', 20);
-$sort = Request::GetValue('sort', 'updated_on DESC');
-$filter = Request::GetValue('filter', array());
+$page = Request::getValue('page', 1);
+$pageSize = Request::getValue('page_size', 20);
+$sort = Request::getValue('sort', 'updated_on DESC');
+$filter = Request::getValue('filter', array());
 
 $pagination = new Pagination();
 $pagination->SetSort($sort);

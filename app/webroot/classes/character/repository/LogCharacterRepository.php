@@ -34,8 +34,8 @@ ORDER BY
 EOQ;
 
         $items = array();
-        foreach($this->Query($sql)->Bind('id', $characterId)->All() as $row) {
-            $items[] = $this->PopulateObject($row);
+        foreach($this->query($sql)->bind('id', $characterId)->all() as $row) {
+            $items[] = $this->populateObject($row);
         }
         return $items;
     }
@@ -57,8 +57,8 @@ LIMIT
 EOQ;
 
         $items = array();
-        foreach($this->Query($sql)->Bind('id', $characterId)->All() as $row) {
-            $items[] = $this->PopulateObject($row);
+        foreach($this->query($sql)->bind('id', $characterId)->all() as $row) {
+            $items[] = $this->populateObject($row);
         }
         return $items;
     }
@@ -75,7 +75,7 @@ WHERE
 EOQ;
 
         $count = 0;
-        foreach($this->Query($sql)->Bind('id', $characterId)->All() as $row) {
+        foreach($this->query($sql)->bind('id', $characterId)->all() as $row) {
             $count = $row['count'];
         }
         return $count;

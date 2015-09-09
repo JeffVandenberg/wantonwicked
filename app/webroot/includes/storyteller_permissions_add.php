@@ -32,8 +32,8 @@ $selectedGroups = array();
 $permissionRepository = new PermissionRepository();
 $groupsRepository = new GroupRepository();
 
-if (Request::IsPost() && UserdataHelper::IsHead($userdata)) {
-    $userId = Request::GetValue('user_id');
+if (Request::isPost() && UserdataHelper::IsHead($userdata)) {
+    $userId = Request::getValue('user_id');
     $selectedGroups = $_POST['groups'];
     $userPermissions = $_POST['permissions'];
     if (!$userId) {
@@ -41,12 +41,12 @@ if (Request::IsPost() && UserdataHelper::IsHead($userdata)) {
     } else {
         $permissionRepository->SavePermissionsForUser($userId, $userPermissions);
         $groupsRepository->SaveGroupsForUser($userId, $selectedGroups);
-        Response::Redirect('/storyteller_index.php?action=permissions', 'Set Permissions for ' . Request::GetValue('login_name'));
+        Response::redirect('/storyteller_index.php?action=permissions', 'Set Permissions for ' . Request::getValue('login_name'));
     }
 }
 
-$groups = $groupsRepository->SimpleListAll();
-$permissions = $permissionRepository->SimpleListAll();
+$groups = $groupsRepository->simpleListAll();
+$permissions = $permissionRepository->simpleListAll();
 
 ob_start();
 ?>

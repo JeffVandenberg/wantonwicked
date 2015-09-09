@@ -34,7 +34,7 @@ EOQ;
             $params[] = $characterId;
         }
 
-        return $this->Query($sql)->Single($params);
+        return $this->query($sql)->single($params);
     }
 
     public function loadRolls($showOnlyMyRolls, $characterId, $page, $pageSize)
@@ -60,7 +60,7 @@ LIMIT
 	$currentRow, $pageSize;
 EOQ;
 
-        return $this->Query($sql)->All($params);
+        return $this->query($sql)->all($params);
     }
 
 }

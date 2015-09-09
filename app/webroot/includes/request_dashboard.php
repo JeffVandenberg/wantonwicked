@@ -6,8 +6,8 @@ use classes\request\repository\RequestRepository;
 $page_title = 'Request Dashboard';
 $contentHeader = $page_title;
 
-$page = Request::GetValue('page', 1);
-$pageSize = Request::GetValue('page_size', 25);
+$page = Request::getValue('page', 1);
+$pageSize = Request::getValue('page_size', 25);
 
 $filter = array();
 // requests sent out that are still open

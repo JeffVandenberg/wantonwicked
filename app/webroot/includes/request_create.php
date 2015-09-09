@@ -12,26 +12,26 @@ use classes\request\repository\GroupRepository;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestTypeRepository;
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 if ($characterId) {
     $characterRepository = new CharacterRepository();
     if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-        Response::Redirect('/', 'Unable to view that request');
+        Response::redirect('/', 'Unable to view that request');
     }
 }
 
-$title = Request::GetValue('title');
-$requestTypeId = Request::GetValue('request_type_id', 0);
-$groupId = Request::GetValue('group_id');
-$body = Request::GetValue('body');
+$title = Request::getValue('title');
+$requestTypeId = Request::getValue('request_type_id', 0);
+$groupId = Request::getValue('group_id');
+$body = Request::getValue('body');
 
-if (Request::IsPost()) {
+if (Request::isPost()) {
     if ($_POST['action'] == 'Cancel') {
         if($characterId) {
-            Response::Redirect('request.php?action=list&character_id=' . $characterId);
+            Response::redirect('request.php?action=list&character_id=' . $characterId);
         }
         else {
-            Response::Redirect('request.php?action=dashboard');
+            Response::redirect('request.php?action=dashboard');
         }
     } elseif (($_POST['action'] == 'Submit Request') || ($_POST['action'] == 'Add Attachments')) {
         $request = new \classes\request\data\Request();
@@ -46,7 +46,7 @@ if (Request::IsPost()) {
         $request->UpdatedOn = date('Y-m-d H:i:s');
 
         $requestRepository = new RequestRepository();
-        if (!$requestRepository->Save($request)) {
+        if (!$requestRepository->save($request)) {
             SessionHelper::SetFlashMessage("Error Creating Your Request.");
         } else {
             if ($characterId) {
@@ -55,13 +55,13 @@ if (Request::IsPost()) {
                 $requestCharacter->RequestId = $request->Id;
                 $requestCharacter->IsPrimary = true;
                 $requestCharacterRepository = RepositoryManager::GetRepository('classes\request\data\RequestCharacter');
-                $requestCharacterRepository->Save($requestCharacter);
+                $requestCharacterRepository->save($requestCharacter);
             }
             if ($_POST['action'] == 'Submit Request') {
                 $request->RequestStatusId = RequestStatus::Submitted;
-                $requestRepository->Save($request);
+                $requestRepository->save($request);
             }
-            Response::Redirect('request.php?action=view&request_id=' . $request->Id);
+            Response::redirect('request.php?action=view&request_id=' . $request->Id);
         }
     }
 }
@@ -83,7 +83,7 @@ if ($characterId) {
 $contentHeader = $page_title;
 
 // prepare variables for page
-$groups = $groupRepository->SimpleListAll();
+$groups = $groupRepository->simpleListAll();
 $requestTypes = $requestTypeRepository->ListForGroupId($defaultGroupId);
 $requestTypeOptions = array();
 foreach ($requestTypes as $requestType) {

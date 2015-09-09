@@ -4,7 +4,7 @@ use classes\core\repository\Database;
 
 $roll_query = "select * from wod_dierolls order by roll_id desc limit 10;";
 
-$rolls = Database::GetInstance()->Query($roll_query)->All();
+$rolls = Database::getInstance()->query($roll_query)->all();
 
 ob_start();
 ?>

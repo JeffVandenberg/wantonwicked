@@ -18,7 +18,7 @@ WHERE
 	favors.favor_id = $favorId
 EOQ;
 
-$favorDetail = Database::GetInstance()->Query($favorQuery)->Single();
+$favorDetail = Database::getInstance()->query($favorQuery)->single();
 
 if ($favorDetail) {
     ?>

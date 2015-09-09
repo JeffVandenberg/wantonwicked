@@ -4,9 +4,9 @@ use classes\core\helpers\Response;
 use classes\core\repository\Database;
 
 include 'cgi-bin/start_of_page.php';
-$characterId = Request::GetValue('character_id', 0);
-$includeAll = Request::GetValue('include_all', false);
-$term = Request::GetValue('term') . '%';
+$characterId = Request::getValue('character_id', 0);
+$includeAll = Request::getValue('include_all', false);
+$term = Request::getValue('term') . '%';
 
 $characterQuery = <<<EOQ
 SELECT
@@ -22,7 +22,7 @@ ORDER BY
     character_name LIMIT 20;
 EOQ;
 $params = array($term);
-$characters = Database::GetInstance()->Query($characterQuery)->All($params);
+$characters = Database::getInstance()->query($characterQuery)->all($params);
 
 if(count($characters) === 0)
 {
@@ -31,4 +31,4 @@ if(count($characters) === 0)
 
 $returnArray['characters'] = $characters;
 
-Response::SendJson($characters);
+Response::sendJson($characters);

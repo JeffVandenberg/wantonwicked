@@ -74,7 +74,7 @@ if(isset($_GET['action']))
 }
 else
 {
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 
 

@@ -6,7 +6,7 @@ use classes\log\data\ActionType;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('bluebook_id', 0);
+$requestId = Request::getValue('bluebook_id', 0);
 $requestRepository = new RequestRepository();
 $request = $requestRepository->FindById($requestId);
 
@@ -17,7 +17,7 @@ $contentHeader = $page_title;
 
 ob_start();
 ?>
-    <?php if(!Request::IsAjax()): ?>
+    <?php if(!Request::isAjax()): ?>
         <a href="/bluebook.php?action=st_list&character_id=<?php echo $request['character_id']; ?>" class="button">Back</a>
     <?php endif; ?>
     <dl>
@@ -48,7 +48,7 @@ ob_start();
             <?php echo date('m/d/Y H:i:s', strtotime($request['updated_on'])); ?>
         </dd>
     </dl>
-    <?php if(!Request::IsAjax()): ?>
+    <?php if(!Request::isAjax()): ?>
         <script>
             $(function(){
                 $(".button").button();

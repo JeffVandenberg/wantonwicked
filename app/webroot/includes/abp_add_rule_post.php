@@ -5,7 +5,7 @@ use classes\core\repository\Database;
 /* @var array $userdata */
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
-	Response::EndRequest('Illegal Action');
+	Response::endRequest('Illegal Action');
 }
 
 $ruleName = htmlspecialchars($_POST['ruleName']);
@@ -59,7 +59,7 @@ $params = array(
 	$userdata['user_id'],
 );
 
-if(Database::GetInstance()->Query($query)->Execute($params))
+if(Database::getInstance()->query($query)->execute($params))
 {
 	$page_content = "Successfully created ABP rule.";
 	$abp = new ABP();

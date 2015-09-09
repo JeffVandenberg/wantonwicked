@@ -19,28 +19,28 @@ use classes\request\repository\RequestRepository;
 
 $page_title = $contentHeader = 'Forward Request';
 
-$requestId         = Request::GetValue('request_id');
+$requestId         = Request::getValue('request_id');
 $requestRepository = new RequestRepository();
 $groupsRepository  = new GroupRepository();
 
-$request = $requestRepository->GetById($requestId);
+$request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
-if (Request::IsPost()) {
-    $action = Request::GetValue('action');
+if (Request::isPost()) {
+    $action = Request::getValue('action');
     if ($action == 'Cancel') {
-        Response::Redirect('/request.php?action=st_view&request_id=' . $requestId);
+        Response::redirect('/request.php?action=st_view&request_id=' . $requestId);
     }
     if ($action == 'Forward') {
-        $newGroupId = Request::GetValue('new_group_id');
+        $newGroupId = Request::getValue('new_group_id');
 
         if ($newGroupId != $request->GroupId) {
             $requestNoteRepository = new RequestNoteRepository();
-            $newGroup              = $groupsRepository->GetById($newGroupId);
-            $oldGroup              = $groupsRepository->GetById($request->GroupId);
+            $newGroup              = $groupsRepository->getById($newGroupId);
+            $oldGroup              = $groupsRepository->getById($request->GroupId);
             /* @var Group $oldGroup */
             /* @var Group $newGroup */
-            $requestRepository->StartTransaction();
+            $requestRepository->startTransaction();
 
             $requestNote              = new RequestNote();
             $requestNote->CreatedById = $userdata['user_id'];
@@ -51,11 +51,11 @@ if (Request::IsPost()) {
             $requestNoteRepository->Save($requestNote);
 
             $request->GroupId = $newGroupId;
-            $requestRepository->Save($request);
+            $requestRepository->save($request);
 
-            $requestRepository->CommitTransaction();
+            $requestRepository->commitTransaction();
 
-            Response::Redirect('/request.php?action=st_list');
+            Response::redirect('/request.php?action=st_list');
         }
         else {
             SessionHelper::SetFlashMessage('You selected the same group for the request');
@@ -63,7 +63,7 @@ if (Request::IsPost()) {
     }
 }
 
-$groups = $groupsRepository->SimpleListAll();
+$groups = $groupsRepository->simpleListAll();
 ob_start();
 ?>
 

@@ -9,30 +9,30 @@ use classes\request\repository\GroupRepository;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestTypeRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    Response::Redirect('/', 'Unable to view that request');
+    Response::redirect('/', 'Unable to view that request');
 }
 
-$request = $requestRepository->GetById($requestId);
+$request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
-if(Request::IsPost())
+if(Request::isPost())
 {
     if($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=list&character_id=' . $request->CharacterId);
+        Response::redirect('request.php?action=list&character_id=' . $request->CharacterId);
     }
     if($_POST['action'] == 'Update Request') {
-        $request->Title = htmlspecialchars(Request::GetValue('title'));
-        $request->GroupId = Request::GetValue('group_id', 1);
-        $request->RequestTypeId = Request::GetValue('request_type_id', 1);
-        $request->Body = Request::GetValue('body');
+        $request->Title = htmlspecialchars(Request::getValue('title'));
+        $request->GroupId = Request::getValue('group_id', 1);
+        $request->RequestTypeId = Request::getValue('request_type_id', 1);
+        $request->Body = Request::getValue('body');
         $request->UpdatedById = $userdata['user_id'];
         $request->UpdatedOn = date('Y-m-d H:i:s');
-        if($requestRepository->Save($request)) {
+        if($requestRepository->save($request)) {
             SessionHelper::SetFlashMessage('Updated Request');
-            Response::Redirect('request.php?action=view&request_id=' . $request->Id);
+            Response::redirect('request.php?action=view&request_id=' . $request->Id);
         }
         else {
             SessionHelper::SetFlashMessage('Error Updating Request');
@@ -42,9 +42,9 @@ if(Request::IsPost())
 
 $contentHeader = $page_title = 'Edit Request: ' . $request->Title;;
 $groupRepository = new GroupRepository();
-$groups = $groupRepository->SimpleListAll();
+$groups = $groupRepository->simpleListAll();
 $requestTypeRepository = new RequestTypeRepository();
-$requestTypes = $requestTypeRepository->SimpleListAll();
+$requestTypes = $requestTypeRepository->simpleListAll();
 
 
 ob_start();

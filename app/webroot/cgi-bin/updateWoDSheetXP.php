@@ -37,7 +37,7 @@ function updateWoDSheetXP($stats, $edit_show_sheet = false, $edit_name = false,
 
     // verify that character name isn't in use already
     $name_check_query = "select id from characters where character_name='$character_name' and id != $character_id;";
-    $name_check_result = $db->Query($name_check_query)->Single();
+    $name_check_result = $db->query($name_check_query)->single();
     if (($name_check_result !== false) && ($edit_name)) {
         // warn that there is already a character with that name
         $error .= <<<EOQ
@@ -108,7 +108,7 @@ EOQ;
             $bonus_attribute = '';
         }
 
-        Database::GetInstance()->StartTransaction();
+        Database::getInstance()->startTransaction();
 
         if (!$character_id) {
             $insert_query = <<<EOQ
@@ -217,7 +217,7 @@ VALUES
     '$misc_powers'
 );
 EOQ;
-            $db->Query($insert_query)->Execute();
+            $db->query($insert_query)->execute();
             $character_id = $db->GetInsertId();
         } else {
             //echo "Do General Update!<br>";
@@ -345,7 +345,7 @@ EOQ;
                 if ($update_query != "UPDATE characters SET ") {
                     $update_query = substr($update_query, 0, strlen($update_query) - 2);
                     $update_query .= " where id = $stats[character_id];";
-                    Database::GetInstance()->Query($update_query)->Execute();
+                    Database::getInstance()->query($update_query)->execute();
                 }
             }
         }
@@ -438,7 +438,7 @@ EOQ;
         }
 
         
-        Database::GetInstance()->CommitTransaction();
+        Database::getInstance()->commitTransaction();
     }
 
     return $error;
@@ -499,7 +499,7 @@ EOQ;
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
         $i++;
     }
@@ -533,7 +533,7 @@ function saveSpecialtiesXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -569,7 +569,7 @@ function saveMeritsXP($stats, $character_id)
 
         if ($query != "") {
             //echo $query."<br>";
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -602,7 +602,7 @@ function saveFlawsXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -637,7 +637,7 @@ function saveMiscXP($stats, $character_id)
 
         if ($query != "") {
             //echo $query."<br>";
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -699,7 +699,7 @@ EOQ;
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -734,7 +734,7 @@ function saveOOCDiscXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -769,7 +769,7 @@ function saveDevotionsXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -804,7 +804,7 @@ function saveAffGiftXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -839,7 +839,7 @@ function saveNonAffGiftXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -873,7 +873,7 @@ function saveRitualXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -898,7 +898,7 @@ function saveRitualsRenownXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
     }
 
@@ -911,7 +911,7 @@ function saveRitualsRenownXP($stats, $character_id)
     }
 
     if ($query != "") {
-        Database::GetInstance()->Query($query)->Execute();
+        Database::getInstance()->query($query)->execute();
     }
 }
 
@@ -943,7 +943,7 @@ function saveRulingArcanaXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -978,7 +978,7 @@ function saveCommonArcanaXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1013,7 +1013,7 @@ function saveInferiorArcanaXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1049,7 +1049,7 @@ function saveRoteXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1085,7 +1085,7 @@ function savePsychicMeritXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1121,7 +1121,7 @@ function saveThaumaturgeMeritXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1155,7 +1155,7 @@ function saveBestowmentXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1190,7 +1190,7 @@ function saveAffTransXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1225,7 +1225,7 @@ function saveNonAffTransXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1260,7 +1260,7 @@ function saveAffContXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1295,7 +1295,7 @@ function saveNonAffContXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1329,7 +1329,7 @@ function saveGobContXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1364,7 +1364,7 @@ function saveEndowmentXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1398,7 +1398,7 @@ function saveTacticXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1431,7 +1431,7 @@ function saveKeyXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1464,7 +1464,7 @@ function saveMomentoXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1498,7 +1498,7 @@ function saveCeremoniesXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1532,7 +1532,7 @@ function saveManifestationXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1565,7 +1565,7 @@ function saveNuminaXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;
@@ -1599,7 +1599,7 @@ function saveSiddhiXP($stats, $character_id)
         }
 
         if ($query != "") {
-            Database::GetInstance()->Query($query)->Execute();
+            Database::getInstance()->query($query)->execute();
         }
 
         $i++;

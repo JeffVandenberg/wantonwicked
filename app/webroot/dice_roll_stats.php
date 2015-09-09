@@ -42,7 +42,7 @@ EOQ;
 $db = new Database();
 
 
-$rows = $db->Query($query)->All();
+$rows = $db->query($query)->all();
 ?>
 
 <table>

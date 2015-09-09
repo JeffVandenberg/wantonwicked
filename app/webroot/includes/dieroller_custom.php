@@ -55,9 +55,9 @@ EOQ;
                 $total,
                 $rolls
         );
-        Database::GetInstance()->Query($query)->Execute($params);
+        Database::getInstance()->query($query)->execute($params);
 
-        Response::Redirect('/dieroller.php?action=custom');
+        Response::redirect('/dieroller.php?action=custom');
     }
 }
 
@@ -70,7 +70,7 @@ SELECT
 FROM
 	die_rolls
 EOQ;
-$count_data = Database::GetInstance()->Query($count_query)->Single();;
+$count_data = Database::getInstance()->query($count_query)->single();;
 
 $count = $count_data['count'];
 $pages = round($count / $page_size, 0);

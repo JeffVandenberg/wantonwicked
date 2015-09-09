@@ -8,25 +8,25 @@ use classes\request\data\RequestCharacter;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    Response::Redirect('/', 'Unable to view that request');
+    Response::redirect('/', 'Unable to view that request');
 }
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=view&request_id=' . $requestId);
+        Response::redirect('request.php?action=view&request_id=' . $requestId);
     } elseif ($_POST['action'] == 'Attach Bluebook') {
         $bluebookId = $_POST['bluebook_id'];
         if($requestRepository->AttachBluebookToRequest($requestId, $bluebookId)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
             SessionHelper::SetFlashMessage('Attached Bluebook Entry');
-            Response::Redirect('request.php?action=view&request_id=' . $requestId);
+            Response::redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {
-            Response::EndRequest('Unable to attach bluebook');
+            Response::endRequest('Unable to attach bluebook');
         }
     }
 }

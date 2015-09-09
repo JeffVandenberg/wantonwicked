@@ -13,7 +13,7 @@ WHERE
 	favor_id = ?;
 EOQ;
 
-$result = Database::GetInstance()->Query($dischargeQuery)->Execute(
+$result = Database::getInstance()->query($dischargeQuery)->execute(
     array(
         $favorId
     )

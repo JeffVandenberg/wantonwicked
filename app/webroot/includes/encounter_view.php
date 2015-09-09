@@ -4,13 +4,13 @@ use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\SessionHelper;
 
-$characterId = Request::GetValue('character_id', 11552);
+$characterId = Request::getValue('character_id', 11552);
 
 $characterRepository = new CharacterRepository();
-$character = $characterRepository->GetById($characterId);
+$character = $characterRepository->getById($characterId);
 
-if(Request::IsPost()) {
-    $action = Request::GetValue('action');
+if(Request::isPost()) {
+    $action = Request::getValue('action');
     if($action == 'Punch the guy') {
         SessionHelper::SetFlashMessage("(If Wrath) You feel a bit better. Get a Willpower");
     }

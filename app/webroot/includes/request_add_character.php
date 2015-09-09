@@ -6,29 +6,29 @@ use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    Response::Redirect('/', 'Unable to view that request');
+    Response::redirect('/', 'Unable to view that request');
 }
 
-$onlySanctioned = Request::GetValue('only_sanctioned', true);
-$isPrimary = Request::GetValue('is_primary', false);
+$onlySanctioned = Request::getValue('only_sanctioned', true);
+$isPrimary = Request::getValue('is_primary', false);
 $note = "";
 $characterId = "";
 $characterName = "";
-if (Request::IsPost()) {
+if (Request::isPost()) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=view&request_id=' . $requestId);
+        Response::redirect('request.php?action=view&request_id=' . $requestId);
     }
     elseif ($_POST['action'] == 'Add Character') {
-        $characterId = Request::GetValue('character_id', 0);
-        $characterName = Request::GetValue('character_name');
-        $note = htmlspecialchars(Request::GetValue('note'));
+        $characterId = Request::getValue('character_id', 0);
+        $characterName = Request::getValue('character_name');
+        $note = htmlspecialchars(Request::getValue('note'));
         if($requestRepository->AddCharacter($requestId, $characterId, $isPrimary)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
             SessionHelper::SetFlashMessage('Attached ' . $characterName);
-            Response::Redirect('request.php?action=view&request_id=' . $requestId);
+            Response::redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {
             SessionHelper::SetFlashMessage('Error Attaching Character');

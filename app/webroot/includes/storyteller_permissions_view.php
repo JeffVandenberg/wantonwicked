@@ -12,7 +12,7 @@ use classes\request\repository\GroupRepository;
 $page_title = "View ST Permissions";
 $contentHeader = $page_title;
 
-$userId = Request::GetValue('user_id', 0);
+$userId = Request::getValue('user_id', 0);
 
 $page = "";
 $page_content = "";
@@ -28,22 +28,22 @@ $user = $userRepository->FindByUserId($userId);
 /* @var User $user */
 
 // test if submitting values
-if (Request::IsPost()) {
+if (Request::isPost()) {
 
     // update permissions
-    $permissionRepository->SavePermissionsForUser($userId, Request::GetValue('permissions'));
+    $permissionRepository->SavePermissionsForUser($userId, Request::getValue('permissions'));
 
     // update groups
-    $groupRepository->SaveGroupsForUser($userId, Request::GetValue('groups'));
+    $groupRepository->SaveGroupsForUser($userId, Request::getValue('groups'));
     // add js
-    Response::Redirect('/storyteller_index.php?action=permissions', 'Updated Permissions for ' . $user->Username);
+    Response::redirect('/storyteller_index.php?action=permissions', 'Updated Permissions for ' . $user->Username);
 }
 
 
-$permissions = $permissionRepository->SimpleListAll();
+$permissions = $permissionRepository->simpleListAll();
 $userPermissions = $permissionRepository->ListPermissionsForUser($userId);
 
-$groups = $groupRepository->SimpleListAll();
+$groups = $groupRepository->simpleListAll();
 $selectedGroups = $groupRepository->ListGroupsForUser($userId);;
 
 ob_start();

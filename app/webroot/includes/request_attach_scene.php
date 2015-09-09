@@ -9,27 +9,27 @@ use classes\request\repository\RequestRepository;
 use classes\scene\repository\SceneRepository;
 
 /* @var array $userdata */
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
 $sceneRepository = new SceneRepository();
 
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    Response::Redirect('/', 'Unable to view that request');
+    Response::redirect('/', 'Unable to view that request');
 }
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=view&request_id=' . $requestId);
+        Response::redirect('request.php?action=view&request_id=' . $requestId);
     } elseif ($_POST['action'] == 'Attach Scene') {
-        $sceneId = Request::GetValue('scene_id');
-        $note = Request::GetValue('note');
+        $sceneId = Request::getValue('scene_id');
+        $note = Request::getValue('note');
         if ($requestRepository->AttachSceneToRequest($requestId, $sceneId, $note)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
             SessionHelper::SetFlashMessage('Attached Scene');
-            Response::Redirect('request.php?action=view&request_id=' . $requestId);
+            Response::redirect('request.php?action=view&request_id=' . $requestId);
         } else {
-            Response::EndRequest('Unable to attach Scene');
+            Response::endRequest('Unable to attach Scene');
         }
     }
 }

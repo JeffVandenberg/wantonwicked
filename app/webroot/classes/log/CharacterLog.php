@@ -42,6 +42,6 @@ EOQ;
             $referenceId,
             $userId
         );
-        Database::GetInstance()->Query($sql)->Execute($params);
+        Database::getInstance()->query($sql)->execute($params);
     }
 }

@@ -14,31 +14,31 @@ use classes\log\data\ActionType;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 
 $character_type = "";
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
-$character = $characterRepository->GetById($characterId);
+$character = $characterRepository->getById($characterId);
 /* @var Character $character */
 if($character->Id == 0) {
     SessionHelper::SetFlashMessage("Invalid Character");
-    Response::Redirect('chat.php');
+    Response::redirect('chat.php');
 }
 
 if($character->IsNpc == 'Y') {
     if(!UserdataHelper::IsSt($userdata)) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface', $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::Redirect('');
+        Response::redirect('');
     }
 }
 else {
     if($character->UserId != $userdata['user_id']) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface', $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::Redirect('');
+        Response::redirect('');
     }
 }
 

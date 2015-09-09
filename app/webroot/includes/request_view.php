@@ -11,17 +11,17 @@ use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
 
-$requestId         = Request::GetValue('request_id', 0);
-$linkedCharacterId = Request::GetValue('character_id', 0);
+$requestId         = Request::getValue('request_id', 0);
+$linkedCharacterId = Request::getValue('character_id', 0);
 $requestRepository = new RequestRepository();
 
 if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])
 ) {
     SessionHelper::SetFlashMessage('Unable to view Request');
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 
-$request = $requestRepository->GetById($requestId);
+$request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
 $requestNoteRepository      = new RequestNoteRepository();
@@ -117,7 +117,7 @@ if ($linkedCharacterId == 0) {
 $menu = MenuHelper::GenerateMenu($characterMenu);
 ob_start();
 ?>
-<?php if (!Request::IsAjax()): ?>
+<?php if (!Request::isAjax()): ?>
     <?php echo $menu; ?>
 <?php endif; ?>
 

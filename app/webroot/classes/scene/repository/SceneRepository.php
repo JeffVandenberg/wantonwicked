@@ -38,7 +38,7 @@ EOQ;
         $params = array($characterId);
 
         $list = array();
-        foreach($this->Query($sql)->All($params) as $row) {
+        foreach($this->query($sql)->all($params) as $row) {
             $list[$row['id']] = $row['name'] . ' (' . date("Y-m-d", strtotime($row['run_on_date'])).')  ';
         }
 

@@ -95,7 +95,7 @@ EOQ;
 				$characterName .' was caught poaching in ' .$territoryName .'.',
 				$detail['character_id']
 			);
-			Database::GetInstance()->Query($noteSql)->Execute($params);
+			Database::getInstance()->query($noteSql)->execute($params);
 		}
 	}
 

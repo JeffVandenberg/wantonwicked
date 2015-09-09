@@ -13,7 +13,7 @@ use classes\request\RequestMailer;
 
 require_once 'cgi-bin/start_of_page.php';
 
-$db = Database::GetInstance();
+$db = Database::getInstance();
 
 $sql = <<<EOQ
 UPDATE
@@ -27,7 +27,7 @@ EOQ;
 
 $params = array(RequestStatus::Closed);
 
-$rows = $db->Query($sql)->Execute($params);
+$rows = $db->query($sql)->execute($params);
 
 echo "<pre>";
 echo count($rows);

@@ -5,10 +5,10 @@ use classes\core\repository\Database;
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
-	Response::EndRequest('Illegal Action');
+	Response::endRequest('Illegal Action');
 }
 
-$id = Request::GetValue('id');
+$id = Request::getValue('id');
 
 $sql = <<<EOQ
 UPDATE
@@ -22,7 +22,7 @@ EOQ;
 $params = array(
 	$id
 );
-if(Database::GetInstance()->Query($sql)->Execute($params))
+if(Database::getInstance()->query($sql)->execute($params))
 {
 	echo "The rule has been removed.";
 	$abp = new ABP();

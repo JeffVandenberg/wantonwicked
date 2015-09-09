@@ -48,7 +48,7 @@ if(mysql_num_rows($result))
 }
 else
 {
-	Response::EndRequest('Unknown Territory');
+	Response::endRequest('Unknown Territory');
 }
 ?>
 

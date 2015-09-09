@@ -6,39 +6,39 @@ use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('bluebook_id', 0);
+$requestId = Request::getValue('bluebook_id', 0);
 $requestRepository = new RequestRepository();
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    Response::Redirect('');
+    Response::redirect('');
 }
 
 $request = $requestRepository->FindById($requestId);
 
-if(Request::IsPost())
+if(Request::isPost())
 {
     if($_POST['action'] == 'Cancel') {
-        Response::Redirect('/bluebook.php?action=view&bluebook_id=' . $request['id']);
+        Response::redirect('/bluebook.php?action=view&bluebook_id=' . $request['id']);
     }
     if($_POST['action'] == 'Update Entry') {
         $newRequest = new \classes\request\data\Request();
         $newRequest->Id = $request['id'];
         $newRequest->CharacterId = $request['character_id'];
-        $newRequest->Title = htmlspecialchars(Request::GetValue('title'));
+        $newRequest->Title = htmlspecialchars(Request::getValue('title'));
         $newRequest->RequestTypeId = $request['request_type_id'];
         $newRequest->GroupId = 0;
         $newRequest->RequestStatusId = $request['request_status_id'];
-        $newRequest->Body = Request::GetValue('body');
+        $newRequest->Body = Request::getValue('body');
         $newRequest->CreatedById = $request['created_by_id'];
         $newRequest->CreatedOn = $request['created_on'];
         $newRequest->UpdatedById = $userdata['user_id'];
         $newRequest->UpdatedOn = date('Y-m-d H:i:s');
-        if(!$requestRepository->Save($newRequest))
+        if(!$requestRepository->save($newRequest))
         {
             SessionHelper::SetFlashMessage('Error Saving Request');
         }
         else
         {
-            Response::Redirect('bluebook.php?action=view&bluebook_id='.$request['id']);
+            Response::redirect('bluebook.php?action=view&bluebook_id='.$request['id']);
         }
     }
 }

@@ -4,7 +4,7 @@ use classes\core\repository\Database;
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
-	Response::EndRequest('Illegal Action');
+	Response::endRequest('Illegal Action');
 }
 
 $characterId = $_POST['characterId'] + 0;
@@ -33,7 +33,7 @@ VALUES
 EOQ;
 
 
-if(Database::GetInstance()->Query($sql)->Execute())
+if(Database::getInstance()->query($sql)->execute())
 {
 	echo "Successfully added character to territory.";
 }

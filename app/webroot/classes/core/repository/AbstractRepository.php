@@ -58,7 +58,7 @@ abstract class AbstractRepository extends Database
      * @param $id
      * @return DataModel
      */
-    public function GetById($id)
+    public function getById($id)
     {
         if(!isset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$id]))
         {
@@ -79,10 +79,10 @@ EOQ;
             $params = array(
                 $id
             );
-            $row = $this->Query($sSql)->Single($params);
+            $row = $this->query($sSql)->single($params);
             if($row !== false)
             {
-                $oItem = $this->PopulateObject($row);
+                $oItem = $this->populateObject($row);
             }
             RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$id] = $oItem;
         }
@@ -94,13 +94,13 @@ EOQ;
      * @param $sql
      * @return array|int
      */
-    public function DoQuery($sql)
+    public function doQuery($sql)
     {
         if ($this->Debug) {
             echo "SQL: $sql\n\n";
         }
 
-        $this->Query($sql)->Execute();
+        $this->query($sql)->execute();
         if($this->Statement->columnCount() > 0)
         {
             return $this->Statement->fetchAll(PDO::FETCH_ASSOC);
@@ -115,7 +115,7 @@ EOQ;
      * @param array|bool $row
      * @return mixed
      */
-    protected function PopulateObject($row)
+    protected function populateObject($row)
     {
         $class = $this->ManagedObject->getFullClassName();
         $oItem = new $class();
@@ -136,7 +136,7 @@ EOQ;
      * @param int $id
      * @return int
      */
-    public function Delete($id)
+    public function delete($id)
     {
         $tableName = $this->ManagedObject->getTableName();
         $idColumn = $this->ManagedObject->getIdColumn();
@@ -148,7 +148,7 @@ WHERE
     $idColumn = :id
 LIMIT 1
 EOQ;
-        $this->Query($sql)->Bind(':id', $id)->Execute();
+        $this->query($sql)->bind(':id', $id)->execute();
 
         return $this->Statement->rowCount();
     }
@@ -157,7 +157,7 @@ EOQ;
      * Lists all instances of the managed object in the table
      * @return array
      */
-    public function ListAll()
+    public function listAll()
     {
         $tableName = $this->ManagedObject->getTableName();
         $sortColumn = $this->ManagedObject->getSortColumn();
@@ -172,9 +172,9 @@ ORDER BY
 EOQ;
 
         $items = array();
-        $rows = $this->Query($sql)->All();
+        $rows = $this->query($sql)->all();
         foreach($rows as $row) {
-            $items[] = $this->PopulateObject($row);
+            $items[] = $this->populateObject($row);
         }
         $rows = null;
         return $items;
@@ -185,7 +185,7 @@ EOQ;
      * and Name fields for the managed object
      * @return array
      */
-    public function SimpleListAll()
+    public function simpleListAll()
     {
         $tableName = $this->ManagedObject->getTableName();
         $idColumn = $this->ManagedObject->getIdColumn();
@@ -203,7 +203,7 @@ ORDER BY
 sortColumn;
 
         $items = array();
-        foreach($this->Query($sql)->All() as $row)
+        foreach($this->query($sql)->all() as $row)
         {
             $items[$row[$this->ManagedObject->getIdColumn()]] = $row[$this->ManagedObject->getNameColumn()];
         }
@@ -216,9 +216,9 @@ sortColumn;
      * @param \classes\core\data\DataModel $item
      * @return bool
      */
-    public function Save(DataModel $item)
+    public function save(DataModel $item)
     {
-        $this->BeforeSave($item);
+        $this->beforeSave($item);
         $idProperty = $item->getIdProperty();
         if(isset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty])) {
             unset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty]);
@@ -228,7 +228,7 @@ sortColumn;
         $idProperty = $this->ManagedObject->getIdProperty();
 
         if ($item->{$this->ManagedObject->getIdProperty()} > 0) {
-            if($this->EqualToCurrent($item))
+            if($this->equalToCurrent($item))
             {
                 return true;
             }
@@ -278,7 +278,7 @@ sortColumn;
             $sql = "INSERT INTO $tableName $sFields VALUES $sValues;";
         }
 
-        $affectedRows = $this->Query($sql)->Execute();
+        $affectedRows = $this->query($sql)->execute();
 
         if($affectedRows)
         {
@@ -286,7 +286,7 @@ sortColumn;
                 $item->{$this->ManagedObject->getIdProperty()} = $this->Handler->lastInsertId();
             }
 
-            $this->AfterSave($item);
+            $this->afterSave($item);
         }
 
         return $affectedRows;
@@ -328,8 +328,8 @@ EOQ;
 
             $items = array();
 
-            foreach($this->Query($sql)->All() as $row) {
-                $items[] = $this->PopulateObject($row);
+            foreach($this->query($sql)->all() as $row) {
+                $items[] = $this->populateObject($row);
             }
 
             return $items;
@@ -356,11 +356,11 @@ EOQ;
 
             $oItem = new $fullClassName();
 
-            $result = $this->Query($sql)->Single();
+            $result = $this->query($sql)->single();
 
             if($result !== false)
             {
-                $oItem = $this->PopulateObject($result);
+                $oItem = $this->populateObject($result);
             }
 
             return $oItem;
@@ -373,7 +373,7 @@ EOQ;
      * @param $parameters
      * @return array
      */
-    public function Search($parameters)
+    public function search($parameters)
     {
         $where = (isset($parameters['where'])) ? $parameters['where'] : null;
         $select = (isset($parameters['select'])) ? $parameters['select'] : null;
@@ -381,9 +381,9 @@ EOQ;
         $orderBy = (isset($parameters['order_by'])) ? $parameters['order_by'] : null;
         $paginate = (isset($parameters['paginate'])) ? $parameters['paginate'] : null;
 
-        $sql = $this->GenerateSql($where, $select, $from, $orderBy, $paginate);
+        $sql = $this->generateSql($where, $select, $from, $orderBy, $paginate);
 
-        return $this->Query($sql)->All();
+        return $this->query($sql)->all();
     }
 
     /**
@@ -394,13 +394,13 @@ EOQ;
      * @param array|string $paginate
      * @return string
      */
-    public function GenerateSql($where, $select, $from, $orderBy, $paginate)
+    public function generateSql($where, $select, $from, $orderBy, $paginate)
     {
         $sql = 'SELECT ';
 
         if ($select !== null) {
             if (is_array($select)) {
-                $sql .= $this->ProcessSelect('', $select);
+                $sql .= $this->processSelect('', $select);
             } else {
                 $sql .= ' ' . $select . ',';
             }
@@ -414,7 +414,7 @@ EOQ;
 
         if ($from !== null) {
             if (is_array($from)) {
-                $sql .= $this->ProcessFrom('', $from);
+                $sql .= $this->processFrom('', $from);
             } else {
                 $sql .= ' ' . $from . ' ';
             }
@@ -485,7 +485,7 @@ EOQ;
      * @param $select
      * @return array
      */
-    public function ProcessSelect($table, $select)
+    public function processSelect($table, $select)
     {
         $sql = "";
         if ($table != '') {
@@ -493,7 +493,7 @@ EOQ;
         }
         foreach ($select as $key => $linealue) {
             if (is_array($linealue)) {
-                $sql .= $this->ProcessSelect($key, $linealue);
+                $sql .= $this->processSelect($key, $linealue);
             } else {
                 // table name in field
                 if ($table == '') {
@@ -515,7 +515,7 @@ EOQ;
      * @param $target
      * @return string
      */
-    private function ProcessFrom($source, $target)
+    private function processFrom($source, $target)
     {
         $sql = "";
         foreach ($target as $key => $table) {
@@ -523,7 +523,7 @@ EOQ;
                 $rootObject = $this->ManagedObject->GetManagedObject($key);
                 /* @var DataModel $rootObject */
                 $sql .= ' ' . $rootObject->getTableName() . " \n";
-                $sql .= $this->ProcessFrom($key, $table);
+                $sql .= $this->processFrom($key, $table);
             } else {
                 if ($table != '') {
                     $sourceObject = $this->ManagedObject->GetManagedObject($source);
@@ -538,13 +538,13 @@ EOQ;
      * @param $parameters
      * @return mixed
      */
-    public function RowCount($parameters)
+    public function rowCount($parameters)
     {
         $where = (isset($parameters['where'])) ? $parameters['where'] : null;
         $from = (isset($parameters['from'])) ? $parameters['from'] : null;
 
-        $sql = $this->GenerateSql($where, 'count(*) as rows', $from, null, null);
-        $data = $this->Query($sql)->Single();
+        $sql = $this->generateSql($where, 'count(*) as rows', $from, null, null);
+        $data = $this->query($sql)->single();
         return $data['rows'];
     }
 
@@ -552,10 +552,10 @@ EOQ;
      * @param $queries
      * @return void
      */
-    public function RunQueries($queries)
+    public function runQueries($queries)
     {
         foreach ($queries as $sql) {
-            $this->DoQuery($sql);
+            $this->doQuery($sql);
         }
     }
 
@@ -563,7 +563,7 @@ EOQ;
      * Event Handler called before the Save Method
      * @param $item
      */
-    protected function BeforeSave($item)
+    protected function beforeSave($item)
     {
         // event handler, do nothing by default
     }
@@ -572,7 +572,7 @@ EOQ;
      * Event Handler called after the Save Method
      * @param $item
      */
-    protected function AfterSave($item)
+    protected function afterSave($item)
     {
         // event handler, do nothing by default
     }
@@ -581,16 +581,16 @@ EOQ;
      * Touches a managed object.
      * @param $id
      */
-    public function Touch($id)
+    public function touch($id)
     {
-        $item = $this->GetById($id);
-        $this->Save($item);
+        $item = $this->getById($id);
+        $this->save($item);
     }
 
-    private function EqualToCurrent(DataModel $newItem)
+    private function equalToCurrent(DataModel $newItem)
     {
         $idProperty = $this->ManagedObject->getIdProperty();
-        $currentItem = $this->GetById($newItem->$idProperty);
+        $currentItem = $this->getById($newItem->$idProperty);
 
         $type = get_class($newItem);
 

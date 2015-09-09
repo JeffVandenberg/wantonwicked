@@ -2,7 +2,7 @@
 use classes\core\helpers\Request;
 use classes\core\repository\Database;
 
-$favorId = Request::GetValue('favorId', 0);
+$favorId = Request::getValue('favorId', 0);
 
 $dischargeQuery = <<<EOQ
 UPDATE
@@ -15,7 +15,7 @@ EOQ;
 $params = array(
     $favorId
 );
-$rows = Database::GetInstance()->Query($dischargeQuery)->Execute($params);
+$rows = Database::getInstance()->query($dischargeQuery)->execute($params);
 if ($rows) {
     echo "Successfully discharged favor.";
 } else {

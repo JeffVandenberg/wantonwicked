@@ -10,23 +10,23 @@ use classes\core\helpers\SessionHelper;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 
-$characterId = Request::GetValue('character_id');
+$characterId = Request::getValue('character_id');
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
     SessionHelper::SetFlashMessage('Not a valid character to view!');
-    Response::Redirect('');
+    Response::redirect('');
 }
 
 $page_title = "Give Favor";
 $favorType = 0;
-$targetCharacter = Request::GetValue('targetCharacter');
-$favorDescription = Request::GetValue('favorDescription');
-$favorNotes = Request::GetValue('favorNotes');
+$targetCharacter = Request::getValue('targetCharacter');
+$favorDescription = Request::getValue('favorDescription');
+$favorNotes = Request::getValue('favorNotes');
 
-if (Request::IsPost()) {
+if (Request::isPost()) {
     // attempt to save favor
     $favorTypeId       = $_POST['favorTypeId'] + 0;
     $targetCharacterId = $_POST['targetCharacterId'] + 0;
@@ -60,7 +60,7 @@ VALUES
 	)
 EOQ;
 
-    $createFavorResult = Database::GetInstance()->Query($createFavorQuery)->Execute(
+    $createFavorResult = Database::getInstance()->query($createFavorQuery)->execute(
         array(
             $characterId,
             $targetCharacterId,
@@ -72,7 +72,7 @@ EOQ;
     );
 
     SessionHelper::SetFlashMessage('Favor has been created');
-    Response::Redirect('favors.php?action=list&character_id='.$characterId);
+    Response::redirect('favors.php?action=list&character_id='.$characterId);
 }
 
 
@@ -80,7 +80,7 @@ $favorTypeQuery = "SELECT * FROM favor_types";
 
 $ids = $names = "";
 $favorTypes = array();
-foreach(Database::GetInstance()->Query($favorTypeQuery)->All() as $favorTypeDetail) {
+foreach(Database::getInstance()->query($favorTypeQuery)->all() as $favorTypeDetail) {
     $favorTypes[$favorTypeDetail['id']] = $favorTypeDetail['name'];
 }
 

@@ -12,7 +12,7 @@ namespace classes\core\helpers;
 
 class Response {
 
-    public static function Redirect($url, $message = null)
+    public static function redirect($url, $message = null)
     {
         if($message) {
             SessionHelper::SetFlashMessage($message);
@@ -21,19 +21,19 @@ class Response {
         exit();
     }
 
-    public static function SendJson($value)
+    public static function sendJson($value)
     {
         header('content-type: application/json');
         echo json_encode($value);
         exit();
     }
 
-    public static function PreventCache()
+    public static function preventCache()
     {
         header("Cache-Control: no-store, no-cache, must-revalidate");
     }
 
-    public static function EndRequest($message = null)
+    public static function endRequest($message = null)
     {
         if($message) {
             echo $message;

@@ -24,9 +24,9 @@ $characterRepository = new CharacterRepository();
 $characterSheetHelper = new CharacterSheetHelper();
 
 // test if updating
-if(Request::IsPost()) {
+if(Request::isPost()) {
     // get character information
-    $oldCharacter = $characterRepository->GetById($_POST['character_id']);
+    $oldCharacter = $characterRepository->getById($_POST['character_id']);
     /* @var Character $oldCharacter */
     $powers = $oldCharacter->CharacterPower;
 
@@ -37,8 +37,8 @@ if(Request::IsPost()) {
 
 $edit_xp = "false";
 $character_id = 0;
-$view_character_id = Request::GetValue('view_character_id', 0);
-$onlySanctioned = Request::GetValue('only_sanctioned', SessionHelper::Read('character.search.only_sanctioned', 1));
+$view_character_id = Request::getValue('view_character_id', 0);
+$onlySanctioned = Request::getValue('only_sanctioned', SessionHelper::Read('character.search.only_sanctioned', 1));
 SessionHelper::Write('character.search.only_sanctioned', $onlySanctioned);
 
 if ($view_character_id || $view_character_name) {

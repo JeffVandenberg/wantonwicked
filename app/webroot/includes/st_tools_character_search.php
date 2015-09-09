@@ -8,16 +8,16 @@ use classes\utility\ArrayTools;
 $contentHeader = $page_title = "Character Type Search";
 
 // get posted information
-$selected_character_types = Request::GetValue('character_types', array());
-$selected_cities = Request::GetValue('cities', array());
-$selected_splat1 = Request::GetValue('splat1', array());
-$selected_splat2 = Request::GetValue('splat2', array());
-$selected_virtues = Request::GetValue('virtues', array());
-$selected_vices = Request::GetValue('vices', array());
-$only_sanctioned = Request::GetValue('only_sanctioned', false);
+$selected_character_types = Request::getValue('character_types', array());
+$selected_cities = Request::getValue('cities', array());
+$selected_splat1 = Request::getValue('splat1', array());
+$selected_splat2 = Request::getValue('splat2', array());
+$selected_virtues = Request::getValue('virtues', array());
+$selected_vices = Request::getValue('vices', array());
+$only_sanctioned = Request::getValue('only_sanctioned', false);
 
 // test if submitting anything to search for
-if (count($selected_cities) || count($selected_splat1) || count($selected_splat2) || Request::IsPost()) {
+if (count($selected_cities) || count($selected_splat1) || count($selected_splat2) || Request::isPost()) {
     $character_query = "select * from characters where is_deleted='N' and ";
 
     if ($only_sanctioned) {
@@ -85,7 +85,7 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
     }
 
     $character_query = substr($character_query, 0, strlen($character_query) - 5) . " Order by Is_NPC desc, City, Character_Type, Character_Name;";
-    $characters = Database::GetInstance()->Query($character_query)->All();
+    $characters = Database::getInstance()->query($character_query)->all();
 }
 
 

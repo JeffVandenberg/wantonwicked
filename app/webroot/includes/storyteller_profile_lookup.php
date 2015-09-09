@@ -5,7 +5,7 @@ use classes\core\helpers\Request;
 use classes\core\repository\Database;
 
 $page_title = "Profile -&gt; Character Lookup";
-$profileName = Request::GetValue('profile_name');
+$profileName = Request::getValue('profile_name');
 
 if ($profileName !== null) {
 
@@ -18,7 +18,7 @@ WHERE
     username=?;
 EOQ;
     $params = array($profileName);
-    $user   = Database::GetInstance()->Query($sql)->Single($params);
+    $user   = Database::getInstance()->query($sql)->single($params);
 
     $sql           = <<<EOQ
 SELECT
@@ -35,7 +35,7 @@ ORDER BY
     C.is_sanctioned ASC,
     C.character_name;
 EOQ;
-    $characterList = Database::GetInstance()->Query($sql)->All($params);
+    $characterList = Database::getInstance()->query($sql)->all($params);
     $characters    = array();
     foreach ($characterList as $character) {
         switch ($character['is_sanctioned']) {

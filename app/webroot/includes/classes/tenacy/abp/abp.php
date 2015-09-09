@@ -181,7 +181,7 @@ EOQ;
             $characterId
         );
 
-        Database::GetInstance()->Query($sql)->Execute($params);
+        Database::getInstance()->query($sql)->execute($params);
 	}
 	
 	public function UpdateAllABP()
@@ -240,7 +240,7 @@ WHERE
 	AND C.character_type = 'Vampire'
 	AND C.city = 'Savannah';
 EOQ;
-		Database::GetInstance()->Query($sql)->Execute();
+		Database::getInstance()->query($sql)->execute();
 
 		$sql = <<<EOQ
 UPDATE 
@@ -253,7 +253,7 @@ WHERE
 	AND C.character_type = 'Vampire'
 	AND C.city = 'Savannah';
 EOQ;
-		Database::GetInstance()->Query($sql)->Execute();
+		Database::getInstance()->query($sql)->execute();
 	}
 
 	private function ApplyRules($characterId)

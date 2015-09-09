@@ -11,11 +11,11 @@ use classes\request\repository\RequestTypeRepository;
 
 $contentHeader = $page_title = "Pending Requests";
 
-$characterId = Request::GetValue('character_id', 0);
-$page = Request::GetValue('page', 1);
-$pageSize = Request::GetValue('page_size', 20);
-$sort = Request::GetValue('sort', 'updated_on DESC');
-$filter = Request::GetValue('filter', array('username' => '', 'title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
+$characterId = Request::getValue('character_id', 0);
+$page = Request::getValue('page', 1);
+$pageSize = Request::getValue('page_size', 20);
+$sort = Request::getValue('sort', 'updated_on DESC');
+$filter = Request::getValue('filter', array('username' => '', 'title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
 
 $pagination = new Pagination();
 $pagination->SetSort($sort);
@@ -49,9 +49,9 @@ if(($count / $pageSize) > $page) {
 
 $requestStatusRepository = new RequestStatusRepository();
 $requestTypeRepository = new RequestTypeRepository();
-$requestTypes = $requestTypeRepository->SimpleListAll();
+$requestTypes = $requestTypeRepository->simpleListAll();
 $requestTypes = array('All') + $requestTypes;
-$requestStatuses = $requestStatusRepository->SimpleListAll();
+$requestStatuses = $requestStatusRepository->simpleListAll();
 $requestStatuses = array(0 => 'Open', -1 => 'All') + $requestStatuses;
 
 $storytellerMenu = require_once('helpers/storyteller_menu.php');

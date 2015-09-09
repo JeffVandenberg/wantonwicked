@@ -7,7 +7,7 @@ use classes\core\repository\Database;
 
 /* @var array $userdata */
 
-$character_name = Request::GetValue('username');
+$character_name = Request::getValue('username');
 if (strpos($character_name, '-- ') > 0) {
     $character_name = substr($character_name, 0, strpos($character_name, '-- '));
 }
@@ -16,17 +16,17 @@ $params = array(
     $character_name
 );
 
-$character_detail = Database::GetInstance()->Query($character_query)->Single($character_detail);
+$character_detail = Database::getInstance()->query($character_query)->single($character_detail);
 if ($character_detail) {
     if (UserdataHelper::IsSt($userdata)) {
         // display character
-        Response::Redirect('/view_sheet.php?action=st_view_xp&view_character_id=' . $character_detail['id']);
+        Response::redirect('/view_sheet.php?action=st_view_xp&view_character_id=' . $character_detail['id']);
     } else {
         $profile_query = "select username from phpbb_users where user_id = ?";
 		$params = array(
 			$character_detail['user_id']
 		);
-        $profile_detail = Database::GetInstance()->Query($profile_query)->Single($params);
+        $profile_detail = Database::getInstance()->query($profile_query)->single($params);
 
         $broken_favors_query = <<<EOQ
 SELECT
@@ -50,7 +50,7 @@ EOQ;
 		);
 
         $broken_favors = "";
-		foreach(Database::GetInstance()->Query($broken_favors_query)->All($params) as $broken_favors_detail) {
+		foreach(Database::getInstance()->query($broken_favors_query)->all($params) as $broken_favors_detail) {
             $broken_favors .= "Owed a favor to $broken_favors_detail[to_character_name] and broke it on $broken_favors_detail[date_broken].<br />";
         }
 
@@ -143,7 +143,7 @@ function DetermineBloodPotency($sourceCharacterId, $targetCharacter)
         $bloodPotency = 'None';
     } else if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Protean', 1)) {
         // do they have Protean 1?
-        $sourceCharacter = $repository->GetById($sourceCharacterId);
+        $sourceCharacter = $repository->getById($sourceCharacterId);
         if ($targetCharacter['Power_Stat'] < $sourceCharacter['Power_Stat']) {
             $bloodPotency = $sourceCharacter['Power_Stat'];
         }

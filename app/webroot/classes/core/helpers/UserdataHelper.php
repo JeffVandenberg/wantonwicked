@@ -47,7 +47,7 @@ WHERE
 EOQ;
             $params = array_merge(array($userId), $userPerms);
 
-            self::$userPermissions[$key] = (Database::GetInstance()->Query($sql)->Value($params) > 0);
+            self::$userPermissions[$key] = (Database::getInstance()->query($sql)->value($params) > 0);
         }
         return self::$userPermissions[$key];
     }

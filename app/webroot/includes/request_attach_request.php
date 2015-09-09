@@ -8,26 +8,26 @@ use classes\request\data\RequestCharacter;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
 
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    Response::Redirect('/', 'Unable to view that request');
+    Response::redirect('/', 'Unable to view that request');
 }
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=view&request_id=' . $requestId);
+        Response::redirect('request.php?action=view&request_id=' . $requestId);
     } elseif ($_POST['action'] == 'Attach Request') {
         $fromRequestId = $_POST['from_request_id'];
         if($requestRepository->AttachRequestToRequest($requestId, $fromRequestId)) {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
             SessionHelper::SetFlashMessage('Attached Request');
-            Response::Redirect('request.php?action=view&request_id=' . $requestId);
+            Response::redirect('request.php?action=view&request_id=' . $requestId);
         }
         else {
-            Response::EndRequest('Unable to attach Request');
+            Response::endRequest('Unable to attach Request');
         }
     }
 }

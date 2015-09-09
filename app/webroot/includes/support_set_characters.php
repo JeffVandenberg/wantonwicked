@@ -15,17 +15,17 @@ $characterRepository = RepositoryManager::GetRepository('classes\character\data\
 $supporterRepository = RepositoryManager::GetRepository('classes\support\data\Supporter');
 /* @var SupporterRepository $supporterRepository */
 
-if(Request::IsPost())
+if(Request::isPost())
 {
-    if(Request::GetValue('action') == 'Cancel') {
-        Response::Redirect('support.php');
+    if(Request::getValue('action') == 'Cancel') {
+        Response::redirect('support.php');
     }
-    if(Request::GetValue('action') == 'Update') {
-        $characterIds = Request::GetValue('character_id');
+    if(Request::getValue('action') == 'Update') {
+        $characterIds = Request::getValue('character_id');
         if(is_array($characterIds)) {
-            $supporterRepository->UpdateCharactersForSupporter($userdata['user_id'], Request::GetValue('character_id'));
+            $supporterRepository->UpdateCharactersForSupporter($userdata['user_id'], Request::getValue('character_id'));
             SessionHelper::SetFlashMessage('Your characters have been set.');
-            Response::Redirect('support.php');
+            Response::redirect('support.php');
         }
         else {
             SessionHelper::SetFlashMessage('You didn\'t select any characters.');
@@ -38,11 +38,11 @@ $supporter = $supporterRepository->FindByUserId($userdata['user_id']);
 
 if($supporter->Id == 0) {
     SessionHelper::SetFlashMessage('You are not a supporter');
-    Response::Redirect('support.php');
+    Response::redirect('support.php');
 }
 if($supporter->ExpiresOn < date('Y-m-d H:i:s')) {
     SessionHelper::SetFlashMessage('Your support has expired');
-    Response::Redirect('support.php');
+    Response::redirect('support.php');
 }
 $characters = $characterRepository->ListByUserIdAndIsSanctionedAndIsDeleted($userdata['user_id'], 'Y', 'N');
 /* @var Character[] $characters */

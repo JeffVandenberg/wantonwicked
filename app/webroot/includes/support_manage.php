@@ -7,14 +7,14 @@ use classes\support\repository\SupporterRepository;
 
 $page_title = 'Manage Supporters';
 $contentHeader = $page_title;
-if(Request::IsPost())
+if(Request::isPost())
 {
 
 }
 $supporterRepository = RepositoryManager::GetRepository('classes\support\data\Supporter');
 /* @var SupporterRepository $supporterRepository */
 
-$onlyActive = Request::GetValue('active', '1') == 1;
+$onlyActive = Request::getValue('active', '1') == 1;
 $supporters = $supporterRepository->ListSupporters($onlyActive);
 
 /* @var array $supporters */

@@ -40,6 +40,6 @@ EOQ;
             $orderBy
         );
 
-        return $this->Query($sql)->All($params);
+        return $this->query($sql)->all($params);
     }
 }

@@ -4,10 +4,10 @@ use classes\core\repository\Database;
 
 $page_title = "Suspend/Unsuspend Venue";
 
-if (Request::IsPost()) {
+if (Request::isPost()) {
     // update venue
-    $character_type = Request::GetValue('character_type');
-    $is_suspended = Request::GetValue('is_suspended');
+    $character_type = Request::getValue('character_type');
+    $is_suspended = Request::getValue('is_suspended');
     $query = <<<EOQ
 UPDATE
 	characters
@@ -22,7 +22,7 @@ EOQ;
         $character_type
     );
 
-    Database::GetInstance()->Query($query)->Execute($params);
+    Database::getInstance()->query($query)->execute($params);
 }
 
 $suspended_venues_query = <<<EOQ
@@ -36,7 +36,7 @@ WHERE
 ORDER BY
 	character_type
 EOQ;
-$rows = Database::GetInstance()->Query($suspended_venues_query)->All();
+$rows = Database::getInstance()->query($suspended_venues_query)->all();
 
 ob_start();
 ?>

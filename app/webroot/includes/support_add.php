@@ -10,22 +10,22 @@ use classes\support\SupportManager;
 
 $page_title = $contentHeader = 'Add Supporter';
 
-if(Request::IsPost())
+if(Request::isPost())
 {
-    $userId = Request::GetValue('user_id', 0);
+    $userId = Request::getValue('user_id', 0);
 
     if($userId !== 0) {
         $supporterRepository = RepositoryManager::GetRepository('classes\support\data\Supporter');
         $supporter = $supporterRepository->FindByUserId($userId);
         /* @var Supporter $supporter */
         $supporter->UserId = $userId;
-        $supporter->AmountPaid = Request::GetValue('amount_paid', 0);
-        $supporter->ExpiresOn = date('Y-m-d', strtotime(Request::GetValue('expires_on')));
-        $supporter->NumberOfCharacters = Request::GetValue('number_of_characters', 0);
+        $supporter->AmountPaid = Request::getValue('amount_paid', 0);
+        $supporter->ExpiresOn = date('Y-m-d', strtotime(Request::getValue('expires_on')));
+        $supporter->NumberOfCharacters = Request::getValue('number_of_characters', 0);
         $supporter->UpdatedById = $userdata['user_id'];
         $supporter->UpdatedOn = date('Y-m-d H:i:s');
 
-        if($supporterRepository->Save($supporter)) {
+        if($supporterRepository->save($supporter)) {
             $supporterManager = new SupportManager();
             $supporterManager->GrantSupporterStatus($supporter->UserId);
             $message = <<<EOQ
@@ -46,7 +46,7 @@ EOQ;
 
             mail($supporter->User->UserEmail, 'Wicked Support', $message, 'from: support@gamingsandbox.com');
             SessionHelper::SetFlashMessage('Updated Supporter');
-            Response::Redirect('support.php?action=manage');
+            Response::redirect('support.php?action=manage');
         }
         else {
             SessionHelper::SetFlashMessage('Failed to update supporter');

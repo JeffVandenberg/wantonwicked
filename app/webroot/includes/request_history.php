@@ -6,15 +6,15 @@ use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 
 if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     SessionHelper::SetFlashMessage('Unable to view Request History');
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 
-$request = $requestRepository->GetById($requestId);
+$request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
 $contentHeader = $page_title = $request->Title . ' History';

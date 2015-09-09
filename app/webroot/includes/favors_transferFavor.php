@@ -2,10 +2,10 @@
 use classes\core\helpers\Request;
 use classes\core\repository\Database;
 
-$favorId = Request::GetValue('favorId', 0);
-$transferCharacterId = Request::GetValue('transferCharacterId', 0);
+$favorId = Request::getValue('favorId', 0);
+$transferCharacterId = Request::getValue('transferCharacterId', 0);
 
-Database::GetInstance()->StartTransaction();
+Database::getInstance()->startTransaction();
 
 $transferQuery = <<<EOQ
 INSERT INTO 
@@ -43,7 +43,7 @@ $params = array(
     $favorId
 );
 
-$rows = Database::GetInstance()->Query($transferQuery)->Execute($params);
+$rows = Database::getInstance()->query($transferQuery)->execute($params);
 
 if ($rows > 0) {
     $updateQuery = <<<EOQ
@@ -57,18 +57,18 @@ EOQ;
 	$params = array(
 		$favorId
 	);
-    $rows = Database::GetInstance()->Query($updateQuery)->Execute($params);
+    $rows = Database::getInstance()->query($updateQuery)->execute($params);
 
     if ($rows > 0) {
         $message = "Successfully Transferred Favor.";
     } else {
-		Database::GetInstance()->RollBackTransaction();
+		Database::getInstance()->rollBackTransaction();
         $message = "There was an error cancelling your favor. Please try again later.";
     }
 } else {
     $message = "There was an error. Please try again later.";
 }
 
-Database::GetInstance()->CommitTransaction();
+Database::getInstance()->commitTransaction();
 
 echo $message;

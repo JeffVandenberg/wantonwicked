@@ -9,7 +9,7 @@ $query = '';
 $params = array();
 $headerLinks = array();
 
-if (!Request::GetValue('character_type')) {
+if (!Request::getValue('character_type')) {
     $query = <<<EOQ
 SELECT
     character_type as `group`,
@@ -33,8 +33,8 @@ EOQ;
         )
     );
 } else {
-    $characterType = Request::GetValue('character_type');
-    $splat = Request::GetValue('splat', 'splat1');
+    $characterType = Request::getValue('character_type');
+    $splat = Request::getValue('splat', 'splat1');
     $query = <<<EOQ
 SELECT
     $splat as `group`,
@@ -73,7 +73,7 @@ EOQ;
 }
 
 
-$rows = Database::GetInstance()->Query($query)->All($params);
+$rows = Database::getInstance()->query($query)->all($params);
 $storytellerMenu = require_once('helpers/storyteller_menu.php');
 $menu = MenuHelper::GenerateMenu($storytellerMenu);
 ob_start();

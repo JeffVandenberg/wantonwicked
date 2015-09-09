@@ -227,7 +227,7 @@ $template->assign_vars(array(
     )
 );
 
-if(Request::IsAjax())
+if(Request::isAjax())
 {
     $template_name = 'main_ww4.tpl';
 }

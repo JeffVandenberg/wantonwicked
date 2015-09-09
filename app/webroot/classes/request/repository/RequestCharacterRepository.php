@@ -41,8 +41,8 @@ EOQ;
 
         $params = array($requestId);
         $list = array();
-        foreach($this->Query($sql)->All($params) as $row) {
-            $list[] = $this->PopulateObject($row);
+        foreach($this->query($sql)->all($params) as $row) {
+            $list[] = $this->populateObject($row);
         }
         return $list;
     }
@@ -94,8 +94,8 @@ WHERE
 EOQ;
         $params = array($requestId, $userId);
 
-        return $this->PopulateObject(
-            $this->Query($sql)->Single($params)
+        return $this->populateObject(
+            $this->query($sql)->single($params)
         );
     }
 }

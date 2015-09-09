@@ -11,14 +11,14 @@ use classes\core\helpers\SessionHelper;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
     SessionHelper::SetFlashMessage('Not a valid character to view!');
-    Response::Redirect('');
+    Response::redirect('');
 }
 
 $character = $characterRepository->FindByIdObj($characterId);
@@ -50,7 +50,7 @@ $params = array(
     $characterId
 );
 
-$favorsToCharacter = Database::GetInstance()->Query($sql)->All($params);
+$favorsToCharacter = Database::getInstance()->query($sql)->all($params);
 
 $sql = <<<EOQ
 SELECT
@@ -76,7 +76,7 @@ $params = array(
 );
 
 $favorsFromCharacter = array();
-foreach (Database::GetInstance()->Query($sql)->All($params) as $row) {
+foreach (Database::getInstance()->query($sql)->all($params) as $row) {
     $favorsFromCharacter[] = $row;
 }
 

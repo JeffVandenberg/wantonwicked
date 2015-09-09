@@ -26,7 +26,7 @@ VALUES
 	)
 EOQ;
 
-if(Database::GetInstance()->Query($sql)->Execute())
+if(Database::getInstance()->query($sql)->execute())
 {
 	$message = "You are now feeding from the domain.";
 	

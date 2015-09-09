@@ -4,9 +4,9 @@ use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('request_id', 0);
-$onlySanctioned = Request::GetValue('only_sanctioned', true);
-$term = Request::GetValue('term');
+$requestId = Request::getValue('request_id', 0);
+$onlySanctioned = Request::getValue('only_sanctioned', true);
+$term = Request::getValue('term');
 
 $requestRepository = new RequestRepository();
 $characters = $requestRepository->SearchCharactersForRequest($requestId, $onlySanctioned, $term);
@@ -24,4 +24,4 @@ if(count($list) == 0)
     $list[0]['id'] = -1;
 }
 
-Response::SendJson($list);
+Response::sendJson($list);

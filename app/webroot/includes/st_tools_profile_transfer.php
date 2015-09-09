@@ -7,24 +7,24 @@ use classes\core\repository\Database;
 
 $contentHeader = $page_title = "Character Profile Transfer";
 
-$characterName = Request::GetValue('character_name');
-$username = Request::GetValue('profile_name');
+$characterName = Request::getValue('character_name');
+$username = Request::getValue('profile_name');
 // test if information is provided
-if (Request::IsPost()) {
+if (Request::isPost()) {
     // make sure that the character exists
     $character_name  = htmlspecialchars($_POST['character_name']);
     $character_query = "select * from characters where character_name = '$character_name';";
-    $character = Database::GetInstance()->Query($character_query)->Single();
+    $character = Database::getInstance()->query($character_query)->single();
 
     // make sure that the profile exists
     $profile_name = htmlspecialchars($_POST['profile_name']);
     $login_query  = "select * from phpbb_users where username = '$profile_name';";
-    $login = Database::GetInstance()->Query($login_query)->Single();
+    $login = Database::getInstance()->query($login_query)->single();
 
     if ($character && $login) {
         // set the login's id as the primary login id
         $char_update_query = "update characters set user_id = $login[user_id] where id = $character[id];";
-        Database::GetInstance()->Query($char_update_query)->Execute();
+        Database::getInstance()->query($char_update_query)->execute();
         SessionHelper::SetFlashMessage("$character_name has been moved to $profile_name.");
     }
     else {

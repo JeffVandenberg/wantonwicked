@@ -19,7 +19,7 @@ $db = new Database();
 
 if (date('D') == 'Fri') {
     $update_experience_query = "update characters set current_experience = current_experience + 3, total_experience = total_experience + 3 where is_sanctioned='Y';";
-    $db->Query($update_experience_query)->Execute();
+    $db->query($update_experience_query)->execute();
     $xpLogQuery = <<<EOQ
 INSERT INTO
     log_characters
@@ -39,10 +39,10 @@ FROM
 WHERE
     is_sanctioned = 'Y'
 EOQ;
-    $db->Query($xpLogQuery)->Execute(array(ActionType::XPModification));
+    $db->query($xpLogQuery)->execute(array(ActionType::XPModification));
 }
 $update_willpower_query = "update characters set willpower_temp = willpower_temp + 1 where willpower_temp < willpower_perm;";
-$db->Query($update_willpower_query)->Execute();
+$db->query($update_willpower_query)->execute();
 
 // unsanction characters more than 1 month inactive
 $month_ago = date('Y-m-d', mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')));

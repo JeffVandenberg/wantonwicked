@@ -16,7 +16,7 @@ use classes\log\data\ActionType;
 use classes\request\repository\RequestRepository;
 use classes\character\data\Character;
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
@@ -25,7 +25,7 @@ $diceRepository = RepositoryManager::GetRepository('classes\dice\data\Dice');
 
 $character = $characterRepository->FindById($characterId);
 if ($character === false) {
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 /* @var Character $character */
 if ($character['is_npc'] == 'Y') {
@@ -33,7 +33,7 @@ if ($character['is_npc'] == 'Y') {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface',
                                 $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::Redirect('');
+        Response::redirect('');
     }
 }
 else {
@@ -41,7 +41,7 @@ else {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface',
                                 $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::Redirect('');
+        Response::redirect('');
     }
 }
 
@@ -55,8 +55,8 @@ $temporary_health_levels = $character['temporary_health_levels'];
 $total_health            = $temporary_health_levels;
 $size                    = $character['size'];
 $werewolf_form           = "";
-$current_form            = Request::GetValue('current_form', SessionHelper::Read('current_form', "Hishu"));
-$showOnlyMyRolls = Request::GetValue('show_only_my_rolls', false);
+$current_form            = Request::getValue('current_form', SessionHelper::Read('current_form', "Hishu"));
+$showOnlyMyRolls = Request::getValue('show_only_my_rolls', false);
 
 SessionHelper::Write('current_form', $current_form);
 $updated_pp = $character['updated_pp'];
@@ -103,9 +103,9 @@ if (isset($_POST['submit_die_roller'])) {
     $is_rote           = (isset($_POST['is_rote'])) ? "Y" : "N";
     $used_wp           = (isset($_POST['spend_willpower'])) ? "Y" : "N";
     $used_pp           = (isset($_POST['spend_pp'])) ? "Y" : "N";
-    $rollType = Request::GetValue('roll_type');
-    $extendedWillpower = Request::GetValue('extended_willpower');
-    $numberOfRolls     = Request::GetValue('number_of_rolls', 1);
+    $rollType = Request::getValue('roll_type');
+    $extendedWillpower = Request::getValue('extended_willpower');
+    $numberOfRolls     = Request::getValue('number_of_rolls', 1);
 
     // check for bias
     $bias = "normal";
@@ -177,9 +177,9 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 $result['note'], $result['num_of_successes'], $chance_die, $bias, $is_rote
             );
 
-            if(Database::GetInstance()->Query($query)->Execute($params)) {
+            if(Database::getInstance()->query($query)->execute($params)) {
             }
-            $rollId = Database::GetInstance()->GetInsertId();
+            $rollId = Database::getInstance()->GetInsertId();
 
             // update relevant stats
             if (($usedWillpowerForRoll) || ($used_pp == 'Y')) {
@@ -197,7 +197,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 $update_query = substr($update_query, 0, strlen($update_query) - 2);
                 $update_query .= " where id = ?;";
                 $params = array($characterId);
-                Database::GetInstance()->Query($update_query)->Execute($params);
+                Database::getInstance()->query($update_query)->execute($params);
             }
 
             // test if attaching to a request
@@ -209,7 +209,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         }
     }
 
-    Response::Redirect('dieroller.php?action=character&character_id=' . $characterId);
+    Response::redirect('dieroller.php?action=character&character_id=' . $characterId);
 }
 
 if (isset($_POST['submit_update_stats'])) {
@@ -256,9 +256,9 @@ set
 where 
 	id = ?
 EOQ;
-    $update_result = Database::GetInstance()->Query($update_query)->Execute($params);
+    $update_result = Database::getInstance()->query($update_query)->execute($params);
 
-    Response::Redirect('dieroller.php?action=character&character_id=' . $characterId);
+    Response::redirect('dieroller.php?action=character&character_id=' . $characterId);
 }
 
 $extra_row             = "";
@@ -382,7 +382,7 @@ if ($wounds) {
 }
 
 $page_size = 20;
-$page = Request::GetValue('page', 1);
+$page = Request::getValue('page', 1);
 if ($page < 1) {
     $page = 1;
 }

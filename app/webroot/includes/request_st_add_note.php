@@ -7,12 +7,12 @@ use classes\request\data\RequestNote;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=st_view&request_id=' . $requestId);
+        Response::redirect('request.php?action=st_view&request_id=' . $requestId);
     } elseif ($_POST['action'] == 'Add Note') {
         $requestNote = new RequestNote();
         $requestNote->RequestId = $requestId;
@@ -23,15 +23,15 @@ if (isset($_POST['action'])) {
         if($requestNoteRepository->Save($requestNote))
         {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
-            Response::Redirect('request.php?action=st_view&request_id=' . $requestId);
+            Response::redirect('request.php?action=st_view&request_id=' . $requestId);
         }
         else
         {
-            Response::EndRequest('Error adding Note');
+            Response::endRequest('Error adding Note');
         }
     }
 }
-$request = $requestRepository->GetById($requestId);
+$request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 $requestNoteRepository = new RequestNoteRepository();
 $requestNotes = $requestNoteRepository->ListByRequestId($requestId);

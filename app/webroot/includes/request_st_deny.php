@@ -13,32 +13,32 @@ use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
 use classes\request\RequestMailer;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('request.php?action=st_view&request_id=' . $requestId);
+        Response::redirect('request.php?action=st_view&request_id=' . $requestId);
     }
     elseif ($_POST['action'] == 'Deny') {
-        if (trim(Request::GetValue('note')) == '') {
+        if (trim(Request::getValue('note')) == '') {
             SessionHelper::SetFlashMessage('Please Include a Note');
         }
         else {
             if ($requestRepository->UpdateStatus($requestId, RequestStatus::Denied, $userdata['user_id'])) {
                 $requestNote = new RequestNote();
                 $requestNote->RequestId = $requestId;
-                $requestNote->Note = Request::GetValue('note');
+                $requestNote->Note = Request::getValue('note');
                 $requestNote->CreatedById = $userdata['user_id'];
                 $requestNote->CreatedOn = date('Y-m-d H:i:s');
 
                 $requestNoteRepository = new RequestNoteRepository();
                 if ($requestNoteRepository->Save($requestNote)) {
                     // send notice to the player
-                    $request = $requestRepository->GetById($requestId);
+                    $request = $requestRepository->getById($requestId);
                     /* @var \classes\request\data\Request $request */
                     $userRepository = RepositoryManager::GetRepository('classes\core\data\User');
-                    $user = $userRepository->GetById($request->CreatedById);
+                    $user = $userRepository->getById($request->CreatedById);
                     /* @var User $user */
                     $mailer = new RequestMailer();
                     $mailer->SendMailToPlayer(
@@ -49,7 +49,7 @@ if (isset($_POST['action'])) {
                         $request
                     );
                     SessionHelper::SetFlashMessage('Denied Request');
-                    Response::Redirect('request.php?action=st_list');
+                    Response::redirect('request.php?action=st_list');
                 }
                 else {
                     SessionHelper::SetFlashMessage('Error Attaching Note');
@@ -61,7 +61,7 @@ if (isset($_POST['action'])) {
         }
     }
 }
-$request = $requestRepository->GetById($requestId);
+$request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 $requestNoteRepository = new RequestNoteRepository();
 $requestNotes = $requestNoteRepository->ListByRequestId($requestId);

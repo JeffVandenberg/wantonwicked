@@ -6,10 +6,10 @@ use classes\core\helpers\Response;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 
-$requestId = Request::GetValue('bluebook_id', 0);
+$requestId = Request::getValue('bluebook_id', 0);
 $requestRepository = new RequestRepository();
 if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
-    Response::Redirect('');
+    Response::redirect('');
 }
 
 $request = $requestRepository->FindById($requestId);
@@ -36,7 +36,7 @@ if($request['request_status_id'] == RequestStatus::NewRequest) {
 $menu = MenuHelper::GenerateMenu($characterMenu);
 ob_start();
 ?>
-<?php if(!Request::IsAjax()): ?>
+<?php if(!Request::isAjax()): ?>
     <?php echo $menu; ?>
 <?php endif; ?>
     <dl>
@@ -67,7 +67,7 @@ ob_start();
             <?php echo date('m/d/Y H:i:s', strtotime($request['updated_on'])); ?>
         </dd>
     </dl>
-<?php if(!Request::IsAjax()): ?>
+<?php if(!Request::isAjax()): ?>
     <script>
         $(function() {
         })

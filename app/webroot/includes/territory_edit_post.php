@@ -4,7 +4,7 @@ use classes\core\repository\Database;
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
 {
-	Response::EndRequest('Illegal Action');
+	Response::endRequest('Illegal Action');
 }
 
 $territoryName = htmlspecialchars($_POST['territoryName']);
@@ -38,7 +38,7 @@ WHERE
 	id = $id
 EOQ;
 
-if(Database::GetInstance()->Query($query)->Execute())
+if(Database::getInstance()->query($query)->execute())
 {
 	$page_content = "Successfully updated the territory.";
 }

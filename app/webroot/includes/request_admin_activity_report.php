@@ -10,8 +10,8 @@ $contentHeader = $page_title = 'ST Activity Report';
 $requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
 /* @var RequestRepository $requestRepository */
 
-$startDate = Request::GetValue('start_date', date('Y-m-d', strtotime('-7 days')));
-$endDate   = Request::GetValue('end_date', date('Y-m-d'));
+$startDate = Request::getValue('start_date', date('Y-m-d', strtotime('-7 days')));
+$endDate   = Request::getValue('end_date', date('Y-m-d'));
 
 $userId = UserdataHelper::IsHead($userdata) ? null : $userdata['user_id'];
 $rows = $requestRepository->GetSTActivityReport($userId, $startDate, $endDate);

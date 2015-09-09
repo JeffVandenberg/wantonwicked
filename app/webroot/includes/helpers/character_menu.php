@@ -4,7 +4,7 @@ use classes\core\repository\RepositoryManager;
 
 /* @var int $characterId */
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
-$privateCharacter = $characterRepository->GetById($characterId);
+$privateCharacter = $characterRepository->getById($characterId);
 /* @var Character $privateCharacter */
 
 $characterMenu = array(

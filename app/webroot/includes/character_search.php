@@ -4,9 +4,9 @@ use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 
-$requestId = Request::GetValue('request_id', 0);
-$onlySanctioned = Request::GetValue('only_sanctioned');
-$term = Request::GetValue('term');
+$requestId = Request::getValue('request_id', 0);
+$onlySanctioned = Request::getValue('only_sanctioned');
+$term = Request::getValue('term');
 
 $characterRepository = new CharacterRepository();
 $characters = $characterRepository->AutocompleteSearch($term, $onlySanctioned);
@@ -24,5 +24,5 @@ if(count($list) == 0)
     $list[0]['id'] = -1;
 }
 
-Response::PreventCache();
-Response::SendJson($list);
+Response::preventCache();
+Response::sendJson($list);

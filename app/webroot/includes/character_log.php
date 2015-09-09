@@ -12,13 +12,13 @@ use classes\core\helpers\UserdataHelper;
 use classes\core\repository\RepositoryManager;
 use classes\log\data\ActionType;
 
-$page = Request::GetValue('page', 1);
-$pageSize = Request::GetValue('page_size', 25);
+$page = Request::getValue('page', 1);
+$pageSize = Request::getValue('page_size', 25);
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 $characterRepository = new CharacterRepository();
 if ((!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) && !UserdataHelper::IsSt($userdata)) {
-    Response::Redirect('/', 'Unable to view that character');
+    Response::redirect('/', 'Unable to view that character');
 }
 
 $logCharacterRepository = RepositoryManager::GetRepository('classes\character\data\LogCharacter');
@@ -38,7 +38,7 @@ if(ceil($count / $pageSize) > $page) {
 }
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
-$character = $characterRepository->GetById($characterId);
+$character = $characterRepository->getById($characterId);
 /* @var Character $character */
 
 $page_title = 'Log for ' . $character->CharacterName;

@@ -14,7 +14,7 @@ WHERE
 	id = $id
 EOQ;
 
-if(Database::GetInstance()->Query($sql)->Execute())
+if(Database::getInstance()->query($sql)->execute())
 {
 	echo "Successfully removed character";
 	$sql = <<<EOQ
@@ -28,7 +28,7 @@ EOQ;
 	$params = array(
 		$id
 	);
-	$detail = Database::GetInstance()->Query($sql)->Single($params);
+	$detail = Database::getInstance()->query($sql)->single($params);
 	
 	$abp = new ABP();
 	$abp->UpdateABP($detail['character_id']);

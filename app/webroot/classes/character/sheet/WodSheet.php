@@ -539,7 +539,7 @@ EOQ;
             }
 
             $icons = array();
-            foreach (Database::GetInstance()->Query($icon_query)->All() as $icon_detail) {
+            foreach (Database::getInstance()->query($icon_query)->all() as $icon_detail) {
                 $icons[$icon_detail['Icon_ID']] = $icon_detail['Icon_Name'];
             }
             $icon = FormHelper::Select($icons, 'icon', $icon);

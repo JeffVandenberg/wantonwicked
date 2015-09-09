@@ -11,7 +11,7 @@ $contentHeader = "Characters";
 $page_title = "Wanton Wicked Chat Interface";
 
 if (!UserdataHelper::IsLoggedIn($userdata)) {
-    Response::Redirect('/', 'You are not logged in');
+    Response::redirect('/', 'You are not logged in');
 }
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
@@ -19,7 +19,7 @@ $characterRepository = RepositoryManager::GetRepository('classes\character\data\
 
 $id = $userdata['user_id'];
 if (UserdataHelper::IsAdmin($userdata)) {
-    $id = Request::GetValue('u', $id);
+    $id = Request::getValue('u', $id);
 }
 $characters = $characterRepository->ListCharactersByPlayerId($id);
 

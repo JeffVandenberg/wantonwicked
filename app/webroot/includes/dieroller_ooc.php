@@ -62,7 +62,7 @@ if(isset($_POST['submit_die_roller']))
 		$insert_query = "insert into wod_dierolls values (null, 0, '$now', '$character_name', '$description', $dice, '$ten_again', '$nine_again', '$eight_again', '$one_cancel', '$used_wp', '$used_pp', '$result[result]', '$result[note]', $result[num_of_successes], '$chance_die', '$bias', '$is_rote');";
 		
 		//echo $insert_query;
-		$result = Database::GetInstance()->Query($insert_query)->Execute();
+		$result = Database::getInstance()->query($insert_query)->execute();
 		if(!$row) {
 			SessionHelper::SetFlashMessage('Error Saving Roll');
 		}
@@ -77,7 +77,7 @@ $rolls = <<<EOQ
 <table border="0" class="normal_text" width="100%">
 EOQ;
 
-foreach(Database::GetInstance()->Query($roll_query)->All() as $roll_detail) {
+foreach(Database::getInstance()->query($roll_query)->all() as $roll_detail) {
 	$wp = "";
 	$pp = "";
 	$chance = "";

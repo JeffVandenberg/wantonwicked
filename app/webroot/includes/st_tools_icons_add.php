@@ -35,7 +35,7 @@ if(isset($_POST['icon_name']) && isset($_POST['icon_id']))
   $admin_viewable = (isset($_POST['admin_viewable'])) ? "Y" : "N";
   
 	$icon_query = "insert into icons values (null, ?, ?, ?, ?, ?);";
-    Database::GetInstance()->Query($icon_query)->Execute(array($icon_name, $icon_id, $player_viewable, $gm_viewable, $admin_viewable));
+    Database::getInstance()->query($icon_query)->execute(array($icon_name, $icon_id, $player_viewable, $gm_viewable, $admin_viewable));
 		
 	// add js
 	$java_script = <<<EOQ

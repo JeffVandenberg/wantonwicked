@@ -44,7 +44,7 @@ EOQ;
 
 $params = array();
 
-$rows = Database::GetInstance()->Query($query)->All($params);
+$rows = Database::getInstance()->query($query)->all($params);
 
 $permissions = array(
     'Is_Asst' => 4,

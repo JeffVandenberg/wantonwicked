@@ -11,13 +11,13 @@ use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestStatusRepository;
 use classes\request\repository\RequestTypeRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $request = $requestRepository->FindById($requestId);
 
 if($request == null)
 {
-    Response::Redirect('/', 'Unable to find that request');
+    Response::redirect('/', 'Unable to find that request');
 }
 
 CharacterLog::LogAction($request['character_id'], ActionType::ViewRequest, 'View Request', $userdata['user_id'], $requestId);
@@ -44,7 +44,7 @@ $contentHeader = $page_title;
 ob_start();
 ?>
 
-<?php if(!Request::IsAjax()): ?>
+<?php if(!Request::isAjax()): ?>
     <a href="/request.php?action=st_list" class="button">Back</a>
     <?php if(in_array($request['request_status_id'], RequestStatus::$Storyteller)): ?>
     <a href="/request.php?action=st_add_note&request_id=<?php echo $request['id']; ?>" class="button">Add Note</a>

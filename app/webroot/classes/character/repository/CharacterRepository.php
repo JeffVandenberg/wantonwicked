@@ -59,7 +59,7 @@ WHERE
     C.id = ?
 EOQ;
         $params = array($characterId);
-        return $this->Query($sql)->Single($params);
+        return $this->query($sql)->single($params);
     }
 
     /**
@@ -83,8 +83,8 @@ ORDER BY
 EOQ;
 
         $list = array();
-        foreach ($this->Query($sql)->Bind(1, $supporterId)->All() as $row) {
-            $list[] = $this->PopulateObject($row);
+        foreach ($this->query($sql)->bind(1, $supporterId)->all() as $row) {
+            $list[] = $this->populateObject($row);
         }
         return $list;
     }
@@ -98,7 +98,7 @@ SET
     bonus_received = 0;
 EOQ;
 
-        $this->Query($sql)->Execute();
+        $this->query($sql)->execute();
     }
 
     public function AwardSupporterBonusXP($bonusXp = 5)
@@ -122,7 +122,7 @@ WHERE
 EOQ;
 
         $parameters = array('xp' => $bonusXp);
-        $this->Query($sql)->Execute($parameters);
+        $this->query($sql)->execute($parameters);
 
         $sql = <<<EOQ
 SELECT
@@ -133,7 +133,7 @@ WHERE
     bonus_received = ?
 EOQ;
 
-        $characters = $this->Query($sql)->All(array($bonusXp));
+        $characters = $this->query($sql)->all(array($bonusXp));
         foreach ($characters as $character) {
             CharacterLog::LogAction($character['id'], ActionType::SupporterXP, 'Awarded Bonus XP for: ' . $date);
         }
@@ -160,7 +160,7 @@ SET
 WHERE
     S.expires_on >= '$date'
 EOQ;
-        $this->Query($sql)->Execute(array($bonusXp));
+        $this->query($sql)->execute(array($bonusXp));
     }
 
     public function ListSupporterCharacters()
@@ -177,7 +177,7 @@ WHERE
     AND C.is_deleted = 'N'
 EOQ;
 
-        return $this->Query($sql)->All();
+        return $this->query($sql)->all();
     }
 
     public function FindByIdObj($characterId)
@@ -191,7 +191,7 @@ WHERE
     C.id = ?
 EOQ;
 
-        return $this->PopulateObject($this->Query($sql)->Single(array($characterId)));
+        return $this->populateObject($this->query($sql)->single(array($characterId)));
     }
 
     public function ListCharactersByPlayerId($userId)
@@ -214,7 +214,7 @@ ORDER BY
     character_name
 EOQ;
 
-        return $this->Query($sql)->All(array($userId));
+        return $this->query($sql)->all(array($userId));
     }
 
     public function ListSanctionedCharactersByPlayerId($userId)
@@ -237,7 +237,7 @@ ORDER BY
     character_name
 EOQ;
 
-        return $this->Query($sql)->All(array($userId));
+        return $this->query($sql)->all(array($userId));
     }
 
     public function FindByName($characterName)
@@ -256,7 +256,7 @@ WHERE
 EOQ;
 
         $params = array($characterName);
-        return $this->Query($query)->Single($params);
+        return $this->query($query)->single($params);
     }
 
     public function AutocompleteSearch($characterName, $onlySanctioned)
@@ -283,7 +283,7 @@ EOQ;
             'only_sanctioned' => (int)$onlySanctioned,
             'character_name' => $characterName . '%'
         );
-        return $this->Query($sql)->All($params);
+        return $this->query($sql)->all($params);
     }
 
     public function UnsanctionInactiveCharacters($cutoffDate)
@@ -315,7 +315,7 @@ EOQ;
 
         $unsanctionLogParams = array($cutoffDate, ActionType::Sanctioned, ActionType::Login);
 
-        $characterList = $this->Query($characterListQuery)->All($unsanctionLogParams);
+        $characterList = $this->query($characterListQuery)->all($unsanctionLogParams);
         $characterIds = array_map(function($item) {
             return $item['id'];
         }, $characterList);
@@ -343,7 +343,7 @@ WHERE
     id IN ($characterIdPlaceholders)
 EOQ;
             $unsanctionLogParams = array_merge(array(ActionType::Desanctioned), $characterIds);
-            $this->Query($unsanctionLogQuery)->Execute($unsanctionLogParams);
+            $this->query($unsanctionLogQuery)->execute($unsanctionLogParams);
 
             // desanction the characters
             $unsanctionQuery = <<<EOQ
@@ -356,7 +356,7 @@ WHERE
 EOQ;
 
             $unsanctionParams = $characterIds;
-            $this->Query($unsanctionQuery)->Execute($unsanctionParams);
+            $this->query($unsanctionQuery)->execute($unsanctionParams);
 
             // close all requests attached to the characters
             $requestRepository = new RequestRepository();
@@ -384,7 +384,7 @@ EOQ;
             $powerLevel
         );
 
-        $row = Database::GetInstance()->Query($query)->Single($params);
+        $row = Database::getInstance()->query($query)->single($params);
         return ($row['HitCount'] > 0);
     }
 }

@@ -26,7 +26,7 @@ EOQ;
 			$isActive
 		);
 
-		return Database::GetInstance()->Query($sql)->All($params);
+		return Database::getInstance()->query($sql)->all($params);
 	}
 	
 	public function UpdateCurrentQualityForTerritory(&$territory)
@@ -49,7 +49,7 @@ EOQ;
 			$territory['id']
 		);
 
-		Database::GetInstance()->Query($updateSql)->Execute($params);
+		Database::getInstance()->query($updateSql)->execute($params);
 		$territory['current_quality'] = $quality;
 	}
 	
@@ -71,9 +71,9 @@ EOQ;
 			$territoryId
 		);
 
-		$currentPopulationDetail = Database::GetInstance()
-			->Query($currentPopulationSql)
-			->Single($params);
+		$currentPopulationDetail = Database::getInstance()
+			->query($currentPopulationSql)
+			->single($params);
 		$currentPopulation = $currentPopulationDetail['number_of_characters'];
 		$currentPopulationModifier = 0;
 		if($currentPopulation > 0)

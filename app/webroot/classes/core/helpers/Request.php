@@ -11,7 +11,7 @@ namespace classes\core\helpers;
 
 
 class Request {
-    public static function GetValue($name, $defaultValue = null)
+    public static function getValue($name, $defaultValue = null)
     {
         $value = (isset($_GET[$name])) ? $_GET[$name] : $defaultValue;
         $value = (isset($_POST[$name])) ? $_POST[$name] : $value;
@@ -28,7 +28,7 @@ class Request {
         return $value;
     }
 
-    public static function IsAjax()
+    public static function isAjax()
     {
         if($_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest")
         {
@@ -37,17 +37,17 @@ class Request {
         return false;
     }
 
-    public static function IsGet()
+    public static function isGet()
     {
         return strtolower($_SERVER['REQUEST_METHOD']) == 'get';
     }
 
-    public static function IsPost()
+    public static function isPost()
     {
         return strtolower($_SERVER['REQUEST_METHOD']) == 'post';
     }
 
-    public static function PreventCache()
+    public static function preventCache()
     {
         header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past

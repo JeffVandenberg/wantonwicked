@@ -64,7 +64,7 @@ class Database
      * @param $connection
      * @return $this
      */
-    public function SetConnection($connection)
+    public function setConnection($connection)
     {
         try {
             $this->Handler = new PDO(
@@ -99,7 +99,7 @@ class Database
      * @param $query
      * @return $this
      */
-    public function Query($query)
+    public function query($query)
     {
         try{
             $this->Statement = $this->Handler->prepare($query);
@@ -119,7 +119,7 @@ class Database
      * @param null|int $type
      * @return $this
      */
-    public function Bind($position, $value, $type = null)
+    public function bind($position, $value, $type = null)
     {
         if (is_null($type)) {
             switch (true) {
@@ -152,7 +152,7 @@ class Database
      * @param null|array $parameters
      * @return int
      */
-    public function Execute($parameters = null)
+    public function execute($parameters = null)
     {
         try{
             if($this->Statement->execute($parameters)) {
@@ -172,7 +172,7 @@ class Database
      * @param int $fetchMode
      * @return array
      */
-    public function All($parameters = null, $fetchMode = PDO::FETCH_ASSOC)
+    public function all($parameters = null, $fetchMode = PDO::FETCH_ASSOC)
     {
         try{
             $this->Statement->execute($parameters);
@@ -182,7 +182,6 @@ class Database
         {
             throw $pdoException;
         }
-        return null;
     }
 
     /**
@@ -191,7 +190,7 @@ class Database
      * @param int $fetchMode
      * @return mixed
      */
-    public function Single($parameters = null, $fetchMode = PDO::FETCH_ASSOC)
+    public function single($parameters = null, $fetchMode = PDO::FETCH_ASSOC)
     {
         try{
             $this->Statement->execute($parameters);
@@ -201,7 +200,6 @@ class Database
         {
             throw $pdoException;
         }
-        return false;
     }
 
     /**
@@ -209,7 +207,7 @@ class Database
      * @param string $class
      * @return mixed
      */
-    public function Object($class)
+    public function object($class)
     {
         try{
             $this->Statement->execute();
@@ -219,14 +217,13 @@ class Database
         {
             throw $pdoException;
         }
-        return null;
     }
 
     /**
      * Starts a new transaction or increase nesting level of transaction
      * @return $this
      */
-    public function StartTransaction()
+    public function startTransaction()
     {
         // start transaction and increment transaction count
         if ($this->Handler->beginTransaction()) {
@@ -239,7 +236,7 @@ class Database
      * Escapes out of all transaction levels. Rolling back all changes.
      * @return $this
      */
-    public function RollBackTransaction()
+    public function rollBackTransaction()
     {
         // only rollback if we've started any transactions
         if ($this->TransactionCounter > 0) {
@@ -254,7 +251,7 @@ class Database
      * Escape from one transaction level. Committing only if transaction level is 0.
      * @return $this
      */
-    public function CommitTransaction()
+    public function commitTransaction()
     {
         // decrement transaction counter
         $this->TransactionCounter--;
@@ -266,14 +263,14 @@ class Database
         return $this;
     }
 
-    public static function GetInstance() {
+    public static function getInstance() {
         if(self::$instance == null) {
             self::$instance = new Database();
         }
         return self::$instance;
     }
 
-    public function Value($parameters = null)
+    public function value($parameters = null)
     {
         $this->Statement->execute($parameters);
         return $this->Statement->fetchColumn();

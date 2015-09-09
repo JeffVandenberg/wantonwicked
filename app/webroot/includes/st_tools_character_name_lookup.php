@@ -16,7 +16,7 @@ if (isset($_GET['character_name'])) {
     $params = array(
         $character_name
     );
-    $character = Database::GetInstance()->Query($character_query)->All($params);
+    $character = Database::getInstance()->query($character_query)->all($params);
 
     if (count($character) > 0) {
         $result_set = <<<EOQ

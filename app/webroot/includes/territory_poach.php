@@ -30,7 +30,7 @@ VALUES
 	)
 EOQ;
 
-if(Database::GetInstance()->Query($sql)->Execute())
+if(Database::getInstance()->query($sql)->execute())
 {
 	$message = "You are now poaching for the next week.";
 	

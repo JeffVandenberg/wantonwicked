@@ -82,7 +82,7 @@ EOQ;
     $character = $action->fetch(PDO::FETCH_ASSOC);
 
     if($character === false) {
-        Response::EndRequest('Not Allowed');
+        Response::endRequest('Not Allowed');
     }
     define('C_CUSTOM_USERNAME', $character['character_name']); // username
     define('C_CUSTOM_USERID', $characterId); // userid
@@ -272,7 +272,7 @@ EOQ;
         $action->bindValue('userid', C_CUSTOM_USERID, PDO::PARAM_INT);
         $action->bindValue('username', C_CUSTOM_USERNAME);
         $action->execute();
-        Response::EndRequest('You do not have ST Permissions');
+        Response::endRequest('You do not have ST Permissions');
     }
 }
 else if($userdata['username'] !== 'Anonymous') {
@@ -354,12 +354,12 @@ EOQ;
     $loggedIn = true;
 }
 else {
-    Response::Redirect('/login_ooc.php');
+    Response::redirect('/login_ooc.php');
 }
 
 if(!$loggedIn)
 {
-    Response::EndRequest('Not Logged In');
+    Response::endRequest('Not Logged In');
 }
 
 $sql = <<<EOQ

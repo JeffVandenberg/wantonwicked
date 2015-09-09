@@ -18,7 +18,7 @@ class RequestStatusRepository extends AbstractRepository
         parent::__construct('classes\request\data\RequestStatus');
     }
 
-    public function ListAll()
+    public function listAll()
     {
         $sql = <<<EOQ
 SELECT
@@ -32,9 +32,9 @@ EOQ;
         return ExecuteQueryData($sql);
     }
 
-    public function SimpleListAll()
+    public function simpleListAll()
     {
-        $options = $this->ListAll();
+        $options = $this->listAll();
         $list = array();
         foreach($options as $option)
         {

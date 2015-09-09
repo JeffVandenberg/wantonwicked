@@ -19,7 +19,7 @@ class RequestTypeRepository extends AbstractRepository
         parent::__construct('classes\request\data\RequestType');
     }
 
-    public function ListAll()
+    public function listAll()
     {
         $blueBook = RequestType::BlueBook;
         $sql = <<<EOQ
@@ -36,9 +36,9 @@ EOQ;
         return ExecuteQueryData($sql);
     }
 
-    public function SimpleListAll()
+    public function simpleListAll()
     {
-        $options = $this->ListAll();
+        $options = $this->listAll();
         $list = array();
         foreach($options as $option)
         {
@@ -78,9 +78,9 @@ EOQ;
         $params = array($groupId);
 
         $list = array();
-        foreach($this->Query($sql)->All($params) as $item)
+        foreach($this->query($sql)->all($params) as $item)
         {
-            $list[] = $this->PopulateObject($item);
+            $list[] = $this->populateObject($item);
         }
 
         return $list;

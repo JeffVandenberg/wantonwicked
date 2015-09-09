@@ -12,23 +12,23 @@ use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestTypeRepository;
 
-$requestId = Request::GetValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
 
 if (!$requestRepository->MayEditRequest($requestId, $userdata['user_id'])) {
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 
 // load request
-$request = $requestRepository->GetById($requestId);
+$request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
 $primaryCharacter = $requestCharacterRepository->FindByRequestIdAndIsPrimary($requestId, true);
 /* @var RequestCharacter $primaryCharacter */
 
 if($request->RequestStatusId == 1) {
-    if($requestRepository->Delete($requestId)) {
+    if($requestRepository->delete($requestId)) {
         SessionHelper::SetFlashMessage('Request ' . $request->Title .' has been succesfully deleted.');
     }
     else {
@@ -42,8 +42,8 @@ else {
 
 // redirect to appropriate place
 if($primaryCharacter->Id && $primaryCharacter->Character->UserId == $userdata['user_id']) {
-    Response::Redirect('request.php?action=list&character_id=' . $primaryCharacter->CharacterId);
+    Response::redirect('request.php?action=list&character_id=' . $primaryCharacter->CharacterId);
 }
 else {
-    Response::Redirect('request.php');
+    Response::redirect('request.php');
 }

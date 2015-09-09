@@ -10,38 +10,38 @@ use classes\request\data\RequestType;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestTypeRepository;
 
-$characterId = Request::GetValue('character_id', 0);
+$characterId = Request::getValue('character_id', 0);
 $characterRepository = new CharacterRepository();
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    Response::Redirect('/');
+    Response::redirect('/');
 }
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'Cancel') {
-        Response::Redirect('bluebook.php?action=list&character_id=' . $characterId);
+        Response::redirect('bluebook.php?action=list&character_id=' . $characterId);
     }
     elseif($_POST['action'] == 'Submit Entry')
     {
         $request = new \classes\request\data\Request();
         $request->CharacterId = $characterId;
-        $request->Title = htmlspecialchars(Request::GetValue('title'));
+        $request->Title = htmlspecialchars(Request::getValue('title'));
         $request->RequestTypeId = RequestType::BlueBook;
         $request->GroupId = 0;
         $request->RequestStatusId = RequestStatus::NewRequest;
-        $request->Body = Request::GetValue('body');
+        $request->Body = Request::getValue('body');
         $request->CreatedById = $userdata['user_id'];
         $request->CreatedOn = date('Y-m-d H:i:s');
         $request->UpdatedById = $userdata['user_id'];
         $request->UpdatedOn = date('Y-m-d H:i:s');
 
         $requestRepository = new RequestRepository();
-        if(!$requestRepository->Save($request))
+        if(!$requestRepository->save($request))
         {
             SessionHelper::SetFlashMessage('Error Saving Request');
         }
         else
         {
-            Response::Redirect('bluebook.php?action=list&character_id='.$characterId);
+            Response::redirect('bluebook.php?action=list&character_id='.$characterId);
         }
     }
 }
@@ -49,7 +49,7 @@ if (isset($_POST['action'])) {
 $character = $characterRepository->FindById($characterId);
 
 $requestTypeRepository = new RequestTypeRepository();
-$requestTypes = $requestTypeRepository->SimpleListAll();
+$requestTypes = $requestTypeRepository->simpleListAll();
 $page_title = 'Create Bluebook Entry for ' . $character['character_name'];
 $contentHeader = $page_title;
 

@@ -506,7 +506,7 @@ EOQ;
         $icon_ids   = "";
         $icon_names = "";
 
-        foreach(Database::GetInstance()->Query($icon_query)->All() as $icon_detail) {
+        foreach(Database::getInstance()->query($icon_query)->all() as $icon_detail) {
             $icon_ids[]   = $icon_detail['Icon_ID'];
             $icon_names[] = $icon_detail['Icon_Name'];
         }

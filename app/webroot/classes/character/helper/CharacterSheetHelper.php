@@ -622,7 +622,7 @@ class CharacterSheetHelper
             }
         }
 
-        $icons  = Database::GetInstance()->Query($icon_query)->All();
+        $icons  = Database::getInstance()->query($icon_query)->all();
         $ids    = array();
         $values = array();
         foreach ($icons as $icon) {
@@ -1003,7 +1003,7 @@ class CharacterSheetHelper
                                   $view_is_head, $view_is_admin, $may_edit, $edit_cell);
         if ($error == '') {
             RepositoryManager::ClearCache();
-            $newCharacter = $this->CharacterRepository->GetById($newStats['character_id']);
+            $newCharacter = $this->CharacterRepository->getById($newStats['character_id']);
             /* @var Character $newCharacter */
             $this->LogChanges($newCharacter, $oldCharacter);
         }
@@ -1051,7 +1051,7 @@ class CharacterSheetHelper
                                   $view_is_head, $view_is_admin, $may_edit, $edit_cell);
         if ($error == '') {
             RepositoryManager::ClearCache();
-            $newCharacter = $this->CharacterRepository->GetById($newStats['character_id']);
+            $newCharacter = $this->CharacterRepository->getById($newStats['character_id']);
             /* @var Character $newCharacter */
             $this->LogChanges($newCharacter, $oldCharacter);
         }
@@ -1365,7 +1365,7 @@ class CharacterSheetHelper
                                       $view_is_head, $view_is_admin, $may_edit, $edit_cell);
             if ($error == '') {
                 RepositoryManager::ClearCache();
-                $newCharacter = $this->CharacterRepository->GetById($newStats['character_id']);
+                $newCharacter = $this->CharacterRepository->getById($newStats['character_id']);
                 /* @var Character $newCharacter */
                 $this->LogChanges($newCharacter, $oldStats);
             }

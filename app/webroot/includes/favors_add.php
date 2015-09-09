@@ -40,7 +40,7 @@ VALUES
 	)
 EOQ;
 
-		$rows = Database::GetInstance()->Query($createFavorQuery)->Execute();
+		$rows = Database::getInstance()->query($createFavorQuery)->execute();
 
 		if($rows)
 		{

@@ -27,11 +27,11 @@ class RequestRepository extends AbstractRepository
         parent::__construct('classes\request\data\Request');
     }
 
-    public function Save(DataModel $request)
+    public function save(DataModel $request)
     {
         /* @var Request $request */
 
-        $result = parent::Save($request);
+        $result = parent::save($request);
         if($result) {
             $requestStatusHistory = new RequestStatusHistory();
             $requestStatusHistory->RequestId = $request->Id;
@@ -39,7 +39,7 @@ class RequestRepository extends AbstractRepository
             $requestStatusHistory->CreatedById = $request->UpdatedById;
             $requestStatusHistory->CreatedOn = date('Y-m-d H:i:s');
             $requestStatusHistoryRepository = RepositoryManager::GetRepository('classes\request\data\RequestStatusHistory');
-            return $requestStatusHistoryRepository->Save($requestStatusHistory);
+            return $requestStatusHistoryRepository->save($requestStatusHistory);
         }
         return $result;
     }
@@ -61,7 +61,7 @@ WHERE
 EOQ;
         $params = array($id);
 
-        return $this->Query($sql)->Single($params);
+        return $this->query($sql)->single($params);
     }
 
     public function ListByCharacterId($characterId, $page, $pageSize, $sort, $statusId = 0, $filter)
@@ -120,7 +120,7 @@ LIMIT
     $startIndex, $pageSize
 EOQ;
 
-        return $this->Query($sql)->All($parameters);
+        return $this->query($sql)->all($parameters);
     }
 
 
@@ -166,7 +166,7 @@ EOQ;
         }
 
         $count = 0;
-        foreach($this->Query($sql)->All($parameters) as $row) {
+        foreach($this->query($sql)->all($parameters) as $row) {
             $count = $row['count'];
         }
         return $count;
@@ -193,7 +193,7 @@ WHERE
     )
 EOQ;
         $parameters = array($requestId, $userId, $userId);
-        $rows = $this->Query($sql)->Value($parameters);
+        $rows = $this->query($sql)->value($parameters);
         return ($rows > 0);
     }
 
@@ -350,7 +350,7 @@ LIMIT
     $startIndex, $pageSize
 EOQ;
 
-        return $this->Query($sql)->All(array($characterId, RequestType::BlueBook));
+        return $this->query($sql)->all(array($characterId, RequestType::BlueBook));
     }
 
     public function ListBlueBookEntriesNotAttachedToRequest($requestId, $characterId)
@@ -485,7 +485,7 @@ LIMIT
     $startIndex, $pageSize
 EOQ;
 
-        return $this->Query($sql)->All($parameters);
+        return $this->query($sql)->all($parameters);
     }
 
     public function Submit($id)
@@ -533,7 +533,7 @@ EOQ;
             $characterName . '%'
         );
 
-        return $this->Query($sql)->All($params);
+        return $this->query($sql)->all($params);
     }
 
     public function AddCharacter($requestId, $characterId, $isPrimary)
@@ -544,16 +544,16 @@ EOQ;
         $requestCharacter->IsPrimary = $isPrimary;
 
         $requestCharacterRepository = new RequestCharacterRepository();
-        return $requestCharacterRepository->Save($requestCharacter);
+        return $requestCharacterRepository->save($requestCharacter);
     }
 
     public function UpdateStatus($requestId, $requestStatusId, $userId)
     {
-        $request = $this->GetById($requestId);
+        $request = $this->getById($requestId);
         /* @var \classes\request\data\Request $request */
         $request->RequestStatusId = $requestStatusId;
         $request->UpdatedById = $userId;
-        return $this->Save($request);
+        return $this->save($request);
     }
 
     public function ListRequestAssociatedWith($characterId)
@@ -625,7 +625,7 @@ EOQ;
         }
 
         $count = 0;
-        foreach($this->Query($sql)->All($parameters) as $row) {
+        foreach($this->query($sql)->all($parameters) as $row) {
             $count = $row['count'];
         }
         return $count;
@@ -644,7 +644,7 @@ WHERE
 EOQ;
 
         $count = 0;
-        foreach($this->Query($sql)->All(array($characterId, RequestType::BlueBook)) as $row) {
+        foreach($this->query($sql)->all(array($characterId, RequestType::BlueBook)) as $row) {
             $count = $row['count'];
         }
         return $count;
@@ -661,7 +661,7 @@ SET
 WHERE
     id = ?
 EOQ;
-        return $this->Query($sql)->Execute(array($userId, $requestId));
+        return $this->query($sql)->execute(array($userId, $requestId));
     }
 
 
@@ -731,7 +731,7 @@ GROUP BY
     character_type
 EOQ;
 
-        return $this->Query($sql)->All();
+        return $this->query($sql)->all();
     }
 
     public function CountRequestsByCharacterIdAndStatus($characterId, $requestStatuses)
@@ -755,7 +755,7 @@ WHERE
 EOQ;
 
         $params = array_merge(array(RequestType::BlueBook, $characterId), $requestStatuses);
-        return $this->Query($sql)->Value($params);
+        return $this->query($sql)->value($params);
     }
 
     public function GetStatusReport()
@@ -783,7 +783,7 @@ GROUP BY
 EOQ;
         $params = array_merge(RequestStatus::$Terminal, array(RequestType::BlueBook));
 
-        return $this->Query($sql)->All($params);
+        return $this->query($sql)->all($params);
     }
 
     public function CloseRequestsForCharacter($characterIds)
@@ -805,7 +805,7 @@ WHERE
 EOQ;
         $params = array_merge(array(RequestStatus::Closed), $characterIds);
 
-        return $this->Query($sql)->Execute($params);
+        return $this->query($sql)->execute($params);
     }
 
     /**
@@ -872,8 +872,8 @@ LIMIT
 EOQ;
 
         $list = array();
-        foreach($this->Query($sql)->All($parameters) as $row) {
-            $list[] = $this->PopulateObject($row);
+        foreach($this->query($sql)->all($parameters) as $row) {
+            $list[] = $this->populateObject($row);
         }
 
         return $list;
@@ -896,7 +896,7 @@ EOQ;
             RequestType::BlueBook,
             $userId
         ) , RequestStatus::$Player);
-        return $this->Query($sql)->Value($params);
+        return $this->query($sql)->value($params);
     }
 
     /**
@@ -938,7 +938,7 @@ ORDER BY
     RS.name
 EOQ;
 
-        return $this->Query($sql)->All($params);
+        return $this->query($sql)->all($params);
     }
 
     public function RequestHasPrimaryCharacter($requestId)
@@ -955,7 +955,7 @@ EOQ;
 
         $params = array($requestId);
 
-        return ($this->Query($sql)->Value($params) > 0);
+        return ($this->query($sql)->value($params) > 0);
     }
 
     public function ListRequestsLinkedByCharacterForUser($userId)
@@ -990,8 +990,8 @@ EOQ;
 
         $list = array();
 
-        foreach($this->Query($sql)->All($params) as $row) {
-            $list[] = $this->PopulateObject($row);
+        foreach($this->query($sql)->all($params) as $row) {
+            $list[] = $this->populateObject($row);
         }
 
         return $list;
@@ -1012,7 +1012,7 @@ WHERE
     AND R.created_by_id = ?
 EOQ;
         $parameters = array($requestId, $userId);
-        $rows = $this->Query($sql)->Value($parameters);
+        $rows = $this->query($sql)->value($parameters);
         return ($rows > 0);
     }
 
@@ -1033,7 +1033,7 @@ EOQ;
             date('Y-m-d H:i:s')
         );
 
-        return $this->Query($sql)->Execute($params);
+        return $this->query($sql)->execute($params);
     }
 
     public function ListSupportingScenes($requestId)
@@ -1053,7 +1053,7 @@ ORDER BY
 EOQ;
         $params = array($requestId);
 
-        return $this->Query($sql)->All($params);
+        return $this->query($sql)->all($params);
     }
 
 }

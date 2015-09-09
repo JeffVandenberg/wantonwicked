@@ -30,7 +30,7 @@ WHERE
     user_id = ?
 EOQ;
 
-        $this->Query($sql)->Execute(array($userId));
+        $this->query($sql)->execute(array($userId));
 
         $sql = <<<EOQ
 DELETE FROM
@@ -39,7 +39,7 @@ WHERE
     user_id = ?
 EOQ;
 
-        return $this->Query($sql)->Execute(array($userId));
+        return $this->query($sql)->execute(array($userId));
     }
 
     public function ListPermissionsForUser($userId)
@@ -55,7 +55,7 @@ EOQ;
         $params = array($userId);
 
         $list = array();
-        foreach($this->Query($sql)->All($params) as $item) {
+        foreach($this->query($sql)->all($params) as $item) {
             $list[] = $item['permission_id'];
         }
         return $list;
@@ -67,7 +67,7 @@ EOQ;
 DELETE FROM permissions_users WHERE user_id = ?
 EOQ;
         $params = array($userId);
-        $this->Query($sql)->Execute($params);
+        $this->query($sql)->execute($params);
 
 
         foreach ($permissions as $permission) {
@@ -86,7 +86,7 @@ EOQ;
                 $userId
             );
 
-            Database::GetInstance()->Query($query)->Execute($params);
+            Database::getInstance()->query($query)->execute($params);
         }
 
     }

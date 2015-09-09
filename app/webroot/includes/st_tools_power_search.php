@@ -6,13 +6,13 @@ use classes\core\repository\Database;
 
 $contentHeader = $page_title = 'Power and Merit Search';
 
-$powerType = Request::GetValue('power_type');
-$powerName = Request::GetValue('power_name');
-$powerNote = Request::GetValue('power_note');
-$minPowerLevel = Request::GetValue('min_power_level', 0);
-$maxPowerLevel = Request::GetValue('max_power_level', 8);
+$powerType = Request::getValue('power_type');
+$powerName = Request::getValue('power_name');
+$powerNote = Request::getValue('power_note');
+$minPowerLevel = Request::getValue('min_power_level', 0);
+$maxPowerLevel = Request::getValue('max_power_level', 8);
 
-if (Request::IsPost()) {
+if (Request::isPost()) {
     $sql    = <<<EOQ
 SELECT
 	character_name,
@@ -39,7 +39,7 @@ ORDER BY
 	character_name
 EOQ;
     $params = array($powerType, $powerName . '%', $powerNote . '%', $minPowerLevel, $maxPowerLevel);
-    $powers = Database::GetInstance()->Query($sql)->All($params);
+    $powers = Database::getInstance()->query($sql)->all($params);
 }
 
 $powerTypes = array(
