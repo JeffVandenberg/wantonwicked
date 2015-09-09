@@ -250,7 +250,7 @@ class ChangingBreed extends SheetRenderer
         <?php
         $aspects = ob_get_clean();
 
-        $powers = getPowers($sheet->stats['id'], 'AffGift', NOTELEVEL, 5);
+        $powers = $sheet->getPowers($sheet->stats['id'], 'AffGift', WodSheet::NOTELEVEL, 5);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="affgift_list">

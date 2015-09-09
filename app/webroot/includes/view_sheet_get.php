@@ -10,7 +10,6 @@ Response::preventCache();
 $character_type = Request::getValue('character_type', 'Mortal');
 $characterId    = Request::getValue('character_id', 0);
 $type           = Request::getValue('type');
-$stats          = '';
 
 $characterRepository = new CharacterRepository();
 $stats               = $characterRepository->FindById($characterId);

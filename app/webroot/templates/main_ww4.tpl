@@ -86,5 +86,6 @@
         Copyright 2013
     </div>
 </div>
+<img src="/img/indicator.gif" id="busy-indicator" alt="" />
 </body>
 </html>

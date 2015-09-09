@@ -198,7 +198,7 @@ class Werewolf extends SheetRenderer
         <?php
         $information_table = ob_get_clean();
 
-        $powers = getPowers($sheet->stats['id'], 'AffGift', WodSheet::NOTELEVEL, 5);
+        $powers = $sheet->getPowers($sheet->stats['id'], 'AffGift', WodSheet::NOTELEVEL, 5);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="affgift_list">
@@ -261,7 +261,7 @@ class Werewolf extends SheetRenderer
         <?php
         $affinityGiftList = ob_get_clean();
 
-        $powers = getPowers($sheet->stats['id'], 'NonAffGift', WodSheet::NOTELEVEL, 3);
+        $powers = $sheet->getPowers($sheet->stats['id'], 'NonAffGift', WodSheet::NOTELEVEL, 3);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="nonaffgift_list">

@@ -201,7 +201,7 @@ class Changeling extends SheetRenderer
         $information_table = ob_get_clean();
 
         // affinity contracts
-        $powers = getPowers($sheet->stats['id'], 'AffContract', WodSheet::NAMENOTE, 3);
+        $powers = $sheet->getPowers($sheet->stats['id'], 'AffContract', WodSheet::NAMENOTE, 3);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="affcont_list">
@@ -266,8 +266,8 @@ class Changeling extends SheetRenderer
         <?php
         $affinityContracts = ob_get_clean();
 
-// nonaffinity contracts
-        $powers = getPowers($sheet->stats['id'], 'NonAffContract', NAMENOTE, 3);
+        // nonaffinity contracts
+        $powers = $sheet->getPowers($sheet->stats['id'], 'NonAffContract', WodSheet::NAMENOTE, 3);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="nonaffcont_list">
@@ -333,7 +333,7 @@ class Changeling extends SheetRenderer
         $nonaffinityContracts = ob_get_clean();
 
         // Goblin Contracts
-        $powers = getPowers($sheet->stats['id'], 'GoblinContract', NAMENOTE, 2);
+        $powers = $sheet->getPowers($sheet->stats['id'], 'GoblinContract', WodSheet::NAMENOTE, 2);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="gobcont_list">

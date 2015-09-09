@@ -62,6 +62,9 @@ class WodSheet
 
     public function buildSheet($character_type = 'Mortal', $stats = array(), $options = array())
     {
+        if(!is_array($stats)) {
+            $stats = array();
+        }
         $this->viewOptions = array_merge($this->viewOptions, $options);
         $this->viewOptions['allow_edits'] = $this->checkEditMode();
         $this->stats = $stats;
@@ -174,9 +177,10 @@ EOQ;
             $power_points = $this->getPowerByName($attributes, "Stamina")->getPowerLevel();
         }
 
-        $history_edit = "readonly";
-        $goals_edit = "readonly";
-        $notes_edit = "readonly";
+        $history_edit = 'readonly';
+        $powers_edit = 'readonly';
+        $goals_edit = 'readonly';
+        $notes_edit = 'readonly';
 
         // test if stats were passed
         if (count($stats) > 0) {
@@ -407,11 +411,7 @@ EOQ;
             $character_type_select = FormHelper::Select(
                 ArrayTools::array_valuekeys($character_types),
                 'character_type',
-                $character_type,
-                array(
-                    'onChange' => '"changeSheet(window.document.character_sheet.character_type.value)";',
-                    'id' => 'character_type'
-                )
+                $character_type
             );
 
             // location
@@ -527,9 +527,11 @@ EOQ;
             // icon
             switch ($this->viewOptions['user_type']) {
                 case 'admin':
+                case 'head':
                     $icon_query = "SELECT * FROM icons WHERE Admin_Viewable='Y' ORDER BY Icon_Name;";
                     break;
                 case 'st':
+                case 'asst':
                     $icon_query = "SELECT * FROM icons WHERE GM_Viewable='Y' ORDER BY Icon_Name;";
                     break;
                 default:
@@ -788,11 +790,14 @@ EOQ;
                         <?php endif; ?>
                     </td>
                     <td>
-
-                        <label for="misc<?php echo $i; ?>"></label>
-                        <input type="text" name="misc<?php echo $i; ?>" id="misc<?php echo $i; ?>" size="3"
-                               maxlength="2"
-                               value="<?php echo $power->getPowerLevel(); ?>"/>
+                        <?php if($this->viewOptions['edit_powers']): ?>
+                            <label for="misc<?php echo $i; ?>"></label>
+                            <input type="text" name="misc<?php echo $i; ?>" id="misc<?php echo $i; ?>" size="3"
+                                   maxlength="2"
+                                   value="<?php echo $power->getPowerLevel(); ?>"/>
+                        <?php else: ?>
+                            <?php echo $power->getPowerLevel(); ?>
+                        <?php endif; ?>
                         <input type="hidden" name="misc<?php echo $i; ?>_id" id="misc<?php echo $i; ?>_id"
                                value="<?php echo $power->getPowerID(); ?>">
                     </td>
@@ -804,6 +809,10 @@ EOQ;
 
         if ($this->viewOptions['edit_history']) {
             $history_edit = "";
+        }
+
+        if ($this->viewOptions['edit_powers']) {
+            $powers_edit = '';
         }
 
         if ($this->viewOptions['edit_goals']) {
@@ -1575,7 +1584,7 @@ EOQ;
                 <td style="width: 60%;">
                     <label for="misc_powers">Misc Powers/Abilities</label>
                 <textarea rows="8" name="misc_powers" id="misc_powers"
-                          style="width:100%" <?php echo $this->viewOptions['edit_powers']; ?>><?php echo $misc_powers; ?></textarea>
+                          style="width:100%" <?php echo $powers_edit; ?>><?php echo $misc_powers; ?></textarea>
                 </td>
             </tr>
             <tr>
@@ -1819,7 +1828,9 @@ EOQ;
     {
         $mayEdit = false;
         foreach ($this->viewOptions as $value) {
-            $mayEdit |= $value;
+            if(is_bool($value)) {
+                $mayEdit |= $value;
+            }
         }
         return $mayEdit;
     }

@@ -253,7 +253,7 @@ class Promethean extends SheetRenderer
         $bestowments = ob_get_clean();
 
 
-        $powers = getPowers($sheet->stats['id'], 'AffTrans', WodSheet::NOTELEVEL, 4);
+        $powers = $sheet->getPowers($sheet->stats['id'], 'AffTrans', WodSheet::NOTELEVEL, 4);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="afftrans_list">
@@ -315,7 +315,7 @@ class Promethean extends SheetRenderer
         <?php
         $affTransList = ob_get_clean();
 
-        $powers = getPowers($sheet->stats['id'], 'NonAffTrans', WodSheet::NOTELEVEL, 2);
+        $powers = $sheet->getPowers($sheet->stats['id'], 'NonAffTrans', WodSheet::NOTELEVEL, 2);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="nonafftrans_list">

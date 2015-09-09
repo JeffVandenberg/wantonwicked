@@ -69,6 +69,9 @@ $(function() {
     general_xp_base = parseInt($("#general_xp").attr('value'));
     general_xp = general_xp_base;
 
+    $(document).on('change', '#character-type', function() {
+        changeSheet($(this).val());
+    });
     $("#xp-spent").blur(function() {
         var amount = parseInt($("#xp-spent").val());
         if(isNaN(amount)) {
@@ -1341,7 +1344,7 @@ function displayBonusDot() {
 function getCharacterType() {
     var oldType = $("#character_type").val(),
         newType = $("#character-type").val();
-    if(oldType.length == null) {
+    if(oldType == null) {
         return newType;
     }
     return oldType;
@@ -1888,11 +1891,16 @@ function loadCharacterSTView(view_character_id, xp_edit) {
 }
 
 function changeSheet(character_type) {
-    var sheet = $("#charSheet");
-    var url = "view_sheet.php?action=get&type=" + page_action + "&character_type=" + encodeURIComponent(character_type) + "&character_id=" + $("#character_id").val();
-    sheet
-        .html("Loading new character sheet...")
-        .load(url, drawSheet);
+    var sheet = $("#charSheet").html(
+        '<div style="text-align:center;font-weight:bold;padding:5px;background-color:#cbb;border:solid 1px #400;border-radius:4px;">Loading Sheet..</div>'
+    );
+
+    $.get(
+        "view_sheet.php?action=get&type=" + page_action + "&character_type=" + encodeURIComponent(character_type) + "&character_id=" + $("#character_id").val(),
+        function(response) {
+            sheet.html(response);
+            drawSheet();
+    });
 }
 
 function drawSheet() {

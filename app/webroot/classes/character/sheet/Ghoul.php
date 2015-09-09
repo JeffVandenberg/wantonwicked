@@ -220,7 +220,7 @@ class Ghoul extends SheetRenderer
         $inclanDisciplines = ob_get_clean();
 
 
-        $powers = getPowers($sheet->stats['id'], 'OOCDisc', WodSheet::NAMENOTE, 2);
+        $powers = $sheet->getPowers($sheet->stats['id'], 'OOCDisc', WodSheet::NAMENOTE, 2);
         ob_start();
         ?>
         <table class="character-sheet <?php echo $sheet->table_class; ?>" id="oocdisc_list">
