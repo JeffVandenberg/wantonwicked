@@ -37,7 +37,7 @@ class HomeController extends AppController
 
     function gsNews() {
         $news = $this->Config->Read('gs_frontpage');
-        echo $news;
-        die();
+        $this->layout = 'blank';
+        $this->set(compact('news'));
     }
 } 
