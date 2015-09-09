@@ -39,17 +39,19 @@ FROM
 		LEFT JOIN characters AS to_character ON favors.target_id = to_character.id
 		LEFT JOIN favor_types ON favors.favor_type_id = favor_types.id
 WHERE
-	favors.target_id = $characterId
+	favors.target_id = ?
 	AND is_broken = 0
 	AND date_discharged IS NULL
 ORDER BY
 	favor_type_id,
 	from_character.character_name
 EOQ;
-$result = mysql_query($sql) || die(mysql_error());
+$params = array(
+    $characterId
+);
 
 $favorsToCharacter = array();
-while ($row = mysql_fetch_assoc($result)) {
+foreach(Database::GetInstance()->Query($sql)->All($params) as $row) {
     $favorsToCharacter[] = $row;
 }
 
