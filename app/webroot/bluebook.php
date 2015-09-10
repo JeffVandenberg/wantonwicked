@@ -12,7 +12,6 @@ use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 
 include 'cgi-bin/start_of_page.php';
-include 'cgi-bin/submitPost.php';
 
 // perform required includes
 define('IN_PHPBB', true);

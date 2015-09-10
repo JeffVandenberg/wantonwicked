@@ -1,4 +1,4 @@
-<?
+<?php
 function rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias, $is_rote = false, $min_successes = 0)
 {
 	$return = "";

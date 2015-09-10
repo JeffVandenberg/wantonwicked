@@ -1,6 +1,7 @@
 <?php
 /* @var array $userdata */
 // get character id
+use classes\character\helper\CharacterHelper;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
@@ -61,7 +62,7 @@ $showOnlyMyRolls = Request::getValue('show_only_my_rolls', false);
 SessionHelper::Write('current_form', $current_form);
 $updated_pp = $character['updated_pp'];
 
-$max_power_points = getMaxPowerPoints($character['power_stat']);
+$max_power_points = CharacterHelper::getMaxPowerPoints($character['power_stat']);
 if ($power_points > $max_power_points) {
     $power_points = $max_power_points;
 }

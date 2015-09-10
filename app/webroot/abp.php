@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 
 include 'cgi-bin/start_of_page.php';
 // perform required includes
@@ -42,7 +43,7 @@ if(isset($_GET['action']))
 	switch($_GET['action'])
 	{
 		case 'home':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_home.php';
 			}
@@ -52,7 +53,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'recalculate':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_recalculate.php';
 			}
@@ -62,7 +63,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'list_rules':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_list_rules.php';
 			}
@@ -72,7 +73,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'report':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_report.php';
 			}
@@ -85,7 +86,7 @@ if(isset($_GET['action']))
 			include 'includes/abp_list_rules_player.php';
 			break;
 		case 'character_report':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_character_report.php';
 			}
@@ -98,7 +99,7 @@ if(isset($_GET['action']))
 			include 'includes/abp_show_modifiers.php';
 			break;
 		case 'add_rule':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_add_rule.php';
 				$template_file = 'empty_template.tpl';
@@ -109,7 +110,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'add_rule_post':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_add_rule_post.php';
 				$template_file = 'empty_template.tpl';
@@ -120,7 +121,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'delete_rule':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_delete_rule.php';
 				$template_file = 'empty_template.tpl';
@@ -131,7 +132,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'edit_rule':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_edit_rule.php';
 				$template_file = 'empty_template.tpl';
@@ -142,7 +143,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'edit_rule_post':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_edit_rule_post.php';
 				$template_file = 'empty_template.tpl';
@@ -153,7 +154,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'get_abp_rule_list':
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_get_abp_rule_list.php';
 				$template_file = 'empty_template.tpl';
@@ -163,11 +164,8 @@ if(isset($_GET['action']))
 				include 'includes/index_redirect.php';
 			}
 			break;
-		case 'list_rules_player':
-			include 'includes/abp_list_rules_player.php';
-			break;
 		default:
-			if(Security::HasAnySTPermissions())
+			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_home.php';
 			}
@@ -180,7 +178,7 @@ if(isset($_GET['action']))
 }
 else
 {
-	if(Security::HasAnySTPermissions())
+	if(UserdataHelper::IsSt($userdata))
 	{
 		include 'includes/abp_home.php';
 	}

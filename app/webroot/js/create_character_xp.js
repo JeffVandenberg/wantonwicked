@@ -72,6 +72,9 @@ $(function() {
     $(document).on('change', '#character-type', function() {
         changeSheet($(this).val());
     });
+    $(document).on('change', '.specialty-skill-update-create', function() {
+        updateSkillXP();
+    });
     $("#xp-spent").blur(function() {
         var amount = parseInt($("#xp-spent").val());
         if(isNaN(amount)) {

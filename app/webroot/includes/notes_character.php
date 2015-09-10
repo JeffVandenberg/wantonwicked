@@ -16,10 +16,6 @@ use classes\log\data\ActionType;
 
 $characterId = Request::getValue('character_id', 0);
 
-// includes for sortable forms
-include 'cgi-bin/js_doSort.php';
-include 'cgi-bin/buildSortForm.php';
-
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 $character = $characterRepository->getById($characterId);
@@ -140,9 +136,6 @@ echo $menu;
             window.document.note_list.submit();
         }
     </script>
-
-<?php echo buildSortForm($this_order_by, $order_dir, $last_order_by,
-                         "$_SERVER[PHP_SELF]?action=character&character_id=$characterId&log_npc=$log_npc"); ?>
 <?php
 // build list
 $page_content = ob_get_clean();

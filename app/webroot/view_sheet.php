@@ -4,13 +4,8 @@ use classes\core\helpers\UserdataHelper;
 
 
 include 'cgi-bin/start_of_page.php';
-include 'cgi-bin/buildWoDSheet.php';
-include 'cgi-bin/buildWoDSheetXP.php';
 include 'cgi-bin/makeDotsXP.php';
-include 'cgi-bin/updateWoDSheet.php';
 include 'cgi-bin/updateWoDSheetXP.php';
-include 'cgi-bin/charSheetConstants.php';
-include 'cgi-bin/submitPost.php';
 
 // perform required includes
 define('IN_PHPBB', true);
