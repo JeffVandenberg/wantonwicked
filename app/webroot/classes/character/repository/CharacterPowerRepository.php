@@ -32,12 +32,11 @@ where
   character_id = ?
   and power_type = ?
 order by
-  ?
+  $orderBy
 EOQ;
         $params = array(
             $characterId,
-            $powerType,
-            $orderBy
+            $powerType
         );
 
         return $this->query($sql)->all($params);
