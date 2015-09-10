@@ -156,8 +156,6 @@ class CharacterSheetHelper
 
     public function MakeViewOwn($stats, $characterType)
     {
-        $viewOptions = array();
-
         if (($stats['asst_sanctioned'] == 'Y') || ($stats['is_sanctioned'] == 'Y')) {
             $viewOptions = array(
                 'edit_show_sheet' => true,
@@ -188,6 +186,7 @@ class CharacterSheetHelper
                 'edit_experience' => true,
                 'show_st_notes' => false,
                 'calculate_derived' => true,
+                'xp_create_mode' => ($stats['asst_sanctioned'] == '') && ($stats['is_sanctioned'] == ''),
                 'user_type' => 'player'
             );
         }
