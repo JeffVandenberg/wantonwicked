@@ -1,5 +1,6 @@
 <?php
-include 'includes/components/rule_list.php';
+
+use classes\abp\Rules;
 
 $page_title = "Rules List";
 
@@ -38,7 +39,7 @@ $page_content = <<<EOQ
 <div id="abpRuleList">
 EOQ;
 
-$page_content .= CreateRuleList($result);
+$page_content .= Rules::CreateRuleList($result);
 
 $page_content .= <<<EOQ
 </div>

@@ -18,7 +18,7 @@ $page_title = 'Bluebook Entry: ' . $request['title'];
 $contentHeader = $page_title;
 
 $characterId = $request['character_id'];
-require_once('helpers/character_menu.php');
+require_once('menus/character_menu.php');
 /* @var array $characterMenu */
 $characterMenu['Actions'] = array(
     'link' => '#',

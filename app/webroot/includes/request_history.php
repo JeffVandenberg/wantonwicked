@@ -20,7 +20,7 @@ $request = $requestRepository->getById($requestId);
 $contentHeader = $page_title = $request->Title . ' History';
 
 $characterId = $request->CharacterId;
-require_once('helpers/character_menu.php');
+require_once('menus/character_menu.php');
 $characterMenu['Actions'] = array(
     'link' => '#',
     'submenu' => array(

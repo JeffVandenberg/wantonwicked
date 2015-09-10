@@ -69,7 +69,7 @@ if ($view_character_id || $view_character_name) {
     }
 }
 
-$storytellerMenu = require_once('helpers/storyteller_menu.php');
+$storytellerMenu = require_once('menus/storyteller_menu.php');
 $menu = MenuHelper::GenerateMenu($storytellerMenu);
 ob_start();
 ?>

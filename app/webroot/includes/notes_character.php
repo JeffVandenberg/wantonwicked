@@ -81,7 +81,7 @@ if (isset($_POST['action'])) {
 $note_query = "select * from personal_notes where character_id = $characterId and is_deleted='n' order by $order_by;";
 $notes = Database::getInstance()->query($note_query)->all();
 
-require_once('helpers/character_menu.php');
+require_once('menus/character_menu.php');
 /* @var array $characterMenu */
 $menu = MenuHelper::GenerateMenu($characterMenu);
 ob_start();

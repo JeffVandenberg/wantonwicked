@@ -38,7 +38,7 @@ if (Request::isPost()) {
     }
 }
 
-$storytellerMenu = require_once('helpers/storyteller_menu.php');
+$storytellerMenu = require_once('menus/storyteller_menu.php');
 $menu = MenuHelper::GenerateMenu($storytellerMenu);
 
 ob_start();

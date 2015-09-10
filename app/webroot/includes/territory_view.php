@@ -1,8 +1,8 @@
 <?php
 use classes\core\helpers\Response;
+use classes\territory\Territory;
 
 $id = (isset($_GET['id'])) ? $_GET['id'] : 0;
-include 'includes/components/territory_associated_characters.php';
 
 $query = <<<EOQ
 SELECT
@@ -44,7 +44,7 @@ if(mysql_num_rows($result))
 	$isOpen = ($detail['is_open']) ? 'Yes' : 'No';
 	$id = $detail['id'];
 	
-	$associatedCharacters = CreateTerritoryAssociatedCharacters($id, false);
+	$associatedCharacters = Territory::CreateTerritoryAssociatedCharacters($id, false);
 }
 else
 {

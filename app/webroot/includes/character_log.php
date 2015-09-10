@@ -44,7 +44,7 @@ $character = $characterRepository->getById($characterId);
 $page_title = 'Log for ' . $character->CharacterName;
 $contentHeader = $page_title;
 
-require_once('helpers/character_menu.php');
+require_once('menus/character_menu.php');
 /* @var array $characterMenu */
 $menu = MenuHelper::GenerateMenu($characterMenu);
 ob_start();

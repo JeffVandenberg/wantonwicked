@@ -50,7 +50,7 @@ ORDER BY
 EOQ;
 $storytellers = ExecuteQueryData($login_query);
 
-$storytellerMenu = require_once('helpers/storyteller_menu.php');
+$storytellerMenu = require_once('menus/storyteller_menu.php');
 $storytellerMenu['Action']['submenu']['Add Permission'] = array(
     'link' => '/storyteller_index.php?action=permissions_add'
 );

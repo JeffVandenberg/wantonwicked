@@ -1,5 +1,6 @@
 <?php
-include 'includes/components/rule_list.php';
+use classes\abp\Rules;
+
 $sql = <<<EOQ
 SELECT
 	*
@@ -15,7 +16,7 @@ EOQ;
 
 $result = ExecuteQuery($sql);
 
-$ruleList .= CreateRuleList($result);
+$ruleList .= Rules::CreateRuleList($result);
 
 echo <<<EOQ
 $ruleList

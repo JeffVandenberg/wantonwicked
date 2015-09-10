@@ -80,7 +80,7 @@ foreach (Database::getInstance()->query($sql)->all($params) as $row) {
     $favorsFromCharacter[] = $row;
 }
 
-require_once('helpers/character_menu.php');
+require_once('menus/character_menu.php');
 /* @var array $characterMenu */
 $menu = MenuHelper::GenerateMenu($characterMenu);
 

@@ -41,7 +41,7 @@ if(($count / $pageSize) > $page) {
 
 $contentHeader = $page_title = "Bluebook Entries for " . $character['character_name'];
 
-require_once('helpers/character_menu.php');
+require_once('menus/character_menu.php');
 /* @var array $characterMenu */
 $characterMenu['Create Entry'] = array(
     'link' => 'bluebook.php?action=create&character_id=' . $characterId

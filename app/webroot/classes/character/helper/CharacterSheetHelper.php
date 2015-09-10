@@ -229,7 +229,7 @@ class CharacterSheetHelper
         return $this->sheet->buildSheet($characterType, $stats, $viewOptions);
     }
 
-    public function UpdateOwnLimited(Character $oldCharacter, $newStats)
+    public function UpdateOwnLimited(Character $oldCharacter, $newStats, $userdata)
     {
         $edit_show_sheet = true;
         $edit_name = false;
@@ -271,13 +271,13 @@ class CharacterSheetHelper
             RepositoryManager::ClearCache();
             $newCharacter = $this->repository->getById($newStats['character_id']);
             /* @var Character $newCharacter */
-            $this->LogChanges($newCharacter, $oldCharacter);
+            $this->LogChanges($newCharacter, $oldCharacter, $userdata);
         }
 
         return $error;
     }
 
-    public function UpdateOwnFull(Character $oldCharacter, $newStats)
+    public function UpdateOwnFull(Character $oldCharacter, $newStats, $userdata)
     {
         $edit_show_sheet = true;
         $edit_name = true;
@@ -319,16 +319,14 @@ class CharacterSheetHelper
             RepositoryManager::ClearCache();
             $newCharacter = $this->repository->getById($newStats['character_id']);
             /* @var Character $newCharacter */
-            $this->LogChanges($newCharacter, $oldCharacter);
+            $this->LogChanges($newCharacter, $oldCharacter, $userdata);
         }
 
         return $error;
     }
 
-    private function LogChanges(Character $newCharacter, Character $oldCharacter)
+    private function LogChanges(Character $newCharacter, Character $oldCharacter, $userdata)
     {
-        global $userdata;
-
         if ($newCharacter->IsSanctioned != $oldCharacter->IsSanctioned) {
             if ($newCharacter->IsSanctioned == 'Y') {
                 CharacterLog::LogAction($newCharacter->Id, ActionType::Sanctioned, 'ST Sanctioned Character', $userdata['user_id']);
@@ -452,9 +450,6 @@ class CharacterSheetHelper
             $edit_perm_traits, $edit_temp_traits, $edit_powers, $edit_history, $edit_goals,
             $edit_login_note, $edit_experience, $show_st_notes, $view_is_asst, $view_is_st,
             $view_is_head, $view_is_admin, $may_edit, $edit_cell);
-        if ($error == '') {
-            //$this->LogChanges($newStats, array());
-        }
         return $error;
     }
 
@@ -631,7 +626,7 @@ class CharacterSheetHelper
                 RepositoryManager::ClearCache();
                 $newCharacter = $this->repository->getById($newStats['character_id']);
                 /* @var Character $newCharacter */
-                $this->LogChanges($newCharacter, $oldStats);
+                $this->LogChanges($newCharacter, $oldStats, $userdata);
             }
         }
     }

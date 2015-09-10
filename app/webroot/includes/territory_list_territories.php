@@ -1,7 +1,7 @@
 <?php
-$characterId = $_GET['character_id'] + 0;
+use classes\territory\Territory;
 
-include 'includes/components/territory_list_public.php';
+$characterId = $_GET['character_id'] + 0;
 
 // get list of territories with PC & NPC counts and domain holder
 $territoryQuery = <<<EOQ
@@ -49,7 +49,7 @@ $page_content = <<<EOQ
 </h2>
 EOQ;
 
-$page_content .= CreateTerritoryListPublic($territoryResult, $characterId);
+$page_content .= Territory::CreateTerritoryListPublic($territoryResult, $characterId);
 
 $page_content .= <<<EOQ
 <script type="text/javascript">	

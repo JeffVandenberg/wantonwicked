@@ -57,7 +57,7 @@ $requestStatuses = array('All') + $requestStatuses;
 
 $contentHeader = $page_title = "Requests for " . $character['character_name'];
 
-require_once('helpers/character_menu.php');
+require_once('menus/character_menu.php');
 $characterMenu['Help'] = array(
     'link' => '#',
     'submenu' => array(

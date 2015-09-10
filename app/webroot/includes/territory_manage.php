@@ -1,9 +1,8 @@
 <?php
+use classes\territory\Territory;
+
 $id = (isset($_GET['id'])) ? $_GET['id'] + 0 : 0;
 $characterId = (isset($_GET['character_id'])) ? $_GET['character_id'] + 0 : 0;
-
-include 'includes/components/territory_associated_characters.php';
-include 'includes/helpers/get_number_of_leeches.php';
 
 $sql = <<<EOQ
 SELECT
@@ -33,8 +32,8 @@ if(mysql_num_rows($result))
 	$npcPopulation = $detail['npc_population'];
 	$territoryNotes = str_replace("\r\n", "<br />", $detail['territory_notes']);
 	
-	$numberOfLeeches = GetNumberOfLeeches($id);
-	
+	$numberOfLeeches = Territory::GetNumberOfLeeches($id);
+
 	$qualityModifier = 0;
 	if(($numberOfLeeches + $npcPopulation) > $optimalPopulation)
 	{
@@ -43,7 +42,7 @@ if(mysql_num_rows($result))
 	
 	$currentQuality = $quality - $qualityModifier;
 	
-	$associatedCharacters = CreateTerritoryAssociatedCharacters($id, true, false);
+	$associatedCharacters = Territory::CreateTerritoryAssociatedCharacters($id, true, false);
 	
 	$page_content = <<<EOQ
 <div id="territoryPane" style="display:none;">
@@ -132,4 +131,3 @@ else
 	$page_title = "Unknown Territory";
 	$page_content = "Unknown Territory";
 }
-?>

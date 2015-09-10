@@ -30,10 +30,10 @@ if (Request::isPost()) {
     $powers = $oldCharacter->CharacterPower;
 
     if (($character['asst_sanctioned'] != '') || ($character['is_sanctioned'] != '')) {
-        $error = $characterSheetHelper->UpdateOwnLimited($oldCharacter, $_POST);
+        $error = $characterSheetHelper->UpdateOwnLimited($oldCharacter, $_POST, $userdata);
     }
     else {
-        $error = $characterSheetHelper->UpdateOwnFull($oldCharacter, $_POST);
+        $error = $characterSheetHelper->UpdateOwnFull($oldCharacter, $_POST, $userdata);
     }
     if($error == '') {
         SessionHelper::SetFlashMessage('Updated Character');
@@ -60,7 +60,7 @@ $java_script .= <<<EOQ
 </script>
 EOQ;
 
-require_once('helpers/character_menu.php');
+require_once('menus/character_menu.php');
 /* @var array $characterMenu */
 $characterMenu['Help'] = array(
     'link'    => '#',

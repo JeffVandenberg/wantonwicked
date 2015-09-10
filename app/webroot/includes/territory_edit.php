@@ -1,7 +1,7 @@
 <?php
-$id = (isset($_GET['id'])) ? $_GET['id'] + 0 : 0;
+use classes\territory\Territory;
 
-include 'includes/components/territory_associated_characters.php';
+$id = (isset($_GET['id'])) ? $_GET['id'] + 0 : 0;
 
 $sql = <<<EOQ
 SELECT
@@ -34,7 +34,7 @@ if(mysql_num_rows($result))
 	$territoryNotes = $detail['territory_notes'];
 	$isOpenChecked = ($detail['is_open']) ? 'checked' : '';
 	
-	$associatedCharacters = CreateTerritoryAssociatedCharacters($id, true);
+	$associatedCharacters = Territory::CreateTerritoryAssociatedCharacters($id, true);
 	
 	$page_content = <<<EOQ
 <div id="territoryPane" style="display:none;">

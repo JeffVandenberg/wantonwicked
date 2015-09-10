@@ -1,7 +1,7 @@
 <?php
-include 'includes/components/territory_list.php';
-
 // get list of territories with PC & NPC counts and domain holder
+use classes\territory\Territory;
+
 $territoryQuery = <<<EOQ
 SELECT
 	T.territory_name,
@@ -60,7 +60,7 @@ $page_content = <<<EOQ
 <a href="territory.php?action=update_all">Update Territory Quality</a>
 EOQ;
 
-$page_content .= CreateTerritoryList($territoryResult, true);
+$page_content .= Territory::CreateTerritoryList($territoryResult, true);
 
 $page_content .= <<<EOQ
 <script type="text/javascript">	
@@ -83,4 +83,3 @@ $page_content .= <<<EOQ
 	});
 </script>
 EOQ;
-?>
