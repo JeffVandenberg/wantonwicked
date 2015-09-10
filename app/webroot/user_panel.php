@@ -1,28 +1,24 @@
 <?php
+use classes\integration\WikiInformation;
 use classes\request\repository\RequestRepository;
 
 /* @var array $userdata */
 $get_vars = "";
 $is_first = true;
-while(list($key, $value) = each($_GET))
-{
-  if($key != 'sid')
-  {
-    if($is_first)
-    {
-    	$get_vars .= "?$key=$value";
-    	$is_first = false;
+while (list($key, $value) = each($_GET)) {
+    if ($key != 'sid') {
+        if ($is_first) {
+            $get_vars .= "?$key=$value";
+            $is_first = false;
+        } else {
+            $get_vars .= "&$key=$value";
+        }
     }
-    else
-    {
-    	$get_vars .= "&$key=$value";
-    }
-  }
 }
 reset($_GET);
 
 $get_vars = str_replace("&", "|", $get_vars);
-$redirect = $_SERVER['PHP_SELF'].$get_vars;
+$redirect = $_SERVER['PHP_SELF'] . $get_vars;
 
 $up_name = <<<EOQ
 <a href="/forum/ucp.php?mode=login&redirect=$redirect">Login</a>
@@ -33,8 +29,7 @@ $up_loginout = <<<EOQ
 EOQ;
 
 $userControlPanel = "";
-if($userdata['user_id'] != 1)
-{
+if ($userdata['user_id'] != 1) {
     $logout = append_sid("/forum/ucp.php", "mode=logout&redirect=$redirect", true, $user->session_id);
     $up_name = <<<EOQ
 <span>$userdata[username]</span>
@@ -43,7 +38,6 @@ EOQ;
     $up_loginout = <<<EOQ
 <a href="$logout">Logout</a>
 EOQ;
-
     $requestRepository = new RequestRepository();
     $requestCount = $requestRepository->getOpenByUserId($userdata['user_id']);
 
@@ -51,6 +45,10 @@ EOQ;
 - <a href="forum/ucp.php">User Control Panel</a>
 - <a href="/request.php">Open Requests ($requestCount)</a>
 EOQ;
+
+    WikiInformation::setUpName($up_name);
+    WikiInformation::setLoginOut($up_loginout);
+    WikiInformation::setUcp($userControlPanel);
 }
 
 
@@ -65,22 +63,16 @@ EOQ;
 // ugly, but such is life.
 function getUpName()
 {
-  global $up_name;
-  return $up_name;
+    return WikiInformation::getUpName();
 }
 
 function getUpLogInOut()
 {
-  global $up_loginout;
-  return $up_loginout;
+    return WikiInformation::getLoginOut();
 }
 
 function getUserControlPanel()
 {
-  global $userControlPanel;
-  return $userControlPanel;
+    return WikiInformation::getUcp();
 }
 
-$server_month = date("m") - 1;
-//echo (-substr(date('O'), 2, strlen(date('O')))/100 - 4) . "<br>";
-$server_hour = date("H") + $timezone_adjustment;
