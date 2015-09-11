@@ -286,9 +286,9 @@ function updateSkillXP() {
 
     i = 0;
     var specialties = 0;
-    while (document.getElementById('skill_spec' + i)) {
-        if ((document.getElementById('skill_spec' + i ).value != '')
-            && (document.getElementById('skill_spec' + i + '_selected').value != 'Rote Specialty')) {
+    while ($('#skill_spec' + i).length > 0) {
+        if (($('#skill_spec' + i ).val() != '')
+            && ($('#skill-spec' + i + '-selected').val() != 'Rote Specialty')) {
             specialties++;
         }
         i++;
@@ -1945,7 +1945,11 @@ function buildSelect(selected, values_list, names_list, select_name, extra_tags)
         return "No Values to Select.";
     }
 
-    var select = "<select name=\"" + select_name + "\" id=\"" + select_name + "\" " + extra_tags + ">";
+    var id = select_name;
+    if(select_name.indexOf('skill_spec') !== false) {
+        id = select_name.replace(/_/g, '-');
+    }
+    var select = "<select name=\"" + select_name + "\" id=\"" + id + "\" " + extra_tags + ">";
 
     for (var i = 0; i < names_list.length; i++) {
         if (selected == values_list[i]) {
