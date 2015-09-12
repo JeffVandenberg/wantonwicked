@@ -27,9 +27,10 @@ class RepositoryManager
         $repositoryClass = $obj->getRepositoryClass();
 
         if(!isset(self::$repositories[$repositoryClass])) {
-            try {
+            $path = ROOT_PATH . '../../class/' . str_replace('\\', DIRECTORY_SEPARATOR, $repositoryClass);
+            if (file_exists($path . '.php')) {
                 $repository = new $repositoryClass();
-            } catch (\Exception $e) {
+            } else {
                 $repository = new BasicRepository($className);
             }
             self::$repositories[$repositoryClass] = $repository;

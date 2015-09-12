@@ -1973,4 +1973,14 @@ EOQ;
         return $renown_list;
     }
 
+    public function updateSheet($stats, $options)
+    {
+        if (!is_array($stats)) {
+            $stats = array();
+        }
+        $this->viewOptions = array_merge($this->viewOptions, $options);
+        $this->viewOptions['allow_edits'] = $this->checkEditMode();
+        $this->stats = $stats;
+
+    }
 }

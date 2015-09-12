@@ -370,117 +370,6 @@ EOQ;
     }
 
     /**
-     * @param $parameters
-     * @return array
-     */
-    public function search($parameters)
-    {
-        $where = (isset($parameters['where'])) ? $parameters['where'] : null;
-        $select = (isset($parameters['select'])) ? $parameters['select'] : null;
-        $from = (isset($parameters['from'])) ? $parameters['from'] : null;
-        $orderBy = (isset($parameters['order_by'])) ? $parameters['order_by'] : null;
-        $paginate = (isset($parameters['paginate'])) ? $parameters['paginate'] : null;
-
-        $sql = $this->generateSql($where, $select, $from, $orderBy, $paginate);
-
-        return $this->query($sql)->all();
-    }
-
-    /**
-     * @param array|string $where
-     * @param array|string $select
-     * @param array|string $from
-     * @param array|string $orderBy
-     * @param array|string $paginate
-     * @return string
-     */
-    public function generateSql($where, $select, $from, $orderBy, $paginate)
-    {
-        $sql = 'SELECT ';
-
-        if ($select !== null) {
-            if (is_array($select)) {
-                $sql .= $this->processSelect('', $select);
-            } else {
-                $sql .= ' ' . $select . ',';
-            }
-        } else {
-            $sql .= ' ' . $this->ManagedObject->getTableName() . '.*,';
-        }
-
-        $sql = trim($sql, ",\n ");
-
-        $sql .= ' FROM ';
-
-        if ($from !== null) {
-            if (is_array($from)) {
-                $sql .= $this->processFrom('', $from);
-            } else {
-                $sql .= ' ' . $from . ' ';
-            }
-        } else {
-            $sql .= ' ' . $this->ManagedObject->getTableName() . ' ';
-        }
-
-        if ($where !== null) {
-            if (is_array($where)) {
-                if (count($where) > 0) {
-                    $sql .= ' WHERE ';
-                    $first = true;
-
-                    foreach ($where as $table => $conditions) {
-                        foreach ($conditions as $column => $linealue) {
-                            if (!$first) {
-                                $sql .= ' AND ';
-                            }
-                            $managedObject = $this->ManagedObject->GetManagedObject($table);
-                            $tableName = $managedObject->getTableName();
-                            $columnName = $managedObject->GetPropertyMapping($column);
-                            $sql .= ' ' . $tableName . '.' . $columnName . ' = \'' . mysql_real_escape_string($linealue) . "' \n";
-                            $first = false;
-                        }
-                    }
-                }
-            } else {
-                $sql .= ' WHERE ';
-                $sql .= $where;
-            }
-        }
-
-        if ($orderBy !== null) {
-            $sql .= ' ORDER BY ';
-
-            if (is_array($orderBy)) {
-                $first = true;
-                foreach ($orderBy as $table => $columns) {
-                    foreach ($columns as $column) {
-                        if (!$first) {
-                            $sql .= ',';
-                        }
-
-                        $managedObject = $this->ManagedObject->GetManagedObject($table);
-                        $tableName = $managedObject->getTableName();
-                        $columnName = $managedObject->GetPropertyMapping($column);
-
-                        $sql .= ' ' . $tableName . '.' . $columnName . " \n";
-                        $first = false;
-                    }
-                }
-            } else {
-                $sql .= ' ' . $orderBy . ' ';
-            }
-        } else {
-            $sql .= ' ORDER BY ' . $this->ManagedObject->getSortColumn() . ' ';
-        }
-
-        if ($paginate !== null) {
-            $sql .= ' LIMIT ' . $paginate['start_index'] . ',' . $paginate['page_size'];
-            return $sql;
-        }
-        return $sql;
-    }
-
-    /**
      * @param $table
      * @param $select
      * @return array
@@ -532,20 +421,6 @@ EOQ;
             }
         }
         return $sql;
-    }
-
-    /**
-     * @param $parameters
-     * @return mixed
-     */
-    public function rowCount($parameters)
-    {
-        $where = (isset($parameters['where'])) ? $parameters['where'] : null;
-        $from = (isset($parameters['from'])) ? $parameters['from'] : null;
-
-        $sql = $this->generateSql($where, 'count(*) as rows', $from, null, null);
-        $data = $this->query($sql)->single();
-        return $data['rows'];
     }
 
     /**
