@@ -61,7 +61,7 @@ class WodSheet
 
     public function buildSheet($character_type = 'Mortal', $stats = array(), $options = array())
     {
-        if(!is_array($stats)) {
+        if (!is_array($stats)) {
             $stats = array();
         }
         $this->viewOptions = array_merge($this->viewOptions, $options);
@@ -462,7 +462,7 @@ EOQ;
                 }
             }
 
-            if(is_array($splat1_groups)) {
+            if (is_array($splat1_groups)) {
                 $splat1 = FormHelper::Select(
                     ArrayTools::array_valuekeys($splat1_groups),
                     'splat1',
@@ -470,7 +470,7 @@ EOQ;
                     $splat1Options
                 );
             }
-            if(is_array($splat2_groups)) {
+            if (is_array($splat2_groups)) {
                 $splat2 = FormHelper::Select(
                     ArrayTools::array_valuekeys($splat2_groups),
                     'splat2',
@@ -793,7 +793,7 @@ EOQ;
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?php if($this->viewOptions['edit_powers']): ?>
+                        <?php if ($this->viewOptions['edit_powers']): ?>
                             <label for="misc<?php echo $i; ?>"></label>
                             <input type="text" name="misc<?php echo $i; ?>" id="misc<?php echo $i; ?>" size="3"
                                    maxlength="2"
@@ -1268,7 +1268,7 @@ EOQ;
                                     'class' => $input_class . $specialtyXpCreateModeClass,
 
                                 )
-                            );?>
+                            ); ?>
                         <?php else: ?>
                             <?php echo $power->getPowerNote(); ?>
                         <?php endif; ?>
@@ -1353,7 +1353,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Computer', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Computer', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1363,7 +1364,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Brawl', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Brawl', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1373,7 +1375,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Empathy', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Empathy', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1385,7 +1388,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Crafts', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Crafts', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1395,7 +1399,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Drive', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Drive', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1427,7 +1432,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Firearms', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Firearms', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1449,7 +1455,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Medicine', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Medicine', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1459,7 +1466,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Larceny', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Larceny', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1481,7 +1489,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Occult', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Occult', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1491,7 +1500,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Stealth', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Stealth', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1514,7 +1524,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Politics', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Politics', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1524,7 +1535,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Survival', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Survival', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1546,7 +1558,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Science', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Science', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1556,7 +1569,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Weaponry', 'skill', $skillIndex++, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Weaponry', 'skill', $skillIndex++, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1566,7 +1580,8 @@ EOQ;
                     </td>
                     <td>
                         <?php
-                        echo $this->makeBaseStatDots($skills, 'Subterfuge', 'skill', $skillIndex, self::SKILL, $character_type,
+                        echo $this->makeBaseStatDots($skills, 'Subterfuge', 'skill', $skillIndex, self::SKILL,
+                            $character_type,
                             $this->viewOptions['edit_skills'], $this->viewOptions['calculate_derived'],
                             $this->viewOptions['xp_create_mode'], $this->max_dots);
                         ?>
@@ -1709,7 +1724,8 @@ EOQ;
 
             case 'Changeling':
                 $changeling = new Changeling();
-                return $changeling->render($this, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
+                return $changeling->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                    $vice,
                     $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list,
                     $characterMiscList, $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated,
@@ -1779,6 +1795,61 @@ EOQ;
         }
     }
 
+    private function checkEditMode()
+    {
+        $mayEdit = false;
+        foreach ($this->viewOptions as $value) {
+            if (is_bool($value)) {
+                $mayEdit |= $value;
+            }
+        }
+        return $mayEdit;
+    }
+
+    private function initializeAttributes()
+    {
+        $attribute_list = array("strength", "dexterity", "stamina", "presence", "manipulation", "composure", "intelligence", "wits", "resolve");
+        $attributes = array();
+        foreach ($attribute_list as $attribute) {
+            $power = new Power();
+            $power->setPowerLevel(1);
+            $power->setPowerName(ucfirst($attribute));
+            $attributes[] = $power;
+        }
+
+        return $attributes;
+    }
+
+    private function initializeSkills()
+    {
+        $skill_list = array("academics", "computer", "crafts", "investigation", "medicine", "occult", "politics", "science", "athletics", "brawl", "drive", "firearms", "larceny", "stealth", "survival", "weaponry", "animal ken", "empathy", "expression", "intimidation", "persuasion", "socialize", "streetwise", "subterfuge");
+        $skills = array();
+        foreach ($skill_list as $skill) {
+            $power = new Power();
+            $power->setPowerLevel(0);
+            $power->setPowerName(ucwords(str_replace('_', ' ', $skill)));
+            $skills[] = $power;
+        }
+
+        return $skills;
+    }
+
+    /**
+     * @param Power[] $powers
+     * @param string $name
+     * @return Power
+     */
+    private function getPowerByName($powers, $name)
+    {
+        foreach ($powers as $power) {
+            if (strtolower($power->getPowerName()) == strtolower($name)) {
+                return $power;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * @param $characterId
      * @param $powerType
@@ -1837,59 +1908,16 @@ EOQ;
         return $power_list;
     }
 
-    private function checkEditMode()
+    private function makeBaseStatDots($powers, $powerName, $powerType, $position, $element_type, $character_type, $edit,
+                                      $calculate_derived, $edit_xp, $max_dots)
     {
-        $mayEdit = false;
-        foreach ($this->viewOptions as $value) {
-            if(is_bool($value)) {
-                $mayEdit |= $value;
-            }
-        }
-        return $mayEdit;
-    }
+        $power = $this->GetPowerByName($powers, $powerName);
+        $output = FormHelper::Hidden($powerType . $position . '_id', $power->getPowerID());
+        $output .= FormHelper::Hidden($powerType . $position . '_name', $power->getPowerName());
+        $output .= FormHelper::Dots($powerType . $position, $power->getPowerLevel(), $element_type, $character_type,
+            $max_dots, $edit, $calculate_derived, $edit_xp);
 
-    private function initializeAttributes()
-    {
-        $attribute_list = array("strength", "dexterity", "stamina", "presence", "manipulation", "composure", "intelligence", "wits", "resolve");
-        $attributes = array();
-        foreach ($attribute_list as $attribute) {
-            $power = new Power();
-            $power->setPowerLevel(1);
-            $power->setPowerName(ucfirst($attribute));
-            $attributes[] = $power;
-        }
-
-        return $attributes;
-    }
-
-    private function initializeSkills()
-    {
-        $skill_list = array("academics", "computer", "crafts", "investigation", "medicine", "occult", "politics", "science", "athletics", "brawl", "drive", "firearms", "larceny", "stealth", "survival", "weaponry", "animal ken", "empathy", "expression", "intimidation", "persuasion", "socialize", "streetwise", "subterfuge");
-        $skills = array();
-        foreach ($skill_list as $skill) {
-            $power = new Power();
-            $power->setPowerLevel(0);
-            $power->setPowerName(ucwords(str_replace('_', ' ', $skill)));
-            $skills[] = $power;
-        }
-
-        return $skills;
-    }
-
-    /**
-     * @param Power[] $powers
-     * @param string $name
-     * @return Power
-     */
-    private function getPowerByName($powers, $name)
-    {
-        foreach ($powers as $power) {
-            if (strtolower($power->getPowerName()) == strtolower($name)) {
-                return $power;
-            }
-        }
-
-        return null;
+        return $output;
     }
 
     /**
@@ -1943,17 +1971,6 @@ EOQ;
         }
 
         return $renown_list;
-    }
-
-    private function makeBaseStatDots($powers, $powerName, $powerType, $position, $element_type, $character_type, $edit, $calculate_derived, $edit_xp, $max_dots)
-    {
-        $power  = $this->GetPowerByName($powers, $powerName);
-        $output = FormHelper::Hidden($powerType . $position . '_id', $power->getPowerID());
-        $output .= FormHelper::Hidden($powerType . $position . '_name', $power->getPowerName());
-        $output .= FormHelper::Dots($powerType . $position, $power->getPowerLevel(), $element_type, $character_type,
-            $max_dots, $edit, $calculate_derived, $edit_xp);
-        
-        return $output;
     }
 
 }

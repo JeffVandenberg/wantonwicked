@@ -17,5 +17,10 @@
     "composer/installers": "v1.0.20",
     "phpmailer/phpmailer": "v5.2.9",
     "phpunit/phpunit": "4.7.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "class"
+    }
   }
 }
