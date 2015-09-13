@@ -60,19 +60,21 @@ $userControlPanel
 EOQ;
 
 
-// ugly, but such is life.
-function getUpName()
+class UserPanel
 {
-    return WikiInformation::getUpName();
-}
+    public static function getUserControlPanel()
+    {
+        return WikiInformation::getUcp();
+    }
 
-function getUpLogInOut()
-{
-    return WikiInformation::getLoginOut();
-}
+    public static function getUpName()
+    {
+        return WikiInformation::getUpName();
+    }
 
-function getUserControlPanel()
-{
-    return WikiInformation::getUcp();
-}
+    public static function getUpLogInOut()
+    {
+        return WikiInformation::getLoginOut();
+    }
 
+}

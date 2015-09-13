@@ -1,5 +1,5 @@
 <?php
-use classes\character\repository\CharacterRepository;
+use classes\character\helper\CharacterHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
@@ -63,12 +63,12 @@ EOQ;
         $age = $character_detail['Age'];
         switch ($character_detail['Character_Type']) {
             case 'Vampire':
-                $blood_potency = DetermineBloodPotency($_GET['srcuid'], $character_detail);
+                $blood_potency = CharacterHelper::DetermineBloodPotency($_GET['srcuid'], $character_detail);
                 $extra_public_effects = "Blood Potency: $blood_potency, ";
 				break;
             case 'Possessed':
             case 'Purified':
-				$blood_potency = DetermineBloodPotency($_GET['srcuid'], $character_detail);
+				$blood_potency = CharacterHelper::DetermineBloodPotency($_GET['srcuid'], $character_detail);
 				$extra_public_effects = "Blood Potency: $blood_potency, ";
                 $age = $character_detail['Apparent_Age'];
                 break;
@@ -132,23 +132,4 @@ EOQ;
     }
 } else {
     $page_content = "Unable to find $_GET[username].";
-}
-
-function DetermineBloodPotency($sourceCharacterId, $targetCharacter)
-{
-    $bloodPotency = $targetCharacter['Power_Stat'];
-    // do they have obfuscate 2?
-    $repository = new CharacterRepository();
-    if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Obfuscate', 2)) {
-        $bloodPotency = 'None';
-    } else if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Protean', 1)) {
-        // do they have Protean 1?
-        $sourceCharacter = $repository->getById($sourceCharacterId);
-        if ($targetCharacter['Power_Stat'] < $sourceCharacter['Power_Stat']) {
-            $bloodPotency = $sourceCharacter['Power_Stat'];
-        }
-    }
-
-    // otherwise return raw power_stat
-    return $bloodPotency;
 }

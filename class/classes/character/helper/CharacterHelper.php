@@ -9,6 +9,8 @@
 namespace classes\character\helper;
 
 
+use classes\character\repository\CharacterRepository;
+
 class CharacterHelper
 {
 
@@ -63,4 +65,22 @@ class CharacterHelper
         return $points;
     }
 
+    public static function DetermineBloodPotency($sourceCharacterId, $targetCharacter)
+    {
+        $bloodPotency = $targetCharacter['Power_Stat'];
+        // do they have obfuscate 2?
+        $repository = new CharacterRepository();
+        if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Obfuscate', 2)) {
+            $bloodPotency = 'None';
+        } else if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Protean', 1)) {
+            // do they have Protean 1?
+            $sourceCharacter = $repository->getById($sourceCharacterId);
+            if ($targetCharacter['Power_Stat'] < $sourceCharacter['Power_Stat']) {
+                $bloodPotency = $sourceCharacter['Power_Stat'];
+            }
+        }
+
+        // otherwise return raw power_stat
+        return $bloodPotency;
+    }
 }
