@@ -1,4 +1,5 @@
 <?php
+use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 
 include 'cgi-bin/start_of_page.php';
@@ -51,6 +52,10 @@ if (isset($_GET['action'])) {
             break;
         case 'delete_confirmed':
             include 'includes/chat_delete_confirmed.php';
+            break;
+        case 'jeff':
+            SessionHelper::SetFlashMessage('test');
+            Response::redirect('/');
             break;
         default:
             include 'includes/chat_index.php';

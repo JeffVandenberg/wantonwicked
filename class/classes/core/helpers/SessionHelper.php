@@ -12,19 +12,23 @@ namespace classes\core\helpers;
 
 class SessionHelper
 {
-    public static function SetFlashMessage($message, $section = 'global')
+    public static function SetFlashMessage($message, $section = 'flash')
     {
-        $_SESSION['flash'][$section] = $message;
+        $_SESSION['Message'][$section] = array(
+            'message' => $message,
+            'element' => 'default',
+            'params' => array()
+        );
     }
 
-    public static function GetFlashMessage($section = 'global')
+    public static function GetFlashMessage($section = 'flash')
     {
         $message = "";
-        if (isset($_SESSION['flash'][$section])) {
-            $message = $_SESSION['flash'][$section];
-            unset($_SESSION['flash'][$section]);
-            if (count($_SESSION['flash']) == 0) {
-                unset($_SESSION['flash']);
+        if (isset($_SESSION['Message'][$section])) {
+            $message = $_SESSION['Message'][$section]['message'];
+            unset($_SESSION['Message'][$section]);
+            if (count($_SESSION['Message']) == 0) {
+                unset($_SESSION['Message']);
             }
         }
         return $message;

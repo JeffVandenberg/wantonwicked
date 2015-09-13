@@ -2,6 +2,7 @@
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 use classes\core\repository\RepositoryManager;
 

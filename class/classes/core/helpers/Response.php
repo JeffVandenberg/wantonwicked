@@ -17,7 +17,7 @@ class Response {
         if($message) {
             SessionHelper::SetFlashMessage($message);
         }
-        header('location:http://' . $_SERVER['SERVER_NAME'] . '/' . $url);
+        header('location:' . $url);
         exit();
     }
 
