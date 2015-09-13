@@ -235,8 +235,8 @@ class Promethean extends SheetRenderer
                     </td>
                     <td>
                         <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="bestowment<?php echo $i; ?>_cost"></label>
-                            <input type="text" name="bestowment<?php echo $i; ?>_cost" id="bestowment<?php echo $i; ?>_cost"
+                            <label for="bestowment<?php echo $i; ?>_level"></label>
+                            <input type="text" name="bestowment<?php echo $i; ?>_level" id="bestowment<?php echo $i; ?>_level"
                                    size="3"
                                    maxlength="2"
                                    value="<?php echo $power->getPowerLevel(); ?>" <?php echo $supernatural_xp_js; ?>>

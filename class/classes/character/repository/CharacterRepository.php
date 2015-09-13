@@ -316,10 +316,10 @@ EOQ;
         $unsanctionLogParams = array($cutoffDate, ActionType::Sanctioned, ActionType::Login);
 
         $characterList = $this->query($characterListQuery)->all($unsanctionLogParams);
-        $characterIds = array_map(function($item) {
+        $characterIds = array_map(function ($item) {
             return $item['id'];
         }, $characterList);
-        if(count($characterIds)) {
+        if (count($characterIds)) {
             $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
 
             // add desanction note to character log
@@ -386,5 +386,35 @@ EOQ;
 
         $row = Database::getInstance()->query($query)->single($params);
         return ($row['HitCount'] > 0);
+    }
+
+    public function isNameInUse($character_name, $character_id)
+    {
+        $str_to_find = array("'", "\"");
+        $str_to_replace = array("-", "-");
+        $character_name =
+            htmlspecialchars(
+                str_replace(
+                    $str_to_find,
+                    $str_to_replace,
+                    stripslashes($character_name)
+                )
+            );
+
+        $sql = <<<EOQ
+select
+    count(*) as hits
+FROM
+    characters
+WHERE
+    character_name = ?
+    AND id != ?
+EOQ;
+        $params = array(
+            $character_name,
+            $character_id
+        );
+
+        return ($this->Query($sql)->Value($params) > 0);
     }
 }

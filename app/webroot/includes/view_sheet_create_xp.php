@@ -12,7 +12,7 @@ $characterSheetHelper = new CharacterSheetHelper();
 if (isset($_POST['character_name'])) {
     $show_form = false;
     if ($userdata['user_id'] != 1) {
-        $error = $characterSheetHelper->UpdateNew($_POST);
+        $error = $characterSheetHelper->UpdateNew($_POST, $userdata);
         if ($error == '') {
             SessionHelper::SetFlashMessage('Added ' . $_POST['character_name'] . ' to your profile');
             Response::redirect('chat.php');

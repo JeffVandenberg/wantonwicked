@@ -28,13 +28,7 @@ if (Request::isPost()) {
     $oldCharacter = $characterRepository->getById($characterId);
     /* @var Character $oldCharacter */
     $powers = $oldCharacter->CharacterPower;
-
-    if (($character['asst_sanctioned'] != '') || ($character['is_sanctioned'] != '')) {
-        $error = $characterSheetHelper->UpdateOwnLimited($oldCharacter, $_POST, $userdata);
-    }
-    else {
-        $error = $characterSheetHelper->UpdateOwnFull($oldCharacter, $_POST, $userdata);
-    }
+    $error = $characterSheetHelper->UpdateOwn($oldCharacter, $_POST, $userdata);
     if($error == '') {
         SessionHelper::SetFlashMessage('Updated Character');
     }

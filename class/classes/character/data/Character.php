@@ -83,6 +83,9 @@ class Character extends DataModel
     public $WillpowerTemp;
     public $WillpowerPerm;
     public $AveragePowerPoints;
+    public $PowerPointsModifier;
+    public $AsstSanctioned;
+    public $BonusReceived;
 
     public $HasMany = array(
         'Attributes' => 'classes\character\data\CharacterPower',

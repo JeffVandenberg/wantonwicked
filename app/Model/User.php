@@ -1,26 +1,28 @@
 <?php
 App::uses('AppModel', 'Model');
+
 /**
  * User Model
  *
  */
-class User extends AppModel {
+class User extends AppModel
+{
 
-/**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'username';
+    /**
+     * Display field
+     *
+     * @var string
+     */
+    public $displayField = 'username';
     public $primaryKey = 'user_id';
     public $useTable = 'phpbb_users';
 
     public function CheckUserPermission($userId, $permissionIds)
     {
-        if(!$userId || !$permissionIds) {
+        if (!$userId || !$permissionIds) {
             return false;
         }
-        if(!is_array($permissionIds)) {
+        if (!is_array($permissionIds)) {
             $permissionIds = array($permissionIds);
         }
         $permissions = implode(',', $permissionIds);
@@ -30,7 +32,7 @@ class User extends AppModel {
 
     public function CheckUserSupporterStatus($userId)
     {
-        if(!$userId) {
+        if (!$userId) {
             return false;
         }
 
@@ -48,8 +50,9 @@ EOQ;
         return $count[0][0]['Count'] > 0;
     }
 
-    public function listUserGroups($userId) {
-        $userId = (int) $userId;
+    public function listUserGroups($userId)
+    {
+        $userId = (int)$userId;
 
         $sql = <<<EOQ
 SELECT
@@ -69,14 +72,11 @@ EOQ;
 
     public function saveUserGroups($data)
     {
-        foreach($data['group_id'] as $row => $groupId)
-        {
-            if($data['is_member'][$groupId]) {
+        foreach ($data['group_id'] as $row => $groupId) {
+            if ($data['is_member'][$groupId]) {
                 // set member data
-                $this->addUserGroupRole($data['user_id'], $groupId,
-                    $data['is_member'][$groupId], $data['group_leader'][$groupId]);
-            }
-            else {
+                $this->addUserGroupRole($data['user_id'], $groupId, $data['group_leader'][$groupId]);
+            } else {
                 // attempt to delete row
                 $this->deleteUserGroup($data['user_id'], $groupId);
             }
@@ -84,11 +84,11 @@ EOQ;
         return true;
     }
 
-    private function addUserGroupRole($userId, $groupId, $isMember, $isGroupLeader) {
-        $userId = (int) $userId;
-        $groupId = (int) $groupId;
-        $isMember = (int) $isMember;
-        $isGroupLeader = (int) $isGroupLeader;
+    private function addUserGroupRole($userId, $groupId, $isGroupLeader)
+    {
+        $userId = (int)$userId;
+        $groupId = (int)$groupId;
+        $isGroupLeader = (int)$isGroupLeader;
 
         $sql = <<<EOQ
 SELECT
@@ -101,7 +101,7 @@ WHERE
 EOQ;
 
         $result = $this->query($sql);
-        if($result[0][0]['access_rows'] > 0) {
+        if ($result[0][0]['access_rows'] > 0) {
             $sql = <<<EOQ
 UPDATE
     phpbb_user_group
@@ -112,8 +112,7 @@ WHERE
     AND user_id = $userId;
 EOQ;
 
-        }
-        else {
+        } else {
             $sql = <<<EOQ
 INSERT INTO
     phpbb_user_group
@@ -130,8 +129,8 @@ EOQ;
 
     private function deleteUserGroup($userId, $groupId)
     {
-        $userId = (int) $userId;
-        $groupId = (int) $groupId;
+        $userId = (int)$userId;
+        $groupId = (int)$groupId;
 
         $sql = <<<EOQ
 DELETE FROM

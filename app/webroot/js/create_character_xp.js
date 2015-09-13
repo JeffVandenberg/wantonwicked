@@ -75,6 +75,18 @@ $(function() {
     $(document).on('change', '.specialty-skill-update-create', function() {
         updateSkillXP();
     });
+
+    $(document).on('click', '#submit-character-button', function(e) {
+        if ($("#character_name").val().match(/\w/g)) {
+            return true;
+        }
+        else {
+            alert('Please Enter a Character Name');
+        }
+        e.preventDefault();
+        return false;
+    });
+
     $("#xp-spent").blur(function() {
         var amount = parseInt($("#xp-spent").val());
         if(isNaN(amount)) {
@@ -286,9 +298,9 @@ function updateSkillXP() {
 
     i = 0;
     var specialties = 0;
-    while ($('#skill_spec' + i).length > 0) {
-        if (($('#skill_spec' + i ).val() != '')
-            && ($('#skill-spec' + i + '-selected').val() != 'Rote Specialty')) {
+    while ($('#skill-spec' + i + '-name').length > 0) {
+        if (($('#skill-spec' + i + '-name' ).val() != '')
+            && ($('#skill-spec' + i + '-note').val() != 'Rote Specialty')) {
             specialties++;
         }
         i++;
@@ -406,8 +418,8 @@ function updateMeritXP() {
         }
 
         i = 0;
-        while (document.getElementById('tactic' + i + '_cost')) {
-            merit_xp -= Number(document.getElementById('tactic' + i + '_cost').value);;
+        while (document.getElementById('tactic' + i + '_level')) {
+            merit_xp -= Number(document.getElementById('tactic' + i + '_level').value);
             i++;
         }
     }
@@ -652,7 +664,7 @@ function updatePrometheanXP() {
 
     i = 0;
     while (document.getElementById('bestowment' + i + '_name')) {
-        var bestowment_cost = document.getElementById('bestowment' + i + '_cost').value;
+        var bestowment_cost = document.getElementById('bestowment' + i + '_level').value;
         supernatural_xp -= Number(bestowment_cost);
         i++;
     }
@@ -1324,14 +1336,18 @@ function displayBonusDot() {
         // set bonus_attribute value
         var new_bonus;
         if (getCharacterType() == 'Vampire') {
-            new_bonus = $('#bonus_attribute_select').val();
+            var bonusSelect = $('#bonus_attribute_select');
+            new_bonus = bonusSelect.val();
+            if(new_bonus === null) {
+                new_bonus = bonusSelect.find('option:first').prop('selected', true).val();
+            }
         }
         else {
             new_bonus = getMageBonusAttribute();
             addMageBonusAttibuteText(new_bonus);
         }
 
-        $('#bonus_attribute').val(new_bonus);
+        bonus_attribute.val(new_bonus);
 
         new_bonus = new_bonus.toLowerCase();
         // add new dot
@@ -1441,15 +1457,14 @@ function addSpecialty() {
         js = " onChange=\"updateXP(" + skill + ")\" ";
     }
 
+    var list = skill_list_proper;
     if (getCharacterType() == 'Mage') {
-        newSkillCell.innerHTML = buildSelect("", skill_list_proper_mage, skill_list_proper_mage, "skill_spec" + index + "_selected", "class=\"normal_input\" " + js);
+        list = skill_list_proper_mage;
     }
-    else {
-        newSkillCell.innerHTML = buildSelect("", skill_list_proper, skill_list_proper, "skill_spec" + index + "_selected", "class=\"normal_input\" " + js);
-    }
+    newSkillCell.innerHTML = buildSelect("", list, list, "skill_spec" + index + "_note", "class=\"normal_input\" " + js);
 
     var newSpecialtyCell = newRow.insertCell(1);
-    newSpecialtyCell.innerHTML = "<input type=\"text\" name=\"skill_spec" + index + "\" id=\"skill_spec" + index + "\" class=\"normal_input\" " + js + ">";
+    newSpecialtyCell.innerHTML = "<input type=\"text\" name=\"skill_spec" + index + "_name\" id=\"skill-spec" + index + "-name\" class=\"normal_input\" " + js + ">";
     newSpecialtyCell.innerHTML += "<input type=\"hidden\" name=\"skill_spec" + index + "_id\" id=\"skill_spec" + index + "_id\" value=\"0\">";
 
 }
@@ -1482,7 +1497,7 @@ function addDevotion() {
         supernatural_xp_js = " onChange=\"updateXP(" + supernatural + ")\" ";
     }
     newCostCell.innerHTML = "<input type=\"text\" name=\"devotion" + index + "\" id=\"devotion" + index + "\" size=\"3\" maxlength=\"2\" class=\"normal_input\" " + supernatural_xp_js + ">";
-    newCostCell.innerHTML += "<input type=\"hidden\" name=\"devotion" + index + "\" id=\"devotion" + index + "\" value=\"0\" " + supernatural_xp_js + ">";
+    newCostCell.innerHTML += "<input type=\"hidden\" name=\"devotion" + index + "_id\" id=\"devotion" + index + "-id\" value=\"0\">";
 }
 
 function addGift(type) {
@@ -1849,17 +1864,8 @@ function addTactic() {
         supernatural_xp_js = " onChange=\"updateXP(" + merit + ")\" ";
     }
     newCostCell.align = "center";
-    newCostCell.innerHTML = "<input type=\"text\" name=\"tactic" + index + "_cost\" id=\"tactic" + index + "_cost\" size=\"3\" maxlength=\"2\" class=\"normal_input\" " + supernatural_xp_js + ">";
+    newCostCell.innerHTML = "<input type=\"text\" name=\"tactic" + index + "_level\" id=\"tactic" + index + "_level\" size=\"3\" maxlength=\"2\" class=\"normal_input\" " + supernatural_xp_js + ">";
     newCostCell.innerHTML += "<input type=\"hidden\" name=\"tactic" + index + "\" id=\"tactic" + index + "\" value=\"0\" " + supernatural_xp_js + ">";
-}
-
-function SubmitCharacter() {
-    if (document.character_sheet.character_name.value.match(/\w/g)) {
-        window.document.character_sheet.submit();
-    }
-    else {
-        alert('Please Enter a Character Name');
-    }
 }
 
 function setXpEdit(xp_edit) {

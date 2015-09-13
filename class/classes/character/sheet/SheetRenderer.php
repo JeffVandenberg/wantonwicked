@@ -12,8 +12,8 @@ namespace classes\character\sheet;
 abstract class SheetRenderer
 {
     protected function renderSheet(WodSheet $sheet, $show_sheet_table, $vitals_table, $information_table,
-                                 $attribute_table, $skill_table,
-                                 $traits_table, $history_table, $st_notes_table)
+                                   $attribute_table, $skill_table,
+                                   $traits_table, $history_table, $st_notes_table)
     {
         $submit_button = $this->getSubmitButton($sheet);
 
@@ -53,8 +53,8 @@ abstract class SheetRenderer
                     <td align="center">
                         <input type="hidden" name="character_id" id="character_id"
                                value="<?php echo $sheet->stats['id']; ?>">
-                        <input type="submit" name="submit" value="<?php echo $submit_value; ?>"
-                               onClick="SubmitCharacter();return false;">
+                        <input type="submit" name="submit" id='submit-character-button'
+                               value="<?php echo $submit_value; ?>">
                     </td>
                 </tr>
             </table>

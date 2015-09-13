@@ -9,7 +9,10 @@
 namespace classes\character\sheet;
 
 
+use classes\character\data\Character;
+use classes\character\data\CharacterPower;
 use classes\character\repository\CharacterPowerRepository;
+use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Configuration;
 use classes\core\helpers\FormHelper;
 use classes\core\repository\Database;
@@ -1262,7 +1265,7 @@ EOQ;
                         <?php if ($this->viewOptions['edit_skills']): ?>
                             <?php echo FormHelper::Select(
                                 ArrayTools::array_valuekeys($skill_list_proper),
-                                "skill_spec${i}_selected",
+                                "skill_spec${i}_note",
                                 $power->getPowerNote(),
                                 array(
                                     'class' => $input_class . $specialtyXpCreateModeClass,
@@ -1277,8 +1280,8 @@ EOQ;
                         <?php if ($this->viewOptions['edit_skills']): ?>
                             <label for="skill_spec<?php echo $i; ?>">
                                 <input type="text"
-                                       name="skill_spec<?php echo $i; ?>"
-                                       id="skill_spec<?php echo $i; ?>"
+                                       name="skill_spec<?php echo $i; ?>_name"
+                                       id="skill-spec<?php echo $i; ?>-name"
                                        value="<?php echo $power->getPowerName(); ?>"
                                        class="<?php echo $specialtyXpCreateModeClass; ?>"
                                     />
@@ -1973,7 +1976,7 @@ EOQ;
         return $renown_list;
     }
 
-    public function updateSheet($stats, $options)
+    public function updateSheet($stats, $options, $userdata)
     {
         if (!is_array($stats)) {
             $stats = array();
@@ -1982,5 +1985,346 @@ EOQ;
         $this->viewOptions['allow_edits'] = $this->checkEditMode();
         $this->stats = $stats;
 
+        $characterRepository = new CharacterRepository();
+        $characterRepository->startTransaction();
+        if ($characterRepository->isNameInUse($stats['character_name'], $stats['character_id'])) {
+            return 'That character name is already in use.';
+        }
+
+        // start to process
+        // attempt to process character
+        $character = $characterRepository->getById($stats['character_id']);
+        /* @var Character $character */
+
+        if ($this->viewOptions['edit_show_sheet']) {
+            $character->ShowSheet = $stats['show_sheet'];
+            $character->ViewPassword = $stats['view_password'];
+            $character->HideIcon = $stats['hide_icon'];
+        }
+        if ($this->viewOptions['edit_name']) {
+            $character->CharacterName = htmlspecialchars($stats['character_name']);
+            if (!$character->CharacterName) {
+                $character->CharacterName = 'Character ' . mt_rand(9999999, 100000000);
+            }
+        }
+        if ($this->viewOptions['edit_vitals']) {
+            $character->CharacterType = $stats['character_type'];
+            $character->City = $stats['city'];
+            $character->Age = $stats['age'];
+            $character->ApparentAge = $stats['apparent_age'];
+            $character->Sex = $stats['sex'];
+            $character->Virtue = $stats['virtue'];
+            $character->Vice = $stats['vice'];
+            $character->Splat1 = $stats['splat1'];
+            $character->Splat2 = $stats['splat2'];
+            $character->Subsplat = htmlspecialchars($stats['subsplat']);
+        }
+        if ($this->viewOptions['edit_is_npc']) {
+            $character->IsNpc = $stats['is_npc'];
+        }
+        if ($this->viewOptions['edit_is_dead']) {
+            $character->Status = $stats['status'];
+        }
+        if ($this->viewOptions['edit_concept']) {
+            $character->Concept = $stats['concept'];
+        }
+        if ($this->viewOptions['edit_description']) {
+            $character->Description = $stats['description'];
+            $character->Icon = $stats['icon'];
+        }
+        if ($this->viewOptions['edit_equipment']) {
+            $character->EquipmentPublic = $stats['equipment_public'];
+            $character->EquipmentHidden = $stats['equipment_hidden'];
+        }
+        if ($this->viewOptions['edit_public_effects']) {
+            $character->PublicEffects = $stats['public_effects'];
+        }
+        if ($this->viewOptions['edit_group']) {
+            $character->SafePlace = $stats['safe_place'];
+            $character->Friends = $stats['friends'];
+            $character->Helper = $stats['friends'];
+        }
+        if ($this->viewOptions['edit_perm_traits']) {
+            $character->PowerStat = $stats['power_trait'];
+            $character->WillpowerPerm = $stats['willpower_perm'];
+            $character->Morality = $stats['morality'];
+            $character->Size = $stats['size'];
+            $character->Speed = $stats['speed'];
+            $character->InitiativeMod = $stats['initiative_mod'];
+            $character->Defense = $stats['defense'];
+            $character->Armor = $stats['armor'];
+            $character->Health = $stats['health'];
+            $character->PowerPointsModifier = $stats['power_points_modifier'];
+            $character->BonusAttribute = $stats['bonus_attribute'];
+        }
+        if ($this->viewOptions['edit_temp_traits']) {
+            $character->PowerPoints = $stats['power_points'];
+            $character->WoundsAgg = $stats['wounds_agg'];
+            $character->WoundsLethal = $stats['wounds_lethal'];
+            $character->WoundsBashing = $stats['wounds_bashing'];
+            $character->WillpowerTemp = $stats['willpower_temp'];
+        }
+        if ($this->viewOptions['edit_history']) {
+            $character->History = htmlspecialchars($stats['history']);
+        }
+        if ($this->viewOptions['edit_powers']) {
+            $character->MiscPowers = $stats['misc_powers'];
+        }
+        if ($this->viewOptions['edit_goals']) {
+            $character->CharacterNotes = $stats['notes'];
+            $character->Goals = $stats['goals'];
+        }
+
+        if (!$character->Id) {
+            $character->UserId = $userdata['user_id'];
+            $character->UpdatedOn = date('Y-m-d H:i:s');
+        }
+
+        if ($this->viewOptions['show_st_notes']) {
+            switch ($this->viewOptions['user_type']) {
+                case 'player':
+                    // something bad has happened here
+                    break;
+                case 'asst':
+                    $character->AsstSanctioned = $stats['asst_sanctioned'];
+                    break;
+                case 'st':
+                case 'head':
+                case 'admin':
+                    $character->IsSanctioned = $stats['is_sanctioned'];
+                    break;
+            }
+            $character->UpdatedById = $userdata['user_id'];
+            $character->UpdatedOn = date('Y-m-d H:i:s');
+
+            if ($this->viewOptions['edit_experience']) {
+                if ($stats['xp_spent'] > 0) {
+                    $character->CurrentExperience -= $stats['xp_spent'];
+                }
+                if ($stats['xp_gained'] > 0) {
+                    $character->CurrentExperience += $stats['xp_gained'];
+                    $character->TotalExperience += $stats['xp_gained'];
+                    $character->BonusReceived += $stats['xp_gained'];
+                }
+            }
+
+            if ($stats['new_gm_notes']) {
+                $short_now = date('Y-m-d');
+                $newNote = <<<EOQ
+\n$stats[gm_notes]
+$stats[new_gm_notes]
+$userdata[username] on $short_now\n
+EOQ;
+                $character->GmNotes .= htmlspecialchars($newNote);
+            }
+        }
+
+        if (!$character->Description) {
+            $character->Description = 'I need a description.';
+        }
+
+        // check for bonus dot from sanctioning
+        if (($stats['is_sanctioned'] != '') && ($stats['bonus_attribute'] != '')) {
+            $this->increaseBonusAttribute($stats, $character);
+            $character->BonusAttribute = '';
+        }
+
+        $characterRepository->save($character);
+        if ($this->viewOptions['edit_attributes']) {
+            $this->saveCharacterPower('Attribute', 'attribute', $stats, $character->Id);
+        }
+        if ($this->viewOptions['edit_skills']) {
+            $this->saveCharacterPower('Skill', 'skill', $stats, $character->Id);
+            $this->saveCharacterPower('Specialty', 'skill_spec', $stats, $character->Id);
+        }
+
+        if ($this->viewOptions['edit_powers']) {
+            $this->saveCharacterPower('Merit', 'merit', $stats, $character->Id);
+            $this->saveCharacterPower('Flaw', 'flaw', $stats, $character->Id);
+            $this->saveCharacterPower('Misc', 'misc', $stats, $character->Id);
+
+            $powers = array();
+            switch ($character->CharacterType) {
+                case "Mortal":
+                    break;
+                case "Vampire":
+                case "Ghoul":
+                case "Possessed":
+                    $powers = array(
+                        'ICDisc' => 'icdisc',
+                        'OOCDisc' => 'oocdisc',
+                        'Devotion' => 'devotion'
+                    );
+                    break;
+                case "Werewolf":
+                    $powers = array(
+                        'AffGift' => 'affgift',
+                        'NonAffGift' => 'nonaffgift',
+                        'Ritual' => 'ritual'
+                    );
+
+                    $this->saveRitualsRenown($stats, $character->Id);
+                    break;
+                case "Mage":
+                    $powers = array(
+                        'RulingArcana' => 'rulingarcana',
+                        'CommonArcana' => 'commonarcana',
+                        'InferiorArcana' => 'inferiorarcana',
+                        'Rote' => 'rote'
+                    );
+                    break;
+                case "Psychic":
+                    $powers = array(
+                        'PsychicMerit' => 'psychicmerit'
+                    );
+                    break;
+                case "Thaumaturge":
+                    $powers = array(
+                        'ThaumaturgeMerit' => 'thaumaturgemerit'
+                    );
+                    break;
+                case "Promethean":
+                    $powers = array(
+                        'Bestowment' => 'bestowment',
+                        'AffTrans' => 'afftrans',
+                        'NonAffTrans' => 'nonafftrans',
+                    );
+                    break;
+                case "Changeling":
+                    $powers = array(
+                        'AffContract' => 'affcont',
+                        'NonAffContract' => 'nonaffcont',
+                        'GoblinContract' => 'gobcont'
+                    );
+                    break;
+                case "Hunter":
+                    $powers = array(
+                        'Endowment' => 'endowment',
+                        'Tactics' => 'tactic'
+                    );
+                    break;
+                case "Geist":
+                    $powers = array(
+                        'Key' => 'key',
+                        'Manifestation' => 'manifestation',
+                        'Ceremonies' => 'ceremony'
+                    );
+                    break;
+                case "Purified":
+                    $powers = array(
+                        'Numina' => 'numina',
+                        'Siddhi' => 'siddhi',
+                        'NonAffTrans' => 'nonafftrans',
+                    );
+                    break;
+                case "Changing Breed":
+                    $powers = array(
+                        'AffGift' => 'affgift',
+                        'Aspect' => 'aspect',
+                    );
+                    $this->saveRitualsRenown($stats, $character->Id);
+                    break;
+                default:
+                    // do  nothing
+            }
+
+            foreach ($powers as $key => $value) {
+                $this->saveCharacterPower($key, $value, $stats, $character->Id);
+            }
+
+        }
+
+        $characterRepository->commitTransaction();
+        return '';
+    }
+
+    private function increaseBonusAttribute(&$stats, Character $character)
+    {
+        for ($i = 0; $i < 9; $i++) {
+            if (strtolower($stats['attribute' . $i . '_name']) == strtolower($character->BonusAttribute)) {
+                $stats['attribute' . $i]++;
+                break;
+            }
+        }
+    }
+
+    private function saveCharacterPower($powerType, $fieldName, $stats, $characterId)
+    {
+        $i = 0;
+        while (isset($stats["${fieldName}${i}_name"])) {
+            $name = htmlspecialchars($stats["${fieldName}${i}_name"]);
+            $note = htmlspecialchars($stats["${fieldName}${i}_note"]);
+            $id = (int)$stats["${fieldName}${i}_id"];
+            $level = (int)$stats["${fieldName}$i"];
+
+            $characterPowerRepository = RepositoryManager::GetRepository('classes\character\data\CharacterPower');
+            /* @var CharacterPowerRepository $characterPowerRepository */
+
+            if ($name != "") {
+                if ($id) {
+                    $characterPower = $characterPowerRepository->getById($id);
+                } else {
+                    $characterPower = new CharacterPower();
+                }
+
+                $characterPower->CharacterId = $characterId;
+                $characterPower->PowerType = $powerType;
+                $characterPower->PowerName = $name;
+                $characterPower->PowerNote = $note;
+                $characterPower->PowerLevel = $level;
+                $characterPower->Id = $id;
+                $characterPowerRepository->save($characterPower);
+            } else {
+                // check to see if we delete
+                if ($id) {
+                    $characterPowerRepository->delete($id);
+                }
+            }
+            $i++;
+        }
+    }
+
+    private function saveRitualsRenown($stats, $characterId)
+    {
+        $renowns = array("purity", "glory", "honor", "wisdom", "cunning");
+        $characterPowerRepository = RepositoryManager::GetRepository('classes\character\data\CharacterPower');
+        /* @var CharacterPowerRepository $characterPowerRepository */
+
+        for ($i = 0; $i < 5; $i++) {
+            $renownName = $renowns[$i];
+            $renownLevel = $stats[$renowns[$i]] + 0;
+            $renownId = $stats[$renowns[$i] . "_id"] + 0;
+
+            if ($renownId) {
+                // update
+                $characterPower = $characterPowerRepository->getById($renownId);
+                /* @var CharacterPower $characterPower */
+                $characterPower->PowerLevel = $renownLevel;
+            } else {
+                $characterPower = new CharacterPower();
+                $characterPower->PowerType = 'Renown';
+                $characterPower->PowerName = $renownName;
+                $characterPower->PowerLevel = $renownLevel;
+                $characterPower->CharacterId = $characterId;
+            }
+
+            $characterPowerRepository->save($characterPower);
+        }
+
+        $ritualsId = $stats["rituals_id"] + 0;
+        $ritualLevel = $stats["rituals"] + 0;
+        if ($ritualsId) {
+            $characterPower = $characterPowerRepository->getById($ritualsId);
+            /* @var CharacterPower $characterPower */
+            $characterPower->PowerLevel = $ritualLevel;
+        } else {
+            $characterPower = new CharacterPower();
+            $characterPower->PowerType = 'Rituals';
+            $characterPower->PowerName = 'Rituals';
+            $characterPower->PowerLevel = $ritualLevel;
+            $characterPower->CharacterId = $characterId;
+        }
+
+        $characterPowerRepository->save($characterPower);
     }
 }

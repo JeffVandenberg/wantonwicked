@@ -294,8 +294,8 @@ class Hunter extends SheetRenderer
                     </td>
                     <td>
                         <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="tactic<?php echo $i; ?>_cost"></label>
-                            <input type="text" name="tactic<?php echo $i; ?>_cost" id="tactic<?php echo $i; ?>_cost"
+                            <label for="tactic<?php echo $i; ?>_level"></label>
+                            <input type="text" name="tactic<?php echo $i; ?>_level" id="tactic<?php echo $i; ?>_level"
                                    size="3" value="<?php echo $power->getPowerLevel(); ?>" <?php echo $supernatural_xp_js; ?> >
                         <?php else: ?>
                             <?php echo $power->getPowerLevel(); ?>

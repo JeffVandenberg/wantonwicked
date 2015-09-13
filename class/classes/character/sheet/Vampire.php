@@ -334,22 +334,24 @@ class Vampire extends SheetRenderer
                 <tr>
                     <td>
                         <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="devotion<?php echo $i; ?>_name"></label><input type="text"
-                                                                                       name="devotion<?php echo $i; ?>_name"
-                                                                                       id="devotion<?php echo $i; ?>_name"
-                                                                                       size="15"
-                                                                                       value="<?php echo $power->getPowerName(); ?>">
+                            <label for="devotion<?php echo $i; ?>_name"></label>
+                            <input type="text"
+                                   name="devotion<?php echo $i; ?>_name"
+                                   id="devotion<?php echo $i; ?>_name"
+                                   size="15"
+                                   value="<?php echo $power->getPowerName(); ?>">
                         <?php else: ?>
                             <?php echo $power->getPowerName(); ?>
                         <?php endif; ?>
                     </td>
                     <td>
                         <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="devotion<?php echo $i; ?>"></label><input type="text"
-                                                                                  name="devotion<?php echo $i; ?>"
-                                                                                  id="devotion<?php echo $i; ?>" size="3"
-                                                                                  maxlength="2"
-                                                                                  value="<?php echo $level; ?>" <?php echo $supernatural_xp_js; ?>>
+                            <label for="devotion<?php echo $i; ?>"></label>
+                            <input type="text"
+                                   name="devotion<?php echo $i; ?>"
+                                   id="devotion<?php echo $i; ?>" size="3"
+                                   maxlength="2"
+                                   value="<?php echo $level; ?>" <?php echo $supernatural_xp_js; ?>>
                         <?php else: ?>
                             <?php echo $level; ?>
                         <?php endif; ?>
