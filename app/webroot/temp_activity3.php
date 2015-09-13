@@ -1,4 +1,4 @@
-<?
+<?php
 include 'cgi-bin/dbconnect.php';
 
 $query = <<<EOQ
@@ -24,4 +24,3 @@ while($detail = mysql_fetch_array($result))
 {
   echo "$detail[City] : $detail[Character_Type] : $detail[Splat2] : $detail[Num_of_Characters]<br>";
 }
-?>

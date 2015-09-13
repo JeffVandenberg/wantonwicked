@@ -105,5 +105,5 @@ ob_start();
     <div>
         <?php echo $character_sheet; ?>
     </div>
-<?
+<?php
 $page_content = ob_get_clean();

@@ -47,16 +47,8 @@ include 'menu_bar.php';
 if (isset($_GET['action'])) {
     //echo $_GET['action']."<br>";
     switch ($_GET['action']) {
-        case 'create':
-            // Obsolete -MarcD 6th Oct 2009
-            //include 'includes/view_sheet_create.php';
-            include 'includes/index_redirect.php';
-            break;
         case 'create_xp':
             include 'includes/view_sheet_create_xp.php';
-            break;
-        case 'create_xp2':
-            include 'includes/view_sheet_create_xp2.php';
             break;
         case 'get':
             include 'includes/view_sheet_get.php';

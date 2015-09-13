@@ -1,4 +1,4 @@
-<?
+<?php
 use classes\core\helpers\UserdataHelper;
 
 include 'cgi-bin/start_of_page.php';
@@ -152,5 +152,3 @@ $template->set_filenames(array(
 		'body' => 'templates/blank_layout.tpl')
 );
 $template->pparse('body');
-
-?>

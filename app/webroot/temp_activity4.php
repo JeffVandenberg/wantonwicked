@@ -1,4 +1,4 @@
-<?
+<?php
 include 'cgi-bin/dbconnect.php';
 
 $startDate = date('Y-m-d', strtotime('+1 days'));
@@ -56,5 +56,3 @@ EOQ;
 
 	echo "<br /><br />";
 }
-
-
