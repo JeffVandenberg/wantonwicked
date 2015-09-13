@@ -4,8 +4,6 @@ use classes\core\helpers\UserdataHelper;
 
 
 include 'cgi-bin/start_of_page.php';
-include 'cgi-bin/makeDotsXP.php';
-include 'cgi-bin/updateWoDSheetXP.php';
 
 // perform required includes
 define('IN_PHPBB', true);
@@ -59,13 +57,6 @@ if (isset($_GET['action'])) {
             break;
         case 'create_xp2':
             include 'includes/view_sheet_create_xp2.php';
-            break;
-        case 'get_fragment':
-            $template_name = 'empty_template.tpl';
-            include 'includes/view_sheet_get_fragment.php';
-            break;
-        case 'fragment':
-            include 'includes/view_sheet_fragment.php';
             break;
         case 'get':
             include 'includes/view_sheet_get.php';
