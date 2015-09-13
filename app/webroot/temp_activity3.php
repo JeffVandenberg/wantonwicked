@@ -1,5 +1,7 @@
 <?php
-include 'cgi-bin/dbconnect.php';
+use classes\core\repository\Database;
+
+include 'cgi-bin/start_of_page.php';
 
 $query = <<<EOQ
 select 
@@ -18,9 +20,6 @@ group by
 	character_type, 
 	Splat2
 EOQ;
-$result = mysql_query($query) || die(mysql_error());
-
-while($detail = mysql_fetch_array($result))
-{
+foreach(Database::getInstance()->query($query)->all() as $detail) {
   echo "$detail[City] : $detail[Character_Type] : $detail[Splat2] : $detail[Num_of_Characters]<br>";
 }

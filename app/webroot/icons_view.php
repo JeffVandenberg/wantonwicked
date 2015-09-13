@@ -1,12 +1,14 @@
 <?php
+use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
+use classes\core\repository\Database;
 
 include 'cgi-bin/start_of_page.php';
 // perform required includes
 define('IN_PHPBB', true);
 $phpbb_root_path = './forum/';
 include($phpbb_root_path . 'extension.inc');
-include($phpbb_root_path . 'common.'.$phpEx);
+include($phpbb_root_path . 'common.' . $phpEx);
 
 //
 // Start session management
@@ -17,9 +19,8 @@ init_userprefs($userdata);
 // End session management
 //
 
-if(!UserdataHelper::IsHead($userdata))
-{
-	die();
+if (!UserdataHelper::IsHead($userdata)) {
+    Response::redirect('/', 'You may not view icons');
 }
 
 // check page actions
@@ -46,25 +47,23 @@ $gm_viewable_check = "";
 $admin_viewable_check = "";
 
 $id = 0;
-$id = (isset($_POST['id'])) ? $_POST['id'] +0 : $id;
-$id = (isset($_GET['id'])) ? $_GET['id'] +0 : $id;
+$id = (isset($_POST['id'])) ? $_POST['id'] + 0 : $id;
+$id = (isset($_GET['id'])) ? $_GET['id'] + 0 : $id;
 
 // test if submitting values
-if(isset($_POST['icon_name']) && isset($_POST['icon_id']) && (UserdataHelper::IsHead($userdata)))
-{
-	// set variables
-  $icon_name = htmlspecialchars($_POST['icon_name']);
-  $icon_id = (!empty($_POST['icon_id'])) ? $_POST['icon_id'] +0 : 0;
-  $player_viewable = (isset($_POST['player_viewable'])) ? "Y" : "N";
-  $gm_viewable = (isset($_POST['gm_viewable'])) ? "Y" : "N";
-  $admin_viewable = (isset($_POST['admin_viewable'])) ? "Y" : "N";
-  
-	$icon_query = "update icons set icon_name='$icon_name', icon_id=$icon_id, player_viewable='$player_viewable', gm_viewable='$gm_viewable', admin_viewable='$admin_viewable' where id=$id;";
-	//echo "$icon_query<br>";
-	$icon_result = mysql_query($icon_query) || die(mysql_error());
-		
-	// add js
-	$java_script = <<<EOQ
+if (isset($_POST['icon_name']) && isset($_POST['icon_id']) && (UserdataHelper::IsHead($userdata))) {
+    // set variables
+    $icon_name = htmlspecialchars($_POST['icon_name']);
+    $icon_id = (!empty($_POST['icon_id'])) ? $_POST['icon_id'] + 0 : 0;
+    $player_viewable = (isset($_POST['player_viewable'])) ? "Y" : "N";
+    $gm_viewable = (isset($_POST['gm_viewable'])) ? "Y" : "N";
+    $admin_viewable = (isset($_POST['admin_viewable'])) ? "Y" : "N";
+
+    $icon_query = "update icons set icon_name='$icon_name', icon_id=$icon_id, player_viewable='$player_viewable', gm_viewable='$gm_viewable', admin_viewable='$admin_viewable' where id=$id;";
+    Database::getInstance()->query($icon_query)->execute();
+
+    // add js
+    $java_script = <<<EOQ
 <script language="JavaScript">
 window.opener.location.reload();
 window.opener.focus();
@@ -76,16 +75,14 @@ EOQ;
 
 // get details
 $icon_query = "select * from icons where id = $id;";
-$icon_result = mysql_query($icon_query) || die(mysql_error());
+$icon_detail = Database::getInstance()->query($icon_query)->single();
 
-if(mysql_num_rows($icon_result))
-{
-	$icon_detail = mysql_fetch_array($icon_result, MYSQL_ASSOC);
-	$player_viewable_check = ($icon_detail['Player_Viewable'] == 'Y') ? "checked" : "";
-	$gm_viewable_check = ($icon_detail['GM_Viewable'] == 'Y') ? "checked" : "";
-	$admin_viewable_check = ($icon_detail['Admin_Viewable'] == 'Y') ? "checked" : "";
-	
-	$contents = <<<EOQ
+if ($icon_detail) {
+    $player_viewable_check = ($icon_detail['Player_Viewable'] == 'Y') ? "checked" : "";
+    $gm_viewable_check = ($icon_detail['GM_Viewable'] == 'Y') ? "checked" : "";
+    $admin_viewable_check = ($icon_detail['Admin_Viewable'] == 'Y') ? "checked" : "";
+
+    $contents = <<<EOQ
 <form method="post" action="$_SERVER[PHP_SELF]">
 <table border="0" cellspacing="2" cellpadding="2" class="normal_text">
   <tr>
@@ -146,19 +143,18 @@ $contents
 EOQ;
 
 $template->assign_vars(array(
-"PAGE_TITLE" => $page_title,
-"CSS_URL" => $css_url, 
-"JAVA_SCRIPT" => $java_script,
-"USER_PANEL" => $user_panel, 
-"MENU_BAR" => $menu_bar, 
-"TOP_IMAGE" => $page_content_image, 
-"PAGE_CONTENT" => $page_content
-)
+        "PAGE_TITLE" => $page_title,
+        "CSS_URL" => $css_url,
+        "JAVA_SCRIPT" => $java_script,
+        "USER_PANEL" => $user_panel,
+        "MENU_BAR" => $menu_bar,
+        "PAGE_CONTENT" => $page_content
+    )
 );
 
 
 // initialize template
 $template->set_filenames(array(
-		'body' => 'templates/blank_layout.tpl')
+        'body' => 'templates/blank_layout.tpl')
 );
 $template->pparse('body');

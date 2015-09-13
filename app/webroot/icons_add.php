@@ -1,12 +1,15 @@
 <?php
+use classes\core\helpers\Request;
+use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
+use classes\core\repository\Database;
 
 include 'cgi-bin/start_of_page.php';
 // perform required includes
 define('IN_PHPBB', true);
 $phpbb_root_path = './forum/';
 include($phpbb_root_path . 'extension.inc');
-include($phpbb_root_path . 'common.'.$phpEx);
+include($phpbb_root_path . 'common.' . $phpEx);
 
 //
 // Start session management
@@ -17,9 +20,9 @@ init_userprefs($userdata);
 // End session management
 //
 
-if(!UserdataHelper::IsHead($userdata));
+if (!UserdataHelper::IsHead($userdata)) ;
 {
-	die();
+    Response::redirect('/', 'You may not assign icons.');
 }
 
 // check page actions
@@ -53,21 +56,19 @@ $letters_moderator = "N";
 $letters_moderator_check = "";
 
 // test if submitting values
-if(isset($_POST['icon_name']) && isset($_POST['icon_id']) && (UserdataHelper::IsHead($userdata)))
-{
-	// set variables
-  $icon_name = htmlspecialchars($_POST['icon_name']);
-  $icon_id = (!empty($_POST['icon_id'])) ? $_POST['icon_id'] +0 : 0;
-  $player_viewable = (isset($_POST['player_viewable'])) ? "Y" : "N";
-  $gm_viewable = (isset($_POST['gm_viewable'])) ? "Y" : "N";
-  $admin_viewable = (isset($_POST['admin_viewable'])) ? "Y" : "N";
-  
-	$icon_query = "insert into icons values (null, '$icon_name', $icon_id, $userdata[site_id], '$player_viewable', '$gm_viewable', '$admin_viewable');";
-	//echo "$icon_query<br>";
-	$icon_result = mysql_query($icon_query) || die(mysql_error());
-		
-	// add js
-	$java_script = <<<EOQ
+if (isset($_POST['icon_name']) && isset($_POST['icon_id']) && (UserdataHelper::IsHead($userdata))) {
+    // set variables
+    $icon_name = htmlspecialchars($_POST['icon_name']);
+    $icon_id = (!empty($_POST['icon_id'])) ? $_POST['icon_id'] + 0 : 0;
+    $player_viewable = (isset($_POST['player_viewable'])) ? "Y" : "N";
+    $gm_viewable = (isset($_POST['gm_viewable'])) ? "Y" : "N";
+    $admin_viewable = (isset($_POST['admin_viewable'])) ? "Y" : "N";
+
+    $icon_query = "insert into icons values (null, '$icon_name', $icon_id, $userdata[site_id], '$player_viewable', '$gm_viewable', '$admin_viewable');";
+    $icon_result = Database::getInstance()->query($icon_query)->execute();
+
+    // add js
+    $java_script = <<<EOQ
 <script language="JavaScript">
 window.opener.location.reload();
 window.opener.focus();
@@ -136,19 +137,19 @@ $contents
 EOQ;
 
 $template->assign_vars(array(
-"PAGE_TITLE" => $page_title,
-"CSS_URL" => $css_url, 
-"JAVA_SCRIPT" => $java_script,
-"USER_PANEL" => $user_panel, 
-"MENU_BAR" => $menu_bar, 
-"TOP_IMAGE" => $page_content_image, 
-"PAGE_CONTENT" => $page_content
-)
+        "PAGE_TITLE" => $page_title,
+        "CSS_URL" => $css_url,
+        "JAVA_SCRIPT" => $java_script,
+        "USER_PANEL" => $user_panel,
+        "MENU_BAR" => $menu_bar,
+        "TOP_IMAGE" => $page_content_image,
+        "PAGE_CONTENT" => $page_content
+    )
 );
 
 
 // initialize template
 $template->set_filenames(array(
-		'body' => 'templates/blank_layout.tpl')
+        'body' => 'templates/blank_layout.tpl')
 );
 $template->pparse('body');

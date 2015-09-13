@@ -1,10 +1,10 @@
 <?php
-include 'cgi-bin/dbconnect.php';
+use classes\core\repository\Database;
 
-$query = "select City, Character_Type, Splat1, count(character_id) as Num_of_Characters from characters where is_sanctioned='y' and is_npc='n' and is_deleted='n' group by city, character_type, Splat1";
-$result = mysql_query($query) || die(mysql_error());
+include 'cgi-bin/start_of_page.php';
 
-while($detail = mysql_fetch_array($result))
-{
-  echo "$detail[City] : $detail[Character_Type] : $detail[Splat1] : $detail[Num_of_Characters]<br>";
+$query = "SELECT City, Character_Type, Splat1, count(character_id) AS Num_of_Characters FROM characters WHERE is_sanctioned='y' AND is_npc='n' AND is_deleted='n' GROUP BY city, character_type, Splat1";
+
+foreach (Database::getInstance()->query($query)->all() as $detail) {
+    echo "$detail[City] : $detail[Character_Type] : $detail[Splat1] : $detail[Num_of_Characters]<br>";
 }

@@ -1,5 +1,7 @@
 <?php
-include 'cgi-bin/dbconnect.php';
+use classes\core\repository\Database;
+
+include 'cgi-bin/start_of_page.php';
 
 $startDate = date('Y-m-d', strtotime('+1 days'));
 
@@ -47,10 +49,7 @@ GROUP BY
 ORDER BY 
 	logins DESC
 EOQ;
-	$result = mysql_query($query) || die(mysql_error());
-
-	while($detail = mysql_fetch_array($result))
-	{
+	foreach(Database::getInstance()->query($query)->all() as $detail) {
 		echo "$detail[character_type] : $detail[logins] : " . $detail['percentage'] * 100 . "%<br>";
 	}
 

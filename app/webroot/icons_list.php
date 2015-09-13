@@ -1,12 +1,14 @@
 <?php
+use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
+use classes\core\repository\Database;
 
 include 'cgi-bin/start_of_page.php';
 // perform required includes
 define('IN_PHPBB', true);
 $phpbb_root_path = './forum/';
 include($phpbb_root_path . 'extension.inc');
-include($phpbb_root_path . 'common.'.$phpEx);
+include($phpbb_root_path . 'common.' . $phpEx);
 
 //
 // Start session management
@@ -17,9 +19,8 @@ init_userprefs($userdata);
 // End session management
 //
 
-if(!UserdataHelper::IsHead($userdata))
-{
-	die();
+if (!UserdataHelper::IsHead($userdata)) {
+    Response::redirect('/', 'You may not view icons');
 }
 
 // check page actions
@@ -34,19 +35,14 @@ include 'user_panel.php';
 include 'menu_bar.php';
 
 // test if updating/delete
-if(isset($_POST['action']))
-{
-	if($_POST['action'] == 'update')
-	{
-		$skill_list = $_POST['delete'];
-		while(list($key, $value) = each($skill_list))
-		{
-			//echo "delete: $key: $value<br>";
-			$delete_query = "delete from icons where id=$value;";
-			//echo $delete_query."<br>";
-			$delete_result = mysql_query($delete_query);
-		}
-	}
+if (isset($_POST['action'])) {
+    if ($_POST['action'] == 'update') {
+        $skill_list = $_POST['delete'];
+        while (list($key, $value) = each($skill_list)) {
+            $delete_query = "delete from icons where id=$value;";
+            Database::getInstance()->query($delete_query)->execute();
+        }
+    }
 }
 
 $page_content = <<<EOQ
@@ -84,15 +80,12 @@ function submitForm ( )
   </tr>
 EOQ;
 
-$icon_query = "select * from icons where site_id = $userdata[site_id] order by Icon_Name";
-$icon_result = mysql_query($icon_query) || die(mysql_error());;
+$icon_query = "select * from icons order by Icon_Name";
 
 $row = 0;
-while ($icon = mysql_fetch_array($icon_result, MYSQL_ASSOC))
-{
-	$row_color = (($row++)%2) ? "#443a33" : "";
-	$page_content .= <<<EOQ
-	<tr bgcolor="$row_color">
+foreach (Database::getInstance()->query($icon_query)->all() as $icon) {
+    $page_content .= <<<EOQ
+	<tr>
 	  <th>
 	    <input type="checkbox" name="delete[]" id="delete[]" value="$icon[ID]">
 	  <td>
@@ -117,19 +110,18 @@ EOQ;
 $page_content .= "</table></form>";
 
 $template->assign_vars(array(
-"PAGE_TITLE" => $page_title,
-"CSS_URL" => $css_url, 
-"JAVA_SCRIPT" => $java_script,
-"USER_PANEL" => $user_panel, 
-"MENU_BAR" => $menu_bar, 
-"TOP_IMAGE" => $page_content_image, 
-"PAGE_CONTENT" => $page_content
-)
+        "PAGE_TITLE" => $page_title,
+        "CSS_URL" => $css_url,
+        "JAVA_SCRIPT" => $java_script,
+        "USER_PANEL" => $user_panel,
+        "MENU_BAR" => $menu_bar,
+        "PAGE_CONTENT" => $page_content
+    )
 );
 
 
 // initialize template
 $template->set_filenames(array(
-		'body' => 'templates/main_layout.tpl')
+        'body' => 'templates/main_layout.tpl')
 );
 $template->pparse('body');
