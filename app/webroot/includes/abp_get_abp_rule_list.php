@@ -1,5 +1,6 @@
 <?php
 use classes\abp\Rules;
+use classes\core\repository\Database;
 
 $sql = <<<EOQ
 SELECT
@@ -14,9 +15,9 @@ ORDER BY
 	rule_name
 EOQ;
 
-$result = ExecuteQuery($sql);
+$rules = Database::getInstance()->query($sql)->all();
 
-$ruleList .= Rules::CreateRuleList($result);
+$ruleList .= Rules::CreateRuleList($rules);
 
 echo <<<EOQ
 $ruleList
@@ -41,4 +42,3 @@ $ruleList
 	});
 </script>
 EOQ;
-?>

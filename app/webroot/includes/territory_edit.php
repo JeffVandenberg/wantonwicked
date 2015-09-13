@@ -1,4 +1,5 @@
 <?php
+use classes\core\repository\Database;
 use classes\territory\Territory;
 
 $id = (isset($_GET['id'])) ? $_GET['id'] + 0 : 0;
@@ -11,16 +12,17 @@ FROM
 	territories as T
 	LEFT JOIN characters AS C on T.character_id = C.character_id
 WHERE
-	T.id = $id
+	T.id = ?
 	AND T.is_active = 1
 EOQ;
 
-$result = ExecuteQuery($sql);
+$params = array(
+	$id
+);
+$detail = Database::getInstance()->query($sql)->single($params);
 
-if(mysql_num_rows($result))
+if($detail)
 {
-	$detail = mysql_fetch_array($result, MYSQL_ASSOC);
-	
 	$page_title = "Territory: " . $detail['territory_name'];
 	$territoryName = $detail['territory_name'];
 	$characterId = $detail['character_id'];
@@ -198,4 +200,3 @@ else
 	$page_title = "Unknown Territory";
 	$page_content = "Unknown Territory";
 }
-?>

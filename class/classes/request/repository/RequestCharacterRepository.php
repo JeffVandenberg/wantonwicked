@@ -76,8 +76,11 @@ SET
 WHERE
     id = $id
 EOQ;
-
-        return ExecuteQuery($sql);
+        $params = array(
+            $isApproved,
+            $id
+        );
+        return $this->query($sql)->execute($params);
     }
 
     public function FindLinkedCharacterForUser($requestId, $userId)

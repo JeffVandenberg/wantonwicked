@@ -45,10 +45,16 @@ EOQ;
 		$attempts = 0;
 		$security = 0;
 		$survival = 0;
-		
-		$result = ExecuteQuery($sql);
-		
-		while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
+
+		$params = array(
+			$characterId,
+			$this->territoryId,
+			$twelveWeeksAgo
+		);
+
+		$detail = Database::getInstance()->query($sql)->single($params);
+
+		if($detail)
 		{
 			$attempts = $detail['poaching_attempts'];
 			$security = $detail['security'];
@@ -70,17 +76,16 @@ SELECT
 FROM
 	territories 
 WHERE
-	id = $this->territoryId;
+	id = ?;
 EOQ;
+		$params = array($this->territoryId);
+		$rows = Database::getInstance()->query($sql)->all($params);
 
-		$result = ExecuteQuery($sql);
-		
-		while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
-		{
-			$poachingCharacterSql = "SELECT character_name FROM characters WHERE character_id = $characterId;";
-			$poachingCharacterResult = ExecuteQuery($poachingCharacterSql);
-			$poachingCharacter = mysql_fetch_array($poachingCharacterResult, MYSQL_ASSOC);
-			
+		foreach($rows as $detail) {
+			$poachingCharacterSql = "SELECT character_name FROM characters WHERE id = ?;";
+			$params = array($characterId);
+			$poachingCharacter = Database::getInstance()->query($poachingCharacterSql)->single($params);
+
 			$characterName = addslashes($poachingCharacter['character_name']);
 			$territoryName = addslashes($detail['territory_name']);
 			$noteSql = <<<EOQ
@@ -123,7 +128,6 @@ ORDER BY
 	C.character_name,
 	T.territory_name
 EOQ;
-
-		return ExecuteQuery($sql);
+		return Database::getInstance()->query($sql)->All();
 	}
 }

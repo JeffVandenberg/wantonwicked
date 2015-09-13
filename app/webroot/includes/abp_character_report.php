@@ -2,13 +2,7 @@
 include_once 'includes/classes/tenacy/domain.php';
 
 $domain = new Domain();
-$charactersResult = $domain->GetCharactersInDomains();
-
-$reportData = array();
-while($characterDetail = mysql_fetch_array($charactersResult, MYSQL_ASSOC))
-{
-	$reportData[] = $characterDetail;
-}
+$reportData = $domain->GetCharactersInDomains();
 
 $page_title = "Character Domain Report";
 

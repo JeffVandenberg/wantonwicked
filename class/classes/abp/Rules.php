@@ -11,12 +11,8 @@ namespace classes\abp;
 
 class Rules
 {
-    public static function CreateRuleList($ruleResult, $mayManage = true)
+    public static function CreateRuleList($rules, $mayManage = true)
     {
-        if ($ruleResult === null) {
-            return "No rules.";
-        }
-
         $ruleList = "";
         $ruleList .= <<<EOQ
 <div class="tableRowHeader" style="width:752px;">
@@ -44,9 +40,10 @@ class Rules
 </div>
 EOQ;
 
-        $row = 0;
-        if (mysql_num_rows($ruleResult)) {
-            while ($ruleDetail = mysql_fetch_array($ruleResult, MYSQL_ASSOC)) {
+        if (count($rules) > 0) {
+            $row = 0;
+
+            foreach ($rules as $ruleDetail) {
                 $rowAlt = (($row++) % 2) ? "Alt" : "";
 
                 $powerNote = ($ruleDetail['power_note'] != '') ? $ruleDetail['power_note'] : "&nbsp;";

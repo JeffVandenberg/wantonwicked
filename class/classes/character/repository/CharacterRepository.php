@@ -415,6 +415,6 @@ EOQ;
             $character_id
         );
 
-        return ($this->Query($sql)->Value($params) > 0);
+        return ($this->query($sql)->value($params) > 0);
     }
 }

@@ -60,7 +60,7 @@ $permissions = array(
             echo 'Give ' . $permissions[$column] . ' permission to user.<br />';
             $sql = 'INSERT INTO permissions_users VALUES (?, ?)';
             $params = array($row['ID'], $permissions[$column]);
-            Database::GetInstance()->Query($sql)->Execute($params);
+            Database::GetInstance()->query($sql)->execute($params);
         }
     }
 }*/

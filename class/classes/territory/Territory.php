@@ -9,18 +9,14 @@
 namespace classes\territory;
 
 
+use classes\core\repository\Database;
+
 class Territory
 {
-    public static function CreateTerritoryList($territoryResult, $mayEdit = false)
+    public static function CreateTerritoryList($territories, $mayEdit = false)
     {
-        if($territoryResult === null)
-        {
-            return "No territories.";
-        }
-
         $territoryList = "";
-        if($mayEdit)
-        {
+        if ($mayEdit) {
             $territoryList .= <<<EOQ
 <div class="paragraph">
 	<a href="#" onclick="return createTerritory();">Create Territory</a>
@@ -64,11 +60,9 @@ EOQ;
 EOQ;
 
         $row = 0;
-        if(mysql_num_rows($territoryResult))
-        {
-            while($territoryDetail = mysql_fetch_array($territoryResult, MYSQL_ASSOC))
-            {
-                $rowAlt = (($row++)%2) ? "Alt" : "";
+        if (count($territories)) {
+            foreach ($territories as $territoryDetail) {
+                $rowAlt = (($row++) % 2) ? "Alt" : "";
 
                 $territoryList .= <<<EOQ
 <div class="tableRow$rowAlt" style="clear:both;width:770px;" id="territoryRow$territoryDetail[id]">
@@ -106,9 +100,7 @@ EOQ;
 </div>
 EOQ;
             }
-        }
-        else
-        {
+        } else {
             $territoryList .= <<<EOQ
 <div style="clear:both;">
 	No territories defined.
@@ -119,13 +111,8 @@ EOQ;
         return $territoryList;
     }
 
-    public static function CreateTerritoryListPublic($territoryResult, $characterId)
+    public static function CreateTerritoryListPublic($territories, $characterId)
     {
-        if($territoryResult == null)
-        {
-            return "No territories.";
-        }
-
         $territoryList = <<<EOQ
 <div class="tableRowHeader" style="width:672px;">
 	<div class="tableRowHeaderCell firstCell cell" style="width:180px;">
@@ -153,48 +140,36 @@ EOQ;
 EOQ;
 
         $row = 0;
-        if(mysql_num_rows($territoryResult))
-        {
-            while($territoryDetail = mysql_fetch_array($territoryResult, MYSQL_ASSOC))
-            {
-                $rowAlt = (($row++)%2) ? "Alt" : "";
+        if (count($territories)) {
+			foreach($territories as $territoryDetail) {
+                $rowAlt = (($row++) % 2) ? "Alt" : "";
 
                 $isOpen = $territoryDetail['is_open'] ? 'Yes' : 'No';
 
                 $links = "";
 
-                if($characterId == $territoryDetail['character_id'])
-                {
+                if ($characterId == $territoryDetail['character_id']) {
                     $links .= <<<EOQ
  <a href="/territory.php?action=manage&id=$territoryDetail[id]&character_id=$characterId">Manage</a>
 EOQ;
                 }
 
-                if(!$territoryDetail['in_territory'])
-                {
-                    if($territoryDetail['is_open'])
-                    {
+                if (!$territoryDetail['in_territory']) {
+                    if ($territoryDetail['is_open']) {
                         $links .= <<<EOQ
  <a href="#" onclick="return feedFromTerritory($territoryDetail[id], $characterId, '$territoryDetail[territory_name]', this);">Feed</a>
 EOQ;
-                    }
-                    else
-                    {
+                    } else {
                         $links .= <<<EOQ
  <a href="#" onclick="return poachTerritory($territoryDetail[id], $characterId, '$territoryDetail[territory_name]', this);">Poach</a>
 EOQ;
                     }
-                }
-                else
-                {
-                    if(!$territoryDetail['is_poaching'])
-                    {
+                } else {
+                    if (!$territoryDetail['is_poaching']) {
                         $links .= <<<EOQ
 <a href="#" onclick="return leaveTerritory($territoryDetail[character_territory_id], $territoryDetail[id], '$territoryDetail[territory_name]', this);">Leave</a>
 EOQ;
-                    }
-                    else
-                    {
+                    } else {
                         $links .= "&nbsp;";
                     }
                 }
@@ -225,9 +200,7 @@ EOQ;
 </div>
 EOQ;
             }
-        }
-        else
-        {
+        } else {
             $territoryList .= <<<EOQ
 <div style="clear:both;">
 	No territories defined.
@@ -240,8 +213,7 @@ EOQ;
 
     public static function CreateTerritoryAssociatedCharacters($id, $mayEdit = false, $showPoachers = true)
     {
-        if(!$id)
-        {
+        if (!$id) {
             return "None";
         }
 
@@ -256,7 +228,7 @@ FROM
 	characters_territories as CT
 	LEFT JOIN characters as C ON CT.character_id = C.character_id
 WHERE
-	CT.territory_id = $id
+	CT.territory_id = ?
 	AND CT.is_active = 1
 	AND (CT.updated_on IS NULL OR CT.updated_on > NOW())
 	AND C.is_sanctioned = 'Y'
@@ -266,36 +238,29 @@ ORDER BY
 	character_name
 EOQ;
 
-        $result = ExecuteQuery($query);
+		$params = array($id);
+		$rows = Database::getInstance()->query($query)->all($params);
 
         $characterList = "";
 
-        if(mysql_num_rows($result))
-        {
-
-            while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
-            {
-                if(!$detail['is_poaching'] || ($showPoachers && ($detail['is_poaching'] == 1)))
-                {
+        if (count($rows)) {
+			foreach($rows as $detail) {
+                if (!$detail['is_poaching'] || ($showPoachers && ($detail['is_poaching'] == 1))) {
                     $characterList .= <<<EOQ
 <div style="width:250px;">
 $detail[character_name] &nbsp;&nbsp;
 EOQ;
-                    if($detail['is_poaching'] == 1)
-                    {
+                    if ($detail['is_poaching'] == 1) {
                         $characterList .= " *Poaching* ";
                     }
 
-                    if($mayEdit)
-                    {
+                    if ($mayEdit) {
                         $characterNameWithSlashes = addslashes($detail['character_name']);
                         $characterList .= <<<EOQ
 <a href="#" onclick="return adminRemoveCharacterFromTerritory($detail[id], $id, '$characterNameWithSlashes');">Remove</a>
 EOQ;
                     }
-                }
-                else
-                {
+                } else {
                 }
 
                 $characterList .= "</div>";
@@ -303,8 +268,7 @@ EOQ;
 
         }
 
-        if($characterList == "")
-        {
+        if ($characterList == "") {
             $characterList = "No associated characters.";
         }
         return $characterList;
@@ -319,22 +283,18 @@ FROM
 	territories AS T
 	LEFT JOIN characters_territories AS CT ON T.id = CT.territory_id
 WHERE
-	T.id = $territoryId
+	T.id = ?
 	AND CT.is_active = 1
 	AND (CT.updated_on IS NULL OR CT.updated_on > now())
 EOQ;
 
-        $result = ExecuteQuery($sql);
+		$params = array(
+			$territoryId
+		);
 
-        $numberOfLeeches = 0;
-        if(mysql_num_rows($result))
-        {
-            $detail = mysql_fetch_array($result, MYSQL_ASSOC);
-            $numberOfLeeches = $detail['NumberOfLeeches'];
-        }
+		$numberOfLeeches = Database::getInstance()->query($sql)->value($params);
 
         return $numberOfLeeches;
-
     }
 
 }

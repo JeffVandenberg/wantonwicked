@@ -31,15 +31,9 @@ WHERE
 	AND (CT.updated_on IS NULL OR CT.updated_on > NOW())
 EOQ;
 
-		$result = ExecuteQuery($sql);
-		
-		$abp = 0;
-		
-		while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
-		{
-			$abp = $detail['max_quality'];
-		}
-		
+		$params = array($characterId);
+		$abp = Database::getInstance()->query($sql)->value($params);
+
 		if($abp < 0)
 		{
 			$abp = 0;
@@ -65,10 +59,9 @@ WHERE
 		OR CT.updated_on > now()
 	)
 EOQ;
-	
-		$result = ExecuteQuery($sql);
-		$detail = mysql_fetch_array($result, MYSQL_ASSOC);
-		$extraDomains = $detail['extra_domains'];
+		$params = array($characterId);
+		$extraDomains = Database::getInstance()->query($sql)->value($params);
+
 		if($extraDomains < 0)
 		{
 			$extraDomains = 0;
@@ -91,33 +84,34 @@ WHERE
 	territory_type_id = 1
 	AND is_active = 1
 EOQ;
-		
-		$rulesResult = ExecuteQuery($rulesSql);
+
+		$rules = Database::getInstance()->query($rulesSql)->all();
 		$modifiers = array();
-		
-		while($rulesDetail = mysql_fetch_array($rulesResult, MYSQL_ASSOC))
-		{
-			$powerName = addslashes($rulesDetail['power_name']);
-			$powerNote = addslashes($rulesDetail['power_note']);
-			
+
+		foreach($rules as $rulesDetail) {
 			$modifierSql = <<<EOQ
 SELECT
 	power_level AS power_level
 FROM
 	character_powers
 WHERE
-	character_id = $characterId
-	AND power_type = '$rulesDetail[power_type]'
-	AND power_name LIKE '$powerName%'
-	AND power_note LIKE '$powerNote%'
+	character_id = ?
+	AND power_type = ?
+	AND power_name LIKE ?
+	AND power_note LIKE ?
 EOQ;
+			$params = array(
+				$characterId,
+				$rulesDetail['power_type'],
+				$rulesDetail['power_name'] . '%',
+				$rulesDetail['power_note'] . '%'
+			);
 
-			$modifierResult = ExecuteQuery($modifierSql);
-			
-			while($modifierDetail = mysql_fetch_array($modifierResult, MYSQL_ASSOC))
-			{
-				$value = $rulesDetail['multiplier'] * $modifierDetail['power_level'] + $rulesDetail['modifier'];
-				$modifiers[] = new ABPModifier($powerName . ' ' . $powerNote, $value);
+			$power = Database::getInstance()->query($modifierSql)->single($params);
+
+			if($power) {
+				$value = $rulesDetail['multiplier'] * $power['power_level'] + $rulesDetail['modifier'];
+				$modifiers[] = new ABPModifier($rulesDetail['power_name'] . ' ' . $rulesDetail['power_note'], $value);
 			}
 		}
 		
@@ -196,10 +190,7 @@ WHERE
 	AND is_sanctioned = 'Y'
 	AND is_deleted = 'N'
 EOQ;
-		$result = ExecuteQuery($sql);
-		
-		while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
-		{
+		foreach(Database::getInstance()->query($sql)->all() as $detail) {
 			$this->UpdateABP($detail['character_id']);
 		}
 	}
@@ -216,13 +207,12 @@ FROM
 WHERE
 	is_active = 1
 	AND is_poaching = 1
-	AND updated_on >= '$yesterday'
+	AND updated_on >= ?
 	AND updated_on < NOW()
 EOQ;
-		$result = ExecuteQuery($sql);
-		
-		while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
-		{
+		$params = array($yesterday);
+
+		foreach(Database::getInstance()->query($sql)->all($params) as $detail) {
 			$this->UpdateABP($detail['character_id']);
 		}
 	}

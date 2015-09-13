@@ -10,6 +10,7 @@
 namespace classes\request\repository;
 
 
+use classes\core\repository\Database;
 use classes\request\data\RequestNote;
 
 class RequestNoteRepository
@@ -26,17 +27,18 @@ FROM
     request_notes AS RN
     LEFT JOIN phpbb_users AS U ON RN.created_by_id = U.user_id
 WHERE
-    RN.request_id = $requestId
+    RN.request_id = ?
 ORDER BY
     created_on ASC
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array(
+            $requestId
+        );
+        return Database::getInstance()->query($sql)->all($params);
     }
 
     public function Save(RequestNote $requestNote)
     {
-        $note = mysql_real_escape_string($requestNote->Note);
         $sql = <<<EOQ
 INSERT INTO
     request_notes
@@ -47,14 +49,15 @@ INSERT INTO
         created_on
     )
 VALUES
-    (
-        $requestNote->RequestId,
-        '$note',
-        $requestNote->CreatedById,
-        '$requestNote->CreatedOn'
-    )
+    ( ?, ?, ?, ?)
 EOQ;
+        $params = array(
+            $requestNote->RequestId,
+            $requestNote->Note,
+            $requestNote->CreatedById,
+            $requestNote->CreatedOn
 
-        return ExecuteQuery($sql);
+        );
+        return Database::getInstance()->query($sql)->execute($params);
     }
 }

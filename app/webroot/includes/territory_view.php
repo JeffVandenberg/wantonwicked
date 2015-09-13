@@ -1,5 +1,6 @@
 <?php
 use classes\core\helpers\Response;
+use classes\core\repository\Database;
 use classes\territory\Territory;
 
 $id = (isset($_GET['id'])) ? $_GET['id'] : 0;
@@ -23,15 +24,14 @@ FROM
 	LEFT JOIN characters AS C ON T.character_id = C.id
 WHERE
 	T.is_active = 1
-	AND T.id = $id
+	AND T.id = ?
 EOQ;
 
-$result = ExecuteQuery($query);
+$params = array($id);
+$detail = Database::getInstance()->query($query)->single($params);
 
-if(mysql_num_rows($result))
+if($detail)
 {
-	$detail = mysql_fetch_array($result, MYSQL_ASSOC);
-	
 	$territoryName = $detail['territory_name'];
 	$characterName = $detail['character_name'];
 	$quality = $detail['quality'];

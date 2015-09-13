@@ -1,5 +1,6 @@
 <?php
 // get list of territories with PC & NPC counts and domain holder
+use classes\core\repository\Database;
 use classes\territory\Territory;
 
 $territoryQuery = <<<EOQ
@@ -38,7 +39,7 @@ GROUP BY
 ORDER BY
 	T.territory_name
 EOQ;
-$territoryResult = ExecuteQuery($territoryQuery);
+$territories = Database::getInstance()->query($territoryQuery)->all();
 
 $page_title = "ST Territory List";
 
@@ -60,7 +61,7 @@ $page_content = <<<EOQ
 <a href="territory.php?action=update_all">Update Territory Quality</a>
 EOQ;
 
-$page_content .= Territory::CreateTerritoryList($territoryResult, true);
+$page_content .= Territory::CreateTerritoryList($territories, true);
 
 $page_content .= <<<EOQ
 <script type="text/javascript">	

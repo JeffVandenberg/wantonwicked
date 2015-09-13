@@ -1,4 +1,5 @@
 <?php
+use classes\core\repository\Database;
 use classes\territory\Territory;
 
 $characterId = $_GET['character_id'] + 0;
@@ -24,14 +25,19 @@ FROM
 	LEFT JOIN characters_territories AS CT ON 
     (CT.is_active = 1 
     AND T.id = CT.territory_id 
-    AND CT.character_id = $characterId)
+    AND CT.character_id = ?)
 WHERE
 	T.is_active = 1
 	AND (CT.updated_on IS NULL OR CT.updated_on > NOW())
 ORDER BY
 	T.territory_name
 EOQ;
-$territoryResult = ExecuteQuery($territoryQuery);
+
+$params = array(
+	$characterId
+);
+
+$territories = Database::getInstance()->query($territoryQuery)->all($params);
 
 $page_title = "Territory List";
 
@@ -49,7 +55,7 @@ $page_content = <<<EOQ
 </h2>
 EOQ;
 
-$page_content .= Territory::CreateTerritoryListPublic($territoryResult, $characterId);
+$page_content .= Territory::CreateTerritoryListPublic($territories, $characterId);
 
 $page_content .= <<<EOQ
 <script type="text/javascript">	

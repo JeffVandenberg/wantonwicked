@@ -1,4 +1,6 @@
 <?php
+use classes\core\repository\Database;
+
 $sql = <<<EOQ
 SELECT
 	id,
@@ -14,17 +16,16 @@ ORDER BY
 	character_name
 EOQ;
 
-$result = ExecuteQuery($sql);
+$characters = Database::getInstance()->query($sql)->all();
 
 $characterList = "";
 $abp = new ABP();
 
-while($detail = mysql_fetch_array($result, MYSQL_ASSOC))
-{
-	$abp->UpdateABP($detail['id']);
-	
-	$characterList .= <<<EOQ
-Updated: <a href="http://www.wantonwicked.net/view_sheet.php?action=st_view_xp&view_character_id=$detail[character_id]">$detail[character_name]</a><br />
+foreach ($characters as $detail) {
+    $abp->UpdateABP($detail['id']);
+
+    $characterList .= <<<EOQ
+Updated: <a href="http://www.wantonwicked.net/view_sheet.php?action=st_view_xp&view_character_id=$detail[id]">$detail[character_name]</a><br />
 EOQ;
 }
 
@@ -34,4 +35,3 @@ $page_content = <<<EOQ
 The Following Characters have been updated:<br />
 $characterList
 EOQ;
-?>

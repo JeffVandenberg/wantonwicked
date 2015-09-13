@@ -1,6 +1,7 @@
 <?php
 
 use classes\abp\Rules;
+use classes\core\repository\Database;
 
 $page_title = "Rules List";
 
@@ -17,7 +18,7 @@ ORDER BY
 	rule_name
 EOQ;
 
-$result = ExecuteQuery($sql);
+$rules = Database::getInstance()->query($sql)->all();
 
 $page_content = <<<EOQ
 <div id="rulePane" class="overlayInputPane" style="display:none;">
@@ -39,7 +40,7 @@ $page_content = <<<EOQ
 <div id="abpRuleList">
 EOQ;
 
-$page_content .= Rules::CreateRuleList($result);
+$page_content .= Rules::CreateRuleList($rules);
 
 $page_content .= <<<EOQ
 </div>
@@ -79,4 +80,3 @@ $page_content .= <<<EOQ
 	});
 </script>
 EOQ;
-?>

@@ -1,4 +1,6 @@
 <?php
+use classes\core\repository\Database;
+
 $id = $_GET['id'] + 0;
 
 $sql = <<<EOQ
@@ -7,21 +9,23 @@ SELECT
 FROM
 	territory_rules
 WHERE
-	id = $id
+	id = ?
 EOQ;
 
-$result = ExecuteQuery($sql);
+$params = array(
+	$id
+);
+$ruleDetail = Database::getInstance()->query($sql)->single($params);
 
-if(mysql_num_rows($result))
+if($ruleDetail)
 {
-	$ruleDetail = mysql_fetch_array($result, MYSQL_ASSOC);
-	
+
 	$power_types = array("Merit", "ICDisc", "OOCDisc", "Devotion", "Derangement");
 	$power_typeNames = array("Merit", "In-Clan Discipline", "Out-of-Clan Disc.", "Devotion/Ritual/Misc.", "Derangement");
 
 	$power_typeSelect = buildSelect($ruleDetail['power_type'], $power_types, $power_typeNames, "power_type");
 	
-	$sharedChecked = ($ruleDetail[is_shared]) ? "checked" : "";
+	$sharedChecked = ($ruleDetail['is_shared']) ? "checked" : "";
 
 	$page_content = <<<EOQ
 <h2>Update ABP Rule</h2>
@@ -112,4 +116,3 @@ else
 {
 	echo "Illegal Rule.";
 }
-?>

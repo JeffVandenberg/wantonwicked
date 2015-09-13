@@ -235,11 +235,15 @@ INSERT INTO
     )
 VALUES
     (
-        $fromRequestId,
-        $requestId
+        ?,
+        ?
     )
 EOQ;
-        return ExecuteQuery($sql);
+        $params = array(
+            $fromRequestId,
+            $requestId
+        );
+        return $this->query($sql)->execute($params);
     }
 
     public function ListSupportingRequests($requestId)
@@ -300,12 +304,16 @@ INSERT INTO
     )
 VALUES
     (
-        $requestId,
-        $rollId
+        ?,
+        ?
     )
 EOQ;
 
-        return ExecuteQuery($sql);
+        $params = array(
+            $requestId,
+            $rollId
+        );
+        return $this->query($sql)->execute($params);
     }
 
     public function ListSupportingRolls($requestId)
@@ -391,11 +399,15 @@ INSERT INTO
     )
 VALUES
     (
-        $requestId,
-        $bluebookId
+        ?,
+        ?
     )
 EOQ;
-        return ExecuteQuery($sql);
+        $params = array(
+            $requestId,
+            $bluebookId
+        );
+        return $this->query($sql)->execute($params);
     }
 
     public function ListSupportingBluebookEntries($requestId)
@@ -496,12 +508,15 @@ EOQ;
 UPDATE
     requests
 SET
-    request_status_id = $submitted
+    request_status_id = ?
 WHERE
-    id = $id;
+    id = ?;
 EOQ;
-
-        return ExecuteQuery($sql);
+        $params = array(
+            $submitted,
+            $id
+        );
+        return $this->query($sql)->execute($params);
     }
 
     public function SearchCharactersForRequest($requestId, $onlySanctioned, $characterName)
