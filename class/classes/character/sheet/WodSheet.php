@@ -1863,7 +1863,7 @@ EOQ;
     public function getPowers($characterId, $powerType, $sort, $minCount)
     {
         $power_list = array();
-        if ($characterId != null) {
+        if (($characterId !== null) && ($characterId !== 0)){
             switch ($sort) {
                 case self::NAMELEVEL:
                     $order_by = "power_name, power_level";

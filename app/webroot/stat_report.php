@@ -1,10 +1,12 @@
 <?php
+use classes\core\repository\Database;
+
 include 'cgi-bin/dbconnect.php';
 include 'includes/database/mysql.php';
 
 $showSplatToggle = false;
 $characterType = '';
-if($_GET['character_type'] != null) {
+if($_GET['character_type'] !== null) {
 	$characterType = mysql_real_escape_string($_GET['character_type']);
 	$showSplatToggle = true;
 	$splat = (isset($_GET['splat'])) ? mysql_real_escape_string($_GET['splat']) : 'splat1';
@@ -117,7 +119,7 @@ GROUP BY
 	character_type
 EOQ;
 }
-$rows = ExecuteQueryData($query);
+$rows = Database::getInstance()->query($query)->all();
 ?>
 <style>
 * {

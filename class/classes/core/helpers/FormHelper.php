@@ -35,7 +35,7 @@ EOQ;
 
     private static function ConvertNameToID($name)
     {
-        if(self::$_id != null)
+        if(self::$_id !== null)
         {
             return self::$_id;
         }
@@ -44,7 +44,7 @@ EOQ;
 
     private static function AppendOptions($options)
     {
-        if ($options != null) {
+        if ($options !== null) {
             if (is_array($options)) {
                 $translation = '';
                 foreach ($options as $key => $value) {
@@ -315,7 +315,7 @@ EOQ;
     private static function CreateLabel($fieldName)
     {
         $label = '';
-        if(self::$_label != null)
+        if(self::$_label !== null)
         {
             if(self::$_label === true)
             {

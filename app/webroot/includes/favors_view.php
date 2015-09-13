@@ -42,7 +42,7 @@ if ($favorDetail) {
     if ($favorDetail['is_broken'] != 0) {
         $status = "Broken";
     }
-    if ($favorDetail['date_discharged'] != null) {
+    if ($favorDetail['date_discharged'] !== null) {
         $status = "Discharged on $favorDetail[date_discharged]";
     }
 } else {

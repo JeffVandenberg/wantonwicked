@@ -45,11 +45,11 @@ EOQ;
                     $target = isset($item['target']) ? 'target="' . $item['target'] . '"': '';
 
                     $liTag = "<li ";
-                    if($id != null) {
+                    if($id !== null) {
                         $liTag .= "id=\"$id\" ";
                     }
 
-                    if($id != null) {
+                    if($class !== null) {
                         $liTag .="class=\"$class\"";
                     }
                     $liTag .= ">";

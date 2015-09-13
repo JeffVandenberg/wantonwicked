@@ -108,7 +108,7 @@ EOQ;
 
     public static function IsLoggedIn($userdata)
     {
-        return (($userdata != null) && ($userdata['user_id'] != 1));
+        return (($userdata !== null) && ($userdata['user_id'] !== 1));
     }
 
     public static function IsAsst($userdata)

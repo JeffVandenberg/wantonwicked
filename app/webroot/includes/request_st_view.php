@@ -15,7 +15,7 @@ $requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $request = $requestRepository->FindById($requestId);
 
-if($request == null)
+if($request === null)
 {
     Response::redirect('/', 'Unable to find that request');
 }
