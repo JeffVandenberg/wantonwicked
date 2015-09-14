@@ -6,11 +6,14 @@
  * Time: 3:30 PM
  */
 
+use classes\core\helpers\Response;
+use classes\dice\WodDice;
+
 require_once("ini.php");
 require_once("session.php");
 require_once("config.php");
 require_once("functions.php");
-require_once('../../cgi-bin/rollWoDDice.php');
+require_once('../../../../vendor/autoload.php');
 
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
@@ -25,6 +28,8 @@ $response = array(
     'status' => false,
     'message' => 'Unknown action'
 );
+
+$wodDice = new WodDice();
 
 switch ($_POST['action']) {
     case 'roll':
@@ -46,8 +51,7 @@ switch ($_POST['action']) {
         if ($spaceIndex === false) {
             $dice = $command;
             $command = "";
-        }
-        else {
+        } else {
             $dice = substr($command, 0, $spaceIndex);
             $command = substr($command, $spaceIndex);
         }
@@ -83,8 +87,8 @@ switch ($_POST['action']) {
         $chance_die = (strpos($command, 'chance') !== false) ? 'Y' : 'N';
         $isRote = (strpos($command, 'rote') !== false) ? true : false;
 
-        $result = rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias, $isRote);
-
+        $result = $wodDice->rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
+            $isRote);
         $now = date('Y-m-d H:i:s');
         $characterId = ($_SESSION['user_type_id'] == 3) ? $_SESSION['userid'] : '0';
 
@@ -160,14 +164,14 @@ EOQ;
             $response = array(
                 'status' => true,
                 'message' => ' attempted ' . $action . ' with ' . $dice . ' dice and got ' . $result['num_of_successes'] . ' ' . $successText . '. ' .
-                '<a href="/dieroller.php?action=view_roll&r=' . $rollId . '" target="_blank" class="chat-viewable">View Roll</a>'
+                    '<a href="/dieroller.php?action=view_roll&r=' . $rollId . '" target="_blank" class="chat-viewable">View Roll</a>'
             );
             if ($spendWP && ($characterId > 0)) {
-                $sql = "update characters set willpower_temp = willpower_temp -1 where id = ?";
+                $sql = "UPDATE characters SET willpower_temp = willpower_temp -1 WHERE id = ?";
                 $dbh->prepare($sql)->execute(array($characterId));
             }
             if ($spendPP && ($characterId > 0)) {
-                $sql = "update characters set power_points = power_points - 1 where id = ?";
+                $sql = "UPDATE characters SET power_points = power_points - 1 WHERE id = ?";
                 $dbh->prepare($sql)->execute(array($characterId));
             }
         }
@@ -178,13 +182,13 @@ EOQ;
         $command = trim(str_replace(array('initiative', 'init'), '', $command));
 
         $mod = 0;
-        if($command != '') {
-            $mod = (int) number_format($command);
+        if ($command != '') {
+            $mod = (int)number_format($command);
         }
 
         if ($_SESSION['user_type_id'] == 3) {
             // load character for modifier
-            $sql = "select initiative_mod from characters where id = ?";
+            $sql = "SELECT initiative_mod FROM characters WHERE id = ?";
             $dbh = db_connect();
             $query = $dbh->prepare($sql);
             $query->execute(array($_SESSION['userid']));
@@ -192,7 +196,7 @@ EOQ;
             $mod += $row['initiative_mod'];
         }
 
-        $result = rollWoDDice('1', 'N', 'N', 'N', 'N', 'N', 'normal', false);
+        $result = $wodDice->rollWoDDice('1', 'N', 'N', 'N', 'N', 'N', 'normal', false);
 
         $sql = <<<EOQ
 INSERT INTO
@@ -266,12 +270,11 @@ EOQ;
             $rollId = $dbh->lastInsertId();
             $response = array(
                 'status' => true,
-                'message' => ' rolled Initiative +' .$mod.' and got ' . ($result['result'] + $mod) . '. ' .
-                '<a href="/dieroller.php?action=view_roll&r=' . $rollId . '" target="_blank" class="chat-viewable">View Roll</a>'
+                'message' => ' rolled Initiative +' . $mod . ' and got ' . ($result['result'] + $mod) . '. ' .
+                    '<a href="/dieroller.php?action=view_roll&r=' . $rollId . '" target="_blank" class="chat-viewable">View Roll</a>'
             );
         }
         break;
 }
 
-header('content-type: application/json');
-echo json_encode($response);
+Response::sendJson($response);

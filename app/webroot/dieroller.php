@@ -1,9 +1,8 @@
-<?
+<?php
 use classes\core\helpers\Request;
 use classes\core\helpers\SessionHelper;
 
 include 'cgi-bin/start_of_page.php';
-include 'cgi-bin/rollWoDDice.php';
 
 // perform required includes
 define('IN_PHPBB', true);

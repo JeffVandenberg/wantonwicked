@@ -12,6 +12,7 @@ use classes\core\helpers\UserdataHelper;
 use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 use classes\dice\repository\DiceRepository;
+use classes\dice\WodDice;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\request\repository\RequestRepository;
@@ -164,7 +165,8 @@ if (isset($_POST['submit_die_roller'])) {
         }
 
         if ($diceForRoll) {
-            $result = rollWoDDice($diceForRoll, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
+            $wodDice = new WodDice();
+            $result = $wodDice->rollWoDDice($diceForRoll, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
                                   $is_rote == 'Y');
 
             $query = "
@@ -180,7 +182,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
             if(Database::getInstance()->query($query)->execute($params)) {
             }
-            $rollId = Database::getInstance()->GetInsertId();
+            $rollId = Database::getInstance()->getInsertId();
 
             // update relevant stats
             if (($usedWillpowerForRoll) || ($used_pp == 'Y')) {

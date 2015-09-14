@@ -276,7 +276,7 @@ class Database
         return $this->Statement->fetchColumn();
     }
 
-    public function GetInsertId() {
+    public function getInsertId() {
         return $this->Handler->lastInsertId();
     }
 }
