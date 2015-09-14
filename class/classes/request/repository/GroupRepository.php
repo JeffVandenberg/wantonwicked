@@ -50,10 +50,12 @@ FROM
     groups AS G
     LEFT JOIN characters AS C ON G.name = C.character_type
 WHERE
-    C.id = $characterId
+    C.id = ?
 EOQ;
-
-        return ExecuteQueryItem($sql);
+        $params = array(
+            $characterId
+        );
+        return $this->query($sql)->single($params);
     }
 
     public function ListGroupsForUser($userId)

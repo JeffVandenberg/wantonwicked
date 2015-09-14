@@ -29,7 +29,7 @@ ORDER BY
     name
 EOQ;
 
-        return ExecuteQueryData($sql);
+        return $this->query($sql)->all();
     }
 
     public function simpleListAll()
@@ -52,9 +52,10 @@ SELECT
 FROM
     request_statuses AS R
 WHERE
-    id = $id;
+    id = ?;
 EOQ;
-        return ExecuteQueryItem($sql);
+        $params = array($id);
+        return $this->query($sql)->single($params);
     }
 
 }

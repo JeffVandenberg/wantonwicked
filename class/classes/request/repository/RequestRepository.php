@@ -208,17 +208,22 @@ SELECT
 FROM
     requests AS R
     LEFT JOIN request_characters as RC ON R.id = RC.request_id
-    LEFT JOIN request_requests AS RR ON (R.id = RR.from_request_id AND RR.to_request_id = $requestId)
+    LEFT JOIN request_requests AS RR ON (R.id = RR.from_request_id AND RR.to_request_id = ?)
 WHERE
     RR.to_request_id IS NULL
-    AND RC.character_id = $characterId
-    AND R.id != $requestId
-    AND R.request_type_id != $bluebook
+    AND RC.character_id = ?
+    AND R.id != ?
+    AND R.request_type_id != ?
 ORDER BY
     title
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array(
+            $requestId,
+            $characterId,
+            $requestId,
+            $bluebook
+        );
+        return $this->query($sql)->all($params);
     }
 
     public function AttachRequestToRequest($requestId, $fromRequestId)
@@ -258,21 +263,23 @@ FROM
     request_requests AS RR
     LEFT JOIN requests AS R ON RR.from_request_id = R.id
 WHERE
-    RR.to_request_id = $requestId
-    AND R.request_type_id != $bluebook
+    RR.to_request_id = ?
+    AND R.request_type_id != ?
 ORDER BY
     R.title
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array(
+            $requestId,
+            $bluebook
+        );
+        return $this->query($sql)->all($params);
     }
 
     public function ListOpenRequestsForCharacter($characterId)
     {
         $characterId = (int) $characterId;
-        $edittable = implode(',', RequestStatus::$Terminal);
         $blueBook = RequestType::BlueBook;
-
+        $edittablePlaceholders = implode(',', array_fill(0, count(RequestStatus::$Terminal), '?'));
         $sql = <<<EOQ
 SELECT
     R.*
@@ -280,14 +287,14 @@ FROM
     requests AS R
     LEFT JOIN request_characters AS RC ON R.id = RC.request_id
 WHERE
-    request_status_id NOT IN ($edittable)
-    AND request_type_id != $blueBook
-    AND RC.character_id = $characterId
+    request_status_id NOT IN ($edittablePlaceholders)
+    AND request_type_id != ?
+    AND RC.character_id = ?
 ORDER BY
     title
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array_merge(RequestStatus::$Terminal, array($blueBook, $characterId));
+        return $this->query($sql)->all($params);
     }
 
     public function AttachRollToRequest($requestId, $rollId)
@@ -326,15 +333,17 @@ FROM
     wod_dierolls AS WD
     INNER JOIN request_rolls AS RR ON WD.roll_id = RR.roll_id
 WHERE
-    RR.request_id = $requestId
+    RR.request_id = ?
 ORDER BY
     roll_date DESC
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array(
+            $requestId
+        );
+        return $this->query($sql)->all($params);
     }
 
-    public function ListBlueBookByCharacterId($characterId, $page, $pageSize, $sort, $filter)
+    public function ListBlueBookByCharacterId($characterId, $page, $pageSize, $sort)
     {
         $startIndex = ($page-1) * $pageSize;
 
@@ -372,17 +381,22 @@ SELECT
     R.*
 FROM
     requests AS R
-    LEFT JOIN request_bluebooks AS RB ON (R.id = RB.bluebook_id AND RB.request_id = $requestId)
+    LEFT JOIN request_bluebooks AS RB ON (R.id = RB.bluebook_id AND RB.request_id = ?)
 WHERE
     RB.request_id IS NULL
-    AND R.character_id = $characterId
-    AND R.id != $requestId
-    AND R.request_type_id = $bluebook
+    AND R.character_id = ?
+    AND R.id != ?
+    AND R.request_type_id = ?
 ORDER BY
     title
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array(
+            $requestId,
+            $characterId,
+            $requestId,
+            $bluebook
+        );
+        return $this->query($sql)->all($params);
     }
 
     public function AttachBluebookToRequest($requestId, $bluebookId)
@@ -422,21 +436,23 @@ FROM
     request_bluebooks AS RB
     LEFT JOIN requests AS R ON RB.bluebook_id = R.id
 WHERE
-    RB.request_id = $requestId
-    AND R.request_type_id = $bluebook
+    RB.request_id = ?
+    AND R.request_type_id = ?
 ORDER BY
     R.title
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array(
+            $requestId,
+            $bluebook
+        );
+        return $this->query($sql)->all($params);
     }
 
-    public function ListByGroups($groups, $characterId, $page, $pageSize, $sort, $filter)
+    public function ListByGroups($groups, $page, $pageSize, $sort, $filter)
     {
         $groupListPlaceholders = implode(',', array_fill(0, count($groups), '?'));
 
         $startIndex = ($page - 1) * $pageSize;
-        $sort = mysql_real_escape_string($sort);
 
         $storytellerPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Storyteller), '?'));
 
@@ -519,7 +535,7 @@ EOQ;
         return $this->query($sql)->execute($params);
     }
 
-    public function SearchCharactersForRequest($requestId, $onlySanctioned, $characterName)
+    public function SearchCharactersForRequest($onlySanctioned, $characterName)
     {
         $onlySanctioned = (int) $onlySanctioned;
 
@@ -575,8 +591,7 @@ EOQ;
     {
         $characterId = (int) $characterId;
         $blueBook = RequestType::BlueBook;
-        $terminal = implode(',', RequestStatus::$Terminal);
-
+        $terminalPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Terminal), '?'));
         $sql = <<<EOQ
 SELECT
     R.id as request_id,
@@ -590,16 +605,17 @@ FROM
     LEFT JOIN request_characters AS RC ON R.id = RC.request_id
     LEFT JOIN characters AS C ON RC.character_id = C.id
 WHERE
-    R.request_type_id != $blueBook
-    AND R.request_status_id NOT IN ($terminal)
-    AND RC.character_id = $characterId
+    R.request_status_id NOT IN ($terminalPlaceholders)
+    AND R.request_type_id != ?
+    AND RC.character_id = ?
     AND C.is_sanctioned = 'Y'
     AND C.is_deleted = 'N'
     AND RC.is_primary = 0
 ORDER BY
     R.title
 EOQ;
-        return ExecuteQueryData($sql);
+        $params = array_merge(RequestStatus::$Terminal, array($blueBook,$characterId));
+        return $this->query($sql)->all($params);
     }
 
     public function ListByByGroupsCount($groups, $filter)

@@ -43,9 +43,11 @@ FROM
     st_groups AS SG
     INNER JOIN groups AS G ON SG.group_id = G.id
 WHERE
-    user_id = $userId
+    user_id = ?
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array(
+            $userId
+        );
+        return Database::getInstance()->query($sql)->all($params);
     }
 }

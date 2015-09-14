@@ -9,7 +9,7 @@ $onlySanctioned = Request::getValue('only_sanctioned', true);
 $term = Request::getValue('term');
 
 $requestRepository = new RequestRepository();
-$characters = $requestRepository->SearchCharactersForRequest($requestId, $onlySanctioned, $term);
+$characters = $requestRepository->SearchCharactersForRequest($onlySanctioned, $term);
 
 $list = array();
 foreach($characters as $i => $character)

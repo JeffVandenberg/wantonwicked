@@ -34,7 +34,7 @@ foreach ($stGroups as $group) {
 }
 
 $requestRepository = new RequestRepository();
-$requests = $requestRepository->ListByGroups($groups, $characterId, $page, $pageSize, $pagination->GetSort(), $filter);
+$requests = $requestRepository->ListByGroups($groups, $page, $pageSize, $pagination->GetSort(), $filter);
 $count = $requestRepository->ListByByGroupsCount($groups, $filter);
 
 $hasPrev = false;

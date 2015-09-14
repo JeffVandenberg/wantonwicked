@@ -3,6 +3,7 @@
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
+use classes\core\repository\Database;
 use classes\core\repository\PermissionRepository;
 
 $page_title = "List ST Permissions";
@@ -48,7 +49,7 @@ ORDER BY
     L.username,
     P.permission_name;
 EOQ;
-$storytellers = ExecuteQueryData($login_query);
+$storytellers = Database::getInstance()->query($login_query)->all();
 
 $storytellerMenu = require_once('menus/storyteller_menu.php');
 $storytellerMenu['Action']['submenu']['Add Permission'] = array(

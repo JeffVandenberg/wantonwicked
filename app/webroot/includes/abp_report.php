@@ -1,4 +1,6 @@
 <?php
+use classes\core\repository\Database;
+
 $page_title = "ABP Report";
 $orderBy = "character_name";
 
@@ -29,7 +31,7 @@ ORDER BY
 	$orderBy
 EOQ;
 
-$characters = ExecuteQueryData($query);
+$characters = Database::getInstance()->query($query)->all();
 ob_start();
 ?>
 

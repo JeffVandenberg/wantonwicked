@@ -26,7 +26,7 @@ $pagination = new Pagination();
 $pagination->SetSort($sort);
 
 $requestRepository = new RequestRepository();
-$requests = $requestRepository->ListBlueBookByCharacterId($characterId, $page, $pageSize, $sort, $filter);
+$requests = $requestRepository->ListBlueBookByCharacterId($characterId, $page, $pageSize, $sort);
 $count = $requestRepository->ListBlueBookByCharacterIdCount($characterId);
 
 $hasPrev = false;

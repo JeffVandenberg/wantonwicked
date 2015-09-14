@@ -36,11 +36,14 @@ SELECT
 FROM
     characters
 WHERE
-    user_id = $userId
-    AND id = $characterId;
+    user_id = ?
+    AND id = ?
 EOQ;
-        $item = ExecuteQueryItem($sql);
-        return $item['rows'] > 0;
+        $params = array(
+            $userId,
+            $characterId
+        );
+        return $this->query($sql)->value($params) > 0;
     }
 
     public function FindById($characterId)

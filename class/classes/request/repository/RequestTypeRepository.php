@@ -28,12 +28,14 @@ SELECT
 FROM
     request_types
 WHERE
-    id != $blueBook
+    id != ?
 ORDER BY
     name
 EOQ;
-
-        return ExecuteQueryData($sql);
+        $params = array(
+            RequestType::BlueBook
+        );
+        return $this->query($sql)->all($params);
     }
 
     public function simpleListAll()
@@ -56,9 +58,12 @@ SELECT
 FROM
     request_types AS R
 WHERE
-    id = $id;
+    id = ?;
 EOQ;
-        return ExecuteQueryItem($sql);
+        $params = array(
+            $id
+        );
+        return $this->query($sql)->single($params);
     }
 
     public function ListForGroupId($groupId)

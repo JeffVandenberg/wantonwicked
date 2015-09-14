@@ -57,10 +57,10 @@ SELECT
 FROM
     request_characters
 WHERE
-    id = $id;
+    id = ?
 EOQ;
-
-        return ExecuteQueryItem($sql);
+        $params = array($id);
+        return $this->query($sql)->single($params);
     }
 
     public function SetIsApproved($id, $isApproved)

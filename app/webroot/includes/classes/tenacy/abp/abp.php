@@ -122,15 +122,17 @@ EOQ;
 	{
 		$sql = <<<EOQ
 SELECT
-	Power_Points_Modifier
+	power_points_modifier
 FROM
 	characters
 WHERE
-	id = $characterId;
+	id = ?
 EOQ;
 
-		$result = ExecuteQueryData($sql);
-		return $result['Power_Points_Modifier'];
+		$params = array(
+			$characterId
+		);
+		return Database::getInstance()->query($sql)->all($params);
 	}
 	
 	public function GetHumanityModifier($characterId) 
@@ -143,10 +145,12 @@ FROM
 WHERE
 	id = $characterId;
 EOQ;
+		$params = array(
+			$characterId
+		);
 
-		$result = ExecuteQueryData($sql);
-		
-		$modifier = ($result[0]['Morality'] - 7) / 2;
+
+		$modifier = (Database::getInstance()->query($sql)->value($params) - 7) / 2;
 		
 		if($modifier > 0)
 		{

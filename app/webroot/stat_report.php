@@ -2,7 +2,6 @@
 use classes\core\repository\Database;
 
 include 'cgi-bin/dbconnect.php';
-include 'includes/database/mysql.php';
 
 $showSplatToggle = false;
 $characterType = '';
