@@ -259,7 +259,7 @@ sortColumn;
             foreach ($item as $property => $lineValue) {
                 if (!(is_object($item->$property)
                     || is_array($item->$property)
-                    || $item->$property == null)
+                    || $item->$property === null)
                 ) {
                     if (!$first) {
                         $sFields .= ",";
