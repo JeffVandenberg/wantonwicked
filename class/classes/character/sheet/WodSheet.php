@@ -109,7 +109,7 @@ EOQ;
         $view_password = "";
         $hide_icon = "N";
 
-        $location = "";
+        $city = "";
         $virtue = "";
         $vice = "";
         $splat1 = "";
@@ -193,7 +193,7 @@ EOQ;
             $view_password = $stats['view_password'];
             $hide_icon = $stats['hide_icon'];
 
-            $location = $stats['city'];
+            $city = $stats['city'];
             $virtue = $stats['virtue'];
             $vice = $stats['vice'];
             $splat1 = $stats['splat1'];
@@ -418,10 +418,10 @@ EOQ;
 
             // location
             $locations = array("Savannah", "San Diego", "The City", "Side Game");
-            $location = FormHelper::Select(
+            $city = FormHelper::Select(
                 ArrayTools::array_valuekeys($locations),
-                'location',
-                $location
+                'city',
+                $city
             );
 
             // sex
@@ -1641,7 +1641,7 @@ EOQ;
             case 'Wolfblooded':
             case 'Sleepwalker':
                 $mortal = new Mortal();
-                return $mortal->render($this, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
+                return $mortal->render($this, $character_name, $character_type_select, $city, $sex, $virtue, $vice,
                     $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1651,7 +1651,7 @@ EOQ;
 
             case 'Psychic':
                 $psychic = new Psychic();
-                return $psychic->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $psychic->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1661,7 +1661,7 @@ EOQ;
 
             case 'Thaumaturge':
                 $thaumaturge = new Thaumaturge();
-                return $thaumaturge->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $thaumaturge->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1671,7 +1671,7 @@ EOQ;
 
             case 'Werewolf':
                 $renderer = new Werewolf();
-                return $renderer->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $renderer->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1682,7 +1682,7 @@ EOQ;
 
             case 'Vampire':
                 $renderer = new Vampire();
-                return $renderer->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $renderer->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1694,7 +1694,7 @@ EOQ;
 
             case 'Mage':
                 $renderer = new Mage();
-                return $renderer->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $renderer->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1705,7 +1705,7 @@ EOQ;
 
             case 'Ghoul':
                 $ghoul = new Ghoul();
-                return $ghoul->render($this, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
+                return $ghoul->render($this, $character_name, $character_type_select, $city, $sex, $virtue, $vice,
                     $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1716,7 +1716,7 @@ EOQ;
 
             case 'Promethean':
                 $promethean = new Promethean();
-                return $promethean->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $promethean->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1727,7 +1727,7 @@ EOQ;
 
             case 'Changeling':
                 $changeling = new Changeling();
-                return $changeling->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $changeling->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice,
                     $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list,
@@ -1740,7 +1740,7 @@ EOQ;
 
             case 'Hunter':
                 $hunter = new Hunter();
-                return $hunter->render($this, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
+                return $hunter->render($this, $character_name, $character_type_select, $city, $sex, $virtue, $vice,
                     $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1750,7 +1750,7 @@ EOQ;
 
             case 'Geist':
                 $geist = new Geist();
-                return $geist->render($this, $character_name, $character_type_select, $location, $sex, $virtue, $vice,
+                return $geist->render($this, $character_name, $character_type_select, $city, $sex, $virtue, $vice,
                     $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1761,7 +1761,7 @@ EOQ;
 
             case 'Purified':
                 $purified = new Purified();
-                return $purified->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $purified->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1772,7 +1772,7 @@ EOQ;
 
             case 'Possessed':
                 $possessed = new Possessed();
-                return $possessed->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $possessed->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
@@ -1783,7 +1783,7 @@ EOQ;
 
             case 'Changing Breed':
                 $changingBreed = new ChangingBreed();
-                return $changingBreed->render($this, $character_name, $character_type_select, $location, $sex, $virtue,
+                return $changingBreed->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
                     $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
                     $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
                     $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
