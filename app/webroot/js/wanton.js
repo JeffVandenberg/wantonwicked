@@ -35,7 +35,7 @@ $(function () {
     $(".button.view").button({
         icons: {
             primary: 'ui-icon-search'
-        },
+        }
     });
     $(".button.view.no-text").button({
         icons: {
@@ -46,7 +46,7 @@ $(function () {
     $(".button.edit").button({
         icons: {
             primary: 'ui-icon-pencil'
-        },
+        }
     });
     $(".button.edit.no-text").button({
         icons: {
