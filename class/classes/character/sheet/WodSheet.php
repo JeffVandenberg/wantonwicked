@@ -2020,7 +2020,7 @@ EOQ;
             $character->Subsplat = htmlspecialchars($stats['subsplat']);
         }
         if ($this->viewOptions['edit_is_npc']) {
-            $character->IsNpc = $stats['is_npc'];
+            $character->IsNpc = isset($stats['is_npc']) ? 'Y' : 'N';
         }
         if ($this->viewOptions['edit_is_dead']) {
             $character->Status = $stats['status'];

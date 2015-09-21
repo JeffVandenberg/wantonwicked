@@ -64,7 +64,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
             $result['note'], $result['num_of_successes'], $chance_die, $bias, $is_rote
         );
 
-        $result = Database::getInstance()->query($insert_query)->execute();
+        $result = Database::getInstance()->query($query)->execute($params);
         if (!$row) {
             SessionHelper::SetFlashMessage('Error Saving Roll');
         }

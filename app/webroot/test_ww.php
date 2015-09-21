@@ -1,29 +1,46 @@
 <?php
 
+use classes\character\data\Character;
+use classes\character\repository\CharacterRepository;
+use classes\core\helpers\Request;
 use classes\core\repository\Database;
-use classes\request\data\RequestStatus;
+use classes\log\CharacterLog;
+use classes\log\data\ActionType;
 
 require_once 'cgi-bin/start_of_page.php';
 
 $db = Database::getInstance();
 
-$sql = <<<EOQ
-UPDATE
-    requests AS R
-    INNER JOIN characters as C ON R.character_id = C.id
-SET
-    request_status_id = ?
-WHERE
-    C.is_deleted = 'Y'
-EOQ;
+$data = array(
+    14394 => 2,
+    14419 => 5,
+    14390 => 5,
+    14433 => 8,
+    14414 => 11,
+    14447 => 11,
+    13607 => 23,
+    14505 => 26,
+    14512 => 29,
+    14496 => 29,
+    14541 => 35,
+    14553 => 35,
+    14527 => 35,
+    14554 => 35,
+    14557 => 35,
+    14452 => 35,
+    14550 => 35
+);
 
-$params = array(RequestStatus::Closed);
-
-$rows = $db->query($sql)->execute($params);
-
-echo "<pre>";
-echo count($rows);
-foreach($rows as $row)
-{
-    //var_dump($row);
+$characterRepository = new CharacterRepository();
+$db->startTransaction();
+foreach ($data as $characterId => $xpToAward) {
+    $character = $characterRepository->getById($characterId);
+    /* @var Character $character */
+    $character->CurrentExperience += $xpToAward;
+    $character->TotalExperience += $xpToAward;
+    $characterRepository->save($character);
+    CharacterLog::LogAction($characterId, ActionType::XPModification, 'Year 3 award: ' . $xpToAward, 8);
+    echo 'Awarded ' . $xpToAward . ' to ' . $character->CharacterName . '<br />';
 }
+
+$db->rollBackTransaction();
