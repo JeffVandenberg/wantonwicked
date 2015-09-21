@@ -1863,7 +1863,7 @@ EOQ;
     public function getPowers($characterId, $powerType, $sort, $minCount)
     {
         $power_list = array();
-        if (($characterId !== null) && ($characterId !== 0)){
+        if (($characterId !== null) && ($characterId !== 0)) {
             switch ($sort) {
                 case self::NAMELEVEL:
                     $order_by = "power_name, power_level";
@@ -2311,20 +2311,22 @@ EOQ;
             $characterPowerRepository->save($characterPower);
         }
 
-        $ritualsId = $stats["rituals_id"] + 0;
-        $ritualLevel = $stats["rituals"] + 0;
-        if ($ritualsId) {
-            $characterPower = $characterPowerRepository->getById($ritualsId);
-            /* @var CharacterPower $characterPower */
-            $characterPower->PowerLevel = $ritualLevel;
-        } else {
-            $characterPower = new CharacterPower();
-            $characterPower->PowerType = 'Rituals';
-            $characterPower->PowerName = 'Rituals';
-            $characterPower->PowerLevel = $ritualLevel;
-            $characterPower->CharacterId = $characterId;
-        }
+        if (isset($stats['rituals'])) {
+            $ritualsId = $stats["rituals_id"] + 0;
+            $ritualLevel = $stats["rituals"] + 0;
+            if ($ritualsId) {
+                $characterPower = $characterPowerRepository->getById($ritualsId);
+                /* @var CharacterPower $characterPower */
+                $characterPower->PowerLevel = $ritualLevel;
+            } else {
+                $characterPower = new CharacterPower();
+                $characterPower->PowerType = 'Rituals';
+                $characterPower->PowerName = 'Rituals';
+                $characterPower->PowerLevel = $ritualLevel;
+                $characterPower->CharacterId = $characterId;
+            }
 
-        $characterPowerRepository->save($characterPower);
+            $characterPowerRepository->save($characterPower);
+        }
     }
 }
