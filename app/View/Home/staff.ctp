@@ -18,7 +18,7 @@
         <?php foreach($admins as $admin): ?>
             <tr>
                 <td>
-                    <?php echo $admin['User']['Name']; ?>
+                    <?php echo $admin['U']['username']; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -37,7 +37,7 @@
         <?php foreach($wikis as $admin): ?>
             <tr>
                 <td>
-                    <?php echo $admin['U']['Name']; ?>
+                    <?php echo $admin['U']['username']; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -60,7 +60,7 @@
     <?php foreach($sts as $user): ?>
         <tr>
             <td>
-                <?php echo $user['U']['Name']; ?>
+                <?php echo $user['U']['username']; ?>
             </td>
             <td>
                 <?php echo $user[0]['groups']; ?>
@@ -84,7 +84,7 @@
     <?php foreach($assts as $user): ?>
         <tr>
             <td>
-                <?php echo $user['U']['Name']; ?>
+                <?php echo $user['U']['username']; ?>
             </td>
             <td>
                 <?php echo $user[0]['groups']; ?>

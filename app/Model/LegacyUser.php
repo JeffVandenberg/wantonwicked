@@ -13,92 +13,51 @@ class LegacyUser extends AppModel
 
     public function listAdmins()
     {
-        $sql = <<<EOQ
-select
-    GmPermissions.*,
-    User.username as Name
-from
-    gm_permissions AS GmPermissions
-    inner join phpbb_users as User
-        on GmPermissions.id = User.user_id
-where
-    GmPermissions.position != 'Hidden'
-    and GmPermissions.is_head='Y'
-order by
-    User.username;
-EOQ;
-        return $this->query($sql);
+        return $this->listUsersWithPermission('1,2');
     }
 
     public function listSts()
     {
+        return $this->listUsersWithPermission(3);
+    }
+
+    public function listUsersWithPermission($permissionId) {
         $sql = <<<EOQ
 SELECT
-    group_concat(G.name separator ', ') as groups,
-    GP.*,
-    U.username as Name
+    (
+      SELECT group_concat(
+        G.name SEPARATOR ', '
+      )
+      FROM
+        st_groups AS SG
+        LEFT JOIN groups AS G ON SG.group_id = G.id
+      WHERE
+        SG.user_id = U.user_id
+      ORDER BY
+        G.name
+    ) AS groups,
+    U.user_id,
+    U.username
 FROM
-    gm_permissions AS GP
-    inner join phpbb_users AS U ON GP.id = U.user_id
-    LEFT JOIN st_groups AS SG ON GP.ID = SG.user_id
-    LEFT JOIN groups AS G ON SG.group_id = G.id
+    phpbb_users AS U
+    INNER JOIN permissions_users AS PU ON U.user_Id = PU.user_id
 WHERE
-    GP.position != 'Hidden'
-    and GP.is_head='N'
-    and GP.is_gm = 'Y'
-    AND GP.side_game = 'N'
-    AND GP.position != 'Venerable Ancestor'
+    PU.permission_id IN ($permissionId)
 GROUP BY
     U.user_id
 ORDER BY
-    U.username;
+    U.username
 EOQ;
         return $this->query($sql);
     }
 
     public function listAssts()
     {
-        $sql = <<<EOQ
-SELECT
-    group_concat(G.name separator ', ') as groups,
-    GP.*,
-    U.username AS Name
-FROM
-    gm_permissions AS GP
-    inner join phpbb_users AS U ON GP.id = U.user_id
-    LEFT JOIN st_groups AS SG ON GP.ID = SG.user_id
-    LEFT JOIN groups AS G ON SG.group_id = G.id
-WHERE
-    GP.position != 'Hidden'
-    and GP.is_head='N'
-    and GP.is_gm = 'N'
-    AND GP.side_game = 'N'
-    AND GP.is_asst = 'Y'
-    AND GP.position != 'Venerable Ancestor'
-GROUP BY
-    U.user_id
-ORDER BY
-    U.username;
-EOQ;
-        return $this->query($sql);
+        return $this->listUsersWithPermission(4);
     }
 
     public function listWikiManagers()
     {
-        $sql = <<<EOQ
-SELECT
-    gm_permissions.*,
-    U.username as Name
-FROM
-    gm_permissions
-    INNER JOIN phpbb_users AS U
-        ON gm_permissions.id = U.user_id
-WHERE
-    gm_permissions.position != 'Hidden'
-    AND gm_permissions.wiki_manager = 'Y'
-ORDER BY
-    U.username;
-EOQ;
-        return $this->query($sql);
+        return $this->listUsersWithPermission(5);
     }
 }

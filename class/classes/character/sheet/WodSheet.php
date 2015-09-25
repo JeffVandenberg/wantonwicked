@@ -450,18 +450,18 @@ EOQ;
             $splat2Options = array();
             if ($this->viewOptions['xp_create_mode']) {
                 if ($character_type == 'Vampire') {
-                    $splat1Options['onChange'] = '"updateBonusAttribute();"';
+                    $splat1Options['onChange'] = 'updateBonusAttribute();';
                 }
                 if ($character_type == 'Mage') {
-                    $splat1Options['onChange'] = '"displayBonusDot();"';
-                    $splat2Options['onChange'] = '"updateXP(' . self::MERIT . ');" ';
+                    $splat1Options['onChange'] = 'displayBonusDot();';
+                    $splat2Options['onChange'] = 'updateXP(' . self::MERIT . ');';
                 }
                 if ($character_type == 'Werewolf') {
-                    $splat1Options['onChange'] = '"displayFreeWerewolfRenown();updateXP(' . self::SUPERNATURAL . ');" ';
-                    $splat2Options['onChange'] = '"displayFreeWerewolfRenown();updateXP(' . self::SUPERNATURAL . ');" ';
+                    $splat1Options['onChange'] = 'displayFreeWerewolfRenown();updateXP(' . self::SUPERNATURAL . ');';
+                    $splat2Options['onChange'] = 'displayFreeWerewolfRenown();updateXP(' . self::SUPERNATURAL . ');';
                 }
                 if ($character_type == "Thaumaturge") {
-                    $splat1Options['onChange'] = '"addThaumaturgeDefiningMerit();updateXP(' . self::MERIT . ');" ';
+                    $splat1Options['onChange'] = 'addThaumaturgeDefiningMerit();updateXP(' . self::MERIT . ');';
                 }
             }
 

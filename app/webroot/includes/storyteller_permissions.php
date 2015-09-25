@@ -36,18 +36,30 @@ SELECT
       ORDER BY
         G.name
     ) AS groups,
-    group_concat(DISTINCT P.permission_name SEPARATOR ', ') AS permissions,
+    (
+      SELECT group_concat(
+        P.permission_name SEPARATOR ', '
+      )
+      FROM
+        permissions_users AS PU
+        INNER JOIN permissions AS P ON PU.permission_id = P.id
+      WHERE
+        L.user_id = PU.user_id
+      ORDER BY
+        P.permission_name
+    ) AS permissions,
     L.user_id,
     L.username
 FROM
     phpbb_users AS L
-    INNER JOIN permissions_users AS PU ON L.user_id = PU.user_id
-    INNER JOIN permissions AS P ON PU.permission_id = P.id
+WHERE
+    L.user_id IN (
+        SELECT DISTINCT user_id FROM permissions_users
+    )
 GROUP BY
     L.user_id
 ORDER BY
-    L.username,
-    P.permission_name;
+    L.username
 EOQ;
 $storytellers = Database::getInstance()->query($login_query)->all();
 
