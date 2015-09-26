@@ -1900,16 +1900,16 @@ function loadCharacterSTView(view_character_id, xp_edit) {
 }
 
 function changeSheet(character_type) {
-    var sheet = $("#charSheet").html(
-        '<div style="text-align:center;font-weight:bold;padding:5px;background-color:#cbb;border:solid 1px #400;border-radius:4px;">Loading Sheet..</div>'
-    );
-
     $.get(
         "view_sheet.php?action=get&type=" + page_action + "&character_type=" + encodeURIComponent(character_type) + "&character_id=" + $("#character_id").val(),
         function(response) {
             sheet.html(response);
             drawSheet();
     });
+
+    var sheet = $("#charSheet").html(
+        '<div style="text-align:center;font-weight:bold;padding:5px;background-color:#cbb;border:solid 1px #400;border-radius:4px;">Loading Sheet..</div>'
+    );
 }
 
 function drawSheet() {
