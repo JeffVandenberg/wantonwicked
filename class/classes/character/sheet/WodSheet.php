@@ -269,7 +269,7 @@ EOQ;
             case 'Sleepwalker':
                 $this->table_class = "mage_normal_text";
                 break;
-            case 'Wolfblood':
+            case 'Wolfblooded':
                 $this->table_class = "werewolf_normal_text";
                 break;
 
