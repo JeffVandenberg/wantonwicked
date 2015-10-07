@@ -193,6 +193,16 @@ if (isset($_GET['action'])) {
                 include 'includes/index_redirect.php';
             }
             break;
+        case 'st_close':
+            if(UserdataHelper::IsAdmin($userdata))
+            {
+                include 'includes/request_st_close.php';
+            }
+        else
+            {
+                include 'includes/index_redirect.php';
+            }
+            break;
         case 'update_request_character':
             include 'includes/request_update_request_character.php';
             break;

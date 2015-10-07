@@ -2,6 +2,7 @@
 /* @var array $userdata */
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\UserdataHelper;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\request\data\RequestStatus;
@@ -53,7 +54,10 @@ ob_start();
     <a href="/request.php?action=st_deny&request_id=<?php echo $request['id']; ?>" class="button">Deny</a>
     <a href="/request.php?action=st_return&request_id=<?php echo $request['id']; ?>" class="button">Return to Player</a>
     <?php endif; ?>
-<?php endif; ?>
+    <?php if(UserdataHelper::IsAdmin($userdata)): ?>
+        <a href="/request.php?action=st_close&request_id=<?php echo $request['id']; ?>" class="button">Close Request</a>
+    <?php endif; ?>
+ <?php endif; ?>
     <dl>
         <dt>
             User
