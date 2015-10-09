@@ -104,6 +104,9 @@ if(UserdataHelper::IsHead($userdata)) {
     $storytellerMenu['Reports']['submenu']['Request Status Report'] = array(
         'link' => 'request.php?action=admin_status_report'
     );
+    $storytellerMenu['Reports']['submenu']['ST Activity Report'] = array(
+        'link' => '/st_tools.php?action=st_activity_report'
+    );
 }
 
 if(UserdataHelper::IsAdmin($userdata)) {
