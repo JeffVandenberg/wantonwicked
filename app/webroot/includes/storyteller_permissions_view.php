@@ -5,6 +5,7 @@ use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\repository\PermissionRepository;
 use classes\core\repository\RepositoryManager;
+use classes\core\repository\RoleRepository;
 use classes\request\repository\GroupRepository;
 
 /* @var array $userdata */
@@ -22,6 +23,7 @@ $show_form = true;
 
 $permissionRepository = new PermissionRepository();
 $groupRepository = new GroupRepository();
+$roleRepository = new RoleRepository();
 
 $userRepository = RepositoryManager::GetRepository('classes\core\data\User');
 $user = $userRepository->FindByUserId($userId);
@@ -35,6 +37,11 @@ if (Request::isPost()) {
 
     // update groups
     $groupRepository->SaveGroupsForUser($userId, Request::getValue('groups'));
+
+    // update role
+    $user->RoleId = Request::getValue('role_id');
+    $userRepository->save($user);
+
     // add js
     Response::redirect('/storyteller_index.php?action=permissions', 'Updated Permissions for ' . $user->Username);
 }
@@ -46,8 +53,26 @@ $userPermissions = $permissionRepository->ListPermissionsForUser($userId);
 $groups = $groupRepository->simpleListAll();
 $selectedGroups = $groupRepository->ListGroupsForUser($userId);;
 
+$roles = $roleRepository->simpleListAll();
+$rolePermissions = $roleRepository->listRolesWithPermissions();
 ob_start();
 ?>
+    <script>
+        var rolePermissions = {
+        <?php foreach($rolePermissions as $rp): ?>
+        <?php echo $rp['id'];?>: <?php echo json_encode(
+            explode(',',  $rp['permissions']));?>,
+        <?php endforeach; ?>
+        }
+        $(function () {
+            $("#role-id").change(function () {
+                var permissions = rolePermissions[$(this).val()];
+                $.each(permissions, function(index, value) {
+                    $("input[value=" + value +"]").prop('checked', true);
+                });
+            });
+        });
+    </script>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?action=permissions_view">
         <table class="normal_text">
             <tr>
@@ -56,6 +81,14 @@ ob_start();
                 </td>
                 <td>
                     <?php echo $user->Username; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Role:
+                </td>
+                <td>
+                    <?php echo FormHelper::Select($roles, 'role_id', $user->RoleId); ?>
                 </td>
             </tr>
             <tr>

@@ -27,12 +27,8 @@ class HomeController extends AppController
         App::uses('LegacyUser', 'Model');
         $legacyUser = new LegacyUser();
 
-        $admins = $legacyUser->listAdmins();
-        $sts = $legacyUser->listSts();
-        $assts = $legacyUser->listAssts();
-        $wikis = $legacyUser->listWikiManagers();
-
-        $this->set(compact('admins', 'sts', 'assts', 'wikis'));
+        $staff = $legacyUser->listUsersWithGroups();
+        $this->set(compact('staff'));
     }
 
     function gsNews() {

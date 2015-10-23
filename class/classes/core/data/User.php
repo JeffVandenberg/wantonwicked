@@ -17,6 +17,7 @@ class User extends DataModel
     public $Id;
     public $Username;
     public $UserEmail;
+    public $RoleId;
 
     public $Mapping = array(
         'Id' => 'user_id'
