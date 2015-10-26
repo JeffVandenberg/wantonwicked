@@ -98,6 +98,9 @@ if (UserdataHelper::IsSt($userdata) || UserdataHelper::IsWikiManager($userdata))
             case 'character_population_report':
                 include 'includes/st_tools_character_population_report.php';
                 break;
+            case 'st_activity_report':
+                include 'includes/st_tools_st_activity_report.php';
+                break;
             default:
                 include 'includes/storyteller_index.php';
                 break;

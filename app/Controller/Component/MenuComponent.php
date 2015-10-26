@@ -509,6 +509,9 @@ class MenuComponent extends Component {
             $menu['Reports']['submenu']['Request Status 1Report'] = array(
                 'link' => '/request.php?action=admin_status_report'
             );
+            $menu['Report']['submenu']['ST Activity Report'] = array(
+                'link' => '/st_tools.php?action=st_activity_report'
+            );
         }
 
         if($this->Permissions->IsAdmin()) {

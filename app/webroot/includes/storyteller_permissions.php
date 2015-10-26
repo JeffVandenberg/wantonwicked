@@ -36,22 +36,12 @@ SELECT
       ORDER BY
         G.name
     ) AS groups,
-    (
-      SELECT group_concat(
-        P.permission_name SEPARATOR ', '
-      )
-      FROM
-        permissions_users AS PU
-        INNER JOIN permissions AS P ON PU.permission_id = P.id
-      WHERE
-        L.user_id = PU.user_id
-      ORDER BY
-        P.permission_name
-    ) AS permissions,
     L.user_id,
-    L.username
+    L.username,
+    R.name as role_name
 FROM
     phpbb_users AS L
+    LEFT JOIN roles AS R on L.role_id = R.id
 WHERE
     L.user_id IN (
         SELECT DISTINCT user_id FROM permissions_users
@@ -84,10 +74,10 @@ ob_start();
                     Login
                 </th>
                 <th>
-                    Group(s)
+                    Role
                 </th>
                 <th>
-                    Permissions
+                    Group(s)
                 </th>
             </tr>
             <?php foreach ($storytellers as $login_detail): ?>
@@ -104,10 +94,10 @@ ob_start();
                            ><?php echo $login_detail['username']; ?></a>
                     </td>
                     <td>
-                        <?php echo $login_detail['groups']; ?>
+                        <?php echo $login_detail['role_name']; ?>
                     </td>
                     <td>
-                        <?php echo $login_detail['permissions']; ?>
+                        <?php echo $login_detail['groups']; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

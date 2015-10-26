@@ -447,7 +447,7 @@ class CharacterSheetHelper
         }
 
         $excludedProperties = array(
-            'IsSanctioned',
+//            'IsSanctioned',
             'SheetUpdate',
             'GmNotes'
         );
