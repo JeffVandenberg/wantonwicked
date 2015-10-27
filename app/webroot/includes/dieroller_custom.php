@@ -96,7 +96,7 @@ LIMIT
 	$current_row, $page_size
 EOQ;
 
-Database::getInstance()->query($rolls_query)->all();
+$rolls_data = Database::getInstance()->query($rolls_query)->all();
 
 ob_start();
 ?>
