@@ -213,7 +213,7 @@ WHERE
     C.user_id = ?
     AND C.is_deleted = 'N'
 ORDER BY
-    is_sanctioned ASC,
+    is_sanctioned DESC,
     character_name
 EOQ;
 
