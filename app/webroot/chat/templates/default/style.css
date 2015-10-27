@@ -453,7 +453,7 @@ body
 
 .iconeCredits
 {
-    background: url(../../images/menu/timer.png) no-repeat;
+    background: url(/chat/images/menu/timer.gif) no-repeat;
     height: 18px;
 	width: 18px;
 	padding-top: 2px;
@@ -467,7 +467,7 @@ body
 	margin-left: 5px;
 	float: left;
 	cursor:pointer;
-    background: url(../../plugins/games/games.png) no-repeat;
+    background: url(/chat/plugins/games/games.png) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
