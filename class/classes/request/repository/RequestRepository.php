@@ -645,11 +645,11 @@ EOQ;
             $parameters[] = RequestType::BlueBook;
         }
 
-        if($filter['request_status_id'] != '0') {
+        if($filter['request_status_id'] > 0) {
             $sql .= ' AND R.request_status_id = ? ';
             $parameters[] = $filter['request_status_id'];
         }
-        else {
+        else if ($filter['request_status_id'] != -1) {
             $storytellerPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Storyteller), '?'));
             $sql .= ' AND R.request_status_id IN (' . $storytellerPlaceholders . ')';
             $parameters = array_merge($parameters, RequestStatus::$Storyteller);
