@@ -33,7 +33,6 @@ app/webroot/forum
 app/webroot/wiki
 
 # composer ignores
-composer.lock
 /vendor
 
 # application specific
