@@ -7,6 +7,7 @@ use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 use classes\core\repository\PermissionRepository;
+use classes\core\repository\RoleRepository;
 use classes\request\repository\GroupRepository;
 
 $page_title = "Add ST";
@@ -29,6 +30,7 @@ $selectedGroups = array();
 // test if submitting values
 $permissionRepository = new PermissionRepository();
 $groupsRepository = new GroupRepository();
+$roleRepository = new RoleRepository();
 
 if (Request::isPost() && UserdataHelper::IsHead($userdata)) {
     $userId = Request::getValue('user_id');
@@ -45,9 +47,27 @@ if (Request::isPost() && UserdataHelper::IsHead($userdata)) {
 
 $groups = $groupsRepository->simpleListAll();
 $permissions = $permissionRepository->simpleListAll();
+$roles = $roleRepository->simpleListAll();
+$rolePermissions = $roleRepository->listRolesWithPermissions();
 
 ob_start();
 ?>
+    <script>
+        var rolePermissions = {
+        <?php foreach($rolePermissions as $rp): ?>
+        <?php echo $rp['id'];?>: <?php echo json_encode(
+            explode(',',  $rp['permissions']));?>,
+        <?php endforeach; ?>
+        }
+        $(function () {
+            $("#role-id").change(function () {
+                var permissions = rolePermissions[$(this).val()];
+                $.each(permissions, function(index, value) {
+                    $("input[value=" + value +"]").prop('checked', true);
+                });
+            });
+        });
+    </script>
     <form id="permission-form" method="post"
           action="<?php echo $_SERVER['PHP_SELF']; ?>?action=permissions_add">
         <table class="normal_text">
@@ -58,6 +78,14 @@ ob_start();
                 <td>
                     <?php echo FormHelper::Text('login_name', $login_name); ?>
                     <?php echo FormHelper::Hidden('user_id', $userId); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Role:
+                </td>
+                <td>
+                    <?php echo FormHelper::Select($roles, 'role_id', $user->RoleId); ?>
                 </td>
             </tr>
             <tr>

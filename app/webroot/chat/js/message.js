@@ -143,7 +143,10 @@ function addMessage(inputMDiv,displayMDiv)
 	if((ircCommand[0] == '/me') || (ircCommand[0] == '/a'))
 	{
 		message  = " " + message.slice(ircCommand[0].length+1);
-
+		if(!message.match(/[\w]/)) {
+			showInfoBox('message', '220', '300', '200', '', 'No action specified');
+			return false;
+		}
 		iRC = '1';
 	}
 
