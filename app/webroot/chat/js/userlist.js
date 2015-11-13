@@ -586,6 +586,10 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
             newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('http://www.infosniper.net/index.php?ip_address="+uIP+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>IP: "+uIP+"</span></div>";
         }
 
+		if((moderator || admin) && uID == targetUserId) {
+			newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('http://wantonwicked.gamingsandbox.com/dieroller.php?action=ooc') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>Dice Roller</span></div>";
+		}
+
 		if(admin && uID == targetUserId)
 		{
 			// admin area
