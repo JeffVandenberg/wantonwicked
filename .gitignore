@@ -34,6 +34,6 @@ app/webroot/wiki
 
 # composer ignores
 composer.lock
-vendor
+/vendor
 
 # application specific
