@@ -1,7 +1,7 @@
 <?php /* @var View $this */ ?>
 <?php $this->set('title_for_layout', 'Update your Preference'); ?>
 <?php /* @var array $preferences */ ?>
-<?php /* @var array $userPreferences */ ?>
+<?php /* @var array $userPrefs*/ ?>
 <style>
     fieldset label {
         display: inline;
@@ -19,7 +19,7 @@
             ],
             [
                 'name' => 'user_preference['.$preference['PlayPreference']['id'].']',
-                'value' => 0
+                'value' => $userPrefs[$preference['PlayPreference']['id']]
             ]
         );
         ?>

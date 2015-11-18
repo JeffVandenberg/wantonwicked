@@ -134,4 +134,25 @@ class PlayPreference extends AppModel
             'counterQuery' => ''
         )
     );
+
+    public function getAggregateReport()
+    {
+        $sql = <<<EOQ
+SELECT
+  PP.name,
+  (
+    select
+      (sum(rating)) / count(id) * 100
+    FROM
+      play_preference_responses AS PPR
+    WHERE
+      PPR.play_preference_id = PP.id
+  ) as percentage
+FROM
+  play_preferences AS PP
+ORDER BY
+  PP.name;
+EOQ;
+        return $this->query($sql);
+    }
 }

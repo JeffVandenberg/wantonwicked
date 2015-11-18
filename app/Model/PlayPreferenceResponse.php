@@ -100,12 +100,36 @@ class PlayPreferenceResponse extends AppModel
             ],
             'contain' => [
                 'PlayPreference' => [
-                    'name'
+                    'name',
+                    'description'
                 ]
             ],
             'order' => [
                 'PlayPreference.name'
             ]
         ]);
+    }
+
+    public function updateUserResponse($userId, $data)
+    {
+        $this->recursive = 0;
+        $this->deleteAll([
+            'PlayPreferenceResponse.user_id' => $userId
+        ],
+            false
+        );
+        foreach ($data['user_preference'] as $playPreferenceId => $value) {
+            $this->create();
+            $data = [
+                'PlayPreferenceResponse' => [
+                    'play_preference_id' => $playPreferenceId,
+                    'user_id' => $userId,
+                    'rating' => $value,
+                    'created_on' => date('Y-m-d H:i:s')
+                ]
+            ];
+            $this->save($data);
+        }
+        return true;
     }
 }
