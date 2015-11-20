@@ -32,6 +32,12 @@ class ScenesController extends AppController
         parent::beforeFilter();
     }
 
+    public function beforeRender()
+    {
+        parent::beforeRender();
+        $this->set('mayAdd', $this->Auth->user('id') != 1);
+    }
+
     /**
      * index method
      *
@@ -349,7 +355,6 @@ class ScenesController extends AppController
     public function isAuthorized($user)
     {
         switch ($this->request->params['action']) {
-            case 'listRequestTypes':
             default:
                 return true || $this->Permissions->IsAdmin();
         }
@@ -409,7 +414,6 @@ class ScenesController extends AppController
 
         $this->set('scenes', $this->Paginator->paginate());
         $this->set('mayEdit', $this->Permissions->IsST());
-        $this->set('mayAdd', $this->Auth->user('id') != 1);
         $this->set(compact('includePast'));
 
     }
@@ -448,40 +452,18 @@ class ScenesController extends AppController
                         ));
     }
 
-    public function test()
+    public function player_preferences($slug)
     {
         $scene = $this->Scene->find('first', array(
             'conditions' => array(
-                'Scene.id' => 22
+                'Scene.slug' => $slug
             ),
             'contain'    => false
         ));
 
-        App::uses('SceneCharacter', 'Model');
-        $sceneCharacters = new SceneCharacter();
-        $sceneCharacter  = $sceneCharacters->find('first', array(
-            'conditions' => array(
-                'SceneCharacter.id' => 19
-            ),
-            'contain'    => false
-        ));
-
-        $this->set(compact('scene', 'sceneCharacter'));
-
-
-        App::uses('CakeEmail', 'Network/Email');
-        $emailer = new CakeEmail();
-        $emailer->to('jeffvandenberg@gmail.com');
-        $emailer->from('wantonwicked@gamingsandbox.com');
-        $emailer->subject('Test Message');
-        $emailer->emailFormat('html');
-        $emailer->template('scene_join', 'wantonwicked')->viewVars(
-            array(
-                'scene'          => $scene,
-                'sceneCharacter' => $sceneCharacter
-            )
-        );
-        $emailer->send();
+        App::uses('PlayPreferenceResponse', 'Model');
+        $repo = new PlayPreferenceResponse();
+        $this->set('report', $repo->reportResponsesForPlayersInScene($scene['Scene']['id']));
+        $this->set('scene', $scene);
     }
-
 }

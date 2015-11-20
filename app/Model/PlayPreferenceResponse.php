@@ -132,4 +132,29 @@ class PlayPreferenceResponse extends AppModel
         }
         return true;
     }
+
+    public function reportResponsesForPlayersInScene($id)
+    {
+        $sql = <<<EOQ
+SELECT
+ PP.id,
+ PP.name,
+ IFNULL((
+  select
+ (sum(rating)) / count(PPR.id) * 100
+  FROM
+   play_preference_responses AS PPR
+   LEFT JOIN characters as C ON PPR.user_id = C.user_id
+   LEFT JOIN scene_characters AS SC ON C.id = SC.character_id
+  WHERE
+   PPR.play_preference_id = PP.id
+   AND SC.scene_id = $id
+ ), 0) as percentage
+FROM
+ play_preferences AS PP
+ORDER BY
+ PP.name;
+EOQ;
+        return $this->query($sql);
+    }
 }

@@ -22,6 +22,12 @@ if ($mayEdit || ($scene['Scene']['created_by_id'] == AuthComponent::user('user')
             $scene['Scene']['slug']
         )
     );
+    $menu['Actions']['submenu']['Player Preferences'] = [
+        'link' => [
+            'action' => 'player_preferences',
+            $scene['Scene']['slug']
+        ]
+    ];
     if ($scene['Scene']['scene_status_id'] == SceneStatus::Open) {
         $menu['Actions']['submenu']['Complete Scene'] = array(
             'link' => array(
