@@ -123,7 +123,7 @@ EOQ;
             $icon = $character['icon'];
         }
     }
-    if($character['is_sanctioned'] == 'N') {
+    if(strtolower($character['is_sanctioned']) == 'n') {
         $icon = 'desanctioned.png';
     }
     if($character['location'] == 'Side Game') {
