@@ -74,6 +74,10 @@ class PlayPreferencesController extends AppController
     public function manage()
     {
         $this->PlayPreference->recursive = 0;
+        $this->Paginator->settings = array(
+            'limit' => 30,
+            'order' => 'PlayPreference.name'
+        );
         $this->set('playPreferences', $this->Paginator->paginate());
     }
 
@@ -134,7 +138,7 @@ class PlayPreferencesController extends AppController
 
             if ($this->PlayPreference->save($data)) {
                 $this->Session->setFlash(__('The play preference has been saved.'));
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'manage'));
             } else {
                 $this->Session->setFlash(__('The play preference could not be saved. Please, try again.'));
             }

@@ -348,6 +348,12 @@ class MenuComponent extends Component {
             $this->menu['Site Tools']['submenu']['Requests'] = array(
                 'link' => '/request.php'
             );
+            $this->menu['Site Tools']['submenu']['Play Preferences'] = [
+                'link' => [
+                    'controller' => 'play_preferences',
+                    'action' => 'index'
+                ]
+            ];
 
             App::uses('AppModel', 'Model');
             App::uses('Character', 'Model');

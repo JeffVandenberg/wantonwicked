@@ -800,3 +800,10 @@ div.submit {
 .secondary-text {
     color: #444444;
 }
+
+.hidden-panel-content {
+    display:none;
+    border: 1px solid #000;
+    background-color:#ddd;
+    padding:5px;
+}
