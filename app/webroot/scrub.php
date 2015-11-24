@@ -42,7 +42,7 @@ $payload = array(
     </h3>
 <?php
 $stores = Scrub::performRequest($locationsUrl, $payload);
-if($stores) {
+if ($stores) {
     foreach ($stores['d']['Results'] as $store) {
         ?>
         Store: <?php echo $store['Organization']['Name']; ?><br/>
@@ -86,7 +86,7 @@ class Scrub
 
         $data = self::performRequest($url, $params);
         $Info = '';
-        if($data) {
+        if ($data) {
             foreach ($data['d']['Result']['EventsAtVenue'] as $event) {
                 if (in_array($event['EventTypeCode'], $eventTypes)) {
                     preg_match('/(\d+)/', $event['StartDate'], $matches);
