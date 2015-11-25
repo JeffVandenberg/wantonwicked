@@ -2,6 +2,19 @@
 <?php $this->set('title_for_layout', 'Venue Player Preference Report'); ?>
 <?php /* @var array $report */ ?>
 
+<div style="text-align: center;padding: 10px 0;">
+    <strong>Filters:</strong>
+    <label for="character_type" style="display: inline;">Character Type</label>
+    <?php echo $this->Form->select('character_type', $characterTypes, array('value' => ucfirst($venue),
+            'empty' => false,
+        )
+    ); ?>
+    <label for="play_preference_id" style="display: inline;">Preference</label>
+    <?php echo $this->Form->select('play_preference_id', $playPreferences, array('value' => $playPreferenceId,
+            'empty' => false,
+        )
+    ); ?>
+</div>
 <table>
     <thead>
     <tr>
@@ -13,6 +26,9 @@
         </th>
         <th>
             Percent Interested
+        </th>
+        <th>
+
         </th>
     </tr>
     </thead>
@@ -35,6 +51,25 @@
                     No Responses
                 <?php endif; ?>
             </td>
+            <td>
+                <?php echo $this->Html->link('View Players', [
+                        'action' => 'report_venue_players',
+                        $row['C']['character_type'],
+                        $row['PP']['name']
+                    ]); ?>
+            </td>
         </tr>
     <?php endforeach; ?>
 </table>
+<script>
+    $(function() {
+        $("#character_type").change(function() {
+            document.location = '/play_preferences/report_venue/' + $(this).val().toLowerCase() + '/' +
+                    $("#play_preference_id").val();
+        });
+        $("#play_preference_id").change(function() {
+            document.location = '/play_preferences/report_venue/' + $('#character_type').val().toLowerCase() + '/' +
+                    $(this).val();
+        });
+    });
+</script>

@@ -158,8 +158,14 @@ EOQ;
         return $this->query($sql);
     }
 
-    public function getVenueReport($venue)
+    public function getVenueReport($venue, $playPreferenceId)
     {
+        if(strtolower($venue) == 'all') {
+            $venue = '';
+        }
+        if(strtolower($playPreferenceId) == 'all') {
+            $playPreferenceId = 0;
+        }
         $sql = /** @lang MySQL */
             <<<EOQ
             SELECT
@@ -212,12 +218,41 @@ WHERE
     C.character_type = '$venue'
     OR '$venue' = ''
   )
+  AND
+  (
+      PP.id = $playPreferenceId
+      OR
+      $playPreferenceId = 0
+  )
 GROUP BY
   C.character_type,
   PP.name
 ORDER BY
   C.character_type,
   PP.name;
+EOQ;
+        return $this->query($sql);
+    }
+
+    public function getVenuePlayerReport($venue, $playPreferenceName)
+    {
+        $sql = <<<EOQ
+SELECT
+  U.user_id,
+  U.username,
+  C.id,
+  C.character_name
+FROM
+  play_preferences AS PP
+  INNER JOIN play_preference_reponses AS PPR ON PP.id = PP.play_preference_id
+  INNER JOIN phpbb_users AS U ON PPR.user_id = U.user_id
+  INNER JOIN characters AS C ON PP.user_id = C.user_id
+WHERE
+  C.character_type = '$venue'
+  AND
+  PP.name = '$playPreferenceName'
+ORDER BY
+  U.user_name;
 EOQ;
         return $this->query($sql);
     }

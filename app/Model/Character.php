@@ -239,4 +239,24 @@ EOQ;
         )
     );
 
+    public function listCharacterTypes($onlySanctioned)
+    {
+        $options = [
+            'fields' => [
+                'DISTINCT Character.character_type'
+            ],
+            'order' => [
+                'character_type'
+            ],
+            'contain' => false
+        ];
+
+        if($onlySanctioned) {
+            $options['conditions'] = [
+                'is_sanctioned' => 'y'
+            ];
+        }
+        return $this->find('all', $options);
+    }
+
 } 

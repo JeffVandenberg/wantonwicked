@@ -38,6 +38,7 @@ class PlayPreferencesController extends AppController
     {
         $preferences = $this->PlayPreference->PlayPreferenceResponse->listByUserId($this->Auth->user('user_id'));
         $this->set(compact('preferences'));
+        $this->set('isSt', $this->Permissions->IsST());
     }
 
     public function respond()
@@ -79,6 +80,7 @@ class PlayPreferencesController extends AppController
             'order' => 'PlayPreference.name'
         );
         $this->set('playPreferences', $this->Paginator->paginate());
+        $this->set('isSt', $this->Permissions->IsST());
     }
 
     public function report_aggregate()
@@ -91,6 +93,52 @@ class PlayPreferencesController extends AppController
             'submenu',
             $this->Menu->createStorytellerMenu()
         );
+    }
+
+    public function report_venue($venue = 'All', $playPreferenceId = 'All')
+    {
+        App::uses('PlayPreferenceResponse', 'Model');
+        $repo = new PlayPreferenceResponse();
+        $this->set(
+            'report',
+            $repo->getVenueReport($venue, $playPreferenceId)
+        );
+        $this->set(
+            'submenu',
+            $this->Menu->createStorytellerMenu()
+        );
+        App::uses('Character', 'Model');
+        $charRepo = new Character();
+        $characterTypes = $charRepo->listCharacterTypes(true);
+        $types = [
+            'all' => 'All'
+        ];
+        foreach($characterTypes as $character) {
+            $types[$character['Character']['character_type']] = $character['Character']['character_type'];
+        }
+        $this->set('characterTypes', $types);
+        $this->set('venue', $venue);
+        $playPreferences = [
+            'all' => 'All'
+        ];
+        $preferences = $this->PlayPreference->find('list', ['order' => 'name']);
+        $playPreferences += $preferences;
+        $this->set(compact('playPreferences', 'playPreferenceId'));
+    }
+
+    public function report_venue_players($venue, $playPreferenceName)
+    {
+        App::uses('PlayPreferenceResponse', 'Model');
+        $repo = new PlayPreferenceResponse();
+        $this->set(
+            'report',
+            $repo->getVenuePlayerReport($venue, $playPreferenceName)
+        );
+        $this->set(
+            'submenu',
+            $this->Menu->createStorytellerMenu()
+        );
+        $this->set(compact('venue', 'playPreferenceName'));
     }
 
     /**

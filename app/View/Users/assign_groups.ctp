@@ -29,6 +29,17 @@
         </th>
     </tr>
     </thead>
+    <tr>
+        <td>
+            All
+        </td>
+        <td>
+            <input type="checkbox" id="member-all" />
+        </td>
+        <td>
+            <input type="checkbox" id="moderator-all" />
+        </td>
+    </tr>
     <?php foreach ($groups as $groupId => $group): ?>
         <tr>
             <td>
@@ -41,13 +52,17 @@
                 <?php echo $this->Form->checkbox('is_member['. $groupId .']', array(
                     'name' => 'data[is_member][' . $groupId .']',
                     'value' => 1,
-                    'checked' => $userGroups[$groupId][0]['is_member'])); ?>
+                    'checked' => $userGroups[$groupId][0]['is_member'],
+                    'class' => 'member')
+                ); ?>
             </td>
             <td>
                 <?php echo $this->Form->checkbox('group_leader['. $groupId .']', array(
                     'value' => 1,
                     'name' => 'data[group_leader][' . $groupId .']',
-                    'checked' => $userGroups[$groupId]['UserGroup']['group_leader'])); ?>
+                    'checked' => $userGroups[$groupId]['UserGroup']['group_leader'],
+                    'class' => 'moderator'
+                )); ?>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -76,5 +91,11 @@
                 return false;
             }
         });
+        $("#member-all").click(function() {
+            $(".member").prop("checked", $(this).prop('checked'));
+        })
+        $("#moderator-all").click(function() {
+            $(".moderator").prop("checked", $(this).prop('checked'));
+        })
     });
 </script>

@@ -9,6 +9,13 @@ $menu['Actions']['submenu'][$action] = [
         'action' => 'respond'
     ]
 ];
+if ($isSt) {
+    $menu['Actions']['submenu']['Venue Report'] = [
+        'link' => [
+            'action' => 'report_venue'
+        ]
+    ];
+}
 if ($isHead) {
     $menu['Actions']['submenu']['Manage'] = [
         'link' => [
