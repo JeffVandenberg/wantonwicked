@@ -93,9 +93,9 @@
         });
         $("#member-all").click(function() {
             $(".member").prop("checked", $(this).prop('checked'));
-        })
+        });
         $("#moderator-all").click(function() {
             $(".moderator").prop("checked", $(this).prop('checked'));
-        })
+        });
     });
 </script>
