@@ -486,6 +486,14 @@ class MenuComponent extends Component {
                     'Power Search' => array(
                         'link' => '/st_tools.php?action=power_search'
                     ),
+                    'Player Preference Venue Report' => [
+                        'controller' => 'player_preferences',
+                        'action' => 'report_venue'
+                    ],
+                    'Player Preference Aggregate Report' => [
+                        'controller' => 'player_preferences',
+                        'action' => 'report_aggregate'
+                    ]
                 )
             )
         );
@@ -497,7 +505,7 @@ class MenuComponent extends Component {
             $menu['Tools']['submenu']['Permissions'] = array(
                 'link' => '/storyteller_index.php?action=permissions'
             );
-            $menu['Tools']['submenu']['Permissions'] = array(
+            $menu['Tools']['submenu']['Forum Assignments'] = array(
                 'link' => array(
                     'controller' => 'users',
                     'action' => 'assignGroups'
@@ -512,10 +520,10 @@ class MenuComponent extends Component {
             $menu['Reports']['submenu']['Request Time Report'] = array(
                 'link' => '/request.php?action=admin_time_report'
             );
-            $menu['Reports']['submenu']['Request Status 1Report'] = array(
+            $menu['Reports']['submenu']['Request Status Report'] = array(
                 'link' => '/request.php?action=admin_status_report'
             );
-            $menu['Report']['submenu']['ST Activity Report'] = array(
+            $menu['Reports']['submenu']['ST Activity Report'] = array(
                 'link' => '/st_tools.php?action=st_activity_report'
             );
         }

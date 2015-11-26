@@ -126,19 +126,26 @@ class PlayPreferencesController extends AppController
         $this->set(compact('playPreferences', 'playPreferenceId'));
     }
 
-    public function report_venue_players($venue, $playPreferenceName)
+    public function report_venue_players($venue, $playPreferenceSlug)
     {
         App::uses('PlayPreferenceResponse', 'Model');
         $repo = new PlayPreferenceResponse();
         $this->set(
             'report',
-            $repo->getVenuePlayerReport($venue, $playPreferenceName)
+            $repo->getVenuePlayerReport($venue, $playPreferenceSlug)
         );
         $this->set(
             'submenu',
             $this->Menu->createStorytellerMenu()
         );
-        $this->set(compact('venue', 'playPreferenceName'));
+        $playPreference = $this->PlayPreference->find('first', [
+            'conditions' => [
+                'PlayPreference.slug' => $playPreferenceSlug
+            ],
+            'contain' => false
+        ]);
+        $this->set('playPreferenceName', $playPreference['PlayPreference']['name']);
+        $this->set(compact('venue'));
     }
 
     /**
@@ -183,6 +190,8 @@ class PlayPreferencesController extends AppController
             $data['PlayPreference']['updated_by_id'] = $this->Auth->user('user_id');
             $data['PlayPreference']['updated_on'] = date('Y-m-d H:i:s');
             $data['PlayPreference']['created_on'] = date('Y-m-d H:i:s');
+            App::uses('Inflector', 'Utility');
+            $data['PlayPreference']['slug'] = Inflector::slug($data['PlayPreference']['name']);
 
             if ($this->PlayPreference->save($data)) {
                 $this->Session->setFlash(__('The play preference has been saved.'));
@@ -212,6 +221,8 @@ class PlayPreferencesController extends AppController
             $data = $this->request->data;
             $data['PlayPreference']['updated_by_id'] = $this->Auth->user('user_id');
             $data['PlayPreference']['updated_on'] = date('Y-m-d H:i:s');
+            App::uses('Inflector', 'Utility');
+            $data['PlayPreference']['slug'] = Inflector::slug($data['PlayPreference']['name']);
             if ($this->PlayPreference->save($data)) {
                 $this->Session->setFlash(__('The play preference has been saved.'));
                 $this->redirect(array('action' => 'manage'));
@@ -253,6 +264,9 @@ class PlayPreferencesController extends AppController
     {
         switch($this->request->params['action'])
         {
+            case 'report_aggregate':
+                return true;
+                break;
             case 'index':
             case 'respond':
                 return $this->Auth->loggedIn();
