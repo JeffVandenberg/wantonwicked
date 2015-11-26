@@ -55,7 +55,7 @@
                 <?php echo $this->Html->link('View Players', [
                         'action' => 'report_venue_players',
                         $row['C']['character_type'],
-                        $row['PP']['name']
+                        $row['PP']['slug']
                     ]); ?>
             </td>
         </tr>

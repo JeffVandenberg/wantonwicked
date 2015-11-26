@@ -171,6 +171,7 @@ EOQ;
             SELECT
   C.character_type,
   PP.name,
+  PP.slug,
   (
     SELECT count(*)
     FROM
@@ -226,7 +227,8 @@ WHERE
   )
 GROUP BY
   C.character_type,
-  PP.name
+  PP.name,
+  PP.slug
 ORDER BY
   C.character_type,
   PP.name;
@@ -236,23 +238,27 @@ EOQ;
 
     public function getVenuePlayerReport($venue, $playPreferenceName)
     {
-        $sql = <<<EOQ
-SELECT
+        $sql = /** @lang MySQL */
+            <<<EOQ
+            SELECT
   U.user_id,
   U.username,
   C.id,
   C.character_name
 FROM
   play_preferences AS PP
-  INNER JOIN play_preference_reponses AS PPR ON PP.id = PP.play_preference_id
+  INNER JOIN play_preference_responses AS PPR ON PP.id = PPR.play_preference_id
   INNER JOIN phpbb_users AS U ON PPR.user_id = U.user_id
-  INNER JOIN characters AS C ON PP.user_id = C.user_id
+  INNER JOIN characters AS C ON PPR.user_id = C.user_id
 WHERE
   C.character_type = '$venue'
-  AND
-  PP.name = '$playPreferenceName'
+  AND PP.slug = '$playPreferenceName'
+  AND C.is_sanctioned = 'Y'
+  AND C.is_npc = 'N'
+  AND C.is_deleted = 'N'
+  AND PPR.rating = 1
 ORDER BY
-  U.user_name;
+  U.username
 EOQ;
         return $this->query($sql);
     }
