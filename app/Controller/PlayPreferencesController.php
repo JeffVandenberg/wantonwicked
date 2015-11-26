@@ -264,6 +264,9 @@ class PlayPreferencesController extends AppController
     {
         switch($this->request->params['action'])
         {
+            case 'report_aggregate':
+                return true;
+                break;
             case 'index':
             case 'respond':
                 return $this->Auth->loggedIn();
