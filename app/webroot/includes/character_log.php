@@ -16,16 +16,25 @@ $page = Request::getValue('page', 1);
 $pageSize = Request::getValue('page_size', 25);
 
 $characterId = Request::getValue('character_id', 0);
+$filterLogins = Request::getValue('filter_logins', 1);
+$logId = Request::getValue('log_id', null);
+
 $characterRepository = new CharacterRepository();
 if ((!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) && !UserdataHelper::IsSt($userdata)) {
     Response::redirect('/', 'Unable to view that character');
 }
 
 $logCharacterRepository = RepositoryManager::GetRepository('classes\character\data\LogCharacter');
+$filterOptions = [
+    'character_id' => $characterId,
+    'filter_logins' => $filterLogins,
+    'log_id' => $logId
+];
+
 /* @var LogCharacterRepository $logCharacterRepository */
-$records = $logCharacterRepository->ListByCharacterIdPaged($characterId, $page, $pageSize);
+$records = $logCharacterRepository->ListByCharacterIdPaged($filterOptions, $page, $pageSize);
 /* @var LogCharacter[] $records */
-$count = $logCharacterRepository->ListByCharacterIdRowRount($characterId);
+$count = $logCharacterRepository->ListByCharacterIdRowRount($filterOptions);
 
 $hasPrev = false;
 $hasNext = false;
@@ -44,6 +53,12 @@ $character = $characterRepository->getById($characterId);
 $page_title = 'Log for ' . $character->CharacterName;
 $contentHeader = $page_title;
 
+$options = http_build_query([
+    'action' => 'log',
+    'character_id' => $characterId,
+    'filter_logins' => $filterLogins
+]);
+
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */
 $menu = MenuHelper::GenerateMenu($characterMenu);
@@ -51,11 +66,29 @@ ob_start();
 ?>
 
 <?php echo $menu; ?>
+<style>
+    form label {
+        display: inline;
+    }
+</style>
+<div style="padding: 10px 0;">
+    <form method="get" action="/character.php">
+        <?php echo FormHelper::Hidden('character_id', $characterId); ?>
+        <?php echo FormHelper::Hidden('action', 'log'); ?>
+        <?php echo FormHelper::Checkbox('filter_logins', 1, $filterLogins == 1, [
+            'label' => 'Filter out Chat Logins'
+        ]); ?>
+        <?php echo FormHelper::Checkbox('clear_log_id', 0, false, [
+            'label' => 'Clear Log ID Filter'
+        ]); ?>
+        <?php echo FormHelper::Button('', 'Update'); ?>
+    </form>
+</div>
 <table>
     <tr>
         <th colspan="5">
             <?php if($hasPrev): ?>
-                <a href="character.php?action=log&character_id=<?php echo $characterId; ?>&page=<?php echo $page-1; ?>">&lt; &lt;</a>
+                <a href="character.php?<?php echo $options; ?>&page=<?php echo $page-1; ?>">&lt; &lt;</a>
             <?php else: ?>
                 &lt; &lt;
             <?php endif; ?>
@@ -63,10 +96,11 @@ ob_start();
                 Page:
                 <?php echo FormHelper::Hidden('character_id', $characterId); ?>
                 <?php echo FormHelper::Hidden('action', 'log'); ?>
+                <?php echo FormHelper::Hidden('filter_logins', $filterLogins); ?>
                 <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
             </form>
             <?php if($hasNext): ?>
-                <a href="character.php?action=log&character_id=<?php echo $characterId; ?>&page=<?php echo $page+1; ?>">&gt; &gt;</a>
+                <a href="character.php?<?php echo $options; ?>&page=<?php echo $page+1; ?>">&gt; &gt;</a>
             <?php else: ?>
                 &gt; &gt;
             <?php endif; ?>
@@ -108,12 +142,13 @@ ob_start();
             </td>
             <td>
                 <?php if ($record->ActionTypeId == ActionType::ViewRequest): ?>
-                    <?php if(UserdataHelper::IsHead($userdata)): ?>
-                        <a href="request.php?action=st_view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
+                    <?php if(UserdataHelper::IsSt($userdata)): ?>
+                        <a href="/request.php?action=st_view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
                     <?php else: ?>
-                        <a href="request.php?action=view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
+                        <a href="/request.php?action=view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
                     <?php endif; ?>
                 <?php endif; ?>
+                <a href="/character.php?action=log&character_id=<?php echo $characterId; ?>&log_id=<?php echo $record->Id; ?>">Link</a>
             </td>
         </tr>
     <?php endforeach; ?>

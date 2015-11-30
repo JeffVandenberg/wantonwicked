@@ -40,10 +40,10 @@ $count = $requestRepository->ListByByGroupsCount($groups, $filter);
 $hasPrev = false;
 $hasNext = false;
 
-if($page > 1) {
+if ($page > 1) {
     $hasPrev = true;
 }
-if(($count / $pageSize) > $page) {
+if (($count / $pageSize) > $page) {
     $hasNext = true;
 }
 
@@ -59,11 +59,28 @@ $menu = MenuHelper::GenerateMenu($storytellerMenu);
 
 ob_start();
 ?>
-    <?php echo $menu; ?>
+<?php echo $menu; ?>
+    <div style="padding: 10px 0;">
+        <form method="get" action="/request.php">
+            <h2>Filters</h2>
+            <div>
+                <?php echo FormHelper::Text('filter[title]', $filter['title'], ['label' => 'Request Name']); ?>
+                <?php echo FormHelper::Text('filter[username]', $filter['username'], ['label' => 'User']); ?>
+            </div>
+            <div>
+                <?php echo FormHelper::Select($requestTypes, 'filter[request_type_id]', $filter['request_type_id'], ['label' => 'Request Type']); ?>
+                <?php echo FormHelper::Select($requestStatuses, 'filter[request_status_id]', $filter['request_status_id'], ['label' => 'Request Status']); ?>
+                <?php echo FormHelper::Hidden('action', 'st_list'); ?>
+            </div>
+            <div>
+                <?php echo FormHelper::Button('page_action', 'Update Filters'); ?>
+            </div>
+        </form>
+    </div>
     <table>
         <tr>
             <th>
-                <?php if($hasPrev): ?>
+                <?php if ($hasPrev): ?>
                     <a href="/request.php?action=st_list&<?php echo $pagination->GetPrev(); ?>">&lt; &lt;</a>
                 <?php else: ?>
                     &lt; &lt;
@@ -78,28 +95,27 @@ ob_start();
                     <?php echo FormHelper::Hidden('filter[request_status_id]', $filter['request_status_id']); ?>
                     <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
                 </form>
-                <?php if($hasNext): ?>
+                <?php if ($hasNext): ?>
                     <a href="/request.php?action=st_list&<?php echo $pagination->GetNext(); ?>">&gt; &gt;</a>
                 <?php else: ?>
                     &gt; &gt;
                 <?php endif; ?>
-                -
-                Viewing Records (<?php echo (($page-1)*$pageSize) + 1; ?> to <?php echo min($page * $pageSize, $count); ?>)
+                Viewing Records (<?php echo (($page - 1) * $pageSize) + 1; ?>
+                to <?php echo min($page * $pageSize, $count); ?>)
                 Total Records: <?php echo $count; ?>
             </th>
         </tr>
     </table>
-<form method="get" action="/request.php">
     <table>
         <tr>
+            <th>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.title'); ?>">Request</a>
+            </th>
             <th>
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('CB.username_clean'); ?>">User</a>
             </th>
             <th>
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('G.name'); ?>">Group</a>
-            </th>
-            <th>
-                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.title'); ?>">Name</a>
             </th>
             <th>
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('RT.name'); ?>">Type</a>
@@ -111,57 +127,29 @@ ob_start();
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.created_on'); ?>">Created</a>
             </th>
             <th>
-                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('UB.username'); ?>">Updated By</a>
+                <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('UB.username'); ?>">Updated
+                    By</a>
             </th>
             <th>
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.updated_on'); ?>">Updated</a>
             </th>
             <th>
-
             </th>
         </tr>
 
-        <tr>
-            <td>
-                <?php echo FormHelper::Text('filter[username]', $filter['username']); ?>
-            </td>
-            <td>
-
-            </td>
-            <td>
-                <?php echo FormHelper::Text('filter[title]', $filter['title']); ?>
-            </td>
-            <td>
-                <?php echo FormHelper::Select($requestTypes, 'filter[request_type_id]', $filter['request_type_id']); ?>
-            </td>
-            <td>
-                <?php echo FormHelper::Select($requestStatuses, 'filter[request_status_id]', $filter['request_status_id']); ?>
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-            </td>
-            <td>
-                <?php echo FormHelper::Hidden('action', 'st_list'); ?>
-                <?php echo FormHelper::Button('page_action', 'Filter'); ?>
-            </td>
-        </tr>
         <?php if (count($requests) > 0): ?>
             <?php foreach ($requests as $request): ?>
                 <tr>
+                    <td>
+                        <a href="/request.php?action=st_view&request_id=<?php echo $request['id']; ?>">
+                            <?php echo $request['title']; ?>
+                        </a>
+                    </td>
                     <td>
                         <?php echo $request['created_by_username']; ?>
                     </td>
                     <td>
                         <?php echo $request['group_name']; ?>
-                    </td>
-                    <td>
-                        <?php echo $request['title']; ?>
                     </td>
                     <td>
                         <?php echo $request['request_type_name']; ?>
@@ -178,9 +166,6 @@ ob_start();
                     <td>
                         <?php echo date('m/d/Y', strtotime($request['updated_on'])); ?>
                     </td>
-                    <td>
-                        <a href="/request.php?action=st_view&request_id=<?php echo $request['id']; ?>">View</a>
-                    </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -191,12 +176,5 @@ ob_start();
             </tr>
         <?php endif; ?>
     </table>
-</form>
-    <script>
-        $(function () {
-            $(".button")
-                .button();
-        });
-    </script>
 <?php
 $page_content = ob_get_clean();

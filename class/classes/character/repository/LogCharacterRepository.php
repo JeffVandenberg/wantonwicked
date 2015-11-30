@@ -40,7 +40,7 @@ EOQ;
         return $items;
     }
 
-    public function ListByCharacterIdPaged($characterId, $page, $pageSize)
+    public function ListByCharacterIdPaged($filterOptions, $page, $pageSize)
     {
         $startIndex = ($page - 1) * $pageSize;
         $sql = <<<EOQ
@@ -49,21 +49,37 @@ SELECT
 FROM
     log_characters
 WHERE
-    character_id = :id
-ORDER BY
+    character_id = ?
+EOQ;
+
+        $params = [
+            $filterOptions['character_id']
+        ];
+
+        if($filterOptions['filter_logins']) {
+            $sql .= ' AND action_type_id != 2 ';
+        }
+
+        if($filterOptions['log_id']) {
+            $sql .= ' AND id = ? ';
+            $params[]  = $filterOptions['log_id'];
+        }
+
+        $sql .= <<<EOQ
+ ORDER BY
     created DESC
 LIMIT
     $startIndex, $pageSize
 EOQ;
 
         $items = array();
-        foreach($this->query($sql)->bind('id', $characterId)->all() as $row) {
+        foreach($this->query($sql)->all($params) as $row) {
             $items[] = $this->populateObject($row);
         }
         return $items;
     }
 
-    public function ListByCharacterIdRowRount($characterId)
+    public function ListByCharacterIdRowRount($filterOptions)
     {
         $sql = <<<EOQ
 SELECT
@@ -71,13 +87,22 @@ SELECT
 FROM
     log_characters
 WHERE
-    character_id = :id
+    character_id = ?
 EOQ;
 
-        $count = 0;
-        foreach($this->query($sql)->bind('id', $characterId)->all() as $row) {
-            $count = $row['count'];
+        $params = [
+            $filterOptions['character_id']
+        ];
+
+        if($filterOptions['filter_logins']) {
+            $sql .= ' AND action_type_id != 2 ';
         }
-        return $count;
+
+        if($filterOptions['log_id']) {
+            $sql .= ' AND id = ? ';
+            $params[]  = $filterOptions['log_id'];
+        }
+
+        return $this->query($sql)->value($params);
     }
 }

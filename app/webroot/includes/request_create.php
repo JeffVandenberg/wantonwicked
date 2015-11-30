@@ -95,7 +95,7 @@ ob_start();
     <form method="post">
         <div class="formInput">
             <label for="title">Title:</label>
-            <?php echo FormHelper::Text('title', $title); ?>
+            <?php echo FormHelper::Text('title', $title, ['maxlength' => 100]); ?>
         </div>
         <div class="formInput">
             <label for="title">Group:</label>
