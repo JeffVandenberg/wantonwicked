@@ -81,6 +81,7 @@ EOQ;
                 $this->deleteUserGroup($data['user_id'], $groupId);
             }
         }
+        $this->updateUserAclPermissions($data['user_id']);
         return true;
     }
 
@@ -142,6 +143,20 @@ EOQ;
 
         $this->query($sql);
         return true;
+    }
+
+    private function updateUserAclPermissions($userId)
+    {
+        $sql = <<<EOQ
+UPDATE
+  phpbb_users
+SET
+  user_permissions = '',
+  user_perm_from = 0
+WHERE
+  user_id = $userId
+EOQ;
+        $this->query($sql);
     }
 
     /**

@@ -4,7 +4,7 @@ use classes\core\repository\Database;
 class Domain
 {
 	private $territoryId;
-	public function Domain($id = 0)
+	function __construct($id = 0)
 	{
 		$this->territoryId = $id;
 	}

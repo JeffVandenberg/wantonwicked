@@ -31,8 +31,3 @@ error_reporting(E_ALL & ~E_NOTICE);
 * PHP 5 >= 5.1.0
 * http://php.net/manual/en/function.date-default-timezone-set.php
 */
-
-if(phpversion() >= '5.1.0')
-{
-	date_default_timezone_set("America/Chicago");
-}
