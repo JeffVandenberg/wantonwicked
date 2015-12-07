@@ -16,6 +16,28 @@ class User extends AppModel
     public $displayField = 'username';
     public $primaryKey = 'user_id';
     public $useTable = 'phpbb_users';
+    /**
+     * hasAndBelongsToMany associations
+     *
+     * @var array
+     */
+    public $hasAndBelongsToMany = array(
+        'Permission' => array(
+            'className' => 'SitePermission',
+            'joinTable' => 'permissions_users',
+            'foreignKey' => 'user_id',
+            'associationForeignKey' => 'permission_id',
+            'unique' => 'keepExisting',
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+            'deleteQuery' => '',
+            'insertQuery' => ''
+        )
+    );
 
     public function CheckUserPermission($userId, $permissionIds)
     {
@@ -159,26 +181,22 @@ EOQ;
         $this->query($sql);
     }
 
-    /**
-     * hasAndBelongsToMany associations
-     *
-     * @var array
-     */
-    public $hasAndBelongsToMany = array(
-        'Permission' => array(
-            'className' => 'SitePermission',
-            'joinTable' => 'permissions_users',
-            'foreignKey' => 'user_id',
-            'associationForeignKey' => 'permission_id',
-            'unique' => 'keepExisting',
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'finderQuery' => '',
-            'deleteQuery' => '',
-            'insertQuery' => ''
-        )
-    );
+    public function addUserToSite($user)
+    {
+        $return = true;
+        // find the registered user group
+        $sql = <<<EOQ
+SELECT
+    group_id
+FROM
+    phpbb_groups
+WHERE
+    group_name = 'REGISTERED USERS'
+EOQ;
+
+        $data = $this->query($sql);
+        // find the what?
+        // add user to site as a basic registered user
+        // return happy state
+    }
 }

@@ -1244,6 +1244,8 @@ $(function() {
 
     wantonWickedTime.runClock('#server-time');
 
+	$("#user-tool-menu").menu();
+
     // patch for Firefox. Not sure why it's doing this.
     $('#userContainer').addClass('userContainer');
 });

@@ -181,7 +181,7 @@ In the message bar, type '/me <i>message</i>' (without the quotes). This command
 <a name="servertime"></a>
 <tr><td colspan="2"><h3>Server Time</h3></td></tr>
 <tr><td width="100" align="center" valign="top"></td>
-<td><p>The chat game takes place on United States Eastern Standard Time, so the server is set to this time zone. Server time will help you schedule scenes since we have players from all over the world.</p></td></tr>
+<td><p>Server time will help you schedule scenes since we have players from all over the world. Server time is currently set to Pacific Timezone.</p></td></tr>
 <tr><td colspan="2"align="right"><a class="nav_top" href="#top">[back to top]</a></td></tr>
 <a name="disconnect"></a>
 <tr><td colspan="2"><h3>Logout/Swap Characters</h3></td></tr>

@@ -78,7 +78,10 @@ class UsersController extends AppController
             'result' => false,
             'message' => 'Unknown Error'
         );
-        $userName = $user['username'];
+
+        App::uses('User', 'Model');
+        $repo = new User();
+        $result = $repo->addUserToSite($user);
 
         $this->set(compact('result'));
         $this->set('_serialize', array('result'));

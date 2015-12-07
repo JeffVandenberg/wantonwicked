@@ -48,6 +48,10 @@ if ($mayEdit || ($scene['Scene']['created_by_id'] == AuthComponent::user('user')
 $this->set('menu', $menu);
 ?>
 
+<?php if ($isLoggedIn && ($scene['Scene']['scene_status_id'] == SceneStatus::Open)): ?>
+    <?php echo $this->Html->link('Join Scene', array('action' => 'join', $scene['Scene']['slug']), ['class' => 'button']); ?>
+<?php endif; ?>
+
 <table>
     <tr>
         <th colspan="2">

@@ -89,8 +89,17 @@ wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 			<input type="checkbox" id="autoScrollID" checked><?php echo C_LANG135;?>&nbsp;
 			<span id="iconeCredits" class="iconeCredits" style="cursor:pointer;" onclick='showInfoBox("ecredits","550","600","25","templates/default/ecredits.php","");'><?php echo C_LANG109;?>: <span id="eCreditsID"></span></span>
 		</span>
-            <div id="time-wrapper">
+            <div id="tool-wrapper">
                 <div id="server-time"></div>
+<!--                <ul id="user-tool-menu">-->
+<!--                    <li>-->
+<!--                        Tools-->
+<!--                        <ul id="user-tools">-->
+<!--                            <li><a href="/scenes">Scenes</a></li>-->
+<!---->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                </ul>-->
             </div>
 
             <input class="optionsSend" id="optionsSend" type="button" value="<?php echo C_LANG136;?>" onclick="addMessage('optionsBar','chatContainer')">

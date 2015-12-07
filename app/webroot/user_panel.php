@@ -40,11 +40,23 @@ EOQ;
 EOQ;
     $requestRepository = new RequestRepository();
     $requestCount = $requestRepository->getOpenByUserId($userdata['user_id']);
+    $newStRequestCount = $requestRepository->getNewStRequests($userdata['user_id']);
 
     $userControlPanel = <<<EOQ
 - <a href="forum/ucp.php">User Control Panel</a>
+EOQ;
+
+    if($requestCount) {
+        $userControlPanel .= <<<EOQ
 - <a href="/request.php">Open Requests ($requestCount)</a>
 EOQ;
+    }
+
+    if($newStRequestCount) {
+        $userControlPanel .= <<<EOQ
+- <a href="/request.php?action=st_list">New Requests to Process ($newStRequestCount)</a>
+EOQ;
+    }
 
     WikiInformation::setUpName($up_name);
     WikiInformation::setLoginOut($up_loginout);

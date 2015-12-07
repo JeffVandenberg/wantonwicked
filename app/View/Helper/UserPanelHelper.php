@@ -44,10 +44,19 @@ EOQ;
 $logout
 -
 <a href="/forum/ucp.php">User Control Panel</a>
--
-<a href="/request.php">Open Requests ($requestCount)</a>
 EOQ;
+            if($requestCount) {
+                $panel .= ' - ' . $this->Html->link(
+                        'Open Requests (' . $requestCount . ')',
+                        '/request.php');
+            }
 
+            $stRequests = $request->findNewStRequests(AuthComponent::user('user_id'));
+            if($stRequests) {
+                $panel .= ' - ' . $this->Html->link(
+                        'New Requests to Process ('.$stRequests.')',
+                    '/request.php?action=st_list');
+            }
         }
 
         return $panel;

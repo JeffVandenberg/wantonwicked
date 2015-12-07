@@ -250,4 +250,21 @@ class Request extends AppModel {
 		)
 	);
 
+	public function findNewStRequests($userId)
+	{
+		$sql = <<<EOQ
+SELECT
+	count(*) as `total`
+FROM
+	requests AS R
+	LEFT JOIN groups AS G ON R.group_id = G.id
+	LEFT JOIN st_groups AS SG ON G.id = SG.group_id
+WHERE
+	SG.user_id = $userId
+	AND R.request_status_id IN (2)
+EOQ;
+		$total = $this->query($sql);
+		return $total[0][0]['total'];
+	}
+
 }

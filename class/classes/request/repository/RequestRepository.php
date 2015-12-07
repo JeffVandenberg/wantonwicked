@@ -1087,4 +1087,21 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
+    public function getNewStRequests($userId)
+    {
+        $sql = <<<EOQ
+SELECT
+	count(*) as `total`
+FROM
+	requests AS R
+	LEFT JOIN groups AS G ON R.group_id = G.id
+	LEFT JOIN st_groups AS SG ON G.id = SG.group_id
+WHERE
+	SG.user_id = ?
+	AND R.request_status_id IN (2)
+EOQ;
+        $params = array($userId);
+        return $this->query($sql)->value($params);
+    }
+
 }
