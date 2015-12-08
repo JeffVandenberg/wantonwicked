@@ -83,7 +83,7 @@ class WodSheet
 
         $character_types = array("Mortal", "Vampire", "Ghoul", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker",
             "Changeling", "Geist", "Changing Breed", 'Psychic', 'Thaumaturge', 'Promethean', 'Hunter', 'Purified',
-            'Possessed');
+            'Possessed', 'Spirit');
         sort($character_types);
 
         $skill_list_proper = array("Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry");
@@ -170,7 +170,7 @@ EOQ;
         $view_status = "";
         $bonus_attribute = "";
 
-        $attributes = $this->initializeAttributes();
+        $attributes = $this->initializeAttributes($this->getAttributesForType($character_type));
         $skills = $this->initializeSkills();
 
         // mods for ghouls
@@ -249,7 +249,10 @@ EOQ;
             $bonus_attribute = $stats['bonus_attribute'];
 
             if ($characterId) {
-                $attributes = $this->getPowers($stats['id'], 'Attribute', self::NAMELEVEL, 0);
+                $tempAttributes = $this->getPowers($stats['id'], 'Attribute', self::NAMELEVEL, 0);
+                if (count($tempAttributes) > 0) {
+                    $attributes = $tempAttributes;
+                }
                 $skills = $this->getPowers($stats['id'], 'Skill', self::NAMELEVEL, 0);
                 if (!$this->viewOptions['xp_create_mode'] && ($bonus_attribute != '')) {
                     foreach ($attributes as $attribute) {
@@ -359,6 +362,9 @@ EOQ;
                 $number_of_specialties = 4;
                 break;
 
+            case 'Spirit':
+                $this->table_class = 'mortal_normal_text';
+                break;
             default:
                 $this->table_class = "mortal_normal_text";
                 break;
@@ -1284,7 +1290,7 @@ EOQ;
                                        id="skill-spec<?php echo $i; ?>-name"
                                        value="<?php echo $power->getPowerName(); ?>"
                                        class="<?php echo $specialtyXpCreateModeClass; ?>"
-                                    />
+                                />
                             </label>
                         <?php else: ?>
                             <?php echo $power->getPowerName(); ?>
@@ -1792,6 +1798,15 @@ EOQ;
                     $apparent_age, $friends, $power_trait_dots, $power_points_dots);
                 break;
 
+            case 'Spirit':
+                $spirit = new Spirit();
+                return $spirit->render($this, $character_name, $character_type_select, $city, $icon, $is_npc, $status,
+                    $concept, $description, $safe_place, $health_dots, $size, $wounds_bashing, $wounds_lethal,
+                    $wounds_aggravated, $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor,
+                    $st_notes_table, $history_table, $show_sheet_table, $friends, $power_points_dots, $power_trait_dots,
+                    $attributes);
+                break;
+
             default:
                 return "Not implemented yet.  $character_type_select<br>";
                 break;
@@ -1809,9 +1824,8 @@ EOQ;
         return $mayEdit;
     }
 
-    private function initializeAttributes()
+    private function initializeAttributes($attribute_list)
     {
-        $attribute_list = array("strength", "dexterity", "stamina", "presence", "manipulation", "composure", "intelligence", "wits", "resolve");
         $attributes = array();
         foreach ($attribute_list as $attribute) {
             $power = new Power();
@@ -1911,14 +1925,17 @@ EOQ;
         return $power_list;
     }
 
-    private function makeBaseStatDots($powers, $powerName, $powerType, $position, $element_type, $character_type, $edit,
-                                      $calculate_derived, $edit_xp, $max_dots)
+    public function makeBaseStatDots($powers, $powerName, $powerType, $position, $element_type, $character_type, $edit,
+                                     $calculate_derived, $edit_xp, $max_dots)
     {
         $power = $this->GetPowerByName($powers, $powerName);
-        $output = FormHelper::Hidden($powerType . $position . '_id', $power->getPowerID());
-        $output .= FormHelper::Hidden($powerType . $position . '_name', $power->getPowerName());
-        $output .= FormHelper::Dots($powerType . $position, $power->getPowerLevel(), $element_type, $character_type,
-            $max_dots, $edit, $calculate_derived, $edit_xp);
+        $output = '';
+        if ($power) {
+            $output = FormHelper::Hidden($powerType . $position . '_id', $power->getPowerID());
+            $output .= FormHelper::Hidden($powerType . $position . '_name', $power->getPowerName());
+            $output .= FormHelper::Dots($powerType . $position, $power->getPowerLevel(), $element_type, $character_type,
+                $max_dots, $edit, $calculate_derived, $edit_xp);
+        }
 
         return $output;
     }
@@ -2224,6 +2241,12 @@ EOQ;
                     );
                     $this->saveRitualsRenown($stats, $character->Id);
                     break;
+                case "Spirit":
+                    $powers = [
+                        'Influence' => 'influence',
+                        'Numina' => 'numina'
+                    ];
+                    break;
                 default:
                     // do  nothing
             }
@@ -2327,6 +2350,18 @@ EOQ;
             }
 
             $characterPowerRepository->save($characterPower);
+        }
+    }
+
+    private function getAttributesForType($character_type)
+    {
+        switch ($character_type) {
+            case 'Spirit':
+                return array("power", "finesse", "resistance");
+                break;
+            default:
+                return array("strength", "dexterity", "stamina", "presence", "manipulation", "composure", "intelligence", "wits", "resolve");
+                break;
         }
     }
 }

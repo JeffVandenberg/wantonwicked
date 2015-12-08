@@ -292,7 +292,7 @@ function updateSkillXP() {
     }
 
     for (i = 0; i < skill_list.length; i++) {
-        var skill_value = document.getElementById(skill_list[i]).value;
+        var skill_value = $('#' + skill_list[i]).val();
         skill_xp -= getSkillCost(i, skill_value, character_type);
     }
 
@@ -481,6 +481,8 @@ function updateSupernaturalXP() {
             break;
         case 'Changing Breed':
             updateChangingBreedXp();
+            break;
+        case 'Spirit':
             break;
         default:
             alert('Unknown Character Type: ' + character_type);
@@ -1745,6 +1747,19 @@ function addNumina() {
 
     newNameCell.innerHTML = "<input type=\"text\" name=\"numina" + index + "_name\" id=\"numina" + index + "_name\" size=\"15\" maxlength=\"40\" class=\"normal_input\" " + js + " >";
     newNameCell.innerHTML += "<input type=\"hidden\" name=\"numina" + index + "_id\" id=\"numina" + index + "_id\" value=\"0\">";
+}
+
+function addInfluence() {
+    var list = document.getElementById('influence_list');
+    var row_id = list.rows.length;
+    var index = row_id - 2;
+    var newRow = list.insertRow(row_id);
+    var newNameCell = newRow.insertCell(0);
+    newNameCell.innerHTML = '<input type="text" name="influence' + index + '_name" id="influence' + index + '_name" size="15" maxlength="40" class="normal_input">';
+
+    var newLevelCell = newRow.insertCell(1);
+    newLevelCell.innerHTML = makeDotsXP('influence' + index, merit, getCharacterType(), 7, 0, true, false, edit_xp);
+    newLevelCell.innerHTML += '<input type="hidden" name="influence' + index + '_id" id="influence' + index + '_id" value="0">';
 }
 
 function addSiddhi() {
