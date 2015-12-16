@@ -11,6 +11,7 @@ use classes\request\data\RequestStatus;
 use classes\request\repository\GroupRepository;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestTypeRepository;
+use classes\request\RequestMailer;
 
 $characterId = Request::getValue('character_id', 0);
 if ($characterId) {
@@ -60,6 +61,9 @@ if (Request::isPost()) {
             if ($_POST['action'] == 'Submit Request') {
                 $request->RequestStatusId = RequestStatus::Submitted;
                 $requestRepository->save($request);
+
+                $mailer = new RequestMailer();
+                $mailer->newRequestSubmission($request);
             }
             Response::redirect('request.php?action=view&request_id=' . $request->Id);
         }
