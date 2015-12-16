@@ -107,6 +107,9 @@ class CharactersController extends AppController
             case 'admin_goals':
                 return $this->Permissions->IsST();
                 break;
+            case 'add':
+                return $this->Auth->loggedIn();
+                break;
         }
         return false;
     }
@@ -150,7 +153,8 @@ class CharactersController extends AppController
             if ($this->Character->save($this->request->data)) {
                 $this->Session->setFlash(__('The character has been saved.'));
 
-                return $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'index'));
+                return null;
             }
             else {
                 $this->Session->setFlash(__('The character could not be saved. Please, try again.'));

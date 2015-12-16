@@ -75,7 +75,10 @@ ob_start();
                 </td>
                 <td>
                     <a href="/view_sheet.php?action=view_own_xp&character_id=<?php echo $character['id']; ?>"
-                       target="_blank" class="button view no-text">View <?php echo $character['character_name']; ?>
+                       target="_blank" class="button view no-text">View Sheet for <?php echo $character['character_name']; ?>
+                    </a>
+                    <a href="/wiki/?n=Players.<?php echo $character['character_name']; ?>"
+                       target="_blank" class="button view no-text">View Profile for <?php echo $character['character_name']; ?>
                     </a>
                     <a href="/character.php?action=interface&character_id=<?php echo $character['id']; ?>"
                        target="_blank" class="button gear no-text">Interface for <?php echo $character['character_name']; ?>
