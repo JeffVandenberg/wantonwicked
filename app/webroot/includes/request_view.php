@@ -150,13 +150,13 @@ ob_start();
             Created On
         </dt>
         <dd>
-            <?php echo $request['created_on']; ?>
+            <?php echo $request->CreatedOn; ?>
         </dd>
         <dt>
             Updated On
         </dt>
         <dd>
-            <?php echo $request['updated_on']; ?>
+            <?php echo $request->UpdatedOn; ?>
         </dd>
         <dt>
             Request:
