@@ -147,6 +147,18 @@ ob_start();
             <?php echo $request->RequestStatus->Name; ?>
         </dd>
         <dt>
+            Created On
+        </dt>
+        <dd>
+            <?php echo $request['created_on']; ?>
+        </dd>
+        <dt>
+            Updated On
+        </dt>
+        <dd>
+            <?php echo $request['updated_on']; ?>
+        </dd>
+        <dt>
             Request:
         </dt>
         <dd>
