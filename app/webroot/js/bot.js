@@ -33,6 +33,7 @@ Bot.prototype = {
 
     performLoop: function () {
         if (this.isRunning && this.processSteps.length > 0) {
+            this.currentStepTimestamp = new Date();
             //console.log("processing step: " + this.currentStep + ' finding: ' + this.processSteps[this.currentStep]);
             if ($(this.processSteps[this.currentStep]).length > 0) {
                 //console.log('found:' + this.processSteps[this.currentStep]);

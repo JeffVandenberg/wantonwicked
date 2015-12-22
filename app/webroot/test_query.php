@@ -10,33 +10,51 @@ use classes\core\repository\Database;
 
 require_once('cgi-bin/start_of_page.php');
 
-
+$filterDate = date('Y-m-d', strtotime('3 months ago'));
 $query = <<<EOQ
 select
-  id,
-  character_name,
-  total_experience,
-  sanction_date
+  U.username,
+  character_type,
+  count(*) AS type_views,
+  (
+    SELECT
+      count(*)
+    FROM
+      log_characters AS LC2
+    WHERE
+      action_type_id = 1
+      AND LC2.created_by_id = LC.created_by_id
+      AND LC2.created > '$filterDate'
+  ) as total_views,
+  (
+    count(*) /
+    (
+    SELECT
+      count(*)
+    FROM
+      log_characters AS LC2
+    WHERE
+      action_type_id = 1
+      AND LC2.created_by_id = LC.created_by_id
+      AND LC2.created > '$filterDate'
+    )
+  ) * 100 as percentage
 from
-  characters AS C
-  INNER JOIN (
-               SELECT
-                 log_characters.character_id,
-                 max(log_characters.created) as sanction_date
-               from
-                 log_characters
-               where
-                 action_type_id = 6
-               group by
-                 character_id
-  ) as SD ON C.id = SD.character_id
-where
-  is_sanctioned = 'Y'
-  and is_deleted = 'N'
-  AND C.is_npc = ''
-  AND sanction_date > '2015-06-20'
-order by
-  sanction_date desc;
+  log_characters AS LC
+  LEFT JOIN characters AS C ON LC.character_id = C.id
+  LEFT JOIN phpbb_users as U ON LC.created_by_id = U.user_id
+WHERE
+  created_by_id IN (
+    SELECT
+      DISTINCT user_id
+    FROM
+      permissions_users
+  )
+  AND action_type_id = 1
+  AND LC.created > '$filterDate'
+GROUP BY
+  U.username,
+  C.character_type;
 EOQ;
 
 $params = array();
@@ -44,6 +62,24 @@ $params = array();
 $rows = Database::getInstance()->query($query)->all($params);
 ?>
 
+<style>
+    table {
+        border-collapse: collapse;
+        border: groove 10px #500;
+    }
+    th {
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: #daa;
+    }
+    table tr:nth-child(even) td {
+        background-color: #BBBBBB;
+    }
+    td {
+        padding: 3px;
+    }
+</style>
+<h3>Activity since: <?php echo $filterDate; ?></h3>
 <?php if (count($rows) > 0): ?>
     <table>
         <thead>

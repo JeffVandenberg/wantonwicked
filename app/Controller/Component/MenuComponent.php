@@ -403,6 +403,12 @@ class MenuComponent extends Component {
                     )
                 )
             );
+            $this->menu['Site Tools']['submenu']['ST Chat'] = [
+                'link' => [
+                    'controller' => 'chat2',
+                    'action' => 'login_st'
+                ]
+            ];
         }
 
         if($this->Permissions->IsAdmin()) {
