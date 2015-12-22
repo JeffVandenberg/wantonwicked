@@ -1497,7 +1497,7 @@ function toUserPermissions($id)
         debugError($error);
     }
 
-    return array($admin, $mod, $speaker);
+    return array($admin, $mod, $speaker, $userTypeId);
 }
 
 
