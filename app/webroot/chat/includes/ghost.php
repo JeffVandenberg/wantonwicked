@@ -6,6 +6,14 @@
  * Time: 9:38 PM
  */
 
+$response = array(
+    'status' => false,
+    'message' => 'Ghost Disabled'
+);
+header('content-type: application/json');
+echo json_encode($response);
+exit;
+
 require_once("ini.php");
 require_once("session.php");
 require_once("config.php");

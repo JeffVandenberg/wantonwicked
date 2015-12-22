@@ -221,7 +221,7 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
 
         addUser($icon, $userTypeId);
 
-        $isInvisible = isset($_GET['invisible']) + 0;
+        $isInvisible = 0;//isset($_GET['invisible']) + 0;
 
         $query = <<<EOQ
 UPDATE

@@ -22,6 +22,7 @@ use classes\core\data\User;
  * @property RequestCharacter RequestCharacter
  * @property RequestStatusHistory[] RequestStatusHistory
  * @property User UpdatedBy
+ * @property User CreatedBy
  */
 class Request extends DataModel
 {
@@ -50,7 +51,8 @@ class Request extends DataModel
         'Group' => 'classes\core\data\Group',
         'RequestType',
         'RequestStatus',
-        'UpdatedBy' => 'classes\core\data\User'
+        'UpdatedBy' => 'classes\core\data\User',
+        'CreatedBy' => 'classes\core\data\User'
     );
 
     public $HasMany = array(

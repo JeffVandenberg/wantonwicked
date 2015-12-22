@@ -1104,4 +1104,22 @@ EOQ;
         return $this->query($sql)->value($params);
     }
 
+    public function listEmailsForUsersInGroup($groupId)
+    {
+        $sql = <<<EOQ
+select
+ U.user_email
+from
+ phpbb_users AS U
+ LEFT JOIN st_groups AS SG ON U.user_id = SG.user_id
+WHERE
+ SG.group_id = ?
+EOQ;
+        $params = [
+            $groupId
+        ];
+
+        return $this->query($sql)->all($params);
+    }
+
 }

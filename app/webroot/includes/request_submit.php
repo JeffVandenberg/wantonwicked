@@ -8,6 +8,7 @@ use classes\request\data\RequestCharacter;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
+use classes\request\RequestMailer;
 
 $requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
@@ -18,7 +19,12 @@ if (!$requestRepository->MayEditRequest($requestId, $userdata['user_id'])) {
 }
 
 $request = $requestRepository->getById($requestId);
+/* @var \classes\request\data\Request $request */
+
 $requestRepository->UpdateStatus($requestId, RequestStatus::Submitted, $userdata['user_id']);
+$mailer = new RequestMailer();
+$mailer->newRequestSubmission($request);
+
 SessionHelper::SetFlashMessage('Submitted Request: ' . $request->Title);
 
 $primaryCharacter = $requestCharacterRepository->FindByRequestIdAndIsPrimary($requestId, true);

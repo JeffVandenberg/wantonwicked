@@ -459,10 +459,6 @@ class MenuComponent extends Component {
                         'link' => '/chat/?st_login',
                         'target' => '_blank',
                     ),
-                    'Login (Invisible)' => array(
-                        'link' => '/chat/?st_login&invisible',
-                        'target' => '_blank',
-                    ),
                     'Clean Temp Rooms' => array(
                         'link' => '/chat/includes/clean_rooms.php',
                         'target' => '_blank'
