@@ -45,5 +45,38 @@ EOQ;
         return $list;
     }
 
+    public function findStSceneDashboard($userId)
+    {
+        $sql = <<<EOQ
+select
+    S.id,
+    S.slug,
+    S.name,
+    S.run_on_date,
+    SS.name as scene_status_name,
+    count(*) as `participants`
+FROM
+    scenes AS S
+    LEFT JOIN scene_statuses AS SS ON S.scene_status_id = SS.id
+    LEFT JOIN scene_characters AS SC ON S.id = SC.scene_id
+WHERE
+    run_by_id = ?
+    AND run_on_date > NOW()
+GROUP BY
+    S.id,
+    S.slug,
+    S.name,
+    S.run_on_date,
+    SS.name
+ORDER BY
+    run_on_date
+EOQ;
+        $params = [
+            $userId
+        ];
+
+        return $this->query($sql)->all($params);
+    }
+
 
 }

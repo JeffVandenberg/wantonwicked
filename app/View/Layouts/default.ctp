@@ -14,13 +14,13 @@
     echo $this->Html->css(array(
         'ww4_v2',
         'gaming-sandbox',
-        'wanton/jquery-ui-1.10.3.custom.min',
+        'wanton/jquery-ui.min',
         'wanton/jquery.ui.menubar',
     ));
 
     echo $this->Html->script(array(
-        'jquery-1.9.1',
-        'jquery-ui-1.10.3.custom.min',
+        'jquery-1.11.3.min',
+        'jquery-ui.min',
         'jquery.watermark.min',
         'jquery.ui.menubar',
         'tinymce/tinymce.min',

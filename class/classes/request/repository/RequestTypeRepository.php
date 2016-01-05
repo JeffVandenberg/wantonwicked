@@ -33,7 +33,7 @@ ORDER BY
     name
 EOQ;
         $params = array(
-            RequestType::BlueBook
+            $blueBook
         );
         return $this->query($sql)->all($params);
     }

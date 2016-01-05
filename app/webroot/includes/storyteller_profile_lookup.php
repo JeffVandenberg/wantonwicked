@@ -24,6 +24,7 @@ EOQ;
 SELECT
     C.id,
     C.character_name,
+    C.character_type,
     C.is_sanctioned
 FROM
     phpbb_users AS U
@@ -48,7 +49,7 @@ EOQ;
             default:
                 $sanctionStatus = 'New';
         }
-        $characters[$character['id']] = $character['character_name'] . ' (' . $sanctionStatus . ')';
+        $characters[$character['id']] = $character['character_name'] . ' - ' . $character['character_type'] . ' (' . $sanctionStatus . ')';
     }
 }
 
@@ -56,7 +57,7 @@ $storytellerMenu = require_once('menus/storyteller_menu.php');
 $menu = MenuHelper::GenerateMenu($storytellerMenu);
 ob_start();
 ?>
-    <?php echo $menu; ?>
+    <?php echo $menu;1 ?>
     <table>
         <tr style="vertical-align: top;">
             <td style="width: 45%;">
