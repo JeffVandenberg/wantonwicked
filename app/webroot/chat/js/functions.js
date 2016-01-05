@@ -304,6 +304,7 @@ function doAvatars(inputMDiv, displayMDiv, nWin)
 		document.getElementById('avatarsWin').style.bottom = '66px';
 	}
 
+	$("#" + nWin).show();
 	createMenu(inputMDiv,displayMDiv,'avatarsWin',totalAvatars,loopAvatars);
 	toggleBox('avatarsWin');
 }
@@ -322,6 +323,7 @@ function doSFX(inputMDiv,displayMDiv, nWin)
 		document.getElementById('sFXWin').style.bottom = '66px';
 	}
 
+	$("#" + nWin).show();
 	createMenu(inputMDiv,displayMDiv,'sFXWin',totalSFX,'1');
 	toggleBox('sFXWin');
 }
@@ -340,6 +342,7 @@ function doSmilies(inputMDiv, displayMDiv, nWin)
 		document.getElementById('smiliesWin').style.bottom = '66px';
 	}
 
+	$("#" + nWin).show();
 	createMenu(inputMDiv,displayMDiv,'smiliesWin',totalSmilies,loopSmilies);
 	toggleBox('smiliesWin');	
 }
@@ -362,7 +365,7 @@ function doStyles(inputMDiv, displayMDiv, nWin)
 	createMdiv('fontsizeWin',nWin);
 	createMenu(inputMDiv,displayMDiv,'fontsizeWin',totalFontSize,loopFontSize);
 	toggleBox('fontsizeWin');
-
+	$("#" + nWin).show();
 	if(displayMDiv != 'chatContainer')
 	{
 		document.getElementById('colorsWin').style.bottom = '66px';

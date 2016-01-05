@@ -2005,6 +2005,7 @@ EOQ;
         $characterRepository = new CharacterRepository();
         $characterRepository->startTransaction();
         if ($characterRepository->isNameInUse($stats['character_name'], $stats['character_id'])) {
+            $characterRepository->rollBackTransaction();
             return 'That character name is already in use.';
         }
 

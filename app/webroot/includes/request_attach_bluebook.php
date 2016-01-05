@@ -11,7 +11,7 @@ use classes\request\repository\RequestRepository;
 $requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
-if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     Response::redirect('/', 'Unable to view that request');
 }
 
