@@ -17,11 +17,14 @@ $mainMenu = array(
         'link' => '#',
         'submenu' => array(
             'Site Supporter' => array(
-                'link' => '/support.php',
+                'link' => '#',
                 'submenu' => array(
-                    'Support Information' => array(
+                    'Home' => [
+                        'link' => '/support.php',
+                    ],
+                    'Support Information' => [
                         'link' => '/wiki/index.php?n=GameRef.5For5Offer'
-                    )
+                    ]
                 )
             ),
             'Scenes' => array(
@@ -313,9 +316,12 @@ $mainMenu = array(
 );
 
 if ($userdata['user_id'] != ANONYMOUS) {
-    $mainMenu['Site Tools']['submenu']['Character List'] = array(
-        'link' => '/chat.php',
+    $mainMenu['Site Tools']['submenu']['Characters'] = array(
+        'link' => '#',
         'submenu' => array(
+            'Dashboard' => [
+                'link' => '/chat.php',
+            ],
             'Create a Character' => array(
                 'link' => '/view_sheet.php?action=create_xp'
             )
@@ -342,7 +348,7 @@ if ($userdata['user_id'] != ANONYMOUS) {
                 )
             )
         );
-        $mainMenu['Site Tools']['submenu']['Character List']['submenu'][$character['character_name']] = $characterMenu;
+        $mainMenu['Site Tools']['submenu']['Characters']['submenu'][$character['character_name']] = $characterMenu;
     }
 
     $mainMenu['Site Tools']['submenu']['Requests'] = array(
@@ -356,8 +362,11 @@ if ($userdata['user_id'] != ANONYMOUS) {
 
 if (UserdataHelper::IsSt($userdata)) {
     $mainMenu['Site Tools']['submenu']['ST Tools'] = array(
-        'link' => '/storyteller_index.php',
+        'link' => '#',
         'submenu' => array(
+            'Dashboard' => [
+                'link' => '/storyteller_index.php',
+            ],
             'Character Lookup' => array(
                 'link' => '/view_sheet.php?action=st_view_xp',
             ),

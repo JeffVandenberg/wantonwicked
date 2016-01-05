@@ -6,11 +6,11 @@
 <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link type="text/css" rel="stylesheet" href="/css/vader/jquery-ui-1.10.3.custom.min.css?v=<?php echo $CONFIG['version']; ?>">
+    <link type="text/css" rel="stylesheet" href="/css/wanton/jquery-ui.min.css?v=<?php echo $CONFIG['version']; ?>">
 <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template'];?>/style.css?v=<?php echo $CONFIG['version']; ?>">
-<script type="text/javascript" src="/js/jquery-1.9.1.js?v=<?php echo $CONFIG['version']; ?>"></script>
+<script type="text/javascript" src="/js/jquery-1.11.3.min.js?v=<?php echo $CONFIG['version']; ?>"></script>
 <script type="text/javascript" src="/chat/js/sortelements.js?v=<?php echo $CONFIG['version']; ?>"></script>
-<script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/chat/includes/lang.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
 <script type="text/javascript" src="/chat/includes/settings.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
 <script type="text/javascript" src="/chat/js/XmlHttpRequest.js?v=<?php echo $CONFIG['version']; ?>"></script>

@@ -1122,4 +1122,35 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
+    public function findStRequestDashboard($user_id)
+    {
+        $sql = <<<EOQ
+SELECT
+    G.name as group_name,
+    RS.id as request_status_id,
+    RS.name as request_status_name,
+	count(*) as `total`
+FROM
+	requests AS R
+	LEFT JOIN groups AS G ON R.group_id = G.id
+	LEFT JOIN st_groups AS SG ON G.id = SG.group_id
+	LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
+WHERE
+	SG.user_id = ?
+	AND R.request_status_id IN (2,5)
+GROUP BY
+    G.name,
+    RS.id,
+    RS.name
+ORDER BY
+    G.name,
+    RS.name
+EOQ;
+        $params = [
+            $user_id
+        ];
+
+        return $this->query($sql)->all($params);
+    }
+
 }

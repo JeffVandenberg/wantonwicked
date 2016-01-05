@@ -37,8 +37,11 @@ class MenuComponent extends Component {
                 'link'    => '#',
                 'submenu' => array(
                     'Site Supporter' => array(
-                        'link' => '/support.php',
+                        'link' => '#',
                         'submenu' => array(
+                            'Home' => [
+                                'link' => '/support.php',
+                            ],
                             'Support Information' => array(
                                 'link' => '/wiki/index.php?n=GameRef.5For5Offer'
                             )
@@ -337,9 +340,12 @@ class MenuComponent extends Component {
         );
 
         if($this->Auth->loggedIn()) {
-            $this->menu['Site Tools']['submenu']['Character List'] = array(
-                'link' => '/chat.php',
+            $this->menu['Site Tools']['submenu']['Characters'] = array(
+                'link' => '#',
                 'submenu' => array(
+                    'Dashboard' => [
+                        'link' => '/chat.php',
+                    ],
                     'Create a Character' => array(
                         'link' => '/view_sheet.php?action=create_xp'
                     )
@@ -377,7 +383,7 @@ class MenuComponent extends Component {
                         )
                     )
                 );
-                $this->menu['Site Tools']['submenu']['Character List']['submenu'][$character['Character']['character_name']] = $characterMenu;
+                $this->menu['Site Tools']['submenu']['Characters']['submenu'][$character['Character']['character_name']] = $characterMenu;
             }
         }
 
@@ -389,12 +395,15 @@ class MenuComponent extends Component {
 
         if($this->Permissions->IsST()) {
             $this->menu['Site Tools']['submenu']['ST Tools'] = array(
-                'link' => '/storyteller_index.php',
+                'link' => '#',
                 'submenu' => array(
+                    'Dashboard' => [
+                        'link' => '/storyteller_index.php',
+                    ],
                     'Character Lookup' => array(
                         'link' => '/view_sheet.php?action=st_view_xp',
                     ),
-                    'Request Dashboard' => array(
+                    'Requests' => array(
                         'link' => '/request.php?action=st_list'
                     ),
                     'Chat Login' => array(
@@ -403,12 +412,6 @@ class MenuComponent extends Component {
                     )
                 )
             );
-            $this->menu['Site Tools']['submenu']['ST Chat'] = [
-                'link' => [
-                    'controller' => 'chat2',
-                    'action' => 'login_st'
-                ]
-            ];
         }
 
         if($this->Permissions->IsAdmin()) {
