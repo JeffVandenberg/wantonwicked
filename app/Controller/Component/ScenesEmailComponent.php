@@ -19,6 +19,11 @@ class ScenesEmailComponent extends Component
             )
         ));
 
+        if(!$user) {
+            // abort if there's no one declared running the scene yet
+            return;
+        }
+
         // load character
         App::uses('Character', 'Model');
         $characters = new Character();
