@@ -2863,8 +2863,7 @@ function updateAdminDatabase($data)
 								
 				$action = $dbh->prepare($query);
 				$action->execute($params);
-				$count = $action->rowCount();		
-					
+
 				$dbh = null;
 			}				
 			catch(PDOException $e) 

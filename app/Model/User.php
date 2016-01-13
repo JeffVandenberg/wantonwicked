@@ -204,7 +204,12 @@ INSERT INTO
     phpbb_users
     ()
 EOQ;
-
+        // add them to the registered user group
+        $params = [
+            $user['user_id'],
+            $groupId
+        ];
         // return happy state
+        return $return;
     }
 }
