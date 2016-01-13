@@ -17,7 +17,7 @@ class SessionHelper
         $_SESSION['Message'][$section] = array(
             'message' => $message,
             'element' => 'default',
-            'params' => array()
+            'params' => []
         );
     }
 

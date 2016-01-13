@@ -3,12 +3,17 @@
 use classes\character\data\Character;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
+use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
 use classes\core\repository\Database;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
 require_once 'cgi-bin/start_of_page.php';
 
+SessionHelper::SetFlashMessage('Test message generated at: ' . date('Y-m-d H:i:s'));
+
+Response::redirect('/');
 $db = Database::getInstance();
 
 $data = array(

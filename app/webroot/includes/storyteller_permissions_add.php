@@ -1,6 +1,7 @@
 <?php
 /* @var array $userdata */
 
+use classes\core\data\User;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
@@ -41,6 +42,11 @@ if (Request::isPost() && UserdataHelper::IsHead($userdata)) {
     } else {
         $permissionRepository->SavePermissionsForUser($userId, $userPermissions);
         $groupsRepository->SaveGroupsForUser($userId, $selectedGroups);
+        $user = $userRepository->FindByUserId($userId);
+        /* @var User $user */
+        $user->RoleId = Request::getValue('role_id');
+        $userRepository->save($user);
+
         Response::redirect('/storyteller_index.php?action=permissions', 'Set Permissions for ' . Request::getValue('login_name'));
     }
 }

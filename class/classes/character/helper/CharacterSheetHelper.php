@@ -241,6 +241,7 @@ class CharacterSheetHelper
         }
 
         if (!$viewed_sheet && UserdataHelper::IsAsst($userdata)) {
+            $viewed_sheet = true;
             $viewOptions = array(
                 'edit_show_sheet' => true,
                 'edit_name' => true,

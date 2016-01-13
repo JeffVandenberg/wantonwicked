@@ -187,16 +187,24 @@ EOQ;
         // find the registered user group
         $sql = <<<EOQ
 SELECT
-    group_id
+    G.group_id
 FROM
-    phpbb_groups
+    phpbb_groups AS G
 WHERE
     group_name = 'REGISTERED USERS'
 EOQ;
 
         $data = $this->query($sql);
+        $groupId = $data[0]['G']['group_id'];
+
         // find the what?
         // add user to site as a basic registered user
+        $sql = <<<EOQ
+INSERT INTO
+    phpbb_users
+    ()
+EOQ;
+
         // return happy state
     }
 }

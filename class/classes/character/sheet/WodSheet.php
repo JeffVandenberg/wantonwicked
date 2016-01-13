@@ -83,7 +83,7 @@ class WodSheet
 
         $character_types = array("Mortal", "Vampire", "Ghoul", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker",
             "Changeling", "Geist", "Changing Breed", 'Psychic', 'Thaumaturge', 'Promethean', 'Hunter', 'Purified',
-            'Possessed', 'Spirit');
+            'Possessed', 'Spirit', 'Proximi');
         sort($character_types);
 
         $skill_list_proper = array("Academics", "Animal Ken", "Athletics", "Brawl", "Computer", "Crafts", "Drive", "Empathy", "Expression", "Firearms", "Intimidation", "Investigation", "Larceny", "Medicine", "Occult", "Persuasion", "Politics", "Science", "Socialize", "Stealth", "Streetwise", "Subterfuge", "Survival", "Weaponry");
@@ -364,6 +364,10 @@ EOQ;
 
             case 'Spirit':
                 $this->table_class = 'mortal_normal_text';
+                break;
+            case 'Proximi':
+                $this->table_class = 'mage_normal_text';
+                $supernatural_xp = 20;
                 break;
             default:
                 $this->table_class = "mortal_normal_text";
@@ -1709,6 +1713,17 @@ EOQ;
                     $friends, $helper, $power_points_dots, $power_trait_dots);
                 break;
 
+            case 'Proximi':
+                $renderer = new Proximi();
+                return $renderer->render($this, $character_name, $character_type_select, $city, $sex, $virtue,
+                    $vice, $icon, $age, $is_npc, $status, $concept, $description, $equipment_public, $equipment_hidden,
+                    $public_effects, $safe_place, $character_merit_list, $character_flaw_list, $characterMiscList,
+                    $health_dots, $size, $wounds_bashing, $wounds_lethal, $wounds_aggravated, $defense, $morality_dots,
+                    $initiative_mod, $willpower_perm_dots, $speed, $willpower_temp_dots, $armor, $st_notes_table,
+                    $history_table, $skill_table, $attribute_table, $show_sheet_table, $splat1, $subsplat, $splat2,
+                    $friends, $helper, $power_points_dots, $power_trait_dots);
+                break;
+
             case 'Ghoul':
                 $ghoul = new Ghoul();
                 return $ghoul->render($this, $character_name, $character_type_select, $city, $sex, $virtue, $vice,
@@ -2188,6 +2203,13 @@ EOQ;
                         'RulingArcana' => 'rulingarcana',
                         'CommonArcana' => 'commonarcana',
                         'InferiorArcana' => 'inferiorarcana',
+                        'Rote' => 'rote'
+                    );
+                    break;
+                case "Proximi":
+                    $powers = array(
+                        'RulingArcana' => 'rulingarcana',
+                        'CommonArcana' => 'commonarcana',
                         'Rote' => 'rote'
                     );
                     break;

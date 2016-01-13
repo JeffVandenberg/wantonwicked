@@ -64,6 +64,7 @@ var geist_xp_base = 44;
 var purified_xp_base = 38;
 var possessed_xp_base = 40;
 var changing_breed_xp_base = 76;
+var proximi_xp_base = 20;
 
 $(function() {
     general_xp_base = parseInt($("#general_xp").attr('value'));
@@ -451,6 +452,7 @@ function updateSupernaturalXP() {
         case 'Werewolf':
             updateWerewolfXP();
             break;
+        case 'Proximi':
         case 'Mage':
             updateMageXP();
             break;
