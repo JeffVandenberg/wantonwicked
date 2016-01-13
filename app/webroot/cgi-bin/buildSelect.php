@@ -1,4 +1,4 @@
-<?
+<?php
 function buildSelect ( $selected, $values_list, $names_list, $select_name, $extra_tags = "")
 {
 	if (sizeof($values_list) != sizeof($names_list) )
@@ -28,4 +28,3 @@ function buildSelect ( $selected, $values_list, $names_list, $select_name, $extr
 	
   return $select;
 }
-?>

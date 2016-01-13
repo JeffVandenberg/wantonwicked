@@ -219,7 +219,8 @@ function updateAdminConfig($data)
 
 	$str = explode(" ", $str);
 
-	for ( $i = 0; $i < count($str); $i++) 
+	$max = count($str);
+	for ( $i = 0; $i < $max; $i++)
 	{
 		$x = ($i%2) ? TRUE : FALSE;
 

@@ -68,7 +68,6 @@ EOQ;
 
 	public function AddNoteToDomainHolder($characterId)
 	{
-		$domainHolderId = 0;
 		$sql = <<<EOQ
 SELECT
 	character_id,

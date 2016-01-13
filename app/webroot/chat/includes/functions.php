@@ -203,7 +203,8 @@ function validChars($data)
 {
     $badChars = badChars();
 
-    for ($i = 0; $i < sizeof($badChars); $i += 1) {
+    $max = sizeof($badChars);
+    for ($i = 0; $i < $max; $i += 1) {
         $pos = strpos(stripslashes(strtolower($data)), $badChars[$i]);
 
         if ($pos === false) {
