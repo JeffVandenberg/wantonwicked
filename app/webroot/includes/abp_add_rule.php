@@ -1,8 +1,15 @@
 <?php
-$power_types = array("Merit", "ICDisc", "OOCDisc", "Devotion", "Derangement");
-$power_typeNames = array("Merit", "In-Clan Discipline", "Out-of-Clan Disc.", "Devotion/Ritual/Misc.", "Derangement");
+use classes\core\helpers\FormHelper;
 
-$power_typeSelect = buildSelect("", $power_types, $power_typeNames, "power_type");
+$power_types = [
+	"Merit" => 'Merit',
+	"ICDisc" => "In-Clan Discipline",
+	"OOCDisc" => "Out-of-Clan Disc.",
+	"Devotion" => "Devotion/Ritual/Misc.",
+	"Derangement" => "Derangement",
+];
+
+$power_typeSelect = FormHelper::Select($power_types, 'power_type');
 
 $page_content = <<<EOQ
 <h2>Create ABP Rule</h2>

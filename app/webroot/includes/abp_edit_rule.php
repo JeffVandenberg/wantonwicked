@@ -1,4 +1,5 @@
 <?php
+use classes\core\helpers\FormHelper;
 use classes\core\repository\Database;
 
 $id = $_GET['id'] + 0;
@@ -20,11 +21,16 @@ $ruleDetail = Database::getInstance()->query($sql)->single($params);
 if($ruleDetail)
 {
 
-	$power_types = array("Merit", "ICDisc", "OOCDisc", "Devotion", "Derangement");
-	$power_typeNames = array("Merit", "In-Clan Discipline", "Out-of-Clan Disc.", "Devotion/Ritual/Misc.", "Derangement");
+	$power_types = [
+		"Merit" => 'Merit',
+		"ICDisc" => "In-Clan Discipline",
+		"OOCDisc" => "Out-of-Clan Disc.",
+		"Devotion" => "Devotion/Ritual/Misc.",
+		"Derangement" => "Derangement",
+	];
 
-	$power_typeSelect = buildSelect($ruleDetail['power_type'], $power_types, $power_typeNames, "power_type");
-	
+	$power_typeSelect = FormHelper::Select($power_types, 'power_type', $ruleDetail['power_type']);
+
 	$sharedChecked = ($ruleDetail['is_shared']) ? "checked" : "";
 
 	$page_content = <<<EOQ

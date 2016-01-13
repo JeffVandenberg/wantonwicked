@@ -308,8 +308,14 @@ if ($character['character_type'] == 'Werewolf') {
     $extra_status  = <<<EOQ
 Essence: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
 EOQ;
-    $forms         = array("Hishu", "Dalu", "Gauru", "Urshul", "Urhan");
-    $form_select   = buildSelect($current_form, $forms, $forms, "current_form");
+    $forms         = [
+        "Hishu" => "Hishu",
+        "Dalu" => "Dalu",
+        "Gauru" => "Gauru",
+        "Urshul" => "Urshul",
+        "Urhan" => "Urhan",
+    ];
+    $form_select   = FormHelper::Select($forms, 'current_form', $current_form);
     $werewolf_form = <<<EOQ
 Form: $form_select<br>
 EOQ;

@@ -8,6 +8,8 @@
 #
 # PLUGIN: Share Images Module
 #
+use classes\core\helpers\FormHelper;
+
 include("../../includes/session.php");
 include("../../lang/" . $_SESSION['lang']);
 include("../../includes/config.php");
@@ -87,13 +89,16 @@ include("includes/functions.php");
         $action->execute();
         $ids = array('0');
         $names = array('All');
+        $users = [
+            0 => 'All'
+        ];
         foreach ($action as $i) {
-            $ids[] = $i['id'];
-            $names[] = $i['display_name'];
+            $users[$i['id']] = $i['display_name'];
         }
 
-        require_once('../../../cgi-bin/buildSelect.php');
-        $userSelect = buildSelect($_REQUEST['shareWithUserId'], $ids, $names, 'shareWithUserId');
+        $users = [];
+        require_once(__DIR__ . '../../../../../class/classes/core/helpers/FormHelper.php');
+        $userSelect = FormHelper::Select($users, 'shareWithUserId', $_REQUEST['shareWithUserId']);
 
         $publicChecked = (!($_REQUEST['shareWithUserId'])) ? "checked" : "";
         $privateChecked = (($_REQUEST['shareWithUserId'])) ? "checked" : "";

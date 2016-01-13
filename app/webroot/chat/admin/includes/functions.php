@@ -5,6 +5,8 @@
 *
 */
 
+use classes\core\helpers\FormHelper;
+
 function getAdminLogin()
 {
 	if($_SESSION['adminUser'])
@@ -757,15 +759,13 @@ ORDER BY
     name
 EOQ;
 
-        $ids = array();
-        $names = array();
-        require_once('../../cgi-bin/buildSelect.php');
+		$rooms = [];
+        require_once(__DIR__ . '../../../../../class/classes/core/helpers/FormHelper.php');
 
         $roomAction = $dbh->prepare($roomTypeSql);
         $roomAction->execute();
 		foreach($roomAction as $i) {
-            $ids[] = $i['id'];
-            $names[] = $i['name'];
+			$rooms[$i['id']] = $i['name'];
         }
 
 		if($id == '0')
@@ -774,7 +774,7 @@ EOQ;
 			$html .= '<tr><td colspan="2">&nbsp;</td></tr>';
 			$html .= '<input type="hidden" name="addRoom" value="1">';
 			$html .= '<tr><td width="70">RoomName: </td><td><input type="text" name="room" value=""></td></tr>';
-			$html .= '<tr><td width="70">Type: </td><td>' . buildSelect('', $ids, $names, 'roomtypeid') . '</td></tr>';
+			$html .= '<tr><td width="70">Type: </td><td>' . FormHelper::Select($rooms, 'roomtypeid') . '</td></tr>';
 			$html .= '<tr><td>Password: </td><td><input type="text" name="pass" value=""> (optional)</td></tr>';
 			$html .= '<tr><td>Background: </td><td><input type="text" name="bg" value=""> (upload image to folder <i>/images/</i> or enter <i>url</i> to image)</td></tr>';
 			$html .= '<tr><td>Description: </td><td><textarea name="desc"></textarea></td></tr>';
@@ -810,7 +810,7 @@ EOQ;
 				}
 				
 				$html .= '<tr><td>RoomName: </td><td><input type="text" name="room" value="'.urldecode($i['roomname']).'"></td></tr>';
-                $html .= '<tr><td width="70">Type: </td><td>' . buildSelect($i['room_type_id'], $ids, $names, 'roomtypeid') . '</td></tr>';
+                $html .= '<tr><td width="70">Type: </td><td>' . FormHelper::Select($rooms, 'roomtypeid', $i['room_type_id']) . '</td></tr>';
 				$html .= '<tr><td>Password: </td><td><input type="text" name="pass" value=""> (leave blank if no change)</td></tr>';
 				$html .= '<tr><td>Background: </td><td><input type="text" name="bg" value="'.$i['roombg'].'"> (upload image to folder <i>/images/</i> or enter <i>url</i> to image)</td></tr>';
 				$html .= '<tr><td>Description: </td><td><textarea name="desc">'.stripslashes(urldecode($i['roomdesc'])).'</textarea></td></tr>';
