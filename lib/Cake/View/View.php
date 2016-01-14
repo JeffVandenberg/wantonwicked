@@ -56,6 +56,7 @@ App::uses('CakeResponse', 'Network');
  * @property      UserPanelHelper UserPanel
  * @property      SubMenuHelper SubMenu
  * @property 	  CharacterHelper Character
+ * @property 	  CalendarHelper Calendar
  */
 class View extends Object {
 

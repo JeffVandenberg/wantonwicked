@@ -5,9 +5,12 @@
  * User: jvandenberg
  * Date: 1/5/16
  * Time: 1:27 PM
+ * @property HtmlHelper Html
  */
-class CalendarHelper
+class CalendarHelper extends AppHelper
 {
+    public $helpers = array('Html');
+
     public function drawCalendar($month, $year, $links)
     {
         /* draw table */
@@ -39,8 +42,13 @@ class CalendarHelper
             /* add in the day number */
             $calendar .= '<div class="day-number">' . $list_day . '</div>';
 
-            /** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
-            $calendar .= str_repeat('<p> </p>', 2);
+            if(isset($links[$list_day])) {
+                foreach($links[$list_day] as $link) {
+                    $calendar .= '<div class="' . $link['class'] . '">'
+                        . $this->Html->link($link['title'], $link['link'])
+                        . '</div>';
+                }
+            }
 
             $calendar .= '</td>';
             if ($running_day == 6):

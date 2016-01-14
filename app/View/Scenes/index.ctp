@@ -21,7 +21,7 @@ if (AuthComponent::user('user_id') != 1) {
     );
 }
 
-$allScenes  = 1;
+$allScenes = 1;
 if ($includePast) {
     $allScenes = 0;
     $menu['Actions']['submenu']['View Upcoming Scenes'] = array(
@@ -44,13 +44,13 @@ $this->Paginator->options(array(
     'evalScripts' => true,
 ));
 ?>
-<?php if(!$this->request->is('ajax')): ?>
-<div class="callout-navigation">
-    <?php if ($mayAdd): ?>
-        <?php echo $this->Html->link('New Scene', array('action' => 'add'), array('class' => 'button add')); ?>
-    <?php endif; ?>
-    <?php echo $this->Html->link('Toggle All', array('action' => 'index', $allScenes), array('class' => 'button calendar')); ?>
-</div>
+<?php if (!$this->request->is('ajax')): ?>
+    <div class="callout-navigation">
+        <?php if ($mayAdd): ?>
+            <?php echo $this->Html->link('New Scene', array('action' => 'add'), array('class' => 'button add')); ?>
+        <?php endif; ?>
+        <?php echo $this->Html->link('Toggle All', array('action' => 'index', $allScenes), array('class' => 'button calendar')); ?>
+    </div>
 <?php endif; ?>
 <div id="page-content" class="scenes index">
     <table cellpadding="0" cellspacing="0">
@@ -98,8 +98,44 @@ $this->Paginator->options(array(
     </div>
     <?php echo $this->Js->writeBuffer(); ?>
 </div>
+<?php
+$events = [
+    1 => [
+        [
+            'link' => [
+                'controller' => 'scenes',
+                'action' => 'view',
+                'test_scene'
+            ],
+            'title' => 'Test Scene',
+            'class' => 'mortal'
+        ],
+        [
+            'link' => [
+                'controller' => 'scenes',
+                'action' => 'view',
+                'test_scene'
+            ],
+            'title' => 'Test Scene',
+            'class' => 'mortal'
+        ],
+    ],
+    15 => [
+        [
+            'link' => [
+                'controller' => 'scenes',
+                'action' => 'view',
+                'test_scene'
+            ],
+            'title' => 'Test Scene',
+            'class' => 'mortal'
+        ]
+    ],
+];
+//echo $this->Calendar->drawCalendar(1, 2016, $events);
+?>
 <script>
-    $(function() {
+    $(function () {
         $(".button.join").button({
             icons: {
                 primary: 'ui-icon-link'
