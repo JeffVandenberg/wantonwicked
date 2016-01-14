@@ -806,3 +806,23 @@ div.submit {
     background-color:#ddd;
     padding:5px;
 }
+
+/* Calendar classes */
+.calendar-day-head {
+    font-weight: bold;
+}
+
+.calendar-day {
+    vertical-align: top;
+    width: 14%;
+}
+
+.calendar-day-today {
+    background-color: #fff;
+}
+
+.mortal {
+    background-color: #eee;
+    border: solid 1px #000;
+    padding: 3px;
+}
