@@ -41,38 +41,23 @@ class ScenesController extends AppController
     /**
      * index method
      *
-     * @param bool $includePast
+     * @param null $year
+     * @param null $month
      */
-    public function index($includePast = false)
+    public function index($year = null, $month = null)
     {
-        App::uses('SceneStatus', 'Model');
-        $this->Scene->recursive    = 0;
-        $this->Paginator->settings = array(
-            'fields'     => array(
-                'Scene.id',
-                'Scene.name',
-                'Scene.run_on_date',
-                'Scene.summary',
-                'Scene.slug',
-                'CreatedBy.username',
-                'UpdatedBy.username',
-                'RunBy.username'
-            ),
-            'conditions' => array(
-                'Scene.scene_status_id !=' => SceneStatus::Cancelled
-            ),
-            'order'      => array(
-                'Scene.run_on_date' => 'asc'
-            )
-        );
+        $year = ($year) ? $year :  date('Y');
+        $month = ($month) ? $month :  date('m');
 
-        if (!$includePast) {
-            $this->Paginator->settings['conditions']['Scene.run_on_date >='] = date('Y-m-d H:i:s');
-        }
-        $this->set('scenes', $this->Paginator->paginate());
-        $this->set('mayEdit', $this->Permissions->IsST());
-        $this->set('mayAdd', $this->Auth->user('id') != 1);
-        $this->set(compact('includePast'));
+        $scenes = $this->Scene->listScenesForMonth($year, $month);
+
+        $this->set([
+            'scenes' => $scenes,
+            'year' => $year,
+            'month' => $month,
+            'mayEdit' => $this->Permissions->IsST(),
+            'mayAdd' => $this->Auth->user('id') != 1,
+        ]);
     }
 
     /**

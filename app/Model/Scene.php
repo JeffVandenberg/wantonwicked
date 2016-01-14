@@ -143,4 +143,28 @@ class Scene extends AppModel
 
         return parent::save($model);
     }
+
+    public function listScenesForMonth($year, $month)
+    {
+        $monthStart = "$year-$month-01";
+        $monthEnd = date("Y-m-d", strtotime("+1 month", strtotime($monthStart)));
+
+        $sql = <<<EOQ
+SELECT
+    id,
+    name,
+    slug,
+    run_on_date,
+    summary
+FROM
+    scenes AS Scene
+WHERE
+    run_on_date >= '$monthStart'
+    AND run_on_date < '$monthEnd'
+    AND scene_status_id != 3
+ORDER BY
+  run_on_date
+EOQ;
+        return $this->query($sql);
+    }
 }

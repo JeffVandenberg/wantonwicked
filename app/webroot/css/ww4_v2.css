@@ -814,6 +814,11 @@ div.submit {
 
 .calendar-day {
     vertical-align: top;
+    width: 14%;
+}
+
+.calendar-day-today {
+    background-color: #fff;
 }
 
 .mortal {

@@ -37,15 +37,26 @@ class CalendarHelper extends AppHelper
         endfor;
 
         /* keep going with days.... */
+        $today = date('Y-m-d');
         for ($list_day = 1; $list_day <= $days_in_month; $list_day++):
-            $calendar .= '<td class="calendar-day">';
+            $todayClass = '';
+            if($today == date($year . '-' . str_pad($month, 2, '0') . '-' . str_pad($list_day, 2, '0'))) {
+                $todayClass = 'calendar-day-today';
+            }
+            $calendar .= '<td class="calendar-day ' . $todayClass . '">';
             /* add in the day number */
             $calendar .= '<div class="day-number">' . $list_day . '</div>';
 
             if(isset($links[$list_day])) {
                 foreach($links[$list_day] as $link) {
                     $calendar .= '<div class="' . $link['class'] . '">'
-                        . $this->Html->link($link['title'], $link['link'])
+                        . $this->Html->link(
+                            $link['title'],
+                            $link['link'],
+                            [
+                                'title' => $link['linkTitle']
+                            ]
+                        )
                         . '</div>';
                 }
             }
