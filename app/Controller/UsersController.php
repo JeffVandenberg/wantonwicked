@@ -74,17 +74,28 @@ class UsersController extends AppController
         // receive a user from the main site for migration. Whoo!
         $user = $this->request->data['user'];
 
-        $result = array(
+        $result = [
             'result' => false,
             'message' => 'Unknown Error'
-        );
+        ];
 
         App::uses('User', 'Model');
         $repo = new User();
-        $result = $repo->addUserToSite($user);
 
-        $this->set(compact('result'));
-        $this->set('_serialize', array('result'));
+        $response = [
+            'success' => false,
+            'message' => ''
+        ];
+
+        try {
+            $result = $repo->addUserToSite($user);
+            $response['success'] = $result;
+        } catch (Exception $e) {
+            $response['message'] = $e->getMessage();
+        }
+        var_dump($response);
+        $this->set(compact('response'));
+        $this->set('_serialize', ['response']);
     }
 
     public function isAuthorized($user)
