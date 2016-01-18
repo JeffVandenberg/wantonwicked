@@ -1098,9 +1098,13 @@ FROM
 	LEFT JOIN st_groups AS SG ON G.id = SG.group_id
 WHERE
 	SG.user_id = ?
-	AND R.request_status_id IN (2)
+	AND R.request_status_id IN (?, ?)
 EOQ;
-        $params = array($userId);
+        $params = array(
+            $userId,
+            RequestStatus::Submitted,
+            RequestStatus::InProgress
+        );
         return $this->query($sql)->value($params);
     }
 
