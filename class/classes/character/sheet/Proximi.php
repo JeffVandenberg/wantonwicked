@@ -303,80 +303,6 @@ class Proximi extends SheetRenderer
         <?php
         $commonArcana = ob_get_clean();
 
-        $powers = $sheet->getPowers($sheet->stats['id'], 'Rote', WodSheet::NAMENOTE, 5);
-        $supernatural_xp_js = "";
-        if ($sheet->viewOptions['xp_create_mode']) {
-            $supernatural_xp_js = ' onChange="updateXP(' . WodSheet::SUPERNATURAL . ')" ';
-        }
-
-        ob_start();
-        ?>
-        <table class="character-sheet <?php echo $sheet->table_class; ?>" id="rote_list">
-            <tr>
-                <th colspan="3">
-                    Rotes
-                    <?php if ($sheet->viewOptions['edit_powers']): ?>
-                        <a href="#" onClick="addRote();return false;">
-                            <img src="/img/plus.png" title="Add Rote"/>
-                        </a>
-                    <?php endif; ?>
-                </th>
-            </tr>
-            <tr>
-                <td class="header-row">
-                    Name
-                </td>
-                <td class="header-row">
-                    Note
-                </td>
-                <td class="header-row">
-                    Level
-                </td>
-            </tr>
-            <?php foreach ($powers as $i => $power): ?>
-                <tr>
-                    <td>
-                        <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="rote<?php echo $i; ?>_name"></label><input type="text"
-                                                                                   name="rote<?php echo $i; ?>_name"
-                                                                                   id="rote<?php echo $i; ?>_name"
-                                                                                   size="15"
-                                                                                   value="<?php echo $power->getPowerName(); ?>">
-                        <?php else: ?>
-                            <?php echo $power->getPowerName(); ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="rote<?php echo $i; ?>_note"></label><input type="text"
-                                                                                   name="rote<?php echo $i; ?>_note"
-                                                                                   id="rote<?php echo $i; ?>_note"
-                                                                                   size="15"
-                                                                                   value="<?php echo $power->getPowerNote(); ?>">
-                        <?php else: ?>
-                            <?php echo $power->getPowerNote(); ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ($sheet->viewOptions['edit_powers']): ?>
-                            <label for="rote<?php echo $i; ?>">
-                                <input type="text" name="rote<?php echo $i; ?>" id="rote<?php echo $i; ?>" size="3"
-                                       maxlength="2" <?php echo $supernatural_xp_js; ?>
-                                       value="<?php echo $power->getPowerLevel(); ?>">
-                            </label>
-                        <?php else: ?>
-                            <?php echo $power->getPowerLevel(); ?>
-                        <?php endif; ?>
-                        <input type="hidden" name="rote<?php echo $i; ?>_id"
-                               id="rote<?php echo $i; ?>_id"
-                               value="<?php echo $power->getPowerID(); ?>">
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php
-        $rotes = ob_get_clean();
-
         ob_start();
         ?>
         <div style="width:50%;float:left;">
@@ -389,9 +315,6 @@ class Proximi extends SheetRenderer
         <div style="width:50%;float:left;clear: both;">
             <?php echo $rulingArcana; ?>
             <?php echo $commonArcana; ?>
-        </div>
-        <div style="width:50%;float:left;">
-            <?php echo $rotes; ?>
         </div>
         <table class="character-sheet <?php echo $sheet->table_class; ?>">
             <tr>
@@ -417,7 +340,7 @@ class Proximi extends SheetRenderer
             </tr>
             <tr>
                 <td colspan="1">
-                    Gnosis
+                    Arete
                 </td>
                 <td colspan="2">
                     <?php echo $power_trait_dots; ?>

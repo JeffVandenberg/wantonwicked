@@ -9,6 +9,7 @@ use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 use classes\core\repository\PermissionRepository;
 use classes\core\repository\RoleRepository;
+use classes\core\repository\UserRepository;
 use classes\request\repository\GroupRepository;
 
 $page_title = "Add ST";
@@ -32,6 +33,7 @@ $selectedGroups = array();
 $permissionRepository = new PermissionRepository();
 $groupsRepository = new GroupRepository();
 $roleRepository = new RoleRepository();
+$userRepository = new UserRepository();
 
 if (Request::isPost() && UserdataHelper::IsHead($userdata)) {
     $userId = Request::getValue('user_id');

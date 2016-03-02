@@ -4,7 +4,6 @@
 * include files
 *
 */
-$start = microtime(true);
 
 include("ini.php");
 include("session.php");
