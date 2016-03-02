@@ -10,6 +10,25 @@ use classes\log\data\ActionType;
 
 require_once 'cgi-bin/start_of_page.php';
 
+$rolls = [
+    1 => 0,
+    2 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+    10 => 0,
+];
+for($i = 0; $i < 100000; $i++) {
+    $rolls[mt_rand(1,10)]++;
+}
+
+var_dump($rolls);
+die();
+
 SessionHelper::SetFlashMessage('Test message generated at: ' . date('Y-m-d H:i:s'));
 
 Response::redirect('/');

@@ -40,15 +40,16 @@ class CalendarHelper extends AppHelper
         $today = date('Y-m-d');
         for ($list_day = 1; $list_day <= $days_in_month; $list_day++):
             $todayClass = '';
-            if($today == date($year . '-' . str_pad($month, 2, '0') . '-' . str_pad($list_day, 2, '0'))) {
+            $listDayPadded = str_pad($list_day, 2, '0', STR_PAD_LEFT);
+            if($today == date($year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $listDayPadded)) {
                 $todayClass = 'calendar-day-today';
             }
             $calendar .= '<td class="calendar-day ' . $todayClass . '">';
             /* add in the day number */
             $calendar .= '<div class="day-number">' . $list_day . '</div>';
 
-            if(isset($links[$list_day])) {
-                foreach($links[$list_day] as $link) {
+            if(isset($links[$listDayPadded])) {
+                foreach($links[$listDayPadded] as $link) {
                     $calendar .= '<div class="' . $link['class'] . '">'
                         . $this->Html->link(
                             $link['title'],
