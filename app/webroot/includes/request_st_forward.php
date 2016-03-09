@@ -26,6 +26,7 @@ $groupsRepository  = new GroupRepository();
 $request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
+$note = Request::getValue('note', '');
 if (Request::isPost()) {
     $action = Request::getValue('action');
     if ($action == 'Cancel') {
@@ -34,7 +35,13 @@ if (Request::isPost()) {
     if ($action == 'Forward') {
         $newGroupId = Request::getValue('new_group_id');
 
-        if ($newGroupId != $request->GroupId) {
+        if(trim($note) == '') {
+            SessionHelper::SetFlashMessage('Please Include a Note');
+        }
+        else if ($newGroupId == $request->GroupId){
+            SessionHelper::SetFlashMessage('You selected the same group for the request');
+        }
+        else {
             $requestNoteRepository = new RequestNoteRepository();
             $newGroup              = $groupsRepository->getById($newGroupId);
             $oldGroup              = $groupsRepository->getById($request->GroupId);
@@ -45,7 +52,7 @@ if (Request::isPost()) {
             $requestNote              = new RequestNote();
             $requestNote->CreatedById = $userdata['user_id'];
             $requestNote->CreatedOn   = date('Y-m-d H:i:s');
-            $requestNote->Note        = 'Forwarded from group: ' . $oldGroup->Name . ' to group: ' . $newGroup->Name;
+            $requestNote->Note        = 'Forwarded from group: ' . $oldGroup->Name . ' to group: ' . $newGroup->Name . ' with Note: <br />' . $note;
             $requestNote->RequestId   = $requestId;
 
             $requestNoteRepository->Save($requestNote);
@@ -57,9 +64,6 @@ if (Request::isPost()) {
 
             Response::redirect('/request.php?action=st_list');
         }
-        else {
-            SessionHelper::SetFlashMessage('You selected the same group for the request');
-        }
     }
 }
 
@@ -69,16 +73,43 @@ ob_start();
 
     <form method="post">
         <div class="paragraph">
-            Select the group that you want to forward &quot;<?php echo htmlspecialchars($request->Title); ?> to
+            Select the group that you want to forward &quot;<?php echo htmlspecialchars($request->Title); ?>&quot; to
         </div>
         <div class="paragraph">
             <?php echo FormHelper::Select($groups, 'new_group_id', $request->GroupId, array(
                 'label' => 'New Group'
             )); ?>
         </div>
+        <div class="formInput">
+            <label>
+                Note
+            </label>
+            <?php echo FormHelper::Textarea('note', $note); ?>
+        </div>
         <?php echo FormHelper::Hidden('request_id', $request->Id); ?>
         <?php echo FormHelper::Button('action', 'Forward'); ?>
         <?php echo FormHelper::Button('action', 'Cancel'); ?>
     </form>
+    <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            menubar: false,
+            height: 200,
+            paste_preprocess : function(pl, o) {
+                //example: keep bold,italic,underline and paragraphs
+                //o.content = strip_tags( o.content,'<b><u><i><p>' );
+
+                // remove all tags => plain text
+                o.content = strip_tags( o.content,'<br>' );
+            },
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace wordcount visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste textcolor"
+            ],
+            toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | copy paste "
+        });
+    </script>
 <?php
 $page_content = ob_get_clean();
