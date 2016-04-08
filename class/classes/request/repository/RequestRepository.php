@@ -655,11 +655,7 @@ EOQ;
             $parameters = array_merge($parameters, RequestStatus::$Storyteller);
         }
 
-        $count = 0;
-        foreach($this->query($sql)->all($parameters) as $row) {
-            $count = $row['count'];
-        }
-        return $count;
+        return $this->query($sql)->value($parameters);
     }
 
     public function ListBlueBookByCharacterIdCount($characterId)
