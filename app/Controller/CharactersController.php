@@ -214,4 +214,9 @@ class CharactersController extends AppController
 
         return $this->redirect(array('action' => 'index'));
     }
+
+    public function assignCondition()
+    {
+        // grant condition to character
+    }
 }

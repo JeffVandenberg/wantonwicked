@@ -39,6 +39,7 @@ SELECT
     ) AS groups,
     U.user_id,
     U.username,
+    U.role_id,
     R.name as role_name
 FROM
     phpbb_users AS U
