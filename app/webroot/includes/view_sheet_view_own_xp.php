@@ -18,7 +18,7 @@ $characterSheetHelper = new CharacterSheetHelper();
 $characterId = Request::getValue('character_id', 0);
 $character = $characterRepository->FindById($characterId);
 
-if($character['user_id'] != $userdata['user_id']) {
+if(!$userdata['is_admin'] && ($character['user_id'] != $userdata['user_id'])) {
     Response::redirect('/', 'You may only view your own characters');
 }
 
