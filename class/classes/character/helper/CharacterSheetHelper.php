@@ -286,7 +286,7 @@ class CharacterSheetHelper
 
     public function MakeViewOwn($stats, $characterType)
     {
-        if (($stats['asst_sanctioned'] == 'Y') || ($stats['is_sanctioned'] == 'Y')) {
+        if (($stats['is_sanctioned'] != '')) {
             $viewOptions = array(
                 'edit_show_sheet' => true,
                 'edit_description' => true,
@@ -325,7 +325,7 @@ class CharacterSheetHelper
 
     public function UpdateOwn(Character $oldCharacter, $newStats, $userdata)
     {
-        if(($oldCharacter->AsstSanctioned == 'Y') || ($oldCharacter->IsSanctioned == 'Y')) {
+        if($oldCharacter->IsSanctioned != '') {
             $viewOptions = array(
                 'edit_show_sheet' => true,
                 'edit_description' => true,

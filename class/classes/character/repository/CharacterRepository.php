@@ -353,7 +353,7 @@ EOQ;
 UPDATE
     characters
 SET
-    is_sanctioned='n'
+    is_sanctioned='N'
 WHERE
     id IN ($characterIdPlaceholders)
 EOQ;
