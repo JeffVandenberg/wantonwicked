@@ -84,7 +84,6 @@ EOQ;
 EOQ;
 
         $lastNote = end($request->RequestNote);
-        var_dump($lastNote);
         /* @var RequestNote */
         if($lastNote) {
             $body .= <<<EOQ
