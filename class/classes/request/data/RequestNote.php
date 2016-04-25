@@ -10,10 +10,22 @@
 namespace classes\request\data;
 
 
-class RequestNote
+use classes\core\data\DataModel;
+
+class RequestNote extends DataModel
 {
     public $CreatedOn;
     public $CreatedById;
     public $Note;
     public $RequestId;
+
+    public $BelongsTo = [
+        'Request',
+        'CreatedBy' => 'classes\core\data\User'
+    ];
+
+    function __construct()
+    {
+        parent::__construct();
+    }
 }

@@ -23,6 +23,7 @@ use classes\core\data\User;
  * @property RequestStatusHistory[] RequestStatusHistory
  * @property User UpdatedBy
  * @property User CreatedBy
+ * @property RequestNote[] RequestNote
  */
 class Request extends DataModel
 {
@@ -57,6 +58,7 @@ class Request extends DataModel
 
     public $HasMany = array(
         'RequestStatusHistory',
-        'RequestCharacter'
+        'RequestCharacter',
+        'RequestNote'
     );
 }

@@ -10,6 +10,7 @@ namespace classes\request;
 
 
 use classes\request\data\Request;
+use classes\request\data\RequestNote;
 use classes\request\repository\RequestRepository;
 
 class RequestMailer
@@ -56,6 +57,10 @@ EOQ;
 
         $requestRepository = new RequestRepository();
         $groupEmails = $requestRepository->listEmailsForUsersInGroup($request->GroupId);
+        if(count($groupEmails) == 0) {
+            return;
+        }
+        
         foreach($groupEmails as $user) {
             $mailer->addAddress($user['user_email']);
         }
@@ -76,9 +81,21 @@ EOQ;
         View Request
         </a>
         </p>
-    </div>
-</div>
 EOQ;
+
+        $lastNote = end($request->RequestNote);
+        var_dump($lastNote);
+        /* @var RequestNote */
+        if($lastNote) {
+            $body .= <<<EOQ
+<p>
+    <b>New Note</b><br />
+    {$lastNote['note']}
+</p>
+EOQ;
+        }
+
+        $body .= '</div></div>';
         $mailer->Body    = $body;
         $mailer->isHTML(true);
 
