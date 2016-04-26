@@ -51,24 +51,24 @@ $associatedRequests = $requestRepository->ListRequestAssociatedWith($characterId
 $requestStatusRepository = new RequestStatusRepository();
 $requestTypeRepository = new RequestTypeRepository();
 $requestTypes = $requestTypeRepository->simpleListAll();
-$requestTypes = array('All') + $requestTypes;
+$requestTypes = array_merge(['All'], $requestTypes);
 $requestStatuses = $requestStatusRepository->simpleListAll();
-$requestStatuses = array('All') + $requestStatuses;
+$requestStatuses = array_merge(['All'], $requestStatuses);
 
 $contentHeader = $page_title = "Requests for " . $character['character_name'];
 
 require_once('menus/character_menu.php');
-$characterMenu['Help'] = array(
+$characterMenu['Help'] = [
     'link' => '#',
-    'submenu' => array(
-        'Request System Help' => array(
+    'submenu' => [
+        'Request System Help' => [
             'link' => '/wiki/index.php?n=GameRef.GameInterfaceHelp'
-        )
-    )
-);
-$characterMenu['Create Request'] = array(
+        ]
+    ]
+];
+$characterMenu['Create Request'] = [
     'link' => "request.php?action=create&character_id=$characterId"
-);
+];
 $menu = MenuHelper::GenerateMenu($characterMenu);
 
 ob_start();
@@ -78,7 +78,7 @@ ob_start();
         <tr>
             <th>
                 <?php if ($hasPrev): ?>
-                    <a href="/request.php?action=list&<?php echo $pagination->GetPrev(); ?>">
+                    <a href="/request.php?action=list&<?php echo $pagination->GetPrev(); ?>" title="Previous Page">
                         &lt; &lt;</a>
                 <?php else: ?>
                     &lt; &lt;
@@ -94,7 +94,7 @@ ob_start();
                     <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
                 </form>
                 <?php if ($hasNext): ?>
-                    <a href="/request.php?action=list&<?php echo $pagination->GetNext(); ?>">
+                    <a href="/request.php?action=list&<?php echo $pagination->GetNext(); ?>" title="Next Page">
                         &gt; &gt;</a>
                 <?php else: ?>
                     &gt; &gt;

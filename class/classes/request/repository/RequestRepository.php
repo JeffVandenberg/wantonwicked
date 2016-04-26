@@ -32,7 +32,7 @@ class RequestRepository extends AbstractRepository
         /* @var Request $request */
 
         $result = parent::save($request);
-        if($result) {
+        if ($result) {
             $requestStatusHistory = new RequestStatusHistory();
             $requestStatusHistory->RequestId = $request->Id;
             $requestStatusHistory->RequestStatusId = $request->RequestStatusId;
@@ -46,7 +46,7 @@ class RequestRepository extends AbstractRepository
 
     public function FindById($id)
     {
-        $id = (int) $id;
+        $id = (int)$id;
         $sql = <<<EOQ
 SELECT
     R.*,
@@ -67,11 +67,10 @@ EOQ;
     public function ListByCharacterId($characterId, $page, $pageSize, $sort, $statusId = 0, $filter)
     {
         $openStatuses = RequestStatus::$Player;
-        if($statusId != 0) {
+        if ($statusId != 0) {
             $openStatuses = array($statusId);
         }
         $startIndex = ($page - 1) * $pageSize;
-        $sort = mysql_real_escape_string($sort);
 
         $sql = <<<EOQ
 SELECT
@@ -90,25 +89,23 @@ WHERE
     AND RC.is_primary = 1
 EOQ;
         $parameters = array($characterId);
-        if($filter['title'] !== '') {
+        if ($filter['title'] !== '') {
             $sql .= ' AND R.title LIKE ? ';
             $parameters[] = $filter['title'] . '%';
         }
 
-        if($filter['request_type_id'] != 0) {
+        if ($filter['request_type_id'] != 0) {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_type_id != ? ';
             $parameters[] = RequestType::BlueBook;
         }
 
-        if($filter['request_status_id'] != 0) {
+        if ($filter['request_status_id'] != 0) {
             $sql .= ' AND R.request_status_id = ? ';
             $parameters[] = $filter['request_status_id'];
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_status_id IN (' . implode(',', array_fill(0, count($openStatuses), '?')) . ') ';
             $parameters = array_merge($parameters, $openStatuses);
         }
@@ -126,10 +123,10 @@ EOQ;
 
     public function ListByCharacterIdCount($characterId, $statusId, $filter)
     {
-        $characterId = (int) $characterId;
+        $characterId = (int)$characterId;
 
         $openStatuses = RequestStatus::$Player;
-        if($statusId != 0) {
+        if ($statusId != 0) {
             $openStatuses = array($statusId);
         }
 
@@ -138,44 +135,40 @@ SELECT
     COUNT(*) AS `count`
 FROM
     requests as R
+    LEFT JOIN request_characters as RC ON R.id = RC.request_id
 WHERE
-    R.character_id = ?
+    RC.character_id = ?
+    AND RC.is_primary = 1
 EOQ;
         $parameters = array($characterId);
-        if($filter['title'] !== '') {
+        if ($filter['title'] !== '') {
             $sql .= ' AND R.title LIKE ? ';
             $parameters[] = $filter['title'] . '%';
         }
 
-        if($filter['request_type_id'] != 0) {
+        if ($filter['request_type_id'] != 0) {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_type_id != ? ';
             $parameters[] = RequestType::BlueBook;
         }
 
-        if($filter['request_status_id'] != 0) {
+        if ($filter['request_status_id'] != 0) {
             $sql .= ' AND R.request_status_id = ? ';
             $parameters[] = $filter['request_status_id'];
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_status_id IN (' . implode(',', array_fill(0, count($openStatuses), '?')) . ') ';
             $parameters = array_merge($parameters, $openStatuses);
         }
 
-        $count = 0;
-        foreach($this->query($sql)->all($parameters) as $row) {
-            $count = $row['count'];
-        }
-        return $count;
+        return $this->query($sql)->value($parameters);
     }
 
     public function MayViewRequest($requestId, $userId)
     {
-        $requestId = (int) $requestId;
-        $userId = (int) $userId;
+        $requestId = (int)$requestId;
+        $userId = (int)$userId;
 
         $sql = <<<EOQ
 SELECT
@@ -199,8 +192,8 @@ EOQ;
 
     public function GetOpenRequestsNotAttachedToRequest($requestId, $characterId)
     {
-        $requestId = (int) $requestId;
-        $characterId = (int) $characterId;
+        $requestId = (int)$requestId;
+        $characterId = (int)$characterId;
         $bluebook = RequestType::BlueBook;
         $sql = <<<EOQ
 SELECT
@@ -228,8 +221,8 @@ EOQ;
 
     public function AttachRequestToRequest($requestId, $fromRequestId)
     {
-        $requestId = (int) $requestId;
-        $fromRequestId = (int) $fromRequestId;
+        $requestId = (int)$requestId;
+        $fromRequestId = (int)$fromRequestId;
 
         $sql = <<<EOQ
 INSERT INTO
@@ -253,7 +246,7 @@ EOQ;
 
     public function ListSupportingRequests($requestId)
     {
-        $requestId = (int) $requestId;
+        $requestId = (int)$requestId;
         $bluebook = RequestType::BlueBook;
 
         $sql = <<<EOQ
@@ -277,7 +270,7 @@ EOQ;
 
     public function ListOpenRequestsForCharacter($characterId)
     {
-        $characterId = (int) $characterId;
+        $characterId = (int)$characterId;
         $blueBook = RequestType::BlueBook;
         $edittablePlaceholders = implode(',', array_fill(0, count(RequestStatus::$Terminal), '?'));
         $sql = <<<EOQ
@@ -299,8 +292,8 @@ EOQ;
 
     public function AttachRollToRequest($requestId, $rollId)
     {
-        $requestId = (int) $requestId;
-        $rollId = (int) $rollId;
+        $requestId = (int)$requestId;
+        $rollId = (int)$rollId;
 
         $sql = <<<EOQ
 INSERT INTO
@@ -325,7 +318,7 @@ EOQ;
 
     public function ListSupportingRolls($requestId)
     {
-        $requestId = (int) $requestId;
+        $requestId = (int)$requestId;
         $sql = <<<EOQ
 SELECT
     WD.*
@@ -345,7 +338,7 @@ EOQ;
 
     public function ListBlueBookByCharacterId($characterId, $page, $pageSize, $sort)
     {
-        $startIndex = ($page-1) * $pageSize;
+        $startIndex = ($page - 1) * $pageSize;
 
         $sql = <<<EOQ
 SELECT
@@ -372,8 +365,8 @@ EOQ;
 
     public function ListBlueBookEntriesNotAttachedToRequest($requestId, $characterId)
     {
-        $requestId = (int) $requestId;
-        $characterId = (int) $characterId;
+        $requestId = (int)$requestId;
+        $characterId = (int)$characterId;
         $bluebook = RequestType::BlueBook;
 
         $sql = <<<EOQ
@@ -401,8 +394,8 @@ EOQ;
 
     public function AttachBluebookToRequest($requestId, $bluebookId)
     {
-        $requestId = (int) $requestId;
-        $bluebookId = (int) $bluebookId;
+        $requestId = (int)$requestId;
+        $bluebookId = (int)$bluebookId;
 
         $sql = <<<EOQ
 INSERT INTO
@@ -426,7 +419,7 @@ EOQ;
 
     public function ListSupportingBluebookEntries($requestId)
     {
-        $requestId = (int) $requestId;
+        $requestId = (int)$requestId;
         $bluebook = RequestType::BlueBook;
 
         $sql = <<<EOQ
@@ -476,31 +469,29 @@ WHERE
 EOQ;
         $parameters = $groups;
 
-        if($filter['username'] != '') {
+        if ($filter['username'] != '') {
             $sql .= ' AND CB.username_clean LIKE ? ';
             $parameters[] = strtolower($filter['username']) . '%';
         }
-        if($filter['request_type_id'] != '0') {
+        if ($filter['request_type_id'] != '0') {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_type_id != ? ';
             $parameters[] = RequestType::BlueBook;
         }
 
-        if($filter['title'] != '') {
+        if ($filter['title'] != '') {
             $sql .= ' AND R.title LIKE ? ';
             $parameters[] = $filter['title'] . '%';
         }
 
-        if($filter['request_status_id'] != '0') {
-            if($filter['request_status_id'] != -1) {
+        if ($filter['request_status_id'] != '0') {
+            if ($filter['request_status_id'] != -1) {
                 $sql .= ' AND R.request_status_id = ? ';
                 $parameters[] = $filter['request_status_id'];
             }
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_status_id IN (' . $storytellerPlaceholders . ') ';
             $parameters = array_merge($parameters, RequestStatus::$Storyteller);
         }
@@ -537,7 +528,7 @@ EOQ;
 
     public function SearchCharactersForRequest($onlySanctioned, $characterName)
     {
-        $onlySanctioned = (int) $onlySanctioned;
+        $onlySanctioned = (int)$onlySanctioned;
 
         $sql = <<<EOQ
 SELECT
@@ -589,7 +580,7 @@ EOQ;
 
     public function ListRequestAssociatedWith($characterId)
     {
-        $characterId = (int) $characterId;
+        $characterId = (int)$characterId;
         $blueBook = RequestType::BlueBook;
         $terminalPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Terminal), '?'));
         $sql = <<<EOQ
@@ -614,7 +605,7 @@ WHERE
 ORDER BY
     R.title
 EOQ;
-        $params = array_merge(RequestStatus::$Terminal, array($blueBook,$characterId));
+        $params = array_merge(RequestStatus::$Terminal, array($blueBook, $characterId));
         return $this->query($sql)->all($params);
     }
 
@@ -632,24 +623,22 @@ WHERE
     R.group_id IN ($groupListPlaceholders)
 EOQ;
         $parameters = $groups;
-        if($filter['username'] != '') {
+        if ($filter['username'] != '') {
             $sql .= ' AND U.username_clean LIKE ? ';
             $parameters[] = strtolower($filter['username']) . '%';
         }
-        if($filter['request_type_id'] != '0') {
+        if ($filter['request_type_id'] != '0') {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_type_id != ? ';
             $parameters[] = RequestType::BlueBook;
         }
 
-        if($filter['request_status_id'] > 0) {
+        if ($filter['request_status_id'] > 0) {
             $sql .= ' AND R.request_status_id = ? ';
             $parameters[] = $filter['request_status_id'];
-        }
-        else if ($filter['request_status_id'] != -1) {
+        } else if ($filter['request_status_id'] != -1) {
             $storytellerPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Storyteller), '?'));
             $sql .= ' AND R.request_status_id IN (' . $storytellerPlaceholders . ')';
             $parameters = array_merge($parameters, RequestStatus::$Storyteller);
@@ -671,7 +660,7 @@ WHERE
 EOQ;
 
         $count = 0;
-        foreach($this->query($sql)->all(array($characterId, RequestType::BlueBook)) as $row) {
+        foreach ($this->query($sql)->all(array($characterId, RequestType::BlueBook)) as $row) {
             $count = $row['count'];
         }
         return $count;
@@ -763,10 +752,10 @@ EOQ;
 
     public function CountRequestsByCharacterIdAndStatus($characterId, $requestStatuses)
     {
-        if(!is_array($requestStatuses)) {
+        if (!is_array($requestStatuses)) {
             $requestStatuses = array($requestStatuses);
         }
-        $statusPlaceholders = implode(',',array_fill(0, count($requestStatuses), '?'));
+        $statusPlaceholders = implode(',', array_fill(0, count($requestStatuses), '?'));
 
         $sql = <<<EOQ
 SELECT
@@ -815,7 +804,7 @@ EOQ;
 
     public function CloseRequestsForCharacter($characterIds)
     {
-        if(!is_array($characterIds)) {
+        if (!is_array($characterIds)) {
             $characterIds = array($characterIds);
         }
         $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
@@ -840,18 +829,13 @@ EOQ;
      * @param $page
      * @param $pageSize
      * @param $sort
-     * @param int $statusId
      * @param $filter
      * @return \classes\request\data\Request[]
      */
-    public function ListByUserId($userId, $page, $pageSize, $sort, $statusId = 0, $filter)
+    public function ListByUserId($userId, $page, $pageSize, $sort, $filter)
     {
         $openStatuses = RequestStatus::$Player;
-        if($statusId != 0) {
-            $openStatuses = array($statusId);
-        }
         $startIndex = ($page - 1) * $pageSize;
-        $sort = mysql_real_escape_string($sort);
 
         $sql = <<<EOQ
 SELECT
@@ -868,25 +852,23 @@ WHERE
     R.created_by_id = ?
 EOQ;
         $parameters = array($userId);
-        if($filter['title'] !== '') {
+        if ($filter['title'] !== '') {
             $sql .= ' AND R.title LIKE ? ';
             $parameters[] = $filter['title'] . '%';
         }
 
-        if($filter['request_type_id'] != 0) {
+        if ($filter['request_type_id'] != 0) {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_type_id != ? ';
             $parameters[] = RequestType::BlueBook;
         }
 
-        if($filter['request_status_id'] != 0) {
+        if ($filter['request_status_id'] != 0) {
             $sql .= ' AND R.request_status_id = ? ';
             $parameters[] = $filter['request_status_id'];
-        }
-        else {
+        } else {
             $sql .= ' AND R.request_status_id IN (' . implode(',', array_fill(0, count($openStatuses), '?')) . ') ';
             $parameters = array_merge($parameters, $openStatuses);
         }
@@ -899,7 +881,7 @@ LIMIT
 EOQ;
 
         $list = array();
-        foreach($this->query($sql)->all($parameters) as $row) {
+        foreach ($this->query($sql)->all($parameters) as $row) {
             $list[] = $this->populateObject($row);
         }
 
@@ -922,7 +904,7 @@ EOQ;
         $params = array_merge(array(
             RequestType::BlueBook,
             $userId
-        ) , RequestStatus::$Player);
+        ), RequestStatus::$Player);
         return $this->query($sql)->value($params);
     }
 
@@ -951,7 +933,7 @@ WHERE
 EOQ;
         $params = array($startDate, $endDate);
 
-        if($userId) {
+        if ($userId) {
             $sql .= ' AND U.user_id = ? ';
             $params[] = $userId;
         }
@@ -1017,7 +999,7 @@ EOQ;
 
         $list = array();
 
-        foreach($this->query($sql)->all($params) as $row) {
+        foreach ($this->query($sql)->all($params) as $row) {
             $list[] = $this->populateObject($row);
         }
 
@@ -1026,8 +1008,8 @@ EOQ;
 
     public function MayEditRequest($requestId, $userId)
     {
-        $requestId = (int) $requestId;
-        $userId = (int) $userId;
+        $requestId = (int)$requestId;
+        $userId = (int)$userId;
 
         $sql = <<<EOQ
 SELECT
@@ -1151,6 +1133,28 @@ EOQ;
         ];
 
         return $this->query($sql)->all($params);
+    }
+
+    public function countByUserId($userId, $filter)
+    {
+        $openStatuses = RequestStatus::$Player;
+
+        $sql = <<<EOQ
+SELECT
+    count(*)
+FROM
+    requests as R
+WHERE
+    R.created_by_id = ?
+EOQ;
+        $parameters = array($userId);
+        $sql .= ' AND R.request_type_id != ? ';
+        $parameters[] = RequestType::BlueBook;
+
+        $sql .= ' AND R.request_status_id IN (' . implode(',', array_fill(0, count($openStatuses), '?')) . ') ';
+        $parameters = array_merge($parameters, $openStatuses);
+
+        return $this->query($sql)->value($parameters);
     }
 
 }
