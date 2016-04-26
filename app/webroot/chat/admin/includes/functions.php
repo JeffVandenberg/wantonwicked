@@ -760,7 +760,6 @@ ORDER BY
 EOQ;
 
 		$rooms = [];
-        require_once(__DIR__ . '../../../../../class/classes/core/helpers/FormHelper.php');
 
         $roomAction = $dbh->prepare($roomTypeSql);
         $roomAction->execute();

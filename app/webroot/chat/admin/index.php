@@ -19,6 +19,8 @@
 *
 */
 
+include '../../../../vendor/autoload.php';
+
 include("../includes/ini.php");
 include("../includes/session.php");
 include("../includes/config.php");
