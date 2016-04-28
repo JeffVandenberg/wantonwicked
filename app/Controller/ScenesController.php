@@ -20,12 +20,15 @@ class ScenesController extends AppController
     public $components = array(
         'ScenesEmail'
     );
-
-    public $paginate = array(
-        'order' => array(
-            'Scene.run_on_date' => 'asc'
-        )
+    public $helpers = array(
+        'Tags.TagCloud'
     );
+
+    public $paginate = [
+        'order' => [
+            'Scene.run_on_date' => 'asc'
+        ]
+    ];
 
     public function beforeFilter()
     {

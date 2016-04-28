@@ -71,13 +71,24 @@ $this->set('menu', $menu);
         </td>
         <td>
             <b>Scheduled For</b>
-            <?php echo date('Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>
+            <?php echo date('l, Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <b>Tags</b>
+            <?php
+            echo $this->TagCloud->display($tags, array(
+                'before' => '<li size="%size%" class="tag">',
+                'after' => '</li>'
+            ));
+
+            ?>
         </td>
     </tr>
     <tr>
         <td colspan="2">
             <b>Description</b>
-
             <div class="tinymce-content">
                 <?php echo $scene['Scene']['description']; ?>
             </div>
