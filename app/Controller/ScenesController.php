@@ -62,6 +62,18 @@ class ScenesController extends AppController
             'mayAdd' => $this->Auth->user('id') != 1,
         ]);
     }
+    
+    public function tag($tag = null)
+    {
+        $scenes = $this->Scene->listScenesWithTag($tag);
+        
+        $this->set([
+            'scenes' => $scenes,
+            'tag' => $tag,
+            'mayEdit' => $this->Permissions->IsST(),
+            'mayAdd' => $this->Auth->user('id') != 1,
+        ]);
+    }
 
     /**
      * view method
@@ -86,7 +98,8 @@ class ScenesController extends AppController
                 'UpdatedBy' => array(
                     'username'
                 ),
-                'SceneStatus'
+                'SceneStatus',
+                'Tag'
             )
         ));
         if (!$scene) {

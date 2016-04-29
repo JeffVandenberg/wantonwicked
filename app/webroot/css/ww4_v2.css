@@ -826,3 +826,11 @@ div.submit {
     border: solid 1px #000;
     padding: 3px;
 }
+
+ul.tags {
+    list-style: none;
+}
+
+.tags li {
+    display: inline;
+}
