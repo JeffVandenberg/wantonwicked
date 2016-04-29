@@ -3,12 +3,13 @@
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\UserdataHelper;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::getValue('bluebook_id', 0);
 $requestRepository = new RequestRepository();
-if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+if (!UserdataHelper::IsSt($userdata) && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     Response::redirect('');
 }
 
