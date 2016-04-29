@@ -12,6 +12,9 @@ App::uses('AppModel', 'Model');
  */
 class Scene extends AppModel
 {
+    public $actsAs = array(
+        'Tags.Taggable'
+    );
 
     /**
      * Validation rules
@@ -20,8 +23,8 @@ class Scene extends AppModel
      */
     public $validate = array(
         'name'          => array(
-            'notEmpty' => array(
-                'rule' => array('notEmpty'),
+            'notBlank' => array(
+                'rule' => array('notBlank'),
                 //'message' => 'Your custom message here',
                 //'allowEmpty' => false,
                 //'required' => false,
@@ -166,5 +169,16 @@ ORDER BY
   run_on_date
 EOQ;
         return $this->query($sql);
+    }
+
+    public function listScenesWithTag($tag)
+    {
+        return $this->Tagged->find(
+            'tagged',
+            [
+                'by' => $tag,
+                'model' => 'Scene'
+            ]
+        );
     }
 }

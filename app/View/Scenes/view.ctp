@@ -71,13 +71,22 @@ $this->set('menu', $menu);
         </td>
         <td>
             <b>Scheduled For</b>
-            <?php echo date('Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>
+            <?php echo date('l, Y-m-d g:i A', strtotime($scene['Scene']['run_on_date'])); ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <b>Tags</b>
+            <ul class="tags">
+                <?php foreach($scene['Tag'] as $tag): ?>
+                    <li><?php echo $this->Html->link($tag['name'], ['controller' => 'scenes', 'action' => 'tag', $tag['name']]); ?></li>
+                <?php endforeach; ?>
+            </ul>
         </td>
     </tr>
     <tr>
         <td colspan="2">
             <b>Description</b>
-
             <div class="tinymce-content">
                 <?php echo $scene['Scene']['description']; ?>
             </div>

@@ -28,6 +28,11 @@ $this->set('title_for_layout', 'Edit: ' . $this->request->data['Scene']['name'])
         </tr>
         <tr>
             <td colspan="2">
+                <?php echo $this->Form->input('tags'); ?>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
                 <?php echo $this->Form->input('description', array('class' => 'tinymce-textarea')); ?>
             </td>
         </tr>
