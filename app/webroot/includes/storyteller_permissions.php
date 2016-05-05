@@ -43,9 +43,7 @@ FROM
     phpbb_users AS L
     LEFT JOIN roles AS R on L.role_id = R.id
 WHERE
-    L.user_id IN (
-        SELECT DISTINCT user_id FROM permissions_users
-    )
+    L.role_id != 0
 GROUP BY
     L.user_id
 ORDER BY
