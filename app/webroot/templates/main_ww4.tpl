@@ -5,18 +5,18 @@
     <title>{PAGE_TITLE}</title>
     <META NAME="copyright" content="(c) 2013 Jeff Vandenberg">
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
-    <link type="text/css" href="css/ww4_v2.css" rel="Stylesheet"/>
-    <link type="text/css" href="css/gaming-sandbox.css" rel="Stylesheet"/>
-    <link type="text/css" href="css/wanton/jquery-ui.min.css" rel="stylesheet"/>
-    <link type="text/css" href="css/wanton/jquery.ui.menubar.css" rel="stylesheet"/>
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="js/jquery.watermark.min.js"></script>
-    <script type="text/javascript" src="js/jquery.ui.menubar.js"></script>
-    <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
-    <script type="text/javascript" src="js/server_time.js"></script>
-    <script type="text/javascript" src="js/wanton.js"></script>
-    <script type="text/javascript" src="js/gaming-sandbox.js"></script>
+    <link type="text/css" href="/css/ww4_v2.css" rel="Stylesheet"/>
+    <link type="text/css" href="/css/gaming-sandbox.css" rel="Stylesheet"/>
+    <link type="text/css" href="/css/wanton/jquery-ui.min.css" rel="stylesheet"/>
+    <link type="text/css" href="/css/wanton/jquery.ui.menubar.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.watermark.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.ui.menubar.js"></script>
+    <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="/js/server_time.js"></script>
+    <script type="text/javascript" src="/js/wanton.js"></script>
+    <script type="text/javascript" src="/js/gaming-sandbox.js"></script>
 </head>
 {JAVA_SCRIPT}
 <script>

@@ -85,7 +85,7 @@ if (isset($_GET['action'])) {
             include 'includes/request_attach_scene.php';
             break;
         case 'st_list':
-            if(UserdataHelper::IsSt($userdata))
+            if(UserdataHelper::IsSt($userdata) || UserdataHelper::mayManageRequests($userdata))
             {
                 include 'includes/request_st_list.php';
             }

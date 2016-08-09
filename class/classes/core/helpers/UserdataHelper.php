@@ -20,7 +20,10 @@ class UserdataHelper
         'is_head' => 2,
         'is_gm' => 3,
         'is_asst' => 4,
-        'wiki_manager' => 5
+        'wiki_manager' => 5,
+        'manage_requests' => 6,
+        'manage_characters' => 7,
+        'manage_scenes' => 8
     );
 
     private static $userPermissions = array();
@@ -129,5 +132,15 @@ EOQ;
             ));
         }
         return self::$userPermissions['IsOnlySt'];
+    }
+
+    public static function mayManageRequests($userdata)
+    {
+        if(!isset(self::$userPermissions['ManageRequests'])) {
+            self::$userPermissions['ManageRequests'] = self::CheckPermission($userdata['user_id'], array(
+                self::$permissions['manage_requests']
+            ));
+        }
+        return self::$userPermissions['ManageRequests'];
     }
 }

@@ -170,4 +170,15 @@ ORDER BY
 EOQ;
         return $this->query($sql);
     }
+
+    public function listScenesWithTag($tag)
+    {
+        return $this->Tagged->find(
+            'tagged',
+            [
+                'by' => $tag,
+                'model' => 'Scene'
+            ]
+        );
+    }
 }

@@ -77,13 +77,11 @@ $this->set('menu', $menu);
     <tr>
         <td colspan="2">
             <b>Tags</b>
-            <?php
-            echo $this->TagCloud->display($tags, array(
-                'before' => '<li size="%size%" class="tag">',
-                'after' => '</li>'
-            ));
-
-            ?>
+            <ul class="tags">
+                <?php foreach($scene['Tag'] as $tag): ?>
+                    <li><?php echo $this->Html->link($tag['name'], ['controller' => 'scenes', 'action' => 'tag', $tag['name']]); ?></li>
+                <?php endforeach; ?>
+            </ul>
         </td>
     </tr>
     <tr>

@@ -57,6 +57,7 @@ App::uses('CakeResponse', 'Network');
  * @property      SubMenuHelper SubMenu
  * @property 	  CharacterHelper Character
  * @property 	  CalendarHelper Calendar
+ * @property 	  TagCloudHelper TagCloud
  */
 class View extends Object {
 

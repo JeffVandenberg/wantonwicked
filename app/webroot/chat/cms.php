@@ -83,7 +83,9 @@ EOQ;
     if($character === false) {
         Response::endRequest('Not Allowed');
     }
-    define('C_CUSTOM_USERNAME', $character['character_name']); // username
+    $encoded = htmlspecialchars($character['character_name']);
+    $cleanName = str_replace("'", '&#39;', $encoded);
+    define('C_CUSTOM_USERNAME', $cleanName); // username
     define('C_CUSTOM_USERID', $characterId); // userid
     define('C_CUSTOM_ACTION', 'CHARACTER LOGIN');
 
@@ -153,10 +155,13 @@ EOQ;
 
     $action = $dbh->prepare($query);
     $action->bindValue('userid', C_CUSTOM_USERID, PDO::PARAM_INT);
-    $action->bindValue('username', C_CUSTOM_USERNAME);
+    $action->bindValue('username', makeSafe(C_CUSTOM_USERNAME));
     $action->bindValue('icon', $icon);
     $action->bindValue('name', C_CUSTOM_USERNAME);
-    $action->execute();
+    if(!$action->execute()) {
+        var_dump($action->errorInfo());
+        die();
+    }
 
     // add login record to character log
     $query = <<<EOQ
@@ -373,7 +378,7 @@ WHERE
 EOQ;
 
 $statement = $dbh->prepare($sql);
-$params = array(C_CUSTOM_USERNAME, C_CUSTOM_USERID, $userTypeId);
+$params = array(makeSafe(C_CUSTOM_USERNAME), C_CUSTOM_USERID, $userTypeId);
 $statement->execute($params);
 $result = $statement->fetch(PDO::FETCH_ASSOC);
 

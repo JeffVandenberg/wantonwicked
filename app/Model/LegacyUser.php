@@ -43,7 +43,7 @@ SELECT
 FROM
     phpbb_users AS U
     INNER JOIN roles AS R ON U.role_id = R.id
-    INNER JOIN permissions_users AS PU ON U.user_Id = PU.user_id
+    LEFT JOIN permissions_users AS PU ON U.user_Id = PU.user_id
 WHERE
     U.role_Id > 0
 GROUP BY

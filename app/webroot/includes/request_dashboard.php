@@ -2,6 +2,7 @@
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Pagination;
 use classes\core\helpers\Request;
+use classes\core\helpers\UserdataHelper;
 use classes\request\repository\RequestRepository;
 
 /** @var array $userdata */
@@ -44,6 +45,13 @@ $characterLinkedRequests = $requestRepository->ListRequestsLinkedByCharacterForU
 $mainMenu['Actions']['submenu']['New Request'] = array(
     'link' => '/request.php?action=create'
 );
+
+
+if(UserdataHelper::mayManageRequests($userdata)) {
+    $mainMenu['Actions']['submenu']['Manage Requests'] = [
+        'link' => '/request.php?action=st_list'
+    ];
+}
 
 ob_start();
 ?>

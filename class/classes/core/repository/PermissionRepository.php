@@ -29,8 +29,9 @@ DELETE FROM
 WHERE
     user_id = ?
 EOQ;
+        $params = [$userId];
 
-        $this->query($sql)->execute(array($userId));
+        $this->query($sql)->execute($params);
 
         $sql = <<<EOQ
 DELETE FROM
@@ -38,8 +39,20 @@ DELETE FROM
 WHERE
     user_id = ?
 EOQ;
+        
+        $this->query($sql)->execute($params);
+        
+        $sql = <<<SQL
+UPDATE
+  phpbb_users
+SET
+  role_id = 0
+WHERE
+  user_id = ?
+SQL;
 
-        return $this->query($sql)->execute(array($userId));
+
+        return $this->query($sql)->execute($params);
     }
 
     public function ListPermissionsForUser($userId)
@@ -55,7 +68,7 @@ EOQ;
         $params = array($userId);
 
         $list = array();
-        foreach($this->query($sql)->all($params) as $item) {
+        foreach ($this->query($sql)->all($params) as $item) {
             $list[] = $item['permission_id'];
         }
         return $list;
@@ -70,8 +83,9 @@ EOQ;
         $this->query($sql)->execute($params);
 
 
-        foreach ($permissions as $permission) {
-            $query = <<<EOQ
+        if ($permissions) {
+            foreach ($permissions as $permission) {
+                $query = <<<EOQ
 INSERT INTO
     permissions_users
     (
@@ -81,12 +95,13 @@ INSERT INTO
 VALUES
     ( ?, ? )
 EOQ;
-            $params = array(
-                $permission,
-                $userId
-            );
+                $params = array(
+                    $permission,
+                    $userId
+                );
 
-            Database::getInstance()->query($query)->execute($params);
+                Database::getInstance()->query($query)->execute($params);
+            }
         }
 
     }
