@@ -1,32 +1,50 @@
-<?php /* @var View $this */; ?>
-<?php $this->set('title_for_layout', 'Add Role'); ?>
+<?php /* @var View $this */;
+$this->set('title_for_layout', $role['Role']['name']);
+$menu['Actions']['submenu']['Back'] = [
+    'link' => [
+        'action' => 'index'
+    ]
+];
+if ($mayEdit) {
+    $menu['Actions']['submenu']['Edit'] = [
+        'link' => [
+            'action' => 'edit',
+            $role['Role']['id']
+        ]
+    ];
+    $menu['Actions']['submenu']['New Role'] = [
+        'link' => [
+            'action' => 'add'
+        ]
+    ];
+}
+
+$this->set('menu', $menu);
+?>
 
 <div class="roles view">
-    <h2><?php echo __('Role'); ?></h2>
     <dl>
         <dt><?php echo __('Name'); ?></dt>
         <dd>
             <?php echo h($role['Role']['name']); ?>
             &nbsp;
         </dd>
+        <dt><?php echo __('Description'); ?></dt>
+        <dd>
+            <?php echo $role['Role']['description']; ?>
+            &nbsp;
+        </dd>
     </dl>
-    <h3><?php echo __('Permissions'); ?></h3>
-    <?php if (!empty($role['Permission'])): ?>
-        <ul>
-            <?php foreach ($role['Permission'] as $permission): ?>
-                <li>
-                    <?php echo $permission['permission_name']; ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+    <?php if ($mayEdit): ?>
+        <h3><?php echo __('Permissions'); ?></h3>
+        <?php if (!empty($role['Permission'])): ?>
+            <ul>
+                <?php foreach ($role['Permission'] as $permission): ?>
+                    <li>
+                        <?php echo $permission['permission_name']; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
     <?php endif; ?>
-</div>
-<div class="actions">
-    <h3><?php echo __('Actions'); ?></h3>
-    <ul>
-        <li><?php echo $this->Html->link(__('Edit Role'), array('action' => 'edit', $role['Role']['id'])); ?> </li>
-        <li><?php echo $this->Form->postLink(__('Delete Role'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete # %s?', $role['Role']['id'])); ?> </li>
-        <li><?php echo $this->Html->link(__('List Roles'), array('action' => 'index')); ?> </li>
-        <li><?php echo $this->Html->link(__('New Role'), array('action' => 'add')); ?> </li>
-    </ul>
 </div>

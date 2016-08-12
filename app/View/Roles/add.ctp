@@ -5,15 +5,14 @@
     <?php echo $this->Form->create('Role'); ?>
     <?php
     echo $this->Form->input('name');
+    echo $this->Form->input('description', [
+        'class' => 'tinymce-textarea'
+    ]);
     echo $this->Form->input('Permission', [
         'multiple' => 'checkbox'
     ]);
     ?>
-    <?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-    <h3><?php echo __('Actions'); ?></h3>
-    <ul>
-        <li><?php echo $this->Html->link(__('List Roles'), array('action' => 'index')); ?></li>
-    </ul>
+    <?php echo $this->Form->button('Cancel', ['name' => 'action']); ?>
+    <?php echo $this->Form->button('Submit', ['name' => 'action']); ?>
+    <?php echo $this->Form->end(); ?>
 </div>

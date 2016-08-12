@@ -34,7 +34,11 @@ class RolesController extends AppController
     public function index()
     {
         $this->Role->recursive = 0;
+        $this->Paginator->settings = array(
+            'order' => 'Role.name'
+        );
         $this->set('roles', $this->Paginator->paginate());
+        $this->set('mayEdit', $this->Permissions->IsHead());
     }
 
     /**
@@ -51,6 +55,7 @@ class RolesController extends AppController
         }
         $options = array('conditions' => array('Role.' . $this->Role->primaryKey => $id));
         $this->set('role', $this->Role->find('first', $options));
+        $this->set('mayEdit', $this->Permissions->IsHead());
     }
 
     /**
@@ -61,12 +66,17 @@ class RolesController extends AppController
     public function add()
     {
         if ($this->request->is('post')) {
-            $this->Role->create();
-            if ($this->Role->save($this->request->data)) {
-                $this->Session->setFlash(__('The role has been saved.'));
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The role could not be saved. Please, try again.'));
+            if ($this->request->data['action'] == 'Cancel') {
+                $this->redirect(['action' => 'index']);
+            }
+            else {
+                $this->Role->create();
+                if ($this->Role->save($this->request->data)) {
+                    $this->Session->setFlash(__('The role has been saved.'));
+                    $this->redirect(array('action' => 'index'));
+                } else {
+                    $this->Session->setFlash(__('The role could not be saved. Please, try again.'));
+                }
             }
         }
         $permissions = $this->Role->Permission->find('list', [
@@ -88,11 +98,16 @@ class RolesController extends AppController
             throw new NotFoundException(__('Invalid role'));
         }
         if ($this->request->is(array('post', 'put'))) {
-            if ($this->Role->save($this->request->data)) {
-                $this->Session->setFlash(__('The role has been saved.'));
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The role could not be saved. Please, try again.'));
+            if ($this->request->data['action'] == 'Cancel') {
+                $this->redirect(['action' => 'index']);
+            }
+            else {
+                if ($this->Role->save($this->request->data)) {
+                    $this->Session->setFlash(__('The role has been saved.'));
+                    $this->redirect(array('action' => 'index'));
+                } else {
+                    $this->Session->setFlash(__('The role could not be saved. Please, try again.'));
+                }
             }
         } else {
             $options = array('conditions' => array('Role.' . $this->Role->primaryKey => $id));
