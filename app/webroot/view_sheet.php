@@ -80,6 +80,9 @@ if (isset($_GET['action'])) {
             }
 
             break;
+        case 'create_v2':
+            include 'includes/view_sheet_create_v2.php';
+            break;
         case 'profile':
             include 'includes/view_sheet_profile.php';
             break;
