@@ -159,8 +159,7 @@ EOQ;
     $action->bindValue('icon', $icon);
     $action->bindValue('name', C_CUSTOM_USERNAME);
     if(!$action->execute()) {
-        var_dump($action->errorInfo());
-        die();
+        return $action->errorInfo();
     }
 
     // add login record to character log

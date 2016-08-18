@@ -35,37 +35,42 @@ if (Request::isPost()) {
             Response::redirect('request.php?action=dashboard');
         }
     } elseif (($_POST['action'] == 'Submit Request') || ($_POST['action'] == 'Add Attachments')) {
-        $request = new \classes\request\data\Request();
-        $request->Title = htmlspecialchars($title);
-        $request->RequestTypeId = $requestTypeId;
-        $request->GroupId = $groupId;
-        $request->RequestStatusId = RequestStatus::NewRequest;
-        $request->Body = $body;
-        $request->CreatedById = $userdata['user_id'];
-        $request->CreatedOn = date('Y-m-d H:i:s');
-        $request->UpdatedById = $userdata['user_id'];
-        $request->UpdatedOn = date('Y-m-d H:i:s');
-
-        $requestRepository = new RequestRepository();
-        if (!$requestRepository->save($request)) {
-            SessionHelper::SetFlashMessage("Error Creating Your Request.");
+        if(!$title) {
+            SessionHelper::SetFlashMessage('Please include a Title');
         } else {
-            if ($characterId) {
-                $requestCharacter = new RequestCharacter();
-                $requestCharacter->CharacterId = $characterId;
-                $requestCharacter->RequestId = $request->Id;
-                $requestCharacter->IsPrimary = true;
-                $requestCharacterRepository = RepositoryManager::GetRepository('classes\request\data\RequestCharacter');
-                $requestCharacterRepository->save($requestCharacter);
-            }
-            if ($_POST['action'] == 'Submit Request') {
-                $request->RequestStatusId = RequestStatus::Submitted;
-                $requestRepository->save($request);
 
-                $mailer = new RequestMailer();
-                $mailer->newRequestSubmission($request);
+            $request = new \classes\request\data\Request();
+            $request->Title = htmlspecialchars($title);
+            $request->RequestTypeId = $requestTypeId;
+            $request->GroupId = $groupId;
+            $request->RequestStatusId = RequestStatus::NewRequest;
+            $request->Body = $body;
+            $request->CreatedById = $userdata['user_id'];
+            $request->CreatedOn = date('Y-m-d H:i:s');
+            $request->UpdatedById = $userdata['user_id'];
+            $request->UpdatedOn = date('Y-m-d H:i:s');
+
+            $requestRepository = new RequestRepository();
+            if (!$requestRepository->save($request)) {
+                SessionHelper::SetFlashMessage("Error Creating Your Request.");
+            } else {
+                if ($characterId) {
+                    $requestCharacter = new RequestCharacter();
+                    $requestCharacter->CharacterId = $characterId;
+                    $requestCharacter->RequestId = $request->Id;
+                    $requestCharacter->IsPrimary = true;
+                    $requestCharacterRepository = RepositoryManager::GetRepository('classes\request\data\RequestCharacter');
+                    $requestCharacterRepository->save($requestCharacter);
+                }
+                if ($_POST['action'] == 'Submit Request') {
+                    $request->RequestStatusId = RequestStatus::Submitted;
+                    $requestRepository->save($request);
+
+                    $mailer = new RequestMailer();
+                    $mailer->newRequestSubmission($request);
+                }
+                Response::redirect('request.php?action=view&request_id=' . $request->Id);
             }
-            Response::redirect('request.php?action=view&request_id=' . $request->Id);
         }
     }
 }
@@ -99,7 +104,7 @@ ob_start();
     <form method="post">
         <div class="formInput">
             <label for="title">Title:</label>
-            <?php echo FormHelper::Text('title', $title, ['maxlength' => 100]); ?>
+            <?php echo FormHelper::Text('title', $title, ['maxlength' => 100, 'required' => 'required']); ?>
         </div>
         <div class="formInput">
             <label for="title">Group:</label>
