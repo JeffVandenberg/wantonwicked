@@ -11,6 +11,9 @@ use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
+use phpbb\auth\auth;
+use phpbb\template\twig\twig;
+use phpbb\user;
 
 
 include 'cgi-bin/start_of_page.php';
@@ -21,33 +24,34 @@ $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 /** @noinspection PhpIncludeInspection */
 include($phpbb_root_path . 'common.' . $phpEx);
-/** @noinspection PhpIncludeInspection */
-include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-/** @noinspection PhpIncludeInspection */
-include($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
-/** @noinspection PhpIncludeInspection */
-include($phpbb_root_path . 'includes/message_parser.' . $phpEx);
+$request = $phpbb_container->get('request');
+/* @var \phpbb\request\request $request */
+$request->enable_super_globals();
+
 //
 // Start session management
 //
+/* @var user $user */
+/* @var auth $auth */
 $user->session_begin();
 $auth->acl($user->data);
 $userdata = $user->data;
+$user->setup('');
 //
 // End session management
 //
 
 // check page actions
 $page_title = "";
-$top_image = "";
+$page_image = "";
 $page_content = "";
 $java_script = "";
 $extra_headers = "";
-$template_name = 'main_ww4.tpl';
+$template_file = 'main_ww4.tpl';
 $contentHeader = "";
 
 require_once 'user_panel.php';
-include 'menu_bar.php';
+$mainMenu = include 'menu_bar.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -218,9 +222,10 @@ else {
     include_once 'includes/request_dashboard.php';
 }
 
-$template->set_custom_template('templates', 'main_ww4');
-
 $menu_bar = MenuHelper::GenerateMenu($mainMenu);
+/* @var $template twig */
+$template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
+
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
@@ -237,11 +242,11 @@ $template->assign_vars(array(
 
 if(Request::isAjax())
 {
-    $template_name = 'main_ww4.tpl';
+    $template_file = 'empty.tpl';
 }
 // initialize template
 $template->set_filenames(array(
-        'body' => $template_name)
+        'body' => $template_file)
 );
 $template->display('body');
 

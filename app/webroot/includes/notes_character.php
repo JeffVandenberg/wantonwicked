@@ -44,7 +44,7 @@ else {
 }
 
 
-$page_title = "Notes for $character_detail[character_name]";
+$page_title = "Notes for " . $character->CharacterName;
 $contentHeader = $page_title;
 
 // variables for form
@@ -78,8 +78,8 @@ if (isset($_POST['action'])) {
 
 
 // query database
-$note_query = "select * from personal_notes where character_id = $characterId and is_deleted='n' order by $order_by;";
-$notes = Database::getInstance()->query($note_query)->all();
+$note_query = "select * from personal_notes where character_id = ? and is_deleted='n' order by $order_by;";
+$notes = Database::getInstance()->query($note_query)->all([$characterId]);
 
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */

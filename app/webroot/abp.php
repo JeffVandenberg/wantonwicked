@@ -1,6 +1,10 @@
 <?php
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
+use phpbb\auth\auth;
+use phpbb\request\request;
+use phpbb\template\twig\twig;
+use phpbb\user;
 
 include 'cgi-bin/start_of_page.php';
 // perform required includes
@@ -8,14 +12,21 @@ define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
-include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+$request = $phpbb_container->get('request');
+/* @var request $request */
+$request->enable_super_globals();
+
 //
 // Start session management
 //
 
+/* @var user $user */
+/* @var auth $auth */
 $user->session_begin();
 $auth->acl($user->data);
 $userdata = $user->data;
+$user->setup('');
+
 //
 // End session management
 //
@@ -28,12 +39,11 @@ $top_image = "";
 $page_content = "";
 $java_script = "";
 $extra_tags = "onLoad='showClock();'";
-$template_file = "main_ww4.tpl";
+$template_file = "main_ww4";
 
 // build links
 include 'user_panel.php';
 include 'menu_bar.php';
-include 'menu_bar_city_book.php';
 
 // common includes
 include 'includes/classes/tenacy/abp/abp.php';
@@ -102,7 +112,7 @@ if(isset($_GET['action']))
 			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_add_rule.php';
-				$template_file = 'empty_template.tpl';
+				$template_file = 'empty_template';
 			}
 			else
 			{
@@ -113,7 +123,7 @@ if(isset($_GET['action']))
 			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_add_rule_post.php';
-				$template_file = 'empty_template.tpl';
+				$template_file = 'empty_template';
 			}
 			else
 			{
@@ -124,7 +134,7 @@ if(isset($_GET['action']))
 			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_delete_rule.php';
-				$template_file = 'empty_template.tpl';
+				$template_file = 'empty_template';
 			}
 			else
 			{
@@ -135,7 +145,7 @@ if(isset($_GET['action']))
 			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_edit_rule.php';
-				$template_file = 'empty_template.tpl';
+				$template_file = 'empty_template';
 			}
 			else
 			{
@@ -146,7 +156,7 @@ if(isset($_GET['action']))
 			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_edit_rule_post.php';
-				$template_file = 'empty_template.tpl';
+				$template_file = 'empty_template';
 			}
 			else
 			{
@@ -157,7 +167,7 @@ if(isset($_GET['action']))
 			if(UserdataHelper::IsSt($userdata))
 			{
 				include 'includes/abp_get_abp_rule_list.php';
-				$template_file = 'empty_template.tpl';
+				$template_file = 'empty_template';
 			}
 			else
 			{
@@ -184,14 +194,14 @@ else
 	}
 }
 
-$template->set_custom_template('templates', substr($template_file, strlen($template_file) - 4));
+/* @var twig $template */
 $template->assign_vars(array(
 	"PAGE_TITLE" => $page_title,
-	"CSS_URL" => $css_url, 
+	"CSS_URL" => $css_url,
 	"JAVA_SCRIPT" => $java_script,
-	"USER_PANEL" => $user_panel, 
-	"MENU_BAR" => $menu_bar, 
-	"TOP_IMAGE" => $page_image, 
+	"USER_PANEL" => $user_panel,
+	"MENU_BAR" => $menu_bar,
+	"TOP_IMAGE" => $page_image,
 	"PAGE_CONTENT" => $page_content,
 	"EXTRA_TAGS" => $extra_tags,
     "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
@@ -199,7 +209,15 @@ $template->assign_vars(array(
 	)
 );
 
-$template->set_filenames(array(
-		'body' => $template_file)
+$template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
+$template_name = $template_file . '.tpl';
+// Output page
+page_header($page_title, true);
+
+$template->set_filenames(
+    array(
+        'body' => $template_name
+    )
 );
-$template->display('body');
+
+page_footer();

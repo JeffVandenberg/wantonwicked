@@ -39,7 +39,9 @@ define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
-include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+$request = $phpbb_container->get('request');
+/* @var \phpbb\request\request $request */
+$request->enable_super_globals();
 
 //
 // Start session management
@@ -48,6 +50,7 @@ include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 $user->session_begin();
 $auth->acl($user->data);
 $userdata = $user->data;
+$user->setup('');
 
 include_once __DIR__ . '/../../../app/webroot/cgi-bin/start_of_page.php';
 

@@ -139,7 +139,7 @@ if (isset($_POST['submit_die_roller'])) {
     }
 
     $now = date('Y-m-d h:i:s');
-    $description    = (trim($description) == "") ? "does something sneaky" : mysql_real_escape_string($description);
+    $description    = (trim($description) == "") ? "does something sneaky" : $description;
 
     for ($i = 0; $i < $numberOfRolls; $i++) {
         $diceForRoll = $dice;
@@ -157,7 +157,7 @@ if (isset($_POST['submit_die_roller'])) {
         $diceForRoll = ($diceForRoll > 40) ? 40 : $diceForRoll;
         $diceForRoll = ($chance_die == 'Y') ? 1 : $diceForRoll;
 
-        $character_name = (trim($character_name) == "") ? "Someone" : mysql_real_escape_string($character_name);
+        $character_name = (trim($character_name) == "") ? "Someone" : $character_name;
         $rollDescription = $description;
 
         if($rollType == 1) {
@@ -526,7 +526,7 @@ $rerolls   = array(
 );
 ob_start();
 ?>
-    <style>
+    <style xmlns:border="http://www.w3.org/1999/xhtml">
         .diceroller label {
             display: inline;
         }
@@ -585,7 +585,7 @@ ob_start();
             </td>
             <td style="text-align: center;width: 40%">
                 <form method="post"
-                      action="<?php echo $_SERVER['PHP_SELF']; ?>?action=character&character_id=<?php echo $characterId; ?>&log_npc=<?php echo $log_npc; ?>">
+                      action="<?php echo $_SERVER['PHP_SELF']; ?>?action=character&character_id=<?php echo $characterId; ?>">
                     <table style="border: 2px groove #223344;">
                         <tr style="vertical-align: top;">
                             <td width="45%">

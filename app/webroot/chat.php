@@ -1,6 +1,10 @@
 <?php
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use phpbb\auth\auth;
+use phpbb\request\request;
+use phpbb\template\twig\twig;
+use phpbb\user;
 
 include 'cgi-bin/start_of_page.php';
 
@@ -10,15 +14,19 @@ $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 /** @noinspection PhpIncludeInspection */
 include($phpbb_root_path . 'common.' . $phpEx);
-/** @noinspection PhpIncludeInspection */
-include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+$request = $phpbb_container->get('request');
+/* @var request $request */
+$request->enable_super_globals();
 
 //
 // Start session management
 //
+/* @var user $user */
+/* @var auth $auth */
 $user->session_begin();
 $auth->acl($user->data);
 $userdata = $user->data;
+$user->setup('');
 //
 // End session management
 //
@@ -29,7 +37,7 @@ $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
-$template_layout = 'main_ww4.tpl';
+$template_file = 'main_ww4';
 $contentHeader = "";
 
 // check if user is logged in
@@ -40,11 +48,11 @@ include 'menu_bar.php';
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'login':
-            $template_layout = 'empty_template.tpl';
+            $template_file = 'empty_template';
             include 'includes/chat_login.php';
             break;
         case 'ooc_login':
-            $template_layout = "blank_layout4.tpl";
+            $template_file = "blank_layout4";
             include 'includes/chat_ooc_login.php';
             break;
         case 'delete':
@@ -66,8 +74,7 @@ if (isset($_GET['action'])) {
 }
 
 
-
-$template->set_custom_template('templates', substr($template_layout, 0, strlen($template_layout) - 4));
+/* @var twig $template */
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
@@ -82,8 +89,16 @@ $template->assign_vars(array(
     )
 );
 
-// initialize template
-$template->set_filenames(array(
-        'body' => $template_layout)
+/* @var twig $template */
+$template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
+$template_name = $template_file . '.tpl';
+// Output page
+page_header($page_title, true);
+
+$template->set_filenames(
+    array(
+        'body' => $template_name
+    )
 );
-$template->display('body');
+
+page_footer();

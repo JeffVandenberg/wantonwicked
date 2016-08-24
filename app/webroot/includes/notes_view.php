@@ -1,6 +1,7 @@
 <?php
+use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
-use classes\core\helpers\UserdataHelper;
+use classes\core\helpers\Response;
 use classes\core\repository\Database;
 
 /* @var array $userdata */
@@ -21,132 +22,97 @@ $may_view_note = false;
 
 // test to see if a character id has been passed
 // if not assume it's a personal rather than character note
-if($character_id)
-{
-	if(UserdataHelper::IsSt($userdata))
-	{
-		$character_query = <<<EOQ
-SELECT C.*, Character_Name, l.Name
-FROM (characters AS C INNER JOIN login_character_index as lci ON C.id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
-WHERE C.id = ?
-	AND is_npc = 'Y';
-EOQ;
-		$params = array(
-			$character_id
-		);
-	}
-	else
-	{
-		$character_query = <<<EOQ
-SELECT C.*, Character_Name, l.Name
-FROM (characters AS C INNER JOIN login_character_index as lci ON C.id = lci.character_id) INNER JOIN login as l on lci.login_id = l.id
-WHERE C.id = ?
-	AND lci.login_id = ?
-EOQ;
-		$params = array(
-			$character_id,
-			$userdata['user_id']
-		);
-	}
-
-	$character = Database::getInstance()->query($character_query)->single($params);
-
-	if($character)
-	{
-		$may_view_note = true;
-	}
+if (!$character_id) {
+    Response::redirect('/notes.php', 'No Character Specified');
 }
 
-if(!$character_id)
-{
-	$may_view_note = true;
+$characterRepository = new CharacterRepository();
+$character = $characterRepository->FindById($character_id);
+
+if (!$character) {
+    Response::redirect('/notes.php', 'Unable to find character');
 }
 
-if($may_view_note)
-{
-	// page variables
-	$error = "";
-	$note = "";
-	
-	// we can process the result
-	if((isset($_POST['action'])) && (!empty($_POST['body'])))
-	{
-		// add note
-		$now = date('Y-m-d h:i:s');
-		$title = (!empty($_POST['title'])) ? htmlspecialchars($_POST['title']) : "Untitled : $now";
-		$body = mysql_real_escape_string(htmlspecialchars($_POST['body']));
-		$is_favorite = (isset($_POST['is_favorite'])) ? "Y" : "N";
-		
-		if($personal_note_id == 0)
-		{
-			// insert note
-			$personal_note_id = getNextID($connection, "personal_notes", "personal_note_id");
-			$insert_query = "insert into personal_notes values ($personal_note_id, $userdata[user_id], $character_id, 'N', '$is_favorite', '$title', '$body', '$now', '$now', '', '', '', '', '');";
-			Database::getInstance()->query($insert_query)->execute();
-		}
-		else
-		{
-			// update note
-			$update_query = "update personal_notes set is_favorite='$is_favorite', title='$title', body='$body', update_date='$now' where personal_note_id = $personal_note_id;";
-			Database::getInstance()->query($update_query)->execute();
-		}
-		
-		// update_previous page
-		$java_script .= <<<EOQ
+// page variables
+$error = "";
+$note = "";
+
+// we can process the result
+if ((isset($_POST['action'])) && (!empty($_POST['body']))) {
+    // add note
+    $now = date('Y-m-d h:i:s');
+    $title = (!empty($_POST['title'])) ? htmlspecialchars($_POST['title']) : "Untitled : $now";
+    $body = htmlspecialchars($_POST['body']);
+    $is_favorite = (isset($_POST['is_favorite'])) ? "Y" : "N";
+
+    if ($personal_note_id == 0) {
+        // insert note
+        $insert_query = <<<SQL
+INSERT INTO 
+  personal_notes 
+  (Login_ID, Character_ID, Is_Deleted, Is_Favorite, Title, Body, Create_Date, Update_Date) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+SQL;
+        Database::getInstance()->query($insert_query)->execute([
+            $userdata['user_id'], $character_id, 'N', '$is_favorite', '$title', '$body', '$now', '$now'
+        ]);
+    } else {
+        // update note
+        $update_query = <<<SQL
+UPDATE 
+  personal_notes 
+SET 
+  is_favorite = ?,
+  title = ?,
+  body= ?,
+  update_date = ?
+WHERE 
+  personal_note_id = ?;
+SQL;
+        Database::getInstance()->query($update_query)->execute([
+            $is_favorite, $title, $body, $now, $personal_note_id
+        ]);
+    }
+
+    // update_previous page
+    $java_script .= <<<EOQ
 <script language="JavaScript">
 	window.opener.location.reload(true);
 </script>
 EOQ;
-	}
-	
-	// check if we are looking up a note
-	if(!(isset($_POST['action'])) && ($personal_note_id))
-	{
-		$note_query = "select * from personal_notes where personal_note_id=$personal_note_id;";
-		$note_detail = Database::getInstance()->query($note_query)->single();
+}
 
-		if($note_detail)
-		{
-			// test if looking for personal note, compare user_ids
-			if((!$character_id) && ($note_detail['Login_ID'] != ($userdata['user_id'])))
-			{
-				$java_script .= <<<EOQ
-<script language="JavaScript">
-	window.close();
-</script>
-EOQ;
-			}
-			
-			$title = $note_detail['Title'];
-			$body = $note_detail['Body'];
-			$is_favorite = $note_detail['Is_Favorite'];
-		}
-		else
-		{
-			// did not find a note, set personal_note_id = 0 to indicate an insert rather than update
-			$personal_note_id = 0;
-		}
-	}
-	
-	// render the note
-	// set title
-	if($character_result != "")
-	{
-		$character_detail = mysql_fetch_array($character_result, MYSQL_ASSOC);
-		$page_title = "Character Note for: $character_detail[Character_Name]";
-	}
-	else
-	{
-		$page_title = "Personal Note for: $userdata[user_name]";
-	}
-	$contentHeader = $page_title;
-	
-	
-	// set body
-	$is_favorite_checked = ($is_favorite == 'Y') ? "checked" : "";
-	$body = stripslashes($body);
-	$title = stripslashes($title);
-	$note = <<<EOQ
+// check if we are looking up a note
+if (!(isset($_POST['action'])) && ($personal_note_id)) {
+    $note_query = "SELECT * FROM personal_notes WHERE personal_note_id=?;";
+    $note_detail = Database::getInstance()->query($note_query)->single([$personal_note_id]);
+
+    if ($note_detail) {
+        $title = $note_detail['Title'];
+        $body = $note_detail['Body'];
+        $is_favorite = $note_detail['Is_Favorite'];
+    } else {
+        // did not find a note, set personal_note_id = 0 to indicate an insert rather than update
+        $personal_note_id = 0;
+    }
+}
+
+// render the note
+// set title
+if ($character) {
+    $character_detail = $character;
+    $page_title = "Character Note for: $character_detail[character_name]";
+} else {
+    $page_title = "Personal Note for: $userdata[user_name]";
+}
+$contentHeader = $page_title;
+
+
+// set body
+$is_favorite_checked = ($is_favorite == 'Y') ? "checked" : "";
+$body = stripslashes($body);
+$title = stripslashes($title);
+$note = <<<EOQ
 <form method="post" action="$_SERVER[PHP_SELF]?action=view&character_id=$character_id&log_npc=$log_npc">
 <table border="0" cellspacing="2" cellpadding="2" class="normal_text" width="100%">
 	<tr>
@@ -176,5 +142,4 @@ EOQ;
 </form>
 EOQ;
 
-	$page_content = $error . $note;
-}
+$page_content = $error . $note;

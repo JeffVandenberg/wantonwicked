@@ -24,14 +24,13 @@ Thumbs.db
 .idea
 .git
 .vagrant
-/app/webroot/forum/config.php
-/app/webroot/classes/core/repository/DatabaseMapper.php
-/app/webroot/cgi-bin/dbconnect.php
-/app/webroot/chat/includes/db.php
-app/webroot/forum
-app/webroot/wiki
 
 # composer ignores
 /vendor
 
 # application specific
+/app/webroot/classes/core/repository/DatabaseMapper.php
+/app/webroot/cgi-bin/dbconnect.php
+/app/webroot/chat/includes/db.php
+app/webroot/forum
+app/webroot/wiki

@@ -1,6 +1,9 @@
 <?php
 use classes\core\helpers\Request;
 use classes\core\helpers\SessionHelper;
+use phpbb\auth\auth;
+use phpbb\template\twig\twig;
+use phpbb\user;
 
 include 'cgi-bin/start_of_page.php';
 
@@ -12,13 +15,20 @@ $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
 /** @noinspection PhpIncludeInspection */
 include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+$request = $phpbb_container->get('request');
+/* @var \phpbb\request\request $request */
+$request->enable_super_globals();
 
 //
 // Start session management
 //
+/* @var user $user */
+/* @var auth $auth */
 $user->session_begin();
 $auth->acl($user->data);
 $userdata = $user->data;
+$user->setup('');
+
 //
 // End session management
 //
@@ -26,11 +36,11 @@ $userdata = $user->data;
 // check page actions
 $page_title = "";
 $menu_bar = "";
-$top_image = "";
+$page_image = "";
 $page_content = "";
 $java_script = "";
 $contentHeader = "";
-$template_layout = "main_ww4.tpl";
+$template_file = "main_ww4";
 include 'user_panel.php';
 // build links
 include 'menu_bar.php';
@@ -66,7 +76,7 @@ if (isset($_GET['action'])) {
     $page_content = "OOC Die Roller";
 }
 
-$template->set_custom_template('templates', 'main_layout');
+/* @var $template twig */
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
@@ -82,10 +92,18 @@ $template->assign_vars(array(
 
 if(Request::isAjax())
 {
-    $template_layout = 'empty.tpl';
+    $template_file = 'empty';
 }
-// initialize template
-$template->set_filenames(array(
-        'body' => $template_layout)
+
+$template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
+$template_file = $template_file . '.tpl';
+// Output page
+page_header($page_title, true);
+
+$template->set_filenames(
+    array(
+        'body' => $template_file
+    )
 );
-$template->display('body');
+
+page_footer();
