@@ -106,6 +106,10 @@ define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : WWW_ROOT . '/forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
+$request = $phpbb_container->get('request');
+/* @var request $request */
+$request->enable_super_globals();
+
 //
 // Start session management
 //

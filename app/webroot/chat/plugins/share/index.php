@@ -14,6 +14,8 @@ include("../../includes/session.php");
 include("../../lang/" . $_SESSION['lang']);
 include("../../includes/config.php");
 include("includes/functions.php");
+include_once __DIR__ . '/../../../../../app/webroot/cgi-bin/start_of_page.php';
+
 /* @var array $CONFIG */
 ###########################################
 ?>
@@ -97,7 +99,6 @@ include("includes/functions.php");
         }
 
         $users = [];
-        require_once(__DIR__ . '../../../../../class/classes/core/helpers/FormHelper.php');
         $userSelect = FormHelper::Select($users, 'shareWithUserId', $_REQUEST['shareWithUserId']);
 
         $publicChecked = (!($_REQUEST['shareWithUserId'])) ? "checked" : "";
