@@ -91,7 +91,7 @@ if ($stores) {
                 // build data
                 $data[] = [
                     'vevent',
-                    $event['Id'],
+                    'WOTC-'.$event['Id'],
                     $event['Name'],
                     date('d-M-Y'),
                     'TZID='.date('e:Ymd', $matches[0]/1000),
@@ -106,14 +106,13 @@ if ($stores) {
                 ];
             }
         }
-        break;
     }
 }
 
 $tmpFileName = tempnam('/tmp/', 'csv-export');
 $tmpFile = fopen($tmpFileName, 'w+');
 foreach($data as $line) {
-    fwrite($tmpFile, '"' . implode('","', $line). '"');
+    fwrite($tmpFile, '"' . implode('","', $line). '"'."\n");
 }
 fclose($tmpFile);
 

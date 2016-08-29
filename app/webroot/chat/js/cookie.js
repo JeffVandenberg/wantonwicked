@@ -65,7 +65,7 @@ function getCookie()
 		mBold = gotCookie[0];
 		mItalic = gotCookie[1];
 		mUnderline = gotCookie[2];
-		textColor = gotCookie[3];
+		textColor = getSafeColor(gotCookie[3], defaultColor);
 		textSize = gotCookie[4];
 		textFamily = gotCookie[5];
 	}
@@ -81,4 +81,12 @@ function getCookie()
 		userSFX = gotCookie[4];
         textScale = gotCookie[5];
 	}
+}
+
+function getSafeColor(hexValue, defaultColor)
+{
+	if(myColor.indexOf(hexValue) === -1) {
+		return defaultColor;
+	}
+	return hexValue;
 }

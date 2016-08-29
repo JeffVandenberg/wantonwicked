@@ -394,3 +394,4 @@ if (UserdataHelper::IsSupporter($userdata)) {
 }
 
 $menu_bar = MenuHelper::GenerateMenu($mainMenu);
+return $mainMenu;

@@ -1218,9 +1218,6 @@ $(function() {
     $(document)
         .on('dblclick', '.userlist', openPmWindow);
 
-    /*$(document)
-        .tooltip();*/
-
     $(document)
         .on('click', '.chat-viewable', function() {
             $("#sub-panel").load($(this).attr('href'), function() {

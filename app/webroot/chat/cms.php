@@ -56,6 +56,11 @@ include_once __DIR__ . '/../../../app/webroot/cgi-bin/start_of_page.php';
 
 define('C_CUSTOM_LOGIN','1'); // 0 OFF, 1 ON
 
+// nuke old cookie
+if(!$_SESSION['has_cleared_chat_cookie']) {
+    unset($_COOKIE['myTextStyle']);
+    $_SESSION['has_cleared_chat_cookie'] = true;
+}
 
 // Enter your CMS Global values below
 $loggedIn = false;

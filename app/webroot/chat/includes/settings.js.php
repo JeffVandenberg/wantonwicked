@@ -14,132 +14,133 @@ include("functions.php");
 *
 */
 
+$profileOn = 0;
+$profileUrl = '';
+$profileRef = 0;
+
 try {
-	$dbh = db_connect();
-	$params = array('');
-	$query = "SELECT *   
+    $dbh = db_connect();
+    $params = array('');
+    $query = "SELECT *   
 			  FROM prochatrooms_config
 			  LIMIT 1
-			  ";							
-	$action = $dbh->prepare($query);
-	$action->execute($params);
-				
-	foreach ($action as $i) 
-	{	
-		// profileOn
-		$profileOn = $i['profileOn'];
+			  ";
+    $action = $dbh->prepare($query);
+    $action->execute($params);
 
-		// profileUrl
-		$profileUrl = $i['profileUrl'];
+    foreach ($action as $i) {
+        // profileOn
+        $profileOn = $i['profileOn'];
 
-		// profileRef
-		$profileRef = $i['profileRef'];
+        // profileUrl
+        $profileUrl = $i['profileUrl'];
 
-		// privateOn
-		$privateOn = $i['privateOn'];
+        // profileRef
+        $profileRef = $i['profileRef'];
 
-		// whisperOn
-		$whisperOn = $i['whisperOn'];
+        // privateOn
+        $privateOn = $i['privateOn'];
 
-		// advertsOn
-		$advertsOn = $i['advertsOn'];
+        // whisperOn
+        $whisperOn = $i['whisperOn'];
 
-		// webcamsOn
-		$webcamsOn = $i['webcamsOn'];
+        // advertsOn
+        $advertsOn = $i['advertsOn'];
 
-		// enableUrl
-		$enableUrl = $i['enableUrl'];
+        // webcamsOn
+        $webcamsOn = $i['webcamsOn'];
 
-		// enableEmail
-		$enableEmail = $i['enableEmail'];
+        // enableUrl
+        $enableUrl = $i['enableUrl'];
 
-		// enableShoutFilter
-		$enableShoutFilter = $i['enableShoutFilter'];
+        // enableEmail
+        $enableEmail = $i['enableEmail'];
 
-		// floodChat
-		$floodChat = $i['floodChat'];
+        // enableShoutFilter
+        $enableShoutFilter = $i['enableShoutFilter'];
 
-		// defaultSFX
-		$defaultSFX = $i['defaultSFX'];
+        // floodChat
+        $floodChat = $i['floodChat'];
 
-		// newPm
-		$newPm = $i['newPm'];
+        // defaultSFX
+        $defaultSFX = $i['defaultSFX'];
 
-		// newPmMin
-		$newPmMin = $i['newPmMin'];
+        // newPm
+        $newPm = $i['newPm'];
 
-		// refreshRate
-		$refreshRate = $i['refreshRate'];
+        // newPmMin
+        $newPmMin = $i['newPmMin'];
 
-		// displayMDiv
-		$displayMDiv = $i['displayMDiv'];
+        // refreshRate
+        $refreshRate = $i['refreshRate'];
 
-		// totalMessages
-		$totalMessages = $i['totalMessages'];
+        // displayMDiv
+        $displayMDiv = $i['displayMDiv'];
 
-		// showMessages
-		$showMessages = $i['showMessages'];
+        // totalMessages
+        $totalMessages = $i['totalMessages'];
 
-		// avatars
-		$avatars = explode(",", $i['avatars']);
-		$avatars_count = count($avatars)-1;
+        // showMessages
+        $showMessages = $i['showMessages'];
 
-		// badwords
-		$badwords = explode(",", urldecode($i['badwords']));
-		$badwords_count = count($badwords)-1;
+        // avatars
+        $avatars = explode(",", $i['avatars']);
+        $avatars_count = count($avatars) - 1;
 
-		// font color
-		$font_color = explode(",", $i['font_color']);
-		$font_color_count = count($font_color)-1;
+        // badwords
+        $badwords = explode(",", urldecode($i['badwords']));
+        $badwords_count = count($badwords) - 1;
 
-		// font size
-		$font_size = explode(",", $i['font_size']);
-		$font_size_count = count($font_size)-1;
+        // font color
+        $font_color = explode(",", $i['font_color']);
+        $font_color_count = count($font_color) - 1;
 
-		// font size
-		$font_family = explode(",", $i['font_family']);
-		$font_family_count = count($font_family)-1;
+        // font size
+        $font_size = explode(",", $i['font_size']);
+        $font_size_count = count($font_size) - 1;
 
-		// sfx
-		$sfx = explode(",", $i['sfx']);
-		$sfx_count = count($sfx)-1;
+        // font size
+        $font_family = explode(",", $i['font_family']);
+        $font_family_count = count($font_family) - 1;
 
-		// smilies text
-		$smilies_text = explode(",", $i['smilies_text']);
-		$smilies_text_count = count($smilies_text)-1;
+        // sfx
+        $sfx = explode(",", $i['sfx']);
+        $sfx_count = count($sfx) - 1;
 
-		// sfx
-		$smilies_images = explode(",", $i['smilies_images']);
-		$smilies_images_count = count($smilies_images)-1;
+        // smilies text
+        $smilies_text = explode(",", $i['smilies_text']);
+        $smilies_text_count = count($smilies_text) - 1;
 
-		// adverts
-		$textAdverts = $i['textAdverts'];
-		$advertsDesc = $i['textAdvertsDesc'];
-		$textAdvertsRate = $i['textAdvertsRate'];
+        // sfx
+        $smilies_images = explode(",", $i['smilies_images']);
+        $smilies_images_count = count($smilies_images) - 1;
 
-		// user status messages
-		$userStatusMes = urldecode($i['userStatusMes']);
+        // adverts
+        $textAdverts = $i['textAdverts'];
+        $advertsDesc = $i['textAdvertsDesc'];
+        $textAdvertsRate = $i['textAdvertsRate'];
 
-		// show time stamp (messages)
-		$showTimeStamp = $i['showTimeStamp'];
+        // user status messages
+        $userStatusMes = urldecode($i['userStatusMes']);
 
-		// integrated with CMS
-		$integrated = $i['integrated'];
+        // show time stamp (messages)
+        $showTimeStamp = $i['showTimeStamp'];
 
-		// eCredits
-		$eCredits = $i['eCredits'];
-	}
-	
-	$dbh = null;
+        // integrated with CMS
+        $integrated = $i['integrated'];
+
+        // eCredits
+        $eCredits = $i['eCredits'];
+    }
+
+    $dbh = null;
+} catch (PDOException $e) {
+    $error = "Function: " . __FUNCTION__ . "\n";
+    $error .= "File: " . basename(__FILE__) . "\n";
+    $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+    debugError($error);
 }
-catch(PDOException $e) 
-{
-	$error  = "Function: ".__FUNCTION__."\n";
-	$error .= "File: ".basename(__FILE__)."\n";	
-	$error .= 'PDOException: '.$e->getCode(). '-'. $e->getMessage()."\n\n";
-
-	debugError($error);
-}	
 /*
 * declare content header
 *
@@ -151,425 +152,414 @@ header("content-type: application/x-javascript");
 * profile details
 *
 */
-
-echo "var profileOn = ".$profileOn."; ";
-echo "var profileUrl = '".$profileUrl."'; ";
-echo "var profileRef = ".$profileRef."; ";
-
-/*
-* enable private chat
-*
-*/
-
-echo "var privateOn = ".$privateOn."; ";
+?>
+var profileOn = <?php echo $profileOn; ?>;
+var profileUrl = "<?php echo $profileUrl; ?>";
+var profileRef = <?php echo $profileRef; ?>;
 
 /*
-* enable whisper
-*
-*/
+ * enable private chat
+ *
+ */
 
-echo "var whisperOn = ".$whisperOn."; ";
-
-/*
-* enable webcams
-*
-*/
-
-echo "var webcamsOn = ".$webcamsOn."; ";
+var privateOn = <?php echo $privateOn; ?>;
 
 /*
-* enable banners
-*
-*/
+ * enable whisper
+ *
+ */
 
-echo "var advertsOn = ".$advertsOn."; ";
-
-/*
-* enable urls
-*
-*/
-
-echo "var enableUrl = ".$enableUrl."; ";
+var whisperOn = <?php echo $whisperOn; ?>;
 
 /*
-* enable emails
-*
-*/
+ * enable webcams
+ *
+ */
 
-echo "var enableEmail = ".$enableEmail."; ";
-
-/*
-* enable shout filter
-*
-*/
-
-echo "var enableShoutFilter = ".$enableShoutFilter."; ";
+var webcamsOn = <?php echo $webcamsOn; ?>;
 
 /*
-* flood filter
-* allow new post every X seconds
-*/
+ * enable banners
+ *
+ */
 
-echo "var floodChat = ".$floodChat."; "; 
-
-/*
-* default sfx
-*
-*/
-
-echo "var sfx = '".$defaultSFX."'; ";
+var advertsOn = <?php echo $advertsOn; ?>;
 
 /*
-* title bar color for private messages
-*
-*/
+ * enable urls
+ *
+ */
 
-echo "var newPM = '".$newPm."'; ";
-
-/*
-* displays when private window minimised
-*
-*/
-
-echo "var newPMmin = '".$newPmMin."'; ";
+var enableUrl = <?php echo $enableUrl; ?>;
 
 /*
-* refresh rate
-* 1 sec = 1000
-*/
+ * enable emails
+ *
+ */
 
-echo "var refreshRate = ".$refreshRate."; "; 
-
-/*
-* chat messages container
-*
-*/
-
-echo "var displayMDiv = 'chatContainer'; ";
+var enableEmail = <?php echo $enableEmail; ?>;
 
 /*
-* max screen messages 
-*
-*/
+ * enable shout filter
+ *
+ */
 
-echo "var totalMessages = ".$totalMessages."; "; 
-
-/*
-* reset message count
-*
-*/
-
-echo "var showMessages = ".$showMessages."; "; 
-
+var enableShoutFilter = <?php echo $enableShoutFilter; ?>;
 
 /*
-* show avatar array
-*
-*/
+ * flood filter
+ * allow new post every X seconds
+ */
 
-echo "var totalAvatars = ".$avatars_count."; ";
-echo "var loopAvatars = 6; ";
-echo "var myAvatars=new Array(); ";
+var floodChat = <?php echo $floodChat; ?>;
 
-for ($i = 0; $i <= $avatars_count; $i++)
-{
-	echo 'myAvatars['.$i.']="'.$avatars[$i].'"; ';
+/*
+ * default sfx
+ *
+ */
+
+var sfx = '<?php echo $defaultSFX; ?>';
+
+/*
+ * title bar color for private messages
+ *
+ */
+
+var newPM = '<?php echo $newPm; ?>';
+
+/*
+ * displays when private window minimised
+ *
+ */
+
+var newPMmin = '<?php echo $newPmMin; ?>';
+
+/*
+ * refresh rate
+ * 1 sec = 1000
+ */
+
+var refreshRate = <?php echo $refreshRate; ?>;
+
+/*
+ * chat messages container
+ *
+ */
+
+var displayMDiv = 'chatContainer';
+
+/*
+ * max screen messages
+ *
+ */
+
+var totalMessages = <?php echo $totalMessages; ?>;
+
+/*
+ * reset message count
+ *
+ */
+
+var showMessages = <?php echo $showMessages; ?>;
+
+
+/*
+ * show avatar array
+ *
+ */
+
+var totalAvatars = <?php echo $avatars_count; ?>;
+var loopAvatars = 6;
+var myAvatars = [];
+
+<?php for ($i = 0; $i <= $avatars_count; $i++): ?>
+myAvatars[<?php echo $i; ?>] = "<?php echo $avatars[$i]; ?>";
+<?php endfor; ?>
+
+/*
+ * replace badwords
+ *
+ */
+
+<?php $badword_replacement = "****"; ?>
+
+function filterBadword(nBadword) {
+    var badwordReplacement = '<?php echo $badword_replacement; ?>';
+
+    <?php if ($badwords['0']): ?>
+    <?php for ($i = 0; $i <= $badwords_count; $i++): ?>
+    nBadword = nBadword.replace(/<?php echo $badwords[$i]; ?>/gi,badwordReplacement);
+    <?php endfor; ?>
+    <?php endif; ?>
+    return nBadword;
 }
 
 /*
-* replace badwords
-*
-*/
+ * create Font Color array
+ *
+ */
 
-$badword_replacement = "****";
+var totalColors = <?php echo $font_color_count; ?>;
+var loopColors = 12;
+var myColor = [];
 
-echo "function filterBadword(nBadword){ ";
-echo "var badwordReplacement = '".$badword_replacement."'; ";
+<?php for ($i = 0; $i <= $font_color_count; $i++): ?>
+myColor[<?php echo $i; ?>] = "<?php echo $font_color[$i]; ?>";
+<?php endfor; ?>
 
-if($badwords['0'])
-{
-	for ($i = 0; $i <= $badwords_count; $i++)
-	{
-		echo "nBadword = nBadword.replace(/".$badwords[$i]."/gi,badwordReplacement); ";
-	}
-}
-
-echo "return nBadword; } ";
+var defaultColor = "#ffffff";
 
 /*
-* create Font Color array  
-*
-*/
+ * create Font Size array
+ *
+ */
 
-echo "var totalColors = ".$font_color_count."; ";
-echo "var loopColors = 12; ";
-echo "var myColor=new Array(); ";
+var totalFontSize = <?php echo $font_size_count; ?>;
+var loopFontSize = 1;
+var myFontSize = [];
 
-for ($i = 0; $i <= $font_color_count; $i++)
-{
-	echo 'myColor['.$i.']="'.$font_color[$i].'"; ';
-}
-
-/*
-* create Font Size array 
-*
-*/
-
-echo "var totalFontSize = ".$font_size_count."; ";
-echo "var loopFontSize = 1; ";
-echo "var myFontSize=new Array(); ";
-
-for ($i = 0; $i <= $font_size_count; $i++)
-{
-	echo 'myFontSize['.$i.']="'.$font_size[$i].'"; ';
-}
+<?php for ($i = 0; $i <= $font_size_count; $i++): ?>
+myFontSize[<?php echo $i; ?>] = "<?php echo $font_size[$i]; ?>";
+<?php endfor; ?>
 
 /*
-* create Font Family array 
-*
-*/
+ * create Font Family array
+ *
+ */
 
-echo "var totalFontFamily = ".$font_family_count."; ";
-echo "var loopFontFamily = 1; ";
-echo "var myFontFamily=new Array(); ";
+var totalFontFamily = <?php echo $font_family_count; ?>;
+var loopFontFamily = 1;
+var myFontFamily = [];
 
-for ($i = 0; $i <= $font_family_count; $i++)
-{
-	echo 'myFontFamily['.$i.']="'.$font_family[$i].'"; ';
-}
-
-/*
-* create SFX array 
-*
-*/
-
-echo "var totalSFX = ".$sfx_count."; ";
-echo "var mySFX=new Array(); ";
-
-for ($i = 0; $i <= $sfx_count; $i++)
-{
-	echo 'mySFX['.$i.']="'.$sfx[$i].'"; ';
-}
+<?php for ($i = 0; $i <= $font_family_count; $i++): ?>
+myFontFamily[<?php echo $i; ?>] = "<?php echo $font_family[$i]; ?>";
+<?php endfor; ?>
 
 /*
-* create smilie array 
-*
-*/
+ * create SFX array
+ *
+ */
 
-echo "var totalSmilies = ".$smilies_text_count."; ";
-echo "var loopSmilies = 5; ";
-echo "var mySmilies=new Array(); ";
+var totalSFX = <?php echo $sfx_count; ?>;
+var mySFX = [];
 
-for ($i = 0; $i <= $smilies_text_count-1; $i++)
-{
-	echo 'mySmilies['.$i.']="'.$smilies_text[$i].'"; ';
-}
+<?php for ($i = 0; $i <= $sfx_count; $i++): ?>
+mySFX[<?php echo $i; ?>] = "<?php echo $sfx[$i]; ?>";
+<?php endfor; ?>
 
 /*
-* create smilie image array 
-*
-*/
+ * create smilie array
+ *
+ */
 
-echo "var mySmiliesImg=new Array(); ";
+var totalSmilies = <?php echo $smilies_text_count; ?>;
+var loopSmilies = 5;
+var mySmilies = [];
 
-for ($i = 0; $i <= $smilies_images_count-1; $i++)
-{
-	echo 'mySmiliesImg['.$i.']="<img style=\'vertical-align:middle;\' src=\'smilies/'.$smilies_images[$i].'\'>"; ';
-}
-
-/*
-* text adverts
-*
-*/
-
-echo "var textAdverts = ".$textAdverts."; ";
-echo "var showTextAdverts = ".$textAdvertsRate."; ";
-
-if($textAdverts)
-{
-	$advertsDesc = explode(",", $advertsDesc);
-	$advertsArrayLength = count($advertsDesc);
-
-	echo "var advertDesc = new Array(); ";
-
-	$x=0;
-
-	for ($i = 0; $i < $advertsArrayLength; $i++)
-	{
-			if($_SESSION['room'] == $advertsDesc[$i][0])
-			{
-				echo 'advertDesc['.$x++.']="'.str_replace($advertsDesc[$i][0]."|", "", $advertsDesc[$i]).'"; ';
-			}
-	}
-
-}
+<?php for ($i = 0; $i < $smilies_text_count; $i++): ?>
+mySmilies[<?php echo $i; ?>] = "<?Php echo $smilies_text[$i]; ?>";
+<?php endfor; ?>
 
 /*
-* user status messages
-*
-*/
+ * create smilie image array
+ *
+ */
 
-echo "var userStatusMes = new Array(); ";
+var mySmiliesImg = [];
 
+<?php for ($i = 0; $i < $smilies_images_count; $i++): ?>
+mySmiliesImg[<?php echo $i; ?>] = "<img style='vertical-align:middle;' src='smilies/<?php echo $smilies_images[$i]; ?>'>";
+<?php endfor; ?>
+
+/*
+ * text adverts
+ *
+ */
+
+var textAdverts = <?php echo $textAdverts; ?>;
+var showTextAdverts = <?php echo $textAdvertsRate; ?>;
+
+<?php if ($textAdverts): ?>
+<?php $advertsDesc = explode(",", $advertsDesc); ?>
+<?php $advertsArrayLength = count($advertsDesc); ?>
+
+var advertDesc = [];
+
+<?php $x = 0; ?>
+
+<?php for ($i = 0; $i < $advertsArrayLength; $i++): ?>
+<?php if ($_SESSION['room'] == $advertsDesc[$i][0]): ?>
+advertDesc[<?php echo $x++; ?>] = "<?php echo str_replace($advertsDesc[$i][0] . "|", "", $advertsDesc[$i]); ?>";
+<?php endif; ?>
+<?php endfor; ?>
+
+<?php endif; ?>
+
+/*
+ * user status messages
+ *
+ */
+
+var userStatusMes = [];
+
+<?php
 $userStatusMes = explode(",", $userStatusMes);
 $userStatusMesArrayLength = count($userStatusMes);
-
-for ($i = 0; $i < $userStatusMesArrayLength; $i++)
-{
-	echo 'userStatusMes['.$i.']="'.$userStatusMes[$i].'"; ';
-}
-
-/*
-* timestamp for messages
-* 
-*/
-
-echo "var showMessageTimeStamp = ".$showTimeStamp."; ";
-
-/*
-* badwords/characters
-*
-*/
-
-$_badwords = implode("|", badChars());
-$_badwords = str_replace("'","\'",$_badwords);
-
-echo "var badChars = '".$_badwords."'; ";
-
-/*
-* assign admin status
-*
-*/
-
-if(isset($_SESSION['adminUser']))
-{
-	unset($_SESSION['adminUser']);
-}
-
-/* 
-* user status 
-*
-*/
-
-echo "var admin = ".getAdmin($_SESSION['user_id'])."; ";
-echo "var moderator = ".getModerator($_SESSION['user_id'])."; ";
-echo "var speaker = ".getSpeaker($_SESSION['user_id'])."; ";
-
-/* 
-* user messages 
-*
-*/
-
-echo "var mBold = ".$CONFIG['text']['bold']."; ";
-echo "var mItalic = ".$CONFIG['text']['italic']."; ";
-echo "var mUnderline = ".$CONFIG['text']['underline']."; ";
-echo "var textColor = '".$CONFIG['text']['color']."'; ";
-echo "var textSize = '".$CONFIG['text']['size']."'; ";
-echo "var textFamily = '".$CONFIG['text']['family']."'; ";
-
-/* 
-* system messages 
-*
-*/
-
-echo "var stextColor = '".$CONFIG['text']['color']."'; ";
-echo "var stextSize = '".$CONFIG['text']['size']."'; ";
-echo "var stextFamily = '".$CONFIG['text']['family']."'; ";
-
-/* 
-* system variables 
-*
-*/
-
-echo "var groupChat = ".$_SESSION['groupChat']."; ";
-echo "var groupPChat = ".$_SESSION['groupPChat']."; ";
-echo "var groupCams = ".$_SESSION['groupCams']."; ";
-echo "var groupWatch = ".$_SESSION['groupWatch']."; ";
-echo "var groupRooms = ".$_SESSION['groupRooms']."; ";
-echo "var groupVideo = ".$_SESSION['groupVideo']."; ";
-
-if(!isset($_SESSION['groupChat']))
-{
-	echo "var groupCams = 0; ";
-	echo "var groupWatch = 0; ";
-	echo "var groupChat = 0; ";
-	echo "var groupPChat = 0; ";
-	echo "var groupRooms = 0; ";
-	echo "var groupVideo = 0; ";	
-}
-
-/* 
-* style folder 
-*
-*/
-
-echo "var styleFolder = '".$CONFIG['template']."'; ";
-
-/* 
-* silent user
-*
-*/
-
-echo "var silent = ".$CONFIG['silent']."; ";
-
-/*
-* silence length in minutes
-* features built in anti cheat mode 
-* (restarts silence counter on page reload)
-*/
-
-echo "var isSilenced = 0; ";
-
-if($_SESSION['silenceStart'] > date("U")-($CONFIG['silent']*60))
-{
-	echo "isSilenced = 1; ";
-	echo "initDoSilence = setInterval('doSilence()',1000); ";
-}
-
-/* 
-* invisible 
-*
-*/
-
-echo "var invisibleOn = 0; "; 
-echo "var hide = 0; ";
-
-/* 
-* idle timeout 
-*
-*/
-
-echo "var idleTimeout = ".$CONFIG['idleTimeout']."; ";
-
-/* 
-* idle logout timeout
-*
-*/
-
-echo "var idleLogoutTimeout = ".$CONFIG['idleLogoutTimeout']."; ";
-
-/* 
-* copyright 
-*
-*/
-
-echo "var showCopyright = ".remBrand()."; ";
-
-/* 
-* software version 
-*
-*/
-
-echo "var version = '".$CONFIG['version']."'; "; 
-
-/* 
-* display last messages 
-*
-*/
-
-echo "var dispLastMess = '".$CONFIG['dispLastMess']."'; "; 
-
 ?>
+<?php for ($i = 0; $i < $userStatusMesArrayLength; $i++): ?>
+userStatusMes[<?php echo $i; ?>] = "<?php echo $userStatusMes[$i]; ?>";
+<?php endfor; ?>
+
+/*
+ * timestamp for messages
+ *
+ */
+
+var showMessageTimeStamp = <?php echo $showTimeStamp; ?>;
+
+/*
+ * badwords/characters
+ *
+ */
+
+<?php
+$_badwords = implode("|", badChars());
+$_badwords = str_replace("'", "\'", $_badwords);
+?>
+var badChars = '<?php echo $_badwords; ?>';
+
+/*
+ * assign admin status
+ *
+ */
+
+<?php
+if (isset($_SESSION['adminUser'])) {
+    unset($_SESSION['adminUser']);
+}
+?>
+
+/* 
+ * user status
+ *
+ */
+
+var admin = <?php echo getAdmin($_SESSION['user_id']); ?>;
+var moderator = <?php echo getModerator($_SESSION['user_id']); ?>;
+var speaker = <?php echo getSpeaker($_SESSION['user_id']); ?>;
+
+/* 
+ * user messages
+ *
+ */
+
+var mBold = <?php echo $CONFIG['text']['bold'];?>;
+var mItalic = <?php echo $CONFIG['text']['italic'];?>;
+var mUnderline = <?php echo $CONFIG['text']['underline'];?>;
+var textColor = '<?php echo $CONFIG['text']['color'];?>';
+var textSize = '<?php echo $CONFIG['text']['size'];?>';
+var textFamily = '<?php echo $CONFIG['text']['family'];?>';
+
+/* 
+ * system messages
+ *
+ */
+
+var stextColor = '<?php echo $CONFIG['text']['color'];?>';
+var stextSize = '<?php echo $CONFIG['text']['size'];?>';
+var stextFamily = '<?php echo $CONFIG['text']['family'];?>';
+
+/* 
+ * system variables
+ *
+ */
+
+var groupChat = <?php echo $_SESSION['groupChat'];?>;
+var groupPChat = <?php echo $_SESSION['groupPChat'];?>;
+var groupCams = <?php echo $_SESSION['groupCams'];?>;
+var groupWatch = <?php echo $_SESSION['groupWatch'];?>;
+var groupRooms = <?php echo $_SESSION['groupRooms'];?>;
+var groupVideo = <?php echo $_SESSION['groupVideo'];?>;
+
+<?php if (!isset($_SESSION['groupChat'])): ?>
+groupCams = 0;
+groupWatch = 0;
+groupChat = 0;
+groupPChat = 0;
+groupRooms = 0;
+groupVideo = 0;
+<?php endif; ?>
+
+/* 
+ * style folder
+ *
+ */
+
+var styleFolder = '<?php echo $CONFIG['template'];?>';
+
+/* 
+ * silent user
+ *
+ */
+
+var silent = <?php echo $CONFIG['silent'];?>;
+
+/*
+ * silence length in minutes
+ * features built in anti cheat mode
+ * (restarts silence counter on page reload)
+ */
+
+var isSilenced = 0;
+
+<?php if ($_SESSION['silenceStart'] > date("U") - ($CONFIG['silent'] * 60)): ?>
+isSilenced = 1;
+initDoSilence = setInterval('doSilence()', 1000);
+<?Php endif; ?>
+
+/* 
+ * invisible
+ *
+ */
+
+var invisibleOn = 0;
+var hide = 0;
+
+/* 
+ * idle timeout
+ *
+ */
+
+var idleTimeout = <?php echo $CONFIG['idleTimeout'];?>;
+
+/* 
+ * idle logout timeout
+ *
+ */
+
+var idleLogoutTimeout = <?php echo $CONFIG['idleLogoutTimeout'];?>;
+
+/* 
+ * copyright
+ *
+ */
+
+var showCopyright = "<?php echo remBrand(); ?>";
+
+/* 
+ * software version
+ *
+ */
+
+var version = '<?php echo $CONFIG['version']; ?>';
+
+/* 
+ * display last messages
+ *
+ */
+
+var dispLastMess = '<?php echo $CONFIG['dispLastMess'];?>';
+
 // set variables
 var intelliBot = <?php echo $CONFIG['intelliBot'];?>;
 var intelliBotName = '<?php echo $CONFIG['intelliBotName'];?>';
@@ -581,9 +571,8 @@ var hasGamesPlugin = <?php echo (file_exists("../plugins/games/index.php")) ? 't
 <?php
 $room = '';
 
-if(isset($_SESSION['room']) && $CONFIG['singleRoom'])
-{
-    $room = "roomID=".$_SESSION['room']."&";
+if (isset($_SESSION['room']) && $CONFIG['singleRoom']) {
+    $room = "roomID=" . $_SESSION['room'] . "&";
 }
 ?>
 var roomText = '<?php echo $room; ?>';
