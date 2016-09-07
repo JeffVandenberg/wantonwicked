@@ -1017,6 +1017,12 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 
 		messageArray = message.split("|");
 
+		var showExternal = 0;
+		if(admin && messageArray[4].search(/.jpg|gif/) > -1) {
+			messageArray[4] = '<br><img src="' + messageArray[4] +'" style="max-width: 800px;"/>';
+			showExternal = 1;
+		}
+
 		// assign entry sfx
 		if(messageArray[4].indexOf(publicEntry) != -1)
 		{
@@ -1059,7 +1065,6 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		// url must contain youtu.be format   
 		// eg. http://youtu.be/ctAu4DgSheI
       
-		var showYouTube = 0;
 		if(messageArray[4].search(/http:\/\/youtu.be\//gi) > -1)
 		{
 		    messageArray[4] = messageArray[4].replace("<b>","");
@@ -1071,11 +1076,11 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		
 			var getVideoID = messageArray[4].split("/");
 			messageArray[4] = '<br><iframe width="420" height="315" src="http://www.youtube.com/embed/'+getVideoID[3]+'" frameborder="0" allowfullscreen></iframe>';
-			showYouTube = 1;
-		}		
+			showExternal = 1;
+		}
 
 		// check for urls
-		if(enableUrl && !showYouTube)
+		if(enableUrl && !showExternal)
 		{
 			messageArray[4] = messageArray[4].replace(/(http[s]?:\/\/[\S]+)/gi, "<a href='$1' target='_blank'>$1</a>");
 		}

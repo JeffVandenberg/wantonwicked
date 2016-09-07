@@ -41,7 +41,7 @@ ob_start();
                             <td><?php echo $row['group_name']; ?></td>
                             <td><?php echo $row['request_status_name']; ?></td>
                             <td>
-                                <a href="request.php?request.php?filter%5Btitle%5D=&filter%5Busername%5D=&filter%5Brequest_type_id%5D=0&filter%5Brequest_status_id%5D=<?php echo $row['request_status_id']; ?>&action=st_list&page_action=Update+Filters">
+                                <a href="request.php?filter%5Btitle%5D=&filter%5Busername%5D=&filter%5Brequest_type_id%5D=0&filter%5Brequest_status_id%5D=<?php echo $row['request_status_id']; ?>&action=st_list&page_action=Update+Filters">
                                     <?php echo $row['total']; ?>
                                 </a>
                             </td>
