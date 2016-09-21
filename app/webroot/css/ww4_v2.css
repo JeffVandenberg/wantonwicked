@@ -4,10 +4,10 @@
 }
 
 body {
-    background: #898989 url('../img/main/bg1.jpg');
+    background: #111111;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 14px;
-    color: #000;
+    color: #cccccc;
     margin: 0;
     padding: 0;
 }
@@ -35,7 +35,7 @@ h1 {
     font-size: 24px;
     font-weight: normal;
     text-transform: uppercase;
-    border-bottom: 3px double #000000;
+    border-bottom: 3px double #EFD6AC;
 }
 
 h2 {
@@ -43,7 +43,7 @@ h2 {
     font-size: 18px;
     font-weight: normal;
     text-transform: uppercase;
-    border-bottom: 1px solid #898989;
+    border-bottom: 1px solid #3c6e71;
 }
 
 h3 {
@@ -90,24 +90,24 @@ ul.wicked li:nth-child(even) {
 }*/
 
 a:link {
-    color: #790000;
+    color: #EFD6AC;
     text-decoration: none;
 }
 
 /* unvisited link */
 a:visited {
-    color: #464646;
+    color: #EFD6AC;
     text-decoration: none;
 }
 
 /* visited link */
 a:hover {
-    color: #790000;
+    color: #FFFFFF;
 }
 
 /* mouse over link */
 a:active {
-    color: #790000;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
@@ -123,10 +123,6 @@ a:active {
 #login {
     width: 1000px;
     height: 50px;
-    border: 1px solid #000000;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-image: url('../img/main/bg2.jpg');
     margin-bottom: 10px;
     margin-top: 50px;
 
@@ -134,22 +130,20 @@ a:active {
 
 #logina {
     width: 1000px;
-    margin-top: 10px;
+    margin-top: 20px;
     height: 30px;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-    color: #FFFFFF;
+    color: #CCCCCC;
     font-size: 14px;
     font-weight: normal;
-    background: #898989;
+    background: #0E3B43;
 }
 
 #login a {
-    color: #FFFFFF;
+    color: #EFD6AC;
 }
 
 #login a:hover {
-    color: #790000;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
@@ -157,7 +151,6 @@ a:active {
     height: 25px;
     padding-left: 5px;
     padding-top: 5px;
-    background-image: url('../img/main/headerbg.jpg');
 }
 
 /* End Login Container*/
@@ -178,29 +171,25 @@ a:active {
 #pagetitle {
     width: 1000px;
     margin-top: 10px;
-    color: #FFFFFF;
+    color: #EFD6AC;
     font-size: 24px;
     text-transform: uppercase;
     text-align: center;
     text-shadow: 1px 1px #000000;
-    background-image: url('../img/main/headerbg.jpg');
+    background: #0E3B43;
 }
 
 #content {
     width: 1000px;
-    border: 1px solid #000000;
     border-radius: 5px;
     -moz-border-radius: 5px;
-    background-image: url('../img/main/bg2.jpg');
-    box-shadow: 1px 1px 4px #000000;
+    background: #111;
     margin-bottom: 30px;
 }
 
 #contenta {
     width: 988px;
     margin: 5px;
-    background: #dddddd;
-    border: 1px solid #000000;
     border-radius: 5px;
 }
 
@@ -213,9 +202,9 @@ a:active {
 /* Begin Footer/Copywrite*/
 #footer {
     clear: both;
-    color: #dddddd;
+    color: #0E3B43;
     font-size: 10px;
-    width: 1000px;
+    width: 100%;
     height: 50px;
 }
 
@@ -229,12 +218,9 @@ a:active {
 #nav {
     width: 1000px;
     height: 50px;
-    border: 1px solid #000000;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    background-image: url('../img/main/bg2.jpg');
-    box-shadow: 1px 1px 4px #000000;
-    margin-bottom: 10px;
+    border-radius: 0px;
+    -moz-border-radius: 0px;
+    padding-top: 10px;
 }
 
 .menu a {
@@ -242,11 +228,11 @@ a:active {
 }
 
 .button {
-    background-color: #790000;
+    background-color: #3c6e71;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
-    border: 1px solid #000000;
+    border: 1px solid #0E3B43;
     color: #ffffff;
     font-family: Verdana, sans-serif;
     font-size: 14px;
@@ -259,7 +245,7 @@ a:active {
 }
 
 .button:hover {
-    background-color: #490000;
+    background-color: #0E3B43;
 }
 
 .button:active {
@@ -273,11 +259,11 @@ a:active {
 }
 
 .link {
-    color: #9e0b0f;
+    color: #EFD6AC;
 }
 
 .link:hover {
-    color: #ed1c24;
+    color: #ffffff;
 }
 
 /* ************************** */
@@ -347,7 +333,7 @@ table {
 
 table td {
     font-size: 12px;
-    border: 1px solid #898989;
+    border: 1px solid #333333;
     padding: 5px;
 }
 
@@ -356,16 +342,17 @@ table th {
     font-size: 14px;
     text-align: left;
     padding: 5px;
-    border: 1px solid #898989;
-    background-color: #bbbbbb;
+    border: 1px solid #333333;
+    background-color: #0E3B43;
+	color: #EFD6AC;
 }
 
 table tr:nth-child(odd) {
-    background-color: #cccccc;
+    background-color: #222222;
 }
 
 table tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #222222;
 }
 
 /* Sheet Styles */
@@ -374,8 +361,8 @@ table tr:nth-child(even) {
     font-family: Arial, sans-serif;
     font-size: 10pt;
     font-weight: 600;
-    color: #ee4444;
-    background-color: #e5e5e5;
+    color: #cccccc;
+    background-color: #333333;
     border: thin solid #000;
     padding: 2px;
     width: 100px;
@@ -390,8 +377,8 @@ table tr:nth-child(even) {
     font-family: Arial, sans-serif;
     font-size: 10pt;
     text-align: left;
-    color: #000000;
-    background-color: #e5e5e5;
+    color: #cccccc;
+    background-color: #3c6e71;
     border: thin solid #000;
     visibility: hidden;
 }
@@ -456,7 +443,7 @@ table.character-sheet > tbody > tr > td {
 }
 
 .mortal_normal_text {
-    color: #000;
+    color: #ccc;
     text-align: left;
 }
 
@@ -471,7 +458,7 @@ table.mortal_normal_text > tbody > tr > th:nth-child(odd) {
 }
 
 .vampire_normal_text {
-    color: #000;
+    color: #ccc;
     text-align: left;
 }
 
@@ -486,7 +473,7 @@ table.vampire_normal_text > tbody > tr > th:nth-child(even) {
 }
 
 .werewolf_normal_text {
-    color: #000;
+    color: #ccc;
     text-align: left;
 }
 
@@ -501,7 +488,7 @@ table.werewolf_normal_text > tbody > tr > th:nth-child(even) {
 }
 
 .mage_normal_text {
-    color: #000;
+    color: #ccc;
     text-align: left;
 }
 
@@ -516,7 +503,7 @@ table.mage_normal_text > tbody > tr > th:nth-child(even) {
 }
 
 .ghoul_normal_text {
-    color: #000;
+    color: #ccc;
     text-align: left;
 }
 
@@ -531,7 +518,7 @@ table.ghoul_normal_text > tbody > tr > th:nth-child(even) {
 }
 
 .changeling_normal_text {
-    color: #000;
+    color: #ccc;
     text-align: left;
 }
 
@@ -546,7 +533,7 @@ table.changeling_normal_text > tbody > tr > th:nth-child(even) {
 }
 
 .geist_normal_text {
-    color: #000;
+    color: #ccc;
     text-align: left;
 }
 
@@ -578,14 +565,17 @@ table.geist_normal_text > tbody > tr > th:nth-child(even) {
     padding: 8px;
     text-align: center;
     font-weight: bold;
-    background-color: rgb(209, 209, 209);
+	background: #333333;
     border-radius: 5px;
-    border: solid 1px #b00;
+    border: solid 1px #932d4f;
 }
 
 .error-message {
-    color: #f00;
+    color: #FFF;
     font-weight: bold;
+	background: #932d4f;
+    border-radius: 5px;
+    border: solid 1px #333;
 }
 
 .error-message:before {
@@ -633,7 +623,7 @@ div.formInput
 div.cell
 {
     float: left;
-    border-bottom: solid 1px #ffffff;
+    border-bottom: solid 1px #222222;
     padding: 3px;
 }
 
@@ -650,12 +640,12 @@ div.tableRow
 div.tableRowAlt
 {
     overflow:auto;
-    background-color: #555555;
+    background-color: #333333;
 }
 
 div.tableRowHeaderCell
 {
-    background-color: #ffffff;
+    background-color: #222222;
     font-weight:bold;
 }
 
@@ -669,13 +659,13 @@ div.submit {
 }
 
 .secondary-text {
-    color: #444444;
+    color: #cccccc;
 }
 
 .hidden-panel-content {
     display:none;
     border: 1px solid #000;
-    background-color:#ddd;
+    background-color:#333333;
     padding:5px;
 }
 
@@ -690,7 +680,7 @@ div.submit {
 }
 
 .calendar-day-today {
-    background-color: #fff;
+    background-color: #222222;
 }
 
 .mortal {
