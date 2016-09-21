@@ -26,7 +26,6 @@
       "classes\\": "class/classes/"
     },
     "files": [
-      "app/webroot/cgi-bin/dbconnect.php"
     ]
   }
 }

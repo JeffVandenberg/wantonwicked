@@ -29,8 +29,7 @@ Thumbs.db
 /vendor
 
 # application specific
-/app/webroot/classes/core/repository/DatabaseMapper.php
-/app/webroot/cgi-bin/dbconnect.php
+/class/classes/core/repository/DatabaseMapper.php
 /app/webroot/chat/includes/db.php
 app/webroot/forum
 app/webroot/wiki
