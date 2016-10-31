@@ -12,7 +12,7 @@
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
     <?php
     echo $this->Html->css(array(
-        'ww4_v2',
+        'ww5',
         'gaming-sandbox',
         'wanton/jquery-ui.min',
         'wanton/jquery.ui.menubar',
@@ -21,7 +21,6 @@
     echo $this->Html->script(array(
         'jquery-1.11.3.min',
         'jquery-ui.min',
-        'jquery.watermark.min',
         'jquery.ui.menubar',
         'tinymce/tinymce.min',
         'server_time',
@@ -33,87 +32,58 @@
     echo $this->fetch('css');
     echo $this->fetch('script');
     ?>
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
     <script type="application/javascript">
         wantonWickedTime.serverTime = <?php echo $serverTime; ?>;
     </script>
 </head>
 <body>
-<div id="gs-header-bar">
-    <div id="gs-header-inner">
-        <div id="gs-header-logo">
-            <a href="/" id="gs-header-logo-nav">
-                Wanton Wicked
-            </a>
-        </div>
-        <div id="gs-header-games">
-            <label for="gs-game-selector">
-                <select id="gs-game-selector">
-                    <option value="www">Home</option>
-                    <option value="ragnarok">Ragnarok NYC</option>
-                    <option value="wantonwicked" selected>Wanton Wicked</option>
-                </select>
-            </label>
+<div id="header">
+    <div id="wrapper">
+        <div id="logo"></div>
+        <div id="userpanel"><?php echo $this->UserPanel->Create($this->Html->url()); ?></div>
+        <div id="nav">
+            <?php echo $this->MainMenu->Create($menu); ?>
         </div>
     </div>
 </div>
 <div id="wrapper">
-    <div id="login">
-        <div id="logina">
-            <div id="loginb">
-                <?php echo $this->UserPanel->Create($this->Html->url()); ?>
-                <span id="server-time" class="server-time"></span>
-            </div>
-        </div>
-    </div>
-    <div id="logo">
-    </div>
-    <div id="nav">
-        <?php echo $this->MainMenu->Create($menu); ?>
-    </div>
     <div id="content">
         <div id="pagetitle">
-            <?php if(isset($header_for_layout)): ?>
+            <?php if (isset($header_for_layout)): ?>
                 <?php echo $header_for_layout; ?>
             <?php else: ?>
                 <?php echo $title_for_layout; ?>
             <?php endif; ?>
         </div>
-        <div id="contenta">
-            <div id="contentb" class="contentbox">
-                <?php if(isset($submenu)): ?>
-                    <?php echo $this->SubMenu->Create($submenu); ?>
-                <?php endif; ?>
-                <?php echo $this->Session->flash(); ?>
+        <div id="contenta" class="contentbox">
+            <?php if (isset($submenu)): ?>
+                <?php echo $this->SubMenu->Create($submenu); ?>
+            <?php endif; ?>
+            <?php echo $this->Session->flash(); ?>
 
-                <?php echo $this->fetch('content'); ?>
-            </div>
-        </div>
-    </div>
-    <div id="content">
-        <div id="contenta">
-            <div id="contentb" class="contentbox">
-                <div style="font-size: 9px;text-align: center;">World of Darkness, Changeling: The Lost, Geist: The Sin-Eaters, Mage: The Awakening,
-                    Vampire: The Requiem, Werewolf: The Forsaken <br>
-                    &copy;2013-2014 <a href="http://www.white-wolf.com/fansites/termsofuse.php" target="_blank">White
-                        Wolf Publishing, Inc.</a>
-                </div>
-            </div>
+            <?php echo $this->fetch('content'); ?>
         </div>
     </div>
 </div>
-<div id="footer-bar">
-    <div id="footer-inner">
-        <div id="right-footer">
-        Layout and Design by jarden
-        Produced by Jeff Vandenberg
-        Copyright <?php echo date('Y'); ?>
+<div id="footer">
+    <div id="wrapper">
+        <div id="contenta" class="contentbox">
+            <div style="font-size: 9px;text-align: center;">The Storytelling System, Beast the Primordial, Changeling
+                the Lost, Chronicles of Darkness, Demon the Descent, Mage the Awakening, Vampire the Requiem, and
+                Werewolf the Forsaken<br>
+                &copy;2014-2016 CCP hf and published by <a href="http://theonyxpath.com/" target="_blank">Onyx Path
+                    Publishing</a>.<br>
+                Produced by Jeff Vandenberg. Layout and Design by Jill Arden &copy;<?php echo date('Y'); ?>
+            </div>
         </div>
     </div>
 </div>
 <?php
 echo $this->Html->image(
-                'indicator.gif',
-                array('id' => 'busy-indicator')
+    'indicator.gif',
+    array('id' => 'busy-indicator')
 );
-?></body>
+?>
+</body>
 </html>
