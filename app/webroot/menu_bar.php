@@ -70,9 +70,6 @@ $mainMenu = array(
                     ),
                     'Mage Cast List' => array(
                         'link' => '/characters/cast/mage'
-                    ),
-					'Sleepwalker Cast List' => array(
-                        'link' => '/characters/cast/sleepwalker'
                     )
                 )
             ),
