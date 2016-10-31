@@ -126,7 +126,7 @@ class Scene extends AppModel
         )
     );
 
-    public function save(&$model)
+    public function saveScene(&$model)
     {
         if($model['Scene']['slug'] == '') {
             $slug = strtolower(Inflector::slug($model['Scene']['name']));

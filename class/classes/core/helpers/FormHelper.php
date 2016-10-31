@@ -35,8 +35,7 @@ EOQ;
 
     private static function ConvertNameToID($name)
     {
-        if(self::$_id !== null)
-        {
+        if (self::$_id !== null) {
             return self::$_id;
         }
         return str_replace('_', '-', preg_replace('/[^\d\w]+/', '', $name));
@@ -51,8 +50,7 @@ EOQ;
                     $translation .= ' ' . $key . '="' . $value . '" ';
                 }
                 return $translation;
-            }
-            else {
+            } else {
                 return $options;
             }
         }
@@ -89,8 +87,7 @@ EOQ;
                 $options .= '<optgroup label="' . $index . '">';
                 $options .= self::AppendOptionValues($value, $selectedValues);
                 $options .= '</optgroup>';
-            }
-            else {
+            } else {
                 $selected = in_array($index, $selectedValues) ? 'selected' : '';
                 $options .= '<option value="' . $index . '" ' . $selected . '>' . $value . '</option>';
             }
@@ -147,14 +144,14 @@ EOQ;
         $id = self::ConvertNameToID($name);
         $label = self::CreateLabel($name);
         $includeHidden = true;
-        if(isset($options['include_hidden'])) {
+        if (isset($options['include_hidden'])) {
             $includeHidden = $options['include_hidden'];
             unset($options['include_hidden']);
         }
         $checked = ($checked === true) ? 'checked' : '';
 
         $input = '';
-        if($includeHidden) {
+        if ($includeHidden) {
             $input .= self::Hidden($name, '0', array('id' => $id . '_'));
         }
         $input .= <<<EOQ
@@ -174,7 +171,7 @@ EOQ;
         self::CheckOptions($options);
 
         $html = '<div class="checkboxlist">';
-        foreach($options as $id => $value) {
+        foreach ($options as $id => $value) {
             $checked = (array_search($id, $selected) !== false);
             $options = array(
                 'include_hidden' => false,
@@ -182,10 +179,9 @@ EOQ;
                 'id' => $name . $id
             );
             $html .=
-                '<div class="item">'.
-                self::Checkbox($name, $id, $checked, $options).
-                '</div>'
-            ;
+                '<div class="item">' .
+                self::Checkbox($name, $id, $checked, $options) .
+                '</div>';
         }
         $html .= '</div>';
         return $html;
@@ -214,8 +210,8 @@ EOQ;
         self::$_id = null;
         self::$_label = null;
 
-        if($options !== null) {
-            if(isset($options['id'])) {
+        if ($options !== null) {
+            if (isset($options['id'])) {
                 self::$_id = $options['id'];
                 unset($options['id']);
             }
@@ -251,47 +247,38 @@ EOQ;
         $input = "";
         $character_type = preg_replace('/\s/', '_', strtolower($characterType));
 
-        for($i = 1; $i <= $maxDots; $i++)
-        {
+        for ($i = 1; $i <= $maxDots; $i++) {
             $js = "";
-            $dotName = $name.'_dot'.$i;
+            $dotName = $name . '_dot' . $i;
             $dotId = self::ConvertNameToID($dotName);
 
-            if($edit)
-            {
-                $js .= "changeDots($elementType, '".$id."', ${i}, $maxDots, true);";
+            if ($edit) {
+                $js .= "changeDots($elementType, '" . $id . "', ${i}, $maxDots, true);";
             }
 
-            if($updateTraits)
-            {
+            if ($updateTraits) {
                 $js .= "updateTraits();";
             }
 
-            if($updateXp)
-            {
+            if ($updateXp) {
                 $js .= "updateXP($elementType);";
             }
 
-            if($js != "")
-            {
+            if ($js != "") {
                 $js = "onClick=\"$js\"";
             }
 
-            if($i <= $value)
-            {
+            if ($i <= $value) {
                 $input .= <<<EOQ
 <img src="img/{$character_type}_filled.gif" name="$dotName" id="$dotId" style="border:none;" $js />
 EOQ;
-            }
-            else
-            {
+            } else {
                 $input .= <<<EOQ
 <img src="img/empty.gif" name="$dotName" id="$dotId" style="border:none;" $js />
 EOQ;
             }
 
-            if(($i%10) == 0)
-            {
+            if (($i % 10) == 0) {
                 $input .= "<br>";
             }
         }
@@ -315,14 +302,10 @@ EOQ;
     private static function CreateLabel($fieldName)
     {
         $label = '';
-        if(self::$_label !== null)
-        {
-            if(self::$_label === true)
-            {
+        if (self::$_label !== null) {
+            if (self::$_label === true) {
                 $labelText = SlugHelper::FromNameToLabel($fieldName);
-            }
-            else
-            {
+            } else {
                 $labelText = self::$_label;
             }
             $label = self::Label($fieldName, $labelText) . ' ';
