@@ -10,6 +10,74 @@ $mainMenu = array(
         'link' => '/',
         'target' => '_top'
     ),
+	    'Forums' => array(
+        'link' => '/forum/index.php',
+    ),
+    'Utilities' => array(
+        'link' => '#',
+        'submenu' => array(
+            'Site Supporter' => array(
+                'link' => '#',
+                'submenu' => array(
+                    'Home' => [
+                        'link' => '/support.php',
+                    ],
+                    'Support Information' => [
+                        'link' => '/wiki/index.php?n=GameRef.Supporter'
+                    ]
+                )
+            ),
+            'Scenes' => array(
+                'link' => '/scenes'
+            )
+        )
+    ),
+	'Help' => array(
+        'link' => '#',
+        'submenu' => array(
+            'Meet the Team' => array(
+                'link' => '/staff'
+            ),
+			'Terms of Use' => array(
+                'link' => '/wiki/index.php?n=GameRef.TermsOfUse',
+            ),
+			'Code of Conduct' => array(
+               'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
+            ),
+			'Site Policies' => array(
+                'link' => '/wiki/index.php?n=GameRef.SitePoliciesAndPractices',
+            ),
+			'New Player Help' => array(
+                'link' => '/wiki/index.php?n=GameRef.Help',
+            ),
+            'Guides' => array(
+                'link' => '#',
+                'submenu' => array(
+                    'House Rules' => array(
+						'link' => '/wiki/index.php?n=GameRef.HouseRules',
+					),
+					'Wiki Guide' => array(
+                        'link' => '/wiki/index.php?n=GameRef.WikiGuide',
+                    ),
+                    'Chat Help' => array(
+                        'link' => '/wiki/index.php?n=GameRef.ChatHelp',
+                    ),
+                    'Request System' => array(
+                        'link' => '/wiki/index.php?n=GameRef.RequestSystemHelp',
+                    ),
+                    'Experience Guide' => array(
+                        'link' => '/wiki/index.php?n=GameRef.ExperienceGuide',
+                    ),
+                    'Sanctioning Guide' => array(
+                        'link' => '/wiki/index.php?n=GameRef.SanctioningGuide',
+                    )
+                )
+            ),
+            'Character Creation' => array(
+                'link' => '/wiki/index.php?n=GameRef.CharacterCreation'
+            )
+        )
+    ),
 	'The City' => array(
         'link' => '#',
         'submenu' => array(
@@ -21,12 +89,6 @@ $mainMenu = array(
             ),
             'The Districts' => array(
                 'link' => '/wiki/index.php?n=City.Districts'
-            ),
-			'The Embassy' => array(
-                'link' => '/wiki/index.php?n=City.Embassy'
-            ),
-			'Spheres' => array(
-                'link' => '/wiki/index.php?n=City.Spheres'
             ),
             'Cast List' => array(
                 'link' => '/characters/cast/'
@@ -70,6 +132,9 @@ $mainMenu = array(
                     ),
                     'Mage Cast List' => array(
                         'link' => '/characters/cast/mage'
+                    ),
+					'Sleepwalker Cast List' => array(
+                        'link' => '/characters/cast/sleepwalker'
                     )
                 )
             ),
@@ -131,90 +196,11 @@ $mainMenu = array(
                 )
             ),
         )
-    ),
-    'Forums' => array(
-        'link' => '/forum/index.php',
-    ),
-	'Help' => array(
-        'link' => '#',
-        'submenu' => array(
-            'Meet the Team' => array(
-                'link' => '/staff'
-            ),
-			'Terms of Use' => array(
-                'link' => '/wiki/index.php?n=GameRef.TermsOfUse',
-            ),
-			'Code of Conduct' => array(
-               'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
-            ),
-			'Site Policies' => array(
-                'link' => '/wiki/index.php?n=GameRef.SitePoliciesAndPractices',
-            ),
-			'New Player Help' => array(
-                'link' => '/wiki/index.php?n=GameRef.Help',
-            ),
-            'Guides' => array(
-                'link' => '#',
-                'submenu' => array(
-                    'House Rules' => array(
-						'link' => '/wiki/index.php?n=GameRef.HouseRules',
-					),
-					'Wiki Guide' => array(
-                        'link' => '/wiki/index.php?n=GameRef.WikiGuide',
-                    ),
-                    'Chat Help' => array(
-                        'link' => '/wiki/index.php?n=GameRef.ChatHelp',
-                    ),
-                    'Request System' => array(
-                        'link' => '/wiki/index.php?n=GameRef.RequestSystemHelp',
-                    ),
-                    'Experience Guide' => array(
-                        'link' => '/wiki/index.php?n=GameRef.ExperienceGuide',
-                    ),
-                    'Sanctioning Guide' => array(
-                        'link' => '/wiki/index.php?n=GameRef.SanctioningGuide',
-                    )
-                )
-            ),
-            'Character Creation' => array(
-                'link' => '/wiki/index.php?n=GameRef.CharacterCreation'
-            )
-        )
-    ),
-    'Utilities' => array(
-        'link' => '#',
-        'submenu' => array(
-            'Site Supporter' => array(
-                'link' => '#',
-                'submenu' => array(
-                    'Home' => [
-                        'link' => '/support.php',
-                    ],
-                    'Support Information' => [
-                        'link' => '/wiki/index.php?n=GameRef.5For5Offer'
-                    ]
-                )
-            ),
-            'Scenes' => array(
-                'link' => '/scenes'
-            )
-        )
-    ),    
-    'Sidegames' => array(
-        'link' => '#',
-        'submenu' => array(
-            'Sidegame List' => array(
-                'link' => '/wiki/index.php?n=Sidegames.Sidegames'
-            ),
-            'Sidegame Forums' => array(
-                'link' => '/forum/viewforum.php?f=763'
-            )
-        )
     )
 );
 
 if ($userdata['user_id'] != ANONYMOUS) {
-    $mainMenu['Site Tools']['submenu']['Characters'] = array(
+    $mainMenu['Utilities']['submenu']['Characters'] = array(
         'link' => '#',
         'submenu' => array(
             'Dashboard' => [
@@ -259,7 +245,7 @@ if ($userdata['user_id'] != ANONYMOUS) {
 
 
 if (UserdataHelper::IsSt($userdata)) {
-    $mainMenu['Utilities']['submenu']['Staff'] = array(
+    $mainMenu['Utilities']['submenu']['Staff Utilities'] = array(
         'link' => '#',
         'submenu' => array(
             'Dashboard' => [
@@ -292,4 +278,4 @@ if (UserdataHelper::IsSupporter($userdata)) {
 }
 
 $menu_bar = MenuHelper::GenerateMenu($mainMenu);
-return $mainMenu;
+return $menu_bar;
