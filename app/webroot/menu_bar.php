@@ -84,6 +84,12 @@ $mainMenu = array(
             'Setting Introduction' => array(
                 'link' => '/wiki/index.php?n=City.City'
             ),
+		    'The Embassy' => array(
+                'link' => '/wiki/index.php?n=City.Embassy'
+            ),
+			'Spheres' => array(
+                'link' => '/wiki/index.php?n=City.Spheres'
+            ),
             'Map' => array(
                 'link' => '/mapww5/map.html'
             ),
@@ -194,7 +200,7 @@ $mainMenu = array(
                         'link' => '/characters/cast/wolfblooded'
                     )
                 )
-            ),
+            )
         )
     )
 );
