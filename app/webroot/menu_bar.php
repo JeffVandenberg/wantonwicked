@@ -16,17 +16,6 @@ $mainMenu = array(
     'Utilities' => array(
         'link' => '#',
         'submenu' => array(
-            'Site Supporter' => array(
-                'link' => '#',
-                'submenu' => array(
-                    'Home' => [
-                        'link' => '/support.php',
-                    ],
-                    'Support Information' => [
-                        'link' => '/wiki/index.php?n=GameRef.Supporter'
-                    ]
-                )
-            ),
             'Scenes' => array(
                 'link' => '/scenes'
             )
