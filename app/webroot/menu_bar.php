@@ -132,17 +132,6 @@ $mainMenu = array(
             ),
         )
     ),
-    'Sidegames' => array(
-        'link' => '#',
-        'submenu' => array(
-            'Sidegame List' => array(
-                'link' => '/wiki/index.php?n=Sidegames.Sidegames'
-            ),
-            'Sidegame Forums' => array(
-                'link' => '/forum/viewforum.php?f=763'
-            )
-        )
-    ),	
     'Forums' => array(
         'link' => '/forum/index.php',
     ),
