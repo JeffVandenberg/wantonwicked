@@ -15,7 +15,7 @@ class UserPanelHelper extends AppHelper
     public function Create($page) {
         $panel = <<<EOQ
 <a href="/forum/ucp.php?mode=login&redirect=$page">Login</a>
--
+<span id="server-time"></span><br>
 <a href="/forum/ucp.php?mode=register&redirect=$page">Register</a>
 EOQ;
 
@@ -40,9 +40,8 @@ EOQ;
 
             $panel = <<<EOQ
 <span>$userName</span>
--
-$logout
--
+<span id="server-time"></span><br>
+$logout <br />
 <a href="/forum/ucp.php">User Control Panel</a>
 EOQ;
             if($requestCount) {

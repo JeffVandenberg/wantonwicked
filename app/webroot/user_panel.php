@@ -43,18 +43,18 @@ EOQ;
     $newStRequestCount = $requestRepository->getNewStRequests($userdata['user_id']);
 
     $userControlPanel = <<<EOQ
- - <a href="forum/ucp.php">User Control Panel</a>
+ <a href="forum/ucp.php">User Control Panel</a>
 EOQ;
 
     if($requestCount) {
         $userControlPanel .= <<<EOQ
- - <a href="/request.php">Open Requests ($requestCount)</a>
+ <br><a href="/request.php">Open Requests ($requestCount)</a>
 EOQ;
     }
 
     if($newStRequestCount) {
         $userControlPanel .= <<<EOQ
- - <a href="/request.php?action=st_list">New Requests to Process ($newStRequestCount)</a>
+ <br><a href="/request.php?action=st_list">New Requests to Process ($newStRequestCount)</a>
 EOQ;
     }
 
@@ -65,10 +65,10 @@ EOQ;
 
 
 $user_panel = <<<EOQ
-$up_name - 
-$up_loginout
+$up_name 
+<span id="server-time"></span><br>
+$up_loginout <br>
 $userControlPanel
-<span id="server-time"></span>
 EOQ;
 
 

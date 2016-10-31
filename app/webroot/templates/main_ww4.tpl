@@ -3,12 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{PAGE_TITLE}</title>
-    <META NAME="copyright" content="(c) 2013 Jeff Vandenberg">
+    <META NAME="copyright" content="(c) 2016 Jeff Vandenberg">
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
-    <link type="text/css" href="/css/ww4_v2.css" rel="Stylesheet"/>
+    <link type="text/css" href="/css/ww5.css" rel="Stylesheet"/>
     <link type="text/css" href="/css/gaming-sandbox.css" rel="Stylesheet"/>
     <link type="text/css" href="/css/wanton/jquery-ui.min.css" rel="stylesheet"/>
     <link type="text/css" href="/css/wanton/jquery.ui.menubar.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/js/jquery.watermark.min.js"></script>
@@ -23,69 +24,44 @@
     wantonWickedTime.serverTime = {SERVER_TIME};
 </script>
 <body>
-<div id="gs-header-bar">
-    <div id="gs-header-inner">
-        <div id="gs-header-logo">
-            <a href="/" id="gs-header-logo-nav">
-                Wanton Wicked
-            </a>
-        </div>
-        <div id="gs-header-games">
-            <select id="gs-game-selector">
-                <option value="www">Home</option>
-                <option value="ragnarok">Ragnarok NYC</option>
-                <option value="wantonwicked" selected>Wanton Wicked</option>
-            </select>
+<div id="header">
+    <div id="wrapper">
+        <div id="logo"></div>
+        <div id="userpanel">{USER_PANEL}</div>
+        <div id="nav">
+            {MENU_BAR}
         </div>
     </div>
 </div>
 <div id="wrapper">
-    <div id="login">
-        <div id="logina">
-        <div id="loginb">
-            {USER_PANEL}
-        </div>
-		</div>
-    </div>
-    <div id="logo">
-    </div>
-	<div id="nav">
-	{MENU_BAR}
-	</div>
     <div id="content">
         <div id="pagetitle">
-		{CONTENT_HEADER}
-		</div>
-		<div id="contenta">
-		<div id="contentb" class="contentbox">
+            {CONTENT_HEADER}
+        </div>
+        <div id="contenta" class="contentbox">
             <!-- IF FLASH_MESSAGE -->
             <div class="flash-message">
                 {FLASH_MESSAGE}
             </div>
             <!-- ENDIF -->
             {PAGE_CONTENT}
-		</div>
         </div>
     </div>
-    <div id="content">
-		<div id="contenta">
-		<div id="contentb" class="contentbox">
-            <div style="font-size: 9px;text-align: center;">World of Darkness, Changeling: The Lost, Geist: The Sin-Eaters, Mage: The Awakening,
-                Vampire: The Requiem, Werewolf: The Forsaken <br>
-                &copy;2013-2014 <a href="http://www.white-wolf.com/fansites/termsofuse.php" target="_blank">White
-                    Wolf Publishing, Inc.</a>
+</div>
+</div>
+<div id="footer">
+    <div id="wrapper">
+        <div id="contenta" class="contentbox">
+            <div style="font-size: 9px;text-align: center;">The Storytelling System, Beast the Primordial, Changeling
+                the Lost, Chronicles of Darkness, Demon the Descent, Mage the Awakening, Vampire the Requiem, and
+                Werewolf the Forsaken<br>
+                &copy;2014-2016 CCP hf and published by <a href="http://theonyxpath.com/" target="_blank">Onyx Path
+                    Publishing</a>.<br>
+                Produced by Jeff Vandenberg. Layout and Design by Jill Arden &copy;2016
             </div>
-		</div>
         </div>
     </div>
 </div>
-<div id="footer-bar">
-    <div id="footer-inner">
-        Layout and Design by jarden
-        Produced by Jeff Vandenberg
-        Copyright 2013
-    </div>
-</div>
-<img src="/img/indicator.gif" id="busy-indicator" alt="" />
+<img src="/img/indicator.gif" id="busy-indicator" alt=""/>
 </body>
 </html>

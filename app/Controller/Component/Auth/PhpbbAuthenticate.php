@@ -18,7 +18,7 @@ class PhpbbAuthenticate extends BaseAuthenticate {
         return false;
     }
 
-    public function logout(&$user)
+    public function logout($user)
     {
         unset($user);
         return '/';
