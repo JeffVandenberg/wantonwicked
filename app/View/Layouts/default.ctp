@@ -39,7 +39,7 @@
 </head>
 <body>
 <div id="header">
-    <div id="wrapper">
+    <div class="widthsetter">
         <div id="logo"></div>
         <div id="userpanel"><?php echo $this->UserPanel->Create($this->Html->url()); ?></div>
         <div id="nav">
@@ -47,7 +47,7 @@
         </div>
     </div>
 </div>
-<div id="wrapper">
+<div id="main-content" class="widthsetter">
     <div id="content">
         <div id="pagetitle">
             <?php if (isset($header_for_layout)): ?>
@@ -67,7 +67,7 @@
     </div>
 </div>
 <div id="footer">
-    <div id="wrapper">
+    <div class="widthsetter">
         <div id="contenta" class="contentbox">
             <div style="font-size: 9px;text-align: center;">The Storytelling System, Beast the Primordial, Changeling
                 the Lost, Chronicles of Darkness, Demon the Descent, Mage the Awakening, Vampire the Requiem, and
