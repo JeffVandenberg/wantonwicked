@@ -18,7 +18,7 @@
 </head>
 {JAVA_SCRIPT}
 <body>
-<div id="wrapper">
+<div id="widthsetter">
     <div id="content">
         <div id="pagetitle">
             {CONTENT_HEADER}

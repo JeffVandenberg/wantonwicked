@@ -108,7 +108,7 @@ a:active {
 /* selected link */
 
 /* BELOW: All Structural Stuff*/
-#wrapper {
+.widthsetter {
     width: 1000px;
     margin: 0 auto;
 }
@@ -124,7 +124,16 @@ a:active {
     font-weight: normal;
 }
 
+#main-content {
+    margin-bottom: 100px;
+}
+
 #footer {
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:50px;
+    width:100%;
     background: #0E3B43;
 	padding-top:20px;
 	padding-bottom:20px;
