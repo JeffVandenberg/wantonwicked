@@ -51,7 +51,7 @@ $template_file = 'main_ww4.tpl';
 $contentHeader = "";
 
 require_once 'user_panel.php';
-$mainMenu = include 'menu_bar.php';
+$menu_bar = include 'menu_bar.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
