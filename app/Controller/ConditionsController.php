@@ -73,7 +73,7 @@ class ConditionsController extends AppController
      *
      * @throws NotFoundException
      * @param string $id
-     * @return void
+     * @return mixed
      */
     public function edit($id = null)
     {
@@ -99,9 +99,9 @@ class ConditionsController extends AppController
     /**
      * delete method
      *
+     * @return mixed
      * @throws NotFoundException
      * @param string $id
-     * @return void
      */
     public function delete($id = null)
     {
