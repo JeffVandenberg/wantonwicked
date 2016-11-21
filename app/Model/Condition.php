@@ -17,7 +17,7 @@ class Condition extends AppModel
         'name' => [
             'notBlank' => [
                 'rule' => ['notBlank'],
-                //'message' => 'Your custom message here',
+                'message' => 'Conditions must have a name',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule
@@ -27,7 +27,7 @@ class Condition extends AppModel
         'source' => [
             'notBlank' => [
                 'rule' => ['notBlank'],
-                //'message' => 'Your custom message here',
+                'message' => 'Please provided a source',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule
@@ -47,7 +47,7 @@ class Condition extends AppModel
         'description' => [
             'notBlank' => [
                 'rule' => ['notBlank'],
-                //'message' => 'Your custom message here',
+                'message' => 'Please provide a description',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule

@@ -29,7 +29,7 @@ $this->set('menu', $menu);
             <tr>
                 <td><?php echo h($condition['Condition']['name']); ?>&nbsp;</td>
                 <td><?php echo h($condition['Condition']['source']); ?>&nbsp;</td>
-                <td><?php echo h($condition['Condition']['is_persistent']); ?>&nbsp;</td>
+                <td><?php echo $condition['Condition']['is_persistent'] ? 'Yes' : 'no'; ?>&nbsp;</td>
                 <td>
                     <?php echo $condition['CreatedBy']['username']; ?>
                 </td>
