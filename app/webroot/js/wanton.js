@@ -299,9 +299,6 @@ tinymce.init({
         // remove all tags => plain text
         o.content = strip_tags(o.content, '<br>');
     },
-    blur: function(e) {
-        alert('blur');
-    },
     setup: function(editor) {
         editor.on('blur', function() {
             editor.save();
