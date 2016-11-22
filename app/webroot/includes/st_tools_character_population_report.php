@@ -26,7 +26,7 @@ EOQ;
     $columns = array(
         'Character Type' => array(
             'column' => 'group',
-            'link' => '/st_tools.php?action=character_population_report&character_type=@@'
+            'link' => '/staff_tools.php?action=character_population_report&character_type=@@'
         ),
         'Population' => array(
             'column' => 'total'
@@ -57,7 +57,7 @@ EOQ;
     $columns = array(
         'Group' => array(
             'column' => 'group',
-            'link' => '/st_tools.php?action=character_search&' . $splat . '[]=@@&cities[]=Savannah&only_sanctioned=1'
+            'link' => '/staff_tools.php?action=character_search&' . $splat . '[]=@@&cities[]=Savannah&only_sanctioned=1'
         ),
         'Population' => array(
             'column' => 'total'
@@ -65,8 +65,8 @@ EOQ;
     );
 
     $headerLinks = array(
-        '&lt;&ltBack' => '/st_tools.php?action=character_population_report',
-        'Toggle Splat' => '/st_tools.php?action=character_population_report&character_type=' . $characterType
+        '&lt;&ltBack' => '/staff_tools.php?action=character_population_report',
+        'Toggle Splat' => '/staff_tools.php?action=character_population_report&character_type=' . $characterType
             . '&splat=' . (($splat == 'splat1') ? 'splat2' : 'splat1')
     );
 
@@ -74,8 +74,8 @@ EOQ;
 
 
 $rows = Database::getInstance()->query($query)->all($params);
-$storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$staffMenu = require_once('menus/staff_menu.php');
+$menu = MenuHelper::GenerateMenu($staffMenu);
 ob_start();
 ?>
 <?php echo $menu; ?>

@@ -77,9 +77,9 @@ $staffMenu = array(
 
 
 
-//*if(UserdataHelper::IsHead($userdata)) {  IsHead will no longer be a thing with the new rolls
+//*if(UserdataHelper::IsHead($userdata)) { } IsHead will no longer be a thing with the new rolls*//
 
-}  *//
+ 
 
 if(UserdataHelper::IsAdmin($userdata)) {
 	$staffMenu['Requests']['submenu']['Administration'] = array(
@@ -101,7 +101,7 @@ if(UserdataHelper::IsAdmin($userdata)) {
         'link' => '/staff_tools.php?action=st_activity_report'
     );
 	$staffMenu['Admin Only'] = array(  //*JEFF HOW DO WE ADD AN ADMIN ONLY MENU? *//
-        'link' => '/configuration'
+        'link' => '#',
     );	
     $staffMenu['Admin Only']['submenu']['Site Permissions'] = array(
         'link' => 'storyteller_index.php?action=permissions'
