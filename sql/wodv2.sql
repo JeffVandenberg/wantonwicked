@@ -26,3 +26,7 @@ CREATE TABLE gamingsandbox_wanton.conditions
   updated_by        INT             NOT NULL,
   updated           DATETIME        NOT NULL
 );
+
+ALTER TABLE gamingsandbox_wanton.conditions 
+  ADD COLUMN slug VARCHAR(255) NOT NULL,
+  ADD INDEX (slug);

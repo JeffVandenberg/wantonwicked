@@ -52,16 +52,22 @@ class ConditionsController extends AppController
      * view method
      *
      * @throws NotFoundException
-     * @param string $id
+     * @param string $slug
      * @return void
      */
-    public function view($id = null)
+    public function view($slug = null)
     {
-        if (!$this->Condition->exists($id)) {
+        $conditionCount = $this->Condition->findCondition($slug, 'count');
+        if (!$conditionCount) {
             throw new NotFoundException(__('Invalid condition'));
         }
-        $options = array('conditions' => array('Condition.' . $this->Condition->primaryKey => $id));
-        $this->set('condition', $this->Condition->find('first', $options));
+        $options = [
+            'contain' => [
+                'CreatedBy',
+                'UpdatedBy'
+            ]
+        ];
+        $this->set('condition', $this->Condition->findCondition($slug, 'first', $options));
     }
 
     /**
@@ -80,7 +86,7 @@ class ConditionsController extends AppController
                 $condition['Condition']['created_by'] = $this->Auth->user('user_id');
                 $condition['Condition']['updated_by'] = $this->Auth->user('user_id');
 
-                if ($this->Condition->save($condition)) {
+                if ($this->Condition->saveCondition($condition)) {
                     $this->Flash->success(__('The condition has been saved.'));
                     $this->redirect(array('action' => 'index'));
                 } else {
@@ -94,28 +100,28 @@ class ConditionsController extends AppController
      * edit method
      *
      * @throws NotFoundException
-     * @param string $id
-     * @return mixed
+     * @param string $slug
      */
-    public function edit($id = null)
+    public function edit($slug = null)
     {
-        if (!$this->Condition->exists($id)) {
+        $conditionCount = $this->Condition->findCondition($slug, 'count');
+        if (!$conditionCount) {
             throw new NotFoundException(__('Invalid condition'));
         }
+
         if ($this->request->is(array('post', 'put'))) {
-            if ($this->Condition->save($this->request->data)) {
+            $condition = $this->request->data;
+            $condition['Condition']['updated_by'] = $this->Auth->user('user_id');
+
+            if ($this->Condition->saveCondition($condition)) {
                 $this->Flash->success(__('The condition has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'index'));
             } else {
                 $this->Flash->error(__('The condition could not be saved. Please, try again.'));
             }
         } else {
-            $options = array('conditions' => array('Condition.' . $this->Condition->primaryKey => $id));
-            $this->request->data = $this->Condition->find('first', $options);
+            $this->request->data = $this->Condition->findCondition($slug);
         }
-        $createdBies = $this->Condition->CreatedBy->find('list');
-        $updatedBies = $this->Condition->UpdatedBy->find('list');
-        $this->set(compact('createdBies', 'updatedBies'));
     }
 
     /**

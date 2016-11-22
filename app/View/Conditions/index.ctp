@@ -39,10 +39,10 @@ $this->set('menu', $menu);
                 </td>
                 <td><?php echo h($condition['Condition']['updated']); ?>&nbsp;</td>
                 <td class="actions">
-                    <?php echo $this->Html->link(__('View'), array('action' => 'view', $condition['Condition']['id'])); ?>
+                    <?php echo $this->Html->link(__('View'), array('action' => 'view', $condition['Condition']['slug'])); ?>
                     <?php if ($mayEdit): ?>
-                        <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $condition['Condition']['id'])); ?>
-                        <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $condition['Condition']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $condition['Condition']['id']))); ?>
+                        <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $condition['Condition']['slug'])); ?>
+                        <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $condition['Condition']['id']), array('confirm' => __('Are you sure you want to delete Condition %s?', $condition['Condition']['name']))); ?>
                     <?php endif; ?>
                 </td>
             </tr>

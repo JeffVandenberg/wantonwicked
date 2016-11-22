@@ -7,6 +7,39 @@ App::uses('AppModel', 'Model');
  */
 class Condition extends AppModel
 {
+    public function findCondition($slug, $findType = 'first', $options = null)
+    {
+        $searchOptions = [
+            'condition' => [
+                'Condition.slug' => $slug
+            ],
+            'contain' => false
+        ];
+
+        $searchOptions = array_merge($searchOptions, $options);
+        return $this->find($findType, $searchOptions);
+    }
+
+    public function saveCondition($model)
+    {
+        if ($model['Condition']['slug'] == '') {
+            $slug = strtolower(Inflector::slug($model['Condition']['name']));
+
+            $slugCount = $this->find('count', array(
+                'conditions' => array(
+                    'Condition.slug like ' => $slug . '%'
+                )
+            ));
+
+            if ($slugCount > 0) {
+                $slug .= $slugCount;
+            }
+
+            $model['Condition']['slug'] = $slug;
+        }
+
+        return parent::save($model);
+    }
 
     /**
      * Validation rules
