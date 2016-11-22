@@ -1,0 +1,34 @@
+## Customize the test machine
+machine:
+
+  timezone:
+    America/Los_Angeles # Set the timezone
+
+  # Version of ruby to use
+  php:
+    version:
+      5.6.22
+
+  # Override /etc/hosts
+  hosts:
+    dev-wanton: 127.0.0.1
+
+  # Add some environment variables
+  environment:
+    APP_ENV: test
+    DATABASE_URL: mysql.gamingsandbox.com
+
+dependencies:
+  pre:
+    - composer install
+
+#deployment:
+#  test:
+#    branch: development
+#    custom:
+#      - ./deploy/deploy_to_test.sh
+#
+#  release:
+#    branch: master
+#    custom:
+#      - ./deploy/deploy_to_prod.sh
