@@ -9,9 +9,10 @@ $contentHeader = $page_title = "Icon List";
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'update') {
         $skill_list = $_POST['delete'];
-        while (list($key, $value) = each($skill_list)) {
+        foreach($skill_list as $key => $value) {
             $delete_query = "delete from icons where id=$value;";
-            $delete_result = mysql_query($delete_query);
+            $params = [$value];
+            Database::getInstance()->query($delete_query)->execute($params);
         }
     }
 }

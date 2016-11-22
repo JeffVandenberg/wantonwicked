@@ -8,7 +8,7 @@
         <?php echo $title_for_layout; ?>
     </title>
     <?php echo $this->Html->meta('icon'); ?>
-    <META NAME="copyright" content="(c) 2013 Jeff Vandenberg">
+    <META NAME="copyright" content="(c) <?php echo date('Y'); ?> Jeff Vandenberg">
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
     <?php
     echo $this->Html->css(array(

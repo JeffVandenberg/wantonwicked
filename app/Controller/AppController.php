@@ -60,7 +60,7 @@ class AppController extends Controller {
         $this->Auth->unauthorizedRedirect = '/forum/ucp.php?mode=login';
         $this->Auth->loginRedirect = '/forum/ucp.php?mode=login';
 
-        if(!$this->Auth->loggedIn())
+        if(!AuthComponent::user())
         {
             $this->Auth->login();
         }

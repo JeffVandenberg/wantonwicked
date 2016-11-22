@@ -42,7 +42,6 @@ abstract class AbstractRepository extends Database
     /**
      * @param string|null $className
      * @param null $connection
-     * @return \classes\core\repository\AbstractRepository
      */
     function __construct($className = null, $connection = null)
     {
@@ -233,52 +232,41 @@ sortColumn;
                 return true;
             }
             $sql = "UPDATE $tableName SET ";
-            $first = true;
 
+            $fields = [];
+            $params = [];
             foreach ($item as $property => $lineValue) {
                 if (!(is_object($lineValue) || is_array($lineValue))) {
-                    if (!$first) {
-                        $sql .= ",";
-                    }
-
                     if ($item->$property === null) {
-                        $sql .= $this->ManagedObject->GetPropertyMapping($property) . "= null";
+                        $fields[] = $this->ManagedObject->GetPropertyMapping($property) . "= null";
                     } else {
-                        $sql .= $this->ManagedObject->GetPropertyMapping($property) . "='" . mysql_real_escape_string($item->$property) . "'";
+                        $fields[] = $this->ManagedObject->GetPropertyMapping($property) . " = ? ";
+                        $params[] = $item->$property;
                     }
-
-                    $first = false;
                 }
             }
-            $sql .= " WHERE $idColumn = {$item->{$idProperty}} ";
+            $sql .= implode(',', $fields) . " WHERE $idColumn = ? ";
+            $params[] = $item->$idProperty;
         } else {
-            $sFields = "(";
-            $sValues = "(";
-
-            $first = true;
+            $columns = [];
+            $params = [];
             foreach ($item as $property => $lineValue) {
                 if (!(is_object($item->$property)
                     || is_array($item->$property)
                     || $item->$property === null)
                 ) {
-                    if (!$first) {
-                        $sFields .= ",";
-                        $sValues .= ",";
-                    }
+                    $columns[] = $this->ManagedObject->GetPropertyMapping($property);
+                    $params[] = $item->$property;
 
-                    $sFields .= $this->ManagedObject->GetPropertyMapping($property);
-                    $sValues .= "'" . mysql_real_escape_string($item->$property) . "'";
-
-                    $first = false;
                 }
             }
-            $sFields .= ")";
-            $sValues .= ")";
+            $fields = implode(',', $columns);
+            $valuePlaceholders = implode(',', array_fill(0, count($params), '?'));
 
-            $sql = "INSERT INTO $tableName $sFields VALUES $sValues;";
+            $sql = "INSERT INTO $tableName ($fields) VALUES ($valuePlaceholders);";
         }
 
-        $affectedRows = $this->query($sql)->execute();
+        $affectedRows = $this->query($sql)->execute($params);
 
         if($affectedRows)
         {
@@ -312,15 +300,14 @@ FROM
     $tableName
 WHERE
 EOQ;
-            $first = true;
+            $columns = [];
+            $values = [];
             foreach ($fields as $i => $field) {
-                if (!$first) {
-                    $sql .= ' AND ';
-                }
-                $sql .= ' ' . $this->ManagedObject->GetPropertyMapping($field) . ' = \'' . mysql_real_escape_string($arguments[$i]) . '\' ';
-                $first = false;
+                $columns[] = ' ' . $this->ManagedObject->GetPropertyMapping($field) . ' = ? ';
+                $values[] = $arguments[$i];
             }
 
+            $sql .= implode(' AND ', $columns);
             $sql .= <<<EOQ
 ORDER BY
     $sortColumn
@@ -328,7 +315,7 @@ EOQ;
 
             $items = array();
 
-            foreach($this->query($sql)->all() as $row) {
+            foreach($this->query($sql)->all($values) as $row) {
                 $items[] = $this->populateObject($row);
             }
 
@@ -345,18 +332,19 @@ FROM
     $tableName
 WHERE
 EOQ;
-            $first = true;
+
+            $columns = [];
+            $values = [];
             foreach ($fields as $i => $field) {
-                if (!$first) {
-                    $sql .= ' AND ';
-                }
-                $sql .= ' ' . SlugHelper::FromPropertyToName($field) . ' = \'' . mysql_real_escape_string($arguments[$i]) . '\' ';
-                $first = false;
+                $columns[] = ' ' . SlugHelper::FromPropertyToName($field) . ' = ? ';
+                $values[] = $arguments[$i];
             }
+
+            $sql .= implode(' AND ', $columns);
 
             $oItem = new $fullClassName();
 
-            $result = $this->query($sql)->single();
+            $result = $this->query($sql)->single($values);
 
             if($result !== false)
             {

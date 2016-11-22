@@ -11,24 +11,22 @@ App::uses('AppController', 'Controller');
  */
 class CharactersController extends AppController
 {
-
     /**
      * Components
      *
      * @var array
      */
-    public $components = array(
-    );
+    public $components = array();
 
     public function beforeFilter()
     {
         parent::beforeFilter();
         $this->Auth->allow(
-                   array(
-                       'city',
-                       'cast',
-                       'activity'
-                   ));
+            array(
+                'city',
+                'cast',
+                'activity'
+            ));
     }
 
     public function city($city = 'Savannah')
@@ -58,7 +56,7 @@ class CharactersController extends AppController
             )
         );
 
-        if(strtolower($type) !== 'all') {
+        if (strtolower($type) !== 'all') {
             $this->Paginator->settings['conditions']['Character.character_type'] = $type;
         }
         $characterTypes = array(
@@ -91,25 +89,24 @@ class CharactersController extends AppController
             )
         );
 
-        if(strtolower($type) !== 'all') {
+        if (strtolower($type) !== 'all') {
             $this->Paginator->settings['conditions']['Character.character_type'] = $type;
         }
         $characterTypes = array("All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
-                                "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', "Mage" => 'Mage',
-                                "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
+            "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', "Mage" => 'Mage',
+            "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
         $this->set('characters', $this->Paginator->paginate());
         $this->set(compact('type', 'characterTypes'));
     }
 
     public function isAuthorized($user)
     {
-        switch($this->request->params['action'])
-        {
+        switch ($this->request->params['action']) {
             case 'admin_goals':
                 return $this->Permissions->IsST();
                 break;
             case 'add':
-                return $this->Auth->loggedIn();
+                return $this->Auth->user();
                 break;
         }
         return false;
@@ -152,13 +149,12 @@ class CharactersController extends AppController
         if ($this->request->is('post')) {
             $this->Character->create();
             if ($this->Character->save($this->request->data)) {
-                $this->Session->setFlash(__('The character has been saved.'));
+                $this->Flash->set(__('The character has been saved.'));
 
                 $this->redirect(array('action' => 'index'));
                 return null;
-            }
-            else {
-                $this->Session->setFlash(__('The character could not be saved. Please, try again.'));
+            } else {
+                $this->Flash->set(__('The character could not be saved. Please, try again.'));
             }
         }
     }
@@ -177,16 +173,14 @@ class CharactersController extends AppController
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Character->save($this->request->data)) {
-                $this->Session->setFlash(__('The character has been saved.'));
+                $this->Flash->set(__('The character has been saved.'));
 
-                return $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Flash->set(__('The character could not be saved. Please, try again.'));
             }
-            else {
-                $this->Session->setFlash(__('The character could not be saved. Please, try again.'));
-            }
-        }
-        else {
-            $options             = array('conditions' => array('Character.' . $this->Character->primaryKey => $id));
+        } else {
+            $options = array('conditions' => array('Character.' . $this->Character->primaryKey => $id));
             $this->request->data = $this->Character->find('first', $options);
         }
     }
@@ -206,13 +200,12 @@ class CharactersController extends AppController
         }
         $this->request->onlyAllow('post', 'delete');
         if ($this->Character->delete()) {
-            $this->Session->setFlash(__('The character has been deleted.'));
-        }
-        else {
-            $this->Session->setFlash(__('The character could not be deleted. Please, try again.'));
+            $this->Flash->set(__('The character has been deleted.'));
+        } else {
+            $this->Flash->set(__('The character could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(array('action' => 'index'));
+        $this->redirect(array('action' => 'index'));
     }
 
     public function assignCondition()

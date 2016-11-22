@@ -49,6 +49,7 @@ class MenuComponent extends Component {
                     ),
                     'Scenes' => array(
                         'link' => array(
+                            'admin' => false,
                             'controller' => 'scenes',
                             'action' => 'index'
                         )

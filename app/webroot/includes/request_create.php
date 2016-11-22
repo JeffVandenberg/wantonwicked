@@ -1,6 +1,7 @@
 <?php
 /* @var array $userdata */
 use classes\character\repository\CharacterRepository;
+use classes\core\data\Group;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
@@ -92,7 +93,12 @@ if ($characterId) {
 $contentHeader = $page_title;
 
 // prepare variables for page
-$groups = $groupRepository->simpleListAll();
+$groupData = $groupRepository->ListByIsDeleted(false);
+/* @var Group[] $groupData */
+$groups = [];
+foreach($groupData as $group) {
+    $groups[$group->Id] = $group->Name;
+}
 $requestTypes = $requestTypeRepository->ListForGroupId($defaultGroupId);
 $requestTypeOptions = array();
 foreach ($requestTypes as $requestType) {

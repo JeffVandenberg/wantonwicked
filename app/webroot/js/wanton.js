@@ -1,20 +1,21 @@
-
 $(function () {
     $(".menu")
         .menubar();
 
     wantonWickedTime.runClock('#server-time');
     $(document).ajaxStart(
-        function() {
+        function () {
             $("#busy-indicator").fadeIn();
         });
     $(document).ajaxComplete(
-        function() {
+        function () {
             $("#busy-indicator").fadeOut();
         });
-    $("#logo").click(function() {
+    $("#logo").click(function () {
         document.location.href = "/";
     });
+
+
     $('.button').button();
     $('.button.add').button({
         icons: {
@@ -76,6 +77,15 @@ $(function () {
         },
         text: false
     });
+
+    // general method for removing required properties when cancelling out of a form
+    $('input[value="Cancel"]').click(function () {
+        $('input[required],textarea[required],select[required]').attr('required', false);
+    });
+
+    $('form').submit(function() {
+        $(this).find('.tinymce-textarea').attr('required', false)
+    });
 });
 
 function giveFavor(characterId) {
@@ -86,7 +96,7 @@ function giveFavor(characterId) {
 }
 
 function viewFavor(favorId) {
-    $.get("/favors.php?action=view&favor_id=" + favorId, function(content) {
+    $.get("/favors.php?action=view&favor_id=" + favorId, function (content) {
         $("#favorPaneContent").html(content).dialog({
             title: 'View Favor'
         });
@@ -94,7 +104,7 @@ function viewFavor(favorId) {
     return false;
 }
 function transferFavor(favorId) {
-    $.get("/favors.php?action=transfer&favor_id=" + favorId, function(content) {
+    $.get("/favors.php?action=transfer&favor_id=" + favorId, function (content) {
         $("#favorPaneContent").html(content).dialog({
             title: 'Transfer Favor'
         });
@@ -121,7 +131,7 @@ function dischargeFavor(favorId) {
 
 function breakFavor(favorId) {
     if (confirm('Are you sure you want to break the favor?')) {
-        $.get("/favors.php?action=break&favorId=" + favorId, function(content) {
+        $.get("/favors.php?action=break&favorId=" + favorId, function (content) {
             alert(content);
         });
     }
@@ -218,11 +228,11 @@ function refreshAbpRuleList(data) {
 // returns 3: '<a href='http://kevin.vanzonneveld.net'>Kevin van Zonneveld</a>'
 // example 4: strip_tags('1 < 5 5 > 1');
 // returns 4: '1 < 5 5 > 1'
-function strip_tags (str, allowed_tags)
-{
+function strip_tags(str, allowed_tags) {
 
     var key = '', allowed = false;
-    var matches = [];    var allowed_array = [];
+    var matches = [];
+    var allowed_array = [];
     var allowed_tag = '';
     var i = 0;
     var k = '';
@@ -255,12 +265,19 @@ function strip_tags (str, allowed_tags)
             allowed_tag = allowed_array[k];
             i = -1;
 
-            if (i != 0) { i = html.toLowerCase().indexOf('<'+allowed_tag+'>');}
-            if (i != 0) { i = html.toLowerCase().indexOf('<'+allowed_tag+' ');}
-            if (i != 0) { i = html.toLowerCase().indexOf('</'+allowed_tag)   ;}
+            if (i != 0) {
+                i = html.toLowerCase().indexOf('<' + allowed_tag + '>');
+            }
+            if (i != 0) {
+                i = html.toLowerCase().indexOf('<' + allowed_tag + ' ');
+            }
+            if (i != 0) {
+                i = html.toLowerCase().indexOf('</' + allowed_tag);
+            }
 
             // Determine
-            if (i == 0) {                allowed = true;
+            if (i == 0) {
+                allowed = true;
                 break;
             }
         }
@@ -275,25 +292,22 @@ tinymce.init({
     selector: "textarea.tinymce-textarea",
     menubar: false,
     height: 200,
-    paste_preprocess : function(pl, o) {
+    paste_preprocess: function (pl, o) {
         //example: keep bold,italic,underline and paragraphs
         //o.content = strip_tags( o.content,'<b><u><i><p>' );
 
         // remove all tags => plain text
-        o.content = strip_tags( o.content,'<br>' );
+        o.content = strip_tags(o.content, '<br>');
+    },
+    setup: function(editor) {
+        editor.on('blur', function() {
+            editor.save();
+        });
     },
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace wordcount visualblocks code fullscreen",
-        "insertdatetime media table contextmenu paste textcolor"
+        "insertdatetime media table contextmenu paste textcolor placeholder"
     ],
     toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent"
 });
-
-// general method for removing required properties when cancelling out of a form
-$(function() {
-    $("input[value='Cancel']").click(function() {
-        $("form").find('input, select').prop('required', false);
-    });
-});
-

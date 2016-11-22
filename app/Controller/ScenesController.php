@@ -104,7 +104,7 @@ class ScenesController extends AppController
             )
         ));
         if (!$scene) {
-            $this->Session->setFlash('Unable to find Scene');
+            $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
         $this->set('scene', $scene);
@@ -140,14 +140,14 @@ class ScenesController extends AppController
                 $scene['Scene']['updated_by_id']   = $this->Auth->user('user_id');
                 $scene['Scene']['updated_on']      = date('Y-m-d H:i:s');
 
-                if ($this->Scene->save($scene)) {
-                    $this->Session->setFlash(__('The scene has been saved. Invite people to it with this link:' .
+                if ($this->Scene->saveScene($scene)) {
+                    $this->Flash->set(__('The scene has been saved. Invite people to it with this link:' .
                                                 ' http://wantonwicked.gamingsandbox.com/scenes/join/' . $scene['Scene']['slug']));
 
                     $this->redirect(array('action' => 'view', $scene['Scene']['slug']));
                 }
                 else {
-                    $this->Session->setFlash(__('The scene could not be saved. Please, try again.'));
+                    $this->Flash->set(__('The scene could not be saved. Please, try again.'));
                 }
             }
         }
@@ -167,7 +167,7 @@ class ScenesController extends AppController
             )
         ));
         if (!$scene) {
-            $this->Session->setFlash('Unable to find Scene');
+            $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
 
@@ -195,18 +195,18 @@ class ScenesController extends AppController
                 $scene['Scene']['updated_by_id'] = $this->Auth->user('user_id');
                 $scene['Scene']['updated_on']    = date('Y-m-d H:i:s');
 
-                if ($this->Scene->save($scene)) {
+                if ($this->Scene->saveScene($scene)) {
                     if ($oldScene['Scene']['run_on_date'] != $newRunDate) {
                         $scene['Scene']['run_on_date'] = $newRunDate;
                         $this->ScenesEmail->SendScheduleChange($scene, $oldScene);
                     }
 
-                    $this->Session->setFlash(__('The scene has been saved.'));
+                    $this->Flash->set(__('The scene has been saved.'));
 
                     $this->redirect(array('action' => 'view', $scene['Scene']['slug']));
                 }
                 else {
-                    $this->Session->setFlash(__('The scene could not be saved. Please, try again.'));
+                    $this->Flash->set(__('The scene could not be saved. Please, try again.'));
                 }
             }
         }
@@ -230,10 +230,10 @@ class ScenesController extends AppController
         }
         $this->request->onlyAllow('post', 'delete');
         if ($this->Scene->delete()) {
-            $this->Session->setFlash(__('The scene has been deleted.'));
+            $this->Flash->set(__('The scene has been deleted.'));
         }
         else {
-            $this->Session->setFlash(__('The scene could not be deleted. Please, try again.'));
+            $this->Flash->set(__('The scene could not be deleted. Please, try again.'));
         }
 
         $this->redirect(array('action' => 'index'));
@@ -253,12 +253,12 @@ class ScenesController extends AppController
         ));
 
         if (!$scene) {
-            $this->Session->setFlash('Unable to find Scene');
+            $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
 
         if ($scene['Scene']['is_closed']) {
-            $this->Session->setFlash('This Scene is closed');
+            $this->Flash->set('This Scene is closed');
             $this->redirect(array('action' => 'view', $slug));
         }
 
@@ -280,11 +280,11 @@ class ScenesController extends AppController
 
                 if ($sceneCharacter->save($data)) {
                     $this->ScenesEmail->SendJoinEmail($scene, $data);
-                    $this->Session->setFlash('Added character to scene');
+                    $this->Flash->set('Added character to scene');
                     $this->redirect(array('action' => 'view', $slug));
                 }
                 else {
-                    $this->Session->setFlash('Error attaching character to scene');
+                    $this->Flash->set('Error attaching character to scene');
                 }
             }
         }
@@ -294,7 +294,7 @@ class ScenesController extends AppController
         $characters = $character->FindCharactersNotInScene($this->Auth->user('user_id'), $scene['Scene']['id']);
 
         if (count($characters) == 0) {
-            $this->Session->setFlash('You have no sanctioned characters, or all of your characters have joined the scene.');
+            $this->Flash->set('You have no sanctioned characters, or all of your characters have joined the scene.');
             $this->redirect(array('action' => 'view', $slug));
         }
 
@@ -311,19 +311,19 @@ class ScenesController extends AppController
         ));
 
         if (!$scene) {
-            $this->Session->setFlash('Unable to find Scene');
+            $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
 
         App::uses('SceneStatus', 'Model');
         $scene['Scene']['scene_status_id'] = SceneStatus::Cancelled;
 
-        if ($this->Scene->save($scene)) {
+        if ($this->Scene->saveScene($scene)) {
             $this->ScenesEmail->SendCancelEmails($scene);
-            $this->Session->setFlash('Scene Cancelled');
+            $this->Flash->set('Scene Cancelled');
         }
         else {
-            $this->Session->setFlash('Error Cancelling Scene');
+            $this->Flash->set('Error Cancelling Scene');
         }
         $this->redirect(array('action' => 'view', $slug));
     }
@@ -338,18 +338,18 @@ class ScenesController extends AppController
         ));
 
         if (!$scene) {
-            $this->Session->setFlash('Unable to find Scene');
+            $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
 
         App::uses('SceneStatus', 'Model');
         $scene['Scene']['scene_status_id'] = SceneStatus::Completed;
 
-        if ($this->Scene->save($scene)) {
-            $this->Session->setFlash('Scene Completed');
+        if ($this->Scene->saveScene($scene)) {
+            $this->Flash->set('Scene Completed');
         }
         else {
-            $this->Session->setFlash('Error Completing Scene');
+            $this->Flash->set('Error Completing Scene');
         }
         $this->redirect(array('action' => 'view', $slug));
     }
@@ -430,7 +430,7 @@ class ScenesController extends AppController
         ));
 
         if (!$this->Permissions->MayEditCharacter($characterId)) {
-            $this->Session->setFlash('You may not act on that character');
+            $this->Flash->set('You may not act on that character');
             $this->redirect(array(
                                 'action' => 'view',
                                 $slug
@@ -443,10 +443,10 @@ class ScenesController extends AppController
                                             'SceneCharacter.character_id' => $characterId
                                         ))
         ) {
-            $this->Session->setFlash('Removed your character from the scene');
+            $this->Flash->set('Removed your character from the scene');
         }
         else {
-            $this->Session->setFlash('Unable to remove your character from the scene');
+            $this->Flash->set('Unable to remove your character from the scene');
         }
         $this->redirect(array(
                             'action' => 'view',

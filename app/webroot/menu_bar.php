@@ -284,4 +284,4 @@ if (UserdataHelper::IsSupporter($userdata)) {
 }
 
 $menu_bar = MenuHelper::GenerateMenu($mainMenu);
-return $menu_bar;
+return $mainMenu;

@@ -1,4 +1,5 @@
 <?php
+use classes\core\helpers\MenuHelper;
 use classes\core\helpers\SessionHelper;
 use classes\core\helpers\UserdataHelper;
 use phpbb\auth\auth;
@@ -80,6 +81,9 @@ if (isset($_GET['action'])) {
             }
 
             break;
+        case 'create_v2':
+            include 'includes/view_sheet_create_v2.php';
+            break;
         case 'profile':
             include 'includes/view_sheet_profile.php';
             break;
@@ -95,7 +99,7 @@ $template->assign_vars(array(
         "JAVA_SCRIPT" => $java_script,
         "EXTRA_HEADERS" => $extra_headers,
         "USER_PANEL" => $user_panel,
-		"MENU_BAR" => $menu_bar,
+		"MENU_BAR" => MenuHelper::GenerateMenu($mainMenu),
         "PAGE_CONTENT" => $page_content,
         "CONTENT_HEADER" => $contentHeader,
         "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),

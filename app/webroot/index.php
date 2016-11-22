@@ -19,6 +19,10 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+use phpbb\auth\auth;
+use phpbb\di\container_builder;
+use phpbb\session;
+
 /**
  * Use the DS to separate the directories in other defines
  */
@@ -106,13 +110,16 @@ define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : WWW_ROOT . '/forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
+/* @var $phpbb_container phpbb_cache_container */
 $request = $phpbb_container->get('request');
-/* @var request $request */
+/* @var phpbb\request\request $request */
 $request->enable_super_globals();
 
 //
 // Start session management
 //
+/* @var $user session */
+/* @var $auth auth */
 
 $user->session_begin();
 $auth->acl($user->data);
