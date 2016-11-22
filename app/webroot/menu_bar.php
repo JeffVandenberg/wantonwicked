@@ -16,17 +16,6 @@ $mainMenu = array(
     'Utilities' => array(
         'link' => '#',
         'submenu' => array(
-            'Site Supporter' => array(
-                'link' => '#',
-                'submenu' => array(
-                    'Home' => [
-                        'link' => '/support.php',
-                    ],
-                    'Support Information' => [
-                        'link' => '/wiki/index.php?n=GameRef.Supporter'
-                    ]
-                )
-            ),
             'Scenes' => array(
                 'link' => '/scenes'
             )
@@ -47,29 +36,29 @@ $mainMenu = array(
 			'Site Policies' => array(
                 'link' => '/wiki/index.php?n=GameRef.SitePoliciesAndPractices',
             ),
+			'House Rules' => array(
+				'link' => '/wiki/index.php?n=GameRef.HouseRules',
+			),
 			'New Player Help' => array(
                 'link' => '/wiki/index.php?n=GameRef.Help',
             ),
             'Guides' => array(
                 'link' => '#',
                 'submenu' => array(
-                    'House Rules' => array(
-						'link' => '/wiki/index.php?n=GameRef.HouseRules',
-					),
-					'Wiki Guide' => array(
-                        'link' => '/wiki/index.php?n=GameRef.WikiGuide',
+                    'Wiki Guide' => array(
+                        'link' => '/wiki/index.php?n=GameRef.Wiki',
                     ),
                     'Chat Help' => array(
-                        'link' => '/wiki/index.php?n=GameRef.ChatHelp',
+                        'link' => '/wiki/index.php?n=GameRef.Chat',
                     ),
                     'Request System' => array(
-                        'link' => '/wiki/index.php?n=GameRef.RequestSystemHelp',
+                        'link' => '/wiki/index.php?n=GameRef.Requests',
                     ),
                     'Experience Guide' => array(
-                        'link' => '/wiki/index.php?n=GameRef.ExperienceGuide',
+                        'link' => '/wiki/index.php?n=GameRef.Experience',
                     ),
                     'Sanctioning Guide' => array(
-                        'link' => '/wiki/index.php?n=GameRef.SanctioningGuide',
+                        'link' => '/wiki/index.php?n=GameRef.Sanctioning',
                     )
                 )
             ),
@@ -138,9 +127,6 @@ $mainMenu = array(
                     ),
                     'Mage Cast List' => array(
                         'link' => '/characters/cast/mage'
-                    ),
-					'Sleepwalker Cast List' => array(
-                        'link' => '/characters/cast/sleepwalker'
                     )
                 )
             ),
@@ -206,7 +192,7 @@ $mainMenu = array(
 );
 
 if ($userdata['user_id'] != ANONYMOUS) {
-    $mainMenu['Utilities']['submenu']['Characters'] = array(
+    $mainMenu['Utilities']['submenu']['Player Utilities'] = array(
         'link' => '#',
         'submenu' => array(
             'Dashboard' => [
@@ -238,7 +224,7 @@ if ($userdata['user_id'] != ANONYMOUS) {
                 )
             )
         );
-        $mainMenu['Utilities']['submenu']['Characters']['submenu'][$character['character_name']] = $characterMenu;
+        $mainMenu['Utilities']['submenu']['Player Utilities']['submenu'][$character['character_name']] = $characterMenu;
     }
 
     $mainMenu['Utilities']['submenu']['Requests'] = array(
@@ -268,18 +254,6 @@ if (UserdataHelper::IsSt($userdata)) {
                 'target' => '_blank'
             )
         )
-    );
-}
-
-if (UserdataHelper::IsAdmin($userdata)) {
-    $mainMenu['Utilities']['submenu']['Site Supporter']['submenu']['Manage Support'] = array(
-        'link' => '/support.php?action=manage'
-    );
-}
-
-if (UserdataHelper::IsSupporter($userdata)) {
-    $mainMenu['Utilities']['submenu']['Site Supporter']['submenu']['Update Update Status'] = array(
-        'link' => '/support.php?action=setCharacters'
     );
 }
 
