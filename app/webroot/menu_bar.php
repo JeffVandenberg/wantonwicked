@@ -241,7 +241,7 @@ if (UserdataHelper::IsSt($userdata)) {
         'link' => '#',
         'submenu' => array(
             'Dashboard' => [
-                'link' => '/storyteller_index.php',
+                'link' => '/staff_index.php',
             ],
             'Character Lookup' => array(
                 'link' => '/view_sheet.php?action=st_view_xp',
