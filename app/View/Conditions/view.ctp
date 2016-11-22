@@ -1,71 +1,60 @@
-<div class="conditions view">
-<h2><?php echo __('Condition'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($condition['Condition']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Name'); ?></dt>
-		<dd>
+<?php
+$this->set('title_for_layout', $condition['Condition']['name']);
+if ($mayEdit) {
+	$menu['Actions']['submenu']['Edit'] = [
+		'link' => [
+			'action' => 'edit',
+			$condition['Condition']['slug']
+		]
+	];
+}
+$this->set('menu', $menu);
+?>
+<div class="conditions">
+	<div class="row">
+		<div class="small-12 column">
+			<label>Condition Name</label>
 			<?php echo h($condition['Condition']['name']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Source'); ?></dt>
-		<dd>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column small-12 medium-6">
+			<label>Source (Book Name or Custom)</label>
 			<?php echo h($condition['Condition']['source']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Is Persistent'); ?></dt>
-		<dd>
-			<?php echo h($condition['Condition']['is_persistent']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Description'); ?></dt>
-		<dd>
-			<?php echo h($condition['Condition']['description']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Resolution'); ?></dt>
-		<dd>
+		</div>
+		<div class="column small-12 medium-6">
+			<label>Persistent</label>
+			<?php echo ($condition['Condition']['is_persistent']) ? 'Yes' : 'No'; ?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column small-12">
+			<label>Description</label>
+			<div class="tinymce-content"><?php echo $condition['Condition']['description']; ?></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column small-12">
+			<label>Resolution</label>
 			<?php echo h($condition['Condition']['resolution']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Beat'); ?></dt>
-		<dd>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column small-12">
+			<label>Beat</label>
 			<?php echo h($condition['Condition']['beat']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Created By'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($condition['CreatedBy']['username'], array('controller' => 'users', 'action' => 'view', $condition['CreatedBy']['user_id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($condition['Condition']['created']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Updated By'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($condition['UpdatedBy']['username'], array('controller' => 'users', 'action' => 'view', $condition['UpdatedBy']['user_id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Updated'); ?></dt>
-		<dd>
-			<?php echo h($condition['Condition']['updated']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Condition'), array('action' => 'edit', $condition['Condition']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Condition'), array('action' => 'delete', $condition['Condition']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $condition['Condition']['id']))); ?> </li>
-		<li><?php echo $this->Html->link(__('List Conditions'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Condition'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Created By'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 medium-6 column">
+			<label>Created By</label>
+			<?php echo $condition['CreatedBy']['username']; ?><br />
+			@ <?php echo $condition['Condition']['created']; ?>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label>Updated By</label>
+			<?php echo $condition['UpdatedBy']['username']; ?><br />
+			@ <?php echo $condition['Condition']['updated']; ?>
+		</div>
+	</div>
 </div>

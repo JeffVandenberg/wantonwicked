@@ -10,13 +10,15 @@ class Condition extends AppModel
     public function findCondition($slug, $findType = 'first', $options = null)
     {
         $searchOptions = [
-            'condition' => [
+            'conditions' => [
                 'Condition.slug' => $slug
             ],
             'contain' => false
         ];
 
-        $searchOptions = array_merge($searchOptions, $options);
+        if(is_array($options)) {
+            $searchOptions = array_merge($searchOptions, $options);
+        }
         return $this->find($findType, $searchOptions);
     }
 
