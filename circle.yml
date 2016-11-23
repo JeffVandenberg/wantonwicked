@@ -27,7 +27,7 @@ test:
     - vendor/bin/phpunit tests
 
 deployment:
-  test:
+  staging:
     branch: development
     custom:
       - ./deploy/deploy_to_test.sh
