@@ -22,6 +22,10 @@ dependencies:
   pre:
     - composer install
 
+test:
+  all:
+    - vendor/bin/phpunit tests
+
 #deployment:
 #  test:
 #    branch: development
