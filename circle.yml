@@ -29,7 +29,7 @@ test:
 deployment:
   staging:
     branch: development
-    custom:
+    commands:
       - ./deploy/deploy_to_test.sh
 
 #  release:
