@@ -23,7 +23,7 @@ dependencies:
     - composer install
 
 test:
-  all:
+  override:
     - vendor/bin/phpunit tests
 
 #deployment:
