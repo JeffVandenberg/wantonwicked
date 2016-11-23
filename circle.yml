@@ -31,8 +31,3 @@ deployment:
     branch: development
     commands:
       - ./deploy/deploy_to_test.sh
-
-#  release:
-#    branch: master
-#    custom:
-#      - ./deploy/deploy_to_prod.sh
