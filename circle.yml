@@ -26,12 +26,12 @@ test:
   override:
     - vendor/bin/phpunit tests
 
-#deployment:
-#  test:
-#    branch: development
-#    custom:
-#      - ./deploy/deploy_to_test.sh
-#
+deployment:
+  test:
+    branch: development
+    custom:
+      - ./deploy/deploy_to_test.sh
+
 #  release:
 #    branch: master
 #    custom:
