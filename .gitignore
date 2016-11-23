@@ -33,3 +33,4 @@ Thumbs.db
 /app/webroot/chat/includes/db.php
 app/webroot/forum
 app/webroot/wiki
+build_number

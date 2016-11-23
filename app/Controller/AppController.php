@@ -82,6 +82,7 @@ class AppController extends Controller {
         $this->set('menu', $this->Menu->GetMenu());
         $this->set('supporter', $this->Supporter->GetStatus());
         $this->set('serverTime', (microtime(true) + date('Z'))*1000);
+        $this->set('build', file_get_contents(ROOT . '/build_number'));
     }
 
 }
