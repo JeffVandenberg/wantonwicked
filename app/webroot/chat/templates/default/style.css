@@ -18,10 +18,11 @@ body
 {
 	margin: 0 0 0 2px; 
 	padding: 0 0 0 0;
-    background: #666666 url('../../templates/default/images/bg1.jpg') repeat;
+    background: #111111;
     font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	font-style: normal;
+	color: #ccc;
 }
 
 /*
@@ -50,36 +51,40 @@ body
 { 
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 0 solid #84B2DE;
-	top: 5px;
-	left: 5px;
+	border: 0 solid #333333;
+	top: 0px;
+	left: 0px;
+	width: 100%;
 	height: 70px;
 	position:absolute;
 	overflow: auto;
+	background-color: #0E3B43;
 }
 
 .chatContainer 
 { 
 	margin: 0 0 0 0; 
 	padding: 2px 2px 2px 2px;
+	border: 0px solid #333333;
 	top: 80px;
 	left: 5px;
 	position:absolute;
     overflow-y: auto;
 	overflow-x: auto;
 	word-wrap:break-word;
-    background-color: #ddd;
+    background-color: #222222;
+	color: #cccccc;
 }
 
 .userContainer 
 { 
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	/*border: 1px solid #000000;*/
+	border: 1px solid #333333;
 	top: 106px;
 	right: 5px;
 	position:absolute;
-	background-color: transparent;
+	background-color: #222222;
 	overflow-y: auto;
 	overflow-x: hidden;
 	color: #ffffff;
@@ -126,7 +131,7 @@ body
     /*background: #999999 url('../../templates/default/images/bg2.jpg') repeat;*/
     -moz-border-radius: 8px;
 	border-radius: 8px;	
-	color:#ffffff;	
+	color: #ffffff;	
 } 
 
 /*
@@ -149,7 +154,7 @@ body
 	padding: 5px 0 2px 0;
 	height: 24px;
 	width: 173px;
-    background: #666666 url('../../templates/default/images/bg2.jpg') repeat-x;
+    background: #111111;
     color: #FFFFFF;
 
 	-moz-border-radius: 8px 8px 0 0;
@@ -159,8 +164,8 @@ body
 .webcamContainer
 {
 	padding: 5px 5px 5px 5px;
-	border: 1px solid #666666;
-	background-color: #FFFFFF; 
+	border: 1px solid #222;
+	background-color: #111; 
 	overflow: hidden; 
 	height: 100%; 
 	width: 100%; 
@@ -179,7 +184,7 @@ body
 	padding: 2px 2px 2px 2px;
 	height: 20px;
 	width: 154px;
-	background-color: #CCCCCC;
+	background-color: #111;
 	border: 1px solid #666666; 
 	border-top: none;
 }
@@ -215,13 +220,13 @@ body
 {
 	margin: 0 0 0 0; 
 	padding: 2px 2px 2px 2px; 
-	border: 1px solid #888888; 
+	border: 1px solid #333333; 
 	left: 5px;
 	bottom: 25px;
 	height: 50px;
 	width: 100%;
 	position:absolute;
-	background-color: #ddd;
+	background-color: #222222;
 	-moz-border-radius: 3px;
 	border-radius: 3px;	
 }
@@ -230,7 +235,7 @@ body
 {
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 1px solid #666666; 
+	border: 1px solid #333333;  
 	right: 5px;
 	bottom: 25px;
 	height: 56px;
@@ -238,8 +243,8 @@ body
 	position:absolute;
     cursor:pointer;
 	font-weight: bold;
-	color: #FFFFFF;
-    background: #000000 url('../../templates/default/images/send.jpg') repeat-x;
+	color: #00a651;
+    background: #222222;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -248,7 +253,7 @@ body
 {
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 1px solid #666666; 
+	border: 1px solid #333333; 
 	right: 5px;
 	bottom: 85px;
 	height: 30px;
@@ -256,8 +261,8 @@ body
 	position:absolute;
     cursor:pointer;
 	font-weight: bold;
-	color: #FFFFFF;
-    background: #FFFFFF url('../../templates/default/images/logout.jpg') repeat-x;
+	color: #9e0b0f;
+    background: #222222;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -612,10 +617,10 @@ body
 	position: absolute;
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 1px solid #666666;
+	border: 2px solid #444444;
     height: 300px;
 	width: 400px;
-    background: #000 url('../../images/private.jpg') no-repeat center center;
+    background: #222222;
 
     -moz-border-radius: 8px;
 	border-radius: 8px;		
@@ -625,8 +630,8 @@ body
 {
 	margin: 0 0 0 0; 
 	padding: 2px 0 2px 0;
-	background-color: #999999;
-	border-bottom:1px solid #666666;
+	background-color: #333333;
+	border-bottom:1px solid #222222;
 	height: 20px;
 	width: 100%;
 	
@@ -641,7 +646,7 @@ body
 	height: 210px;
 	overflow: auto;
 	word-wrap:break-word; 
-	background-color: #dddddd;
+	background-color: #111111;
 }
 
 .psendbox
@@ -649,7 +654,7 @@ body
 	position:absolute; 
 	margin: 0 0 0 0; 
 	padding: 2px 2px 2px 2px; 
-	background-color: #999999;
+	background-color: #111111;
 	height: 30px;
 	width: 99%;/*396px;*/
 	bottom: 0;
@@ -663,7 +668,7 @@ body
 	position:absolute; 
 	margin: 0 0 0 0; 
 	padding: 2px 2px 2px 2px; 
-	background-color: #999999;
+	background-color: #222222;
 	border-top:1px solid #333333;
 	height: 26px;
 	width: 99%;/*396px;*/
@@ -674,16 +679,16 @@ body
 {
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 1px solid #999999; 
+	border: 0px solid #333333; 
 	right: 5px;
 	bottom: 4px;
 	height: 28px;
 	width: 50px;
 	position:absolute;
     cursor:pointer;
-	color: #FFFFFF;
+	color: #00a651;
 
-    background: #FFFFFF url('../../templates/default/images/send.jpg') repeat-x;
+    background: #111111;
 
     -moz-border-radius: 5px;
 	border-radius: 5px;		
@@ -694,8 +699,8 @@ body
 	position:absolute; 
 	margin: 0 0 0 0; 
 	padding: 0 2px 2px 2px;
-	background-color: #ddd;
-	border: 1px solid #666666; 
+	background-color: #111111;
+	border: 1px solid #333333; 
 	height: 24px;
 	width: 330px;
 	bottom: 4px;
@@ -722,7 +727,7 @@ body
 { 
 	margin: 0 0 0 0; 
 	padding: 0 0 0 0; 
-	border: 1px solid #84B2DE; 
+	border: 1px solid #333333; 
 	right: 5px;
 	top: 80px;
 	height: 20px;
@@ -737,7 +742,7 @@ body
 { 
 	margin: 0 0 0 0; 
 	padding: 2px 2px 2px 2px; 
-	background-color: #CCCCCC;
+	background-color: #222222;
 	border: 1px solid #333333; 
 	right: 5px;
 	top: 80px;
@@ -755,7 +760,7 @@ body
 	height: 24px;
 	width: 90px;
 	border: 1px solid #333333;
-	background-color: #666666;
+	background-color: #0E3B43;
 	color: #FFFFFF;
 	cursor: pointer;
 	-moz-border-radius: 5px;
@@ -764,7 +769,7 @@ body
 
 .roomInput
 {
-	border: 1px solid #666666; 
+	border: 1px solid #333333; 
 	-moz-border-radius: 5px;
 	border-radius: 5px;	
 }
@@ -777,27 +782,20 @@ body
 .roomheader
 {
 	height: 20px;
-	background: #dddddd; /* Old browsers */
-	background: -moz-linear-gradient(top,  #dddddd 0%, #cccccc 9%, #666666 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(9%,#cccccc), color-stop(100%,#666666)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #dddddd 0%,#cccccc 9%,#666666 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #dddddd 0%,#cccccc 9%,#666666 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #dddddd 0%,#cccccc 9%,#666666 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #dddddd 0%,#cccccc 9%,#666666 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddddd', endColorstr='#666666',GradientType=0 ); /* IE6-9 */
-	border-top: 1 solid #000;
+	background: #0E3B43; /* Old browsers */
+	border-top: 1 solid #333333;
 	/*border-top-right-radius:5px;
 	border-top-left-radius:5px;*/
 	border-radius:5px;
 	padding-top: 2px;
 	cursor: pointer;
 	font-weight: normal;
-	color: #000000;
+	color: #ffffff;
 }
 
 .usercount
 {
-	color: #000;
+	color: #3c6e71;
 	padding-right:2px;
 }
 
@@ -806,7 +804,7 @@ body
 	height: 26px;
 	padding: 2px 0 0 0;
 	cursor: pointer;
-	background-color: #000;
+	background-color: #111111;
 }
 
 /*
@@ -820,8 +818,8 @@ body
     z-index: 999;
 	margin: 0 0 0 0;
 	padding: 2px 2px 10px 2px; 
-	border: 1px solid #666666; 
-	background-color: #999999;
+	border: 1px solid #333333; 
+	background-color: #222222;
 	height: auto;
 	width: 180px;
 	left: 3px;
@@ -834,8 +832,8 @@ body
 {
 	height: 30px;
 	padding: 4px 4px 0 4px;
-	background-color: #999999;
-	color: #FFFFFF;
+	background-color: #333333;
+	color: #cccccc;
 }
 
 .userInfoOptions
@@ -850,7 +848,7 @@ body
 
 .titleWin
 {
-	background-color:#EDF1FA;
+	background-color:#0E3B43;
 }
 
 .smiliesWin
@@ -862,8 +860,8 @@ body
 	height:auto;
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
-	border: 1px solid #666666;
-	background-color:#000;
+	border: 1px solid #333333;
+	background-color:#222222;
 	visibility: hidden;	
 }
 
@@ -876,8 +874,8 @@ body
 	height:auto;
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
-	border: 1px solid #666666;
-	background-color:#000;
+	border: 1px solid #333333;
+	background-color:#222222;
 	visibility: hidden;
 }
 
@@ -890,8 +888,8 @@ body
 	height:200px;
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
-	border: 1px solid #666666;
-	background-color:#000;
+	border: 1px solid #333333;
+	background-color:#222222;
 	visibility: hidden;
 	overflow-y: scroll;
 }
@@ -905,8 +903,8 @@ body
 	height:auto;
 	cursor:pointer;
 	padding: 1px 1px 3px 1px; 
-	border: 1px solid #666666;
-	background-color:#000;
+	border: 1px solid #333333;
+	background-color:#222222;
 	visibility: hidden;
 	overflow-y: none;
 }
@@ -920,8 +918,8 @@ body
 	height:auto;
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
-	border: 1px solid #666666;
-	background-color:#000;
+	border: 1px solid #333333;
+	background-color:#222222;
 	visibility: hidden;
 	overflow-y: none;
 }
@@ -935,8 +933,8 @@ body
 	height:auto;
 	cursor:pointer;
 	padding: 1px 1px 0 1px; 
-	border: 1px solid #666666;
-	background-color:#000;
+	border: 1px solid #333333;
+	background-color:#222222;
 	visibility: hidden;
 	overflow-y: none;
 }
@@ -949,8 +947,8 @@ body
 	width:auto;
 	height:auto;
 	padding: 1px 1px 0 1px; 
-	border: 1px solid #666666;
-	background-color:#000;
+	border: 1px solid #333333;
+	background-color:#222222;
 	visibility: hidden;
 	color: #fff;
 }
@@ -963,31 +961,31 @@ body
 .welcomeMessage 
 {
 	padding: 2px 2px 2px 2px;
-	border: 1px solid blue;
+	border: 1px solid #EFD6AC;
 	height: auto;
-	background-color: #fff;
-	color: black;
+	background-color: #111111;
+	color: #ffffff;
 } 
 
 .chatMessage
 {
 	padding: 2px 2px 2px 2px;
-	border-bottom: 1px solid #bbb; 	
-	background-color: transparent;
+	border-bottom: 1px solid #111111; 	
+	background-color: #222222;
 	min-height: 40px;
 	height: auto;
 	clear:both;
-	color: #000;
+	color: #cccccc;
 }
 
 .whisperMessage
 {
 	padding: 2px 2px 2px 2px;
 	border: 1px solid #bbb; 	
-	background-color: #dddddd;
+	background-color: #222222;
 	min-height: 40px;
 	height: auto;
-	color: #000;
+	color: #cccccc;
 }
 
 /*
@@ -997,16 +995,16 @@ body
 
 .highliteOn
 {
-	border: 1px solid #CCCCCC;
-	background-color: #666666; 
+	border: 1px solid #222222;
+	background-color: #222222; 
 	color: #FFFFFF;
 }
 
 .highliteOff
 {
-	border: 1px solid #666666;
-	background-color: #CCCCCC;
-	color: #000000;	
+	border: 1px solid #222222;
+	background-color: #222222;
+	color: #aaaaaa;	
 }
 
 /*
@@ -1032,7 +1030,7 @@ body
 {
 	position:relative;
 	margin: 0 auto;
-	background-color: #CCCCCC;
+	background-color: #111111;
 	border: 0 solid #333333;
 	/*visibility: hidden;*/
 	overflow-y: auto;
@@ -1065,8 +1063,8 @@ body
 
 .captcha
 {
-	color: #000000;
-	background-color: #CCCCCC;
+	color: #cccccc;
+	background-color: #111111;
 	border: 1px solid #84B2DE;
 	padding: 2px;
 }
@@ -1080,8 +1078,8 @@ body
 {
 	width: 80px;
 	height: 14px;
-	background-color: #999999;
-	border: 1px solid #000000;
+	background-color: #111111;
+	border: 1px solid #333333;
 	-moz-border-radius: 5px;
 	border-radius: 5px;	
 }
@@ -1123,12 +1121,12 @@ body
 }
 
 .ghost {
-    color: #999999;
+    color: #444444;
 }
 
 .floatingtooltip {
-    border: solid 1px #000;
-    background-color: #ddd;
+    border: solid 1px #333333;
+    background-color: #222222;
 	border-radius:4px;
     width: 224px;
     padding: 5px;
@@ -1142,7 +1140,7 @@ body
 	width: 200px;
 	text-align: center;
 	padding: 2px;
-	background-color: #000;
+	background-color: #111111;
 	border-radius:4px;
 	border:1px solid #fff;
 
@@ -1158,4 +1156,46 @@ body
 #user-tool-menu {
 	width: 100px;
 	display: inline;
+}
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(14,59,67,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(17,17,17,0.4); 
+}
+
+/* unvisited link */
+a:link {
+    color: #EFD6AC;
+}
+
+/* visited link */
+a:visited {
+    color: #EFD6AC;
+}
+
+/* mouse over link */
+a:hover {
+    color: #ffffff;
+}
+
+/* selected link */
+a:active {
+    color: #EFD6AC;
 }
