@@ -8,5 +8,5 @@ ssh gamingsandbox@gamingsandbox.com << EOF
 EOF
 
 echo $CIRCLE_BUILD_NUM > build_number
-scp build_number gamingsandbox@gamingsandbox.com:~/wantonwickde/build_number
+scp build_number gamingsandbox@gamingsandbox.com:~/wantonwicked/build_number
 rm build_number
