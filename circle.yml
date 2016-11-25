@@ -16,7 +16,6 @@ machine:
   # Add some environment variables
   environment:
     APP_ENV: test
-    DATABASE_URL: mysql.gamingsandbox.com
 
 dependencies:
   pre:
@@ -31,3 +30,9 @@ deployment:
     branch: develop
     commands:
       - ./deploy/deploy_to_test.sh
+
+  prod:
+    branch: master
+    commands:
+      - ./deploy/deploy_to_prod.sh
+
