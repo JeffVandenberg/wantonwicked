@@ -1,5 +1,7 @@
 <?php /* @var View $this */ ?>
 <?php /* @var string $title_for_layout */ ?>
+<?php /* @var string $buildNumber */ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,6 +77,7 @@
                 &copy;2014-2016 CCP hf and published by <a href="http://theonyxpath.com/" target="_blank">Onyx Path
                     Publishing</a>.<br>
                 Produced by Jeff Vandenberg. Layout and Design by Jill Arden &copy;<?php echo date('Y'); ?>
+                Build # <?php echo $buildNumber; ?>
             </div>
         </div>
     </div>

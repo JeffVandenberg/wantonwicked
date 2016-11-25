@@ -32,4 +32,4 @@ Thumbs.db
 /class/classes/core/repository/DatabaseMapper.php
 /app/webroot/chat/includes/db.php
 app/webroot/forum
-app/webroot/wiki
+build_number
