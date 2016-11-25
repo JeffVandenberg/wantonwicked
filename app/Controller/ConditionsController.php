@@ -63,8 +63,8 @@ class ConditionsController extends AppController
         }
         $options = [
             'contain' => [
-                'CreatedBy',
-                'UpdatedBy'
+                'CreatedBy' => ['username'],
+                'UpdatedBy' => ['username']
             ]
         ];
         $this->set('condition', $this->Condition->findCondition($slug, 'first', $options));
