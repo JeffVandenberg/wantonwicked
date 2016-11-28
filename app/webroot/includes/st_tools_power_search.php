@@ -85,12 +85,12 @@ $powerTypes = array(
 );
 
 
-$storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$staffMenu = require_once('menus/staff_menu.php');
+$menu = MenuHelper::GenerateMenu($staffMenu);
 ob_start();
 ?>
     <?php echo $menu; ?>
-    <form method="post" action="/st_tools.php?action=power_search">
+    <form method="post" action="/staff_tools.php?action=power_search">
         <table>
             <tr>
                 <td>

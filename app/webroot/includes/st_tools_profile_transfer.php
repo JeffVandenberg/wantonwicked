@@ -38,8 +38,8 @@ if (Request::isPost()) {
     }
 }
 
-$storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$staffMenu = require_once('menus/staff_menu.php');
+$menu = MenuHelper::GenerateMenu($staffMenu);
 
 ob_start();
 ?>

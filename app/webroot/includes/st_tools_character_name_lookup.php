@@ -67,8 +67,8 @@ EOQ;
     }
 }
 
-$storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$staffMenu = require_once('menus/staff_menu.php');
+$menu = MenuHelper::GenerateMenu($staffMenu);
 // detail form
 $search_form = <<<EOQ
 $menu
