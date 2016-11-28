@@ -4,15 +4,16 @@ $this->set('title_for_layout', 'Add Condition');
 <div class="conditions form">
     <?php echo $this->Form->create('Condition'); ?>
     <div class="row">
-        <div class="column small-12">
+        <div class="column small-12 medium-4">
             <?php echo $this->Form->input('name', ['placeholder' => 'Condition Name', 'label' => false]); ?>
         </div>
-    </div>
-    <div class="row">
-        <div class="column small-12 medium-6">
+        <div class="column small-12 medium-4">
             <?php echo $this->Form->input('source', ['placeholder' => 'Source (Book Name or Custom)', 'label' => false]); ?>
         </div>
-        <div class="column small-12 medium-6">
+        <div class="column small-12 medium-2">
+            <?php echo $this->Form->input('condition_type_id', ['label' => false]); ?>
+        </div>
+        <div class="column small-12 medium-2">
             <?php echo $this->Form->input('is_persistent', ['label' => 'Persistent']); ?>
         </div>
     </div>
