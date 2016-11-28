@@ -34,6 +34,7 @@ ob_start();
         <a href="/dieroller.php?action=custom" target="_blank" class="button">Side Game Die Roller</a>
     </div>
 
+	<div class="h2"> Characters</div>
 <?php if (count($characters) > 0): ?>
     <table>
         <tr>
@@ -98,6 +99,44 @@ ob_start();
         You have no characters currently.
     </div>
 <?php endif; ?>
+<h2>
+                Upcoming Scenes
+            </h2>
+            <div style="padding-top:5px;">
+                <?php if (count($sceneSummary)): ?>
+                    <table style="width:95%;">
+                        <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Run Date
+                            </th>
+                            <th>
+                                Participants
+                            </th>
+                        </tr>
+                        </thead>
+                        <?php foreach($sceneSummary as $row): ?>
+                            <tr>
+                                <td>
+                                    <a href="/scenes/view/<?php echo $row['slug']; ?>"><?php echo $row['name']; ?></a>
+                                </td>
+                                <td class="server-time"><?php echo date('Y-m-d g:i A', strtotime($row['run_on_date'])); ?>
+                                <td>
+                                    <?php echo $row['participants']; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                    <div style="text-align: center;">
+                        <a href="/scenes">View Upcoming Scenes</a>
+                    </div>
+                <?php else: ?>
+                    You have no Upcoming Scenes.
+                <?php endif; ?>
+            </div>
     <script>
         $(function () {
             $(".delete-link").click(function () {
