@@ -159,8 +159,10 @@ a:active {
     margin-right: 20px;
     width: 150px;
     height: 75px;
-    background: url('../img/main/ww5logo.png') center no-repeat;
+    background: url('/img/ww5logo.png') center no-repeat;
     cursor: pointer;
+    -webkit-background-size: contain;
+    background-size: contain;
 }
 
 #userpanel {
