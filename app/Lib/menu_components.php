@@ -12,10 +12,6 @@ $menuComponents['base'] = [
         'link' => '/',
         'target' => '_top'
     ],
-    'New Option' => [
-        'link' => '#',
-        'onclick' => 'javascript:alert("hello");'
-    ],
     'Forums' => [
         'link' => '/forum/index.php',
     ],
