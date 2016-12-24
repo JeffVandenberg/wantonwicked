@@ -13,7 +13,7 @@ class MenuHelper
 {
     public static function GenerateMenu($menuItems) {
         $menu = <<<EOQ
-<ul class="menu" id="main-menu">
+<ul class="dropdown menu" id="main-menu" data-dropdown-menu>
 EOQ;
         if(is_array($menuItems))
         {
@@ -31,7 +31,7 @@ EOQ;
         $menuLevel = "";
         if(!$firstLayer) {
             $menuLevel .= <<<EOQ
-<ul>
+<ul class="menu">
 EOQ;
         }
 

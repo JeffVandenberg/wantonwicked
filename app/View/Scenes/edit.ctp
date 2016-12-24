@@ -49,16 +49,12 @@ $this->set('title_for_layout', 'Edit: ' . $this->request->data['Scene']['name'])
 <script type="application/javascript">
     $(function() {
         $("#SceneRunByName").autocomplete({
-            source: '/users.php?action=search&email=0',
-            minLength: 2,
-            autoFocus: true,
-            focus: function() {
-                return false;
-            },
-            select: function(e, ui) {
-                $("#SceneRunById").val(ui.item.value);
-                console.debug(ui);
-                $("#SceneRunByName").val(ui.item.label);
+            serviceUrl: '/users.php?action=search&email=0',
+            minChars: 2,
+            autoSelectFirst: true,
+            onSelect: function(ui) {
+                $("#SceneRunById").val(ui.data);
+                $("#SceneRunByName").val(ui.value);
                 return false;
             }
         });

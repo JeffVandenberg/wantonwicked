@@ -53,37 +53,37 @@ var wantonWickedTime =  {
 };
 
 $(function() {
-    $('.server-time, #server-time')
-        .attr('title', 'Show Local Time')
-        .addClass('clickable')
-        .tooltip({
-            content: function() {
-                var time = $(this).text(),
-                    serverTime = new Date(),
-                    timeResult = time.match(/(\d{1,2}):(\d{1,2})[\s]*([aApP][mM])/),
-                    dateResult = time.match(/(\d{4})-(\d{1,2})-(\d{1,2})/),
-                    timePart = '',
-                    datePart = '';
-
-                if(timeResult !== null) {
-                    var hours = parseInt(timeResult[1]);
-                    if(hours == 12) {
-                        hours = 0;
-                    }
-                    hours += ((timeResult[3].toLowerCase() === 'am') ? 0 : 12);
-
-                    serverTime.setHours(hours);
-                    serverTime.setMinutes(timeResult[2]);
-                }
-                if(dateResult !== null) {
-                    // we have date component to render
-                    serverTime.setYear(dateResult[1]);
-                    serverTime.setMonth(parseInt(dateResult[2])-1);
-                    serverTime.setDate(dateResult[3]);
-                }
-
-                var localTime = new Date(serverTime.getTime() + wantonWickedTime.difference);
-                return 'Local Time: <br />' + wantonWickedTime.renderDate(localTime) + ' ' + wantonWickedTime.renderTime(localTime);
-            }
-        });
+    // $('.server-time, #server-time')
+    //     .attr('title', 'Show Local Time')
+    //     .addClass('clickable')
+    //     .tooltip({
+    //         content: function() {
+    //             var time = $(this).text(),
+    //                 serverTime = new Date(),
+    //                 timeResult = time.match(/(\d{1,2}):(\d{1,2})[\s]*([aApP][mM])/),
+    //                 dateResult = time.match(/(\d{4})-(\d{1,2})-(\d{1,2})/),
+    //                 timePart = '',
+    //                 datePart = '';
+    //
+    //             if(timeResult !== null) {
+    //                 var hours = parseInt(timeResult[1]);
+    //                 if(hours == 12) {
+    //                     hours = 0;
+    //                 }
+    //                 hours += ((timeResult[3].toLowerCase() === 'am') ? 0 : 12);
+    //
+    //                 serverTime.setHours(hours);
+    //                 serverTime.setMinutes(timeResult[2]);
+    //             }
+    //             if(dateResult !== null) {
+    //                 // we have date component to render
+    //                 serverTime.setYear(dateResult[1]);
+    //                 serverTime.setMonth(parseInt(dateResult[2])-1);
+    //                 serverTime.setDate(dateResult[3]);
+    //             }
+    //
+    //             var localTime = new Date(serverTime.getTime() + wantonWickedTime.difference);
+    //             return 'Local Time: <br />' + wantonWickedTime.renderDate(localTime) + ' ' + wantonWickedTime.renderTime(localTime);
+    //         }
+    //     });
 });

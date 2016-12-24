@@ -3,4 +3,4 @@
 $this->set('title_for_layout', 'Create Character');
 
 ?>
-<?php echo $this->Character->view(array()); ?>
+<?php echo $this->Character->edit(); ?>

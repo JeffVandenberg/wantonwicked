@@ -37,16 +37,17 @@ LIMIT 20;
 EOQ;
 }
 $db    = new Database();
-$users = $db->query($query)->bind('term', strtolower($_GET['term']) . '%')->all();
+$term = $_GET['query'];
+$users = $db->query($query)->bind('term', strtolower($term) . '%')->all();
 
 $list = array();
 foreach ($users as $row) {
-    $row_array['value'] = $row['user_id'];
+    $row_array['data'] = $row['user_id'];
     if ($email) {
-        $row_array['label'] = $row['username'] . ' (' . $row['user_email'] . ')';
+        $row_array['value'] = $row['username'] . ' (' . $row['user_email'] . ')';
     }
     else {
-        $row_array['label'] = $row['username'];
+        $row_array['value'] = $row['username'];
     }
 
     $list[] = $row_array;
@@ -56,4 +57,9 @@ if (count($list) == 0) {
     $list[] = array("value" => '0', 'label' => 'No Matches');
 }
 
-Response::sendJson($list);
+$data = [
+    'query' => $term,
+    'suggestions' => $list
+];
+
+Response::sendJson($data);

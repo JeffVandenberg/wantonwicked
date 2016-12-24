@@ -99,7 +99,7 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes'));
     }
 
-    public function isAuthorized($user)
+    public function isAuthorized()
     {
         switch ($this->request->params['action']) {
             case 'admin_goals':
@@ -198,7 +198,8 @@ class CharactersController extends AppController
         if (!$this->Character->exists()) {
             throw new NotFoundException(__('Invalid character'));
         }
-        $this->request->onlyAllow('post', 'delete');
+        $this->request->allowMethod(['post', 'delete']);
+
         if ($this->Character->delete()) {
             $this->Flash->set(__('The character has been deleted.'));
         } else {
