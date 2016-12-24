@@ -22,11 +22,11 @@ function addMessage(inputMDiv,displayMDiv)
 			var eCreditMessageB = " has 0 eCredits left.";
 		
 			/* show sender 'you have no ecredits' */
-			message = "../images/notice.gif|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+eCreditMessageA+"|1";
+			message = "../images/notice.gif|"+getSafeColor(stextColor, defaultColor)+"|"+stextSize+"|"+stextFamily+"|"+eCreditMessageA+"|1";
 			createMessageDiv('1',uID,displayMDiv,showMessages+1,message,'beep_high.mp3','','');
 			
 			/* show receiver that 'sender has no ecredits' */			
-			message = "../images/notice.gif|"+stextColor+"|"+stextSize+"|"+stextFamily+"|"+eCreditMessageB+"|1";
+			message = "../images/notice.gif|"+getSafeColor(stextColor, defaultColor)+"|"+stextSize+"|"+stextFamily+"|"+eCreditMessageB+"|1";
             createMessageDiv('1',uID,displayMDiv,showMessages+1,message,'beep_high.mp3','','');
 
 			/* send data */
@@ -208,47 +208,6 @@ function addMessage(inputMDiv,displayMDiv)
 
 	}
 
-	// IRC roll dice
-	/*if(ircCommand[0] == '/roll') {
-		// check /roll contains dice (eg. 2d4) 
-		if(!ircCommand[1] || ircCommand[1].replace(/\s/g,"") == "")
-		{
-			showInfoBox("system","220","300","200","",lang15);
-			return false;
-		}
-
-		var diceRoll = ircCommand[1].split("d");
-
-		var x = 1;
-		var totalRoll = 0;
-		var diceScore = 0;
-		var diceModifier = '';
-		var singleRoll = [];
-
-		// roll each dice
-		for (x = 1; x <= diceRoll[0]; x++)
-		{
-			singleRoll[x-1] = Math.floor(Math.random()*diceRoll[1]+1)
-		}
-
-		// add total of all dice rolled
-		for (x = 0; x < singleRoll.length; x++)
-		{
-			totalRoll += Math.floor(singleRoll[x]);
-		}
-
-		// include dice modifier
-		if(Number(ircCommand[2]))
-		{
-			diceModifier = Number(ircCommand[2]);
-		}
-
-		// format result
-		diceScore = "( Result: "+singleRoll+", "+diceModifier+" Total: "+Number(totalRoll+diceModifier)+" )";
-
-		message = message +" "+diceScore;
-	}*/
-
     // IRC madness
     if(ircCommand[0] == '/madness') {
         var madnesses = ['wakka wakka!', 'oggity boogity!'];
@@ -397,7 +356,7 @@ function addMessage(inputMDiv,displayMDiv)
 		iRC = '1';
 	}
 	
-	message = userAvatar+"|"+textColor+"|"+textSize+"|"+textFamily+"|"+message+"|"+iRC+"|"+addLineBreaks;
+	message = userAvatar+"|"+getSafeColor(textColor, defaultColor)+"|"+textSize+"|"+textFamily+"|"+message+"|"+iRC+"|"+addLineBreaks;
 
 	// update users text style (cookie)
 	createCookie('myTextStyle',encodeURI(mBold+"|"+mItalic+"|"+mUnderline+"|"+textColor+"|"+textSize+"|"+textFamily),30);
@@ -1137,7 +1096,7 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
                 '</span>' +
             "</span>";
 		newMessage +=
-            "<span style='color:" + messageArray[1] + ";font-size:" + messageArray[2] + ";font-family:" + messageArray[3] + ";'>" +
+            "<span style='color:" + getSafeColor(messageArray[1],defaultColor) + ";font-size:" + messageArray[2] + ";font-family:" + messageArray[3] + ";'>" +
                 '<span class="message-text-scale" style="font-size: ' + fontEmSize + 'em">' +
                     messageArray[4] +
                 '</span>' +

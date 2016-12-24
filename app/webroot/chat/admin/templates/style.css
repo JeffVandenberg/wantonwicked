@@ -11,183 +11,178 @@ padding: 0 0 0 0;
 
 **/
 
-.adminBody
-{
-	margin: 10px 10px 10px 10px;
-	padding: 0 0 0 0; 
-	background-color: #dddddd;	
-	background-image:url('images/background.jpg');	
-	background-repeat:repeat-x;
-	font-family: Verdana, Arial;
-	font-size: 12px;
-	font-style: normal;	
+.adminBody {
+    margin: 10px 10px 10px 10px;
+    padding: 0 0 0 0;
+    background-color: #dddddd;
+    background-image: url('images/background.jpg');
+    background-repeat: repeat-x;
+    font-family: Verdana, Arial, sans-serif;;
+    font-size: 12px;
+    font-style: normal;
 }
 
-.logoContainer 
-{ 
-	margin: 0 0 0 0; 
-	padding: 0 0 0 0; 
-	left: 5px;
-	top: 8px;
-	width: 450px;
-	height: 71px;
-	position:absolute;
-	background-image: url('../../templates/default/images/logo.png');
-	background-repeat: no-repeat;
-} 
-
-.header
-{
-	padding: 0 0 3px 34px; 
-	background-color: #666666;
-	font-weight: bold;
-	font-size: 13px;
-	height: 20px;
-	color: #000;
-
-	-moz-border-radius: 3px;
-	border-radius: 3px;	
-
-	background-image: url('images/icon.png');
-	background-repeat: no-repeat;	
+.logoContainer {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    left: 5px;
+    top: 8px;
+    width: 450px;
+    height: 71px;
+    position: absolute;
+    background: url('/chat/templates/default/images/logo.png') no-repeat;
 }
 
-.button
-{
-	padding: 5px 3px 0px 3px;
-	height: 24px;
-	width: 75px;
-	border: 1px solid #333333;
-	background-color: #666666;
-	color: #000000;
-	cursor: pointer;
-	float: left;
-	text-align: center;
-	
-	-moz-border-radius: 5px;
-	border-radius: 5px;		
+.header {
+    padding: 0 0 3px 34px;
+    font-weight: bold;
+    font-size: 13px;
+    height: 20px;
+    color: #000;
+
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+    background: #666666 url('images/icon.png') no-repeat;
 }
 
-.submit
-{
-	padding: 0 3px 5px 3px;
-	height: 20px;
-	width: 110px;
-	border: 1px solid #333333;
-	background-color: #666666;
-	color: #000000;
-	cursor: pointer;
-	text-align: center;
-	
-	-moz-border-radius: 5px;
-	border-radius: 5px;		
+.button {
+    padding: 5px 3px 0 3px;
+    height: 24px;
+    width: 75px;
+    border: 1px solid #333333;
+    background-color: #666666;
+    color: #000000;
+    cursor: pointer;
+    float: left;
+    text-align: center;
+
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
-.result
-{
-	color: green;
+.submit {
+    padding: 0 3px 5px 3px;
+    height: 20px;
+    width: 110px;
+    border: 1px solid #333333;
+    background-color: #666666;
+    color: #000000;
+    cursor: pointer;
+    text-align: center;
+
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
-.menu
-{
-	color: #000000;
+.result {
+    color: green;
 }
 
-.captcha
-{
-	color: #000000;
-	background-color: #333333;
-	border: 1px solid #999999;
-	padding: 2px;
-	
-	-moz-border-radius: 5px;
-	border-radius: 5px;		
+.menu {
+    color: #000000;
 }
 
-.mainheader
-{
-	background-color: #EDF1FA;
-	border: 1px solid #84B2DE;
-	font-family: Verdana, Arial;
-	font-size: 12px;
-	font-style: normal;
-	width: 100%;
-	padding-top: 5px;
-	padding-bottom: 5px;
+.captcha {
+    color: #000000;
+    background-color: #333333;
+    border: 1px solid #999999;
+    padding: 2px;
+
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
-.footer
-{
-	font-family: Verdana, Arial;
-	font-size: 12px;
-	font-style: normal;
-	width: 100%;
-	text-align: center;
-	padding-top: 5px;
-	padding-bottom: 5px;
+.mainheader {
+    background-color: #EDF1FA;
+    border: 1px solid #84B2DE;
+    font-family: Verdana, Arial, sans-serif;, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-.logintable
-{
-	background-color: #EDF1FA;
-	border: 1px solid #84B2DE;
-	font-family: Verdana, Arial;
-	font-size: 12px;
-	font-style: normal;
+.footer {
+    font-family: Verdana, Arial, sans-serif;, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-select
-{
-	-moz-border-radius: 5px 5px 5px 5px;		
-	border-radius: 5px 5px 5px 5px;
+.logintable {
+    background-color: #EDF1FA;
+    border: 1px solid #84B2DE;
+    font-family: Verdana, Arial, sans-serif;;
+    font-size: 12px;
+    font-style: normal;
 }
 
-table
-{
-	font-family: Verdana, Arial;
-	font-size: 12px;
-	font-style: normal;
-	width: 100%;
-	color: #000000;
-	border: 1px solid #666666; 	
-	
-	-moz-border-radius: 5px 5px 5px 5px;		
-	border-radius: 5px 5px 5px 5px;		
+select {
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
 }
 
-textarea
-{
-	height:200px;
-	width:300px;
-	border: 1px solid #84B2DE;
+table {
+    font-family: Verdana, Arial, sans-serif;;
+    font-size: 12px;
+    font-style: normal;
+    width: 100%;
+    color: #000000;
+    border: 1px solid #666666;
+
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
 }
 
-tr
-{
-	vertical-align:top;
+textarea {
+    height: 200px;
+    width: 300px;
+    border: 1px solid #84B2DE;
 }
 
-input
-{
-	padding: 0px 0px 0px 3px;
-	
-	border: 1px solid #CCCCCC;
-	
-	-moz-border-radius: 5px 5px 5px 5px;		
-	border-radius: 5px 5px 5px 5px;		
+tr {
+    vertical-align: top;
 }
 
-textarea
-{
-	padding: 0px 0px 0px 3px;
-	
-	border: 1px solid #CCCCCC;
-	
-	-moz-border-radius: 5px 5px 5px 5px;		
-	border-radius: 5px 5px 5px 5px;	
+input {
+    padding: 0 0 0 3px;
+
+    border: 1px solid #CCCCCC;
+
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
 }
 
-a:link {text-decoration: none; color: #000000;}
-a:visited {text-decoration: none; color: #000000;}
-a:active {text-decoration: none; color: #000000;}
-a:hover {text-decoration: underline; color: #000000;}
+textarea {
+    padding: 0 0 0 3px;
+
+    border: 1px solid #CCCCCC;
+
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+a:link {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:active {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #000000;
+}
