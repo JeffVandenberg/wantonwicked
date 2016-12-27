@@ -30,3 +30,7 @@ CREATE TABLE gamingsandbox_wanton.conditions
 ALTER TABLE gamingsandbox_wanton.conditions 
   ADD COLUMN slug VARCHAR(255) NOT NULL,
   ADD INDEX (slug);
+
+INSERT INTO gamingsandbox_wanton_test.condition_types VALUES (1, 'Condition'), (2, 'Tilt');
+
+INSERT INTO gamingsandbox_wanton_test.permissions (permission_name) VALUES ('Manage DB');
