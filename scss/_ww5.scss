@@ -635,13 +635,6 @@ label.middle {
     padding: 0.5625rem 0;
 }
 
-.help-text {
-    margin-top: -0.5rem;
-    font-size: 0.8125rem;
-    font-style: italic;
-    color: #0a0a0a;
-}
-
 .input-group {
     display: table;
     width: 100%;
@@ -824,4 +817,8 @@ select[multiple] {
 /* Fonudation modifications */
 textarea {
     height: auto;
+}
+
+.sticky {
+    z-index: 1;
 }

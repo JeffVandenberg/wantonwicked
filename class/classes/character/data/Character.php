@@ -86,6 +86,7 @@ class Character extends DataModel
     public $PowerPointsModifier;
     public $AsstSanctioned;
     public $BonusReceived;
+    private $powers;
 
     public $HasMany = array(
         'Attributes' => 'classes\character\data\CharacterPower',
@@ -163,9 +164,10 @@ class Character extends DataModel
      * @param $attributeName
      * @return CharacterPower
      */
-    public function getAttribute($attributeName) {
-        foreach($this->Attributes as $attribute) {
-            if($attribute->PowerName === $attributeName) {
+    public function getAttribute($attributeName)
+    {
+        foreach ($this->Attributes as $attribute) {
+            if ($attribute->PowerName === $attributeName) {
                 return $attribute;
             }
         }
@@ -181,8 +183,8 @@ class Character extends DataModel
      */
     public function getSkill($skillName)
     {
-        foreach($this->Skills as $skill) {
-            if($skill->PowerName === $skillName) {
+        foreach ($this->Skills as $skill) {
+            if ($skill->PowerName === $skillName) {
                 return $skill;
             }
         }
@@ -190,5 +192,47 @@ class Character extends DataModel
         $item->PowerType = 'Skill';
         $item->PowerName = $skillName;
         return $item;
+    }
+
+    /**
+     * @param $typeName
+     * @param $powerName
+     * @return CharacterPower
+     */
+    public function getPowerByTypeAndName($typeName, $powerName)
+    {
+        if (isset($this->powers[$typeName][$powerName])) {
+            return $this->powers[$typeName][$powerName];
+        }
+        $power = new CharacterPower();
+        $power->PowerType = $typeName;
+        $power->PowerName = $powerName;
+        return $power;
+    }
+
+    /**
+     * @param $powerType
+     * @return CharacterPower[]
+     */
+    public function getPowersByType($powerType)
+    {
+        if (isset($this->powers[$powerType])) {
+            return $this->powers[$powerType];
+        }
+        return [];
+    }
+
+    public function initializeNew($characterType = 'mortal')
+    {
+        $this->CharacterType = $characterType;
+
+        // initialize specialities
+        foreach (range(0, 2) as $i) {
+            $power = new CharacterPower();
+            $power->PowerType = 'specialty';
+            $this->powers['specialty'][$i] = $power;
+        }
+
+        $this->Morality = 7;
     }
 }

@@ -1,4 +1,6 @@
 <?php
+use classes\character\data\Character;
+
 App::uses('AppController', 'Controller');
 
 /**
@@ -147,6 +149,8 @@ class CharactersController extends AppController
     public function add()
     {
         if ($this->request->is('post')) {
+            var_dump($this->request->data);
+            die();
             $this->Character->create();
             if ($this->Character->save($this->request->data)) {
                 $this->Flash->set(__('The character has been saved.'));
@@ -157,6 +161,9 @@ class CharactersController extends AppController
                 $this->Flash->set(__('The character could not be saved. Please, try again.'));
             }
         }
+        $character = new Character();
+        $character->initializeNew();
+        $this->set('character', $character);
     }
 
     /**
