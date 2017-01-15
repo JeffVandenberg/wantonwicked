@@ -977,7 +977,7 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		messageArray = message.split("|");
 
 		var showExternal = 0;
-		if(admin && messageArray[4].search(/.jpg|gif/) > -1) {
+		if(admin && messageArray[4].search(/.jpg|.gif/) > -1) {
 			messageArray[4] = '<br><img src="' + messageArray[4] +'" style="max-width: 800px;"/>';
 			showExternal = 1;
 		}

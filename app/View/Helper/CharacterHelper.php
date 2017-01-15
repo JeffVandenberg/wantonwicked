@@ -52,6 +52,20 @@ class CharacterHelper extends AppHelper
         ]
     ];
 
+    private $yesNoOptions = [
+        'N' => 'No',
+        'Y' => 'Yes'
+    ];
+
+    private $statuses = [
+        "Ok" => "Ok",
+        "Imprisoned" => "Imprisoned",
+        "Hospitalized" => "Hospitalized",
+        "Torpored" => "Torpored",
+        "Dead" => "Dead"
+    ];
+
+
     function __construct(View $view, $settings = [])
     {
         parent::__construct($view, $settings);
@@ -70,43 +84,57 @@ class CharacterHelper extends AppHelper
         $character->CharacterType = ($character->CharacterType) ? strtolower($character->CharacterType) : "mortal";
         $bio = $this->buildBioEdit($character);
         $stats = $this->buildStatEdit($character);
-        $abilities = $this->buildAbilitiesSection($character);
+        $powers = $this->buildPowersSection($character);
+        $derived = $this->buildDerivedSection($character);
+        $equipment = $this->buildEquipmentSection($character);
+        $admin = $this->buildAdminSection($character);
 
-        $sheet = <<<HTML
-<ul id="character-form-edit" class="accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true">
-    <li class="accordion-item">
-        $bio
-    </li>
-    <li class="accordion-item">
-        $stats
-    </li>
-    <li class="accordion-item">
-        $abilities
-    </li>
-    <li class="accodion-item">
-        <a href="#csheet-equipment" role="tab" class="accordion-title" id="csheet-equipment-heading"
-           aria-controls="csheet-equipment">Equipment</a>
-        <div id="csheet-equipment" class="accordion-content" role="tabpanel" data-tab-content
-             aria-labelledby="csheet-equipment-heading">
+        ob_start();
+        ?>
+        <ul id="character-form-edit" class="accordion" data-accordion data-multi-expand="true"
+            data-allow-all-closed="true">
+            <li class="accordion-item">
+                <?php echo $bio; ?>
+            </li>
+            <li class="accordion-item">
+                <?php echo $stats; ?>
+            </li>
+            <li class="accordion-item">
+                <?php echo $powers; ?>
+            </li>
+            <li class="accordion-item">
+                <?php echo $derived; ?>
+            </li>
+            <li class="accordion-item">
+                <?php echo $equipment; ?>
+            </li>
+            <li class="accordion-item">
+                <a href="#csheet-conditions" role="tab" class="accordion-title" id="csheet-conditions-heading"
+                   aria-controls="csheet-conditions">Conditions</a>
+                <div id="csheet-conditions" class="accordion-content" role="tabpanel" data-tab-content
+                     aria-labelledby="csheet-conditions-heading">
+                    <div class="row">
+                        <div class="small-12 column">
+                            List of your conditions will be here sometime soon.
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="accordion-item">
+                <?php echo $admin; ?>
+            </li>
+        </ul>
+        <div class="row callout">
+            <div class="medium-2 column">Current XP</div>
+            <div class="medium-2 column"><?php echo $character->CurrentExperience; ?></div>
+            <div class="medium-2 column">Current Beats</div>
+            <div class="medium-2 column"></div>
+            <div class="medium-2 column">Last Login</div>
+            <div class="medium-2 column"></div>
+            <?php echo $this->Form->hidden('character_id', ['value' => $character->Id]); ?>
         </div>
-    </li>
-    <li class="accodion-item">
-        <a href="#csheet-conditions" role="tab" class="accordion-title" id="csheet-conditions-heading"
-           aria-controls="csheet-conditions">Conditions</a>
-        <div id="csheet-conditions" class="accordion-content" role="tabpanel" data-tab-content
-             aria-labelledby="csheet-conditions-heading">
-        </div>
-    </li>
-    <li class="accodion-item">
-        <a href="#csheet-experiences" role="tab" class="accordion-title" id="csheet-experiences-heading"
-           aria-controls="csheet-experiences">Experiences</a>
-        <div id="csheet-experiences" class="accordion-content" role="tabpanel" data-tab-content
-             aria-labelledby="csheet-experiences-heading">
-        </div>
-    </li>
-</ul>
-HTML;
-        return $sheet;
+        <?php
+        return ob_get_clean();
     }
 
     private function buildBioEdit(Character $character)
@@ -135,7 +163,16 @@ HTML;
                     <label for="character_name">Name</label>
                 </div>
                 <div class="medium-7 columns">
-                    <?php echo $this->Form->input('character_name', ['value' => $character->CharacterName, 'label' => false]); ?>
+                    <?php echo $this->Form->input('character_name', [
+                        'value' => $character->CharacterName,
+                        'label' => false,
+                        'required',
+                        'div' => false,
+                        'data-validator' => 'character_name'
+                    ]); ?>
+                    <span class="form-error">
+                        Character Names are required.
+                    </span>
                 </div>
                 <div class="medium-1 columns">
                     <label for="character_type">Type</label>
@@ -240,6 +277,31 @@ HTML;
                     ?>
                 </div>
                 <div class="medium-4 column">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="small-12 column subheader">
+                    Aspirations
+                    <div class="success badge clickable" id="add-aspiration"><i class="fi-plus"></i></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 column">
+                    <table class="stack" id="aspirations">
+                        <?php foreach ($character->getPowerList('aspiration') as $power): ?>
+                            <tr>
+                                <td>
+                                    <?php echo $this->Form->input('aspiration..name', [
+                                        'label' => false,
+                                        'value' => $power->PowerName
+                                    ]); ?>
+                                    <?php echo $this->Form->hidden('aspiration..id', [
+                                        'value' => $power->Id
+                                    ]); ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
             </div>
             <div class="row">
                 <div class="medium-12 columns subheader">Character Background</div>
@@ -470,7 +532,7 @@ HTML;
                             <div class="badge success clickable" id="add-specialty"><i class="fi-plus"></i></div>
                         </div>
                     </div>
-                    <?php foreach ($character->getPowersByType('specialty') as $i => $specialty): ?>
+                    <?php foreach ($character->getPowerList('specialty') as $i => $specialty): ?>
                         <div class="row">
                             <div class="small-5 medium-5 column">
                                 <?php echo $this->Form->select('specialty.' . '.skill', $this->skillList, [
@@ -498,18 +560,18 @@ HTML;
         return ob_get_clean();
     }
 
-    private function buildAbilitiesSection(Character $character)
+    private function buildPowersSection(Character $character)
     {
         switch (strtolower($character->CharacterType)) {
             case 'mortal':
-                return $this->buildMortalTemplateSection($character);
+                return $this->buildMortalPowersSection($character);
                 break;
             default:
                 return 'Unknown Character Type: ' . $character->CharacterType;
         }
     }
 
-    public function buildMortalTemplateSection(Character $character)
+    public function buildMortalPowersSection(Character $character)
     {
         ob_start();
         ?>
@@ -518,8 +580,213 @@ HTML;
         <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
              aria-labelledby="csheet-template-heading">
             <div class="row">
+                <div class="small-12 medium-6 column">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Merits
+                            <div class="success badge clickable" id="add-merit"><i class="fi-plus"></i></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table id="merits" class="stack">
+                            <thead>
+                            <tr>
+                                <th>Merit</th>
+                                <th>Note</th>
+                                <th>Level</th>
+                                <th>Public</th>
+                            </tr>
+                            </thead>
+                            <?php foreach ($character->getPowerList('merit') as $power): ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $this->Form->input('merit..name', [
+                                            'value' => $power->PowerName,
+                                            'placeholder' => 'Merit Name',
+                                            'label' => false,
+                                            'data-powertype' => 'merit',
+                                            'class' => 'character-autocomplete'
+                                        ]); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $this->Form->input('merit..note', [
+                                            'label' => false,
+                                            'value' => $power->PowerNote,
+                                            'placeholder' => 'Merit Note'
+                                        ]); ?>
+                                    </td>
+                                    <td>
+                                        <label class="hide-for-large-only">Level</label>
+                                        <?php echo $this->Form->select('merit..level', range(0, $this->maxDots, [
+                                            'label' => false,
+                                            'value' => $power->PowerLevel
+                                        ])); ?>
+                                        <?php echo $this->Form->hidden('merit..id', [
+                                            'value' => $power->Id
+                                        ]); ?>
+                                    </td>
+                                    <td>
+                                        <label class="show-for-small-only">Is Public</label>
+                                        <?php echo $this->Form->checkbox('merit..is_public', [
+                                            'label' => false,
+                                            'value' => $power->IsPublic
+                                        ]); ?>
+                                        <div class="alert badge clickable remove-merit"><i class="fi-minus"></i></div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                        <table id="removed-merits" class="hide"></table>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <div class="success badge clickable" id="add-misc-power"><i class="fi-plus"></i></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table id="misc-abilities" class="stack">
+                            <thead>
+                            <tr>
+                                <th>Misc Ability</th>
+                                <th>Note</th>
+                                <th>Level</th>
+                                <th>Public</th>
+                            </tr>
+                            </thead>
+                            <?php foreach ($character->getPowerList('miscPower') as $power): ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $this->Form->input('misc_power..name', [
+                                            'value' => $power->PowerName,
+                                            'label' => false,
+                                            'placeholder' => 'Misc Name',
+                                            'data-powertype' => 'misc-power',
+                                            'class' => 'character-autocomplete'
+                                        ]); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $this->Form->input('misc_power..note', [
+                                            'value' => $power->PowerNote,
+                                            'label' => false,
+                                            'placeholder' => 'Misc Note'
+                                        ]); ?>
+                                    </td>
+                                    <td>
+                                        <label class="hide-for-large-only">Level</label>
+                                        <?php echo $this->Form->input('misc_power..level', [
+                                            'placeholder' => 'Misc Level',
+                                            'label' => false,
+                                            'value' => $power->PowerLevel
+                                        ]); ?>
+                                        <?php echo $this->Form->hidden('misc-power..id', [
+                                            'value' => $power->Id
+                                        ]); ?>
+                                    </td>
+                                    <td>
+                                        <label class="hide-for-large-only">Is Public</label>
+                                        <?php echo $this->Form->checkbox('misc_power..is_public', [
+                                            'label' => false,
+                                            'value' => $power->IsPublic
+                                        ]); ?>
+                                        <div class="alert badge clickable remove-misc-power"><i class="fi-minus"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                        <table id="removed-misc-abilities" class="hide"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function buildEquipmentSection(Character $character)
+    {
+        ob_start();
+        ?>
+        <a href="#csheet-equipment" role="tab" class="accordion-title" id="csheet-equipment-heading"
+           aria-controls="csheet-equipment">
+            Equipment
+        </a>
+        <div id="csheet-equipment" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-equipment-heading">
+            <button id="add-equipment-button" class="success button"><i class="fi-plus"></i> Add Equipment</button>
+            <table id="equipment-table" class="stack">
+                <thead>
+                <tr>
+                    <th>Equipment</th>
+                    <th>Bonus</th>
+                    <th>Note</th>
+                    <th>Public</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <?php foreach ($character->getPowerList('equipment') as $power): ?>
+                    <tr>
+                        <td>
+                            <?php echo $this->Form->input('equipment.' . '.name', [
+                                'label' => false,
+                                'placeholder' => 'Equipment',
+                                'value' => $power->PowerName
+                            ]); ?>
+                        </td>
+                        <td>
+                            <?php echo $this->Form->input('equipment.' . '.bonus', [
+                                'label' => false,
+                                'placeholder' => 'Bonus',
+                                'value' => $power->Extra['bonus']
+                            ]); ?>
+                        </td>
+                        <td>
+                            <?php echo $this->Form->input('equipment.' . '.note', [
+                                'label' => false,
+                                'width' => 100,
+                                'placeholder' => 'Note',
+                                'value' => $power->PowerNote
+                            ]); ?>
+                        </td>
+                        <td>
+                            <label class="hide-for-large-only">Is Public</label>
+                            <?php echo $this->Form->checkbox('equipment.' . '.is_public', [
+                                'label' => false,
+                                'value' => 1,
+                                'checked' => $power->IsPublic
+                            ]); ?>
+                            <?php echo $this->Form->hidden('equipment.' . '.id', [
+                                'value' => $power->Id
+                            ]); ?>
+                        </td>
+                        <td>
+                            <div class="badge alert clickable remove-equipment"><i class="fi-minus"></i></div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            <table class="hide" id="removed-equipment"></table>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function buildDerivedSection(Character $character)
+    {
+        ob_start();
+        ?>
+        <a href="#csheet-derived" role="tab" class="accordion-title" id="csheet-derived-heading"
+           aria-controls="csheet-derived">
+            Secondary Stats
+        </a>
+        <div id="csheet-derived" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-derived-heading">
+            <div class="row">
                 <div class="small-6 medium-3 column">
-                    <label for="willpower">Willpower</label>
+                    <label for="willpower">Max WP</label>
                 </div>
                 <div class="small-6 medium-1 column">
                     <?php echo $this->Form->select(
@@ -527,6 +794,19 @@ HTML;
                         range(0, $this->maxDots),
                         [
                             'value' => $character->WillpowerPerm,
+                            'empty' => false
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <label for="health">Current WP</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->select(
+                        'willpower_temp',
+                        range(0, $this->maxDots),
+                        [
+                            'value' => $character->WillpowerTemp,
                             'empty' => false
                         ]
                     ); ?>
@@ -545,7 +825,194 @@ HTML;
                     ); ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="small-6 medium-3 column">
+                    <label for="size">Size</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input(
+                        'size',
+                        [
+                            'value' => $character->Size,
+                            'label' => false
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <label for="speed">Speed</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input(
+                        'speed',
+                        [
+                            'value' => $character->Speed,
+                            'label' => false
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <label for="defense">Defense</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input(
+                        'defense',
+                        [
+                            'value' => $character->Defense,
+                            'label' => false
+                        ]
+                    ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-6 medium-3 column">
+                    <label for="health">Health</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->select(
+                        'health',
+                        range(0, $this->maxDots),
+                        [
+                            'value' => $character->Health,
+                            'empty' => false
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <label for="initiative_mod">Init Mod</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input(
+                        'initiative_mod',
+                        [
+                            'value' => $character->InitiativeMod,
+                            'label' => false
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <label for="armor">Armor</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input(
+                        'armor',
+                        [
+                            'value' => $character->Armor,
+                            'label' => false
+                        ]
+                    ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 column subheader">
+                    Wounds
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-6 medium-3 column">
+                    <label for="wounds_bashing">Bashing</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input(
+                        'wounds_bashing',
+                        [
+                            'value' => $character->WoundsBashing,
+                            'label' => false
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <label for="wounds_lethal">Lethal</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input(
+                        'wounds_lethal',
+                        [
+                            'value' => $character->WoundsLethal,
+                            'label' => false
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <label for="wounds_agg">Aggravated</label>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input(
+                        'wounds_agg',
+                        [
+                            'value' => $character->WoundsAgg,
+                            'label' => false
+                        ]
+                    ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 column subheader">
+                    Morality
+                </div>
+            </div>
+            <div class="row">
+                <?php foreach ($character->getPowerList('morality') as $i => $power): ?>
+                    <div class="small-12 column">
+                        <div>
+                            <?php echo $this->Language->translate('morality' . $i, $character->CharacterType); ?>
+                        </div>
+                        <?php echo $this->Form->hidden('morality.' . $i . '.name', ['value' => 'worst_action']); ?>
+                        <?php echo $this->Form->hidden('morality.' . $i . '.id', ['value' => $power->Id]); ?>
+                        <?php echo $this->Form->textarea('morality.' . $i . '.explanation', [
+                            'value' => $power->Extra['explanation'],
+                            'label' => false,
+                            'rows' => 3
+                        ]); ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function buildAdminSection(Character $character)
+    {
+        ob_start();
+        ?>
+        <a href="#csheet-admin" role="tab" class="accordion-title" id="csheet-admin-heading"
+           aria-controls="csheet-admin">Admin</a>
+        <div id="csheet-admin" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-admin-heading">
+            <div class="row">
+                <div class="small-6 medium-1 column">
+                    <label for="is_npc">NPC</label>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <?php echo $this->Form->select(
+                        'is_npc',
+                        $this->yesNoOptions,
+                        [
+                            'value' => ($character->IsNpc) ? $character->IsNpc : 'N',
+                            'empty' => false
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-1 column">
+                    <label for="is_npc">Status</label>
+                </div>
+                <div class="small-6 medium-3 column">
+                    <?php echo $this->Form->select(
+                        'status',
+                        $this->statuses,
+                        [
+                            'value' => ($character->Status) ? $character->IsNpc : 'N',
+                            'empty' => true
+                        ]
+                    ); ?>
+                </div>
+                <div class="small-6 medium-1 column">
+                </div>
+                <div class="small-6 medium-3 column">
+                </div>
+            </div>
+        </div>
+
         <?php
         return ob_get_clean();
     }

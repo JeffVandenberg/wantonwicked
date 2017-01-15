@@ -1,12 +1,13 @@
 <?php
 use classes\character\data\Character;
+use \Character as CakeCharacter;
 
 App::uses('AppController', 'Controller');
 
 /**
  * Characters Controller
  *
- * @property Character $Character
+ * @property CakeCharacter $Character
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
@@ -108,6 +109,7 @@ class CharactersController extends AppController
                 return $this->Permissions->IsST();
                 break;
             case 'add':
+            case 'validateName':
                 return $this->Auth->user();
                 break;
         }
@@ -164,6 +166,26 @@ class CharactersController extends AppController
         $character = new Character();
         $character->initializeNew();
         $this->set('character', $character);
+    }
+
+    public function validateName()
+    {
+        $id = $this->request->query['id'];
+        $characterName = $this->request->query['name'];
+        $city = $this->request->query['city'];
+
+        $data = [
+            'success' => false,
+            'in_use' => true
+        ];
+
+        if($characterName && $city) {
+            $data['in_use'] = $this->Character->findNameUsedInCity($id, $characterName, $city);
+            $data['success'] = true;
+        }
+
+        $this->autoRender = false;
+        return json_encode($data);
     }
 
     /**

@@ -125,11 +125,7 @@ class Character extends DataModel
                 return $this->Specialties;
                 break;
             case 'merits':
-                if (!isset($this->Merits)) {
-                    $this->Merits = RepositoryManager::GetRepository('classes\character\data\CharacterPower')->ListByCharacterIdAndPowerType($this->CharacterId, 'Merit');
-                }
-                return $this->Merits;
-                break;
+                return $this->getPowerList('merit');
             case 'flaws':
                 if (!isset($this->Flaws)) {
                     $this->Flaws = RepositoryManager::GetRepository('classes\character\data\CharacterPower')->ListByCharacterIdAndPowerType($this->CharacterId, 'Flaw');
@@ -210,29 +206,46 @@ class Character extends DataModel
         return $power;
     }
 
+    public function initializeNew($characterType = 'mortal')
+    {
+        $this->CharacterType = $characterType;
+        $this->Size = 5;
+        $this->Morality = 7;
+
+        // initialize specialities
+        $this->addList(3, 'specialty');
+        $this->addList(5, 'merit');
+        $this->addList(2, 'miscPower');
+        $this->addList(4, 'equipment');
+        $this->addList(3, 'aspiration');
+        $this->addList(5, 'morality');
+
+        $this->addCharacterTypePowers();
+    }
+
+    public function addList($numOfItems, $powerType)
+    {
+        foreach (range(1, $numOfItems) as $i) {
+            $power = new CharacterPower();
+            $power->PowerType = $powerType;
+            $this->powers[$powerType][] = $power;
+        }
+    }
+
+    private function addCharacterTypePowers()
+    {
+        // do something here later
+    }
+
     /**
      * @param $powerType
      * @return CharacterPower[]
      */
-    public function getPowersByType($powerType)
+    public function getPowerList($powerType)
     {
-        if (isset($this->powers[$powerType])) {
-            return $this->powers[$powerType];
+        if(!isset($this->powers[$powerType])) {
+            $this->powers[$powerType] = RepositoryManager::GetRepository('classes\character\data\CharacterPower')->ListByCharacterIdAndPowerType($this->CharacterId, ucfirst($powerType));
         }
-        return [];
-    }
-
-    public function initializeNew($characterType = 'mortal')
-    {
-        $this->CharacterType = $characterType;
-
-        // initialize specialities
-        foreach (range(0, 2) as $i) {
-            $power = new CharacterPower();
-            $power->PowerType = 'specialty';
-            $this->powers['specialty'][$i] = $power;
-        }
-
-        $this->Morality = 7;
+        return $this->powers[$powerType];
     }
 }
