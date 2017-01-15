@@ -202,7 +202,7 @@ $menuComponents['player'] = [
                         'link' => '/chat.php',
                     ],
                     'Create a Character' => [
-                        'link' => '/view_sheet.php?action=create_xp'
+                        'link' => '/characters/add'
                     ],
                     'Requests' => [
                         'link' => '/request.php'

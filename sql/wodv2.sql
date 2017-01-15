@@ -34,3 +34,9 @@ ALTER TABLE gamingsandbox_wanton.conditions
 INSERT INTO gamingsandbox_wanton_test.condition_types VALUES (1, 'Condition'), (2, 'Tilt');
 
 INSERT INTO gamingsandbox_wanton_test.permissions (permission_name) VALUES ('Manage DB');
+
+ALTER TABLE characters ADD COLUMN gameline varchar(255) NOT NULL;
+UPDATE characters set gameline = 'nwod';
+
+alter table character_powers add column is_public tinyint(1) UNSIGNED NOT NULL;
+alter table character_powers MODIFY column power_name varchar(255) not null;
