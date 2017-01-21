@@ -28,12 +28,14 @@ ob_start();
 ?>
     <div class="row">
         <div class="small-12 medium-6 column">
-            <h3 class="float-left">
-                Characters
-            </h3>
-            <div class="button-group float-right">
-                <a class="button small">New</a>
-                <a class="button small hide-for-small-only">OOC Chat</a>
+            <div class="clearfix">
+                <h3 class="float-left">
+                    Characters
+                </h3>
+                <div class="button-group float-right">
+                    <a class="button small" href="/characters/add">New</a>
+                    <a class="button small hide-for-small-only" href="/chat">OOC Chat</a>
+                </div>
             </div>
             <?php if (count($characters) > 0): ?>
                 <table>
