@@ -101,7 +101,6 @@ class CharacterHelper extends AppHelper
         $equipment = $this->buildEquipmentSection($character);
         $admin = ($this->options['show_admin']) ? $this->buildAdminSection($character) : '';
 
-        var_dump($character);
         ob_start();
         ?>
         <ul id="character-form-edit" class="accordion" data-accordion data-multi-expand="true"
