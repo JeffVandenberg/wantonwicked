@@ -211,29 +211,31 @@ class SheetService
 
         // save all other powers
         foreach ($this->powerList as $powerType) {
-            foreach ($stats[$powerType] as $power) {
-                $pp = [
-                    'id' => ($power['id']) ? $power['id'] : null,
-                    'power_type' => $powerType,
-                    'power_name' => $power['name'],
-                    'power_note' => $power['note'],
-                    'power_level' => $power['level'],
-                    'is_public' => $power['is_public'],
-                ];
+            if($stats[$powerType]) {
+                foreach ($stats[$powerType] as $power) {
+                    $pp = [
+                        'id' => ($power['id']) ? $power['id'] : null,
+                        'power_type' => $powerType,
+                        'power_name' => $power['name'],
+                        'power_note' => $power['note'],
+                        'power_level' => $power['level'],
+                        'is_public' => $power['is_public'],
+                    ];
 
-                $pp['extra'] = json_encode(array_diff($power, $pp));
+                    $pp['extra'] = json_encode(array_diff($power, $pp));
 
-                $cp = new CharacterPower();
-                $cp->Id = $pp['id'];
-                $cp->CharacterId = $character->Id;
-                $cp->PowerType = $pp['power_type'];
-                $cp->PowerName = $pp['power_name'];
-                $cp->PowerNote = ($pp['power_note']) ? $pp['power_note'] : '';
-                $cp->PowerLevel = $pp['power_level']+0;
-                $cp->IsPublic = $pp['is_public']+0;
-                $cp->Extra = $pp['extra'];
+                    $cp = new CharacterPower();
+                    $cp->Id = $pp['id'];
+                    $cp->CharacterId = $character->Id;
+                    $cp->PowerType = $pp['power_type'];
+                    $cp->PowerName = $pp['power_name'];
+                    $cp->PowerNote = ($pp['power_note']) ? $pp['power_note'] : '';
+                    $cp->PowerLevel = $pp['power_level'] + 0;
+                    $cp->IsPublic = $pp['is_public'] + 0;
+                    $cp->Extra = $pp['extra'];
 
-                $characterPowers[] = $cp;
+                    $characterPowers[] = $cp;
+                }
             }
         }
 

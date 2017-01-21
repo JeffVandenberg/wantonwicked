@@ -41,8 +41,8 @@
         <div id="logo"></div>
         <div id="userpanel"><?php echo $this->UserPanel->Create($this->Html->url()); ?></div>
         <div id="nav" data-sticky-container>
-            <div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
-                <button class="menu-icon" type="button" data-toggle></button>
+            <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="large">
+                <button class="menu-icon" type="button" data-toggle="main-menu"></button>
                 <div class="title-bar-title">Menu</div>
             </div>
 
