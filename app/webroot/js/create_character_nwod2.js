@@ -61,8 +61,8 @@ function addCharacterRow(tableId) {
 }
 
 $(function () {
-    $("#character_type").change(function () {
-        alert($(this).val());
+    $(document).on('change', '#character_type', function() {
+
     });
 
     $(document).on('click', "#add-specialty", function () {

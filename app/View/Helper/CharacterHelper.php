@@ -92,6 +92,7 @@ class CharacterHelper extends AppHelper
 
         $this->options = array_merge($this->options, $options);
 
+
         $character->CharacterType = ($character->CharacterType) ? strtolower($character->CharacterType) : "mortal";
         $bio = $this->buildBioEdit($character);
         $stats = $this->buildStatEdit($character);
@@ -100,6 +101,7 @@ class CharacterHelper extends AppHelper
         $equipment = $this->buildEquipmentSection($character);
         $admin = ($this->options['show_admin']) ? $this->buildAdminSection($character) : '';
 
+        var_dump($character);
         ob_start();
         ?>
         <ul id="character-form-edit" class="accordion" data-accordion data-multi-expand="true"

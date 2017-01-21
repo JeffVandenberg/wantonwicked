@@ -193,7 +193,7 @@ class Character extends DataModel
         $this->addList(2, 'miscPower');
         $this->addList(4, 'equipment');
         $this->addList(3, 'aspiration');
-        $this->addList(5, 'morality');
+        $this->addList(5, 'break_point');
 
         $this->addCharacterTypePowers();
     }
