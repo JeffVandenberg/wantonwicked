@@ -30,16 +30,18 @@ class Character extends AppModel
         ));
     }
 
-    public function findNameUsedInCity($id, $name, $city) {
+    public function findNameUsedInCity($id, $name, $city)
+    {
         return ($this->find('count', [
-            'conditions' => [
-                'Character.id != ' => $id,
-                'Character.character_name' => $name,
-                'Character.city' => $city
-            ],
-            'contain' => false
-        ]) > 0);
+                'conditions' => [
+                    'Character.id != ' => $id,
+                    'Character.character_name' => $name,
+                    'Character.city' => $city
+                ],
+                'contain' => false
+            ]) > 0);
     }
+
     public function ListByCity($city)
     {
         return $this->find('all', array(
@@ -273,6 +275,20 @@ EOQ;
             ];
         }
         return $this->find('all', $options);
+    }
+
+    public function saveCharacter($character, $options)
+    {
+
+        $powerList = [
+        ];
+
+
+
+        var_dump($data, $characterPowers);
+        die('Proceed to save step!');
+        $this->getDataSource()->begin();
+        // process character powers
     }
 
 } 

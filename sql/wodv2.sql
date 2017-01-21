@@ -40,3 +40,12 @@ UPDATE characters set gameline = 'nwod';
 
 alter table character_powers add column is_public tinyint(1) UNSIGNED NOT NULL;
 alter table character_powers MODIFY column power_name varchar(255) not null;
+alter table character_powers add column extra text not null;
+
+alter table characters modify column virtue varchar(100), modify column vice varchar(100);
+alter table characters add column slug varchar(255) not null;
+alter table character_powers modify column is_public tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  modify column extra text;
+
+alter table characters modify column is_suspended tinyint(1) not null default 0;
+alter table characters add index (slug);
