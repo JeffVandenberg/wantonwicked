@@ -1,0 +1,26 @@
+{
+  "name": "wantonwicked",
+  "version": "5.0.0",
+  "description": "Wanton Wicked Site Codebase",
+  "main": "/app/webroot/index.php",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeffVandenberg/wantonwicked.git"
+  },
+  "author": "Jeff Vandenberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeffVandenberg/wantonwicked/issues"
+  },
+  "homepage": "https://github.com/JeffVandenberg/wantonwicked#readme",
+  "dependencies": {
+    "foundation-sites": "^6.2.0",
+    "grunt": "~1.0.0"
+  }
+}

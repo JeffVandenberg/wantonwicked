@@ -31,7 +31,6 @@ if(Request::isPost()) {
     $powers = $oldCharacter->CharacterPower;
 
     // determine what type of update
-    $viewed_sheet = false;
     $characterSheetHelper->UpdateSt($_POST, $oldCharacter, $userdata);
 }
 

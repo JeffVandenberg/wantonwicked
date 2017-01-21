@@ -1,4 +1,5 @@
 <?php
+use classes\character\data\Character;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
@@ -7,8 +8,7 @@ use classes\core\repository\RepositoryManager;
 
 /* @var array $userdata */
 
-$contentHeader = "Characters";
-$page_title = "Wanton Wicked Chat Interface";
+$page_title = $contentHeader = "Player Dashboard";
 
 if (!UserdataHelper::IsLoggedIn($userdata)) {
     Response::redirect('/', 'You are not logged in');
@@ -21,87 +21,102 @@ $id = $userdata['user_id'];
 if (UserdataHelper::IsAdmin($userdata)) {
     $id = Request::getValue('u', $id);
 }
-$characters = $characterRepository->ListCharactersByPlayerId($id);
+$characters = $characterRepository->listForDashboard($id);
+/* @var Character[] $characters */
 
 ob_start();
 ?>
-    <div class="callout-navigation">
-        <a href="view_sheet.php?action=create_xp" target="_blank" class="button add">New Character</a>
-        <a href="/chat" target="_blank" class="button">Log in OOC</a>
-        <a href="/view_sheet.php?action=view_other_xp" target="viewother" class="button view">View Another Character
-            Sheet</a>
-        <a href="/dieroller.php?action=ooc" target="ooc_dieroller" class="button">OOC Die Roller</a>
-        <a href="/dieroller.php?action=custom" target="_blank" class="button">Side Game Die Roller</a>
-    </div>
-
-	<div class="h2"> Characters</div>
-<?php if (count($characters) > 0): ?>
-    <table>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Sanctioned
-            </th>
-            <th>
-                Updated By
-            </th>
-            <th>
-                Updated On
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-        <?php foreach ($characters as $character): ?>
-            <tr>
-                <td>
-                    <?php echo $character['character_name']; ?>
-                </td>
-                <td>
-                    <?php if ($character['is_sanctioned'] == 'Y'): ?>
-                        Sanctioned
-                    <?php elseif ($character['is_sanctioned'] == 'N'): ?>
-                        Unsanctioned
-                    <?php else: ?>
-                        New
-                    <?Php endif; ?>
-                </td>
-                <td>
-                    <?php echo $character['updated_by_name']; ?>
-                </td>
-                <td>
-                    <?php echo $character['updated_on']; ?>
-                </td>
-                <td>
-                    <a href="/view_sheet.php?action=view_own_xp&character_id=<?php echo $character['id']; ?>"
-                       target="_blank" class="button view no-text">View Sheet for <?php echo $character['character_name']; ?>
-                    </a>
-                    <a href="/wiki/?n=Players.<?php echo $character['character_name']; ?>"
-                       target="_blank" class="button view no-text">View Profile for <?php echo $character['character_name']; ?>
-                    </a>
-                    <a href="/character.php?action=interface&character_id=<?php echo $character['id']; ?>"
-                       target="_blank" class="button gear no-text">Interface for <?php echo $character['character_name']; ?>
-                    </a>
-                    <a href="/chat?character_id=<?php echo $character['id']; ?>" target="_blank"
-                        class="button chat no-text">Chat as <?php echo $character['character_name']; ?>
-                    </a>
-                    <a href="/chat.php?action=delete&character_id=<?php echo $character['id']; ?>"
-                       class="delete-link button delete no-text">Delete <?php echo $character['character_name']; ?>
-                    </a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-<?php else: ?>
-    <div class="paragraph">
-        You have no characters currently.
-    </div>
-<?php endif; ?>
-<h2>
-                Upcoming Scenes
-            </h2>
+    <div class="row">
+        <div class="small-12 medium-6 column">
+            <h3 class="float-left">
+                Characters
+            </h3>
+            <div class="button-group float-right">
+                <a class="button small">New</a>
+                <a class="button small hide-for-small-only">OOC Chat</a>
+            </div>
+            <?php if (count($characters) > 0): ?>
+                <table>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                    <?php foreach ($characters as $character): ?>
+                        <?php $identifier = ($character->Slug) ? $character->Slug : $character->Id; ?>
+                        <tr>
+                            <td>
+                                <?php if ($character->IsSanctioned == 'Y'): ?>
+                                    <div class="success badge has-tip" data-tooltip title="Sanctioned"><i
+                                                class="fi-check"></i></div>
+                                <?php elseif ($character->IsSanctioned == 'N'): ?>
+                                    <div class="alert badge has-tip" data-tooltip title="Desanctioned"><i
+                                                class="fi-x"></i></div>
+                                <?php else: ?>
+                                    <div class="badge has-tip" data-tooltip title="New"><i class="fi-x"></i></div>
+                                <?Php endif; ?>
+                                <?php echo htmlspecialchars($character->CharacterName); ?>
+                            </td>
+                            <td>
+                                <div class="button-group">
+                                    <a class="dropdown button arrow-only float-right" type="button"
+                                       data-toggle="<?php echo $character->Id; ?>-dropdown">
+                                        <span class="show-for-sr">Show menu</span>
+                                    </a>
+                                    <div class="dropdown-pane bottom" id="<?php echo $character->Id; ?>-dropdown"
+                                         data-dropdown data-auto-focus="true">
+                                        <ul class="vertical menu">
+                                            <li>
+                                                <a href="/characters/viewOwn/<?php echo $identifier; ?>"
+                                                   target="_blank">Sheet
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/wiki/?n=Players.<?php echo $character->CharacterName; ?>"
+                                                   target="_blank" class="">Profile
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/chat?character_id=<?php echo $character->Id; ?>"
+                                                   target="_blank"
+                                                   class="">Chat
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a href="/character.php?action=interface&character_id=<?php echo $character->Id; ?>"
+                                       target="_blank" class="button float-right">Interface
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php else: ?>
+                <div class="paragraph">
+                    You have no characters currently.
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="small-12 medium-6 column">
+            <div class="clearfix">
+                <h3 class="float-left">
+                    Active Requests
+                </h3>
+                <a class="button small float-right" href="/request.php">All Requests</a>
+            </div>
+            <div class="" style="">
+                No pending requests at the moment
+            </div>
+            <div class="clearfix">
+                <h3 class="float-left">
+                    Your Upcoming Scenes
+                </h3>
+                <a class="button small float-right" href="/scenes">Scene Calendar</a>
+            </div>
             <div style="padding-top:5px;">
                 <?php if (count($sceneSummary)): ?>
                     <table style="width:95%;">
@@ -118,7 +133,7 @@ ob_start();
                             </th>
                         </tr>
                         </thead>
-                        <?php foreach($sceneSummary as $row): ?>
+                        <?php foreach ($sceneSummary as $row): ?>
                             <tr>
                                 <td>
                                     <a href="/scenes/view/<?php echo $row['slug']; ?>"><?php echo $row['name']; ?></a>
@@ -137,17 +152,13 @@ ob_start();
                     You have no Upcoming Scenes.
                 <?php endif; ?>
             </div>
+        </div>
+    </div>
     <script>
         $(function () {
             $(".delete-link").click(function () {
                 return confirm('Are you sure you want to delete ' + $.trim($(this).closest('tr').find('td:first').text()) + '?');
             });
-            $(".button.chat").button({
-                icons: {
-                    primary: 'ui-icon-comment'
-                },
-                text: false
-            })
         })
     </script>
 <?php

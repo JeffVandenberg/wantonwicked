@@ -1,10 +1,15 @@
 <?php
+use classes\character\data\Character;
+use \Character as CakeCharacter;
+use classes\character\nwod2\SheetService;
+use classes\character\repository\CharacterRepository;
+
 App::uses('AppController', 'Controller');
 
 /**
  * Characters Controller
  *
- * @property Character $Character
+ * @property CakeCharacter $Character
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
@@ -16,7 +21,9 @@ class CharactersController extends AppController
      *
      * @var array
      */
-    public $components = array();
+    public $components = [
+        'Flash'
+    ];
 
     public function beforeFilter()
     {
@@ -99,13 +106,15 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes'));
     }
 
-    public function isAuthorized($user)
+    public function isAuthorized()
     {
         switch ($this->request->params['action']) {
             case 'admin_goals':
                 return $this->Permissions->IsST();
                 break;
             case 'add':
+            case 'validateName':
+            case 'viewOwn':
                 return $this->Auth->user();
                 break;
         }
@@ -139,6 +148,50 @@ class CharactersController extends AppController
         $this->set('character', $this->Character->find('first', $options));
     }
 
+    public function viewOwn($slug)
+    {
+        $sheetService = new SheetService();
+        $character = $sheetService->loadSheet($slug);
+        /* @var Character $character */
+        if(!$character) {
+            throw new NotFoundException(__('Invalid character'));
+        }
+
+        if($character->UserId !== $this->Auth->user('user_id') && !($this->Permissions->IsAdmin())) {
+            $this->Flash->set('Unauthorized Access');
+            $this->redirect('/');
+            return;
+        }
+
+        $options = [
+            'show_admin' => false,
+            'edit_mode' => 'limited', // other values "open", "none"
+        ];
+        if($character->IsSanctioned !== '') {
+            $options['edit_mode'] = 'limited';
+        }
+
+        if($this->request->is('post'))
+        {
+            // save update
+            $updatedData = $this->request->data;
+            $updatedData['slug'] = Inflector::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
+
+            $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
+
+            if(is_string($result)) {
+                $this->Flash->set($result);
+                $this->set('data', $character);
+            } else {
+                $this->Flash->set('Updated '. $updatedData['character_name'] . '.');
+                $this->redirect('/chat.php');
+            }
+
+        }
+
+        $this->set(compact('character', 'options'));
+
+    }
     /**
      * add method
      *
@@ -147,16 +200,45 @@ class CharactersController extends AppController
     public function add()
     {
         if ($this->request->is('post')) {
-            $this->Character->create();
-            if ($this->Character->save($this->request->data)) {
-                $this->Flash->set(__('The character has been saved.'));
+            $character = $this->request->data;
+            $character['slug'] = Inflector::slug($character['city'] . ' ' . $character['character_name']);
+            $sheetService = new SheetService();
+            $options = [];
 
-                $this->redirect(array('action' => 'index'));
-                return null;
+            $result = $sheetService->saveSheet($character, $options, $this->Auth->user());
+
+            if(is_string($result)) {
+                $this->Flash->set($result);
+                $this->set('data', $character);
             } else {
-                $this->Flash->set(__('The character could not be saved. Please, try again.'));
+                $this->Flash->set('Created '. $character['character_name'] . '.');
+                $this->redirect('/chat.php');
             }
+        } else {
+            $character = new Character();
+            $character->initializeNew();
+            $this->set('character', $character);
         }
+    }
+
+    public function validateName()
+    {
+        $id = $this->request->query['id'];
+        $characterName = $this->request->query['name'];
+        $city = $this->request->query['city'];
+
+        $data = [
+            'success' => false,
+            'in_use' => true
+        ];
+
+        if($characterName && $city) {
+            $data['in_use'] = $this->Character->findNameUsedInCity($id, $characterName, $city);
+            $data['success'] = true;
+        }
+
+        $this->autoRender = false;
+        return json_encode($data);
     }
 
     /**
@@ -198,7 +280,8 @@ class CharactersController extends AppController
         if (!$this->Character->exists()) {
             throw new NotFoundException(__('Invalid character'));
         }
-        $this->request->onlyAllow('post', 'delete');
+        $this->request->allowMethod(['post', 'delete']);
+
         if ($this->Character->delete()) {
             $this->Flash->set(__('The character has been deleted.'));
         } else {

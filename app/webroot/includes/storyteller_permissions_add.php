@@ -124,16 +124,12 @@ ob_start();
         $(function () {
             $(function () {
                 $("#login-name").autocomplete({
-                    source: '/users.php?action=search&email=0',
-                    minLength: 2,
-                    autoFocus: true,
-                    focus: function () {
-                        return false;
-                    },
-                    select: function (e, ui) {
-                        $("#user-id").val(ui.item.value);
-                        console.debug(ui);
-                        $("#login-name").val(ui.item.label);
+                    serviceUrl: '/users.php?action=search&email=0',
+                    minChars: 2,
+                    autoSelectFirst: true,
+                    onSelect: function(ui) {
+                        $("#user-id").val(ui.data);
+                        $("#login-name").val(ui.value);
                         return false;
                     }
                 });
