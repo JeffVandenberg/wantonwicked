@@ -65,6 +65,15 @@ class CharacterHelper extends AppHelper
         "Dead" => "Dead"
     ];
 
+    private $games = [
+        'portland' => 'Portland, OR'
+    ];
+
+    private $options = [
+        'edit_mode' => 'none',
+        'show_admin' => 'false'
+    ];
+
 
     function __construct(View $view, $settings = [])
     {
@@ -74,12 +83,14 @@ class CharacterHelper extends AppHelper
         $this->skillList = array_combine($keys, $list);
     }
 
-    public function edit(Character $character = null)
+    public function render(Character $character = null, $options = null)
     {
         if ($character == null) {
             $character = new Character();
             $character->initializeNew();
         }
+
+        $this->options = array_merge($this->options, $options);
 
         $character->CharacterType = ($character->CharacterType) ? strtolower($character->CharacterType) : "mortal";
         $bio = $this->buildBioEdit($character);
@@ -87,7 +98,7 @@ class CharacterHelper extends AppHelper
         $powers = $this->buildPowersSection($character);
         $derived = $this->buildDerivedSection($character);
         $equipment = $this->buildEquipmentSection($character);
-        $admin = $this->buildAdminSection($character);
+        $admin = ($this->options['show_admin']) ? $this->buildAdminSection($character) : '';
 
         ob_start();
         ?>
@@ -120,9 +131,11 @@ class CharacterHelper extends AppHelper
                     </div>
                 </div>
             </li>
-            <li class="accordion-item">
-                <?php echo $admin; ?>
-            </li>
+            <?php if ($this->options['show_admin']): ?>
+                <li class="accordion-item">
+                    <?php echo $admin; ?>
+                </li>
+            <?php endif; ?>
         </ul>
         <div class="row callout">
             <div class="medium-2 column">Current XP</div>
@@ -194,15 +207,17 @@ class CharacterHelper extends AppHelper
                     <label for="chronicle">Chronicle</label>
                 </div>
                 <div class="medium-3 columns">
-                    <select id="chronicle">
-                        <option value="ww5">Portland, OR</option>
-                    </select>
+                    <?php echo $this->Form->select('city', $this->games, [
+                        'label' => false,
+                        'value' => $character->City,
+                        'empty' => false
+                    ]); ?>
                 </div>
                 <div class="medium-1 columns medium-offset-4">
-                    <label for="character_age">Age</label>
+                    <label for="apparent_age">Age</label>
                 </div>
                 <div class="medium-3 columns">
-                    <?php echo $this->Form->input('character_age', [
+                    <?php echo $this->Form->input('apparent_age', [
                         'value' => $character->Age,
                         'placeholder' => 'Age (Apparent)',
                         'label' => false,
@@ -212,11 +227,11 @@ class CharacterHelper extends AppHelper
             </div>
             <div class="row">
                 <div class="medium-1 columns">
-                    <label for="character_concept">Concept</label>
+                    <label for="concept">Concept</label>
                 </div>
                 <div class="medium-11 columns">
                     <?php
-                    echo $this->Form->input('character_concept', [
+                    echo $this->Form->input('concept', [
                         'value' => $character->Concept,
                         'placeholder' => 'Character Concept',
                         'label' => false
@@ -287,14 +302,14 @@ class CharacterHelper extends AppHelper
             <div class="row">
                 <div class="small-12 column">
                     <table class="stack" id="aspirations">
-                        <?php foreach ($character->getPowerList('aspiration') as $power): ?>
+                        <?php foreach ($character->getPowerList('aspiration') as $i => $power): ?>
                             <tr>
                                 <td>
-                                    <?php echo $this->Form->input('aspiration..name', [
+                                    <?php echo $this->Form->input('aspiration.' . $i . '.name', [
                                         'label' => false,
                                         'value' => $power->PowerName
                                     ]); ?>
-                                    <?php echo $this->Form->hidden('aspiration..id', [
+                                    <?php echo $this->Form->hidden('aspiration.' . $i . '.id', [
                                         'value' => $power->Id
                                     ]); ?>
                                 </td>
@@ -535,15 +550,15 @@ class CharacterHelper extends AppHelper
                     <?php foreach ($character->getPowerList('specialty') as $i => $specialty): ?>
                         <div class="row">
                             <div class="small-5 medium-5 column">
-                                <?php echo $this->Form->select('specialty.' . '.skill', $this->skillList, [
+                                <?php echo $this->Form->select('specialty.' . $i . '.name', $this->skillList, [
                                     'value' => $specialty->PowerName
                                 ]); ?>
                             </div>
                             <div class="small-6 medium-6 column">
-                                <?php echo $this->Form->hidden('specialty.' . '.id', [
+                                <?php echo $this->Form->hidden('specialty.' . $i . '.id', [
                                     'value' => $specialty->Id
                                 ]); ?>
-                                <?php echo $this->Form->input('speciality.' . '.specialty', [
+                                <?php echo $this->Form->input('specialty.' . $i . '.note', [
                                     'value' => $specialty->PowerNote,
                                     'label' => false
                                 ]); ?>
@@ -597,10 +612,10 @@ class CharacterHelper extends AppHelper
                                 <th>Public</th>
                             </tr>
                             </thead>
-                            <?php foreach ($character->getPowerList('merit') as $power): ?>
+                            <?php foreach ($character->getPowerList('merit') as $i => $power): ?>
                                 <tr>
                                     <td>
-                                        <?php echo $this->Form->input('merit..name', [
+                                        <?php echo $this->Form->input('merit.' . $i . '.name', [
                                             'value' => $power->PowerName,
                                             'placeholder' => 'Merit Name',
                                             'label' => false,
@@ -609,7 +624,7 @@ class CharacterHelper extends AppHelper
                                         ]); ?>
                                     </td>
                                     <td>
-                                        <?php echo $this->Form->input('merit..note', [
+                                        <?php echo $this->Form->input('merit.' . $i . '.note', [
                                             'label' => false,
                                             'value' => $power->PowerNote,
                                             'placeholder' => 'Merit Note'
@@ -617,17 +632,17 @@ class CharacterHelper extends AppHelper
                                     </td>
                                     <td>
                                         <label class="hide-for-large-only">Level</label>
-                                        <?php echo $this->Form->select('merit..level', range(0, $this->maxDots, [
+                                        <?php echo $this->Form->select('merit.' . $i . '.level', range(0, $this->maxDots, [
                                             'label' => false,
                                             'value' => $power->PowerLevel
                                         ])); ?>
-                                        <?php echo $this->Form->hidden('merit..id', [
+                                        <?php echo $this->Form->hidden('merit.' . $i . '.id', [
                                             'value' => $power->Id
                                         ]); ?>
                                     </td>
                                     <td>
                                         <label class="show-for-small-only">Is Public</label>
-                                        <?php echo $this->Form->checkbox('merit..is_public', [
+                                        <?php echo $this->Form->checkbox('merit.' . $i . '.is_public', [
                                             'label' => false,
                                             'value' => $power->IsPublic
                                         ]); ?>
@@ -656,10 +671,10 @@ class CharacterHelper extends AppHelper
                                 <th>Public</th>
                             </tr>
                             </thead>
-                            <?php foreach ($character->getPowerList('miscPower') as $power): ?>
+                            <?php foreach ($character->getPowerList('miscPower') as $i => $power): ?>
                                 <tr>
                                     <td>
-                                        <?php echo $this->Form->input('misc_power..name', [
+                                        <?php echo $this->Form->input('misc_power.' . $i . '.name', [
                                             'value' => $power->PowerName,
                                             'label' => false,
                                             'placeholder' => 'Misc Name',
@@ -668,7 +683,7 @@ class CharacterHelper extends AppHelper
                                         ]); ?>
                                     </td>
                                     <td>
-                                        <?php echo $this->Form->input('misc_power..note', [
+                                        <?php echo $this->Form->input('misc_power.' . $i . '.note', [
                                             'value' => $power->PowerNote,
                                             'label' => false,
                                             'placeholder' => 'Misc Note'
@@ -676,18 +691,18 @@ class CharacterHelper extends AppHelper
                                     </td>
                                     <td>
                                         <label class="hide-for-large-only">Level</label>
-                                        <?php echo $this->Form->input('misc_power..level', [
+                                        <?php echo $this->Form->input('misc_power.' . $i . '.level', [
                                             'placeholder' => 'Misc Level',
                                             'label' => false,
                                             'value' => $power->PowerLevel
                                         ]); ?>
-                                        <?php echo $this->Form->hidden('misc-power..id', [
+                                        <?php echo $this->Form->hidden('misc_power.' . $i . '.id', [
                                             'value' => $power->Id
                                         ]); ?>
                                     </td>
                                     <td>
                                         <label class="hide-for-large-only">Is Public</label>
-                                        <?php echo $this->Form->checkbox('misc_power..is_public', [
+                                        <?php echo $this->Form->checkbox('misc_power.' . $i . '.is_public', [
                                             'label' => false,
                                             'value' => $power->IsPublic
                                         ]); ?>
@@ -716,8 +731,8 @@ class CharacterHelper extends AppHelper
         </a>
         <div id="csheet-equipment" class="accordion-content" role="tabpanel" data-tab-content
              aria-labelledby="csheet-equipment-heading">
-            <button id="add-equipment-button" class="success button"><i class="fi-plus"></i> Add Equipment</button>
-            <table id="equipment-table" class="stack">
+            <a id="add-equipment-button" class="success button" href="#"><i class="fi-plus"></i> Add Equipment</a>
+            <table id="equipment" class="stack">
                 <thead>
                 <tr>
                     <th>Equipment</th>
@@ -727,24 +742,24 @@ class CharacterHelper extends AppHelper
                     <th></th>
                 </tr>
                 </thead>
-                <?php foreach ($character->getPowerList('equipment') as $power): ?>
+                <?php foreach ($character->getPowerList('equipment') as $i => $power): ?>
                     <tr>
                         <td>
-                            <?php echo $this->Form->input('equipment.' . '.name', [
+                            <?php echo $this->Form->input('equipment.' . $i . '.name', [
                                 'label' => false,
                                 'placeholder' => 'Equipment',
                                 'value' => $power->PowerName
                             ]); ?>
                         </td>
                         <td>
-                            <?php echo $this->Form->input('equipment.' . '.bonus', [
+                            <?php echo $this->Form->input('equipment.' . $i . '.bonus', [
                                 'label' => false,
                                 'placeholder' => 'Bonus',
                                 'value' => $power->Extra['bonus']
                             ]); ?>
                         </td>
                         <td>
-                            <?php echo $this->Form->input('equipment.' . '.note', [
+                            <?php echo $this->Form->input('equipment.' . $i . '.note', [
                                 'label' => false,
                                 'width' => 100,
                                 'placeholder' => 'Note',
@@ -753,12 +768,12 @@ class CharacterHelper extends AppHelper
                         </td>
                         <td>
                             <label class="hide-for-large-only">Is Public</label>
-                            <?php echo $this->Form->checkbox('equipment.' . '.is_public', [
+                            <?php echo $this->Form->checkbox('equipment.' . $i . '.is_public', [
                                 'label' => false,
                                 'value' => 1,
                                 'checked' => $power->IsPublic
                             ]); ?>
-                            <?php echo $this->Form->hidden('equipment.' . '.id', [
+                            <?php echo $this->Form->hidden('equipment.' . $i . '.id', [
                                 'value' => $power->Id
                             ]); ?>
                         </td>
@@ -947,18 +962,18 @@ class CharacterHelper extends AppHelper
             </div>
             <div class="row">
                 <div class="small-12 column subheader">
-                    Morality
+                    Break Points
                 </div>
             </div>
             <div class="row">
-                <?php foreach ($character->getPowerList('morality') as $i => $power): ?>
+                <?php foreach ($character->getPowerList('break_point') as $i => $power): ?>
                     <div class="small-12 column">
                         <div>
-                            <?php echo $this->Language->translate('morality' . $i, $character->CharacterType); ?>
+                            <?php echo $this->Language->translate('break_point' . $i, $character->CharacterType); ?>
                         </div>
-                        <?php echo $this->Form->hidden('morality.' . $i . '.name', ['value' => 'worst_action']); ?>
-                        <?php echo $this->Form->hidden('morality.' . $i . '.id', ['value' => $power->Id]); ?>
-                        <?php echo $this->Form->textarea('morality.' . $i . '.explanation', [
+                        <?php echo $this->Form->hidden('break_point.' . $i . '.name', ['value' => 'break_point' . $i]); ?>
+                        <?php echo $this->Form->hidden('break_point.' . $i . '.id', ['value' => $power->Id]); ?>
+                        <?php echo $this->Form->textarea('break_point.' . $i . '.explanation', [
                             'value' => $power->Extra['explanation'],
                             'label' => false,
                             'rows' => 3

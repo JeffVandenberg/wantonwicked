@@ -17,6 +17,10 @@ use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\request\repository\RequestRepository;
 
+/**
+ * Class CharacterRepository
+ * @package classes\character\repository
+ */
 class CharacterRepository extends AbstractRepository
 {
 
@@ -391,7 +395,7 @@ EOQ;
         return ($row['HitCount'] > 0);
     }
 
-    public function isNameInUse($character_name, $character_id)
+    public function isNameInUse($character_name, $character_id, $city = 'savannah')
     {
         $str_to_find = array("'", "\"");
         $str_to_replace = array("-", "-");
@@ -412,12 +416,44 @@ FROM
 WHERE
     character_name = ?
     AND id != ?
+    AND city = ?
 EOQ;
         $params = array(
             $character_name,
-            $character_id
+            $character_id,
+            $city
         );
 
         return ($this->query($sql)->value($params) > 0);
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function listForDashboard($userId)
+    {
+        $sql = <<<SQL
+SELECT
+  *
+FROM
+  characters
+WHERE
+  user_id = ?
+  AND is_deleted = 'N'
+  AND city = 'portland'
+ORDER BY
+  is_sanctioned DESC,
+  character_name
+SQL;
+
+        $params = [$userId];
+
+        $rows = [];
+        foreach($this->query($sql)->all($params) as $row) {
+            $rows[] = $this->populateObject($row);
+        }
+
+        return $rows;
     }
 }

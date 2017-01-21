@@ -11,11 +11,11 @@ class LanguageHelper extends AppHelper
     private $translations = [
         'mortal' => [
             'splat1' => 'Guild',
-            'morality0' => 'What is the worst thing your character has ever done?',
-            'morality1' => 'What is the worst thing your character can imagine themselves doing?',
-            'morality2' => 'What is the worst thing your character can imagine someone else doing?',
-            'morality3' => 'What has the character forgotten?',
-            'morality4' => 'What is the most traumatic thing that has ever happened to the character?'
+            'break_point0' => 'What is the worst thing your character has ever done?',
+            'break_point1' => 'What is the worst thing your character can imagine themselves doing?',
+            'break_point2' => 'What is the worst thing your character can imagine someone else doing?',
+            'break_point3' => 'What has the character forgotten?',
+            'break_point4' => 'What is the most traumatic thing that has ever happened to the character?'
         ]
     ];
 
