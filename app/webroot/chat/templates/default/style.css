@@ -577,8 +577,7 @@ body
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #666666;
-    background: #666666 url(../../images/copyright.gif) no-repeat;
+    background: url(../../images/copyright.gif) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
@@ -591,8 +590,7 @@ body
 	float: left;
 	cursor:pointer;
 	
-	border: 1px solid #CCCCCC;
-    background: #666666 url(../../images/copyright.gif) no-repeat;
+    background: url(../../images/copyright.gif) no-repeat;
     -moz-border-radius: 3px;
 	border-radius: 3px;		
 }
