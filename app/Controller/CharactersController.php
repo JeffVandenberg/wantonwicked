@@ -221,8 +221,9 @@ class CharactersController extends AppController
         } else {
             $character = new Character();
             $character->initializeNew();
-            $this->set(compact('character', 'options'));
+            $this->set(compact('character'));
         }
+        $this->set('options', $options);
     }
 
     public function validateName()

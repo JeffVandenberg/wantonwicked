@@ -85,19 +85,21 @@ class SheetService
             return $result;
         }
 
-        // log xp change
-        if ($stats['xp_spent'] > 0) {
-            CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
-        }
-        if ($stats['xp_gained'] > 0) {
-            CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Added ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
-        }
+        if(false) {//$oldCharacter->Id) {
+            // log xp change
+            if ($stats['xp_spent'] > 0) {
+                CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
+            }
+            if ($stats['xp_gained'] > 0) {
+                CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Added ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
+            }
 
-        // log character differences
-        RepositoryManager::ClearCache();
-        $newCharacter = $this->repository->getById($stats['character_id']);
-        /* @var Character $newCharacter */
-        $this->logChanges($newCharacter, $oldCharacter, $user);
+            // log character differences
+            RepositoryManager::ClearCache();
+            $newCharacter = $this->repository->getById($stats['character_id']);
+            /* @var Character $newCharacter */
+            $this->logChanges($newCharacter, $oldCharacter, $user);
+        }
 
         return true;
     }
@@ -180,6 +182,7 @@ class SheetService
         $character->BonusReceived = 0;
         $character->GmNotes = '';
         $character->SheetUpdate = '';
+        $character->MiscPowers = '';
 
         if (!$character->Id) {
             $character->UserId = $user['user_id'];
