@@ -165,7 +165,7 @@ class CharactersController extends AppController
 
         $options = [
             'show_admin' => false,
-            'edit_mode' => 'limited', // other values "open", "none"
+            'edit_mode' => 'open', // other values "open", "none"
         ];
         if($character->IsSanctioned !== '') {
             $options['edit_mode'] = 'limited';
@@ -199,11 +199,15 @@ class CharactersController extends AppController
      */
     public function add()
     {
+        $options = [
+            'show_admin' => false,
+            'edit_mode' => 'open', // other values "open", "none"
+        ];
+
         if ($this->request->is('post')) {
             $character = $this->request->data;
             $character['slug'] = Inflector::slug($character['city'] . ' ' . $character['character_name']);
             $sheetService = new SheetService();
-            $options = [];
 
             $result = $sheetService->saveSheet($character, $options, $this->Auth->user());
 
@@ -217,7 +221,7 @@ class CharactersController extends AppController
         } else {
             $character = new Character();
             $character->initializeNew();
-            $this->set('character', $character);
+            $this->set(compact('character', 'options'));
         }
     }
 
