@@ -93,7 +93,7 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
 $character_types = array("Mortal", "Ghoul", "Vampire", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker", "Psychic", "Thaumaturge", "Promethean", "Changeling", "Hunter", "Geist");
 $characterTypes = ArrayTools::array_valuekeys($character_types);
 sort($character_types);
-$cities = array("Savannah", "San Diego", "The City", "Side Game");
+$cities = array("portland", "Savannah", "San Diego", "The City", "Side Game");
 $cities = ArrayTools::array_valuekeys($cities);
 
 $splat1 = array(

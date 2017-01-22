@@ -36,7 +36,7 @@ class CharactersController extends AppController
             ));
     }
 
-    public function city($city = 'Savannah')
+    public function city($city = 'portland')
     {
         $this->set('characters', $this->Character->ListByCity($city));
     }
@@ -54,7 +54,7 @@ class CharactersController extends AppController
             'limit' => 30,
             'conditions' => array(
                 'Character.is_sanctioned' => 'Y',
-                'Character.city' => 'Savannah',
+                'Character.city' => 'portland',
                 'Character.is_deleted' => 'N'
             ),
             'order' => 'Character.character_name',
@@ -83,7 +83,7 @@ class CharactersController extends AppController
             'limit' => 30,
             'conditions' => array(
                 'Character.is_sanctioned' => 'Y',
-                'Character.city' => 'Savannah',
+                'Character.city' => 'portland',
                 'Character.is_deleted' => 'N'
             ),
             'order' => 'Character.character_name',

@@ -61,7 +61,7 @@ class Character extends AppModel
         $conditions = array(
             'Character.is_sanctioned' => 'Y',
             'Character.is_deleted' => 'N',
-            'Character.city' => 'Savannah'
+            'Character.city' => 'portland'
         );
 
         if ($type != 'All') {

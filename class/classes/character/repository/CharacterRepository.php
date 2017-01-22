@@ -395,7 +395,7 @@ EOQ;
         return ($row['HitCount'] > 0);
     }
 
-    public function isNameInUse($character_name, $character_id, $city = 'savannah')
+    public function isNameInUse($character_name, $character_id, $city = 'portland')
     {
         $str_to_find = array("'", "\"");
         $str_to_replace = array("-", "-");
