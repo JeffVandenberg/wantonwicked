@@ -122,7 +122,7 @@ wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
         <span><a href="/wiki/index.php?n=City.City#city" target="_new">Complete list of Districts</a><br>
         <br></span>
             <span><?php echo C_LANG129;?> <span title="Use () to designate a district location for the room, like (HD). Use [] if the room is located in another world, like [Hedge]."><img src="/chat/images/menu/help_small.png" height="15px"></span><input class="roomInput" type="text" id="roomName" name="roomName" value=""></span>
-        <!--<span><select name="room_type_id" id="room_type_id"><option value="1">General</option><option value="5">Changeling</option><option value="6">Geist</option><option value="3">Mage</option><option value="8">Mortal</option><option value="2">Vampire</option><option value="4">Werewolf</option><option value="7">ST Scene (ST only)</option></select></span>-->
+        <!--<span><select name="room_type_id" id="room_type_id"><option value="1">General</option><option value="5">Changeling</option><option value="3">Mage</option><option value="8">Mortal</option><option value="2">Vampire</option><option value="4">Werewolf</option><option value="7">ST Scene (ST only)</option></select></span>-->
             <span><?php echo C_LANG130;?><input class="roomInput" type="text" id="roomPass" name="roomPass" value=""></span>
                         <br><br>
             <span><input class="roomButtons" type="button" name="roombutton" value="<?php echo C_LANG131;?>" onclick="addRoom();">&nbsp;<input class="roomButtons" type="button" name="" value="<?php echo C_LANG132;?>" onclick="newRoom('0');"></span>
