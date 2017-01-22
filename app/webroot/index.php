@@ -125,6 +125,8 @@ $user->session_begin();
 $auth->acl($user->data);
 $userdata = $user->data;
 
+require_once ROOT . '/vendor/autoload.php';
+
 $Dispatcher = new Dispatcher();
 $Dispatcher->dispatch(
 	new CakeRequest(),

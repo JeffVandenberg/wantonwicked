@@ -427,7 +427,7 @@ EOQ;
             );
 
             // location
-            $locations = array("Savannah", "San Diego", "The City", "Side Game");
+            $locations = array("portland", "Savannah", "San Diego", "The City", "Side Game");
             $city = FormHelper::Select(
                 ArrayTools::array_valuekeys($locations),
                 'city',

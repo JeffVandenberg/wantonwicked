@@ -16,7 +16,7 @@ class MainMenuHelper extends AppHelper
 
     public function Create($menu) {
         $renderedMenu = <<<EOQ
-<ul class='menu' id='main-menu'>
+<ul class="dropdown menu" id='main-menu' data-dropdown-menu>
 EOQ;
 
         $renderedMenu .= $this->AppendLevel($menu, true);
@@ -32,7 +32,7 @@ EOQ;
 
         if(!$firstLayer)
         {
-            $menuLevel .= '<ul>';
+            $menuLevel .= '<ul class="menu">';
         }
 
         foreach($menu as $label => $item) {

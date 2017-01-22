@@ -23,6 +23,8 @@ class CharacterPower extends DataModel
     public $PowerNote;
     public $PowerLevel;
     public $CharacterId;
+    public $IsPublic;
+    public $Extra;
 
     public $BelongsTo = array(
         'Character'

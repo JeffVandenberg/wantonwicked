@@ -73,7 +73,6 @@ if (isset($_GET['action'])) {
     include 'includes/chat_index.php';
 }
 
-
 /* @var twig $template */
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
@@ -86,6 +85,7 @@ $template->assign_vars(array(
         "CONTENT_HEADER" => $contentHeader,
         "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
         "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
+        "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../../build_number')
     )
 );
 

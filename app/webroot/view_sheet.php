@@ -7,7 +7,7 @@ use phpbb\request\request;
 use phpbb\template\twig\twig;
 use phpbb\user;
 
-
+die('this page is deprecated');
 include 'cgi-bin/start_of_page.php';
 
 // perform required includes

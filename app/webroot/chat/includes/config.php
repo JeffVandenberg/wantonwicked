@@ -171,7 +171,7 @@ $CONFIG['text'] = array();
 $CONFIG['text']['bold'] = '0'; 
 $CONFIG['text']['underline'] = '0'; 
 $CONFIG['text']['italic'] = '0'; 
-$CONFIG['text']['color'] = '#ddd';
+$CONFIG['text']['color'] = '#fff';
 $CONFIG['text']['size'] = '12px'; 
 $CONFIG['text']['family'] = 'verdana'; 
 

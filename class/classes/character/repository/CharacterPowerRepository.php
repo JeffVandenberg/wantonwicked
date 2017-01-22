@@ -18,7 +18,7 @@ class CharacterPowerRepository extends AbstractRepository
      */
     public function __construct()
     {
-        parent::__construct('\classes\Character\Data\CharacterPower');
+        parent::__construct('\classes\character\data\CharacterPower');
     }
 
     public function ListPowersForCharacter($characterId, $powerType, $orderBy)

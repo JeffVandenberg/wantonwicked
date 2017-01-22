@@ -1,0 +1,6 @@
+@import "settings";
+@import "../node_modules/foundation-sites/scss/foundation";
+@import "../node_modules/foundation-icons/foundation-icons";
+
+@include foundation-everything();
+@import "ww5";

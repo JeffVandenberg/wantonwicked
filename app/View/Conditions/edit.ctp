@@ -1,28 +1,49 @@
+<?php
+$condition = $this->request->data;
+$this->set('title_for_layout', 'Edit Condition: ' . $condition['Condition']['name']);
+?>
 <div class="conditions form">
-<?php echo $this->Form->create('Condition'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Condition'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('name');
-		echo $this->Form->input('source');
-		echo $this->Form->input('is_persistent');
-		echo $this->Form->input('description');
-		echo $this->Form->input('resolution');
-		echo $this->Form->input('beat');
-		echo $this->Form->input('created_by');
-		echo $this->Form->input('updated_by');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Condition.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('Condition.id')))); ?></li>
-		<li><?php echo $this->Html->link(__('List Conditions'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Created By'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->Form->create('Condition'); ?>
+	<div class="row">
+		<div class="column small-12 medium-4">
+			<?php echo $this->Form->input('name', ['placeholder' => 'Condition Name', 'label' => false]); ?>
+		</div>
+		<div class="column small-12 medium-4">
+			<?php echo $this->Form->input('source', ['placeholder' => 'Source (Book Name or Custom)', 'label' => false]); ?>
+		</div>
+        <div class="column small-12 medium-2">
+            <?php echo $this->Form->input('condition_type_id', ['label' => false]); ?>
+        </div>
+		<div class="column small-12 medium-2">
+			<?php echo $this->Form->input('is_persistent', ['label' => 'Persistent']); ?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column small-12">
+			<?php echo $this->Form->input('description', [
+					'class' => 'tinymce-textarea',
+					'placeholder' => 'Description',
+					'label' => false,
+				]
+			); ?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column small-12">
+			<?php echo $this->Form->input('resolution', ['placeholder' => 'How to resolve the Condition', 'label' => false]); ?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column small-12">
+			<?php echo $this->Form->input('beat', ['placeholder' => 'How to earn a beat', 'label' => false]); ?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column small-12 text-center">
+            <?php echo $this->Form->input('id'); ?>
+			<?php echo $this->Form->submit(__('Submit'), ['name' => 'action', 'div' => false]); ?>
+			<?php echo $this->Form->submit(__('Cancel'), ['name' => 'action', 'div' => false]); ?>
+		</div>
+	</div>
+	<?php echo $this->Form->end(); ?>
 </div>

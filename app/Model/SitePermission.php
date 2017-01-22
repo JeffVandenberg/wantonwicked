@@ -12,6 +12,10 @@ class SitePermission extends AppModel {
     public static $IsST = 3;
     public static $IsAsst = 4;
     public static $WikiManager = 5;
+    public static $ManageRequests = 6;
+    public static $ManageCharacters = 7;
+    public static $ManageScenes = 8;
+    public static $ManageDatabase = 9;
 
 	public $useTable = 'permissions';
 /**
