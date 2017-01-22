@@ -173,7 +173,7 @@ $characterInfo = <<<EOQ
 <table>
     <tr>
         <td colspan="2" align="center">
-            <a href="/view_sheet.php?action=view_own_xp&character_id=$characterId" target="_blank">View Sheet</a>
+            <a href="/characters/viewOwn/{$character->Slug}" target="_blank">View Sheet</a>
         </td>
     </tr>
     <tr>
