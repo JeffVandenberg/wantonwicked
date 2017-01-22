@@ -403,7 +403,7 @@ function optionsMenu(ndiv,nBar,nContainer,nWin, toUserId)
 	}
 
 	document.getElementById(ndiv).innerHTML += '<span alt="'+lang59+'" title="'+lang59+'" id="transcripts" class="iconTranscripts" onmouseover="this.className=\'iconTranscriptsOver\'" onmouseout="this.className=\'iconTranscripts\'" onclick=\'showInfoBox("viewTranscripts","400","600","100","index.php?transcripts=1&roomID="+roomID,"");\'></span>';
-	document.getElementById(ndiv).innerHTML += '<span alt="'+lang60+'" title="'+lang60+'" id="help" class="iconHelp" onmouseover="this.className=\'iconHelpOver\'" onmouseout="this.className=\'iconHelp\'" onclick=\'newWin("help/index.php")\'></span>';
+	document.getElementById(ndiv).innerHTML += '<span alt="'+lang60+'" title="'+lang60+'" id="help" class="iconHelp" onmouseover="this.className=\'iconHelpOver\'" onmouseout="this.className=\'iconHelp\'" onclick=\'newWin("http://wantonwicked.gamingsandbox.com/wiki/index.php?n=GameRef.Chat")\'></span>';
 
     if(hasSharePlugin) {
         document.getElementById(ndiv).innerHTML += '<span alt="'+lang62+'" title="'+lang62+'" id="share" class="iconShare" onmouseover="this.className=\'iconShareOver\'" onmouseout="this.className=\'iconShare\'" onclick=\'showInfoBox("shareFiles","280","300","260","plugins/share/","");\'></span>';
