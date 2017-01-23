@@ -207,9 +207,9 @@ class CharacterHelper extends AppHelper
                 'value' => $character->City,
                 'empty' => false
             ]);
-            $age = $this->Form->input('apparent_age', [
+            $age = $this->Form->input('age', [
                 'value' => $character->Age,
-                'placeholder' => 'Age (Apparent)',
+                'placeholder' => 'Age (True)',
                 'label' => false,
                 'empty' => false
             ]);

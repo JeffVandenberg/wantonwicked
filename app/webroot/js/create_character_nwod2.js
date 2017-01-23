@@ -79,8 +79,14 @@ $(function () {
 
     $(document).on('click', "#add-specialty", function () {
         var column = $("#specialty-column"),
-            lastRow = column.find('.row').last().clone();
-        $("input, select", lastRow).val('');
+            lastRow = column.find('.row').last().clone(),
+            count = column.find('.row').length;
+
+        $("input, select", lastRow).each(function() {
+            var currentName = $(this).attr('name');
+            $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count +"]"));
+            $(this).val('');
+        });
         lastRow.show();
         column.append(lastRow);
     });
