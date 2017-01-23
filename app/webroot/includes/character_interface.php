@@ -354,11 +354,11 @@ ob_start();
                 <div style="text-align: center;font-weight: bold;">
                     Widgets
                 </div>
-                <a href="http://www.accuweather.com/en/us/savannah-ga/31401/weather-forecast/446" class="aw-widget-legal">
+                <a href="http://www.accuweather.com/en/us/portland-or/97209/weather-forecast/350473" class="aw-widget-legal">
                     <!--
                     By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
                     -->
-                </a><div id="awcc1386293817605" class="aw-widget-current"  data-locationkey="446" data-unit="f" data-language="en-us" data-useip="false" data-uid="awcc1386293817605"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+                </a><div id="awcc1485189300293" class="aw-widget-current"  data-locationkey="350473" data-unit="f" data-language="en-us" data-useip="false" data-uid="awcc1485189300293"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
                 <!-- // Begin Current Moon Phase HTML (c) MoonConnection.com // -->
                 <div style="width:142px;margin: 0 auto;"><div style="padding:2px;background-color:#000000;border: 1px solid #000000"><div style="padding:15px;padding-bottom:5px;padding-top:11px;border: 1px solid #AFB2D8" align="center"><script language="JavaScript" type="text/javascript">var ccm_cfg = { pth:"http://www.moonmodule.com/cs/", fn:"ccm_v1.swf", lg:"en", hs:1, tf:"12hr", scs:0, df:"std", dfd:0, tc:"FFFFFF", bgc:"000000", mc:"000000", fw:104, fh:153, js:0, msp:0, u:"mc" }</script><script language="JavaScript" type="text/javascript" src="http://www.moonmodule.com/cs/ccm_fl.js"></script><div style="padding-top:5px" align="center"><a href="http://www.moonconnection.com/moon_cycle.phtml" target="mc_moon_ph" style="font-size:10px;font-family:arial,verdana,sans-serif;color:#7F7F7F;text-decoration:underline;background:#000000;border:none;"><span style="color:#7F7F7F">moon cycles</span></a></div></div></div></div><!-- // end moon phase HTML // -->
             </div>
