@@ -237,7 +237,10 @@ class Character extends DataModel
                 $this->powers[lcfirst($power->PowerType)][] = $power;
             }
         }
+    }
 
+    public function addMinPowersForEdit()
+    {
         $powerTypeList = [
             'specialty' => 1,
             'merit' => 1,
@@ -246,8 +249,8 @@ class Character extends DataModel
             'aspiration' => 1,
             'break_point' => 5
         ];
-        foreach($powerTypeList as $type => $min) {
-            if(count($this->getPowerList($type)) < $min) {
+        foreach ($powerTypeList as $type => $min) {
+            if (count($this->getPowerList($type)) < $min) {
                 $this->addList($min - count($this->getPowerList($type)), $type);
             }
         }
