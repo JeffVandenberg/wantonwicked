@@ -2967,12 +2967,12 @@ select {
   padding: 0.85em 1em;
   margin: 0 0 1rem 0;
   font-size: 0.9rem;
-  background-color: #2199e8;
+  background-color: #0E3B43;
   color: #fefefe; }
   [data-whatinput='mouse'] .button {
     outline: 0; }
   .button:hover, .button:focus {
-    background-color: #1583cc;
+    background-color: #0c3239;
     color: #fefefe; }
   .button.tiny {
     font-size: 0.6rem; }
@@ -2986,16 +2986,16 @@ select {
     margin-left: 0;
     margin-right: 0; }
   .button.primary {
-    background-color: #2199e8;
+    background-color: #0E3B43;
     color: #fefefe; }
     .button.primary:hover, .button.primary:focus {
-      background-color: #147cc0;
+      background-color: #0b2f36;
       color: #fefefe; }
   .button.secondary {
-    background-color: #777;
+    background-color: #3c6e71;
     color: #fefefe; }
     .button.secondary:hover, .button.secondary:focus {
-      background-color: #5f5f5f;
+      background-color: #30585a;
       color: #fefefe; }
   .button.success {
     background-color: #3adb76;
@@ -3016,25 +3016,25 @@ select {
       background-color: #da3116;
       color: #fefefe; }
   .button.hollow {
-    border: 1px solid #2199e8;
-    color: #2199e8; }
+    border: 1px solid #0E3B43;
+    color: #0E3B43; }
     .button.hollow, .button.hollow:hover, .button.hollow:focus {
       background-color: transparent; }
     .button.hollow:hover, .button.hollow:focus {
-      border-color: #0c4d78;
-      color: #0c4d78; }
+      border-color: #071e22;
+      color: #071e22; }
     .button.hollow.primary {
-      border: 1px solid #2199e8;
-      color: #2199e8; }
+      border: 1px solid #0E3B43;
+      color: #0E3B43; }
       .button.hollow.primary:hover, .button.hollow.primary:focus {
-        border-color: #0c4d78;
-        color: #0c4d78; }
+        border-color: #071e22;
+        color: #071e22; }
     .button.hollow.secondary {
-      border: 1px solid #777;
-      color: #777; }
+      border: 1px solid #3c6e71;
+      color: #3c6e71; }
       .button.hollow.secondary:hover, .button.hollow.secondary:focus {
-        border-color: #3c3c3c;
-        color: #3c3c3c; }
+        border-color: #1e3739;
+        color: #1e3739; }
     .button.hollow.success {
       border: 1px solid #3adb76;
       color: #3adb76; }
@@ -3057,19 +3057,19 @@ select {
     opacity: 0.25;
     cursor: not-allowed; }
     .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
-      background-color: #2199e8;
+      background-color: #0E3B43;
       color: #fefefe; }
     .button.disabled.primary, .button[disabled].primary {
       opacity: 0.25;
       cursor: not-allowed; }
       .button.disabled.primary:hover, .button.disabled.primary:focus, .button[disabled].primary:hover, .button[disabled].primary:focus {
-        background-color: #2199e8;
+        background-color: #0E3B43;
         color: #fefefe; }
     .button.disabled.secondary, .button[disabled].secondary {
       opacity: 0.25;
       cursor: not-allowed; }
       .button.disabled.secondary:hover, .button.disabled.secondary:focus, .button[disabled].secondary:hover, .button[disabled].secondary:focus {
-        background-color: #777;
+        background-color: #3c6e71;
         color: #fefefe; }
     .button.disabled.success, .button[disabled].success {
       opacity: 0.25;
@@ -3125,11 +3125,11 @@ select {
   font-size: 0.75rem;
   color: #fefefe;
   position: relative;
-  border: 1px solid #333333;
+  border: 1px solid #222222;
   border-bottom: 0; }
   :last-child:not(.is-active) > .accordion-title {
     border-radius: 0 0 0 0;
-    border-bottom: 1px solid #333333; }
+    border-bottom: 1px solid #222222; }
   .accordion-title:hover, .accordion-title:focus {
     background-color: #196a78; }
   .accordion-title::before {
@@ -3144,12 +3144,12 @@ select {
 .accordion-content {
   padding: 1rem;
   display: none;
-  border: 1px solid #333333;
+  border: 1px solid #222222;
   border-bottom: 0;
   background-color: #111111;
   color: #fefefe; }
   :last-child > .accordion-content:last-child {
-    border-bottom: 1px solid #333333; }
+    border-bottom: 1px solid #222222; }
 
 .is-accordion-submenu-parent > a {
   position: relative; }
@@ -3159,7 +3159,7 @@ select {
     width: 0;
     height: 0;
     border: inset 6px;
-    border-color: #2199e8 transparent transparent;
+    border-color: #0E3B43 transparent transparent;
     border-top-style: solid;
     border-bottom-width: 0;
     position: absolute;
@@ -3178,10 +3178,10 @@ select {
   font-size: 0.6rem;
   text-align: center;
   border-radius: 50%;
-  background: #2199e8;
+  background: #0E3B43;
   color: #fefefe; }
   .badge.secondary {
-    background: #777;
+    background: #3c6e71;
     color: #fefefe; }
   .badge.success {
     background: #3adb76;
@@ -3215,7 +3215,7 @@ select {
       top: 1px;
       opacity: 1; }
   .breadcrumbs a {
-    color: #2199e8; }
+    color: #0E3B43; }
     .breadcrumbs a:hover {
       text-decoration: underline; }
   .breadcrumbs .disabled {
@@ -3278,16 +3278,16 @@ select {
       .button-group.expanded .button:first-child:nth-last-child(6):last-child, .button-group.expanded .button:first-child:nth-last-child(6):first-child:nth-last-child(6) ~ .button:last-child {
         margin-right: -6px; }
   .button-group.primary .button {
-    background-color: #2199e8;
+    background-color: #0E3B43;
     color: #fefefe; }
     .button-group.primary .button:hover, .button-group.primary .button:focus {
-      background-color: #147cc0;
+      background-color: #0b2f36;
       color: #fefefe; }
   .button-group.secondary .button {
-    background-color: #777;
+    background-color: #3c6e71;
     color: #fefefe; }
     .button-group.secondary .button:hover, .button-group.secondary .button:focus {
-      background-color: #5f5f5f;
+      background-color: #30585a;
       color: #fefefe; }
   .button-group.success .button {
     background-color: #3adb76;
@@ -3339,9 +3339,9 @@ select {
   .callout > :last-child {
     margin-bottom: 0; }
   .callout.primary {
-    background-color: #42a8eb; }
+    background-color: #196a78; }
   .callout.secondary {
-    background-color: #8b8b8b; }
+    background-color: #4e8e92; }
   .callout.success {
     background-color: #58e08b; }
   .callout.warning {
@@ -3445,7 +3445,7 @@ select {
     margin-left: 1rem; }
   .menu .active > a {
     color: #fefefe;
-    background: #2199e8; }
+    background: #0E3B43; }
 
 .menu-text {
   font-weight: bold;
@@ -3534,7 +3534,7 @@ select {
     width: 0;
     height: 0;
     border: inset 6px;
-    border-color: transparent transparent transparent #2199e8;
+    border-color: transparent transparent transparent #0E3B43;
     border-left-style: solid;
     border-right-width: 0;
     position: absolute;
@@ -3548,7 +3548,7 @@ select {
   width: 0;
   height: 0;
   border: inset 6px;
-  border-color: transparent #2199e8 transparent transparent;
+  border-color: transparent #0E3B43 transparent transparent;
   border-right-style: solid;
   border-left-width: 0;
   border-left-width: 0;
@@ -3830,10 +3830,10 @@ select {
   white-space: nowrap;
   cursor: default;
   border-radius: 0;
-  background: #2199e8;
+  background: #0E3B43;
   color: #fefefe; }
   .label.secondary {
-    background: #777;
+    background: #3c6e71;
     color: #fefefe; }
   .label.success {
     background: #3adb76;
@@ -4064,7 +4064,7 @@ body {
       background: #e6e6e6; }
   .pagination .current {
     padding: 0.1875rem 0.625rem;
-    background: #2199e8;
+    background: #0E3B43;
     color: #fefefe;
     cursor: default; }
   .pagination .disabled {
@@ -4096,9 +4096,9 @@ body {
   margin-bottom: 1rem;
   border-radius: 0; }
   .progress.primary .progress-meter {
-    background-color: #2199e8; }
+    background-color: #0E3B43; }
   .progress.secondary .progress-meter {
-    background-color: #777; }
+    background-color: #3c6e71; }
   .progress.success .progress-meter {
     background-color: #3adb76; }
   .progress.warning .progress-meter {
@@ -4111,7 +4111,7 @@ body {
   display: block;
   width: 0%;
   height: 100%;
-  background-color: #2199e8; }
+  background-color: #0E3B43; }
 
 .progress-meter-text {
   position: absolute;
@@ -4157,14 +4157,14 @@ body {
   display: inline-block;
   width: 1.4rem;
   height: 1.4rem;
-  background-color: #2199e8;
+  background-color: #0E3B43;
   transition: all 0.2s ease-in-out;
   touch-action: manipulation;
   border-radius: 0; }
   [data-whatinput='mouse'] .slider-handle {
     outline: 0; }
   .slider-handle:hover {
-    background-color: #1583cc; }
+    background-color: #0c3239; }
   .slider-handle.is-dragging {
     transition: all 0s linear; }
 
@@ -4346,7 +4346,7 @@ html.is-reveal-open body {
     transform: translate3d(0, 0, 0);
     border-radius: 0; }
   input:checked ~ .switch-paddle {
-    background: #2199e8; }
+    background: #0E3B43; }
     input:checked ~ .switch-paddle::after {
       left: 2.25rem; }
   [data-whatinput='mouse'] input:focus ~ .switch-paddle {
@@ -4411,19 +4411,19 @@ table {
   thead,
   tbody,
   tfoot {
-    border: 1px solid #3d3d3d;
-    background-color: #333333; }
+    border: 1px solid #2d2d2d;
+    background-color: #222222; }
 
   caption {
     font-weight: bold;
     padding: 0.5rem 0.625rem 0.625rem; }
 
   thead {
-    background: #383838;
+    background: #282828;
     color: #cccccc; }
 
   tfoot {
-    background: #3d3d3d;
+    background: #2d2d2d;
     color: #cccccc; }
 
   thead tr,
@@ -4438,7 +4438,7 @@ table {
     text-align: left; }
 
   tbody tr:nth-child(even) {
-    background-color: #3d3d3d; }
+    background-color: #2d2d2d; }
   tbody th,
   tbody td {
     padding: 0.5rem 0.625rem 0.625rem; }
@@ -4461,13 +4461,13 @@ table.scroll {
   overflow-x: auto; }
 
 table.hover thead tr:hover {
-  background-color: #333333; }
+  background-color: #222222; }
 table.hover tfoot tr:hover {
-  background-color: #383838; }
+  background-color: #282828; }
 table.hover tbody tr:hover {
-  background-color: #2e2e2e; }
+  background-color: #1d1d1d; }
 table.hover tbody tr:nth-of-type(even):hover {
-  background-color: #212121; }
+  background-color: #101010; }
 
 .table-scroll {
   overflow-x: auto; }
@@ -4496,11 +4496,11 @@ table.hover tbody tr:nth-of-type(even):hover {
     background: transparent; }
 
 .tabs.primary {
-  background: #2199e8; }
+  background: #0E3B43; }
   .tabs.primary > li > a {
     color: #fefefe; }
     .tabs.primary > li > a:hover, .tabs.primary > li > a:focus {
-      background: #1893e4; }
+      background: #124b55; }
 
 .tabs-title {
   float: left; }
@@ -4540,7 +4540,7 @@ table.hover tbody tr:nth-of-type(even):hover {
   border-radius: 0;
   margin-bottom: 1rem; }
   .thumbnail:hover, .thumbnail:focus {
-    box-shadow: 0 0 6px 1px rgba(33, 153, 232, 0.5); }
+    box-shadow: 0 0 6px 1px rgba(14, 59, 67, 0.5); }
 
 .title-bar {
   background: #0a0a0a;

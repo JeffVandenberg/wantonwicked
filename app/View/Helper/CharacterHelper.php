@@ -126,7 +126,7 @@ class CharacterHelper extends AppHelper
         ?>
         <ul id="character-form-edit" class="accordion" data-accordion data-multi-expand="true"
             data-allow-all-closed="true">
-            <li class="accordion-item">
+            <li class="accordion-item is-active">
                 <?php echo $bio; ?>
             </li>
             <li class="accordion-item">
