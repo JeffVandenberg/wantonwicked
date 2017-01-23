@@ -3772,7 +3772,7 @@ select {
   left: 100%;
   min-width: 200px;
   z-index: 1;
-  background: #fefefe;
+  background: #0E3B43;
   border: 1px solid #cacaca; }
   .is-dropdown-submenu .is-dropdown-submenu-parent > a::after {
     right: 14px;
