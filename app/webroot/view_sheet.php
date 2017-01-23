@@ -9,6 +9,8 @@ use phpbb\user;
 
 include 'cgi-bin/start_of_page.php';
 
+die('send a message to Jeff saying what you did to see this page');
+
 // perform required includes
 define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './forum/';

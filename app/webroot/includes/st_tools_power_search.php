@@ -179,7 +179,7 @@ ob_start();
                         <?php echo $row['power_level']; ?>
                     </td>
                     <td>
-                        <a href="/view_sheet.php?action=st_view_xp&view_character_id=$row[id]">View</a>
+                        <a href="/characters/stView/<?php echo $row['id']; ?>">View</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

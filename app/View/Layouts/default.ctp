@@ -13,17 +13,17 @@
     <META NAME="copyright" content="(c) <?php echo date('Y'); ?> Jeff Vandenberg">
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
     <?php
-    echo $this->Html->css(array(
-        'app'
+    echo $this->Shrink->css(array(
+        'app.css'
     ));
 
-    echo $this->Html->script([
-        'jquery' . ((Configure::read('debug') == 0) ? '.min' : ''),
-        'jquery.autocomplete' . ((Configure::read('debug') == 0) ? '.min' : ''),
-        'tinymce/tinymce.min',
-        'server_time',
-        'foundation'. ((Configure::read('debug') == 0) ? '.min' : ''),
-        'wanton',
+    echo $this->Shrink->js([
+        'jquery' . ((Configure::read('debug') == 0) ? '.min' : '') . '.js',
+        'jquery.autocomplete' . ((Configure::read('debug') == 0) ? '.min' : '') . '.js',
+        'tinymce/tinymce.min' . '.js',
+        'server_time.js',
+        'foundation'. ((Configure::read('debug') == 0) ? '.min' : '') . '.js',
+        'wanton.js',
     ]);
 
     echo $this->fetch('meta');

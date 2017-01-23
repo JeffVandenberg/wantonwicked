@@ -69,8 +69,7 @@ ob_start();
             <td style="width:55%;text-align: center;">
                 <?php if (isset($user) && isset($characters)): ?>
                     The Characters attached to <?php echo $user['username']; ?>'s profile are:<br/>
-                    <form name="sanction" method="get" action="view_sheet.php" target="_blank">
-                        <?php echo FormHelper::Hidden('action', 'st_view_xp'); ?>
+                    <form name="sanction" method="get" action="/characters/stView" target="_blank">
                         <?php echo FormHelper::Select($characters, 'view_character_id'); ?>
                         <?php echo FormHelper::Button('button', 'View Character Sheet'); ?>
                     </form>

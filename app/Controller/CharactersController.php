@@ -198,21 +198,20 @@ class CharactersController extends AppController
 
     }
 
-    public function stView()
+    public function stView($characterId = null)
     {
+        $options = [
+            'show_admin' => true,
+            'edit_mode' => 'open', // other values "open", "none"
+        ];
+        $sheetService = new SheetService();
+
         if($this->request->is('post')) {
-            $options = [
-                'show_admin' => true,
-                'edit_mode' => 'open', // other values "open", "none"
-            ];
-
-            $sheetService = new SheetService();
-
             if($this->request->data['view_character_id']) {
-                // attempt to load the charactert
+                // attempt to load the character
                 $character = $sheetService->loadSheet($this->request->data['view_character_id']);
                 $character->addMinPowersForEdit();
-                $this->set(compact('character', 'options'));
+                $this->set(compact('character'));
             }
 
             if($this->request->data['character_id']) {
@@ -228,6 +227,11 @@ class CharactersController extends AppController
                 }
             }
         }
+        if($this->request->is('get')) {
+            $character = $sheetService->loadSheet($characterId);
+            $character->addMinPowersForEdit();
+            $this->set(compact('character'));
+        }
 
         $cities = [
             "portland" => 'Portland',
@@ -236,7 +240,7 @@ class CharactersController extends AppController
             "The City" => 'The City',
             "Side Game" => 'Side Game'
         ];
-        $this->set(compact('cities'));
+        $this->set(compact('cities', 'options'));
     }
     /**
      * add method

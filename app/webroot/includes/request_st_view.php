@@ -116,7 +116,7 @@ ob_start();
     <dl>
         <?php foreach ($requestCharacters as $character): ?>
             <dt>
-                <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $character->Character->Id; ?>" target="_blank"><?php echo $character->Character->CharacterName; ?></a>
+                <a href="/characters/stView/<?php echo $character->Character->Id; ?>" target="_blank"><?php echo $character->Character->CharacterName; ?></a>
                 - Primary :
                 <?php echo ($character->IsPrimary) ? 'Yes' : 'No'; ?>
             </dt>

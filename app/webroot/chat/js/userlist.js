@@ -539,7 +539,7 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
         if((admin && uID != targetUserId) || (moderator && uID != targetUserId))
         {
             // view sheet
-            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/view_sheet.php?action=st_view_xp&view_character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Sheet</span></div>";
+            newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/characters/stView/"+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Sheet</span></div>";
 
             // view requests
             newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick=newWin('/request.php?action=st_list&character_id="+userID+"') class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/tool.gif'><span style='padding-left:10px;'>View Requests</span></div>";

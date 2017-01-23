@@ -274,7 +274,7 @@ ob_start();
             <?php echo $character_detail['vice']; ?>
         </td>
         <td>
-            <a href="view_sheet.php?action=st_view_xp&view_character_id=<?php echo $character_detail['id']; ?>" target="">View</a>
+            <a href="/characters/stView/<?php echo $character_detail['id']; ?>" target="">View</a>
         </td>
     </tr>
     <?php endforeach; ?>

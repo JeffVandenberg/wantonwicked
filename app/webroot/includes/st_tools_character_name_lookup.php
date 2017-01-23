@@ -53,7 +53,7 @@ EOQ;
       $character_detail[character_type]
     </td>
     <td>
-      <a href="view_sheet.php?action=st_view_xp&view_character_id=$character_detail[id]">View Character</a>
+      <a href="/characters/stView/$character_detail[id]">View Character</a>
     </td>
   </tr>
 EOQ;

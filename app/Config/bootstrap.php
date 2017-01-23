@@ -107,5 +107,6 @@ CakeLog::config('error', array(
 ));
 CakePlugin::load([
 	'DebugKit',
-	'Tags'
+	'Tags',
+    'Shrink'
 ]);

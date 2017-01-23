@@ -77,7 +77,7 @@ class MenuComponent extends Component {
                 'link' => '#',
                 'submenu' => array(
                     'Lookup' => array(
-                        'link' => '/view_sheet.php?action=st_view_xp'
+                        'link' => '/characters/stView'
                     ),
                     'Partial Name Search' => array(
                         'link' => '/st_tools.php?action=character_name_lookup'

@@ -53,6 +53,7 @@ App::uses('CakeResponse', 'Network');
  * @property      TimeHelper $Time
  * @property      ViewBlock $Blocks
  * @property      CharacterHelper Character
+ * @property      ShrinkHelper Shrink
  */
 class View extends Object {
 

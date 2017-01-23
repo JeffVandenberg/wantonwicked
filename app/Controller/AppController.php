@@ -50,7 +50,8 @@ class AppController extends Controller {
         'Js' => array(
             'Jquery'
         ),
-        'MainMenu'
+        'MainMenu',
+        'Shrink.Shrink'
     );
 
     public function beforeFilter()

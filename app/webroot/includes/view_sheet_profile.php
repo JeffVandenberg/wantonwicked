@@ -20,7 +20,7 @@ $character_detail = Database::getInstance()->query($character_query)->single($ch
 if ($character_detail) {
     if (UserdataHelper::IsSt($userdata)) {
         // display character
-        Response::redirect('/view_sheet.php?action=st_view_xp&view_character_id=' . $character_detail['id']);
+        Response::redirect('/characters/stView/' . $character_detail['id']);
     } else {
         $profile_query = "select username from phpbb_users where user_id = ?";
 		$params = array(
