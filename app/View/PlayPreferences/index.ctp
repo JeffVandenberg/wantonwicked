@@ -63,12 +63,6 @@ $this->set('menu', $menu);
 <script>
     $(function () {
         $('button.explanation')
-            .button({
-                icons: {
-                    primary: 'ui-icon-help'
-                },
-                text: false
-            })
             .click(function () {
                 $(this).next('div').toggle();
             })

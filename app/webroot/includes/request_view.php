@@ -260,10 +260,6 @@ ob_start();
     <div id="modal-subview" style="display:none;"></div>
     <script>
         $(function () {
-            $("#request-menu")
-                .menubar();
-            $(".button")
-                .button();
             $(".ajax-link").click(function (e) {
                 var url = $(this).attr('href');
                 $("#modal-subview")
