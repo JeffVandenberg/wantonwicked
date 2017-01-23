@@ -6,23 +6,34 @@ use classes\core\helpers\Response;
 
 $requestId = Request::getValue('request_id', 0);
 $onlySanctioned = Request::getValue('only_sanctioned');
-$term = Request::getValue('term');
+$term = Request::getValue('query');
+$city = Request::getValue('city', 'portland');
 
 $characterRepository = new CharacterRepository();
-$characters = $characterRepository->AutocompleteSearch($term, $onlySanctioned);
+$characters = $characterRepository->AutocompleteSearch($term, $onlySanctioned, $city);
 
 $list = array();
 foreach($characters as $i => $character)
 {
-    $list[$i]['label'] = $character['character_name'];
-    $list[$i]['id'] = $character['id'];
+    $list[] = [
+        'value' => $character['character_name'],
+        'data' => $character['id']
+    ];
 }
 
 if(count($list) == 0)
 {
-    $list[0]['label'] = 'No characters';
-    $list[0]['id'] = -1;
+    $list[] = [
+        'value' => 'No Characters',
+        'data' => -1
+    ];
 }
 
 Response::preventCache();
-Response::sendJson($list);
+
+$data = [
+    'query' => $term,
+    'suggestions' => $list
+];
+
+Response::sendJson($data);

@@ -5449,7 +5449,7 @@ select[multiple] {
 /* JQUERY AUTOCOMPLETE */
 .autocomplete-suggestions {
   border: 1px solid #999;
-  background: #FFF;
+  background: #000;
   cursor: default;
   overflow: auto;
   -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
@@ -5462,7 +5462,7 @@ select[multiple] {
   overflow: hidden; }
 
 .autocomplete-selected {
-  background: #F0F0F0; }
+  background: #333333; }
 
 .autocomplete-suggestions strong {
   font-weight: normal;

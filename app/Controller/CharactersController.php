@@ -110,13 +110,12 @@ class CharactersController extends AppController
     {
         switch ($this->request->params['action']) {
             case 'admin_goals':
+            case 'stView':
                 return $this->Permissions->IsST();
-                break;
             case 'add':
             case 'validateName':
             case 'viewOwn':
                 return $this->Auth->user();
-                break;
         }
         return false;
     }
@@ -157,7 +156,7 @@ class CharactersController extends AppController
             throw new NotFoundException(__('Invalid character'));
         }
 
-        if($character->UserId !== $this->Auth->user('user_id') && !($this->Permissions->IsAdmin())) {
+        if(($character->UserId != $this->Auth->user('user_id')) && !($this->Permissions->IsAdmin())) {
             $this->Flash->set('Unauthorized Access');
             $this->redirect('/');
             return;
@@ -165,10 +164,12 @@ class CharactersController extends AppController
 
         $options = [
             'show_admin' => false,
-            'edit_mode' => 'open', // other values "open", "none"
+            'edit_mode' => 'limited', // other values "open", "none"
         ];
-        if($character->IsSanctioned !== '') {
-            $options['edit_mode'] = 'limited';
+
+        if($character->IsSanctioned === '') {
+            $options['edit_mode'] = 'open';
+            $character->addMinPowersForEdit();
         }
 
         if($this->request->is('post'))
@@ -183,7 +184,11 @@ class CharactersController extends AppController
                 $this->Flash->set($result);
                 $this->set('data', $character);
             } else {
-                $this->Flash->set('Updated '. $updatedData['character_name'] . '.');
+                if($options['edit_mode'] == 'open') {
+                    $this->Flash->set('Updated '. $updatedData['character_name'] . '.');
+                } else {
+                    $this->Flash->set('Updated ' . $character->CharacterName . '.');
+                }
                 $this->redirect('/chat.php');
             }
 
@@ -191,6 +196,47 @@ class CharactersController extends AppController
 
         $this->set(compact('character', 'options'));
 
+    }
+
+    public function stView()
+    {
+        if($this->request->is('post')) {
+            $options = [
+                'show_admin' => true,
+                'edit_mode' => 'open', // other values "open", "none"
+            ];
+
+            $sheetService = new SheetService();
+
+            if($this->request->data['view_character_id']) {
+                // attempt to load the charactert
+                $character = $sheetService->loadSheet($this->request->data['view_character_id']);
+                $character->addMinPowersForEdit();
+                $this->set(compact('character', 'options'));
+            }
+
+            if($this->request->data['character_id']) {
+                // try to update the character
+                $updatedData = $this->request->data;
+                $updatedData['slug'] = Inflector::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
+                $result = $sheetService->saveData($updatedData, $options, $this->Auth->user());
+
+                if(!is_string($result)) {
+                    $this->Flash->set('Updated ' . $updatedData['character_name'] . '.');
+                } else {
+                    $this->Flash->set($result);
+                }
+            }
+        }
+
+        $cities = [
+            "portland" => 'Portland',
+            "Savannah" => 'Savannah',
+            "San Diego" => 'San Diego',
+            "The City" => 'The City',
+            "Side Game" => 'Side Game'
+        ];
+        $this->set(compact('cities'));
     }
     /**
      * add method

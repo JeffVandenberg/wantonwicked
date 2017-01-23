@@ -17,14 +17,14 @@
         'app'
     ));
 
-    echo $this->Html->script(array(
-        'jquery.min',
-        'jquery.autocomplete.min',
+    echo $this->Html->script([
+        'jquery' . ((Configure::read('debug') == 0) ? '.min' : ''),
+        'jquery.autocomplete' . ((Configure::read('debug') == 0) ? '.min' : ''),
         'tinymce/tinymce.min',
         'server_time',
-        'foundation.min',
+        'foundation'. ((Configure::read('debug') == 0) ? '.min' : ''),
         'wanton',
-    ));
+    ]);
 
     echo $this->fetch('meta');
     echo $this->fetch('css');

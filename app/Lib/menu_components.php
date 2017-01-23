@@ -225,7 +225,7 @@ $menuComponents['staff'] = [
                         'link' => '/storyteller_index.php',
                     ],
                     'Character Lookup' => [
-                        'link' => '/view_sheet.php?action=st_view_xp',
+                        'link' => '/characters/stView',
                     ],
                     'Request Dashboard' => [
                         'link' => '/request.php?action=st_list'

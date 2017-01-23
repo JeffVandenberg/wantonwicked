@@ -266,7 +266,7 @@ EOQ;
         return $this->query($query)->single($params);
     }
 
-    public function AutocompleteSearch($characterName, $onlySanctioned)
+    public function AutocompleteSearch($characterName, $onlySanctioned, $city = 'portland')
     {
         $sql = <<<EOQ
 SELECT
@@ -282,13 +282,15 @@ WHERE
         (:only_sanctioned = 0)
     )
     AND C.character_name like :character_name
+    AND C.city = :city
 ORDER BY
     C.character_name
 LIMIT 20
 EOQ;
         $params = array(
             'only_sanctioned' => (int)$onlySanctioned,
-            'character_name' => $characterName . '%'
+            'character_name' => $characterName . '%',
+            'city' => $city
         );
         return $this->query($sql)->all($params);
     }

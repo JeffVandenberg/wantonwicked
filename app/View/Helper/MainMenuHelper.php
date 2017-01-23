@@ -15,6 +15,10 @@ class MainMenuHelper extends AppHelper
     );
 
     public function Create($menu) {
+        if(!is_array($menu)) {
+            return '';
+        }
+
         $renderedMenu = <<<EOQ
 <ul class="dropdown menu" id='main-menu' data-dropdown-menu>
 EOQ;

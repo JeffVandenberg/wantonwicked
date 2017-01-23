@@ -50,13 +50,25 @@ function removeCharacterRow(row, message, secondaryTable) {
 
 function addCharacterRow(tableId) {
     var table = $("#" + tableId),
+        removedTable = $("#removed-" + tableId),
         row;
     if(table.find('tbody > tr').length > 0) {
         row = table.find('tr').last().clone();
     } else {
-        row = $('#removed-' +tableId).find('tr').last().clone();
+        row = removedTable.find('tr').last().clone();
     }
-    $("input", row).val('');
+
+    var count = table.find('tbody > tr').length  + removedTable.find('tbody > tr').length;
+    $("input[type=text], select, input[type=hidden]", row).each(function() {
+        var currentName = $(this).attr('name');
+        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count +"]"));
+        $(this).val('');
+    });
+    $("input[type=checkbox]", row).each(function() {
+        var currentName = $(this).attr('name');
+        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count +"]"));
+        $(this).attr('checked', false)
+    });
     table.append(row);
 }
 

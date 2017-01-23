@@ -28,12 +28,17 @@ class SheetService
      * @var array
      */
     private $powerList = [
-        'aspiration',
-        'specialty',
-        'merit',
-        'misc_power',
-        'equipment',
-        'break_point'
+        'open' => [
+            'aspiration',
+            'specialty',
+            'merit',
+            'misc_power',
+            'equipment',
+            'break_point'
+        ],
+        'limited' => [
+            'aspiration'
+        ]
     ];
 
     /**
@@ -53,14 +58,14 @@ class SheetService
     public function loadSheet($identifier)
     {
         // load sheet
-        if(is_int($identifier) || ($identifier+0 > 0)) {
+        if (is_int($identifier) || ($identifier + 0 > 0)) {
             $character = $this->repository->getById($identifier);
         } else {
             $character = $this->repository->FindBySlug($identifier);
         }
         /* @var Character $character */
 
-        if($character->Id) {
+        if ($character->Id) {
             $character->loadPowers();
         }
         return $character;
@@ -81,11 +86,11 @@ class SheetService
         // save new data
         $result = $this->saveData($stats, $options, $user);
 
-        if(is_string($result)) {
+        if (is_string($result)) {
             return $result;
         }
 
-        if(false) {//$oldCharacter->Id) {
+        if (false) {//$oldCharacter->Id) {
             // log xp change
             if ($stats['xp_spent'] > 0) {
                 CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
@@ -112,6 +117,11 @@ class SheetService
      */
     public function saveData(array $stats, array $options, array $user)
     {
+        // clean data
+        array_walk_recursive($stats, function(&$item, $value) {
+            trim($item);
+        });
+
         // validation
         if ($this->repository->isNameInUse($stats['character_name'], $stats['character_id'], $stats['city'])) {
             return 'That character name is already in use.';
@@ -122,55 +132,64 @@ class SheetService
         /* @var Character $character */
         $character->loadPowers();
 
+        if ($options['edit_mode'] == 'open') {
+            $character->CharacterName = $stats['character_name'];
+            if (!$character->CharacterName) {
+                $character->CharacterName = 'Character ' . mt_rand(9999999, 100000000);
+            }
+            $character->CharacterType = $stats['character_type'];
+            $character->City = $stats['city'];
+            $character->Age = $stats['age'] + 0;
+            $character->ApparentAge = $stats['apparent_age'] + 0;
+            $character->Sex = 'Male';//$stats['sex'];
+            $character->Virtue = $stats['virtue'];
+            $character->Vice = $stats['vice'];
+            $character->Splat1 = ($stats['splat1']) ? $stats['splat1'] : '';
+            $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
+            $character->Subsplat = ($stats['subsplat']) ? $stats['subsplat'] : '';
+            $character->Concept = $stats['concept'];
+            $character->Description = '';//$stats['description'];
+            $character->PowerStat = $stats['power_trait'] + 0;
+            $character->WillpowerPerm = $stats['willpower_perm'] + 0;
+            $character->Morality = $stats['morality'] + 0;
+            $character->Size = $stats['size'] + 0;
+            $character->Speed = $stats['speed'] + 0;
+            $character->InitiativeMod = $stats['initiative_mod'] + 0;
+            $character->Defense = $stats['defense'] + 0;
+            $character->Armor = $stats['armor'];
+            $character->Health = $stats['health'] + 0;
+            $character->PowerPointsModifier = $stats['power_points_modifier'] + 0;
+            $character->BonusAttribute = ($stats['bonus_attribute']) ? $stats['bonus_attribute'] : '';
+            $character->History = $stats['history'];
+            $character->CharacterNotes = $stats['notes'];
+            $character->Slug = $stats['slug'];
+        }
+
+        if (in_array($options['edit_mode'], ['open', 'limited'])) {
+            $character->PowerPoints = $stats['power_points'] + 0;
+            $character->WoundsAgg = $stats['wounds_agg'] + 0;
+            $character->WoundsLethal = $stats['wounds_lethal'] + 0;
+            $character->WoundsBashing = $stats['wounds_bashing'] + 0;
+            $character->WillpowerTemp = $stats['willpower_temp'] + 0;
+        }
+        if ($options['show_admin']) {
+            $character->Status = $stats['status'];
+            $character->IsSanctioned = $stats['is_sanctioned'];
+            $character->IsNpc = $stats['is_npc'] ? 'Y' : 'N';
+        }
+
+        // fixed values
+        $character->UpdatedOn = date('Y-m-d H:i:s');
+        $character->Gameline = 'NWoD2';
+
+        // values to figure out
         $character->ShowSheet = 'N';//$stats['show_sheet'];
         $character->ViewPassword = '';//$stats['view_password'];
         $character->HideIcon = 'N';//$stats['hide_icon'];
-
-        $character->CharacterName = $stats['character_name'];
-        if (!$character->CharacterName) {
-            $character->CharacterName = 'Character ' . mt_rand(9999999, 100000000);
-        }
-        $character->CharacterType = $stats['character_type'];
-        $character->CharacterType = $stats['character_type'];
-        $character->City = $stats['city'];
-        $character->Age = $stats['age'] + 0;
-        $character->ApparentAge = $stats['apparent_age'] + 0;
-        $character->Sex = 'Male';//$stats['sex'];
-        $character->Virtue = $stats['virtue'];
-        $character->Vice = $stats['vice'];
-        $character->Splat1 = $stats['splat1'];
-        $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
-        $character->Subsplat = ($stats['subsplat']) ? $stats['subsplat'] : '';
-        $character->IsNpc = $stats['is_npc'] ? 'Y' : 'N';
-        $character->Status = ($stats['status']) ? $stats['status'] : '';
-        $character->Concept = $stats['concept'];
-        $character->Description = '';//$stats['description'];
         $character->Icon = '';//$stats['icon'];
         $character->SafePlace = '';//$stats['safe_place'];
         $character->Friends = '';//$stats['friends'];
         $character->Helper = '';//$stats['friends'];
-        $character->PowerStat = $stats['power_trait']+0;
-        $character->WillpowerPerm = $stats['willpower_perm']+0;
-        $character->Morality = $stats['morality']+0;
-        $character->Size = $stats['size']+0;
-        $character->Speed = $stats['speed']+0;
-        $character->InitiativeMod = $stats['initiative_mod']+0;
-        $character->Defense = $stats['defense']+0;
-        $character->Armor = $stats['armor'];
-        $character->Health = $stats['health']+0;
-        $character->PowerPointsModifier = $stats['power_points_modifier']+0;
-        $character->BonusAttribute = ($stats['bonus_attribute']) ? $stats['bonus_attribute'] : '';
-        $character->PowerPoints = $stats['power_points']+0;
-        $character->WoundsAgg = $stats['wounds_agg']+0;
-        $character->WoundsLethal = $stats['wounds_lethal']+0;
-        $character->WoundsBashing = $stats['wounds_bashing']+0;
-        $character->WillpowerTemp = $stats['willpower_temp']+0;
-        $character->History = $stats['history'];
-        $character->CharacterNotes = $stats['notes'];
-        $character->Slug = $stats['slug'];
-        $character->UpdatedOn = date('Y-m-d H:i:s');
-//        $character->IsSanctioned = ($stats['is_sanctioned'];
-        $character->Gameline = 'NWoD2';
 
         // legacy values. Woof.
         $character->Merits = '';
@@ -193,25 +212,28 @@ class SheetService
         }
 
         $characterPowers = [];
-        // save attributes
-        foreach ($stats['attribute'] as $attribute => $value) {
-            $cp = $character->getAttribute($attribute);
-            $cp->CharacterId = $character->Id;
-            $cp->PowerLevel = $value;
-            $characterPowers[] = $cp;
-        }
 
-        // save skills
-        foreach ($stats['skill'] as $skill => $value) {
-            $cp = $character->getSkill($skill);
-            $cp->CharacterId = $character->Id;
-            $cp->PowerLevel = $value;
-            $characterPowers[] = $cp;
+        if ($options['edit_mode'] == 'open') {
+            // save attributes
+            foreach ($stats['attribute'] as $attribute => $value) {
+                $cp = $character->getAttribute($attribute);
+                $cp->CharacterId = $character->Id;
+                $cp->PowerLevel = $value;
+                $characterPowers[] = $cp;
+            }
+
+            // save skills
+            foreach ($stats['skill'] as $skill => $value) {
+                $cp = $character->getSkill($skill);
+                $cp->CharacterId = $character->Id;
+                $cp->PowerLevel = $value;
+                $characterPowers[] = $cp;
+            }
         }
 
         // save all other powers
-        foreach ($this->powerList as $powerType) {
-            if($stats[$powerType]) {
+        foreach ($this->powerList[$options['edit_mode']] as $powerType) {
+            if (isset($stats[$powerType]) && is_array($stats[$powerType])) {
                 foreach ($stats[$powerType] as $power) {
                     $pp = [
                         'id' => ($power['id']) ? $power['id'] : null,
@@ -264,7 +286,7 @@ class SheetService
      */
     private function logChanges(Character $newCharacter, Character $oldCharacter, array $user)
     {
-        if(!$oldCharacter->Id) {
+        if (!$oldCharacter->Id) {
             // first save
             return true;
         }

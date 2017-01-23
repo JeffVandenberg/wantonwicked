@@ -27,6 +27,9 @@ class MenuComponent extends Component {
     {
         $menuComponents = include_once(ROOT . '/app/Lib/menu_components.php');
         $this->menu = $menuComponents['base'];
+        if(!is_array($this->menu)) {
+            return;
+        }
 
         if($this->Auth->user()) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['player']);
