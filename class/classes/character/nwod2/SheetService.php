@@ -90,7 +90,7 @@ class SheetService
             return $result;
         }
 
-        if ($oldCharacter->Id) {
+        if (false) {//$oldCharacter->Id) {
             // log xp change
             if ($stats['xp_spent'] > 0) {
                 CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
