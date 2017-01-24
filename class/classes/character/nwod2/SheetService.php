@@ -90,7 +90,7 @@ class SheetService
             return $result;
         }
 
-        if (false) {//$oldCharacter->Id) {
+        if ($oldCharacter->Id) {
             // log xp change
             if ($stats['xp_spent'] > 0) {
                 CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
@@ -317,7 +317,7 @@ class SheetService
         $note = "";
         if (count($changedProperties) > 0) {
             foreach ($changedProperties as $property) {
-                $note .= $property . ' changed from ' . $oldCharacter->$property . ' to ' . $newCharacter->$property . "\n";
+                $note .= $property . ' changed from ' . $oldCharacter->$property . ' to ' . $newCharacter->$property . "<br />";
             }
         }
 
@@ -349,14 +349,14 @@ class SheetService
             $note .= 'Added Power: ' . $newPower->PowerType .
                 ' Name: ' . $newPower->PowerName .
                 ' Note: ' . $newPower->PowerNote .
-                ' Level: ' . $newPower->PowerLevel . " \n";
+                ' Level: ' . $newPower->PowerLevel . "<br />";
         }
 
         foreach ($oldPowerList as $oldPower) {
             $note .= 'Removed Power: ' . $oldPower->PowerType .
                 ' Name: ' . $oldPower->PowerName .
                 ' Note: ' . $oldPower->PowerNote .
-                ' Level: ' . $oldPower->PowerLevel . " \n";
+                ' Level: ' . $oldPower->PowerLevel . "<br />";
         }
 
         foreach ($changedPowerList as $power) {
@@ -368,7 +368,7 @@ class SheetService
                 ' <b>NEW</b> ' .
                 ' Name: ' . $power['new']->PowerName .
                 ' Note: ' . $power['new']->PowerNote .
-                ' Level: ' . $power['new']->PowerLevel . " \n";
+                ' Level: ' . $power['new']->PowerLevel . "<br />";
         }
 
         CharacterLog::LogAction($newCharacter->Id, ActionType::UpdateCharacter, str_replace("\n", "<br/>", $note),
