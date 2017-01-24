@@ -105,6 +105,14 @@ $(function () {
         }, 10);
     });
 
+    $(document).on('click', ".add-character-row", function() {
+        var target = $(this).data().targetTable;
+        if(target) {
+            addCharacterRow($(this).data().targetTable);
+        } else {
+            console.error("No data-target-table specified");
+        }
+    });
     $(document).on('click', '#add-aspiration', function() {
         addCharacterRow('aspirations')
     });

@@ -57,7 +57,11 @@ class SheetService
      */
     public function loadSheet($identifier)
     {
-        // load sheet
+        // load blank sheet
+        if(!$identifier) {
+            return new Character();
+        }
+
         if (is_int($identifier) || ($identifier + 0 > 0)) {
             $character = $this->repository->getById($identifier);
         } else {
@@ -90,7 +94,7 @@ class SheetService
             return $result;
         }
 
-        if (false) {//$oldCharacter->Id) {
+        if ($oldCharacter->Id) {
             // log xp change
             if ($stats['xp_spent'] > 0) {
                 CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);

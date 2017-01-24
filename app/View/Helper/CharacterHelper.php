@@ -94,6 +94,12 @@ class CharacterHelper extends AppHelper
 
     private $skillList;
 
+    private $sheetFields = [
+        'splat1' => false,
+        'splat2' => false,
+        'break_points' => false
+    ];
+
 
     function __construct(View $view, $settings = [])
     {
@@ -113,8 +119,9 @@ class CharacterHelper extends AppHelper
 
         $this->options = array_merge($this->options, $options);
 
+        $character->CharacterType = 'vampire';//($character->CharacterType) ? strtolower($character->CharacterType) : "mortal";
+        $this->setupSheetOptions($character->CharacterType);
 
-        $character->CharacterType = ($character->CharacterType) ? strtolower($character->CharacterType) : "mortal";
         $bio = $this->buildBioEdit($character);
         $stats = $this->buildStatEdit($character);
         $powers = $this->buildPowersSection($character);
@@ -180,6 +187,7 @@ class CharacterHelper extends AppHelper
         $age = $character->Age;
         $concept = $character->Concept;
         $splat1 = $character->Splat1;
+        $splat2 = $character->Splat2;
         $virtue = $character->Virtue;
         $vice = $character->Vice;
         $history = str_replace("\n", "<br />", $character->History);
@@ -211,6 +219,7 @@ class CharacterHelper extends AppHelper
                 'value' => $character->Age,
                 'placeholder' => 'Age (True)',
                 'label' => false,
+                'type' => 'number',
                 'empty' => false
             ]);
             $concept = $this->Form->input('concept', [
@@ -222,7 +231,16 @@ class CharacterHelper extends AppHelper
                 'splat1',
                 [
                     'value' => $character->Splat1,
-                    'placeholder' => 'Guild',
+                    'placeholder' => $this->Language->translate('splat1', $character->CharacterType),
+                    'label' => false,
+                    'div' => false
+                ]
+            );
+            $splat2 = $this->Form->input(
+                'splat1',
+                [
+                    'value' => $character->Splat1,
+                    'placeholder' => $this->Language->translate('splat2', $character->CharacterType),
                     'label' => false,
                     'div' => false
                 ]
@@ -230,12 +248,12 @@ class CharacterHelper extends AppHelper
             $virtue = $this->Form->input('virtue', [
                 'value' => $character->Virtue,
                 'label' => false,
-                'placeholder' => 'Virtue'
+                'placeholder' => $this->Language->translate('virtue', $character->CharacterType)
             ]);
             $vice = $this->Form->input('vice', [
                 'value' => $character->Vice,
                 'label' => false,
-                'placeholder' => 'Vice'
+                'placeholder' => $this->Language->translate('vice', $character->CharacterType)
             ]);
             $history = $this->Form->textarea(
                 'history',
@@ -312,14 +330,26 @@ class CharacterHelper extends AppHelper
             </div>
             <div class="row">
                 <div class="medium-1 columns">
-                    <label for="splat1">
-                        <?php echo $this->Language->translate('splat1', $character->CharacterType); ?>
-                    </label>
+                    <?php if ($this->sheetFields['splat1']): ?>
+                        <label for="splat1">
+                            <?php echo $this->Language->translate('splat1', $character->CharacterType); ?>
+                        </label>
+                    <?php endif; ?>
                 </div>
                 <div class="medium-3 columns">
-                    <?php echo $splat1; ?>
+                    <?php if ($this->sheetFields['splat1']) echo $splat1; ?>
                 </div>
-                <div class="medium-8 columns"></div>
+                <div class="medium-1 columns">
+                    <?php if ($this->sheetFields['splat2']): ?>
+                        <label for="splat2">
+                            <?php echo $this->Language->translate('splat2', $character->CharacterType); ?>
+                        </label>
+                    <?php endif; ?>
+                </div>
+                <div class="medium-3 columns">
+                    <?php if ($this->sheetFields['splat2']) echo $splat2; ?>
+                </div>
+                <div class="medium-4 columns"></div>
             </div>
             <div class="row">
                 <div class="small-12 columns subheader">
@@ -328,13 +358,17 @@ class CharacterHelper extends AppHelper
             </div>
             <div class="row">
                 <div class="medium-1 column">
-                    <label for="virtue">Virtue</label>
+                    <label for="virtue">
+                        <?php echo $this->Language->translate('virtue', $character->CharacterType); ?>
+                    </label>
                 </div>
                 <div class="medium-3 column">
                     <?php echo $virtue; ?>
                 </div>
                 <div class="medium-1 column">
-                    <label for="vice">Vice</label>
+                    <label for="vice">
+                        <?php echo $this->Language->translate('vice', $character->CharacterType); ?>
+                    </label>
                 </div>
                 <div class="medium-3 column">
                     <?php echo $vice; ?>
@@ -682,6 +716,8 @@ class CharacterHelper extends AppHelper
         switch (strtolower($character->CharacterType)) {
             case 'mortal':
                 return $this->buildMortalPowersSection($character);
+            case 'vampire':
+                return $this->buildVampirePowersSection($character);
             default:
                 return $this->buildMortalPowersSection($character);
         }
@@ -1160,26 +1196,28 @@ class CharacterHelper extends AppHelper
                     Break Points
                 </div>
             </div>
-            <div class="row">
-                <?php foreach ($character->getPowerList('break_point') as $i => $power): ?>
-                    <div class="small-12 column">
-                        <div>
-                            <?php echo $this->Language->translate('break_point' . $i, $character->CharacterType); ?>
+            <?php if ($this->sheetFields['break_points']): ?>
+                <div class="row">
+                    <?php foreach ($character->getPowerList('break_point') as $i => $power): ?>
+                        <div class="small-12 column">
+                            <div>
+                                <?php echo $this->Language->translate('break_point' . $i, $character->CharacterType); ?>
+                            </div>
+                            <?php if ($this->mayEditOpen()): ?>
+                                <?php echo $this->Form->hidden('break_point.' . $i . '.name', ['value' => 'break_point' . $i]); ?>
+                                <?php echo $this->Form->hidden('break_point.' . $i . '.id', ['value' => $power->Id]); ?>
+                                <?php echo $this->Form->textarea('break_point.' . $i . '.explanation', [
+                                    'value' => $power->Extra['explanation'],
+                                    'label' => false,
+                                    'rows' => 3
+                                ]); ?>
+                            <?php else: ?>
+                                <?php echo str_replace("\n", "<br />", $power->Extra['explanation']); ?>
+                            <?php endif; ?>
                         </div>
-                        <?php if ($this->mayEditOpen()): ?>
-                            <?php echo $this->Form->hidden('break_point.' . $i . '.name', ['value' => 'break_point' . $i]); ?>
-                            <?php echo $this->Form->hidden('break_point.' . $i . '.id', ['value' => $power->Id]); ?>
-                            <?php echo $this->Form->textarea('break_point.' . $i . '.explanation', [
-                                'value' => $power->Extra['explanation'],
-                                'label' => false,
-                                'rows' => 3
-                            ]); ?>
-                        <?php else: ?>
-                            <?php echo str_replace("\n", "<br />", $power->Extra['explanation']); ?>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
         <?php
         return ob_get_clean();
@@ -1248,5 +1286,260 @@ class CharacterHelper extends AppHelper
     private function mayEditOpen()
     {
         return in_array($this->options['edit_mode'], ['open']);
+    }
+
+    private function setupSheetOptions($characterType)
+    {
+        switch ($characterType) {
+            case 'mortal':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['break_points'] = true;
+                break;
+            case 'vampire':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['splat2'] = true;
+                break;
+        }
+    }
+
+    private function buildVampirePowersSection($character)
+    {
+        $meritTable = $this->buildTable($character, 'merit', 'merits');
+        $icDiscTable = $this->buildTable($character, 'icdisc', 'icdiscs');
+        $oocDiscTable = $this->buildTable($character, 'oocdisc', 'oocdiscs');
+        $devotionTable = $this->buildTable($character, 'devotion', 'devotions');
+
+        ob_start();
+        ?>
+        <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
+           aria-controls="csheet-template">Abilities</a>
+        <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-template-heading">
+            <div class="row">
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Merits
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="merits"><i
+                                            class="fi-plus"></i></div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $meritTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="misc-abilities">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table id="misc-abilities" class="stack">
+                            <thead>
+                            <tr>
+                                <th>Misc Ability</th>
+                                <th>Note</th>
+                                <th>Level</th>
+                                <th>Public</th>
+                            </tr>
+                            </thead>
+                            <?php foreach ($character->getPowerList('miscPower') as $i => $power): ?>
+                                <tr>
+                                    <td>
+                                        <?php if ($this->mayEditOpen()): ?>
+                                            <?php echo $this->Form->input('misc_power.' . $i . '.name', [
+                                                'value' => $power->PowerName,
+                                                'label' => false,
+                                                'placeholder' => 'Misc Name',
+                                                'data-powertype' => 'misc-power',
+                                                'class' => 'character-autocomplete'
+                                            ]); ?>
+                                        <?php else: ?>
+                                            <?php echo $power->PowerName; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($this->mayEditOpen()): ?>
+                                            <?php echo $this->Form->input('misc_power.' . $i . '.note', [
+                                                'value' => $power->PowerNote,
+                                                'label' => false,
+                                                'placeholder' => 'Misc Note'
+                                            ]); ?>
+                                        <?php else: ?>
+                                            <?php echo $power->PowerNote; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <label class="hide-for-large-only">Level</label>
+                                        <?php if ($this->mayEditOpen()): ?>
+                                            <?php echo $this->Form->input('misc_power.' . $i . '.level', [
+                                                'placeholder' => 'Misc Level',
+                                                'label' => false,
+                                                'value' => $power->PowerLevel
+                                            ]); ?>
+                                            <?php echo $this->Form->hidden('misc_power.' . $i . '.id', [
+                                                'value' => $power->Id
+                                            ]); ?>
+                                        <?php else: ?>
+                                            <?php echo $power->PowerLevel; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <label class="hide-for-large-only">Is Public</label>
+                                        <?php if ($this->mayEditOpen()): ?>
+                                            <?php echo $this->Form->checkbox('misc_power.' . $i . '.is_public', [
+                                                'label' => false,
+                                                'value' => 1,
+                                                'checked' => $power->IsPublic
+                                            ]); ?>
+                                            <div class="alert badge clickable remove-misc-power"><i
+                                                        class="fi-minus"></i>
+                                            </div>
+                                        <?php else: ?>
+                                            <?php echo $power->IsPublic ? 'Yes' : 'No'; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                        <table id="removed-misc-abilities" class="hide"></table>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            In Clan Disciplines
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="icdiscs">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $icDiscTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Out of Clan Disciplines
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="oocdiscs">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $oocDiscTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Devotions
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="devotions">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $devotionTable; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function buildTable(Character $character, $powerType, $tableId)
+    {
+        ob_start();
+        ?>
+        <table id="<?php echo $tableId; ?>" class="stack">
+            <thead>
+            <tr>
+                <th>Merit</th>
+                <th>Note</th>
+                <th>Level</th>
+                <th>Public</th>
+            </tr>
+            </thead>
+            <?php foreach ($character->getPowerList($powerType) as $i => $power): ?>
+                <tr>
+                    <td>
+                        <?php if ($this->mayEditOpen()): ?>
+                            <?php echo $this->Form->input($powerType . '.' . $i . '.name', [
+                                'value' => $power->PowerName,
+                                'placeholder' => $this->Language->translate($powerType, $character->CharacterType) . ' Name',
+                                'label' => false,
+                                'data-powertype' => $powerType,
+                                'class' => 'character-autocomplete'
+                            ]); ?>
+                        <?php else: ?>
+                            <?php echo $power->PowerName; ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if ($this->mayEditOpen()): ?>
+                            <?php echo $this->Form->input($powerType . '.' . $i . '.note', [
+                                'label' => false,
+                                'value' => $power->PowerNote,
+                                'placeholder' => $this->Language->translate($powerType, $character->CharacterType) . ' Note'
+                            ]); ?>
+                        <?php else: ?>
+                            <?php echo $power->PowerNote; ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <label class="hide-for-large-only">Level</label>
+                        <?php if ($this->mayEditOpen()): ?>
+                            <?php echo $this->Form->select(
+                                $powerType . '.' . $i . '.level',
+                                range(0, $this->maxDots),
+                                [
+                                    'label' => false,
+                                    'value' => $power->PowerLevel
+                                ]
+                            ); ?>
+                            <?php echo $this->Form->hidden($powerType . '.' . $i . '.id', [
+                                'value' => $power->Id
+                            ]); ?>
+                        <?php else: ?>
+                            <?php echo $power->PowerLevel; ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <label class="show-for-small-only">Is Public</label>
+                        <?php if ($this->mayEditOpen()): ?>
+                            <?php echo $this->Form->checkbox($powerType . '.' . $i . '.is_public', [
+                                'label' => false,
+                                'value' => 1,
+                                'checked' => $power->IsPublic
+                            ]); ?>
+                            <div class="alert badge clickable remove-merit"><i class="fi-minus"></i>
+                            </div>
+                        <?php else: ?>
+                            <?php echo $power->IsPublic ? 'Yes' : 'No'; ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        <table id="removed-<?php echo $tableId; ?>" class="hide"></table>
+        <?php
+        return ob_get_clean();
     }
 }

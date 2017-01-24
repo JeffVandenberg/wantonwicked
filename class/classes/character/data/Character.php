@@ -209,6 +209,13 @@ class Character extends DataModel
 
     private function addCharacterTypePowers()
     {
+        switch($this->CharacterType) {
+            case 'vampire':
+                $this->addList(2, 'icdisc');
+                $this->addList(2, 'oocdisc');
+                $this->addList(2, 'devotion');
+                break;
+        }
         // do something here later
     }
 

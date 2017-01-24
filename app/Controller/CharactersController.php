@@ -247,7 +247,7 @@ class CharactersController extends AppController
      *
      * @return void
      */
-    public function add()
+    public function add($characterType = null)
     {
         $options = [
             'show_admin' => false,
@@ -270,7 +270,7 @@ class CharactersController extends AppController
             }
         } else {
             $character = new Character();
-            $character->initializeNew();
+            $character->initializeNew($characterType);
             $this->set(compact('character'));
         }
         $this->set('options', $options);

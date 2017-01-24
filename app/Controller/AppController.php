@@ -51,7 +51,9 @@ class AppController extends Controller {
             'Jquery'
         ),
         'MainMenu',
-        'Shrink.Shrink'
+        'Shrink.Shrink' => [
+            'debugLevel' => 1
+        ]
     );
 
     public function beforeFilter()
