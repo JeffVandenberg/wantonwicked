@@ -1,15 +1,13 @@
 <?php
 use classes\core\helpers\MenuHelper;
+use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
-use classes\core\helpers\UserdataHelper;
 use phpbb\auth\auth;
 use phpbb\request\request;
 use phpbb\template\twig\twig;
 use phpbb\user;
 
 include 'cgi-bin/start_of_page.php';
-
-die('send a message to Jeff saying what you did to see this page');
 
 // perform required includes
 define('IN_PHPBB', true);
@@ -53,40 +51,8 @@ $menu_bar = include 'menu_bar.php';
 if (isset($_GET['action'])) {
     //echo $_GET['action']."<br>";
     switch ($_GET['action']) {
-        case 'create_xp':
-            include 'includes/view_sheet_create_xp.php';
-            break;
-        case 'get':
-            include 'includes/view_sheet_get.php';
-            break;
-        case 'view_own_xp':
-            include 'includes/view_sheet_view_own_xp.php';
-            break;
-        case 'update_own_xp':
-            include 'includes/view_sheet_update_own_xp.php';
-            break;
-        case 'view_other':
-            include 'includes/view_sheet_view_other.php';
-            break;
-        case 'view_other_xp':
-            include 'includes/view_sheet_view_other_xp.php';
-            break;
-        case 'st_view':
-            include 'includes/index_redirect.php';
-            break;
         case 'st_view_xp':
-            if(UserdataHelper::IsSt($userdata)) {
-                include 'includes/view_sheet_st_view_xp.php';
-            } else {
-                include 'includes/index_redirect.php';
-            }
-
-            break;
-        case 'create_v2':
-            include 'includes/view_sheet_create_v2.php';
-            break;
-        case 'profile':
-            include 'includes/view_sheet_profile.php';
+            Response::redirect('/characters/stView/'. \classes\core\helpers\Request::getValue('view_character_id', 0));
             break;
         default:
             include 'includes/index_redirect.php';
