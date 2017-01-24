@@ -72,23 +72,27 @@ function addCharacterRow(tableId) {
     table.append(row);
 }
 
+function addFoundationRow(sectionId) {
+    var section = $("#" + sectionId),
+        lastRow = section.find('.row').last().clone(),
+        count = section.find('.row').length;
+
+    $("input, select", lastRow).each(function() {
+        var currentName = $(this).attr('name');
+        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count +"]"));
+        $(this).val('');
+    });
+    lastRow.show();
+    section.append(lastRow);
+}
+
 $(function () {
     $(document).on('change', '#character_type', function() {
 
     });
 
     $(document).on('click', "#add-specialty", function () {
-        var column = $("#specialty-column"),
-            lastRow = column.find('.row').last().clone(),
-            count = column.find('.row').length;
-
-        $("input, select", lastRow).each(function() {
-            var currentName = $(this).attr('name');
-            $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count +"]"));
-            $(this).val('');
-        });
-        lastRow.show();
-        column.append(lastRow);
+        addFoundationRow('specialties');
     });
 
     $(document).on('click', '.remove-specialty', function () {
@@ -113,6 +117,16 @@ $(function () {
             console.error("No data-target-table specified");
         }
     });
+
+    $(document).on('click', '.add-foundation-row', function() {
+        var target = $(this).data().targetTable;
+        if(target) {
+            addFoundationRow($(this).data().targetTable);
+        } else {
+            console.error("No data-target-table specified");
+        }
+    });
+
     $(document).on('click', '#add-aspiration', function() {
         addCharacterRow('aspirations')
     });

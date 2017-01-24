@@ -97,7 +97,8 @@ class CharacterHelper extends AppHelper
     private $sheetFields = [
         'splat1' => false,
         'splat2' => false,
-        'break_points' => false
+        'break_points' => false,
+        'touchstone' => false
     ];
 
 
@@ -664,12 +665,12 @@ class CharacterHelper extends AppHelper
                         </div>
                     </div>
                 </div>
-                <div id="specialty-column" class="small-12 medium-5 column">
+                <div id="specialties" class="small-12 medium-5 column">
                     <div class="row">
                         <div class="small-12 column subheader">
                             Specialties
                             <?php if ($this->mayEditOpen()): ?>
-                                <div class="badge success clickable" id="add-specialty"><i class="fi-plus"></i></div>
+                                <div class="badge success clickable add-foundation-row" data-target-table="specialties"><i class="fi-plus"></i></div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -1191,12 +1192,12 @@ class CharacterHelper extends AppHelper
                     <?php echo $woundsAgg; ?>
                 </div>
             </div>
-            <div class="row">
-                <div class="small-12 column subheader">
-                    Break Points
-                </div>
-            </div>
             <?php if ($this->sheetFields['break_points']): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Break Points
+                    </div>
+                </div>
                 <div class="row">
                     <?php foreach ($character->getPowerList('break_point') as $i => $power): ?>
                         <div class="small-12 column">
@@ -1216,6 +1217,44 @@ class CharacterHelper extends AppHelper
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+            <?php if ($this->sheetFields['touchstone']): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Touchstones
+                        <?php if ($this->mayEditOpen()): ?>
+                            <div class="success badge clickable add-foundation-row" data-target-table="touchstones"><i
+                                        class="fi-plus"></i></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div id="touchstones">
+                    <div class="row">
+                        <?php foreach ($character->getPowerList('touchstone') as $i => $power): ?>
+                            <div class="small-12 medium-2 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->select('touchstone.' . $i . '.level', range(0, 10), [
+                                        'value' => $power->PowerLevel,
+                                        'label' => false
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php echo $power->PowerLevel; ?>
+                                <?php endif; ?>
+                            </div>
+                            <div class="small-12 medium-10 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
+                                    <?php echo $this->Form->input('touchstone.' . $i . '.explanation', [
+                                        'value' => $power->PowerName,
+                                        'label' => false
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php echo $power->PowerName; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             <?php endif; ?>
         </div>
@@ -1298,13 +1337,15 @@ class CharacterHelper extends AppHelper
             case 'vampire':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
+                $this->sheetFields['touchstone'] = true;
                 break;
         }
     }
 
-    private function buildVampirePowersSection($character)
+    private function buildVampirePowersSection(Character $character)
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
+        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities', ['level' => ['type' => 'text']]);
         $icDiscTable = $this->buildTable($character, 'icdisc', 'icdiscs');
         $oocDiscTable = $this->buildTable($character, 'oocdisc', 'oocdiscs');
         $devotionTable = $this->buildTable($character, 'devotion', 'devotions');
@@ -1335,82 +1376,15 @@ class CharacterHelper extends AppHelper
                         <div class="small-12 column subheader">
                             Misc Abilities
                             <?php if ($this->mayEditOpen()): ?>
-                                <div class="success badge clickable add-character-row" data-target-table="misc-abilities">
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="misc-abilities">
                                     <i class="fi-plus"></i>
                                 </div>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="row">
-                        <table id="misc-abilities" class="stack">
-                            <thead>
-                            <tr>
-                                <th>Misc Ability</th>
-                                <th>Note</th>
-                                <th>Level</th>
-                                <th>Public</th>
-                            </tr>
-                            </thead>
-                            <?php foreach ($character->getPowerList('miscPower') as $i => $power): ?>
-                                <tr>
-                                    <td>
-                                        <?php if ($this->mayEditOpen()): ?>
-                                            <?php echo $this->Form->input('misc_power.' . $i . '.name', [
-                                                'value' => $power->PowerName,
-                                                'label' => false,
-                                                'placeholder' => 'Misc Name',
-                                                'data-powertype' => 'misc-power',
-                                                'class' => 'character-autocomplete'
-                                            ]); ?>
-                                        <?php else: ?>
-                                            <?php echo $power->PowerName; ?>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <?php if ($this->mayEditOpen()): ?>
-                                            <?php echo $this->Form->input('misc_power.' . $i . '.note', [
-                                                'value' => $power->PowerNote,
-                                                'label' => false,
-                                                'placeholder' => 'Misc Note'
-                                            ]); ?>
-                                        <?php else: ?>
-                                            <?php echo $power->PowerNote; ?>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <label class="hide-for-large-only">Level</label>
-                                        <?php if ($this->mayEditOpen()): ?>
-                                            <?php echo $this->Form->input('misc_power.' . $i . '.level', [
-                                                'placeholder' => 'Misc Level',
-                                                'label' => false,
-                                                'value' => $power->PowerLevel
-                                            ]); ?>
-                                            <?php echo $this->Form->hidden('misc_power.' . $i . '.id', [
-                                                'value' => $power->Id
-                                            ]); ?>
-                                        <?php else: ?>
-                                            <?php echo $power->PowerLevel; ?>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <label class="hide-for-large-only">Is Public</label>
-                                        <?php if ($this->mayEditOpen()): ?>
-                                            <?php echo $this->Form->checkbox('misc_power.' . $i . '.is_public', [
-                                                'label' => false,
-                                                'value' => 1,
-                                                'checked' => $power->IsPublic
-                                            ]); ?>
-                                            <div class="alert badge clickable remove-misc-power"><i
-                                                        class="fi-minus"></i>
-                                            </div>
-                                        <?php else: ?>
-                                            <?php echo $power->IsPublic ? 'Yes' : 'No'; ?>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </table>
-                        <table id="removed-misc-abilities" class="hide"></table>
+                        <?php echo $miscPowerTable; ?>
                     </div>
                 </div>
                 <div class="small-12 medium-6 column float-left">
@@ -1464,20 +1438,27 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
-    private function buildTable(Character $character, $powerType, $tableId)
+    private function buildTable(Character $character, $powerType, $tableId, $options = [])
     {
+        $inputOptions = [
+            'level' => [
+                'type' => 'select'
+            ]
+        ];
+
+        $inputOptions = array_merge($inputOptions, $options);
         ob_start();
         ?>
         <table id="<?php echo $tableId; ?>" class="stack">
             <thead>
             <tr>
-                <th>Merit</th>
+                <th>Name</th>
                 <th>Note</th>
                 <th>Level</th>
                 <th>Public</th>
             </tr>
             </thead>
-            <?php foreach ($character->getPowerList($powerType) as $i => $power): ?>
+            <?php foreach ($character->getPowerList(lcfirst(Inflector::camelize($powerType))) as $i => $power): ?>
                 <tr>
                     <td>
                         <?php if ($this->mayEditOpen()): ?>
@@ -1506,14 +1487,27 @@ class CharacterHelper extends AppHelper
                     <td>
                         <label class="hide-for-large-only">Level</label>
                         <?php if ($this->mayEditOpen()): ?>
-                            <?php echo $this->Form->select(
-                                $powerType . '.' . $i . '.level',
-                                range(0, $this->maxDots),
-                                [
-                                    'label' => false,
-                                    'value' => $power->PowerLevel
-                                ]
-                            ); ?>
+                            <?php if ($inputOptions['level']['type'] == 'select'): ?>
+                                <?php echo $this->Form->select(
+                                    $powerType . '.' . $i . '.level',
+                                    range(0, $this->maxDots),
+                                    [
+                                        'label' => false,
+                                        'value' => $power->PowerLevel
+                                    ]
+                                ); ?>
+                            <?php elseif (in_array($inputOptions['level']['type'], ['text', 'number'])): ?>
+                                <?php echo $this->Form->input(
+                                    $powerType . '.' . $i . '.level',
+                                    [
+                                        'type' => $inputOptions['level']['type'],
+                                        'label' => false,
+                                        'value' => $power->PowerLevel
+                                    ]
+                                ); ?>
+                            <?php else: ?>
+                                Unknown level option: <?php echo $inputOptions['level']['type']; ?>
+                            <?php endif; ?>
                             <?php echo $this->Form->hidden($powerType . '.' . $i . '.id', [
                                 'value' => $power->Id
                             ]); ?>

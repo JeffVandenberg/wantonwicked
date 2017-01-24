@@ -214,6 +214,8 @@ class Character extends DataModel
                 $this->addList(2, 'icdisc');
                 $this->addList(2, 'oocdisc');
                 $this->addList(2, 'devotion');
+                $this->addList(1, 'touchstone');
+                $this->powers['touchstone'][0]->PowerLevel = 6;
                 break;
         }
         // do something here later

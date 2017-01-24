@@ -19,7 +19,6 @@ class LanguageHelper extends AppHelper
             'break_point2' => 'What is the worst thing your character can imagine someone else doing?',
             'break_point3' => 'What has the character forgotten?',
             'break_point4' => 'What is the most traumatic thing that has ever happened to the character?',
-            'merit' => 'Merit',
         ],
         'vampire' => [
             'splat1' => 'Clan',
@@ -27,10 +26,13 @@ class LanguageHelper extends AppHelper
             'virtue' => 'Mask',
             'vice' => 'Dirge',
             'morality' => 'Humanity',
-            'merit' => 'Merit',
             'icdisc' => 'Discipline',
             'oocdisc' => 'Discipline',
             'devotion' => 'Devotion'
+        ],
+        'general' => [
+            'merit' => 'Merit',
+            'misc_power' => 'Misc'
         ]
     ];
 
@@ -39,8 +41,9 @@ class LanguageHelper extends AppHelper
         if(isset($this->translations[$characterType][$label])) {
             return $this->translations[$characterType][$label];
         }
-        else {
-            return $label;
+        else if(isset($this->translations['general'][$label])){
+            return $this->translations['general'][$label];
         }
+        return $label;
     }
 }
