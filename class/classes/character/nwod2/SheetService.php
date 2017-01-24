@@ -137,7 +137,7 @@ class SheetService
         $character->loadPowers();
 
         if ($options['edit_mode'] == 'open') {
-            $character->CharacterName = $stats['character_name'];
+            $character->CharacterName = htmlspecialchars($stats['character_name']);
             if (!$character->CharacterName) {
                 $character->CharacterName = 'Character ' . mt_rand(9999999, 100000000);
             }
