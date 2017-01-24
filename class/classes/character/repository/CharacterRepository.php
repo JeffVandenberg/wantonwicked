@@ -231,6 +231,7 @@ SELECT
     C.id,
     C.character_name,
     C.is_sanctioned,
+    C.slug,
     U.username as updated_by_name,
     C.updated_on
 FROM

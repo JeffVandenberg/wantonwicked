@@ -52,7 +52,7 @@ class MenuComponent extends Component {
                             'link' => '/bluebook.php?action=list&character_id=' . $character['Character']['id']
                         ),
                         'Sheet' => array(
-                            'link' => '/view_sheet.php?action=view_own_xp&character_id=' . $character['Character']['id']
+                            'link' => '/characters/viewOwn/' . $character['Character']['slug']
                         )
                     )
                 );

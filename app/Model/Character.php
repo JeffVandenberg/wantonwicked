@@ -22,7 +22,8 @@ class Character extends AppModel
             ),
             'fields' => array(
                 'Character.id',
-                'Character.character_name'
+                'Character.character_name',
+                'Character.slug'
             ),
             'order' => array(
                 'Character.character_name'

@@ -27,7 +27,7 @@ if ($userdata['user_id'] != ANONYMOUS) {
                     'link' => '/bluebook.php?action=list&character_id=' . $character['id']
                 ),
                 'Sheet' => array(
-                    'link' => '/view_sheet.php?action=view_own_xp&character_id=' . $character['id']
+                    'link' => '/characters/viewOwn/' . $character['slug']
                 )
             )
         );
