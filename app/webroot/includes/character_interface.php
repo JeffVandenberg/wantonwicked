@@ -24,21 +24,21 @@ $character = $characterRepository->getById($characterId);
 /* @var Character $character */
 if($character->Id == 0) {
     SessionHelper::SetFlashMessage("Invalid Character");
-    Response::redirect('chat.php');
+    Response::redirect('/chat.php');
 }
 
 if($character->IsNpc == 'Y') {
     if(!UserdataHelper::IsSt($userdata)) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface', $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::redirect('');
+        Response::redirect('/');
     }
 }
 else {
     if($character->UserId != $userdata['user_id']) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface', $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::redirect('');
+        Response::redirect('/');
     }
 }
 
@@ -364,14 +364,5 @@ ob_start();
             </div>
         </div>
     </div>
-    <script>
-        $(function () {
-        });
-
-        function loginCharacter() {
-            $("#character-login").submit();
-        }
-    </script>
-
 <?php
 $page_content = ob_get_clean();

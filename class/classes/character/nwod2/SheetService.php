@@ -179,7 +179,7 @@ class SheetService
         if ($options['show_admin']) {
             $character->Status = $stats['status'];
             $character->IsSanctioned = $stats['is_sanctioned'];
-            $character->IsNpc = $stats['is_npc'] ? 'Y' : 'N';
+            $character->IsNpc = ($stats['is_npc'] == 'Y') ? 'Y' : 'N';
         }
 
         // fixed values
