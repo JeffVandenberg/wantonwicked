@@ -169,7 +169,7 @@ class CharactersController extends AppController
 
         if($character->IsSanctioned === '') {
             $options['edit_mode'] = 'open';
-            $character->addMinPowersForEdit();
+            $sheetService->addMinPowersForEdit($character);
         }
 
         if($this->request->is('post'))
@@ -210,7 +210,7 @@ class CharactersController extends AppController
             if($this->request->data['view_character_id']) {
                 // attempt to load the character
                 $character = $sheetService->loadSheet($this->request->data['view_character_id']);
-                $character->addMinPowersForEdit();
+                $sheetService->addMinPowersForEdit($character);
                 $this->set(compact('character'));
             }
 
@@ -229,7 +229,7 @@ class CharactersController extends AppController
         }
         if($this->request->is('get')) {
             $character = $sheetService->loadSheet($characterId);
-            $character->addMinPowersForEdit();
+            $sheetService->addMinPowersForEdit($character);
             $this->set(compact('character'));
         }
 
@@ -242,9 +242,11 @@ class CharactersController extends AppController
         ];
         $this->set(compact('cities', 'options'));
     }
+
     /**
      * add method
      *
+     * @param null|string $characterType
      * @return void
      */
     public function add($characterType = null)
@@ -253,11 +255,11 @@ class CharactersController extends AppController
             'show_admin' => false,
             'edit_mode' => 'open', // other values "open", "none"
         ];
+        $sheetService = new SheetService();
 
         if ($this->request->is('post')) {
             $character = $this->request->data;
             $character['slug'] = Inflector::slug($character['city'] . ' ' . $character['character_name']);
-            $sheetService = new SheetService();
 
             $result = $sheetService->saveSheet($character, $options, $this->Auth->user());
 
@@ -269,8 +271,7 @@ class CharactersController extends AppController
                 $this->redirect('/chat.php');
             }
         } else {
-            $character = new Character();
-            $character->initializeNew($characterType);
+            $character = $sheetService->initializeSheet($characterType);
             $this->set(compact('character'));
         }
         $this->set('options', $options);

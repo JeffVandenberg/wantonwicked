@@ -50,6 +50,87 @@ class SheetService
         $this->powerRepository = new CharacterPowerRepository();
     }
 
+    public function initializeSheet($characterType = 'mortal')
+    {
+        $character = new Character();
+        $characterType = ($characterType) ? $characterType : 'mortal';
+        $character->CharacterType = $characterType;
+        $character->Size = 5;
+        $character->Morality = 7;
+
+        // initialize specialities
+        $this->addList($character, 3, 'specialty');
+        $this->addList($character, 5, 'merit');
+        $this->addList($character, 2, 'miscPower');
+        $this->addList($character, 4, 'equipment');
+        $this->addList($character, 3, 'aspiration');
+        $this->addList($character, 5, 'break_point');
+
+        $this->addCharacterTypePowers($character);
+
+        return $character;
+    }
+
+    public function addMinPowersForEdit(Character $character)
+    {
+        $powerTypeList = [
+            'specialty' => 3,
+            'merit' => 5,
+            'miscPower' => 2,
+            'equipment' => 3,
+            'aspiration' => 3,
+        ];
+        foreach ($powerTypeList as $type => $min) {
+            if (count($character->getPowerList($type)) < $min) {
+                $this->addList($character, $min - count($character->getPowerList($type)), $type);
+            }
+        }
+
+        $this->addCharacterTypePowers($character);
+    }
+
+    private function addCharacterTypePowers(Character $character)
+    {
+        $powers = [];
+        switch($character->CharacterType) {
+            case 'mortal':
+                $powers = [
+                    'break_point' => 5
+                ];
+                break;
+            case 'vampire':
+                $powers = [
+                    'icdisc' => 2,
+                    'oocdisc' => 2,
+                    'devotion' => 2,
+                    'touchstone' => 1
+                ];
+                break;
+        }
+
+        foreach($powers as $type => $min) {
+            if (count($character->getPowerList($type)) < $min) {
+                $count = $min - count($character->getPowerList($type));
+
+                $this->addList($character, $count, $type);
+
+                if($type == 'touchstone' && $count > 0) {
+                    $list = $character->getPowerList('touchstone');
+                    $list[0]->PowerLevel = 6;
+                }
+            }
+        }
+    }
+
+    public function addList(Character $character, $numOfItems, $powerType)
+    {
+        foreach (range(1, $numOfItems) as $i) {
+            $power = new CharacterPower();
+            $power->PowerType = $powerType;
+            $character->addPower($powerType, $power);
+        }
+    }
+
     /**
      * Load a character by ID if $identifier is an integer or slug otherwise.
      * @param int|string $identifier

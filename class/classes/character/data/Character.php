@@ -181,46 +181,6 @@ class Character extends DataModel
         return $power;
     }
 
-    public function initializeNew($characterType = 'mortal')
-    {
-        $this->CharacterType = $characterType;
-        $this->Size = 5;
-        $this->Morality = 7;
-
-        // initialize specialities
-        $this->addList(3, 'specialty');
-        $this->addList(5, 'merit');
-        $this->addList(2, 'miscPower');
-        $this->addList(4, 'equipment');
-        $this->addList(3, 'aspiration');
-        $this->addList(5, 'break_point');
-
-        $this->addCharacterTypePowers();
-    }
-
-    public function addList($numOfItems, $powerType)
-    {
-        foreach (range(1, $numOfItems) as $i) {
-            $power = new CharacterPower();
-            $power->PowerType = $powerType;
-            $this->powers[$powerType][] = $power;
-        }
-    }
-
-    private function addCharacterTypePowers()
-    {
-        switch($this->CharacterType) {
-            case 'vampire':
-                $this->addList(2, 'icdisc');
-                $this->addList(2, 'oocdisc');
-                $this->addList(2, 'devotion');
-                $this->addList(1, 'touchstone');
-                $this->powers['touchstone'][0]->PowerLevel = 6;
-                break;
-        }
-        // do something here later
-    }
-
     /**
      * @param $powerType
      * @return CharacterPower[]
@@ -248,22 +208,8 @@ class Character extends DataModel
         }
     }
 
-    public function addMinPowersForEdit()
+    public function addPower($powerType, $power)
     {
-        $powerTypeList = [
-            'specialty' => 1,
-            'merit' => 1,
-            'miscPower' => 1,
-            'equipment' => 1,
-            'aspiration' => 1,
-            'break_point' => 5
-        ];
-        foreach ($powerTypeList as $type => $min) {
-            if (count($this->getPowerList($type)) < $min) {
-                $this->addList($min - count($this->getPowerList($type)), $type);
-            }
-        }
-
-        $this->addCharacterTypePowers();
+        $this->powers[$powerType][] = $power;
     }
 }

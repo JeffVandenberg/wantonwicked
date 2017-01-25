@@ -111,16 +111,9 @@ class CharacterHelper extends AppHelper
         sort($this->skillList);
     }
 
-    public function render(Character $character = null, $options = null)
+    public function render(Character $character, $options = null)
     {
-        if ($character == null) {
-            $character = new Character();
-            $character->initializeNew();
-        }
-
         $this->options = array_merge($this->options, $options);
-
-        $character->CharacterType = 'vampire';//($character->CharacterType) ? strtolower($character->CharacterType) : "mortal";
         $this->setupSheetOptions($character->CharacterType);
 
         $bio = $this->buildBioEdit($character);
@@ -1245,7 +1238,7 @@ class CharacterHelper extends AppHelper
                             <div class="small-12 medium-10 column">
                                 <?php if ($this->mayEditOpen()): ?>
                                     <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
-                                    <?php echo $this->Form->input('touchstone.' . $i . '.explanation', [
+                                    <?php echo $this->Form->input('touchstone.' . $i . '.name', [
                                         'value' => $power->PowerName,
                                         'label' => false
                                     ]); ?>
