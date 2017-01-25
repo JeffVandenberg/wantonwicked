@@ -14,6 +14,7 @@ use classes\character\data\CharacterPower;
 use classes\character\repository\CharacterPowerRepository;
 use classes\character\repository\CharacterRepository;
 use classes\core\data\DataModel;
+use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
@@ -256,6 +257,7 @@ class SheetService
             $character->WoundsLethal = $stats['wounds_lethal'] + 0;
             $character->WoundsBashing = $stats['wounds_bashing'] + 0;
             $character->WillpowerTemp = $stats['willpower_temp'] + 0;
+            $character->Icon = $stats['icon'];
         }
         if ($options['show_admin']) {
             $character->Status = $stats['status'];
@@ -271,7 +273,6 @@ class SheetService
         $character->ShowSheet = 'N';//$stats['show_sheet'];
         $character->ViewPassword = '';//$stats['view_password'];
         $character->HideIcon = 'N';//$stats['hide_icon'];
-        $character->Icon = '';//$stats['icon'];
         $character->SafePlace = '';//$stats['safe_place'];
         $character->Friends = '';//$stats['friends'];
         $character->Helper = '';//$stats['friends'];
@@ -460,5 +461,24 @@ class SheetService
             $user['user_id']);
 
         return true;
+    }
+
+    public function listAvailableIcons()
+    {
+        $sql = <<<SQL
+SELECT
+  Icon_ID as id,
+  Icon_Name as name
+FROM
+  icons
+WHERE
+  icons.Player_Viewable = 'Y'
+SQL;
+
+        $rows = [];
+        foreach(Database::getInstance()->query($sql)->all() as $row) {
+            $rows[$row['id']] = $row['name'];
+        }
+        return $rows;
     }
 }

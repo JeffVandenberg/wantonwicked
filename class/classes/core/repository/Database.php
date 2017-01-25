@@ -16,7 +16,7 @@ use PDOStatement;
 
 /**
  * Class Database
- * Provides an abstraction wrapper and core defaults for accessing the auxiant websites
+ * Provides an abstraction wrapper and core defaults for accessing a database
  * @package classes\core\data_access
  */
 class Database

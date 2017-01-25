@@ -277,19 +277,4 @@ EOQ;
         }
         return $this->find('all', $options);
     }
-
-    public function saveCharacter($character, $options)
-    {
-
-        $powerList = [
-        ];
-
-
-
-        var_dump($data, $characterPowers);
-        die('Proceed to save step!');
-        $this->getDataSource()->begin();
-        // process character powers
-    }
-
 } 

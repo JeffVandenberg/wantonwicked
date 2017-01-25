@@ -194,7 +194,8 @@ class CharactersController extends AppController
 
         }
 
-        $this->set(compact('character', 'options'));
+        $icons = $sheetService->listAvailableIcons();
+        $this->set(compact('character', 'options', 'icons'));
 
     }
 
@@ -233,6 +234,7 @@ class CharactersController extends AppController
             $this->set(compact('character'));
         }
 
+        $icons = $sheetService->listAvailableIcons();
         $cities = [
             "portland" => 'Portland',
             "Savannah" => 'Savannah',
@@ -240,7 +242,7 @@ class CharactersController extends AppController
             "The City" => 'The City',
             "Side Game" => 'Side Game'
         ];
-        $this->set(compact('cities', 'options'));
+        $this->set(compact('cities', 'options', 'icons'));
     }
 
     /**
@@ -274,7 +276,8 @@ class CharactersController extends AppController
             $character = $sheetService->initializeSheet($characterType);
             $this->set(compact('character'));
         }
-        $this->set('options', $options);
+        $icons = $sheetService->listAvailableIcons();
+        $this->set(compact('options', 'icons'));
     }
 
     public function validateName()

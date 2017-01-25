@@ -12,14 +12,23 @@ use classes\character\data\Character;
  */
 class CharacterHelper extends AppHelper
 {
+    /**
+     * @var array
+     */
     public $helpers = [
         'Html',
         'Form',
         'Language'
     ];
 
+    /**
+     * @var int
+     */
     private $maxDots = 9;
 
+    /**
+     * @var array
+     */
     private $skills = [
         'mental' => [
             'academics' => 'Academics',
@@ -53,6 +62,9 @@ class CharacterHelper extends AppHelper
         ]
     ];
 
+    /**
+     * @var array
+     */
     private $characterTypes = [
         'changeling' => 'Changeling',
         'fae-touched' => 'Fae-Touched',
@@ -64,11 +76,17 @@ class CharacterHelper extends AppHelper
         'wolfblooded' => 'Wolfblooded'
     ];
 
+    /**
+     * @var array
+     */
     private $yesNoOptions = [
         'N' => 'No',
         'Y' => 'Yes'
     ];
 
+    /**
+     * @var array
+     */
     private $statuses = [
         "Ok" => "Ok",
         "Imprisoned" => "Imprisoned",
@@ -77,31 +95,56 @@ class CharacterHelper extends AppHelper
         "Dead" => "Dead"
     ];
 
+    /**
+     * @var array
+     */
     private $games = [
         'portland' => 'Portland, OR'
     ];
 
+    /**
+     * @var array
+     */
     private $options = [
         'edit_mode' => 'none',
         'show_admin' => 'false'
     ];
 
+    /**
+     * @var array
+     */
     private $sanctionStatuses = [
         '' => 'New',
         'N' => 'Desanctioned',
         'Y' => 'Sanctioned'
     ];
 
+    /**
+     * @var array
+     */
     private $skillList;
 
+    /**
+     * @var array
+     */
     private $sheetFields = [
-        'splat1' => false,
-        'splat2' => false,
+        'splat1' => true,
+        'splat2' => true,
         'break_points' => false,
         'touchstone' => false
     ];
 
+    /**
+     * @var array
+     */
+    private $icons;
 
+
+    /**
+     * CharacterHelper constructor.
+     * @param View $view
+     * @param array $settings
+     */
     function __construct(View $view, $settings = [])
     {
         parent::__construct($view, $settings);
@@ -111,8 +154,15 @@ class CharacterHelper extends AppHelper
         sort($this->skillList);
     }
 
-    public function render(Character $character, $options = null)
+    /**
+     * @param Character $character
+     * @param array $icons
+     * @param array|null $options
+     * @return string
+     */
+    public function render(Character $character, $icons, $options = null)
     {
+        $this->icons = $icons;
         $this->options = array_merge($this->options, $options);
         $this->setupSheetOptions($character->CharacterType);
 
@@ -173,6 +223,10 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+    /**
+     * @param Character $character
+     * @return string
+     */
     private function buildBioEdit(Character $character)
     {
         $characterName = $character->CharacterName;
@@ -186,6 +240,7 @@ class CharacterHelper extends AppHelper
         $vice = $character->Vice;
         $history = str_replace("\n", "<br />", $character->History);
         $characterNotes = str_replace("\n", "<br />", $character->CharacterNotes);
+        $icon = $this->icons[$character->Icon];
 
         if ($this->mayEditOpen()) {
             $characterName = $this->Form->input('character_name', [
@@ -266,10 +321,13 @@ class CharacterHelper extends AppHelper
                     'aria-describedby' => 'notes-help-text'
                 ]
             );
-
         }
         if ($this->mayEditLimited()) {
-
+            $icon = $this->Form->select('icon', $this->icons, [
+                'label' => false,
+                'value' => $character->Icon,
+                'empty' => false
+            ]);
         }
         ob_start();
         ?>
@@ -303,7 +361,13 @@ class CharacterHelper extends AppHelper
                 <div class="medium-3 columns">
                     <?php echo $city; ?>
                 </div>
-                <div class="medium-1 columns medium-offset-4">
+                <div class="medium-1 columns">
+                    <label for="icon">Icon</label>
+                </div>
+                <div class="medium-3 columns">
+                    <?php echo $icon; ?>
+                </div>
+                <div class="medium-1 columns">
                     <label for="apparent_age">Age</label>
                 </div>
                 <div class="medium-3 columns">
@@ -427,6 +491,10 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+    /**
+     * @param Character $character
+     * @return string
+     */
     private function buildStatEdit(Character $character)
     {
         ob_start();
@@ -705,6 +773,10 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+    /**
+     * @param Character $character
+     * @return string
+     */
     private function buildPowersSection(Character $character)
     {
         switch (strtolower($character->CharacterType)) {
@@ -717,6 +789,10 @@ class CharacterHelper extends AppHelper
         }
     }
 
+    /**
+     * @param Character $character
+     * @return string
+     */
     public function buildMortalPowersSection(Character $character)
     {
         ob_start();
@@ -896,6 +972,10 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+    /**
+     * @param Character $character
+     * @return string
+     */
     private function buildEquipmentSection(Character $character)
     {
         ob_start();
@@ -984,6 +1064,10 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+    /**
+     * @param Character $character
+     * @return string
+     */
     private function buildDerivedSection(Character $character)
     {
         $willpowerPerm = $character->WillpowerPerm;
@@ -1255,6 +1339,10 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+    /**
+     * @param Character $character
+     * @return string
+     */
     private function buildAdminSection(Character $character)
     {
         ob_start();
@@ -1310,6 +1398,9 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+    /**
+     * @return bool
+     */
     private function mayEditLimited()
     {
         return in_array($this->options['edit_mode'], ['open', 'limited']);

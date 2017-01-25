@@ -13,7 +13,7 @@ class LanguageHelper extends AppHelper
             'splat1' => 'Guild',
             'morality' => 'Integrity',
             'virtue' => 'Virtue',
-            'Vice' => 'Vice',
+            'vice' => 'Vice',
             'break_point0' => 'What is the worst thing your character has ever done?',
             'break_point1' => 'What is the worst thing your character can imagine themselves doing?',
             'break_point2' => 'What is the worst thing your character can imagine someone else doing?',
