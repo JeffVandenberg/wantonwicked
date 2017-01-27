@@ -14,10 +14,6 @@
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
 
-<?php $this->start('script'); ?>
-<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
-<?php $this->end(); ?>
-
 <script type="text/javascript">
     tinymce.init({
         selector: "textarea.tinymce-input",

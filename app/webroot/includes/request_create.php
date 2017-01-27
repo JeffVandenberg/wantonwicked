@@ -41,6 +41,7 @@ if (Request::isPost()) {
         } else {
 
             $request = new \classes\request\data\Request();
+            $request->CharacterId = 0;
             $request->Title = htmlspecialchars($title);
             $request->RequestTypeId = $requestTypeId;
             $request->GroupId = $groupId;
@@ -122,7 +123,7 @@ ob_start();
         </div>
         <div class="formInput">
             <label for="request-type">Body:</label>
-            <?php echo FormHelper::Textarea('body', $body, array('class' => 'tinymce-request-input')); ?>
+            <?php echo FormHelper::Textarea('body', $body, ['class' => 'tinymce-request-input']); ?>
         </div>
         <div class="formInput">
             <?php echo FormHelper::Hidden('character_id', $characterId); ?>
@@ -131,7 +132,6 @@ ob_start();
             <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
-    <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         tinymce.init({
             selector: "textarea.tinymce-request-input",

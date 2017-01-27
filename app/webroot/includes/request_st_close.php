@@ -60,7 +60,7 @@ ob_start();
             <label>
                 Note
             </label>
-            <?php echo FormHelper::Textarea('note', ''); ?>
+            <?php echo FormHelper::Textarea('note', '', ['class' => 'tinymce-textarea']); ?>
         </div>
         <div class="formInput">
             <?php echo FormHelper::Hidden('request_id', $requestId); ?>
@@ -93,26 +93,5 @@ ob_start();
         No Notes for this Request
     </div>
 <?php endif; ?>
-    <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
-    <script type="text/javascript">
-        tinymce.init({
-            selector: "textarea",
-            menubar: false,
-            height: 200,
-            paste_preprocess : function(pl, o) {
-                //example: keep bold,italic,underline and paragraphs
-                //o.content = strip_tags( o.content,'<b><u><i><p>' );
-
-                // remove all tags => plain text
-                o.content = strip_tags( o.content,'<br>' );
-            },
-            plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace wordcount visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste textcolor"
-            ],
-            toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | copy paste "
-        });
-    </script>
 <?php
 $page_content = ob_get_clean();

@@ -29,8 +29,6 @@ $page_title = 'Create update for ' . $character['Character_Name'];
 
 ob_start();
 ?>
-<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
-
 
 <h3>Create Update for <?php echo $character['Character_Name']; ?></h3>
 

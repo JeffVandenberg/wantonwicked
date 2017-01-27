@@ -4718,7 +4718,7 @@ table.hover tbody tr:nth-of-type(even):hover {
   .show-for-large {
     display: none !important; } }
 
-@media screen and (min-width: 64em) {
+@media screen and (min-width: 64em) and (max-width: 74.9375em) {
   .hide-for-large-only {
     display: none !important; } }
 
@@ -5442,6 +5442,7 @@ select[multiple] {
 /* tinymce silliness */
 .tinymce-textarea {
   display: block !important;
+  min-height: 0 !important;
   padding: 0 !important;
   margin: 0 !important;
   height: 0 !important; }
@@ -5468,7 +5469,7 @@ select[multiple] {
   font-weight: normal;
   color: #3399FF; }
 
-/* Fonudation modifications */
+/* Foundation modifications */
 textarea {
   height: auto; }
 

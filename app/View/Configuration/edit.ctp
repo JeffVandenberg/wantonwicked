@@ -1,8 +1,6 @@
 <?php /* @var View $this */ ?>
 <?php $this->set('title_for_layout', 'Edit Game Configuration'); ?>
 <?php $this->start('script'); ?>
-<?php echo $this->Html->script('tinymce/tinymce.min'); ?>
-<?php echo $this->Html->script('tinymce/jquery.tinymce.min'); ?>
 <?php $this->end(); ?>
 
     <h2><?php echo __('Edit Configuration'); ?></h2>

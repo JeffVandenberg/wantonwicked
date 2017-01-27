@@ -802,6 +802,7 @@ select[multiple] {
 /* tinymce silliness */
 .tinymce-textarea {
     display: block !important;
+    min-height: 0 !important;
     padding: 0 !important;
     margin: 0 !important;
     height: 0 !important;
@@ -834,7 +835,7 @@ select[multiple] {
 }
 
 
-/* Fonudation modifications */
+/* Foundation modifications */
 textarea {
     height: auto;
 }

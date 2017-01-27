@@ -20,11 +20,15 @@
     echo $this->Shrink->js([
         'jquery' . ((Configure::read('debug') == 0) ? '.min' : '') . '.js',
         'jquery.autocomplete' . ((Configure::read('debug') == 0) ? '.min' : '') . '.js',
-        'tinymce/tinymce.min' . '.js',
         'server_time.js',
         'foundation'. ((Configure::read('debug') == 0) ? '.min' : '') . '.js',
+        'tinymce/tinymce.min.js',
         'wanton.js',
     ]);
+
+    $this->Html->script([
+    ]);
+
 
     echo $this->fetch('meta');
     echo $this->fetch('css');

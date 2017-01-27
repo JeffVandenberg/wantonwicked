@@ -72,7 +72,6 @@ ob_start();
             <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
-    <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         tinymce.init({
             selector: "textarea",
