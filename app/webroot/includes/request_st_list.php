@@ -15,7 +15,13 @@ $characterId = Request::getValue('character_id', 0);
 $page = Request::getValue('page', 1);
 $pageSize = Request::getValue('page_size', 20);
 $sort = Request::getValue('sort', 'updated_on DESC');
-$filter = Request::getValue('filter', array('username' => '', 'title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
+$filter = Request::getValue('filter', [
+    'username' => '',
+    'title' => '',
+    'request_type_id' => 0,
+    'request_group_id' => 0,
+    'request_status_id' => 0
+]);
 
 $pagination = new Pagination();
 $pagination->SetSort($sort);
@@ -30,12 +36,12 @@ $storytellerRepository = new StorytellerRepository();
 $stGroups = $storytellerRepository->ListGroupsForStoryteller($userdata['user_id']);
 $groups = array();
 foreach ($stGroups as $group) {
-    $groups[] = $group['group_id'];
+    $groups[$group['group_id']] = $group['name'];
 }
 
 $requestRepository = new RequestRepository();
-$requests = $requestRepository->ListByGroups($groups, $page, $pageSize, $pagination->GetSort(), $filter);
-$count = $requestRepository->ListByByGroupsCount($groups, $filter);
+$requests = $requestRepository->ListByGroups(array_keys($groups), $page, $pageSize, $pagination->GetSort(), $filter);
+$count = $requestRepository->ListByByGroupsCount(array_keys($groups), $filter);
 
 $hasPrev = false;
 $hasNext = false;
@@ -60,20 +66,27 @@ $menu = MenuHelper::GenerateMenu($storytellerMenu);
 ob_start();
 ?>
 <?php echo $menu; ?>
-    <div style="padding: 10px 0;">
+    <h2>Filters</h2>
+    <div class="row">
         <form method="get" action="/request.php">
-            <h2>Filters</h2>
-            <div>
+            <div class="small-12 medium-6 column">
                 <?php echo FormHelper::Text('filter[title]', $filter['title'], ['label' => 'Request Name']); ?>
+            </div>
+            <div class="small-12 medium-6 column">
                 <?php echo FormHelper::Text('filter[username]', $filter['username'], ['label' => 'User']); ?>
             </div>
-            <div>
+            <div class="small-12 medium-4 column">
                 <?php echo FormHelper::Select($requestTypes, 'filter[request_type_id]', $filter['request_type_id'], ['label' => 'Request Type']); ?>
-                <?php echo FormHelper::Select($requestStatuses, 'filter[request_status_id]', $filter['request_status_id'], ['label' => 'Request Status']); ?>
-                <?php echo FormHelper::Hidden('action', 'st_list'); ?>
             </div>
-            <div>
-                <?php echo FormHelper::Button('page_action', 'Update Filters'); ?>
+            <div class="small-12 medium-3 column">
+                <?php echo FormHelper::Select($groups, 'filter[request_group_id]', $filter['request_group_id'], ['label' => 'Group']); ?>
+            </div>
+            <div class="small-12 medium-3 column">
+                <?php echo FormHelper::Select($requestStatuses, 'filter[request_status_id]', $filter['request_status_id'], ['label' => 'Request Status']); ?>
+            </div>
+            <div class="small-12 medium-2 column">
+                <?php echo FormHelper::Hidden('action', 'st_list'); ?>
+                <button class="button" type="submit" name="page_action">Update Filters</button>
             </div>
         </form>
     </div>
@@ -85,15 +98,16 @@ ob_start();
                 <?php else: ?>
                     &lt; &lt;
                 <?php endif; ?>
-                <form method="get" style="display: inline;" action="/request.php">
+                <form method="get" style="display: inline;" action="/request.php" >
                     Page:
                     <?php echo FormHelper::Hidden('sort', $sort); ?>
                     <?php echo FormHelper::Hidden('action', 'st_list'); ?>
                     <?php echo FormHelper::Hidden('character_id', $characterId); ?>
                     <?php echo FormHelper::Hidden('filter[title]', $filter['title']); ?>
                     <?php echo FormHelper::Hidden('filter[request_type_id]', $filter['request_type_id']); ?>
+                    <?php echo FormHelper::Hidden('filter[request_group_id]', $filter['request_group_id']); ?>
                     <?php echo FormHelper::Hidden('filter[request_status_id]', $filter['request_status_id']); ?>
-                    <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
+                    <?php echo FormHelper::Text('page', $page, ['style' => 'width: 30px;display:inline;']); ?>
                 </form>
                 <?php if ($hasNext): ?>
                     <a href="/request.php?action=st_list&<?php echo $pagination->GetNext(); ?>">&gt; &gt;</a>
@@ -133,44 +147,42 @@ ob_start();
             <th>
                 <a href="/request.php?action=st_list&<?php echo $pagination->GetSortLink('R.updated_on'); ?>">Updated</a>
             </th>
-            <th>
-            </th>
         </tr>
 
         <?php if (count($requests) > 0): ?>
-            <?php foreach ($requests as $request): ?>
+            <?php foreach ($requests as $r): ?>
                 <tr>
                     <td>
-                        <a href="/request.php?action=st_view&request_id=<?php echo $request['id']; ?>">
-                            <?php echo $request['title']; ?>
+                        <a href="/request.php?action=st_view&request_id=<?php echo $r['id']; ?>">
+                            <?php echo $r['title']; ?>
                         </a>
                     </td>
                     <td>
-                        <?php echo $request['created_by_username']; ?>
+                        <?php echo $r['created_by_username']; ?>
                     </td>
                     <td>
-                        <?php echo $request['group_name']; ?>
+                        <?php echo $r['group_name']; ?>
                     </td>
                     <td>
-                        <?php echo $request['request_type_name']; ?>
+                        <?php echo $r['request_type_name']; ?>
                     </td>
                     <td>
-                        <?php echo $request['request_status_name']; ?>
+                        <?php echo $r['request_status_name']; ?>
                     </td>
                     <td>
-                        <?php echo date('m/d/Y', strtotime($request['created_on'])); ?>
+                        <?php echo date('m/d/Y', strtotime($r['created_on'])); ?>
                     </td>
                     <td>
-                        <?php echo $request['updated_by_username']; ?>
+                        <?php echo $r['updated_by_username']; ?>
                     </td>
                     <td>
-                        <?php echo date('m/d/Y', strtotime($request['updated_on'])); ?>
+                        <?php echo date('m/d/Y', strtotime($r['updated_on'])); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="9" style="text-align: center;">
+                <td colspan="8" style="text-align: center;">
                     No Requests
                 </td>
             </tr>

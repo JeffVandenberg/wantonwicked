@@ -68,7 +68,7 @@ ob_start();
                     Page:
                     <?php echo FormHelper::Hidden('sort', $sort); ?>
                     <?php echo FormHelper::Hidden('action', 'dashboard'); ?>
-                    <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
+                    <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;display:inline;')); ?>
                 </form>
                 <?php if ($hasNext): ?>
                     <a href="/request.php?action=dashboard&<?php echo $pagination->GetNext(); ?>" title="Next">&gt; &gt;</a>

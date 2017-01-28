@@ -481,6 +481,11 @@ EOQ;
             $parameters[] = RequestType::BlueBook;
         }
 
+        if($filter['request_group_id']) {
+            $sql .= ' AND R.group_id = ? ';
+            $parameters[] = $filter['request_group_id'];
+        }
+
         if ($filter['title'] != '') {
             $sql .= ' AND R.title LIKE ? ';
             $parameters[] = $filter['title'] . '%';
