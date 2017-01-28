@@ -35,15 +35,15 @@ if ($character['is_npc'] == 'Y') {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface',
                                 $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::redirect('');
+        Response::redirect('/');
     }
 }
 else {
-    if ($character['user_id'] != $userdata['user_id']) {
+    if (($character['user_id'] != $userdata['user_id']) && !UserdataHelper::IsAdmin($userdata)) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface',
                                 $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::redirect('');
+        Response::redirect('/');
     }
 }
 
@@ -495,8 +495,8 @@ $requestRepository = new RequestRepository();
 $openRequests      = $requestRepository->ListOpenRequestsForCharacter($characterId);
 
 $requests = array('0' => 'None');
-foreach ($openRequests as $request) {
-    $requests[$request['id']] = $request['title'];
+foreach ($openRequests as $r) {
+    $requests[$r['id']] = $r['title'];
 }
 
 /*************************************************************************************
