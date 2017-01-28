@@ -99,7 +99,7 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'st_view':
-            if(UserdataHelper::IsSt($userdata))
+            if(UserdataHelper::IsSt($userdata) || UserdataHelper::mayManageRequests($userdata))
             {
                 include 'includes/request_st_view.php';
             }
@@ -109,7 +109,7 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'st_add_note':
-            if(UserdataHelper::IsSt($userdata))
+            if(UserdataHelper::IsSt($userdata) || UserdataHelper::mayManageRequests($userdata))
             {
                 include 'includes/request_st_add_note.php';
             }
@@ -119,7 +119,7 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'st_approve':
-            if(UserdataHelper::IsSt($userdata))
+            if(UserdataHelper::IsSt($userdata) || UserdataHelper::mayManageRequests($userdata))
             {
                 include 'includes/request_st_approve.php';
             }
@@ -129,7 +129,7 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'st_return':
-            if(UserdataHelper::IsSt($userdata))
+            if(UserdataHelper::IsSt($userdata) || UserdataHelper::mayManageRequests($userdata))
             {
                 include 'includes/request_st_return.php';
             }
@@ -139,7 +139,7 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'st_deny':
-            if(UserdataHelper::IsSt($userdata))
+            if(UserdataHelper::IsSt($userdata) || UserdataHelper::mayManageRequests($userdata))
             {
                 include 'includes/request_st_deny.php';
             }
@@ -188,7 +188,7 @@ if (isset($_GET['action'])) {
             include 'includes/request_forward.php';
             break;
         case 'st_forward':
-            if(UserdataHelper::IsSt($userdata))
+            if(UserdataHelper::IsSt($userdata) || UserdataHelper::mayManageRequests($userdata))
             {
                 include 'includes/request_st_forward.php';
             }
@@ -198,7 +198,7 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'st_close':
-            if(UserdataHelper::IsAdmin($userdata))
+            if(UserdataHelper::IsSt($userdata) || UserdataHelper::mayManageRequests($userdata))
             {
                 include 'includes/request_st_close.php';
             }
