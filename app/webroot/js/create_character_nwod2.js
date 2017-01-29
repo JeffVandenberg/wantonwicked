@@ -88,7 +88,8 @@ function addFoundationRow(sectionId) {
 
 $(function () {
     $(document).on('change', '#character_type', function() {
-
+        document.location = '?character_type=' + $(this).val();
+        return false;
     });
 
     $(document).on('click', "#add-specialty", function () {

@@ -128,10 +128,12 @@ class CharacterHelper extends AppHelper
      * @var array
      */
     private $sheetFields = [
-        'splat1' => true,
-        'splat2' => true,
+        'splat1' => false,
+        'splat2' => false,
         'break_points' => false,
-        'touchstone' => false
+        'touchstone' => false,
+        'powertrait' => false,
+        'power_points' => false
     ];
 
     /**
@@ -1422,6 +1424,36 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
                 $this->sheetFields['touchstone'] = true;
+                $this->sheetFields['power_trait'] = true;
+                $this->sheetFields['power_points'] = true;
+                break;
+            case 'ghoul':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['power_points'] = true;
+                break;
+            case 'werewolf':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['splat2'] = true;
+                $this->sheetFields['power_trait'] = true;
+                $this->sheetFields['power_points'] = true;
+                break;
+            case 'wolfblooded':
+                break;
+            case 'mage':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['splat2'] = true;
+                $this->sheetFields['power_trait'] = true;
+                $this->sheetFields['power_points'] = true;
+                break;
+            case 'changeling':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['splat2'] = true;
+                $this->sheetFields['power_trait'] = true;
+                $this->sheetFields['power_points'] = true;
+                break;
+            case 'fae-touched':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['power_points'] = true;
                 break;
         }
     }

@@ -28,7 +28,54 @@ class LanguageHelper extends AppHelper
             'morality' => 'Humanity',
             'icdisc' => 'Discipline',
             'oocdisc' => 'Discipline',
-            'devotion' => 'Devotion'
+            'devotion' => 'Devotion',
+            'powertrait' => 'Blood Potency',
+            'powerpoints' => 'Vitae'
+        ],
+        'mage' => [
+            'splat1' => 'Path',
+            'splat2' => 'Order',
+            'morality' => 'Wisdom',
+            'virtue' => 'Virtue',
+            'vice' => 'Vice',
+            'powertrait' => 'Gnosis',
+            'powerpoints' => 'Mana',
+        ],
+        'werewolf' => [
+            'splat1' => 'Auspice',
+            'splat2' => 'Tribe',
+            'morality' => 'Harmony',
+            'powertrait' => 'Primal Urge',
+            'powerpoints' => 'Essence',
+            'virtue' => 'Blood',
+            'vice' => 'Bone'
+        ],
+        'changeling' => [
+            'splat1' => 'Seeming',
+            'splat2' => 'Court',
+            'virtue' => 'Masque',
+            'vice' => 'Mien',
+            'morality' => 'Clarity',
+            'powertrait' => 'Wyrd',
+            'powerpoints' => ''
+        ],
+        'ghoul' => [
+            'splat1' => 'Regent Clan',
+            'virtue' => 'Virtue',
+            'vice' => 'Vice',
+            'morality' => 'Integrity',
+            'powerpoints' => 'Vitae'
+        ],
+        'fae-touched' => [
+            'splat1' => 'Seeming',
+            'virtue' => 'Virtue',
+            'vice' => 'Vice',
+            'morality' => 'Integrity',
+            'powerpoints' => 'Glamour'
+        ],
+        'wolfblooded' => [
+            'virtue' => 'Virtue',
+            'vice' => 'Vice',
         ],
         'general' => [
             'merit' => 'Merit',

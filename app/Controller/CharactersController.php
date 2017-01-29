@@ -248,10 +248,9 @@ class CharactersController extends AppController
     /**
      * add method
      *
-     * @param null|string $characterType
      * @return void
      */
-    public function add($characterType = null)
+    public function add()
     {
         $options = [
             'show_admin' => false,
@@ -273,6 +272,9 @@ class CharactersController extends AppController
                 $this->redirect('/chat.php');
             }
         } else {
+            $characterType = ($this->request->query('character_type'))
+                ? $this->request->query('character_type')
+                : 'mortal';
             $character = $sheetService->initializeSheet($characterType);
             $this->set(compact('character'));
         }
