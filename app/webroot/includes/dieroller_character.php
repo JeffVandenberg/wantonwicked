@@ -33,31 +33,30 @@ if ($character === false) {
 if ($character['is_npc'] == 'Y') {
     if (!UserdataHelper::IsSt($userdata)) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface',
-                                $userdata['user_id']);
+            $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
     }
-}
-else {
+} else {
     if (($character['user_id'] != $userdata['user_id']) && !UserdataHelper::IsAdmin($userdata)) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface',
-                                $userdata['user_id']);
+            $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
     }
 }
 
-$willpower_temp          = $character['willpower_temp'];
-$power_points            = $character['power_points'];
-$wounds_agg              = $character['wounds_agg'];
-$wounds_lethal           = $character['wounds_lethal'];
-$wounds_bashing          = $character['wounds_bashing'];
-$health                  = $character['health'];
+$willpower_temp = $character['willpower_temp'];
+$power_points = $character['power_points'];
+$wounds_agg = $character['wounds_agg'];
+$wounds_lethal = $character['wounds_lethal'];
+$wounds_bashing = $character['wounds_bashing'];
+$health = $character['health'];
 $temporary_health_levels = $character['temporary_health_levels'];
-$total_health            = $temporary_health_levels;
-$size                    = $character['size'];
-$werewolf_form           = "";
-$current_form            = Request::getValue('current_form', SessionHelper::Read('current_form', "Hishu"));
+$total_health = $temporary_health_levels;
+$size = $character['size'];
+$werewolf_form = "";
+$current_form = Request::getValue('current_form', SessionHelper::Read('current_form', "Hishu"));
 $showOnlyMyRolls = Request::getValue('show_only_my_rolls', false);
 
 SessionHelper::Write('current_form', $current_form);
@@ -86,60 +85,59 @@ switch ($current_form) {
     default:
         break;
 }
-$page_title    = 'Die Roller/Status for: ' . $character['character_name'];
+$page_title = 'Die Roller/Status for: ' . $character['character_name'];
 $contentHeader = $page_title;
 
 // test if doing an update or dice roll
 if (isset($_POST['submit_die_roller'])) {
     // test to see if they are making a die roll they are making
     // they are attempting a roll, get all of the relevant details
-    $character_name    = htmlspecialchars($_POST['character_name']);
-    $description       = htmlspecialchars($_POST['action']);
-    $dice              = $_POST['dice'] + 0;
-    $ten_again         = (($_POST['reroll'] == '10again') || ($_POST['reroll'] == '9again') || ($_POST['reroll'] == '8again'))
+    $character_name = htmlspecialchars($_POST['character_name']);
+    $description = htmlspecialchars($_POST['action']);
+    $dice = $_POST['dice'] + 0;
+    $ten_again = (($_POST['reroll'] == '10again') || ($_POST['reroll'] == '9again') || ($_POST['reroll'] == '8again'))
         ? "Y" : "N";
-    $nine_again        = (($_POST['reroll'] == '9again') || ($_POST['reroll'] == '8again')) ? "Y" : "N";
-    $eight_again       = ($_POST['reroll'] == '8again') ? "Y" : "N";
-    $one_cancel        = (isset($_POST['1cancel'])) ? "Y" : "N";
-    $chance_die        = (isset($_POST['chance_die'])) ? "Y" : "N";
-    $is_rote           = (isset($_POST['is_rote'])) ? "Y" : "N";
-    $used_wp           = (isset($_POST['spend_willpower'])) ? "Y" : "N";
-    $used_pp           = (isset($_POST['spend_pp'])) ? "Y" : "N";
+    $nine_again = (($_POST['reroll'] == '9again') || ($_POST['reroll'] == '8again')) ? "Y" : "N";
+    $eight_again = ($_POST['reroll'] == '8again') ? "Y" : "N";
+    $one_cancel = (isset($_POST['1cancel'])) ? "Y" : "N";
+    $chance_die = (isset($_POST['chance_die'])) ? "Y" : "N";
+    $is_rote = (isset($_POST['is_rote'])) ? "Y" : "N";
+    $used_wp = (isset($_POST['spend_willpower'])) ? "Y" : "N";
+    $used_pp = (isset($_POST['spend_pp'])) ? "Y" : "N";
     $rollType = Request::getValue('roll_type');
     $extendedWillpower = Request::getValue('extended_willpower');
-    $numberOfRolls     = Request::getValue('number_of_rolls', 1);
+    $numberOfRolls = Request::getValue('number_of_rolls', 1);
 
     // check for bias
     $bias = "normal";
 
     if (substr($description, 0, 1) == "+") {
         $description = substr($description, 1, strlen($description) - 1);
-        $bias        = "high";
+        $bias = "high";
     }
     if (substr($description, 0, 1) == "-") {
         $description = substr($description, 1, strlen($description) - 1);
-        $bias        = "low";
+        $bias = "low";
     }
 
     // validation and preprocessing
     $willpowerSpent = 0;
-    if($rollType == 0) {
+    if ($rollType == 0) {
         // normal roll
         $numberOfRolls = 1;
-        if($used_wp == 'Y') {
+        if ($used_wp == 'Y') {
             $willpowerSpent = 1;
         }
-    }
-    else {
+    } else {
         // extended roll
         $willpowerSpent = $extendedWillpower;
-        if($numberOfRolls > 20) {
+        if ($numberOfRolls > 20) {
             $numberOfRolls = 20;
         }
     }
 
     $now = date('Y-m-d h:i:s');
-    $description    = (trim($description) == "") ? "does something sneaky" : $description;
+    $description = (trim($description) == "") ? "does something sneaky" : $description;
 
     for ($i = 0; $i < $numberOfRolls; $i++) {
         $diceForRoll = $dice;
@@ -160,14 +158,14 @@ if (isset($_POST['submit_die_roller'])) {
         $character_name = (trim($character_name) == "") ? "Someone" : $character_name;
         $rollDescription = $description;
 
-        if($rollType == 1) {
-            $rollDescription .= ' Roll #' . ($i +1);
+        if ($rollType == 1) {
+            $rollDescription .= ' Roll #' . ($i + 1);
         }
 
         if ($diceForRoll) {
             $wodDice = new WodDice();
             $result = $wodDice->rollWoDDice($diceForRoll, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
-                                  $is_rote == 'Y');
+                $is_rote == 'Y');
 
             $query = "
 INSERT INTO wod_dierolls (Character_ID, Roll_Date, Character_Name, Description, Dice, 10_Again, 9_Again, 8_Again,
@@ -180,13 +178,13 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 $result['note'], $result['num_of_successes'], $chance_die, $bias, $is_rote
             );
 
-            if(Database::getInstance()->query($query)->execute($params)) {
+            if (Database::getInstance()->query($query)->execute($params)) {
             }
             $rollId = Database::getInstance()->getInsertId();
 
             // update relevant stats
             if (($usedWillpowerForRoll) || ($used_pp == 'Y')) {
-                $update_query = "update characters set ";
+                $update_query = "UPDATE characters SET ";
                 if ($usedWillpowerForRoll) {
                     $update_query .= "willpower_temp = willpower_temp - 1, ";
                     $willpower_temp--;
@@ -229,7 +227,7 @@ if (isset($_POST['submit_update_stats'])) {
     $power_points = ($power_points < 0) ? 0 : $power_points;
 
     $temporary_health_levels = $_POST['temporary_health_levels'] + 0;
-    $health                  = $health + $temporary_health_levels;
+    $health = $health + $temporary_health_levels;
 
     if ($power_points > $max_power_points) {
         $power_points = $max_power_points;
@@ -246,7 +244,7 @@ if (isset($_POST['submit_update_stats'])) {
         $temporary_health_levels,
         $characterId
     );
-    $update_query  = <<<EOQ
+    $update_query = <<<EOQ
 UPDATE
 	characters
 set 
@@ -264,7 +262,7 @@ EOQ;
     Response::redirect('dieroller.php?action=character&character_id=' . $characterId);
 }
 
-$extra_row             = "";
+$extra_row = "";
 $extra_spend_willpower = "";
 if ($willpower_temp > 0) {
     $extra_row .= <<<EOQ
@@ -305,17 +303,17 @@ Mana: <input type="text" name="power_points" value="$power_points" size="3" maxl
 EOQ;
 }
 if ($character['character_type'] == 'Werewolf') {
-    $extra_status  = <<<EOQ
+    $extra_status = <<<EOQ
 Essence: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
 EOQ;
-    $forms         = [
+    $forms = [
         "Hishu" => "Hishu",
         "Dalu" => "Dalu",
         "Gauru" => "Gauru",
         "Urshul" => "Urshul",
         "Urhan" => "Urhan",
     ];
-    $form_select   = FormHelper::Select($forms, 'current_form', $current_form);
+    $form_select = FormHelper::Select($forms, 'current_form', $current_form);
     $werewolf_form = <<<EOQ
 Form: $form_select<br>
 EOQ;
@@ -334,15 +332,14 @@ EOQ;
 // calculate Status
 $status = "Still Standing<br>";
 if ($wounds_agg >= $health) {
-    $status       = "Dead (Game over man! Game Over!)<br>";
+    $status = "Dead (Game over man! Game Over!)<br>";
     $found_status = true;
 }
 
 if (!$found_status && (($wounds_agg + $wounds_lethal) >= $health)) {
     if ($character['character_type'] == 'Vampire') {
         $status = "On the ground in Torpor(No Actions)<br>";
-    }
-    else {
+    } else {
         $status = "On the ground bleeding (No Actions)<br>";
     }
     $found_status = true;
@@ -351,8 +348,7 @@ if (!$found_status && (($wounds_agg + $wounds_lethal) >= $health)) {
 if (!$found_status && (($wounds_agg + $wounds_lethal + $wounds_bashing) >= $health)) {
     if ($character['character_type'] == 'Vampire') {
         $status = "Gravely wounded<br>";
-    }
-    else {
+    } else {
         $status = "Ready to Pass out (Stamina Rolls Necessary)<br>";
     }
 
@@ -364,16 +360,13 @@ $wound_representation = "";
 for ($i = 1; $i <= $health; $i++) {
     if ($i <= $wounds_agg) {
         $wound_representation .= '<img src="img/wound_agg.gif" width="13" height="13">';
-    }
-    else {
+    } else {
         if ($i <= ($wounds_agg + $wounds_lethal)) {
             $wound_representation .= '<img src="img/wound_lethal.gif" width="13" height="13">';
-        }
-        else {
+        } else {
             if ($i <= ($wounds_agg + $wounds_lethal + $wounds_bashing)) {
                 $wound_representation .= '<img src="img/wound_bashing.gif" width="13" height="13">';
-            }
-            else {
+            } else {
                 $wound_representation .= '<img src="img/wound_empty.gif" width="13" height="13">';
             }
         }
@@ -409,8 +402,8 @@ if ($page > $pages) {
 }
 
 $current_row = ($page - 1) * $page_size;
-$showNext    = false;
-$showPrev    = false;
+$showNext = false;
+$showPrev = false;
 
 if ($page != $pages) {
     $showNext = true;
@@ -426,16 +419,16 @@ $rolls = <<<EOQ
 <table border="0" class="normal_text" width="100%" cellspacing="0" cellpadding="4">
 EOQ;
 
-foreach($rollData as $i => $roll_detail) {
-    $row_color    = ($i% 2) ? "#443a33" : "#000000";
-    $wp           = "";
-    $pp           = "";
-    $chance       = "";
-    $eight_again  = "";
-    $nine_again   = "";
+foreach ($rollData as $i => $roll_detail) {
+    $row_color = ($i % 2) ? "#443a33" : "#000000";
+    $wp = "";
+    $pp = "";
+    $chance = "";
+    $eight_again = "";
+    $nine_again = "";
     $no_ten_again = "";
-    $rote_action  = "";
-    $ones_remove  = "";
+    $rote_action = "";
+    $ones_remove = "";
 
     if ($roll_detail['Used_WP'] == 'Y') {
         $wp = "(WP)";
@@ -492,7 +485,7 @@ EOQ;
 $rolls .= "</table>";
 
 $requestRepository = new RequestRepository();
-$openRequests      = $requestRepository->ListOpenRequestsForCharacter($characterId);
+$openRequests = $requestRepository->ListOpenRequestsForCharacter($characterId);
 
 $requests = array('0' => 'None');
 foreach ($openRequests as $r) {
@@ -513,16 +506,16 @@ foreach ($openRequests as $r) {
 
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */
-$menu      = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::GenerateMenu($characterMenu);
 $rollTypes = array(
     0 => 'Simple Roll',
     1 => 'Extended Roll'
 );
-$rerolls   = array(
+$rerolls = array(
     '10again' => '10 Again',
-    '9again'  => '9 Again',
-    '8again'  => '8 Again',
-    'none'    => 'No Rerolls'
+    '9again' => '9 Again',
+    '8again' => '8 Again',
+    'none' => 'No Rerolls'
 );
 ob_start();
 ?>
@@ -537,50 +530,61 @@ ob_start();
             <td style="width: 60%; text-align: center;">
                 <form method="post"
                       action="<?php echo $_SERVER['PHP_SELF']; ?>?action=character&character_id=<?php echo $characterId; ?>">
-                    <div>
-                        <?php echo FormHelper::Select($rollTypes, 'roll_type', 0, array(
-                            'label' => 'Roll Type'
-                        )); ?>
-                        <div style="display: none;width: 350px;" id="number-of-rolls-cell">
-                            <?php echo FormHelper::Text('number_of_rolls', 1, array(
-                                'label' => true,
-                                'size'  => 2
+                    <div class="row">
+                        <div class="small-12 medium-6 columns">
+                            <?php echo FormHelper::Select($rollTypes, 'roll_type', 0, array(
+                                'label' => 'Roll Type'
                             )); ?>
                         </div>
+                        <div class="small-12 medium-6 columns" id="number-of-rolls-cell">
+                            <?php echo FormHelper::Text('number_of_rolls', 1, array(
+                                'label' => true,
+                                'size' => 2
+                            )); ?>
+                        </div>
+                        <div class="small-12 medium-5 columns">
+                            <?php echo FormHelper::Text('character_name', $character['character_name'], array(
+                                'size' => 20,
+                                'maxlength' => 35,
+                                'label' => 'Name'
+                            )); ?>
+                        </div>
+                        <div class="small-12 medium-5 columns">
+                            <label>
+                                Action
+                                <input type="text" name="action" size="20" maxlength="50" value=""/>
+                            </label>
+                        </div>
+                        <div class="small-12 medium-2 columns">
+                            <label>
+                                Dice
+                                <input type="text" name="dice" size="3" maxlength="2" value=""/>
+                            </label>
+                        </div>
+                        <div class="small-12 medium-6 columns">
+                            <?php echo FormHelper::Select($rerolls, 'reroll', '10again', array(
+                                'label' => 'Reroll',
+                            )); ?>
+                        </div>
+                        <div class="small-12 medium-6 columns">
+                            <label>
+                                Chance
+                                <input type="checkbox" name="chance_die" value="y">
+                            </label>
+                            <label>
+                                Rote
+                                <input type="checkbox" name="is_rote" value="y">
+                            </label>
+                        </div>
+                        <?php if ($extra_row): ?>
+                            <div><?php echo $extra_row; ?></div>
+                        <?php endif; ?>
+                        <div class="small-12 columns">
+                            Attach to Request: <?php echo FormHelper::Select($requests, 'request_id', ''); ?>
+                        </div>
                     </div>
-                    <div>
-                        <?php echo FormHelper::Text('character_name', $character['character_name'], array(
-                            'size'      => 20,
-                            'maxlength' => 35,
-                            'label'     => 'Name: '
-                        )); ?>
-                        <label>
-                            Action:
-                            <input type="text" name="action" size="20" maxlength="50" value=""/>
-                        </label>
-                        <label>
-                            Dice:
-                            <input type="text" name="dice" size="3" maxlength="2" value=""/>
-                        </label>
-                    </div>
-                    <div>
-                        <?php echo FormHelper::Select($rerolls, 'reroll', '10again', array(
-                            'label' => 'Reroll',
-                        )); ?>
-                        <label>
-                            Chance Die:
-                            <input type="checkbox" name="chance_die" value="y">
-                        </label>
-                        <label>
-                            Rote Action:
-                            <input type="checkbox" name="is_rote" value="y">
-                        </label>
-                    </div>
-                    <?php if ($extra_row): ?>
-                        <div><?php echo $extra_row; ?></div><?php endif; ?>
-                    <div>Attach to Roll: <?php echo FormHelper::Select($requests, 'request_id', ''); ?></div>
                     <input type="hidden" name="current_form" value="<?php echo $current_form; ?>">
-                    <input id="submit-die-roller" type="submit" name="submit_die_roller" value="Roll Dice/Refresh">
+                    <button id="submit-die-roller" type="submit" name="submit_die_roller" class="button">Roll Dice/Refresh</button>
                 </form>
             </td>
             <td style="text-align: center;width: 40%">
@@ -592,17 +596,16 @@ ob_start();
                                 Health: <?php echo $health; ?><br>
                                 Temp. Health: <input type="text" name="temporary_health_levels"
                                                      value="<?php echo $temporary_health_levels; ?>"
-                                                     style="width:40px;"/><br/>
+                                                     style="display:inline;width:40px;"/><br/>
                                 <br>
                                 Wounds: <?php echo $wound_representation; ?><br>
-                                - Agg: <input type="text" name="wounds_agg" value="<?php echo $wounds_agg; ?>" size="3"
-                                              maxlength="2"><br>
-                                - Lethal: <input type="text" name="wounds_lethal" value="<?php echo $wounds_lethal; ?>"
-                                                 size="3" maxlength="2"><br>
-                                - Bashing: <input type="text" name="wounds_bashing"
-                                                  value="<?php echo $wounds_bashing; ?>" size="3" maxlength="2"><br>
-                                <br>
-                                <input type="submit" name="submit_update_stats" value="Update Stats">
+                                Agg: <input type="text" name="wounds_agg" value="<?php echo $wounds_agg; ?>" size="3"
+                                              maxlength="2" style="display:inline;width:40px;"><br>
+                                Lethal: <input type="text" name="wounds_lethal" value="<?php echo $wounds_lethal; ?>"
+                                                 size="3" maxlength="2" style="display:inline;width:40px;"><br>
+                                Bashing: <input type="text" name="wounds_bashing" value="<?php echo $wounds_bashing; ?>"
+                                                size="3" maxlength="2" style="display:inline;width:40px;"><br>
+                                <button type="submit" name="submit_update_stats" class="button">Update Stats</button>
                             </td>
                             <td width="10%">
                             </td>
@@ -629,7 +632,7 @@ ob_start();
     <br>
     <div id="dice-roll-display">
         <form method="get" action="dieroller.php" id="dice-page-form">
-            Page <input type="text" value="<?php echo $page; ?>" name="page" style="width:30px;"/>
+            Page <input type="text" value="<?php echo $page; ?>" name="page" style="width:30px;display:inline;"/>
             of <?php echo $pages; ?>
             <input type="hidden" name="action" value="character"/>
             <input type="hidden" name="character_id" value="<?php echo $characterId; ?>"/>
@@ -687,7 +690,7 @@ ob_start();
                     $("#number-of-rolls-cell").css('display', 'inline');
                 }
             });
-            $("#show-only-my-rolls-check").click(function() {
+            $("#show-only-my-rolls-check").click(function () {
                 $("#dice-page-form").submit();
             });
         });
