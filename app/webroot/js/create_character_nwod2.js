@@ -1,12 +1,12 @@
 /**
  * Created by JeffVandenberg on 1/20/2017.
  */
-Foundation.Abide.defaults.validators['character_name'] = function($el, required, parent) {
-    if(!required) {
+Foundation.Abide.defaults.validators['character_name'] = function ($el, required, parent) {
+    if (!required) {
         return true;
     }
 
-    if($.trim($el.val()) === '') {
+    if ($.trim($el.val()) === '') {
         parent.find('.form-error').text('Character Name is required');
         return false;
     }
@@ -52,21 +52,21 @@ function addCharacterRow(tableId) {
     var table = $("#" + tableId),
         removedTable = $("#removed-" + tableId),
         row;
-    if(table.find('tbody > tr').length > 0) {
+    if (table.find('tbody > tr').length > 0) {
         row = table.find('tr').last().clone();
     } else {
         row = removedTable.find('tr').last().clone();
     }
 
-    var count = table.find('tbody > tr').length  + removedTable.find('tbody > tr').length;
-    $("input[type=text], select, input[type=hidden]", row).each(function() {
+    var count = table.find('tbody > tr').length + removedTable.find('tbody > tr').length;
+    $("input[type=text], select, input[type=hidden]", row).each(function () {
         var currentName = $(this).attr('name');
-        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count +"]"));
+        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count + "]"));
         $(this).val('');
     });
-    $("input[type=checkbox]", row).each(function() {
+    $("input[type=checkbox]", row).each(function () {
         var currentName = $(this).attr('name');
-        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count +"]"));
+        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count + "]"));
         $(this).attr('checked', false)
     });
     table.append(row);
@@ -77,9 +77,9 @@ function addFoundationRow(sectionId) {
         lastRow = section.find('.row').last().clone(),
         count = section.find('.row').length;
 
-    $("input, select", lastRow).each(function() {
+    $("input, select", lastRow).each(function () {
         var currentName = $(this).attr('name');
-        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count +"]"));
+        $(this).attr('name', currentName.replace(/\[[0-9]+\]/, "[" + count + "]"));
         $(this).val('');
     });
     lastRow.show();
@@ -87,8 +87,12 @@ function addFoundationRow(sectionId) {
 }
 
 $(function () {
-    $(document).on('change', '#character_type', function() {
-        document.location = '?character_type=' + $(this).val();
+    $(document).on('change', '#character_type', function () {
+        document.location = document.location.pathname + addUrlParam(
+                document.location.search,
+                'character_type',
+                $(this).val()
+            );
         return false;
     });
 
@@ -99,7 +103,7 @@ $(function () {
     $(document).on('click', '.remove-specialty', function () {
         var row = $(this).closest('.row');
         row.addClass('callout small secondary');
-        setTimeout(function() {
+        setTimeout(function () {
             if (confirm('Are you sure you want to remove this specialty?')) {
                 $('select', row).val('');
                 row.removeClass('callout small secondary')
@@ -110,48 +114,48 @@ $(function () {
         }, 10);
     });
 
-    $(document).on('click', ".add-character-row", function() {
+    $(document).on('click', ".add-character-row", function () {
         var target = $(this).data().targetTable;
-        if(target) {
+        if (target) {
             addCharacterRow($(this).data().targetTable);
         } else {
             console.error("No data-target-table specified");
         }
     });
 
-    $(document).on('click', '.add-foundation-row', function() {
+    $(document).on('click', '.add-foundation-row', function () {
         var target = $(this).data().targetTable;
-        if(target) {
+        if (target) {
             addFoundationRow($(this).data().targetTable);
         } else {
             console.error("No data-target-table specified");
         }
     });
 
-    $(document).on('click', '#add-aspiration', function() {
+    $(document).on('click', '#add-aspiration', function () {
         addCharacterRow('aspirations')
     });
-    $(document).on('click', '#add-merit', function() {
+    $(document).on('click', '#add-merit', function () {
         addCharacterRow('merits');
     });
-    $(document).on('click', '.remove-merit', function() {
+    $(document).on('click', '.remove-merit', function () {
         var row = $(this).closest('tr');
         removeCharacterRow(row, 'Are you sure you want to remove this merit?', "#removed-merits");
     });
 
-    $(document).on('click', '#add-misc-power', function() {
+    $(document).on('click', '#add-misc-power', function () {
         addCharacterRow('misc-abilities');
     });
-    $(document).on('click', '.remove-misc-power', function() {
+    $(document).on('click', '.remove-misc-power', function () {
         var row = $(this).closest('tr');
         removeCharacterRow(row, 'Are you sure you want to remove this power?', "#removed-misc-abilities");
     });
 
-    $(document).on('click', '#add-equipment-button', function() {
+    $(document).on('click', '#add-equipment-button', function () {
         addCharacterRow("equipment");
         return false;
     });
-    $(document).on('click', '.remove-equipment', function() {
+    $(document).on('click', '.remove-equipment', function () {
         var row = $(this).closest('tr');
         removeCharacterRow(row, 'Are you sure you want to remove this equipment?', "#removed-equipment");
     });

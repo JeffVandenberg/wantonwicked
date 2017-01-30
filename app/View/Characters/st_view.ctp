@@ -12,11 +12,12 @@ if (isset($character) && $character->Id) {
 }
 ?>
 
-<form method="post">
+<form method="get">
     <div class="row">
         <div class="small-12 medium-4 column">
-            <?php echo $this->Form->input('view_character_name', ['label' => 'Character']); ?>
-            <?php echo $this->Form->hidden('view_character_id'); ?>
+            <label for="view_character_name">Character</label>
+            <input type="text" name="view_character_name" id="view_character_name" />
+            <input type="hidden" name="view_character_id" id="view_character_id" />
         </div>
         <div class="small-12 medium-4 column">
             <label>City

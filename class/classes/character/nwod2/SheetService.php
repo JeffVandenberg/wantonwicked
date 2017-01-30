@@ -135,9 +135,10 @@ class SheetService
     /**
      * Load a character by ID if $identifier is an integer or slug otherwise.
      * @param int|string $identifier
+     * @param null|string $characterType
      * @return Character|DataModel
      */
-    public function loadSheet($identifier)
+    public function loadSheet($identifier, $characterType = null)
     {
         // load blank sheet
         if(!$identifier) {
@@ -150,6 +151,10 @@ class SheetService
             $character = $this->repository->FindBySlug($identifier);
         }
         /* @var Character $character */
+
+        if($characterType) {
+            $character->CharacterType = $characterType;
+        }
 
         if ($character->Id) {
             $character->loadPowers();

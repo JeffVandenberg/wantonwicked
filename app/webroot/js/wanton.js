@@ -251,3 +251,21 @@ tinymce.init({
     ],
     toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent"
 });
+
+var addUrlParam = function(search, key, val){
+    var newParam = encodeURIComponent(key) + '=' + encodeURIComponent(val),
+        params = '?' + newParam;
+
+    // If the "search" string exists, then build params from it
+    if (search) {
+        // Try to replace an existance instance
+        params = search.replace(new RegExp('([?&])' + encodeURIComponent(key) + '[^&]*'), '$1' + newParam);
+
+        // If nothing was replaced, then add the new param to the end
+        if (params === search) {
+            params += '&' + newParam;
+        }
+    }
+
+    return params;
+};

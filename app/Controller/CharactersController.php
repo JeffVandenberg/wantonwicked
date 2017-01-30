@@ -150,7 +150,8 @@ class CharactersController extends AppController
     public function viewOwn($slug)
     {
         $sheetService = new SheetService();
-        $character = $sheetService->loadSheet($slug);
+        $characterType = $this->request->query('character_type');
+        $character = $sheetService->loadSheet($slug, $characterType);
         /* @var Character $character */
         if(!$character) {
             throw new NotFoundException(__('Invalid character'));
@@ -208,13 +209,6 @@ class CharactersController extends AppController
         $sheetService = new SheetService();
 
         if($this->request->is('post')) {
-            if($this->request->data['view_character_id']) {
-                // attempt to load the character
-                $character = $sheetService->loadSheet($this->request->data['view_character_id']);
-                $sheetService->addMinPowersForEdit($character);
-                $this->set(compact('character'));
-            }
-
             if($this->request->data['character_id']) {
                 // try to update the character
                 $updatedData = $this->request->data;
@@ -229,9 +223,17 @@ class CharactersController extends AppController
             }
         }
         if($this->request->is('get')) {
-            $character = $sheetService->loadSheet($characterId);
+            $characterType = $this->request->query('character_type');
+            if($this->request->query('view_character_id')) {
+                // attempt to load the character
+                $character = $sheetService->loadSheet($this->request->query('view_character_id'), $characterType);
+            }
+            else {
+                $character = $sheetService->loadSheet($characterId, $characterType);
+            }
             $sheetService->addMinPowersForEdit($character);
             $this->set(compact('character'));
+
         }
 
         $icons = $sheetService->listAvailableIcons();
