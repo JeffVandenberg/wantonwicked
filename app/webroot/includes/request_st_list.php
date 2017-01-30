@@ -34,7 +34,9 @@ $pagination->SetParameters(array(
 
 $storytellerRepository = new StorytellerRepository();
 $stGroups = $storytellerRepository->ListGroupsForStoryteller($userdata['user_id']);
-$groups = array();
+$groups = [
+    '' => 'All Groups'
+];
 foreach ($stGroups as $group) {
     $groups[$group['group_id']] = $group['name'];
 }
@@ -98,7 +100,7 @@ ob_start();
                 <?php else: ?>
                     &lt; &lt;
                 <?php endif; ?>
-                <form method="get" style="display: inline;" action="/request.php" >
+                <form method="get" style="display: inline;" action="/request.php">
                     Page:
                     <?php echo FormHelper::Hidden('sort', $sort); ?>
                     <?php echo FormHelper::Hidden('action', 'st_list'); ?>
