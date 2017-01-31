@@ -29,7 +29,7 @@ class LanguageHelper extends AppHelper
             'icdisc' => 'Discipline',
             'oocdisc' => 'Discipline',
             'devotion' => 'Devotion',
-            'powertrait' => 'Blood Potency',
+            'powerstat' => 'Blood Potency',
             'powerpoints' => 'Vitae'
         ],
         'mage' => [
@@ -38,14 +38,14 @@ class LanguageHelper extends AppHelper
             'morality' => 'Wisdom',
             'virtue' => 'Virtue',
             'vice' => 'Vice',
-            'powertrait' => 'Gnosis',
+            'powerstat' => 'Gnosis',
             'powerpoints' => 'Mana',
         ],
         'werewolf' => [
             'splat1' => 'Auspice',
             'splat2' => 'Tribe',
             'morality' => 'Harmony',
-            'powertrait' => 'Primal Urge',
+            'powerstat' => 'Primal Urge',
             'powerpoints' => 'Essence',
             'virtue' => 'Blood',
             'vice' => 'Bone'
@@ -56,7 +56,7 @@ class LanguageHelper extends AppHelper
             'virtue' => 'Masque',
             'vice' => 'Mien',
             'morality' => 'Clarity',
-            'powertrait' => 'Wyrd',
+            'powerstat' => 'Wyrd',
             'powerpoints' => ''
         ],
         'ghoul' => [

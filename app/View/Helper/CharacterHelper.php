@@ -132,7 +132,7 @@ class CharacterHelper extends AppHelper
         'splat2' => false,
         'break_points' => false,
         'touchstone' => false,
-        'powertrait' => false,
+        'power_stat' => false,
         'power_points' => false
     ];
 
@@ -173,6 +173,7 @@ class CharacterHelper extends AppHelper
         $powers = $this->buildPowersSection($character);
         $derived = $this->buildDerivedSection($character);
         $equipment = $this->buildEquipmentSection($character);
+        $conditions = $this->buildConditionsSection($character);
         $admin = ($this->options['show_admin']) ? $this->buildAdminSection($character) : '';
 
         ob_start();
@@ -195,16 +196,7 @@ class CharacterHelper extends AppHelper
                 <?php echo $equipment; ?>
             </li>
             <li class="accordion-item">
-                <a href="#csheet-conditions" role="tab" class="accordion-title" id="csheet-conditions-heading"
-                   aria-controls="csheet-conditions">Conditions</a>
-                <div id="csheet-conditions" class="accordion-content" role="tabpanel" data-tab-content
-                     aria-labelledby="csheet-conditions-heading">
-                    <div class="row">
-                        <div class="small-12 column">
-                            List of your conditions will be here sometime soon.
-                        </div>
-                    </div>
-                </div>
+                <?php echo $conditions; ?>
             </li>
             <?php if ($this->options['show_admin']): ?>
                 <li class="accordion-item">
@@ -733,7 +725,8 @@ class CharacterHelper extends AppHelper
                         <div class="small-12 column subheader">
                             Specialties
                             <?php if ($this->mayEditOpen()): ?>
-                                <div class="badge success clickable add-foundation-row" data-target-table="specialties"><i class="fi-plus"></i></div>
+                                <div class="badge success clickable add-foundation-row" data-target-table="specialties">
+                                    <i class="fi-plus"></i></div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -1084,8 +1077,18 @@ class CharacterHelper extends AppHelper
         $woundsBashing = $character->WoundsBashing;
         $woundsLethal = $character->WoundsLethal;
         $woundsAgg = $character->WoundsAgg;
+        $powerStat = $character->PowerStat;
+        $powerPoints = $character->PowerPoints;
 
         if ($this->mayEditOpen()) {
+            $powerStat = $this->Form->select(
+                'power_stat',
+                range(0, $this->maxDots),
+                [
+                    'value' => $character->PowerStat,
+                    'empty' => false
+                ]
+            );
             $willpowerPerm = $this->Form->select(
                 'willpower_perm',
                 range(0, $this->maxDots),
@@ -1154,6 +1157,14 @@ class CharacterHelper extends AppHelper
                 [
                     'value' => $character->WillpowerTemp,
                     'empty' => false
+                ]
+            );
+            $powerPoints = $this->Form->input(
+                'power_points',
+                [
+                    'value' => $character->PowerPoints,
+                    'label' => false,
+                    'type' => 'number'
                 ]
             );
             $woundsBashing = $this->Form->input(
@@ -1246,6 +1257,36 @@ class CharacterHelper extends AppHelper
                     <?php echo $armor; ?>
                 </div>
             </div>
+            <?php if ($this->sheetFields['power_points'] || $this->sheetFields['power_stat']): ?>
+                <div class="row">
+                    <?php if ($this->sheetFields['power_stat']): ?>
+                        <div class="small-6 medium-3 column">
+                            <label for="power_stat">
+                                <?php echo $this->Language->translate(
+                                    'powerstat',
+                                    $character->CharacterType
+                                ); ?>
+                            </label>
+                        </div>
+                        <div class="small-6 medium-1 column">
+                            <?php echo $powerStat; ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($this->sheetFields['power_points']): ?>
+                        <div class="small-6 medium-3 column">
+                            <label for="power_points">
+                                <?php echo $this->Language->translate(
+                                    'powerpoints',
+                                    $character->CharacterType
+                                ); ?>
+                            </label>
+                        </div>
+                        <div class="small-6 medium-1 column end">
+                            <?php echo $powerPoints; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
             <div class="row">
                 <div class="small-12 column subheader">
                     Wounds
@@ -1424,7 +1465,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
                 $this->sheetFields['touchstone'] = true;
-                $this->sheetFields['power_trait'] = true;
+                $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 break;
             case 'ghoul':
@@ -1434,7 +1475,7 @@ class CharacterHelper extends AppHelper
             case 'werewolf':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
-                $this->sheetFields['power_trait'] = true;
+                $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 break;
             case 'wolfblooded':
@@ -1442,13 +1483,13 @@ class CharacterHelper extends AppHelper
             case 'mage':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
-                $this->sheetFields['power_trait'] = true;
+                $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 break;
             case 'changeling':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
-                $this->sheetFields['power_trait'] = true;
+                $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 break;
             case 'fae-touched':
@@ -1649,6 +1690,38 @@ class CharacterHelper extends AppHelper
             <?php endforeach; ?>
         </table>
         <table id="removed-<?php echo $tableId; ?>" class="hide"></table>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function buildConditionsSection(Character $character)
+    {
+        $conditions = $character->getPowerList('conditions');
+        $conditions = $conditions[0];
+        ob_start();
+        ?>
+        <a href="#csheet-conditions" role="tab" class="accordion-title" id="csheet-conditions-heading"
+           aria-controls="csheet-conditions">Conditions</a>
+        <div id="csheet-conditions" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-conditions-heading">
+            <div class="row">
+                <div class="small-12 column">
+                    <?php if($this->mayEditLimited()): ?>
+                        <?php echo $this->Form->hidden('conditions.0.id', ['value' => $conditions->Id]); ?>
+                        <?php echo $this->Form->hidden('conditions.0.name', ['value' => 'conditions']); ?>
+                        <?php echo $this->Form->textarea(
+                             'conditions.0.conditions',
+                            [
+                                'rows' => 6,
+                                'value' => $conditions->Extra['conditions']
+                            ]
+                        ); ?>
+                    <?php else: ?>
+                        <?php echo str_replace("\n", '<br />', $conditions->Extra['conditions']); ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
         <?php
         return ob_get_clean();
     }

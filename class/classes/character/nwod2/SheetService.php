@@ -35,10 +35,12 @@ class SheetService
             'merit',
             'misc_power',
             'equipment',
-            'break_point'
+            'break_point',
+            'conditions'
         ],
         'limited' => [
-            'aspiration'
+            'aspiration',
+            'conditions'
         ]
     ];
 
