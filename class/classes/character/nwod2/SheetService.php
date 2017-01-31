@@ -36,7 +36,12 @@ class SheetService
             'misc_power',
             'equipment',
             'break_point',
-            'conditions'
+            'conditions',
+            'icdisc',
+            'oocdisc',
+            'devotion',
+            'arcana',
+            'rote'
         ],
         'limited' => [
             'aspiration',
@@ -107,6 +112,12 @@ class SheetService
                     'oocdisc' => 2,
                     'devotion' => 2,
                     'touchstone' => 1
+                ];
+                break;
+            case 'mage':
+                $powers = [
+                    'arcana' => 5,
+                    'rote' => 6
                 ];
                 break;
         }

@@ -4718,7 +4718,7 @@ table.hover tbody tr:nth-of-type(even):hover {
   .show-for-large {
     display: none !important; } }
 
-@media screen and (min-width: 64em) and (max-width: 74.9375em) {
+@media screen and (min-width: 64em) {
   .hide-for-large-only {
     display: none !important; } }
 

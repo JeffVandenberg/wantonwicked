@@ -40,6 +40,8 @@ class LanguageHelper extends AppHelper
             'vice' => 'Vice',
             'powerstat' => 'Gnosis',
             'powerpoints' => 'Mana',
+            'arcana' => 'Arcana',
+            'rote' => 'Rote',
         ],
         'werewolf' => [
             'splat1' => 'Auspice',

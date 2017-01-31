@@ -779,6 +779,8 @@ class CharacterHelper extends AppHelper
                 return $this->buildMortalPowersSection($character);
             case 'vampire':
                 return $this->buildVampirePowersSection($character);
+            case 'mage':
+                return $this->buildMagePowersSection($character);
             default:
                 return $this->buildMortalPowersSection($character);
         }
@@ -1531,22 +1533,6 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 medium-6 column float-left">
                     <div class="row">
                         <div class="small-12 column subheader">
-                            Misc Abilities
-                            <?php if ($this->mayEditOpen()): ?>
-                                <div class="success badge clickable add-character-row"
-                                     data-target-table="misc-abilities">
-                                    <i class="fi-plus"></i>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <?php echo $miscPowerTable; ?>
-                    </div>
-                </div>
-                <div class="small-12 medium-6 column float-left">
-                    <div class="row">
-                        <div class="small-12 column subheader">
                             In Clan Disciplines
                             <?php if ($this->mayEditOpen()): ?>
                                 <div class="success badge clickable add-character-row" data-target-table="icdiscs">
@@ -1587,6 +1573,182 @@ class CharacterHelper extends AppHelper
                     </div>
                     <div class="row">
                         <?php echo $devotionTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="misc-abilities">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $miscPowerTable; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function buildMagePowersSection(Character $character)
+    {
+        $meritTable = $this->buildTable($character, 'merit', 'merits');
+        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities', ['level' => ['type' => 'text']]);
+        $rotesTable = $this->buildTable($character, 'rote', 'rotes', ['level' => ['type' => 'text']]);
+
+        $arcanaTypes = [
+            'Ruling' => 'Ruling',
+            'Common' => 'Common',
+            'Inferior' => 'Inferior'
+        ];
+        ob_start();
+        ?>
+        <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
+           aria-controls="csheet-template">Abilities</a>
+        <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-template-heading">
+            <div class="row">
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Merits
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="merits"><i
+                                            class="fi-plus"></i></div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $meritTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Arcana
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="arcana">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table id="arcana" class="stack">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Level</th>
+                                <th>Public</th>
+                            </tr>
+                            </thead>
+                            <?php foreach ($character->getPowerList('arcana') as $i => $power): ?>
+                                <tr>
+                                    <td>
+                                        <?php if ($this->mayEditOpen()): ?>
+                                            <?php echo $this->Form->input('arcana' . '.' . $i . '.name', [
+                                                'value' => $power->PowerName,
+                                                'placeholder' => $this->Language->translate('arcana', $character->CharacterType) . ' Name',
+                                                'label' => false,
+                                                'data-powertype' => 'arcana',
+                                                'class' => 'character-autocomplete'
+                                            ]); ?>
+                                        <?php else: ?>
+                                            <?php echo $power->PowerName; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($this->mayEditOpen()): ?>
+                                            <?php echo $this->Form->select(
+                                                'arcana' . '.' . $i . '.type',
+                                                $arcanaTypes,
+                                                [
+                                                    'label' => false,
+                                                    'empty' => false,
+                                                    'value' => $power->Extra['type'],
+                                                    'placeholder' => $this->Language->translate('arcana', $character->CharacterType) . ' Type'
+                                                ]);
+                                            ?>
+                                        <?php else: ?>
+                                            <?php echo $power->Extra['type']; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td style="width: 70px;">
+                                        <label class="hide-for-large-only">Level</label>
+                                        <?php if ($this->mayEditOpen()): ?>
+                                            <?php echo $this->Form->select(
+                                                'arcana' . '.' . $i . '.level',
+                                                range(0, $this->maxDots),
+                                                [
+                                                    'label' => false,
+                                                    'value' => $power->PowerLevel
+                                                ]
+                                            ); ?>
+                                        <?php else: ?>
+                                            <?php echo $power->PowerLevel; ?>
+                                        <?php endif; ?>
+                                        <?php echo $this->Form->hidden('arcana' . '.' . $i . '.id', [
+                                            'value' => $power->Id
+                                        ]); ?>
+                                    </td>
+                                    <td>
+                                        <label class="show-for-small-only">Is Public</label>
+                                        <?php if ($this->mayEditOpen()): ?>
+                                            <?php echo $this->Form->checkbox('arcana' . '.' . $i . '.is_public', [
+                                                'label' => false,
+                                                'value' => 1,
+                                                'checked' => $power->IsPublic
+                                            ]); ?>
+                                            <div class="alert badge clickable remove-character-row" data-target-table="arcana">
+                                                <i class="fi-minus"></i>
+                                            </div>
+                                        <?php else: ?>
+                                            <?php echo $power->IsPublic ? 'Yes' : 'No'; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                        <table id="removed-arcana" class="hide"></table>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Rotes
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="rotes">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $rotesTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="misc-abilities">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $miscPowerTable; ?>
                     </div>
                 </div>
             </div>
@@ -1641,7 +1803,7 @@ class CharacterHelper extends AppHelper
                             <?php echo $power->PowerNote; ?>
                         <?php endif; ?>
                     </td>
-                    <td>
+                    <td style="width: 70px;">
                         <label class="hide-for-large-only">Level</label>
                         <?php if ($this->mayEditOpen()): ?>
                             <?php if ($inputOptions['level']['type'] == 'select'): ?>
@@ -1680,7 +1842,7 @@ class CharacterHelper extends AppHelper
                                 'value' => 1,
                                 'checked' => $power->IsPublic
                             ]); ?>
-                            <div class="alert badge clickable remove-merit"><i class="fi-minus"></i>
+                            <div class="alert badge clickable remove-character-row" data-target-table="<?php echo $tableId; ?>"><i class="fi-minus"></i>
                             </div>
                         <?php else: ?>
                             <?php echo $power->IsPublic ? 'Yes' : 'No'; ?>
@@ -1706,11 +1868,11 @@ class CharacterHelper extends AppHelper
              aria-labelledby="csheet-conditions-heading">
             <div class="row">
                 <div class="small-12 column">
-                    <?php if($this->mayEditLimited()): ?>
+                    <?php if ($this->mayEditLimited()): ?>
                         <?php echo $this->Form->hidden('conditions.0.id', ['value' => $conditions->Id]); ?>
                         <?php echo $this->Form->hidden('conditions.0.name', ['value' => 'conditions']); ?>
                         <?php echo $this->Form->textarea(
-                             'conditions.0.conditions',
+                            'conditions.0.conditions',
                             [
                                 'rows' => 6,
                                 'value' => $conditions->Extra['conditions']

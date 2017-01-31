@@ -123,6 +123,13 @@ $(function () {
         }
     });
 
+    $(document).on('click', '.remove-character-row', function() {
+        var row = $(this).closest('tr'),
+            target = 'removed-' + $(this).data().targetTable;
+
+        removeCharacterRow(row, 'Are you sure you want to remove this?', "#" + target);
+    });
+
     $(document).on('click', '.add-foundation-row', function () {
         var target = $(this).data().targetTable;
         if (target) {
