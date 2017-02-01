@@ -41,7 +41,10 @@ class SheetService
             'oocdisc',
             'devotion',
             'arcana',
-            'rote'
+            'rote',
+            'obsession',
+            'praxis',
+            'nimbus'
         ],
         'limited' => [
             'aspiration',
@@ -72,7 +75,6 @@ class SheetService
         $this->addList($character, 2, 'miscPower');
         $this->addList($character, 4, 'equipment');
         $this->addList($character, 3, 'aspiration');
-        $this->addList($character, 5, 'break_point');
 
         $this->addCharacterTypePowers($character);
 
@@ -117,7 +119,10 @@ class SheetService
             case 'mage':
                 $powers = [
                     'arcana' => 5,
-                    'rote' => 6
+                    'rote' => 6,
+                    'obsession' => 1,
+                    'praxis' => 1,
+                    'nimbus' => 1
                 ];
                 break;
         }

@@ -5475,3 +5475,7 @@ textarea {
 
 .sticky {
   z-index: 1; }
+
+/* character sheet */
+.power-level-column {
+  width: 70px; }
