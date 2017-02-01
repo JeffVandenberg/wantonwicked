@@ -568,7 +568,9 @@ EOQ;
         $requestCharacter = new RequestCharacter();
         $requestCharacter->RequestId = $requestId;
         $requestCharacter->CharacterId = $characterId;
-        $requestCharacter->IsPrimary = $isPrimary;
+        $requestCharacter->IsPrimary = ($isPrimary) ? 1 : 0;
+        $requestCharacter->Note = '';
+        $requestCharacter->IsApproved = 0;
 
         $requestCharacterRepository = new RequestCharacterRepository();
         return $requestCharacterRepository->save($requestCharacter);

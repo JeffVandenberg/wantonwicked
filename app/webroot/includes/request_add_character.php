@@ -21,7 +21,7 @@ if (Request::isPost()) {
     if ($_POST['action'] == 'Cancel') {
         Response::redirect('request.php?action=view&request_id=' . $requestId);
     }
-    elseif ($_POST['action'] == 'Add Character') {
+    elseif ($_POST['action'] == 'Add') {
         $characterId = Request::getValue('character_id', 0);
         $characterName = Request::getValue('character_name');
         $note = htmlspecialchars(Request::getValue('note'));
@@ -52,35 +52,29 @@ ob_start();
 ?>
 
     <form method="post">
-        <table>
-            <tr>
-                <td>
-                    <div class="formInput">
-                        <label>
-                            Character
-                        </label>
-                        <?php echo FormHelper::Text('character_name', $characterName); ?>
-                        <?php echo FormHelper::Hidden('character_id', $characterId); ?>
-                    </div>
-                    <div class="formInput">
-                        <label>
-                            Only Sanctioned Characters
-                        </label>
-                        <?php echo FormHelper::Checkbox('only_sanctioned', 1, $onlySanctioned); ?>
-                    </div>
-                </td>
-                <td style="vertical-align: top">
-                    <div class="formInput">
-                        <label>Is Primary</label>
-                        <?php echo FormHelper::Checkbox('is_primary', 1, $isPrimary, $primaryOptions); ?>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div class="formInput centeredText">
-            <?php echo FormHelper::Hidden('request_id', $requestId); ?>
-            <?php echo FormHelper::Button('action', 'Add Character', 'submit', array('id' => 'save-button')); ?>
-            <?php echo FormHelper::Button('action', 'Cancel', 'submit', array('id' => 'cancel-button')); ?>
+        <div class="row">
+            <div class="small-12 medium-5 column">
+                <label>
+                    Character
+                </label>
+                <?php echo FormHelper::Text('character_name', $characterName); ?>
+                <?php echo FormHelper::Hidden('character_id', $characterId); ?>
+            </div>
+            <div class="small-5 medium-2 column">
+                <label>
+                    Only Sanctioned
+                </label>
+                <?php echo FormHelper::Checkbox('only_sanctioned', 1, $onlySanctioned); ?>
+            </div>
+            <div class="small-5 medium-2 column">
+                <label>Make Primary</label>
+                <?php echo FormHelper::Checkbox('is_primary', 1, $isPrimary, $primaryOptions); ?>
+            </div>
+            <div class="small-2 medium-3 column">
+                <?php echo FormHelper::Hidden('request_id', $requestId); ?>
+                <button class="button" type="submit" id="save-button" name="action" value="Add">Add</button>
+                <button class="button" type="submit" id="cancel-button" name="action" value="Cancel">Cancel</button>
+            </div>
         </div>
     </form>
     <script>
@@ -96,40 +90,24 @@ ob_start();
                 }
             });
             $("#character-name").autocomplete({
-                autoFocus: true,
-                source: function(request, response) {
-                    $.ajax({
-                        url: 'request.php?action=character_search',
-                        dataType: 'json',
-                        method: 'post',
-                        data: {
-                            term: request.term,
-                            request_id: $("#request-id").val(),
-                            only_sanctioned: $("#only-sanctioned").prop('checked')
-                        },
-                        success: function(data) {
-                            response( $.map( data, function( item ) {
-                                return {
-                                    label: item.label,
-                                    value: item.id
-                                }
-                            }));
-                        }
-                    });
+                serviceUrl: '/request.php?action=character_search',
+                minChars: 2,
+                autoSelectFirst: true,
+                preserveInput: true,
+                params: {
                 },
-                close: function() {
-                    if(!(parseInt($("#character-id").val()) > 0)) {
-                        alert('Select a character from the drop down.')
+                onSearchStart: function (query) {
+                    query.request_id = $("#request-id").val();
+                    query.only_sanctioned = $("#only-sanctioned").prop('checked');
+                },
+                onSelect: function(item) {
+                    if(item.data > 0) {
+                        $("#character-id").val(item.data);
+                        $("#character-name").val(item.value);
+                    } else {
+                        $("#character-id").val('');
+                        $("#character-name").val('');
                     }
-                },
-                search: function(e) {
-                },
-                focus: function () {
-                    return false;
-                },
-                select: function (e, ui) {
-                    $("#character-id").val(ui.item.value);
-                    $("#character-name").val(ui.item.label);
                     return false;
                 }
             });
