@@ -45,6 +45,20 @@ if (isset($character) && $character->Id) {
 </form>
 
 <?php if (isset($character) && $character->Id): ?>
+    <div class="row">
+        <div class="small-12 column subheader">
+            Information
+        </div>
+        <div class="small-3 column">
+            Player: <?php echo $character->User->Username; ?>
+        </div>
+        <div class="small-3 column">
+            <a class="button" href="/storyteller_index.php?action=profile_lookup&profile_name=<?php echo $character->User->Username; ?>">View Their Characters</a>
+        </div>
+        <div class="small-3 column end">
+            <a class="button" href="/character.php?action=log&character_id=<?php echo $character->Id; ?>">View Character Log</a>
+        </div>
+    </div>
     <form method="post" data-abide novalidate id="character-form">
         <div data-abide-error class="alert callout" style="display: none;">
             <p><i class="fi-alert"></i> There are some errors in your character.</p>

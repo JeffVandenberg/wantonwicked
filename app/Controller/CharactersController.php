@@ -3,6 +3,8 @@ use classes\character\data\Character;
 use \Character as CakeCharacter;
 use classes\character\nwod2\SheetService;
 use classes\character\repository\CharacterRepository;
+use classes\log\CharacterLog;
+use classes\log\data\ActionType;
 
 App::uses('AppController', 'Controller');
 
@@ -231,9 +233,14 @@ class CharactersController extends AppController
             else {
                 $character = $sheetService->loadSheet($characterId, $characterType);
             }
-            $sheetService->addMinPowersForEdit($character);
-            $this->set(compact('character'));
 
+            if($character) {
+                CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'ST View', $this->Auth->user('user_id'));
+                $sheetService->addMinPowersForEdit($character);
+                $this->set(compact('character'));
+            } else {
+                $this->Flash->set('Unable to find character');
+            }
         }
 
         $icons = $sheetService->listAvailableIcons();

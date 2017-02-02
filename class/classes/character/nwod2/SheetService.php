@@ -174,7 +174,7 @@ class SheetService
             $character->CharacterType = $characterType;
         }
 
-        if ($character->Id) {
+        if ($character && $character->Id) {
             $character->loadPowers();
         }
         return $character;

@@ -1164,4 +1164,38 @@ EOQ;
         return $this->query($sql)->value($parameters);
     }
 
+    public function listForDashboard($id)
+    {
+        $statuses = [
+            RequestStatus::NewRequest,
+            RequestStatus::Submitted,
+            RequestStatus::InProgress,
+            RequestStatus::Returned
+        ];
+        $placeholders = implode(',', array_fill(0, count($statuses), '?'));
+        $sql = <<<SQL
+SELECT
+    R.*,
+    RT.name as request_type_name,
+    RS.name as request_status_name,
+    UB.username AS updated_by_username
+FROM
+    requests as R
+    LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
+    LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
+    LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
+WHERE
+    R.created_by_id = ?
+    AND R.request_type_id != ?
+    AND R.request_status_id IN ($placeholders)
+ORDER BY R.title
+SQL;
+        $params = array_merge([
+            $id,
+            RequestType::BlueBook
+        ], $statuses);
+
+        return $this->query($sql)->all($params);
+    }
+
 }

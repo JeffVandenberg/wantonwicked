@@ -25,6 +25,7 @@ use classes\core\repository\RepositoryManager;
  * @property CharacterPower[] Devotions
  * @property CharacterPower[] CharacterPower
  * @property User UpdatedBy
+ * @property User User
  */
 class Character extends DataModel
 {
@@ -102,6 +103,7 @@ class Character extends DataModel
     );
 
     public $BelongsTo = [
+        'User' => 'classes\core\data\User',
         'UpdatedBy' => 'classes\core\data\User'
     ];
 

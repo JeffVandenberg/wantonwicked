@@ -5,6 +5,7 @@ use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
 use classes\core\repository\RepositoryManager;
+use classes\request\repository\RequestRepository;
 
 /* @var array $userdata */
 
@@ -15,7 +16,9 @@ if (!UserdataHelper::IsLoggedIn($userdata)) {
 }
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
+$requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
 /* @var CharacterRepository $characterRepository */
+/* @var RequestRepository $requestRepository */
 
 $id = $userdata['user_id'];
 if (UserdataHelper::IsAdmin($userdata)) {
@@ -23,6 +26,7 @@ if (UserdataHelper::IsAdmin($userdata)) {
 }
 $characters = $characterRepository->listForDashboard($id);
 /* @var Character[] $characters */
+$requests = $requestRepository->listForDashboard($id);
 
 ob_start();
 ?>
@@ -111,7 +115,35 @@ ob_start();
                 <a class="button small float-right" href="/request.php">All Requests</a>
             </div>
             <div class="" style="">
-                No pending requests at the moment
+                <?php if(count($requests)): ?>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>
+                                Request
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                        </thead>
+                        <?php foreach($requests as $r): ?>
+                            <tr>
+                                <td>
+                                    <a href="request.php?action=view&request_id=<?php echo $r['id']; ?>">
+                                    <?php echo $r['title']; ?>
+                                </td>
+                                <td><?php echo $r['request_type_name']; ?></td>
+                                <td><?php echo $r['request_status_name']; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                <?php else: ?>
+                    No pending requests at the moment
+                <?php endif; ?>
             </div>
             <div class="clearfix">
                 <h3 class="float-left">
