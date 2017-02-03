@@ -112,10 +112,12 @@ ob_start();
                 <h3 class="float-left">
                     Active Requests
                 </h3>
-                <a class="button small float-right" href="/request.php">All Requests</a>
+                <div class="button-group float-right">
+                    <a class="button small" href="/request.php">All Requests</a>
+                </div>
             </div>
             <div class="" style="">
-                <?php if(count($requests)): ?>
+                <?php if (count($requests)): ?>
                     <table>
                         <thead>
                         <tr>
@@ -130,11 +132,11 @@ ob_start();
                             </th>
                         </tr>
                         </thead>
-                        <?php foreach($requests as $r): ?>
+                        <?php foreach ($requests as $r): ?>
                             <tr>
                                 <td>
                                     <a href="request.php?action=view&request_id=<?php echo $r['id']; ?>">
-                                    <?php echo $r['title']; ?>
+                                        <?php echo $r['title']; ?>
                                 </td>
                                 <td><?php echo $r['request_type_name']; ?></td>
                                 <td><?php echo $r['request_status_name']; ?></td>
@@ -147,9 +149,11 @@ ob_start();
             </div>
             <div class="clearfix">
                 <h3 class="float-left">
-                    Your Upcoming Scenes
+                    Upcoming Scenes
                 </h3>
-                <a class="button small float-right" href="/scenes">Scene Calendar</a>
+                <div class="button-group float-right">
+                    <a class="button small" href="/scenes">Scene Calendar</a>
+                </div>
             </div>
             <div style="padding-top:5px;">
                 <?php if (count($sceneSummary)): ?>
