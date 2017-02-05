@@ -1,9 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteCond %{HTTPS} !=on
     # This checks to make sure the connection is not already HTTPS
+    RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$
+    RewriteCond %{HTTPS} !=off
+    RewriteRule ^/?(.*) http://%{SERVER_NAME}/$1 [R,L]
 
-    RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
