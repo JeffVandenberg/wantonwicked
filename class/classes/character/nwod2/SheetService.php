@@ -44,7 +44,11 @@ class SheetService
             'rote',
             'obsession',
             'praxis',
-            'nimbus'
+            'nimbus',
+            'moongift',
+            'shadowgift',
+            'wolfgift',
+            'rite'
         ],
         'limited' => [
             'aspiration',
@@ -123,6 +127,14 @@ class SheetService
                     'obsession' => 1,
                     'praxis' => 1,
                     'nimbus' => 1
+                ];
+                break;
+            case 'werewolf':
+                $powers = [
+                    'moongift' => 1,
+                    'shadowgift' => 2,
+                    'wolfgift' => 1,
+                    'rite' => 2
                 ];
                 break;
         }
@@ -275,6 +287,8 @@ class SheetService
         }
 
         if (in_array($options['edit_mode'], ['open', 'limited'])) {
+            $character->Splat1 = ($stats['splat1']) ? $stats['splat1'] : '';
+            $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
             $character->PowerPoints = $stats['power_points'] + 0;
             $character->WoundsAgg = $stats['wounds_agg'] + 0;
             $character->WoundsLethal = $stats['wounds_lethal'] + 0;

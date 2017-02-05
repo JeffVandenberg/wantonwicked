@@ -180,6 +180,7 @@ class Character extends DataModel
         $power = new CharacterPower();
         $power->PowerType = $typeName;
         $power->PowerName = $powerName;
+        $this->powers[$typeName][$powerName] = $power;
         return $power;
     }
 

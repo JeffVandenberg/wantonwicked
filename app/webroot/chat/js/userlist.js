@@ -664,7 +664,7 @@ function viewProfile(uID,uUser) {
 }
 
 function viewSheet(characterId) {
-    window.open('/view_sheet.php?action=view_own_xp&character_id='+characterId);
+    window.open('/characters/viewOwn/'+characterId);
 }
 
 function viewDice(characterId) {

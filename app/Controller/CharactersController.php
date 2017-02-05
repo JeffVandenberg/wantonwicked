@@ -155,7 +155,7 @@ class CharactersController extends AppController
         $characterType = $this->request->query('character_type');
         $character = $sheetService->loadSheet($slug, $characterType);
         /* @var Character $character */
-        if(!$character) {
+        if(!$character->Id) {
             throw new NotFoundException(__('Invalid character'));
         }
 
