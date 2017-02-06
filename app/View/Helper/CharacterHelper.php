@@ -228,6 +228,7 @@ class CharacterHelper extends AppHelper
     private function buildBioEdit(Character $character)
     {
         $characterName = $character->CharacterName;
+        $description = $character->Description;
         $characterType = $this->characterTypes[$character->CharacterType];
         $city = $character->City;
         $age = $character->Age;
@@ -344,6 +345,12 @@ class CharacterHelper extends AppHelper
                 'value' => $character->Icon,
                 'empty' => false
             ]);
+            $description = $this->Form->textarea('description',
+                [
+                    'value' => $character->Description,
+                    'label' => false,
+                    'rows' => 6
+                ]);
         }
         ob_start();
         ?>
@@ -481,16 +488,16 @@ class CharacterHelper extends AppHelper
                 </div>
             </div>
             <div class="row">
-                <div class="medium-12 columns subheader">Character Background</div>
-            </div>
-            <div class="row">
-                <div class="medium-12 columns">
+                <div class="medium-12 columns subheader">Character</div>
+                <div class="small-12 columns">
+                    <label for="history">Description</label>
+                    <?php echo $description; ?>
+                </div>
+                <div class="small-12 columns">
                     <label for="history">Biography</label>
                     <?php echo $history; ?>
                 </div>
-            </div>
-            <div class="row">
-                <div class="medium-12 columns">
+                <div class="small-12 columns">
                     <label>Notes</label>
                     <?php echo $characterNotes; ?>
                     <?php if ($character->IsSanctioned === ''): ?>

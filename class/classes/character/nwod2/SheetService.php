@@ -285,7 +285,6 @@ class SheetService
             $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
             $character->Subsplat = ($stats['subsplat']) ? $stats['subsplat'] : '';
             $character->Concept = $stats['concept'];
-            $character->Description = '';//$stats['description'];
             $character->PowerStat = $stats['power_trait'] + 0;
             $character->WillpowerPerm = $stats['willpower_perm'] + 0;
             $character->Morality = $stats['morality'] + 0;
@@ -297,12 +296,13 @@ class SheetService
             $character->Health = $stats['health'] + 0;
             $character->PowerPointsModifier = $stats['power_points_modifier'] + 0;
             $character->BonusAttribute = ($stats['bonus_attribute']) ? $stats['bonus_attribute'] : '';
-            $character->History = $stats['history'];
-            $character->CharacterNotes = $stats['notes'];
+            $character->History = htmlspecialchars($stats['history']);
+            $character->CharacterNotes = htmlspecialchars($stats['notes']);
             $character->Slug = $stats['slug'];
         }
 
         if (in_array($options['edit_mode'], ['open', 'limited'])) {
+            $character->Description = htmlspecialchars($stats['description']);
             $character->Splat1 = ($stats['splat1']) ? $stats['splat1'] : '';
             $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
             $character->PowerPoints = $stats['power_points'] + 0;
