@@ -133,6 +133,8 @@ class CharacterHelper extends AppHelper
         'splat2' => false,
         'break_points' => false,
         'touchstone' => false,
+        'wolf_touchstone' => false,
+        'changeling_touchstone' => false,
         'obsession' => false,
         'power_stat' => false,
         'power_points' => false
@@ -803,6 +805,8 @@ class CharacterHelper extends AppHelper
                 return $this->buildMagePowersSection($character);
             case 'werewolf':
                 return $this->buildWerewolfPowersSection($character);
+            case 'changeling':
+                return $this->buildChangelingPowersSection($character);
             default:
                 return $this->buildMortalPowersSection($character);
         }
@@ -1266,6 +1270,95 @@ class CharacterHelper extends AppHelper
                     </div>
                 </div>
             <?php endif; ?>
+            <?php if ($this->sheetFields['wolf_touchstone']): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Touchstones
+                    </div>
+                </div>
+                <div id="touchstones">
+                    <div class="row">
+                        <?php foreach ($character->getPowerList('touchstone') as $i => $power): ?>
+                            <div class="small-12 medium-2 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('touchstone.' . $i . '.name',
+                                        [
+                                            'value' => $power->PowerName,
+                                            'label' => false
+                                        ]
+                                    ); ?>
+                                <?php endif; ?>
+                                <?php echo $power->PowerName; ?>
+                            </div>
+                            <div class="small-12 medium-10 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
+                                    <?php echo $this->Form->input('touchstone.' . $i . '.note', [
+                                        'value' => $power->PowerNote,
+                                        'label' => false
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php echo $power->PowerNote; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ($this->sheetFields['changeling_touchstone']): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Touchstones
+                        <?php if ($this->mayEditOpen()): ?>
+                            <div class="success badge clickable add-foundation-row" data-target-table="touchstones"><i
+                                        class="fi-plus"></i></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div id="touchstones">
+                    <div class="row">
+                        <?php foreach ($character->getPowerList('touchstone') as $i => $power): ?>
+                            <div class="small-12 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
+                                    <?php echo $this->Form->input('touchstone.' . $i . '.name', [
+                                        'value' => $power->PowerName,
+                                        'label' => false
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php echo $power->PowerName; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Triggers
+                        <?php if ($this->mayEditOpen()): ?>
+                            <div class="success badge clickable add-foundation-row" data-target-table="triggers"><i
+                                        class="fi-plus"></i></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div id="triggers">
+                    <div class="row">
+                        <?php foreach ($character->getPowerList('trigger') as $i => $power): ?>
+                            <div class="small-12 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('trigger.' . $i . '.id', ['value' => $power->Id]); ?>
+                                    <?php echo $this->Form->input('trigger.' . $i . '.name', [
+                                        'value' => $power->PowerName,
+                                        'label' => false
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php echo $power->PowerName; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
             <?php if ($this->sheetFields['obsession']): ?>
                 <div class="row">
                     <div class="small-12 column subheader">
@@ -1414,6 +1507,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['splat2'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
+                $this->sheetFields['wolf_touchstone'] = true;
                 break;
             case 'wolfblooded':
                 break;
@@ -1429,6 +1523,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['splat2'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
+                $this->sheetFields['changeling_touchstone'] = true;
                 break;
             case 'fae-touched':
                 $this->sheetFields['splat1'] = true;
@@ -1781,6 +1876,71 @@ class CharacterHelper extends AppHelper
                     </div>
                     <div class="row">
                         <?php echo $wolfGifts; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="misc-abilities">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $miscPowerTable; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+
+    private function buildChangelingPowersSection(Character $character)
+    {
+        $meritTable = $this->buildTable($character, 'merit', 'merits');
+        $contractsTable = $this->buildTable($character, 'contract', 'contracts');
+        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']);
+        ob_start();
+        ?>
+        <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
+           aria-controls="csheet-template">Abilities</a>
+        <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-template-heading">
+            <div class="row">
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Merits
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="merits"><i
+                                            class="fi-plus"></i></div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $meritTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Contracts
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="contracts">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $contractsTable; ?>
                     </div>
                 </div>
                 <div class="small-12 medium-6 column float-left">

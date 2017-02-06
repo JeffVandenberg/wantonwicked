@@ -48,7 +48,8 @@ class SheetService
             'moongift',
             'shadowgift',
             'wolfgift',
-            'rite'
+            'rite',
+            'contract'
         ],
         'limited' => [
             'aspiration',
@@ -134,7 +135,15 @@ class SheetService
                     'moongift' => 1,
                     'shadowgift' => 2,
                     'wolfgift' => 1,
-                    'rite' => 2
+                    'rite' => 2,
+                    'touchstone' => 2,
+                ];
+                break;
+            case 'changeling':
+                $powers = [
+                    'contracts' => 5,
+                    'trigger' => 3,
+                    'touchstone' => 1
                 ];
                 break;
         }
@@ -145,9 +154,15 @@ class SheetService
 
                 $this->addList($character, $count, $type);
 
-                if($type == 'touchstone' && $count > 0) {
+                if(($character->CharacterType == 'vampire') && ($type == 'touchstone') && $count > 0) {
                     $list = $character->getPowerList('touchstone');
                     $list[0]->PowerLevel = 6;
+                }
+
+                if(($character->CharacterType == 'werewolf') && ($type == 'touchstone') && $count > 0) {
+                    $list = $character->getPowerList('touchstone');
+                    $list[0]->PowerName = 'Physical';
+                    $list[1]->PowerName = 'Spiritual';
                 }
             }
         }
