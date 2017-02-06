@@ -49,7 +49,8 @@ class SheetService
             'shadowgift',
             'wolfgift',
             'rite',
-            'contract'
+            'contract',
+            'trigger',
         ],
         'limited' => [
             'aspiration',
