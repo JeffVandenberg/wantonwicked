@@ -133,6 +133,8 @@ class CharacterHelper extends AppHelper
         'splat2' => false,
         'break_points' => false,
         'touchstone' => false,
+        'wolf_touchstone' => false,
+        'changeling_touchstone' => false,
         'obsession' => false,
         'power_stat' => false,
         'power_points' => false
@@ -226,6 +228,7 @@ class CharacterHelper extends AppHelper
     private function buildBioEdit(Character $character)
     {
         $characterName = $character->CharacterName;
+        $description = $character->Description;
         $characterType = $this->characterTypes[$character->CharacterType];
         $city = $character->City;
         $age = $character->Age;
@@ -319,11 +322,35 @@ class CharacterHelper extends AppHelper
             );
         }
         if ($this->mayEditLimited()) {
+            $splat1 = $this->Form->input(
+                'splat1',
+                [
+                    'value' => $character->Splat1,
+                    'placeholder' => $this->Language->translate('splat1', $character->CharacterType),
+                    'label' => false,
+                    'div' => false
+                ]
+            );
+            $splat2 = $this->Form->input(
+                'splat1',
+                [
+                    'value' => $character->Splat1,
+                    'placeholder' => $this->Language->translate('splat2', $character->CharacterType),
+                    'label' => false,
+                    'div' => false
+                ]
+            );
             $icon = $this->Form->select('icon', $this->icons, [
                 'label' => false,
                 'value' => $character->Icon,
                 'empty' => false
             ]);
+            $description = $this->Form->textarea('description',
+                [
+                    'value' => $character->Description,
+                    'label' => false,
+                    'rows' => 6
+                ]);
         }
         ob_start();
         ?>
@@ -461,16 +488,16 @@ class CharacterHelper extends AppHelper
                 </div>
             </div>
             <div class="row">
-                <div class="medium-12 columns subheader">Character Background</div>
-            </div>
-            <div class="row">
-                <div class="medium-12 columns">
+                <div class="medium-12 columns subheader">Character</div>
+                <div class="small-12 columns">
+                    <label for="history">Description</label>
+                    <?php echo $description; ?>
+                </div>
+                <div class="small-12 columns">
                     <label for="history">Biography</label>
                     <?php echo $history; ?>
                 </div>
-            </div>
-            <div class="row">
-                <div class="medium-12 columns">
+                <div class="small-12 columns">
                     <label>Notes</label>
                     <?php echo $characterNotes; ?>
                     <?php if ($character->IsSanctioned === ''): ?>
@@ -783,6 +810,10 @@ class CharacterHelper extends AppHelper
                 return $this->buildVampirePowersSection($character);
             case 'mage':
                 return $this->buildMagePowersSection($character);
+            case 'werewolf':
+                return $this->buildWerewolfPowersSection($character);
+            case 'changeling':
+                return $this->buildChangelingPowersSection($character);
             default:
                 return $this->buildMortalPowersSection($character);
         }
@@ -1246,6 +1277,95 @@ class CharacterHelper extends AppHelper
                     </div>
                 </div>
             <?php endif; ?>
+            <?php if ($this->sheetFields['wolf_touchstone']): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Touchstones
+                    </div>
+                </div>
+                <div id="touchstones">
+                    <div class="row">
+                        <?php foreach ($character->getPowerList('touchstone') as $i => $power): ?>
+                            <div class="small-12 medium-2 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('touchstone.' . $i . '.name',
+                                        [
+                                            'value' => $power->PowerName,
+                                            'label' => false
+                                        ]
+                                    ); ?>
+                                <?php endif; ?>
+                                <?php echo $power->PowerName; ?>
+                            </div>
+                            <div class="small-12 medium-10 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
+                                    <?php echo $this->Form->input('touchstone.' . $i . '.note', [
+                                        'value' => $power->PowerNote,
+                                        'label' => false
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php echo $power->PowerNote; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ($this->sheetFields['changeling_touchstone']): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Touchstones
+                        <?php if ($this->mayEditOpen()): ?>
+                            <div class="success badge clickable add-foundation-row" data-target-table="touchstones"><i
+                                        class="fi-plus"></i></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div id="touchstones">
+                    <div class="row">
+                        <?php foreach ($character->getPowerList('touchstone') as $i => $power): ?>
+                            <div class="small-12 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
+                                    <?php echo $this->Form->input('touchstone.' . $i . '.name', [
+                                        'value' => $power->PowerName,
+                                        'label' => false
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php echo $power->PowerName; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Triggers
+                        <?php if ($this->mayEditOpen()): ?>
+                            <div class="success badge clickable add-foundation-row" data-target-table="triggers"><i
+                                        class="fi-plus"></i></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div id="triggers">
+                    <div class="row">
+                        <?php foreach ($character->getPowerList('trigger') as $i => $power): ?>
+                            <div class="small-12 column">
+                                <?php if ($this->mayEditOpen()): ?>
+                                    <?php echo $this->Form->hidden('trigger.' . $i . '.id', ['value' => $power->Id]); ?>
+                                    <?php echo $this->Form->input('trigger.' . $i . '.name', [
+                                        'value' => $power->PowerName,
+                                        'label' => false
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?php echo $power->PowerName; ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
             <?php if ($this->sheetFields['obsession']): ?>
                 <div class="row">
                     <div class="small-12 column subheader">
@@ -1394,6 +1514,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['splat2'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
+                $this->sheetFields['wolf_touchstone'] = true;
                 break;
             case 'wolfblooded':
                 break;
@@ -1409,6 +1530,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['splat2'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
+                $this->sheetFields['changeling_touchstone'] = true;
                 break;
             case 'fae-touched':
                 $this->sheetFields['splat1'] = true;
@@ -1637,6 +1759,219 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+
+    private function buildWerewolfPowersSection(Character $character)
+    {
+        $renowns = [
+            'Cunning' => 'Cunning',
+            'Glory' => 'Glory',
+            'Honor' => 'Honor',
+            'Purity' => 'Purity',
+            'Wisdom' => 'Wisdom',
+        ];
+        $meritTable = $this->buildTable($character, 'merit', 'merits');
+        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']);
+        $moonGifts = $this->buildTable($character, 'moongift', 'moongifts');
+        $shadowGifts = $this->buildTable($character, 'shadowgift', 'shadowgifts', [
+            'name',
+            'facet' => [
+                'header' => 'Facet',
+                'inputs' => [
+                    [
+                        'type' => 'select',
+                        'name' => 'type',
+                        'value' => 'Extra.facet',
+                        'range' => $renowns,
+                    ]
+                ]
+            ],
+            'public'
+        ]);
+        $wolfGifts = $this->buildTable($character, 'wolfgift', 'wolfgifts', [
+                'name',
+                'facet' => [
+                    'header' => 'Facet',
+                    'inputs' => [
+                        [
+                            'type' => 'select',
+                            'name' => 'type',
+                            'value' => 'Extra.facet',
+                            'range' => $renowns,
+                        ]
+                    ]
+                ],
+                'public'
+            ]
+        );
+
+        ob_start();
+        ?>
+        <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
+           aria-controls="csheet-template">Abilities</a>
+        <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-template-heading">
+            <div class="row">
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Merits
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="merits"><i
+                                            class="fi-plus"></i></div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $meritTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="subheader">
+                        Renown
+                    </div>
+                    <div class="row">
+                        <table class="stack">
+                            <?php echo $this->makeWolfRenownRow($character, 0, 'Cunning', 'cunning'); ?>
+                            <?php echo $this->makeWolfRenownRow($character, 1, 'Glory', 'glory'); ?>
+                            <?php echo $this->makeWolfRenownRow($character, 2, 'Honor', 'honor'); ?>
+                            <?php echo $this->makeWolfRenownRow($character, 3, 'Purity', 'purity'); ?>
+                            <?php echo $this->makeWolfRenownRow($character, 4, 'Wisdom', 'wisdom'); ?>
+                        </table>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Moon Gifts
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="moongifts">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $moonGifts; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Shadow Gifts
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="shadowgifts">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $shadowGifts; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Wolf Gifts
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="wolfgifts">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $wolfGifts; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="misc-abilities">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $miscPowerTable; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+
+    private function buildChangelingPowersSection(Character $character)
+    {
+        $meritTable = $this->buildTable($character, 'merit', 'merits');
+        $contractsTable = $this->buildTable($character, 'contract', 'contracts');
+        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']);
+        ob_start();
+        ?>
+        <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
+           aria-controls="csheet-template">Abilities</a>
+        <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-template-heading">
+            <div class="row">
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Merits
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="merits"><i
+                                            class="fi-plus"></i></div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $meritTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Contracts
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="contracts">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $contractsTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="misc-abilities">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $miscPowerTable; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
     private function buildTable(Character $character, $powerType, $tableId, $columns = null)
     {
         $fields = [
@@ -1651,6 +1986,11 @@ class CharacterHelper extends AppHelper
                             'class' => 'character-autocomplete'
                         ],
                         'value' => 'PowerName'
+                    ],
+                    [
+                        'type' => 'hidden',
+                        'name' => 'id',
+                        'value' => 'Id',
                     ]
                 ]
             ],
@@ -1676,11 +2016,6 @@ class CharacterHelper extends AppHelper
                         'name' => 'level',
                         'value' => 'PowerLevel',
                         'range' => range(0, $this->maxDots),
-                    ],
-                    [
-                        'type' => 'hidden',
-                        'name' => 'id',
-                        'value' => 'Id',
                     ]
                 ]
             ],
@@ -1695,11 +2030,6 @@ class CharacterHelper extends AppHelper
                         'type' => 'text',
                         'name' => 'level',
                         'value' => 'PowerLevel',
-                    ],
-                    [
-                        'type' => 'hidden',
-                        'name' => 'id',
-                        'value' => 'Id',
                     ]
                 ]
             ],
@@ -1735,7 +2065,7 @@ class CharacterHelper extends AppHelper
                         $displayFields[$column] = $options;
                     }
                 } else {
-                    if(isset($fields[$options])) {
+                    if (isset($fields[$options])) {
                         $displayFields[$options] = $fields[$options];
                     } else {
                         throw new Exception('Unknown field type: ' . $options);
@@ -1935,4 +2265,42 @@ class CharacterHelper extends AppHelper
         }
     }
 
+    private function makeWolfRenownRow(Character $character, $index, $renownLabel, $renownKey)
+    {
+        ob_start();
+        ?>
+        <tr>
+            <td>
+                <?php echo $renownLabel; ?>
+                <?php if ($this->mayEditOpen()): ?>
+                    <?php echo $this->Form->input('renown.' . $index . '.name', [
+                        'value' => $renownKey,
+                        'type' => 'hidden'
+                    ]); ?>
+                    <?php echo $this->Form->input('renown.' . $index . '.id', [
+                        'type' => 'hidden',
+                        'value' => $character->getPowerByTypeAndName('renown', $renownKey)->Id
+                    ]); ?>
+                <?php endif; ?>
+            </td>
+            <td>
+                <?php if ($this->mayEditOpen()): ?>
+                    <?php echo $this->Form->select(
+                        'renown.' . $index . '.level',
+                        range(0, 5),
+                        [
+                            'value' => $character->getPowerByTypeAndName('renown', $renownKey)->PowerLevel,
+                            'label' => false,
+                            'empty' => false
+                        ]
+                    );
+                    ?>
+                <?php else: ?>
+                    <?php echo $character->getPowerByTypeAndName('renown', $renownKey)->PowerLevel + 0; ?>
+                <?php endif; ?>
+            </td>
+        </tr>
+        <?php
+        return ob_get_clean();
+    }
 }

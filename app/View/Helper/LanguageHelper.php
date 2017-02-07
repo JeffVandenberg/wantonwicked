@@ -55,11 +55,11 @@ class LanguageHelper extends AppHelper
         'changeling' => [
             'splat1' => 'Seeming',
             'splat2' => 'Court',
-            'virtue' => 'Masque',
-            'vice' => 'Mien',
+            'virtue' => 'Virtue',
+            'vice' => 'Vice',
             'morality' => 'Clarity',
             'powerstat' => 'Wyrd',
-            'powerpoints' => ''
+            'powerpoints' => 'Glamour'
         ],
         'ghoul' => [
             'splat1' => 'Regent Clan',

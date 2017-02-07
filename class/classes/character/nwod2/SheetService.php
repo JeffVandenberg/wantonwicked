@@ -44,7 +44,13 @@ class SheetService
             'rote',
             'obsession',
             'praxis',
-            'nimbus'
+            'nimbus',
+            'moongift',
+            'shadowgift',
+            'wolfgift',
+            'rite',
+            'contract',
+            'trigger',
         ],
         'limited' => [
             'aspiration',
@@ -125,6 +131,22 @@ class SheetService
                     'nimbus' => 1
                 ];
                 break;
+            case 'werewolf':
+                $powers = [
+                    'moongift' => 1,
+                    'shadowgift' => 2,
+                    'wolfgift' => 1,
+                    'rite' => 2,
+                    'touchstone' => 2,
+                ];
+                break;
+            case 'changeling':
+                $powers = [
+                    'contracts' => 5,
+                    'trigger' => 3,
+                    'touchstone' => 1
+                ];
+                break;
         }
 
         foreach($powers as $type => $min) {
@@ -133,9 +155,15 @@ class SheetService
 
                 $this->addList($character, $count, $type);
 
-                if($type == 'touchstone' && $count > 0) {
+                if(($character->CharacterType == 'vampire') && ($type == 'touchstone') && $count > 0) {
                     $list = $character->getPowerList('touchstone');
                     $list[0]->PowerLevel = 6;
+                }
+
+                if(($character->CharacterType == 'werewolf') && ($type == 'touchstone') && $count > 0) {
+                    $list = $character->getPowerList('touchstone');
+                    $list[0]->PowerName = 'Physical';
+                    $list[1]->PowerName = 'Spiritual';
                 }
             }
         }
@@ -257,7 +285,6 @@ class SheetService
             $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
             $character->Subsplat = ($stats['subsplat']) ? $stats['subsplat'] : '';
             $character->Concept = $stats['concept'];
-            $character->Description = '';//$stats['description'];
             $character->PowerStat = $stats['power_trait'] + 0;
             $character->WillpowerPerm = $stats['willpower_perm'] + 0;
             $character->Morality = $stats['morality'] + 0;
@@ -269,12 +296,15 @@ class SheetService
             $character->Health = $stats['health'] + 0;
             $character->PowerPointsModifier = $stats['power_points_modifier'] + 0;
             $character->BonusAttribute = ($stats['bonus_attribute']) ? $stats['bonus_attribute'] : '';
-            $character->History = $stats['history'];
-            $character->CharacterNotes = $stats['notes'];
+            $character->History = htmlspecialchars($stats['history']);
+            $character->CharacterNotes = htmlspecialchars($stats['notes']);
             $character->Slug = $stats['slug'];
         }
 
         if (in_array($options['edit_mode'], ['open', 'limited'])) {
+            $character->Description = htmlspecialchars($stats['description']);
+            $character->Splat1 = ($stats['splat1']) ? $stats['splat1'] : '';
+            $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
             $character->PowerPoints = $stats['power_points'] + 0;
             $character->WoundsAgg = $stats['wounds_agg'] + 0;
             $character->WoundsLethal = $stats['wounds_lethal'] + 0;

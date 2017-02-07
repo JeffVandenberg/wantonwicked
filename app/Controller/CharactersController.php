@@ -155,7 +155,7 @@ class CharactersController extends AppController
         $characterType = $this->request->query('character_type');
         $character = $sheetService->loadSheet($slug, $characterType);
         /* @var Character $character */
-        if(!$character) {
+        if(!$character->Id) {
             throw new NotFoundException(__('Invalid character'));
         }
 
@@ -226,20 +226,25 @@ class CharactersController extends AppController
         }
         if($this->request->is('get')) {
             $characterType = $this->request->query('character_type');
+            $character = null;
             if($this->request->query('view_character_id')) {
                 // attempt to load the character
                 $character = $sheetService->loadSheet($this->request->query('view_character_id'), $characterType);
+                if(!$character->Id) {
+                    $this->Flash->set('Unable to find character');
+                }
             }
-            else {
+            else if($characterId) {
                 $character = $sheetService->loadSheet($characterId, $characterType);
+                if(!$character->Id) {
+                    $this->Flash->set('Unable to find character');
+                }
             }
 
-            if($character) {
+            if($character && $character->Id) {
                 CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'ST View', $this->Auth->user('user_id'));
                 $sheetService->addMinPowersForEdit($character);
                 $this->set(compact('character'));
-            } else {
-                $this->Flash->set('Unable to find character');
             }
         }
 
