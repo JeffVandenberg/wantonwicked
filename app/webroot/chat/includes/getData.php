@@ -25,14 +25,18 @@ header("Content-Type: text/xml; charset=utf-8");
 $dbh = db_connect();
 
 if (!isset($_SESSION['user_id'])) {
-    $response = <<<EOQ
+    if($_GET['u']) {
+        $_SESSION['user_id'] = $_GET['u'];
+    } else {
+        $response = <<<EOQ
 <?xml version="1.0" ?>
 <root>
     <redirect>1</redirect>
 </root>
 EOQ;
-    echo $response;
-    exit;
+        echo $response;
+        exit;
+    }
 }
 
 /*
