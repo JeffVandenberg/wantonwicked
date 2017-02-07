@@ -645,6 +645,7 @@ body
 	overflow: auto;
 	word-wrap:break-word; 
 	background-color: #111111;
+	width: 99%;
 }
 
 .psendbox
