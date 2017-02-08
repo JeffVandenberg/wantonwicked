@@ -1145,7 +1145,8 @@ function createStatusSelectOptions()
 function sendStatus(status)
 {
 	var param = '?';
-	param += '&status=' + encodeURI(status);	
+	param += '&status=' + encodeURI(status);
+	param += '&uid=' + uID;
 
 	// if ready to send message to DB
 	if (sendReq.readyState == 4 || sendReq.readyState == 0) 
