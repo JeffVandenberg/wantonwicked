@@ -92,6 +92,7 @@ if ($_POST) {
 
     // check data is numeric
     $_POST['uid'] = !isset($_POST['uid']) ? "0" : checkNumeric($_POST['uid']);
+    $userId = $_POST['uid'];
     $_POST['room'] = !isset($_POST['room']) ? "0" : checkNumeric($_POST['room']);
     $_POST['addRoom'] = !isset($_POST['addRoom']) ? "0" : checkNumeric($_POST['addRoom']);
     $_POST['newRoomOwner'] = !isset($_POST['newRoomOwner']) ? "0" : checkNumeric($_POST['newRoomOwner']);
@@ -170,7 +171,7 @@ if ($_POST) {
 
         // if they are invisible don't post entry messages
         if((strpos($_POST['umessage'], C_LANG99) !== false) || (strpos($_POST['umessage'], C_LANG100) !== false)) {
-            if(invisibleAdmins($_SESSION['user_id']) && ($admin || $mod)) {
+            if(invisibleAdmins($userId) && ($admin || $mod)) {
                 die();
             }
         }
@@ -365,7 +366,7 @@ if ($_POST) {
                 $dbh = db_connect();
                 $params = array(
                     'lastActive' => getTime(),
-                    'userid' => makeSafe($_SESSION['user_id']),
+                    'userid' => makeSafe($userId),
                 );
                 $query = "UPDATE prochatrooms_users
 						  SET lastActive = :lastActive
@@ -390,7 +391,7 @@ if ($_POST) {
                 $dbh = db_connect();
                 $params = array(
                     'avatar' => makeSafe($_POST['uavatar']),
-                    'userid' => makeSafe($_SESSION['user_id'])
+                    'userid' => makeSafe($userId)
                 );
                 $query = "UPDATE prochatrooms_users
 						  SET avatar = :avatar
@@ -478,7 +479,7 @@ if ($_POST) {
             $dbh = db_connect();
             $params = array(
                 'status' => makeSafe($_POST['status']),
-                'userid' => makeSafe($_SESSION['user_id'])
+                'userid' => makeSafe($userId)
             );
             $query = "UPDATE prochatrooms_users
 					  SET status = :status
@@ -502,7 +503,7 @@ if ($_POST) {
             $dbh = db_connect();
             $params = array(
                 'blocked' => makeSafe($_POST['myBlockList']),
-                'userid' => makeSafe($_SESSION['user_id'])
+                'userid' => makeSafe($userId)
             );
             $query = "UPDATE prochatrooms_users
 					  SET blocked = :blocked

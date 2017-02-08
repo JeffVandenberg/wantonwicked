@@ -24,19 +24,16 @@ header("Content-Type: text/xml; charset=utf-8");
 
 $dbh = db_connect();
 
-if (!isset($_SESSION['user_id'])) {
-    if($_GET['u']) {
-        $_SESSION['user_id'] = $_GET['u'];
-    } else {
-        $response = <<<EOQ
+$userId = $_GET['u'];
+if (!$userId) {
+    $response = <<<EOQ
 <?xml version="1.0" ?>
 <root>
     <redirect>1</redirect>
 </root>
 EOQ;
-        echo $response;
-        exit;
-    }
+    echo $response;
+    exit;
 }
 
 /*
@@ -44,32 +41,32 @@ EOQ;
 *
 */
 
-list($admin, $mod, $speaker, $userTypeId) = adminPermissions();
+list($admin, $mod, $speaker, $userTypeId) = adminPermissions($userId);
 
 //;.if($_GET['roomID'] == 1) { die(); }
 /*
 * update user
 *
 */
-updateUser();
+updateUser($userId);
 
 /*
 * virtual credits
 *
 */
 
-virtualCredits();
+//virtualCredits();
 
 /*
 * eCredits
 *
 */
 
-if ($_SESSION['eCreditsInit'] == '1') {
-    if ($_SESSION['eCreditsAwardTo'] != $_SESSION['myProfileID']) {
-        eCredits($_SESSION['eCreditsAwardTo']);
-    }
-}
+//if ($_SESSION['eCreditsInit'] == '1') {
+//    if ($_SESSION['eCreditsAwardTo'] != $_SESSION['myProfileID']) {
+//        eCredits($_SESSION['eCreditsAwardTo']);
+//    }
+//}
 
 /*
 * start XML file
@@ -116,8 +113,7 @@ try {
 				  AND room = :room
 				  GROUP BY room, username ASC
 				";
-    }
-    else {
+    } else {
         $params = array(
             'active' => $onlineTime
         );
@@ -191,10 +187,9 @@ EOQ;
                     logoutUser($i['id'], $i['room']);
                     $userLoggedOut = true;
                 }
-            }
-            else {
-                if($i['is_invisible'] == 1) {
-                    if(!$admin && !$mod) {
+            } else {
+                if ($i['is_invisible'] == 1) {
+                    if (!$admin && !$mod) {
                         $onlineStatus = '0';
                     }
                 }
@@ -240,7 +235,7 @@ EOQ;
     debugError($error);
 }
 
-if($userLoggedOut) {
+if ($userLoggedOut) {
     updateRoomUserCount($dbh);
 }
 
@@ -257,7 +252,7 @@ try {
         $params = array(
             'room' => makeSafe($_GET['roomID']),
             'last' => makeSafe($_GET['last']),
-            'userid' => makeSafe($_SESSION['user_id'])
+            'userid' => makeSafe($userId)
         );
         $query = <<<EOQ
 SELECT
@@ -282,14 +277,13 @@ WHERE
 	    OR (share = '1' AND to_user_id = 0)
     )
 EOQ;
-    }
-    else {
+    } else {
         $totalMessages = $CONFIG['dispLastMess'] + 1;
 
         $params = array(
             'room' => makeSafe($_GET['roomID']),
             'last' => makeSafe($_GET['last']),
-            'userid' => makeSafe($_SESSION['user_id'])
+            'userid' => makeSafe($userId)
         );
 
         $query = <<<EOQ
@@ -348,7 +342,7 @@ EOQ;
 
         // check if user has been silenced
         // if so, set silence start time
-        if ($i['message'] == 'SILENCE' && $i['to_user_id'] == $_SESSION['user_id']) {
+        if ($i['message'] == 'SILENCE' && $i['to_user_id'] == $userId) {
             if (!$_SESSION['silenceStart'] || $_SESSION['silenceStart'] < date("U") - ($CONFIG['silent'] * 60)) {
                 $_SESSION['silenceStart'] = date("U");
             }
@@ -376,8 +370,7 @@ try {
 				  WHERE id = :roomID 
 				  ORDER BY ABS(id) ASC
 				  ";
-    }
-    else { // if multi room
+    } else { // if multi room
         $params = array(
             'userRoom' => 'User Room'
         );
