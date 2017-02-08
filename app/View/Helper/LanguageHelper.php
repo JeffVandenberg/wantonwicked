@@ -30,7 +30,8 @@ class LanguageHelper extends AppHelper
             'oocdisc' => 'Discipline',
             'devotion' => 'Devotion',
             'powerstat' => 'Blood Potency',
-            'powerpoints' => 'Vitae'
+            'powerpoints' => 'Vitae',
+            'friends' => 'Coterie'
         ],
         'mage' => [
             'splat1' => 'Path',
@@ -42,6 +43,7 @@ class LanguageHelper extends AppHelper
             'powerpoints' => 'Mana',
             'arcana' => 'Arcana',
             'rote' => 'Rote',
+            'friends' => 'Cabal'
         ],
         'werewolf' => [
             'splat1' => 'Auspice',
@@ -50,7 +52,8 @@ class LanguageHelper extends AppHelper
             'powerstat' => 'Primal Urge',
             'powerpoints' => 'Essence',
             'virtue' => 'Blood',
-            'vice' => 'Bone'
+            'vice' => 'Bone',
+            'friends' => 'Pack'
         ],
         'changeling' => [
             'splat1' => 'Seeming',
@@ -59,14 +62,16 @@ class LanguageHelper extends AppHelper
             'vice' => 'Vice',
             'morality' => 'Clarity',
             'powerstat' => 'Wyrd',
-            'powerpoints' => 'Glamour'
+            'powerpoints' => 'Glamour',
+            'friends' => 'Motley'
         ],
         'ghoul' => [
             'splat1' => 'Regent Clan',
             'virtue' => 'Virtue',
             'vice' => 'Vice',
             'morality' => 'Integrity',
-            'powerpoints' => 'Vitae'
+            'powerpoints' => 'Vitae',
+            'friends' => 'Domitor'
         ],
         'fae-touched' => [
             'splat1' => 'Seeming',

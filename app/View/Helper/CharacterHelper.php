@@ -240,6 +240,7 @@ class CharacterHelper extends AppHelper
         $history = str_replace("\n", "<br />", $character->History);
         $characterNotes = str_replace("\n", "<br />", $character->CharacterNotes);
         $icon = $this->icons[$character->Icon];
+        $friends = $character->Friends;
 
         if ($this->mayEditOpen()) {
             $characterName = $this->Form->input('character_name', [
@@ -248,6 +249,11 @@ class CharacterHelper extends AppHelper
                 'required',
                 'div' => false,
                 'data-validator' => 'character_name'
+            ]);
+            $friends = $this->Form->input('friends', [
+                'value' => $character->Friends,
+                'label' => false,
+                'div' => false
             ]);
             $characterType = $this->Form->select(
                 'character_type',
@@ -430,7 +436,16 @@ class CharacterHelper extends AppHelper
                 <div class="medium-3 columns">
                     <?php if ($this->sheetFields['splat2']) echo $splat2; ?>
                 </div>
-                <div class="medium-4 columns"></div>
+                <div class="medium-1 columns">
+                    <?php if($this->sheetFields['friends']): ?>
+                        <label for="friends">
+                            <?php echo $this->Language->translate('friends', $character->CharacterType); ?>
+                        </label>
+                    <?php endif; ?>
+                </div>
+                <div class="medium-3 columns">
+                    <?php if($this->sheetFields['friends']) echo $friends; ?>
+                </div>
             </div>
             <div class="row">
                 <div class="small-12 columns subheader">
@@ -1506,11 +1521,13 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['touchstone'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
+                $this->sheetFields['friends'] = true;
                 break;
             case 'ghoul':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['break_points'] = true;
+                $this->sheetFields['friends'] = true;
                 break;
             case 'werewolf':
                 $this->sheetFields['splat1'] = true;
@@ -1518,6 +1535,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['wolf_touchstone'] = true;
+                $this->sheetFields['friends'] = true;
                 break;
             case 'wolfblooded':
                 $this->sheetFields['break_points'] = true;
@@ -1528,6 +1546,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['obsession'] = true;
+                $this->sheetFields['friends'] = true;
                 break;
             case 'changeling':
                 $this->sheetFields['splat1'] = true;
@@ -1535,6 +1554,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['changeling_touchstone'] = true;
+                $this->sheetFields['friends'] = true;
                 break;
             case 'fae-touched':
                 $this->sheetFields['splat1'] = true;
