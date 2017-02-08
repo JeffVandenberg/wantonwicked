@@ -807,12 +807,14 @@ class CharacterHelper extends AppHelper
             case 'mortal':
                 return $this->buildMortalPowersSection($character);
             case 'vampire':
+            case 'ghoul':
                 return $this->buildVampirePowersSection($character);
             case 'mage':
                 return $this->buildMagePowersSection($character);
             case 'werewolf':
                 return $this->buildWerewolfPowersSection($character);
             case 'changeling':
+            case 'fae-touched':
                 return $this->buildChangelingPowersSection($character);
             default:
                 return $this->buildMortalPowersSection($character);
@@ -1508,6 +1510,7 @@ class CharacterHelper extends AppHelper
             case 'ghoul':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['power_points'] = true;
+                $this->sheetFields['break_points'] = true;
                 break;
             case 'werewolf':
                 $this->sheetFields['splat1'] = true;
@@ -1517,6 +1520,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['wolf_touchstone'] = true;
                 break;
             case 'wolfblooded':
+                $this->sheetFields['break_points'] = true;
                 break;
             case 'mage':
                 $this->sheetFields['splat1'] = true;
@@ -1535,6 +1539,7 @@ class CharacterHelper extends AppHelper
             case 'fae-touched':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['power_points'] = true;
+                $this->sheetFields['break_points'] = true;
                 break;
         }
     }

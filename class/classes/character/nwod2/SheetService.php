@@ -108,7 +108,7 @@ class SheetService
     private function addCharacterTypePowers(Character $character)
     {
         $powers = [];
-        switch($character->CharacterType) {
+        switch ($character->CharacterType) {
             case 'mortal':
                 $powers = [
                     'break_point' => 5
@@ -128,7 +128,7 @@ class SheetService
                     'rote' => 6,
                     'obsession' => 1,
                     'praxis' => 1,
-                    'nimbus' => 1
+                    'nimbus' => 1,
                 ];
                 break;
             case 'werewolf':
@@ -144,23 +144,35 @@ class SheetService
                 $powers = [
                     'contracts' => 5,
                     'trigger' => 3,
-                    'touchstone' => 1
+                    'touchstone' => 1,
+                ];
+                break;
+            case 'fae-touched':
+                $powers = [
+                    'contracts' => 2,
+                ];
+                break;
+            case 'ghoul':
+                $powers = [
+                    'icdisc' => 1,
+                    'oocdisc' => 1,
+                    'devotion' => 1,
                 ];
                 break;
         }
 
-        foreach($powers as $type => $min) {
+        foreach ($powers as $type => $min) {
             if (count($character->getPowerList($type)) < $min) {
                 $count = $min - count($character->getPowerList($type));
 
                 $this->addList($character, $count, $type);
 
-                if(($character->CharacterType == 'vampire') && ($type == 'touchstone') && $count > 0) {
+                if (($character->CharacterType == 'vampire') && ($type == 'touchstone') && $count > 0) {
                     $list = $character->getPowerList('touchstone');
                     $list[0]->PowerLevel = 6;
                 }
 
-                if(($character->CharacterType == 'werewolf') && ($type == 'touchstone') && $count > 0) {
+                if (($character->CharacterType == 'werewolf') && ($type == 'touchstone') && $count > 0) {
                     $list = $character->getPowerList('touchstone');
                     $list[0]->PowerName = 'Physical';
                     $list[1]->PowerName = 'Spiritual';
@@ -187,7 +199,7 @@ class SheetService
     public function loadSheet($identifier, $characterType = null)
     {
         // load blank sheet
-        if(!$identifier) {
+        if (!$identifier) {
             return new Character();
         }
 
@@ -198,7 +210,7 @@ class SheetService
         }
         /* @var Character $character */
 
-        if($characterType) {
+        if ($characterType) {
             $character->CharacterType = $characterType;
         }
 
@@ -255,7 +267,7 @@ class SheetService
     public function saveData(array $stats, array $options, array $user)
     {
         // clean data
-        array_walk_recursive($stats, function(&$item, $value) {
+        array_walk_recursive($stats, function (&$item, $value) {
             trim($item);
         });
 
@@ -520,8 +532,8 @@ class SheetService
     {
         $sql = <<<SQL
 SELECT
-  Icon_ID as id,
-  Icon_Name as name
+  Icon_ID AS id,
+  Icon_Name AS name
 FROM
   icons
 WHERE
@@ -529,7 +541,7 @@ WHERE
 SQL;
 
         $rows = [];
-        foreach(Database::getInstance()->query($sql)->all() as $row) {
+        foreach (Database::getInstance()->query($sql)->all() as $row) {
             $rows[$row['id']] = $row['name'];
         }
         return $rows;
