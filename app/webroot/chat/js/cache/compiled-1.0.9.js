@@ -2089,7 +2089,7 @@ function getMessages()
 
 	/*if (receiveMesReq.readyState == 4 || receiveMesReq.readyState == 0)
 	{*/
-		receiveMesReq.open("GET", 'includes/getData.php?roomID='+roomID+'&u='+userID+'&history='+showHistory+'&last='+lastMessageID+'&s='+singleRoom+'&rnd='+ Math.random(), true);
+		receiveMesReq.open("GET", 'includes/getData.php?roomID='+roomID+'&u='+uID+'&history='+showHistory+'&last='+lastMessageID+'&s='+singleRoom+'&rnd='+ Math.random(), true);
 		receiveMesReq.onreadystatechange = handleMessages;
 		receiveMesReq.send(null);
 	//}

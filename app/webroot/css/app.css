@@ -4821,7 +4821,7 @@ dl dd {
 
 /* BELOW: All Structural Stuff*/
 .widthsetter {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto; }
 
 /* Begin Header/Footer Bars*/
@@ -4874,7 +4874,7 @@ dl dd {
 
 #pagetitle {
   font-family: "Marcellus SC", Georgia, Times, serif, Georgia, Times, serif;
-  max-width: 1000px;
+  max-width: 1200px;
   margin-top: 10px;
   color: #FFFFFF;
   font-size: 30px;
@@ -4882,7 +4882,7 @@ dl dd {
   text-shadow: 1px 1px #000000; }
 
 #contenta {
-  max-width: 1000px;
+  max-width: 1200px;
   margin-top: 10px;
   margin-bottom: 30px; }
 
@@ -4890,7 +4890,7 @@ dl dd {
 /* Begin Main Drop Down Nagivation*/
 #nav {
   clear: both;
-  max-width: 1000px;
+  max-width: 1200px;
   border-radius: 5px;
   -moz-border-radius: 5px;
   margin: auto; }
