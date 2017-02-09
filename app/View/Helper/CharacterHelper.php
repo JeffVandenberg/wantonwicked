@@ -1414,10 +1414,35 @@ class CharacterHelper extends AppHelper
                 <div class="row">
                     <?php foreach ($character->getPowerList('nimbus') as $i => $power): ?>
                         <div class="small-12 column">
+                            Long Term
                             <?php if ($this->mayEditOpen()): ?>
                                 <?php echo $this->Form->hidden('nimbus.' . $i . '.id', ['value' => $power->Id]); ?>
                                 <?php echo $this->Form->input('nimbus.' . $i . '.name', [
                                     'value' => $power->PowerName,
+                                    'label' => false,
+                                    'maxlength' => 255,
+                                ]); ?>
+                            <?php else: ?>
+                                <?php echo $power->PowerName; ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="small-12 column">
+                            Immediate
+                            <?php if ($this->mayEditOpen()): ?>
+                                <?php echo $this->Form->input('nimbus.' . $i . '.immediate', [
+                                    'value' => $power->Extra['immediate'],
+                                    'label' => false,
+                                    'maxlength' => 255,
+                                ]); ?>
+                            <?php else: ?>
+                                <?php echo $power->PowerName; ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="small-12 column">
+                            Signature
+                            <?php if ($this->mayEditOpen()): ?>
+                                <?php echo $this->Form->input('nimbus.' . $i . '.signature', [
+                                    'value' => $power->Extra['signature'],
                                     'label' => false,
                                     'maxlength' => 255,
                                 ]); ?>
