@@ -51,6 +51,7 @@ class SheetService
             'rite',
             'contract',
             'trigger',
+            'attainment',
         ],
         'limited' => [
             'aspiration',
@@ -129,6 +130,7 @@ class SheetService
                     'obsession' => 1,
                     'praxis' => 1,
                     'nimbus' => 1,
+                    'attainment' => 1
                 ];
                 break;
             case 'werewolf':

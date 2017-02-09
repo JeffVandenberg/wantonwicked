@@ -248,12 +248,14 @@ class CharacterHelper extends AppHelper
                 'label' => false,
                 'required',
                 'div' => false,
+                'maxlength' => 45,
                 'data-validator' => 'character_name'
             ]);
             $friends = $this->Form->input('friends', [
                 'value' => $character->Friends,
                 'label' => false,
-                'div' => false
+                'div' => false,
+                'maxlength' => 255,
             ]);
             $characterType = $this->Form->select(
                 'character_type',
@@ -274,12 +276,15 @@ class CharacterHelper extends AppHelper
                 'placeholder' => 'Age (True)',
                 'label' => false,
                 'type' => 'number',
-                'empty' => false
+                'empty' => false,
+                'maxlength' => 6,
             ]);
             $concept = $this->Form->input('concept', [
                 'value' => $character->Concept,
                 'placeholder' => 'Character Concept',
-                'label' => false
+                'label' => false,
+                'maxlength' => 255,
+
             ]);
             $splat1 = $this->Form->input(
                 'splat1',
@@ -287,7 +292,8 @@ class CharacterHelper extends AppHelper
                     'value' => $character->Splat1,
                     'placeholder' => $this->Language->translate('splat1', $character->CharacterType),
                     'label' => false,
-                    'div' => false
+                    'div' => false,
+                    'maxlength' => 20,
                 ]
             );
             $splat2 = $this->Form->input(
@@ -296,18 +302,21 @@ class CharacterHelper extends AppHelper
                     'value' => $character->Splat1,
                     'placeholder' => $this->Language->translate('splat2', $character->CharacterType),
                     'label' => false,
-                    'div' => false
+                    'div' => false,
+                    'maxlength' => 30,
                 ]
             );
             $virtue = $this->Form->input('virtue', [
                 'value' => $character->Virtue,
                 'label' => false,
-                'placeholder' => $this->Language->translate('virtue', $character->CharacterType)
+                'placeholder' => $this->Language->translate('virtue', $character->CharacterType),
+                'maxlength' => 100,
             ]);
             $vice = $this->Form->input('vice', [
                 'value' => $character->Vice,
                 'label' => false,
-                'placeholder' => $this->Language->translate('vice', $character->CharacterType)
+                'placeholder' => $this->Language->translate('vice', $character->CharacterType),
+                'maxlength' => 100,
             ]);
             $history = $this->Form->textarea(
                 'history',
@@ -334,16 +343,18 @@ class CharacterHelper extends AppHelper
                     'value' => $character->Splat1,
                     'placeholder' => $this->Language->translate('splat1', $character->CharacterType),
                     'label' => false,
-                    'div' => false
+                    'div' => false,
+                    'maxlength' => 20,
                 ]
             );
             $splat2 = $this->Form->input(
-                'splat1',
+                'splat2',
                 [
-                    'value' => $character->Splat1,
+                    'value' => $character->Splat2,
                     'placeholder' => $this->Language->translate('splat2', $character->CharacterType),
                     'label' => false,
-                    'div' => false
+                    'div' => false,
+                    'maxlength' => 30,
                 ]
             );
             $icon = $this->Form->select('icon', $this->icons, [
@@ -488,7 +499,9 @@ class CharacterHelper extends AppHelper
                                     <?php if ($this->mayEditLimited()): ?>
                                         <?php echo $this->Form->input('aspiration.' . $i . '.name', [
                                             'label' => false,
-                                            'value' => $power->PowerName
+                                            'value' => $power->PowerName,
+                                            'maxlength' => 255,
+
                                         ]); ?>
                                         <?php echo $this->Form->hidden('aspiration.' . $i . '.id', [
                                             'value' => $power->Id
@@ -792,7 +805,9 @@ class CharacterHelper extends AppHelper
                                     ]); ?>
                                     <?php echo $this->Form->input('specialty.' . $i . '.note', [
                                         'value' => $specialty->PowerNote,
-                                        'label' => false
+                                        'label' => false,
+                                        'maxlength' => 255,
+
                                     ]); ?>
                                 <?php else: ?>
                                     <?php echo $specialty->PowerNote; ?>
@@ -918,7 +933,8 @@ class CharacterHelper extends AppHelper
                                 <?php echo $this->Form->input('equipment.' . $i . '.name', [
                                     'label' => false,
                                     'placeholder' => 'Equipment',
-                                    'value' => $power->PowerName
+                                    'value' => $power->PowerName,
+                                    'maxlength' => 255,
                                 ]); ?>
                             <?php else: ?>
                                 <?php echo $power->PowerName; ?>
@@ -929,7 +945,8 @@ class CharacterHelper extends AppHelper
                                 <?php echo $this->Form->input('equipment.' . $i . '.bonus', [
                                     'label' => false,
                                     'placeholder' => 'Bonus',
-                                    'value' => $power->Extra['bonus']
+                                    'value' => $power->Extra['bonus'],
+                                    'maxlength' => 255,
                                 ]); ?>
                             <?php else: ?>
                                 <?php echo $power->Extra['bonus']; ?>
@@ -941,7 +958,8 @@ class CharacterHelper extends AppHelper
                                     'label' => false,
                                     'width' => 100,
                                     'placeholder' => 'Note',
-                                    'value' => $power->PowerNote
+                                    'value' => $power->PowerNote,
+                                    'maxlength' => 255,
                                 ]); ?>
                             <?php else: ?>
                                 <?php echo $power->PowerNote; ?>
@@ -1284,7 +1302,8 @@ class CharacterHelper extends AppHelper
                                     <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
                                     <?php echo $this->Form->input('touchstone.' . $i . '.name', [
                                         'value' => $power->PowerName,
-                                        'label' => false
+                                        'label' => false,
+                                        'maxlength' => 255,
                                     ]); ?>
                                 <?php else: ?>
                                     <?php echo $power->PowerName; ?>
@@ -1319,7 +1338,8 @@ class CharacterHelper extends AppHelper
                                     <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
                                     <?php echo $this->Form->input('touchstone.' . $i . '.note', [
                                         'value' => $power->PowerNote,
-                                        'label' => false
+                                        'label' => false,
+                                        'maxlength' => 255,
                                     ]); ?>
                                 <?php else: ?>
                                     <?php echo $power->PowerNote; ?>
@@ -1347,7 +1367,8 @@ class CharacterHelper extends AppHelper
                                     <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
                                     <?php echo $this->Form->input('touchstone.' . $i . '.name', [
                                         'value' => $power->PowerName,
-                                        'label' => false
+                                        'label' => false,
+                                        'maxlength' => 255,
                                     ]); ?>
                                 <?php else: ?>
                                     <?php echo $power->PowerName; ?>
@@ -1373,7 +1394,8 @@ class CharacterHelper extends AppHelper
                                     <?php echo $this->Form->hidden('trigger.' . $i . '.id', ['value' => $power->Id]); ?>
                                     <?php echo $this->Form->input('trigger.' . $i . '.name', [
                                         'value' => $power->PowerName,
-                                        'label' => false
+                                        'label' => false,
+                                        'maxlength' => 255,
                                     ]); ?>
                                 <?php else: ?>
                                     <?php echo $power->PowerName; ?>
@@ -1396,7 +1418,8 @@ class CharacterHelper extends AppHelper
                                 <?php echo $this->Form->hidden('nimbus.' . $i . '.id', ['value' => $power->Id]); ?>
                                 <?php echo $this->Form->input('nimbus.' . $i . '.name', [
                                     'value' => $power->PowerName,
-                                    'label' => false
+                                    'label' => false,
+                                    'maxlength' => 255,
                                 ]); ?>
                             <?php else: ?>
                                 <?php echo $power->PowerName; ?>
@@ -1421,7 +1444,8 @@ class CharacterHelper extends AppHelper
                                     <?php echo $this->Form->hidden('obsession.' . $i . '.id', ['value' => $power->Id]); ?>
                                     <?php echo $this->Form->input('obsession.' . $i . '.name', [
                                         'value' => $power->PowerName,
-                                        'label' => false
+                                        'label' => false,
+                                        'maxlength' => 255,
                                     ]); ?>
                                 <?php else: ?>
                                     <?php echo $power->PowerName; ?>
@@ -1671,6 +1695,7 @@ class CharacterHelper extends AppHelper
             ['name', 'note', 'leveltext', 'public']);
         $praxisTable = $this->buildTable($character, 'praxis', 'praxes',
             ['name', 'note', 'leveltext', 'public']);
+        $attainmentTable = $this->buildTable($character, 'attainment', 'attainments');
 
         $arcanaTypes = [
             'Ruling' => 'Ruling',
@@ -1745,6 +1770,21 @@ class CharacterHelper extends AppHelper
                     </div>
                     <div class="row">
                         <?php echo $rotesTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Attainments0
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="attainments">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $attainmentTable; ?>
                     </div>
                 </div>
                 <div class="small-12 medium-6 column float-left">
@@ -2198,7 +2238,8 @@ class CharacterHelper extends AppHelper
             $inputOptions = [
                 'value' => $value,
                 'label' => false,
-                'type' => $input['type']
+                'type' => $input['type'],
+                'maxlength' => 255,
             ];
             if (isset($input['extra']) && is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
