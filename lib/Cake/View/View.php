@@ -16,6 +16,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+use classes\core\helpers\MenuHelper;
+
 App::uses('HelperCollection', 'View');
 App::uses('AppHelper', 'View/Helper');
 App::uses('Router', 'Routing');
@@ -54,6 +56,7 @@ App::uses('CakeResponse', 'Network');
  * @property      ViewBlock $Blocks
  * @property      CharacterHelper Character
  * @property      ShrinkHelper Shrink
+ * @property MainMenuHelper MainMenu
  */
 class View extends Object {
 

@@ -166,6 +166,9 @@ class MenuComponent extends Component {
             $menu['Tools']['submenu']['Character Transfer'] = array(
                 'link' => '/st_tools.php?action=profile_transfer'
             );
+            $menu['Tools']['submenu']['Beat Types'] = [
+                'link' => '/beatTypes'
+            ];
             $menu['Reports']['submenu']['Request Time Report'] = array(
                 'link' => '/request.php?action=admin_time_report'
             );
