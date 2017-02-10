@@ -1658,18 +1658,6 @@ function addMessage(inputMDiv,displayMDiv)
 			return false;
 		}
 	}
-	
-	if(groupChat == 0)
-	{
-		showInfoBox("system","220","300","200","",lang6);
-		return false;		
-	}
-
-	if(groupPChat == 0 && document.getElementById('whisperID').value != '')
-	{
-		showInfoBox("system","220","300","200","",lang6);
-		return false;		
-	}
 
 	if(isSilenced == 1)
 	{
@@ -1718,8 +1706,8 @@ function addMessage(inputMDiv,displayMDiv)
 	// if usergroup cannot post videos
 	if(groupVideo == 0 && message.indexOf("http://youtu.be/") != -1)
 	{
-		showInfoBox("system","220","300","200","",lang6);
-		return false;		
+		showInfoBox("system","220","300","200","",'You may not post Youtube videos.');
+		return false;
 	}
 
 	// check message length

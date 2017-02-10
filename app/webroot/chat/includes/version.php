@@ -5,4 +5,4 @@
 * Inc. Patch Release
 */
 
-$CONFIG['version'] = '1.0.10';
+$CONFIG['version'] = '1.0.11';
