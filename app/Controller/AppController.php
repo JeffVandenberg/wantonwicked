@@ -40,7 +40,7 @@ class AppController extends Controller {
         'Menu',
         'Permissions',
         'RequestHandler',
-        'Supporter'
+        'Flash'
     );
 
     public $helpers = array(
@@ -75,7 +75,6 @@ class AppController extends Controller {
             }
         }
         $this->Menu->InitializeMenu();
-        $this->Supporter->checkStatus();
         $this->Auth->deny();
     }
 
@@ -83,7 +82,6 @@ class AppController extends Controller {
         parent::beforeRender();
         $this->layout = ($this->request->is("ajax")) ? "ajax" : "default";
         $this->set('menu', $this->Menu->GetMenu());
-        $this->set('supporter', $this->Supporter->GetStatus());
         $this->set('serverTime', (microtime(true) + date('Z'))*1000);
         $this->set('buildNumber', file_get_contents(ROOT . '/build_number'));
     }

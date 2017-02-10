@@ -52,18 +52,18 @@ class CharactersController extends AppController
     public function cast($type = 'All')
     {
         $this->Character->recursive = 0;
-        $this->Paginator->settings = array(
+        $this->Paginator->settings = [
             'limit' => 30,
-            'conditions' => array(
+            'conditions' => [
                 'Character.is_sanctioned' => 'Y',
                 'Character.city' => 'portland',
                 'Character.is_deleted' => 'N'
-            ),
+            ],
             'order' => 'Character.character_name',
-            'contain' => array(
+            'contain' => [
                 'Player'
-            )
-        );
+            ]
+        ];
 
         if (strtolower($type) !== 'all') {
             $this->Paginator->settings['conditions']['Character.character_type'] = $type;

@@ -13,7 +13,7 @@ if (isset($character) && $character->Id) {
 ?>
 
 <form method="get">
-    <div class="row">
+    <div class="row align-middle">
         <div class="small-12 medium-4 column">
             <label for="view_character_name">Character</label>
             <input type="text" name="view_character_name" id="view_character_name" />
@@ -28,7 +28,7 @@ if (isset($character) && $character->Id) {
             </label>
         </div>
         <div class="small-6 medium-2 column">
-            <label>Only Sanctioned
+            <label>Sanctioned
                 <?php echo $this->Form->checkbox('only_sanctioned', ['label' => 'Sanctioned']); ?>
             </label>
         </div>

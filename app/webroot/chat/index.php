@@ -25,6 +25,10 @@ include("includes/config.php");
 include("includes/functions.php");
 /* @var array $CONFIG */
 
+if($_SESSION['user_id'] && !$_SESSION['username']) {
+    unset($_SESSION['user_id']);
+}
+
 if(!isset($_SESSION['user_id'])) {
     unset($_SESSION['username']);
     unset($_SESSION['display_name']);

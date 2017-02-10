@@ -953,8 +953,11 @@ function totalRooms()
 *
 */
 
-function updateUser()
+function updateUser($userId = null)
 {
+    if(!$userId) {
+        $userId = $_SESSION['user_id'];
+    }
     // update details
     try {
         $dbh = db_connect();
@@ -965,7 +968,7 @@ function updateUser()
             'isActive' => getTime(),
             'isOnline' => '1',
             'streamID' => makeSafe($_SESSION['myStreamID']),
-            'userid' => makeSafe($_SESSION['user_id'])
+            'userid' => makeSafe($userId)
         );
         $query = "UPDATE prochatrooms_users 
 				  SET 
@@ -1402,8 +1405,11 @@ function validStreamID($id)
 *			
 */
 
-function adminPermissions()
+function adminPermissions($userId = null)
 {
+    if(!$userId) {
+        $userId = $_SESSION['user_id'];
+    }
     // include files
     include(getDocPath() . "includes/config.php");
     /* @var array $CONFIG */
@@ -1417,7 +1423,7 @@ function adminPermissions()
     try {
         $dbh = db_connect();
         $params = array(
-            'id' => $_SESSION['user_id']
+            'id' => $userId
         );
         $query = "SELECT admin, moderator, speaker, user_type_id
 				  FROM prochatrooms_users 

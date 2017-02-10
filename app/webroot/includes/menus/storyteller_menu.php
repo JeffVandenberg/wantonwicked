@@ -94,6 +94,9 @@ if(UserdataHelper::IsHead($userdata)) {
     $storytellerMenu['Tools']['submenu']['Character Transfer'] = array(
         'link' => 'st_tools.php?action=profile_transfer'
     );
+    $storytellerMenu['Tools']['submenu']['Beat Types'] = [
+        'link' => '/beatTypes'
+    ];
     $storytellerMenu['Reports']['submenu']['Request Time Report'] = array(
         'link' => 'request.php?action=admin_time_report'
     );
