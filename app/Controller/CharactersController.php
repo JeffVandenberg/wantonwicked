@@ -117,6 +117,7 @@ class CharactersController extends AppController
             case 'add':
             case 'validateName':
             case 'viewOwn':
+            case 'beats':
                 return $this->Auth->user();
         }
         return false;
@@ -155,11 +156,11 @@ class CharactersController extends AppController
         $characterType = $this->request->query('character_type');
         $character = $sheetService->loadSheet($slug, $characterType);
         /* @var Character $character */
-        if(!$character->Id) {
+        if (!$character->Id) {
             throw new NotFoundException(__('Invalid character'));
         }
 
-        if(($character->UserId != $this->Auth->user('user_id')) && !($this->Permissions->IsAdmin())) {
+        if (($character->UserId != $this->Auth->user('user_id')) && !($this->Permissions->IsAdmin())) {
             $this->Flash->set('Unauthorized Access');
             $this->redirect('/');
             return;
@@ -170,25 +171,24 @@ class CharactersController extends AppController
             'edit_mode' => 'limited', // other values "open", "none"
         ];
 
-        if($character->IsSanctioned === '') {
+        if ($character->IsSanctioned === '') {
             $options['edit_mode'] = 'open';
             $sheetService->addMinPowersForEdit($character);
         }
 
-        if($this->request->is('post'))
-        {
+        if ($this->request->is('post')) {
             // save update
             $updatedData = $this->request->data;
             $updatedData['slug'] = Inflector::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
 
             $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
 
-            if(is_string($result)) {
+            if (is_string($result)) {
                 $this->Flash->set($result);
                 $this->set('data', $character);
             } else {
-                if($options['edit_mode'] == 'open') {
-                    $this->Flash->set('Updated '. $updatedData['character_name'] . '.');
+                if ($options['edit_mode'] == 'open') {
+                    $this->Flash->set('Updated ' . $updatedData['character_name'] . '.');
                 } else {
                     $this->Flash->set('Updated ' . $character->CharacterName . '.');
                 }
@@ -210,38 +210,37 @@ class CharactersController extends AppController
         ];
         $sheetService = new SheetService();
 
-        if($this->request->is('post')) {
-            if($this->request->data['character_id']) {
+        if ($this->request->is('post')) {
+            if ($this->request->data['character_id']) {
                 // try to update the character
                 $updatedData = $this->request->data;
                 $updatedData['slug'] = Inflector::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
                 $result = $sheetService->saveData($updatedData, $options, $this->Auth->user());
 
-                if(!is_string($result)) {
+                if (!is_string($result)) {
                     $this->Flash->set('Updated ' . $updatedData['character_name'] . '.');
                 } else {
                     $this->Flash->set($result);
                 }
             }
         }
-        if($this->request->is('get')) {
+        if ($this->request->is('get')) {
             $characterType = $this->request->query('character_type');
             $character = null;
-            if($this->request->query('view_character_id')) {
+            if ($this->request->query('view_character_id')) {
                 // attempt to load the character
                 $character = $sheetService->loadSheet($this->request->query('view_character_id'), $characterType);
-                if(!$character->Id) {
+                if (!$character->Id) {
                     $this->Flash->set('Unable to find character');
                 }
-            }
-            else if($characterId) {
+            } else if ($characterId) {
                 $character = $sheetService->loadSheet($characterId, $characterType);
-                if(!$character->Id) {
+                if (!$character->Id) {
                     $this->Flash->set('Unable to find character');
                 }
             }
 
-            if($character && $character->Id) {
+            if ($character && $character->Id) {
                 CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'ST View', $this->Auth->user('user_id'));
                 $sheetService->addMinPowersForEdit($character);
                 $this->set(compact('character'));
@@ -278,11 +277,11 @@ class CharactersController extends AppController
 
             $result = $sheetService->saveSheet($character, $options, $this->Auth->user());
 
-            if(is_string($result)) {
+            if (is_string($result)) {
                 $this->Flash->set($result);
                 $this->set('data', $character);
             } else {
-                $this->Flash->set('Created '. $character['character_name'] . '.');
+                $this->Flash->set('Created ' . $character['character_name'] . '.');
                 $this->redirect('/chat.php');
             }
         } else {
@@ -296,6 +295,7 @@ class CharactersController extends AppController
         $this->set(compact('options', 'icons'));
     }
 
+
     public function validateName()
     {
         $id = $this->request->query['id'];
@@ -307,7 +307,7 @@ class CharactersController extends AppController
             'in_use' => true
         ];
 
-        if($characterName && $city) {
+        if ($characterName && $city) {
             $data['in_use'] = $this->Character->findNameUsedInCity($id, $characterName, $city);
             $data['success'] = true;
         }
@@ -325,6 +325,7 @@ class CharactersController extends AppController
      */
     public function edit($id = null)
     {
+        die('dead');
         if (!$this->Character->exists($id)) {
             throw new NotFoundException(__('Invalid character'));
         }
@@ -351,6 +352,7 @@ class CharactersController extends AppController
      */
     public function delete($id = null)
     {
+        die('dead');
         $this->Character->id = $id;
         if (!$this->Character->exists()) {
             throw new NotFoundException(__('Invalid character'));
@@ -369,5 +371,23 @@ class CharactersController extends AppController
     public function assignCondition()
     {
         // grant condition to character
+    }
+
+    public function beats($characterId)
+    {
+        App::uses('BeatType', 'Model');
+        $beatTypeModel = new BeatType();
+        $beatTypes = $beatTypeModel->find('list', [
+            'conditions' => [
+//                'BeatType.admin_only' => false
+            ],
+            'order' => 'BeatType.name'
+
+        ]);
+        $sheetService = new SheetService();
+        $character = $sheetService->loadSheet($characterId);
+
+
+        $this->set(compact('character', 'beatTypes'));
     }
 }

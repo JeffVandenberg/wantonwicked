@@ -67,8 +67,11 @@ ob_start();
                                 <?php echo htmlspecialchars($character->CharacterName); ?>
                             </td>
                             <td>
-                                <div class="button-group">
-                                    <a class="dropdown button arrow-only float-right" type="button"
+                                <div class="button-group float-right">
+                                    <a href="/character.php?action=interface&character_id=<?php echo $character->Id; ?>"
+                                       target="_blank" class="button float-right">Interface
+                                    </a>
+                                    <a class="dropdown button arrow-only" type="button"
                                        data-toggle="<?php echo $character->Id; ?>-dropdown">
                                         <span class="show-for-sr">Show menu</span>
                                     </a>
@@ -93,9 +96,6 @@ ob_start();
                                             </li>
                                         </ul>
                                     </div>
-                                    <a href="/character.php?action=interface&character_id=<?php echo $character->Id; ?>"
-                                       target="_blank" class="button float-right">Interface
-                                    </a>
                                 </div>
                             </td>
                         </tr>
