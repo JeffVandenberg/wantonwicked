@@ -11,15 +11,12 @@ App::uses('AppController', 'Controller');
  */
 class RequestTypesController extends AppController
 {
-
     /**
      * Components
      *
      * @var array
      */
     public $components = array(
-        'Paginator',
-        'Menu'
     );
 
     /**
@@ -62,8 +59,7 @@ class RequestTypesController extends AppController
                 $this->Session->setFlash(__('The request type has been saved.'));
 
                 return $this->redirect(array('action' => 'index'));
-            }
-            else {
+            } else {
                 $this->Session->setFlash(__('The request type could not be saved. Please, try again.'));
             }
         }
@@ -88,13 +84,11 @@ class RequestTypesController extends AppController
                 $this->Session->setFlash(__('The request type has been saved.'));
 
                 return $this->redirect(array('action' => 'index'));
-            }
-            else {
+            } else {
                 $this->Session->setFlash(__('The request type could not be saved. Please, try again.'));
             }
-        }
-        else {
-            $options             = array('conditions' => array('RequestType.' . $this->RequestType->primaryKey => $id));
+        } else {
+            $options = array('conditions' => array('RequestType.' . $this->RequestType->primaryKey => $id));
             $this->request->data = $this->RequestType->find('first', $options);
         }
         $groups = $this->RequestType->Group->find('list');
@@ -117,8 +111,7 @@ class RequestTypesController extends AppController
         $this->request->onlyAllow('post', 'delete');
         if ($this->RequestType->delete()) {
             $this->Session->setFlash(__('The request type has been deleted.'));
-        }
-        else {
+        } else {
             $this->Session->setFlash(__('The request type could not be deleted. Please, try again.'));
         }
 
@@ -204,8 +197,7 @@ class RequestTypesController extends AppController
                 $this->Session->setFlash(__('The request type has been saved.'));
 
                 return $this->redirect(array('action' => 'index'));
-            }
-            else {
+            } else {
                 $this->Session->setFlash(__('The request type could not be saved. Please, try again.'));
             }
         }
@@ -242,13 +234,11 @@ class RequestTypesController extends AppController
                 $this->Session->setFlash(__('The request type has been saved.'));
 
                 return $this->redirect(array('action' => 'index'));
-            }
-            else {
+            } else {
                 $this->Session->setFlash(__('The request type could not be saved. Please, try again.'));
             }
-        }
-        else {
-            $options             = array('conditions' => array('RequestType.' . $this->RequestType->primaryKey => $id));
+        } else {
+            $options = array('conditions' => array('RequestType.' . $this->RequestType->primaryKey => $id));
             $this->request->data = $this->RequestType->find('first', $options);
         }
         $groups = $this->RequestType->Group->find('list');
@@ -283,8 +273,7 @@ class RequestTypesController extends AppController
         $this->request->onlyAllow('post', 'delete');
         if ($this->RequestType->delete()) {
             $this->Session->setFlash(__('The request type has been deleted.'));
-        }
-        else {
+        } else {
             $this->Session->setFlash(__('The request type could not be deleted. Please, try again.'));
         }
 
