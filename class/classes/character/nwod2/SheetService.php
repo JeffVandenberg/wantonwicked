@@ -144,7 +144,7 @@ class SheetService
                 break;
             case 'changeling':
                 $powers = [
-                    'contracts' => 5,
+                    'contract' => 5,
                     'trigger' => 3,
                     'touchstone' => 1,
                 ];
