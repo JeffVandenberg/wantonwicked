@@ -91,7 +91,7 @@ ob_start();
                     <?php echo FormHelper::Hidden('filter[title]', $filter['title']); ?>
                     <?php echo FormHelper::Hidden('filter[request_type_id]', $filter['request_type_id']); ?>
                     <?php echo FormHelper::Hidden('filter[request_status_id]', $filter['request_status_id']); ?>
-                    <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
+                    <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;display:inline;')); ?>
                 </form>
                 <?php if ($hasNext): ?>
                     <a href="/request.php?action=list&<?php echo $pagination->GetNext(); ?>" title="Next Page">

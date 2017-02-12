@@ -157,7 +157,7 @@ class CharacterHelper extends AppHelper
         $list = array_merge($this->skills['mental'], $this->skills['physical'], $this->skills['social']);
         $keys = array_values($list);
         $this->skillList = array_combine($keys, $list);
-        sort($this->skillList);
+        ksort($this->skillList);
     }
 
     /**
@@ -1063,7 +1063,7 @@ class CharacterHelper extends AppHelper
             );
             $health = $this->Form->select(
                 'health',
-                range(0, $this->maxDots),
+                range(0, 20),
                 [
                     'value' => $character->Health,
                     'empty' => false

@@ -94,6 +94,11 @@ ob_start();
                                                    class="">Chat
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="request.php?action=create&character_id=<?php echo $character->Id; ?>">
+                                                    New Request
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
