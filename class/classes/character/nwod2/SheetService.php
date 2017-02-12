@@ -52,6 +52,7 @@ class SheetService
             'contract',
             'trigger',
             'attainment',
+            'touchstone',
         ],
         'limited' => [
             'aspiration',
