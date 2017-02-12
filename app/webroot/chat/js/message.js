@@ -417,8 +417,9 @@ function sendAvatarData()
 {
 	var param = '?';
 
+	param += '&uid=' + encodeURI(uID);
 	param += '&uname=' + encodeURI(userName);
-	param += '&uavatar=' + escape(userAvatar);	
+	param += '&uavatar=' + escape(userAvatar);
 
 	// if ready to send message to DB
 	if (sendReq.readyState == 4 || sendReq.readyState == 0) 
