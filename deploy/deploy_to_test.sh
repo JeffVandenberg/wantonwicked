@@ -11,5 +11,6 @@ ssh gamingsandbox@gamingsandbox.com << EOF
     php ~/tools/composer.phar self-update
     php ~/tools/composer.phar install
     source build_number_env
+    rm build_number_env
     cat app/webroot/chat/js/*.js > app/webroot/chat/js/cache/compiled-$BUILD_NUMBER.js
 EOF
