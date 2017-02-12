@@ -1895,7 +1895,7 @@ class CharacterHelper extends AppHelper
                     [
                         'type' => 'select',
                         'name' => 'type',
-                        'value' => 'Extra.facet',
+                        'value' => 'Extra.type',
                         'range' => $renowns,
                     ]
                 ]
@@ -1910,7 +1910,7 @@ class CharacterHelper extends AppHelper
                         [
                             'type' => 'select',
                             'name' => 'type',
-                            'value' => 'Extra.facet',
+                            'value' => 'Extra.type',
                             'range' => $renowns,
                         ]
                     ]
@@ -2394,7 +2394,7 @@ class CharacterHelper extends AppHelper
                     ]); ?>
                     <?php echo $this->Form->input('renown.' . $index . '.id', [
                         'type' => 'hidden',
-                        'value' => $character->getPowerByTypeAndName('renown', $renownKey)->Id
+                        'value' => $character->getPowerByTypeAndName('renown', $renownKey)->PowerLevel
                     ]); ?>
                 <?php endif; ?>
             </td>

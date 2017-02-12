@@ -203,7 +203,7 @@ class Character extends DataModel
         foreach($powers as $power) {
             $powertype = lcfirst($power->PowerType);
             $power->Extra = json_decode($power->Extra, true);
-            if(in_array($powertype, ['attribute', 'skill'])) {
+            if(in_array($powertype, ['attribute', 'skill', 'renown'])) {
                 $this->powers[$powertype][$power->PowerName] = $power;
             } else {
                 $this->powers[lcfirst($power->PowerType)][] = $power;

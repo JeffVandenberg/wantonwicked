@@ -54,6 +54,7 @@ class SheetService
             'attainment',
             'touchstone',
             'pledge',
+            'renown',
         ],
         'limited' => [
             'aspiration',
