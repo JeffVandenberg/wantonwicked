@@ -53,6 +53,7 @@ class SheetService
             'trigger',
             'attainment',
             'touchstone',
+            'pledge',
         ],
         'limited' => [
             'aspiration',
@@ -94,7 +95,7 @@ class SheetService
         $powerTypeList = [
             'specialty' => 3,
             'merit' => 5,
-            'miscPower' => 2,
+            'misc_power' => 2,
             'equipment' => 3,
             'aspiration' => 3,
         ];
@@ -148,11 +149,12 @@ class SheetService
                     'contract' => 5,
                     'trigger' => 3,
                     'touchstone' => 1,
+                    'pledge' => 1,
                 ];
                 break;
             case 'fae-touched':
                 $powers = [
-                    'contracts' => 2,
+                    'contract' => 2,
                 ];
                 break;
             case 'ghoul':
@@ -314,6 +316,7 @@ class SheetService
             $character->History = htmlspecialchars($stats['history']);
             $character->CharacterNotes = htmlspecialchars($stats['notes']);
             $character->Slug = $stats['slug'];
+            $character->Friends = $stats['friends'];
         }
 
         if (in_array($options['edit_mode'], ['open', 'limited'])) {
@@ -342,7 +345,6 @@ class SheetService
         $character->ViewPassword = '';//$stats['view_password'];
         $character->HideIcon = 'N';//$stats['hide_icon'];
         $character->SafePlace = '';//$stats['safe_place'];
-        $character->Friends = '';//$stats['friends'];
         $character->Helper = '';//$stats['friends'];
 
         // legacy values. Woof.

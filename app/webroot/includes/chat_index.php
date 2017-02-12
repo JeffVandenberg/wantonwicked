@@ -80,12 +80,12 @@ ob_start();
                                         <ul class="vertical menu">
                                             <li>
                                                 <a href="/characters/viewOwn/<?php echo $identifier; ?>"
-                                                   target="_blank">Sheet
+                                                   >Sheet
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/wiki/?n=Players.<?php echo $character->CharacterName; ?>"
-                                                   target="_blank" class="">Profile
+                                                   >Profile
                                                 </a>
                                             </li>
                                             <li>
