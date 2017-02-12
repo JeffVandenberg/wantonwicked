@@ -300,7 +300,7 @@ class SheetService
             $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
             $character->Subsplat = ($stats['subsplat']) ? $stats['subsplat'] : '';
             $character->Concept = $stats['concept'];
-            $character->PowerStat = $stats['power_trait'] + 0;
+            $character->PowerStat = $stats['power_stat'] + 0;
             $character->WillpowerPerm = $stats['willpower_perm'] + 0;
             $character->Morality = $stats['morality'] + 0;
             $character->Size = $stats['size'] + 0;
