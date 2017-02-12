@@ -5,6 +5,7 @@ ssh gamingsandbox@gamingsandbox.com << EOF
     git pull
     php ~/tools/composer.phar self-update
     php ~/tools/composer.phar install
+    cat app/webroot/chat/js/*.js > app/webroot/chat/js/cache/compiled-{$CIRLE_BUILD_NUM}.js
 EOF
 
 echo $CIRCLE_BUILD_NUM > build_number
