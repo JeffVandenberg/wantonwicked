@@ -1422,7 +1422,7 @@ class CharacterHelper extends AppHelper
                                     'label' => false
                                 ]); ?>
                             <?php else: ?>
-                                <?php echo str_replace("\n", "<br />", $power->Extra['contract']); ?>
+                                <?php echo str_replace("\n", "<br />", $power->Extra['pledge']); ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
