@@ -11,6 +11,23 @@ include("config.php");
 include("functions.php");
 /* @var array $CONFIG */
 
+define('IN_PHPBB', true);
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../../forum/';
+$phpEx = substr(strrchr(__FILE__, '.'), 1);
+include($phpbb_root_path . 'common.' . $phpEx);
+$request = $phpbb_container->get('request');
+/* @var \phpbb\request\request $request */
+$request->enable_super_globals();
+
+//
+// Start session management
+//
+
+$user->session_begin();
+$auth->acl($user->data);
+$userdata = $user->data;
+$user->setup('');
+
 /*
 * Send headers to prevent IE cache
 *
