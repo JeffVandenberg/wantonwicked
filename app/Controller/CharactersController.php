@@ -215,7 +215,7 @@ class CharactersController extends AppController
                 // try to update the character
                 $updatedData = $this->request->data;
                 $updatedData['slug'] = Inflector::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
-                $result = $sheetService->saveData($updatedData, $options, $this->Auth->user());
+                $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
 
                 if(!is_string($result)) {
                     $this->Flash->set('Updated ' . $updatedData['character_name'] . '.');

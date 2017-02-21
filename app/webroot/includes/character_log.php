@@ -81,7 +81,7 @@ ob_start();
         <?php echo FormHelper::Checkbox('clear_log_id', 0, false, [
             'label' => 'Clear Log ID Filter'
         ]); ?>
-        <?php echo FormHelper::Button('', 'Update'); ?>
+        <button type="submit" class="button" value="Update">Update</button>
     </form>
 </div>
 <table>
@@ -97,7 +97,7 @@ ob_start();
                 <?php echo FormHelper::Hidden('character_id', $characterId); ?>
                 <?php echo FormHelper::Hidden('action', 'log'); ?>
                 <?php echo FormHelper::Hidden('filter_logins', $filterLogins); ?>
-                <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
+                <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;display: inline-block;')); ?>
             </form>
             <?php if($hasNext): ?>
                 <a href="character.php?<?php echo $options; ?>&page=<?php echo $page+1; ?>">&gt; &gt;</a>

@@ -1063,7 +1063,7 @@ class CharacterHelper extends AppHelper
             );
             $health = $this->Form->select(
                 'health',
-                range(0, $this->maxDots),
+                range(0, 20),
                 [
                     'value' => $character->Health,
                     'empty' => false
