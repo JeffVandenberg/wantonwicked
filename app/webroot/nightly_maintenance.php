@@ -10,9 +10,9 @@ include 'cgi-bin/start_of_page.php';
 
 $db = new Database();
 
-if (date('D') == 'Fri') {
-    $update_experience_query = "update characters set current_experience = current_experience + 3, total_experience = total_experience + 3 where is_sanctioned='Y';";
-    //$db->query($update_experience_query)->execute();
+if (date('j') == 1) {
+    $update_experience_query = "update characters set current_experience = current_experience + 2, total_experience = total_experience + 2 where is_sanctioned='Y';";
+    $db->query($update_experience_query)->execute();
     $xpLogQuery = <<<EOQ
 INSERT INTO
     log_characters
@@ -25,14 +25,14 @@ INSERT INTO
 SELECT
     id,
     ?,
-    'Weekly XP Award: 3',
+    'Weekly XP Award: 2',
     NOW()
 FROM
     characters
 WHERE
     is_sanctioned = 'Y'
 EOQ;
-    //$db->query($xpLogQuery)->execute(array(ActionType::XPModification));
+    $db->query($xpLogQuery)->execute(array(ActionType::XPModification));
 }
 $update_willpower_query = "update characters set willpower_temp = willpower_temp + 1 where willpower_temp < willpower_perm;";
 $db->query($update_willpower_query)->execute();
