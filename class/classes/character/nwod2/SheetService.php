@@ -10,6 +10,7 @@ namespace classes\character\nwod2;
 
 
 use classes\character\data\Character;
+use classes\character\data\CharacterNote;
 use classes\character\data\CharacterPower;
 use classes\character\repository\CharacterPowerRepository;
 use classes\character\repository\CharacterRepository;
@@ -335,9 +336,28 @@ class SheetService
             $character->Status = $stats['status'];
             $character->IsSanctioned = $stats['is_sanctioned'];
             $character->IsNpc = ($stats['is_npc'] == 'Y') ? 'Y' : 'N';
+            if ($stats['xp_spent'] > 0) {
+                $character->CurrentExperience -= $stats['xp_spent'];
+            }
+            if ($stats['xp_gained'] > 0) {
+                $character->CurrentExperience += $stats['xp_gained'];
+                $character->TotalExperience += $stats['xp_gained'];
+                $character->BonusReceived += $stats['xp_gained'];
+            }
+
+            if($stats['st_note']) {
+                $note = new CharacterNote();
+                $note->CharacterId = $stats['character_id'];
+                $note->UserId = $user['user_id'];
+                $note->Note = $stats['st_note'];
+                $note->Created = date('Y-m-d H:i:s');
+                $noteRepo = RepositoryManager::GetRepository('classes\character\data\CharacterNote');
+                $noteRepo->save($note);
+            }
         }
 
         // fixed values
+        $character->UpdatedById = $user['user_id'];
         $character->UpdatedOn = date('Y-m-d H:i:s');
         $character->Gameline = 'NWoD2';
 
@@ -355,7 +375,6 @@ class SheetService
         $character->EquipmentPublic = '';
         $character->PublicEffects = '';
         $character->Goals = '';
-        $character->BonusReceived = 0;
         $character->GmNotes = '';
         $character->SheetUpdate = '';
         $character->MiscPowers = '';

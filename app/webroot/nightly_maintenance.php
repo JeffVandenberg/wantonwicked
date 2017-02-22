@@ -11,7 +11,7 @@ include 'cgi-bin/start_of_page.php';
 $db = new Database();
 
 if (date('j') == 1) {
-    $update_experience_query = "update characters set current_experience = current_experience + 2, total_experience = total_experience + 2 where is_sanctioned='Y';";
+    $update_experience_query = "update characters set current_experience = current_experience + 2, total_experience = total_experience + 2, bonus_received = 0 where is_sanctioned='Y';";
     $db->query($update_experience_query)->execute();
     $xpLogQuery = <<<EOQ
 INSERT INTO
@@ -25,7 +25,7 @@ INSERT INTO
 SELECT
     id,
     ?,
-    'Weekly XP Award: 2',
+    'Monthly XP Award: 2',
     NOW()
 FROM
     characters

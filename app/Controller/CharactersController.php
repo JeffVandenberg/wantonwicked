@@ -2,7 +2,9 @@
 use classes\character\data\Character;
 use \Character as CakeCharacter;
 use classes\character\nwod2\SheetService;
+use classes\character\repository\CharacterNoteRepository;
 use classes\character\repository\CharacterRepository;
+use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
@@ -219,6 +221,7 @@ class CharactersController extends AppController
 
                 if (!is_string($result)) {
                     $this->Flash->set('Updated ' . $updatedData['character_name'] . '.');
+                    $this->redirect(['action' => 'stView']);
                 } else {
                     $this->Flash->set($result);
                 }
@@ -242,6 +245,12 @@ class CharactersController extends AppController
 
             if ($character && $character->Id) {
                 CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'ST View', $this->Auth->user('user_id'));
+                $repo = RepositoryManager::GetRepository('classes\character\data\CharacterNote');
+                /* @var CharacterNoteRepository $repo */
+                $characterNote = $repo->getMostRecentForCharacter($character->Id);
+                if($characterNote) {
+                    $character->setLastStNote($characterNote);
+                }
                 $sheetService->addMinPowersForEdit($character);
                 $this->set(compact('character'));
             }

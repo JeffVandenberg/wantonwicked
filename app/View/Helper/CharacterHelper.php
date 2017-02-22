@@ -210,12 +210,18 @@ class CharacterHelper extends AppHelper
             <?php endif; ?>
         </ul>
         <div class="row callout">
-            <div class="medium-2 column">Current XP</div>
-            <div class="medium-2 column"><?php echo $character->CurrentExperience; ?></div>
-            <div class="medium-2 column">Current Beats</div>
-            <div class="medium-2 column"></div>
-            <div class="medium-2 column">Last Login</div>
-            <div class="medium-2 column"></div>
+            <div class="small-3 column">Current XP</div>
+            <div class="small-1 column"><?php echo $character->CurrentExperience; ?></div>
+            <div class="small-3 column">Total XP</div>
+            <div class="small-1 column"><?php echo $character->TotalExperience; ?></div>
+            <div class="small-2 column">Updated By</div>
+            <div class="small-2 column"><?php echo $character->UpdatedBy->Username ;?></div>
+            <div class="small-2 column">Last Login</div>
+            <div class="small-2 column"></div>
+            <div class="small-3 column">Bonus XP</div>
+            <div class="small-1 column"><?php echo $character->BonusReceived; ?></div>
+            <div class="small-1 column">On</div>
+            <div class="small-3 column"><?php echo $character->UpdatedOn; ?></div>
             <?php echo $this->Form->hidden('character_id', ['value' => $character->Id]); ?>
         </div>
         <?php
@@ -1458,7 +1464,7 @@ class CharacterHelper extends AppHelper
                                     'maxlength' => 255,
                                 ]); ?>
                             <?php else: ?>
-                                <?php echo $power->PowerName; ?>
+                                <?php echo $power->Extra['immediate']; ?>
                             <?php endif; ?>
                         </div>
                         <div class="small-12 column">
@@ -1470,7 +1476,7 @@ class CharacterHelper extends AppHelper
                                     'maxlength' => 255,
                                 ]); ?>
                             <?php else: ?>
-                                <?php echo $power->PowerName; ?>
+                                <?php echo $power->Extra['signature']; ?>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
@@ -1560,6 +1566,53 @@ class CharacterHelper extends AppHelper
                         ]);
                     ?>
                 </div>
+                <div class="small-6 medium-2 column">
+                    Spend XP
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input('xp_spent', [
+                        'label' => false,
+                        'value' => 0
+                    ]); ?>
+                </div>
+                <div class="small-6 medium-2 column">
+                    Grant XP
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input('xp_gained', [
+                        'label' => false,
+                        'value' => 0
+                    ]); ?>
+                </div>
+                <div class="small-3 medium-1 column">
+                    Reason
+                </div>
+                <div class="small-9 medium-5 column">
+                    <?php echo $this->Form->input('xp_note', [
+                        'value' => '',
+                        'label' => false
+                    ]);?>
+                </div>
+                <div class="small-12 medium-6 column">
+                    ST Note
+                    <?php echo $this->Form->textarea('st_note', [
+
+                    ]); ?>
+                </div>
+                <div class="small-12 medium-6 column">
+                    <label>Last ST Note</label>
+                    <?php if($character->getLastStNote()): ?>
+                        <?php echo str_replace("\n", "<br />", $character->getLastStNote()->Note); ?><br />
+                        By <?php echo $character->getLastStNote()->User->Username; ?>
+                        On <?php echo $character->getLastStNote()->Created; ?>
+                        <div class="text-center">
+                            <a href="/characters/notes/<?php echo $character->Slug; ?>" target="_blank">View Previous Notes</a>
+                        </div>
+                    <?php else: ?>
+                        None
+                    <?php endif; ?>
+                </div>
+
             </div>
         </div>
 

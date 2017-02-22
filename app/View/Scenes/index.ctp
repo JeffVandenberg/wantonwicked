@@ -64,11 +64,5 @@ $prevMonthTimestamp = strtotime('-1 Month', strtotime("$year-$month-01"));
 </div>
 <script>
     $(function () {
-        $(".button.join").button({
-            icons: {
-                primary: 'ui-icon-link'
-            },
-            text: false
-        });
     });
 </script>

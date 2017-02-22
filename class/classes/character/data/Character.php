@@ -93,14 +93,16 @@ class Character extends DataModel
     public $Gameline;
 
     private $powers;
+    private $lastStNote;
 
-    public $HasMany = array(
+    public $HasMany = [
         'Attributes' => 'classes\character\data\CharacterPower',
         'Skills' => 'classes\character\data\CharacterPower',
         'Specialities' => 'classes\character\data\CharacterPower',
         'Merits' => 'classes\character\data\CharacterPower',
-        'CharacterPower'
-    );
+        'CharacterPower',
+        'CharacterNote'
+    ];
 
     public $BelongsTo = [
         'User' => 'classes\core\data\User',
@@ -190,7 +192,7 @@ class Character extends DataModel
      */
     public function getPowerList($powerType)
     {
-        if(!isset($this->powers[$powerType])) {
+        if (!isset($this->powers[$powerType])) {
             $this->powers[$powerType] = RepositoryManager::GetRepository('classes\character\data\CharacterPower')->ListByCharacterIdAndPowerType($this->CharacterId, ucfirst($powerType));
         }
         return $this->powers[$powerType];
@@ -200,10 +202,10 @@ class Character extends DataModel
     {
         $powers = RepositoryManager::GetRepository('classes\character\data\CharacterPower')->ListByCharacterId($this->Id);
         /* @var CharacterPower[] $powers */
-        foreach($powers as $power) {
+        foreach ($powers as $power) {
             $powertype = lcfirst($power->PowerType);
             $power->Extra = json_decode($power->Extra, true);
-            if(in_array($powertype, ['attribute', 'skill', 'renown'])) {
+            if (in_array($powertype, ['attribute', 'skill', 'renown'])) {
                 $this->powers[$powertype][$power->PowerName] = $power;
             } else {
                 $this->powers[lcfirst($power->PowerType)][] = $power;
@@ -214,5 +216,21 @@ class Character extends DataModel
     public function addPower($powerType, $power)
     {
         $this->powers[$powerType][] = $power;
+    }
+
+    /**
+     * @return CharacterNote
+     */
+    public function getLastStNote()
+    {
+        return $this->lastStNote;
+    }
+
+    /**
+     * @param CharacterNote $stNote
+     */
+    public function setLastStNote(CharacterNote $stNote)
+    {
+        $this->lastStNote = $stNote;
     }
 }
