@@ -15,7 +15,7 @@ $(function () {
     });
 
     // general method for removing required properties when cancelling out of a form
-    $('input[value="Cancel"], button[value="cancel"]').click(function () {
+    $('input[value="Cancel"], button[value="cancel"], button[value=Cancel]').click(function () {
         $('input[required],textarea[required],select[required]').attr('required', false);
     });
 

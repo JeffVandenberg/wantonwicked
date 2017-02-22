@@ -58,8 +58,8 @@ class LanguageHelper extends AppHelper
         'changeling' => [
             'splat1' => 'Seeming',
             'splat2' => 'Court',
-            'virtue' => 'Virtue',
-            'vice' => 'Vice',
+            'virtue' => 'Mask',
+            'vice' => 'Mein',
             'morality' => 'Clarity',
             'powerstat' => 'Wyrd',
             'powerpoints' => 'Glamour',

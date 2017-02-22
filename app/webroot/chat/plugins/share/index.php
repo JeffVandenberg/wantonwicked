@@ -75,7 +75,7 @@ include_once __DIR__ . '/../../../../../app/webroot/cgi-bin/start_of_page.php';
 <form style="padding: 0 0 0 3px;" enctype="multipart/form-data" name="upload" action="index.php" method="post">
 
     <?php if (isset($_SESSION['groupShare']) && $_SESSION['groupShare'] < 1) {
-        echo "<div style='padding-left: 5px;'>" . C_LANG60 . "</div>";
+        echo "<div style='padding-left: 5px;'>You may not share." . /*C_LANG60 .*/ "</div>";
     }
     else if ($_POST):
 

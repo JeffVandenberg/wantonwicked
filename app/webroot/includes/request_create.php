@@ -127,9 +127,9 @@ ob_start();
         </div>
         <div class="formInput">
             <?php echo FormHelper::Hidden('character_id', $characterId); ?>
-            <?php echo FormHelper::Button('action', 'Submit Request'); ?>
-            <?php echo FormHelper::Button('action', 'Add Attachments'); ?>
-            <?php echo FormHelper::Button('action', 'Cancel'); ?>
+            <button type="submit" name="action" class="button" value="Submit Request">Submit Request</button>
+            <button type="submit" name="action" class="button" value="Add Attachments">Add Attachments</button>
+            <button type="submit" name="action" class="button" value="Cancel">Cancel</button>
         </div>
     </form>
     <script type="text/javascript">

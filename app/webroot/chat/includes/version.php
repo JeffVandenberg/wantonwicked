@@ -5,4 +5,4 @@
 * Inc. Patch Release
 */
 
-$CONFIG['version'] = '1.0.10';
+$CONFIG['version'] = trim(file_get_contents(__DIR__ . '/../../../../build_number'));//'1.0.12';

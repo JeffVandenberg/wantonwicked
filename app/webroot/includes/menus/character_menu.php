@@ -25,7 +25,8 @@ $characterMenu = array(
         'link' => '#',
         'submenu' => array(
             'Sheet' => array(
-                'link' => "/characters/viewOwn/" . $privateCharacter->Slug
+//                'link' => "/characters/viewOwn/" . $privateCharacter->Slug
+                'link' => "/characters/viewOwn/" . $characterId
             ),
             'Wiki Page' => array(
                 'link' => '/wiki/?n=Players.' . preg_replace("/[^A-Za-z0-9]/", '', $privateCharacter->CharacterName),

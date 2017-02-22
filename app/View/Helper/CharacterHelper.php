@@ -137,7 +137,8 @@ class CharacterHelper extends AppHelper
         'changeling_touchstone' => false,
         'obsession' => false,
         'power_stat' => false,
-        'power_points' => false
+        'power_points' => false,
+        'pledge' => false,
     ];
 
     /**
@@ -157,7 +158,7 @@ class CharacterHelper extends AppHelper
         $list = array_merge($this->skills['mental'], $this->skills['physical'], $this->skills['social']);
         $keys = array_values($list);
         $this->skillList = array_combine($keys, $list);
-        sort($this->skillList);
+        ksort($this->skillList);
     }
 
     /**
@@ -209,12 +210,18 @@ class CharacterHelper extends AppHelper
             <?php endif; ?>
         </ul>
         <div class="row callout">
-            <div class="medium-2 column">Current XP</div>
-            <div class="medium-2 column"><?php echo $character->CurrentExperience; ?></div>
-            <div class="medium-2 column">Current Beats</div>
-            <div class="medium-2 column"></div>
-            <div class="medium-2 column">Last Login</div>
-            <div class="medium-2 column"></div>
+            <div class="small-3 column">Current XP</div>
+            <div class="small-1 column"><?php echo $character->CurrentExperience; ?></div>
+            <div class="small-3 column">Total XP</div>
+            <div class="small-1 column"><?php echo $character->TotalExperience; ?></div>
+            <div class="small-2 column">Updated By</div>
+            <div class="small-2 column"><?php echo $character->UpdatedBy->Username ;?></div>
+            <div class="small-2 column">Last Login</div>
+            <div class="small-2 column"></div>
+            <div class="small-3 column">Bonus XP</div>
+            <div class="small-1 column"><?php echo $character->BonusReceived; ?></div>
+            <div class="small-1 column">On</div>
+            <div class="small-3 column"><?php echo $character->UpdatedOn; ?></div>
             <?php echo $this->Form->hidden('character_id', ['value' => $character->Id]); ?>
         </div>
         <?php
@@ -448,14 +455,14 @@ class CharacterHelper extends AppHelper
                     <?php if ($this->sheetFields['splat2']) echo $splat2; ?>
                 </div>
                 <div class="medium-1 columns">
-                    <?php if($this->sheetFields['friends']): ?>
+                    <?php if ($this->sheetFields['friends']): ?>
                         <label for="friends">
                             <?php echo $this->Language->translate('friends', $character->CharacterType); ?>
                         </label>
                     <?php endif; ?>
                 </div>
                 <div class="medium-3 columns">
-                    <?php if($this->sheetFields['friends']) echo $friends; ?>
+                    <?php if ($this->sheetFields['friends']) echo $friends; ?>
                 </div>
             </div>
             <div class="row">
@@ -1405,6 +1412,28 @@ class CharacterHelper extends AppHelper
                     </div>
                 </div>
             <?php endif; ?>
+            <?php if ($this->sheetFields['pledge']): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Pledges
+                    </div>
+                    <div class="small-12 column">
+                        <?php foreach ($character->getPowerList('pledge') as $i => $power): ?>
+                            <?php if ($this->mayEditOpen()): ?>
+                                <?php echo $this->Form->hidden('pledge.'.$i.'.id', ['value' => $power->Id]); ?>
+                                <?php echo $this->Form->hidden('pledge.'.$i.'.name', ['value' => 'pledges']); ?>
+                                <?php echo $this->Form->textarea('pledge.'.$i.'.pledge', [
+                                    'rows' => 4,
+                                    'value' => $power->Extra['pledge'],
+                                    'label' => false
+                                ]); ?>
+                            <?php else: ?>
+                                <?php echo str_replace("\n", "<br />", $power->Extra['pledge']); ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
             <?php if ($this->sheetFields['obsession']): ?>
                 <div class="row">
                     <div class="small-12 column subheader">
@@ -1435,7 +1464,7 @@ class CharacterHelper extends AppHelper
                                     'maxlength' => 255,
                                 ]); ?>
                             <?php else: ?>
-                                <?php echo $power->PowerName; ?>
+                                <?php echo $power->Extra['immediate']; ?>
                             <?php endif; ?>
                         </div>
                         <div class="small-12 column">
@@ -1447,7 +1476,7 @@ class CharacterHelper extends AppHelper
                                     'maxlength' => 255,
                                 ]); ?>
                             <?php else: ?>
-                                <?php echo $power->PowerName; ?>
+                                <?php echo $power->Extra['signature']; ?>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
@@ -1537,6 +1566,53 @@ class CharacterHelper extends AppHelper
                         ]);
                     ?>
                 </div>
+                <div class="small-6 medium-2 column">
+                    Spend XP
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input('xp_spent', [
+                        'label' => false,
+                        'value' => 0
+                    ]); ?>
+                </div>
+                <div class="small-6 medium-2 column">
+                    Grant XP
+                </div>
+                <div class="small-6 medium-1 column">
+                    <?php echo $this->Form->input('xp_gained', [
+                        'label' => false,
+                        'value' => 0
+                    ]); ?>
+                </div>
+                <div class="small-3 medium-1 column">
+                    Reason
+                </div>
+                <div class="small-9 medium-5 column">
+                    <?php echo $this->Form->input('xp_note', [
+                        'value' => '',
+                        'label' => false
+                    ]);?>
+                </div>
+                <div class="small-12 medium-6 column">
+                    ST Note
+                    <?php echo $this->Form->textarea('st_note', [
+
+                    ]); ?>
+                </div>
+                <div class="small-12 medium-6 column">
+                    <label>Last ST Note</label>
+                    <?php if($character->getLastStNote()): ?>
+                        <?php echo str_replace("\n", "<br />", $character->getLastStNote()->Note); ?><br />
+                        By <?php echo $character->getLastStNote()->User->Username; ?>
+                        On <?php echo $character->getLastStNote()->Created; ?>
+                        <div class="text-center">
+                            <a href="/characters/notes/<?php echo $character->Slug; ?>" target="_blank">View Previous Notes</a>
+                        </div>
+                    <?php else: ?>
+                        None
+                    <?php endif; ?>
+                </div>
+
             </div>
         </div>
 
@@ -1604,6 +1680,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['changeling_touchstone'] = true;
                 $this->sheetFields['friends'] = true;
+                $this->sheetFields['pledge'] = true;
                 break;
             case 'fae-touched':
                 $this->sheetFields['splat1'] = true;
@@ -1800,7 +1877,7 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 medium-6 column float-left">
                     <div class="row">
                         <div class="small-12 column subheader">
-                            Attainments0
+                            Attainments
                             <?php if ($this->mayEditOpen()): ?>
                                 <div class="success badge clickable add-character-row" data-target-table="attainments">
                                     <i class="fi-plus"></i>
@@ -1871,7 +1948,7 @@ class CharacterHelper extends AppHelper
                     [
                         'type' => 'select',
                         'name' => 'type',
-                        'value' => 'Extra.facet',
+                        'value' => 'Extra.type',
                         'range' => $renowns,
                     ]
                 ]
@@ -1886,7 +1963,7 @@ class CharacterHelper extends AppHelper
                         [
                             'type' => 'select',
                             'name' => 'type',
-                            'value' => 'Extra.facet',
+                            'value' => 'Extra.type',
                             'range' => $renowns,
                         ]
                     ]
@@ -2179,7 +2256,7 @@ class CharacterHelper extends AppHelper
                 <?php endforeach; ?>
             </tr>
             </thead>
-            <?php foreach ($character->getPowerList(lcfirst(Inflector::camelize($powerType))) as $i => $power): ?>
+            <?php foreach ($character->getPowerList($powerType) as $i => $power): ?>
                 <tr>
                     <?php foreach ($displayFields as $field): ?>
                         <td <?php if (isset($field['extra']['class'])) {
@@ -2370,7 +2447,7 @@ class CharacterHelper extends AppHelper
                     ]); ?>
                     <?php echo $this->Form->input('renown.' . $index . '.id', [
                         'type' => 'hidden',
-                        'value' => $character->getPowerByTypeAndName('renown', $renownKey)->Id
+                        'value' => $character->getPowerByTypeAndName('renown', $renownKey)->PowerLevel
                     ]); ?>
                 <?php endif; ?>
             </td>

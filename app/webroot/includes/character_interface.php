@@ -35,7 +35,7 @@ if($character->IsNpc == 'Y') {
     }
 }
 else {
-    if($character->UserId != $userdata['user_id']) {
+    if(($character->UserId != $userdata['user_id']) && !UserdataHelper::IsAdmin($userdata)) {
         CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface', $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');

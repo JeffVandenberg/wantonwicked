@@ -10,6 +10,7 @@ namespace classes\character\nwod2;
 
 
 use classes\character\data\Character;
+use classes\character\data\CharacterNote;
 use classes\character\data\CharacterPower;
 use classes\character\repository\CharacterPowerRepository;
 use classes\character\repository\CharacterRepository;
@@ -52,6 +53,9 @@ class SheetService
             'contract',
             'trigger',
             'attainment',
+            'touchstone',
+            'pledge',
+            'renown',
         ],
         'limited' => [
             'aspiration',
@@ -93,7 +97,7 @@ class SheetService
         $powerTypeList = [
             'specialty' => 3,
             'merit' => 5,
-            'miscPower' => 2,
+            'misc_power' => 2,
             'equipment' => 3,
             'aspiration' => 3,
         ];
@@ -144,14 +148,15 @@ class SheetService
                 break;
             case 'changeling':
                 $powers = [
-                    'contracts' => 5,
+                    'contract' => 5,
                     'trigger' => 3,
                     'touchstone' => 1,
+                    'pledge' => 1,
                 ];
                 break;
             case 'fae-touched':
                 $powers = [
-                    'contracts' => 2,
+                    'contract' => 2,
                 ];
                 break;
             case 'ghoul':
@@ -299,7 +304,7 @@ class SheetService
             $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
             $character->Subsplat = ($stats['subsplat']) ? $stats['subsplat'] : '';
             $character->Concept = $stats['concept'];
-            $character->PowerStat = $stats['power_trait'] + 0;
+            $character->PowerStat = $stats['power_stat'] + 0;
             $character->WillpowerPerm = $stats['willpower_perm'] + 0;
             $character->Morality = $stats['morality'] + 0;
             $character->Size = $stats['size'] + 0;
@@ -313,6 +318,7 @@ class SheetService
             $character->History = htmlspecialchars($stats['history']);
             $character->CharacterNotes = htmlspecialchars($stats['notes']);
             $character->Slug = $stats['slug'];
+            $character->Friends = $stats['friends'];
         }
 
         if (in_array($options['edit_mode'], ['open', 'limited'])) {
@@ -330,9 +336,28 @@ class SheetService
             $character->Status = $stats['status'];
             $character->IsSanctioned = $stats['is_sanctioned'];
             $character->IsNpc = ($stats['is_npc'] == 'Y') ? 'Y' : 'N';
+            if ($stats['xp_spent'] > 0) {
+                $character->CurrentExperience -= $stats['xp_spent'];
+            }
+            if ($stats['xp_gained'] > 0) {
+                $character->CurrentExperience += $stats['xp_gained'];
+                $character->TotalExperience += $stats['xp_gained'];
+                $character->BonusReceived += $stats['xp_gained'];
+            }
+
+            if($stats['st_note']) {
+                $note = new CharacterNote();
+                $note->CharacterId = $stats['character_id'];
+                $note->UserId = $user['user_id'];
+                $note->Note = $stats['st_note'];
+                $note->Created = date('Y-m-d H:i:s');
+                $noteRepo = RepositoryManager::GetRepository('classes\character\data\CharacterNote');
+                $noteRepo->save($note);
+            }
         }
 
         // fixed values
+        $character->UpdatedById = $user['user_id'];
         $character->UpdatedOn = date('Y-m-d H:i:s');
         $character->Gameline = 'NWoD2';
 
@@ -341,7 +366,6 @@ class SheetService
         $character->ViewPassword = '';//$stats['view_password'];
         $character->HideIcon = 'N';//$stats['hide_icon'];
         $character->SafePlace = '';//$stats['safe_place'];
-        $character->Friends = '';//$stats['friends'];
         $character->Helper = '';//$stats['friends'];
 
         // legacy values. Woof.
@@ -351,7 +375,6 @@ class SheetService
         $character->EquipmentPublic = '';
         $character->PublicEffects = '';
         $character->Goals = '';
-        $character->BonusReceived = 0;
         $character->GmNotes = '';
         $character->SheetUpdate = '';
         $character->MiscPowers = '';

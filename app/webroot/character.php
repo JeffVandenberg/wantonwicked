@@ -68,7 +68,8 @@ $template->assign_vars(array(
         "MENU_BAR" => $menu_bar,
         "TOP_IMAGE" => $page_image,
         "PAGE_CONTENT" => $page_content,
-        "CONTENT_HEADER" => $contentHeader
+        "CONTENT_HEADER" => $contentHeader,
+        "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
     )
 );
 

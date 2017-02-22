@@ -67,8 +67,11 @@ ob_start();
                                 <?php echo htmlspecialchars($character->CharacterName); ?>
                             </td>
                             <td>
-                                <div class="button-group">
-                                    <a class="dropdown button arrow-only float-right" type="button"
+                                <div class="button-group float-right">
+                                    <a href="/character.php?action=interface&character_id=<?php echo $character->Id; ?>"
+                                       target="_blank" class="button float-right">Interface
+                                    </a>
+                                    <a class="dropdown button arrow-only" type="button"
                                        data-toggle="<?php echo $character->Id; ?>-dropdown">
                                         <span class="show-for-sr">Show menu</span>
                                     </a>
@@ -77,12 +80,12 @@ ob_start();
                                         <ul class="vertical menu">
                                             <li>
                                                 <a href="/characters/viewOwn/<?php echo $identifier; ?>"
-                                                   target="_blank">Sheet
+                                                   >Sheet
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/wiki/?n=Players.<?php echo $character->CharacterName; ?>"
-                                                   target="_blank" class="">Profile
+                                                   >Profile
                                                 </a>
                                             </li>
                                             <li>
@@ -91,11 +94,13 @@ ob_start();
                                                    class="">Chat
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="request.php?action=create&character_id=<?php echo $character->Id; ?>">
+                                                    New Request
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
-                                    <a href="/character.php?action=interface&character_id=<?php echo $character->Id; ?>"
-                                       target="_blank" class="button float-right">Interface
-                                    </a>
                                 </div>
                             </td>
                         </tr>
