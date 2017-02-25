@@ -10,6 +10,9 @@ $this->set('title_for_layout', 'Add Beat Type');
         <div class="small-6 medium-3 column">
             <?php echo $this->Form->input('number_of_beats'); ?>
         </div>
+        <div class="small-6 medium-3 column">
+            <?php echo $this->Form->input('may_rollover', ['div' => false]); ?>
+        </div>
         <div class="small-6 medium-3 column" style="text-align: center;">
             <?php echo $this->Form->input('admin_only', ['div' => false, 'label' => 'Staff Only']); ?>
         </div>

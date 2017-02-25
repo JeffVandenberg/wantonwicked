@@ -52,11 +52,14 @@ if (isset($character) && $character->Id) {
         <div class="small-3 column">
             Player: <?php echo $character->User->Username; ?>
         </div>
-        <div class="small-3 column">
-            <a class="button" href="/storyteller_index.php?action=profile_lookup&profile_name=<?php echo $character->User->Username; ?>">View Their Characters</a>
-        </div>
-        <div class="small-3 column end">
-            <a class="button" href="/character.php?action=log&character_id=<?php echo $character->Id; ?>">View Character Log</a>
+        <div class="small-9 column">
+            <div class="button-group">
+                <a class="button" href="/storyteller_index.php?action=profile_lookup&profile_name=<?php echo $character->User->Username; ?>">View Their Characters</a>
+                <a class="button" href="/character.php?action=log&character_id=<?php echo $character->Id; ?>">View Character Log</a>
+                <?php if($character->IsSanctioned === 'Y'): ?>
+                <a class="button" href="/characters/beats/<?php echo $character->Slug; ?>">Beat Tracker</a>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
     <form method="post" data-abide novalidate id="character-form">
