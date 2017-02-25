@@ -1,4 +1,5 @@
 <?php
+/* @var View $this */
 $this->set('title_for_layout', 'Beat Types');
 $menu['Actions']['submenu']['New Beat Type'] = [
     'link' => [
@@ -9,6 +10,9 @@ $menu['Actions']['submenu']['New Beat Type'] = [
 $this->set('menu', $menu);
 ?>
 <div class="beatTypes index">
+    <div>
+        <?php echo $this->Html->link('New Beat Type', ['action' => 'add'], ['class' => 'button']); ?>
+    </div>
     <table cellpadding="0" cellspacing="0">
         <thead>
         <tr>

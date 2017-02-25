@@ -44,7 +44,7 @@ class BeatTypesController extends AppController
     {
         $this->BeatType->recursive = 0;
         $this->Paginator->settings = [
-            'limit' => 1,
+            'limit' => 20,
             'order' => 'BeatType.name',
             'contain' => [
                 'CreatedBy' => [
