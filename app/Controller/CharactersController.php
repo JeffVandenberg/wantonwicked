@@ -1,6 +1,10 @@
 <?php
+use classes\character\data\BeatStatus;
+use classes\character\data\BeatType;
 use classes\character\data\Character;
 use \Character as CakeCharacter;
+use classes\character\data\CharacterBeat;
+use classes\character\nwod2\BeatService;
 use classes\character\nwod2\SheetService;
 use classes\character\repository\CharacterNoteRepository;
 use classes\character\repository\CharacterRepository;
@@ -248,7 +252,7 @@ class CharactersController extends AppController
                 $repo = RepositoryManager::GetRepository('classes\character\data\CharacterNote');
                 /* @var CharacterNoteRepository $repo */
                 $characterNote = $repo->getMostRecentForCharacter($character->Id);
-                if($characterNote) {
+                if ($characterNote) {
                     $character->setLastStNote($characterNote);
                 }
                 $sheetService->addMinPowersForEdit($character);
@@ -384,19 +388,50 @@ class CharactersController extends AppController
 
     public function beats($characterId)
     {
-        App::uses('BeatType', 'Model');
-        $beatTypeModel = new BeatType();
-        $beatTypes = $beatTypeModel->find('list', [
-            'conditions' => [
-//                'BeatType.admin_only' => false
-            ],
-            'order' => 'BeatType.name'
-
-        ]);
         $sheetService = new SheetService();
+        $beatService = new BeatService();
         $character = $sheetService->loadSheet($characterId);
+        if (!$character || !$character->Id) {
+            $this->Flash->set('Unable to find character');
+            $this->redirect('/chat.php');
+        }
 
+        $isSt = $this->Permissions->IsST();
+        $currentBeatStatus = $beatService->getBeatStatusForCharacter($character->Id);
 
-        $this->set(compact('character', 'beatTypes'));
+        if ($this->request->is('post')) {
+            // attempt to save
+            $beat = new CharacterBeat();
+            $beat->BeatTypeId = $this->request->data['beat_type_id'];
+            $beat->Note = $this->request->data['note'];
+
+            $beat->CharacterId = $character->Id;
+            $beat->BeatStatusId = ($isSt) ? BeatStatus::StaffAwarded : BeatStatus::NewBeat;
+            $beat->CreatedById = $beat->UpdatedById = $this->Auth->user('user_id');
+            $beat->Created = $beat->Updated = date('Y-m-d H:i:s');
+            $beat->BeatsAwarded = 0;
+
+            if (!$beatService->addNewBeat($beat)) {
+                $this->Flash->set('Error Saving Beat!');
+            } else {
+                $this->redirect('/characters/beats/' . $character->Slug);
+            }
+        }
+
+        $beatTypeRepo = RepositoryManager::GetRepository('classes\character\data\BeatType');
+        if (!$isSt) {
+            $beatTypes = $beatTypeRepo->findByAdminOnly(false);
+        } else {
+            $beatTypes = $beatTypeRepo->listAll();
+        }
+        /* @var BeatType[] $beatTypes */
+        $beatList = [];
+        foreach ($beatTypes as $beatType) {
+            $beatList[$beatType->Id] = $beatType->Name;
+        }
+
+        $pastBeats = $beatService->listPastBeatsForCharacter($character->Id);
+
+        $this->set(compact('character', 'beatList', 'currentBeatStatus', 'pastBeats'));
     }
 }

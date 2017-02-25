@@ -99,6 +99,13 @@ ob_start();
                                                     New Request
                                                 </a>
                                             </li>
+                                            <?php if($character->IsSanctioned === 'Y'): ?>
+                                                <li>
+                                                    <a href="/characters/beats/<?php echo $character->Slug; ?>">
+                                                        Beat Tracker
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
                                         </ul>
                                     </div>
                                 </div>

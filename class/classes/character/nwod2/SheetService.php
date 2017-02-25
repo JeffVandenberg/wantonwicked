@@ -72,6 +72,10 @@ class SheetService
         $this->powerRepository = new CharacterPowerRepository();
     }
 
+    /**
+     * @param string $characterType
+     * @return Character
+     */
     public function initializeSheet($characterType = 'mortal')
     {
         $character = new Character();
@@ -92,6 +96,9 @@ class SheetService
         return $character;
     }
 
+    /**
+     * @param Character $character
+     */
     public function addMinPowersForEdit(Character $character)
     {
         $powerTypeList = [
@@ -110,6 +117,9 @@ class SheetService
         $this->addCharacterTypePowers($character);
     }
 
+    /**
+     * @param Character $character
+     */
     private function addCharacterTypePowers(Character $character)
     {
         $powers = [];
@@ -188,6 +198,11 @@ class SheetService
         }
     }
 
+    /**
+     * @param Character $character
+     * @param $numOfItems
+     * @param $powerType
+     */
     public function addList(Character $character, $numOfItems, $powerType)
     {
         foreach (range(1, $numOfItems) as $i) {
@@ -553,6 +568,9 @@ class SheetService
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function listAvailableIcons()
     {
         $sql = <<<SQL
@@ -570,5 +588,29 @@ SQL;
             $rows[$row['id']] = $row['name'];
         }
         return $rows;
+    }
+
+    /**
+     * @param $characterId
+     * @param $xpAmount
+     * @param $logNote
+     * @param $userId
+     * @return bool
+     */
+    public function grantXpToCharacter($characterId, $xpAmount, $logNote, $userId)
+    {
+        $character = $this->repository->getById($characterId);
+        /* @var Character $character */
+
+        if(!$characterId) {
+            return false;
+        }
+
+        $character->CurrentExperience += $xpAmount;
+        $character->TotalExperience += $xpAmount;
+        $this->repository->save($character);
+
+        CharacterLog::LogAction($characterId, ActionType::XPModification, $logNote, $userId);
+        return true;
     }
 }
