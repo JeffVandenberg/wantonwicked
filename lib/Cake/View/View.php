@@ -57,6 +57,7 @@ App::uses('CakeResponse', 'Network');
  * @property      CharacterHelper Character
  * @property      ShrinkHelper Shrink
  * @property MainMenuHelper MainMenu
+ * @property FlashHelper Flash
  */
 class View extends Object {
 

@@ -8,71 +8,74 @@
 use classes\core\helpers\UserdataHelper;
 /* @var array $userdata */
 
-$storytellerMenu = array(
-    'Characters' => array(
+$storytellerMenu = [
+    'Characters' => [
         'link' => '#',
-        'submenu' => array(
-            'Lookup' => array(
+        'submenu' => [
+            'Lookup' => [
                 'link' => '/characters/stView'
-            ),
-            'Partial Name Search' => array(
+            ],
+            'Partial Name Search' => [
                 'link' => 'st_tools.php?action=character_name_lookup'
-            ),
-            'Goals' => array(
+            ],
+            'Goals' => [
                 'link' => '/admin/characters/goals'
-            )
-        )
-    ),
-    'Requests' => array(
+            ],
+            'Beat Awards' => [
+                'link' => '/characters/stBeats'
+            ]
+        ]
+    ],
+    'Requests' => [
         'link' => '#',
-        'submenu' => array(
-            'Dashboard' => array(
+        'submenu' => [
+            'Dashboard' => [
                 'link' => 'request.php?action=st_list'
-            )
-        )
-    ),
-    'Chat' => array(
+            ]
+        ]
+    ],
+    'Chat' => [
         'link' => '#',
-        'submenu' => array(
-            'Login' => array(
+        'submenu' => [
+            'Login' => [
                 'link' => 'chat/?st_login',
                 'target' => '_blank',
-            ),
-            'Clean Temp Rooms' => array(
+            ],
+            'Clean Temp Rooms' => [
                 'link' => 'chat/includes/clean_rooms.php',
                 'target' => '_blank'
-            )
-        )
-    ),
-    'Tools' => array(
+            ]
+        ]
+    ],
+    'Tools' => [
         'link' => '#',
-        'submenu' => array(
-            'OOC Roller' => array(
+        'submenu' => [
+            'OOC Roller' => [
                 'link' => 'dieroller.php?action=ooc'
-            ),
-            'Profile Lookup' => array(
+            ],
+            'Profile Lookup' => [
                 'link' => 'storyteller_index.php?action=profile_lookup'
-            ),
-            'Territory Management' => array(
+            ],
+            'Territory Management' => [
                 'link' => 'territory.php?action=list'
-            )
-        )
-    ),
-    'Reports' => array(
+            ]
+        ]
+    ],
+    'Reports' => [
         'link' => '#',
-        'submenu' => array(
-            'Character Type' => array(
+        'submenu' => [
+            'Character Type' => [
                 'link' => 'st_tools.php?action=character_search'
-            ),
-            'Character Population' => array(
+            ],
+            'Character Population' => [
                 'link' => 'st_tools.php?action=character_population_report'
-            ),
-            'Power Search' => array(
+            ],
+            'Power Search' => [
                 'link' => 'st_tools.php?action=power_search'
-            ),
-        )
-    )
-);
+            ],
+        ]
+    ]
+];
 
 $storytellerMenu['Reports']['submenu']['Request ST Activity Report'] = array(
     'link' => 'request.php?action=admin_activity_report'

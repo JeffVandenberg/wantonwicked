@@ -239,6 +239,14 @@ function addMessage(inputMDiv,displayMDiv)
         }
     }
 
+    if(ircCommand[0] == '/beats') {
+		if(admin || moderator) {
+			beats.openSt();
+		} else {
+			beats.openPlayer();
+		}
+	}
+
     if(ircCommand[0] == '/roll') {
         if(ircCommand.length == 1) {
             dice.help();
@@ -1442,5 +1450,19 @@ var scenes = {
 
 	add: function() {
 		window.open('/scenes/add');
+	}
+};
+
+var beats = {
+	help: function () {
+		alert('Type /beats to open up the beat tracker for your character.');
+	},
+
+	openPlayer: function() {
+		window.open('/characters/beats/' + uID)
+	},
+
+	openSt: function() {
+		window.open('/characters/stBeats')
 	}
 };
