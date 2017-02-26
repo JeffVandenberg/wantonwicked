@@ -1459,7 +1459,7 @@ var beats = {
 	},
 
 	openPlayer: function() {
-		window.open('/characters/beats/' + uID)
+		window.open('/characters/beats/' + userID)
 	},
 
 	openSt: function() {
