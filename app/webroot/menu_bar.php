@@ -14,24 +14,24 @@ if ($userdata['user_id'] != ANONYMOUS) {
     $characterRepository = new CharacterRepository();
     $sanctionedCharacters = $characterRepository->ListSanctionedCharactersByPlayerId($userdata['user_id']);
     foreach ($sanctionedCharacters as $character) {
-        $characterMenu = array(
+        $characterMenu = [
             'link' => '/character.php?action=interface&character_id=' . $character['id'],
-            'submenu' => array(
-                'Login' => array(
+            'submenu' => [
+                'Login' => [
                     'link' => '/chat/?character_id=' . $character['id']
-                ),
-                'Requests' => array(
+                ],
+                'Requests' => [
                     'link' => '/request.php?action=list&character_id=' . $character['id']
-                ),
-                'Bluebook' => array(
+                ],
+                'Bluebook' => [
                     'link' => '/bluebook.php?action=list&character_id=' . $character['id']
-                ),
-                'Sheet' => array(
+                ],
+                'Sheet' => [
                     'link' => '/characters/viewOwn/' . $character['slug']
-                )
-            )
-        );
-        $mainMenu['Utilities']['submenu']['Player Utilities']['submenu'][$character['character_name']] = $characterMenu;
+                ]
+            ]
+        ];
+        $mainMenu['Utilities']['submenu']['Characters']['submenu'][$character['character_name']] = $characterMenu;
     }
 }
 

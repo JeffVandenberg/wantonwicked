@@ -14,7 +14,8 @@ App::uses('Component', 'Controller');
  * @property SessionComponent Session
  * @property PermissionsComponent Permissions
  */
-class MenuComponent extends Component {
+class MenuComponent extends Component
+{
     public $components = array(
         'Auth',
         'Permissions',
@@ -27,23 +28,23 @@ class MenuComponent extends Component {
     {
         $menuComponents = include_once(ROOT . '/app/Lib/menu_components.php');
         $this->menu = $menuComponents['base'];
-        if(!is_array($this->menu)) {
+        if (!is_array($this->menu)) {
             return;
         }
 
-        if($this->Auth->user()) {
+        if ($this->Auth->user()) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['player']);
 
             App::uses('AppModel', 'Model');
             App::uses('Character', 'Model');
             $characterRepo = new Character();
             $sanctionedCharacters = $characterRepo->ListSanctionedForUser($this->Auth->user('user_id'));
-            foreach($sanctionedCharacters as $character) {
+            foreach ($sanctionedCharacters as $character) {
                 $characterMenu = array(
-                    'link' => '/character.php?action=interface&character_id='.$character['Character']['id'],
+                    'link' => '/character.php?action=interface&character_id=' . $character['Character']['id'],
                     'submenu' => array(
                         'Login' => array(
-                            'link' => '/chat/?character_id='.$character['Character']['id']
+                            'link' => '/chat/?character_id=' . $character['Character']['id']
                         ),
                         'Requests' => array(
                             'link' => '/request.php?action=list&character_id=' . $character['Character']['id']
@@ -60,7 +61,7 @@ class MenuComponent extends Component {
             }
         }
 
-        if($this->Permissions->IsST()) {
+        if ($this->Permissions->IsST()) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['staff']);
         }
     }
@@ -88,7 +89,14 @@ class MenuComponent extends Component {
                             'controller' => 'characters',
                             'action' => 'goals'
                         )
-                    )
+                    ),
+                    'Beat Awards' => [
+                        'link' => [
+                            'admin' => false,
+                            'controller' => 'characters',
+                            'action' => 'stBeats'
+                        ]
+                    ]
                 )
             ),
             'Requests' => array(
@@ -147,7 +155,7 @@ class MenuComponent extends Component {
             )
         );
 
-        if($this->Permissions->IsHead()) {
+        if ($this->Permissions->IsHead()) {
             $menu['Chat']['submenu']['Prochat Admin'] = array(
                 'link' => '/chat/admin'
             );
@@ -180,7 +188,7 @@ class MenuComponent extends Component {
             );
         }
 
-        if($this->Permissions->IsAdmin()) {
+        if ($this->Permissions->IsAdmin()) {
             $menu['Tools']['submenu']['Configuration'] = array(
                 'link' => '/configuration'
             );
@@ -190,5 +198,77 @@ class MenuComponent extends Component {
         }
 
         return $menu;
+    }
+
+    public function createCharacterMenu($characterId, $characterName)
+    {
+        $characterMenu = [
+            'Chat' => [
+                'link' => "/chat/?character_id=$characterId",
+                'target' => '_blank',
+                'submenu' => [
+                    'Login' => [
+                        'link' => "/chat/?character_id=$characterId",
+                        'target' => '_blank'
+                    ],
+                    'Interface' => [
+                        'link' => "/character.php?action=interface&character_id=$characterId"
+                    ]
+                ]
+            ],
+            'Character' => [
+                'link' => '#',
+                'submenu' => [
+                    'Sheet' => [
+                        'link' => "/characters/viewOwn/" . $characterId
+                    ],
+                    'Beats' => [
+                        'link' => '/characters/beats/' . $characterId
+                    ],
+                    'Wiki Page' => [
+                        'link' => '/wiki/?n=Players.' . preg_replace("/[^A-Za-z0-9]/", '', $characterName),
+                        'target' => '_blank'
+                    ],
+                    'Character Log' => [
+                        'link' => "/character.php?action=log&character_id=$characterId"
+                    ],
+                    'Delete' => [
+                        'link' => '/chat.php?action=delete&character_id=' . $characterId
+                    ]
+                ]
+            ],
+            'Tools' => [
+                'link' => '#',
+                'submenu' => [
+                    'Dice Roller' => [
+                        'link' => "/dieroller.php?action=character&character_id=$characterId"
+                    ],
+                    'Requests' => [
+                        'link' => "/request.php?action=list&character_id=$characterId",
+                        'submenu' => [
+                            'New' => [
+                                'link' => "/request.php?action=create&character_id=$characterId"
+                            ]
+                        ]
+                    ],
+                    'Bluebook' => [
+                        'link' => "/bluebook.php?action=list&character_id=$characterId",
+                        'submenu' => [
+                            'New' => [
+                                'link' => "/bluebook.php?action=create&character_id=$characterId"
+                            ]
+                        ]
+                    ],
+                    'Favors' => [
+                        'link' => "/favors.php?action=list&character_id=$characterId"
+                    ],
+                    'Notes' => [
+                        'link' => "/notes.php?action=character&character_id=$characterId"
+                    ]
+                ]
+            ],
+        ];
+
+        return $characterMenu;
     }
 }

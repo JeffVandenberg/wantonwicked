@@ -7,84 +7,70 @@ $characterRepository = RepositoryManager::GetRepository('classes\character\data\
 $privateCharacter = $characterRepository->getById($characterId);
 /* @var Character $privateCharacter */
 
-$characterMenu = array(
-    'Chat' => array(
+$characterMenu = [
+    'Chat' => [
         'link' => "/chat/?character_id=$characterId",
         'target' => '_blank',
-        'submenu' => array(
-            'Login' => array(
+        'submenu' => [
+            'Login' => [
                 'link' => "/chat/?character_id=$characterId",
                 'target' => '_blank'
-            ),
-            'Interface' => array(
+            ],
+            'Interface' => [
                 'link' => "/character.php?action=interface&character_id=$characterId"
-            )
-        )
-    ),
-    'Character' => array(
+            ]
+        ]
+    ],
+    'Character' => [
         'link' => '#',
-        'submenu' => array(
-            'Sheet' => array(
+        'submenu' => [
+            'Sheet' => [
 //                'link' => "/characters/viewOwn/" . $privateCharacter->Slug
                 'link' => "/characters/viewOwn/" . $characterId
-            ),
-            'Wiki Page' => array(
+            ],
+            'Beats' => [
+                'link' => '/characters/beats/' . $privateCharacter->Slug
+            ],
+            'Wiki Page' => [
                 'link' => '/wiki/?n=Players.' . preg_replace("/[^A-Za-z0-9]/", '', $privateCharacter->CharacterName),
                 'target' => '_blank'
-            ),
-            'Character Log' => array(
+            ],
+            'Character Log' => [
                 'link' => "/character.php?action=log&character_id=$characterId"
-            ),
-        )
-    ),
-    'Tools' => array(
+            ],
+            'Delete' => [
+                'link' => '/chat.php?action=delete&character_id=' . $characterId
+            ]
+        ]
+    ],
+    'Tools' => [
         'link' => '#',
-        'submenu' => array(
-            'Dice Roller' => array(
+        'submenu' => [
+            'Dice Roller' => [
                 'link' => "/dieroller.php?action=character&character_id=$characterId"
-            ),
-            'Requests' => array(
+            ],
+            'Requests' => [
                 'link' => "/request.php?action=list&character_id=$characterId",
-                'submenu' => array(
-                    'New' => array(
+                'submenu' => [
+                    'New' => [
                         'link' => "/request.php?action=create&character_id=$characterId"
-                    )
-                )
-            ),
-            'Bluebook' => array(
+                    ]
+                ]
+            ],
+            'Bluebook' => [
                 'link' => "/bluebook.php?action=list&character_id=$characterId",
-                'submenu' => array(
-                    'New' => array(
+                'submenu' => [
+                    'New' => [
                         'link' => "/bluebook.php?action=create&character_id=$characterId"
-                    )
-                )
-            ),
-            'Favors' => array(
+                    ]
+                ]
+            ],
+            'Favors' => [
                 'link' => "/favors.php?action=list&character_id=$characterId"
-            ),
-            'Notes' => array(
+            ],
+            'Notes' => [
                 'link' => "/notes.php?action=character&character_id=$characterId"
-            )
-        )
-    ),
-    /*'Reference' => array(
-        'link' => '#',
-        'submenu' => array(
-            'Forum' => array(
-                'link' => '/forum',
-                'target' => '_blank'
-            ),
-            'Wiki' => array(
-                'link' => '/wiki',
-                'target' => '_blank'
-            ),
-            'Game Ref' => array(
-                'link' => '/wiki/index.php?n=GameRef.GameRef',
-                'target' => '_blank'
-            ),
-            $privateCharacter->CharacterType . ' Wiki' => array(
-                'link' => '/wiki/?n=Players.' . $privateCharacter->CharacterType
-            )
-        )
-    )*/
-);
+            ]
+        ]
+    ],
+];

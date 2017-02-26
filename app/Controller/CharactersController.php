@@ -7,7 +7,6 @@ use classes\character\data\CharacterBeat;
 use classes\character\nwod2\BeatService;
 use classes\character\nwod2\SheetService;
 use classes\character\repository\CharacterNoteRepository;
-use classes\character\repository\CharacterRepository;
 use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
@@ -119,6 +118,7 @@ class CharactersController extends AppController
         switch ($this->request->params['action']) {
             case 'admin_goals':
             case 'stView':
+            case 'stBeats':
                 return $this->Permissions->IsST();
             case 'add':
             case 'validateName':
@@ -329,58 +329,6 @@ class CharactersController extends AppController
         return json_encode($data);
     }
 
-    /**
-     * edit method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function edit($id = null)
-    {
-        die('dead');
-        if (!$this->Character->exists($id)) {
-            throw new NotFoundException(__('Invalid character'));
-        }
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->Character->save($this->request->data)) {
-                $this->Flash->set(__('The character has been saved.'));
-
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Flash->set(__('The character could not be saved. Please, try again.'));
-            }
-        } else {
-            $options = array('conditions' => array('Character.' . $this->Character->primaryKey => $id));
-            $this->request->data = $this->Character->find('first', $options);
-        }
-    }
-
-    /**
-     * delete method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function delete($id = null)
-    {
-        die('dead');
-        $this->Character->id = $id;
-        if (!$this->Character->exists()) {
-            throw new NotFoundException(__('Invalid character'));
-        }
-        $this->request->allowMethod(['post', 'delete']);
-
-        if ($this->Character->delete()) {
-            $this->Flash->set(__('The character has been deleted.'));
-        } else {
-            $this->Flash->set(__('The character could not be deleted. Please, try again.'));
-        }
-
-        $this->redirect(array('action' => 'index'));
-    }
-
     public function assignCondition()
     {
         // grant condition to character
@@ -394,6 +342,13 @@ class CharactersController extends AppController
         if (!$character || !$character->Id) {
             $this->Flash->set('Unable to find character');
             $this->redirect('/chat.php');
+        }
+
+        if (
+            !$this->Permissions->CheckSitePermission($this->Auth->user('user_id'), SitePermission::$ManageCharacters)
+            && ($character->UserId !== '')
+        ) {
+
         }
 
         $isSt = $this->Permissions->IsST();
@@ -431,7 +386,52 @@ class CharactersController extends AppController
         }
 
         $pastBeats = $beatService->listPastBeatsForCharacter($character->Id);
+        if($isSt) {
+            $submenu = $this->Menu->createStorytellerMenu();
+        } else {
+            $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName);
+        }
+        $this->set(compact('character', 'beatList', 'currentBeatStatus', 'pastBeats', 'submenu'));
+    }
 
-        $this->set(compact('character', 'beatList', 'currentBeatStatus', 'pastBeats'));
+    public function stBeats()
+    {
+        if ($this->request->is('post')) {
+            $beatService = new BeatService();
+            $beat = new CharacterBeat();
+            $beat->CharacterId = $this->request->data['character_id'];
+            $beat->BeatTypeId = $this->request->data['beat_type_id'];
+            $beat->Note = $this->request->data['note'];
+
+            $beat->CreatedById = $beat->UpdatedById = $this->Auth->user('user_id');
+            $beat->Created = $beat->Updated = date('Y-m-d H:i:s');
+            $beat->BeatStatusId = BeatStatus::StaffAwarded;
+            $beat->BeatsAwarded = 0;
+
+            if($beatService->addNewBeat($beat)) {
+                $this->Flash->set('Granted beat');
+                $this->redirect('/characters/stBeats');
+            } else {
+                $this->Flash->set('Error saving beat. Please try again');
+            }
+        }
+
+        $beatTypeRepo = RepositoryManager::GetRepository('classes\character\data\BeatType');
+        $beatTypes = $beatTypeRepo->listAll();
+        /* @var BeatType[] $beatTypes */
+        $beatList = [];
+        foreach ($beatTypes as $beatType) {
+            $beatList[$beatType->Id] = $beatType->Name;
+        }
+
+        $cities = [
+            "portland" => 'Portland',
+            "Savannah" => 'Savannah',
+            "San Diego" => 'San Diego',
+            "The City" => 'The City',
+            "Side Game" => 'Side Game'
+        ];
+
+        $this->set(compact('beatList', 'cities'));
     }
 }

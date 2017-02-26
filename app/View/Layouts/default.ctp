@@ -73,7 +73,7 @@
             <?php if (isset($submenu)): ?>
                 <?php echo $this->SubMenu->Create($submenu); ?>
             <?php endif; ?>
-            <?php echo $this->Session->flash(); ?>
+            <?php echo $this->Flash->render(); ?>
 
             <?php echo $this->fetch('content'); ?>
         </div>
