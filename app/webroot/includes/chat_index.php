@@ -84,7 +84,7 @@ ob_start();
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="/wiki/?n=Players.<?php echo $character->CharacterName; ?>"
+                                                <a href="/wiki/?n=Players.<?php echo preg_replace("/[^A-Za-z0-9]/", '', $characterName); ?>"
                                                    >Profile
                                                 </a>
                                             </li>
@@ -206,9 +206,6 @@ ob_start();
     </div>
     <script>
         $(function () {
-            $(".delete-link").click(function () {
-                return confirm('Are you sure you want to delete ' + $.trim($(this).closest('tr').find('td:first').text()) + '?');
-            });
         })
     </script>
 <?php

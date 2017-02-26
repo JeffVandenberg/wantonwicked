@@ -18,7 +18,7 @@ class SubMenuHelper extends AppHelper
         $menuId = mt_rand(1000000, 9999999);
 
         $menu = <<<EOQ
-<ul class="menu" id="menu-$menuId">
+<ul class="dropdown menu" id="menu-$menuId" data-dropdown-menu>
 EOQ;
         if(is_array($menuItems))
         {
@@ -36,7 +36,7 @@ EOQ;
         $menuLevel = "";
         if(!$firstLayer) {
             $menuLevel .= <<<EOQ
-<ul>
+<ul class="menu">
 EOQ;
         }
 
