@@ -245,6 +245,7 @@ function addMessage(inputMDiv,displayMDiv)
 		} else {
 			beats.openPlayer();
 		}
+		return false;
 	}
 
     if(ircCommand[0] == '/roll') {
