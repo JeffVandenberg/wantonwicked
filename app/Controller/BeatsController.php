@@ -28,8 +28,12 @@ class BeatsController extends AppController
             $beatService = new BeatService();
             $beat = $beatService->findBeatById($beatId);
 
-            if($beat) {
-                $this->set(compact('beat'));
+            if ($beat) {
+                if (!$this->Permissions->MayEditCharacter($beat->CharacterId)) {
+                    $this->set('message', 'You may not be able to view that character');
+                } else {
+                    $this->set(compact('beat'));
+                }
             } else {
                 $this->set('message', 'Unable to find that beat');
             }

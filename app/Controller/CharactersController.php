@@ -344,11 +344,10 @@ class CharactersController extends AppController
             $this->redirect('/chat.php');
         }
 
-        if (
-            !$this->Permissions->CheckSitePermission($this->Auth->user('user_id'), SitePermission::$ManageCharacters)
-            && ($character->UserId !== '')
-        ) {
-
+        if(!$this->Permissions->MayEditCharacter($character->Id)) {
+            CharacterLog::LogAction($character->Id, ActionType::InvalidAccess, 'Attempted Access to Beats', $this->Auth->user('user_id'));
+            $this->Flash->set('Unable to view that character');
+            $this->redirect('/');
         }
 
         $isSt = $this->Permissions->IsST();
