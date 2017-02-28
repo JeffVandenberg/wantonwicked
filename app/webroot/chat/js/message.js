@@ -245,6 +245,7 @@ function addMessage(inputMDiv,displayMDiv)
 		} else {
 			beats.openPlayer();
 		}
+        clrMessageInput(inputMDiv);
 		return false;
 	}
 

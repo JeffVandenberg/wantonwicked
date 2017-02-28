@@ -97,10 +97,25 @@ class BeatService
         return $historyRepo->findByCharacterIdAndRecordMonth($characterId, $date);
     }
 
+    /**
+     * @param $characterId
+     * @return CharacterBeat[]
+     */
     public function listPastBeatsForCharacter($characterId)
     {
         $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
         /* @var CharacterBeatRecordRepository $beatRep */
         return $beatRepo->listPastBeatsForCharacter($characterId);
+    }
+
+    /**
+     * @param $beatId
+     * @return CharacterBeat
+     */
+    public function findBeatById($beatId)
+    {
+        $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
+        /* @var CharacterBeatRecordRepository $beatRep */
+        return $beatRepo->getById($beatId);
     }
 }
