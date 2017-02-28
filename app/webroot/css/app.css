@@ -4873,8 +4873,8 @@ html.is-reveal-open body {
   display: none;
   z-index: 1006;
   padding: 1rem;
-  border: 1px solid #cacaca;
-  background-color: #fefefe;
+  border: 1px solid #cccccc;
+  background-color: #111111;
   border-radius: 0;
   position: relative;
   top: 100px;

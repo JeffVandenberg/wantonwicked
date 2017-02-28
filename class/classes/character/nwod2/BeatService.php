@@ -103,4 +103,11 @@ class BeatService
         /* @var CharacterBeatRecordRepository $beatRep */
         return $beatRepo->listPastBeatsForCharacter($characterId);
     }
+
+    public function findBeatById($beatId)
+    {
+        $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
+        /* @var CharacterBeatRecordRepository $beatRep */
+        return $beatRepo->getById($beatId);
+    }
 }

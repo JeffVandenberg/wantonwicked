@@ -40,7 +40,7 @@ $this->set('title_for_layout', 'Beats for ' . $character->CharacterName);
     <div class="small-12 column">
         Beat Summary for month: <strong><?php echo date('F, Y', strtotime($currentBeatStatus->RecordMonth)); ?></strong>
         XP Earned: <strong><?php echo (float)$currentBeatStatus->ExperienceEarned; ?></strong>
-        <?php if($currentBeatStatus->ExperienceEarned >= 2): ?>
+        <?php if ($currentBeatStatus->ExperienceEarned >= 2): ?>
             <strong>At Max Experience for the month!</strong>
         <?php endif; ?>
     </div>
@@ -57,6 +57,9 @@ $this->set('title_for_layout', 'Beats for ' . $character->CharacterName);
                     Type
                 </th>
                 <th>
+                    Note
+                </th>
+                <th>
                     Awarded By
                 </th>
                 <th>
@@ -65,31 +68,46 @@ $this->set('title_for_layout', 'Beats for ' . $character->CharacterName);
                 <th>
                     Status
                 </th>
-                <th>
-                    Applied On
-                </th>
-                <th>
-                    Beats Awarded
-                </th>
             </tr>
             </thead>
-            <?php foreach($pastBeats as $characterBeat): ?>
-                <tr>
+            <?php foreach ($pastBeats as $characterBeat): ?>
+                <tr class="clickable beat-detail" data-beat-id="<?php echo $characterBeat->Id; ?>"
+                    title="Click for Detail">
                     <td>
-                        <div class="clickable" data-toggle="beat-note-<?php echo $characterBeat->Id; ?>" title="Click for Note">
+                        <div>
                             <?php echo $characterBeat->BeatType->Name; ?>
                         </div>
-                        <div class="hide" id="beat-note-<?php echo $characterBeat->Id; ?>" data-toggler=".hide">
-                            <strong>Note:</strong> <?php echo $characterBeat->Note; ?>
-                        </div>
+                    </td>
+                    <td>
+                        <?php if (strlen($characterBeat->Note) > 40): ?>
+                            <?php echo substr($characterBeat->Note, 0, 40); ?>...
+                        <?php else: ?>
+                            <?php echo $characterBeat->Note; ?>
+                        <?php endif; ?>
                     </td>
                     <td><?php echo $characterBeat->CreatedBy->Username; ?></td>
                     <td><?php echo $characterBeat->Created; ?></td>
                     <td><?php echo $characterBeat->BeatStatus->Name; ?></td>
-                    <td><?php echo $characterBeat->AppliedOn; ?></td>
-                    <td><?php echo $characterBeat->BeatsAwarded; ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
     </div>
 </div>
+<div class="reveal" id="detail-modal" data-reveal>
+    <div id="detail-modal-content"></div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<script>
+    $(function () {
+        $(".beat-detail").click(function () {
+            var $modal = $("#detail-modal");
+
+            $.get('/beats/viewDetails/' + $(this).data().beatId, function (response) {
+                $("#detail-modal-content").html(response);
+                $modal.foundation('open');
+            });
+        });
+    })
+</script>
