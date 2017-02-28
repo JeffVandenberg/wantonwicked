@@ -1,4 +1,5 @@
 <?php
+/* @var View $this */
 $this->set('title_for_layout', 'Beat Types');
 $menu['Actions']['submenu']['New Beat Type'] = [
     'link' => [
@@ -9,12 +10,15 @@ $menu['Actions']['submenu']['New Beat Type'] = [
 $this->set('menu', $menu);
 ?>
 <div class="beatTypes index">
+    <div>
+        <?php echo $this->Html->link('New Beat Type', ['action' => 'add'], ['class' => 'button']); ?>
+    </div>
     <table cellpadding="0" cellspacing="0">
         <thead>
         <tr>
             <th><?php echo $this->Paginator->sort('name'); ?></th>
             <th><?php echo $this->Paginator->sort('number_of_beats'); ?></th>
-            <th><?php echo $this->Paginator->sort('admin_only'); ?></th>
+            <th><?php echo $this->Paginator->sort('admin_only', 'Staff Only'); ?></th>
             <th><?php echo $this->Paginator->sort('CreatedBy.username', 'Created By'); ?></th>
             <th><?php echo $this->Paginator->sort('created', 'Created On'); ?></th>
             <th><?php echo $this->Paginator->sort('UpdatedBy.username', 'Updated By'); ?></th>

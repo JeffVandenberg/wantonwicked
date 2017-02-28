@@ -33,7 +33,7 @@ $this->set('menu', $menu);
         <?php echo $beatType['BeatType']['may_rollover'] ? 'Yes' : 'No'; ?>
     </div>
     <div class="small-2 medium-3 column">
-        <label>Admin Only</label>
+        <label>Staff Only</label>
     </div>
     <div class="small-4 medium-1 column">
         <?php echo $beatType['BeatType']['admin_only'] ? 'Yes' : 'No'; ?>

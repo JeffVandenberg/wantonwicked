@@ -14,7 +14,7 @@ $this->set('title_for_layout', 'Add Beat Type');
             <?php echo $this->Form->input('may_rollover', ['div' => false]); ?>
         </div>
         <div class="small-6 medium-3 column" style="text-align: center;">
-            <?php echo $this->Form->input('admin_only', ['div' => false]); ?>
+            <?php echo $this->Form->input('admin_only', ['div' => false, 'label' => 'Staff Only']); ?>
         </div>
         <div class="small-12 column">
             <button class="button" name="action" value="save">Save</button>

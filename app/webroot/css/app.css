@@ -5361,7 +5361,7 @@ table.hover tbody tr:nth-of-type(even):hover {
   .show-for-large {
     display: none !important; } }
 
-@media screen and (min-width: 64em) {
+@media screen and (min-width: 64em) and (max-width: 74.9375em) {
   .hide-for-large-only {
     display: none !important; } }
 
@@ -5832,8 +5832,7 @@ div.formInput {
   background-color: #222222; }
 
 .mortal {
-  background-color: #eee;
-  border: solid 1px #000;
+  border: solid 1px #f6db60;
   padding: 3px; }
 
 ul.tags {

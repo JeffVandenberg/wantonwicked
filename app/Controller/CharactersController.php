@@ -375,7 +375,7 @@ class CharactersController extends AppController
 
         $beatTypeRepo = RepositoryManager::GetRepository('classes\character\data\BeatType');
         if (!$isSt) {
-            $beatTypes = $beatTypeRepo->findByAdminOnly(false);
+            $beatTypes = $beatTypeRepo->ListByAdminOnly(false);
         } else {
             $beatTypes = $beatTypeRepo->listAll();
         }
