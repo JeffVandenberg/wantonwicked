@@ -80,6 +80,11 @@ class PermissionsComponent extends Component {
             'contain' => false
         ));
 
-         return $character['Character']['user_id'] == AuthComponent::user('user_id');
+         return
+             (
+                 $character['Character']['user_id'] == AuthComponent::user('user_id')
+                 ||
+                 $this->CheckSitePermission(AuthComponent::user('user_id'), SitePermission::$ManageCharacters)
+             );
     }
 }

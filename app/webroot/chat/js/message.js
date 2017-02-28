@@ -245,6 +245,8 @@ function addMessage(inputMDiv,displayMDiv)
 		} else {
 			beats.openPlayer();
 		}
+        clrMessageInput(inputMDiv);
+		return false;
 	}
 
     if(ircCommand[0] == '/roll') {
@@ -1459,7 +1461,7 @@ var beats = {
 	},
 
 	openPlayer: function() {
-		window.open('/characters/beats/' + uID)
+		window.open('/characters/beats/' + userID)
 	},
 
 	openSt: function() {
