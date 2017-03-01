@@ -47,10 +47,10 @@ class PlayPreferencesController extends AppController
             if($this->PlayPreference->PlayPreferenceResponse->updateUserResponse(
                 $this->Auth->user('user_id'),
                 $this->request->data)) {
-                $this->Session->setFlash('Updated Your Play Preferences');
+                $this->Flash->set('Updated Your Play Preferences');
                 $this->redirect(['action' => 'index']);
             } else {
-                $this->Session->setFlash('Error Updating Play Preferences');
+                $this->Flash->set('Error Updating Play Preferences');
             }
         }
         $userPreferences = $this->PlayPreference->PlayPreferenceResponse->listByUserId($this->Auth->user('user_id'));

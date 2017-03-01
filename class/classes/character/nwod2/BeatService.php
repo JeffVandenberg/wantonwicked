@@ -15,6 +15,8 @@ use classes\character\data\BeatStatus;
 use classes\character\data\CharacterBeat;
 use classes\character\data\CharacterBeatRecord;
 use classes\character\repository\CharacterBeatRecordRepository;
+use classes\character\repository\CharacterBeatRepository;
+use classes\character\repository\CharacterRepository;
 use classes\core\repository\RepositoryManager;
 
 /**
@@ -23,6 +25,8 @@ use classes\core\repository\RepositoryManager;
  */
 class BeatService
 {
+    private $maxXpPerMonth = 2;
+
     /**
      * @param CharacterBeat $beat
      * @return bool
@@ -38,7 +42,7 @@ class BeatService
         /* @var CharacterBeatRecord $beatRecord */
 
         // check if character is at max award for the month
-        if($beatRecord->ExperienceEarned < 2) { // todo: move this to a config or something.
+        if ($beatRecord->ExperienceEarned < 2) { // todo: move this to a config or something.
             // give beat immediately
             return $this->grantBeat($beat, $beatRecord);
         } else {
@@ -59,23 +63,23 @@ class BeatService
 
         // add XP to the character
         $sheetService = new SheetService();
-        $sheetService->grantXpToCharacter(
-            $beat->CharacterId,
-            $beat->BeatType->NumberOfBeats * .2,
-            'XP FRom Beat Claim',
-            $beat->CreatedById
-        );
+//        $sheetService->grantXpToCharacter(
+//            $beat->CharacterId,
+//            $beat->BeatType->NumberOfBeats * .2,
+//            'XP FRom Beat Claim',
+//            $beat->CreatedById
+//        );
 
         // add XP to the Beat Record for the month
         $beatRecord->ExperienceEarned += $beat->BeatType->NumberOfBeats * .2;
-        $historyRepo->save($beatRecord);
+//        $historyRepo->save($beatRecord);
 
         // mark beat as granted
         $beat->BeatStatusId = BeatStatus::Applied;
         $beat->AppliedOn = date('Y-m-d H:i:s');
         $beat->BeatsAwarded = $beat->BeatType->NumberOfBeats;
 
-        $beatRepo->save($beat);
+//        $beatRepo->save($beat);
         return true;
     }
 
@@ -86,7 +90,7 @@ class BeatService
      */
     public function getBeatStatusForCharacter($characterId, $date = null)
     {
-        if(!$date) {
+        if (!$date) {
             $date = date('Y-m-01');
         }
 
@@ -115,7 +119,52 @@ class BeatService
     public function findBeatById($beatId)
     {
         $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
-        /* @var CharacterBeatRecordRepository $beatRep */
+        /* @var CharacterBeatRepository $beatRep */
         return $beatRepo->getById($beatId);
+    }
+
+    public function awardOutstandingBeats()
+    {
+        $characterRepo = RepositoryManager::GetRepository('classes\character\data\Character');
+        /* @var CharacterRepository $characterRepo */
+        $characters = $characterRepo->listCharactersWithOutstandingBeats();
+
+        foreach($characters as $character)
+        {
+            $this->awardOutstandingBeatsToCharacter($character['id']);
+        }
+    }
+
+    public function awardOutstandingBeatsToCharacter($characterId)
+    {
+        $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
+        /* @var CharacterBeatRepository $beatRepo */
+        $beatRecordRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeatRecord');
+        /* @var CharacterBeatRecordRepository $beatRecordRepo */
+
+        // list beats for character
+        $beats = $beatRepo->listOpenByCharacterId($characterId);
+        /* @var CharacterBeat[] $beats */
+
+        // load beast record for month
+        $beatRecord = $beatRecordRepo->findByCharacterIdAndRecordMonth($characterId, date('Y-m-d'));
+
+        // loop through beats to award them
+        foreach($beats as $beat) {
+            if($beatRecord->ExperienceEarned >= .2) {
+                break;
+            }
+            $this->grantBeat($beat, $beatRecord);
+            var_dump($beat, $beatRecord);
+        }
+        echo 'done. XP Awarded: ' . $beatRecord->ExperienceEarned;
+    }
+
+    public function expireOldBeats()
+    {
+        $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
+        /* @var CharacterBeatRepository $beatRepo */
+
+        $beatRepo->setStatusForBeatsOlderThan(BeatStatus::NewBeat, date('Y-m-d', strtotime('-1 month')));
     }
 }

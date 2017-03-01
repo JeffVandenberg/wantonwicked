@@ -46,16 +46,6 @@ class PlayPreferenceResponse extends AppModel
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
         ),
-        'note' => array(
-            'notEmpty' => array(
-                'rule' => array('notEmpty'),
-                //'message' => 'Your custom message here',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            ),
-        ),
         'created_on' => array(
             'datetime' => array(
                 'rule' => array('datetime'),
@@ -113,9 +103,10 @@ class PlayPreferenceResponse extends AppModel
     public function updateUserResponse($userId, $data)
     {
         $this->recursive = 0;
-        $this->deleteAll([
-            'PlayPreferenceResponse.user_id' => $userId
-        ],
+        $this->deleteAll(
+            [
+                'PlayPreferenceResponse.user_id' => $userId
+            ],
             false
         );
         foreach ($data['user_preference'] as $playPreferenceId => $value) {
@@ -125,7 +116,8 @@ class PlayPreferenceResponse extends AppModel
                     'play_preference_id' => $playPreferenceId,
                     'user_id' => $userId,
                     'rating' => $value,
-                    'created_on' => date('Y-m-d H:i:s')
+                    'created_on' => date('Y-m-d H:i:s'),
+                    'note' => ''
                 ]
             ];
             $this->save($data);
@@ -160,10 +152,10 @@ EOQ;
 
     public function getVenueReport($venue, $playPreferenceId)
     {
-        if(strtolower($venue) == 'all') {
+        if (strtolower($venue) == 'all') {
             $venue = '';
         }
-        if(strtolower($playPreferenceId) == 'all') {
+        if (strtolower($playPreferenceId) == 'all') {
             $playPreferenceId = 0;
         }
         $sql = /** @lang MySQL */
