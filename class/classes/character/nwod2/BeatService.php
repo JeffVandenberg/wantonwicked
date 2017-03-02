@@ -63,23 +63,23 @@ class BeatService
 
         // add XP to the character
         $sheetService = new SheetService();
-//        $sheetService->grantXpToCharacter(
-//            $beat->CharacterId,
-//            $beat->BeatType->NumberOfBeats * .2,
-//            'XP FRom Beat Claim',
-//            $beat->CreatedById
-//        );
+        $sheetService->grantXpToCharacter(
+            $beat->CharacterId,
+            $beat->BeatType->NumberOfBeats * .2,
+            'XP FRom Beat Claim',
+            $beat->CreatedById
+        );
 
         // add XP to the Beat Record for the month
         $beatRecord->ExperienceEarned += $beat->BeatType->NumberOfBeats * .2;
-//        $historyRepo->save($beatRecord);
+        $historyRepo->save($beatRecord);
 
         // mark beat as granted
         $beat->BeatStatusId = BeatStatus::Applied;
         $beat->AppliedOn = date('Y-m-d H:i:s');
         $beat->BeatsAwarded = $beat->BeatType->NumberOfBeats;
 
-//        $beatRepo->save($beat);
+        $beatRepo->save($beat);
         return true;
     }
 
