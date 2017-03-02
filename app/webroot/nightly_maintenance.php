@@ -8,6 +8,7 @@ use classes\log\data\ActionType;
 include 'cgi-bin/start_of_page.php';
 
 $db = new Database();
+$beatService = new BeatService();
 
 /* start of month tasks */
 if (date('j') == 1) {
@@ -35,8 +36,7 @@ WHERE
 EOQ;
     $db->query($xpLogQuery)->execute(array(ActionType::XPModification));
 
-    $beatService = new BeatService();
-//    $beatService->awardOutstandingBeats();
+    $beatService->awardOutstandingBeats();
 }
 $update_willpower_query = "UPDATE characters SET willpower_temp = willpower_temp + 1 WHERE willpower_temp < willpower_perm;";
 $db->query($update_willpower_query)->execute();

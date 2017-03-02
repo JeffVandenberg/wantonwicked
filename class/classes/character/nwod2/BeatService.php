@@ -42,7 +42,7 @@ class BeatService
         /* @var CharacterBeatRecord $beatRecord */
 
         // check if character is at max award for the month
-        if ($beatRecord->ExperienceEarned < 2) { // todo: move this to a config or something.
+        if ($beatRecord->ExperienceEarned < $this->maxXpPerMonth) {
             // give beat immediately
             return $this->grantBeat($beat, $beatRecord);
         } else {
@@ -151,13 +151,12 @@ class BeatService
 
         // loop through beats to award them
         foreach($beats as $beat) {
-            if($beatRecord->ExperienceEarned >= .2) {
+            if($beatRecord->ExperienceEarned >= $this->maxXpPerMonth) {
+                // stop processing more beats
                 break;
             }
             $this->grantBeat($beat, $beatRecord);
-            var_dump($beat, $beatRecord);
         }
-        echo 'done. XP Awarded: ' . $beatRecord->ExperienceEarned;
     }
 
     public function expireOldBeats()
