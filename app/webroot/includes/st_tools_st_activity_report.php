@@ -86,7 +86,6 @@ ob_start();
         <th>
             Scenes Run (since <?php echo $monthStart; ?>)
         </th>
-        <th></th>
     </tr>
     </thead>
     <?php foreach($users as $user): ?>
@@ -99,9 +98,6 @@ ob_start();
             </td>
             <td>
                 <?php echo $user['number_of_scenes']; ?>
-            </td>
-            <td>
-                Verdict?
             </td>
         </tr>
     <?php endforeach; ?>
