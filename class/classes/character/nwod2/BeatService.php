@@ -151,8 +151,8 @@ class BeatService
 
         // loop through beats to award them
         foreach($beats as $beat) {
-            if($beatRecord->ExperienceEarned >= $this->maxXpPerMonth) {
-                // stop processing more beats
+            if(($beatRecord->ExperienceEarned+.1) >= $this->maxXpPerMonth) { // eww... PHP Math. :/
+                // stop processing more beats6
                 break;
             }
             $this->grantBeat($beat, $beatRecord);
