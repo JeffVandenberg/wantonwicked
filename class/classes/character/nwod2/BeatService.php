@@ -66,7 +66,7 @@ class BeatService
         $sheetService->grantXpToCharacter(
             $beat->CharacterId,
             $beat->BeatType->NumberOfBeats * .2,
-            'XP FRom Beat Claim',
+            'XP From Beat Claim',
             $beat->CreatedById
         );
 
