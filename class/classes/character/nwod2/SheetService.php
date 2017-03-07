@@ -608,8 +608,10 @@ SQL;
 
         $character->CurrentExperience += $xpAmount;
         $character->TotalExperience += $xpAmount;
-        $this->repository->save($character);
 
+        $this->repository->save($character);
+        $logNote .= ('<br />Current XP: ' . $character->CurrentExperience
+            . '<br />Total Experience: ' . $character->TotalExperience);
         CharacterLog::LogAction($characterId, ActionType::XPModification, $logNote, $userId);
         return true;
     }
