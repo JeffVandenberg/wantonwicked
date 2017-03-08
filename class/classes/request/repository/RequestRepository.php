@@ -1084,11 +1084,13 @@ FROM
 WHERE
 	SG.user_id = ?
 	AND R.request_status_id IN (?, ?)
+    AND R.request_type_id != ?
 EOQ;
         $params = array(
             $userId,
             RequestStatus::Submitted,
-            RequestStatus::InProgress
+            RequestStatus::InProgress,
+            RequestType::BlueBook
         );
         return $this->query($sql)->value($params);
     }
