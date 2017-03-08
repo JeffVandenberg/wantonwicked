@@ -141,8 +141,8 @@ $template->assign_vars(array(
         "JAVA_SCRIPT" => $java_script,
         "USER_PANEL" => $user_panel,
         "MENU_BAR" => $menu_bar,
-        "TOP_IMAGE" => $page_content_image,
-        "PAGE_CONTENT" => $page_content
+        "PAGE_CONTENT" => $page_content,
+        "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../../build_number'),
     )
 );
 
