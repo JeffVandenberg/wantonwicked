@@ -61,6 +61,8 @@ if (Request::isPost()) {
                     $requestCharacter->CharacterId = $characterId;
                     $requestCharacter->RequestId = $request->Id;
                     $requestCharacter->IsPrimary = true;
+                    $requestCharacter->Note = '';
+                    $requestCharacter->IsApproved = true;
                     $requestCharacterRepository = RepositoryManager::GetRepository('classes\request\data\RequestCharacter');
                     $requestCharacterRepository->save($requestCharacter);
                 }

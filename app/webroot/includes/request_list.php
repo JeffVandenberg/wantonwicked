@@ -150,7 +150,7 @@ ob_start();
                 <td>
                     <?php echo FormHelper::Hidden('character_id', $characterId); ?>
                     <?php echo FormHelper::Hidden('action', 'list'); ?>
-                    <?php echo FormHelper::Button('page_action', 'Filter Requests'); ?>
+                    <button class="button" name="page_action" value="Filter Requests">Filter Requests</button>
                 </td>
             </tr>
             <?php if (count($requests) > 0): ?>
@@ -176,23 +176,23 @@ ob_start();
                         </td>
                         <td>
                             <a href="/request.php?action=view&request_id=<?php echo $request['id']; ?>">
-                                <img src="/img/rs_view.png" title="View" alt="View"/>
+                                View
                             </a>
                             <a href="/request.php?action=add_note&request_id=<?php echo $request['id']; ?>">
-                                <img src="/img/rs_addnote.png" title="Add Note" alt="Add Note"/>
+                                Add Note
                             </a>
                             <?php if ($request['request_status_id'] == RequestStatus::NewRequest): ?>
                                 <a href="/request.php?action=edit&request_id=<?php echo $request['id']; ?>">
-                                    <img src="/img/rs_edit.png" title="Edit" alt="Edit"/>
+                                    Edit
                                 </a>
                                 <a href="/request.php?action=delete&request_id=<?php echo $request['id']; ?>"
                                    onclick="return confirm('Are you sure you want to delete <?php echo $request['title']; ?>?');">
-                                    <img src="/img/rs_delete.png" Title="Delete" alt="Delete"/>
+                                    Delete
                                 </a>
                             <?php endif; ?>
                             <?php if ($request['request_status_id'] != RequestStatus::Closed): ?>
                                 <a href="/request.php?action=close&request_id=<?php echo $request['id']; ?>">
-                                    <img src="/img/rs_new_close.png" title="Close" alt="Close"/>
+                                    Close
                                 </a>
                             <?php endif; ?>
                         </td>
