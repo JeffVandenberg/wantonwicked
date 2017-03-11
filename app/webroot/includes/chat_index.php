@@ -6,6 +6,7 @@ use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
 use classes\core\repository\RepositoryManager;
 use classes\request\repository\RequestRepository;
+use classes\scene\repository\SceneRepository;
 
 /* @var array $userdata */
 
@@ -17,6 +18,7 @@ if (!UserdataHelper::IsLoggedIn($userdata)) {
 
 $characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
 $requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
+$sceneRepository = new SceneRepository();
 /* @var CharacterRepository $characterRepository */
 /* @var RequestRepository $requestRepository */
 
@@ -27,6 +29,7 @@ if (UserdataHelper::IsAdmin($userdata)) {
 $characters = $characterRepository->listForDashboard($id);
 /* @var Character[] $characters */
 $requests = $requestRepository->listForDashboard($id);
+$sceneSummary = $sceneRepository->findPlayerSceneDashboard($id);
 
 ob_start();
 ?>
