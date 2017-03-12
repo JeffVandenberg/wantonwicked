@@ -104,6 +104,7 @@ GROUP BY
     S.run_on_date,
     SS.name
 ORDER BY
+    S.run_on_date ASC,
     S.name
 LIMIT 5
 EOQ;
