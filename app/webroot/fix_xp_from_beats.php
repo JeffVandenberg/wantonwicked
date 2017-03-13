@@ -19,10 +19,10 @@ $sql = <<<SQL
 SELECT
   character_id,
   c.character_name,
-  count(bt.number_of_beats) * .2 AS beat_xp,
+  sum(bt.number_of_beats) * .2 AS beat_xp,
   c.current_experience,
   c.total_experience,
-  cast((abs(count(bt.number_of_beats) * .2)-floor(abs(count(bt.number_of_beats) * .2)))*10 - (abs(c.current_experience)-floor(abs(c.current_experience)))*10 AS SIGNED) AS xp_off
+  cast((abs(sum(bt.number_of_beats) * .2)-floor(abs(sum(bt.number_of_beats) * .2)))*10 - (abs(c.current_experience)-floor(abs(c.current_experience)))*10 AS SIGNED) AS xp_off
 FROM
   character_beats AS cb
   LEFT JOIN characters AS c ON cb.character_id = c.id
@@ -39,7 +39,7 @@ foreach ($db->query($sql)->all() as $row) {
         if ($xpOff < 0) {
             $xpOff += 1;
         }
-        echo $row['character_name'] . ' needs ' . $xpOff . ' ';
+        echo $row['character_name'] . ' (' . $row['character_id'] . ') needs ' . $xpOff . ' ';
         if (Request::isPost()) {
             $sheetService->grantXpToCharacter($row['character_id'], $xpOff, 'Manually awarding ' . $xpOff . ' to fix XP', 8);
             echo ' - awarded XP ';
