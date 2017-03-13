@@ -5,7 +5,7 @@ use classes\core\repository\Database;
 use classes\log\data\ActionType;
 
 
-include 'cgi-bin/start_of_page.php';
+include __DIR__ . '/../vendor/autoload.php';
 
 $db = new Database();
 $beatService = new BeatService();
