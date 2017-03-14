@@ -15,7 +15,7 @@ class ConditionTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.condition'
+		'app.conditions'
 	);
 
 /**

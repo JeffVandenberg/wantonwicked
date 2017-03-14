@@ -15,7 +15,7 @@ class ConditionTypeTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.condition_type'
+		'app.condition_types'
 	);
 
 /**

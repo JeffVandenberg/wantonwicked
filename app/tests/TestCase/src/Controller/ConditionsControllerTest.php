@@ -14,10 +14,10 @@ class ConditionsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.condition',
-		'app.user',
-		'app.site_permission',
-		'app.permissions_user'
+		'app.conditions',
+		'app.users',
+		'app.site_permissions',
+		'app.permissions_users'
 	);
 
 /**

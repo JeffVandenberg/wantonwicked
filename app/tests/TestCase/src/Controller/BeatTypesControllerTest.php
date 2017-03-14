@@ -14,10 +14,10 @@ class BeatTypesControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.beat_type',
-		'app.user',
-		'app.site_permission',
-		'app.permissions_user'
+		'app.beat_types',
+		'app.users',
+		'app.site_permissions',
+		'app.permissions_users'
 	);
 
 /**

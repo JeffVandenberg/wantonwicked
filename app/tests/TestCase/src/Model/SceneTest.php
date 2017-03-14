@@ -16,12 +16,12 @@ class SceneTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.scene',
-		'app.run_by',
-		'app.created_by',
-		'app.updated_by',
-		'app.scene_character',
-		'app.scene_request'
+		'app.scenes',
+		'app.run_bies',
+		'app.created_bies',
+		'app.updated_bies',
+		'app.scene_characters',
+		'app.scene_requests'
 	);
 
 /**

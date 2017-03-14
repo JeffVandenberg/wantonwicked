@@ -16,7 +16,7 @@ class SceneStatusTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.scene_status'
+		'app.scene_statuses'
 	);
 
 /**

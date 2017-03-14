@@ -16,10 +16,10 @@ class RequestTypeTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.request_type',
-		'app.request',
-		'app.group',
-		'app.groups_request_type'
+		'app.request_types',
+		'app.requests',
+		'app.groups',
+		'app.groups_request_types'
 	);
 
 /**

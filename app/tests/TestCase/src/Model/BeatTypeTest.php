@@ -15,9 +15,9 @@ class BeatTypeTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.beat_type',
-		'app.created_by',
-		'app.updated_by'
+		'app.beat_types',
+		'app.created_bies',
+		'app.updated_bies'
 	);
 
 /**

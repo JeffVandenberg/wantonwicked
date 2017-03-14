@@ -16,11 +16,11 @@ class SceneCharacterTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.scene_character',
-		'app.scene',
-		'app.user',
-		'app.scene_request',
-		'app.character'
+		'app.scene_characters',
+		'app.scenes',
+		'app.users',
+		'app.scene_requests',
+		'app.characters'
 	);
 
 /**

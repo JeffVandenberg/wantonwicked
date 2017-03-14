@@ -16,23 +16,23 @@ class SceneRequestTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.scene_request',
-		'app.scene',
-		'app.user',
-		'app.scene_character',
-		'app.character',
-		'app.request',
-		'app.group',
-		'app.group_type',
-		'app.group_icon',
-		'app.request_type',
-		'app.groups_request_type',
-		'app.request_status',
-		'app.request_bluebook',
-		'app.request_character',
-		'app.request_note',
-		'app.request_roll',
-		'app.request_status_history'
+		'app.scene_requests',
+		'app.scenes',
+		'app.users',
+		'app.scene_characters',
+		'app.characters',
+		'app.requests',
+		'app.groups',
+		'app.group_types',
+		'app.group_icons',
+		'app.request_types',
+		'app.groups_request_types',
+		'app.request_statuses',
+		'app.request_bluebooks',
+		'app.request_characters',
+		'app.request_notes',
+		'app.request_rolls',
+		'app.request_status_histories'
 	);
 
 /**

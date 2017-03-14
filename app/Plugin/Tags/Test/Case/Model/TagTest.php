@@ -33,8 +33,9 @@ class TagTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.tags.tagged',
-		'plugin.tags.tag');
+		'plugin.tags.taggeds',
+		'plugin.tags.tags'
+	);
 
 /**
  * setUp

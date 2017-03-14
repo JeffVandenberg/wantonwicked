@@ -16,12 +16,12 @@ class GroupTypeTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.group_type',
-		'app.group',
-		'app.group_icon',
-		'app.request',
-		'app.request_type',
-		'app.groups_request_type'
+		'app.group_types',
+		'app.groups',
+		'app.group_icons',
+		'app.requests',
+		'app.request_types',
+		'app.groups_request_types'
 	);
 
 /**

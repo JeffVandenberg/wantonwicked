@@ -16,21 +16,21 @@ class RequestTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.request',
-		'app.group',
-		'app.group_type',
-		'app.group_icon',
-		'app.request_type',
-		'app.groups_request_type',
-		'app.character',
-		'app.user',
-		'app.request_status',
-		'app.created_by',
-		'app.request_bluebook',
-		'app.request_character',
-		'app.request_note',
-		'app.request_roll',
-		'app.request_status_history'
+		'app.requests',
+		'app.groups',
+		'app.group_types',
+		'app.group_icons',
+		'app.request_types',
+		'app.groups_request_types',
+		'app.characters',
+		'app.users',
+		'app.request_statuses',
+		'app.created_bies',
+		'app.request_bluebooks',
+		'app.request_characters',
+		'app.request_notes',
+		'app.request_rolls',
+		'app.request_status_histories'
 	);
 
 /**

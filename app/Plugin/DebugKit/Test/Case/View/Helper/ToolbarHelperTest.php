@@ -40,7 +40,9 @@ class ToolbarHelperTestCase extends TestCase {
  *
  * @var array
  */
-	public $fixtures = array('core.post');
+	public $fixtures = array(
+		'core.posts'
+	);
 
 /**
  * setUp

@@ -15,7 +15,7 @@ class RequestTemplatesControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.request_template'
+		'app.request_templates'
 	);
 
 /**

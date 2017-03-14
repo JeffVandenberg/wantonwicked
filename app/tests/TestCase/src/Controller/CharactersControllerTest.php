@@ -15,7 +15,7 @@ class CharactersControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.character'
+		'app.characters'
 	);
 
 /**

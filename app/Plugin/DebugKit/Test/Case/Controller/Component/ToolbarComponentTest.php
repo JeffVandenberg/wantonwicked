@@ -51,7 +51,9 @@ class ToolbarComponentTestCase extends TestCase {
  *
  * @var array
  */
-	public $fixtures = array('core.article');
+	public $fixtures = array(
+		'core.articles'
+	);
 
 /**
  * url for test

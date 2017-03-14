@@ -123,9 +123,9 @@ class TaggableBehaviorTest extends TestCase {
  * @return void
  */
 	public $fixtures = array(
-		'plugin.tags.tagged',
-		'plugin.tags.tag',
-		'plugin.tags.article'
+		'plugin.tags.taggeds',
+		'plugin.tags.tags',
+		'plugin.tags.articles'
 	);
 
 /**

@@ -16,7 +16,7 @@ class RequestTemplateTest extends TestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.request_template'
+		'app.request_templates'
 	);
 
 /**
