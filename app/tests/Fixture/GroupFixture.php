@@ -15,15 +15,13 @@ class GroupFixture extends TestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'group_type_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 3),
-		'is_deleted' => array('type' => 'boolean', 'null' => false, 'default' => null),
-		'created_by' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+		'id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 10],
+		'name' => ['type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'],
+		'group_type_id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 3],
+		'is_deleted' => ['type' => 'boolean', 'null' => false, 'default' => null],
+		'created_by' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 10],
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+		'_options' => ['charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB']
 	);
 
 /**

@@ -15,17 +15,14 @@ class SceneRequestFixture extends TestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'scene_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'index'),
-		'request_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'index'),
-		'note' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'added_on' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'scene_id' => array('column' => 'scene_id', 'unique' => 0),
-			'request_id' => array('column' => 'request_id', 'unique' => 0)
-		),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
+		'id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 10],
+		'scene_id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 10],
+		'request_id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 10],
+		'note' => ['type' => 'text', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'added_on' => ['type' => 'datetime', 'null' => false, 'default' => null],
+		'_indexes' => ['scene_id' => ['unique' => 0, 'columns' => 'scene_id'], 'request_id' => ['unique' => 0, 'columns' => 'request_id']],
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+		'_options' => ['charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB']
 	);
 
 /**

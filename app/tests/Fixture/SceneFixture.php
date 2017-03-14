@@ -15,22 +15,20 @@ class SceneFixture extends TestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'summary' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'run_by_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'key' => 'index'),
-		'run_on_date' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'description' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'is_closed' => array('type' => 'boolean', 'null' => true, 'default' => null),
-		'created_by_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
-		'created_on' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'updated_by_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10),
-		'updated_on' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'run_by_id' => array('column' => 'run_by_id', 'unique' => 0)
-		),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
+		'id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 10],
+		'name' => ['type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'summary' => ['type' => 'string', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'run_by_id' => ['type' => 'integer', 'null' => true, 'default' => null, 'length' => 10],
+		'run_on_date' => ['type' => 'datetime', 'null' => true, 'default' => null],
+		'description' => ['type' => 'text', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'is_closed' => ['type' => 'boolean', 'null' => true, 'default' => null],
+		'created_by_id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 10],
+		'created_on' => ['type' => 'datetime', 'null' => true, 'default' => null],
+		'updated_by_id' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 10],
+		'updated_on' => ['type' => 'datetime', 'null' => true, 'default' => null],
+		'_indexes' => ['run_by_id' => ['unique' => 0, 'columns' => 'run_by_id']],
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+		'_options' => ['charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB']
 	);
 
 /**

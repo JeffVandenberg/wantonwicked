@@ -14,18 +14,16 @@ class BeatTypeFixture extends TestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 200, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'number_of_beats' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 6, 'unsigned' => false),
-		'admin_only' => array('type' => 'boolean', 'null' => false, 'default' => null),
-		'created_by_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'updated_by_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'updated' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
+		'id' => ['type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false],
+		'name' => ['type' => 'string', 'null' => false, 'default' => null, 'length' => 200, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'number_of_beats' => ['type' => 'integer', 'null' => false, 'default' => null, 'length' => 6, 'unsigned' => false],
+		'admin_only' => ['type' => 'boolean', 'null' => false, 'default' => null],
+		'created_by_id' => ['type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false],
+		'created' => ['type' => 'datetime', 'null' => false, 'default' => null],
+		'updated_by_id' => ['type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false],
+		'updated' => ['type' => 'datetime', 'null' => true, 'default' => null],
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+		'_options' => ['charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB']
 	);
 
 /**

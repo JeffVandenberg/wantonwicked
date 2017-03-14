@@ -14,21 +14,19 @@ class ConditionFixture extends TestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'source' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'is_persistent' => array('type' => 'boolean', 'null' => false, 'default' => null),
-		'description' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'resolution' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'beat' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'created_by' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'updated_by' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'updated' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
+		'id' => ['type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false],
+		'name' => ['type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'source' => ['type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'is_persistent' => ['type' => 'boolean', 'null' => false, 'default' => null],
+		'description' => ['type' => 'text', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'resolution' => ['type' => 'string', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'beat' => ['type' => 'string', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'],
+		'created_by' => ['type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false],
+		'created' => ['type' => 'datetime', 'null' => false, 'default' => null],
+		'updated_by' => ['type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false],
+		'updated' => ['type' => 'datetime', 'null' => false, 'default' => null],
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+		'_options' => ['charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB']
 	);
 
 /**
