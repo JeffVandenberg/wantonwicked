@@ -9,6 +9,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+use Cake\TestSuite\TestCase;
 use Tags\Model\Tag;
 
 /**
@@ -99,7 +100,7 @@ class TagTest extends TestCase {
 		$this->assertTrue(is_array($result));
 		$this->assertEquals($result['Tag']['keyname'], 'cakephp');
 
-		$this->expectException('CakeException');
+		$this->expectException('\Exception');
 		$this->Tag->view('invalid-key!!!');
 	}
 
@@ -169,7 +170,7 @@ class TagTest extends TestCase {
 		);
 		$this->assertEquals($this->Tag->edit('tag-1', $data), $data);
 
-		$this->expectException('CakeException');
+		$this->expectException('\Exception');
 		$this->assertTrue($this->Tag->edit('invalid-id', array()));
 	}
 }

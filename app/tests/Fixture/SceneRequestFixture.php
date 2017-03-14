@@ -7,7 +7,7 @@
 use Cake\TestSuite\Fixture\TestFixture;
 
 
-class SceneRequestFixture extends CakeTestFixture {
+class SceneRequestFixture extends TestFixture {
 
 /**
  * Fields

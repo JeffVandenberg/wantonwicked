@@ -6,7 +6,7 @@
 use Cake\TestSuite\Fixture\TestFixture;
 
 
-class BeatTypeFixture extends CakeTestFixture {
+class BeatTypeFixture extends TestFixture {
 
 /**
  * Fields

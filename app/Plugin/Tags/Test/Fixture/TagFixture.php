@@ -8,6 +8,7 @@
  * @copyright Copyright 2009-2014, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+use Cake\TestSuite\Fixture\TestFixture;
 
 /**
  * TagFixture
@@ -15,7 +16,7 @@
  * @package tags
  * @subpackage tags.tests.fixtures
  */
-class TagFixture extends CakeTestFixture {
+class TagFixture extends TestFixture {
 
 /**
  * Table

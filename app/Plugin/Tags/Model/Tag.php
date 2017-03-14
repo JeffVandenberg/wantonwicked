@@ -68,7 +68,7 @@ class Tag extends TagsAppModel {
  * Returns the data for a single tag
  *
  * @param string $keyName Tag key name
- * @throws CakeException
+ * @throws \Exception
  * @return array
  */
 	public function view($keyName = null) {
@@ -79,7 +79,7 @@ class Tag extends TagsAppModel {
 		));
 
 		if (empty($result)) {
-			throw new CakeException(__d('tags', 'Invalid Tag.'));
+			throw new \Exception(__d('tags', 'Invalid Tag.'));
 		}
 		return $result;
 	}
@@ -109,7 +109,7 @@ class Tag extends TagsAppModel {
  *
  * @param string $tagId Tag UUID
  * @param array $postData Controller post data usually $this->request->data
- * @throws CakeException
+ * @throws \Exception
  * @return mixed True on successfully save else post data as array
  */
 	public function edit($tagId = null, $postData = null) {
@@ -122,7 +122,7 @@ class Tag extends TagsAppModel {
 
 		$this->set($tag);
 		if (empty($tag)) {
-			throw new CakeException(__d('tags', 'Invalid Tag.'));
+			throw new \Exception(__d('tags', 'Invalid Tag.'));
 		}
 
 		if (!empty($postData[$this->alias]['name'])) {

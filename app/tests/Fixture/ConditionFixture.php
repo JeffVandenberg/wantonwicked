@@ -6,7 +6,7 @@
 use Cake\TestSuite\Fixture\TestFixture;
 
 
-class ConditionFixture extends CakeTestFixture {
+class ConditionFixture extends TestFixture {
 
 /**
  * Fields
