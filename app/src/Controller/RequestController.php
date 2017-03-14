@@ -18,9 +18,9 @@ class RequestController extends AppController
         'Permissions'
     );
 
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
-        parent::beforeFilter();
+        parent::beforeFilter($event);
     }
 
     public function admin_index()

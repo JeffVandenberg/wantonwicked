@@ -13,14 +13,14 @@ use App\Controller\AppController;
  */
 class PlayPreferencesController extends AppController
 {
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
-        parent::beforeFilter();
+        parent::beforeFilter($event);
     }
 
-    public function beforeRender()
+    public function beforeRender(Event $event)
     {
-        parent::beforeRender();
+        parent::beforeRender($event);
         $this->set('isHead', $this->Permissions->IsHead());
     }
 

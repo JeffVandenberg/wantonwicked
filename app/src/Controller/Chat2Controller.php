@@ -13,9 +13,9 @@ use App\Controller\AppController;
 
 class Chat2Controller extends AppController
 {
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
-        parent::beforeFilter();
+        parent::beforeFilter($event);
     }
 
     public function login_st()

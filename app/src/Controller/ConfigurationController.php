@@ -13,9 +13,9 @@ use App\Controller\AppController;
 
 
 class ConfigurationController extends AppController {
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
-        parent::beforeFilter();
+        parent::beforeFilter($event);
         $this->Auth->deny();
     }
 

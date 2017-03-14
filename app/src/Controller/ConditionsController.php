@@ -23,9 +23,9 @@ class ConditionsController extends AppController
      */
     public $components = array('Paginator', 'Session', 'Flash');
 
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
-        parent::beforeFilter();
+        parent::beforeFilter($event);
         $this->set('mayEdit', $this->Permissions->CheckSitePermission(
             $this->Auth->user('user_id'),
             SitePermission::$ManageDatabase

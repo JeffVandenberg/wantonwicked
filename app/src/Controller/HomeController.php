@@ -17,8 +17,8 @@ class HomeController extends AppController
         'Config'
     );
 
-    public function beforeFilter() {
-        parent::beforeFilter();
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
         $this->Auth->allow();
     }
 

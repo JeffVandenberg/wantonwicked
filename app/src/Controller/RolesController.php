@@ -20,8 +20,8 @@ class RolesController extends AppController
      */
     public $components = array('Paginator');
 
-    public function beforeFilter() {
-        parent::beforeFilter();
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
         $this->Auth->allow(array(
             'index',
             'view'

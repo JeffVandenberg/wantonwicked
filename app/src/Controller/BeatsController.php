@@ -14,9 +14,9 @@ use App\Controller\AppController;
  */
 class BeatsController extends AppController
 {
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
-        parent::beforeFilter();
+        parent::beforeFilter($event);
         $this->Auth->allow(
             [
             ]);

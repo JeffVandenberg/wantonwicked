@@ -58,7 +58,7 @@ class AppController extends Controller {
         ]
     );
 
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
         $this->Auth->authenticate = array('Phpbb');
         $this->Auth->authorize = array('Controller');
@@ -80,8 +80,8 @@ class AppController extends Controller {
         $this->Auth->deny();
     }
 
-    public function beforeRender() {
-        parent::beforeRender();
+    public function beforeRender(Event $event) {
+        parent::beforeRender($event);
         $this->layout = ($this->request->is("ajax")) ? "ajax" : "default";
         $this->set('menu', $this->Menu->GetMenu());
         $this->set('serverTime', (microtime(true) + date('Z'))*1000);

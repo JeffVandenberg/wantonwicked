@@ -35,9 +35,9 @@ class CharactersController extends AppController
         'Flash'
     ];
 
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
-        parent::beforeFilter();
+        parent::beforeFilter($event);
         $this->Auth->allow(
             array(
                 'city',

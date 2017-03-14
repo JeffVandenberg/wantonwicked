@@ -32,15 +32,15 @@ class ScenesController extends AppController
         ]
     ];
 
-    public function beforeFilter()
+    public function beforeFilter(Event $event)
     {
-        parent::beforeFilter();
+        parent::beforeFilter($event);
         $this->Auth->allow(['index', 'view', 'tag']);
     }
 
-    public function beforeRender()
+    public function beforeRender(Event $event)
     {
-        parent::beforeRender();
+        parent::beforeRender($event);
         $this->set('mayAdd', $this->Auth->user('id') != 1);
     }
 
