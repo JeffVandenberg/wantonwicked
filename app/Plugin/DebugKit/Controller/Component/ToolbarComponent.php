@@ -444,7 +444,7 @@ class ToolbarComponent extends Component implements EventListener {
 
 			/* TODO: App::uses($className, $plugin . 'Panel'); */
 			if (!class_exists($className)) {
-				trigger_error(__d('debug_kit', 'Could not load DebugToolbar panel %s', $panel), E_USER_WARNING);
+				trigger_error(__d('debug_kit', 'Could not load DebugToolbar panel {0}', $panel), E_USER_WARNING);
 				continue;
 			}
 			$panelObj = new $className($settings);

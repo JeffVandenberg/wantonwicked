@@ -14,7 +14,7 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $requestTemplate['RequestTemplate']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $requestTemplate['RequestTemplate']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $requestTemplate['RequestTemplate']['id']), null, __('Are you sure you want to delete # %s?', $requestTemplate['RequestTemplate']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $requestTemplate['RequestTemplate']['id']), null, __('Are you sure you want to delete # {0}?', $requestTemplate['RequestTemplate']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

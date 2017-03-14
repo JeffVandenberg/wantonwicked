@@ -26,7 +26,7 @@ $this->set('menu', $menu);
                         array('action' => 'edit', $playPreference['PlayPreference']['id'])); ?>
                     <?php echo $this->Form->postLink(__('Delete'),
                         array('action' => 'delete', $playPreference['PlayPreference']['id']), null,
-                        __('Are you sure you want to delete # %s?', $playPreference['PlayPreference']['id'])); ?>
+                        __('Are you sure you want to delete # {0}?', $playPreference['PlayPreference']['id'])); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

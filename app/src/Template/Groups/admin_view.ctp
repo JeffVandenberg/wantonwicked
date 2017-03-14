@@ -45,7 +45,7 @@
                                                      array('controller' => 'request_types', 'action' => 'edit', $requestType['id'])); ?>
                         <?php echo $this->Form->postLink(__('Delete'),
                                                          array('controller' => 'request_types', 'action' => 'delete', $requestType['id']),
-                                                         null, __('Are you sure you want to delete # %s?',
+                                                         null, __('Are you sure you want to delete # {0}?',
                                                                   $requestType['id'])); ?>
                     </td>
                 </tr>

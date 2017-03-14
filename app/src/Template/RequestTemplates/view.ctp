@@ -27,7 +27,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit Request Template'), array('action' => 'edit', $requestTemplate['RequestTemplate']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Request Template'), array('action' => 'delete', $requestTemplate['RequestTemplate']['id']), null, __('Are you sure you want to delete # %s?', $requestTemplate['RequestTemplate']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete Request Template'), array('action' => 'delete', $requestTemplate['RequestTemplate']['id']), null, __('Are you sure you want to delete # {0}?', $requestTemplate['RequestTemplate']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Request Templates'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Request Template'), array('action' => 'add')); ?> </li>
 	</ul>

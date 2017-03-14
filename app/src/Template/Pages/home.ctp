@@ -13,7 +13,7 @@ endif;
 
 App::uses('Debugger', 'Utility');
 ?>
-<h2><?php echo __d('cake_dev', 'Release Notes for CakePHP %s.', Configure::version()); ?></h2>
+<h2><?php echo __d('cake_dev', 'Release Notes for CakePHP {0}.', Configure::version()); ?></h2>
 <p>
 	<a href="http://cakephp.org/changelogs/<?php echo Configure::version(); ?>"><?php echo __d('cake_dev', 'Read the changelog'); ?> </a>
 </p>
@@ -64,11 +64,11 @@ endif;
 		$settings = Cache::settings();
 		if (!empty($settings)):
 			echo '<span class="notice success">';
-				echo __d('cake_dev', 'The %s is being used for core caching. To change the config edit %s', '<em>'. $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
+				echo __d('cake_dev', 'The {0} is being used for core caching. To change the config edit {1}', '<em>'. $settings['engine'] . 'Engine</em>', 'APP/Config/core.php');
 			echo '</span>';
 		else:
 			echo '<span class="notice">';
-				echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in %s', 'APP/Config/core.php');
+				echo __d('cake_dev', 'Your cache is NOT working. Please check the settings in {0}', 'APP/Config/core.php');
 			echo '</span>';
 		endif;
 	?>
@@ -85,7 +85,7 @@ endif;
 			echo '<span class="notice">';
 				echo __d('cake_dev', 'Your database configuration file is NOT present.');
 				echo '<br/>';
-				echo __d('cake_dev', 'Rename %s to %s', 'APP/Config/database.php.default', 'APP/Config/database.php');
+				echo __d('cake_dev', 'Rename {0} to {1}', 'APP/Config/database.php.default', 'APP/Config/database.php');
 			echo '</span>';
 		endif;
 	?>
@@ -143,7 +143,7 @@ if (isset($filePresent)):
 			echo '<span class="notice">';
 				echo __d('cake_dev', 'DebugKit is not installed. It will help you inspect and debug different aspects of your application.');
 				echo '<br/>';
-				echo __d('cake_dev', 'You can install it from %s', $this->Html->link('GitHub', 'https://github.com/cakephp/debug_kit'));
+				echo __d('cake_dev', 'You can install it from {0}', $this->Html->link('GitHub', 'https://github.com/cakephp/debug_kit'));
 			echo '</span>';
 		endif;
 	?>

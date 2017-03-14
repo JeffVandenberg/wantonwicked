@@ -46,6 +46,6 @@
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(sprintf(__d('tags', 'List %s'), __d('tags', 'Tags')), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(sprintf(__d('tags', 'List {0}'), __d('tags', 'Tags')), array('action' => 'index')); ?> </li>
 	</ul>
 </div>

@@ -43,7 +43,7 @@ $this->set('menu', $menu);
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $beatType['BeatType']['id'])); ?>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $beatType['BeatType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $beatType['BeatType']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $beatType['BeatType']['id']))); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $beatType['BeatType']['id']), array('confirm' => __('Are you sure you want to delete # {0}?', $beatType['BeatType']['id']))); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

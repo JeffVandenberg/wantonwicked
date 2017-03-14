@@ -18,7 +18,7 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Form->postLink(__('Delete Request Type'), array('action' => 'delete', $requestType['RequestType']['id']), null, __('Are you sure you want to delete # %s?', $requestType['RequestType']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete Request Type'), array('action' => 'delete', $requestType['RequestType']['id']), null, __('Are you sure you want to delete # {0}?', $requestType['RequestType']['id'])); ?> </li>
 	</ul>
 </div>
 
@@ -44,7 +44,7 @@
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'groups', 'action' => 'view', $group['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'groups', 'action' => 'edit', $group['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'groups', 'action' => 'delete', $group['id']), null, __('Are you sure you want to delete # %s?', $group['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'groups', 'action' => 'delete', $group['id']), null, __('Are you sure you want to delete # {0}?', $group['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

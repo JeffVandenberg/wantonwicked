@@ -22,7 +22,7 @@ $this->set('menu', $menu);
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $role['Role']['id'])); ?>
                     <?php if ($mayEdit): ?>
                         <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $role['Role']['id'])); ?>
-                        <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete # %s?', $role['Role']['id'])); ?>
+                        <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete # {0}?', $role['Role']['id'])); ?>
                     <?php endif; ?>
                 </td>
             </tr>

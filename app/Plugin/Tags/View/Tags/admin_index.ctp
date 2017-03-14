@@ -70,6 +70,6 @@ foreach ($tags as $tag):
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(sprintf(__d('tags', 'New %s'), __d('tags', 'Tag')), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(sprintf(__d('tags', 'New {0}'), __d('tags', 'Tag')), array('action' => 'add')); ?></li>
 	</ul>
 </div>

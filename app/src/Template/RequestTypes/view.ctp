@@ -17,7 +17,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit Request Type'), array('action' => 'edit', $requestType['RequestType']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Request Type'), array('action' => 'delete', $requestType['RequestType']['id']), null, __('Are you sure you want to delete # %s?', $requestType['RequestType']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete Request Type'), array('action' => 'delete', $requestType['RequestType']['id']), null, __('Are you sure you want to delete # {0}?', $requestType['RequestType']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Request Types'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Request Type'), array('action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Requests'), array('controller' => 'requests', 'action' => 'index')); ?> </li>
@@ -60,7 +60,7 @@
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'requests', 'action' => 'view', $request['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'requests', 'action' => 'edit', $request['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'requests', 'action' => 'delete', $request['id']), null, __('Are you sure you want to delete # %s?', $request['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'requests', 'action' => 'delete', $request['id']), null, __('Are you sure you want to delete # {0}?', $request['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -95,7 +95,7 @@
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'groups', 'action' => 'view', $group['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'groups', 'action' => 'edit', $group['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'groups', 'action' => 'delete', $group['id']), null, __('Are you sure you want to delete # %s?', $group['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'groups', 'action' => 'delete', $group['id']), null, __('Are you sure you want to delete # {0}?', $group['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

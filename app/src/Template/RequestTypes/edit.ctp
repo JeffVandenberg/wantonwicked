@@ -14,7 +14,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('RequestType.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('RequestType.id'))); ?></li>
+		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('RequestType.id')), null, __('Are you sure you want to delete # {0}?', $this->Form->value('RequestType.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('List Request Types'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Requests'), array('controller' => 'requests', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Request'), array('controller' => 'requests', 'action' => 'add')); ?> </li>
