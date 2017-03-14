@@ -113,9 +113,26 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes'));
     }
 
+    public function admin_xpEdit()
+    {
+        if ($this->request->is('post')) {
+            $sheetService = new SheetService();
+            $sheetService->grantXpToCharacter(
+                $this->request->data['character_id'],
+                $this->request->data['xp_amount'],
+                'Admin XP Override. Amount: ' . $this->request->data['xp_amount'] .
+                ' Note: ' . $this->request->data['xp_note'],
+                $this->Auth->user('user_id')
+            );
+            $this->Flash->set('Updated XP for Character');
+        }
+    }
+
     public function isAuthorized()
     {
         switch ($this->request->params['action']) {
+            case 'admin_xpEdit':
+                return $this->Permissions->IsAdmin();
             case 'admin_goals':
             case 'stView':
             case 'stBeats':
@@ -344,7 +361,7 @@ class CharactersController extends AppController
             $this->redirect('/chat.php');
         }
 
-        if(!$this->Permissions->MayEditCharacter($character->Id)) {
+        if (!$this->Permissions->MayEditCharacter($character->Id)) {
             CharacterLog::LogAction($character->Id, ActionType::InvalidAccess, 'Attempted Access to Beats', $this->Auth->user('user_id'));
             $this->Flash->set('Unable to view that character');
             $this->redirect('/');
@@ -385,7 +402,7 @@ class CharactersController extends AppController
         }
 
         $pastBeats = $beatService->listPastBeatsForCharacter($character->Id);
-        if($isSt) {
+        if ($isSt) {
             $submenu = $this->Menu->createStorytellerMenu();
         } else {
             $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName);
@@ -407,7 +424,7 @@ class CharactersController extends AppController
             $beat->BeatStatusId = BeatStatus::StaffAwarded;
             $beat->BeatsAwarded = 0;
 
-            if($beatService->addNewBeat($beat)) {
+            if ($beatService->addNewBeat($beat)) {
                 $this->Flash->set('Granted beat');
                 $this->redirect('/characters/stBeats');
             } else {

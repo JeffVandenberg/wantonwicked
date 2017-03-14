@@ -32,7 +32,7 @@ $this->set('title_for_layout', 'Beats for ' . $character->CharacterName);
             </label>
         </div>
         <div class="small-12 column text-center">
-            <button type="submit" value="save" class="button">Save Beat</button>
+            <button type="submit" value="save" class="button" id="save-beat-button">Save Beat</button>
         </div>
     </div>
 </form>
@@ -101,6 +101,9 @@ $this->set('title_for_layout', 'Beats for ' . $character->CharacterName);
 </div>
 <script>
     $(function () {
+        $("form").submit(function() {
+            $("#save-beat-button").attr('disabled', true);
+        });
         $(".beat-detail").click(function () {
             var $modal = $("#detail-modal");
 

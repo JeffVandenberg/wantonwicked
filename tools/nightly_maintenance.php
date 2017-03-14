@@ -1,17 +1,19 @@
 <?php
+use classes\character\nwod2\BeatService;
 use classes\character\repository\CharacterRepository;
 use classes\core\repository\Database;
 use classes\log\data\ActionType;
-use classes\support\SupportManager;
 
 
-
-include 'cgi-bin/start_of_page.php';
+include __DIR__ . '/../vendor/autoload.php';
 
 $db = new Database();
+$beatService = new BeatService();
 
+/* start of month tasks */
 if (date('j') == 1) {
-    $update_experience_query = "update characters set current_experience = current_experience + 2, total_experience = total_experience + 2, bonus_received = 0 where is_sanctioned='Y';";
+    // bulk award 2 xp
+    $update_experience_query = "UPDATE characters SET current_experience = current_experience + 2, total_experience = total_experience + 2, bonus_received = 0 WHERE is_sanctioned='Y';";
     $db->query($update_experience_query)->execute();
     $xpLogQuery = <<<EOQ
 INSERT INTO
@@ -33,8 +35,10 @@ WHERE
     is_sanctioned = 'Y'
 EOQ;
     $db->query($xpLogQuery)->execute(array(ActionType::XPModification));
+
+    $beatService->awardOutstandingBeats();
 }
-$update_willpower_query = "update characters set willpower_temp = willpower_temp + 1 where willpower_temp < willpower_perm;";
+$update_willpower_query = "UPDATE characters SET willpower_temp = willpower_temp + 1 WHERE willpower_temp < willpower_perm;";
 $db->query($update_willpower_query)->execute();
 
 // unsanction characters more than 1 month inactive
@@ -44,7 +48,7 @@ $characterRepository = new CharacterRepository();
 //$desancedCharacters = $characterRepository->UnsanctionInactiveCharacters($month_ago);
 $desancedCharacters = 0;
 
-$now     = date("Y-m-d H:i:s");
+$now = date("Y-m-d H:i:s");
 $message = <<<EOQ
 maintence completed on: $now
 Desanctioned Characters: $desancedCharacters

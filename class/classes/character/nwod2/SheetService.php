@@ -264,7 +264,7 @@ class SheetService
         if ($oldCharacter->Id) {
             // log xp change
             if ($stats['xp_spent'] > 0) {
-                CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
+                CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_spent'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
             }
             if ($stats['xp_gained'] > 0) {
                 CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Added ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
@@ -608,8 +608,10 @@ SQL;
 
         $character->CurrentExperience += $xpAmount;
         $character->TotalExperience += $xpAmount;
-        $this->repository->save($character);
 
+        $this->repository->save($character);
+        $logNote .= ('<br />Current XP: ' . $character->CurrentExperience
+            . '<br />Total Experience: ' . $character->TotalExperience);
         CharacterLog::LogAction($characterId, ActionType::XPModification, $logNote, $userId);
         return true;
     }

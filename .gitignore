@@ -33,3 +33,5 @@ Thumbs.db
 /app/webroot/chat/includes/db.php
 app/webroot/forum
 build_number
+node_modules
+**/.sass-cache

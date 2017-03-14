@@ -61,7 +61,7 @@ $this->set('menu', $menu);
     <tfoot>
     <tr>
         <td colspan="2" style="text-align: center;">
-            <?php echo $this->Form->submit('Update'); ?>
+            <button class="button" type="submit" value="Update">Update</button>
         </td>
     </tr>
     </tfoot>
@@ -71,12 +71,6 @@ $this->set('menu', $menu);
 <script>
     $(function () {
         $('button.explanation')
-            .button({
-                icons: {
-                    primary: 'ui-icon-help'
-                },
-                text: false
-            })
             .click(function () {
                 $(this).next('div').toggle();
                 return false;

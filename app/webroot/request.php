@@ -237,6 +237,7 @@ $template->assign_vars(array(
         "CONTENT_HEADER" => $contentHeader,
         "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
         "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
+        "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../../build_number'),
     )
 );
 

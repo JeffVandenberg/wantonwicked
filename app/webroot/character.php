@@ -70,6 +70,7 @@ $template->assign_vars(array(
         "PAGE_CONTENT" => $page_content,
         "CONTENT_HEADER" => $contentHeader,
         "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
+        "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../../build_number'),
     )
 );
 

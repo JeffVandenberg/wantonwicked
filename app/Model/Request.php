@@ -262,6 +262,7 @@ FROM
 WHERE
 	SG.user_id = $userId
 	AND R.request_status_id IN (2,6)
+    AND R.request_type_id != 4
 EOQ;
 		$total = $this->query($sql);
 		return $total[0][0]['total'];
