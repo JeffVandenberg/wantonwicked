@@ -5,7 +5,9 @@
  * Date: 5/26/13
  * Time: 10:37 AM
  * To change this template use File | Settings | File Templates.
- */
+ */namespace app\Controller\Component;
+
+
 
 App::uses('Component', 'Controller');
 

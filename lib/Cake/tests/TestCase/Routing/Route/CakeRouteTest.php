@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.Routing.Route
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Routing\Route;
+
+
 
 App::uses('CakeRoute', 'Routing/Route');
 App::uses('Router', 'Routing');

@@ -17,6 +17,8 @@
  * @since         CakePHP(tm) v 1.2.0.5331
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+namespace lib\Cake\Test\Fixture;
+
 
 /**
  * Flag Tree Test Fixture

@@ -1,7 +1,9 @@
 <?php
 /**
  * BeatType Fixture
- */
+ */namespace app\Test\Fixture;
+
+
 class BeatTypeFixture extends CakeTestFixture {
 
 /**

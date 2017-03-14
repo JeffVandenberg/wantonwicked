@@ -5,6 +5,8 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @since         CakePHP(tm) v 2.0
  */
+namespace lib\Cake\bin\Templates\skel\bin\Command;
+
 
 App::uses('Shell', 'Console');
 

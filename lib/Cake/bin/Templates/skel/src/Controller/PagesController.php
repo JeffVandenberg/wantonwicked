@@ -7,7 +7,9 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       app.Controller
  * @since         CakePHP(tm) v 0.2.9
- */
+ */namespace lib\Cake\bin\Templates\skel\Controller;
+
+
 
 App::uses('AppController', 'Controller');
 

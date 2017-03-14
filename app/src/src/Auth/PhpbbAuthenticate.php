@@ -4,7 +4,9 @@
  * User: jvandenberg
  * Date: 12/27/13
  * Time: 3:18 PM
- */
+ */namespace app\Auth;
+
+
 
 App::uses('BaseAuthenticate', 'Controller/Component/Auth');
 

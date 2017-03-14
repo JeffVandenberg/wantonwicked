@@ -12,7 +12,9 @@
  * @package       Cake.Routing.Route
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Routing\Route;
+
+
 
 App::uses('CakeResponse', 'Network');
 App::uses('CakeRoute', 'Routing/Route');

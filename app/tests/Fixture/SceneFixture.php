@@ -2,7 +2,9 @@
 /**
  * SceneFixture
  *
- */
+ */namespace app\Test\Fixture;
+
+
 class SceneFixture extends CakeTestFixture {
 
 /**

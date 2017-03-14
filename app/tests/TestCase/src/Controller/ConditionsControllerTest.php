@@ -1,4 +1,6 @@
 <?php
+namespace app\Test\TestCase\Controller;
+
 App::uses('ConditionsController', 'Controller');
 
 /**

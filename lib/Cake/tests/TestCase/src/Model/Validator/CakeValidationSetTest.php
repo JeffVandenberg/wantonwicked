@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.Model.Validator
  * @since         CakePHP(tm) v 2.2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Model\Validator;
+
+
 
 App::uses('CakeValidationSet', 'Model/Validator');
 

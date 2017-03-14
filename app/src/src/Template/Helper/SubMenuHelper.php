@@ -6,7 +6,9 @@
  * Date: 12/27/13
  * Time: 1:51 PM
  * @property HtmlHelper Html
- */
+ */namespace app\Template\Helper;
+
+
 
 class SubMenuHelper extends AppHelper
 {

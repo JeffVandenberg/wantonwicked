@@ -14,7 +14,9 @@
  * @package       Cake.Test.TestApp.Model
  * @since         CakePHP v 1.2.0.7726
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\test_app\Model;
+
+
 
 /**
  * Post

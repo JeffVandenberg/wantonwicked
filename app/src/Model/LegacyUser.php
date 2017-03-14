@@ -4,7 +4,9 @@
  * User: jvandenberg
  * Date: 12/27/13
  * Time: 4:00 PM
- */
+ */namespace app\Model;
+
+
 App::uses('AppModel', 'Model');
 
 class LegacyUser extends AppModel

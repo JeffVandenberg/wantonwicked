@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.Console.Command
  * @since         CakePHP v 1.2.0.7726
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\bin\Command;
+
+
 
 App::uses('ConsoleOutput', 'Console');
 App::uses('ConsoleInput', 'Console');

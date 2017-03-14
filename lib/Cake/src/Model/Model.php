@@ -16,7 +16,9 @@
  * @package       Cake.Model
  * @since         CakePHP(tm) v 0.10.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Model;
+
+
 
 App::uses('ClassRegistry', 'Utility');
 App::uses('Validation', 'Utility');

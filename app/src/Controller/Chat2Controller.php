@@ -6,7 +6,9 @@
  * Date: 12/20/2015
  * Time: 12:08 AM
  * @property PermissionsComponent Permissions
- */
+ */namespace app\Controller;
+
+
 class Chat2Controller extends AppController
 {
     public function beforeFilter()

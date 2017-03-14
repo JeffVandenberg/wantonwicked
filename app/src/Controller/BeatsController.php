@@ -1,5 +1,7 @@
 <?php
 
+namespace app\Controller;
+
 use classes\character\data\CharacterBeat;
 use classes\character\nwod2\BeatService;
 

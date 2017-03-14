@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.Network.Http
  * @since         CakePHP(tm) v 2.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Network\Http;
+
+
 
 App::uses('HttpSocket', 'Network/Http');
 App::uses('DigestAuthentication', 'Network/Http');

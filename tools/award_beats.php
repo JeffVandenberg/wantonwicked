@@ -4,7 +4,9 @@
  * User: JeffVandenberg
  * Date: 3/12/2017
  * Time: 10:17 PM
- */
+ */namespace tools;
+
+
 
 use classes\character\nwod2\BeatService;
 

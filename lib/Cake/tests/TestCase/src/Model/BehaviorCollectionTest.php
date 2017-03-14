@@ -16,7 +16,9 @@
  * @package       Cake.Test.Case.Model
  * @since         1.2
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Model;
+
+
 
 App::uses('AppModel', 'Model');
 

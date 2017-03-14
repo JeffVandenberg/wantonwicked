@@ -1,4 +1,6 @@
 <?php
+namespace lib\Cake\Test\test_app\config;
+
 $config = array(
 	'Read' => 'value2',
 	'Deep' => array(

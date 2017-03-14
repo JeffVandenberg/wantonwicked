@@ -12,7 +12,9 @@
  * @package       Cake.Test.Case.Controller.Component.Auth
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Auth;
+
+
 
 App::uses('AuthComponent', 'Controller/Component');
 App::uses('FormAuthenticate', 'Controller/Component/Auth');

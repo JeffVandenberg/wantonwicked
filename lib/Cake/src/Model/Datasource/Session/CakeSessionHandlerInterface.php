@@ -12,7 +12,9 @@
  * @package       Cake.Model.Datasource
  * @since         CakePHP(tm) v 2.1
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Model\Datasource\Session;
+
+
 
 /**
  * Interface for Session handlers. Custom session handler classes should implement

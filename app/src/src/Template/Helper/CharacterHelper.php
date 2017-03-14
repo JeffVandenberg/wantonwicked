@@ -1,4 +1,6 @@
 <?php
+namespace app\Template\Helper;
+
 use classes\character\data\Character;
 use classes\character\data\CharacterPower;
 

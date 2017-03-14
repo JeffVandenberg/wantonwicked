@@ -8,6 +8,8 @@
  * @package       app.Config
  * @since         CakePHP(tm) v 2.1
  */
+namespace lib\Cake\bin\Templates\skel\config;
+
 
 /**
  * Example

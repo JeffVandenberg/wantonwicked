@@ -2,7 +2,9 @@
 /**
  * GroupFixture
  *
- */
+ */namespace app\Test\Fixture;
+
+
 class GroupFixture extends CakeTestFixture {
 
 /**

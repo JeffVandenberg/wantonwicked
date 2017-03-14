@@ -4,6 +4,8 @@
  *
  * @package       Cake.Test.Fixture
  */
+namespace lib\Cake\Test\Fixture;
+
 class FixturizedTestCase extends CakeTestCase {
 
 /**

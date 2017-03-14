@@ -16,7 +16,9 @@
  * @package       Cake.Model.Behavior
  * @since         CakePHP v 1.2.0.4487
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Model\Behavior;
+
+
 
 App::uses('ModelBehavior', 'Model');
 App::uses('AclNode', 'Model');

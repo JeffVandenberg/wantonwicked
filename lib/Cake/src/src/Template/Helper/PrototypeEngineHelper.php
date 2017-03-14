@@ -17,7 +17,9 @@
  * @package       Cake.View.Helper
  * @since         CakePHP(tm) v 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Template\Helper;
+
+
 
 App::uses('JsBaseEngineHelper', 'View/Helper');
 

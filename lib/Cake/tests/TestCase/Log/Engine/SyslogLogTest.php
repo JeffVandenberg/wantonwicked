@@ -12,7 +12,9 @@
  * @package       Cake.Test.Case.Log.Engine
  * @since         CakePHP(tm) v 2.4
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Log\Engine;
+
+
 
 App::uses('SyslogLog', 'Log/Engine');
 

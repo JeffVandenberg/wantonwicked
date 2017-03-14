@@ -14,7 +14,9 @@
  * @package       Cake.Test.Fixture
  * @since         CakePHP(tm) v 7660
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\Fixture;
+
+
 
 /**
  * TestPluginCommentFixture

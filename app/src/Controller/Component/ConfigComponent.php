@@ -4,7 +4,9 @@
  * User: JeffVandenberg
  * Date: 5/20/14
  * Time: 10:54 PM
- */
+ */namespace app\Controller\Component;
+
+
 
 class ConfigComponent extends Component
 {

@@ -15,7 +15,9 @@
  * @package       Cake.View
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Template;
+
+
 
 App::uses('ObjectCollection', 'Utility');
 App::uses('CakeEventListener', 'Event');

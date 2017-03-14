@@ -4,7 +4,9 @@
  * User: JeffVandenberg
  * Date: 11/27/2016
  * Time: 8:21 PM
- */
+ */namespace app\Lib;
+
+
 
 $menuComponents = [];
 $menuComponents['base'] = [

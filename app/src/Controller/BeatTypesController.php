@@ -1,4 +1,6 @@
 <?php
+namespace app\Controller;
+
 App::uses('AppController', 'Controller');
 
 /**

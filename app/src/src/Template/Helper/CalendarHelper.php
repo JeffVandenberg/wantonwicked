@@ -6,7 +6,9 @@
  * Date: 1/5/16
  * Time: 1:27 PM
  * @property HtmlHelper Html
- */
+ */namespace app\Template\Helper;
+
+
 class CalendarHelper extends AppHelper
 {
     public $helpers = array('Html');

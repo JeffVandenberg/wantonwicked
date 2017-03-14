@@ -14,7 +14,9 @@
  * @package       Cake.Network
  * @since         CakePHP(tm) v 1.2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Network;
+
+
 
 App::uses('Validation', 'Utility');
 

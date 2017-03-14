@@ -1,4 +1,6 @@
 <?php
+namespace app\Controller;
+
 use classes\character\data\BeatStatus;
 use classes\character\data\BeatType;
 use classes\character\data\Character;

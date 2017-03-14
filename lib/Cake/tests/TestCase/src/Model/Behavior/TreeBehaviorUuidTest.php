@@ -16,7 +16,9 @@
  * @package       Cake.Test.Case.Model.Behavior
  * @since         CakePHP(tm) v 1.2.0.5330
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Model\Behavior;
+
+
 
 App::uses('Model', 'Model');
 App::uses('AppModel', 'Model');

@@ -14,7 +14,9 @@
  * @package       Cake.I18n
  * @since         CakePHP(tm) v 1.2.0.6833
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\I18n;
+
+
 
 /**
  * Multibyte handling methods.

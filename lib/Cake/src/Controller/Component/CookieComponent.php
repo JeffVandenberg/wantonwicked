@@ -14,7 +14,9 @@
  * @package       Cake.Controller.Component
  * @since         CakePHP(tm) v 1.2.0.4213
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Controller\Component;
+
+
 
 App::uses('Component', 'Controller');
 App::uses('Security', 'Utility');

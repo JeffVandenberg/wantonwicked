@@ -14,7 +14,9 @@
  * @package       Cake.Test.Fixture
  * @since         CakePHP(tm) v 1.2.0.7026
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\Fixture;
+
+
 
 /**
  * Short description for class.

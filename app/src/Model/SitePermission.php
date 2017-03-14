@@ -1,4 +1,6 @@
 <?php
+namespace app\Model;
+
 App::uses('AppModel', 'Model');
 /**
  * Permission Model

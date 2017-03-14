@@ -2,7 +2,9 @@
 /**
  * RequestTemplateFixture
  *
- */
+ */namespace app\Test\Fixture;
+
+
 class RequestTemplateFixture extends CakeTestFixture {
 
 /**

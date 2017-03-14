@@ -14,7 +14,9 @@
  * @package       Cake.Console.Command
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\bin\Command;
+
+
 
 App::uses('AppShell', 'Console/Command');
 App::uses('Folder', 'Utility');

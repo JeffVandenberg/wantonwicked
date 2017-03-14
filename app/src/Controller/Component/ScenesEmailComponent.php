@@ -5,7 +5,9 @@
  * User: jvandenberg
  * Date: 7/6/15
  * Time: 3:45 PM
- */
+ */namespace app\Controller\Component;
+
+
 class ScenesEmailComponent extends Component
 {
     public function SendJoinEmail($scene, $sceneCharacter)

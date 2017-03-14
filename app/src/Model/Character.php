@@ -5,7 +5,9 @@
  * User: JeffVandenberg
  * Date: 2/24/14
  * Time: 6:50 PM
- */
+ */namespace app\Model;
+
+
 class Character extends AppModel
 {
     public $name = 'Character';

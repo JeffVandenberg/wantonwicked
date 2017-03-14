@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.Log
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Log;
+
+
 
 App::uses('CakeLog', 'Log');
 App::uses('FileLog', 'Log/Engine');

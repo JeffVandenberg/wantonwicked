@@ -14,7 +14,9 @@
  * @package       Cake.Model.Datasource.Session
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Model\Datasource\Session;
+
+
 
 App::uses('Cache', 'Cache');
 App::uses('CakeSessionHandlerInterface', 'Model/Datasource/Session');

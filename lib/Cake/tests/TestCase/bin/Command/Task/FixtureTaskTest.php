@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.Console.Command.Task
  * @since         CakePHP(tm) v 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\bin\Command\Task;
+
+
 
 App::uses('ShellDispatcher', 'Console');
 App::uses('Shell', 'Console');

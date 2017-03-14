@@ -3,7 +3,9 @@
  * This class helps in indirectly testing the functionalities of CakeTestCase::assertTags
  *
  * @package       Cake.Test.Fixture
- */
+ */namespace lib\Cake\Test\Fixture;
+
+
 class AssertTagsTestCase extends CakeTestCase {
 
 /**

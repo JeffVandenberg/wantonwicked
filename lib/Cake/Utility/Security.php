@@ -14,7 +14,9 @@
  * @package       Cake.Utility
  * @since         CakePHP(tm) v .0.10.0.1233
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Utility;
+
+
 
 App::uses('CakeText', 'Utility');
 

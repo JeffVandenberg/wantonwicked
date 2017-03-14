@@ -14,7 +14,9 @@
  * @package       Cake.Log.Engine
  * @since         CakePHP(tm) v 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Log\Engine;
+
+
 
 App::uses('BaseLog', 'Log/Engine');
 App::uses('Hash', 'Utility');

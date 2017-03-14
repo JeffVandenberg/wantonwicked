@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.View
  * @since         CakePHP(tm) v 2.1.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Template;
+
+
 
 App::uses('Controller', 'Controller');
 App::uses('CakeRequest', 'Network');

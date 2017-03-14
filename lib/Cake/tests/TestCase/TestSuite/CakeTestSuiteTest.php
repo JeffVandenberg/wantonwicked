@@ -13,6 +13,8 @@
  * @since         CakePHP v 1.2.0.4487
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+namespace lib\Cake\Test\TestCase\TestSuite;
+
 
 /**
  * CakeTestSuiteTest

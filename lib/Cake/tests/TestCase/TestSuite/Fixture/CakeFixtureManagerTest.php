@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.TestSuite.Fixture
  * @since         CakePHP v 2.5
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\TestSuite\Fixture;
+
+
 
 App::uses('DboSource', 'Model/Datasource');
 App::uses('CakeFixtureManager', 'TestSuite/Fixture');

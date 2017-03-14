@@ -12,7 +12,9 @@
  * @package       Cake.Test.Case.Routing.Filter
  * @since         CakePHP(tm) v 2.2
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Routing\Filter;
+
+
 
 App::uses('AssetDispatcher', 'Routing/Filter');
 App::uses('CakeEvent', 'Event');

@@ -14,7 +14,9 @@
  * @package       Cake.View.Helper
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Template\Helper;
+
+
 
 App::uses('CakeTime', 'Utility');
 App::uses('Multibyte', 'I18n');

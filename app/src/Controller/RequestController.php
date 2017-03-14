@@ -6,7 +6,9 @@
  * Date: 7/26/14
  * Time: 9:33 AM
  * @property mixed Permissions
- */
+ */namespace app\Controller;
+
+
 
 class RequestController extends AppController
 {

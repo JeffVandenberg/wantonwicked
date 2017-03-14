@@ -4,7 +4,9 @@
  * User: JeffVandenberg
  * Date: 7/22/14
  * Time: 8:32 PM
- */
+ */namespace app\Controller;
+
+
 
 App::uses('AppController', 'Controller');
 

@@ -16,7 +16,9 @@
  * @package       Cake.Error
  * @since         CakePHP(tm) v 0.10.5.1732
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Error;
+
+
 
 App::uses('Debugger', 'Utility');
 App::uses('CakeLog', 'Log');

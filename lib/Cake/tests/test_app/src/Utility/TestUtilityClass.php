@@ -14,7 +14,9 @@
  * @package       Cake.Test.TestApp.Lib.Utility
  * @since         CakePHP(tm) v 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\test_app\Utility;
+
+
 
 /**
  * TestUtilityClass

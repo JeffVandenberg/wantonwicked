@@ -19,7 +19,9 @@
  * @package       Cake.Model.Datasource
  * @since         CakePHP(tm) v .0.10.0.1222
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Model\Datasource;
+
+
 
 App::uses('Hash', 'Utility');
 App::uses('Security', 'Utility');

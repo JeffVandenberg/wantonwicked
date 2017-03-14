@@ -14,7 +14,9 @@
  * @package       Cake.Test.Case.Error
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Error;
+
+
 
 App::uses('ErrorHandler', 'Error');
 App::uses('Controller', 'Controller');

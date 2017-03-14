@@ -6,7 +6,9 @@
  * Date: 12/27/13
  * Time: 12:25 PM
  * @property HtmlHelper Html
- */
+ */namespace app\Template\Helper;
+
+
 
 class UserPanelHelper extends AppHelper
 {

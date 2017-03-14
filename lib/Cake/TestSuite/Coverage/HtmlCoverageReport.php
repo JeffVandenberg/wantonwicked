@@ -14,7 +14,9 @@
  * @package       Cake.TestSuite.Coverage
  * @since         CakePHP(tm) v 2.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\TestSuite\Coverage;
+
+
 
 App::uses('BaseCoverageReport', 'TestSuite/Coverage');
 

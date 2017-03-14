@@ -1,4 +1,6 @@
 <?php
+namespace app\Test\TestCase\Model;
+
 App::uses('Group', 'Model');
 
 /**

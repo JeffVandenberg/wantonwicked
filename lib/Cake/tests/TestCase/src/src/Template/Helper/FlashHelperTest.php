@@ -16,7 +16,9 @@
  * @package       Cake.Test.Case.View.Helper
  * @since         CakePHP(tm) v 2.7.0-dev
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Template\Helper;
+
+
 
 App::uses('FlashHelper', 'View/Helper');
 App::uses('View', 'View');

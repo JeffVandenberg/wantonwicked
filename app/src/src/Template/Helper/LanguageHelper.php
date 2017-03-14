@@ -5,7 +5,9 @@
  * User: JeffVandenberg
  * Date: 12/16/2016
  * Time: 4:51 PM
- */
+ */namespace app\Template\Helper;
+
+
 class LanguageHelper extends AppHelper
 {
     private $translations = [

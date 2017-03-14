@@ -7,7 +7,9 @@
  * Time: 8:21 PM
  * @property Configuration Configuration
  * @property PermissionsComponent Permissions
- */
+ */namespace app\Controller;
+
+
 
 class ConfigurationController extends AppController {
     public function beforeFilter()

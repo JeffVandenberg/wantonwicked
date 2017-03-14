@@ -1,7 +1,9 @@
 <?php
 /**
  * ConditionType Fixture
- */
+ */namespace app\Test\Fixture;
+
+
 class ConditionTypeFixture extends CakeTestFixture {
 
 /**

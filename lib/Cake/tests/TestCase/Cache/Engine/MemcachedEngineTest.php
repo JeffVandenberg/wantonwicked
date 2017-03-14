@@ -16,7 +16,9 @@
  * @package       Cake.Test.Case.Cache.Engine
  * @since         CakePHP(tm) v 2.5.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Cache\Engine;
+
+
 
 App::uses('Cache', 'Cache');
 App::uses('MemcachedEngine', 'Cache/Engine');

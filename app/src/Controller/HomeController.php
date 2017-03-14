@@ -6,7 +6,9 @@
  * Date: 12/27/13
  * Time: 11:56 AM
  * @property ConfigComponent Config
- */
+ */namespace app\Controller;
+
+
 
 class HomeController extends AppController
 {

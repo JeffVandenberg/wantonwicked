@@ -9,6 +9,8 @@
  * @package       app.View.Helper
  * @since         CakePHP(tm) v 0.2.9
  */
+namespace lib\Cake\bin\Templates\skel\Template\Helper;
+
 
 App::uses('Helper', 'View');
 

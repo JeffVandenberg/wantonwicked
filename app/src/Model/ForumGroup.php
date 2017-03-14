@@ -4,7 +4,9 @@
  * User: jvandenberg
  * Date: 4/7/15
  * Time: 7:58 AM
- */
+ */namespace app\Model;
+
+
 
 class ForumGroup extends AppModel
 {

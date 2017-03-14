@@ -13,7 +13,9 @@
  * @link          http://cakephp.org CakePHP Project
  * @package       Cake.Test.Case.View.Helper
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace lib\Cake\Test\TestCase\Template\Helper;
+
+
 
 App::uses('View', 'View');
 App::uses('HtmlHelper', 'View/Helper');
