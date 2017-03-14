@@ -19,9 +19,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Core\Configure;
 
 
-App::uses('JsBaseEngineHelper', 'View/Helper');
+use App\View\Helper\JsBaseEngineHelper;
 
 /**
  * Prototype Engine Helper for JsHelper

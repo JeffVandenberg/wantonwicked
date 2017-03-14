@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Controller;
 
+use Cake\Core\App;
 
 
-App::uses('Controller', 'Controller');
-App::uses('Component', 'Controller');
+use Cake\Controller\Controller;
+use Cake\Controller\Component;
 
 /**
  * ParamTestComponent
@@ -198,7 +199,7 @@ class SomethingWithEmailComponent extends Component {
  *
  * @package       Cake.Test.Case.Controller
  */
-class ComponentTest extends CakeTestCase {
+class ComponentTest extends TestCase {
 
 /**
  * setUp method

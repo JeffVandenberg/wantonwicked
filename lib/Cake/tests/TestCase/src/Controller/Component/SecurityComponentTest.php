@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Controller\Component;
 
+use Cake\Core\Configure;
 
 
-App::uses('SecurityComponent', 'Controller/Component');
-App::uses('Controller', 'Controller');
+use App\Controller\Component\SecurityComponent;
+use Cake\Controller\Controller;
 
 /**
  * TestSecurityComponent
@@ -120,7 +121,7 @@ class BrokenCallbackController extends Controller {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class SecurityComponentTest extends CakeTestCase {
+class SecurityComponentTest extends TestCase {
 
 /**
  * Controller property
@@ -144,7 +145,7 @@ class SecurityComponentTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$request = $this->getMock('CakeRequest', array('here'), array('posts/index', false));
+		$request = $this->getMock('Request', array('here'), array('posts/index', false));
 		$request->addParams(array('controller' => 'posts', 'action' => 'index'));
 		$request->expects($this->any())
 			->method('here')
@@ -181,7 +182,7 @@ class SecurityComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testBlackholeWithBrokenCallback() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array(
 			'controller' => 'posts', 'action' => 'index')
 		);
@@ -1148,7 +1149,7 @@ class SecurityComponentTest extends CakeTestCase {
 		);
 		$this->assertTrue($this->Controller->Security->validatePost($this->Controller));
 
-		$request = $this->getMock('CakeRequest', array('here'), array('articles/edit/1', false));
+		$request = $this->getMock('Request', array('here'), array('articles/edit/1', false));
 		$request->expects($this->at(0))
 			->method('here')
 			->will($this->returnValue('/posts/index?page=1'));
@@ -1397,7 +1398,7 @@ class SecurityComponentTest extends CakeTestCase {
 
 		$this->Security->Session->write('_Token.csrfTokens', array('nonce1' => strtotime('+10 minutes')));
 
-		$this->Controller->request = $this->getMock('CakeRequest', array('is'));
+		$this->Controller->request = $this->getMock('Request', array('is'));
 		$this->Controller->request->params['action'] = 'index';
 		$this->Controller->request->data = array(
 			'_Token' => array(

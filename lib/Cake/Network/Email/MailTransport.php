@@ -17,7 +17,7 @@
  */namespace lib\Cake\Network\Email;
 
 
-App::uses('AbstractTransport', 'Network/Email');
+use App\Network\Email\AbstractTransport;
 
 /**
  * Send mail using mail() function
@@ -29,11 +29,11 @@ class MailTransport extends AbstractTransport {
 /**
  * Send mail
  *
- * @param CakeEmail $email CakeEmail
+ * @param Email $email Email
  * @return array
  * @throws SocketException When mail cannot be sent.
  */
-	public function send(CakeEmail $email) {
+	public function send(Email $email) {
 		$eol = PHP_EOL;
 		if (isset($this->_config['eol'])) {
 			$eol = $this->_config['eol'];

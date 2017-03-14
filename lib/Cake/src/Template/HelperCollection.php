@@ -17,10 +17,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template;
 
+use Cake\Core\App;
+use Cake\View\View;
 
 
-App::uses('ObjectCollection', 'Utility');
-App::uses('CakeEventListener', 'Event');
+use App\Utility\ObjectCollection;
+use App\Event\EventListener;
 
 /**
  * Helpers collection is used as a registry for loaded helpers and handles loading
@@ -28,7 +30,7 @@ App::uses('CakeEventListener', 'Event');
  *
  * @package       Cake.View
  */
-class HelperCollection extends ObjectCollection implements CakeEventListener {
+class HelperCollection extends ObjectCollection implements EventListener {
 
 /**
  * View object to use when making helpers.
@@ -128,7 +130,7 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
 			return $this->_loaded[$alias];
 		}
 		$helperClass = $name . 'Helper';
-		App::uses($helperClass, $plugin . 'View/Helper');
+		/* TODO: App::uses($helperClass, $plugin . 'View/Helper'); */
 		if (!class_exists($helperClass)) {
 			throw new MissingHelperException(array(
 				'class' => $helperClass,
@@ -186,8 +188,8 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
  *    Any non-null value will modify the parameter index indicated.
  *    Defaults to false.
  *
- * @param string|CakeEvent $callback Method to fire on all the objects. Its assumed all the objects implement
- *   the method you are calling. If an instance of CakeEvent is provided, then then Event name will parsed to
+ * @param string|Event $callback Method to fire on all the objects. Its assumed all the objects implement
+ *   the method you are calling. If an instance of Event is provided, then then Event name will parsed to
  *   get the callback name. This is done by getting the last word after any dot in the event name
  *   (eg. `Model.afterSave` event will trigger the `afterSave` callback)
  * @param array $params Array of parameters for the triggered callback.
@@ -196,7 +198,7 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
  * @throws CakeException when modParams is used with an index that does not exist.
  */
 	public function trigger($callback, $params = array(), $options = array()) {
-		if ($callback instanceof CakeEvent) {
+		if ($callback instanceof Event) {
 			$callback->omitSubject = true;
 		}
 		return parent::trigger($callback, $params, $options);

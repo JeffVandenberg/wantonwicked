@@ -18,21 +18,23 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('Folder', 'Utility');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('ExtractTask', 'Console/Command/Task');
+use App\Utility\Folder;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ShellDispatcher;
+use Cake\Console\Shell;
+use App\Console\Command\Task\ExtractTask;
 
 /**
  * ExtractTaskTest class
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class ExtractTaskTest extends CakeTestCase {
+class ExtractTaskTest extends TestCase {
 
 /**
  * setUp method
@@ -64,7 +66,7 @@ class ExtractTaskTest extends CakeTestCase {
 
 		$Folder = new Folder($this->path);
 		$Folder->delete();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

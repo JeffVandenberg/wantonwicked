@@ -9,8 +9,8 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Tagged', 'Tags.Model');
-App::uses('Model', 'Model');
+use Tags\Model\Tagged;
+use App\Model\Model;
 
 /**
  * TagggedArticle Test Model
@@ -35,7 +35,7 @@ class TaggedArticle extends Model {
  * @package tags
  * @subpackage tags.tests.cases.models
  */
-class TaggedTest extends CakeTestCase {
+class TaggedTest extends TestCase {
 
 /**
  * Tagged model

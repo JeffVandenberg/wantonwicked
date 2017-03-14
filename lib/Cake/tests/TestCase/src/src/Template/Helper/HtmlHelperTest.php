@@ -16,16 +16,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Routing\Router;
 
 
-App::uses('Controller', 'Controller');
-App::uses('Helper', 'View');
-App::uses('AppHelper', 'View/Helper');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('FormHelper', 'View/Helper');
-App::uses('ClassRegistry', 'Utility');
-App::uses('Folder', 'Utility');
-App::uses('CakePlugin', 'Core');
+use Cake\Controller\Controller;
+use Cake\View\Helper;
+use App\View\Helper\AppHelper;
+use App\View\Helper\HtmlHelper;
+use App\View\Helper\FormHelper;
+use App\Utility\ClassRegistry;
+use App\Utility\Folder;
+use Cake\Core\Plugin;
 
 if (!defined('FULL_BASE_URL')) {
 	define('FULL_BASE_URL', 'http://cakephp.org');
@@ -117,7 +121,7 @@ class Html5TestHelper extends TestHtmlHelper {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class HtmlHelperTest extends CakeTestCase {
+class HtmlHelperTest extends TestCase {
 
 /**
  * Regexp for CDATA start block
@@ -149,7 +153,7 @@ class HtmlHelperTest extends CakeTestCase {
 		parent::setUp();
 		$this->View = $this->getMock('View', array('append'), array(new TheHtmlTestController()));
 		$this->Html = new TestHtmlHelper($this->View);
-		$this->Html->request = new CakeRequest(null, false);
+		$this->Html->request = new Request(null, false);
 		$this->Html->request->webroot = '';
 
 		App::build(array(
@@ -518,7 +522,7 @@ class HtmlHelperTest extends CakeTestCase {
 		$this->skipIf(!is_writable(WWW_ROOT), 'Cannot write to webroot.');
 		$themeExists = is_dir(WWW_ROOT . 'theme');
 
-		App::uses('File', 'Utility');
+		use App\Utility\File;
 
 		$testfile = WWW_ROOT . 'theme' . DS . 'test_theme' . DS . 'img' . DS . '__cake_test_image.gif';
 		new File($testfile, true);
@@ -620,11 +624,11 @@ class HtmlHelperTest extends CakeTestCase {
 		$result = $this->Html->css('screen.css');
 		$this->assertTags($result, $expected);
 
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$result = $this->Html->css('TestPlugin.style', array('plugin' => false));
 		$expected['link']['href'] = 'preg:/.*css\/TestPlugin\.style\.css/';
 		$this->assertTags($result, $expected);
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 
 		$result = $this->Html->css('my.css.library');
 		$expected['link']['href'] = 'preg:/.*css\/my\.css\.library\.css/';
@@ -731,7 +735,7 @@ class HtmlHelperTest extends CakeTestCase {
 	public function testCssLinkBC() {
 		Configure::write('Asset.filter.css', false);
 
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$result = $this->Html->css('TestPlugin.style', null, array('plugin' => false));
 		$expected = array(
 			'link' => array(
@@ -741,7 +745,7 @@ class HtmlHelperTest extends CakeTestCase {
 			)
 		);
 		$this->assertTags($result, $expected);
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 
 		$result = $this->Html->css('screen', 'import');
 		$expected = array(
@@ -781,7 +785,7 @@ class HtmlHelperTest extends CakeTestCase {
  */
 	public function testPluginCssLink() {
 		Configure::write('Asset.filter.css', false);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$result = $this->Html->css('TestPlugin.test_plugin_asset');
 		$expected = array(
@@ -814,7 +818,7 @@ class HtmlHelperTest extends CakeTestCase {
 		$this->assertTags($result[1], $expected);
 		$this->assertEquals(2, count($result));
 
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 
 /**
@@ -863,7 +867,7 @@ class HtmlHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testPluginCssTimestamping() {
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		Configure::write('debug', 2);
 		Configure::write('Asset.timestamp', true);
@@ -898,7 +902,7 @@ class HtmlHelperTest extends CakeTestCase {
 		$expected['link']['href'] = 'preg:/\/testing\/longer\/test_plugin\/css\/test_plugin_asset\.css\?[0-9]+/';
 		$this->assertTags($result, $expected);
 
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 
 /**
@@ -948,9 +952,9 @@ class HtmlHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testPluginScriptTimestamping() {
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
-		$pluginPath = CakePlugin::path('TestPlugin');
+		$pluginPath = Plugin::path('TestPlugin');
 		$pluginJsPath = $pluginPath . 'webroot/js';
 		$this->skipIf(!is_writable($pluginJsPath), $pluginJsPath . ' is not Writable, timestamp testing has been skipped.');
 
@@ -970,7 +974,7 @@ class HtmlHelperTest extends CakeTestCase {
 		unlink($pluginJsPath . DS . '__cake_js_test.js');
 		Configure::write('Asset.timestamp', false);
 
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 
 /**
@@ -1075,7 +1079,7 @@ class HtmlHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testPluginScript() {
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$result = $this->Html->script('TestPlugin.foo');
 		$expected = array(
@@ -1131,7 +1135,7 @@ class HtmlHelperTest extends CakeTestCase {
 		);
 		$this->assertTags($result, $expected);
 
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 
 /**
@@ -1216,7 +1220,7 @@ class HtmlHelperTest extends CakeTestCase {
 		$this->skipIf(!is_writable(WWW_ROOT), 'Cannot write to webroot.');
 		$themeExists = is_dir(WWW_ROOT . 'theme');
 
-		App::uses('File', 'Utility');
+		use App\Utility\File;
 
 		$testfile = WWW_ROOT . 'theme' . DS . 'test_theme' . DS . 'js' . DS . '__test_js.js';
 		new File($testfile, true);

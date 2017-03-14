@@ -16,16 +16,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Validator;
 
+use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('CakeValidationSet', 'Model/Validator');
+use App\Model\Validator\CakeValidationSet;
 
 /**
  * CakeValidationSetTest
  *
  * @package       Cake.Test.Case.Model.Validator
  */
-class CakeValidationSetTest extends CakeTestCase {
+class CakeValidationSetTest extends TestCase {
 
 /**
  * override locale to the default (eng).
@@ -88,7 +90,7 @@ class CakeValidationSetTest extends CakeTestCase {
 		$rules = array('notBlank' => array('rule' => 'notBlank', 'message' => 'Can not be empty'));
 		$Field = new CakeValidationSet('title', $rules);
 		$result = $Field->getRule('notBlank');
-		$this->assertInstanceOf('CakeValidationRule', $result);
+		$this->assertInstanceOf('ValidationRule', $result);
 		$this->assertEquals('notBlank', $result->rule);
 		$this->assertEquals(null, $result->required);
 		$this->assertEquals(false, $result->allowEmpty);
@@ -108,7 +110,7 @@ class CakeValidationSetTest extends CakeTestCase {
 
 		$result = $Field->getRules();
 		$this->assertEquals(array('notBlank'), array_keys($result));
-		$this->assertInstanceOf('CakeValidationRule', $result['notBlank']);
+		$this->assertInstanceOf('ValidationRule', $result['notBlank']);
 	}
 
 /**
@@ -119,23 +121,23 @@ class CakeValidationSetTest extends CakeTestCase {
 	public function testSetRule() {
 		$rules = array('notBlank' => array('rule' => 'notBlank', 'message' => 'Can not be empty'));
 		$Field = new CakeValidationSet('title', $rules);
-		$Rule = new CakeValidationRule($rules['notBlank']);
+		$Rule = new ValidationRule($rules['notBlank']);
 
 		$this->assertEquals($Rule, $Field->getRule('notBlank'));
 
 		$rules = array('validEmail' => array('rule' => 'email', 'message' => 'Invalid email'));
-		$Rule = new CakeValidationRule($rules['validEmail']);
+		$Rule = new ValidationRule($rules['validEmail']);
 		$Field->setRule('validEmail', $Rule);
 		$result = $Field->getRules();
 		$this->assertEquals(array('notBlank', 'validEmail'), array_keys($result));
 
 		$rules = array('validEmail' => array('rule' => 'email', 'message' => 'Other message'));
-		$Rule = new CakeValidationRule($rules['validEmail']);
+		$Rule = new ValidationRule($rules['validEmail']);
 		$Field->setRule('validEmail', $Rule);
 		$result = $Field->getRules();
 		$this->assertEquals(array('notBlank', 'validEmail'), array_keys($result));
 		$result = $Field->getRule('validEmail');
-		$this->assertInstanceOf('CakeValidationRule', $result);
+		$this->assertInstanceOf('ValidationRule', $result);
 		$this->assertEquals('email', $result->rule);
 		$this->assertEquals(null, $result->required);
 		$this->assertEquals(false, $result->allowEmpty);
@@ -152,10 +154,10 @@ class CakeValidationSetTest extends CakeTestCase {
 	public function testSetRules() {
 		$rule = array('notBlank' => array('rule' => 'notBlank', 'message' => 'Can not be empty'));
 		$Field = new CakeValidationSet('title', $rule);
-		$RuleEmpty = new CakeValidationRule($rule['notBlank']);
+		$RuleEmpty = new ValidationRule($rule['notBlank']);
 
 		$rule = array('validEmail' => array('rule' => 'email', 'message' => 'Invalid email'));
-		$RuleEmail = new CakeValidationRule($rule['validEmail']);
+		$RuleEmail = new ValidationRule($rule['validEmail']);
 
 		$rules = array('validEmail' => $RuleEmail);
 		$Field->setRules($rules, false);
@@ -165,7 +167,7 @@ class CakeValidationSetTest extends CakeTestCase {
 		$Field->setRules(array('validEmail' => $rule), false);
 		$result = $Field->getRules();
 		$this->assertEquals(array('validEmail'), array_keys($result));
-		$this->assertTrue(array_pop($result) instanceof CakeValidationRule);
+		$this->assertTrue(array_pop($result) instanceof ValidationRule);
 
 		$rules = array('notBlank' => $RuleEmpty);
 		$Field->setRules($rules, true);
@@ -176,8 +178,8 @@ class CakeValidationSetTest extends CakeTestCase {
 		$Field->setRules($rules, true);
 		$result = $Field->getRules();
 		$this->assertEquals(array('validEmail', 'notBlank'), array_keys($result));
-		$this->assertTrue(array_pop($result) instanceof CakeValidationRule);
-		$this->assertTrue(array_pop($result) instanceof CakeValidationRule);
+		$this->assertTrue(array_pop($result) instanceof ValidationRule);
+		$this->assertTrue(array_pop($result) instanceof ValidationRule);
 	}
 
 /**
@@ -193,15 +195,15 @@ class CakeValidationSetTest extends CakeTestCase {
 		));
 
 		$rule = $Set['notBlank'];
-		$this->assertInstanceOf('CakeValidationRule', $rule);
+		$this->assertInstanceOf('ValidationRule', $rule);
 		$this->assertEquals('notBlank', $rule->rule);
 
 		$rule = $Set['numeric'];
-		$this->assertInstanceOf('CakeValidationRule', $rule);
+		$this->assertInstanceOf('ValidationRule', $rule);
 		$this->assertEquals('numeric', $rule->rule);
 
 		$rule = $Set['other'];
-		$this->assertInstanceOf('CakeValidationRule', $rule);
+		$this->assertInstanceOf('ValidationRule', $rule);
 		$this->assertEquals(array('other', 1), $rule->rule);
 	}
 
@@ -236,13 +238,13 @@ class CakeValidationSetTest extends CakeTestCase {
 		$this->assertFalse(isset($Set['other']));
 		$Set['other'] = array('rule' => array('other', 1));
 		$rule = $Set['other'];
-		$this->assertInstanceOf('CakeValidationRule', $rule);
+		$this->assertInstanceOf('ValidationRule', $rule);
 		$this->assertEquals(array('other', 1), $rule->rule);
 
 		$this->assertFalse(isset($Set['numeric']));
-		$Set['numeric'] = new CakeValidationRule(array('rule' => 'numeric'));
+		$Set['numeric'] = new ValidationRule(array('rule' => 'numeric'));
 		$rule = $Set['numeric'];
-		$this->assertInstanceOf('CakeValidationRule', $rule);
+		$this->assertInstanceOf('ValidationRule', $rule);
 		$this->assertEquals('numeric', $rule->rule);
 	}
 
@@ -291,7 +293,7 @@ class CakeValidationSetTest extends CakeTestCase {
 			if ($i === 2) {
 				$this->assertEquals('other', $name);
 			}
-			$this->assertInstanceOf('CakeValidationRule', $rule);
+			$this->assertInstanceOf('ValidationRule', $rule);
 			$i++;
 		}
 		$this->assertEquals(3, $i);

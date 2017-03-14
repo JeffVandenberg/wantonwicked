@@ -16,17 +16,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Cache\Engine;
 
+use Cake\Core\Configure;
 
 
-App::uses('Cache', 'Cache');
-App::uses('RedisEngine', 'Cache/Engine');
+use Cake\Cache\Cache;
+use App\Cache\Engine\RedisEngine;
 
 /**
  * RedisEngineTest class
  *
  * @package       Cake.Test.Case.Cache.Engine
  */
-class RedisEngineTest extends CakeTestCase {
+class RedisEngineTest extends TestCase {
 
 /**
  * setUp method

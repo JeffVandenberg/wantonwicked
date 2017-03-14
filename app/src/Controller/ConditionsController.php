@@ -1,7 +1,8 @@
 <?php
 namespace app\Controller;
 
-App::uses('AppController', 'Controller');
+use Cake\Cache\Cache;
+use App\Controller\AppController;
 
 /**
  * Conditions Controller
@@ -51,7 +52,7 @@ class ConditionsController extends AppController
             ]
         ];
         $this->set('conditions', $this->Paginator->paginate());
-        App::uses('SitePermission', 'Model');
+        use App\Model\SitePermission;
     }
 
     /**

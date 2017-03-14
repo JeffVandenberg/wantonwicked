@@ -15,11 +15,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command\Task;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('BakeTask', 'Console/Command/Task');
-App::uses('ClassRegistry', 'Utility');
+use App\Console\Command\AppShell;
+use App\Console\Command\Task\BakeTask;
+use App\Utility\ClassRegistry;
 
 /**
  * Task class for creating and updating test files.
@@ -150,8 +153,8 @@ class TestTask extends BakeTask {
 			$this->getUserFixtures();
 		}
 		list($baseClass, $baseType) = $this->getBaseType($type);
-		App::uses($baseClass, $baseType);
-		App::uses($fullClassName, $realType);
+		/* TODO: App::uses($baseClass, $baseType); */
+		/* TODO: App::uses($fullClassName, $realType); */
 
 		$methods = array();
 		if (class_exists($fullClassName)) {
@@ -259,12 +262,12 @@ class TestTask extends BakeTask {
  * @return bool
  */
 	public function isLoadableClass($package, $class) {
-		App::uses($class, $package);
+		/* TODO: App::uses($class, $package); */
 		list($plugin, $ns) = pluginSplit($package);
 		if ($plugin) {
-			App::uses("{$plugin}AppController", $package);
-			App::uses("{$plugin}AppModel", $package);
-			App::uses("{$plugin}AppHelper", $package);
+			/* TODO: App::uses("{$plugin}AppController", $package); */
+			/* TODO: App::uses("{$plugin}AppModel", $package); */
+			/* TODO: App::uses("{$plugin}AppHelper", $package); */
 		}
 		return class_exists($class);
 	}
@@ -279,7 +282,7 @@ class TestTask extends BakeTask {
  */
 	public function buildTestSubject($type, $class) {
 		ClassRegistry::flush();
-		App::uses($class, $type);
+		/* TODO: App::uses($class, $type); */
 		$class = $this->getRealClassName($type, $class);
 		if (strtolower($type) === 'model') {
 			$instance = ClassRegistry::init($class);

@@ -16,10 +16,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Database\ConnectionManager;
 
 
-App::uses('CakeSchema', 'Model');
-App::uses('CakeTestFixture', 'TestSuite/Fixture');
+use App\Model\CakeSchema;
+use App\TestSuite\Fixture\CakeTestFixture;
 
 /**
  * Test for Schema database management
@@ -392,7 +395,7 @@ class SchemaPrefixAuthUser extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Model
  */
-class CakeSchemaTest extends CakeTestCase {
+class CakeSchemaTest extends TestCase {
 
 /**
  * fixtures property
@@ -428,7 +431,7 @@ class CakeSchemaTest extends CakeTestCase {
 			unlink(TMP . 'tests' . DS . 'schema.php');
 		}
 		unset($this->Schema);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -592,7 +595,7 @@ class CakeSchemaTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$Schema = new CakeSchema();
 		$Schema->plugin = 'TestPlugin';
@@ -1032,7 +1035,7 @@ class CakeSchemaTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$Other = $this->Schema->load(array('name' => 'TestPluginApp', 'plugin' => 'TestPlugin'));
 		$this->assertEquals('TestPluginApp', $Other->name);
 		$this->assertEquals(array('test_plugin_acos'), array_keys($Other->tables));

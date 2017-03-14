@@ -16,13 +16,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('CommandListShell', 'Console/Command');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('CommandTask', 'Console/Command/Task');
+use App\Console\Command\CommandListShell;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\Shell;
+use App\Console\Command\Task\CommandTask;
 
 /**
  * TestStringOutput
@@ -44,7 +46,7 @@ class TestStringOutput extends ConsoleOutput {
  *
  * @package       Cake.Test.Case.Console.Command
  */
-class CommandListShellTest extends CakeTestCase {
+class CommandListShellTest extends TestCase {
 
 /**
  * setUp method
@@ -61,7 +63,7 @@ class CommandListShellTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'Console' . DS . 'Command' . DS
 			)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$out = new TestStringOutput();
 		$in = $this->getMock('ConsoleInput', array(), array(), '', false);
@@ -87,7 +89,7 @@ class CommandListShellTest extends CakeTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Shell);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

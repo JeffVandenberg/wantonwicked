@@ -17,7 +17,7 @@
 
 
 
-App::uses('HttpSocketResponse', 'Network/Http');
+use App\Network\Http\HttpSocketResponse;
 
 if (class_exists('HttpResponse')) {
 	trigger_error(__d(

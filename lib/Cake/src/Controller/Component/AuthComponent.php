@@ -18,17 +18,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller\Component;
 
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('Component', 'Controller');
-App::uses('Router', 'Routing');
-App::uses('Security', 'Utility');
-App::uses('Debugger', 'Utility');
-App::uses('Hash', 'Utility');
-App::uses('CakeSession', 'Model/Datasource');
-App::uses('BaseAuthorize', 'Controller/Component/Auth');
-App::uses('BaseAuthenticate', 'Controller/Component/Auth');
-App::uses('CakeEvent', 'Event');
+use Cake\Controller\Component;
+use Cake\Routing\Router;
+use Cake\Utility\Security;
+use App\Utility\Debugger;
+use Cake\Utility\Hash;
+use App\Model\Datasource\Session;
+use App\Controller\Component\Auth\BaseAuthorize;
+use App\Controller\Component\Auth\BaseAuthenticate;
+use Cake\Event\Event;
 
 /**
  * Authentication control component class
@@ -241,14 +244,14 @@ class AuthComponent extends Component {
 /**
  * Request object
  *
- * @var CakeRequest
+ * @var Request
  */
 	public $request;
 
 /**
  * Response object
  *
- * @var CakeResponse
+ * @var Response
  */
 	public $response;
 
@@ -451,10 +454,10 @@ class AuthComponent extends Component {
  * be authorized for the request.
  *
  * @param array|null $user The user to check the authorization of. If empty the user in the session will be used.
- * @param CakeRequest|null $request The request to authenticate for. If empty, the current request will be used.
+ * @param Request|null $request The request to authenticate for. If empty, the current request will be used.
  * @return bool True if $user is authorized, otherwise false
  */
-	public function isAuthorized($user = null, CakeRequest $request = null) {
+	public function isAuthorized($user = null, Request $request = null) {
 		if (empty($user) && !$this->user()) {
 			return false;
 		}
@@ -495,7 +498,7 @@ class AuthComponent extends Component {
 		foreach ($config as $class => $settings) {
 			list($plugin, $class) = pluginSplit($class, true);
 			$className = $class . 'Authorize';
-			App::uses($className, $plugin . 'Controller/Component/Auth');
+			/* TODO: App::uses($className, $plugin . 'Controller/Component/Auth'); */
 			if (!class_exists($className)) {
 				throw new CakeException(__d('cake_dev', 'Authorization adapter "%s" was not found.', $class));
 			}
@@ -619,7 +622,7 @@ class AuthComponent extends Component {
 			} else {
 				static::$_user = $user;
 			}
-			$event = new CakeEvent('Auth.afterIdentify', $this, array('user' => $user));
+			$event = new Event('Auth.afterIdentify', $this, array('user' => $user));
 			$this->_Collection->getController()->getEventManager()->dispatch($event);
 		}
 		return (bool)$this->user();
@@ -667,8 +670,8 @@ class AuthComponent extends Component {
 	public static function user($key = null) {
 		if (!empty(static::$_user)) {
 			$user = static::$_user;
-		} elseif (static::$sessionKey && CakeSession::check(static::$sessionKey)) {
-			$user = CakeSession::read(static::$sessionKey);
+		} elseif (static::$sessionKey && Session::check(static::$sessionKey)) {
+			$user = Session::read(static::$sessionKey);
 		} else {
 			return null;
 		}
@@ -760,11 +763,11 @@ class AuthComponent extends Component {
  * Use the configured authentication adapters, and attempt to identify the user
  * by credentials contained in $request.
  *
- * @param CakeRequest $request The request that contains authentication data.
- * @param CakeResponse $response The response
+ * @param Request $request The request that contains authentication data.
+ * @param Response $response The response
  * @return array User record data, or false, if the user could not be identified.
  */
-	public function identify(CakeRequest $request, CakeResponse $response) {
+	public function identify(Request $request, Response $response) {
 		if (empty($this->_authenticateObjects)) {
 			$this->constructAuthenticate();
 		}
@@ -801,7 +804,7 @@ class AuthComponent extends Component {
 			}
 			list($plugin, $class) = pluginSplit($class, true);
 			$className = $class . 'Authenticate';
-			App::uses($className, $plugin . 'Controller/Component/Auth');
+			/* TODO: App::uses($className, $plugin . 'Controller/Component/Auth'); */
 			if (!class_exists($className)) {
 				throw new CakeException(__d('cake_dev', 'Authentication adapter "%s" was not found.', $class));
 			}

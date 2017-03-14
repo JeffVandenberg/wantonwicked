@@ -9,7 +9,7 @@
 
 
 
-App::uses('Component', 'Controller');
+use Cake\Controller\Component;
 
 /**
  * @property AuthComponent Auth
@@ -37,8 +37,8 @@ class MenuComponent extends Component
         if ($this->Auth->user()) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['player']);
 
-            App::uses('AppModel', 'Model');
-            App::uses('Character', 'Model');
+            use App\Model\AppModel;
+            use App\Model\Character;
             $characterRepo = new Character();
             $sanctionedCharacters = $characterRepo->ListSanctionedForUser($this->Auth->user('user_id'));
             foreach ($sanctionedCharacters as $character) {

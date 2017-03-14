@@ -6,12 +6,13 @@
  * Time: 10:54 PM
  */namespace app\Controller\Component;
 
+use Cake\Controller\Component;
 
 
 class ConfigComponent extends Component
 {
     public function Read($key) {
-        App::uses('Configuration', 'Model');
+        use App\Model\Configuration;
         $configuration = new Configuration();
 
         $config = $configuration->find('first', array(

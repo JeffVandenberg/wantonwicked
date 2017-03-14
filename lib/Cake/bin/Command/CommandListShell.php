@@ -14,10 +14,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command;
 
+use Cake\Core\Plugin;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('Inflector', 'Utility');
+use App\Console\Command\AppShell;
+use Cake\Utility\Inflector;
 
 /**
  * Shows a list of commands available from the console.
@@ -101,7 +102,7 @@ class CommandListShell extends AppShell {
  * @return void
  */
 	protected function _asXml($shellList) {
-		$plugins = CakePlugin::loaded();
+		$plugins = Plugin::loaded();
 		$shells = new SimpleXmlElement('<shells></shells>');
 		foreach ($shellList as $plugin => $commands) {
 			foreach ($commands as $command) {

@@ -12,8 +12,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('Security', 'Utility');
-App::uses('DebugKitAppController', 'DebugKit.Controller');
+use Cake\Utility\Security;
+use DebugKit\Controller\DebugKitAppController;
 
 /**
  * DebugKit ToolbarAccess Controller

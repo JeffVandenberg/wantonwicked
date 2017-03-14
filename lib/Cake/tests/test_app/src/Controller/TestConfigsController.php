@@ -2,7 +2,7 @@
 
 namespace lib\Cake\Test\test_app\Controller;
 
-App::uses('CakeErrorController', 'Controller');
+use App\Controller\CakeErrorController;
 
 class TestConfigsController extends CakeErrorController {
 

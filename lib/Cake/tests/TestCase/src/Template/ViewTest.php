@@ -16,16 +16,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template;
 
+use Cake\Cache\Cache;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('View', 'View');
-App::uses('Helper', 'View');
-App::uses('Controller', 'Controller');
-App::uses('CacheHelper', 'View/Helper');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('ErrorHandler', 'Error');
-App::uses('CakeEventManager', 'Event');
-App::uses('CakeEventListener', 'Event');
+use Cake\View\View;
+use Cake\View\Helper;
+use Cake\Controller\Controller;
+use App\View\Helper\CacheHelper;
+use App\View\Helper\HtmlHelper;
+use Cake\Error\ErrorHandler;
+use Cake\Event\EventManager;
+use App\Event\EventListener;
 
 /**
  * ViewPostsController class
@@ -247,7 +251,7 @@ class TestObjectWithoutToString {
  *
  * An event listener to test cakePHP events
  */
-class TestViewEventListener implements CakeEventListener {
+class TestViewEventListener implements EventListener {
 
 /**
  * type of view before rendering has occurred
@@ -278,7 +282,7 @@ class TestViewEventListener implements CakeEventListener {
 /**
  * beforeRender method
  *
- * @param CakeEvent $event the event being sent
+ * @param Event $event the event being sent
  * @return void
  */
 	public function beforeRender($event) {
@@ -288,7 +292,7 @@ class TestViewEventListener implements CakeEventListener {
 /**
  * afterRender method
  *
- * @param CakeEvent $event the event being sent
+ * @param Event $event the event being sent
  * @return void
  */
 	public function afterRender($event) {
@@ -302,7 +306,7 @@ class TestViewEventListener implements CakeEventListener {
  *
  * @package       Cake.Test.Case.View
  */
-class ViewTest extends CakeTestCase {
+class ViewTest extends TestCase {
 
 /**
  * Fixtures used in this test.
@@ -319,14 +323,14 @@ class ViewTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$request = $this->getMock('CakeRequest');
+		$request = $this->getMock('Request');
 		$this->Controller = new Controller($request);
 		$this->PostsController = new ViewPostsController($request);
 		$this->PostsController->viewPath = 'Posts';
 		$this->PostsController->index();
 		$this->View = new View($this->PostsController);
 
-		$themeRequest = new CakeRequest('posts/index');
+		$themeRequest = new Request('posts/index');
 		$this->ThemeController = new Controller($themeRequest);
 		$this->ThemePostsController = new ThemePostsController($themeRequest);
 		$this->ThemePostsController->viewPath = 'posts';
@@ -339,7 +343,7 @@ class ViewTest extends CakeTestCase {
 		), App::RESET);
 		App::objects('plugins', null, false);
 
-		CakePlugin::load(array('TestPlugin', 'TestPlugin', 'PluginJs'));
+		Plugin::load(array('TestPlugin', 'TestPlugin', 'PluginJs'));
 		Configure::write('debug', 2);
 	}
 
@@ -350,7 +354,7 @@ class ViewTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakePlugin::unload();
+		Plugin::unload();
 		unset($this->View);
 		unset($this->PostsController);
 		unset($this->Controller);
@@ -430,11 +434,11 @@ class ViewTest extends CakeTestCase {
 
 		$View = new TestView($this->Controller);
 
-		$expected = CakePlugin::path('TestPlugin') . 'View' . DS . 'Tests' . DS . 'index.ctp';
+		$expected = Plugin::path('TestPlugin') . 'View' . DS . 'Tests' . DS . 'index.ctp';
 		$result = $View->getViewFileName('index');
 		$this->assertEquals($expected, $result);
 
-		$expected = CakePlugin::path('TestPlugin') . 'View' . DS . 'Layouts' . DS . 'default.ctp';
+		$expected = Plugin::path('TestPlugin') . 'View' . DS . 'Layouts' . DS . 'default.ctp';
 		$result = $View->getLayoutFileName();
 		$this->assertEquals($expected, $result);
 	}
@@ -482,7 +486,7 @@ class ViewTest extends CakeTestCase {
 		$this->assertEquals($expected, $paths);
 
 		$paths = $View->paths('TestPlugin');
-		$pluginPath = CakePlugin::path('TestPlugin');
+		$pluginPath = Plugin::path('TestPlugin');
 		$expected = array(
 			CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Plugin' . DS . 'TestPlugin' . DS,
 			$pluginPath . 'View' . DS,
@@ -510,7 +514,7 @@ class ViewTest extends CakeTestCase {
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
 		));
 
-		$pluginPath = CakePlugin::path('TestPlugin');
+		$pluginPath = Plugin::path('TestPlugin');
 		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPlugin' . DS . 'View' . DS . 'Tests' . DS . 'index.ctp';
 		$result = $View->getViewFileName('index');
 		$this->assertEquals($expected, $result);
@@ -550,7 +554,7 @@ class ViewTest extends CakeTestCase {
 		$result = $View->getViewFileName('page.home');
 		$this->assertEquals($expected, $result, 'Should not ruin files with dots.');
 
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Pages' . DS . 'home.ctp';
 		$result = $View->getViewFileName('TestPlugin.home');
 		$this->assertEquals($expected, $result, 'Plugin is missing the view, cascade to app.');
@@ -601,7 +605,7 @@ class ViewTest extends CakeTestCase {
 		$this->Controller->action = 'display';
 
 		$View = new TestView($this->Controller);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPlugin' . DS . 'View' . DS . 'Layouts' . DS . 'default.ctp';
 		$result = $View->getLayoutFileName('TestPlugin.default');
@@ -978,7 +982,7 @@ class ViewTest extends CakeTestCase {
 		$View->Helpers->expects($this->at(0))->method('trigger')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Event'),
 					$this->attributeEqualTo('_name', 'View.beforeRender'),
 					$this->attributeEqualTo('_subject', $View)
 				)
@@ -986,7 +990,7 @@ class ViewTest extends CakeTestCase {
 		$View->Helpers->expects($this->at(1))->method('trigger')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Event'),
 					$this->attributeEqualTo('_name', 'View.beforeRenderFile'),
 					$this->attributeEqualTo('_subject', $View)
 				)
@@ -995,7 +999,7 @@ class ViewTest extends CakeTestCase {
 		$View->Helpers->expects($this->at(2))->method('trigger')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Event'),
 					$this->attributeEqualTo('_name', 'View.afterRenderFile'),
 					$this->attributeEqualTo('_subject', $View)
 				)
@@ -1003,7 +1007,7 @@ class ViewTest extends CakeTestCase {
 		$View->Helpers->expects($this->at(3))->method('trigger')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Event'),
 					$this->attributeEqualTo('_name', 'View.afterRender'),
 					$this->attributeEqualTo('_subject', $View)
 				)
@@ -1012,7 +1016,7 @@ class ViewTest extends CakeTestCase {
 		$View->Helpers->expects($this->at(4))->method('trigger')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Event'),
 					$this->attributeEqualTo('_name', 'View.beforeLayout'),
 					$this->attributeEqualTo('_subject', $View)
 				)
@@ -1021,7 +1025,7 @@ class ViewTest extends CakeTestCase {
 		$View->Helpers->expects($this->at(5))->method('trigger')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Event'),
 					$this->attributeEqualTo('_name', 'View.beforeRenderFile'),
 					$this->attributeEqualTo('_subject', $View)
 				)
@@ -1030,7 +1034,7 @@ class ViewTest extends CakeTestCase {
 		$View->Helpers->expects($this->at(6))->method('trigger')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Event'),
 					$this->attributeEqualTo('_name', 'View.afterRenderFile'),
 					$this->attributeEqualTo('_subject', $View)
 				)
@@ -1039,7 +1043,7 @@ class ViewTest extends CakeTestCase {
 		$View->Helpers->expects($this->at(7))->method('trigger')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Event'),
 					$this->attributeEqualTo('_name', 'View.afterLayout'),
 					$this->attributeEqualTo('_subject', $View)
 				)

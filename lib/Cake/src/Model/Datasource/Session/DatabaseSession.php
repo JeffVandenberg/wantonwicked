@@ -16,17 +16,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model\Datasource\Session;
 
+use Cake\Core\Configure;
 
 
-App::uses('CakeSessionHandlerInterface', 'Model/Datasource/Session');
-App::uses('ClassRegistry', 'Utility');
+use App\Model\Datasource\Session\SessionHandlerInterface;
+use App\Utility\ClassRegistry;
 
 /**
- * DatabaseSession provides methods to be used with CakeSession.
+ * DatabaseSession provides methods to be used with Session.
  *
  * @package       Cake.Model.Datasource.Session
  */
-class DatabaseSession implements CakeSessionHandlerInterface {
+class DatabaseSession implements SessionHandlerInterface {
 
 /**
  * Reference to the model handling the session data

@@ -17,10 +17,12 @@
  */
 namespace lib\Cake\Test\TestCase\Template;
 
+use App\View\ThemeView;
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\View\View;
 
-App::uses('View', 'View');
-App::uses('ThemeView', 'View');
-App::uses('Controller', 'Controller');
 
 /**
  * ThemePosts2Controller class
@@ -98,7 +100,7 @@ class TestTheme2View extends ThemeView {
  *
  * @package       Cake.Test.Case.View
  */
-class ThemeViewTest extends CakeTestCase {
+class ThemeViewTest extends TestCase {
 
 /**
  * setUp method
@@ -107,7 +109,7 @@ class ThemeViewTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$request = new CakeRequest('posts/index');
+		$request = new Request('posts/index');
 		$this->Controller = new Controller($request);
 		$this->PostsController = new ThemePosts2Controller($request);
 		$this->PostsController->viewPath = 'posts';
@@ -118,7 +120,7 @@ class ThemeViewTest extends CakeTestCase {
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
 		));
 		App::objects('plugins', null, false);
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 	}
 
 /**
@@ -131,7 +133,7 @@ class ThemeViewTest extends CakeTestCase {
 		unset($this->ThemeView);
 		unset($this->PostsController);
 		unset($this->Controller);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

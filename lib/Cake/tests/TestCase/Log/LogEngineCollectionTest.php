@@ -17,9 +17,9 @@
  */
 namespace lib\Cake\Test\TestCase\Log;
 
+use App\Log\Engine\FileLog;
+use App\Log\LogEngineCollection;
 
-App::uses('LogEngineCollection', 'Log');
-App::uses('FileLog', 'Log/Engine');
 
 /**
  * LoggerEngineLog class
@@ -32,7 +32,7 @@ class LoggerEngineLog extends FileLog {
  *
  * @package       Cake.Test.Case.Log
  */
-class LogEngineCollectionTest extends CakeTestCase {
+class LogEngineCollectionTest extends TestCase {
 
 	public $Collection;
 
@@ -54,7 +54,7 @@ class LogEngineCollectionTest extends CakeTestCase {
  */
 	public function testLoad() {
 		$result = $this->Collection->load('key', array('engine' => 'File'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
+		$this->assertInstanceOf('LogInterface', $result);
 	}
 
 /**
@@ -64,7 +64,7 @@ class LogEngineCollectionTest extends CakeTestCase {
  */
 	public function testLoadWithSuffix() {
 		$result = $this->Collection->load('key', array('engine' => 'FileLog'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
+		$this->assertInstanceOf('LogInterface', $result);
 	}
 
 /**
@@ -74,7 +74,7 @@ class LogEngineCollectionTest extends CakeTestCase {
  */
 	public function testLoadWithSuffixAtBeginning() {
 		$result = $this->Collection->load('key', array('engine' => 'LoggerEngine'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
+		$this->assertInstanceOf('LogInterface', $result);
 	}
 
 /**
@@ -85,7 +85,7 @@ class LogEngineCollectionTest extends CakeTestCase {
  */
 	public function testLoadInvalid() {
 		$result = $this->Collection->load('key', array('engine' => 'ImaginaryFile'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
+		$this->assertInstanceOf('LogInterface', $result);
 	}
 
 }

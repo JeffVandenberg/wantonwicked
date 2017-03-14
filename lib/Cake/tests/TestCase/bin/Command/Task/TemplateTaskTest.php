@@ -19,19 +19,20 @@
  */
 namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use App\Console\Command\Task\TemplateTask;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\Shell;
+use Cake\Console\ShellDispatcher;
+use Cake\Core\App;
 
-App::uses('ShellDispatcher', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('TemplateTask', 'Console/Command/Task');
 
 /**
  * TemplateTaskTest class
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class TemplateTaskTest extends CakeTestCase {
+class TemplateTaskTest extends TestCase {
 
 /**
  * setUp method

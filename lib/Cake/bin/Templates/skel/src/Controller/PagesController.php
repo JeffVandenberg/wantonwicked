@@ -9,9 +9,11 @@
  * @since         CakePHP(tm) v 0.2.9
  */namespace lib\Cake\bin\Templates\skel\Controller;
 
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * Static content controller

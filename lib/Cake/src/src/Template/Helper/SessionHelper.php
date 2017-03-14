@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Controller\Controller;
 
 
-App::uses('AppHelper', 'View/Helper');
-App::uses('CakeSession', 'Model/Datasource');
+use App\View\Helper\AppHelper;
+use App\Model\Datasource\Session;
 
 /**
  * Session Helper.
@@ -42,7 +43,7 @@ class SessionHelper extends AppHelper {
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#SessionHelper::read
  */
 	public function read($name = null) {
-		return CakeSession::read($name);
+		return Session::read($name);
 	}
 
 /**
@@ -54,7 +55,7 @@ class SessionHelper extends AppHelper {
  * @return mixed values from the session vars
  */
 	public function consume($name) {
-		return CakeSession::consume($name);
+		return Session::consume($name);
 	}
 
 /**
@@ -67,7 +68,7 @@ class SessionHelper extends AppHelper {
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#SessionHelper::check
  */
 	public function check($name) {
-		return CakeSession::check($name);
+		return Session::check($name);
 	}
 
 /**
@@ -79,7 +80,7 @@ class SessionHelper extends AppHelper {
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#displaying-notifications-or-flash-messages
  */
 	public function error() {
-		return CakeSession::error();
+		return Session::error();
 	}
 
 /**
@@ -133,9 +134,9 @@ class SessionHelper extends AppHelper {
 	public function flash($key = 'flash', $attrs = array()) {
 		$out = false;
 
-		if (CakeSession::check('Message.' . $key)) {
-			$flash = CakeSession::read('Message.' . $key);
-			CakeSession::delete('Message.' . $key);
+		if (Session::check('Message.' . $key)) {
+			$flash = Session::read('Message.' . $key);
+			Session::delete('Message.' . $key);
 			$message = $flash['message'];
 			unset($flash['message']);
 
@@ -172,7 +173,7 @@ class SessionHelper extends AppHelper {
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#SessionHelper::valid
  */
 	public function valid() {
-		return CakeSession::valid();
+		return Session::valid();
 	}
 
 }

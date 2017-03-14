@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Datasource;
 
+use Cake\Database\ConnectionManager;
 
 
-App::uses('Model', 'Model');
-App::uses('DataSource', 'Model/Datasource');
+use App\Model\Model;
+use App\Model\Datasource\DataSource;
 
 /**
  * TestSource
@@ -95,7 +96,7 @@ class TestSource extends DataSource {
  *
  * @package       Cake.Test.Case.Model.Datasource
  */
-class DataSourceTest extends CakeTestCase {
+class DataSourceTest extends TestCase {
 
 /**
  * Name of test source

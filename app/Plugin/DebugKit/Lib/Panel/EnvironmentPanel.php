@@ -18,7 +18,7 @@
  *
  */
 
-App::uses('DebugPanel', 'DebugKit.Lib');
+use DebugKit\Lib\DebugPanel;
 
 /**
  * Class EnvironmentPanel

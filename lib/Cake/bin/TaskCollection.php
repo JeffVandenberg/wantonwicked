@@ -16,9 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
 
 
-App::uses('ObjectCollection', 'Utility');
+use App\Utility\ObjectCollection;
 
 /**
  * Collection object for Tasks. Provides features
@@ -83,7 +85,7 @@ class TaskCollection extends ObjectCollection {
 			return $this->_loaded[$alias];
 		}
 		$taskClass = $name . 'Task';
-		App::uses($taskClass, $plugin . 'Console/Command/Task');
+		/* TODO: App::uses($taskClass, $plugin . 'Console/Command/Task'); */
 
 		$exists = class_exists($taskClass);
 		if (!$exists) {

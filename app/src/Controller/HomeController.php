@@ -8,6 +8,7 @@
  * @property ConfigComponent Config
  */namespace app\Controller;
 
+use App\Controller\AppController;
 
 
 class HomeController extends AppController
@@ -26,7 +27,7 @@ class HomeController extends AppController
     }
 
     public function staff() {
-        App::uses('LegacyUser', 'Model');
+        use App\Model\LegacyUser;
         $legacyUser = new LegacyUser();
 
         $staff = $legacyUser->listUsersWithGroups();

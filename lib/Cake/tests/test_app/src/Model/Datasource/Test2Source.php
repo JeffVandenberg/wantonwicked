@@ -1,6 +1,8 @@
 <?php
 namespace lib\Cake\Test\test_app\Model\Datasource;
 
+use Cake\Model\Model;
+
 class Test2Source extends DataSource {
 
 	public function describe($model) {

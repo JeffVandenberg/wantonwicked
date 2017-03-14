@@ -17,15 +17,16 @@
  */
 namespace lib\Cake\Test\TestCase\Controller\Component\Acl;
 
+use App\Controller\Component\Acl\IniAcl;
+use Cake\TestSuite\TestCase;
 
-App::uses('IniAcl', 'Controller/Component/Acl');
 
 /**
  * Test case for the IniAcl implementation
  *
  * @package       Cake.Test.Case.Controller.Component.Acl
  */
-class IniAclTest extends CakeTestCase {
+class IniAclTest extends TestCase {
 
 /**
  * testIniCheck method

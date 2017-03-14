@@ -16,16 +16,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Cache\Engine;
 
+use Cake\Core\Configure;
 
 
-App::uses('Cache', 'Cache');
+use Cake\Cache\Cache;
 
 /**
  * ApcEngineTest class
  *
  * @package       Cake.Test.Case.Cache.Engine
  */
-class ApcEngineTest extends CakeTestCase {
+class ApcEngineTest extends TestCase {
 
 /**
  * APC extension to be used

@@ -7,13 +7,14 @@
  * Time: 3:45 PM
  */namespace app\Controller\Component;
 
+use Cake\Controller\Component;
 
 class ScenesEmailComponent extends Component
 {
     public function SendJoinEmail($scene, $sceneCharacter)
     {
         // load runner
-        App::uses('User', 'Model');
+        use App\Model\User;
         $users = new User();
         $user  = $users->find('first', array(
             'conditions' => array(
@@ -27,7 +28,7 @@ class ScenesEmailComponent extends Component
         }
 
         // load character
-        App::uses('Character', 'Model');
+        use App\Model\Character;
         $characters = new Character();
         $character  = $characters->find('first', array(
             'conditions' => array(
@@ -36,8 +37,8 @@ class ScenesEmailComponent extends Component
             'contain'    => false
         ));
 
-        App::uses('CakeEmail', 'Network/Email');
-        $emailer = new CakeEmail();
+        use App\Network\Email\Email;
+        $emailer = new Email();
         $emailer->to($user['User']['user_email']);
         $emailer->from('wantonwicked@gamingsandbox.com');
         $emailer->subject('A New character has joined your scene: ' . $scene['Scene']['name']);
@@ -54,7 +55,7 @@ class ScenesEmailComponent extends Component
 
     public function SendScheduleChange($newScene, $oldScene)
     {
-        App::uses('SceneCharacter', 'Model');
+        use App\Model\SceneCharacter;
         $sceneCharacterRepo = new SceneCharacter();
         $sceneCharacters    = $sceneCharacterRepo->find('all', array(
             'conditions' => array(
@@ -72,8 +73,8 @@ class ScenesEmailComponent extends Component
             )
         ));
 
-        App::uses('CakeEmail', 'Network/Email');
-        $emailer = new CakeEmail();
+        use App\Network\Email\Email;
+        $emailer = new Email();
         $emailer->from('wantonwicked@gamingsandbox.com');
         $emailer->subject($newScene['Scene']['name'] . ' is being run at a new time');
         $emailer->emailFormat('html');
@@ -91,7 +92,7 @@ class ScenesEmailComponent extends Component
 
     public function SendCancelEmails($scene)
     {
-        App::uses('SceneCharacter', 'Model');
+        use App\Model\SceneCharacter;
         $sceneCharacterRepo = new SceneCharacter();
         $sceneCharacters    = $sceneCharacterRepo->find('all', array(
             'conditions' => array(
@@ -109,8 +110,8 @@ class ScenesEmailComponent extends Component
             )
         ));
 
-        App::uses('CakeEmail', 'Network/Email');
-        $emailer = new CakeEmail();
+        use App\Network\Email\Email;
+        $emailer = new Email();
         $emailer->from('wantonwicked@gamingsandbox.com');
         $emailer->subject($scene['Scene']['name'] . ' has been cancelled');
         $emailer->emailFormat('html');

@@ -16,11 +16,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Datasource\Database;
 
+use Cake\Database\ConnectionManager;
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('Sqlserver', 'Model/Datasource/Database');
+use App\Model\Model;
+use App\Model\AppModel;
+use App\Model\Datasource\Database\Sqlserver;
 
 require_once dirname(dirname(dirname(__FILE__))) . DS . 'models.php';
 
@@ -238,7 +239,7 @@ class SqlserverTestResultIterator extends ArrayIterator {
  *
  * @package       Cake.Test.Case.Model.Datasource.Database
  */
-class SqlserverTest extends CakeTestCase {
+class SqlserverTest extends TestCase {
 
 /**
  * The Dbo instance to be tested

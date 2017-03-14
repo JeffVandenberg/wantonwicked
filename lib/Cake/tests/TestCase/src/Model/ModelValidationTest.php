@@ -16,6 +16,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Model\Model;
+
 
 
 require_once dirname(__FILE__) . DS . 'ModelTestBase.php';

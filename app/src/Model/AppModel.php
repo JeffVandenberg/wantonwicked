@@ -21,7 +21,7 @@
 
 
 
-App::uses('Model', 'Model');
+use App\Model\Model;
 
 /**
  * Application model for Cake.

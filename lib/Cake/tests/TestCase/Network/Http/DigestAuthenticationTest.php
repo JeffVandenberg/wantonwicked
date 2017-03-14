@@ -18,8 +18,8 @@
 
 
 
-App::uses('HttpSocket', 'Network/Http');
-App::uses('DigestAuthentication', 'Network/Http');
+use App\Network\Http\HttpSocket;
+use App\Network\Http\DigestAuthentication;
 
 /**
  * DigestHttpSocket
@@ -58,7 +58,7 @@ class DigestHttpSocket extends HttpSocket {
  *
  * @package       Cake.Test.Case.Network.Http
  */
-class DigestAuthenticationTest extends CakeTestCase {
+class DigestAuthenticationTest extends TestCase {
 
 /**
  * Socket property

@@ -16,18 +16,19 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite;
 
+use Cake\Core\App;
 
 
 if (!defined('__PHPUNIT_PHAR__')) {
 	require_once 'PHPUnit/TextUI/Command.php';
 }
 
-App::uses('CakeTestRunner', 'TestSuite');
-App::uses('CakeTestLoader', 'TestSuite');
-App::uses('CakeTestSuite', 'TestSuite');
-App::uses('CakeTestCase', 'TestSuite');
-App::uses('ControllerTestCase', 'TestSuite');
-App::uses('CakeTestModel', 'TestSuite/Fixture');
+use App\TestSuite\CakeTestRunner;
+use App\TestSuite\CakeTestLoader;
+use App\TestSuite\CakeTestSuite;
+use Cake\TestSuite\TestCase;
+use App\TestSuite\ControllerTestCase;
+use App\TestSuite\Fixture\CakeTestModel;
 
 /**
  * Class to customize loading of test suites from CLI
@@ -143,10 +144,10 @@ class CakeTestSuiteCommand extends PHPUnit_TextUI_Command {
 
 		$reporter = ucwords($reporter);
 		$coreClass = 'Cake' . $reporter . 'Reporter';
-		App::uses($coreClass, 'TestSuite/Reporter');
+		/* TODO: App::uses($coreClass, 'TestSuite/Reporter'); */
 
 		$appClass = $reporter . 'Reporter';
-		App::uses($appClass, 'TestSuite/Reporter');
+		/* TODO: App::uses($appClass, 'TestSuite/Reporter'); */
 
 		if (!class_exists($appClass)) {
 			$object = new $coreClass(null, $this->_params);

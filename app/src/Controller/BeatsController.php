@@ -5,7 +5,7 @@ namespace app\Controller;
 use classes\character\data\CharacterBeat;
 use classes\character\nwod2\BeatService;
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * Beats Controller

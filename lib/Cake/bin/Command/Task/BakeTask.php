@@ -15,9 +15,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command\Task;
 
+use Cake\Core\Configure;
 
 
-App::uses('AppShell', 'Console/Command');
+use App\Console\Command\AppShell;
 
 /**
  * Base class for Bake Tasks.

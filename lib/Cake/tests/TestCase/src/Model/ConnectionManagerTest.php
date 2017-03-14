@@ -16,15 +16,18 @@
  */
 namespace lib\Cake\Test\TestCase\Model;
 
+use App\Model\ConnectionManager;
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
 
-App::uses('ConnectionManager', 'Model');
 
 /**
  * ConnectionManagerTest
  *
  * @package       Cake.Test.Case.Model
  */
-class ConnectionManagerTest extends CakeTestCase {
+class ConnectionManagerTest extends TestCase {
 
 /**
  * tearDown method
@@ -33,7 +36,7 @@ class ConnectionManagerTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -92,7 +95,7 @@ class ConnectionManagerTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$name = 'test_source';
 		$config = array('datasource' => 'TestPlugin.TestSource');
 		$connection = ConnectionManager::create($name, $config);
@@ -113,7 +116,7 @@ class ConnectionManagerTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$name = 'test_plugin_source_and_driver';
 		$config = array('datasource' => 'TestPlugin.Database/TestDriver');
 
@@ -136,7 +139,7 @@ class ConnectionManagerTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$name = 'test_local_source_and_plugin_driver';
 		$config = array('datasource' => 'TestPlugin.Database/DboDummy');
 
@@ -276,7 +279,7 @@ class ConnectionManagerTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS . 'Datasource' . DS
 			)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 		$expected = array(
 			'datasource' => 'Test2Source'
 		);

@@ -19,7 +19,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('ExceptionRenderer', 'Error');
+use Cake\Error\ExceptionRenderer;
 
 /**
  * TestPluginExceptionRenderer

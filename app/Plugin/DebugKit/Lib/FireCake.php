@@ -21,7 +21,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('Debugger', 'Utility');
+use App\Utility\Debugger;
 
 if (!function_exists('firecake')) {
 

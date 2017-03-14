@@ -15,13 +15,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command\Task;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('File', 'Utility');
-App::uses('Folder', 'Utility');
-App::uses('CakeText', 'Utility');
-App::uses('Security', 'Utility');
+use App\Console\Command\AppShell;
+use App\Utility\File;
+use App\Utility\Folder;
+use App\Utility\CakeText;
+use Cake\Utility\Security;
 
 /**
  * Task class for creating new project apps and plugins
@@ -280,7 +283,7 @@ class ProjectTask extends AppShell {
 		$File = new File($path . 'Config' . DS . 'core.php');
 		$contents = $File->read();
 		if (preg_match('/([\s]*Configure::write\(\'Security.cipherSeed\',[\s\'A-z0-9]*\);)/', $contents, $match)) {
-			App::uses('Security', 'Utility');
+			use Cake\Utility\Security;
 			$string = substr(bin2hex(Security::generateAuthKey()), 0, 30);
 			$result = str_replace($match[0], "\t" . 'Configure::write(\'Security.cipherSeed\', \'' . $string . '\');', $contents);
 			if ($File->write($result)) {

@@ -14,13 +14,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Auth;
 
+use Cake\Cache\Cache;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('AuthComponent', 'Controller/Component');
-App::uses('FormAuthenticate', 'Controller/Component/Auth');
-App::uses('AppModel', 'Model');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
+use App\Controller\Component\AuthComponent;
+use App\Controller\Component\Auth\FormAuthenticate;
+use App\Model\AppModel;
+use Cake\Network\Request;
+use Cake\Network\Response;
 
 require_once CAKE . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'models.php';
 
@@ -29,7 +34,7 @@ require_once CAKE . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'models.php';
  *
  * @package       Cake.Test.Case.Controller.Component.Auth
  */
-class FormAuthenticateTest extends CakeTestCase {
+class FormAuthenticateTest extends TestCase {
 
 /**
  * Fixtrues
@@ -53,7 +58,7 @@ class FormAuthenticateTest extends CakeTestCase {
 		$password = Security::hash('password', null, true);
 		$User = ClassRegistry::init('User');
 		$User->updateAll(array('password' => $User->getDataSource()->value($password)));
-		$this->response = $this->getMock('CakeResponse');
+		$this->response = $this->getMock('Response');
 	}
 
 /**
@@ -76,7 +81,7 @@ class FormAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateNoData() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array();
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
@@ -87,7 +92,7 @@ class FormAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateNoUsername() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array('User' => array('password' => 'foobar'));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
@@ -98,7 +103,7 @@ class FormAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateNoPassword() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array('User' => array('user' => 'mariano'));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
@@ -109,7 +114,7 @@ class FormAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticatePasswordIsFalse() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => 'mariano',
@@ -125,7 +130,7 @@ class FormAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticatePasswordIsEmptyString() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => 'mariano',
@@ -158,7 +163,7 @@ class FormAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateFieldsAreNotString() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => array('mariano', 'phpnut'),
@@ -187,7 +192,7 @@ class FormAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateInjection() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array(
 			'User' => array(
 				'user' => '> 1',
@@ -202,7 +207,7 @@ class FormAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateSuccess() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array('User' => array(
 			'user' => 'mariano',
 			'password' => 'password'
@@ -224,7 +229,7 @@ class FormAuthenticateTest extends CakeTestCase {
  */
 	public function testAuthenticateScopeFail() {
 		$this->auth->settings['scope'] = array('user' => 'nate');
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array('User' => array(
 			'user' => 'mariano',
 			'password' => 'password'
@@ -242,7 +247,7 @@ class FormAuthenticateTest extends CakeTestCase {
 		$User = ClassRegistry::init('User');
 		$User->updateAll(array('user' => $User->getDataSource()->value('0')), array('user' => 'mariano'));
 
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array('User' => array(
 			'user' => '0',
 			'password' => 'password'
@@ -267,7 +272,7 @@ class FormAuthenticateTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$PluginModel = ClassRegistry::init('TestPlugin.TestPluginAuthUser');
 		$user['id'] = 1;
@@ -278,7 +283,7 @@ class FormAuthenticateTest extends CakeTestCase {
 		$this->auth->settings['userModel'] = 'TestPlugin.TestPluginAuthUser';
 		$this->auth->settings['fields']['username'] = 'username';
 
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array('TestPluginAuthUser' => array(
 			'username' => 'gwoo',
 			'password' => 'cake'
@@ -293,7 +298,7 @@ class FormAuthenticateTest extends CakeTestCase {
 		$this->assertEquals(static::date(), $result['updated']);
 		unset($result['updated']);
 		$this->assertEquals($expected, $result);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -318,7 +323,7 @@ class FormAuthenticateTest extends CakeTestCase {
 			array('User.user' => 'mariano')
 		);
 
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->data = array('User' => array(
 			'user' => 'mariano',
 			'password' => 'mypass'

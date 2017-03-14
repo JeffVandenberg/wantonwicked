@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Controller\Component;
 
+use Cake\Core\Configure;
 
 
-App::uses('Controller', 'Controller');
-App::uses('SessionComponent', 'Controller/Component');
+use Cake\Controller\Controller;
+use App\Controller\Component\SessionComponent;
 
 /**
  * SessionTestController class
@@ -76,7 +77,7 @@ class OrangeSessionTestController extends Controller {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class SessionComponentTest extends CakeTestCase {
+class SessionComponentTest extends TestCase {
 
 	protected static $_sessionBackup;
 
@@ -128,7 +129,7 @@ class SessionComponentTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakeSession::destroy();
+		Session::destroy();
 	}
 
 /**
@@ -173,7 +174,7 @@ class SessionComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testSessionError() {
-		CakeSession::$lastError = null;
+		Session::$lastError = null;
 		$Session = new SessionComponent($this->ComponentCollection);
 		$this->assertFalse($Session->error());
 	}
@@ -271,7 +272,7 @@ class SessionComponentTest extends CakeTestCase {
 	public function testSessionId() {
 		unset($_SESSION);
 		$Session = new SessionComponent($this->ComponentCollection);
-		CakeSession::start();
+		Session::start();
 		$this->assertEquals(session_id(), $Session->id());
 	}
 

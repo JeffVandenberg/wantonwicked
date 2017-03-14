@@ -16,10 +16,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('View', 'View');
-App::uses('TextHelper', 'View/Helper');
+use Cake\View\View;
+use App\View\Helper\TextHelper;
 
 /**
  * TextHelperTestObject
@@ -51,7 +53,7 @@ class CakeTextMock {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class TextHelperTest extends CakeTestCase {
+class TextHelperTest extends TestCase {
 
 /**
  * setUp method
@@ -107,10 +109,10 @@ class TextHelperTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$Text = new TextHelperTestObject($this->View, array('engine' => 'TestPlugin.TestPluginEngine'));
 		$this->assertInstanceOf('TestPluginEngine', $Text->engine());
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 
 /**

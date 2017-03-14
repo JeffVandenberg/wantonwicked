@@ -7,6 +7,8 @@
  * Time: 6:50 PM
  */namespace app\Model;
 
+use App\Model\AppModel;
+
 
 class Character extends AppModel
 {

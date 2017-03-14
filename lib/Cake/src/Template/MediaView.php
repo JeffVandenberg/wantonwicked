@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template;
 
+use App\Controller\AppController;
 
 
-App::uses('View', 'View');
-App::uses('CakeRequest', 'Network');
+use Cake\View\View;
+use Cake\Network\Request;
 
 /**
  * Media View provides a custom view implementation for sending files to visitors. Its great
@@ -33,7 +34,7 @@ App::uses('CakeRequest', 'Network');
  * - `name` The filename that will be sent to the user, specified without the extension.
  * - `download` Set to true to set a `Content-Disposition` header. This is ideal for file downloads.
  * - `path` The absolute path, including the trailing / on the server's filesystem to `id`.
- * - `mimeType` The mime type of the file if CakeResponse doesn't know about it.
+ * - `mimeType` The mime type of the file if Response doesn't know about it.
  * 	Must be an associative array with extension as key and mime type as value eg. array('ini' => 'text/plain')
  *
  * ### Usage
@@ -55,7 +56,7 @@ App::uses('CakeRequest', 'Network');
  * ```
  *
  * @package       Cake.View
- * @deprecated 3.0.0 Deprecated since version 2.3, use CakeResponse::file() instead
+ * @deprecated 3.0.0 Deprecated since version 2.3, use Response::file() instead
  */
 class MediaView extends View {
 

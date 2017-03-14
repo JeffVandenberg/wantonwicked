@@ -18,12 +18,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Error;
 
+use App\Controller\AppController;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Log\Log;
 
 
-App::uses('Debugger', 'Utility');
-App::uses('CakeLog', 'Log');
-App::uses('ExceptionRenderer', 'Error');
-App::uses('Router', 'Routing');
+use App\Utility\Debugger;
+use Cake\Log\Log;
+use Cake\Error\ExceptionRenderer;
+use Cake\Routing\Router;
 
 /**
  * Error Handler provides basic error and exception handling for your application. It captures and
@@ -69,13 +73,13 @@ App::uses('Router', 'Routing');
  *
  * Using the built-in exception handling, you can log all the exceptions
  * that are dealt with by ErrorHandler by setting `Exception.log` to true in your core.php.
- * Enabling this will log every exception to CakeLog and the configured loggers.
+ * Enabling this will log every exception to Log and the configured loggers.
  *
  * ### PHP errors
  *
  * Error handler also provides the built in features for handling php errors (trigger_error).
  * While in debug mode, errors will be output to the screen using debugger. While in production mode,
- * errors will be logged to CakeLog. You can control which errors are logged by setting
+ * errors will be logged to Log. You can control which errors are logged by setting
  * `Error.level` in your core.php.
  *
  * #### Logging errors
@@ -122,7 +126,7 @@ class ErrorHandler {
 		$renderer = isset($config['renderer']) ? $config['renderer'] : 'ExceptionRenderer';
 		if ($renderer !== 'ExceptionRenderer') {
 			list($plugin, $renderer) = pluginSplit($renderer, true);
-			App::uses($renderer, $plugin . 'Error');
+			/* TODO: App::uses($renderer, $plugin . 'Error'); */
 		}
 		try {
 			$error = new $renderer($exception);
@@ -187,13 +191,13 @@ class ErrorHandler {
 				}
 			}
 		}
-		return CakeLog::write(LOG_ERR, static::_getMessage($exception));
+		return Log::write(LOG_ERR, static::_getMessage($exception));
 	}
 
 /**
  * Set as the default error handler by CakePHP. Use Configure::write('Error.handler', $callback), to use your own
  * error handling methods. This function will use Debugger to display errors when debug > 0. And
- * will log errors to CakeLog, when debug == 0.
+ * will log errors to Log, when debug == 0.
  *
  * You can use Configure::write('Error.level', $value); to set what type of errors will be handled here.
  * Stack traces for errors can be enabled with Configure::write('Error.trace', true);
@@ -238,14 +242,14 @@ class ErrorHandler {
 					App::load('Debugger');
 				}
 				if (!class_exists('CakeText')) {
-					App::uses('CakeText', 'Utility');
+					use App\Utility\CakeText;
 					App::load('CakeText');
 				}
 			}
 			$trace = Debugger::trace(array('start' => 1, 'format' => 'log'));
 			$message .= "\nTrace:\n" . $trace . "\n";
 		}
-		return CakeLog::write($log, $message);
+		return Log::write($log, $message);
 	}
 
 /**
@@ -261,7 +265,7 @@ class ErrorHandler {
  */
 	public static function handleFatalError($code, $description, $file, $line) {
 		$logMessage = 'Fatal Error (' . $code . '): ' . $description . ' in [' . $file . ', line ' . $line . ']';
-		CakeLog::write(LOG_ERR, $logMessage);
+		Log::write(LOG_ERR, $logMessage);
 
 		$exceptionHandler = Configure::read('Exception.handler');
 		if (!is_callable($exceptionHandler)) {

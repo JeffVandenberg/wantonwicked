@@ -16,25 +16,28 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('CakeSchema', 'Model');
-App::uses('ClassRegistry', 'Utility');
-App::uses('Helper', 'View/Helper');
-App::uses('ProjectTask', 'Console/Command/Task');
-App::uses('ControllerTask', 'Console/Command/Task');
-App::uses('ModelTask', 'Console/Command/Task');
-App::uses('TemplateTask', 'Console/Command/Task');
-App::uses('TestTask', 'Console/Command/Task');
-App::uses('Model', 'Model');
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ShellDispatcher;
+use Cake\Console\Shell;
+use App\Model\CakeSchema;
+use App\Utility\ClassRegistry;
+use App\View\Helper\Helper;
+use App\Console\Command\Task\ProjectTask;
+use App\Console\Command\Task\ControllerTask;
+use App\Console\Command\Task\ModelTask;
+use App\Console\Command\Task\TemplateTask;
+use App\Console\Command\Task\TestTask;
+use App\Model\Model;
 
-App::uses('BakeArticle', 'Model');
-App::uses('BakeComment', 'Model');
-App::uses('BakeTags', 'Model');
+use App\Model\BakeArticle;
+use App\Model\BakeComment;
+use App\Model\BakeTags;
 $imported = class_exists('BakeArticle') || class_exists('BakeComment') || class_exists('BakeTag');
 
 if (!$imported) {
@@ -57,7 +60,7 @@ if (!$imported) {
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class ControllerTaskTest extends CakeTestCase {
+class ControllerTaskTest extends TestCase {
 
 /**
  * fixtures
@@ -304,7 +307,7 @@ class ControllerTaskTest extends CakeTestCase {
 		$this->Task->plugin = 'ControllerTest';
 
 		//fake plugin path
-		CakePlugin::load('ControllerTest', array('path' => APP . 'Plugin' . DS . 'ControllerTest' . DS));
+		Plugin::load('ControllerTest', array('path' => APP . 'Plugin' . DS . 'ControllerTest' . DS));
 		$path = APP . 'Plugin' . DS . 'ControllerTest' . DS . 'Controller' . DS . 'ArticlesController.php';
 
 		$this->Task->expects($this->at(1))->method('createFile')->with(
@@ -322,11 +325,11 @@ class ControllerTaskTest extends CakeTestCase {
 		$path = APP . 'Plugin' . DS . 'ControllerTest' . DS . 'Controller' . DS . 'ArticlesController.php';
 		$result = $this->Task->bake('Articles', '--actions--', array(), array(), array());
 
-		$this->assertContains("App::uses('ControllerTestAppController', 'ControllerTest.Controller');", $result);
+		$this->assertContains("use ControllerTest\Controller\ControllerTestAppController;", $result);
 		$this->assertEquals('ControllerTest', $this->Task->Template->templateVars['plugin']);
 		$this->assertEquals('ControllerTest.', $this->Task->Template->templateVars['pluginPath']);
 
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

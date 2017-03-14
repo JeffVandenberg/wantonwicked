@@ -18,7 +18,7 @@
 
 
 
-App::uses('Sanitize', 'Utility');
+use App\Utility\Sanitize;
 
 /**
  * DataTest class
@@ -55,7 +55,7 @@ class SanitizeArticle extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Utility
  */
-class SanitizeTest extends CakeTestCase {
+class SanitizeTest extends TestCase {
 
 /**
  * autoFixtures property

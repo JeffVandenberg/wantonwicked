@@ -16,12 +16,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller\Component;
 
+use Cake\Controller\Controller;
+use Cake\Core\Configure;
 
 
-App::uses('Component', 'Controller');
-App::uses('CakeText', 'Utility');
-App::uses('Hash', 'Utility');
-App::uses('Security', 'Utility');
+use Cake\Controller\Component;
+use App\Utility\CakeText;
+use Cake\Utility\Hash;
+use Cake\Utility\Security;
 
 /**
  * The Security Component creates an easy way to integrate tighter security in
@@ -49,7 +51,7 @@ class SecurityComponent extends Component {
  * List of controller actions for which a POST request is required
  *
  * @var array
- * @deprecated 3.0.0 Use CakeRequest::allowMethod() instead.
+ * @deprecated 3.0.0 Use Request::allowMethod() instead.
  * @see SecurityComponent::requirePost()
  */
 	public $requirePost = array();
@@ -58,7 +60,7 @@ class SecurityComponent extends Component {
  * List of controller actions for which a GET request is required
  *
  * @var array
- * @deprecated 3.0.0 Use CakeRequest::allowMethod() instead.
+ * @deprecated 3.0.0 Use Request::allowMethod() instead.
  * @see SecurityComponent::requireGet()
  */
 	public $requireGet = array();
@@ -67,7 +69,7 @@ class SecurityComponent extends Component {
  * List of controller actions for which a PUT request is required
  *
  * @var array
- * @deprecated 3.0.0 Use CakeRequest::allowMethod() instead.
+ * @deprecated 3.0.0 Use Request::allowMethod() instead.
  * @see SecurityComponent::requirePut()
  */
 	public $requirePut = array();
@@ -76,7 +78,7 @@ class SecurityComponent extends Component {
  * List of controller actions for which a DELETE request is required
  *
  * @var array
- * @deprecated 3.0.0 Use CakeRequest::allowMethod() instead.
+ * @deprecated 3.0.0 Use Request::allowMethod() instead.
  * @see SecurityComponent::requireDelete()
  */
 	public $requireDelete = array();
@@ -210,7 +212,7 @@ class SecurityComponent extends Component {
 /**
  * Request object
  *
- * @var CakeRequest
+ * @var Request
  */
 	public $request;
 
@@ -255,7 +257,7 @@ class SecurityComponent extends Component {
  * Sets the actions that require a POST request, or empty for all actions
  *
  * @return void
- * @deprecated 3.0.0 Use CakeRequest::onlyAllow() instead.
+ * @deprecated 3.0.0 Use Request::onlyAllow() instead.
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/security-component.html#SecurityComponent::requirePost
  */
 	public function requirePost() {
@@ -266,7 +268,7 @@ class SecurityComponent extends Component {
 /**
  * Sets the actions that require a GET request, or empty for all actions
  *
- * @deprecated 3.0.0 Use CakeRequest::onlyAllow() instead.
+ * @deprecated 3.0.0 Use Request::onlyAllow() instead.
  * @return void
  */
 	public function requireGet() {
@@ -277,7 +279,7 @@ class SecurityComponent extends Component {
 /**
  * Sets the actions that require a PUT request, or empty for all actions
  *
- * @deprecated 3.0.0 Use CakeRequest::onlyAllow() instead.
+ * @deprecated 3.0.0 Use Request::onlyAllow() instead.
  * @return void
  */
 	public function requirePut() {
@@ -288,7 +290,7 @@ class SecurityComponent extends Component {
 /**
  * Sets the actions that require a DELETE request, or empty for all actions
  *
- * @deprecated 3.0.0 Use CakeRequest::onlyAllow() instead.
+ * @deprecated 3.0.0 Use Request::onlyAllow() instead.
  * @return void
  */
 	public function requireDelete() {
@@ -526,10 +528,10 @@ class SecurityComponent extends Component {
 /**
  * Manually add CSRF token information into the provided request object.
  *
- * @param CakeRequest $request The request object to add into.
+ * @param Request $request The request object to add into.
  * @return bool
  */
-	public function generateToken(CakeRequest $request) {
+	public function generateToken(Request $request) {
 		if (isset($request->params['requested']) && $request->params['requested'] === 1) {
 			if ($this->Session->check('_Token')) {
 				$request->params['_Token'] = $this->Session->read('_Token');

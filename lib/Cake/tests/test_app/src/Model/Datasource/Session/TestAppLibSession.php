@@ -5,9 +5,9 @@
 
 
 
-App::uses('CakeSessionHandlerInterface', 'Model/Datasource/Session');
+use App\Model\Datasource\Session\SessionHandlerInterface;
 
-class TestAppLibSession implements CakeSessionHandlerInterface {
+class TestAppLibSession implements SessionHandlerInterface {
 
 	public function open() {
 		return true;

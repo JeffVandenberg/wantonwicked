@@ -18,10 +18,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model;
 
+use Cake\Model\Model;
 
 
-App::uses('CakeValidationSet', 'Model/Validator');
-App::uses('Hash', 'Utility');
+use App\Model\Validator\CakeValidationSet;
+use Cake\Utility\Hash;
 
 /**
  * ModelValidator object encapsulates all methods related to data validations for a model
@@ -273,7 +274,7 @@ class ModelValidator implements ArrayAccess, IteratorAggregate, Countable {
 			}
 		}
 
-		$model->getEventManager()->dispatch(new CakeEvent('Model.afterValidate', $model));
+		$model->getEventManager()->dispatch(new Event('Model.afterValidate', $model));
 		return $model->validationErrors;
 	}
 
@@ -451,7 +452,7 @@ class ModelValidator implements ArrayAccess, IteratorAggregate, Countable {
  */
 	protected function _triggerBeforeValidate($options = array()) {
 		$model = $this->getModel();
-		$event = new CakeEvent('Model.beforeValidate', $model, array($options));
+		$event = new Event('Model.beforeValidate', $model, array($options));
 		list($event->break, $event->breakOn) = array(true, false);
 		$model->getEventManager()->dispatch($event);
 		if ($event->isStopped()) {
@@ -550,7 +551,7 @@ class ModelValidator implements ArrayAccess, IteratorAggregate, Countable {
  *
  * @param string $field The name of the field where the rule is to be added
  * @param string|array|CakeValidationSet $name name of the rule to be added or list of rules for the field
- * @param array|CakeValidationRule $rule or list of rules to be added to the field's rule set
+ * @param array|ValidationRule $rule or list of rules to be added to the field's rule set
  * @return self
  */
 	public function add($field, $name, $rule = null) {

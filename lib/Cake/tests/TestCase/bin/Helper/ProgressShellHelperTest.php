@@ -13,16 +13,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Helper;
 
+use Cake\TestSuite\TestCase;
 
-App::uses("ProgressShellHelper", "Console/Helper");
-App::uses("ConsoleOutputStub", "TestSuite/Stub");
+use App\Console\Helper\ProgressShellHelper;
+use App\TestSuite\Stub\ConsoleOutputStub;
 
 /**
  * ProgressHelper test.
  * @property ConsoleOutputStub $consoleOutput
  * @property ProgressShellHelper $helper
  */
-class ProgressShellHelperTest extends CakeTestCase {
+class ProgressShellHelperTest extends TestCase {
 
 /**
  * setUp method

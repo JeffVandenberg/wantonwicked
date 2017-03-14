@@ -7,7 +7,7 @@ class AllTagsPluginTest extends PHPUnit_Framework_TestSuite {
  * @return void
  */
 	public static function suite() {
-		$path = CakePlugin::path('Tags') . DS . 'Test' . DS . 'Case' . DS;
+		$path = Plugin::path('Tags') . DS . 'Test' . DS . 'Case' . DS;
 
 		$Suite = new CakeTestSuite('All Tags Plugin Tests');
 		$Suite->addTestDirectory($path . DS . 'Controller');

@@ -17,7 +17,7 @@
 
 
 
-App::uses('AppShell', 'Console/Command');
+use App\Console\Command\AppShell;
 
 /**
  * Shell for I18N management.

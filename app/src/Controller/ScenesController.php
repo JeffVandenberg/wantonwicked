@@ -1,7 +1,7 @@
 <?php
 namespace app\Controller;
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * Scenes Controller
@@ -114,7 +114,7 @@ class ScenesController extends AppController
                    $this->Permissions->IsST() ||
                    $this->Auth->user('user_id') == $scene['Scene']['created_by_id']);
         $this->set('isLoggedIn', $this->Auth->user('user_id') != 1);
-        App::uses('Character', 'Model');
+        use App\Model\Character;
         $character       = new Character();
         $sceneCharacters = $character->FindCharactersForScene($scene['Scene']['id']);
         $this->set(compact('sceneCharacters'));
@@ -135,7 +135,7 @@ class ScenesController extends AppController
                 $this->Scene->create();
                 $scene = $this->request->data;
 
-                App::uses('SceneStatus', 'Model');
+                use App\Model\SceneStatus;
                 $scene['Scene']['scene_status_id'] = SceneStatus::Open;
                 $scene['Scene']['created_by_id']   = $this->Auth->user('user_id');
                 $scene['Scene']['created_on']      = date('Y-m-d H:i:s');
@@ -269,7 +269,7 @@ class ScenesController extends AppController
                 $this->redirect(array('action' => 'view', $slug));
             }
             if ($this->request->data['action'] == 'Join') {
-                App::uses('SceneCharacter', 'Model');
+                use App\Model\SceneCharacter;
                 $sceneCharacter = new SceneCharacter();
                 $sceneCharacter->create();
 
@@ -291,7 +291,7 @@ class ScenesController extends AppController
             }
         }
 
-        App::uses('Character', 'Model');
+        use App\Model\Character;
         $character  = new Character();
         $characters = $character->FindCharactersNotInScene($this->Auth->user('user_id'), $scene['Scene']['id']);
 
@@ -317,7 +317,7 @@ class ScenesController extends AppController
             $this->redirect(array('action' => 'index'));
         }
 
-        App::uses('SceneStatus', 'Model');
+        use App\Model\SceneStatus;
         $scene['Scene']['scene_status_id'] = SceneStatus::Cancelled;
 
         if ($this->Scene->saveScene($scene)) {
@@ -344,7 +344,7 @@ class ScenesController extends AppController
             $this->redirect(array('action' => 'index'));
         }
 
-        App::uses('SceneStatus', 'Model');
+        use App\Model\SceneStatus;
         $scene['Scene']['scene_status_id'] = SceneStatus::Completed;
 
         if ($this->Scene->saveScene($scene)) {
@@ -366,7 +366,7 @@ class ScenesController extends AppController
 
     public function my_scenes()
     {
-        App::uses('SceneStatus', 'Model');
+        use App\Model\SceneStatus;
         $this->Scene->recursive    = 0;
         $this->Paginator->settings = array(
             'fields'     => array(
@@ -438,7 +438,7 @@ class ScenesController extends AppController
                                 $slug
                             ));
         }
-        App::uses('SceneCharacter', 'Model');
+        use App\Model\SceneCharacter;
         $sceneCharacterRepo = new SceneCharacter();
         if ($sceneCharacterRepo->deleteAll(array(
                                             'SceneCharacter.scene_id'     => $scene['Scene']['id'],
@@ -465,7 +465,7 @@ class ScenesController extends AppController
             'contain'    => false
         ));
 
-        App::uses('PlayPreferenceResponse', 'Model');
+        use App\Model\PlayPreferenceResponse;
         $repo = new PlayPreferenceResponse();
         $this->set('report', $repo->reportResponsesForPlayersInScene($scene['Scene']['id']));
         $this->set('scene', $scene);

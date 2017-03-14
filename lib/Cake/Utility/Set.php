@@ -18,8 +18,8 @@
 
 
 
-App::uses('CakeText', 'Utility');
-App::uses('Hash', 'Utility');
+use App\Utility\CakeText;
+use Cake\Utility\Hash;
 
 /**
  * Class used for manipulation of arrays.

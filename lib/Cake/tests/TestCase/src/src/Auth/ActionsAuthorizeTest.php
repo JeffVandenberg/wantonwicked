@@ -16,20 +16,21 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Auth;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('ActionsAuthorize', 'Controller/Component/Auth');
-App::uses('ComponentCollection', 'Controller');
-App::uses('AclComponent', 'Controller/Component');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
+use App\Controller\Component\Auth\ActionsAuthorize;
+use App\Controller\ComponentCollection;
+use App\Controller\Component\AclComponent;
+use Cake\Network\Request;
+use Cake\Network\Response;
 
 /**
  * ActionsAuthorizeTest
  *
  * @package       Cake.Test.Case.Controller.Component.Auth
  */
-class ActionsAuthorizeTest extends CakeTestCase {
+class ActionsAuthorizeTest extends TestCase {
 
 /**
  * setUp
@@ -70,7 +71,7 @@ class ActionsAuthorizeTest extends CakeTestCase {
 				'user' => 'mariano'
 			)
 		);
-		$request = new CakeRequest('/posts/index', false);
+		$request = new Request('/posts/index', false);
 		$request->addParams(array(
 			'plugin' => null,
 			'controller' => 'posts',
@@ -99,7 +100,7 @@ class ActionsAuthorizeTest extends CakeTestCase {
 				'user' => 'mariano'
 			)
 		);
-		$request = new CakeRequest('/posts/index', false);
+		$request = new Request('/posts/index', false);
 		$request->addParams(array(
 			'plugin' => null,
 			'controller' => 'posts',
@@ -122,7 +123,7 @@ class ActionsAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthorizeSettings() {
-		$request = new CakeRequest('/posts/index', false);
+		$request = new Request('/posts/index', false);
 		$request->addParams(array(
 			'plugin' => null,
 			'controller' => 'posts',
@@ -152,7 +153,7 @@ class ActionsAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testActionMethod() {
-		$request = new CakeRequest('/posts/index', false);
+		$request = new Request('/posts/index', false);
 		$request->addParams(array(
 			'plugin' => null,
 			'controller' => 'posts',
@@ -170,7 +171,7 @@ class ActionsAuthorizeTest extends CakeTestCase {
  */
 	public function testActionNoDoubleSlash() {
 		$this->auth->settings['actionPath'] = '/controllers/';
-		$request = new CakeRequest('/posts/index', false);
+		$request = new Request('/posts/index', false);
 		$request->addParams(array(
 			'plugin' => null,
 			'controller' => 'posts',
@@ -186,7 +187,7 @@ class ActionsAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testActionWithPlugin() {
-		$request = new CakeRequest('/debug_kit/posts/index', false);
+		$request = new Request('/debug_kit/posts/index', false);
 		$request->addParams(array(
 			'plugin' => 'debug_kit',
 			'controller' => 'posts',

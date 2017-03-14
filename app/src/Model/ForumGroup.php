@@ -6,6 +6,8 @@
  * Time: 7:58 AM
  */namespace app\Model;
 
+use App\Model\AppModel;
+
 
 
 class ForumGroup extends AppModel

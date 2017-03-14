@@ -18,8 +18,8 @@
 
 
 
-App::uses('File', 'Utility');
-App::uses('Folder', 'Utility');
+use App\Utility\File;
+use App\Utility\Folder;
 
 /**
  * FileTest class
@@ -27,7 +27,7 @@ App::uses('Folder', 'Utility');
  * @package       Cake.Test.Case.Utility
  * @coversDefaultClass File
  */
-class FileTest extends CakeTestCase {
+class FileTest extends TestCase {
 
 /**
  * File property

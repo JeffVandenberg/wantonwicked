@@ -17,15 +17,15 @@
  */
 namespace lib\Cake\Test\TestCase\I18n;
 
+use App\I18n\Multibyte;
 
-App::uses('Multibyte', 'I18n');
 
 /**
  * MultibyteTest class
  *
  * @package       Cake.Test.Case.I18n
  */
-class MultibyteTest extends CakeTestCase {
+class MultibyteTest extends TestCase {
 
 /**
  * testUtf8 method

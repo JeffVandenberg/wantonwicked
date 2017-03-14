@@ -18,7 +18,7 @@
 
 
 
-App::uses('BaseLog', 'Log/Engine');
+use App\Log\Engine\BaseLog;
 
 /**
  * TestAppLog

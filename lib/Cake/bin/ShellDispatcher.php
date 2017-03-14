@@ -15,6 +15,9 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 
 /**
@@ -164,7 +167,7 @@ class ShellDispatcher {
  * @return void
  */
 	public function setErrorHandlers() {
-		App::uses('ConsoleErrorHandler', 'Console');
+		use Cake\Console\ConsoleErrorHandler;
 		$error = Configure::read('Error');
 		$exception = Configure::read('Exception');
 
@@ -180,7 +183,7 @@ class ShellDispatcher {
 		set_exception_handler($exception['consoleHandler']);
 		set_error_handler($error['consoleHandler'], Configure::read('Error.level'));
 
-		App::uses('Debugger', 'Utility');
+		use App\Utility\Debugger;
 		Debugger::getInstance()->output('txt');
 	}
 
@@ -247,13 +250,13 @@ class ShellDispatcher {
 		$plugin = Inflector::camelize($plugin);
 		$class = Inflector::camelize($shell) . 'Shell';
 
-		App::uses('Shell', 'Console');
-		App::uses('AppShell', 'Console/Command');
-		App::uses($class, $plugin . 'Console/Command');
+		use Cake\Console\Shell;
+		use App\Console\Command\AppShell;
+		/* TODO: App::uses($class, $plugin . 'Console/Command'); */
 
 		if (!class_exists($class)) {
 			$plugin = Inflector::camelize($shell) . '.';
-			App::uses($class, $plugin . 'Console/Command');
+			/* TODO: App::uses($class, $plugin . 'Console/Command'); */
 		}
 
 		if (!class_exists($class)) {

@@ -18,6 +18,8 @@
  * @package Cake.TestSuite
  */namespace lib\Cake\TestSuite;
 
+use Cake\Core\Plugin;
+
 
 
 /**
@@ -65,14 +67,14 @@ class CakeTestLoader extends PHPUnit_Runner_StandardTestSuiteLoader {
 		if (!empty($params['core'])) {
 			$result = CORE_TEST_CASES;
 		} elseif (!empty($params['plugin'])) {
-			if (!CakePlugin::loaded($params['plugin'])) {
+			if (!Plugin::loaded($params['plugin'])) {
 				try {
-					CakePlugin::load($params['plugin']);
-					$result = CakePlugin::path($params['plugin']) . 'Test' . DS . 'Case';
+					Plugin::load($params['plugin']);
+					$result = Plugin::path($params['plugin']) . 'Test' . DS . 'Case';
 				} catch (MissingPluginException $e) {
 				}
 			} else {
-				$result = CakePlugin::path($params['plugin']) . 'Test' . DS . 'Case';
+				$result = Plugin::path($params['plugin']) . 'Test' . DS . 'Case';
 			}
 		} elseif (!empty($params['app'])) {
 			$result = APP_TEST_CASES;

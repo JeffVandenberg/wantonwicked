@@ -15,12 +15,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command\Task;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('File', 'Utility');
-App::uses('Folder', 'Utility');
-App::uses('Hash', 'Utility');
+use App\Console\Command\AppShell;
+use App\Utility\File;
+use App\Utility\Folder;
+use Cake\Utility\Hash;
 
 /**
  * Language string extractor
@@ -162,10 +166,10 @@ class ExtractTask extends AppShell {
 			$this->_paths = explode(',', $this->params['paths']);
 		} elseif (isset($this->params['plugin'])) {
 			$plugin = Inflector::camelize($this->params['plugin']);
-			if (!CakePlugin::loaded($plugin)) {
-				CakePlugin::load($plugin);
+			if (!Plugin::loaded($plugin)) {
+				Plugin::load($plugin);
 			}
-			$this->_paths = array(CakePlugin::path($plugin));
+			$this->_paths = array(Plugin::path($plugin));
 			$this->params['plugin'] = $plugin;
 		} else {
 			$this->_getPaths();
@@ -489,18 +493,18 @@ class ExtractTask extends AppShell {
  * @return void
  */
 	protected function _extractPluginValidationMessages($plugin = null) {
-		App::uses('AppModel', 'Model');
+		use App\Model\AppModel;
 		if (!empty($plugin)) {
-			if (!CakePlugin::loaded($plugin)) {
+			if (!Plugin::loaded($plugin)) {
 				return;
 			}
-			App::uses($plugin . 'AppModel', $plugin . '.Model');
+			/* TODO: App::uses($plugin . 'AppModel', $plugin . '.Model'); */
 			$plugin = $plugin . '.';
 		}
 		$models = App::objects($plugin . 'Model', null, false);
 
 		foreach ($models as $model) {
-			App::uses($model, $plugin . 'Model');
+			/* TODO: App::uses($model, $plugin . 'Model'); */
 			$reflection = new ReflectionClass($model);
 			if (!$reflection->isSubClassOf('Model')) {
 				continue;

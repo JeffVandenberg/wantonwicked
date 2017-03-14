@@ -12,9 +12,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Auth;
 
+use Cake\Controller\Controller;
 
 
-App::uses('BaseAuthorize', 'Controller/Component/Auth');
+use App\Controller\Component\Auth\BaseAuthorize;
 
 /**
  * An authorization adapter for AuthComponent. Provides the ability to authorize using a controller callback.
@@ -58,10 +59,10 @@ class ControllerAuthorize extends BaseAuthorize {
  * Checks user authorization using a controller callback.
  *
  * @param array $user Active user data
- * @param CakeRequest $request Request instance.
+ * @param Request $request Request instance.
  * @return bool
  */
-	public function authorize($user, CakeRequest $request) {
+	public function authorize($user, Request $request) {
 		return (bool)$this->_Controller->isAuthorized($user);
 	}
 

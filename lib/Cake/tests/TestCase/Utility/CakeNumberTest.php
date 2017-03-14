@@ -17,16 +17,16 @@
  */
 namespace lib\Cake\Test\TestCase\Utility;
 
+use App\Utility\Number;
+use Cake\View\View;
 
-App::uses('View', 'View');
-App::uses('CakeNumber', 'Utility');
 
 /**
  * CakeNumberTest class
  *
  * @package       Cake.Test.Case.Utility
  */
-class CakeNumberTest extends CakeTestCase {
+class CakeNumberTest extends TestCase {
 
 /**
  * setUp method
@@ -35,7 +35,7 @@ class CakeNumberTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Number = new CakeNumber();
+		$this->Number = new Number();
 	}
 
 /**
@@ -172,7 +172,7 @@ class CakeNumberTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 
 		$value = '13371337.1337';
-		$result = CakeNumber::format($value, array(
+		$result = Number::format($value, array(
 			'thousands' => '- |-| /-\ >< () |2 -',
 			'decimals' => '- £€€† -',
 			'before' => ''

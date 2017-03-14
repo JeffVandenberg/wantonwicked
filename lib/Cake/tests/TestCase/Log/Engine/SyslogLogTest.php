@@ -16,14 +16,14 @@
 
 
 
-App::uses('SyslogLog', 'Log/Engine');
+use App\Log\Engine\SyslogLog;
 
 /**
  * SyslogLogTest class
  *
  * @package       Cake.Test.Case.Log.Engine
  */
-class SyslogLogTest extends CakeTestCase {
+class SyslogLogTest extends TestCase {
 
 /**
  * Tests that the connection to the logger is open with the right arguments

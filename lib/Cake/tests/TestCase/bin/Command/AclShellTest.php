@@ -16,21 +16,22 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command;
 
+use Cake\Core\Configure;
 
 
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('AclShell', 'Console/Command');
-App::uses('ComponentCollection', 'Controller');
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ShellDispatcher;
+use Cake\Console\Shell;
+use App\Console\Command\AclShell;
+use App\Controller\ComponentCollection;
 
 /**
  * AclShellTest class
  *
  * @package       Cake.Test.Case.Console.Command
  */
-class AclShellTest extends CakeTestCase {
+class AclShellTest extends TestCase {
 
 /**
  * Fixtures

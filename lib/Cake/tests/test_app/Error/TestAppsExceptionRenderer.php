@@ -2,14 +2,16 @@
 
 namespace lib\Cake\Test\test_app\Error;
 
+use App\Controller\TestAppsErrorController;
+use Cake\Error\ExceptionRenderer;
+use Cake\Routing\Router;
 class TestAppsExceptionRenderer extends ExceptionRenderer {
 
 	protected function _getController($exception) {
-		App::uses('TestAppsErrorController', 'Controller');
 		if (!$request = Router::getRequest(true)) {
-			$request = new CakeRequest();
+			$request = new Request();
 		}
-		$response = new CakeResponse();
+		$response = new Response();
 		try {
 			$controller = new TestAppsErrorController($request, $response);
 			$controller->layout = 'banana';

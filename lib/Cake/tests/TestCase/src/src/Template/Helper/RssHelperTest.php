@@ -18,17 +18,17 @@
 
 
 
-App::uses('View', 'View');
-App::uses('RssHelper', 'View/Helper');
-App::uses('TimeHelper', 'View/Helper');
-App::uses('File', 'Utility');
+use Cake\View\View;
+use App\View\Helper\RssHelper;
+use App\View\Helper\TimeHelper;
+use App\Utility\File;
 
 /**
  * RssHelperTest class
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class RssHelperTest extends CakeTestCase {
+class RssHelperTest extends TestCase {
 
 /**
  * setUp method

@@ -14,15 +14,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Core;
 
+use Cake\Cache\Cache;
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('Hash', 'Utility');
-App::uses('ConfigReaderInterface', 'Configure');
+use Cake\Utility\Hash;
+use App\Configure\ConfigReaderInterface;
 
 /**
  * Compatibility with 2.1, which expects Configure to load Set.
  */
-App::uses('Set', 'Utility');
+use App\Utility\Set;
 
 /**
  * Configuration class. Used for managing runtime configuration information.
@@ -90,7 +93,7 @@ class Configure {
 				'level' => E_ALL & ~E_DEPRECATED,
 			);
 			if (PHP_SAPI === 'cli') {
-				App::uses('ConsoleErrorHandler', 'Console');
+				use Cake\Console\ConsoleErrorHandler;
 				$console = new ConsoleErrorHandler();
 				$exception['handler'] = array($console, 'handleException');
 				$error['handler'] = array($console, 'handleError');
@@ -394,7 +397,7 @@ class Configure {
 			if ($config !== 'default') {
 				return false;
 			}
-			App::uses('PhpReader', 'Configure');
+			use App\Configure\PhpReader;
 			static::config($config, new PhpReader());
 		}
 		return static::$_readers[$config];

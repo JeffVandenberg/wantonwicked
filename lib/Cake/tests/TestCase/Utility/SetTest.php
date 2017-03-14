@@ -18,15 +18,15 @@
 
 
 
-App::uses('Set', 'Utility');
-App::uses('Model', 'Model');
+use App\Utility\Set;
+use App\Model\Model;
 
 /**
  * SetTest class
  *
  * @package       Cake.Test.Case.Utility
  */
-class SetTest extends CakeTestCase {
+class SetTest extends TestCase {
 
 /**
  * testNumericKeyExtraction method
@@ -2814,7 +2814,7 @@ class SetTest extends CakeTestCase {
  * @return void
  */
 	public function testXmlSetReverse() {
-		App::uses('Xml', 'Utility');
+		use Cake\Utility\Xml;
 
 		$string = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 		<rss version="2.0">

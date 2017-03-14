@@ -20,8 +20,8 @@
  */
 namespace lib\Cake\Test\test_app\Controller;
 
+use Cake\Controller\Controller;
 
-App::uses('Controller', 'Controller');
 
 /**
  * This is a placeholder class.

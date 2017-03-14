@@ -16,9 +16,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\Core\Configure;
 
 
-App::uses('Validation', 'Utility');
+use App\Utility\Validation;
 
 /**
  * CustomValidator class
@@ -114,7 +115,7 @@ class ValidationStub extends Validation {
  *
  * @package       Cake.Test.Case.Utility
  */
-class ValidationTest extends CakeTestCase {
+class ValidationTest extends TestCase {
 
 /**
  * setUp method

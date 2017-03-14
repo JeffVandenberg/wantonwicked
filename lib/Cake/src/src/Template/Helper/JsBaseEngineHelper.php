@@ -14,9 +14,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Routing\Router;
 
 
-App::uses('AppHelper', 'View/Helper');
+use App\View\Helper\AppHelper;
 
 /**
  * JsEngineBaseClass

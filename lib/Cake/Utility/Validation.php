@@ -15,9 +15,9 @@
 
 
 
-App::uses('Multibyte', 'I18n');
-App::uses('File', 'Utility');
-App::uses('CakeNumber', 'Utility');
+use App\I18n\Multibyte;
+use App\Utility\File;
+use App\Utility\Number;
 
 // Load multibyte if the extension is missing.
 if (!function_exists('mb_strlen')) {
@@ -962,7 +962,7 @@ class Validation {
 		}
 
 		if (is_string($size)) {
-			$size = CakeNumber::fromReadableSize($size);
+			$size = Number::fromReadableSize($size);
 		}
 		$filesize = filesize($check);
 

@@ -15,14 +15,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  **/
 
-App::uses('LogPanel', 'DebugKit.Lib/Panel');
-App::uses('Controller', 'Controller');
+use DebugKit\Panel\LogPanel;
+use Cake\Controller\Controller;
 
 /**
  * Class LogPanelTest
  *
  */
-class LogPanelTest extends CakeTestCase {
+class LogPanelTest extends TestCase {
 
 /**
  * set up
@@ -40,7 +40,7 @@ class LogPanelTest extends CakeTestCase {
  * @return void
  */
 	public function testConstructor() {
-		$result = CakeLog::configured();
+		$result = Log::configured();
 		$this->assertContains('debug_kit_log_panel', $result);
 		$this->assertTrue(count($result) > 1, 'Default loggers were not added.');
 	}
@@ -53,7 +53,7 @@ class LogPanelTest extends CakeTestCase {
 	public function testBeforeRender() {
 		$controller = new Controller();
 
-		CakeLog::write('error', 'Test');
+		Log::write('error', 'Test');
 
 		$result = $this->panel->beforeRender($controller);
 		$this->assertInstanceOf('DebugKitLog', $result);

@@ -16,16 +16,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Network\Email;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('CakeEmail', 'Network/Email');
-App::uses('AbstractTransport', 'Network/Email');
-App::uses('MailTransport', 'Network/Email');
+use App\Network\Email\Email;
+use App\Network\Email\AbstractTransport;
+use App\Network\Email\MailTransport;
 
 /**
  * Test case
  */
-class MailTransportTest extends CakeTestCase {
+class MailTransportTest extends TestCase {
 
 /**
  * Setup
@@ -44,7 +45,7 @@ class MailTransportTest extends CakeTestCase {
  * @return void
  */
 	public function testSendData() {
-		$email = $this->getMock('CakeEmail', array('message'), array());
+		$email = $this->getMock('Email', array('message'), array());
 		$email->from('noreply@cakephp.org', 'CakePHP Test');
 		$email->returnPath('pleasereply@cakephp.org', 'CakePHP Return');
 		$email->to('cake@cakephp.org', 'CakePHP');

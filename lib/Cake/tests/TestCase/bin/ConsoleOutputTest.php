@@ -16,16 +16,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('ConsoleOutput', 'Console');
+use Cake\Console\ConsoleOutput;
 
 /**
  * ConsoleOutputTest
  *
  * @package       Cake.Test.Case.Console
  */
-class ConsoleOutputTest extends CakeTestCase {
+class ConsoleOutputTest extends TestCase {
 
 /**
  * setup

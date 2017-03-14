@@ -14,16 +14,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('CommandTask', 'Console/Command/Task');
+use App\Console\Command\Task\CommandTask;
 
 /**
  * CommandTaskTest class
  *
  * @package   Cake.Test.Case.Console.Command.Task
  */
-class CommandTaskTest extends CakeTestCase {
+class CommandTaskTest extends TestCase {
 
 /**
  * setUp method
@@ -40,7 +42,7 @@ class CommandTaskTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'Console' . DS . 'Command' . DS
 			)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
 		$in = $this->getMock('ConsoleInput', array(), array(), '', false);
@@ -60,7 +62,7 @@ class CommandTaskTest extends CakeTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->CommandTask);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

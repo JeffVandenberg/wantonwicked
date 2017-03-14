@@ -1,13 +1,14 @@
 <?php
 namespace app\Test\TestCase\Model;
 
-App::uses('RequestType', 'Model');
+use Cake\TestSuite\TestCase;
+use App\Model\RequestType;
 
 /**
  * RequestType Test Case
  *
  */
-class RequestTypeTest extends CakeTestCase {
+class RequestTypeTest extends TestCase {
 
 /**
  * Fixtures

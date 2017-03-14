@@ -16,23 +16,25 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use Cake\Core\Plugin;
+use Cake\Database\ConnectionManager;
 
 
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ModelTask', 'Console/Command/Task');
-App::uses('FixtureTask', 'Console/Command/Task');
-App::uses('TemplateTask', 'Console/Command/Task');
-App::uses('DbConfigTask', 'Console/Command/Task');
+use Cake\Console\ShellDispatcher;
+use Cake\Console\Shell;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use App\Console\Command\Task\ModelTask;
+use App\Console\Command\Task\FixtureTask;
+use App\Console\Command\Task\TemplateTask;
+use App\Console\Command\Task\DbConfigTask;
 
 /**
  * FixtureTaskTest class
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class FixtureTaskTest extends CakeTestCase {
+class FixtureTaskTest extends TestCase {
 
 /**
  * fixtures
@@ -520,12 +522,12 @@ class FixtureTaskTest extends CakeTestCase {
 		$filename = APP . 'Plugin' . DS . 'TestFixture' . DS . 'Test' . DS . 'Fixture' . DS . 'ArticleFixture.php';
 
 		//fake plugin path
-		CakePlugin::load('TestFixture', array('path' => APP . 'Plugin' . DS . 'TestFixture' . DS));
+		Plugin::load('TestFixture', array('path' => APP . 'Plugin' . DS . 'TestFixture' . DS));
 		$this->Task->expects($this->at(0))->method('createFile')
 			->with($filename, $this->stringContains('class Article'));
 
 		$this->Task->generateFixtureFile('Article', array());
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 }

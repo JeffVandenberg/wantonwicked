@@ -16,11 +16,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Datasource\Database;
 
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('Sqlite', 'Model/Datasource/Database');
+use App\Model\Model;
+use App\Model\AppModel;
+use App\Model\Datasource\Database\Sqlite;
 
 require_once dirname(dirname(dirname(__FILE__))) . DS . 'models.php';
 
@@ -65,10 +69,10 @@ class DboSqliteTestDb extends Sqlite {
  *
  * @package       Cake.Test.Case.Model.Datasource.Database
  */
-class SqliteTest extends CakeTestCase {
+class SqliteTest extends TestCase {
 
 /**
- * Do not automatically load fixtures for each test, they will be loaded manually using CakeTestCase::loadFixtures
+ * Do not automatically load fixtures for each test, they will be loaded manually using TestCase::loadFixtures
  *
  * @var bool
  */

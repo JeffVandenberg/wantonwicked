@@ -9,8 +9,8 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('TagsController', 'Tags.Controller');
-App::uses('TagsAppController', 'Tags.Controller');
+use Tags\Controller\TagsController;
+use Tags\Controller\TagsAppController;
 
 /**
  * TestTagsController
@@ -65,7 +65,7 @@ class TestTagsController extends TagsController {
  * @package tags
  * @subpackage tags.tests.cases.controllers
  */
-class TagsControllerTest extends CakeTestCase {
+class TagsControllerTest extends TestCase {
 
 /**
  * Fixtures
@@ -91,7 +91,7 @@ class TagsControllerTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Tags = new TestTagsController(new CakeRequest(null, false));
+		$this->Tags = new TestTagsController(new Request(null, false));
 		$this->Tags->params = array(
 			'named' => array(),
 			'url' => array()

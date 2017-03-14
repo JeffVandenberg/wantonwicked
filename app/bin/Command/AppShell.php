@@ -17,7 +17,7 @@
 
 
 
-App::uses('Shell', 'Console');
+use Cake\Console\Shell;
 
 /**
  * Application Shell

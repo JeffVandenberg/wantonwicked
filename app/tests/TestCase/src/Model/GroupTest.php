@@ -1,13 +1,14 @@
 <?php
 namespace app\Test\TestCase\Model;
 
-App::uses('Group', 'Model');
+use Cake\TestSuite\TestCase;
+use App\Model\Group;
 
 /**
  * Group Test Case
  *
  */
-class GroupTest extends CakeTestCase {
+class GroupTest extends TestCase {
 
 /**
  * Fixtures

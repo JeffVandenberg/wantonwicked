@@ -17,6 +17,8 @@
  */
 namespace lib\Cake\Test\Fixture;
 
+use Cake\TestSuite\Fixture\TestFixture;
+
 
 /**
  * Short description for class.

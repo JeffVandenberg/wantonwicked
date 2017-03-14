@@ -14,7 +14,7 @@
  */namespace lib\Cake\TestSuite\Stub;
 
 
-App::uses("ConsoleOutput", "Console");
+use Cake\Console\ConsoleOutput;
 
 /**
  * StubOutput makes testing shell commands/shell helpers easier.
@@ -22,7 +22,7 @@ App::uses("ConsoleOutput", "Console");
  * You can use this class by injecting it into a Helper instance:
  *
  * ```
- * App::uses("ConsoleOutputStub", "TestSuite/Stub");
+ * use App\TestSuite\Stub\ConsoleOutputStub;
  *
  * $output = new ConsoleOutputStub();
  * $helper = new ProgressHelper($output);

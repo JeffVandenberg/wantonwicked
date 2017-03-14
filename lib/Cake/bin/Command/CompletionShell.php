@@ -16,7 +16,7 @@
 
 
 
-App::uses('AppShell', 'Console/Command');
+use App\Console\Command\AppShell;
 
 /**
  * Provide command completion shells such as bash.

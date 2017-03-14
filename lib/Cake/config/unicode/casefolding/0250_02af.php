@@ -21,6 +21,8 @@
  * @since         CakePHP(tm) v 1.2.0.6833
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+namespace lib\Cake\Config\unicode\casefolding;
+
 
 /**
  * The upper field is the decimal value of the upper case character

@@ -7,7 +7,7 @@
  */namespace app\Model;
 
 
-App::uses('AppModel', 'Model');
+use App\Model\AppModel;
 
 class LegacyUser extends AppModel
 {

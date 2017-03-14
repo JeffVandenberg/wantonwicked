@@ -20,8 +20,8 @@
 
 
 
-App::uses('AppHelper', 'View/Helper');
-App::uses('Xml', 'Utility');
+use App\View\Helper\AppHelper;
+use Cake\Utility\Xml;
 
 /**
  * RSS Helper class for easy output RSS structures.

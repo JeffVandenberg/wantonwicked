@@ -18,9 +18,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Utility;
 
+use Cake\Core\Configure;
 
 
-App::uses('HttpSocket', 'Network/Http');
+use App\Network\Http\HttpSocket;
 
 /**
  * XML handling for CakePHP.

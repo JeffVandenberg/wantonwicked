@@ -17,15 +17,15 @@
  */
 namespace lib\Cake\Log\Engine;
 
+use App\Log\LogInterface;
 
-App::uses('CakeLogInterface', 'Log');
 
 /**
  * Base log engine class.
  *
  * @package       Cake.Log.Engine
  */
-abstract class BaseLog implements CakeLogInterface {
+abstract class BaseLog implements LogInterface {
 
 /**
  * Engine config

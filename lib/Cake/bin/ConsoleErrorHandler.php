@@ -15,11 +15,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin;
 
+use Cake\Core\Configure;
+use Cake\Log\Log;
 
 
-App::uses('ErrorHandler', 'Error');
-App::uses('ConsoleOutput', 'Console');
-App::uses('CakeLog', 'Log');
+use Cake\Error\ErrorHandler;
+use Cake\Console\ConsoleOutput;
+use Cake\Log\Log;
 
 /**
  * Error Handler for Cake console. Does simple printing of the
@@ -86,7 +88,7 @@ class ConsoleErrorHandler {
 		$stderr->write(__d('cake_console', "<error>%s Error:</error> %s\n", $name, $message));
 
 		if (!Configure::read('debug')) {
-			CakeLog::write($log, $message);
+			Log::write($log, $message);
 		}
 
 		if ($log === LOG_ERR) {

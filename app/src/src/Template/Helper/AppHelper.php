@@ -21,7 +21,7 @@
 
 
 
-App::uses('Helper', 'View');
+use Cake\View\Helper;
 
 /**
  * Application helper

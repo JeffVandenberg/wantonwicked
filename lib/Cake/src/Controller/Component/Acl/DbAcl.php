@@ -14,11 +14,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller\Component\Acl;
 
+use Cake\Controller\Component;
+use Cake\Core\Object;
 
 
-App::uses('AclInterface', 'Controller/Component/Acl');
-App::uses('Hash', 'Utility');
-App::uses('ClassRegistry', 'Utility');
+use App\Controller\Component\Acl\AclInterface;
+use Cake\Utility\Hash;
+use App\Utility\ClassRegistry;
 
 /**
  * DbAcl implements an ACL control system in the database. ARO's and ACO's are

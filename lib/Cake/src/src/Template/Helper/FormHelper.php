@@ -14,12 +14,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Core\Configure;
+use Cake\View\View;
 
 
-App::uses('ClassRegistry', 'Utility');
-App::uses('AppHelper', 'View/Helper');
-App::uses('Hash', 'Utility');
-App::uses('Inflector', 'Utility');
+use App\Utility\ClassRegistry;
+use App\View\Helper\AppHelper;
+use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 
 /**
  * Form helper library.

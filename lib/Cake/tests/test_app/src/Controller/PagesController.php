@@ -19,8 +19,10 @@
  */
 namespace lib\Cake\Test\test_app\Controller;
 
+use App\Controller\AppController;
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
-App::uses('AppController', 'Controller');
 
 /**
  * Static content controller

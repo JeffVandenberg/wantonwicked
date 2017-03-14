@@ -1,7 +1,7 @@
 <?php
 namespace app\Controller;
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * Roles Controller

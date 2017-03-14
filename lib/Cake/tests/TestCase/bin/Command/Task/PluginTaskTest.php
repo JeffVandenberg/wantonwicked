@@ -18,23 +18,24 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use Cake\Core\App;
 
 
-App::uses('ShellDispatcher', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('PluginTask', 'Console/Command/Task');
-App::uses('ModelTask', 'Console/Command/Task');
-App::uses('Folder', 'Utility');
-App::uses('File', 'Utility');
+use Cake\Console\ShellDispatcher;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\Shell;
+use App\Console\Command\Task\PluginTask;
+use App\Console\Command\Task\ModelTask;
+use App\Utility\Folder;
+use App\Utility\File;
 
 /**
  * PluginTaskPlugin class
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class PluginTaskTest extends CakeTestCase {
+class PluginTaskTest extends TestCase {
 
 /**
  * setUp method

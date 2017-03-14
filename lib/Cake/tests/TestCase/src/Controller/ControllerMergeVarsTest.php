@@ -20,7 +20,7 @@
 
 
 
-App::uses('Controller', 'Controller');
+use Cake\Controller\Controller;
 
 /**
  * Test case AppController
@@ -124,7 +124,7 @@ class MergePostsController extends MergeVarPluginAppController {
  *
  * @package       Cake.Test.Case.Controller
  */
-class ControllerMergeVarsTest extends CakeTestCase {
+class ControllerMergeVarsTest extends TestCase {
 
 /**
  * test that component settings are not duplicated when merging component settings

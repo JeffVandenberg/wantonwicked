@@ -17,7 +17,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  **/
 
-App::uses('DebugPanel', 'DebugKit.Lib');
+use DebugKit\Lib\DebugPanel;
 
 /**
  * Class HistoryPanel

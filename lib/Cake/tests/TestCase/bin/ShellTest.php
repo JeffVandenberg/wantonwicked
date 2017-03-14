@@ -18,12 +18,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Log\Log;
 
 
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('Folder', 'Utility');
-App::uses("ProgressHelper", "Console/Helper");
+use Cake\Console\ShellDispatcher;
+use Cake\Console\Shell;
+use App\Utility\Folder;
+use App\Console\Helper\ProgressHelper;
 
 /**
  * ShellTestShell class
@@ -122,7 +125,7 @@ class TestBananaTask extends Shell {
  *
  * @package       Cake.Test.Case.Console.Command
  */
-class ShellTest extends CakeTestCase {
+class ShellTest extends TestCase {
 
 /**
  * Fixtures used in this test case
@@ -195,7 +198,7 @@ class ShellTest extends CakeTestCase {
 			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS)
 		), App::RESET);
 
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->Shell->tasks = array('DbConfig' => array('one', 'two'));
 		$this->Shell->uses = array('TestPlugin.TestPluginPost');
 		$this->Shell->initialize();
@@ -203,7 +206,7 @@ class ShellTest extends CakeTestCase {
 		$this->assertTrue(isset($this->Shell->TestPluginPost));
 		$this->assertInstanceOf('TestPluginPost', $this->Shell->TestPluginPost);
 		$this->assertEquals('TestPluginPost', $this->Shell->modelClass);
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 
 		$this->Shell->uses = array('Comment');
 		$this->Shell->initialize();
@@ -231,12 +234,12 @@ class ShellTest extends CakeTestCase {
 		$this->assertInstanceOf('Comment', $Shell->Comment);
 		$this->assertEquals('Comment', $Shell->modelClass);
 
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->Shell->loadModel('TestPlugin.TestPluginPost');
 		$this->assertTrue(isset($this->Shell->TestPluginPost));
 		$this->assertInstanceOf('TestPluginPost', $this->Shell->TestPluginPost);
 		$this->assertEquals('TestPluginPost', $this->Shell->modelClass);
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 
 		App::build();
 	}
@@ -954,14 +957,14 @@ TEXT;
  * @return void
  */
 	public function testProtectedUseLogger() {
-		CakeLog::drop('stdout');
-		CakeLog::drop('stderr');
+		Log::drop('stdout');
+		Log::drop('stderr');
 		$this->Shell->useLogger(true);
-		$this->assertNotEmpty(CakeLog::stream('stdout'));
-		$this->assertNotEmpty(CakeLog::stream('stderr'));
+		$this->assertNotEmpty(Log::stream('stdout'));
+		$this->assertNotEmpty(Log::stream('stderr'));
 		$this->Shell->useLogger(false);
-		$this->assertFalse(CakeLog::stream('stdout'));
-		$this->assertFalse(CakeLog::stream('stderr'));
+		$this->assertFalse(Log::stream('stdout'));
+		$this->assertFalse(Log::stream('stderr'));
 	}
 
 /**

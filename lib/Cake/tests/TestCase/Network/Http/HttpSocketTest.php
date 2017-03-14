@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Network\Http;
 
+use Cake\Core\Object;
 
 
-App::uses('HttpSocket', 'Network/Http');
-App::uses('HttpResponse', 'Network/Http');
+use App\Network\Http\HttpSocket;
+use App\Network\Http\HttpResponse;
 
 /**
  * TestAuthentication class
@@ -169,7 +170,7 @@ class TestHttpSocket extends HttpSocket {
  *
  * @package       Cake.Test.Case.Network.Http
  */
-class HttpSocketTest extends CakeTestCase {
+class HttpSocketTest extends TestCase {
 
 /**
  * Socket property

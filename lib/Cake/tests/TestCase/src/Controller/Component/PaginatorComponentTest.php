@@ -20,10 +20,10 @@
 
 
 
-App::uses('Controller', 'Controller');
-App::uses('PaginatorComponent', 'Controller/Component');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
+use Cake\Controller\Controller;
+use App\Controller\Component\PaginatorComponent;
+use Cake\Network\Request;
+use Cake\Network\Response;
 
 /**
  * PaginatorTestController class
@@ -283,7 +283,7 @@ class PaginatorCustomPost extends CakeTestModel {
 
 }
 
-class PaginatorComponentTest extends CakeTestCase {
+class PaginatorComponentTest extends TestCase {
 
 /**
  * fixtures property
@@ -299,7 +299,7 @@ class PaginatorComponentTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->request = new CakeRequest('controller_posts/index');
+		$this->request = new Request('controller_posts/index');
 		$this->request->params['pass'] = $this->request->params['named'] = array();
 		$this->Controller = new Controller($this->request);
 		$this->Paginator = new PaginatorComponent($this->getMock('ComponentCollection'), array());

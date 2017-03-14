@@ -16,12 +16,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model;
 
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
+use Cake\Model\Model;
 
 
-App::uses('MockTransactionDboSource', 'Model/Datasource');
-App::uses('MockTransactionAssociatedDboSource', 'Model/Datasource');
-App::uses('MockManyTransactionDboSource', 'Model/Datasource');
-App::uses('MockAssociatedTransactionDboSource', 'Model/Datasource');
+use App\Model\Datasource\MockTransactionDboSource;
+use App\Model\Datasource\MockTransactionAssociatedDboSource;
+use App\Model\Datasource\MockManyTransactionDboSource;
+use App\Model\Datasource\MockAssociatedTransactionDboSource;
 
 require_once dirname(__FILE__) . DS . 'ModelTestBase.php';
 
@@ -1579,7 +1582,7 @@ class ModelWriteTest extends BaseModelTest {
 	public function testSaveFromXml() {
 		$this->markTestSkipped('This feature needs to be fixed or dropped');
 		$this->loadFixtures('Article');
-		App::uses('Xml', 'Utility');
+		use Cake\Utility\Xml;
 
 		$Article = new Article();
 		$result = $Article->save(Xml::build('<article title="test xml" user_id="5" />'));
@@ -8099,7 +8102,7 @@ class ModelWriteTest extends BaseModelTest {
 /**
  * Emulates race condition
  *
- * @param CakeEvent $event containing the Model
+ * @param Event $event containing the Model
  * @return void
  */
 	public function deleteMe($event) {
@@ -8287,7 +8290,7 @@ class ModelWriteTest extends BaseModelTest {
 /**
  * A callback for testing nested saveMany.
  *
- * @param CakeEvent $event containing the Model
+ * @param Event $event containing the Model
  * @return void
  */
 	public function nestedSaveMany($event) {
@@ -8298,7 +8301,7 @@ class ModelWriteTest extends BaseModelTest {
 /**
  * A callback for testing nested saveAssociated.
  *
- * @param CakeEvent $event containing the Model
+ * @param Event $event containing the Model
  * @return void
  */
 	public function nestedSaveAssociated($event) {

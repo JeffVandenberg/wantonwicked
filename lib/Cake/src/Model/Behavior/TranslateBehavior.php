@@ -14,11 +14,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model\Behavior;
 
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
+use Cake\Model\Model;
 
 
-App::uses('ModelBehavior', 'Model');
-App::uses('I18n', 'I18n');
-App::uses('I18nModel', 'Model');
+use App\Model\ModelBehavior;
+use Cake\I18n\I18n;
+use App\Model\I18nModel;
 
 /**
  * Translate behavior

@@ -18,7 +18,7 @@
 
 
 
-App::uses('BaseCoverageReport', 'TestSuite/Coverage');
+use App\TestSuite\Coverage\BaseCoverageReport;
 
 /**
  * Generates code coverage reports in HTML from data obtained from PHPUnit

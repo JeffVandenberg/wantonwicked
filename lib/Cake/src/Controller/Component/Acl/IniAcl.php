@@ -14,9 +14,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller\Component\Acl;
 
+use Cake\Controller\Component;
+use Cake\Core\Object;
 
 
-App::uses('AclInterface', 'Controller/Component/Acl');
+use App\Controller\Component\Acl\AclInterface;
 
 /**
  * IniAcl implements an access control system using an INI file. An example
@@ -154,7 +156,7 @@ class IniAcl extends Object implements AclInterface {
  * @return array INI section structure
  */
 	public function readConfigFile($filename) {
-		App::uses('IniReader', 'Configure');
+		use App\Configure\IniReader;
 		$iniFile = new IniReader(dirname($filename) . DS);
 		return $iniFile->read(basename($filename));
 	}

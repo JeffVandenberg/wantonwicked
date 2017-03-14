@@ -16,12 +16,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Datasource\Database;
 
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('Mysql', 'Model/Datasource/Database');
-App::uses('CakeSchema', 'Model');
+use App\Model\Model;
+use App\Model\AppModel;
+use App\Model\Datasource\Database\Mysql;
+use App\Model\CakeSchema;
 
 require_once dirname(dirname(dirname(__FILE__))) . DS . 'models.php';
 
@@ -30,7 +32,7 @@ require_once dirname(dirname(dirname(__FILE__))) . DS . 'models.php';
  *
  * @package       Cake.Test.Case.Model.Datasource.Database
  */
-class MysqlTest extends CakeTestCase {
+class MysqlTest extends TestCase {
 
 /**
  * autoFixtures property

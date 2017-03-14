@@ -17,15 +17,15 @@
  */
 namespace lib\Cake\Test\TestCase\Log\Engine;
 
+use App\Log\Engine\FileLog;
 
-App::uses('FileLog', 'Log/Engine');
 
 /**
  * CakeLogTest class
  *
  * @package       Cake.Test.Case.Log.Engine
  */
-class FileLogTest extends CakeTestCase {
+class FileLogTest extends TestCase {
 
 /**
  * testLogFileWriting method

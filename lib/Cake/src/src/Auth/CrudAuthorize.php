@@ -14,8 +14,8 @@
 
 
 
-App::uses('BaseAuthorize', 'Controller/Component/Auth');
-App::uses('Router', 'Routing');
+use App\Controller\Component\Auth\BaseAuthorize;
+use Cake\Routing\Router;
 
 /**
  * An authorization adapter for AuthComponent. Provides the ability to authorize using CRUD mappings.
@@ -77,10 +77,10 @@ class CrudAuthorize extends BaseAuthorize {
  * Authorize a user using the mapped actions and the AclComponent.
  *
  * @param array $user The user to authorize
- * @param CakeRequest $request The request needing authorization.
+ * @param Request $request The request needing authorization.
  * @return bool
  */
-	public function authorize($user, CakeRequest $request) {
+	public function authorize($user, Request $request) {
 		if (!isset($this->settings['actionMap'][$request->params['action']])) {
 			trigger_error(__d('cake_dev',
 				'CrudAuthorize::authorize() - Attempted access of un-mapped action "%1$s" in controller "%2$s"',

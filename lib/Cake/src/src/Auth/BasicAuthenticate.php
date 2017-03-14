@@ -14,7 +14,7 @@
 
 
 
-App::uses('BaseAuthenticate', 'Controller/Component/Auth');
+use App\Controller\Component\Auth\BaseAuthenticate;
 
 /**
  * Basic Authentication adapter for AuthComponent.
@@ -69,21 +69,21 @@ class BasicAuthenticate extends BaseAuthenticate {
  * Authenticate a user using HTTP auth. Will use the configured User model and attempt a
  * login using HTTP auth.
  *
- * @param CakeRequest $request The request to authenticate with.
- * @param CakeResponse $response The response to add headers to.
+ * @param Request $request The request to authenticate with.
+ * @param Response $response The response to add headers to.
  * @return mixed Either false on failure, or an array of user data on success.
  */
-	public function authenticate(CakeRequest $request, CakeResponse $response) {
+	public function authenticate(Request $request, Response $response) {
 		return $this->getUser($request);
 	}
 
 /**
  * Get a user based on information in the request. Used by cookie-less auth for stateless clients.
  *
- * @param CakeRequest $request Request object.
+ * @param Request $request Request object.
  * @return mixed Either false or an array of user information
  */
-	public function getUser(CakeRequest $request) {
+	public function getUser(Request $request) {
 		$username = env('PHP_AUTH_USER');
 		$pass = env('PHP_AUTH_PW');
 
@@ -96,12 +96,12 @@ class BasicAuthenticate extends BaseAuthenticate {
 /**
  * Handles an unauthenticated access attempt by sending appropriate login headers
  *
- * @param CakeRequest $request A request object.
- * @param CakeResponse $response A response object.
+ * @param Request $request A request object.
+ * @param Response $response A response object.
  * @return void
  * @throws UnauthorizedException
  */
-	public function unauthenticated(CakeRequest $request, CakeResponse $response) {
+	public function unauthenticated(Request $request, Response $response) {
 		$Exception = new UnauthorizedException();
 		$Exception->responseHeader(array($this->loginHeaders()));
 		throw $Exception;

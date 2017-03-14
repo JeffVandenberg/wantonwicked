@@ -45,7 +45,7 @@ class AllDatabaseTest extends PHPUnit_Framework_TestSuite {
 			'Datasource' . DS . 'Database' . DS . 'Postgres',
 			'Datasource' . DS . 'Database' . DS . 'Sqlite',
 			'Datasource' . DS . 'Database' . DS . 'Sqlserver',
-			'Datasource' . DS . 'CakeSession',
+			'Datasource' . DS . 'Session',
 			'Datasource' . DS . 'Session' . DS . 'CacheSession',
 			'Datasource' . DS . 'Session' . DS . 'DatabaseSession',
 		);

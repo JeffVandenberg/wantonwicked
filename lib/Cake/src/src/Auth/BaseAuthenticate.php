@@ -12,18 +12,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Auth;
 
+use Cake\Core\App;
+use Cake\Model\Model;
 
 
-App::uses('Security', 'Utility');
-App::uses('Hash', 'Utility');
-App::uses('CakeEventListener', 'Event');
+use Cake\Utility\Security;
+use Cake\Utility\Hash;
+use App\Event\EventListener;
 
 /**
  * Base Authentication class with common methods and properties.
  *
  * @package       Cake.Controller.Component.Auth
  */
-abstract class BaseAuthenticate implements CakeEventListener {
+abstract class BaseAuthenticate implements EventListener {
 
 /**
  * Settings for this object.
@@ -169,7 +171,7 @@ abstract class BaseAuthenticate implements CakeEventListener {
 		}
 		list($plugin, $class) = pluginSplit($class, true);
 		$className = $class . 'PasswordHasher';
-		App::uses($className, $plugin . 'Controller/Component/Auth');
+		/* TODO: App::uses($className, $plugin . 'Controller/Component/Auth'); */
 		if (!class_exists($className)) {
 			throw new CakeException(__d('cake_dev', 'Password hasher class "%s" was not found.', $class));
 		}
@@ -195,11 +197,11 @@ abstract class BaseAuthenticate implements CakeEventListener {
 /**
  * Authenticate a user based on the request information.
  *
- * @param CakeRequest $request Request to get authentication information from.
- * @param CakeResponse $response A response object that can have headers added.
+ * @param Request $request Request to get authentication information from.
+ * @param Response $response A response object that can have headers added.
  * @return mixed Either false on failure, or an array of user data on success.
  */
-	abstract public function authenticate(CakeRequest $request, CakeResponse $response);
+	abstract public function authenticate(Request $request, Response $response);
 
 /**
  * Allows you to hook into AuthComponent::logout(),
@@ -218,22 +220,22 @@ abstract class BaseAuthenticate implements CakeEventListener {
  * Get a user based on information in the request. Primarily used by stateless authentication
  * systems like basic and digest auth.
  *
- * @param CakeRequest $request Request object.
+ * @param Request $request Request object.
  * @return mixed Either false or an array of user information
  */
-	public function getUser(CakeRequest $request) {
+	public function getUser(Request $request) {
 		return false;
 	}
 
 /**
  * Handle unauthenticated access attempt.
  *
- * @param CakeRequest $request A request object.
- * @param CakeResponse $response A response object.
+ * @param Request $request A request object.
+ * @param Response $response A response object.
  * @return mixed Either true to indicate the unauthenticated request has been
  *  dealt with and no more action is required by AuthComponent or void (default).
  */
-	public function unauthenticated(CakeRequest $request, CakeResponse $response) {
+	public function unauthenticated(Request $request, Response $response) {
 	}
 
 }

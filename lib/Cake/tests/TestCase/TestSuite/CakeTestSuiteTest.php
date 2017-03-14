@@ -15,13 +15,15 @@
  */
 namespace lib\Cake\Test\TestCase\TestSuite;
 
+use Cake\TestSuite\TestCase;
+
 
 /**
  * CakeTestSuiteTest
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeTestSuiteTest extends CakeTestCase {
+class CakeTestSuiteTest extends TestCase {
 
 /**
  * testAddTestDirectory

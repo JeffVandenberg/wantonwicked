@@ -8,10 +8,10 @@
 
 
 
-App::uses('BaseAuthenticate', 'Controller/Component/Auth');
+use App\Controller\Component\Auth\BaseAuthenticate;
 
 class PhpbbAuthenticate extends BaseAuthenticate {
-    public function authenticate(CakeRequest $request, CakeResponse $response) {
+    public function authenticate(Request $request, Response $response) {
         global $userdata;
 
         if(isset($userdata) && ($userdata !== null) && ($userdata['user_id'] != 1)) {

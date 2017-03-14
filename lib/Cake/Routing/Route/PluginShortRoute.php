@@ -14,8 +14,8 @@
  */
 namespace lib\Cake\Routing\Route;
 
+use App\Routing\Route\Route;
 
-App::uses('CakeRoute', 'Routing/Route');
 
 /**
  * Plugin short route, that copies the plugin param to the controller parameters
@@ -23,7 +23,7 @@ App::uses('CakeRoute', 'Routing/Route');
  *
  * @package Cake.Routing.Route
  */
-class PluginShortRoute extends CakeRoute {
+class PluginShortRoute extends Route {
 
 /**
  * Parses a string URL into an array. If a plugin key is found, it will be copied to the

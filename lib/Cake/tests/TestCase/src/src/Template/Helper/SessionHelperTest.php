@@ -17,17 +17,19 @@
  */
 namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use App\View\Helper\SessionHelper;
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\View\View;
 
-App::uses('Controller', 'Controller');
-App::uses('View', 'View');
-App::uses('SessionHelper', 'View/Helper');
 
 /**
  * SessionHelperTest class
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class SessionHelperTest extends CakeTestCase {
+class SessionHelperTest extends TestCase {
 
 /**
  * setUp method
@@ -39,10 +41,10 @@ class SessionHelperTest extends CakeTestCase {
 		$controller = null;
 		$this->View = new View($controller);
 		$this->Session = new SessionHelper($this->View);
-		CakeSession::start();
+		Session::start();
 
-		if (!CakeSession::started()) {
-			CakeSession::start();
+		if (!Session::started()) {
+			Session::start();
 		}
 
 		$_SESSION = array(
@@ -81,7 +83,7 @@ class SessionHelperTest extends CakeTestCase {
 	public function tearDown() {
 		$_SESSION = array();
 		unset($this->View, $this->Session);
-		CakePlugin::unload();
+		Plugin::unload();
 		parent::tearDown();
 	}
 
@@ -181,7 +183,7 @@ class SessionHelperTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$result = $this->Session->flash('flash', array(
 			'element' => 'plugin_element',

@@ -18,7 +18,7 @@
 
 
 
-App::uses('View', 'View');
+use Cake\View\View;
 
 /**
  * Theme view class

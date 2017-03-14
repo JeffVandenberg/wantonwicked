@@ -15,19 +15,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('JsHelper', 'View/Helper');
-App::uses('JqueryEngineHelper', 'View/Helper');
-App::uses('View', 'View');
+use App\View\Helper\HtmlHelper;
+use App\View\Helper\JsHelper;
+use App\View\Helper\JqueryEngineHelper;
+use Cake\View\View;
 
 /**
  * JqueryEngineHelperTest
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class JqueryEngineHelperTest extends CakeTestCase {
+class JqueryEngineHelperTest extends TestCase {
 
 /**
  * setUp

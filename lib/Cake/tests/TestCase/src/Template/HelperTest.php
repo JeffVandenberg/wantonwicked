@@ -16,12 +16,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('View', 'View');
-App::uses('Helper', 'View');
-App::uses('Model', 'Model');
-App::uses('Router', 'Routing');
+use Cake\View\View;
+use Cake\View\Helper;
+use App\Model\Model;
+use Cake\Routing\Router;
 
 /**
  * HelperTestPost class
@@ -196,7 +199,7 @@ class TestHelper extends Helper {
  *
  * @package       Cake.Test.Case.View
  */
-class HelperTest extends CakeTestCase {
+class HelperTest extends TestCase {
 
 /**
  * setUp method
@@ -211,7 +214,7 @@ class HelperTest extends CakeTestCase {
 		$null = null;
 		$this->View = new View($null);
 		$this->Helper = new Helper($this->View);
-		$this->Helper->request = new CakeRequest(null, false);
+		$this->Helper->request = new Request(null, false);
 
 		ClassRegistry::addObject('HelperTestPost', new HelperTestPost());
 		ClassRegistry::addObject('HelperTestComment', new HelperTestComment());
@@ -231,7 +234,7 @@ class HelperTest extends CakeTestCase {
 		parent::tearDown();
 		Configure::delete('Asset');
 
-		CakePlugin::unload();
+		Plugin::unload();
 		unset($this->Helper, $this->View);
 	}
 
@@ -688,7 +691,7 @@ class HelperTest extends CakeTestCase {
  */
 	public function testAssetUrlPlugin() {
 		$this->Helper->webroot = '';
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$result = $this->Helper->assetUrl('TestPlugin.style', array('ext' => '.css'));
 		$this->assertEquals('test_plugin/style.css', $result);
@@ -696,7 +699,7 @@ class HelperTest extends CakeTestCase {
 		$result = $this->Helper->assetUrl('TestPlugin.style', array('ext' => '.css', 'plugin' => false));
 		$this->assertEquals('TestPlugin.style.css', $result);
 
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 
 /**
@@ -722,7 +725,7 @@ class HelperTest extends CakeTestCase {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS),
 		));
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 
 		$result = $this->Helper->assetTimestamp('/test_plugin/css/test_plugin_asset.css');
 		$this->assertRegExp('#/test_plugin/css/test_plugin_asset.css\?[0-9]+$#', $result, 'Missing timestamp plugin');
@@ -968,7 +971,7 @@ class HelperTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 		));
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 		$Helper = new TestHelper($this->View);
 		$this->assertInstanceOf('OtherHelperHelper', $Helper->OtherHelper);
 		$this->assertInstanceOf('HtmlHelper', $Helper->Html);

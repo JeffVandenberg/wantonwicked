@@ -23,14 +23,14 @@
 /**
  * Included libraries.
  */
-App::uses('Inflector', 'Utility');
+use Cake\Utility\Inflector;
 
 /**
  * Short description for class.
  *
  * @package       Cake.Test.Case.Utility
  */
-class InflectorTest extends CakeTestCase {
+class InflectorTest extends TestCase {
 
 /**
  * A list of chars to test transliteration.

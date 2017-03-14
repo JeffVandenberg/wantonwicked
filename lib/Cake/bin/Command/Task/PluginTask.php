@@ -13,11 +13,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command\Task;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('File', 'Utility');
-App::uses('Folder', 'Utility');
+use App\Console\Command\AppShell;
+use App\Utility\File;
+use App\Utility\Folder;
 
 /**
  * The Plugin Task handles creating an empty plugin, ready to be used
@@ -150,7 +154,7 @@ class PluginTask extends AppShell {
 			$controllerFileName = $plugin . 'AppController.php';
 
 			$out = "<?php\n\n";
-			$out .= "App::uses('AppController', 'Controller');\n\n";
+			$out .= "use App\Controller\AppController;\n\n";
 			$out .= "class {$plugin}AppController extends AppController {\n\n";
 			$out .= "}\n";
 			$this->createFile($this->path . $plugin . DS . 'Controller' . DS . $controllerFileName, $out);
@@ -158,7 +162,7 @@ class PluginTask extends AppShell {
 			$modelFileName = $plugin . 'AppModel.php';
 
 			$out = "<?php\n\n";
-			$out .= "App::uses('AppModel', 'Model');\n\n";
+			$out .= "use App\Model\AppModel;\n\n";
 			$out .= "class {$plugin}AppModel extends AppModel {\n\n";
 			$out .= "}\n";
 			$this->createFile($this->path . $plugin . DS . 'Model' . DS . $modelFileName, $out);
@@ -181,7 +185,7 @@ class PluginTask extends AppShell {
 	protected function _modifyBootstrap($plugin) {
 		$bootstrap = new File($this->bootstrap, false);
 		$contents = $bootstrap->read();
-		if (!preg_match("@\n\s*CakePlugin::loadAll@", $contents)) {
+		if (!preg_match("@\n\s*Plugin::loadAll@", $contents)) {
 			$bootstrap->append("\nCakePlugin::load('$plugin', array('bootstrap' => false, 'routes' => false));\n");
 			$this->out('');
 			$this->out(__d('cake_dev', '%s modified', $this->bootstrap));

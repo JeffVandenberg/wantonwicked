@@ -14,11 +14,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\View\Helper;
+use Cake\View\View;
 
 
-App::uses('Router', 'Routing');
-App::uses('Hash', 'Utility');
-App::uses('Inflector', 'Utility');
+use Cake\Routing\Router;
+use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 
 /**
  * Abstract base class for all other Helpers in CakePHP.
@@ -59,7 +64,7 @@ class Helper extends Object {
 /**
  * Request object
  *
- * @var CakeRequest
+ * @var Request
  */
 	public $request = null;
 
@@ -428,9 +433,9 @@ class Helper extends Object {
 				//@codingStandardsIgnoreEnd
 			} else {
 				$plugin = Inflector::camelize($segments[0]);
-				if (CakePlugin::loaded($plugin)) {
+				if (Plugin::loaded($plugin)) {
 					unset($segments[0]);
-					$pluginPath = CakePlugin::path($plugin) . 'webroot' . DS . implode(DS, $segments);
+					$pluginPath = Plugin::path($plugin) . 'webroot' . DS . implode(DS, $segments);
 					//@codingStandardsIgnoreStart
 					return $path . '?' . @filemtime($pluginPath);
 					//@codingStandardsIgnoreEnd

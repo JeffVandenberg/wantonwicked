@@ -16,9 +16,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Log\Engine;
 
+use Cake\Log\Log;
 
 
-App::uses('ConsoleLog', 'Log/Engine');
+use App\Log\Engine\ConsoleLog;
 
 /**
  * TestConsoleLog
@@ -34,7 +35,7 @@ class TestConsoleLog extends ConsoleLog {
  *
  * @package       Cake.Test.Case.Log.Engine
  */
-class TestCakeLog extends CakeLog {
+class TestCakeLog extends Log {
 
 	public static function replace($key, &$engine) {
 		static::$_Collection->{$key} = $engine;
@@ -47,16 +48,16 @@ class TestCakeLog extends CakeLog {
  *
  * @package       Cake.Test.Case.Log.Engine
  */
-class ConsoleLogTest extends CakeTestCase {
+class ConsoleLogTest extends TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		CakeLog::config('debug', array(
+		Log::config('debug', array(
 			'engine' => 'File',
 			'types' => array('notice', 'info', 'debug'),
 			'file' => 'debug',
 		));
-		CakeLog::config('error', array(
+		Log::config('error', array(
 			'engine' => 'File',
 			'types' => array('error', 'warning'),
 			'file' => 'error',

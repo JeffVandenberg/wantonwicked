@@ -16,19 +16,22 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('Controller', 'Controller');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
-App::uses('XmlView', 'View');
+use Cake\Controller\Controller;
+use Cake\Network\Request;
+use Cake\Network\Response;
+use Cake\View\XmlView;
 
 /**
  * XmlViewTest
  *
  * @package       Cake.Test.Case.View
  */
-class XmlViewTest extends CakeTestCase {
+class XmlViewTest extends TestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -41,8 +44,8 @@ class XmlViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderWithoutView() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$data = array('users' => array('user' => array('user1', 'user2')));
 		$Controller->set(array('users' => $data, '_serialize' => 'users'));
@@ -85,8 +88,8 @@ class XmlViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderSerializeNoHelpers() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$Controller->helpers = array('Html');
 		$Controller->set(array(
@@ -104,8 +107,8 @@ class XmlViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderSerializeWithOptions() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$data = array(
 			'_serialize' => array('tags'),
@@ -138,8 +141,8 @@ class XmlViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderSerializeWithString() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$data = array(
 			'_serialize' => 'tags',
@@ -174,8 +177,8 @@ class XmlViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderWithoutViewMultiple() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$data = array('no' => 'nope', 'user' => 'fake', 'list' => array('item1', 'item2'));
 		$Controller->set($data);
@@ -203,8 +206,8 @@ class XmlViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderWithoutViewMultipleAndAlias() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$data = array('original_name' => 'my epic name', 'user' => 'fake', 'list' => array('item1', 'item2'));
 		$Controller->set($data);
@@ -235,8 +238,8 @@ class XmlViewTest extends CakeTestCase {
 		App::build(array('View' => array(
 			CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS
 		)));
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$Controller->name = $Controller->viewPath = 'Posts';
 

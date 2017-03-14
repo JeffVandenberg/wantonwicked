@@ -8,7 +8,7 @@
 
 
 
-App::uses('AppModel', 'Model');
+use App\Model\AppModel;
 class Configuration extends AppModel {
     public $primaryKey = 'key';
     public $displayField = 'description';

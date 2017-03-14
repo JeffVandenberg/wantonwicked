@@ -16,7 +16,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  **/
 
-App::uses('FireCake', 'DebugKit.Lib');
+use DebugKit\Lib\FireCake;
 
 /**
  * TestFireCake class allows for testing of FireCake

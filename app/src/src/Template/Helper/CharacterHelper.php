@@ -1,6 +1,8 @@
 <?php
 namespace app\Template\Helper;
 
+use App\View\Helper\AppHelper;
+use Cake\View\View;
 use classes\character\data\Character;
 use classes\character\data\CharacterPower;
 

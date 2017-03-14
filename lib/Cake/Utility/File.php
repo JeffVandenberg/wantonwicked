@@ -18,7 +18,7 @@
 
 
 
-App::uses('Folder', 'Utility');
+use App\Utility\Folder;
 
 /**
  * Convenience class for reading, writing and appending to files.

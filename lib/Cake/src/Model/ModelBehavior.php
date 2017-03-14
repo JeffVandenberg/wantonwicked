@@ -18,6 +18,9 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model;
 
+use Cake\Core\Object;
+use Cake\Model\Model;
+
 
 
 /**

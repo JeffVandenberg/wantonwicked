@@ -21,10 +21,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model\Datasource;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('Hash', 'Utility');
-App::uses('Security', 'Utility');
+use Cake\Utility\Hash;
+use Cake\Utility\Security;
 
 /**
  * Session class for CakePHP.
@@ -34,7 +36,7 @@ App::uses('Security', 'Utility');
  *
  * @package       Cake.Model.Datasource
  */
-class CakeSession {
+class Session {
 
 /**
  * True if the Session is still valid
@@ -118,7 +120,7 @@ class CakeSession {
  * This feature is only used when config value `Session.autoRegenerate` is set to true.
  *
  * @var int
- * @see CakeSession::_checkValid()
+ * @see Session::_checkValid()
  */
 	public static $requestCountdown = 10;
 
@@ -342,7 +344,7 @@ class CakeSession {
 
 /**
  * Tests that the user agent is valid and that the session hasn't 'timed out'.
- * Since timeouts are implemented in CakeSession it checks the current static::$time
+ * Since timeouts are implemented in Session it checks the current static::$time
  * against the time the session is set to expire. The User agent is only checked
  * if Session.checkAgent == true.
  *
@@ -369,7 +371,7 @@ class CakeSession {
 			static::$_userAgent = $userAgent;
 		}
 		if (empty(static::$_userAgent)) {
-			CakeSession::init(static::$path);
+			Session::init(static::$path);
 		}
 		return static::$_userAgent;
 	}
@@ -610,15 +612,15 @@ class CakeSession {
  */
 	protected static function _getHandler($handler) {
 		list($plugin, $class) = pluginSplit($handler, true);
-		App::uses($class, $plugin . 'Model/Datasource/Session');
+		/* TODO: App::uses($class, $plugin . 'Model/Datasource/Session'); */
 		if (!class_exists($class)) {
 			throw new CakeSessionException(__d('cake_dev', 'Could not load %s to handle the session.', $class));
 		}
 		$handler = new $class();
-		if ($handler instanceof CakeSessionHandlerInterface) {
+		if ($handler instanceof SessionHandlerInterface) {
 			return $handler;
 		}
-		throw new CakeSessionException(__d('cake_dev', 'Chosen SessionHandler does not implement CakeSessionHandlerInterface it cannot be used with an engine key.'));
+		throw new CakeSessionException(__d('cake_dev', 'Chosen SessionHandler does not implement SessionHandlerInterface it cannot be used with an engine key.'));
 	}
 
 /**

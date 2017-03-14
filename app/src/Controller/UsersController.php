@@ -8,7 +8,7 @@
 
 
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * Characters Controller
@@ -29,8 +29,8 @@ class UsersController extends AppController
     public function assignGroups($userId=0) {
         if($this->request->is('post')) {
             // lookup user or save
-            App::uses('User', 'Model');
-            App::uses('ForumGroup', 'Model');
+            use App\Model\User;
+            use App\Model\ForumGroup;
             $user = new User();
 
             if(isset($this->request->data['action'])) {
@@ -76,7 +76,7 @@ class UsersController extends AppController
         // receive a user from the main site for migration. Whoo!
         $user = $this->request->data['user'];
 
-        App::uses('User', 'Model');
+        use App\Model\User;
         $repo = new User();
 
         $response = [

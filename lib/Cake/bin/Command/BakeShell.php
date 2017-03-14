@@ -19,10 +19,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('Model', 'Model');
+use App\Console\Command\AppShell;
+use App\Model\Model;
 
 /**
  * Command-line code generation utility to automate programmer chores.
@@ -164,8 +168,8 @@ class BakeShell extends AppShell {
 		$modelExists = false;
 		$model = $this->_modelName($name);
 
-		App::uses('AppModel', 'Model');
-		App::uses($model, 'Model');
+		use App\Model\AppModel;
+		/* TODO: App::uses($model, 'Model'); */
 		if (class_exists($model)) {
 			$object = new $model();
 			$modelExists = true;
@@ -190,7 +194,7 @@ class BakeShell extends AppShell {
 					$this->Controller->bakeTest($controller);
 				}
 			}
-			App::uses($controller . 'Controller', 'Controller');
+			/* TODO: App::uses($controller . 'Controller', 'Controller'); */
 			if (class_exists($controller . 'Controller')) {
 				$this->View->args = array($name);
 				$this->View->execute();

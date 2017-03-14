@@ -15,8 +15,8 @@
 
 
 
-App::uses('AbstractPasswordHasher', 'Controller/Component/Auth');
-App::uses('Security', 'Utility');
+use App\Controller\Component\Auth\AbstractPasswordHasher;
+use Cake\Utility\Security;
 
 /**
  * Blowfish password hashing class.

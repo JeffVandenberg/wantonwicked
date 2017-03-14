@@ -16,12 +16,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Error;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Error\ExceptionRenderer;
+use Cake\Log\Log;
 
 
-App::uses('ErrorHandler', 'Error');
-App::uses('Controller', 'Controller');
-App::uses('Router', 'Routing');
-App::uses('Debugger', 'Utility');
+use Cake\Error\ErrorHandler;
+use Cake\Controller\Controller;
+use Cake\Routing\Router;
+use App\Utility\Debugger;
 
 /**
  * A faulty ExceptionRenderer to test nesting.
@@ -45,7 +50,7 @@ class FaultyExceptionRenderer extends ExceptionRenderer {
  *
  * @package       Cake.Test.Case.Error
  */
-class ErrorHandlerTest extends CakeTestCase {
+class ErrorHandlerTest extends TestCase {
 
 	protected $_restoreError = false;
 
@@ -63,13 +68,13 @@ class ErrorHandlerTest extends CakeTestCase {
 		), App::RESET);
 		Router::reload();
 
-		$request = new CakeRequest(null, false);
+		$request = new Request(null, false);
 		$request->base = '';
 		Router::setRequestInfo($request);
 		Configure::write('debug', 2);
 
-		CakeLog::disable('stdout');
-		CakeLog::disable('stderr');
+		Log::disable('stdout');
+		Log::disable('stderr');
 	}
 
 /**
@@ -82,8 +87,8 @@ class ErrorHandlerTest extends CakeTestCase {
 		if ($this->_restoreError) {
 			restore_error_handler();
 		}
-		CakeLog::enable('stdout');
-		CakeLog::enable('stderr');
+		Log::enable('stdout');
+		Log::enable('stderr');
 	}
 
 /**
@@ -155,7 +160,7 @@ class ErrorHandlerTest extends CakeTestCase {
 	}
 
 /**
- * Test that errors go into CakeLog when debug = 0.
+ * Test that errors go into Log when debug = 0.
  *
  * @return void
  */
@@ -183,7 +188,7 @@ class ErrorHandlerTest extends CakeTestCase {
 	}
 
 /**
- * Test that errors going into CakeLog include traces.
+ * Test that errors going into Log include traces.
  *
  * @return void
  */
@@ -286,14 +291,14 @@ class ErrorHandlerTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS
 			)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		Configure::write('Exception.renderer', 'TestPlugin.TestPluginExceptionRenderer');
 		$error = new NotFoundException('Kaboom!');
 		ob_start();
 		ErrorHandler::handleException($error);
 		$result = ob_get_clean();
 		$this->assertEquals('Rendered by test plugin', $result);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

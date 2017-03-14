@@ -16,19 +16,22 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('Controller', 'Controller');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
-App::uses('JsonView', 'View');
+use Cake\Controller\Controller;
+use Cake\Network\Request;
+use Cake\Network\Response;
+use Cake\View\JsonView;
 
 /**
  * JsonViewTest
  *
  * @package       Cake.Test.Case.View
  */
-class JsonViewTest extends CakeTestCase {
+class JsonViewTest extends TestCase {
 
 /**
  * setUp method
@@ -184,8 +187,8 @@ class JsonViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderWithoutView($data, $serialize, $expected) {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 
 		$Controller->set($data);
@@ -204,8 +207,8 @@ class JsonViewTest extends CakeTestCase {
 	public function testRenderWithoutViewJsonOptions() {
 		$this->skipIf(!version_compare(PHP_VERSION, '5.3.0', '>='), 'Needs PHP5.3+ for these constants to be tested');
 
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 
 		// Test render with encode <, >, ', &, and " for RFC4627-compliant to be serialized.
@@ -227,8 +230,8 @@ class JsonViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderSerializeNoHelpers() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 
 		$Controller->helpers = array('Html');
@@ -248,8 +251,8 @@ class JsonViewTest extends CakeTestCase {
  * @return void
  */
 	public function testJsonpResponse() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 
 		$data = array('user' => 'fake', 'list' => array('item1', 'item2'));
@@ -286,8 +289,8 @@ class JsonViewTest extends CakeTestCase {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
 		));
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$Controller->name = $Controller->viewPath = 'Posts';
 
@@ -318,9 +321,9 @@ class JsonViewTest extends CakeTestCase {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
 		));
-		$Request = new CakeRequest(null, false);
+		$Request = new Request(null, false);
 		$Request->params['named'] = array('page' => 2);
-		$Response = new CakeResponse();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 		$Controller->name = $Controller->viewPath = 'Posts';
 
@@ -359,8 +362,8 @@ class JsonViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderInvalidJSON() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 
 		// non utf-8 stuff
@@ -392,8 +395,8 @@ class JsonViewTest extends CakeTestCase {
  * @return void
  */
 	public function testRenderJSONBoolFalse() {
-		$Request = new CakeRequest();
-		$Response = new CakeResponse();
+		$Request = new Request();
+		$Response = new Response();
 		$Controller = new Controller($Request, $Response);
 
 		// encoding a false, ensure this doesn't trigger exception

@@ -16,16 +16,19 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Cache;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('Cache', 'Cache');
+use Cake\Cache\Cache;
 
 /**
  * CacheTest class
  *
  * @package       Cake.Test.Case.Cache
  */
-class CacheTest extends CakeTestCase {
+class CacheTest extends TestCase {
 
 	protected $_count = 0;
 
@@ -108,7 +111,7 @@ class CacheTest extends CakeTestCase {
 			'Lib' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$settings = array('engine' => 'TestAppCache', 'path' => TMP, 'prefix' => 'cake_test_');
 		$result = Cache::config('libEngine', $settings);
@@ -122,7 +125,7 @@ class CacheTest extends CakeTestCase {
 		Cache::drop('pluginLibEngine');
 
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

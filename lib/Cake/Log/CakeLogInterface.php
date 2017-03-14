@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeLogInterface
+ * LogInterface
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -24,7 +24,7 @@
  *
  * @package       Cake.Log
  */
-interface CakeLogInterface {
+interface LogInterface {
 
 /**
  * Write method to handle writes being made to the Logger

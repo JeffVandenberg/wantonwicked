@@ -13,9 +13,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command\Task;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
+use App\Console\Command\AppShell;
 
 /**
  * Base class for Shell Command reflection.
@@ -32,7 +35,7 @@ class CommandTask extends AppShell {
 	public function getShellList() {
 		$skipFiles = array('AppShell');
 
-		$plugins = CakePlugin::loaded();
+		$plugins = Plugin::loaded();
 		$shellList = array_fill_keys($plugins, null) + array('CORE' => null, 'app' => null);
 
 		$corePath = App::core('Console/Command');
@@ -147,7 +150,7 @@ class CommandTask extends AppShell {
 		$name = Inflector::camelize($name);
 		$pluginDot = Inflector::camelize($pluginDot);
 		$class = $name . 'Shell';
-		App::uses($class, $pluginDot . 'Console/Command');
+		/* TODO: App::uses($class, $pluginDot . 'Console/Command'); */
 
 		$Shell = new $class();
 		$Shell->plugin = trim($pluginDot, '.');

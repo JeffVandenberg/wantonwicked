@@ -13,16 +13,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\Core\Configure;
 
 
-App::uses('Security', 'Utility');
+use Cake\Utility\Security;
 
 /**
  * SecurityTest class
  *
  * @package       Cake.Test.Case.Utility
  */
-class SecurityTest extends CakeTestCase {
+class SecurityTest extends TestCase {
 
 /**
  * sut property

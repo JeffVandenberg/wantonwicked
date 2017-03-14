@@ -16,13 +16,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Controller;
 
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('Router', 'Routing');
-App::uses('Controller', 'Controller');
-App::uses('Scaffold', 'Controller');
-App::uses('ScaffoldView', 'View');
-App::uses('AppModel', 'Model');
+use Cake\Routing\Router;
+use Cake\Controller\Controller;
+use App\Controller\Scaffold;
+use App\View\ScaffoldView;
+use App\Model\AppModel;
 
 require_once dirname(dirname(__FILE__)) . DS . 'Model' . DS . 'models.php';
 
@@ -118,10 +120,10 @@ class TestScaffoldMock extends Scaffold {
 /**
  * Overload _scaffold
  *
- * @param CakeRequest $request Request object for scaffolding
+ * @param Request $request Request object for scaffolding
  * @return void
  */
-	protected function _scaffold(CakeRequest $request) {
+	protected function _scaffold(Request $request) {
 		$this->_params = $request;
 	}
 
@@ -141,7 +143,7 @@ class TestScaffoldMock extends Scaffold {
  *
  * @package       Cake.Test.Case.Controller
  */
-class ScaffoldTest extends CakeTestCase {
+class ScaffoldTest extends TestCase {
 
 /**
  * Controller property
@@ -165,9 +167,9 @@ class ScaffoldTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Config.language', 'eng');
-		$request = new CakeRequest(null, false);
+		$request = new Request(null, false);
 		$this->Controller = new ScaffoldMockController($request);
-		$this->Controller->response = $this->getMock('CakeResponse', array('_sendHeader'));
+		$this->Controller->response = $this->getMock('Response', array('_sendHeader'));
 	}
 
 /**
@@ -312,7 +314,7 @@ class ScaffoldTest extends CakeTestCase {
  * @return void
  */
 	public function testHabtmFieldAdditionWithScaffoldForm() {
-		CakePlugin::unload();
+		Plugin::unload();
 		$params = array(
 			'plugin' => null,
 			'pass' => array(1),
@@ -348,9 +350,9 @@ class ScaffoldTest extends CakeTestCase {
  * @return void
  */
 	public function testEditScaffoldWithScaffoldFields() {
-		$request = new CakeRequest(null, false);
+		$request = new Request(null, false);
 		$this->Controller = new ScaffoldMockControllerWithFields($request);
-		$this->Controller->response = $this->getMock('CakeResponse', array('_sendHeader'));
+		$this->Controller->response = $this->getMock('Response', array('_sendHeader'));
 
 		$params = array(
 			'plugin' => null,
@@ -385,9 +387,9 @@ class ScaffoldTest extends CakeTestCase {
  * @return void
  */
 	public function testScaffoldError() {
-		$request = new CakeRequest(null, false);
+		$request = new Request(null, false);
 		$this->Controller = new ScaffoldMockControllerWithError($request);
-		$this->Controller->response = $this->getMock('CakeResponse', array('_sendHeader'));
+		$this->Controller->response = $this->getMock('Response', array('_sendHeader'));
 
 		$params = array(
 			'plugin' => null,

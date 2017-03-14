@@ -18,20 +18,24 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model;
 
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Model\Model;
+use Cake\Utility\Inflector;
 
 
-App::uses('ClassRegistry', 'Utility');
-App::uses('Validation', 'Utility');
-App::uses('CakeText', 'Utility');
-App::uses('Hash', 'Utility');
-App::uses('BehaviorCollection', 'Model');
-App::uses('ModelBehavior', 'Model');
-App::uses('ModelValidator', 'Model');
-App::uses('ConnectionManager', 'Model');
-App::uses('Xml', 'Utility');
-App::uses('CakeEvent', 'Event');
-App::uses('CakeEventListener', 'Event');
-App::uses('CakeEventManager', 'Event');
+use App\Utility\ClassRegistry;
+use App\Utility\Validation;
+use App\Utility\CakeText;
+use Cake\Utility\Hash;
+use App\Model\BehaviorCollection;
+use App\Model\ModelBehavior;
+use App\Model\ModelValidator;
+use App\Model\ConnectionManager;
+use Cake\Utility\Xml;
+use Cake\Event\Event;
+use App\Event\EventListener;
+use Cake\Event\EventManager;
 
 /**
  * Object-relational mapper.
@@ -44,7 +48,7 @@ App::uses('CakeEventManager', 'Event');
  * @package       Cake.Model
  * @link          http://book.cakephp.org/2.0/en/models.html
  */
-class Model extends Object implements CakeEventListener {
+class Model extends Object implements EventListener {
 
 /**
  * The name of the DataSource connection that this Model uses
@@ -650,10 +654,10 @@ class Model extends Object implements CakeEventListener {
 	);
 
 /**
- * Instance of the CakeEventManager this model is using
+ * Instance of the EventManager this model is using
  * to dispatch inner events.
  *
- * @var CakeEventManager
+ * @var EventManager
  */
 	protected $_eventManager = null;
 
@@ -796,15 +800,15 @@ class Model extends Object implements CakeEventListener {
 	}
 
 /**
- * Returns the CakeEventManager manager instance that is handling any callbacks.
+ * Returns the EventManager manager instance that is handling any callbacks.
  * You can use this instance to register any new listeners or callbacks to the
  * model events, or create your own events and trigger them at will.
  *
- * @return CakeEventManager
+ * @return EventManager
  */
 	public function getEventManager() {
 		if (empty($this->_eventManager)) {
-			$this->_eventManager = new CakeEventManager();
+			$this->_eventManager = new EventManager();
 			$this->_eventManager->attach($this->Behaviors);
 			$this->_eventManager->attach($this);
 		}
@@ -1861,7 +1865,7 @@ class Model extends Object implements CakeEventListener {
 		}
 
 		if ($options['callbacks'] === true || $options['callbacks'] === 'before') {
-			$event = new CakeEvent('Model.beforeSave', $this, array($options));
+			$event = new Event('Model.beforeSave', $this, array($options));
 			list($event->break, $event->breakOn) = array(true, array(false, null));
 			$this->getEventManager()->dispatch($event);
 			if (!$event->result) {
@@ -1959,7 +1963,7 @@ class Model extends Object implements CakeEventListener {
 			}
 
 			if ($options['callbacks'] === true || $options['callbacks'] === 'after') {
-				$event = new CakeEvent('Model.afterSave', $this, array($created, $options));
+				$event = new Event('Model.afterSave', $this, array($created, $options));
 				$this->getEventManager()->dispatch($event);
 			}
 		}
@@ -2682,7 +2686,7 @@ class Model extends Object implements CakeEventListener {
 
 		$id = $this->id;
 
-		$event = new CakeEvent('Model.beforeDelete', $this, array($cascade));
+		$event = new Event('Model.beforeDelete', $this, array($cascade));
 		list($event->break, $event->breakOn) = array(true, array(false, null));
 		$this->getEventManager()->dispatch($event);
 		if ($event->isStopped()) {
@@ -2721,7 +2725,7 @@ class Model extends Object implements CakeEventListener {
 			$this->updateCounterCache($keys[$this->alias]);
 		}
 
-		$this->getEventManager()->dispatch(new CakeEvent('Model.afterDelete', $this));
+		$this->getEventManager()->dispatch(new Event('Model.afterDelete', $this));
 		$this->_clearCache();
 		$this->id = false;
 
@@ -3081,7 +3085,7 @@ class Model extends Object implements CakeEventListener {
 		$query['order'] = (array)$query['order'];
 
 		if ($query['callbacks'] === true || $query['callbacks'] === 'before') {
-			$event = new CakeEvent('Model.beforeFind', $this, array($query));
+			$event = new Event('Model.beforeFind', $this, array($query));
 			list($event->break, $event->breakOn, $event->modParams) = array(true, array(false, null), 0);
 			$this->getEventManager()->dispatch($event);
 
@@ -3342,7 +3346,7 @@ class Model extends Object implements CakeEventListener {
  * @triggers Model.afterFind $this, array($results, $primary)
  */
 	protected function _filterResults($results, $primary = true) {
-		$event = new CakeEvent('Model.afterFind', $this, array($results, $primary));
+		$event = new Event('Model.afterFind', $this, array($results, $primary));
 		$event->modParams = 0;
 		$this->getEventManager()->dispatch($event);
 		return $event->result;

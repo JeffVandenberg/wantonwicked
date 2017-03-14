@@ -16,10 +16,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('DbAcl', 'Controller/Component/Acl');
-App::uses('AclNode', 'Model');
+use App\Controller\Component\Acl\DbAcl;
+use App\Model\AclNode;
 
 /**
  * DB ACL wrapper test class
@@ -199,7 +202,7 @@ class TestDbAcl extends DbAcl {
  *
  * @package       Cake.Test.Case.Model
  */
-class AclNodeTest extends CakeTestCase {
+class AclNodeTest extends TestCase {
 
 /**
  * fixtures property
@@ -339,7 +342,7 @@ class AclNodeTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$Aro = new DbAroTest();
 		$Aro->create();
@@ -352,6 +355,6 @@ class AclNodeTest extends CakeTestCase {
 		$result = Hash::get($node, '0.DbAroTest.id');
 		$expected = $Aro->id;
 		$this->assertEquals($expected, $result);
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 }

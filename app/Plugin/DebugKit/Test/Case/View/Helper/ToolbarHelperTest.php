@@ -16,10 +16,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  **/
 
-App::uses('View', 'View');
-App::uses('Controller', 'Controller');
-App::uses('Helper', 'View');
-App::uses('ToolbarHelper', 'DebugKit.View/Helper');
+use Cake\View\View;
+use Cake\Controller\Controller;
+use Cake\View\Helper;
+use DebugKit\View\Helper\ToolbarHelper;
 
 /**
  * Class MockBackendHelper
@@ -33,7 +33,7 @@ class MockBackendHelper extends Helper {
  * Class ToolbarHelperTestCase
  *
  */
-class ToolbarHelperTestCase extends CakeTestCase {
+class ToolbarHelperTestCase extends TestCase {
 
 /**
  * Fixtures

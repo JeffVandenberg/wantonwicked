@@ -19,8 +19,8 @@
  */
 namespace lib\Cake\TestSuite\Coverage;
 
+use App\TestSuite\Coverage\BaseCoverageReport;
 
-App::uses('BaseCoverageReport', 'TestSuite/Coverage');
 
 /**
  * Generates code coverage reports in Simple plain text from data obtained from PHPUnit

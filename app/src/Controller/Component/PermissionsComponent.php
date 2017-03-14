@@ -9,21 +9,21 @@
 
 
 
-App::uses('Component', 'Controller');
+use Cake\Controller\Component;
 
 class PermissionsComponent extends Component {
     public $uses = array('User');
 
     public function CheckSitePermission($userId, $SitePermissionId)
     {
-        App::uses('User', 'Model');
+        use App\Model\User;
         $user = new User();
         return $user->CheckUserPermission($userId, $SitePermissionId);
     }
 
     public function IsST() {
         $userdata = AuthComponent::user();
-        App::uses('SitePermission', 'Model');
+        use App\Model\SitePermission;
         return $this->CheckSitePermission($userdata['user_id'], array(
             SitePermission::$IsAsst,
             SitePermission::$IsST,
@@ -35,7 +35,7 @@ class PermissionsComponent extends Component {
     public function IsWikiManager()
     {
         $userdata = AuthComponent::user();
-        App::uses('SitePermission', 'Model');
+        use App\Model\SitePermission;
         return $this->CheckSitePermission($userdata['user_id'], array(
             SitePermission::$WikiManager
         ));
@@ -44,7 +44,7 @@ class PermissionsComponent extends Component {
     public function IsHead()
     {
         $userdata = AuthComponent::user();
-        App::uses('SitePermission', 'Model');
+        use App\Model\SitePermission;
         return $this->CheckSitePermission($userdata['user_id'], array(
             SitePermission::$IsHead,
             SitePermission::$IsAdmin,
@@ -54,7 +54,7 @@ class PermissionsComponent extends Component {
     public function IsAdmin()
     {
         $userdata = AuthComponent::user();
-        App::uses('SitePermission', 'Model');
+        use App\Model\SitePermission;
         return $this->CheckSitePermission($userdata['user_id'], array(
             SitePermission::$IsAdmin,
         ));
@@ -62,14 +62,14 @@ class PermissionsComponent extends Component {
 
     public function IsSupporter($userId)
     {
-        App::uses('User', 'Model');
+        use App\Model\User;
         $user = new User();
         return $user->CheckUserSupporterStatus($userId);
     }
 
     public function MayEditCharacter($characterId)
     {
-        App::uses('Character', 'Model');
+        use App\Model\Character;
         $characterRepo = new Character();
 
         $character = $characterRepo->find('first', array(

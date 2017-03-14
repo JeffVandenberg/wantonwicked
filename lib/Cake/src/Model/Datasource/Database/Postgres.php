@@ -14,9 +14,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model\Datasource\Database;
 
+use Cake\Model\Model;
 
 
-App::uses('DboSource', 'Model/Datasource');
+use App\Model\Datasource\DboSource;
 
 /**
  * PostgreSQL layer for DBO.

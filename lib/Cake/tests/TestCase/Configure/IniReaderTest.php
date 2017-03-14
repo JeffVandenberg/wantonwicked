@@ -16,16 +16,19 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Configure;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('IniReader', 'Configure');
+use App\Configure\IniReader;
 
 /**
  * IniReaderTest
  *
  * @package       Cake.Test.Case.Configure
  */
-class IniReaderTest extends CakeTestCase {
+class IniReaderTest extends TestCase {
 
 /**
  * Test data to serialize and unserialize.
@@ -218,7 +221,7 @@ class IniReaderTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$reader = new IniReader($this->path);
 		$result = $reader->read('TestPlugin.nested');
 
@@ -229,7 +232,7 @@ class IniReaderTest extends CakeTestCase {
 
 		$result = $reader->read('TestPlugin.nested.ini');
 		$this->assertEquals('foo', $result['database']['db']['password']);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -241,14 +244,14 @@ class IniReaderTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$reader = new IniReader($this->path);
 		$result = $reader->read('TestPlugin.acl.ini.php');
 
 		$this->assertTrue(isset($result['admin']));
 		$this->assertTrue(isset($result['paul']['groups']));
 		$this->assertEquals('ads', $result['admin']['deny']);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

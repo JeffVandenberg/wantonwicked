@@ -12,11 +12,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template;
 
+use Cake\Controller\Controller;
+use Cake\Core\Configure;
 
 
-App::uses('View', 'View');
-App::uses('Xml', 'Utility');
-App::uses('Hash', 'Utility');
+use Cake\View\View;
+use Cake\Utility\Xml;
+use Cake\Utility\Hash;
 
 /**
  * A view class that is used for creating XML responses.
@@ -70,7 +72,7 @@ class XmlView extends View {
 	public function __construct(Controller $controller = null) {
 		parent::__construct($controller);
 
-		if (isset($controller->response) && $controller->response instanceof CakeResponse) {
+		if (isset($controller->response) && $controller->response instanceof Response) {
 			$controller->response->type('xml');
 		}
 	}

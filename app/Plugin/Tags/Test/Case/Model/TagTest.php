@@ -9,7 +9,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Tag', 'Tags.Model');
+use Tags\Model\Tag;
 
 /**
  * TagTest
@@ -17,7 +17,7 @@ App::uses('Tag', 'Tags.Model');
  * @package tags
  * @subpackage tags.tests.cases.models
  */
-class TagTest extends CakeTestCase {
+class TagTest extends TestCase {
 
 /**
  * Tag Instance

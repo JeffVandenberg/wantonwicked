@@ -12,9 +12,9 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('DebugKitDebugger', 'DebugKit.Lib');
-App::uses('AppHelper', 'View/Helper');
-App::uses('ConnectionManager', 'Model');
+use DebugKit\Lib\DebugKitDebugger;
+use App\View\Helper\AppHelper;
+use App\Model\ConnectionManager;
 
 /**
  * Provides Base methods for content specific debug toolbar helpers.

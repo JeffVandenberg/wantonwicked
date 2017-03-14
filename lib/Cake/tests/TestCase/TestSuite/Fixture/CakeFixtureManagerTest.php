@@ -18,16 +18,16 @@
 
 
 
-App::uses('DboSource', 'Model/Datasource');
-App::uses('CakeFixtureManager', 'TestSuite/Fixture');
-App::uses('UuidFixture', 'Test/Fixture');
+use App\Model\Datasource\DboSource;
+use App\TestSuite\Fixture\CakeFixtureManager;
+use App\Test\Fixture\UuidFixture;
 
 /**
  * Test Case for CakeFixtureManager class
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeFixtureManagerTest extends CakeTestCase {
+class CakeFixtureManagerTest extends TestCase {
 
 /**
  * reset environment.
@@ -68,7 +68,7 @@ class CakeFixtureManagerTest extends CakeTestCase {
 		$loadedProperty->setAccessible(true);
 		$loadedProperty->setValue($fixtureManager, array('core.uuid' => $MockFixture));
 
-		$TestCase = $this->getMock('CakeTestCase');
+		$TestCase = $this->getMock('TestCase');
 		$TestCase->fixtures = array('core.uuid');
 		$TestCase->autoFixtures = true;
 		$TestCase->dropTables = false;

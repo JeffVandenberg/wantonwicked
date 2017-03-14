@@ -1,7 +1,7 @@
 <?php
 namespace app\Controller;
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * PlayPreferences Controller
@@ -99,7 +99,7 @@ class PlayPreferencesController extends AppController
 
     public function report_venue($venue = 'All', $playPreferenceId = 'All')
     {
-        App::uses('PlayPreferenceResponse', 'Model');
+        use App\Model\PlayPreferenceResponse;
         $repo = new PlayPreferenceResponse();
         $this->set(
             'report',
@@ -109,7 +109,7 @@ class PlayPreferencesController extends AppController
             'submenu',
             $this->Menu->createStorytellerMenu()
         );
-        App::uses('Character', 'Model');
+        use App\Model\Character;
         $charRepo = new Character();
         $characterTypes = $charRepo->listCharacterTypes(true);
         $types = [
@@ -130,7 +130,7 @@ class PlayPreferencesController extends AppController
 
     public function report_venue_players($venue, $playPreferenceSlug)
     {
-        App::uses('PlayPreferenceResponse', 'Model');
+        use App\Model\PlayPreferenceResponse;
         $repo = new PlayPreferenceResponse();
         $this->set(
             'report',
@@ -192,7 +192,7 @@ class PlayPreferencesController extends AppController
             $data['PlayPreference']['updated_by_id'] = $this->Auth->user('user_id');
             $data['PlayPreference']['updated_on'] = date('Y-m-d H:i:s');
             $data['PlayPreference']['created_on'] = date('Y-m-d H:i:s');
-            App::uses('Inflector', 'Utility');
+            use Cake\Utility\Inflector;
             $data['PlayPreference']['slug'] = Inflector::slug($data['PlayPreference']['name']);
 
             if ($this->PlayPreference->save($data)) {
@@ -223,7 +223,7 @@ class PlayPreferencesController extends AppController
             $data = $this->request->data;
             $data['PlayPreference']['updated_by_id'] = $this->Auth->user('user_id');
             $data['PlayPreference']['updated_on'] = date('Y-m-d H:i:s');
-            App::uses('Inflector', 'Utility');
+            use Cake\Utility\Inflector;
             $data['PlayPreference']['slug'] = Inflector::slug($data['PlayPreference']['name']);
             if ($this->PlayPreference->save($data)) {
                 $this->Session->setFlash(__('The play preference has been saved.'));

@@ -14,7 +14,9 @@
  * @package       app.Config
  * @since         CakePHP(tm) v 2.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+ */namespace app\Config;
+
+
 
 /**
  * This is email configuration file.
@@ -34,7 +36,7 @@
  * where 'Your' is the name of the transport.
  *
  * from =>
- * The origin email. See CakeEmail::from() about the valid values
+ * The origin email. See Email::from() about the valid values
  *
  */
 class EmailConfig {

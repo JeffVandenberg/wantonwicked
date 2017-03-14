@@ -17,11 +17,15 @@
  */
 namespace lib\Cake\Test\TestCase\Template;
 
+use App\Controller\Scaffold;
+use App\Model\AppModel;
+use App\View\ScaffoldView;
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Routing\Router;
 
-App::uses('Controller', 'Controller');
-App::uses('Scaffold', 'Controller');
-App::uses('ScaffoldView', 'View');
-App::uses('AppModel', 'Model');
 
 require_once dirname(dirname(__FILE__)) . DS . 'Model' . DS . 'models.php';
 
@@ -71,7 +75,7 @@ class ScaffoldViewMockController extends Controller {
  *
  * @package       Cake.Test.Case.Controller
  */
-class ScaffoldViewTest extends CakeTestCase {
+class ScaffoldViewTest extends TestCase {
 
 /**
  * fixtures property
@@ -87,15 +91,15 @@ class ScaffoldViewTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->request = new CakeRequest(null, false);
+		$this->request = new Request(null, false);
 		$this->Controller = new ScaffoldViewMockController($this->request);
-		$this->Controller->response = $this->getMock('CakeResponse', array('_sendHeader'));
+		$this->Controller->response = $this->getMock('Response', array('_sendHeader'));
 
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS),
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 	}
 
 /**

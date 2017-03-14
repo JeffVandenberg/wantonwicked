@@ -16,16 +16,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('CakeTime', 'Utility');
+use App\Utility\Time;
 
 /**
  * CakeTimeTest class
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class CakeTimeTest extends CakeTestCase {
+class CakeTimeTest extends TestCase {
 
 /**
  * Default system timezone identifier
@@ -41,7 +43,7 @@ class CakeTimeTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Time = new CakeTime();
+		$this->Time = new Time();
 		$this->_systemTimezoneIdentifier = date_default_timezone_get();
 		Configure::write('Config.language', 'eng');
 	}
@@ -411,7 +413,7 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals(date('Y-d-m', $time), $this->Time->nice($time));
 		$this->assertEquals('%Y-%d-%m', $this->Time->niceFormat);
 
-		CakeTime::$niceFormat = '%Y-%d-%m %H:%M';
+		Time::$niceFormat = '%Y-%d-%m %H:%M';
 		$this->assertEquals(date('Y-d-m H:i', $time), $this->Time->nice($time));
 		$this->assertEquals('%Y-%d-%m %H:%M', $this->Time->niceFormat);
 
@@ -1172,7 +1174,7 @@ class CakeTimeTest extends CakeTestCase {
 			version_compare(PHP_VERSION, '5.4.0', '<='),
 			'This test requires newer libicu which is in php5.4+'
 		);
-		$return = CakeTime::listTimezones();
+		$return = Time::listTimezones();
 		$this->assertTrue(isset($return['Asia']['Asia/Bangkok']));
 		$this->assertEquals('Bangkok', $return['Asia']['Asia/Bangkok']);
 		$this->assertTrue(isset($return['America']['America/Argentina/Buenos_Aires']));
@@ -1181,16 +1183,16 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertFalse(isset($return['Cuba']));
 		$this->assertFalse(isset($return['US']));
 
-		$return = CakeTime::listTimezones('#^Asia/#');
+		$return = Time::listTimezones('#^Asia/#');
 		$this->assertTrue(isset($return['Asia']['Asia/Bangkok']));
 		$this->assertFalse(isset($return['Pacific']));
 
-		$return = CakeTime::listTimezones(null, null, array('abbr' => true));
+		$return = Time::listTimezones(null, null, array('abbr' => true));
 		$this->assertTrue(isset($return['Asia']['Asia/Jakarta']));
 		$this->assertEquals('Jakarta - WIB', $return['Asia']['Asia/Jakarta']);
 		$this->assertEquals('Regina - CST', $return['America']['America/Regina']);
 
-		$return = CakeTime::listTimezones(null, null, array(
+		$return = Time::listTimezones(null, null, array(
 			'abbr' => true,
 			'before' => ' (',
 			'after' => ')',
@@ -1198,23 +1200,23 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals('Jayapura (WIT)', $return['Asia']['Asia/Jayapura']);
 		$this->assertEquals('Regina (CST)', $return['America']['America/Regina']);
 
-		$return = CakeTime::listTimezones('#^(America|Pacific)/#', null, false);
+		$return = Time::listTimezones('#^(America|Pacific)/#', null, false);
 		$this->assertTrue(isset($return['America/Argentina/Buenos_Aires']));
 		$this->assertTrue(isset($return['Pacific/Tahiti']));
 
 		if (!$this->skipIf(version_compare(PHP_VERSION, '5.3.0', '<'))) {
-			$return = CakeTime::listTimezones(DateTimeZone::ASIA);
+			$return = Time::listTimezones(DateTimeZone::ASIA);
 			$this->assertTrue(isset($return['Asia']['Asia/Bangkok']));
 			$this->assertFalse(isset($return['Pacific']));
 
-			$return = CakeTime::listTimezones(DateTimeZone::PER_COUNTRY, 'US', false);
+			$return = Time::listTimezones(DateTimeZone::PER_COUNTRY, 'US', false);
 			$this->assertTrue(isset($return['Pacific/Honolulu']));
 			$this->assertFalse(isset($return['Asia/Bangkok']));
 		}
 	}
 
 /**
- * Tests that using CakeTime::format() with the correct sytax actually converts
+ * Tests that using Time::format() with the correct sytax actually converts
  * from one timezone to the other correctly
  *
  * @return void
@@ -1222,7 +1224,7 @@ class CakeTimeTest extends CakeTestCase {
 	public function testCorrectTimezoneConversion() {
 		date_default_timezone_set('UTC');
 		$date = '2012-01-01 10:00:00';
-		$converted = CakeTime::format($date, '%Y-%m-%d %H:%M', '', 'Europe/Copenhagen');
+		$converted = Time::format($date, '%Y-%m-%d %H:%M', '', 'Europe/Copenhagen');
 		$expected = new DateTime($date);
 		$expected->setTimezone(new DateTimeZone('Europe/Copenhagen'));
 		$this->assertEquals($expected->format('Y-m-d H:i'), $converted);

@@ -16,17 +16,24 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template;
 
+use Cake\Cache\Cache;
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Utility\Inflector;
+use Cake\View\View;
 
 
 use classes\core\helpers\MenuHelper;
 
-App::uses('HelperCollection', 'View');
-App::uses('AppHelper', 'View/Helper');
-App::uses('Router', 'Routing');
-App::uses('ViewBlock', 'View');
-App::uses('CakeEvent', 'Event');
-App::uses('CakeEventManager', 'Event');
-App::uses('CakeResponse', 'Network');
+use App\View\HelperCollection;
+use App\View\Helper\AppHelper;
+use Cake\Routing\Router;
+use Cake\View\ViewBlock;
+use Cake\Event\Event;
+use Cake\Event\EventManager;
+use Cake\Network\Response;
 
 /**
  * View, the V in the MVC triad. View interacts with Helpers and view variables passed
@@ -201,18 +208,18 @@ class View extends Object {
 	public $uuids = array();
 
 /**
- * An instance of a CakeRequest object that contains information about the current request.
+ * An instance of a Request object that contains information about the current request.
  * This object contains all the information about a request and several methods for reading
  * additional information about the request.
  *
- * @var CakeRequest
+ * @var Request
  */
 	public $request;
 
 /**
  * Reference to the Response object
  *
- * @var CakeResponse
+ * @var Response
  */
 	public $response;
 
@@ -296,12 +303,12 @@ class View extends Object {
 	protected $_stack = array();
 
 /**
- * Instance of the CakeEventManager this View object is using
+ * Instance of the EventManager this View object is using
  * to dispatch inner events. Usually the manager is shared with
  * the controller, so it it possible to register view events in
  * the controller layer.
  *
- * @var CakeEventManager
+ * @var EventManager
  */
 	protected $_eventManager = null;
 
@@ -348,14 +355,14 @@ class View extends Object {
 			$this->_eventManager = $controller->getEventManager();
 		}
 		if (empty($this->request) && !($this->request = Router::getRequest(true))) {
-			$this->request = new CakeRequest(null, false);
+			$this->request = new Request(null, false);
 			$this->request->base = '';
 			$this->request->here = $this->request->webroot = '/';
 		}
 		if (is_object($controller) && isset($controller->response)) {
 			$this->response = $controller->response;
 		} else {
-			$this->response = new CakeResponse();
+			$this->response = new Response();
 		}
 		$this->Helpers = new HelperCollection($this);
 		$this->Blocks = new ViewBlock();
@@ -364,15 +371,15 @@ class View extends Object {
 	}
 
 /**
- * Returns the CakeEventManager manager instance that is handling any callbacks.
+ * Returns the EventManager manager instance that is handling any callbacks.
  * You can use this instance to register any new listeners or callbacks to the
  * controller events, or create your own events and trigger them at will.
  *
- * @return CakeEventManager
+ * @return EventManager
  */
 	public function getEventManager() {
 		if (empty($this->_eventManager)) {
-			$this->_eventManager = new CakeEventManager();
+			$this->_eventManager = new EventManager();
 		}
 		if (!$this->_eventManagerConfigured) {
 			$this->_eventManager->attach($this->Helpers);
@@ -477,9 +484,9 @@ class View extends Object {
 
 		if ($view !== false && $viewFileName = $this->_getViewFileName($view)) {
 			$this->_currentType = static::TYPE_VIEW;
-			$this->getEventManager()->dispatch(new CakeEvent('View.beforeRender', $this, array($viewFileName)));
+			$this->getEventManager()->dispatch(new Event('View.beforeRender', $this, array($viewFileName)));
 			$this->Blocks->set('content', $this->_render($viewFileName));
-			$this->getEventManager()->dispatch(new CakeEvent('View.afterRender', $this, array($viewFileName)));
+			$this->getEventManager()->dispatch(new Event('View.afterRender', $this, array($viewFileName)));
 		}
 
 		if ($layout === null) {
@@ -529,7 +536,7 @@ class View extends Object {
 		} else {
 			$this->Blocks->set('content', $content);
 		}
-		$this->getEventManager()->dispatch(new CakeEvent('View.beforeLayout', $this, array($layoutFileName)));
+		$this->getEventManager()->dispatch(new Event('View.beforeLayout', $this, array($layoutFileName)));
 
 		$scripts = implode("\n\t", $this->_scripts);
 		$scripts .= $this->Blocks->get('meta') . $this->Blocks->get('css') . $this->Blocks->get('script');
@@ -553,7 +560,7 @@ class View extends Object {
 		$this->_currentType = static::TYPE_LAYOUT;
 		$this->Blocks->set('content', $this->_render($layoutFileName));
 
-		$this->getEventManager()->dispatch(new CakeEvent('View.afterLayout', $this, array($layoutFileName)));
+		$this->getEventManager()->dispatch(new Event('View.afterLayout', $this, array($layoutFileName)));
 		return $this->Blocks->get('content');
 	}
 
@@ -935,12 +942,12 @@ class View extends Object {
 		$initialBlocks = count($this->Blocks->unclosed());
 
 		$eventManager = $this->getEventManager();
-		$beforeEvent = new CakeEvent('View.beforeRenderFile', $this, array($viewFile));
+		$beforeEvent = new Event('View.beforeRenderFile', $this, array($viewFile));
 
 		$eventManager->dispatch($beforeEvent);
 		$content = $this->_evaluate($viewFile, $data);
 
-		$afterEvent = new CakeEvent('View.afterRenderFile', $this, array($viewFile, $content));
+		$afterEvent = new Event('View.afterRenderFile', $this, array($viewFile, $content));
 
 		$afterEvent->modParams = 1;
 		$eventManager->dispatch($afterEvent);
@@ -1045,13 +1052,13 @@ class View extends Object {
  * It checks if the plugin is loaded, else filename will stay unchanged for filenames containing dot
  *
  * @param string $name The name you want to plugin split.
- * @param bool $fallback If true uses the plugin set in the current CakeRequest when parsed plugin is not loaded
+ * @param bool $fallback If true uses the plugin set in the current Request when parsed plugin is not loaded
  * @return array Array with 2 indexes. 0 => plugin name, 1 => filename
  */
 	public function pluginSplit($name, $fallback = true) {
 		$plugin = null;
 		list($first, $second) = pluginSplit($name);
-		if (CakePlugin::loaded($first) === true) {
+		if (Plugin::loaded($first) === true) {
 			$name = $second;
 			$plugin = $first;
 		}
@@ -1226,13 +1233,13 @@ class View extends Object {
 		$this->_currentType = static::TYPE_ELEMENT;
 
 		if ($options['callbacks']) {
-			$this->getEventManager()->dispatch(new CakeEvent('View.beforeRender', $this, array($file)));
+			$this->getEventManager()->dispatch(new Event('View.beforeRender', $this, array($file)));
 		}
 
 		$element = $this->_render($file, array_merge($this->viewVars, $data));
 
 		if ($options['callbacks']) {
-			$this->getEventManager()->dispatch(new CakeEvent('View.afterRender', $this, array($file, $element)));
+			$this->getEventManager()->dispatch(new Event('View.afterRender', $this, array($file, $element)));
 		}
 
 		$this->_currentType = $restore;

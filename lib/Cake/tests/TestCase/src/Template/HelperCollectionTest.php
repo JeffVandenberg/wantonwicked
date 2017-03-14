@@ -16,11 +16,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('HelperCollection', 'View');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('View', 'View');
+use App\View\HelperCollection;
+use App\View\Helper\HtmlHelper;
+use Cake\View\View;
 
 /**
  * Extended HtmlHelper
@@ -33,7 +35,7 @@ class HtmlAliasHelper extends HtmlHelper {
  *
  * @package       Cake.Test.Case.View
  */
-class HelperCollectionTest extends CakeTestCase {
+class HelperCollectionTest extends TestCase {
 
 /**
  * setUp
@@ -52,7 +54,7 @@ class HelperCollectionTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		CakePlugin::unload();
+		Plugin::unload();
 		unset($this->Helpers, $this->View);
 		parent::tearDown();
 	}
@@ -87,7 +89,7 @@ class HelperCollectionTest extends CakeTestCase {
 
 		App::build(array('Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
 		$this->View->plugin = 'TestPlugin';
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 		$result = $this->Helpers->OtherHelper;
 		$this->assertInstanceOf('OtherHelperHelper', $result);
 	}
@@ -121,7 +123,7 @@ class HelperCollectionTest extends CakeTestCase {
 		$this->assertInstanceOf('HtmlAliasHelper', $result);
 
 		App::build(array('Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 		$result = $this->Helpers->load('SomeOther', array('className' => 'TestPlugin.OtherHelper'));
 		$this->assertInstanceOf('OtherHelperHelper', $result);
 		$this->assertInstanceOf('OtherHelperHelper', $this->Helpers->SomeOther);
@@ -163,7 +165,7 @@ class HelperCollectionTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 		));
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 		$result = $this->Helpers->load('TestPlugin.OtherHelper');
 		$this->assertInstanceOf('OtherHelperHelper', $result, 'Helper class is wrong.');
 		$this->assertInstanceOf('OtherHelperHelper', $this->Helpers->OtherHelper, 'Class is wrong');

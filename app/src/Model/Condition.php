@@ -1,7 +1,8 @@
 <?php
 namespace app\Model;
 
-App::uses('AppModel', 'Model');
+use Cake\Utility\Inflector;
+use App\Model\AppModel;
 
 /**
  * Condition Model

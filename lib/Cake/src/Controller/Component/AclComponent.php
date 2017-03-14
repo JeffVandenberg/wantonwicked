@@ -14,10 +14,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller\Component;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('Component', 'Controller');
-App::uses('AclInterface', 'Controller/Component/Acl');
+use Cake\Controller\Component;
+use App\Controller\Component\Acl\AclInterface;
 
 /**
  * Access Control List factory class.
@@ -64,7 +66,7 @@ class AclComponent extends Component {
 		$name = Configure::read('Acl.classname');
 		if (!class_exists($name)) {
 			list($plugin, $name) = pluginSplit($name, true);
-			App::uses($name, $plugin . 'Controller/Component/Acl');
+			/* TODO: App::uses($name, $plugin . 'Controller/Component/Acl'); */
 			if (!class_exists($name)) {
 				throw new CakeException(__d('cake_dev', 'Could not find %s.', $name));
 			}

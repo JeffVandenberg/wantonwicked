@@ -17,23 +17,24 @@
  */
 namespace lib\Cake\Test\TestCase\bin\Command;
 
+use App\Console\Command\BakeShell;
+use App\Console\Command\Task\ControllerTask;
+use App\Console\Command\Task\DbConfigTask;
+use App\Console\Command\Task\ModelTask;
+use App\Model\User;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\Shell;
+use Cake\Console\ShellDispatcher;
+use Cake\Controller\Controller;
 
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('BakeShell', 'Console/Command');
-App::uses('ModelTask', 'Console/Command/Task');
-App::uses('ControllerTask', 'Console/Command/Task');
-App::uses('DbConfigTask', 'Console/Command/Task');
-App::uses('Controller', 'Controller');
 
 if (!class_exists('UsersController')) {
 	class UsersController extends Controller {
 	}
 }
 
-class BakeShellTest extends CakeTestCase {
+class BakeShellTest extends TestCase {
 
 /**
  * fixtures
@@ -75,7 +76,6 @@ class BakeShellTest extends CakeTestCase {
  * @return void
  */
 	public function testAllWithModelName() {
-		App::uses('User', 'Model');
 		$userExists = class_exists('User');
 		$this->skipIf($userExists, 'User class exists, cannot test `bake all [param]`.');
 

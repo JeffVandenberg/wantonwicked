@@ -13,9 +13,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\Core\Configure;
+use Cake\Log\Log;
 
 
-App::uses('Debugger', 'Utility');
+use App\Utility\Debugger;
 
 /**
  * DebuggerTestCaseDebugger class
@@ -33,7 +35,7 @@ class DebuggerTestCaseDebugger extends Debugger {
  *
  * @package       Cake.Test.Case.Utility
  */
-class DebuggerTest extends CakeTestCase {
+class DebuggerTest extends TestCase {
 
 	protected $_restoreError = false;
 
@@ -302,7 +304,7 @@ class DebuggerTest extends CakeTestCase {
  * @return void
  */
 	public function testExportVar() {
-		App::uses('Controller', 'Controller');
+		use Cake\Controller\Controller;
 		$Controller = new Controller();
 		$Controller->helpers = array('Html', 'Form');
 		$View = new View($Controller);
@@ -334,8 +336,8 @@ object(View) {
 	validationErrors => array()
 	hasRendered => false
 	uuids => array()
-	request => object(CakeRequest) {}
-	response => object(CakeResponse) {}
+	request => object(Request) {}
+	response => object(Response) {}
 	elementCache => 'default'
 	elementCacheSettings => array()
 	Html => object(HtmlHelper) {}
@@ -369,7 +371,7 @@ TEXT;
 	[protected] _current => null
 	[protected] _currentType => ''
 	[protected] _stack => array()
-	[protected] _eventManager => object(CakeEventManager) {}
+	[protected] _eventManager => object(EventManager) {}
 	[protected] _eventManagerConfigured => false
 
 TEXT;
@@ -456,7 +458,7 @@ TEXT;
 		if (file_exists(LOGS . 'debug.log')) {
 			unlink(LOGS . 'debug.log');
 		}
-		CakeLog::config('file', array('engine' => 'File', 'path' => TMP . 'logs' . DS));
+		Log::config('file', array('engine' => 'File', 'path' => TMP . 'logs' . DS));
 
 		Debugger::log('cool');
 		$result = file_get_contents(LOGS . 'debug.log');
@@ -483,7 +485,7 @@ TEXT;
 		if (file_exists(LOGS . 'debug.log')) {
 			unlink(LOGS . 'debug.log');
 		}
-		CakeLog::config('file', array('engine' => 'File', 'path' => TMP . 'logs' . DS));
+		Log::config('file', array('engine' => 'File', 'path' => TMP . 'logs' . DS));
 
 		$val = array(
 			'test' => array('key' => 'val')

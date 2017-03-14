@@ -16,6 +16,9 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller\Component\Acl;
 
+use Cake\Controller\Component;
+use Cake\Core\Object;
+use Cake\Utility\Inflector;
 
 
 /**
@@ -86,7 +89,7 @@ class PhpAcl extends Object implements AclInterface {
 			$this->options = $Component->settings['adapter'] + $this->options;
 		}
 
-		App::uses('PhpReader', 'Configure');
+		use App\Configure\PhpReader;
 		$Reader = new PhpReader(dirname($this->options['config']) . DS);
 		$config = $Reader->read(basename($this->options['config']));
 		$this->build($config);

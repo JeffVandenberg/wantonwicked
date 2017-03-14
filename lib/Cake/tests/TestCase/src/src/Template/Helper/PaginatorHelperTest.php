@@ -16,13 +16,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\Core\Configure;
+use Cake\Routing\Router;
 
 
-App::uses('View', 'View');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('JsHelper', 'View/Helper');
-App::uses('PaginatorHelper', 'View/Helper');
-App::uses('FormHelper', 'View/Helper');
+use Cake\View\View;
+use App\View\Helper\HtmlHelper;
+use App\View\Helper\JsHelper;
+use App\View\Helper\PaginatorHelper;
+use App\View\Helper\FormHelper;
 
 if (!defined('FULL_BASE_URL')) {
 	define('FULL_BASE_URL', 'http://cakephp.org');
@@ -33,7 +35,7 @@ if (!defined('FULL_BASE_URL')) {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class PaginatorHelperTest extends CakeTestCase {
+class PaginatorHelperTest extends TestCase {
 
 /**
  * setUp method
@@ -47,7 +49,7 @@ class PaginatorHelperTest extends CakeTestCase {
 		$this->View = new View($controller);
 		$this->Paginator = new PaginatorHelper($this->View);
 		$this->Paginator->Js = $this->getMock('PaginatorHelper', array(), array($this->View));
-		$this->Paginator->request = new CakeRequest(null, false);
+		$this->Paginator->request = new Request(null, false);
 		$this->Paginator->request->addParams(array(
 			'paging' => array(
 				'Article' => array(
@@ -1808,7 +1810,7 @@ class PaginatorHelperTest extends CakeTestCase {
 			)
 		);
 
-		$request = new CakeRequest();
+		$request = new Request();
 		$request->addParams(array(
 			'controller' => 'clients', 'action' => 'index', 'plugin' => null, 'page' => 2
 		));
@@ -1844,7 +1846,7 @@ class PaginatorHelperTest extends CakeTestCase {
 			)
 		);
 
-		$request = new CakeRequest();
+		$request = new Request();
 		$request->addParams(array(
 			'controller' => 'clients', 'action' => 'index', 'plugin' => null
 		));
@@ -2829,7 +2831,7 @@ class PaginatorHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testNoDefaultModel() {
-		$this->Paginator->request = new CakeRequest(null, false);
+		$this->Paginator->request = new Request(null, false);
 		$this->assertNull($this->Paginator->defaultModel());
 	}
 

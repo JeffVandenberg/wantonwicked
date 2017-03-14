@@ -16,9 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\Core\Plugin;
+use Cake\Database\ConnectionManager;
 
 
-App::uses('ClassRegistry', 'Utility');
+use App\Utility\ClassRegistry;
 
 /**
  * ClassRegisterModel class
@@ -127,7 +129,7 @@ interface ClassRegistryInterfaceTest {
  *
  * @package       Cake.Test.Case.Utility
  */
-class ClassRegistryTest extends CakeTestCase {
+class ClassRegistryTest extends TestCase {
 
 /**
  * testAddModel method
@@ -252,7 +254,7 @@ class ClassRegistryTest extends CakeTestCase {
 		$this->assertFalse($TestRegistryPluginModel);
 
 		//Faking a plugin
-		CakePlugin::load('RegistryPlugin', array('path' => '/fake/path'));
+		Plugin::load('RegistryPlugin', array('path' => '/fake/path'));
 		$TestRegistryPluginModel = ClassRegistry::init('RegistryPlugin.TestRegistryPluginModel');
 		$this->assertInstanceOf('TestRegistryPluginModel', $TestRegistryPluginModel);
 
@@ -264,7 +266,7 @@ class ClassRegistryTest extends CakeTestCase {
 		$PluginUserCopy = ClassRegistry::getObject('RegistryPluginUser');
 		$this->assertInstanceOf('RegistryPluginAppModel', $PluginUserCopy);
 		$this->assertSame($PluginUser, $PluginUserCopy);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

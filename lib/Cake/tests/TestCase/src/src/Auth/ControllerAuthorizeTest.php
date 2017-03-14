@@ -16,19 +16,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Auth;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('Controller', 'Controller');
-App::uses('ControllerAuthorize', 'Controller/Component/Auth');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
+use Cake\Controller\Controller;
+use App\Controller\Component\Auth\ControllerAuthorize;
+use Cake\Network\Request;
+use Cake\Network\Response;
 
 /**
  * ControllerAuthorizeTest
  *
  * @package       Cake.Test.Case.Controller.Component.Auth
  */
-class ControllerAuthorizeTest extends CakeTestCase {
+class ControllerAuthorizeTest extends TestCase {
 
 /**
  * setup
@@ -78,7 +79,7 @@ class ControllerAuthorizeTest extends CakeTestCase {
  */
 	public function testAuthorizeFailure() {
 		$user = array();
-		$request = new CakeRequest('/posts/index', false);
+		$request = new Request('/posts/index', false);
 		$this->assertFalse($this->auth->authorize($user, $request));
 	}
 
@@ -89,7 +90,7 @@ class ControllerAuthorizeTest extends CakeTestCase {
  */
 	public function testAuthorizeSuccess() {
 		$user = array('User' => array('username' => 'mark'));
-		$request = new CakeRequest('/posts/index', false);
+		$request = new Request('/posts/index', false);
 
 		$this->controller->expects($this->once())
 			->method('isAuthorized')

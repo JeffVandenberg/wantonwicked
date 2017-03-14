@@ -16,9 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('CakeText', 'Utility');
+use App\Utility\CakeText;
 
 /**
  * CakeText Tests
@@ -26,7 +28,7 @@ App::uses('CakeText', 'Utility');
  * @package Cake.Test.Case.Utility
  * @coversDefaultClass CakeText
  */
-class CakeTextTest extends CakeTestCase {
+class CakeTextTest extends TestCase {
 
 /**
  * Setup object under test

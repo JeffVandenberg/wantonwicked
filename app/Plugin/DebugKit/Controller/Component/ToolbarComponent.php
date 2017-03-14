@@ -13,20 +13,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('CakeLog', 'Log');
-App::uses('CakeLogInterface', 'Log');
-App::uses('DebugTimer', 'DebugKit.Lib');
-App::uses('DebugMemory', 'DebugKit.Lib');
-App::uses('HelperCollection', 'View');
-App::uses('CakeEventManager', 'Event');
-App::uses('CakeEventListener', 'Event');
+use Cake\Log\Log;
+use App\Log\LogInterface;
+use DebugKit\Lib\DebugTimer;
+use DebugKit\Lib\DebugMemory;
+use App\View\HelperCollection;
+use Cake\Event\EventManager;
+use App\Event\EventListener;
 
 /**
  * Class ToolbarComponent
  *
  * @since         DebugKit 0.1
  */
-class ToolbarComponent extends Component implements CakeEventListener {
+class ToolbarComponent extends Component implements EventListener {
 
 /**
  * Settings for the Component
@@ -441,7 +441,7 @@ class ToolbarComponent extends Component implements CakeEventListener {
 			$className = ucfirst($panel) . 'Panel';
 			list($plugin, $className) = pluginSplit($className, true);
 
-			App::uses($className, $plugin . 'Panel');
+			/* TODO: App::uses($className, $plugin . 'Panel'); */
 			if (!class_exists($className)) {
 				trigger_error(__d('debug_kit', 'Could not load DebugToolbar panel %s', $panel), E_USER_WARNING);
 				continue;

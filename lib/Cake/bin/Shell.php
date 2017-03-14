@@ -15,15 +15,22 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Object;
+use Cake\Core\Plugin;
+use Cake\Log\Log;
+use Cake\Utility\Inflector;
 
 
-App::uses('TaskCollection', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ConsoleInputSubcommand', 'Console');
-App::uses('ConsoleOptionParser', 'Console');
-App::uses('ClassRegistry', 'Utility');
-App::uses('File', 'Utility');
+use App\Console\TaskCollection;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ConsoleInputSubcommand;
+use Cake\Console\ConsoleOptionParser;
+use App\Utility\ClassRegistry;
+use App\Utility\File;
 
 /**
  * Base class for command-line utilities for automating programmer chores.
@@ -441,7 +448,7 @@ class Shell extends Object {
 			$this->_useLogger(false);
 		}
 		if (!empty($this->params['plugin'])) {
-			CakePlugin::load($this->params['plugin']);
+			Plugin::load($this->params['plugin']);
 		}
 		$this->command = $command;
 		if (!empty($this->params['help'])) {
@@ -810,7 +817,7 @@ class Shell extends Object {
 		}
 		list($plugin, $helperClassName) = pluginSplit($name, true);
 		$helperClassName = Inflector::camelize($name) . "ShellHelper";
-		App::uses($helperClassName, $plugin . "Console/Helper");
+		/* TODO: App::uses($helperClassName, $plugin . "Console/Helper"); */
 		if (!class_exists($helperClassName)) {
 			throw new RuntimeException("Class " . $helperClassName . " not found");
 		}
@@ -956,8 +963,8 @@ class Shell extends Object {
  * @return string path path to the correct plugin.
  */
 	protected function _pluginPath($pluginName) {
-		if (CakePlugin::loaded($pluginName)) {
-			return CakePlugin::path($pluginName);
+		if (Plugin::loaded($pluginName)) {
+			return Plugin::path($pluginName);
 		}
 		return current(App::path('plugins')) . $pluginName . DS;
 	}
@@ -965,23 +972,23 @@ class Shell extends Object {
 /**
  * Used to enable or disable logging stream output to stdout and stderr
  * If you don't wish to see in your stdout or stderr everything that is logged
- * through CakeLog, call this function with first param as false
+ * through Log, call this function with first param as false
  *
- * @param bool $enable whether to enable CakeLog output or not
+ * @param bool $enable whether to enable Log output or not
  * @return void
  */
 	protected function _useLogger($enable = true) {
 		if (!$enable) {
-			CakeLog::drop('stdout');
-			CakeLog::drop('stderr');
+			Log::drop('stdout');
+			Log::drop('stderr');
 			return;
 		}
-		CakeLog::config('stdout', array(
+		Log::config('stdout', array(
 			'engine' => 'Console',
 			'types' => array('notice', 'info'),
 			'stream' => $this->stdout,
 		));
-		CakeLog::config('stderr', array(
+		Log::config('stderr', array(
 			'engine' => 'Console',
 			'types' => array('emergency', 'alert', 'critical', 'error', 'warning', 'debug'),
 			'stream' => $this->stderr,

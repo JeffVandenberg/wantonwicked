@@ -16,9 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('ShellDispatcher', 'Console');
+use Cake\Console\ShellDispatcher;
 
 /**
  * TestShellDispatcher class
@@ -104,7 +106,7 @@ class TestShellDispatcher extends ShellDispatcher {
  *
  * @package       Cake.Test.Case.Console
  */
-class ShellDispatcherTest extends CakeTestCase {
+class ShellDispatcherTest extends TestCase {
 
 /**
  * setUp method
@@ -121,7 +123,7 @@ class ShellDispatcherTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'Console' . DS . 'Command' . DS
 			)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 	}
 
 /**
@@ -131,7 +133,7 @@ class ShellDispatcherTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

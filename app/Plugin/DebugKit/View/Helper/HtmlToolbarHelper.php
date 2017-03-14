@@ -12,8 +12,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('ToolbarHelper', 'DebugKit.View/Helper');
-App::uses('Security', 'Utility');
+use DebugKit\View\Helper\ToolbarHelper;
+use Cake\Utility\Security;
 
 /**
  * Html Toolbar Helper

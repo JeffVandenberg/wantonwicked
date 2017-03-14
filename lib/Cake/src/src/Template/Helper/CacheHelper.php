@@ -14,9 +14,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Routing\Router;
+use Cake\Utility\Inflector;
+use Cake\View\View;
 
 
-App::uses('AppHelper', 'View/Helper');
+use App\View\Helper\AppHelper;
 
 /**
  * CacheHelper helps create full page view caching.
@@ -303,12 +308,12 @@ class CacheHelper extends AppHelper {
 
 		if (empty($this->_View->plugin)) {
 			$file .= "
-			App::uses('{$this->_View->name}Controller', 'Controller');
+			/* TODO: App::uses('{$this->_View->name}Controller', 'Controller'); */
 			";
 		} else {
 			$file .= "
-			App::uses('{$this->_View->plugin}AppController', '{$this->_View->plugin}.Controller');
-			App::uses('{$this->_View->name}Controller', '{$this->_View->plugin}.Controller');
+			/* TODO: App::uses('{$this->_View->plugin}AppController', '{$this->_View->plugin}.Controller'); */
+			/* TODO: App::uses('{$this->_View->name}Controller', '{$this->_View->plugin}.Controller'); */
 			";
 		}
 

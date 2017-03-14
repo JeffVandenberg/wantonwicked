@@ -19,6 +19,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Cache\Engine;
 
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
+
 
 
 /**

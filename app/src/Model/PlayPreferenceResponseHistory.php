@@ -1,7 +1,7 @@
 <?php
 namespace app\Model;
 
-App::uses('AppModel', 'Model');
+use App\Model\AppModel;
 /**
  * PlayPreferenceReponseHistory Model
  *

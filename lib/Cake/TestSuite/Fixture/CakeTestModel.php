@@ -16,7 +16,7 @@
 
 
 
-App::uses('Model', 'Model');
+use App\Model\Model;
 
 /**
  * A model to extend from to help you during testing.

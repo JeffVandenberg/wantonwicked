@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\Core\Configure;
 
 
-App::uses('Xml', 'Utility');
-App::uses('CakeTestModel', 'TestSuite/Fixture');
+use Cake\Utility\Xml;
+use App\TestSuite\Fixture\CakeTestModel;
 
 /**
  * Article class
@@ -79,7 +80,7 @@ class XmlUser extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Utility
  */
-class XmlTest extends CakeTestCase {
+class XmlTest extends TestCase {
 
 /**
  * autoFixtures property

@@ -1,12 +1,13 @@
 <?php
 namespace app\Test\TestCase\Model;
 
-App::uses('BeatType', 'Model');
+use Cake\TestSuite\TestCase;
+use App\Model\BeatType;
 
 /**
  * BeatType Test Case
  */
-class BeatTypeTest extends CakeTestCase {
+class BeatTypeTest extends TestCase {
 
 /**
  * Fixtures

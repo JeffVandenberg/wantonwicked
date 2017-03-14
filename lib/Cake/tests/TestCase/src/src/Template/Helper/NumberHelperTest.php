@@ -16,10 +16,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('View', 'View');
-App::uses('NumberHelper', 'View/Helper');
+use Cake\View\View;
+use App\View\Helper\NumberHelper;
 
 /**
  * NumberHelperTestObject class
@@ -47,7 +49,7 @@ class CakeNumberMock {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class NumberHelperTest extends CakeTestCase {
+class NumberHelperTest extends TestCase {
 
 /**
  * setUp method
@@ -70,7 +72,7 @@ class NumberHelperTest extends CakeTestCase {
 	}
 
 /**
- * test CakeNumber class methods are called correctly
+ * test Number class methods are called correctly
  *
  * @return void
  */
@@ -79,11 +81,11 @@ class NumberHelperTest extends CakeTestCase {
 			'precision', 'toReadableSize', 'toPercentage', 'format',
 			'currency', 'addFormat',
 			);
-		$CakeNumber = $this->getMock('CakeNumberMock', $methods);
+		$Number = $this->getMock('CakeNumberMock', $methods);
 		$Number = new NumberHelperTestObject($this->View, array('engine' => 'CakeNumberMock'));
-		$Number->attach($CakeNumber);
+		$Number->attach($Number);
 		foreach ($methods as $method) {
-			$CakeNumber->expects($this->at(0))->method($method);
+			$Number->expects($this->at(0))->method($method);
 			$Number->{$method}('who', 'what', 'when', 'where', 'how');
 		}
 	}
@@ -103,10 +105,10 @@ class NumberHelperTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$Number = new NumberHelperTestObject($this->View, array('engine' => 'TestPlugin.TestPluginEngine'));
 		$this->assertInstanceOf('TestPluginEngine', $Number->engine());
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 
 }

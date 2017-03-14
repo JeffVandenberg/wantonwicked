@@ -14,7 +14,7 @@
 
 
 
-App::uses('FormAuthenticate', 'Controller/Component/Auth');
+use App\Controller\Component\Auth\FormAuthenticate;
 
 /**
  * An authentication adapter for AuthComponent. Provides the ability to authenticate using POST data using Blowfish

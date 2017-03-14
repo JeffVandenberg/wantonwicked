@@ -16,6 +16,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite\templates;
 
+use Cake\Core\Configure;
+
 
 ?>
 <!DOCTYPE html>

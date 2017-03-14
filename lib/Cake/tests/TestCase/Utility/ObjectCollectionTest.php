@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\Controller\Controller;
 
 
-App::uses('ObjectCollection', 'Utility');
-App::uses('CakeEvent', 'Event');
+use App\Utility\ObjectCollection;
+use Cake\Event\Event;
 
 /**
  * A generic object class
@@ -129,7 +130,7 @@ class GenericObjectCollection extends ObjectCollection {
 
 }
 
-class ObjectCollectionTest extends CakeTestCase {
+class ObjectCollectionTest extends TestCase {
 
 /**
  * setUp
@@ -534,7 +535,7 @@ class ObjectCollectionTest extends CakeTestCase {
 	}
 
 /**
- * tests that passing an instance of CakeEvent to trigger will prepend the subject to the list of arguments
+ * tests that passing an instance of Event to trigger will prepend the subject to the list of arguments
  *
  * @return void
  * @triggers callback $subjectClass, array('first argument')
@@ -554,12 +555,12 @@ class ObjectCollectionTest extends CakeTestCase {
 			->with($subjectClass, 'first argument')
 			->will($this->returnValue(true));
 
-		$event = new CakeEvent('callback', $subjectClass, array('first argument'));
+		$event = new Event('callback', $subjectClass, array('first argument'));
 		$this->assertTrue($this->Objects->trigger($event));
 	}
 
 /**
- * tests that passing an instance of CakeEvent to trigger with omitSubject property
+ * tests that passing an instance of Event to trigger with omitSubject property
  * will NOT prepend the subject to the list of arguments
  *
  * @return void
@@ -580,7 +581,7 @@ class ObjectCollectionTest extends CakeTestCase {
 			->with('first argument')
 			->will($this->returnValue(true));
 
-		$event = new CakeEvent('callback', $subjectClass, array('first argument'));
+		$event = new Event('callback', $subjectClass, array('first argument'));
 		$event->omitSubject = true;
 		$this->assertTrue($this->Objects->trigger($event));
 	}

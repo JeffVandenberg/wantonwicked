@@ -18,16 +18,21 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Core;
 
+use Cake\Cache\Cache;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('PhpReader', 'Configure');
+use App\Configure\PhpReader;
 
 /**
  * ConfigureTest
  *
  * @package       Cake.Test.Case.Core
  */
-class ConfigureTest extends CakeTestCase {
+class ConfigureTest extends TestCase {
 
 /**
  * setUp method
@@ -364,7 +369,7 @@ class ConfigureTest extends CakeTestCase {
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
 		Configure::config('test', new PhpReader());
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$result = Configure::load('TestPlugin.load', 'test');
 		$this->assertTrue($result);
 		$expected = '/test_app/plugins/test_plugin/config/load.php';
@@ -376,7 +381,7 @@ class ConfigureTest extends CakeTestCase {
 		$expected = '/test_app/plugins/test_plugin/config/more.load.php';
 		$config = Configure::read('plugin_more_load');
 		$this->assertEquals($expected, $config);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

@@ -14,15 +14,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller;
 
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Model\Model;
+use Cake\Routing\Router;
+use Cake\Utility\Inflector;
 
 
-App::uses('CakeResponse', 'Network');
-App::uses('ClassRegistry', 'Utility');
-App::uses('ComponentCollection', 'Controller');
-App::uses('View', 'View');
-App::uses('CakeEvent', 'Event');
-App::uses('CakeEventListener', 'Event');
-App::uses('CakeEventManager', 'Event');
+use Cake\Network\Response;
+use App\Utility\ClassRegistry;
+use App\Controller\ComponentCollection;
+use Cake\View\View;
+use Cake\Event\Event;
+use App\Event\EventListener;
+use Cake\Event\EventManager;
 
 /**
  * Application controller class for organization of business logic.
@@ -57,7 +62,7 @@ App::uses('CakeEventManager', 'Event');
  * @property      FlashComponent $Flash
  * @link          http://book.cakephp.org/2.0/en/controllers.html
  */
-class Controller extends Object implements CakeEventListener {
+class Controller extends Object implements EventListener {
 
 /**
  * The name of this controller. Controller names are plural, named after the model they manipulate.
@@ -99,19 +104,19 @@ class Controller extends Object implements CakeEventListener {
 	public $helpers = array();
 
 /**
- * An instance of a CakeRequest object that contains information about the current request.
+ * An instance of a Request object that contains information about the current request.
  * This object contains all the information about a request and several methods for reading
  * additional information about the request.
  *
- * @var CakeRequest
+ * @var Request
  * @link http://book.cakephp.org/2.0/en/controllers/request-response.html#cakerequest
  */
 	public $request;
 
 /**
- * An instance of a CakeResponse object that contains information about the impending response
+ * An instance of a Response object that contains information about the impending response
  *
- * @var CakeResponse
+ * @var Response
  * @link http://book.cakephp.org/2.0/en/controllers/request-response.html#cakeresponse
  */
 	public $response;
@@ -121,7 +126,7 @@ class Controller extends Object implements CakeEventListener {
  *
  * @var string
  */
-	protected $_responseClass = 'CakeResponse';
+	protected $_responseClass = 'Response';
 
 /**
  * The name of the views subfolder containing views for this controller.
@@ -304,19 +309,19 @@ class Controller extends Object implements CakeEventListener {
 	protected $_mergeParent = 'AppController';
 
 /**
- * Instance of the CakeEventManager this controller is using
+ * Instance of the EventManager this controller is using
  * to dispatch inner events.
  *
- * @var CakeEventManager
+ * @var EventManager
  */
 	protected $_eventManager = null;
 
 /**
  * Constructor.
  *
- * @param CakeRequest $request Request object for this controller. Can be null for testing,
+ * @param Request $request Request object for this controller. Can be null for testing,
  *  but expect that features that use the request parameters will not work.
- * @param CakeResponse $response Response object for this controller.
+ * @param Response $response Response object for this controller.
  */
 	public function __construct($request = null, $response = null) {
 		if ($this->name === null) {
@@ -336,10 +341,10 @@ class Controller extends Object implements CakeEventListener {
 
 		$this->methods = array_diff($childMethods, $parentMethods);
 
-		if ($request instanceof CakeRequest) {
+		if ($request instanceof Request) {
 			$this->setRequest($request);
 		}
-		if ($response instanceof CakeResponse) {
+		if ($response instanceof Response) {
 			$this->response = $response;
 		}
 		parent::__construct();
@@ -451,10 +456,10 @@ class Controller extends Object implements CakeEventListener {
  * - $this->autoRender - To false if $request->params['return'] == 1
  * - $this->passedArgs - The the combined results of params['named'] and params['pass]
  *
- * @param CakeRequest $request Request instance.
+ * @param Request $request Request instance.
  * @return void
  */
-	public function setRequest(CakeRequest $request) {
+	public function setRequest(Request $request) {
 		$this->request = $request;
 		$this->plugin = isset($request->params['plugin']) ? Inflector::camelize($request->params['plugin']) : null;
 		$this->view = isset($request->params['action']) ? $request->params['action'] : null;
@@ -474,13 +479,13 @@ class Controller extends Object implements CakeEventListener {
  * Dispatches the controller action. Checks that the action
  * exists and isn't private.
  *
- * @param CakeRequest $request Request instance.
+ * @param Request $request Request instance.
  * @return mixed The resulting response.
  * @throws PrivateActionException When actions are not public or prefixed by _
  * @throws MissingActionException When actions are not defined and scaffolding is
  *    not enabled.
  */
-	public function invokeAction(CakeRequest $request) {
+	public function invokeAction(Request $request) {
 		try {
 			$method = new ReflectionMethod($this, $request->params['action']);
 
@@ -508,10 +513,10 @@ class Controller extends Object implements CakeEventListener {
  * or if the request is attempting to directly accessing a prefixed action.
  *
  * @param ReflectionMethod $method The method to be invoked.
- * @param CakeRequest $request The request to check.
+ * @param Request $request The request to check.
  * @return bool
  */
-	protected function _isPrivateAction(ReflectionMethod $method, CakeRequest $request) {
+	protected function _isPrivateAction(ReflectionMethod $method, Request $request) {
 		$privateAction = (
 			$method->name[0] === '_' ||
 			!$method->isPublic() ||
@@ -531,10 +536,10 @@ class Controller extends Object implements CakeEventListener {
 /**
  * Returns a scaffold object to use for dynamically scaffolded controllers.
  *
- * @param CakeRequest $request Request instance.
+ * @param Request $request Request instance.
  * @return Scaffold
  */
-	protected function _getScaffold(CakeRequest $request) {
+	protected function _getScaffold(Request $request) {
 		return new Scaffold($this, $request);
 	}
 
@@ -648,15 +653,15 @@ class Controller extends Object implements CakeEventListener {
 	}
 
 /**
- * Returns the CakeEventManager manager instance that is handling any callbacks.
+ * Returns the EventManager manager instance that is handling any callbacks.
  * You can use this instance to register any new listeners or callbacks to the
  * controller events, or create your own events and trigger them at will.
  *
- * @return CakeEventManager
+ * @return EventManager
  */
 	public function getEventManager() {
 		if (empty($this->_eventManager)) {
-			$this->_eventManager = new CakeEventManager();
+			$this->_eventManager = new EventManager();
 			$this->_eventManager->attach($this->Components);
 			$this->_eventManager->attach($this);
 		}
@@ -676,8 +681,8 @@ class Controller extends Object implements CakeEventListener {
  * @triggers Controller.startup $this
  */
 	public function startupProcess() {
-		$this->getEventManager()->dispatch(new CakeEvent('Controller.initialize', $this));
-		$this->getEventManager()->dispatch(new CakeEvent('Controller.startup', $this));
+		$this->getEventManager()->dispatch(new Event('Controller.initialize', $this));
+		$this->getEventManager()->dispatch(new Event('Controller.startup', $this));
 	}
 
 /**
@@ -691,7 +696,7 @@ class Controller extends Object implements CakeEventListener {
  * @triggers Controller.shutdown $this
  */
 	public function shutdownProcess() {
-		$this->getEventManager()->dispatch(new CakeEvent('Controller.shutdown', $this));
+		$this->getEventManager()->dispatch(new Event('Controller.shutdown', $this));
 	}
 
 /**
@@ -711,7 +716,7 @@ class Controller extends Object implements CakeEventListener {
  *
  * @return array Associative array of the HTTP codes as keys, and the message
  *    strings as values, or null of the given $code does not exist.
- * @deprecated 3.0.0 Since 2.4. Will be removed in 3.0. Use CakeResponse::httpCodes().
+ * @deprecated 3.0.0 Since 2.4. Will be removed in 3.0. Use Response::httpCodes().
  */
 	public function httpCodes($code = null) {
 		return $this->response->httpCodes($code);
@@ -766,7 +771,7 @@ class Controller extends Object implements CakeEventListener {
 		if (is_array($status)) {
 			extract($status, EXTR_OVERWRITE);
 		}
-		$event = new CakeEvent('Controller.beforeRedirect', $this, array($url, $status, $exit));
+		$event = new Event('Controller.beforeRedirect', $this, array($url, $status, $exit));
 
 		list($event->break, $event->breakOn, $event->collectReturn) = array(true, false, true);
 		$this->getEventManager()->dispatch($event);
@@ -826,11 +831,11 @@ class Controller extends Object implements CakeEventListener {
 	}
 
 /**
- * Convenience and object wrapper method for CakeResponse::header().
+ * Convenience and object wrapper method for Response::header().
  *
  * @param string $status The header message that is being set.
  * @return void
- * @deprecated 3.0.0 Will be removed in 3.0. Use CakeResponse::header().
+ * @deprecated 3.0.0 Will be removed in 3.0. Use Response::header().
  */
 	public function header($status) {
 		$this->response->header($status);
@@ -929,12 +934,12 @@ class Controller extends Object implements CakeEventListener {
  *
  * @param string $view View to use for rendering
  * @param string $layout Layout to use
- * @return CakeResponse A response object containing the rendered view.
+ * @return Response A response object containing the rendered view.
  * @triggers Controller.beforeRender $this
  * @link http://book.cakephp.org/2.0/en/controllers.html#Controller::render
  */
 	public function render($view = null, $layout = null) {
-		$event = new CakeEvent('Controller.beforeRender', $this);
+		$event = new Event('Controller.beforeRender', $this);
 		$this->getEventManager()->dispatch($event);
 		if ($event->isStopped()) {
 			$this->autoRender = false;
@@ -991,7 +996,7 @@ class Controller extends Object implements CakeEventListener {
  *
  * @return void
  * @link http://book.cakephp.org/2.0/en/controllers.html#Controller::disableCache
- * @deprecated 3.0.0 Will be removed in 3.0. Use CakeResponse::disableCache().
+ * @deprecated 3.0.0 Will be removed in 3.0. Use Response::disableCache().
  */
 	public function disableCache() {
 		$this->response->disableCache();
@@ -1246,7 +1251,7 @@ class Controller extends Object implements CakeEventListener {
 		if ($this->viewClass !== 'View') {
 			list($plugin, $viewClass) = pluginSplit($viewClass, true);
 			$viewClass = $viewClass . 'View';
-			App::uses($viewClass, $plugin . 'View');
+			/* TODO: App::uses($viewClass, $plugin . 'View'); */
 		}
 
 		return new $viewClass($this);

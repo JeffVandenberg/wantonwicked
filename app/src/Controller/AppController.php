@@ -21,7 +21,7 @@
 
 
 
-App::uses('Controller', 'Controller');
+use Cake\Controller\Controller;
 
 /**
  * Application Controller

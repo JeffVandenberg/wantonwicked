@@ -17,19 +17,19 @@
  */
 namespace lib\Cake\Test\TestCase\bin\Command;
 
+use App\Console\Command\ApiShell;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\Shell;
+use Cake\Console\ShellDispatcher;
 
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('ApiShell', 'Console/Command');
 
 /**
  * ApiShellTest class
  *
  * @package       Cake.Test.Case.Console.Command
  */
-class ApiShellTest extends CakeTestCase {
+class ApiShellTest extends TestCase {
 
 /**
  * setUp method

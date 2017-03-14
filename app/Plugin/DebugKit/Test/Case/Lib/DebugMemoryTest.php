@@ -15,13 +15,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  **/
 
-App::uses('DebugMemory', 'DebugKit.Lib');
+use DebugKit\Lib\DebugMemory;
 
 /**
  * Class DebugMemoryTest
  *
  */
-class DebugMemoryTest extends CakeTestCase {
+class DebugMemoryTest extends TestCase {
 
 /**
  * test memory usage

@@ -35,10 +35,10 @@ abstract class AbstractTransport {
 /**
  * Send mail
  *
- * @param CakeEmail $email CakeEmail instance.
+ * @param Email $email Email instance.
  * @return array
  */
-	abstract public function send(CakeEmail $email);
+	abstract public function send(Email $email);
 
 /**
  * Set the config

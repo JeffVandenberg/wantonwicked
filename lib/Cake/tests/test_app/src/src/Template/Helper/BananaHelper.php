@@ -2,7 +2,7 @@
 
 namespace lib\Cake\Test\test_app\Template\Helper;
 
-App::uses('Helper', 'View');
+use Cake\View\Helper;
 
 class BananaHelper extends Helper {
 

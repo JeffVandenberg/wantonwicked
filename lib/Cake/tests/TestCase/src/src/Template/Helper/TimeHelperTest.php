@@ -16,11 +16,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('TimeHelper', 'View/Helper');
-App::uses('View', 'View');
-App::uses('CakeTime', 'Utility');
+use App\View\Helper\TimeHelper;
+use Cake\View\View;
+use App\Utility\Time;
 
 /**
  * TimeHelperTestObject class
@@ -52,11 +54,11 @@ class CakeTimeMock {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class TimeHelperTest extends CakeTestCase {
+class TimeHelperTest extends TestCase {
 
 	public $Time = null;
 
-	public $CakeTime = null;
+	public $Time = null;
 
 /**
  * setUp method
@@ -79,7 +81,7 @@ class TimeHelperTest extends CakeTestCase {
 	}
 
 /**
- * test CakeTime class methods are called correctly
+ * test Time class methods are called correctly
  *
  * @return void
  */
@@ -91,18 +93,18 @@ class TimeHelperTest extends CakeTestCase {
 			'isTomorrow', 'toQuarter', 'toUnix', 'toAtom', 'toRSS',
 			'wasWithinLast', 'gmt', 'format', 'i18nFormat',
 		);
-		$CakeTime = $this->getMock('CakeTimeMock', $methods);
+		$Time = $this->getMock('CakeTimeMock', $methods);
 		$Time = new TimeHelperTestObject($this->View, array('engine' => 'CakeTimeMock'));
-		$Time->attach($CakeTime);
+		$Time->attach($Time);
 		foreach ($methods as $method) {
-			$CakeTime->expects($this->at(0))->method($method);
+			$Time->expects($this->at(0))->method($method);
 			$Time->{$method}('who', 'what', 'when', 'where', 'how');
 		}
 
-		$CakeTime = $this->getMock('CakeTimeMock', array('timeAgoInWords'));
+		$Time = $this->getMock('CakeTimeMock', array('timeAgoInWords'));
 		$Time = new TimeHelperTestObject($this->View, array('engine' => 'CakeTimeMock'));
-		$Time->attach($CakeTime);
-		$CakeTime->expects($this->at(0))->method('timeAgoInWords');
+		$Time->attach($Time);
+		$Time->expects($this->at(0))->method('timeAgoInWords');
 		$Time->timeAgoInWords('who', array('what'), array('when'), array('where'), array('how'));
 	}
 
@@ -121,10 +123,10 @@ class TimeHelperTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$Time = new TimeHelperTestObject($this->View, array('engine' => 'TestPlugin.TestPluginEngine'));
 		$this->assertInstanceOf('TestPluginEngine', $Time->engine());
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 	}
 
 /**

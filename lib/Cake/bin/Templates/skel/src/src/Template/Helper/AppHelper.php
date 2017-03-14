@@ -11,8 +11,8 @@
  */
 namespace lib\Cake\bin\Templates\skel\Template\Helper;
 
+use Cake\View\Helper;
 
-App::uses('Helper', 'View');
 
 /**
  * Application helper

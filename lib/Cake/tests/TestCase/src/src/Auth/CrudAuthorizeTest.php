@@ -16,20 +16,23 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Auth;
 
+use Cake\Core\Configure;
+use Cake\Routing\Router;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('CrudAuthorize', 'Controller/Component/Auth');
-App::uses('ComponentCollection', 'Controller');
-App::uses('AclComponent', 'Controller/Component');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
+use App\Controller\Component\Auth\CrudAuthorize;
+use App\Controller\ComponentCollection;
+use App\Controller\Component\AclComponent;
+use Cake\Network\Request;
+use Cake\Network\Response;
 
 /**
  * CrudAuthorizeTest
  *
  * @package       Cake.Test.Case.Controller.Component.Auth
  */
-class CrudAuthorizeTest extends CakeTestCase {
+class CrudAuthorizeTest extends TestCase {
 
 /**
  * setup
@@ -66,7 +69,7 @@ class CrudAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthorizeNoMappedAction() {
-		$request = new CakeRequest('/posts/foobar', false);
+		$request = new Request('/posts/foobar', false);
 		$request->addParams(array(
 			'controller' => 'posts',
 			'action' => 'foobar'
@@ -82,7 +85,7 @@ class CrudAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthorizeCheckSuccess() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array(
 			'controller' => 'posts',
 			'action' => 'index'
@@ -104,7 +107,7 @@ class CrudAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthorizeCheckFailure() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array(
 			'controller' => 'posts',
 			'action' => 'index'

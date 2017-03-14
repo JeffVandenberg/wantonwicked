@@ -16,7 +16,7 @@
 
 
 
-App::uses('CakeText', 'Utility');
+use App\Utility\CakeText;
 
 /**
  * HelpFormatter formats help for console shells. Can format to either

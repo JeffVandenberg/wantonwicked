@@ -3,6 +3,8 @@
  * Condition Fixture
  */namespace app\Test\Fixture;
 
+use Cake\TestSuite\Fixture\TestFixture;
+
 
 class ConditionFixture extends CakeTestFixture {
 

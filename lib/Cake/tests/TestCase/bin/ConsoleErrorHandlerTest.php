@@ -16,16 +16,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('ConsoleErrorHandler', 'Console');
+use Cake\Console\ConsoleErrorHandler;
 
 /**
  * ConsoleErrorHandler Test case.
  *
  * @package       Cake.Test.Case.Console
  */
-class ConsoleErrorHandlerTest extends CakeTestCase {
+class ConsoleErrorHandlerTest extends TestCase {
 
 /**
  * setup, create mocks

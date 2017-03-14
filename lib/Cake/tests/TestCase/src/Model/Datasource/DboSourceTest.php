@@ -16,15 +16,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Datasource;
 
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('DataSource', 'Model/Datasource');
-App::uses('DboSource', 'Model/Datasource');
-App::uses('DboTestSource', 'Model/Datasource');
-App::uses('DboSecondTestSource', 'Model/Datasource');
-App::uses('MockDataSource', 'Model/Datasource');
+use App\Model\Model;
+use App\Model\AppModel;
+use App\Model\Datasource\DataSource;
+use App\Model\Datasource\DboSource;
+use App\Model\Datasource\DboTestSource;
+use App\Model\Datasource\DboSecondTestSource;
+use App\Model\Datasource\MockDataSource;
 
 require_once dirname(dirname(__FILE__)) . DS . 'models.php';
 
@@ -116,7 +119,7 @@ class DboSecondTestSource extends DboSource {
  *
  * @package       Cake.Test.Case.Model.Datasource
  */
-class DboSourceTest extends CakeTestCase {
+class DboSourceTest extends TestCase {
 
 /**
  * autoFixtures property

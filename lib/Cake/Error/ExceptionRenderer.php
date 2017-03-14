@@ -19,15 +19,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Error;
 
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 
-App::uses('Sanitize', 'Utility');
-App::uses('Dispatcher', 'Routing');
-App::uses('Router', 'Routing');
-App::uses('Controller', 'Controller');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
-App::uses('CakeEvent', 'Event');
+use App\Utility\Sanitize;
+use Cake\Routing\Dispatcher;
+use Cake\Routing\Router;
+use Cake\Controller\Controller;
+use Cake\Network\Request;
+use Cake\Network\Response;
+use Cake\Event\Event;
 
 /**
  * Exception Renderer.
@@ -143,12 +145,12 @@ class ExceptionRenderer {
  * @return Controller
  */
 	protected function _getController($exception) {
-		App::uses('AppController', 'Controller');
-		App::uses('CakeErrorController', 'Controller');
+		use App\Controller\AppController;
+		use App\Controller\CakeErrorController;
 		if (!$request = Router::getRequest(true)) {
-			$request = new CakeRequest();
+			$request = new Request();
 		}
-		$response = new CakeResponse();
+		$response = new Response();
 
 		if (method_exists($exception, 'responseHeader')) {
 			$response->header($exception->responseHeader());
@@ -340,11 +342,11 @@ class ExceptionRenderer {
  * @return void
  */
 	protected function _shutdown() {
-		$afterFilterEvent = new CakeEvent('Controller.shutdown', $this->controller);
+		$afterFilterEvent = new Event('Controller.shutdown', $this->controller);
 		$this->controller->getEventManager()->dispatch($afterFilterEvent);
 
 		$Dispatcher = new Dispatcher();
-		$afterDispatchEvent = new CakeEvent('Dispatcher.afterDispatch', $Dispatcher, array(
+		$afterDispatchEvent = new Event('Dispatcher.afterDispatch', $Dispatcher, array(
 			'request' => $this->controller->request,
 			'response' => $this->controller->response
 		));

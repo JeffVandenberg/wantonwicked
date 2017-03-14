@@ -1,7 +1,7 @@
 <?php
 namespace app\Test\TestCase\Controller;
 
-App::uses('CharactersController', 'Controller');
+use App\Controller\CharactersController;
 
 /**
  * CharactersController Test Case

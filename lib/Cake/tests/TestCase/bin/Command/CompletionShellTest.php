@@ -18,13 +18,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('CompletionShell', 'Console/Command');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('CommandTask', 'Console/Command/Task');
+use App\Console\Command\CompletionShell;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\Shell;
+use App\Console\Command\Task\CommandTask;
 
 /**
  * TestCompletionStringOutput
@@ -46,7 +48,7 @@ class TestCompletionStringOutput extends ConsoleOutput {
  *
  * @package       Cake.Test.Case.Console.Command
  */
-class CompletionShellTest extends CakeTestCase {
+class CompletionShellTest extends TestCase {
 
 /**
  * setUp method
@@ -63,7 +65,7 @@ class CompletionShellTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'Console' . DS . 'Command' . DS
 			)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$out = new TestCompletionStringOutput();
 		$in = $this->getMock('ConsoleInput', array(), array(), '', false);
@@ -89,7 +91,7 @@ class CompletionShellTest extends CakeTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Shell);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

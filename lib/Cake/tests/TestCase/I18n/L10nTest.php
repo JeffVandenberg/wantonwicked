@@ -17,15 +17,16 @@
  */
 namespace lib\Cake\Test\TestCase\I18n;
 
+use App\I18n\L10n;
+use Cake\Core\Configure;
 
-App::uses('L10n', 'I18n');
 
 /**
  * L10nTest class
  *
  * @package       Cake.Test.Case.I18n
  */
-class L10nTest extends CakeTestCase {
+class L10nTest extends TestCase {
 
 /**
  * setUp method

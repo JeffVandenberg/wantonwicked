@@ -1,6 +1,7 @@
 <?php
 namespace app\Controller;
 
+use Cake\Utility\Inflector;
 use classes\character\data\BeatStatus;
 use classes\character\data\BeatType;
 use classes\character\data\Character;
@@ -13,7 +14,7 @@ use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * Characters Controller

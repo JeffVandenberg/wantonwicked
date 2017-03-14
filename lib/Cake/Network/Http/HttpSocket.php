@@ -16,11 +16,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Network\Http;
 
+use Cake\Core\App;
+use Cake\Core\Object;
+use Cake\Utility\Inflector;
 
 
-App::uses('CakeSocket', 'Network');
-App::uses('Router', 'Routing');
-App::uses('Hash', 'Utility');
+use Cake\Network\Socket;
+use Cake\Routing\Router;
+use Cake\Utility\Hash;
 
 /**
  * CakePHP network socket connection class.
@@ -30,7 +33,7 @@ App::uses('Hash', 'Utility');
  *
  * @package       Cake.Network.Http
  */
-class HttpSocket extends CakeSocket {
+class HttpSocket extends Socket {
 
 /**
  * When one activates the $quirksMode by setting it to true, all checks meant to
@@ -407,7 +410,7 @@ class HttpSocket extends CakeSocket {
 		}
 
 		list($plugin, $responseClass) = pluginSplit($this->responseClass, true);
-		App::uses($responseClass, $plugin . 'Network/Http');
+		/* TODO: App::uses($responseClass, $plugin . 'Network/Http'); */
 		if (!class_exists($responseClass)) {
 			throw new SocketException(__d('cake_dev', 'Class %s not found.', $this->responseClass));
 		}
@@ -631,7 +634,7 @@ class HttpSocket extends CakeSocket {
 		$method = key($this->_auth);
 		list($plugin, $authClass) = pluginSplit($method, true);
 		$authClass = Inflector::camelize($authClass) . 'Authentication';
-		App::uses($authClass, $plugin . 'Network/Http');
+		/* TODO: App::uses($authClass, $plugin . 'Network/Http'); */
 
 		if (!class_exists($authClass)) {
 			throw new SocketException(__d('cake_dev', 'Unknown authentication method.'));
@@ -661,7 +664,7 @@ class HttpSocket extends CakeSocket {
 		}
 		list($plugin, $authClass) = pluginSplit($this->_proxy['method'], true);
 		$authClass = Inflector::camelize($authClass) . 'Authentication';
-		App::uses($authClass, $plugin . 'Network/Http');
+		/* TODO: App::uses($authClass, $plugin . 'Network/Http'); */
 
 		if (!class_exists($authClass)) {
 			throw new SocketException(__d('cake_dev', 'Unknown authentication method for proxy.'));

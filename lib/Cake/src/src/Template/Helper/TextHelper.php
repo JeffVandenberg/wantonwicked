@@ -18,10 +18,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Core\App;
+use Cake\View\View;
 
 
-App::uses('AppHelper', 'View/Helper');
-App::uses('Hash', 'Utility');
+use App\View\Helper\AppHelper;
+use Cake\Utility\Hash;
 
 /**
  * Text helper library.
@@ -73,7 +75,7 @@ class TextHelper extends AppHelper {
 		$settings = Hash::merge(array('engine' => 'CakeText'), $settings);
 		parent::__construct($View, $settings);
 		list($plugin, $engineClass) = pluginSplit($settings['engine'], true);
-		App::uses($engineClass, $plugin . 'Utility');
+		/* TODO: App::uses($engineClass, $plugin . 'Utility'); */
 		if (class_exists($engineClass)) {
 			$this->_engine = new $engineClass($settings);
 		} else {

@@ -16,11 +16,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller\Component;
 
+use Cake\Controller\Controller;
+use Cake\Core\Configure;
 
 
-App::uses('Component', 'Controller');
-App::uses('Multibyte', 'I18n');
-App::uses('CakeEmail', 'Network/Email');
+use Cake\Controller\Component;
+use App\I18n\Multibyte;
+use App\Network\Email\Email;
 
 /**
  * EmailComponent
@@ -31,7 +33,7 @@ App::uses('CakeEmail', 'Network/Email');
  * @package       Cake.Controller.Component
  * @link          http://book.cakephp.org/2.0/en/core-libraries/components/email.html
  * @link          http://book.cakephp.org/2.0/en/core-utility-libraries/email.html
- * @deprecated    3.0.0 Will be removed in 3.0. Use Network/CakeEmail instead
+ * @deprecated    3.0.0 Will be removed in 3.0. Use Network/Email instead
  */
 class EmailComponent extends Component {
 
@@ -287,7 +289,7 @@ class EmailComponent extends Component {
  * @return bool Success
  */
 	public function send($content = null, $template = null, $layout = null) {
-		$lib = new CakeEmail();
+		$lib = new Email();
 		$lib->charset = $this->charset;
 		$lib->headerCharset = $this->charset;
 
@@ -347,11 +349,11 @@ class EmailComponent extends Component {
 
 		$sent = $lib->send($content);
 
-		$this->htmlMessage = $lib->message(CakeEmail::MESSAGE_HTML);
+		$this->htmlMessage = $lib->message(Email::MESSAGE_HTML);
 		if (empty($this->htmlMessage)) {
 			$this->htmlMessage = null;
 		}
-		$this->textMessage = $lib->message(CakeEmail::MESSAGE_TEXT);
+		$this->textMessage = $lib->message(Email::MESSAGE_TEXT);
 		if (empty($this->textMessage)) {
 			$this->textMessage = null;
 		}

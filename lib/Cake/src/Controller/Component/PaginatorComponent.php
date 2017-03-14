@@ -18,8 +18,8 @@
 
 
 
-App::uses('Component', 'Controller');
-App::uses('Hash', 'Utility');
+use Cake\Controller\Component;
+use Cake\Utility\Hash;
 
 /**
  * This component is used to handle automatic model data pagination. The primary way to use this

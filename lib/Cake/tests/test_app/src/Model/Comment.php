@@ -17,6 +17,8 @@
  */
 namespace lib\Cake\Test\test_app\Model;
 
+use App\Model\AppModel;
+
 
 /**
  * Comment Model

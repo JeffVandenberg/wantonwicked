@@ -19,10 +19,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite\Coverage;
 
+use Cake\Core\Plugin;
 
 
-App::uses('Inflector', 'Utility');
-App::uses('CakePlugin', 'Core');
+use Cake\Utility\Inflector;
+use Cake\Core\Plugin;
 
 /**
  * Abstract class for common CoverageReport methods.
@@ -107,7 +108,7 @@ abstract class BaseCoverageReport {
 		if ($this->appTest) {
 			$path .= APP_DIR . DS;
 		} elseif ($this->pluginTest) {
-			$path = CakePlugin::path($this->pluginTest);
+			$path = Plugin::path($this->pluginTest);
 		} else {
 			$path = CAKE;
 		}

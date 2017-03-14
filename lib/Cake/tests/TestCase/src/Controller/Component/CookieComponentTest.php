@@ -18,9 +18,9 @@
 
 
 
-App::uses('Component', 'Controller');
-App::uses('Controller', 'Controller');
-App::uses('CookieComponent', 'Controller/Component');
+use Cake\Controller\Component;
+use Cake\Controller\Controller;
+use App\Controller\Component\CookieComponent;
 
 /**
  * CookieComponentTestController class
@@ -57,7 +57,7 @@ class CookieComponentTestController extends Controller {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class CookieComponentTest extends CakeTestCase {
+class CookieComponentTest extends TestCase {
 
 /**
  * Controller property
@@ -74,7 +74,7 @@ class CookieComponentTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		$_COOKIE = array();
-		$this->Controller = new CookieComponentTestController(new CakeRequest(), new CakeResponse());
+		$this->Controller = new CookieComponentTestController(new Request(), new Response());
 		$this->Controller->constructClasses();
 		$this->Cookie = $this->Controller->Cookie;
 

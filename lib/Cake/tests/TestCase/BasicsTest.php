@@ -16,20 +16,23 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Log\Log;
 
 
 require_once CAKE . 'basics.php';
 
-App::uses('Folder', 'Utility');
-App::uses('CakeResponse', 'Network');
-App::uses('Debugger', 'Utility');
+use App\Utility\Folder;
+use Cake\Network\Response;
+use App\Utility\Debugger;
 
 /**
  * BasicsTest class
  *
  * @package       Cake.Test.Case
  */
-class BasicsTest extends CakeTestCase {
+class BasicsTest extends TestCase {
 
 /**
  * setUp method
@@ -242,7 +245,7 @@ class BasicsTest extends CakeTestCase {
 		$result = h($obj);
 		$this->assertEquals('(object)stdClass', $result);
 
-		$obj = new CakeResponse(array('body' => 'Body content'));
+		$obj = new Response(array('body' => 'Body content'));
 		$result = h($obj);
 		$this->assertEquals('Body content', $result);
 	}
@@ -796,15 +799,15 @@ class BasicsTest extends CakeTestCase {
 		}
 
 		// disable stderr output for this test
-		if (CakeLog::stream('stderr')) {
-			CakeLog::disable('stderr');
+		if (Log::stream('stderr')) {
+			Log::disable('stderr');
 		}
 
 		LogError('Testing LogError() basic function');
 		LogError("Testing with\nmulti-line\nstring");
 
-		if (CakeLog::stream('stderr')) {
-			CakeLog::enable('stderr');
+		if (Log::stream('stderr')) {
+			Log::enable('stderr');
 		}
 
 		$result = file_get_contents(LOGS . 'error.log');

@@ -1,13 +1,14 @@
 <?php
 namespace app\Test\TestCase\Model;
 
-App::uses('GroupType', 'Model');
+use Cake\TestSuite\TestCase;
+use App\Model\GroupType;
 
 /**
  * GroupType Test Case
  *
  */
-class GroupTypeTest extends CakeTestCase {
+class GroupTypeTest extends TestCase {
 
 /**
  * Fixtures

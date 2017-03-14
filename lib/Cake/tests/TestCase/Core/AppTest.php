@@ -16,6 +16,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Core;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
 /**
@@ -23,7 +25,7 @@
  *
  * @package       Cake.Test.Case.Core
  */
-class AppTest extends CakeTestCase {
+class AppTest extends TestCase {
 
 /**
  * tearDown method
@@ -32,7 +34,7 @@ class AppTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -240,7 +242,7 @@ class AppTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array($basepath),
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$result = App::path('Vendor', 'TestPlugin');
 		$this->assertEquals($basepath . 'TestPlugin' . DS . 'Vendor' . DS, $result[0]);
@@ -392,7 +394,7 @@ class AppTest extends CakeTestCase {
 			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$result = App::objects('TestPlugin.model');
 		$this->assertTrue(in_array('TestPluginPost', $result));
@@ -541,7 +543,7 @@ class AppTest extends CakeTestCase {
 			'Lib' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$result = App::import('Controller', 'TestPlugin.Tests');
 		$this->assertTrue($result);
@@ -568,7 +570,7 @@ class AppTest extends CakeTestCase {
 		$this->assertTrue($result);
 		$this->assertTrue(class_exists('TestSource'));
 
-		App::uses('ExampleExample', 'TestPlugin.Vendor/Example');
+		use TestPlugin\Vendor\Example\ExampleExample;
 		$this->assertTrue(class_exists('ExampleExample'));
 
 		App::build();
@@ -724,7 +726,7 @@ class AppTest extends CakeTestCase {
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 			'vendors' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Vendor' . DS),
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		ob_start();
 		$result = App::import('Vendor', 'css/TestAsset', array('ext' => 'css'));
@@ -782,14 +784,14 @@ class AppTest extends CakeTestCase {
 			'libs' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$this->assertFalse(class_exists('CustomLibClass', false));
-		App::uses('CustomLibClass', 'TestPlugin.Custom/Package');
+		use TestPlugin\Custom\Package\CustomLibClass;
 		$this->assertTrue(class_exists('CustomLibClass'));
 
 		$this->assertFalse(class_exists('TestUtilityClass', false));
-		App::uses('TestUtilityClass', 'Utility');
+		use App\Utility\TestUtilityClass;
 		$this->assertTrue(class_exists('TestUtilityClass'));
 	}
 
@@ -799,7 +801,7 @@ class AppTest extends CakeTestCase {
  * @return void
  */
 	public function testClassLocation() {
-		App::uses('MyCustomClass', 'MyPackage/Name');
+		use App\MyPackage\Name\MyCustomClass;
 		$this->assertEquals('MyPackage/Name', App::location('MyCustomClass'));
 	}
 
@@ -825,9 +827,9 @@ class AppTest extends CakeTestCase {
 		App::build(array(
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 		$this->assertFalse(class_exists('TestPluginOtherLibrary', false));
-		App::uses('TestPluginOtherLibrary', 'TestPlugin.Lib');
+		use TestPlugin\Lib\TestPluginOtherLibrary;
 		$this->assertTrue(class_exists('TestPluginOtherLibrary'));
 	}
 

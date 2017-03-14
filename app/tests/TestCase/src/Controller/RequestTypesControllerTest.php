@@ -1,7 +1,7 @@
 <?php
 namespace app\Test\TestCase\Controller;
 
-App::uses('RequestTypesController', 'Controller');
+use App\Controller\RequestTypesController;
 
 /**
  * RequestTypesController Test Case

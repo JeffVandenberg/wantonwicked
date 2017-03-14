@@ -18,10 +18,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
+use Cake\View\View;
 
 
-App::uses('AppHelper', 'View/Helper');
-App::uses('CakeResponse', 'Network');
+use App\View\Helper\AppHelper;
+use Cake\Network\Response;
 
 /**
  * Html Helper class for easy use of HTML widgets.
@@ -36,7 +40,7 @@ class HtmlHelper extends AppHelper {
 /**
  * Reference to the Response object
  *
- * @var CakeResponse
+ * @var Response
  */
 	public $response;
 
@@ -164,7 +168,7 @@ class HtmlHelper extends AppHelper {
 		if (is_object($this->_View->response)) {
 			$this->response = $this->_View->response;
 		} else {
-			$this->response = new CakeResponse();
+			$this->response = new Response();
 		}
 		if (!empty($settings['configFile'])) {
 			$this->loadConfig($settings['configFile']);
@@ -1246,7 +1250,7 @@ class HtmlHelper extends AppHelper {
 		}
 
 		$readerClass = Inflector::camelize($reader) . 'Reader';
-		App::uses($readerClass, 'Configure');
+		/* TODO: App::uses($readerClass, 'Configure'); */
 		if (!class_exists($readerClass)) {
 			throw new ConfigureException(__d('cake_dev', 'Cannot load the configuration file. Unknown reader.'));
 		}

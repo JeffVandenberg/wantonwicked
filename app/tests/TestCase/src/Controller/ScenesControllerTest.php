@@ -1,7 +1,7 @@
 <?php
 namespace app\Test\TestCase\Controller;
 
-App::uses('ScenesController', 'Controller');
+use App\Controller\ScenesController;
 
 /**
  * ScenesController Test Case

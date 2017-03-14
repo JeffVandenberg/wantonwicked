@@ -18,18 +18,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('FlashHelper', 'View/Helper');
-App::uses('View', 'View');
-App::uses('CakePlugin', 'Core');
+use App\View\Helper\FlashHelper;
+use Cake\View\View;
+use Cake\Core\Plugin;
 
 /**
  * FlashHelperTest class
  *
  * @package		Cake.Test.Case.View.Helper
  */
-class FlashHelperTest extends CakeTestCase {
+class FlashHelperTest extends TestCase {
 
 /**
  * setupBeforeClass method
@@ -53,10 +55,10 @@ class FlashHelperTest extends CakeTestCase {
 		$this->View = new View($controller);
 		$this->Flash = new FlashHelper($this->View);
 
-		if (!CakeSession::started()) {
-			CakeSession::start();
+		if (!Session::started()) {
+			Session::start();
 		}
-		CakeSession::write(array(
+		Session::write(array(
 			'Message' => array(
 				'flash' => array(
 					'key' => 'flash',
@@ -91,7 +93,7 @@ class FlashHelperTest extends CakeTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->View, $this->Flash);
-		CakeSession::destroy();
+		Session::destroy();
 	}
 
 /**
@@ -121,7 +123,7 @@ class FlashHelperTest extends CakeTestCase {
  * @expectedException UnexpectedValueException
  */
 	public function testFlashThrowsException() {
-		CakeSession::write('Message.foo', 'bar');
+		Session::write('Message.foo', 'bar');
 		$this->Flash->render('foo');
 	}
 
@@ -150,7 +152,7 @@ class FlashHelperTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$result = $this->Flash->render('flash', array('element' => 'TestPlugin.plugin_element'));
 		$expected = 'this is the plugin element';

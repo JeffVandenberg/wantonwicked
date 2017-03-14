@@ -14,7 +14,7 @@
  */namespace lib\Cake\bin\Helper;
 
 
-App::uses("BaseShellHelper", "Console/Helper");
+use App\Console\Helper\BaseShellHelper;
 
 /**
  * Create a visually pleasing ASCII art table

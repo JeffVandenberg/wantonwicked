@@ -14,14 +14,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Utility;
 
+use Cake\Core\App;
+use Cake\Utility\Inflector;
 
 
 /**
  * Included libraries.
  */
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('ConnectionManager', 'Model');
+use App\Model\Model;
+use App\Model\AppModel;
+use App\Model\ConnectionManager;
 
 /**
  * Class Collections.
@@ -142,8 +144,8 @@ class ClassRegistry {
 					return $model;
 				}
 
-				App::uses($plugin . 'AppModel', $pluginPath . 'Model');
-				App::uses($class, $pluginPath . 'Model');
+				/* TODO: App::uses($plugin . 'AppModel', $pluginPath . 'Model'); */
+				/* TODO: App::uses($class, $pluginPath . 'Model'); */
 
 				if (class_exists($class) || interface_exists($class)) {
 					$reflection = new ReflectionClass($class);

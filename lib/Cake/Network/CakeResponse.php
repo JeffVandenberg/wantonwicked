@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeResponse
+ * Response
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -16,19 +16,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Network;
 
+use Cake\Core\Configure;
 
 
-App::uses('File', 'Utility');
+use App\Utility\File;
 
 /**
- * CakeResponse is responsible for managing the response text, status and headers of a HTTP response.
+ * Response is responsible for managing the response text, status and headers of a HTTP response.
  *
  * By default controllers will use this class to render their response. If you are going to use
  * a custom response class it should subclass this object in order to ensure compatibility.
  *
  * @package       Cake.Network
  */
-class CakeResponse {
+class Response {
 
 /**
  * Holds HTTP response statuses
@@ -437,7 +438,7 @@ class CakeResponse {
 	}
 
 /**
- * Sets the cookies that have been added via CakeResponse::cookie() before any
+ * Sets the cookies that have been added via Response::cookie() before any
  * other output is sent to the client. Will set the cookies in the order they
  * have been set.
  *
@@ -1148,10 +1149,10 @@ class CakeResponse {
  * the Last-Modified etag response header before calling this method. Otherwise
  * a comparison will not be possible.
  *
- * @param CakeRequest $request Request object
+ * @param Request $request Request object
  * @return bool whether the response was marked as not modified or not.
  */
-	public function checkNotModified(CakeRequest $request) {
+	public function checkNotModified(Request $request) {
 		$etags = preg_split('/\s*,\s*/', $request->header('If-None-Match'), null, PREG_SPLIT_NO_EMPTY);
 		$modifiedSince = $request->header('If-Modified-Since');
 		if ($responseTag = $this->etag()) {
@@ -1266,13 +1267,13 @@ class CakeResponse {
  * ### Whitelist of URIs
  * e.g `cors($request, array('http://www.cakephp.org', '*.google.com', 'https://myproject.github.io'));`
  *
- * @param CakeRequest $request Request object
+ * @param Request $request Request object
  * @param string|array $allowedDomains List of allowed domains, see method description for more details
  * @param string|array $allowedMethods List of HTTP verbs allowed
  * @param string|array $allowedHeaders List of HTTP headers allowed
  * @return void
  */
-	public function cors(CakeRequest $request, $allowedDomains, $allowedMethods = array(), $allowedHeaders = array()) {
+	public function cors(Request $request, $allowedDomains, $allowedMethods = array(), $allowedHeaders = array()) {
 		$origin = $request->header('Origin');
 		if (!$origin) {
 			return;

@@ -17,11 +17,14 @@
  */
 namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use App\Model\Model;
+use App\View\Helper\CacheHelper;
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Routing\Router;
+use Cake\View\View;
 
-App::uses('Controller', 'Controller');
-App::uses('Model', 'Model');
-App::uses('View', 'View');
-App::uses('CacheHelper', 'View/Helper');
 
 /**
  * CacheTestController class
@@ -58,7 +61,7 @@ class CacheTestController extends Controller {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class CacheHelperTest extends CakeTestCase {
+class CacheHelperTest extends TestCase {
 
 /**
  * Checks if TMP/views is writable, and skips the case if it is not.
@@ -79,7 +82,7 @@ class CacheHelperTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		$_GET = array();
-		$request = new CakeRequest();
+		$request = new Request();
 		$this->Controller = new CacheTestController($request);
 		$View = new View($this->Controller);
 		$this->Cache = new CacheHelper($View);

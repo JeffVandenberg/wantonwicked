@@ -16,11 +16,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model\Datasource;
 
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
+use Cake\Model\Model;
+use Cake\Utility\Inflector;
 
 
-App::uses('DataSource', 'Model/Datasource');
-App::uses('CakeText', 'Utility');
-App::uses('View', 'View');
+use App\Model\Datasource\DataSource;
+use App\Utility\CakeText;
+use Cake\View\View;
 
 /**
  * DboSource

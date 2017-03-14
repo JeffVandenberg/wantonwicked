@@ -18,14 +18,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\Core\Configure;
+use Cake\Core\Object;
+use Cake\View\Helper;
 
 
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('JsHelper', 'View/Helper');
-App::uses('JsBaseEngineHelper', 'View/Helper');
-App::uses('FormHelper', 'View/Helper');
-App::uses('View', 'View');
-App::uses('ClassRegistry', 'Utility');
+use App\View\Helper\HtmlHelper;
+use App\View\Helper\JsHelper;
+use App\View\Helper\JsBaseEngineHelper;
+use App\View\Helper\FormHelper;
+use Cake\View\View;
+use App\Utility\ClassRegistry;
 
 /**
  * JsEncodingObject
@@ -118,7 +121,7 @@ class OptionEngineHelper extends JsBaseEngineHelper {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class JsHelperTest extends CakeTestCase {
+class JsHelperTest extends TestCase {
 
 /**
  * Regexp for CDATA start block
@@ -147,7 +150,7 @@ class JsHelperTest extends CakeTestCase {
 		$controller = null;
 		$this->View = $this->getMock('View', array('append'), array(&$controller));
 		$this->Js = new JsHelper($this->View, 'Option');
-		$request = new CakeRequest(null, false);
+		$request = new Request(null, false);
 		$this->Js->request = $request;
 		$this->Js->Html = new HtmlHelper($this->View);
 		$this->Js->Html->request = $request;
@@ -174,7 +177,7 @@ class JsHelperTest extends CakeTestCase {
  * @return void
  */
 	protected function _useMock() {
-		$request = new CakeRequest(null, false);
+		$request = new Request(null, false);
 
 		$this->Js = new JsHelper($this->View, array('TestJs'));
 		$this->Js->TestJsEngine = $this->getMock('JsBaseEngineHelper', array(), array($this->View));
@@ -744,7 +747,7 @@ class JsHelperTest extends CakeTestCase {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class JsBaseEngineTest extends CakeTestCase {
+class JsBaseEngineTest extends TestCase {
 
 /**
  * setUp method

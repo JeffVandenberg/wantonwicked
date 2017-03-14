@@ -1,12 +1,13 @@
 <?php
 namespace app\Test\TestCase\Model;
 
-App::uses('ConditionType', 'Model');
+use Cake\TestSuite\TestCase;
+use App\Model\ConditionType;
 
 /**
  * ConditionType Test Case
  */
-class ConditionTypeTest extends CakeTestCase {
+class ConditionTypeTest extends TestCase {
 
 /**
  * Fixtures

@@ -16,10 +16,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('TaskCollection', 'Console');
-App::uses('Shell', 'Console');
+use App\Console\TaskCollection;
+use Cake\Console\Shell;
 
 /**
  * Extended Task
@@ -32,7 +34,7 @@ class DbConfigAliasedTask extends Shell {
  *
  * @package       Cake.Test.Case.Console
  */
-class TaskCollectionTest extends CakeTestCase {
+class TaskCollectionTest extends TestCase {
 
 /**
  * setUp
@@ -104,13 +106,13 @@ class TaskCollectionTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->Tasks = new TaskCollection($shell, $dispatcher);
 
 		$result = $this->Tasks->load('TestPlugin.OtherTask');
 		$this->assertInstanceOf('OtherTaskTask', $result, 'Task class is wrong.');
 		$this->assertInstanceOf('OtherTaskTask', $this->Tasks->OtherTask, 'Class is wrong');
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

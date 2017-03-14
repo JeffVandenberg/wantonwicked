@@ -8,6 +8,8 @@
  * @property PermissionsComponent Permissions
  */namespace app\Controller;
 
+use App\Controller\AppController;
+
 
 class Chat2Controller extends AppController
 {

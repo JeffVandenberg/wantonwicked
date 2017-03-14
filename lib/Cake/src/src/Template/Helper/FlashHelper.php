@@ -18,8 +18,8 @@
 
 
 
-App::uses('AppHelper', 'View/Helper');
-App::uses('CakeSession', 'Model/Datasource');
+use App\View\Helper\AppHelper;
+use App\Model\Datasource\Session;
 
 /**
  * FlashHelper class to render flash messages.
@@ -71,11 +71,11 @@ class FlashHelper extends AppHelper {
  * @throws UnexpectedValueException If value for flash settings key is not an array.
  */
 	public function render($key = 'flash', $options = array()) {
-		if (!CakeSession::check("Message.$key")) {
+		if (!Session::check("Message.$key")) {
 			return null;
 		}
 
-		$flash = CakeSession::read("Message.$key");
+		$flash = Session::read("Message.$key");
 
 		if (!is_array($flash)) {
 			throw new UnexpectedValueException(sprintf(
@@ -85,7 +85,7 @@ class FlashHelper extends AppHelper {
 		}
 
 		$flash = $options + $flash;
-		CakeSession::delete("Message.$key");
+		Session::delete("Message.$key");
 		$flash['key'] = $key;
 
 		return $this->_View->element($flash['element'], $flash);

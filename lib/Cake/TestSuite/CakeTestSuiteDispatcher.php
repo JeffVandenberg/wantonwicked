@@ -16,12 +16,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite;
 
+use Cake\Core\App;
+use Cake\Model\Model;
 
 
 define('CORE_TEST_CASES', CAKE . 'Test' . DS . 'Case');
 define('APP_TEST_CASES', TESTS . 'Case');
 
-App::uses('CakeTestSuiteCommand', 'TestSuite');
+use App\TestSuite\CakeTestSuiteCommand;
 
 /**
  * CakeTestSuiteDispatcher handles web requests to the test suite and runs the correct action.

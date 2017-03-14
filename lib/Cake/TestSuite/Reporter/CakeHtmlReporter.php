@@ -15,9 +15,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite\Reporter;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 
-App::uses('CakeBaseReporter', 'TestSuite/Reporter');
+use App\TestSuite\Reporter\CakeBaseReporter;
 
 /**
  * CakeHtmlReporter Reports Results of TestSuites and Test Cases
@@ -175,7 +178,7 @@ class CakeHtmlReporter extends CakeBaseReporter {
  * @return void
  */
 	public function paintCoverage(array $coverage) {
-		App::uses('HtmlCoverageReport', 'TestSuite/Coverage');
+		use App\TestSuite\Coverage\HtmlCoverageReport;
 
 		$reporter = new HtmlCoverageReport($coverage, $this);
 		echo $reporter->report();

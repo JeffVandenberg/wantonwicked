@@ -4,6 +4,8 @@
  *
  */namespace app\Test\Fixture;
 
+use Cake\TestSuite\Fixture\TestFixture;
+
 
 class RequestTypeFixture extends CakeTestFixture {
 

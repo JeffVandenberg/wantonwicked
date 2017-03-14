@@ -16,6 +16,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model\Datasource;
 
+use Cake\Cache\Cache;
+use Cake\Database\ConnectionManager;
+use Cake\Model\Model;
+
 
 
 /**

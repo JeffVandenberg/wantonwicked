@@ -16,9 +16,10 @@
  */
 namespace lib\Cake\bin\Command\Task;
 
+use App\Console\Command\AppShell;
+use App\Utility\Folder;
+use Cake\Core\App;
 
-App::uses('AppShell', 'Console/Command');
-App::uses('Folder', 'Utility');
 
 /**
  * Template Task can generate templated output Used in other Tasks.

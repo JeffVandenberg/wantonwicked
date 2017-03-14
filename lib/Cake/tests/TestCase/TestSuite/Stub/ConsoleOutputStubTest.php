@@ -13,13 +13,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\TestSuite\Stub;
 
+use Cake\TestSuite\TestCase;
 
-App::uses("ConsoleOutputStub", "TestSuite/Stub");
+use App\TestSuite\Stub\ConsoleOutputStub;
 
 /*
  * ConsoleOutputStub test
  */
-class ConsoleOutputStubTest extends CakeTestCase {
+class ConsoleOutputStubTest extends TestCase {
 
 /**
  * setUp method

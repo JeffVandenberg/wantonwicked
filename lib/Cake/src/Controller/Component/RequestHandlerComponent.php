@@ -20,10 +20,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller\Component;
 
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Routing\Router;
+use Cake\Utility\Inflector;
 
 
-App::uses('Component', 'Controller');
-App::uses('Xml', 'Utility');
+use Cake\Controller\Component;
+use Cake\Utility\Xml;
 
 /**
  * Request object for handling alternative HTTP requests
@@ -55,14 +60,14 @@ class RequestHandlerComponent extends Component {
 /**
  * Holds the reference to Controller::$request
  *
- * @var CakeRequest
+ * @var Request
  */
 	public $request;
 
 /**
  * Holds the reference to Controller::$response
  *
- * @var CakeResponse
+ * @var Response
  */
 	public $response;
 
@@ -186,8 +191,8 @@ class RequestHandlerComponent extends Component {
  *   is requested, the view path becomes `app/View/Controller/xml/action.ctp`. Also if
  *   `controller/action` is requested with `Accept-Type: application/xml` in the headers
  *   the view path will become `app/View/Controller/xml/action.ctp`. Layout and template
- *   types will only switch to mime-types recognized by CakeResponse. If you need to declare
- *   additional mime-types, you can do so using CakeResponse::type() in your controllers beforeFilter()
+ *   types will only switch to mime-types recognized by Response. If you need to declare
+ *   additional mime-types, you can do so using Response::type() in your controllers beforeFilter()
  *   method.
  * - If a helper with the same name as the extension exists, it is added to the controller.
  * - If the extension is of a type that RequestHandler understands, it will set that
@@ -457,7 +462,7 @@ class RequestHandlerComponent extends Component {
 /**
  * Determines which content types the client accepts. Acceptance is based on
  * the file extension parsed by the Router (if present), and by the HTTP_ACCEPT
- * header. Unlike CakeRequest::accepts() this method deals entirely with mapped content types.
+ * header. Unlike Request::accepts() this method deals entirely with mapped content types.
  *
  * Usage:
  *
@@ -526,7 +531,7 @@ class RequestHandlerComponent extends Component {
 
 		list($contentType) = explode(';', env('CONTENT_TYPE'));
 		if ($contentType === '') {
-			list($contentType) = explode(';', CakeRequest::header('CONTENT_TYPE'));
+			list($contentType) = explode(';', Request::header('CONTENT_TYPE'));
 		}
 		if (!$type) {
 			return $this->mapType($contentType);
@@ -626,7 +631,7 @@ class RequestHandlerComponent extends Component {
 		}
 		$viewName = $viewClass . 'View';
 		if (!class_exists($viewName)) {
-			App::uses($viewName, $pluginDot . 'View');
+			/* TODO: App::uses($viewName, $pluginDot . 'View'); */
 		}
 		if (class_exists($viewName)) {
 			$controller->viewClass = $viewClass;
@@ -649,8 +654,8 @@ class RequestHandlerComponent extends Component {
 		$helper = ucfirst($type);
 
 		if (!in_array($helper, $controller->helpers) && empty($controller->helpers[$helper])) {
-			App::uses('AppHelper', 'View/Helper');
-			App::uses($helper . 'Helper', 'View/Helper');
+			use App\View\Helper\AppHelper;
+			/* TODO: App::uses($helper . 'Helper', 'View/Helper'); */
 			if (class_exists($helper . 'Helper')) {
 				$controller->helpers[] = $helper;
 			}
@@ -659,7 +664,7 @@ class RequestHandlerComponent extends Component {
 
 /**
  * Sets the response header based on type map index name. This wraps several methods
- * available on CakeResponse. It also allows you to use Content-Type aliases.
+ * available on Response. It also allows you to use Content-Type aliases.
  *
  * @param string|array $type Friendly type name, i.e. 'html' or 'xml', or a full content-type,
  *    like 'application/x-shockwave'.

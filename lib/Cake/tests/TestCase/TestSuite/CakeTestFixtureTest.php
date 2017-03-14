@@ -16,11 +16,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\TestSuite;
 
+use Cake\Database\ConnectionManager;
 
 
-App::uses('DboSource', 'Model/Datasource');
-App::uses('Model', 'Model');
-App::uses('CakeTestFixture', 'TestSuite/Fixture');
+use App\Model\Datasource\DboSource;
+use App\Model\Model;
+use App\TestSuite\Fixture\CakeTestFixture;
 
 /**
  * CakeTestFixtureTestFixture class
@@ -223,7 +224,7 @@ class FixturePrefixTest extends Model {
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeTestFixtureTest extends CakeTestCase {
+class CakeTestFixtureTest extends TestCase {
 
 /**
  * setUp method

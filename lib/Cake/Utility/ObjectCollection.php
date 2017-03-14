@@ -84,8 +84,8 @@ abstract class ObjectCollection {
  *    Any non-null value will modify the parameter index indicated.
  *    Defaults to false.
  *
- * @param string|CakeEvent $callback Method to fire on all the objects. Its assumed all the objects implement
- *   the method you are calling. If an instance of CakeEvent is provided, then then Event name will parsed to
+ * @param string|Event $callback Method to fire on all the objects. Its assumed all the objects implement
+ *   the method you are calling. If an instance of Event is provided, then then Event name will parsed to
  *   get the callback name. This is done by getting the last word after any dot in the event name
  *   (eg. `Model.afterSave` event will trigger the `afterSave` callback)
  * @param array $params Array of parameters for the triggered callback.
@@ -97,7 +97,7 @@ abstract class ObjectCollection {
 		if (empty($this->_enabled)) {
 			return true;
 		}
-		if ($callback instanceof CakeEvent) {
+		if ($callback instanceof Event) {
 			$event = $callback;
 			if (is_array($event->data)) {
 				$params =& $event->data;

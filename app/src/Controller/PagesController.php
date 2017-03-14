@@ -18,9 +18,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace app\Controller;
 
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * Static content controller

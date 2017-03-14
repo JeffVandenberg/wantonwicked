@@ -18,9 +18,9 @@
 
 
 
-App::uses('Component', 'Controller');
-App::uses('Inflector', 'Utility');
-App::uses('CakeSession', 'Model/Datasource');
+use Cake\Controller\Component;
+use Cake\Utility\Inflector;
+use App\Model\Datasource\Session;
 
 /**
  * The CakePHP FlashComponent provides a way for you to write a flash variable
@@ -84,7 +84,7 @@ class FlashComponent extends Component {
 		}
 		$options['element'] = $plugin . 'Flash/' . $element;
 
-		CakeSession::write('Message.' . $options['key'], array(
+		Session::write('Message.' . $options['key'], array(
 			'message' => $message,
 			'key' => $options['key'],
 			'element' => $options['element'],

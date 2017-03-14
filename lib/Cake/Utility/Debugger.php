@@ -18,10 +18,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Utility;
 
+use Cake\Core\Configure;
+use Cake\Error\Debugger;
+use Cake\Log\Log;
 
 
-App::uses('CakeLog', 'Log');
-App::uses('CakeText', 'Utility');
+use Cake\Log\Log;
+use App\Utility\CakeText;
 
 /**
  * Provide custom logging and error handling.
@@ -190,7 +193,7 @@ class Debugger {
  */
 	public static function log($var, $level = LOG_DEBUG, $depth = 3) {
 		$source = static::trace(array('start' => 1)) . "\n";
-		CakeLog::write($level, "\n" . $source . static::exportVar($var, $depth));
+		Log::write($level, "\n" . $source . static::exportVar($var, $depth));
 	}
 
 /**

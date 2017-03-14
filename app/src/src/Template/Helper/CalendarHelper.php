@@ -8,6 +8,8 @@
  * @property HtmlHelper Html
  */namespace app\Template\Helper;
 
+use App\View\Helper\AppHelper;
+
 
 class CalendarHelper extends AppHelper
 {

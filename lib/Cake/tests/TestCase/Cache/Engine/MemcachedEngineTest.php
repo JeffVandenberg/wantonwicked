@@ -20,8 +20,8 @@
 
 
 
-App::uses('Cache', 'Cache');
-App::uses('MemcachedEngine', 'Cache/Engine');
+use Cake\Cache\Cache;
+use App\Cache\Engine\MemcachedEngine;
 
 /**
  * TestMemcachedEngine
@@ -55,7 +55,7 @@ class TestMemcachedEngine extends MemcachedEngine {
  *
  * @package       Cake.Test.Case.Cache.Engine
  */
-class MemcachedEngineTest extends CakeTestCase {
+class MemcachedEngineTest extends TestCase {
 
 /**
  * setUp method

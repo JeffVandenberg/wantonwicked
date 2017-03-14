@@ -9,9 +9,9 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('View', 'View');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('TagCloudHelper', 'Tags.View/Helper');
+use Cake\View\View;
+use App\View\Helper\HtmlHelper;
+use Tags\View\Helper\TagCloudHelper;
 
 /**
  * TagCloudHelperTest
@@ -19,7 +19,7 @@ App::uses('TagCloudHelper', 'Tags.View/Helper');
  * @package tags
  * @subpackage tags.tests.cases.helpers
  */
-class TagCloudHelperTest extends CakeTestCase {
+class TagCloudHelperTest extends TestCase {
 
 /**
  * Sample data for testing purposes

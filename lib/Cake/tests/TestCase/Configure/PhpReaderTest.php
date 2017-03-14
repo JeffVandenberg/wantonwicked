@@ -16,16 +16,19 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Configure;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('PhpReader', 'Configure');
+use App\Configure\PhpReader;
 
 /**
  * PhpReaderTest
  *
  * @package       Cake.Test.Case.Configure
  */
-class PhpReaderTest extends CakeTestCase {
+class PhpReaderTest extends TestCase {
 
 /**
  * Test data to serialize and unserialize.
@@ -125,14 +128,14 @@ class PhpReaderTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$reader = new PhpReader($this->path);
 		$result = $reader->read('TestPlugin.load');
 		$this->assertTrue(isset($result['plugin_load']));
 
 		$result = $reader->read('TestPlugin.load.php');
 		$this->assertTrue(isset($result['plugin_load']));
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

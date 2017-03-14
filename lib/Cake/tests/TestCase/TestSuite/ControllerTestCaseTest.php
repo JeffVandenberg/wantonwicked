@@ -18,12 +18,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\TestSuite;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Routing\Router;
 
 
-App::uses('Controller', 'Controller');
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('CakeHtmlReporter', 'TestSuite/Reporter');
+use Cake\Controller\Controller;
+use App\Model\Model;
+use App\Model\AppModel;
+use App\TestSuite\Reporter\CakeHtmlReporter;
 
 require_once dirname(dirname(__FILE__)) . DS . 'Model' . DS . 'models.php';
 
@@ -107,7 +110,7 @@ class ControllerTestCaseTestController extends AppController {
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class ControllerTestCaseTest extends CakeTestCase {
+class ControllerTestCaseTest extends TestCase {
 
 /**
  * fixtures property
@@ -129,7 +132,7 @@ class ControllerTestCaseTest extends CakeTestCase {
 			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS),
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin', 'TestPluginTwo'));
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 		$this->Case = $this->getMockForAbstractClass('ControllerTestCase');
 		Router::reload();
 	}
@@ -141,7 +144,7 @@ class ControllerTestCaseTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakePlugin::unload();
+		Plugin::unload();
 		$this->Case->controller = null;
 	}
 

@@ -2,7 +2,7 @@
 /**
  * CakeTestCaseTest file
  *
- * Test Case for CakeTestCase class
+ * Test Case for TestCase class
  *
  * CakePHP : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -18,11 +18,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\TestSuite;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Database\ConnectionManager;
+use Cake\TestSuite\TestCase;
 
-App::uses('CakePlugin', 'Core');
-App::uses('Controller', 'Controller');
-App::uses('CakeHtmlReporter', 'TestSuite/Reporter');
-App::uses('Model', 'Model');
+use Cake\Core\Plugin;
+use Cake\Controller\Controller;
+use App\TestSuite\Reporter\CakeHtmlReporter;
+use App\Model\Model;
 
 /**
  * Secondary Post stub class.
@@ -63,7 +67,7 @@ class ConstructorPost extends Model {
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeTestCaseTest extends CakeTestCase {
+class CakeTestCaseTest extends TestCase {
 
 /**
  * fixtures property
@@ -308,7 +312,7 @@ class CakeTestCaseTest extends CakeTestCase {
 	}
 
 /**
- * Test that CakeTestCase::setUp() backs up values.
+ * Test that TestCase::setUp() backs up values.
  *
  * @return void
  */
@@ -445,7 +449,7 @@ class CakeTestCaseTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS . 'Datasource' . DS . 'Database' . DS
 			)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		ConnectionManager::create('test_secondary', array(
 			'datasource' => 'Database/TestLocalDriver'
 		));
@@ -475,7 +479,7 @@ class CakeTestCaseTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS
 			)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->getMockForModel('TestPlugin.TestPluginAppModel');
 		$this->getMockForModel('TestPlugin.TestPluginComment');
 

@@ -16,10 +16,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite\Fixture;
 
+use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
+use Cake\Utility\Inflector;
 
 
-App::uses('ConnectionManager', 'Model');
-App::uses('ClassRegistry', 'Utility');
+use App\Model\ConnectionManager;
+use App\Utility\ClassRegistry;
 
 /**
  * A factory class to manage the life cycle of test fixtures
@@ -59,7 +62,7 @@ class CakeFixtureManager {
 /**
  * Inspects the test to look for unloaded fixtures and loads them
  *
- * @param CakeTestCase $test the test case to inspect
+ * @param TestCase $test the test case to inspect
  * @return void
  */
 	public function fixturize($test) {
@@ -145,7 +148,7 @@ class CakeFixtureManager {
 				$fixtureParsedPath = $this->_parseFixturePath($explodedFixture[2]);
 				$fixture = $fixtureParsedPath['fixture'];
 				$fixturePaths = array(
-					CakePlugin::path(Inflector::camelize($pluginName)) . 'Test' . DS . 'Fixture' . $fixtureParsedPath['additionalPath'],
+					Plugin::path(Inflector::camelize($pluginName)) . 'Test' . DS . 'Fixture' . $fixtureParsedPath['additionalPath'],
 					TESTS . 'Fixture' . $fixtureParsedPath['additionalPath']
 				);
 			} else {
@@ -213,10 +216,10 @@ class CakeFixtureManager {
 /**
  * Creates the fixtures tables and inserts data on them.
  *
- * @param CakeTestCase $test the test to inspect for fixture loading
+ * @param TestCase $test the test to inspect for fixture loading
  * @return void
  */
-	public function load(CakeTestCase $test) {
+	public function load(TestCase $test) {
 		if (empty($test->fixtures)) {
 			return;
 		}
@@ -243,10 +246,10 @@ class CakeFixtureManager {
 /**
  * Truncates the fixtures tables
  *
- * @param CakeTestCase $test the test to inspect for fixture unloading
+ * @param TestCase $test the test to inspect for fixture unloading
  * @return void
  */
-	public function unload(CakeTestCase $test) {
+	public function unload(TestCase $test) {
 		$fixtures = !empty($test->fixtures) ? $test->fixtures : array();
 		foreach (array_reverse($fixtures) as $f) {
 			if (isset($this->_loaded[$f])) {

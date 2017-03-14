@@ -18,17 +18,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\TestSuite;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('HtmlCoverageReport', 'TestSuite/Coverage');
-App::uses('CakeBaseReporter', 'TestSuite/Reporter');
+use App\TestSuite\Coverage\HtmlCoverageReport;
+use App\TestSuite\Reporter\CakeBaseReporter;
 
 /**
  * HtmlCoverageReportTest
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class HtmlCoverageReportTest extends CakeTestCase {
+class HtmlCoverageReportTest extends TestCase {
 
 /**
  * setUp
@@ -40,7 +43,7 @@ class HtmlCoverageReportTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 		$reporter = new CakeBaseReporter();
 		$reporter->params = array('app' => false, 'plugin' => false, 'group' => false);
 		$coverage = array();
@@ -64,7 +67,7 @@ class HtmlCoverageReportTest extends CakeTestCase {
 		$this->Coverage->appTest = false;
 		$this->Coverage->pluginTest = 'TestPlugin';
 		$result = $this->Coverage->getPathFilter();
-		$this->assertEquals(CakePlugin::path('TestPlugin'), $result);
+		$this->assertEquals(Plugin::path('TestPlugin'), $result);
 	}
 
 /**
@@ -232,7 +235,7 @@ class HtmlCoverageReportTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		CakePlugin::unload();
+		Plugin::unload();
 		unset($this->Coverage);
 		parent::tearDown();
 	}

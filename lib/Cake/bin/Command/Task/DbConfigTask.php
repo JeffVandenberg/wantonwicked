@@ -17,7 +17,7 @@
 
 
 
-App::uses('AppShell', 'Console/Command');
+use App\Console\Command\AppShell;
 
 /**
  * Task class for creating and updating the database configuration file.
@@ -354,7 +354,7 @@ class DbConfigTask extends AppShell {
  * @return void
  */
 	public function getConfig() {
-		App::uses('ConnectionManager', 'Model');
+		use App\Model\ConnectionManager;
 		$configs = ConnectionManager::enumConnectionObjects();
 
 		$useDbConfig = key($configs);

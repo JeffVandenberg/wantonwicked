@@ -18,15 +18,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use Cake\Core\Plugin;
+use Cake\Utility\Inflector;
 
 
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('FixtureTask', 'Console/Command/Task');
-App::uses('TemplateTask', 'Console/Command/Task');
-App::uses('ModelTask', 'Console/Command/Task');
+use Cake\Console\ShellDispatcher;
+use Cake\Console\Shell;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use App\Console\Command\Task\FixtureTask;
+use App\Console\Command\Task\TemplateTask;
+use App\Console\Command\Task\ModelTask;
 
 /**
  * ModelTaskTest class
@@ -34,7 +36,7 @@ App::uses('ModelTask', 'Console/Command/Task');
  * @package	   Cake.Test.Case.Console.Command.Task
  * @property   ModelTask $Task
  */
-class ModelTaskTest extends CakeTestCase {
+class ModelTaskTest extends TestCase {
 
 /**
  * fixtures
@@ -936,13 +938,13 @@ STRINGEND;
 		$this->Task->plugin = 'ControllerTest';
 
 		//fake plugin path
-		CakePlugin::load('ControllerTest', array('path' => APP . 'Plugin' . DS . 'ControllerTest' . DS));
+		Plugin::load('ControllerTest', array('path' => APP . 'Plugin' . DS . 'ControllerTest' . DS));
 		$path = APP . 'Plugin' . DS . 'ControllerTest' . DS . 'Model' . DS . 'BakeArticle.php';
 		$this->Task->expects($this->once())->method('createFile')
 			->with($path, $this->stringContains('BakeArticle extends ControllerTestAppModel'));
 
 		$result = $this->Task->bake('BakeArticle', array(), array());
-		$this->assertContains("App::uses('ControllerTestAppModel', 'ControllerTest.Model');", $result);
+		$this->assertContains("use ControllerTest\Model\ControllerTestAppModel;", $result);
 
 		$this->assertEquals(count(ClassRegistry::keys()), 0);
 		$this->assertEquals(count(ClassRegistry::mapKeys()), 0);

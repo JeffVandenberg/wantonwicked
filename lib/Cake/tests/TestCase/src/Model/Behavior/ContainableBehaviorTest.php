@@ -16,10 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Behavior;
 
+use Cake\Database\ConnectionManager;
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
+use App\Model\Model;
+use App\Model\AppModel;
 
 require_once dirname(dirname(__FILE__)) . DS . 'models.php';
 
@@ -28,7 +29,7 @@ require_once dirname(dirname(__FILE__)) . DS . 'models.php';
  *
  * @package       Cake.Test.Case.Model.Behavior
  */
-class ContainableBehaviorTest extends CakeTestCase {
+class ContainableBehaviorTest extends TestCase {
 
 /**
  * Fixtures associated with this test case

@@ -18,16 +18,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
 
 
-App::uses('ShellDispatcher', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('TestTask', 'Console/Command/Task');
-App::uses('TemplateTask', 'Console/Command/Task');
-App::uses('Controller', 'Controller');
-App::uses('Model', 'Model');
+use Cake\Console\ShellDispatcher;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\Shell;
+use App\Console\Command\Task\TestTask;
+use App\Console\Command\Task\TemplateTask;
+use Cake\Controller\Controller;
+use App\Model\Model;
 
 /**
  * Test Article model
@@ -179,7 +181,7 @@ class TestTaskCommentsController extends Controller {
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class TestTaskTest extends CakeTestCase {
+class TestTaskTest extends TestCase {
 
 /**
  * Fixtures
@@ -214,7 +216,7 @@ class TestTaskTest extends CakeTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Task);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -404,8 +406,8 @@ class TestTaskTest extends CakeTestCase {
 
 		$result = $this->Task->bake('Model', 'TestTaskArticle');
 
-		$this->assertContains("App::uses('TestTaskArticle', 'Model')", $result);
-		$this->assertContains('class TestTaskArticleTest extends CakeTestCase', $result);
+		$this->assertContains("use App\Model\TestTaskArticle", $result);
+		$this->assertContains('class TestTaskArticleTest extends TestCase', $result);
 
 		$this->assertContains('function setUp()', $result);
 		$this->assertContains("\$this->TestTaskArticle = ClassRegistry::init('TestTaskArticle')", $result);
@@ -435,7 +437,7 @@ class TestTaskTest extends CakeTestCase {
 
 		$result = $this->Task->bake('Controller', 'TestTaskComments');
 
-		$this->assertContains("App::uses('TestTaskCommentsController', 'Controller')", $result);
+		$this->assertContains("use App\Controller\TestTaskCommentsController", $result);
 		$this->assertContains('class TestTaskCommentsControllerTest extends ControllerTestCase', $result);
 
 		$this->assertNotContains('function setUp()', $result);
@@ -461,10 +463,10 @@ class TestTaskTest extends CakeTestCase {
 
 		$result = $this->Task->bake('Component', 'Example');
 
-		$this->assertContains("App::uses('Component', 'Controller')", $result);
-		$this->assertContains("App::uses('ComponentCollection', 'Controller')", $result);
-		$this->assertContains("App::uses('ExampleComponent', 'Controller/Component')", $result);
-		$this->assertContains('class ExampleComponentTest extends CakeTestCase', $result);
+		$this->assertContains("use Cake\Controller\Component", $result);
+		$this->assertContains("use App\Controller\ComponentCollection", $result);
+		$this->assertContains("use App\Controller\Component\ExampleComponent", $result);
+		$this->assertContains('class ExampleComponentTest extends TestCase', $result);
 
 		$this->assertContains('function setUp()', $result);
 		$this->assertContains("\$Collection = new ComponentCollection()", $result);
@@ -484,8 +486,8 @@ class TestTaskTest extends CakeTestCase {
 
 		$result = $this->Task->bake('Behavior', 'Example');
 
-		$this->assertContains("App::uses('ExampleBehavior', 'Model/Behavior')", $result);
-		$this->assertContains('class ExampleBehaviorTest extends CakeTestCase', $result);
+		$this->assertContains("use App\Model\Behavior\ExampleBehavior", $result);
+		$this->assertContains('class ExampleBehaviorTest extends TestCase', $result);
 
 		$this->assertContains('function setUp()', $result);
 		$this->assertContains("\$this->Example = new ExampleBehavior()", $result);
@@ -504,8 +506,8 @@ class TestTaskTest extends CakeTestCase {
 
 		$result = $this->Task->bake('Helper', 'Example');
 
-		$this->assertContains("App::uses('ExampleHelper', 'View/Helper')", $result);
-		$this->assertContains('class ExampleHelperTest extends CakeTestCase', $result);
+		$this->assertContains("use App\View\Helper\ExampleHelper", $result);
+		$this->assertContains('class ExampleHelperTest extends TestCase', $result);
 
 		$this->assertContains('function setUp()', $result);
 		$this->assertContains("\$View = new View()", $result);
@@ -588,13 +590,13 @@ class TestTaskTest extends CakeTestCase {
 		$this->Task->plugin = 'TestTest';
 
 		//fake plugin path
-		CakePlugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS));
+		Plugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS));
 		$path = APP . 'Plugin' . DS . 'TestTest' . DS . 'Test' . DS . 'Case' . DS . 'View' . DS . 'Helper' . DS . 'FormHelperTest.php';
 		$this->Task->expects($this->once())->method('createFile')
 			->with($path, $this->anything());
 
 		$this->Task->bake('Helper', 'Form');
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -607,7 +609,7 @@ class TestTaskTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array($testApp)
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$this->Task->plugin = 'TestPlugin';
 		$path = $testApp . 'TestPlugin' . DS . 'Test' . DS . 'Case' . DS . 'View' . DS . 'Helper' . DS . 'OtherHelperTest.php';
@@ -666,7 +668,7 @@ class TestTaskTest extends CakeTestCase {
 	public function testTestCaseFileNamePlugin() {
 		$this->Task->path = DS . 'my' . DS . 'path' . DS . 'tests' . DS;
 
-		CakePlugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS));
+		Plugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS));
 		$this->Task->plugin = 'TestTest';
 		$result = $this->Task->testCaseFileName('Model', 'Post');
 		$expected = APP . 'Plugin' . DS . 'TestTest' . DS . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'PostTest.php';
@@ -685,7 +687,7 @@ class TestTaskTest extends CakeTestCase {
 		$this->Task->expects($this->once())->method('createFile')
 			->with(
 				$this->anything(),
-				$this->stringContains('class TestTaskTagTest extends CakeTestCase')
+				$this->stringContains('class TestTaskTagTest extends TestCase')
 			);
 		$this->Task->execute();
 	}
@@ -701,7 +703,7 @@ class TestTaskTest extends CakeTestCase {
 		$this->Task->expects($this->once())->method('createFile')
 			->with(
 				$this->anything(),
-				$this->stringContains('class TestTaskTagTest extends CakeTestCase')
+				$this->stringContains('class TestTaskTagTest extends TestCase')
 			);
 		$this->Task->expects($this->any())->method('isLoadableClass')->will($this->returnValue(true));
 		$this->Task->execute();
@@ -718,7 +720,7 @@ class TestTaskTest extends CakeTestCase {
 		$this->Task->expects($this->once())->method('createFile')
 			->with(
 				$this->anything(),
-				$this->stringContains('class TestTaskTagTest extends CakeTestCase')
+				$this->stringContains('class TestTaskTagTest extends TestCase')
 			);
 		$this->Task->expects($this->any())->method('isLoadableClass')->will($this->returnValue(true));
 		$this->Task->execute();

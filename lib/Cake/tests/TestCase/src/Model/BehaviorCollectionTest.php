@@ -18,9 +18,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Model\Model;
 
 
-App::uses('AppModel', 'Model');
+use App\Model\AppModel;
 
 require_once dirname(__FILE__) . DS . 'models.php';
 
@@ -462,7 +465,7 @@ class Orangutan extends Monkey {
  *
  * @package       Cake.Test.Case.Model
  */
-class BehaviorCollectionTest extends CakeTestCase {
+class BehaviorCollectionTest extends TestCase {
 
 /**
  * fixtures property
@@ -508,14 +511,14 @@ class BehaviorCollectionTest extends CakeTestCase {
 		$this->assertEquals('working', $Apple->Behaviors->dispatchMethod($Apple, 'testMethod'));
 
 		App::build(array('Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->assertTrue($Apple->Behaviors->load('SomeOther', array('className' => 'TestPlugin.TestPluginPersisterOne')));
 		$this->assertInstanceOf('TestPluginPersisterOneBehavior', $Apple->Behaviors->SomeOther);
 
 		$result = $Apple->Behaviors->loaded();
 		$this->assertEquals(array('Test', 'SomeOther'), $result, 'loaded() results are wrong.');
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

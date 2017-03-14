@@ -9,6 +9,7 @@
  * @property PermissionsComponent Permissions
  */namespace app\Controller;
 
+use App\Controller\AppController;
 
 
 class ConfigurationController extends AppController {
@@ -24,7 +25,7 @@ class ConfigurationController extends AppController {
 
     public function read($configName)
     {
-        App::uses('Configuration', 'Model');
+        use App\Model\Configuration;
         $config           = new Configuration();
         $configValue = $config->find(
             'first',

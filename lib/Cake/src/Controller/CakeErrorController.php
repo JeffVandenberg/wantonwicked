@@ -18,9 +18,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller;
 
+use Cake\Routing\Router;
 
 
-App::uses('AppController', 'Controller');
+use App\Controller\AppController;
 
 /**
  * Error Handling Controller
@@ -41,8 +42,8 @@ class CakeErrorController extends AppController {
 /**
  * Constructor
  *
- * @param CakeRequest $request Request instance.
- * @param CakeResponse $response Response instance.
+ * @param Request $request Request instance.
+ * @param Response $response Response instance.
  */
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);

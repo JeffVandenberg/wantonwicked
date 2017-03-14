@@ -20,8 +20,8 @@
  */
 namespace lib\Cake\Test\test_app\Model;
 
+use App\Model\Model;
 
-App::uses('Model', 'Model');
 
 /**
  * Application model for Cake.

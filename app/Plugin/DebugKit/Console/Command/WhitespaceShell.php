@@ -11,7 +11,7 @@
  * @since         DebugKit 1.3
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-App::uses('Folder', 'Utility');
+use App\Utility\Folder;
 
 /**
  * Whitespace shell. Helps find and trim whitespace from files.

@@ -18,13 +18,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Behavior;
 
+use Cake\Core\Configure;
 
 
-App::uses('AclBehavior', 'Model/Behavior');
-App::uses('Aco', 'Model');
-App::uses('Aro', 'Model');
-App::uses('AclNode', 'Model');
-App::uses('DbAcl', 'Model');
+use App\Model\Behavior\AclBehavior;
+use App\Model\Aco;
+use App\Model\Aro;
+use App\Model\AclNode;
+use App\Model\DbAcl;
 
 /**
  * Test Person class - self joined model
@@ -176,7 +177,7 @@ class AclPost extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Model.Behavior
  */
-class AclBehaviorTest extends CakeTestCase {
+class AclBehaviorTest extends TestCase {
 
 /**
  * Aco property

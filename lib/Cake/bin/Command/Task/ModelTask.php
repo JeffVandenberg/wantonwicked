@@ -15,13 +15,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command\Task;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('BakeTask', 'Console/Command/Task');
-App::uses('ConnectionManager', 'Model');
-App::uses('Model', 'Model');
-App::uses('Validation', 'Utility');
+use App\Console\Command\AppShell;
+use App\Console\Command\Task\BakeTask;
+use App\Model\ConnectionManager;
+use App\Model\Model;
+use App\Utility\Validation;
 
 /**
  * Task class for creating and updating model files.

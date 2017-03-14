@@ -7,6 +7,8 @@
  * Time: 4:51 PM
  */namespace app\Template\Helper;
 
+use App\View\Helper\AppHelper;
+
 
 class LanguageHelper extends AppHelper
 {

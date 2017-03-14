@@ -6,10 +6,10 @@
 * http://trentrichardson.com/Impromptu/GPL-LICENSE.txt
 * http://trentrichardson.com/Impromptu/MIT-LICENSE.txt
 */
-App::uses('AppHelper','View/Helper');
-App::uses('Folder', 'Utility');
-App::uses('File', 'Utility');
-App::uses('ShrinkType','Shrink.Lib/ShrinkType');
+use App\View\Helper\AppHelper;
+use App\Utility\Folder;
+use App\Utility\File;
+use Shrink\ShrinkType\ShrinkType;
 
 class ShrinkHelper extends AppHelper{
 

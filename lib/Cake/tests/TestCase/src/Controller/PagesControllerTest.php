@@ -17,15 +17,17 @@
  */
 namespace lib\Cake\Test\TestCase\Controller;
 
+use App\Controller\PagesController;
+use Cake\Core\App;
+use Cake\Core\Configure;
 
-App::uses('PagesController', 'Controller');
 
 /**
  * PagesControllerTest class
  *
  * @package       Cake.Test.Case.Controller
  */
-class PagesControllerTest extends CakeTestCase {
+class PagesControllerTest extends TestCase {
 
 /**
  * testDisplay method
@@ -38,7 +40,7 @@ class PagesControllerTest extends CakeTestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS
 			)
 		));
-		$Pages = new PagesController(new CakeRequest(null, false), new CakeResponse());
+		$Pages = new PagesController(new Request(null, false), new Response());
 
 		$Pages->viewPath = 'Posts';
 		$Pages->display('index');
@@ -61,7 +63,7 @@ class PagesControllerTest extends CakeTestCase {
  */
 	public function testMissingView() {
 		Configure::write('debug', 0);
-		$Pages = new PagesController(new CakeRequest(null, false), new CakeResponse());
+		$Pages = new PagesController(new Request(null, false), new Response());
 		$Pages->display('non_existing_page');
 	}
 
@@ -74,7 +76,7 @@ class PagesControllerTest extends CakeTestCase {
  */
 	public function testMissingViewInDebug() {
 		Configure::write('debug', 1);
-		$Pages = new PagesController(new CakeRequest(null, false), new CakeResponse());
+		$Pages = new PagesController(new Request(null, false), new Response());
 		$Pages->display('non_existing_page');
 	}
 }

@@ -17,12 +17,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command;
 
+use Cake\Utility\Inflector;
 
 
-App::uses('Shell', 'Console');
-App::uses('CakeTestSuiteDispatcher', 'TestSuite');
-App::uses('CakeTestSuiteCommand', 'TestSuite');
-App::uses('CakeTestLoader', 'TestSuite');
+use Cake\Console\Shell;
+use App\TestSuite\CakeTestSuiteDispatcher;
+use App\TestSuite\CakeTestSuiteCommand;
+use App\TestSuite\CakeTestLoader;
 
 /**
  * Provides a CakePHP wrapper around PHPUnit.

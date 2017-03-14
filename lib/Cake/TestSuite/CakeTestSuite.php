@@ -17,8 +17,8 @@
  */
 namespace lib\Cake\TestSuite;
 
+use App\Utility\Folder;
 
-App::uses('Folder', 'Utility');
 
 /**
  * A class to contain test cases and run them with shared fixtures

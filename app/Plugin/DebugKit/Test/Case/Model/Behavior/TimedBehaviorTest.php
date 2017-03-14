@@ -16,14 +16,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('DebugKitDebugger', 'DebugKit.Lib');
+use DebugKit\Lib\DebugKitDebugger;
 
 /**
  * Class TimedBehaviorTestCase
  *
  * @since         DebugKit 1.3
  */
-class TimedBehaviorTestCase extends CakeTestCase {
+class TimedBehaviorTestCase extends TestCase {
 
 /**
  * Fixtures

@@ -17,7 +17,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  **/
 
-App::uses('DebugPanel', 'DebugKit.Lib');
+use DebugKit\Lib\DebugPanel;
 
 /**
  * Class IncludePanel
@@ -47,8 +47,8 @@ class IncludePanel extends DebugPanel {
  * Get a list of plugins on construct for later use
  */
 	public function __construct() {
-		foreach (CakePlugin::loaded() as $plugin) {
-			$this->_pluginPaths[$plugin] = CakePlugin::path($plugin);
+		foreach (Plugin::loaded() as $plugin) {
+			$this->_pluginPaths[$plugin] = Plugin::path($plugin);
 		}
 
 		parent::__construct();

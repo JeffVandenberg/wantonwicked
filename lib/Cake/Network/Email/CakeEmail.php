@@ -14,13 +14,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Network\Email;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Log\Log;
 
 
-App::uses('Multibyte', 'I18n');
-App::uses('AbstractTransport', 'Network/Email');
-App::uses('File', 'Utility');
-App::uses('CakeText', 'Utility');
-App::uses('View', 'View');
+use App\I18n\Multibyte;
+use App\Network\Email\AbstractTransport;
+use App\Utility\File;
+use App\Utility\CakeText;
+use Cake\View\View;
 
 /**
  * CakePHP email class.
@@ -30,7 +33,7 @@ App::uses('View', 'View');
  *
  * @package       Cake.Network.Email
  */
-class CakeEmail {
+class Email {
 
 /**
  * Default X-Mailer
@@ -379,7 +382,7 @@ class CakeEmail {
  * @param string|array $email Null to get, String with email,
  *   Array with email as key, name as value or email as value (without name)
  * @param string $name Name
- * @return array|CakeEmail
+ * @return array|Email
  * @throws SocketException
  */
 	public function from($email = null, $name = null) {
@@ -395,7 +398,7 @@ class CakeEmail {
  * @param string|array $email Null to get, String with email,
  *   Array with email as key, name as value or email as value (without name)
  * @param string $name Name
- * @return array|CakeEmail
+ * @return array|Email
  * @throws SocketException
  */
 	public function sender($email = null, $name = null) {
@@ -411,7 +414,7 @@ class CakeEmail {
  * @param string|array $email Null to get, String with email,
  *   Array with email as key, name as value or email as value (without name)
  * @param string $name Name
- * @return array|CakeEmail
+ * @return array|Email
  * @throws SocketException
  */
 	public function replyTo($email = null, $name = null) {
@@ -427,7 +430,7 @@ class CakeEmail {
  * @param string|array $email Null to get, String with email,
  *   Array with email as key, name as value or email as value (without name)
  * @param string $name Name
- * @return array|CakeEmail
+ * @return array|Email
  * @throws SocketException
  */
 	public function readReceipt($email = null, $name = null) {
@@ -443,7 +446,7 @@ class CakeEmail {
  * @param string|array $email Null to get, String with email,
  *   Array with email as key, name as value or email as value (without name)
  * @param string $name Name
- * @return array|CakeEmail
+ * @return array|Email
  * @throws SocketException
  */
 	public function returnPath($email = null, $name = null) {
@@ -963,7 +966,7 @@ class CakeEmail {
 		}
 		list($plugin, $transportClassname) = pluginSplit($this->_transportName, true);
 		$transportClassname .= 'Transport';
-		App::uses($transportClassname, $plugin . 'Network/Email');
+		/* TODO: App::uses($transportClassname, $plugin . 'Network/Email'); */
 		if (!class_exists($transportClassname)) {
 			throw new SocketException(__d('cake_dev', 'Class "%s" not found.', $transportClassname));
 		} elseif (!method_exists($transportClassname, 'send')) {
@@ -1098,7 +1101,7 @@ class CakeEmail {
  * @param string|array $attachments String with the filename or array with filenames
  * @return self
  * @throws SocketException
- * @see CakeEmail::attachments()
+ * @see Email::attachments()
  */
 	public function addAttachments($attachments) {
 		$current = $this->_attachments;
@@ -1184,7 +1187,7 @@ class CakeEmail {
 				}
 				$config = $this->_config['log'] + $config;
 			}
-			CakeLog::write(
+			Log::write(
 				$config['level'],
 				PHP_EOL . $contents['headers'] . PHP_EOL . PHP_EOL . $contents['message'],
 				$config['scope']
@@ -1194,19 +1197,19 @@ class CakeEmail {
 	}
 
 /**
- * Static method to fast create an instance of CakeEmail
+ * Static method to fast create an instance of Email
  *
- * @param string|array $to Address to send (see CakeEmail::to()). If null, will try to use 'to' from transport config
+ * @param string|array $to Address to send (see Email::to()). If null, will try to use 'to' from transport config
  * @param string $subject String of subject or null to use 'subject' from transport config
  * @param string|array $message String with message or array with variables to be used in render
  * @param string|array $transportConfig String to use config from EmailConfig or array with configs
  * @param bool $send Send the email or just return the instance pre-configured
- * @return self Instance of CakeEmail
+ * @return self Instance of Email
  * @throws SocketException
  */
 	public static function deliver($to = null, $subject = null, $message = null, $transportConfig = 'fast', $send = true) {
 		$class = get_called_class();
-		/** @var CakeEmail $instance */
+		/** @var Email $instance */
 		$instance = new $class($transportConfig);
 		if ($to !== null) {
 			$instance->to($to);
@@ -1286,7 +1289,7 @@ class CakeEmail {
 	}
 
 /**
- * Reset all CakeEmail internal variables to be able to send out a new email.
+ * Reset all Email internal variables to be able to send out a new email.
  *
  * @return self
  */
@@ -1366,14 +1369,14 @@ class CakeEmail {
  * @param int $wrapLength The line length
  * @return array Wrapped message
  */
-	protected function _wrap($message, $wrapLength = CakeEmail::LINE_LENGTH_MUST) {
+	protected function _wrap($message, $wrapLength = Email::LINE_LENGTH_MUST) {
 		if (strlen($message) === 0) {
 			return array('');
 		}
 		$message = str_replace(array("\r\n", "\r"), "\n", $message);
 		$lines = explode("\n", $message);
 		$formatted = array();
-		$cut = ($wrapLength == CakeEmail::LINE_LENGTH_MUST);
+		$cut = ($wrapLength == Email::LINE_LENGTH_MUST);
 
 		foreach ($lines as $line) {
 			if (empty($line) && $line !== '0') {
@@ -1673,7 +1676,7 @@ class CakeEmail {
 		if ($viewClass !== 'View') {
 			list($plugin, $viewClass) = pluginSplit($viewClass, true);
 			$viewClass .= 'View';
-			App::uses($viewClass, $plugin . 'View');
+			/* TODO: App::uses($viewClass, $plugin . 'View'); */
 		}
 
 		/** @var View $View */

@@ -13,12 +13,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command;
 
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('File', 'Utility');
-App::uses('Folder', 'Utility');
-App::uses('CakeSchema', 'Model');
+use App\Console\Command\AppShell;
+use App\Utility\File;
+use App\Utility\Folder;
+use App\Model\CakeSchema;
 
 /**
  * Schema is a command-line database management utility for automating programmer chores.

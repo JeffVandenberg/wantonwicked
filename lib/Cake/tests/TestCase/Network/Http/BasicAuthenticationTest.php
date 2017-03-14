@@ -18,8 +18,8 @@
 
 
 
-App::uses('HttpSocket', 'Network/Http');
-App::uses('BasicAuthentication', 'Network/Http');
+use App\Network\Http\HttpSocket;
+use App\Network\Http\BasicAuthentication;
 
 /**
  * TestSslHttpSocket
@@ -45,7 +45,7 @@ class TestSslHttpSocket extends HttpSocket {
  *
  * @package       Cake.Test.Case.Network.Http
  */
-class BasicAuthenticationTest extends CakeTestCase {
+class BasicAuthenticationTest extends TestCase {
 
 /**
  * testAuthentication method

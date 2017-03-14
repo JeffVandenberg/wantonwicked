@@ -20,12 +20,12 @@
 
 
 
-App::uses('CakeEvent', 'Event');
+use Cake\Event\Event;
 
 /**
- * Tests the CakeEvent class functionality
+ * Tests the Event class functionality
  */
-class CakeEventTest extends CakeTestCase {
+class CakeEventTest extends TestCase {
 
 /**
  * Tests the name() method
@@ -34,7 +34,7 @@ class CakeEventTest extends CakeTestCase {
  * @triggers fake.event
  */
 	public function testName() {
-		$event = new CakeEvent('fake.event');
+		$event = new Event('fake.event');
 		$this->assertEquals('fake.event', $event->name());
 	}
 
@@ -46,10 +46,10 @@ class CakeEventTest extends CakeTestCase {
  * @triggers fake.event
  */
 	public function testSubject() {
-		$event = new CakeEvent('fake.event', $this);
+		$event = new Event('fake.event', $this);
 		$this->assertSame($this, $event->subject());
 
-		$event = new CakeEvent('fake.event');
+		$event = new Event('fake.event');
 		$this->assertNull($event->subject());
 	}
 
@@ -60,7 +60,7 @@ class CakeEventTest extends CakeTestCase {
  * @triggers fake.event
  */
 	public function testPropagation() {
-		$event = new CakeEvent('fake.event');
+		$event = new Event('fake.event');
 		$this->assertFalse($event->isStopped());
 		$event->stopPropagation();
 		$this->assertTrue($event->isStopped());
@@ -73,7 +73,7 @@ class CakeEventTest extends CakeTestCase {
  * @triggers fake.event $this, array('some' => 'data')
  */
 	public function testEventData() {
-		$event = new CakeEvent('fake.event', $this, array('some' => 'data'));
+		$event = new Event('fake.event', $this, array('some' => 'data'));
 		$this->assertEquals(array('some' => 'data'), $event->data);
 	}
 
@@ -84,7 +84,7 @@ class CakeEventTest extends CakeTestCase {
  * @triggers fake.event $this
  */
 	public function testEventDirectPropertyAccess() {
-		$event = new CakeEvent('fake.event', $this);
+		$event = new Event('fake.event', $this);
 		$this->assertEquals($this, $event->subject);
 		$this->assertEquals('fake.event', $event->name);
 	}

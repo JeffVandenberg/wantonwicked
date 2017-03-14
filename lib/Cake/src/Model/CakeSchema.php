@@ -16,12 +16,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Object;
+use Cake\Core\Plugin;
+use Cake\Utility\Inflector;
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('ConnectionManager', 'Model');
-App::uses('File', 'Utility');
+use App\Model\Model;
+use App\Model\AppModel;
+use App\Model\ConnectionManager;
+use App\Utility\File;
 
 /**
  * Base Class for Schema management.
@@ -126,7 +131,7 @@ class CakeSchema extends Object {
 		if (file_exists($this->path . DS . $file) && is_file($this->path . DS . $file)) {
 			$this->file = $file;
 		} elseif (!empty($this->plugin)) {
-			$this->path = CakePlugin::path($this->plugin) . 'Config' . DS . 'Schema';
+			$this->path = Plugin::path($this->plugin) . 'Config' . DS . 'Schema';
 		}
 	}
 
@@ -203,7 +208,7 @@ class CakeSchema extends Object {
 		$db = ConnectionManager::getDataSource($connection);
 
 		if (isset($this->plugin)) {
-			App::uses($this->plugin . 'AppModel', $this->plugin . '.Model');
+			/* TODO: App::uses($this->plugin . 'AppModel', $this->plugin . '.Model'); */
 		}
 
 		$tables = array();
@@ -238,7 +243,7 @@ class CakeSchema extends Object {
 					$plugin = $this->plugin . '.';
 				}
 
-				App::uses($importModel, $plugin . 'Model');
+				/* TODO: App::uses($importModel, $plugin . 'Model'); */
 				if (!class_exists($importModel)) {
 					continue;
 				}

@@ -16,9 +16,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Controller\Component;
 
+use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('AclComponent', 'Controller/Component');
+use App\Controller\Component\AclComponent;
 class_exists('AclComponent');
 
 /**
@@ -26,7 +28,7 @@ class_exists('AclComponent');
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class AclComponentTest extends CakeTestCase {
+class AclComponentTest extends TestCase {
 
 /**
  * setUp method

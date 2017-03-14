@@ -18,9 +18,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model\Behavior;
 
+use Cake\Model\Model;
 
 
-App::uses('ModelBehavior', 'Model');
+use App\Model\ModelBehavior;
 
 /**
  * Behavior to allow for dynamic and atomic manipulation of a Model's associations

@@ -13,9 +13,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command;
 
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Routing\Router;
 
 
-App::uses('AppShell', 'Console/Command');
+use App\Console\Command\AppShell;
 
 /**
  * Provides a very basic 'interactive' console for CakePHP apps.
@@ -81,13 +84,13 @@ class ConsoleShell extends AppShell {
  * @return void
  */
 	public function startup() {
-		App::uses('Dispatcher', 'Routing');
+		use Cake\Routing\Dispatcher;
 		$this->Dispatcher = new Dispatcher();
 		$this->models = App::objects('Model');
 
 		foreach ($this->models as $model) {
 			$class = $model;
-			App::uses($class, 'Model');
+			/* TODO: App::uses($class, 'Model'); */
 			$this->{$class} = new $class();
 		}
 		$this->out(__d('cake_console', 'Model classes:'));
@@ -507,7 +510,7 @@ class ConsoleShell extends AppShell {
 			//@codingStandardsIgnoreEnd
 			return false;
 		}
-		CakePlugin::routes();
+		Plugin::routes();
 
 		Router::parse('/');
 		return true;

@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeValidationRule.
+ * ValidationRule.
  *
  * Provides the Model validation logic.
  *
@@ -20,16 +20,16 @@
 
 
 
-App::uses('Validation', 'Utility');
+use App\Utility\Validation;
 
 /**
- * CakeValidationRule object. Represents a validation method, error message and
+ * ValidationRule object. Represents a validation method, error message and
  * rules for applying such method to a field.
  *
  * @package       Cake.Model.Validator
  * @link          http://book.cakephp.org/2.0/en/data-validation.html
  */
-class CakeValidationRule {
+class ValidationRule {
 
 /**
  * Whether the field passed this validation rule

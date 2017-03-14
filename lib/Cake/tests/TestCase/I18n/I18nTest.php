@@ -16,17 +16,21 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\I18n;
 
+use Cake\Cache\Cache;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('I18n', 'I18n');
-App::uses('CakeSession', 'Model/Datasource');
+use Cake\I18n\I18n;
+use App\Model\Datasource\Session;
 
 /**
  * I18nTest class
  *
  * @package       Cake.Test.Case.I18n
  */
-class I18nTest extends CakeTestCase {
+class I18nTest extends TestCase {
 
 /**
  * setUp method
@@ -41,7 +45,7 @@ class I18nTest extends CakeTestCase {
 			'Locale' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Locale' . DS),
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 	}
 
 /**
@@ -54,7 +58,7 @@ class I18nTest extends CakeTestCase {
 
 		Cache::delete('object_map', '_cake_core_');
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -1641,7 +1645,7 @@ class I18nTest extends CakeTestCase {
  * @return void
  */
 	public function testSetLanguageWithSession() {
-		CakeSession::write('Config.language', 'po');
+		Session::write('Config.language', 'po');
 		$singular = $this->_singular();
 		$this->assertEquals('Po (translated)', $singular);
 
@@ -1672,7 +1676,7 @@ class I18nTest extends CakeTestCase {
 		$this->assertTrue(in_array('23 everything else (po translated)', $plurals));
 		$this->assertTrue(in_array('24 everything else (po translated)', $plurals));
 		$this->assertTrue(in_array('25 everything else (po translated)', $plurals));
-		CakeSession::delete('Config.language');
+		Session::delete('Config.language');
 	}
 
 /**

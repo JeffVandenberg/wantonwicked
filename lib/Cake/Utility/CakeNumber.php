@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeNumber Utility.
+ * Number Utility.
  *
  * Methods to make numbers more readable.
  *
@@ -28,11 +28,11 @@
  * @package       Cake.Utility
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/number.html
  */
-class CakeNumber {
+class Number {
 
 /**
  * Currencies supported by the helper. You can add additional currency formats
- * with CakeNumber::addFormat
+ * with Number::addFormat
  *
  * @var array
  */
@@ -81,7 +81,7 @@ class CakeNumber {
 	);
 
 /**
- * Default currency used by CakeNumber::currency()
+ * Default currency used by Number::currency()
  *
  * @var string
  */
@@ -388,8 +388,8 @@ class CakeNumber {
  *
  * ``` $number->currency($value, 'NOK'); ```
  *
- * Added formats are merged with the defaults defined in CakeNumber::$_currencyDefaults
- * See CakeNumber::currency() for more information on the various options and their function.
+ * Added formats are merged with the defaults defined in Number::$_currencyDefaults
+ * See Number::currency() for more information on the various options and their function.
  *
  * @param string $formatName The format name to be used in the future.
  * @param array $options The array of options for this format.

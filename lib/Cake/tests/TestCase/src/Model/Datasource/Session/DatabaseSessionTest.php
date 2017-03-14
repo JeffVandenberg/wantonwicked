@@ -16,12 +16,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Datasource\Session;
 
+use Cake\Core\Configure;
 
 
-App::uses('Model', 'Model');
-App::uses('CakeSession', 'Model/Datasource');
-App::uses('DatabaseSession', 'Model/Datasource/Session');
-class_exists('CakeSession');
+use App\Model\Model;
+use App\Model\Datasource\Session;
+use App\Model\Datasource\Session\DatabaseSession;
+class_exists('Session');
 
 /**
  * SessionTestModel
@@ -39,7 +40,7 @@ class SessionTestModel extends Model {
  *
  * @package       Cake.Test.Case.Model.Datasource.Session
  */
-class DatabaseSessionTest extends CakeTestCase {
+class DatabaseSessionTest extends TestCase {
 
 	protected static $_sessionBackup;
 

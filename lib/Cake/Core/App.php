@@ -16,10 +16,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Core;
 
+use Cake\Cache\Cache;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('Inflector', 'Utility');
-App::uses('CakePlugin', 'Core');
+use Cake\Utility\Inflector;
+use Cake\Core\Plugin;
 
 /**
  * App is responsible for path management, class location and class loading.
@@ -226,7 +230,7 @@ class App {
 
 		if (!empty($plugin)) {
 			$path = array();
-			$pluginPath = CakePlugin::path($plugin);
+			$pluginPath = Plugin::path($plugin);
 			$packageFormat = static::_packageFormat();
 			if (!empty($packageFormat[$type])) {
 				foreach ($packageFormat[$type] as $f) {
@@ -363,10 +367,10 @@ class App {
  * @param string $plugin CamelCased/lower_cased plugin name to find the path of.
  * @return string full path to the plugin.
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::pluginPath
- * @deprecated 3.0.0 Use `CakePlugin::path()` instead.
+ * @deprecated 3.0.0 Use `Plugin::path()` instead.
  */
 	public static function pluginPath($plugin) {
-		return CakePlugin::path($plugin);
+		return Plugin::path($plugin);
 	}
 
 /**
@@ -511,9 +515,9 @@ class App {
  *
  * Usage:
  *
- * `App::uses('MyCustomController', 'Controller');` will setup the class to be found under Controller package
+ * `use App\Controller\MyCustomController;` will setup the class to be found under Controller package
  *
- * `App::uses('MyHelper', 'MyPlugin.View/Helper');` will setup the helper class to be found in plugin's helper package
+ * `use MyPlugin\View\Helper\MyHelper;` will setup the helper class to be found in plugin's helper package
  *
  * @param string $className the name of the class to configure package for
  * @param string $location the package name
@@ -556,7 +560,7 @@ class App {
 			$paths[] = APP . $package . DS;
 			$paths[] = CAKE . $package . DS;
 		} else {
-			$pluginPath = CakePlugin::path($plugin);
+			$pluginPath = Plugin::path($plugin);
 			$paths[] = $pluginPath . 'Lib' . DS . $package . DS;
 			$paths[] = $pluginPath . $package . DS;
 		}
@@ -636,7 +640,7 @@ class App {
 		}
 		list($plugin, $name) = pluginSplit($name);
 		if (!empty($plugin)) {
-			if (!CakePlugin::loaded($plugin)) {
+			if (!Plugin::loaded($plugin)) {
 				return false;
 			}
 		}
@@ -682,16 +686,16 @@ class App {
 				$extends = array_pop($parts);
 				$extendType = implode('/', $parts);
 			}
-			App::uses($extends, $extendType);
+			/* TODO: App::uses($extends, $extendType); */
 			if ($plugin && in_array($originalType, array('controller', 'model'))) {
-				App::uses($plugin . $extends, $plugin . '.' . $type);
+				/* TODO: App::uses($plugin . $extends, $plugin . '.' . $type); */
 			}
 		}
 		if ($plugin) {
 			$plugin .= '.';
 		}
 		$name = Inflector::camelize($name);
-		App::uses($name, $plugin . $type);
+		/* TODO: App::uses($name, $plugin . $type); */
 		return class_exists($name);
 	}
 

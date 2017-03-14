@@ -16,10 +16,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Configure;
 
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('Hash', 'Utility');
-App::uses('CakePlugin', 'Core');
+use Cake\Utility\Hash;
+use Cake\Core\Plugin;
 
 /**
  * Ini file configuration engine.
@@ -221,7 +223,7 @@ class IniReader implements ConfigReaderInterface {
 		}
 
 		if ($plugin) {
-			$file = CakePlugin::path($plugin) . 'Config' . DS . $key;
+			$file = Plugin::path($plugin) . 'Config' . DS . $key;
 		} else {
 			$file = $this->_path . $key;
 		}

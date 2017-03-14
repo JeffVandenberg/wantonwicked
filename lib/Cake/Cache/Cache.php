@@ -14,10 +14,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Cache;
 
+use Cake\Cache\Cache;
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('Inflector', 'Utility');
-App::uses('CacheEngine', 'Cache');
+use Cake\Utility\Inflector;
+use Cake\Cache\CacheEngine;
 
 /**
  * Cache provides a consistent interface to Caching in your application. It allows you
@@ -170,7 +173,7 @@ class Cache {
 
 		list($plugin, $class) = pluginSplit($config['engine'], true);
 		$cacheClass = $class . 'Engine';
-		App::uses($cacheClass, $plugin . 'Cache/Engine');
+		/* TODO: App::uses($cacheClass, $plugin . 'Cache/Engine'); */
 		if (!class_exists($cacheClass)) {
 			throw new CacheException(__d('cake_dev', 'Cache engine %s is not available.', $name));
 		}

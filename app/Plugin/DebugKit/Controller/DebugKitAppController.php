@@ -12,8 +12,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('Controller', 'Controller');
-App::uses('AppController', 'Controller');
+use Cake\Controller\Controller;
+use App\Controller\AppController;
 
 /**
  * Class DebugKitAppController

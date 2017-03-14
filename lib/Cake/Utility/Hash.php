@@ -16,7 +16,7 @@
 
 
 
-App::uses('CakeText', 'Utility');
+use App\Utility\CakeText;
 
 /**
  * Library of array functions for manipulating and extracting data

@@ -100,7 +100,7 @@ class CustomTagged extends CakeTestModel {
  * @package tags
  * @subpackage tags.tests.cases.behaviors
  */
-class TaggableBehaviorTest extends CakeTestCase {
+class TaggableBehaviorTest extends TestCase {
 
 /**
  * Plugin name used for fixtures loading

@@ -17,11 +17,13 @@
  */
 namespace lib\Cake\Test\TestCase\Controller;
 
+use App\Controller\ComponentCollection;
+use App\Controller\Component\CookieComponent;
+use App\Controller\Component\SecurityComponent;
+use Cake\Core\App;
+use Cake\Core\Plugin;
+use Cake\Network\Response;
 
-App::uses('CakeResponse', 'Network');
-App::uses('CookieComponent', 'Controller/Component');
-App::uses('SecurityComponent', 'Controller/Component');
-App::uses('ComponentCollection', 'Controller');
 
 /**
  * Extended CookieComponent
@@ -29,7 +31,7 @@ App::uses('ComponentCollection', 'Controller');
 class CookieAliasComponent extends CookieComponent {
 }
 
-class ComponentCollectionTest extends CakeTestCase {
+class ComponentCollectionTest extends TestCase {
 
 /**
  * setUp
@@ -90,7 +92,7 @@ class ComponentCollectionTest extends CakeTestCase {
 		$this->assertInstanceOf('CookieAliasComponent', $result);
 
 		App::build(array('Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$result = $this->Components->load('SomeOther', array('className' => 'TestPlugin.Other'));
 		$this->assertInstanceOf('OtherComponent', $result);
 		$this->assertInstanceOf('OtherComponent', $this->Components->SomeOther);
@@ -98,7 +100,7 @@ class ComponentCollectionTest extends CakeTestCase {
 		$result = $this->Components->loaded();
 		$this->assertEquals(array('Cookie', 'SomeOther'), $result, 'loaded() results are wrong.');
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -133,12 +135,12 @@ class ComponentCollectionTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$result = $this->Components->load('TestPlugin.Other');
 		$this->assertInstanceOf('OtherComponent', $result, 'Component class is wrong.');
 		$this->assertInstanceOf('OtherComponent', $this->Components->Other, 'Class is wrong');
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

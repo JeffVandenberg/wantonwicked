@@ -15,16 +15,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin;
 
+use Cake\Utility\Inflector;
 
 
-App::uses('TaskCollection', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ConsoleInputSubcommand', 'Console');
-App::uses('ConsoleInputOption', 'Console');
-App::uses('ConsoleInputArgument', 'Console');
-App::uses('ConsoleOptionParser', 'Console');
-App::uses('HelpFormatter', 'Console');
+use App\Console\TaskCollection;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ConsoleInputSubcommand;
+use Cake\Console\ConsoleInputOption;
+use Cake\Console\ConsoleInputArgument;
+use Cake\Console\ConsoleOptionParser;
+use Cake\Console\HelpFormatter;
 
 /**
  * Handles parsing the ARGV in the command line and provides support

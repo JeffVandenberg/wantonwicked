@@ -14,9 +14,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite\Fixture;
 
+use Cake\Core\App;
+use Cake\Database\ConnectionManager;
+use Cake\Log\Log;
+use Cake\Model\Model;
+use Cake\Utility\Inflector;
 
 
-App::uses('CakeSchema', 'Model');
+use App\Model\CakeSchema;
 
 /**
  * CakeTestFixture is responsible for building and destroying tables to be used
@@ -138,7 +143,7 @@ class CakeTestFixture {
 			$this->Schema->connection = $import['connection'];
 			if (isset($import['model'])) {
 				list($plugin, $modelClass) = pluginSplit($import['model'], true);
-				App::uses($modelClass, $plugin . 'Model');
+				/* TODO: App::uses($modelClass, $plugin . 'Model'); */
 				if (!class_exists($modelClass)) {
 					throw new MissingModelException(array('class' => $modelClass));
 				}
@@ -242,7 +247,7 @@ class CakeTestFixture {
 				$this->table,
 				$e->getMessage()
 			);
-			CakeLog::error($msg);
+			Log::error($msg);
 			trigger_error($msg, E_USER_WARNING);
 			return false;
 		}

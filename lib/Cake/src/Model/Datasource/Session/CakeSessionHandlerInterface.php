@@ -18,11 +18,11 @@
 
 /**
  * Interface for Session handlers. Custom session handler classes should implement
- * this interface as it allows CakeSession know how to map methods to session_set_save_handler()
+ * this interface as it allows Session know how to map methods to session_set_save_handler()
  *
  * @package       Cake.Model.Datasource.Session
  */
-interface CakeSessionHandlerInterface {
+interface SessionHandlerInterface {
 
 /**
  * Method called on open of a session.

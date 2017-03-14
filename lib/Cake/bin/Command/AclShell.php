@@ -15,14 +15,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('Controller', 'Controller');
-App::uses('ComponentCollection', 'Controller');
-App::uses('AclComponent', 'Controller/Component');
-App::uses('DbAcl', 'Model');
-App::uses('Hash', 'Utility');
+use App\Console\Command\AppShell;
+use Cake\Controller\Controller;
+use App\Controller\ComponentCollection;
+use App\Controller\Component\AclComponent;
+use App\Model\DbAcl;
+use Cake\Utility\Hash;
 
 /**
  * Shell for ACL management. This console is known to have issues with zend.ze1_compatibility_mode
@@ -73,7 +75,7 @@ class AclShell extends AppShell {
 
 		$class = Configure::read('Acl.classname');
 		list($plugin, $class) = pluginSplit($class, true);
-		App::uses($class, $plugin . 'Controller/Component/Acl');
+		/* TODO: App::uses($class, $plugin . 'Controller/Component/Acl'); */
 		if (!in_array($class, array('DbAcl', 'DB_ACL')) && !is_subclass_of($class, 'DbAcl')) {
 			$out = "--------------------------------------------------\n";
 			$out .= __d('cake_console', 'Error: Your current CakePHP configuration is set to an ACL implementation other than DB.') . "\n";

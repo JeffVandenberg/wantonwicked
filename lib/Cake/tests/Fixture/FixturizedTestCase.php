@@ -1,12 +1,12 @@
 <?php
 /**
- * This class helps in testing the life-cycle of fixtures inside a CakeTestCase
+ * This class helps in testing the life-cycle of fixtures inside a TestCase
  *
  * @package       Cake.Test.Fixture
  */
 namespace lib\Cake\Test\Fixture;
 
-class FixturizedTestCase extends CakeTestCase {
+class FixturizedTestCase extends TestCase {
 
 /**
  * Fixtures to use in this thes

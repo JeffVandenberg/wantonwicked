@@ -20,9 +20,9 @@
 
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('CakeText', 'Utility');
+use App\Model\Model;
+use App\Model\AppModel;
+use App\Utility\CakeText;
 
 require_once dirname(dirname(__FILE__)) . DS . 'models.php';
 
@@ -31,7 +31,7 @@ require_once dirname(dirname(__FILE__)) . DS . 'models.php';
  *
  * @package       Cake.Test.Case.Model.Behavior
  */
-class TreeBehaviorUuidTest extends CakeTestCase {
+class TreeBehaviorUuidTest extends TestCase {
 
 /**
  * Whether backup global state for each test method or not

@@ -16,11 +16,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Log\Engine;
 
+use Cake\Core\Configure;
 
 
-App::uses('BaseLog', 'Log/Engine');
-App::uses('Hash', 'Utility');
-App::uses('CakeNumber', 'Utility');
+use App\Log\Engine\BaseLog;
+use Cake\Utility\Hash;
+use App\Utility\Number;
 
 /**
  * File Storage stream for Logging. Writes logs to different files
@@ -118,7 +119,7 @@ class FileLog extends BaseLog {
 			if (is_numeric($config['size'])) {
 				$this->_size = (int)$config['size'];
 			} else {
-				$this->_size = CakeNumber::fromReadableSize($config['size']);
+				$this->_size = Number::fromReadableSize($config['size']);
 			}
 		}
 

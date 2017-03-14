@@ -15,11 +15,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model\Datasource\Database;
 
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
+use Cake\TestSuite\TestCase;
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('Postgres', 'Model/Datasource/Database');
+use App\Model\Model;
+use App\Model\AppModel;
+use App\Model\Datasource\Database\Postgres;
 
 require_once dirname(dirname(dirname(__FILE__))) . DS . 'models.php';
 
@@ -177,11 +180,11 @@ class PostgresClientTestModel extends Model {
  *
  * @package       Cake.Test.Case.Model.Datasource.Database
  */
-class PostgresTest extends CakeTestCase {
+class PostgresTest extends TestCase {
 
 /**
  * Do not automatically load fixtures for each test, they will be loaded manually
- * using CakeTestCase::loadFixtures
+ * using TestCase::loadFixtures
  *
  * @var bool
  */

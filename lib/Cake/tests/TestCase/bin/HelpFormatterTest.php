@@ -16,17 +16,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('ConsoleOptionParser', 'Console');
-App::uses('HelpFormatter', 'Console');
+use Cake\Console\ConsoleOptionParser;
+use Cake\Console\HelpFormatter;
 
 /**
  * HelpFormatterTest
  *
  * @package       Cake.Test.Case.Console
  */
-class HelpFormatterTest extends CakeTestCase {
+class HelpFormatterTest extends TestCase {
 
 /**
  * test that the console max width is respected when generating help.

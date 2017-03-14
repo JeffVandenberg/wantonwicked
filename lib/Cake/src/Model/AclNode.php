@@ -14,9 +14,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model;
 
+use Cake\Core\Configure;
+use Cake\Utility\Inflector;
 
 
-App::uses('Model', 'Model');
+use App\Model\Model;
 
 /**
  * ACL Node

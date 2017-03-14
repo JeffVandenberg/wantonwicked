@@ -16,7 +16,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppHelper', 'View/Helper');
+use App\View\Helper\AppHelper;
 
 /**
  * OtherHelperHelper

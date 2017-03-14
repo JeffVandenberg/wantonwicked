@@ -15,13 +15,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite;
 
+use Cake\Core\App;
 
 
 if (!defined('__PHPUNIT_PHAR__')) {
 	require_once 'PHPUnit/TextUI/TestRunner.php';
 }
 
-App::uses('CakeFixtureManager', 'TestSuite/Fixture');
+use App\TestSuite\Fixture\CakeFixtureManager;
 
 /**
  * A custom test runner for CakePHP's use of PHPUnit.
@@ -55,7 +56,7 @@ class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
 
 		$fixture = $this->_getFixtureManager($arguments);
 		foreach ($suite->getIterator() as $test) {
-			if ($test instanceof CakeTestCase) {
+			if ($test instanceof TestCase) {
 				$fixture->fixturize($test);
 				$test->fixtureManager = $fixture;
 			}
@@ -95,13 +96,13 @@ class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
  */
 	protected function _getFixtureManager($arguments) {
 		if (isset($arguments['fixtureManager'])) {
-			App::uses($arguments['fixtureManager'], 'TestSuite');
+			/* TODO: App::uses($arguments['fixtureManager'], 'TestSuite'); */
 			if (class_exists($arguments['fixtureManager'])) {
 				return new $arguments['fixtureManager'];
 			}
 			throw new RuntimeException(__d('cake_dev', 'Could not find fixture manager %s.', $arguments['fixtureManager']));
 		}
-		App::uses('AppFixtureManager', 'TestSuite');
+		use App\TestSuite\AppFixtureManager;
 		if (class_exists('AppFixtureManager')) {
 			return new AppFixtureManager();
 		}

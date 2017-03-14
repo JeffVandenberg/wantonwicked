@@ -12,9 +12,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template;
 
+use Cake\Controller\Controller;
+use Cake\Core\Configure;
 
 
-App::uses('View', 'View');
+use Cake\View\View;
 
 /**
  * A view class that is used for JSON responses.
@@ -69,7 +71,7 @@ class JsonView extends View {
  */
 	public function __construct(Controller $controller = null) {
 		parent::__construct($controller);
-		if (isset($controller->response) && $controller->response instanceof CakeResponse) {
+		if (isset($controller->response) && $controller->response instanceof Response) {
 			$controller->response->type('json');
 		}
 	}

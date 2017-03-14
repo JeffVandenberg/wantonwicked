@@ -1,6 +1,6 @@
 <?php
 /**
- * A CakeLog listener which saves having to munge files or other configured loggers.
+ * A Log listener which saves having to munge files or other configured loggers.
  *
  * PHP 5
  *
@@ -19,7 +19,7 @@
  * Class DebugKitLog
  *
  */
-class DebugKitLog implements CakeLogInterface {
+class DebugKitLog implements LogInterface {
 
 /**
  * logs

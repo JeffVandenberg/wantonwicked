@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeRequest Test case file.
+ * Request Test case file.
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -17,16 +17,18 @@
  */
 namespace lib\Cake\Test\TestCase\Routing\Route;
 
+use App\Routing\Route\PluginShortRoute;
+use Cake\Core\Configure;
+use Cake\Routing\Router;
+use Cake\TestSuite\TestCase;
 
-App::uses('PluginShortRoute', 'Routing/Route');
-App::uses('Router', 'Routing');
 
 /**
  * test case for PluginShortRoute
  *
  * @package       Cake.Test.Case.Routing.Route
  */
-class PluginShortRouteTest extends CakeTestCase {
+class PluginShortRouteTest extends TestCase {
 
 /**
  * setUp method

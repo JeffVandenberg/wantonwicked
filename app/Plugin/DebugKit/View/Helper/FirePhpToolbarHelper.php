@@ -12,8 +12,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('ToolbarHelper', 'DebugKit.View/Helper');
-App::uses('FireCake', 'DebugKit.Lib');
+use DebugKit\View\Helper\ToolbarHelper;
+use DebugKit\Lib\FireCake;
 
 /**
  * FirePHP Toolbar Helper

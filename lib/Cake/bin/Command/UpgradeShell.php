@@ -16,11 +16,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('Folder', 'Utility');
-App::uses('CakePlugin', 'Core');
+use App\Console\Command\AppShell;
+use App\Utility\Folder;
+use Cake\Core\Plugin;
 
 /**
  * A shell class to help developers upgrade applications to CakePHP 2.0
@@ -105,13 +110,13 @@ class UpgradeShell extends AppShell {
 	public function tests() {
 		$this->_paths = array(APP . 'tests' . DS);
 		if (!empty($this->params['plugin'])) {
-			$this->_paths = array(CakePlugin::path($this->params['plugin']) . 'tests' . DS);
+			$this->_paths = array(Plugin::path($this->params['plugin']) . 'tests' . DS);
 		}
 		$patterns = array(
 			array(
-				'*TestCase extends CakeTestCase to *Test extends CakeTestCase',
-				'/([a-zA-Z]*Test)Case extends CakeTestCase/',
-				'\1 extends CakeTestCase'
+				'*TestCase extends TestCase to *Test extends TestCase',
+				'/([a-zA-Z]*Test)Case extends TestCase/',
+				'\1 extends TestCase'
 			),
 		);
 
@@ -131,7 +136,7 @@ class UpgradeShell extends AppShell {
 		$cwd = getcwd();
 
 		if (!empty($this->params['plugin'])) {
-			chdir(CakePlugin::path($this->params['plugin']));
+			chdir(Plugin::path($this->params['plugin']));
 		}
 
 		if (is_dir('plugins')) {
@@ -186,7 +191,7 @@ class UpgradeShell extends AppShell {
 			'models',
 			'Model',
 			'tests',
-			'Test' => array('regex' => '@class (\S*Test) extends CakeTestCase@'),
+			'Test' => array('regex' => '@class (\S*Test) extends TestCase@'),
 			'views',
 			'View',
 			'vendors/shells',
@@ -218,7 +223,7 @@ class UpgradeShell extends AppShell {
 		$this->_paths = array_diff(App::path('views'), App::core('views'));
 
 		if (!empty($this->params['plugin'])) {
-			$this->_paths = array(CakePlugin::path($this->params['plugin']) . 'views' . DS);
+			$this->_paths = array(Plugin::path($this->params['plugin']) . 'views' . DS);
 		}
 
 		$patterns = array();
@@ -229,10 +234,10 @@ class UpgradeShell extends AppShell {
 		$plugins = App::objects('plugin');
 		$pluginHelpers = array();
 		foreach ($plugins as $plugin) {
-			CakePlugin::load($plugin);
+			Plugin::load($plugin);
 			$pluginHelpers = array_merge(
 				$pluginHelpers,
-				App::objects('helper', CakePlugin::path($plugin) . DS . 'views' . DS . 'helpers' . DS, false)
+				App::objects('helper', Plugin::path($plugin) . DS . 'views' . DS . 'helpers' . DS, false)
 			);
 		}
 		$helpers = array_merge($pluginHelpers, $helpers);
@@ -263,7 +268,7 @@ class UpgradeShell extends AppShell {
 			APP
 		);
 		if (!empty($this->params['plugin'])) {
-			$this->_paths = array(CakePlugin::path($this->params['plugin']));
+			$this->_paths = array(Plugin::path($this->params['plugin']));
 		}
 
 		$patterns = array(
@@ -302,7 +307,7 @@ class UpgradeShell extends AppShell {
 			APP
 		);
 		if (!empty($this->params['plugin'])) {
-			$this->_paths = array(CakePlugin::path($this->params['plugin']));
+			$this->_paths = array(Plugin::path($this->params['plugin']));
 		}
 		$patterns = array(
 			array(
@@ -345,7 +350,7 @@ class UpgradeShell extends AppShell {
 	}
 
 /**
- * Update the properties moved to CakeRequest.
+ * Update the properties moved to Request.
  *
  * @return void
  */
@@ -357,7 +362,7 @@ class UpgradeShell extends AppShell {
 		$this->_paths = array_merge($views, $controllers, $components);
 
 		if (!empty($this->params['plugin'])) {
-			$pluginPath = CakePlugin::path($this->params['plugin']);
+			$pluginPath = Plugin::path($this->params['plugin']);
 			$this->_paths = array(
 				$pluginPath . 'controllers' . DS,
 				$pluginPath . 'controllers' . DS . 'components' . DS,
@@ -414,7 +419,7 @@ class UpgradeShell extends AppShell {
 			APP
 		);
 		if (!empty($this->params['plugin'])) {
-			$this->_paths = array(CakePlugin::path($this->params['plugin']));
+			$this->_paths = array(Plugin::path($this->params['plugin']));
 		}
 		$patterns = array(
 			array(
@@ -436,7 +441,7 @@ class UpgradeShell extends AppShell {
 			APP
 		);
 		if (!empty($this->params['plugin'])) {
-			$this->_paths = array(CakePlugin::path($this->params['plugin']));
+			$this->_paths = array(Plugin::path($this->params['plugin']));
 		}
 		$patterns = array(
 			array(
@@ -567,7 +572,7 @@ class UpgradeShell extends AppShell {
 		$this->_paths = array_merge($controllers, $components);
 
 		if (!empty($this->params['plugin'])) {
-			$pluginPath = CakePlugin::path($this->params['plugin']);
+			$pluginPath = Plugin::path($this->params['plugin']);
 			$this->_paths = array(
 				$pluginPath . 'controllers' . DS,
 				$pluginPath . 'controllers' . DS . 'components' . DS,

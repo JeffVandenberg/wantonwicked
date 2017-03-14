@@ -16,17 +16,20 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Template\Helper;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('ClassRegistry', 'Utility');
-App::uses('Controller', 'Controller');
-App::uses('View', 'View');
-App::uses('Model', 'Model');
-App::uses('Security', 'Utility');
-App::uses('CakeRequest', 'Network');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('FormHelper', 'View/Helper');
-App::uses('Router', 'Routing');
+use App\Utility\ClassRegistry;
+use Cake\Controller\Controller;
+use Cake\View\View;
+use App\Model\Model;
+use Cake\Utility\Security;
+use Cake\Network\Request;
+use App\View\Helper\HtmlHelper;
+use App\View\Helper\FormHelper;
+use Cake\Routing\Router;
 
 /**
  * ContactTestController class
@@ -504,7 +507,7 @@ class TestMail extends CakeTestModel {
  * @package       Cake.Test.Case.View.Helper
  * @property FormHelper $Form
  */
-class FormHelperTest extends CakeTestCase {
+class FormHelperTest extends TestCase {
 
 /**
  * Fixtures to be used
@@ -536,7 +539,7 @@ class FormHelperTest extends CakeTestCase {
 
 		$this->Form = new FormHelper($this->View);
 		$this->Form->Html = new HtmlHelper($this->View);
-		$this->Form->request = new CakeRequest('contacts/add', false);
+		$this->Form->request = new Request('contacts/add', false);
 		$this->Form->request->here = '/contacts/add';
 		$this->Form->request['action'] = 'add';
 		$this->Form->request->webroot = '';
@@ -3584,7 +3587,7 @@ class FormHelperTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->Form->request['models'] = array(
 			'TestPluginPost' => array('plugin' => 'TestPlugin', 'className' => 'TestPluginPost')
 		);
@@ -10363,7 +10366,7 @@ class FormHelperTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->Form->request['models'] = array('TestPluginPost' => array('plugin' => 'TestPlugin', 'className' => 'TestPluginPost'));
 
 		$this->assertFalse(ClassRegistry::isKeySet('TestPluginPost'));
@@ -10371,7 +10374,7 @@ class FormHelperTest extends CakeTestCase {
 		$this->assertTrue(ClassRegistry::isKeySet('TestPluginPost'));
 		$this->assertInstanceOf('TestPluginPost', ClassRegistry::getObject('TestPluginPost'));
 
-		CakePlugin::unload();
+		Plugin::unload();
 		App::build();
 	}
 

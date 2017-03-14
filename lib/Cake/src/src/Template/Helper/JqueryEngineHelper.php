@@ -22,10 +22,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Core\Configure;
 
 
-App::uses('AppHelper', 'View/Helper');
-App::uses('JsBaseEngineHelper', 'View/Helper');
+use App\View\Helper\AppHelper;
+use App\View\Helper\JsBaseEngineHelper;
 
 /**
  * jQuery Engine Helper for JsHelper

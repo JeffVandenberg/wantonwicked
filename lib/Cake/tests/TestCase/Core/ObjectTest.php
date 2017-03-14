@@ -16,12 +16,15 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Core;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('Object', 'Core');
-App::uses('Router', 'Routing');
-App::uses('Controller', 'Controller');
-App::uses('Model', 'Model');
+use App\Core\Object;
+use Cake\Routing\Router;
+use Cake\Controller\Controller;
+use App\Model\Model;
 
 /**
  * RequestActionPost class
@@ -280,7 +283,7 @@ class ObjectTestModel extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Core
  */
-class ObjectTest extends CakeTestCase {
+class ObjectTest extends TestCase {
 
 /**
  * fixtures
@@ -306,7 +309,7 @@ class ObjectTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakePlugin::unload();
+		Plugin::unload();
 		unset($this->object);
 	}
 
@@ -493,7 +496,7 @@ class ObjectTest extends CakeTestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 		), App::RESET);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		Router::reload();
 
 		$result = $this->object->requestAction('/test_plugin/tests/index', array('return'));
@@ -533,7 +536,7 @@ class ObjectTest extends CakeTestCase {
 			'Controller' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Controller' . DS),
 			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
-		CakePlugin::load(array('TestPlugin'));
+		Plugin::load(array('TestPlugin'));
 
 		$result = $this->object->requestAction(
 			array('controller' => 'request_action', 'action' => 'test_request_action')

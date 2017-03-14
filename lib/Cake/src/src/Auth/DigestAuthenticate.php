@@ -14,7 +14,7 @@
 
 
 
-App::uses('BasicAuthenticate', 'Controller/Component/Auth');
+use App\Controller\Component\Auth\BasicAuthenticate;
 
 /**
  * Digest Authentication adapter for AuthComponent.
@@ -111,10 +111,10 @@ class DigestAuthenticate extends BasicAuthenticate {
 /**
  * Get a user based on information in the request. Used by cookie-less auth for stateless clients.
  *
- * @param CakeRequest $request Request object.
+ * @param Request $request Request object.
  * @return mixed Either false or an array of user information
  */
-	public function getUser(CakeRequest $request) {
+	public function getUser(Request $request) {
 		$digest = $this->_getDigest();
 		if (empty($digest)) {
 			return false;

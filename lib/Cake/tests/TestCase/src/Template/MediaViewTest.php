@@ -18,16 +18,16 @@
 
 
 
-App::uses('Controller', 'Controller');
-App::uses('MediaView', 'View');
-App::uses('CakeResponse', 'Network');
+use Cake\Controller\Controller;
+use App\View\MediaView;
+use Cake\Network\Response;
 
 /**
  * MediaViewTest class
  *
  * @package       Cake.Test.Case.View
  */
-class MediaViewTest extends CakeTestCase {
+class MediaViewTest extends TestCase {
 
 /**
  * setUp method
@@ -37,7 +37,7 @@ class MediaViewTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->MediaView = new MediaView();
-		$this->MediaView->response = $this->getMock('CakeResponse', array(
+		$this->MediaView->response = $this->getMock('Response', array(
 			'cache',
 			'type',
 			'disableCache',

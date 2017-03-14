@@ -18,11 +18,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Template\Helper;
 
+use Cake\Core\App;
+use Cake\View\View;
 
 
-App::uses('CakeNumber', 'Utility');
-App::uses('AppHelper', 'View/Helper');
-App::uses('Hash', 'Utility');
+use App\Utility\Number;
+use App\View\Helper\AppHelper;
+use Cake\Utility\Hash;
 
 /**
  * Number helper library.
@@ -31,14 +33,14 @@ App::uses('Hash', 'Utility');
  *
  * @package       Cake.View.Helper
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/number.html
- * @see CakeNumber
+ * @see Number
  */
 class NumberHelper extends AppHelper {
 
 /**
- * CakeNumber instance
+ * Number instance
  *
- * @var CakeNumber
+ * @var Number
  */
 	protected $_engine = null;
 
@@ -47,7 +49,7 @@ class NumberHelper extends AppHelper {
  *
  * ### Settings:
  *
- * - `engine` Class name to use to replace CakeNumber functionality
+ * - `engine` Class name to use to replace Number functionality
  *            The class needs to be placed in the `Utility` directory.
  *
  * @param View $View The View this helper is being attached to.
@@ -55,10 +57,10 @@ class NumberHelper extends AppHelper {
  * @throws CakeException When the engine class could not be found.
  */
 	public function __construct(View $View, $settings = array()) {
-		$settings = Hash::merge(array('engine' => 'CakeNumber'), $settings);
+		$settings = Hash::merge(array('engine' => 'Number'), $settings);
 		parent::__construct($View, $settings);
 		list($plugin, $engineClass) = pluginSplit($settings['engine'], true);
-		App::uses($engineClass, $plugin . 'Utility');
+		/* TODO: App::uses($engineClass, $plugin . 'Utility'); */
 		if (class_exists($engineClass)) {
 			$this->_engine = new $engineClass($settings);
 		} else {
@@ -67,7 +69,7 @@ class NumberHelper extends AppHelper {
 	}
 
 /**
- * Call methods from CakeNumber utility class
+ * Call methods from Number utility class
  *
  * @param string $method Method to call.
  * @param array $params Parameters to pass to method.
@@ -83,7 +85,7 @@ class NumberHelper extends AppHelper {
  * @param float $number A floating point number.
  * @param int $precision The precision of the returned number.
  * @return float Formatted float.
- * @see CakeNumber::precision()
+ * @see Number::precision()
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/number.html#NumberHelper::precision
  */
 	public function precision($number, $precision = 3) {
@@ -95,7 +97,7 @@ class NumberHelper extends AppHelper {
  *
  * @param int $size Size in bytes
  * @return string Human readable size
- * @see CakeNumber::toReadableSize()
+ * @see Number::toReadableSize()
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/number.html#NumberHelper::toReadableSize
  */
 	public function toReadableSize($size) {
@@ -113,7 +115,7 @@ class NumberHelper extends AppHelper {
  * @param int $precision The precision of the returned number
  * @param array $options Options
  * @return string Percentage string
- * @see CakeNumber::toPercentage()
+ * @see Number::toPercentage()
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/number.html#NumberHelper::toPercentage
  */
 	public function toPercentage($number, $precision = 2, $options = array()) {
@@ -127,7 +129,7 @@ class NumberHelper extends AppHelper {
  * @param int $options If integer then places, if string then before, if (,.-) then use it
  *   or array with places and before keys
  * @return string formatted number
- * @see CakeNumber::format()
+ * @see Number::format()
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/number.html#NumberHelper::format
  */
 	public function format($number, $options = false) {
@@ -140,10 +142,10 @@ class NumberHelper extends AppHelper {
  * @param float $number Number to format.
  * @param string $currency Shortcut to default options. Valid values are 'USD', 'EUR', 'GBP', otherwise
  *   set at least 'before' and 'after' options.
- * 'USD' is the default currency, use CakeNumber::defaultCurrency() to change this default.
+ * 'USD' is the default currency, use Number::defaultCurrency() to change this default.
  * @param array $options Options list.
  * @return string Number formatted as a currency.
- * @see CakeNumber::currency()
+ * @see Number::currency()
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/number.html#NumberHelper::currency
  */
 	public function currency($number, $currency = null, $options = array()) {
@@ -166,7 +168,7 @@ class NumberHelper extends AppHelper {
  * @param string $formatName The format name to be used in the future.
  * @param array $options The array of options for this format.
  * @return void
- * @see CakeNumber::addFormat()
+ * @see Number::addFormat()
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/number.html#NumberHelper::addFormat
  */
 	public function addFormat($formatName, $options) {
@@ -178,7 +180,7 @@ class NumberHelper extends AppHelper {
  *
  * @param string $currency The currency to be used in the future.
  * @return string Currency
- * @see CakeNumber::defaultCurrency()
+ * @see Number::defaultCurrency()
  */
 	public function defaultCurrency($currency) {
 		return $this->_engine->defaultCurrency($currency);

@@ -15,8 +15,8 @@
 
 
 
-App::uses('AbstractPasswordHasher', 'Controller/Component/Auth');
-App::uses('Security', 'Utility');
+use App\Controller\Component\Auth\AbstractPasswordHasher;
+use Cake\Utility\Security;
 
 /**
  * Simple password hashing class.

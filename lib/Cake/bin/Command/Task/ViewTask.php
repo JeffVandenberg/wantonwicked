@@ -15,11 +15,16 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\bin\Command\Task;
 
+use Cake\Console\Shell;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Model\Model;
+use Cake\Utility\Inflector;
 
 
-App::uses('AppShell', 'Console/Command');
-App::uses('Controller', 'Controller');
-App::uses('BakeTask', 'Console/Command/Task');
+use App\Console\Command\AppShell;
+use Cake\Controller\Controller;
+use App\Console\Command\Task\BakeTask;
 
 /**
  * Task class for creating and updating view files.
@@ -177,7 +182,7 @@ class ViewTask extends BakeTask {
 		foreach ($tables as $table) {
 			$model = $this->_modelName($table);
 			$this->controllerName = $this->_controllerName($model);
-			App::uses($model, 'Model');
+			/* TODO: App::uses($model, 'Model'); */
 			if (class_exists($model)) {
 				$vars = $this->_loadController();
 				if (!$actions) {
@@ -263,7 +268,7 @@ class ViewTask extends BakeTask {
 		}
 
 		$controllerClassName = $this->controllerName . 'Controller';
-		App::uses($controllerClassName, $plugin . 'Controller');
+		/* TODO: App::uses($controllerClassName, $plugin . 'Controller'); */
 		if (!class_exists($controllerClassName)) {
 			$file = $controllerClassName . '.php';
 			$this->err(__d('cake_console', "The file '%s' could not be found.\nIn order to bake a view, you'll need to first create the controller.", $file));

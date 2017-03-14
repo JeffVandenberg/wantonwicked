@@ -18,9 +18,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model;
 
+use Cake\Core\App;
 
 
-App::uses('DataSource', 'Model/Datasource');
+use App\Model\Datasource\DataSource;
 
 /**
  * Manages loaded instances of DataSource objects
@@ -175,7 +176,7 @@ class ConnectionManager {
 			$package = '/' . $conn['package'];
 		}
 
-		App::uses($conn['classname'], $plugin . 'Model/Datasource' . $package);
+		/* TODO: App::uses($conn['classname'], $plugin . 'Model/Datasource' . $package); */
 		if (!class_exists($conn['classname'])) {
 			throw new MissingDatasourceException(array(
 				'class' => $conn['classname'],

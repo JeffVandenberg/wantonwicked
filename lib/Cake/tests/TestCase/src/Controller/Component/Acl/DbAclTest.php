@@ -16,13 +16,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Controller\Component\Acl;
 
+use Cake\Core\Configure;
 
 
-App::uses('ComponentCollection', 'Controller');
-App::uses('AclComponent', 'Controller/Component');
-App::uses('DbAcl', 'Controller/Component/Acl');
-App::uses('AclNode', 'Model');
-App::uses('Permission', 'Model');
+use App\Controller\ComponentCollection;
+use App\Controller\Component\AclComponent;
+use App\Controller\Component\Acl\DbAcl;
+use App\Model\AclNode;
+use App\Model\Permission;
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . DS . 'Model' . DS . 'models.php';
 
 /**
@@ -176,7 +177,7 @@ class DbAclTwoTest extends DbAcl {
  *
  * @package       Cake.Test.Case.Controller.Component.Acl
  */
-class DbAclTest extends CakeTestCase {
+class DbAclTest extends TestCase {
 
 /**
  * fixtures property

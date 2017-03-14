@@ -18,8 +18,8 @@
 
 
 
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
+use App\Model\Model;
+use App\Model\AppModel;
 
 require_once dirname(dirname(__FILE__)) . DS . 'models.php';
 
@@ -28,7 +28,7 @@ require_once dirname(dirname(__FILE__)) . DS . 'models.php';
  *
  * @package       Cake.Test.Case.Model.Behavior
  */
-class TreeBehaviorAfterTest extends CakeTestCase {
+class TreeBehaviorAfterTest extends TestCase {
 
 /**
  * Whether backup global state for each test method or not

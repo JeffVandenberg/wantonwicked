@@ -17,8 +17,9 @@
  */
 namespace lib\Cake\Log;
 
+use App\Utility\ObjectCollection;
+use Cake\Core\App;
 
-App::uses('ObjectCollection', 'Utility');
 
 /**
  * Registry of loaded log engines
@@ -41,7 +42,7 @@ class LogEngineCollection extends ObjectCollection {
 		unset($options['engine']);
 		$className = $this->_getLogger($loggerName);
 		$logger = new $className($options);
-		if (!$logger instanceof CakeLogInterface) {
+		if (!$logger instanceof LogInterface) {
 			throw new CakeLogException(
 				__d('cake_dev', 'logger class %s does not implement a %s method.', $loggerName, 'write()')
 			);
@@ -66,7 +67,7 @@ class LogEngineCollection extends ObjectCollection {
 		if (substr($loggerName, -3) !== 'Log') {
 			$loggerName .= 'Log';
 		}
-		App::uses($loggerName, $plugin . 'Log/Engine');
+		/* TODO: App::uses($loggerName, $plugin . 'Log/Engine'); */
 		if (!class_exists($loggerName)) {
 			throw new CakeLogException(__d('cake_dev', 'Could not load class %s', $loggerName));
 		}

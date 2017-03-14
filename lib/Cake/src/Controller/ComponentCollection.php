@@ -17,11 +17,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller;
 
+use Cake\Controller\Controller;
+use Cake\Core\App;
 
 
-App::uses('ObjectCollection', 'Utility');
-App::uses('Component', 'Controller');
-App::uses('CakeEventListener', 'Event');
+use App\Utility\ObjectCollection;
+use Cake\Controller\Component;
+use App\Event\EventListener;
 
 /**
  * Components collection is used as a registry for loaded components and handles loading
@@ -29,7 +31,7 @@ App::uses('CakeEventListener', 'Event');
  *
  * @package       Cake.Controller
  */
-class ComponentCollection extends ObjectCollection implements CakeEventListener {
+class ComponentCollection extends ObjectCollection implements EventListener {
 
 /**
  * The controller that this collection was initialized with.
@@ -108,7 +110,7 @@ class ComponentCollection extends ObjectCollection implements CakeEventListener 
 			return $this->_loaded[$alias];
 		}
 		$componentClass = $name . 'Component';
-		App::uses($componentClass, $plugin . 'Controller/Component');
+		/* TODO: App::uses($componentClass, $plugin . 'Controller/Component'); */
 		if (!class_exists($componentClass)) {
 			throw new MissingComponentException(array(
 				'class' => $componentClass,

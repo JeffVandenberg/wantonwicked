@@ -16,16 +16,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('ConsoleOptionParser', 'Console');
+use Cake\Console\ConsoleOptionParser;
 
 /**
  * ConsoleOptionParserTest
  *
  * @package       Cake.Test.Case.Console
  */
-class ConsoleOptionParserTest extends CakeTestCase {
+class ConsoleOptionParserTest extends TestCase {
 
 /**
  * test setting the console description

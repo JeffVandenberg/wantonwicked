@@ -23,7 +23,7 @@
  *
  * @package Cake.Event
  */
-class CakeEvent {
+class Event {
 
 /**
  * Name of the event
@@ -70,8 +70,8 @@ class CakeEvent {
  * ## Examples of usage:
  *
  * ```
- *	$event = new CakeEvent('Order.afterBuy', $this, array('buyer' => $userData));
- *	$event = new CakeEvent('User.afterRegister', $UserModel);
+ *	$event = new Event('Order.afterBuy', $this, array('buyer' => $userData));
+ *	$event = new Event('User.afterRegister', $UserModel);
  * ```
  */
 	public function __construct($name, $subject = null, $data = null) {

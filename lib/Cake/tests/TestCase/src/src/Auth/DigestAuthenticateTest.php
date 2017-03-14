@@ -16,12 +16,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Auth;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('DigestAuthenticate', 'Controller/Component/Auth');
-App::uses('AppModel', 'Model');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
+use App\Controller\Component\Auth\DigestAuthenticate;
+use App\Model\AppModel;
+use Cake\Network\Request;
+use Cake\Network\Response;
 
 require_once CAKE . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'models.php';
 
@@ -30,7 +31,7 @@ require_once CAKE . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'models.php';
  *
  * @package       Cake.Test.Case.Controller.Component.Auth
  */
-class DigestAuthenticateTest extends CakeTestCase {
+class DigestAuthenticateTest extends TestCase {
 
 /**
  * Fixtures
@@ -61,7 +62,7 @@ class DigestAuthenticateTest extends CakeTestCase {
 		$User->updateAll(array('password' => $User->getDataSource()->value($password)));
 
 		$_SERVER['REQUEST_METHOD'] = 'GET';
-		$this->response = $this->getMock('CakeResponse');
+		$this->response = $this->getMock('Response');
 	}
 
 /**
@@ -97,7 +98,7 @@ class DigestAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateNoData() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 
 		$this->response->expects($this->never())
 			->method('header');
@@ -113,7 +114,7 @@ class DigestAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateWrongUsername() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array('pass' => array(), 'named' => array()));
 
 		$_SERVER['PHP_AUTH_DIGEST'] = <<<DIGEST
@@ -137,7 +138,7 @@ DIGEST;
  * @return void
  */
 	public function testAuthenticateChallenge() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array('pass' => array(), 'named' => array()));
 
 		try {
@@ -157,7 +158,7 @@ DIGEST;
  * @return void
  */
 	public function testAuthenticateSuccess() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array('pass' => array(), 'named' => array()));
 
 		$_SERVER['PHP_AUTH_DIGEST'] = <<<DIGEST
@@ -191,7 +192,7 @@ DIGEST;
  */
 	public function testAuthenticateFailReChallenge() {
 		$this->auth->settings['scope'] = array('user' => 'nate');
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array('pass' => array(), 'named' => array()));
 
 		$_SERVER['PHP_AUTH_DIGEST'] = <<<DIGEST

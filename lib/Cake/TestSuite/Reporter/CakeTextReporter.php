@@ -15,10 +15,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\TestSuite\Reporter;
 
+use Cake\Utility\Inflector;
 
 
-App::uses('CakeBaseReporter', 'TestSuite/Reporter');
-App::uses('TextCoverageReport', 'TestSuite/Coverage');
+use App\TestSuite\Reporter\CakeBaseReporter;
+use App\TestSuite\Coverage\TextCoverageReport;
 
 /**
  * CakeTextReporter contains reporting features used for plain text based output

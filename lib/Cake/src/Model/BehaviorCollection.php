@@ -18,10 +18,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Model;
 
+use Cake\Core\App;
+use Cake\Event\EventListener;
 
 
-App::uses('ObjectCollection', 'Utility');
-App::uses('CakeEventListener', 'Event');
+use App\Utility\ObjectCollection;
+use App\Event\EventListener;
 
 /**
  * Model behavior collection class.
@@ -30,7 +32,7 @@ App::uses('CakeEventListener', 'Event');
  *
  * @package       Cake.Model
  */
-class BehaviorCollection extends ObjectCollection implements CakeEventListener {
+class BehaviorCollection extends ObjectCollection implements EventListener {
 
 /**
  * Stores a reference to the attached name
@@ -118,7 +120,7 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 
 		$class = $name . 'Behavior';
 
-		App::uses($class, $plugin . 'Model/Behavior');
+		/* TODO: App::uses($class, $plugin . 'Model/Behavior'); */
 		if (!class_exists($class)) {
 			throw new MissingBehaviorException(array(
 				'class' => $class,

@@ -16,7 +16,7 @@
 
 
 
-App::uses('AppModel', 'Model');
+use App\Model\AppModel;
 
 /**
  * Action for Access Control Object

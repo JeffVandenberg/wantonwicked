@@ -17,7 +17,7 @@
  */namespace lib\Cake\Test\TestCase\Network\Http;
 
 
-App::uses('HttpResponse', 'Network/Http');
+use App\Network\Http\HttpResponse;
 
 /**
  * TestHttpResponse class
@@ -84,7 +84,7 @@ class TestHttpResponse extends HttpResponse {
  *
  * @package       Cake.Test.Case.Network.Http
  */
-class HttpResponseTest extends CakeTestCase {
+class HttpResponseTest extends TestCase {
 
 /**
  * This function sets up a HttpResponse

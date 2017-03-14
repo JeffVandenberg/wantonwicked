@@ -19,6 +19,8 @@
  */
 namespace lib\Cake\Test\test_app\Model\Behavior;
 
+use Cake\Model\Behavior;
+
 
 /**
  * Behavior to allow for dynamic and atomic manipulation of a Model's associations used for a find call. Most useful for limiting

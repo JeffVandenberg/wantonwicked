@@ -18,6 +18,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Controller;
 
+use Cake\Core\Configure;
+use Cake\Database\ConnectionManager;
+use Cake\Utility\Inflector;
+
 
 
 /**
@@ -71,7 +75,7 @@ class Scaffold {
 /**
  * Request object
  *
- * @var CakeRequest
+ * @var Request
  */
 	public $request;
 
@@ -102,10 +106,10 @@ class Scaffold {
  * Construct and set up given controller with given parameters.
  *
  * @param Controller $controller Controller to scaffold
- * @param CakeRequest $request Request parameters.
+ * @param Request $request Request parameters.
  * @throws MissingModelException
  */
-	public function __construct(Controller $controller, CakeRequest $request) {
+	public function __construct(Controller $controller, Request $request) {
 		$this->controller = $controller;
 
 		$count = count($this->_passedVars);
@@ -157,11 +161,11 @@ class Scaffold {
 /**
  * Renders a view action of scaffolded model.
  *
- * @param CakeRequest $request Request Object for scaffolding
+ * @param Request $request Request Object for scaffolding
  * @return mixed A rendered view of a row from Models database table
  * @throws NotFoundException
  */
-	protected function _scaffoldView(CakeRequest $request) {
+	protected function _scaffoldView(Request $request) {
 		if ($this->controller->beforeScaffold('view')) {
 			if (isset($request->params['pass'][0])) {
 				$this->ScaffoldModel->id = $request->params['pass'][0];
@@ -215,12 +219,12 @@ class Scaffold {
 /**
  * Saves or updates the scaffolded model.
  *
- * @param CakeRequest $request Request Object for scaffolding
+ * @param Request $request Request Object for scaffolding
  * @param string $action add or edit
  * @return mixed Success on save/update, add/edit form if data is empty or error if save or update fails
  * @throws NotFoundException
  */
-	protected function _scaffoldSave(CakeRequest $request, $action = 'edit') {
+	protected function _scaffoldSave(Request $request, $action = 'edit') {
 		$formAction = 'edit';
 		$success = __d('cake', 'updated');
 		if ($action === 'add') {
@@ -287,12 +291,12 @@ class Scaffold {
 /**
  * Performs a delete on given scaffolded Model.
  *
- * @param CakeRequest $request Request for scaffolding
+ * @param Request $request Request for scaffolding
  * @return mixed Success on delete, error if delete fails
  * @throws MethodNotAllowedException When HTTP method is not a DELETE
  * @throws NotFoundException When id being deleted does not exist.
  */
-	protected function _scaffoldDelete(CakeRequest $request) {
+	protected function _scaffoldDelete(Request $request) {
 		if ($this->controller->beforeScaffold('delete')) {
 			if (!$request->is('post')) {
 				throw new MethodNotAllowedException();
@@ -350,12 +354,12 @@ class Scaffold {
  * scaffoldView is used to call default Scaffold methods if:
  * `public $scaffold;` is placed in the controller's class definition.
  *
- * @param CakeRequest $request Request object for scaffolding
+ * @param Request $request Request object for scaffolding
  * @return void
  * @throws MissingActionException When methods are not scaffolded.
  * @throws MissingDatabaseException When the database connection is undefined.
  */
-	protected function _scaffold(CakeRequest $request) {
+	protected function _scaffold(Request $request) {
 		$db = ConnectionManager::getDataSource($this->ScaffoldModel->useDbConfig);
 		$prefixes = Configure::read('Routing.prefixes');
 		$scaffoldPrefix = $this->scaffoldActions;

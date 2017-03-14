@@ -17,6 +17,7 @@
  */
 namespace lib\Cake\TestSuite\templates;
 
+use Cake\View\View;
 ?>	</div>
 		</div>
 		<div id="footer">
@@ -27,7 +28,6 @@ namespace lib\Cake\TestSuite\templates;
 			</p>
 		</div>
 		<?php
-			App::uses('View', 'View');
 			$null = null;
 			$View = new View($null, false);
 			echo $View->element('sql_dump');

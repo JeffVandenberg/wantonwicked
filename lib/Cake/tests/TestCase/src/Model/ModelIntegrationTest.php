@@ -16,12 +16,14 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Model;
 
+use Cake\Database\ConnectionManager;
+use Cake\Model\Model;
 
 
 require_once dirname(__FILE__) . DS . 'ModelTestBase.php';
 
-App::uses('DboSource', 'Model/Datasource');
-App::uses('DboMock', 'Model/Datasource');
+use App\Model\Datasource\DboSource;
+use App\Model\Datasource\DboMock;
 
 /**
  * DboMock class

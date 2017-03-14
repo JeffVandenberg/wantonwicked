@@ -18,15 +18,15 @@
 
 
 
-App::uses('Folder', 'Utility');
-App::uses('File', 'Utility');
+use App\Utility\Folder;
+use App\Utility\File;
 
 /**
  * FolderTest class
  *
  * @package       Cake.Test.Case.Utility
  */
-class FolderTest extends CakeTestCase {
+class FolderTest extends TestCase {
 
 	protected static $_tmp = array();
 

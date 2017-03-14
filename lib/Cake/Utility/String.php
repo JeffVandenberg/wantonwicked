@@ -17,7 +17,7 @@
  */namespace lib\Cake\Utility;
 
 
-App::uses('CakeText', 'Utility');
+use App\Utility\CakeText;
 
 /**
  * String handling methods.

@@ -19,11 +19,11 @@
 
 
 
-App::uses('TestShell', 'Console/Command');
-App::uses('AppShell', 'Console/Command');
-App::uses('CakeTestSuiteDispatcher', 'TestSuite');
-App::uses('CakeTestSuiteCommand', 'TestSuite');
-App::uses('CakeTestLoader', 'TestSuite');
+use App\Console\Command\TestShell;
+use App\Console\Command\AppShell;
+use App\TestSuite\CakeTestSuiteDispatcher;
+use App\TestSuite\CakeTestSuiteCommand;
+use App\TestSuite\CakeTestLoader;
 
 /**
  * Provides a CakePHP wrapper around PHPUnit.

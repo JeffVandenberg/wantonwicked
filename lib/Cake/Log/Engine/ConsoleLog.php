@@ -18,8 +18,8 @@
 
 
 
-App::uses('BaseLog', 'Log/Engine');
-App::uses('ConsoleOutput', 'Console');
+use App\Log\Engine\BaseLog;
+use Cake\Console\ConsoleOutput;
 
 /**
  * Console logging. Writes logs to console output.

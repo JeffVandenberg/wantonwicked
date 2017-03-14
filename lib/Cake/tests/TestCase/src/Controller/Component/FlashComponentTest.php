@@ -20,15 +20,15 @@
 
 
 
-App::uses('FlashComponent', 'Controller/Component');
-App::uses('ComponentCollection', 'Controller');
+use App\Controller\Component\FlashComponent;
+use App\Controller\ComponentCollection;
 
 /**
  * FlashComponentTest class
  *
  * @package		Cake.Test.Case.Controller.Component
  */
-class FlashComponentTest extends CakeTestCase {
+class FlashComponentTest extends TestCase {
 
 /**
  * setUp method
@@ -48,7 +48,7 @@ class FlashComponentTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakeSession::destroy();
+		Session::destroy();
 	}
 
 /**
@@ -57,7 +57,7 @@ class FlashComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testSet() {
-		$this->assertNull(CakeSession::read('Message.flash'));
+		$this->assertNull(Session::read('Message.flash'));
 
 		$this->Flash->set('This is a test message');
 		$expected = array(
@@ -66,7 +66,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'Flash/default',
 			'params' => array()
 		);
-		$result = CakeSession::read('Message.flash');
+		$result = Session::read('Message.flash');
 		$this->assertEquals($expected, $result);
 
 		$this->Flash->set('This is a test message', array(
@@ -79,7 +79,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'Flash/test',
 			'params' => array('foo' => 'bar')
 		);
-		$result = CakeSession::read('Message.flash');
+		$result = Session::read('Message.flash');
 		$this->assertEquals($expected, $result);
 
 		$this->Flash->set('This is a test message', array('element' => 'MyPlugin.alert'));
@@ -89,7 +89,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'MyPlugin.Flash/alert',
 			'params' => array()
 		);
-		$result = CakeSession::read('Message.flash');
+		$result = Session::read('Message.flash');
 		$this->assertEquals($expected, $result);
 
 		$this->Flash->set('This is a test message', array('key' => 'foobar'));
@@ -99,7 +99,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'Flash/default',
 			'params' => array()
 		);
-		$result = CakeSession::read('Message.foobar');
+		$result = Session::read('Message.foobar');
 		$this->assertEquals($expected, $result);
 	}
 
@@ -109,7 +109,7 @@ class FlashComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testSetWithException() {
-		$this->assertNull(CakeSession::read('Message.flash'));
+		$this->assertNull(Session::read('Message.flash'));
 
 		$this->Flash->set(new Exception('This is a test message', 404));
 		$expected = array(
@@ -118,7 +118,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'Flash/default',
 			'params' => array('code' => 404)
 		);
-		$result = CakeSession::read('Message.flash');
+		$result = Session::read('Message.flash');
 		$this->assertEquals($expected, $result);
 	}
 
@@ -128,7 +128,7 @@ class FlashComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testSetWithComponentConfiguration() {
-		$this->assertNull(CakeSession::read('Message.flash'));
+		$this->assertNull(Session::read('Message.flash'));
 
 		$FlashWithSettings = $this->Components->load('Flash', array('element' => 'test'));
 		$FlashWithSettings->set('This is a test message');
@@ -138,7 +138,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'Flash/test',
 			'params' => array()
 		);
-		$result = CakeSession::read('Message.flash');
+		$result = Session::read('Message.flash');
 		$this->assertEquals($expected, $result);
 	}
 
@@ -148,7 +148,7 @@ class FlashComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testCall() {
-		$this->assertNull(CakeSession::read('Message.flash'));
+		$this->assertNull(Session::read('Message.flash'));
 
 		$this->Flash->success('It worked');
 		$expected = array(
@@ -157,7 +157,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'Flash/success',
 			'params' => array()
 		);
-		$result = CakeSession::read('Message.flash');
+		$result = Session::read('Message.flash');
 		$this->assertEquals($expected, $result);
 
 		$this->Flash->alert('It worked', array('plugin' => 'MyPlugin'));
@@ -167,7 +167,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'MyPlugin.Flash/alert',
 			'params' => array()
 		);
-		$result = CakeSession::read('Message.flash');
+		$result = Session::read('Message.flash');
 		$this->assertEquals($expected, $result);
 
 		$this->Flash->error('It did not work', array('element' => 'error_thing'));
@@ -177,7 +177,7 @@ class FlashComponentTest extends CakeTestCase {
 			'element' => 'Flash/error',
 			'params' => array()
 		);
-		$result = CakeSession::read('Message.flash');
+		$result = Session::read('Message.flash');
 		$this->assertEquals($expected, $result, 'Element is ignored in magic call.');
 	}
 }

@@ -18,9 +18,9 @@
 
 
 
-App::uses('CakeEmail', 'Network/Email');
-App::uses('AbstractTransport', 'Network/Email');
-App::uses('SmtpTransport', 'Network/Email');
+use App\Network\Email\Email;
+use App\Network\Email\AbstractTransport;
+use App\Network\Email\SmtpTransport;
 
 /**
  * Help to test SmtpTransport
@@ -30,10 +30,10 @@ class SmtpTestTransport extends SmtpTransport {
 /**
  * Helper to change the socket
  *
- * @param CakeSocket $socket A socket.
+ * @param Socket $socket A socket.
  * @return void
  */
-	public function setSocket(CakeSocket $socket) {
+	public function setSocket(Socket $socket) {
 		$this->_socket = $socket;
 	}
 
@@ -62,7 +62,7 @@ class SmtpTestTransport extends SmtpTransport {
 /**
  * Test case
  */
-class SmtpTransportTest extends CakeTestCase {
+class SmtpTransportTest extends TestCase {
 
 /**
  * Setup
@@ -71,7 +71,7 @@ class SmtpTransportTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->socket = $this->getMock('CakeSocket', array('read', 'write', 'connect', 'enableCrypto'));
+		$this->socket = $this->getMock('Socket', array('read', 'write', 'connect', 'enableCrypto'));
 
 		$this->SmtpTransport = new SmtpTestTransport();
 		$this->SmtpTransport->setSocket($this->socket);
@@ -318,7 +318,7 @@ class SmtpTransportTest extends CakeTestCase {
  * @return void
  */
 	public function testRcpt() {
-		$email = new CakeEmail();
+		$email = new Email();
 		$email->from('noreply@cakephp.org', 'CakePHP Test');
 		$email->to('cake@cakephp.org', 'CakePHP');
 		$email->bcc('phpnut@cakephp.org');
@@ -349,7 +349,7 @@ class SmtpTransportTest extends CakeTestCase {
  * @return void
  */
 	public function testRcptWithReturnPath() {
-		$email = new CakeEmail();
+		$email = new Email();
 		$email->from('noreply@cakephp.org', 'CakePHP Test');
 		$email->to('cake@cakephp.org', 'CakePHP');
 		$email->returnPath('pleasereply@cakephp.org', 'CakePHP Return');
@@ -370,7 +370,7 @@ class SmtpTransportTest extends CakeTestCase {
  * @return void
  */
 	public function testSendData() {
-		$email = $this->getMock('CakeEmail', array('message'), array(), 'SmtpCakeEmail');
+		$email = $this->getMock('Email', array('message'), array(), 'SmtpCakeEmail');
 		$email->from('noreply@cakephp.org', 'CakePHP Test');
 		$email->returnPath('pleasereply@cakephp.org', 'CakePHP Return');
 		$email->to('cake@cakephp.org', 'CakePHP');
@@ -476,7 +476,7 @@ class SmtpTransportTest extends CakeTestCase {
 		$result = $this->SmtpTransport->getLastResponse();
 		$this->assertEquals($expected, $result);
 
-		$email = new CakeEmail();
+		$email = new Email();
 		$email->from('noreply@cakephp.org', 'CakePHP Test');
 		$email->to('cake@cakephp.org', 'CakePHP');
 

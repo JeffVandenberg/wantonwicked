@@ -14,16 +14,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Utility;
 
+use Cake\TestSuite\TestCase;
 
 
-App::uses('Hash', 'Utility');
+use Cake\Utility\Hash;
 
 /**
  * HashTest
  *
  * @package       Cake.Utility
  */
-class HashTest extends CakeTestCase {
+class HashTest extends TestCase {
 
 /**
  * Data provider

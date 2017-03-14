@@ -27,7 +27,7 @@
 class CakeBaseException extends RuntimeException {
 
 /**
- * Array of headers to be passed to CakeResponse::header()
+ * Array of headers to be passed to Response::header()
  *
  * @var array
  */
@@ -41,7 +41,7 @@ class CakeBaseException extends RuntimeException {
  *  - an array of string headers is also accepted
  * @param string $value The header value.
  * @return array
- * @see CakeResponse::header()
+ * @see Response::header()
  */
 	public function responseHeader($header = null, $value = null) {
 		if ($header) {
@@ -533,7 +533,7 @@ class RouterException extends CakeException {
 }
 
 /**
- * Exception class for CakeLog. This exception will be thrown from CakeLog when it
+ * Exception class for Log. This exception will be thrown from Log when it
  * encounters an error.
  *
  * @package       Cake.Error
@@ -542,7 +542,7 @@ class CakeLogException extends CakeException {
 }
 
 /**
- * Exception class for CakeSession. This exception will be thrown from CakeSession when it
+ * Exception class for Session. This exception will be thrown from Session when it
  * encounters an error.
  *
  * @package       Cake.Error
@@ -560,7 +560,7 @@ class ConfigureException extends CakeException {
 }
 
 /**
- * Exception class for Socket. This exception will be thrown from CakeSocket, CakeEmail, HttpSocket
+ * Exception class for Socket. This exception will be thrown from Socket, Email, HttpSocket
  * SmtpTransport, MailTransport and HttpResponse when it encounters an error.
  *
  * @package       Cake.Error

@@ -18,20 +18,22 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
 
 
-App::uses('ShellDispatcher', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('ViewTask', 'Console/Command/Task');
-App::uses('ControllerTask', 'Console/Command/Task');
-App::uses('TemplateTask', 'Console/Command/Task');
-App::uses('ProjectTask', 'Console/Command/Task');
-App::uses('DbConfigTask', 'Console/Command/Task');
-App::uses('Model', 'Model');
-App::uses('Controller', 'Controller');
-App::uses('AppController', 'Controller');
+use Cake\Console\ShellDispatcher;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\ConsoleInput;
+use Cake\Console\Shell;
+use App\Console\Command\Task\ViewTask;
+use App\Console\Command\Task\ControllerTask;
+use App\Console\Command\Task\TemplateTask;
+use App\Console\Command\Task\ProjectTask;
+use App\Console\Command\Task\DbConfigTask;
+use App\Model\Model;
+use Cake\Controller\Controller;
+use App\Controller\AppController;
 
 /**
  * Test View Task Comment Model
@@ -170,7 +172,7 @@ class ViewTaskArticlesController extends Controller {
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class ViewTaskTest extends CakeTestCase {
+class ViewTaskTest extends TestCase {
 
 /**
  * Fixtures
@@ -357,7 +359,7 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->name = 'View';
 
 		//fake plugin path
-		CakePlugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS));
+		Plugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS));
 		$path = APP . 'Plugin' . DS . 'TestTest' . DS . 'View' . DS . 'ViewTaskComments' . DS . 'view.ctp';
 
 		$result = $this->Task->getContent('index');
@@ -368,7 +370,7 @@ class ViewTaskTest extends CakeTestCase {
 			->with($path, $this->anything());
 
 		$this->Task->bake('view', true);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

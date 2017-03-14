@@ -9,7 +9,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('AppHelper', 'View/Helper');
+use App\View\Helper\AppHelper;
 
 /**
  * Tag cloud helper

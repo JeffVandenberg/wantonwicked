@@ -16,7 +16,7 @@
 
 
 
-App::uses('AclNode', 'Model');
+use App\Model\AclNode;
 
 /**
  * Access Request Object

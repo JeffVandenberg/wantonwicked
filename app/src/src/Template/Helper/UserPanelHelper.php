@@ -8,6 +8,7 @@
  * @property HtmlHelper Html
  */namespace app\Template\Helper;
 
+use App\View\Helper\AppHelper;
 
 
 class UserPanelHelper extends AppHelper
@@ -24,7 +25,7 @@ EOQ;
         if(AuthComponent::user('username') !== null) {
             // show user name
             $userName = AuthComponent::user('username');
-            App::uses('Request', 'Model');
+            use App\Model\Request;
             $request = new Request();
 
             $requestCount = $request->find(

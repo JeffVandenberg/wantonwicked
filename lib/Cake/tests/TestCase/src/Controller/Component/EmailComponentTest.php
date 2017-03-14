@@ -18,11 +18,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\TestCase\Controller\Component;
 
+use Cake\Core\App;
+use Cake\Core\Configure;
 
 
-App::uses('Controller', 'Controller');
-App::uses('EmailComponent', 'Controller/Component');
-App::uses('AbstractTransport', 'Network/Email');
+use Cake\Controller\Controller;
+use App\Controller\Component\EmailComponent;
+use App\Network\Email\AbstractTransport;
 
 /**
  * EmailTestComponent class
@@ -59,10 +61,10 @@ class DebugCompTransport extends AbstractTransport {
 /**
  * Send mail
  *
- * @params object $email CakeEmail
+ * @params object $email Email
  * @return bool
  */
-	public function send(CakeEmail $email) {
+	public function send(Email $email) {
 		$email->addHeaders(array('Date' => EmailComponentTest::$sentDate));
 		$headers = $email->getHeaders(array_fill_keys(array('from', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'bcc', 'subject'), true));
 		$to = $headers['To'];
@@ -114,7 +116,7 @@ class EmailTestController extends Controller {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class EmailComponentTest extends CakeTestCase {
+class EmailComponentTest extends TestCase {
 
 /**
  * Controller property

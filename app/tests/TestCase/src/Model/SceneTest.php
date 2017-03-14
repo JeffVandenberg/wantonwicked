@@ -1,13 +1,14 @@
 <?php
 namespace app\Test\TestCase\Model;
 
-App::uses('Scene', 'Model');
+use Cake\TestSuite\TestCase;
+use App\Model\Scene;
 
 /**
  * Scene Test Case
  *
  */
-class SceneTest extends CakeTestCase {
+class SceneTest extends TestCase {
 
 /**
  * Fixtures

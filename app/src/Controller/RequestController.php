@@ -8,6 +8,8 @@
  * @property mixed Permissions
  */namespace app\Controller;
 
+use App\Controller\AppController;
+
 
 
 class RequestController extends AppController

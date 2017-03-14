@@ -17,19 +17,19 @@
  */
 namespace lib\Cake\Test\TestCase\bin\Command\Task;
 
+use App\Console\Command\Task\DbConfigTask;
+use Cake\Console\ConsoleInput;
+use Cake\Console\ConsoleOutput;
+use Cake\Console\Shell;
+use Cake\Console\ShellDispatcher;
 
-App::uses('ShellDispatcher', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('DbConfigTask', 'Console/Command/Task');
 
 /**
  * DbConfigTest class
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class DbConfigTaskTest extends CakeTestCase {
+class DbConfigTaskTest extends TestCase {
 
 /**
  * setUp method

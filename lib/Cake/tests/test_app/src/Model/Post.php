@@ -16,6 +16,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Test\test_app\Model;
 
+use App\Model\AppModel;
+
 
 
 /**

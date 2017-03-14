@@ -12,9 +12,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */namespace lib\Cake\Auth;
 
+use Cake\Controller\Controller;
+use Cake\Utility\Inflector;
 
 
-App::uses('Hash', 'Utility');
+use Cake\Utility\Hash;
 
 /**
  * Abstract base authorization adapter for AuthComponent.
@@ -79,10 +81,10 @@ abstract class BaseAuthorize {
  * Checks user authorization.
  *
  * @param array $user Active user data
- * @param CakeRequest $request Request instance.
+ * @param Request $request Request instance.
  * @return bool
  */
-	abstract public function authorize($user, CakeRequest $request);
+	abstract public function authorize($user, Request $request);
 
 /**
  * Accessor to the controller object.
@@ -106,11 +108,11 @@ abstract class BaseAuthorize {
  * Get the action path for a given request. Primarily used by authorize objects
  * that need to get information about the plugin, controller, and action being invoked.
  *
- * @param CakeRequest $request The request a path is needed for.
+ * @param Request $request The request a path is needed for.
  * @param string $path Path format.
  * @return string the action path for the given request.
  */
-	public function action(CakeRequest $request, $path = '/:plugin/:controller/:action') {
+	public function action(Request $request, $path = '/:plugin/:controller/:action') {
 		$plugin = empty($request['plugin']) ? null : Inflector::camelize($request['plugin']) . '/';
 		$path = str_replace(
 			array(':controller', ':action', ':plugin/'),
