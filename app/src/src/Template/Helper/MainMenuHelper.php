@@ -52,7 +52,7 @@ EOQ;
                     $link = "#";
                     if(isset($item['link'])) {
                         if(is_array($item['link'])) {
-                            $link = $this->Html->url($item['link']);
+                            $link = $this->Url->build($item['link']);
                         }
                         else {
                             $link = $item['link'];

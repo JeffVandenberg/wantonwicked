@@ -39,7 +39,7 @@ EOQ;
                     'contain' => false
                 )
             );
-            $logout = $this->Html->link('Logout', $this->Html->url('/').'forum/ucp.php?mode=logout&sid='.AuthComponent::user('session_id'));
+            $logout = $this->Html->link('Logout', $this->Url->build('/').'forum/ucp.php?mode=logout&sid='.AuthComponent::user('session_id'));
 
             $panel = <<<EOQ
 <span>$userName</span>

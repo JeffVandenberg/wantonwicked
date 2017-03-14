@@ -11,7 +11,7 @@ $this->set('menu', $menu);
 
 <div>
 </div>
-<form method="post" action="<?php echo $this->Html->url(); ?>">
+<form method="post" action="<?php echo $this->Url->build(); ?>">
     <div style="">
         <?php echo $this->Form->hidden('scene_id', array('value' => $scene['Scene']['id'])); ?>
         Select which character is partipating in the scene:

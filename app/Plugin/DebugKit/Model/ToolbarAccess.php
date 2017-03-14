@@ -36,7 +36,7 @@ class ToolbarAccess extends Object {
  * @return array Array of explain information or empty array if connection is unsupported.
  */
 	public function explainQuery($connection, $query) {
-		$db = ConnectionManager::getDataSource($connection);
+		$db = ConnectionManager::get($connection);
 		$datasource = $db->config['datasource'];
 
 		$return = array();

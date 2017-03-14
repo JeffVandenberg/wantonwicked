@@ -94,7 +94,7 @@ endif;
 if (isset($filePresent)):
 	App::uses('ConnectionManager', 'Model');
 	try {
-		$connected = ConnectionManager::getDataSource('default');
+		$connected = ConnectionManager::get('default');
 	} catch (Exception $connectionError) {
 		$connected = false;
 		$errorMsg = $connectionError->getMessage();
