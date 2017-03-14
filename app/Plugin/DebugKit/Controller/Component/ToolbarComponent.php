@@ -13,11 +13,12 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Controller\Component;
 use Cake\Log\Log;
 use App\Log\LogInterface;
 use DebugKit\Lib\DebugTimer;
 use DebugKit\Lib\DebugMemory;
-use App\View\HelperCollection;
+use App\View\HelperRegistry;
 use Cake\Event\EventManager;
 use App\Event\EventListener;
 
@@ -124,11 +125,11 @@ class ToolbarComponent extends Component implements EventListener {
  * If debug is off the component will be disabled and not do any further time tracking
  * or load the toolbar helper.
  *
- * @param ComponentCollection $collection
+ * @param ComponentRegistry $collection
  * @param array $settings
  * @return \ToolbarComponent
  */
-	public function __construct(ComponentCollection $collection, $settings = array()) {
+	public function __construct(ComponentRegistry $collection, $settings = array()) {
 		$settings = array_merge((array)Configure::read('DebugKit'), $settings);
 		$panels = $this->_defaultPanels;
 		if (isset($settings['panels'])) {
@@ -232,7 +233,7 @@ class ToolbarComponent extends Component implements EventListener {
  */
 	public function initialize(Controller $controller) {
 		if (!$this->enabled) {
-			$this->_Collection->disable('Toolbar');
+			$this->_registry->disable('Toolbar');
 		}
 	}
 
