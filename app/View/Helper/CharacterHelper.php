@@ -973,7 +973,7 @@ class CharacterHelper extends AppHelper
                             <?php endif; ?>
                         </td>
                         <td>
-                            <label class="hide-for-large-only">Is Public</label>
+                            <label class="hide-for-large">Is Public</label>
                             <?php if ($this->mayEditOpen()): ?>
                                 <?php echo $this->Form->checkbox('equipment.' . $i . '.is_public', [
                                     'label' => false,
@@ -2175,7 +2175,7 @@ class CharacterHelper extends AppHelper
                 'header' => 'Level',
                 'extra' => [
                     'class' => 'power-level-column',
-                    'html_before' => '<label class="hide-for-large-only">Level</label>'
+                    'html_before' => '<label class="hide-for-large">Level</label>'
                 ],
                 'inputs' => [
                     [
@@ -2190,7 +2190,7 @@ class CharacterHelper extends AppHelper
                 'header' => 'Level',
                 'extra' => [
                     'class' => 'power-level-column',
-                    'html_before' => '<label class="hide-for-large-only">Level</label>'
+                    'html_before' => '<label class="hide-for-large">Level</label>'
                 ],
                 'inputs' => [
                     [
