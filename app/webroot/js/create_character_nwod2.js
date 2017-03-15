@@ -123,7 +123,7 @@ $(function () {
         }
     });
 
-    $(document).on('click', '.remove-character-row', function() {
+    $(document).on('click', '.remove-character-row', function () {
         var row = $(this).closest('tr'),
             target = 'removed-' + $(this).data().targetTable;
 
@@ -168,5 +168,6 @@ $(function () {
     });
 
     $("form").submit(function () {
+        $('#save-character-button').addClass('disabled').attr('disabled', true);
     });
 });

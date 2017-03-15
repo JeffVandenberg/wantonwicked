@@ -17,7 +17,7 @@ $this->set('title_for_layout', 'Create Character');
         <div class="small-12 columns text-center">
             <?php echo $this->Form->button('Save', [
                 'class' => 'button',
-                'id' => 'save',
+                'id' => 'save-character-button',
                 'name' => 'action'
             ]); ?>
         </div>
