@@ -30,7 +30,7 @@ class RepositoryManager
             if(defined('ROOT')) {
                 $path = ROOT . '/class/' . str_replace('\\', DIRECTORY_SEPARATOR, $repositoryClass);
             } else {
-                $path = ROOT_PATH . '../../class/' . str_replace('\\', DIRECTORY_SEPARATOR, $repositoryClass);
+                $path = ROOT_PATH . '../class/' . str_replace('\\', DIRECTORY_SEPARATOR, $repositoryClass);
             }
             if (file_exists($path . '.php')) {
                 $repository = new $repositoryClass();

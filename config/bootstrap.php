@@ -63,6 +63,8 @@ use Cake\Mailer\Email;
 use Cake\Network\Request;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
+use phpbb\auth\auth;
+use phpbb\session;
 
 /*
  * Read configuration file and inject configuration into various
@@ -212,6 +214,35 @@ Type::build('timestamp')
  * Plugin::load('Migrations'); //Loads a single plugin named Migrations
  *
  */
+
+// strap in phpbb
+define('IN_PHPBB', true);
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : WWW_ROOT . '/forum/';
+$phpEx = substr(strrchr(__FILE__, '.'), 1);
+include($phpbb_root_path . 'common.' . $phpEx);
+/* @var $phpbb_container phpbb_cache_container */
+$request = $phpbb_container->get('request');
+/* @var phpbb\request\request $request */
+$request->enable_super_globals();
+
+//
+// Start session management
+//
+/* @var $user session */
+/* @var $auth auth */
+
+$GLOBALS['request'] = $request;
+$GLOBALS['config'] = $config;
+$GLOBALS['symfony_request'] = $symfony_request;
+$GLOBALS['phpbb_filesystem'] = $phpbb_filesystem;
+$GLOBALS['db'] = $db;
+$GLOBALS['phpbb_container'] = $phpbb_container;
+$GLOBALS['cache'] = $cache;
+
+$user->session_begin();
+$auth->acl($user->data);
+$userdata = $user->data;
+$GLOBALS['userdata'] = $userdata;
 
 /*
  * Only try to load DebugKit in development mode

@@ -1200,4 +1200,44 @@ SQL;
         return $this->query($sql)->all($params);
     }
 
+    public function countOpenForUser($userId)
+    {
+        $sql = <<<SQL
+SELECT
+  count(*)
+FROM
+  requests
+WHERE
+  created_by_id = ?
+  AND request_type_id != 4
+  AND requests.request_status_id IN (1,2,3,4,5,6)
+SQL;
+        $params = [
+            $userId
+        ];
+
+        return $this->query($sql)->value($params);
+    }
+
+    public function countNewStRequests($userId)
+    {
+        $sql = <<<SQL
+SELECT
+	count(*) as `total`
+FROM
+	requests AS R
+	LEFT JOIN groups AS G ON R.group_id = G.id
+	LEFT JOIN st_groups AS SG ON G.id = SG.group_id
+WHERE
+	SG.user_id = ?
+	AND R.request_status_id IN (2,6)
+    AND R.request_type_id != 4
+SQL;
+        $params = [
+            $userId
+        ];
+
+        return $this->query($sql)->value($params);
+    }
+
 }

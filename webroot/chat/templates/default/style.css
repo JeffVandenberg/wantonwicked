@@ -1,0 +1,1199 @@
+/**
+
+CSS Notes: 
+
+top | right | bottom | left
+
+margin: 0 0 0 0; 
+padding: 0 0 0 0; 
+
+**/
+
+body
+{
+	overflow: auto;
+}
+
+.body
+{
+	margin: 0 0 0 2px; 
+	padding: 0 0 0 0;
+    background: #111111;
+    font-family: Verdana, Arial, serif;
+	font-size: 12px;
+	font-style: normal;
+	color: #ccc;
+}
+
+/*
+* containers 
+*
+*/
+
+.mainContainer 
+{ 
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	border: 0 solid #EDF1FA;
+	width: 100%; 
+	height: 100%;
+	position:absolute;
+	overflow: hidden;
+} 
+
+#buttonContainer {
+    position: absolute;
+    top: 6px;
+    right: 87px;
+}
+
+.topContainer 
+{ 
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	border: 0 solid #333333;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 70px;
+	position:absolute;
+	overflow: auto;
+	background-color: #0E3B43;
+}
+
+.chatContainer 
+{ 
+	margin: 0 0 0 0; 
+	padding: 2px 2px 2px 2px;
+	border: 0px solid #333333;
+	top: 80px;
+	left: 5px;
+	position:absolute;
+    overflow-y: auto;
+	overflow-x: auto;
+	word-wrap:break-word;
+    background-color: #222222;
+	color: #cccccc;
+}
+
+.userContainer 
+{ 
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	border: 1px solid #333333;
+	top: 106px;
+	right: 5px;
+	position:absolute;
+	background-color: #222222;
+	overflow-y: auto;
+	overflow-x: hidden;
+	color: #ffffff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;		
+}
+
+.adverContainer 
+{ 
+	margin: 0 0 0 0; 
+	padding: 6px 0 0 5px;
+	right: 5px;
+	top: 0;
+	height: 65px;
+	width: 475px;
+	position:absolute;
+	border: 0px solid #666666; 
+	visibility: hidden;
+}
+
+.logoContainer 
+{ 
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	border: 0 solid #84B2DE;
+	left: 5px;
+	top: 8px;
+	width: 450px;
+	height: 71px;
+	position:absolute;
+    background: url('../../templates/default/images/logo.png') no-repeat;
+} 
+
+.optionsContainer 
+{ 
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	/*border: 1px solid #000000; */
+	left: 5px;
+	bottom: 5px;
+	height: 120px;
+	position:absolute;
+	background-color: transparent;
+    /*background: #999999 url('../../templates/default/images/bg2.jpg') repeat;*/
+    -moz-border-radius: 8px;
+	border-radius: 8px;	
+	color: #ffffff;	
+} 
+
+/*
+* webcam window
+*
+*/
+
+.webcamTab
+{
+	position: absolute;
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	height: 30px;
+	width: 220px;
+}
+
+.webcamTitle
+{
+	margin: 0 0 0 0; 
+	padding: 5px 0 2px 0;
+	height: 24px;
+	width: 173px;
+    background: #111111;
+    color: #FFFFFF;
+
+	-moz-border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+}
+
+.webcamContainer
+{
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #222;
+	background-color: #111; 
+	overflow: hidden; 
+	height: 100%; 
+	width: 100%; 
+	min-height:165px;
+	min-width:220px;
+}
+
+.selectSize
+{
+	height: 20px;
+	width: 100px;
+}
+
+.selectSizeDiv
+{
+	padding: 2px 2px 2px 2px;
+	height: 20px;
+	width: 154px;
+	background-color: #111;
+	border: 1px solid #666666; 
+	border-top: none;
+}
+
+/*
+* options 
+*
+*/
+
+.optionsSelectStatus
+{
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0;
+	left: 5px; 
+	bottom: 2px;
+	height: 20px;
+	width: 400px;
+	position:absolute;
+}
+
+.optionsIcons
+{
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 		
+	left: 5px;
+	bottom: 82px;
+	height: 30px;
+	width: 100%;
+	position:absolute;
+}
+
+.optionsBar
+{
+	margin: 0 0 0 0; 
+	padding: 2px 2px 2px 2px; 
+	border: 1px solid #333333; 
+	left: 5px;
+	bottom: 25px;
+	height: 50px;
+	width: 100%;
+	position:absolute;
+	background-color: #222222;
+	-moz-border-radius: 3px;
+	border-radius: 3px;	
+}
+
+.optionsSend
+{
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	border: 1px solid #333333;  
+	right: 5px;
+	bottom: 25px;
+	height: 56px;
+	width: 80px;
+	position:absolute;
+    cursor:pointer;
+	font-weight: bold;
+	color: #00a651;
+    background: #222222;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.optionsLogout
+{
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	border: 1px solid #333333; 
+	right: 5px;
+	bottom: 85px;
+	height: 30px;
+	width: 80px;
+	position:absolute;
+    cursor:pointer;
+	font-weight: bold;
+	color: #9e0b0f;
+    background: #222222;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+/*
+* icons 
+*
+*/
+
+.iconSmilies
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	background: url('../../images/menu/grin_small.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;	
+	
+}
+
+.iconSmiliesOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	background: url('../../images/menu/grin.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;	
+	
+}
+
+.iconRingbell
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;	
+	
+	background: url('../../images/menu/bell_small.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+
+}
+
+.iconRingbellOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;	
+	
+	background: url('../../images/menu/bell.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+
+}
+
+.iconStyle
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url('../../images/menu/styles_small.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconStyleOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url('../../images/menu/styles.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;	
+}
+
+.iconAvatar
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url('../../images/menu/avatars_small.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconAvatarOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url('../../images/menu/avatars.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;	
+}
+
+.iconSounds
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url('../../images/menu/sound_small.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconSoundsOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url('../../images/menu/sound.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconTranscripts
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url('../../images/menu/transcripts_small.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconTranscriptsOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url('../../images/menu/transcripts.png') no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconHelp
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url(../../images/menu/help_small.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconHelpOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url(../../images/menu/help.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;	
+}
+
+.iconeCredits
+{
+    background: url(/chat/images/menu/timer.gif) no-repeat;
+    height: 18px;
+	width: 18px;
+	padding-top: 2px;
+	padding-left: 20px;	
+}
+
+.iconGames
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+    background: url(/chat/plugins/games/games.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconGamesOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	border: 1px solid #CCCCCC;
+    background: #666666 url(../../plugins/games/games.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconShare
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url(../../images/share.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconShareOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url(../../images/share_over.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconRubber
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url(../../images/eraser.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconRubberOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url(../../images/eraser_over.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconEdit
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url(../../images/edit.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconEditOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+	background: url(../../images/edit_over.png) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconCopyright
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+    background: url(../../images/copyright.gif) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+.iconCopyrightOver
+{
+    height: 24px;
+	width: 24px;
+	margin-left: 5px;
+	float: left;
+	cursor:pointer;
+	
+    background: url(../../images/copyright.gif) no-repeat;
+    -moz-border-radius: 3px;
+	border-radius: 3px;		
+}
+
+/*
+* private windows 
+*
+*/
+
+.pWin
+{
+	position: absolute;
+	left: 180px;
+	top: 180px;	
+
+	-moz-border-radius: 8px;
+	border-radius: 8px;		
+}
+
+.pChatWin
+{
+	position: absolute;
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	border: 2px solid #444444;
+    height: 300px;
+	width: 400px;
+    background: #222222;
+
+    -moz-border-radius: 8px;
+	border-radius: 8px;		
+}
+
+.ptitle
+{
+	margin: 0 0 0 0; 
+	padding: 2px 0 2px 0;
+	background-color: #333333;
+	border-bottom:1px solid #222222;
+	height: 20px;
+	width: 100%;
+	
+	-moz-border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+}
+
+.pcontent
+{
+	margin: 0 0 0 0; 
+	padding: 2px 2px 2px 2px;
+	height: 210px;
+	overflow: auto;
+	word-wrap:break-word; 
+	background-color: #111111;
+	width: 99%;
+}
+
+.psendbox
+{
+	position:absolute; 
+	margin: 0 0 0 0; 
+	padding: 2px 2px 2px 2px; 
+	background-color: #111111;
+	height: 30px;
+	width: 99%;/*396px;*/
+	bottom: 0;
+
+	-moz-border-radius: 0 0 8px 8px;
+	border-radius: 0 0 8px 8px;
+}
+
+.pmenuBar
+{
+	position:absolute; 
+	margin: 0 0 0 0; 
+	padding: 2px 2px 2px 2px; 
+	background-color: #222222;
+	border-top:1px solid #333333;
+	height: 26px;
+	width: 99%;/*396px;*/
+	bottom: 30px;
+}
+
+.poptionsSend
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	right: 5px;
+	bottom: 4px;
+	height: 28px;
+	width: 50px;
+	position:absolute;
+    cursor:pointer;
+	color: #00a651;
+
+    background: #111111;
+
+    -moz-border-radius: 5px;
+	border-radius: 5px;		
+}
+
+.poptionsBar
+{
+	position:absolute; 
+	margin: 0 0 0 0; 
+	padding: 0 2px 2px 2px;
+	background-color: #111111;
+	border: 1px solid #333333; 
+	height: 24px;
+	width: 330px;
+	bottom: 4px;
+	left: 4px;
+	
+	-moz-border-radius: 5px;
+	border-radius: 5px;		
+}
+
+/*
+* room select 
+*
+*/
+
+.roomIcon 
+{ 
+	right: 210px;
+	top: 76px;
+	position:absolute;
+	cursor: pointer;
+} 
+
+.roomSelect 
+{ 
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	border: 1px solid #333333; 
+	right: 5px;
+	top: 80px;
+	height: 20px;
+	width: 200px;
+	position:absolute;
+	
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+}
+
+.roomCreate 
+{ 
+	margin: 0 0 0 0; 
+	padding: 2px 2px 2px 2px; 
+	background-color: #222222;
+	border: 1px solid #333333; 
+	right: 5px;
+	top: 80px;
+	height: auto;
+	width: 200px;
+	position:absolute;
+	visibility: hidden;
+	z-index: 100;
+	-moz-border-radius: 5px;
+	border-radius: 5px;		
+}
+
+.roomButtons
+{
+	height: 24px;
+	width: 90px;
+	border: 1px solid #333333;
+	background-color: #0E3B43;
+	color: #FFFFFF;
+	cursor: pointer;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+}
+
+.roomInput
+{
+	border: 1px solid #333333; 
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+}
+
+/*
+* userlist 
+*
+*/
+
+.roomheader
+{
+	height: 20px;
+	background: #0E3B43; /* Old browsers */
+	border-top: 1px solid #333333;
+	/*border-top-right-radius:5px;
+	border-top-left-radius:5px;*/
+	border-radius:5px;
+	padding-top: 2px;
+	cursor: pointer;
+	font-weight: normal;
+	color: #ffffff;
+}
+
+.usercount
+{
+	padding-right:2px;
+}
+
+.userlist
+{
+	height: 26px;
+	padding: 2px 0 0 0;
+	cursor: pointer;
+	background-color: #111111;
+}
+
+/*
+* user info options
+*
+*/
+
+.userInfo
+{
+	position:absolute;
+    z-index: 999;
+	margin: 0 0 0 0;
+	padding: 2px 2px 10px 2px; 
+	border: 1px solid #333333; 
+	background-color: #222222;
+	height: auto;
+	width: 180px;
+	left: 3px;
+	
+	-moz-border-radius: 5px;
+	border-radius: 5px;		
+}
+
+.userInfoTitle
+{
+	height: 30px;
+	padding: 4px 4px 0 4px;
+	background-color: #333333;
+	color: #cccccc;
+}
+
+.userInfoOptions
+{
+	padding: 2px 2px 2px 2px; 
+}
+
+/*
+* div windows
+*
+*/
+
+.titleWin
+{
+	background-color:#0E3B43;
+}
+
+.smiliesWin
+{
+	position:absolute;
+	bottom:136px;
+	left:10px;
+	width:auto;
+	height:auto;
+	cursor:pointer;
+	padding: 1px 1px 0 1px; 
+	border: 1px solid #333333;
+	background-color:#222222;
+	visibility: hidden;	
+}
+
+.avatarsWin
+{
+	position:absolute;
+	bottom:136px;
+	left:80px;
+	width:auto;
+	height:auto;
+	cursor:pointer;
+	padding: 1px 1px 0 1px; 
+	border: 1px solid #333333;
+	background-color:#222222;
+	visibility: hidden;
+}
+
+.sFXWin
+{
+	position:absolute;
+	bottom:136px;
+	left:130px;
+	width:160px;
+	height:200px;
+	cursor:pointer;
+	padding: 1px 1px 0 1px; 
+	border: 1px solid #333333;
+	background-color:#222222;
+	visibility: hidden;
+	overflow-y: scroll;
+}
+
+.colorsWin
+{
+	position:absolute;
+	bottom:136px;
+	left:47px;
+	width:auto;
+	height:auto;
+	cursor:pointer;
+	padding: 1px 1px 3px 1px; 
+	border: 1px solid #333333;
+	background-color:#222222;
+	visibility: hidden;
+	overflow-y: none;
+}
+
+.fontfamilyWin
+{
+	position:absolute;
+	bottom:136px;
+	left:150px;
+	width:auto;
+	height:auto;
+	cursor:pointer;
+	padding: 1px 1px 0 1px; 
+	border: 1px solid #333333;
+	background-color:#222222;
+	visibility: hidden;
+	overflow-y: none;
+}
+
+.fontsizeWin
+{
+	position:absolute;
+	bottom:136px;
+	left:253px;
+	width:auto;
+	height:auto;
+	cursor:pointer;
+	padding: 1px 1px 0 1px; 
+	border: 1px solid #333333;
+	background-color:#222222;
+	visibility: hidden;
+	overflow-y: none;
+}
+
+.editWin
+{
+	position:absolute;
+	bottom:136px;
+	left:180px;
+	width:auto;
+	height:auto;
+	padding: 1px 1px 0 1px; 
+	border: 1px solid #333333;
+	background-color:#222222;
+	visibility: hidden;
+	color: #fff;
+}
+
+/*
+* chat messages 
+*
+*/
+
+.welcomeMessage 
+{
+	padding: 2px 2px 2px 2px;
+	border: 1px solid #EFD6AC;
+	height: auto;
+	background-color: #111111;
+	color: #ffffff;
+} 
+
+.chatMessage
+{
+	padding: 2px 2px 2px 2px;
+	border-bottom: 1px solid #111111; 	
+	background-color: #222222;
+	min-height: 40px;
+	height: auto;
+	clear:both;
+	color: #cccccc;
+}
+
+.whisperMessage
+{
+	padding: 2px 2px 2px 2px;
+	border: 1px solid #bbb; 	
+	background-color: #222222;
+	min-height: 40px;
+	height: auto;
+	color: #cccccc;
+}
+
+/*
+* mouse over
+*
+*/
+
+.highliteOn
+{
+	border: 1px solid #222222;
+	background-color: #222222; 
+	color: #FFFFFF;
+}
+
+.highliteOff
+{
+	border: 1px solid #222222;
+	background-color: #222222;
+	color: #aaaaaa;	
+}
+
+/*
+* info boxes
+*
+*/
+
+.oInfo
+{
+	/** do not edit **/
+	text-align: center;
+	position:absolute;
+	z-index:100;
+	top:0;
+	height:1px;
+	width:99%;
+	/*visibility: hidden;*/
+	display: none;
+	border: 0 solid #333333;
+}
+
+.innerInfo
+{
+	position:relative;
+	margin: 0 auto;
+	background-color: #111111;
+	border: 0 solid #333333;
+	/*visibility: hidden;*/
+	overflow-y: auto;
+	overflow-x: auto;
+	-moz-border-radius: 8px;
+	border-radius: 8px;		
+}
+
+/*
+* div window buttons
+*
+*/
+
+.button
+{
+	height: 24px;
+	width: 140px;
+	border: 1px solid #333333;
+	background-color: #666666;
+	color: #FFFFFF;
+	cursor: pointer;
+	-moz-border-radius: 5px;
+	border-radius: 5px;		
+}
+
+/*
+* captcha box
+*
+*/
+
+.captcha
+{
+	color: #cccccc;
+	background-color: #111111;
+	border: 1px solid #84B2DE;
+	padding: 2px;
+}
+
+/*
+* whisper box
+*
+*/
+
+.whisper
+{
+	width: 80px;
+	height: 14px;
+	background-color: #111111;
+	border: 1px solid #333333;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+}
+
+.scrollable-container {
+    /*width:200px;*/
+    overflow:hidden;
+    white-space: nowrap;
+}
+.scrollable {
+    /*float: left;*/
+    position: relative;
+}
+
+.room-div {
+    width: 190px;
+    overflow:hidden;
+    white-space: nowrap;
+    float: left;
+}
+
+.user-div {
+}
+
+.st-user {
+    color: #6dcff6;
+}
+
+.user-storyteller {
+    color: #6dcff6;
+}
+
+.user-wiki {
+    color: #79d572;
+}
+
+.user-admin {
+    color: #f94f55;
+}
+
+.ghost {
+    color: #444444;
+}
+
+.floatingtooltip {
+    border: solid 1px #333333;
+    background-color: #222222;
+	border-radius:4px;
+    width: 224px;
+    padding: 5px;
+}
+
+#tool-wrapper {
+	position: absolute;
+	bottom: 2px;
+	left: 50%;
+	margin-left: -100px;
+	width: 200px;
+	text-align: center;
+	padding: 2px;
+	background-color: #111111;
+	border-radius:4px;
+	border:1px solid #fff;
+
+}
+
+#server-time {
+}
+
+#server-time > label {
+    font-weight: bold;
+}
+
+#user-tool-menu {
+	width: 100px;
+	display: inline;
+}
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(14,59,67,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(17,17,17,0.4); 
+}
+
+/* unvisited link */
+a:link {
+    color: #EFD6AC;
+}
+
+/* visited link */
+a:visited {
+    color: #EFD6AC;
+}
+
+/* mouse over link */
+a:hover {
+    color: #ffffff;
+}
+
+/* selected link */
+a:active {
+    color: #EFD6AC;
+}

@@ -13,20 +13,25 @@
     }
   ],
   "require": {
-    "php": ">=5.3.0",
+    "php": ">=5.6",
     "phpmailer/phpmailer": "^5.2",
-    "cakephp/app": "^3.4",
-    "cakedc/tags": "1.6.*"
+    "cakephp/cakephp": "^3.4",
+    "cakephp/migrations": "~1.0",
+    "trentrichardson/cakephp-shrink": "~3.0",
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.7"
+    "psy/psysh": "@stable",
+    "phpunit/phpunit": "^4.7",
+    "cakephp/debug_kit": "~3.0",
+    "cakephp/bake": "~1.1"
   },
   "autoload": {
     "psr-4": {
-      "classes\\": "class/classes/"
+      "classes\\": "class/classes/",
+      "App\\": "src/"
     },
     "files": [
-      "app/webroot/cgi-bin/start_of_page.php"
+      "webroot/cgi-bin/start_of_page.php"
     ]
   }
 }

@@ -15,7 +15,7 @@ class SceneRepository extends AbstractRepository
 {
     function __construct()
     {
-        parent::__construct();
+        parent::__construct('classes\scene\data\Scene');
     }
 
     public function ListScenesForCharacter($characterId)
