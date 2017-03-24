@@ -40,10 +40,14 @@ class MenuComponent extends Component
         if ($this->Auth->user()) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['player']);
 
-            $characterRepo = new Character();
             $characterTable = TableRegistry::get('Characters');
             $query = $characterTable
                 ->find()
+                ->select([
+                    'Characters.character_name',
+                    'Characters.id',
+                    'Characters.slug'
+                ])
                 ->where([
                     'Characters.is_sanctioned' => 'Y',
                     'Characters.user_id' => $this->Auth->user('user_id'),

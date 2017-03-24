@@ -2,6 +2,9 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
+use Cake\Utility\Inflector;
+use Cake\Utility\Text;
 
 /**
  * Scene Entity
@@ -42,4 +45,26 @@ class Scene extends Entity
         '*' => true,
         'id' => false
     ];
+
+    protected function _setName($value)
+    {
+        $slug = Text::slug(strtolower($value));
+        $sceneTable = TableRegistry::get('Scenes');
+        $query = $sceneTable
+            ->find();
+        $query
+            ->select([
+                'count' => $query->func()->count('*')
+            ])
+            ->where([
+                'Scenes.slug LIKE' => $slug . '%'
+            ]);
+        $count = $query->first();
+
+        if($count['count'] > 0) {
+            $slug .= ($count['count'] + 1);
+        }
+        $this->set('slug', $slug);
+        return $value;
+    }
 }

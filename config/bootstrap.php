@@ -101,7 +101,7 @@ if (Configure::read('debug')) {
  * Set server timezone to UTC. You can change it to another timezone of your
  * choice but using UTC makes time calculations / conversions easier.
  */
-date_default_timezone_set('UTC');
+date_default_timezone_set(ini_get('date.timezone'));
 
 /*
  * Configure the mbstring extension to use the correct encoding.
@@ -235,6 +235,7 @@ $GLOBALS['request'] = $request;
 $GLOBALS['config'] = $config;
 $GLOBALS['symfony_request'] = $symfony_request;
 $GLOBALS['phpbb_filesystem'] = $phpbb_filesystem;
+$GLOBALS['phpbb_dispatcher'] = $phpbb_dispatcher;
 $GLOBALS['db'] = $db;
 $GLOBALS['phpbb_container'] = $phpbb_container;
 $GLOBALS['cache'] = $cache;

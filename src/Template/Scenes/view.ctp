@@ -63,7 +63,7 @@ $this->set('menu', $menu);
 <table>
     <tr>
         <th colspan="2">
-            This scene is: <?php echo $scene->name; ?>
+            This scene is: <?php echo $scene->scene_status->name; ?>
         </th>
     </tr>
     <tr>

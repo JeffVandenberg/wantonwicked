@@ -79,21 +79,10 @@ class PermissionsComponent extends Component
 
     public function MayEditCharacter($characterId)
     {
-        $characterRepo = new Character();
-
-        $character = $characterRepo->find('first', array(
-            'conditions' => array(
-                'Character.id' => $characterId
-            ),
-            'fields' => array(
-                'user_id'
-            ),
-            'contain' => false
-        ));
-
+        $character = TableRegistry::get('Characters')->get($characterId);
         return
             (
-                $character['Character']['user_id'] == $this->Auth->user('user_id')
+                $character->user_id == $this->Auth->user('user_id')
                 ||
                 $this->CheckSitePermission($this->Auth->user('user_id'), Permission::$ManageCharacters)
             );

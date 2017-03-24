@@ -117,9 +117,9 @@ class ScenesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['run_by_id'], 'Users'));
-        $rules->add($rules->existsIn(['created_by_id'], 'Users'));
-        $rules->add($rules->existsIn(['updated_by_id'], 'Users'));
+        $rules->add($rules->existsIn(['run_by_id'], 'RunBy'));
+        $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
+        $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBy'));
         $rules->add($rules->existsIn(['scene_status_id'], 'SceneStatuses'));
 
         return $rules;

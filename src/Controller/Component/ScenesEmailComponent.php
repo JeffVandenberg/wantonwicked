@@ -1,4 +1,5 @@
 <?php
+namespace app\Controller\Component;
 
 /**
  * Created by PhpStorm.
@@ -6,116 +7,118 @@
  * Date: 7/6/15
  * Time: 3:45 PM
  */
-namespace app\Controller\Component;
 
+use App\Model\Entity\Character;
+use App\Model\Entity\Scene;
+use App\Model\Entity\SceneCharacter;
+use App\Model\Entity\User;
 use Cake\Controller\Component;
+use Cake\Mailer\Email;
+use Cake\ORM\TableRegistry;
 
 class ScenesEmailComponent extends Component
 {
-    public function SendJoinEmail($scene, $sceneCharacter)
+    public function SendJoinEmail(Scene $scene, SceneCharacter $sceneCharacter)
     {
         // load runner
-        $users = new User();
-        $user  = $users->find('first', array(
-            'conditions' => array(
-                'User.user_id' => $scene['Scene']['run_by_id']
-            )
-        ));
+        $usersTable = TableRegistry::get('Users');
+        $user = $usersTable->get($scene->run_by_id);
+        /* @var User $user */
 
-        if(!$user) {
+        if (!$user) {
             // abort if there's no one declared running the scene yet
             return;
         }
 
         // load character
-        $characters = new Character();
-        $character  = $characters->find('first', array(
-            'conditions' => array(
-                'Character.id' => $sceneCharacter['SceneCharacter']['character_id']
-            ),
-            'contain'    => false
-        ));
+        $characters = TableRegistry::get('Characters');
+        $character = $characters->get($sceneCharacter->character_id);
+        /* @var Character $character */
 
         $emailer = new Email();
-        $emailer->to($user['User']['user_email']);
-        $emailer->from('wantonwicked@gamingsandbox.com');
-        $emailer->subject('A New character has joined your scene: ' . $scene['Scene']['name']);
-        $emailer->emailFormat('html');
-        $emailer->template('scene_join', 'wantonwicked')->viewVars(
-            array(
-                'scene'          => $scene,
+        $emailer->setTo($user->user_email);
+        $emailer->setFrom('wantonwicked@gamingsandbox.com');
+        $emailer->setSubject('A New character has joined your scene: ' . $scene->name);
+        $emailer->setEmailFormat('html');
+        $emailer->setLayout('wantonwicked');
+        $emailer->setTemplate('scene_join')->setViewVars(
+            [
+                'scene' => $scene,
                 'sceneCharacter' => $sceneCharacter,
-                'character'      => $character
-            )
+                'character' => $character
+            ]
         );
         $emailer->send();
     }
 
-    public function SendScheduleChange($newScene, $oldScene)
+    public function SendScheduleChange(Scene $newScene, $oldScene)
     {
-        $sceneCharacterRepo = new SceneCharacter();
-        $sceneCharacters    = $sceneCharacterRepo->find('all', array(
-            'conditions' => array(
-                'SceneCharacter.scene_id' => $newScene['Scene']['id']
-            ),
-            'contain'    => array(
-                'Character' => array(
-                    'fields' => array(
-                        'id'
-                    ),
-                    'Player' => array(
-                        'user_email'
-                    )
-                )
-            )
-        ));
+        $query = TableRegistry::get('SceneCharacters')->query();
+        $query
+            ->select([
+                'Character.character_name',
+                'Users.user_email'
+            ])
+            ->contain([
+                'Characters' => [
+                    'Users'
+                ]
+            ])
+            ->where([
+                'SceneCharacters.scene_id' => $newScene->id
+            ]);
+        $sceneCharacters = $query->toArray();
 
-        $emailer = new Email();
-        $emailer->from('wantonwicked@gamingsandbox.com');
-        $emailer->subject($newScene['Scene']['name'] . ' is being run at a new time');
-        $emailer->emailFormat('html');
-        $emailer->template('scene_schedule', 'wantonwicked')->viewVars(
-            array(
-                'newScene' => $newScene,
-                'oldScene' => $oldScene
-            )
-        );
+        $emailer = (new Email())
+            ->setFrom('wantonwicked@gamingsandbox.com')
+            ->setSubject($newScene['Scene']['name'] . ' is being run at a new time')
+            ->setEmailFormat('html')
+            ->setLayout('wantonwicked')
+            ->setTemplate('scene_schedule')
+            ->setViewVars(
+                [
+                    'newScene' => $newScene,
+                    'oldScene' => $oldScene
+                ]
+            );
         foreach ($sceneCharacters as $sceneCharacter) {
-            $emailer->to($sceneCharacter['Character']['Player']['user_email']);
+            $emailer->setTo($sceneCharacter['Character']['Player']['user_email']);
             $emailer->send();
         }
     }
 
-    public function SendCancelEmails($scene)
+    public function SendCancelEmails(Scene $scene)
     {
-        $sceneCharacterRepo = new SceneCharacter();
-        $sceneCharacters    = $sceneCharacterRepo->find('all', array(
-            'conditions' => array(
-                'SceneCharacter.scene_id' => $scene['Scene']['id']
-            ),
-            'contain'    => array(
-                'Character' => array(
-                    'fields' => array(
-                        'id'
-                    ),
-                    'Player' => array(
-                        'user_email'
-                    )
-                )
-            )
-        ));
+        $sceneCharacterTable = TableRegistry::get('SceneCharacters');
+        $sceneCharacters = $sceneCharacterTable
+            ->find()
+            ->select()
+            ->contain([
+                'Character' => [
+                    'Users' => [
+                        'fields' => [
+                            'user_email'
+                        ]
+                    ]
+                ]
+            ])
+            ->where([
+                'SceneCharacters.scene_id' => $scene->id
+            ])
+            ->toArray();
+        /* @var SceneCharacter[] $sceneCharacters */
 
-        $emailer = new Email();
-        $emailer->from('wantonwicked@gamingsandbox.com');
-        $emailer->subject($scene['Scene']['name'] . ' has been cancelled');
-        $emailer->emailFormat('html');
-        $emailer->template('scene_cancel', 'wantonwicked')->viewVars(
-            array(
+        $emailer = (new Email())
+            ->setFrom('wantonwicked@gamingsandbox.com')
+            ->setSubject($scene->name . ' has been cancelled')
+            ->setEmailFormat('html')
+            ->setLayout('wantonwicked')
+            ->setTemplate('scene_cancel')
+            ->setViewVars([
                 'scene' => $scene,
-            )
-        );
+            ]);
         foreach ($sceneCharacters as $sceneCharacter) {
-            $emailer->to($sceneCharacter['Character']['Player']['user_email']);
+            $emailer->setTo($sceneCharacter->character->user->user_email);
             $emailer->send();
         }
     }

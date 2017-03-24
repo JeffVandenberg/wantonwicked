@@ -24,7 +24,7 @@ class UserPanelHelper extends AppHelper
 <a href="/forum/ucp.php?mode=register&redirect=$page">Register</a>
 EOQ;
 
-        if ($this->request->session()->read('Auth.User.username') !== null) {
+        if ($this->request->session()->read('Auth.User.user_id') != 1) {
             // show user name
             $userName = $this->request->session()->read('Auth.User.username');
 

@@ -35,7 +35,7 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('phpbb_users');
-        $this->setDisplayField('user_id');
+        $this->setDisplayField('username');
         $this->setPrimaryKey('user_id');
 
         $this->belongsTo('Users', [

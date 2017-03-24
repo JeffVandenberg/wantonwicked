@@ -47,7 +47,7 @@ class CharactersTable extends Table
         parent::initialize($config);
 
         $this->setTable('characters');
-        $this->setDisplayField('id');
+        $this->setDisplayField('character_name');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Users', [

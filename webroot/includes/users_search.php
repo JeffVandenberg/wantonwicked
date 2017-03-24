@@ -21,8 +21,7 @@ ORDER BY
     username
 LIMIT 20;
 EOQ;
-}
-else {
+} else {
     $query = <<<EOQ
 SELECT
     user_id,
@@ -36,7 +35,7 @@ ORDER BY
 LIMIT 20;
 EOQ;
 }
-$db    = new Database();
+$db = new Database();
 $term = $_GET['query'];
 $users = $db->query($query)->bind('term', strtolower($term) . '%')->all();
 
@@ -45,8 +44,7 @@ foreach ($users as $row) {
     $row_array['data'] = $row['user_id'];
     if ($email) {
         $row_array['value'] = $row['username'] . ' (' . $row['user_email'] . ')';
-    }
-    else {
+    } else {
         $row_array['value'] = $row['username'];
     }
 
@@ -54,7 +52,7 @@ foreach ($users as $row) {
 }
 
 if (count($list) == 0) {
-    $list[] = array("value" => '0', 'label' => 'No Matches');
+    $list[] = array("data" => '0', 'value' => 'No Matches');
 }
 
 $data = [

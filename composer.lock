@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2512f7e268268a86bb01db47ecd04278",
-    "content-hash": "17878f45857c29abc2acec5a5aa3efcb",
+    "hash": "a58bb3372480e39df4c2a1043c0ee37f",
+    "content-hash": "d1c3b62ff971b6e9c069045162c1dc95",
     "packages": [
         {
             "name": "aura/intl",
@@ -52,48 +52,6 @@
                 "localization"
             ],
             "time": "2017-01-20 05:00:11"
-        },
-        {
-            "name": "cakedc/tags",
-            "version": "1.6.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/CakeDC/tags.git",
-                "reference": "292347f92eeadcd00824b42d87d6c2a531f00254"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/CakeDC/tags/zipball/292347f92eeadcd00824b42d87d6c2a531f00254",
-                "reference": "292347f92eeadcd00824b42d87d6c2a531f00254",
-                "shasum": ""
-            },
-            "require": {
-                "composer/installers": "*",
-                "php": ">=5.3.0"
-            },
-            "type": "cakephp-plugin",
-            "extra": {
-                "installer-name": "Tags"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Cake Development Corporation",
-                    "email": "team@cakedc.com",
-                    "homepage": "http://cakedc.com"
-                }
-            ],
-            "description": "Tags plugin for CakePHP.",
-            "homepage": "http://github.com/CakeDC/tags",
-            "keywords": [
-                "cakephp",
-                "plugin",
-                "tags"
-            ],
-            "time": "2015-10-22 14:50:15"
         },
         {
             "name": "cakephp/cakephp",
@@ -3027,16 +2985,16 @@
         },
         {
             "name": "seld/cli-prompt",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/cli-prompt.git",
-                "reference": "8cbe10923cae5bcd7c5a713f6703fc4727c8c1b4"
+                "reference": "a19a7376a4689d4d94cab66ab4f3c816019ba8dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/cli-prompt/zipball/8cbe10923cae5bcd7c5a713f6703fc4727c8c1b4",
-                "reference": "8cbe10923cae5bcd7c5a713f6703fc4727c8c1b4",
+                "url": "https://api.github.com/repos/Seldaek/cli-prompt/zipball/a19a7376a4689d4d94cab66ab4f3c816019ba8dd",
+                "reference": "a19a7376a4689d4d94cab66ab4f3c816019ba8dd",
                 "shasum": ""
             },
             "require": {
@@ -3071,7 +3029,7 @@
                 "input",
                 "prompt"
             ],
-            "time": "2016-04-18 09:31:41"
+            "time": "2017-03-18 11:32:45"
         },
         {
             "name": "seld/jsonlint",

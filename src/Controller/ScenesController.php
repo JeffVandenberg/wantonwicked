@@ -4,19 +4,23 @@ namespace App\Controller;
 use App\Controller\Component\PermissionsComponent;
 use App\Controller\Component\ScenesEmailComponent;
 use App\Model\Entity\Scene;
+use App\Model\Entity\SceneCharacter;
 use App\Model\Entity\SceneStatus;
+use App\Model\Table\CharactersTable;
+use App\Model\Table\ScenesTable;
 use Cake\Controller\Component\PaginatorComponent;
 use Cake\Event\Event;
+use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 
 
 /**
  * Scenes Controller
  *
- * @property Scene $Scene
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property ScenesEmailComponent ScenesEmail
+ * @property ScenesTable Scenes
  */
 class ScenesController extends AppController
 {
@@ -29,8 +33,7 @@ class ScenesController extends AppController
     public $components = array(
         'ScenesEmail'
     );
-    public $helpers = array(
-    );
+    public $helpers = array();
 
     public $paginate = [
         'order' => [
@@ -75,8 +78,7 @@ class ScenesController extends AppController
             ->contain([
             ])
             ->order('Scenes.run_on_date')
-            ->toArray()
-        ;
+            ->toArray();
 
         $this->set([
             'scenes' => $scenes,
@@ -88,7 +90,7 @@ class ScenesController extends AppController
 
     public function tag($tag = null)
     {
-        $scenes = $this->Scene->listScenesWithTag($tag);
+        $scenes = $this->Scenes->listScenesWithTag($tag);
 
         $this->set([
             'scenes' => $scenes,
@@ -107,8 +109,7 @@ class ScenesController extends AppController
      */
     public function view($slug = null)
     {
-        $scenes = TableRegistry::get('Scenes');
-        $query = $scenes
+        $query = $this->Scenes
             ->find()
             ->where(['Scenes.slug' => $slug])
             ->contain([
@@ -140,6 +141,9 @@ class ScenesController extends AppController
             ->contain([
                 'Characters'
             ])
+            ->order([
+                'Characters.character_name'
+            ])
             ->toArray();
         $this->set(compact('sceneCharacters'));
     }
@@ -156,19 +160,19 @@ class ScenesController extends AppController
                 $this->redirect('/scenes');
             }
             if ($this->request->getData()['action'] == 'Create') {
-                $scene = $this->request->getData();
+                $scene = $this->Scenes->newEntity();
+                $scene = $this->Scenes->patchEntity($scene, $this->request->getData());
+                $scene->scene_status_id = SceneStatus::Open;
+                $scene->created_by_id = $this->Auth->user('user_id');
+                $scene->created_on = date('Y-m-d H:i:s');
+                $scene->updated_by_id = $this->Auth->user('user_id');
+                $scene->updated_on = date('Y-m-d H:i:s');
 
-                $scene['Scene']['scene_status_id'] = SceneStatus::Open;
-                $scene['Scene']['created_by_id'] = $this->Auth->user('user_id');
-                $scene['Scene']['created_on'] = date('Y-m-d H:i:s');
-                $scene['Scene']['updated_by_id'] = $this->Auth->user('user_id');
-                $scene['Scene']['updated_on'] = date('Y-m-d H:i:s');
-
-                if ($this->Scene->saveScene($scene)) {
+                if ($this->Scenes->save($scene)) {
                     $this->Flash->set(__('The scene has been saved. Invite people to it with this link:' .
-                        ' http://wantonwicked.gamingsandbox.com/scenes/join/' . $scene['Scene']['slug']));
+                        ' http://wantonwicked.gamingsandbox.com/scenes/join/' . $scene->slug));
 
-                    $this->redirect(array('action' => 'view', $scene['Scene']['slug']));
+                    $this->redirect(array('action' => 'view', $scene->slug));
                 } else {
                     $this->Flash->set(__('The scene could not be saved. Please, try again.'));
                 }
@@ -184,79 +188,52 @@ class ScenesController extends AppController
      */
     public function edit($slug = null)
     {
-        $scene = $this->Scene->find('first', array(
-            'conditions' => array(
-                'Scene.slug' => $slug
+        $scene = $this->Scenes
+            ->query()
+            ->where([
+                    'Scenes.slug' => $slug
+                ]
             )
-        ));
+            ->contain([
+                'RunBy' => [
+                    'fields' => [
+                        'username'
+                    ]
+                ]
+            ])
+            ->first();
+        /* @var Scene $scene */
+
         if (!$scene) {
             $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
 
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->request->data['action'] == 'Cancel') {
-                $this->redirect(array('action' => 'view', $scene['Scene']['slug']));
+        if ($this->request->is(['post', 'put', 'patch'])) {
+            if ($this->request->getData()['action'] == 'Cancel') {
+                $this->redirect(['action' => 'view', $scene->slug]);
             }
-            if ($this->request->data['action'] == 'Update') {
-                $scene = $this->request->data;
-                $newDate = $scene['Scene']['run_on_date']['year'] . '-' .
-                    $scene['Scene']['run_on_date']['month'] . '-' .
-                    $scene['Scene']['run_on_date']['day'] . ' ' .
-                    $scene['Scene']['run_on_date']['hour'] . ':' .
-                    $scene['Scene']['run_on_date']['min'] . ' ' .
-                    $scene['Scene']['run_on_date']['meridian'];
+            if ($this->request->getdata()['action'] == 'Update') {
+                $oldScene = clone $scene;
+                $scene = $this->Scenes->patchEntity($scene, $this->request->getData());
 
-                $newRunDate = date('Y-m-d H:i:s', strtotime($newDate));
-                $oldScene = $this->Scene->find('first', array(
-                    'conditions' => array(
-                        'Scene.id' => $scene['Scene']['id']
-                    ),
-                    'contain' => false
-                ));
+                $scene->updated_by_id = $this->Auth->user('user_id');
+                $scene->updated_on = date('Y-m-d H:i:s');
 
-                $scene['Scene']['updated_by_id'] = $this->Auth->user('user_id');
-                $scene['Scene']['updated_on'] = date('Y-m-d H:i:s');
-
-                if ($this->Scene->saveScene($scene)) {
-                    if ($oldScene['Scene']['run_on_date'] != $newRunDate) {
-                        $scene['Scene']['run_on_date'] = $newRunDate;
+                if ($this->Scenes->save($scene)) {
+                    if ($oldScene->run_on_date != $scene->run_on_date) {
                         $this->ScenesEmail->SendScheduleChange($scene, $oldScene);
                     }
 
                     $this->Flash->set(__('The scene has been saved.'));
 
-                    $this->redirect(array('action' => 'view', $scene['Scene']['slug']));
+                    $this->redirect(array('action' => 'view', $scene->slug));
                 } else {
                     $this->Flash->set(__('The scene could not be saved. Please, try again.'));
                 }
             }
-        } else {
-            $this->request->data = $scene;
         }
-    }
-
-    /**
-     * delete method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function delete($id = null)
-    {
-        $this->Scene->id = $id;
-        if (!$this->Scene->exists()) {
-            throw new NotFoundException(__('Invalid scene'));
-        }
-        $this->request->onlyAllow('post', 'delete');
-        if ($this->Scene->delete()) {
-            $this->Flash->set(__('The scene has been deleted.'));
-        } else {
-            $this->Flash->set(__('The scene could not be deleted. Please, try again.'));
-        }
-
-        $this->redirect(array('action' => 'index'));
+        $this->set(compact('scene'));
     }
 
     /**
@@ -265,41 +242,47 @@ class ScenesController extends AppController
      */
     public function join($slug)
     {
-        $scene = $this->Scene->find('first', array(
-            'conditions' => array(
-                'Scene.slug' => $slug
-            ),
-            'contain' => false
-        ));
-
+        $scene = $this->Scenes
+            ->query()
+            ->where([
+                    'Scenes.slug' => $slug
+                ]
+            )
+            ->contain([
+                'RunBy' => [
+                    'fields' => [
+                        'username'
+                    ]
+                ]
+            ])
+            ->first();
+        /* @var Scene $scene */
         if (!$scene) {
             $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
 
-        if ($scene['Scene']['is_closed']) {
+        if ($scene->scene_status_id == SceneStatus::Completed) {
             $this->Flash->set('This Scene is closed');
             $this->redirect(array('action' => 'view', $slug));
         }
 
         if ($this->request->is(array('post', 'put'))) {
-            if ($this->request->data['action'] == 'Cancel') {
+            if ($this->request->getData()['action'] == 'Cancel') {
                 $this->redirect(array('action' => 'view', $slug));
             }
-            if ($this->request->data['action'] == 'Join') {
+            if ($this->request->getData()['action'] == 'Join') {
+                $sceneCharacters = TableRegistry::get('SceneCharacters');
+                $sceneCharacter = $sceneCharacters->newEntity();
+                /* @var SceneCharacter $sceneCharacter */
+                $data = $this->request->getData();
+                $sceneCharacter->character_id = $data['character_id'];
+                $sceneCharacter->scene_id = $data['scene_id'];
+                $sceneCharacter->note = $data['note'];
+                $sceneCharacter->added_on = date('Y-m-d H:i:s');
 
-                $sceneCharacter = new SceneCharacter();
-                $sceneCharacter->create();
-
-                $data['SceneCharacter'] = array(
-                    'character_id' => $this->request->data['character_id'],
-                    'scene_id' => $scene['Scene']['id'],
-                    'note' => $this->request->data['note'],
-                    'added_on' => date('Y-m-d H:i:s')
-                );
-
-                if ($sceneCharacter->save($data)) {
-                    $this->ScenesEmail->SendJoinEmail($scene, $data);
+                if ($sceneCharacters->save($sceneCharacter)) {
+                    $this->ScenesEmail->SendJoinEmail($scene, $sceneCharacter);
                     $this->Flash->set('Added character to scene');
                     $this->redirect(array('action' => 'view', $slug));
                 } else {
@@ -308,8 +291,25 @@ class ScenesController extends AppController
             }
         }
 
-        $character = new Character();
-        $characters = $character->FindCharactersNotInScene($this->Auth->user('user_id'), $scene['Scene']['id']);
+        $characterTable = TableRegistry::get('Characters');
+        /* @var CharactersTable $characters */
+        $query = $characterTable
+            ->find('list')
+            ->select([
+                'Characters.id',
+                'Characters.character_name',
+            ])
+            ->where([
+                'Characters.user_id' => $this->Auth->user('user_id'),
+                'Characters.is_sanctioned' => 'Y',
+                'Characters.is_deleted' => 'N',
+            ])
+            ->notMatching('SceneCharacters', function (Query $q) use ($scene) {
+                return $q->where([
+                    'SceneCharacters.scene_id' => $scene->id
+                ]);
+            });
+        $characters = $query->toArray();
 
         if (count($characters) == 0) {
             $this->Flash->set('You have no sanctioned characters, or all of your characters have joined the scene.');
@@ -321,21 +321,23 @@ class ScenesController extends AppController
 
     public function cancel($slug)
     {
-        $scene = $this->Scene->find('first', array(
-            'conditions' => array(
-                'Scene.slug' => $slug
-            ),
-            'contain' => false
-        ));
+        $scene = $this->Scenes
+            ->query()
+            ->where([
+                    'Scenes.slug' => $slug
+                ]
+            )
+            ->first();
+        /* @var Scene $scene */
 
         if (!$scene) {
             $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
 
-        $scene['Scene']['scene_status_id'] = SceneStatus::Cancelled;
+        $scene->scene_status_id = SceneStatus::Cancelled;
 
-        if ($this->Scene->saveScene($scene)) {
+        if ($this->Scenes->save($scene)) {
             $this->ScenesEmail->SendCancelEmails($scene);
             $this->Flash->set('Scene Cancelled');
         } else {
@@ -346,21 +348,23 @@ class ScenesController extends AppController
 
     public function complete($slug)
     {
-        $scene = $this->Scene->find('first', array(
-            'conditions' => array(
-                'Scene.slug' => $slug
-            ),
-            'contain' => false
-        ));
+        $scene = $this->Scenes
+            ->query()
+            ->where([
+                    'Scenes.slug' => $slug
+                ]
+            )
+            ->first();
+        /* @var Scene $scene */
 
         if (!$scene) {
             $this->Flash->set('Unable to find Scene');
             $this->redirect(array('action' => 'index'));
         }
 
-        $scene['Scene']['scene_status_id'] = SceneStatus::Completed;
+        $scene->scene_status_id = SceneStatus::Completed;
 
-        if ($this->Scene->saveScene($scene)) {
+        if ($this->Scenes->save($scene)) {
             $this->Flash->set('Scene Completed');
         } else {
             $this->Flash->set('Error Completing Scene');
@@ -370,7 +374,7 @@ class ScenesController extends AppController
 
     public function isAuthorized($user)
     {
-        switch ($this->request->params['action']) {
+        switch ($this->request->getParam('action')) {
             default:
                 return true || $this->Permissions->IsAdmin();
         }
@@ -435,12 +439,13 @@ class ScenesController extends AppController
 
     public function leave($slug, $characterId)
     {
-        $scene = $this->Scene->find('first', array(
-            'conditions' => array(
-                'Scene.slug' => $slug
-            ),
-            'contain' => false
-        ));
+        $scene = $this->Scenes
+            ->query()
+            ->where([
+                    'Scenes.slug' => $slug
+                ]
+            )
+            ->first();
 
         if (!$this->Permissions->MayEditCharacter($characterId)) {
             $this->Flash->set('You may not act on that character');
