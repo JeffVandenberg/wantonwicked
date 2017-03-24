@@ -7,6 +7,7 @@ use App\Model\Entity\Scene;
 use App\Model\Entity\SceneCharacter;
 use App\Model\Entity\SceneStatus;
 use App\Model\Table\CharactersTable;
+use App\Model\Table\PlayPreferenceResponsesTable;
 use App\Model\Table\ScenesTable;
 use Cake\Controller\Component\PaginatorComponent;
 use Cake\Event\Event;
@@ -454,9 +455,9 @@ class ScenesController extends AppController
                 $slug
             ));
         }
-        $sceneCharacterRepo = new SceneCharacter();
-        if ($sceneCharacterRepo->deleteAll(array(
-            'SceneCharacter.scene_id' => $scene['Scene']['id'],
+        $sceneCharacterTable = TableRegistry::get('SceneCharacters');
+        if ($sceneCharacterTable->deleteAll(array(
+            'SceneCharacter.scene_id' => $scene->id,
             'SceneCharacter.character_id' => $characterId
         ))
         ) {
@@ -470,17 +471,19 @@ class ScenesController extends AppController
         ));
     }
 
-    public function player_preferences($slug)
+    public function playerPreferences($slug)
     {
-        $scene = $this->Scene->find('first', array(
-            'conditions' => array(
-                'Scene.slug' => $slug
-            ),
-            'contain' => false
-        ));
+        $scene = $this->Scenes
+            ->query()
+            ->where([
+                    'Scenes.slug' => $slug
+                ]
+            )
+            ->first();
 
-        $repo = new PlayPreferenceResponse();
-        $this->set('report', $repo->reportResponsesForPlayersInScene($scene['Scene']['id']));
+        $repo = TableRegistry::get('PlayPreferenceResponses');//
+        /* @var PlayPreferenceResponsesTable $repo */
+        $this->set('report', $repo->reportResponsesForPlayersInScene($scene->id));
         $this->set('scene', $scene);
     }
 }

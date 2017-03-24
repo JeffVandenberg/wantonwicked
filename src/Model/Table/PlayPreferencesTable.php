@@ -7,24 +7,22 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Scenes Model
+ * PlayPreferences Model
  *
- * @property \Cake\ORM\Association\BelongsTo $RunBy
  * @property \Cake\ORM\Association\BelongsTo $CreatedBy
- * @property \Cake\ORM\Association\BelongsTo $UpdatedBiy
- * @property \Cake\ORM\Association\BelongsTo $SceneStatus
- * @property \Cake\ORM\Association\HasMany $SceneCharacters
- * @property \Cake\ORM\Association\HasMany $SceneRequests
+ * @property \Cake\ORM\Association\BelongsTo $UpdatedBy
+ * @property \Cake\ORM\Association\HasMany $PlayPreferenceResponseHistory
+ * @property \Cake\ORM\Association\HasMany $PlayPreferenceResponses
  *
- * @method \App\Model\Entity\Scene get($primaryKey, $options = [])
- * @method \App\Model\Entity\Scene newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Scene[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Scene|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Scene patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Scene[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Scene findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\PlayPreference get($primaryKey, $options = [])
+ * @method \App\Model\Entity\PlayPreference newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\PlayPreference[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\PlayPreference|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\PlayPreference patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\PlayPreference[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\PlayPreference findOrCreate($search, callable $callback = null, $options = [])
  */
-class ScenesTable extends Table
+class PlayPreferencesTable extends Table
 {
 
     /**
@@ -37,14 +35,10 @@ class ScenesTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('scenes');
+        $this->setTable('play_preferences');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('RunBy', [
-            'foreignKey' => 'run_by_id',
-            'className' => 'Users'
-        ]);
         $this->belongsTo('CreatedBy', [
             'foreignKey' => 'created_by_id',
             'joinType' => 'INNER',
@@ -55,15 +49,11 @@ class ScenesTable extends Table
             'joinType' => 'INNER',
             'className' => 'Users'
         ]);
-        $this->belongsTo('SceneStatuses', [
-            'foreignKey' => 'scene_status_id',
-            'joinType' => 'INNER'
+        $this->hasMany('PlayPreferenceResponseHistory', [
+            'foreignKey' => 'play_preference_id'
         ]);
-        $this->hasMany('SceneCharacters', [
-            'foreignKey' => 'scene_id'
-        ]);
-        $this->hasMany('SceneRequests', [
-            'foreignKey' => 'scene_id'
+        $this->hasMany('PlayPreferenceResponses', [
+            'foreignKey' => 'play_preference_id'
         ]);
     }
 
@@ -84,22 +74,18 @@ class ScenesTable extends Table
             ->notEmpty('name');
 
         $validator
-            ->allowEmpty('summary');
-
-        $validator
-            ->dateTime('run_on_date')
-            ->allowEmpty('run_on_date');
-
-        $validator
-            ->allowEmpty('description');
-
-        $validator
             ->dateTime('created_on')
-            ->allowEmpty('created_on');
+            ->requirePresence('created_on', 'create')
+            ->notEmpty('created_on');
 
         $validator
             ->dateTime('updated_on')
-            ->allowEmpty('updated_on');
+            ->requirePresence('updated_on', 'create')
+            ->notEmpty('updated_on');
+
+        $validator
+            ->requirePresence('description', 'create')
+            ->notEmpty('description');
 
         $validator
             ->requirePresence('slug', 'create')
@@ -117,10 +103,8 @@ class ScenesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['run_by_id'], 'RunBy'));
         $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
         $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBy'));
-        $rules->add($rules->existsIn(['scene_status_id'], 'SceneStatuses'));
 
         return $rules;
     }
