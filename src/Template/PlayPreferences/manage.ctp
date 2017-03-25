@@ -1,6 +1,11 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Manage Player Preference Options'); ?>
 <?php
+use App\Model\Entity\PlayPreference;
+use App\View\AppView;
+
+/* @var AppView $this */
+/* @var PlayPreference[] $playPreferences */
+
+$this->set('title_for_layout', 'Manage Player Preference Options');
 $menu['Actions']['submenu']['New Play Preference'] = [
     'link' => [
         'action' => 'add'
@@ -17,32 +22,29 @@ $this->set('menu', $menu);
         </tr>
         <?php foreach ($playPreferences as $playPreference): ?>
             <tr>
-                <td><?php echo h($playPreference['PlayPreference']['name']); ?>&nbsp;</td>
-                <td><?php echo h($playPreference['PlayPreference']['description']); ?>&nbsp;</td>
+                <td><?php echo h($playPreference->name); ?>&nbsp;</td>
+                <td><?php echo h($playPreference->description); ?>&nbsp;</td>
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'),
-                        array('action' => 'view', $playPreference['PlayPreference']['id'])); ?>
+                        array('action' => 'view', $playPreference->id)); ?>
                     <?php echo $this->Html->link(__('Edit'),
-                        array('action' => 'edit', $playPreference['PlayPreference']['id'])); ?>
+                        array('action' => 'edit', $playPreference->id)); ?>
                     <?php echo $this->Form->postLink(__('Delete'),
-                        array('action' => 'delete', $playPreference['PlayPreference']['id']), null,
-                        __('Are you sure you want to delete # {0}?', $playPreference['PlayPreference']['id'])); ?>
+                        array('action' => 'delete', $playPreference->id),
+                        ['confirm' => __('Are you sure you want to delete # {0}?', $playPreference['PlayPreference']['id'])]
+                    ); ?>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
-    <p>
-        <?php
-        echo $this->Paginator->counter(array(
-            'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-        ));
-        ?>    </p>
-
-    <div class="paging">
-        <?php
-        echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-        echo $this->Paginator->numbers(array('separator' => ''));
-        echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-        ?>
+    <div class="paginator small callout">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('Previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('Next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>

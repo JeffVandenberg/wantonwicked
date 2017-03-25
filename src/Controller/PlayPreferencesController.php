@@ -1,9 +1,9 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\Component\MenuComponent;
 use App\Controller\Component\PermissionsComponent;
-use App\Model\Entity\PlayPreference;
 use App\Model\Table\PlayPreferenceResponsesTable;
 use App\Model\Table\PlayPreferencesTable;
 use Cake\Controller\Component\PaginatorComponent;
@@ -16,10 +16,10 @@ use Cake\Utility\Text;
 /**
  * PlayPreferences Controller
  *
- * @property PlayPreference $PlayPreference
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
+ * @property PlayPreferencesTable PlayPreferences
  */
 class PlayPreferencesController extends AppController
 {
@@ -92,12 +92,7 @@ class PlayPreferencesController extends AppController
 
     public function manage()
     {
-        $this->PlayPreference->recursive = 0;
-        $this->Paginator->settings = array(
-            'limit' => 30,
-            'order' => 'PlayPreference.name'
-        );
-        $this->set('playPreferences', $this->Paginator->paginate());
+        $this->set('playPreferences', $this->paginate($this->PlayPreferences));
         $this->set('isSt', $this->Permissions->IsST());
     }
 
