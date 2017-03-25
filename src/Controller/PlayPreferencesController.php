@@ -1,7 +1,15 @@
 <?php
-namespace app\Controller;
+namespace App\Controller;
 
-use App\Controller\AppController;
+use App\Controller\Component\MenuComponent;
+use App\Controller\Component\PermissionsComponent;
+use App\Model\Entity\PlayPreference;
+use Cake\Controller\Component\PaginatorComponent;
+use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
+use Cake\Utility\Text;
+
 
 /**
  * PlayPreferences Controller
@@ -38,7 +46,24 @@ class PlayPreferencesController extends AppController
      */
     public function index()
     {
-        $preferences = $this->PlayPreference->PlayPreferenceResponse->listByUserId($this->Auth->user('user_id'));
+        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+
+        $preferences = $playerPrefs->find()
+            ->where([
+                'PlayPreferenceResponses.user_id' => $this->Auth->user('user_id')
+            ])
+            ->contain([
+                'PlayPreferences' => [
+                    'fields' => [
+                        'name',
+                        'description'
+                    ]
+                ]
+            ])
+            ->order([
+                'PlayPreferences.name'
+            ])
+            ->toArray();
         $this->set(compact('preferences'));
         $this->set('isSt', $this->Permissions->IsST());
     }
@@ -46,9 +71,10 @@ class PlayPreferencesController extends AppController
     public function respond()
     {
         if ($this->request->is('post')) {
-            if($this->PlayPreference->PlayPreferenceResponse->updateUserResponse(
+            if ($this->PlayPreference->PlayPreferenceResponse->updateUserResponse(
                 $this->Auth->user('user_id'),
-                $this->request->data)) {
+                $this->request->data)
+            ) {
                 $this->Flash->set('Updated Your Play Preferences');
                 $this->redirect(['action' => 'index']);
             } else {
@@ -57,7 +83,7 @@ class PlayPreferencesController extends AppController
         }
         $userPreferences = $this->PlayPreference->PlayPreferenceResponse->listByUserId($this->Auth->user('user_id'));
         $userPrefs = [];
-        foreach($userPreferences as $userPreference) {
+        foreach ($userPreferences as $userPreference) {
             $userPrefs[$userPreference['PlayPreferenceResponse']['play_preference_id']] =
                 $userPreference['PlayPreferenceResponse']['rating'];
         }
@@ -99,7 +125,7 @@ class PlayPreferencesController extends AppController
 
     public function report_venue($venue = 'All', $playPreferenceId = 'All')
     {
-        use App\Model\PlayPreferenceResponse;
+
         $repo = new PlayPreferenceResponse();
         $this->set(
             'report',
@@ -109,13 +135,13 @@ class PlayPreferencesController extends AppController
             'submenu',
             $this->Menu->createStorytellerMenu()
         );
-        use App\Model\Character;
+
         $charRepo = new Character();
         $characterTypes = $charRepo->listCharacterTypes(true);
         $types = [
             'all' => 'All'
         ];
-        foreach($characterTypes as $character) {
+        foreach ($characterTypes as $character) {
             $types[$character['Character']['character_type']] = $character['Character']['character_type'];
         }
         $this->set('characterTypes', $types);
@@ -130,7 +156,7 @@ class PlayPreferencesController extends AppController
 
     public function report_venue_players($venue, $playPreferenceSlug)
     {
-        use App\Model\PlayPreferenceResponse;
+
         $repo = new PlayPreferenceResponse();
         $this->set(
             'report',
@@ -192,8 +218,8 @@ class PlayPreferencesController extends AppController
             $data['PlayPreference']['updated_by_id'] = $this->Auth->user('user_id');
             $data['PlayPreference']['updated_on'] = date('Y-m-d H:i:s');
             $data['PlayPreference']['created_on'] = date('Y-m-d H:i:s');
-            use Cake\Utility\Inflector;
-            $data['PlayPreference']['slug'] = Inflector::slug($data['PlayPreference']['name']);
+
+            $data['PlayPreference']['slug'] = Text::slug($data['PlayPreference']['name']);
 
             if ($this->PlayPreference->save($data)) {
                 $this->Session->setFlash(__('The play preference has been saved.'));
@@ -223,8 +249,8 @@ class PlayPreferencesController extends AppController
             $data = $this->request->data;
             $data['PlayPreference']['updated_by_id'] = $this->Auth->user('user_id');
             $data['PlayPreference']['updated_on'] = date('Y-m-d H:i:s');
-            use Cake\Utility\Inflector;
-            $data['PlayPreference']['slug'] = Inflector::slug($data['PlayPreference']['name']);
+
+            $data['PlayPreference']['slug'] = Text::slug($data['PlayPreference']['name']);
             if ($this->PlayPreference->save($data)) {
                 $this->Session->setFlash(__('The play preference has been saved.'));
                 $this->redirect(array('action' => 'manage'));
@@ -264,14 +290,13 @@ class PlayPreferencesController extends AppController
 
     public function isAuthorized($user)
     {
-        switch($this->request->params['action'])
-        {
+        switch ($this->request->getParam('action')) {
             case 'report_aggregate':
                 return true;
                 break;
             case 'index':
             case 'respond':
-                return $this->Auth->loggedIn();
+                return ($this->Auth->user('user_id') > 1);
                 break;
             default:
                 return $this->Permissions->IsST();

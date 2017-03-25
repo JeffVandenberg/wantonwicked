@@ -54,11 +54,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/staff', ['controller' => 'home', 'action' => 'staff']);
     $routes->connect('/gsNews', ['controller' => 'home', 'action' => 'gsNews']);
     $routes->connect('/my_scenes', ['controller' => 'scenes', 'action' => 'my_scenes']);
+    $routes->connect('/play_preferences/*', ['controller' => 'PlayPreferences']);
 
-//    Router::connect('/', array('controller' => 'home', 'action' => 'home'));
-//    Router::connect('/staff', array('controller' => 'home', 'action' => 'staff'));
-//    Router::connect('/gsNews', array('controller' => 'home', 'action' => 'gsNews'));
-//    Router::connect('/my_scenes', array('controller' => 'scenes', 'action' => 'my_scenes'));
     /**
      * Connect catchall routes for all controllers.
      *

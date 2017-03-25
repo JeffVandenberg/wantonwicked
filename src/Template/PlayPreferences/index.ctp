@@ -1,7 +1,11 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Your Player Preference'); ?>
-<?php /* @var array $preferences */ ?>
 <?php
+use App\Model\Entity\PlayPreferenceResponse;
+use App\View\AppView;
+
+/* @var AppView $this */
+/* @var PlayPreferenceResponse[] $preferences */
+
+$this->set('title_for_layout', 'Your Player Preference');
 $action = (count($preferences) > 0) ? 'Update Responses' : 'Respond';
 
 $menu['Actions']['submenu'][$action] = [
@@ -40,16 +44,16 @@ $this->set('menu', $menu);
         <?php foreach ($preferences as $preference): ?>
             <tr>
                 <td>
-                    <?php echo h($preference['PlayPreference']['name']); ?>
-                    <?php if ($preference['PlayPreference']['description']): ?>
-                        <button class="explanation">Show Explanation</button>
-                        <div class="hidden-panel-content">
-                            <?php echo h($preference['PlayPreference']['description']); ?>
+                    <?php echo h($preference->play_preference->name); ?>
+                    <?php if ($preference->play_preference->description): ?>
+                        <button class="small button" data-toggle="description-<?php echo $preference->play_preference_id; ?>">Show Explanation</button>
+                        <div class="hide small callout" id="description-<?php echo $preference->play_preference_id; ?>" data-toggler=".hide">
+                            <?php echo h($preference->play_preference->description); ?>
                         </div>
                     <?php endif; ?>
                 </td>
                 <td style="vertical-align: top;width:100px;">
-                    <?php echo ($preference['PlayPreferenceResponse']['rating']) ? 'Yes' : 'No'; ?>
+                    <?php echo ($preference->rating) ? 'Yes' : 'No'; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
