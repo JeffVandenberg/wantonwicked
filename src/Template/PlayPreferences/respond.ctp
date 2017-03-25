@@ -1,8 +1,14 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Update your Preferences'); ?>
-<?php /* @var array $preferences */ ?>
-<?php /* @var array $userPrefs */ ?>
 <?php
+use App\Model\Entity\PlayPreference;
+use App\View\AppView;
+
+/* @var AppView $this */
+/* @var PlayPreference[] $preferences */
+/* @var array $userPrefs */
+
+$this->set('title_for_layout', 'Update your Preferences');
+
+
 $menu['Actions']['submenu']['Back'] = [
     'link' => [
         'action' => 'index'
@@ -32,24 +38,24 @@ $this->set('menu', $menu);
     <?php foreach ($preferences as $preference): ?>
         <tr>
             <td>
-                <?php echo h($preference['PlayPreference']['name']); ?>
-                <?php if ($preference['PlayPreference']['description']): ?>
-                    <button class="explanation">Show Explanation</button>
-                    <div class="hidden-panel-content">
-                        <?php echo h($preference['PlayPreference']['description']); ?>
+                <?php echo h($preference->name); ?>
+                <?php if ($preference->description): ?>
+                    <button class="small button" data-toggle="description-<?php echo $preference->id; ?>">Show Explanation</button>
+                    <div class="hide small callout" id="description-<?php echo $preference->id; ?>" data-toggler=".hide">
+                        <?php echo h($preference->description); ?>
                     </div>
                 <?php endif; ?>
             </td>
             <td style="vertical-align: top;width:100px;">
                 <?php echo $this->Form->radio(
-                    $preference['PlayPreference']['name'],
+                    $preference->name,
                     [
                         1 => 'Yes',
                         0 => 'No'
                     ],
                     [
-                        'name' => 'user_preference[' . $preference['PlayPreference']['id'] . ']',
-                        'value' => $userPrefs[$preference['PlayPreference']['id']],
+                        'name' => 'user_preference[' . $preference->id . ']',
+                        'value' => $userPrefs[$preference->id],
                         'legend' => false,
                         'required' => true
                     ]
@@ -58,23 +64,11 @@ $this->set('menu', $menu);
             </td>
         </tr>
     <?php endforeach; ?>
-    <tfoot>
     <tr>
         <td colspan="2" style="text-align: center;">
             <button class="button" type="submit" value="Update">Update</button>
         </td>
     </tr>
-    </tfoot>
 </table>
 
 <?php echo $this->Form->end(); ?>
-<script>
-    $(function () {
-        $('button.explanation')
-            .click(function () {
-                $(this).next('div').toggle();
-                return false;
-            })
-        ;
-    });
-</script>

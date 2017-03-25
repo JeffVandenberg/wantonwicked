@@ -125,4 +125,48 @@ EOQ;
         return $conn->execute($sql, $params)->fetchAll('assoc');
     }
 
+    /**
+     * @param int $userId
+     * @return PlayPreferenceResponse[]
+     */
+    public function listByUserId($userId)
+    {
+        return $this->find()
+            ->where([
+                'PlayPreferenceResponses.user_id' => $userId
+            ])
+            ->contain([
+                'PlayPreferences' => [
+                    'fields' => [
+                        'name',
+                        'description'
+                    ]
+                ]
+            ])
+            ->order([
+                'PlayPreferences.name'
+            ])
+            ->toArray();
+    }
+
+    public function updateUserResponse($userId, $data)
+    {
+        $this->deleteAll(
+            [
+                'PlayPreferenceResponse.user_id' => $userId
+            ]
+        );
+        foreach ($data['user_preference'] as $playPreferenceId => $value) {
+            $item = $this->newEntity();
+            /* @var PlayPreferenceResponse $item */
+            $item->play_preference_id = $playPreferenceId;
+            $item->user_id = $userId;
+            $item->rating = $value;
+            $item->created_on = date('Y-m-d H:i:s');
+            $item->note = '';
+            $this->save($item);
+        }
+        return true;
+    }
+
 }

@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Controller\Component\MenuComponent;
 use App\Controller\Component\PermissionsComponent;
 use App\Model\Entity\PlayPreference;
+use App\Model\Table\PlayPreferenceResponsesTable;
+use App\Model\Table\PlayPreferencesTable;
 use Cake\Controller\Component\PaginatorComponent;
 use Cake\Event\Event;
 use Cake\Network\Exception\NotFoundException;
@@ -47,33 +49,22 @@ class PlayPreferencesController extends AppController
     public function index()
     {
         $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
-
-        $preferences = $playerPrefs->find()
-            ->where([
-                'PlayPreferenceResponses.user_id' => $this->Auth->user('user_id')
-            ])
-            ->contain([
-                'PlayPreferences' => [
-                    'fields' => [
-                        'name',
-                        'description'
-                    ]
-                ]
-            ])
-            ->order([
-                'PlayPreferences.name'
-            ])
-            ->toArray();
+        /* @var PlayPreferenceResponsesTable $playerPrefs */
+        $preferences = $playerPrefs->listByUserId($this->Auth->user('user_id'));
         $this->set(compact('preferences'));
         $this->set('isSt', $this->Permissions->IsST());
     }
 
     public function respond()
     {
+        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        /* @var PlayPreferenceResponsesTable $playerPrefs */
+
         if ($this->request->is('post')) {
-            if ($this->PlayPreference->PlayPreferenceResponse->updateUserResponse(
+
+            if ($playerPrefs->updateUserResponse(
                 $this->Auth->user('user_id'),
-                $this->request->data)
+                $this->request->getData())
             ) {
                 $this->Flash->set('Updated Your Play Preferences');
                 $this->redirect(['action' => 'index']);
@@ -81,22 +72,21 @@ class PlayPreferencesController extends AppController
                 $this->Flash->set('Error Updating Play Preferences');
             }
         }
-        $userPreferences = $this->PlayPreference->PlayPreferenceResponse->listByUserId($this->Auth->user('user_id'));
+        $userPreferences = $playerPrefs->listByUserId($this->Auth->user('user_id'));
         $userPrefs = [];
         foreach ($userPreferences as $userPreference) {
-            $userPrefs[$userPreference['PlayPreferenceResponse']['play_preference_id']] =
-                $userPreference['PlayPreferenceResponse']['rating'];
+            $userPrefs[$userPreference->play_preference_id] =
+                $userPreference->rating;
         }
-        $preferences = $this->PlayPreference->find(
-            'all',
-            [
-                'order' => [
-                    'name'
-                ],
-                'contain' => false
-            ]
-        );
-        $this->PlayPreference->recursive = 0;
+
+        $playPreferences = TableRegistry::get('PlayPreferences');
+        /* @var PlayPreferencesTable $playPreferences */
+        $preferences = $playPreferences
+            ->find()
+            ->order([
+                'PlayPreferences.name'
+            ])
+            ->toArray();
         $this->set(compact('preferences', 'userPrefs'));
     }
 
