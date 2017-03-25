@@ -170,23 +170,20 @@ class PlayPreferencesController extends AppController
      */
     public function view($id = null)
     {
-        if (!$this->PlayPreference->exists($id)) {
-            throw new NotFoundException(__('Invalid play preference'));
-        }
-        $options = array(
-            'conditions' => array(
-                'PlayPreference.' . $this->PlayPreference->primaryKey => $id
-            ),
-            'contain' => array(
-                'CreatedBy' => array(
-                    'username'
-                ),
-                'UpdatedBy' => array(
-                    'username'
-                )
-            )
-        );
-        $this->set('playPreference', $this->PlayPreference->find('first', $options));
+        $this->set('playPreference', $this->PlayPreferences->get($id, [
+            'contain' => [
+                'CreatedBy' => [
+                    'fields' => [
+                        'username'
+                    ]
+                ],
+                'UpdatedBy' => [
+                    'fields' => [
+                        'username'
+                    ]
+                ]
+            ]
+        ]));
     }
 
     /**

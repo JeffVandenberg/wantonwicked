@@ -41,12 +41,12 @@ class PlayPreferencesTable extends Table
 
         $this->belongsTo('CreatedBy', [
             'foreignKey' => 'created_by_id',
-            'joinType' => 'INNER',
+            'joinType' => 'LEFT',
             'className' => 'Users'
         ]);
         $this->belongsTo('UpdatedBy', [
             'foreignKey' => 'updated_by_id',
-            'joinType' => 'INNER',
+            'joinType' => 'LEFT',
             'className' => 'Users'
         ]);
         $this->hasMany('PlayPreferenceResponseHistory', [
