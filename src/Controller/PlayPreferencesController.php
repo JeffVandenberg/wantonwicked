@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller\Component\MenuComponent;
 use App\Controller\Component\PermissionsComponent;
 use App\Model\Entity\PlayPreference;
+use App\Model\Table\CharactersTable;
 use App\Model\Table\PlayPreferenceResponsesTable;
 use App\Model\Table\PlayPreferencesTable;
 use Cake\Controller\Component\PaginatorComponent;
@@ -113,33 +114,32 @@ class PlayPreferencesController extends AppController
         );
     }
 
-    public function report_venue($venue = 'All', $playPreferenceId = 'All')
+    public function reportVenue($venue = 'All', $playPreferenceId = 'All')
     {
+        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        /* @var PlayPreferenceResponsesTable $playerPrefs */
 
-        $repo = new PlayPreferenceResponse();
         $this->set(
             'report',
-            $repo->getVenueReport($venue, $playPreferenceId)
+            $playerPrefs->getVenueReport($venue, $playPreferenceId)
         );
+
         $this->set(
             'submenu',
             $this->Menu->createStorytellerMenu()
         );
 
-        $charRepo = new Character();
-        $characterTypes = $charRepo->listCharacterTypes(true);
-        $types = [
-            'all' => 'All'
-        ];
-        foreach ($characterTypes as $character) {
-            $types[$character['Character']['character_type']] = $character['Character']['character_type'];
-        }
+        $characterTable = TableRegistry::get('Characters');
+        /* @var CharactersTable $characterTable */
+        $types = ['all' => 'All'];
+        $types += $characterTable->listCharacterTypes(true);
+
         $this->set('characterTypes', $types);
         $this->set('venue', $venue);
         $playPreferences = [
             'all' => 'All'
         ];
-        $preferences = $this->PlayPreference->find('list', ['order' => 'name']);
+        $preferences = $this->PlayPreferences->find('list')->order(['PlayPreferences.name'])->toArray();
         $playPreferences += $preferences;
         $this->set(compact('playPreferences', 'playPreferenceId'));
     }

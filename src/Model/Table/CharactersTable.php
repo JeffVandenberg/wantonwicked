@@ -397,4 +397,32 @@ class CharactersTable extends Table
 
         return $rules;
     }
+
+    public function listCharacterTypes($onlySanctioned)
+    {
+        $query = $this
+            ->find()
+            ->select([
+                'Characters.character_type'
+            ])
+            ->distinct([
+                'Characters.character_type'
+            ])
+            ->order([
+                'Characters.character_type'
+            ]);
+        if($onlySanctioned) {
+            $query->where([
+                'Characters.is_sanctioned' => 'Y'
+            ]);
+        }
+
+        $list = [];
+        foreach($query->toArray() as $row) {
+            $list[$row->character_type] = $row->character_type;
+        }
+        return $list;
+
+
+    }
 }

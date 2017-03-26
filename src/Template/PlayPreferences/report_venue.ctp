@@ -1,21 +1,33 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Venue Player Preference Report'); ?>
-<?php /* @var array $report */ ?>
+<?php
+use App\View\AppView;
 
-<div style="text-align: center;padding: 10px 0;">
-    <strong>Filters:</strong>
-    <label for="character_type" style="display: inline;">Character Type</label>
-    <?php echo $this->Form->select('character_type', $characterTypes, array('value' => ucfirst($venue),
-            'empty' => false,
-        )
-    ); ?>
-    <label for="play_preference_id" style="display: inline;">Preference</label>
-    <?php echo $this->Form->select('play_preference_id', $playPreferences, array('value' => $playPreferenceId,
-            'empty' => false,
-        )
-    ); ?>
+/* @var AppView $this */
+/* @var array $report */
+/* @var string $venue */
+
+$this->set('title_for_layout', 'Venue Player Preference Report');
+?>
+<div class="row">
+    <div class="small-6 column">
+        <label for="character_type" style="display: inline;">Character Type</label>
+        <?php echo $this->Form->select('character_type', $characterTypes, [
+                'value' => ucfirst($venue),
+                'empty' => false,
+                'id' => 'character_type',
+            ]
+        ); ?>
+    </div>
+    <div class="small-6 column">
+        <label for="play_preference_id" style="display: inline;">Preference</label>
+        <?php echo $this->Form->select('play_preference_id', $playPreferences, [
+                'value' => $playPreferenceId,
+                'empty' => false,
+                'id' => 'play_preference_id',
+            ]
+        ); ?>
+    </div>
 </div>
-<table>
+<table class="stack">
     <thead>
     <tr>
         <th>
@@ -35,16 +47,16 @@
     <?php foreach($report as $row): ?>
         <tr>
             <td>
-                <?php echo $row['C']['character_type']; ?>
+                <?php echo $row['character_type']; ?>
             </td>
             <td>
-                <?php echo $row['PP']['name']; ?>
+                <?php echo $row['name']; ?>
             </td>
             <td>
-                <?php if($row[0]['total'] > 0): ?>
-                    <?php echo (int) (($row[0]['hits'] / $row[0]['total']) * 100); ?>
+                <?php if($row['total'] > 0): ?>
+                    <?php echo (int) (($row['hits'] / $row['total']) * 100); ?>
                     (
-                    <?php echo $row[0]['total']; ?>
+                    <?php echo $row['total']; ?>
                     Responses
                     )
                 <?php else: ?>
@@ -54,8 +66,8 @@
             <td>
                 <?php echo $this->Html->link('View Players', [
                         'action' => 'report_venue_players',
-                        $row['C']['character_type'],
-                        $row['PP']['slug']
+                        $row['character_type'],
+                        $row['slug']
                     ]); ?>
             </td>
         </tr>
@@ -64,11 +76,11 @@
 <script>
     $(function() {
         $("#character_type").change(function() {
-            document.location = '/play_preferences/report_venue/' + $(this).val().toLowerCase() + '/' +
+            document.location = '/play-preferences/report-venue/' + $(this).val().toLowerCase() + '/' +
                     $("#play_preference_id").val();
         });
         $("#play_preference_id").change(function() {
-            document.location = '/play_preferences/report_venue/' + $('#character_type').val().toLowerCase() + '/' +
+            document.location = '/play-preferences/report-venue/' + $('#character_type').val().toLowerCase() + '/' +
                     $(this).val();
         });
     });

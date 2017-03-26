@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\PlayPreferenceResponse;
@@ -167,6 +168,89 @@ EOQ;
             $this->save($item);
         }
         return true;
+    }
+
+    public function getVenueReport($venue, $playPreferenceId)
+    {
+        if (strtolower($venue) == 'all') {
+            $venue = '';
+        }
+        if (strtolower($playPreferenceId) == 'all') {
+            $playPreferenceId = 0;
+        }
+        $sql = <<<SQL
+SELECT
+  C.character_type,
+  PP.name,
+  PP.slug,
+  (
+    SELECT count(*)
+    FROM
+      play_preference_responses AS PPR1
+      INNER JOIN characters AS C2 ON PPR1.user_id = C2.user_id
+    WHERE
+      C2.is_sanctioned = 'Y'
+      AND C2.character_type = C.character_type
+      AND C2.is_npc = 'N'
+      AND C2.is_deleted = 'N'
+      AND PPR1.rating = 1
+      AND PPR1.play_preference_id = PP.id
+      AND (
+        C.character_type = :venue
+        OR :venue = ''
+      )
+  ) AS `hits`,
+  (
+    SELECT count(*)
+    FROM
+      play_preference_responses AS PPR2
+      INNER JOIN characters AS C2 ON PPR2.user_id = C2.user_id
+    WHERE
+      C2.is_sanctioned = 'Y'
+      AND C2.character_type = C.character_type
+      AND C2.is_npc = 'N'
+      AND C2.is_deleted = 'N'
+      AND PPR2.play_preference_id = PP.id
+      AND (
+        C.character_type = :venue
+        OR :venue = ''
+      )
+  ) AS `total`
+FROM
+  play_preferences AS PP
+  CROSS JOIN (
+               SELECT DISTINCT character_type
+               FROM characters
+               WHERE is_sanctioned = 'Y'
+               AND is_npc = 'N'
+               AND is_deleted = 'N'
+             ) AS C
+WHERE
+  (
+        C.character_type = :venue
+        OR :venue = ''
+  )
+  AND
+  (
+      PP.id = :playPrefId
+      OR
+      :playPrefId = 0
+  )
+GROUP BY
+  C.character_type,
+  PP.name,
+  PP.slug
+ORDER BY
+  C.character_type,
+  PP.name;
+SQL;
+        $params = [
+            'venue' => $venue,
+            'playPrefId' => $playPreferenceId
+        ];
+        $conn = ConnectionManager::get('default');
+        /* @var Connection $conn */
+        return $conn->execute($sql, $params)->fetchAll('assoc');
     }
 
 }
