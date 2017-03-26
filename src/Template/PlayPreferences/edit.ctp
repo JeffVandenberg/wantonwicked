@@ -1,10 +1,17 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Edit Player Preference: ' . $this->request->data['PlayPreference']['name']); ?>
+<?php
+use App\Model\Entity\PlayPreference;
+use App\View\AppView;
 
-<?php echo $this->Form->create('PlayPreference'); ?>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('name');
-		echo $this->Form->input('description');
-	?>
-<?php echo $this->Form->end(__('Submit')); ?>
+/* @var AppView $this */
+/* @var PlayPreference $playPreference */
+$this->set('title_for_layout', 'Edit Player Preference: ' . $playPreference->name);
+?>
+
+<?php echo $this->Form->create($playPreference); ?>
+<?php
+echo $this->Form->control('id');
+echo $this->Form->control('name');
+echo $this->Form->control('description');
+?>
+<button class="button" type="submit">Save</button>
+<?php echo $this->Form->end(); ?>

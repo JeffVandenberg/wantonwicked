@@ -226,28 +226,22 @@ class PlayPreferencesController extends AppController
      */
     public function edit($id = null)
     {
-        if (!$this->PlayPreference->exists($id)) {
-            throw new NotFoundException(__('Invalid play preference'));
-        }
-        if ($this->request->is(array('post', 'put'))) {
-            $data = $this->request->data;
-            $data['PlayPreference']['updated_by_id'] = $this->Auth->user('user_id');
-            $data['PlayPreference']['updated_on'] = date('Y-m-d H:i:s');
+        $playPreference = $this->PlayPreferences->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(array('post', 'put', 'patch'))) {
+            $playPreference = $this->PlayPreferences->patchEntity($playPreference, $this->request->getData());
+            $playPreference->updated_by_id = $this->Auth->user('user_id');
+            $playPreference->updated_on = date('Y-m-d H:i:s');
 
-            $data['PlayPreference']['slug'] = Text::slug($data['PlayPreference']['name']);
-            if ($this->PlayPreference->save($data)) {
-                $this->Session->setFlash(__('The play preference has been saved.'));
+            if ($this->PlayPreferences->save($playPreference)) {
+                $this->Flash->set(__('The play preference has been saved.'));
                 $this->redirect(array('action' => 'manage'));
             } else {
-                $this->Session->setFlash(__('The play preference could not be saved. Please, try again.'));
+                $this->Flash->set(__('The play preference could not be saved. Please, try again.'));
             }
-        } else {
-            $options = array('conditions' => array('PlayPreference.' . $this->PlayPreference->primaryKey => $id));
-            $this->request->data = $this->PlayPreference->find('first', $options);
         }
-        $createdBies = $this->PlayPreference->CreatedBy->find('list');
-        $updatedBies = $this->PlayPreference->UpdatedBy->find('list');
-        $this->set(compact('createdBies', 'updatedBies'));
+        $this->set(compact('playPreference'));
     }
 
     /**
