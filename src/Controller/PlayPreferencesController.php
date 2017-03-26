@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\Component\MenuComponent;
 use App\Controller\Component\PermissionsComponent;
+use App\Model\Entity\PlayPreference;
 use App\Model\Table\PlayPreferenceResponsesTable;
 use App\Model\Table\PlayPreferencesTable;
 use Cake\Controller\Component\PaginatorComponent;
@@ -92,7 +93,11 @@ class PlayPreferencesController extends AppController
 
     public function manage()
     {
-        $this->set('playPreferences', $this->paginate($this->PlayPreferences));
+        $this->set('playPreferences', $this->paginate($this->PlayPreferences, [
+            'order' => [
+                'PlayPreferences.name'
+            ],
+        ]));
         $this->set('isSt', $this->Permissions->IsST());
     }
 
@@ -193,26 +198,23 @@ class PlayPreferencesController extends AppController
      */
     public function add()
     {
+        $playPreference = $this->PlayPreferences->newEntity();
         if ($this->request->is('post')) {
-            $this->PlayPreference->create();
-            $data = $this->request->data;
-            $data['PlayPreference']['created_by_id'] = $this->Auth->user('user_id');
-            $data['PlayPreference']['updated_by_id'] = $this->Auth->user('user_id');
-            $data['PlayPreference']['updated_on'] = date('Y-m-d H:i:s');
-            $data['PlayPreference']['created_on'] = date('Y-m-d H:i:s');
+            /* @var PlayPreference $playPreference */
 
-            $data['PlayPreference']['slug'] = Text::slug($data['PlayPreference']['name']);
+            $playPreference = $this->PlayPreferences->patchEntity($playPreference, $this->request->getData());
+            $playPreference->created_by_id = $this->Auth->user('user_id');
+            $playPreference->updated_by_id = $this->Auth->user('user_id');
+            $playPreference->created_on = $playPreference->updated_on = date('Y-m-d H:i:s');
 
-            if ($this->PlayPreference->save($data)) {
-                $this->Session->setFlash(__('The play preference has been saved.'));
+            if ($this->PlayPreferences->save($playPreference)) {
+                $this->Flash->set(__('The play preference has been saved.'));
                 $this->redirect(array('action' => 'manage'));
             } else {
-                $this->Session->setFlash(__('The play preference could not be saved. Please, try again.'));
+                $this->Flash->set(__('The play preference could not be saved. Please, try again.'));
             }
         }
-        $createdBies = $this->PlayPreference->CreatedBy->find('list');
-        $updatedBies = $this->PlayPreference->UpdatedBy->find('list');
-        $this->set(compact('createdBies', 'updatedBies'));
+        $this->set(compact('playPreference'));
     }
 
     /**
