@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
+use App\Model\Entity\Character;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -25,13 +27,13 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $SupporterCharacters
  * @property \Cake\ORM\Association\HasMany $Territories
  *
- * @method \App\Model\Entity\Character get($primaryKey, $options = [])
- * @method \App\Model\Entity\Character newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Character[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Character|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Character patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Character[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Character findOrCreate($search, callable $callback = null, $options = [])
+ * @method Character get($primaryKey, $options = [])
+ * @method Character newEntity($data = null, array $options = [])
+ * @method Character[] newEntities(array $data, array $options = [])
+ * @method Character|bool save(EntityInterface $entity, $options = [])
+ * @method Character patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method Character[] patchEntities($entities, array $data, array $options = [])
+ * @method Character findOrCreate($search, callable $callback = null, $options = [])
  */
 class CharactersTable extends Table
 {
@@ -411,18 +413,40 @@ class CharactersTable extends Table
             ->order([
                 'Characters.character_type'
             ]);
-        if($onlySanctioned) {
+        if ($onlySanctioned) {
             $query->where([
                 'Characters.is_sanctioned' => 'Y'
             ]);
         }
 
         $list = [];
-        foreach($query->toArray() as $row) {
+        foreach ($query->toArray() as $row) {
             $list[$row->character_type] = $row->character_type;
         }
         return $list;
 
 
     }
+
+    public function findNameUsedInCity($id, $name, $city)
+    {
+        $query = $this
+            ->find()
+            ->select([
+                'total' => 'COUNT(*)'
+            ])
+            ->where([
+                'Characters.character_name' => $name,
+                'Characters.city' => $city
+            ]);
+        if ($id) {
+            $query->where([
+                'Characters.id != ' => $id
+            ]);
+        }
+
+        $result = $query->first();
+        return $result['total'] > 0;
+    }
 }
+

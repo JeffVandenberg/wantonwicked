@@ -1,11 +1,17 @@
 <?php
-namespace app\Controller;
+namespace App\Controller;
 
+use App\Controller\Component\MenuComponent;
+use App\Controller\Component\PermissionsComponent;
+use App\Model\Table\CharactersTable;
+use Cake\Controller\Component\PaginatorComponent;
+use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
 use Cake\Utility\Inflector;
+use Cake\Utility\Text;
 use classes\character\data\BeatStatus;
 use classes\character\data\BeatType;
 use classes\character\data\Character;
-use \Character as CakeCharacter;
 use classes\character\data\CharacterBeat;
 use classes\character\nwod2\BeatService;
 use classes\character\nwod2\SheetService;
@@ -14,15 +20,13 @@ use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
-use App\Controller\AppController;
-
 /**
  * Characters Controller
  *
- * @property CakeCharacter $Character
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
+ * @property CharactersTable Characters
  */
 class CharactersController extends AppController
 {
@@ -133,7 +137,7 @@ class CharactersController extends AppController
 
     public function isAuthorized()
     {
-        switch ($this->request->params['action']) {
+        switch ($this->request->getParam('action')) {
             case 'admin_xpEdit':
                 return $this->Permissions->IsAdmin();
             case 'admin_goals':
@@ -156,7 +160,6 @@ class CharactersController extends AppController
      */
     public function index()
     {
-        $this->Character->recursive = 0;
         $this->set('characters', $this->Paginator->paginate());
     }
 
@@ -237,10 +240,10 @@ class CharactersController extends AppController
         $sheetService = new SheetService();
 
         if ($this->request->is('post')) {
-            if ($this->request->data['character_id']) {
+            if ($this->request->getData()['character_id']) {
                 // try to update the character
-                $updatedData = $this->request->data;
-                $updatedData['slug'] = Inflector::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
+                $updatedData = $this->request->getData();
+                $updatedData['slug'] = Text::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
                 $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
 
                 if (!is_string($result)) {
@@ -252,11 +255,11 @@ class CharactersController extends AppController
             }
         }
         if ($this->request->is('get')) {
-            $characterType = $this->request->query('character_type');
+            $characterType = $this->request->getQuery('character_type');
             $character = null;
-            if ($this->request->query('view_character_id')) {
+            if ($this->request->getQuery('view_character_id')) {
                 // attempt to load the character
-                $character = $sheetService->loadSheet($this->request->query('view_character_id'), $characterType);
+                $character = $sheetService->loadSheet($this->request->getQuery('view_character_id'), $characterType);
                 if (!$character->Id) {
                     $this->Flash->set('Unable to find character');
                 }
@@ -305,8 +308,8 @@ class CharactersController extends AppController
         $sheetService = new SheetService();
 
         if ($this->request->is('post')) {
-            $character = $this->request->data;
-            $character['slug'] = Inflector::slug($character['city'] . ' ' . $character['character_name']);
+            $character = $this->request->getData();
+            $character['slug'] = Text::slug($character['city'] . ' ' . $character['character_name']);
 
             $result = $sheetService->saveSheet($character, $options, $this->Auth->user());
 
@@ -318,8 +321,8 @@ class CharactersController extends AppController
                 $this->redirect('/chat.php');
             }
         } else {
-            $characterType = ($this->request->query('character_type'))
-                ? $this->request->query('character_type')
+            $characterType = ($this->request->getQuery('character_type'))
+                ? $this->request->getQuery('character_type')
                 : 'mortal';
             $character = $sheetService->initializeSheet($characterType);
             $this->set(compact('character'));
@@ -331,9 +334,9 @@ class CharactersController extends AppController
 
     public function validateName()
     {
-        $id = $this->request->query['id'];
-        $characterName = $this->request->query['name'];
-        $city = $this->request->query['city'];
+        $id = $this->request->getQuery('id');
+        $characterName = $this->request->getQuery('name');
+        $city = $this->request->getQuery('city');
 
         $data = [
             'success' => false,
@@ -341,12 +344,12 @@ class CharactersController extends AppController
         ];
 
         if ($characterName && $city) {
-            $data['in_use'] = $this->Character->findNameUsedInCity($id, $characterName, $city);
+            $data['in_use'] = $this->Characters->findNameUsedInCity($id, $characterName, $city);
             $data['success'] = true;
         }
 
         $this->autoRender = false;
-        return json_encode($data);
+        echo json_encode($data);
     }
 
     public function assignCondition()
