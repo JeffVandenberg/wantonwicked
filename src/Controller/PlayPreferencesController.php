@@ -144,25 +144,31 @@ class PlayPreferencesController extends AppController
         $this->set(compact('playPreferences', 'playPreferenceId'));
     }
 
-    public function report_venue_players($venue, $playPreferenceSlug)
+    public function reportVenuePlayers($venue, $playPreferenceSlug)
     {
+        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        /* @var PlayPreferenceResponsesTable $playerPrefs */
 
-        $repo = new PlayPreferenceResponse();
         $this->set(
             'report',
-            $repo->getVenuePlayerReport($venue, $playPreferenceSlug)
+            $playerPrefs->getVenuePlayerReport($venue, $playPreferenceSlug)
         );
         $this->set(
             'submenu',
             $this->Menu->createStorytellerMenu()
         );
-        $playPreference = $this->PlayPreference->find('first', [
-            'conditions' => [
-                'PlayPreference.slug' => $playPreferenceSlug
-            ],
-            'contain' => false
-        ]);
-        $this->set('playPreferenceName', $playPreference['PlayPreference']['name']);
+
+        $playPreference = $this->PlayPreferences
+            ->find()
+            ->select([
+                'PlayPreferences.name'
+            ])
+            ->where([
+                'PlayPreferences.slug' => $playPreferenceSlug
+            ])
+            ->first();
+
+        $this->set('playPreferenceName', $playPreference->name);
         $this->set(compact('venue'));
     }
 

@@ -1,7 +1,12 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Report Player Interest'); ?>
-<?php /* @var array $report */ ?>
 <?php
+use App\View\AppView;
+
+/* @var AppView $this */
+/* @var array $report */
+/* @var string $venue */
+/* @var string $playPreferenceName */
+
+$this->set('title_for_layout', 'Report Player Interest');
 $menu['Actions']['submenu']['Back'] = [
     'link' => [
         'action' => 'report_venue',
@@ -31,10 +36,10 @@ $this->set('menu', $menu);
     <?php foreach($report as $row): ?>
         <tr>
             <td>
-                <?php echo $row['U']['username']; ?>
+                <?php echo $row['username']; ?>
             </td>
             <td>
-                <?php echo $this->Html->link($row['C']['character_name'], '/view_sheet.php?action=st_view_xp&view_character_id=' . $row['C']['id']); ?>
+                <?php echo $this->Html->link($row['character_name'], '/characters/stView/' . $row['character_id']); ?>
             </td>
             <td>
                 View Player Response

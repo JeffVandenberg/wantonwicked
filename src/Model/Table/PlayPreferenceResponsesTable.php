@@ -253,4 +253,37 @@ SQL;
         return $conn->execute($sql, $params)->fetchAll('assoc');
     }
 
+    public function getVenuePlayerReport($venue, $playPreferenceSlug)
+    {
+        $sql = <<<SQL
+SELECT
+  U.user_id,
+  U.username,
+  C.id AS character_id,
+  C.character_name
+FROM
+  play_preferences AS PP
+  INNER JOIN play_preference_responses AS PPR ON PP.id = PPR.play_preference_id
+  INNER JOIN phpbb_users AS U ON PPR.user_id = U.user_id
+  INNER JOIN characters AS C ON PPR.user_id = C.user_id
+WHERE
+  C.character_type = ?
+  AND PP.slug = ?
+  AND C.is_sanctioned = 'Y'
+  AND C.is_npc = 'N'
+  AND C.is_deleted = 'N'
+  AND PPR.rating = 1
+ORDER BY
+  U.username
+SQL;
+        $params = [
+            $venue,
+            $playPreferenceSlug
+        ];
+
+        $conn = ConnectionManager::get('default');
+        /* @var Connection $conn */
+        return $conn->execute($sql, $params)->fetchAll('assoc');
+    }
+
 }
