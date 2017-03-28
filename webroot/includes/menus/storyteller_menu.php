@@ -19,7 +19,7 @@ $storytellerMenu = [
                 'link' => 'st_tools.php?action=character_name_lookup'
             ],
             'Goals' => [
-                'link' => '/admin/characters/goals'
+                'link' => '/characters/stGoals'
             ],
             'Beat Awards' => [
                 'link' => '/characters/stBeats'

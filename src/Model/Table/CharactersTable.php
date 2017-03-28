@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * Characters Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\BelongsTo $UpdatedBies
+ * @property \Cake\ORM\Association\BelongsTo $UpdatedBy
  * @property \Cake\ORM\Association\BelongsTo $Locations
  * @property \Cake\ORM\Association\HasMany $CharacterBeatRecords
  * @property \Cake\ORM\Association\HasMany $CharacterBeats
@@ -56,8 +56,9 @@ class CharactersTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('UpdatedBies', [
-            'foreignKey' => 'updated_by_id'
+        $this->belongsTo('UpdatedBy', [
+            'foreignKey' => 'updated_by_id',
+            'className' => 'Users'
         ]);
         $this->hasMany('CharacterBeatRecords', [
             'foreignKey' => 'character_id'

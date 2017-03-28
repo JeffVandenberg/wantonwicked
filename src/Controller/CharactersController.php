@@ -108,34 +108,49 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes'));
     }
 
-    public function admin_goals($type = 'all')
+    public function stGoals($type = 'all')
     {
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $this->set('submenu', $storytellerMenu);
-        $this->Paginator->settings = array(
-            'limit' => 30,
-            'conditions' => array(
-                'Character.is_sanctioned' => 'Y',
-                'Character.city' => 'portland',
-                'Character.is_deleted' => 'N'
-            ),
-            'order' => 'Character.character_name',
-            'field' => array(
-                'character_name',
-                'goals'
-            ),
-            'contain' => array(
-                'Player'
-            )
-        );
+
+        $query = $this->Characters->CharacterPowers
+            ->find()
+            ->select([
+                'Characters.character_name',
+                'Characters.character_type',
+                'Characters.splat1',
+                'Characters.splat2',
+                'Characters.is_npc',
+                'CharacterPowers.power_name',
+                'Users.username'
+            ])
+            ->contain([
+                'Characters' => [
+                    'Users'
+                ]
+            ])
+            ->where([
+                'Characters.is_sanctioned' => 'Y',
+                'Characters.city' => 'portland',
+                'Characters.is_deleted' => 'N',
+                'CharacterPowers.power_type' => 'aspiration'
+            ]);
 
         if (strtolower($type) !== 'all') {
-            $this->Paginator->settings['conditions']['Character.character_type'] = $type;
+            $query = $query->andWhere([
+                'Characters.character_type' => $type
+            ]);
         }
+
         $characterTypes = array("All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
             "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', "Mage" => 'Mage',
             "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
-        $this->set('characters', $this->Paginator->paginate());
+        $this->set('characters', $this->Paginator->paginate($query, [
+            'limit' => 30,
+            'order' => [
+                'Characters.character_name',
+            ]
+        ]));
         $this->set(compact('type', 'characterTypes'));
     }
 
@@ -159,7 +174,7 @@ class CharactersController extends AppController
         switch ($this->request->getParam('action')) {
             case 'admin_xpEdit':
                 return $this->Permissions->IsAdmin();
-            case 'admin_goals':
+            case 'stGoals':
             case 'stView':
             case 'stBeats':
                 return $this->Permissions->IsST();
@@ -191,17 +206,13 @@ class CharactersController extends AppController
      */
     public function view($id = null)
     {
-        if (!$this->Character->exists($id)) {
-            throw new NotFoundException(__('Invalid character'));
-        }
-        $options = array('conditions' => array('Character.' . $this->Character->primaryKey => $id));
-        $this->set('character', $this->Character->find('first', $options));
+        $this->set('character', $this->Characters->get($id));
     }
 
     public function viewOwn($slug)
     {
         $sheetService = new SheetService();
-        $characterType = $this->request->query('character_type');
+        $characterType = $this->request->getQuery('character_type');
         $character = $sheetService->loadSheet($slug, $characterType);
         /* @var Character $character */
         if (!$character->Id) {
