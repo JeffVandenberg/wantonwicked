@@ -1,33 +1,34 @@
 <?php
-/* @var array $characters ; */
+
+use App\Model\Entity\Character;
+use App\View\AppView;
+
+/* @var Character[] $characters ; */
 /* @var string $type ; */
-/* @var View $this */
+/* @var AppView $this */
 
 $this->set('title_for_layout', ucfirst($type) . ' Characters');
-$this->Paginator->options(array(
-                              'update'      => '#page-content',
-                              'evalScripts' => true,
-                          ));?>
+$this->Paginator->options([
+    'update' => '#page-content',
+    'evalScripts' => true,
+]); ?>
 <div id="page-content">
-    <div style="text-align: center;">
-        <label for="character_id" style="display: inline;">Character Type</label>
-        <?php echo $this->Form->select('character_type', $characterTypes, array('value' => ucfirst($type),
-                                                                                'empty' => false,
-                                                                                )
-        ); ?>
+    <div class="row align-center">
+        <div class="small-12 medium-4 column end">
+            <label for="character_id" style="display: inline;">Character Type
+                <?php echo $this->Form->select('character_type', $characterTypes, array('value' => ucfirst($type),
+                        'empty' => false,
+                        'id' => 'character_type'
+                    )
+                ); ?>
+            </label>
+        </div>
     </div>
-    <div class="paging">
-        <?php
-        echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-        echo $this->Paginator->numbers(array('separator' => ''));
-        echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-        ?>
-    </div>
-    <table>
+    <table id="cast-table">
         <thead>
         <tr>
             <th><?php echo $this->Paginator->sort('character_name'); ?></th>
-            <th><?php echo $this->Paginator->sort('Player.username', 'Player'); ?></th>
+            <th><?php echo $this->Paginator->sort('Users.username', 'Player', ['model' => 'Users']); ?></th>
             <?php if (strtolower($type) == 'all'): ?>
                 <th><?php echo $this->Paginator->sort('character_type'); ?></th>
             <?php endif; ?>
@@ -40,50 +41,66 @@ $this->Paginator->options(array(
             <tr>
                 <td>
                     <?php echo $this->Html->link(
-                                          $character['Character']['character_name'],
-                                          '/wiki/?n=Players.' . preg_replace('/[^\w]+/', '',
-                                                                            $character['Character']['character_name']
-                                          )
+                        $character->character_name,
+                        '/wiki/?n=Players.' . preg_replace('/[^\w]+/', '',
+                            $character->character_name
+                        )
                     ); ?>
                 </td>
                 <td>
-                    <?php echo $character['Player']['username']; ?>
+                    <?php echo $character->user->username; ?>
                 </td>
                 <?php if (strtolower($type) == 'all'): ?>
                     <td>
                         <?php echo $this->Html->link(
-                                              $character['Character']['character_type'],
-                                              array(
-                                                  $character['Character']['character_type']
-                                              )
+                            $character->character_type,
+                            [
+                                $character->character_type
+                            ]
                         ); ?>
                     </td>
                 <?php endif; ?>
                 <td>
-                    <?php echo $character['Character']['splat1']; ?>
+                    <?php echo $character->splat1; ?>
                 </td>
                 <td>
-                    <?php echo $character['Character']['splat2']; ?>
+                    <?php echo $character->splat2; ?>
                 </td>
                 <td>
-                    <?php echo ($character['Character']['is_npc'] == 'Y') ? 'Yes' : 'No'; ?>
+                    <?php echo ($character->is_npc == 'Y') ? 'Yes' : 'No'; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
-    <div class="paging">
-        <?php
-        echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-        echo $this->Paginator->numbers(array('separator' => ''));
-        echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-        ?>
+    <div class="paginator small callout">
+        <ul class="pagination">
+            <?php if ($this->Paginator->hasPrev()): ?>
+                <?= $this->Paginator->first('<< ' . __('First')) ?>
+                <?= $this->Paginator->prev('< ' . __('Previous')) ?>
+            <?php endif; ?>
+            <?= $this->Paginator->numbers() ?>
+            <?php if ($this->Paginator->hasNext()): ?>
+                <?= $this->Paginator->next(__('Next') . ' >') ?>
+                <?= $this->Paginator->last(__('Last') . ' >>') ?>
+            <?php endif; ?>
+        </ul>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
-    <?php echo $this->Js->writeBuffer(); ?>
-    <script>
-        $(function() {
-            $("#character_type").change(function() {
-                document.location = '/characters/cast/' + $(this).val().toLowerCase();
-            });
-        });
-    </script>
 </div>
+<script>
+    $(function () {
+        $(document).on('change', "#character_type", function () {
+            document.location = '/characters/cast/' + $(this).val().toLowerCase();
+        });
+
+        $(document).on('click', '.pagination a, #cast-table a', function () {
+            var target = $(this).attr('href');
+
+            $.get(target, function (data) {
+                $('#page-content').html($(data).filter("#page-content"));
+            }, 'html');
+
+            return false;
+        });
+    });
+</script>

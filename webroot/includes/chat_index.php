@@ -33,6 +33,7 @@ $sceneSummary = $sceneRepository->findPlayerSceneDashboard($id);
 
 ob_start();
 ?>
+
     <div class="row">
         <div class="small-12 medium-6 column">
             <div class="clearfix">

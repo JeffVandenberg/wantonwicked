@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\Component\MenuComponent;
@@ -52,7 +53,7 @@ class CharactersController extends AppController
 
     public function city($city = 'portland')
     {
-        $this->set('characters', $this->Character->ListByCity($city));
+        $this->set('characters', $this->Characters->ListByCity($city));
     }
 
     public function activity()
@@ -63,28 +64,52 @@ class CharactersController extends AppController
 
     public function cast($type = 'All')
     {
-        $this->Character->recursive = 0;
-        $this->Paginator->settings = [
-            'limit' => 30,
-            'conditions' => [
-                'Character.is_sanctioned' => 'Y',
-                'Character.city' => 'portland',
-                'Character.is_deleted' => 'N'
-            ],
-            'order' => 'Character.character_name',
-            'contain' => [
-                'Player'
-            ]
-        ];
+        $query = $this->Characters
+            ->find()
+            ->select([
+                'Characters.id',
+                'Characters.character_name',
+                'Characters.character_type',
+                'Characters.splat1',
+                'Characters.splat2',
+                'Characters.is_npc',
+            ])
+            ->where([
+                'Characters.is_sanctioned' => 'Y',
+                'Characters.city' => 'portland',
+                'Characters.is_deleted' => 'N'
+            ])
+            ->contain([
+                'Users' => [
+                    'fields' => [
+                        'user_id',
+                        'username'
+                    ]
+                ]
+            ]);
 
         if (strtolower($type) !== 'all') {
-            $this->Paginator->settings['conditions']['Character.character_type'] = $type;
+            $query->andWhere([
+                'Characters.character_type' => $type
+            ]);
         }
+        $this->set('characters', $this->paginate($query, [
+            'limit' => 20,
+            'order' => [
+                'Characters.character_name'
+            ],
+            'sortWhitelist' => [
+                'Users.username',
+                'character_name',
+                'character_type',
+                'splat1',
+                'splat2',
+            ]
+        ]));
         $characterTypes = array(
             "All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
             "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', 'Changing Breed' => 'Changing Breed',
             "Mage" => 'Mage', "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
-        $this->set('characters', $this->Paginator->paginate());
         $this->set(compact('type', 'characterTypes'));
     }
 
