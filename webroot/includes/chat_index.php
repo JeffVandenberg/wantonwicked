@@ -88,7 +88,7 @@ ob_start();
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="/wiki/?n=Players.<?php echo preg_replace("/[^A-Za-z0-9]/", '', $characterName); ?>"
+                                                <a href="/wiki/?n=Players.<?php echo preg_replace("/[^A-Za-z0-9]/", '', $character->CharacterName); ?>"
                                                    >Profile
                                                 </a>
                                             </li>

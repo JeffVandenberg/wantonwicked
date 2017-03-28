@@ -14,12 +14,14 @@
 namespace App\View;
 
 use Cake\View\View;
+use Shrink\View\Helper\ShrinkHelper;
 
 /**
  * Application View
  *
  * Your application’s default view class
  *
+ * @property ShrinkHelper Shrink
  * @link http://book.cakephp.org/3.0/en/views.html#the-app-view
  */
 class AppView extends View

@@ -1,5 +1,9 @@
 <?php
-/* @var View $this */
+use App\View\AppView;
+
+/* @var AppView $this */
+/* @var array $data */
+/* @var array $data2 */
 $this->set('title_for_layout', 'Character Login Activity');
 
 ?>
@@ -13,10 +17,10 @@ $this->set('title_for_layout', 'Character Login Activity');
     </tr>
     <?php foreach($data as $row): ?>
         <tr>
-            <td><?php echo $row['activity']['character_name']; ?></td>
-            <td><?php echo $row['activity']['year']; ?></td>
-            <td><?php echo $row['activity']['month']; ?></td>
-            <td><?php echo $row['activity']['total']; ?></td>
+            <td><?php echo $row['character_name']; ?></td>
+            <td><?php echo $row['year']; ?></td>
+            <td><?php echo $row['month']; ?></td>
+            <td><?php echo $row['total']; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
@@ -30,10 +34,10 @@ $this->set('title_for_layout', 'Character Login Activity');
     </tr>
     <?php foreach($data2 as $row): ?>
         <tr>
-            <td><?php echo $row['activity']['character_name']; ?></td>
-            <td><?php echo $row['activity']['year']; ?></td>
-            <td><?php echo $row['activity']['month']; ?></td>
-            <td><?php echo $row['activity']['total']; ?></td>
+            <td><?php echo $row['character_name']; ?></td>
+            <td><?php echo $row['year']; ?></td>
+            <td><?php echo $row['month']; ?></td>
+            <td><?php echo $row['total']; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>

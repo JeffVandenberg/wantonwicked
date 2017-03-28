@@ -1,8 +1,8 @@
 <?php
+use App\View\AppView;
 use Cake\Core\Configure;
-use Cake\View\View;
 
-/* @var View $this */
+/* @var AppView $this */
 /* @var string $title_for_layout */
 /* @var string $buildNumber */
 ?>

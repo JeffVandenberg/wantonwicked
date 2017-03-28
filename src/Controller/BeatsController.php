@@ -1,11 +1,10 @@
 <?php
+namespace App\Controller;
 
-namespace app\Controller;
-
-use classes\character\data\CharacterBeat;
+use App\Controller\Component\PermissionsComponent;
+use Cake\Event\Event;
 use classes\character\nwod2\BeatService;
 
-use App\Controller\AppController;
 
 /**
  * Beats Controller
@@ -44,7 +43,7 @@ class BeatsController extends AppController
 
     public function isAuthorized()
     {
-        switch (strtolower($this->request->params['action'])) {
+        switch (strtolower($this->request->getParam('action'))) {
         }
 
         return true;

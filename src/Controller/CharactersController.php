@@ -51,15 +51,10 @@ class CharactersController extends AppController
             ));
     }
 
-    public function city($city = 'portland')
-    {
-        $this->set('characters', $this->Characters->ListByCity($city));
-    }
-
     public function activity()
     {
-        $this->set('data', $this->Character->ListBarelyPlaying());
-        $this->set('data2', $this->Character->ListAllLoginActivity());
+        $this->set('data', $this->Characters->listBarelyPlaying());
+        $this->set('data2', $this->Characters->listAllLoginActivity());
     }
 
     public function cast($type = 'All')

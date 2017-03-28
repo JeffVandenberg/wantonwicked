@@ -448,5 +448,76 @@ class CharactersTable extends Table
         $result = $query->first();
         return $result['total'] > 0;
     }
+
+    public function listBarelyPlaying()
+    {
+        $query = <<<EOQ
+SELECT
+  *
+FROM
+  (
+    SELECT
+        LC.character_id,
+        C.character_name,
+        date_format(created, '%y') AS `year`,
+        date_format(created, '%m') AS `month`,
+        count(*) AS total
+    FROM
+      log_characters AS LC
+      INNER JOIN characters AS C ON LC.character_id = C.id
+    WHERE
+      action_type_id = 2
+      AND C.is_deleted = 'N'
+      AND C.is_npc = 'N'
+      AND C.is_sanctioned = 'Y'
+    GROUP BY
+      character_id,
+      `year`,
+      `month`
+  ) AS activity
+WHERE
+  total < 3
+ORDER BY
+  character_name,
+  `year`,
+  `month`
+EOQ;
+        return $this->getConnection()->execute($query)->fetchAll('assoc');
+    }
+
+    public function listAllLoginActivity()
+    {
+        $query = <<<EOQ
+SELECT
+  *
+FROM
+  (
+    SELECT
+        LC.character_id,
+        C.character_name,
+        date_format(created, '%y') AS `year`,
+        date_format(created, '%m') AS `month`,
+        count(*) AS total
+    FROM
+      log_characters AS LC
+      INNER JOIN characters AS C ON LC.character_id = C.id
+    WHERE
+      action_type_id = 2
+      AND created > '2015-01-01'
+      AND C.is_deleted = 'N'
+      AND C.is_npc = 'N'
+      AND C.is_sanctioned = 'Y'
+    GROUP BY
+      character_id,
+      `year`,
+      `month`
+  ) AS activity
+ORDER BY
+  character_name,
+  `year`,
+  `month`
+EOQ;
+        return $this->getConnection()->execute($query)->fetchAll('assoc');
+    }
 }
 
