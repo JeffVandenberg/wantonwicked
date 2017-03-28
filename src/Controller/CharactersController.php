@@ -112,7 +112,6 @@ class CharactersController extends AppController
     {
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $this->set('submenu', $storytellerMenu);
-        $this->Character->recursive = 0;
         $this->Paginator->settings = array(
             'limit' => 30,
             'conditions' => array(
@@ -145,10 +144,10 @@ class CharactersController extends AppController
         if ($this->request->is('post')) {
             $sheetService = new SheetService();
             $sheetService->grantXpToCharacter(
-                $this->request->data['character_id'],
-                $this->request->data['xp_amount'],
-                'Admin XP Override. Amount: ' . $this->request->data['xp_amount'] .
-                ' Note: ' . $this->request->data['xp_note'],
+                $this->request->getData('character_id'),
+                $this->request->getData('xp_amount'),
+                'Admin XP Override. Amount: ' . $this->request->getData('xp_amount') .
+                ' Note: ' . $this->request->getData('xp_note'),
                 $this->Auth->user('user_id')
             );
             $this->Flash->set('Updated XP for Character');
@@ -180,7 +179,7 @@ class CharactersController extends AppController
      */
     public function index()
     {
-        $this->set('characters', $this->Paginator->paginate());
+        $this->set('characters', $this->Paginator->paginate($this->Characters));
     }
 
     /**
@@ -441,9 +440,9 @@ class CharactersController extends AppController
         if ($this->request->is('post')) {
             $beatService = new BeatService();
             $beat = new CharacterBeat();
-            $beat->CharacterId = $this->request->data['character_id'];
-            $beat->BeatTypeId = $this->request->data['beat_type_id'];
-            $beat->Note = $this->request->data['note'];
+            $beat->CharacterId = $this->request->getData('character_id');
+            $beat->BeatTypeId = $this->request->getData('beat_type_id');
+            $beat->Note = $this->request->getData('note');
 
             $beat->CreatedById = $beat->UpdatedById = $this->Auth->user('user_id');
             $beat->Created = $beat->Updated = date('Y-m-d H:i:s');
