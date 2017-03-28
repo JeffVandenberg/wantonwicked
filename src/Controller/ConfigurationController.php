@@ -7,26 +7,29 @@
  * Time: 8:21 PM
  * @property Configuration Configuration
  * @property PermissionsComponent Permissions
- */namespace app\Controller;
+ */
 
-use App\Controller\AppController;
+namespace App\Controller;
 
 
-class ConfigurationController extends AppController {
+use Cake\Event\Event;
+
+class ConfigurationController extends AppController
+{
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->Auth->deny();
     }
 
-    public function index() {
+    public function index()
+    {
         $this->set('configs', $this->Configuration->find('all'));
     }
 
     public function read($configName)
     {
-        use App\Model\Configuration;
-        $config           = new Configuration();
+        $config = new Configuration();
         $configValue = $config->find(
             'first',
             array(
@@ -40,18 +43,18 @@ class ConfigurationController extends AppController {
         );
 
         $this->set(compact('configValue'));
-
         $this->set('_serialize', array('configValue'));
+
     }
 
-    public function edit() {
-        if($this->request->is('post')) {
+    public function edit()
+    {
+        if ($this->request->is('post')) {
             // try to save
-            if($this->Configuration->saveAll($this->request->data)) {
+            if ($this->Configuration->saveAll($this->request->data)) {
                 $this->Session->setFlash('Updated Configuration');
                 $this->redirect(array('action' => 'index'));
-            }
-            else {
+            } else {
                 $this->Session->setFlash('Error Saving');
             }
         }
