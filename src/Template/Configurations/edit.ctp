@@ -1,9 +1,12 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Edit Game Configuration'); ?>
-<?php $this->start('script'); ?>
-<?php $this->end(); ?>
+<?php
+use App\Model\Entity\Configuration;
+use App\View\AppView;
 
-    <h2><?php echo __('Edit Configuration'); ?></h2>
+/* @var AppView $this */
+/* @var Configuration[] $configs */
+$this->set('title_for_layout', 'Edit Game Configuration');
+?>
+
 <?php echo $this->Form->create('Configuration'); ?>
     <table>
         <thead>
@@ -19,24 +22,24 @@
         <?php foreach($configs as $i => $config): ?>
             <tr>
                 <td style="vertical-align: middle;">
-                    <?php echo $this->Form->hidden($i .'.Configuration.key', array('value' => $config['Configuration']['key'])); ?>
-                    <?php echo $config['Configuration']['description']; ?>
+                    <?php echo $this->Form->hidden($i .'.key', array('value' => $config->key)); ?>
+                    <?php echo $config->description; ?>
                 </td>
                 <td>
-                <?php if($config['Configuration']['data_type'] == 'number'): ?>
+                <?php if($config->data_type == 'number'): ?>
                     <?php echo $this->Form->text(
-                                          $i .'.Configuration.value',
+                                          $i .'.value',
                                           array(
-                                              'value' => $config['Configuration']['value'],
+                                              'value' => $config->value,
                                               'label' => false,
-                                              'style' => 'width:30px;'
+                                              'style' => 'width:50px;'
                                           )
                     ); ?>
-                <?php elseif($config['Configuration']['data_type'] == 'text'): ?>
+                <?php elseif($config->data_type == 'text'): ?>
                     <?php echo $this->Form->textarea(
-                                          $i .'.Configuration.value',
+                                          $i .'.value',
                                           array(
-                                              'value' => $config['Configuration']['value'],
+                                              'value' => $config->value,
                                               'label' => false,
                                               'class' => 'tinymce full-editor'
                                           )
@@ -46,7 +49,8 @@
             </tr>
         <?php endforeach; ?>
     </table>
-<?php echo $this->Form->end('Update'); ?>
+<button class="button" type="submit">Update</button>
+<?php echo $this->Form->end(); ?>
 <script>
     tinymce.init({
         selector: "textarea.full-editor",

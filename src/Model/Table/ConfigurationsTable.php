@@ -1,21 +1,21 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
+use App\Model\Entity\Configuration;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
  * Configurations Model
  *
- * @method \App\Model\Entity\Configuration get($primaryKey, $options = [])
- * @method \App\Model\Entity\Configuration newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Configuration[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Configuration|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Configuration patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Configuration[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Configuration findOrCreate($search, callable $callback = null, $options = [])
+ * @method Configuration get($primaryKey, $options = [])
+ * @method Configuration newEntity($data = null, array $options = [])
+ * @method Configuration[] newEntities(array $data, array $options = [])
+ * @method Configuration|bool save(EntityInterface $entity, $options = [])
+ * @method Configuration patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method Configuration[] patchEntities($entities, array $data, array $options = [])
+ * @method Configuration findOrCreate($search, callable $callback = null, $options = [])
  */
 class ConfigurationsTable extends Table
 {
