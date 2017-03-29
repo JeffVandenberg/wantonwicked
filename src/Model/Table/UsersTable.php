@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Model\Table;
 
+use Cake\Database\Connection;
 use Cake\Datasource\ConnectionManager;
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -88,7 +89,6 @@ class UsersTable extends Table
         if (!is_array($permissionIds)) {
             $permissionIds = array($permissionIds);
         }
-        $permissions = implode(',', $permissionIds);
         $permissionsPlaceholder = implode(',', array_fill(0, count($permissionIds), '?'));
 
         $sql = <<<SQL
@@ -103,7 +103,145 @@ SQL;
         $params = array_merge([$userId], $permissionIds);
 
         $connection = ConnectionManager::get('default');
+        /* @var Connection $connection */
+
         $count = $connection->execute($sql, $params)->fetchAll('assoc');
         return $count[0]['Count'] > 0;
+    }
+
+    public function listUserGroups($userId)
+    {
+        $userId = (int)$userId;
+
+        $sql = <<<EOQ
+SELECT
+    User.user_id,
+    UserGroup.group_id,
+    1 AS is_member,
+    UserGroup.group_leader
+FROM
+    phpbb_users AS User
+    LEFT JOIN phpbb_user_group AS UserGroup ON User.user_id = UserGroup.user_id
+WHERE
+    User.user_id = ?
+EOQ;
+
+        $params = [
+            $userId
+        ];
+        $conn = $this->getConnection();
+        /* @var Connection $conn */
+        return $conn->execute($sql, $params)->fetchAll('assoc');
+
+    }
+
+    public function saveUserGroups($data)
+    {
+        foreach ($data['group_id'] as $row => $groupId) {
+            if ($data['is_member'][$groupId]) {
+                // set member data
+                $this->addUserGroupRole($data['user_id'], $groupId, $data['group_leader'][$groupId]);
+            } else {
+                // attempt to delete row
+                $this->deleteUserGroup($data['user_id'], $groupId);
+            }
+        }
+        $this->updateUserAclPermissions($data['user_id']);
+        return true;
+    }
+
+    private function addUserGroupRole($userId, $groupId, $isGroupLeader)
+    {
+        $userId = (int)$userId;
+        $groupId = (int)$groupId;
+        $isGroupLeader = (int)$isGroupLeader;
+
+        $sql = <<<EOQ
+SELECT
+    count(*) as access_rows
+FROM
+    phpbb_user_group
+WHERE
+    user_id = ?
+    AND group_id = ?;
+EOQ;
+        $params = [
+            $userId,
+            $groupId
+        ];
+
+        $result = $this->getConnection()->execute($sql, $params)->fetch('assoc');
+
+        if ($result['access_rows'] > 0) {
+            $sql = <<<EOQ
+UPDATE
+    phpbb_user_group
+SET
+    group_leader = ?
+WHERE
+    group_id = ?
+    AND user_id = ?;
+EOQ;
+            $params = [
+                $isGroupLeader,
+                $groupId,
+                $userId
+            ];
+        } else {
+            $sql = <<<EOQ
+INSERT INTO
+    phpbb_user_group
+    (group_id, user_id, group_leader, user_pending)
+VALUES
+  (?, ?, ?, 0);
+EOQ;
+            $params = [
+                $groupId,
+                $userId,
+                $isGroupLeader
+            ];
+        }
+
+        $this->getConnection()->execute($sql, $params);
+        return true;
+    }
+
+    private function deleteUserGroup($userId, $groupId)
+    {
+        $userId = (int)$userId;
+        $groupId = (int)$groupId;
+
+        $sql = <<<EOQ
+DELETE FROM
+  phpbb_user_group
+WHERE
+  user_id = $userId
+  AND group_id = $groupId
+EOQ;
+
+        $params = [
+            $userId,
+            $groupId
+        ];
+
+        $this->getConnection()->execute($sql, $params);
+        return true;
+    }
+
+    private function updateUserAclPermissions($userId)
+    {
+        $sql = <<<EOQ
+UPDATE
+  phpbb_users
+SET
+  user_permissions = '',
+  user_perm_from = 0
+WHERE
+  user_id = ?
+EOQ;
+        $params = [
+            $userId
+        ];
+        $this->getConnection()->execute($sql, $params);
     }
 }
