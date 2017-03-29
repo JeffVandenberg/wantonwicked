@@ -1,12 +1,16 @@
 <?php
-namespace app\Controller;
 
-use App\Controller\AppController;
+namespace App\Controller;
+
+use App\Controller\Component\PermissionsComponent;
+use App\Model\Table\BeatTypesTable;
+use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * BeatTypes Controller
  *
- * @property BeatType $BeatType
+ * @property BeatTypesTable $BeatTypes
  * @property PermissionsComponent Permissions
  */
 class BeatTypesController extends AppController
@@ -21,7 +25,7 @@ class BeatTypesController extends AppController
 
     public function isAuthorized($user)
     {
-        switch ($this->request->params['action']) {
+        switch ($this->request->getParam('action')) {
             case 'listTypes':
                 return true;
         }
@@ -44,20 +48,24 @@ class BeatTypesController extends AppController
      */
     public function index()
     {
-        $this->BeatType->recursive = 0;
-        $this->Paginator->settings = [
-            'limit' => 20,
-            'order' => 'BeatType.name',
+        $this->set('beatTypes', $this->Paginator->paginate($this->BeatTypes, [
             'contain' => [
                 'CreatedBy' => [
-                    'username'
+                    'fields' => [
+                        'username'
+                    ],
                 ],
                 'UpdatedBy' => [
-                    'username'
+                    'fields' => [
+                        'username'
+                    ]
                 ]
-            ]
-        ];
-        $this->set('beatTypes', $this->Paginator->paginate());
+            ],
+            'order' => [
+                'BeatTypes.name'
+            ],
+            'limit' => 20
+        ]));
     }
 
     /**
@@ -69,11 +77,7 @@ class BeatTypesController extends AppController
      */
     public function view($id = null)
     {
-        if (!$this->BeatType->exists($id)) {
-            throw new NotFoundException(__('Invalid beat type'));
-        }
-        $options = array('conditions' => array('BeatType.' . $this->BeatType->primaryKey => $id));
-        $this->set('beatType', $this->BeatType->find('first', $options));
+        $this->set('beatType', $this->BeatTypes->get($id));
     }
 
     /**
@@ -83,7 +87,7 @@ class BeatTypesController extends AppController
     public function add()
     {
         if ($this->request->is('post')) {
-            if($this->request->data['action'] == 'cancel') {
+            if ($this->request->data['action'] == 'cancel') {
                 $this->redirect(['action' => 'index']);
                 return;
             }
@@ -114,7 +118,7 @@ class BeatTypesController extends AppController
             throw new NotFoundException(__('Invalid beat type'));
         }
         if ($this->request->is(array('post', 'put'))) {
-            if($this->request->data['action'] == 'cancel') {
+            if ($this->request->data['action'] == 'cancel') {
                 $this->redirect(['action' => 'index']);
                 return;
             }

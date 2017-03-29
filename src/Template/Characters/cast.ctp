@@ -24,7 +24,7 @@ $this->Paginator->options([
             </label>
         </div>
     </div>
-    <table id="cast-table">
+    <table id="content-table">
         <thead>
         <tr>
             <th><?php echo $this->Paginator->sort('character_name'); ?></th>
@@ -93,11 +93,13 @@ $this->Paginator->options([
             document.location = '/characters/cast/' + $(this).val().toLowerCase();
         });
 
-        $(document).on('click', '.pagination a, #cast-table a', function () {
+        $(document).on('click', '.pagination a, #content-table thead a', function () {
             var target = $(this).attr('href');
 
             $.get(target, function (data) {
                 $('#page-content').html($(data).filter("#page-content"));
+                var state = {html: 'doTo'};
+                window.history.pushState(state, 'Beat Types', target);
             }, 'html');
 
             return false;
