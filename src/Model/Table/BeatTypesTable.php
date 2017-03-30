@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -40,7 +41,14 @@ class BeatTypesTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created' => 'new',
+                    'updated' => 'always',
+                ]
+            ]
+        ]);
 
         $this->belongsTo('CreatedBy', [
             'foreignKey' => 'created_by_id',
@@ -100,8 +108,8 @@ class BeatTypesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['created_by_id'], 'Users'));
-        $rules->add($rules->existsIn(['updated_by_id'], 'Users'));
+        $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
+        $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBy'));
 
         return $rules;
     }

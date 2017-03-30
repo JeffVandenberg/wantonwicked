@@ -87,15 +87,15 @@ class BeatTypesController extends AppController
     public function add()
     {
         if ($this->request->is('post')) {
-            if ($this->request->data['action'] == 'cancel') {
+            if ($this->request->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'index']);
                 return;
             }
-            $this->BeatType->create();
-            $data = $this->request->data;
-            $data['BeatType']['created_by_id'] = $this->Auth->user('user_id');
-            $data['BeatType']['updated_by_id'] = $this->Auth->user('user_id');
-            if ($this->BeatType->save($data)) {
+            $item = $this->BeatTypes->newEntity();
+            $item = $this->BeatTypes->patchEntity($item, $this->request->getData());
+            $item->created_by_id = $this->Auth->user('user_id');
+            $item->updated_by_id = $this->Auth->user('user_id');
+            if ($this->BeatTypes->save($item)) {
                 $this->Flash->set(__('The beat type has been saved.'));
                 $this->redirect(array('action' => 'index'));
                 return;
@@ -114,28 +114,28 @@ class BeatTypesController extends AppController
      */
     public function edit($id = null)
     {
-        if (!$this->BeatType->exists($id)) {
-            throw new NotFoundException(__('Invalid beat type'));
-        }
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->request->data['action'] == 'cancel') {
+        $beatType = $this->BeatTypes->get($id, [
+            'contain' => []
+        ]);
+
+        if ($this->request->is(array('post', 'put', 'patch'))) {
+            if ($this->request->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'index']);
                 return;
             }
 
-            $data = $this->request->data;
-            $data['BeatType']['updated_by_id'];
-            if ($this->BeatType->save($data)) {
+            $beatType = $this->BeatTypes->patchEntity($beatType, $this->request->getData());
+            $beatType->updated_by_id;
+            if ($this->BeatTypes->save($beatType)) {
                 $this->Flash->set(__('The beat type has been saved.'));
                 $this->redirect(array('action' => 'index'));
                 return;
             } else {
                 $this->Flash->set(__('The beat type could not be saved. Please, try again.'));
             }
-        } else {
-            $options = array('conditions' => array('BeatType.' . $this->BeatType->primaryKey => $id));
-            $this->request->data = $this->BeatType->find('first', $options);
         }
+
+        $this->set(compact('beatType'));
     }
 
     /**

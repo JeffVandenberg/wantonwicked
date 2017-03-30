@@ -70,6 +70,12 @@ $this->set('menu', $menu);
     </div>
 </div>
 <script>
+    "use strict";
+
+    window.onpopstate = function(e) {
+        $("#page-content").html(e.state.html);
+    };
+
     $(function () {
         $(document).on('change', "#character_type", function () {
             document.location = '/characters/cast/' + $(this).val().toLowerCase();
@@ -79,9 +85,11 @@ $this->set('menu', $menu);
             var target = $(this).attr('href');
 
             $.get(target, function (data) {
-                $('#page-content').html($(data).filter("#page-content"));
-                var state = {html: 'doTo'};
-                window.history.pushState(state, 'Beat Types', target);
+                var contentArea = $("#page-content"),
+                    state = {html: contentArea.html()};
+
+                contentArea.html($(data).filter("#page-content"));
+                window.history.pushState(state, null, target);
             }, 'html');
 
             return false;
