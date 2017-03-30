@@ -66,6 +66,8 @@ class BeatTypesController extends AppController
             ],
             'limit' => 20
         ]));
+        $storytellerMenu = $this->Menu->createStorytellerMenu();
+        $this->set('submenu', $storytellerMenu);
     }
 
     /**
@@ -147,16 +149,6 @@ class BeatTypesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->BeatType->id = $id;
-        if (!$this->BeatType->exists()) {
-            throw new NotFoundException(__('Invalid beat type'));
-        }
-        $this->request->allowMethod('post', 'delete');
-        if ($this->BeatType->delete()) {
-            $this->Flash->set(__('The beat type has been deleted.'));
-        } else {
-            $this->Flash->set(__('The beat type could not be deleted. Please, try again.'));
-        }
         return $this->redirect(array('action' => 'index'));
     }
 }

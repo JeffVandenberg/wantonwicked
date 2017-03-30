@@ -1,5 +1,9 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Request System Administration'); ?>
+<?php
+use App\View\AppView;
+
+/* @var AppView $this */
+$this->set('title_for_layout', 'Request System Administration');
+?>
 
 <ul>
     <li><?php echo $this->Html->link('Groups', array('controller' => 'groups')); ?></li>

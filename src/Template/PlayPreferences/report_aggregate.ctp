@@ -1,6 +1,11 @@
-<?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Aggregate Player Preference Report'); ?>
-<?php /* @var array $report */ ?>
+<?php
+use App\View\AppView;
+
+/* @var AppView $this */
+/* @var array $report */
+
+$this->set('title_for_layout', 'Aggregate Player Preference Report');
+?>
 
 <table>
     <thead>
@@ -16,10 +21,10 @@
     <?php foreach($report as $row): ?>
         <tr>
             <td>
-                <?php echo $row['PP']['name']; ?>
+                <?php echo $row['name']; ?>
             </td>
             <td>
-                <?php echo $row[0]['percentage']; ?>
+                <?php echo $row['percentage']; ?>
             </td>
         </tr>
     <?php endforeach; ?>

@@ -90,23 +90,23 @@ class MenuComponent extends Component
 
     public function createStorytellerMenu()
     {
-        $menu = array(
-            'Characters' => array(
+        $menu = [
+            'Characters' => [
                 'link' => '#',
-                'submenu' => array(
-                    'Lookup' => array(
+                'submenu' => [
+                    'Lookup' => [
                         'link' => '/characters/stView'
-                    ),
-                    'Partial Name Search' => array(
+                    ],
+                    'Partial Name Search' => [
                         'link' => '/st_tools.php?action=character_name_lookup'
-                    ),
-                    'Goals' => array(
-                        'link' => array(
+                    ],
+                    'Goals' => [
+                        'link' => [
                             'admin' => true,
                             'controller' => 'characters',
                             'action' => 'goals'
-                        )
-                    ),
+                        ]
+                    ],
                     'Beat Awards' => [
                         'link' => [
                             'admin' => false,
@@ -114,63 +114,67 @@ class MenuComponent extends Component
                             'action' => 'stBeats'
                         ]
                     ]
-                )
-            ),
-            'Requests' => array(
+                ]
+            ],
+            'Requests' => [
                 'link' => '#',
-                'submenu' => array(
-                    'Dashboard' => array(
+                'submenu' => [
+                    'Dashboard' => [
                         'link' => '/request.php?action=st_list'
-                    )
-                )
-            ),
-            'Chat' => array(
+                    ]
+                ]
+            ],
+            'Chat' => [
                 'link' => '#',
-                'submenu' => array(
-                    'Login' => array(
+                'submenu' => [
+                    'Login' => [
                         'link' => '/chat/?st_login',
                         'target' => '_blank',
-                    ),
-                    'Clean Temp Rooms' => array(
+                    ],
+                    'Clean Temp Rooms' => [
                         'link' => '/chat/includes/clean_rooms.php',
                         'target' => '_blank'
-                    )
-                )
-            ),
-            'Tools' => array(
+                    ]
+                ]
+            ],
+            'Tools' => [
                 'link' => '#',
-                'submenu' => array(
-                    'OOC Roller' => array(
+                'submenu' => [
+                    'OOC Roller' => [
                         'link' => '/dieroller.php?action=ooc'
-                    ),
-                    'Profile Lookup' => array(
+                    ],
+                    'Profile Lookup' => [
                         'link' => '/storyteller_index.php?action=profile_lookup'
-                    )
-                )
-            ),
-            'Reports' => array(
+                    ]
+                ]
+            ],
+            'Reports' => [
                 'link' => '#',
-                'submenu' => array(
-                    'Character Type' => array(
+                'submenu' => [
+                    'Character Type' => [
                         'link' => '/st_tools.php?action=character_search'
-                    ),
-                    'Character Population' => array(
+                    ],
+                    'Character Population' => [
                         'link' => '/st_tools.php?action=character_population_report'
-                    ),
-                    'Power Search' => array(
+                    ],
+                    'Power Search' => [
                         'link' => '/st_tools.php?action=power_search'
-                    ),
+                    ],
                     'Player Preference Venue Report' => [
-                        'controller' => 'player_preferences',
-                        'action' => 'report_venue'
+                        'link' =>[
+                            'controller' => 'playPreferences',
+                            'action' => 'reportVenue'
+                        ]
                     ],
                     'Player Preference Aggregate Report' => [
-                        'controller' => 'player_preferences',
-                        'action' => 'report_aggregate'
+                        'link' => [
+                            'controller' => 'playPreferences',
+                            'action' => 'reportAggregate'
+                        ]
                     ]
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
         if ($this->Permissions->IsHead()) {
             $menu['Chat']['submenu']['Prochat Admin'] = array(
@@ -210,7 +214,10 @@ class MenuComponent extends Component
                 'link' => '/configuration'
             );
             $menu['Requests']['submenu']['Administration'] = array(
-                'link' => '/admin/request'
+                'link' => [
+                    'controller' => 'requests',
+                    'action' => 'adminIndex',
+                ]
             );
         }
 

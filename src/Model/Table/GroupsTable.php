@@ -11,14 +11,6 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $GroupTypes
  * @property \Cake\ORM\Association\HasMany $GroupIcons
- * @property \Cake\ORM\Association\HasMany $PhpbbAclGroups
- * @property \Cake\ORM\Association\HasMany $PhpbbExtensionGroups
- * @property \Cake\ORM\Association\HasMany $PhpbbExtensions
- * @property \Cake\ORM\Association\HasMany $PhpbbGroups
- * @property \Cake\ORM\Association\HasMany $PhpbbModeratorCache
- * @property \Cake\ORM\Association\HasMany $PhpbbTeampage
- * @property \Cake\ORM\Association\HasMany $PhpbbUserGroup
- * @property \Cake\ORM\Association\HasMany $PhpbbUsers
  * @property \Cake\ORM\Association\HasMany $Requests
  * @property \Cake\ORM\Association\HasMany $StGroups
  * @property \Cake\ORM\Association\BelongsToMany $RequestTypes
@@ -53,30 +45,6 @@ class GroupsTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->hasMany('GroupIcons', [
-            'foreignKey' => 'group_id'
-        ]);
-        $this->hasMany('PhpbbAclGroups', [
-            'foreignKey' => 'group_id'
-        ]);
-        $this->hasMany('PhpbbExtensionGroups', [
-            'foreignKey' => 'group_id'
-        ]);
-        $this->hasMany('PhpbbExtensions', [
-            'foreignKey' => 'group_id'
-        ]);
-        $this->hasMany('PhpbbGroups', [
-            'foreignKey' => 'group_id'
-        ]);
-        $this->hasMany('PhpbbModeratorCache', [
-            'foreignKey' => 'group_id'
-        ]);
-        $this->hasMany('PhpbbTeampage', [
-            'foreignKey' => 'group_id'
-        ]);
-        $this->hasMany('PhpbbUserGroup', [
-            'foreignKey' => 'group_id'
-        ]);
-        $this->hasMany('PhpbbUsers', [
             'foreignKey' => 'group_id'
         ]);
         $this->hasMany('Requests', [

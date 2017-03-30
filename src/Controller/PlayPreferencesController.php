@@ -102,11 +102,14 @@ class PlayPreferencesController extends AppController
         $this->set('isSt', $this->Permissions->IsST());
     }
 
-    public function report_aggregate()
+    public function reportAggregate()
     {
+        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        /* @var PlayPreferenceResponsesTable $playerPrefs */
+
         $this->set(
             'report',
-            $this->PlayPreference->getAggregateReport()
+            $playerPrefs->getAggregateReport()
         );
         $this->set(
             'submenu',
@@ -259,25 +262,12 @@ class PlayPreferencesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->PlayPreference->id = $id;
-        if (!$this->PlayPreference->exists()) {
-            throw new NotFoundException(__('Invalid play preference'));
-        }
-        $this->request->onlyAllow('post', 'delete');
-        if ($this->PlayPreference->delete()) {
-            $this->Session->setFlash(__('The play preference has been deleted.'));
-        } else {
-            $this->Session->setFlash(__('The play preference could not be deleted. Please, try again.'));
-        }
         $this->redirect(array('action' => 'index'));
     }
 
     public function isAuthorized($user)
     {
         switch ($this->request->getParam('action')) {
-            case 'report_aggregate':
-                return true;
-                break;
             case 'index':
             case 'respond':
                 return ($this->Auth->user('user_id') > 1);
