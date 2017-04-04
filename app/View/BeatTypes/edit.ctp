@@ -11,7 +11,7 @@ $this->set('title_for_layout', 'Edit Beat Type: ' . $this->request->data['BeatTy
             <?php echo $this->Form->input('number_of_beats'); ?>
         </div>
         <div class="small-6 medium-3 columns" style="text-align: center;">
-            <?php echo $this->Form->checkbox('may_rollover', ['div' => false]); ?>
+            <?php echo $this->Form->checkbox('may_rollover', ['div' => false, 'label' => 'May Rollover']); ?>
         </div>
         <div class="small-6 medium-3 columns" style="text-align: center;">
             <?php echo $this->Form->input('admin_only', ['div' => false, 'label' => 'Staff Only']); ?>
