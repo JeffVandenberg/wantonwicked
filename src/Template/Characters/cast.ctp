@@ -100,6 +100,7 @@ $this->Paginator->options([
                 $('#page-content').html($(data).filter("#page-content"));
                 var state = {html: 'doTo'};
                 window.history.pushState(state, 'Beat Types', target);
+
             }, 'html');
 
             return false;
