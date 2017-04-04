@@ -51,9 +51,9 @@ $associatedRequests = $requestRepository->ListRequestAssociatedWith($characterId
 $requestStatusRepository = new RequestStatusRepository();
 $requestTypeRepository = new RequestTypeRepository();
 $requestTypes = $requestTypeRepository->simpleListAll();
-$requestTypes = array_merge(['All'], $requestTypes);
+$requestTypes = [0 => 'All'] + $requestTypes;
 $requestStatuses = $requestStatusRepository->simpleListAll();
-$requestStatuses = array_merge(['All'], $requestStatuses);
+$requestStatuses = [0 => 'All'] + $requestStatuses;
 
 $contentHeader = $page_title = "Requests for " . $character['character_name'];
 
@@ -150,7 +150,7 @@ ob_start();
                 <td>
                     <?php echo FormHelper::Hidden('character_id', $characterId); ?>
                     <?php echo FormHelper::Hidden('action', 'list'); ?>
-                    <button class="button" name="page_action" value="Filter Requests">Filter Requests</button>
+                    <button class="button" name="page_action" value="Filter">Filter</button>
                 </td>
             </tr>
             <?php if (count($requests) > 0): ?>
