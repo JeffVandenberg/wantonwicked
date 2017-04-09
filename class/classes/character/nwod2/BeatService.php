@@ -13,7 +13,6 @@ namespace classes\character\nwod2;
 
 use classes\character\data\BeatStatus;
 use classes\character\data\CharacterBeat;
-use classes\character\data\CharacterBeatRecord;
 use classes\character\repository\CharacterBeatRecordRepository;
 use classes\character\repository\CharacterBeatRepository;
 use classes\character\repository\CharacterRepository;
@@ -61,6 +60,8 @@ class BeatService
         $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
         $historyRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeatRecord');
 
+        $beatRepo->startTransaction();
+
         // add XP to the character
         $sheetService = new SheetService();
         $sheetService->grantXpToCharacter(
@@ -80,6 +81,7 @@ class BeatService
         $beat->BeatsAwarded = $beat->BeatType->NumberOfBeats;
 
         $beatRepo->save($beat);
+        $beatRepo->commitTransaction();
         return true;
     }
 
