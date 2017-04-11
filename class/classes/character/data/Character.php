@@ -114,6 +114,9 @@ class Character extends DataModel
         parent::__construct();
         $this->NameColumn = 'character_name';
         $this->SortColumn = 'character_name';
+
+        // defaults values
+        $this->BonusReceived = 0;
     }
 
     public function __get($property)

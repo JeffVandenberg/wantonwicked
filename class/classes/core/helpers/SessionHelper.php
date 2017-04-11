@@ -24,11 +24,11 @@ class SessionHelper
     public static function GetFlashMessage($section = 'flash')
     {
         $message = "";
-        if (isset($_SESSION['Message'][$section])) {
-            $message = $_SESSION['Message'][$section]['message'];
-            unset($_SESSION['Message'][$section]);
-            if (count($_SESSION['Message']) == 0) {
-                unset($_SESSION['Message']);
+        if (isset($_SESSION['Flash'][$section])) {
+            $message = $_SESSION['Flash'][0][$section]['message'];
+            unset($_SESSION['Flash'][0][$section]);
+            if (count($_SESSION['Flash']) == 0) {
+                unset($_SESSION['Flash']);
             }
         }
         return $message;

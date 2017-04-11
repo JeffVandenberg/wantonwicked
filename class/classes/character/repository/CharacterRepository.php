@@ -10,6 +10,7 @@
 namespace classes\character\repository;
 
 
+use classes\character\data\BeatStatus;
 use classes\character\data\Character;
 use classes\core\repository\AbstractRepository;
 use classes\core\repository\Database;
@@ -458,5 +459,24 @@ SQL;
         }
 
         return $rows;
+    }
+
+    public function listCharactersWithOutstandingBeats()
+    {
+        $sql = <<<SQL
+SELECT
+  DISTINCT C.id
+FROM
+  characters AS C
+  INNER JOIN character_beats AS CB ON C.id = CB.character_id
+WHERE
+  CB.beat_status_id IN (?, ?)
+SQL;
+        $params = [
+            BeatStatus::NewBeat,
+            BeatStatus::StaffAwarded
+        ];
+
+        return $this->query($sql)->all($params);
     }
 }

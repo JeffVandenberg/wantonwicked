@@ -15,7 +15,7 @@ class SceneRepository extends AbstractRepository
 {
     function __construct()
     {
-        parent::__construct();
+        parent::__construct('classes\scene\data\Scene');
     }
 
     public function ListScenesForCharacter($characterId)
@@ -78,5 +78,40 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
+    public function findPlayerSceneDashboard($userId)
+    {
+        $sql = <<<EOQ
+select
+    S.id,
+    S.slug,
+    S.name,
+    S.run_on_date,
+    SS.name as scene_status_name,
+    count(*) as `participants`
+FROM
+    scenes AS S
+    LEFT JOIN scene_statuses AS SS ON S.scene_status_id = SS.id
+    LEFT JOIN scene_characters AS SC ON S.id = SC.scene_id
+    LEFT JOIN characters as C ON SC.character_id = C.id
+WHERE
+    C.user_id = ?
+    AND C.is_deleted = 'N'
+    AND S.run_on_date >= now()
+GROUP BY
+    S.id,
+    S.slug,
+    S.name,
+    S.run_on_date,
+    SS.name
+ORDER BY
+    S.run_on_date ASC,
+    S.name
+LIMIT 5
+EOQ;
+        $params = [
+            $userId
+        ];
 
+        return $this->query($sql)->all($params);
+    }
 }
