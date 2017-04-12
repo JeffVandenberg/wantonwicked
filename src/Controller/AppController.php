@@ -43,7 +43,7 @@ class AppController extends Controller
             'authenticate' => ['Phpbb'],
             'authorize' => ['Controller'],
             'loginAction' => '/forum/ucp.php?mode=login',
-            'unautherizedRedirect' => '/forum/ucp.php?mode=login'
+            'unauthorizedRedirect' => '/forum/ucp.php?mode=login'
         ],
         'Menu',
         'Permissions',
