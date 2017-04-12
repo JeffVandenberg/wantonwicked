@@ -31,7 +31,6 @@
       "App\\": "src/"
     },
     "files": [
-      "webroot/cgi-bin/start_of_page.php"
     ]
   }
 }
