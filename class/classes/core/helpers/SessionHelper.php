@@ -25,7 +25,7 @@ class SessionHelper
     {
         $message = "";
         if (isset($_SESSION['Flash'][$section])) {
-            $message = $_SESSION['Flash'][0][$section]['message'];
+            $message = $_SESSION['Flash'][$section][0]['message'];
             unset($_SESSION['Flash'][0][$section]);
             if (count($_SESSION['Flash']) == 0) {
                 unset($_SESSION['Flash']);
