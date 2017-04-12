@@ -16,7 +16,6 @@ use Cake\ORM\TableRegistry;
 
 /**
  * @property Component\AuthComponent Auth
- * @property SessionComponent Session
  * @property PermissionsComponent Permissions
  */
 class MenuComponent extends Component
