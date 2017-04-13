@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Controller\Component\ConfigComponent;
 use App\Model\LegacyUser;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * @property ConfigComponent Config
@@ -34,9 +35,9 @@ class HomeController extends AppController
 
     public function staff()
     {
-        $legacyUser = new LegacyUser();
+        $users = TableRegistry::get('Users');
 
-        $staff = $legacyUser->listUsersWithGroups();
+        $staff = $users->listUsersWithGroups();
         $this->set(compact('staff'));
     }
 

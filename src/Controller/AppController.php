@@ -64,15 +64,11 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
 
-//        if (!$this->Auth->user()) {
-//            $this->Auth->setUser($this->Auth->user());
-//        } else {
-            global $userdata;
-            if ($userdata['user_id'] != $this->Auth->user('user_id')) {
-                $this->Auth->logout();
-                $this->Auth->setUser($userdata);
-            }
-//        }
+        global $userdata;
+        if ($userdata['user_id'] != $this->Auth->user('user_id')) {
+            $this->Auth->logout();
+            $this->Auth->setUser($userdata);
+        }
         $this->Menu->InitializeMenu();
         $this->Auth->deny();
     }

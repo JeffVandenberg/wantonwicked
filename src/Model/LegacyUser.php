@@ -4,10 +4,9 @@
  * User: jvandenberg
  * Date: 12/27/13
  * Time: 4:00 PM
- */namespace app\Model;
+ */
+namespace App\Model;
 
-
-use App\Model\AppModel;
 
 class LegacyUser extends AppModel
 {
