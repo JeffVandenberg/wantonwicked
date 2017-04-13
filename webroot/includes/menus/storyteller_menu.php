@@ -113,7 +113,7 @@ if(UserdataHelper::IsHead($userdata)) {
 
 if(UserdataHelper::IsAdmin($userdata)) {
     $storytellerMenu['Tools']['submenu']['Configuration'] = array(
-        'link' => '/configuration'
+        'link' => '/configurations'
     );
     $storytellerMenu['Requests']['submenu']['Administration'] = array(
         'link' => '/admin/request'

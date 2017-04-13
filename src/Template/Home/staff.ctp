@@ -1,9 +1,12 @@
-<?php /* @var View $this */ ?>
-<?php /* @var array $admins */ ?>
-<?php /* @var array $sts */ ?>
-<?php /* @var array $assts */ ?>
-<?php /* @var array $wikis */ ?>
-<?php $this->set('title_for_layout', "Wanton Wicked Staff"); ?>
+<?php
+use App\View\AppView;
+/* @var AppView $this */
+/* @var array $admins */
+/* @var array $sts */
+/* @var array $assts */
+/* @var array $wikis */
+$this->set('title_for_layout', "Wanton Wicked Staff");
+?>
 
 <div style="text-align: center;">
     <?php echo $this->Html->link('Master list of roles', ['controller' => 'roles', 'action' => 'index']); ?>
@@ -26,20 +29,20 @@
     <?php foreach($staff as $user): ?>
         <tr>
             <td>
-                <?php echo $user['U']['username']; ?>
+                <?php echo $user['username']; ?>
             </td>
             <td>
                 <?php echo $this->Html->link(
-                    $user['R']['role_name'],
+                    $user['role_name'],
                     [
                         'controller' => 'roles',
                         'action' => 'view',
-                        $user['U']['role_id']
+                        $user['role_id']
                     ])
                 ; ?>
             </td>
             <td>
-                <?php echo $user[0]['groups']; ?>
+                <?php echo $user['groups']; ?>
             </td>
         </tr>
     <?php endforeach; ?>

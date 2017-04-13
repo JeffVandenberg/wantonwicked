@@ -244,4 +244,39 @@ EOQ;
         ];
         $this->getConnection()->execute($sql, $params);
     }
+
+    public function listUsersWithGroups()
+    {
+        $sql = <<<EOQ
+SELECT
+    (
+      SELECT group_concat(
+        G.name SEPARATOR ', '
+      )
+      FROM
+        st_groups AS SG
+        LEFT JOIN groups AS G ON SG.group_id = G.id
+      WHERE
+        SG.user_id = U.user_id
+      ORDER BY
+        G.name
+    ) AS groups,
+    U.user_id,
+    U.username,
+    U.role_id,
+    R.name as role_name
+FROM
+    phpbb_users AS U
+    INNER JOIN roles AS R ON U.role_id = R.id
+    LEFT JOIN permissions_users AS PU ON U.user_Id = PU.user_id
+WHERE
+    U.role_Id > 0
+GROUP BY
+    U.user_id
+ORDER BY
+    U.username
+EOQ;
+        return $this->getConnection()->execute($sql);
+
+    }
 }

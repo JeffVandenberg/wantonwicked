@@ -210,7 +210,7 @@ class MenuComponent extends Component
 
         if ($this->Permissions->IsAdmin()) {
             $menu['Tools']['submenu']['Configuration'] = array(
-                'link' => '/configuration'
+                'link' => '/configurations'
             );
             $menu['Requests']['submenu']['Administration'] = array(
                 'link' => [
