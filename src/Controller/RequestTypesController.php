@@ -1,7 +1,5 @@
 <?php
-namespace app\Controller;
-
-use App\Controller\AppController;
+namespace App\Controller;
 
 /**
  * RequestTypes Controller
@@ -28,7 +26,6 @@ class RequestTypesController extends AppController
      */
     public function index()
     {
-        $this->RequestType->recursive = 0;
         $this->set('requestTypes', $this->Paginator->paginate());
     }
 

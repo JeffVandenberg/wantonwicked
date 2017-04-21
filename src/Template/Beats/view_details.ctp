@@ -1,7 +1,8 @@
 <?php
+use App\View\AppView;
 use classes\character\data\CharacterBeat;
 
-/* @var View $this */
+/* @var AppView $this */
 /* @var CharacterBeat $beat */
 ?>
 

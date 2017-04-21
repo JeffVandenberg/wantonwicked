@@ -1,12 +1,17 @@
 <?php
-namespace app\Controller;
 
-use App\Controller\AppController;
+namespace App\Controller;
+
+use App\Controller\Component\PermissionsComponent;
+use App\Model\Table\RolesTable;
+use Cake\Controller\Component\PaginatorComponent;
+use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * Roles Controller
  *
- * @property Role $Role
+ * @property RolesTable $Roles
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  */
@@ -18,9 +23,12 @@ class RolesController extends AppController
      *
      * @var array
      */
-    public $components = array('Paginator');
+    public $components = [
+        'Paginator'
+    ];
 
-    public function beforeFilter(Event $event) {
+    public function beforeFilter(Event $event)
+    {
         parent::beforeFilter($event);
         $this->Auth->allow(array(
             'index',
@@ -35,11 +43,12 @@ class RolesController extends AppController
      */
     public function index()
     {
-        $this->Role->recursive = 0;
-        $this->Paginator->settings = array(
-            'order' => 'Role.name'
-        );
-        $this->set('roles', $this->Paginator->paginate());
+        $this->set('roles', $this->Paginator->paginate($this->Roles, [
+            'order' => [
+                'Roles.name'
+            ],
+            'limit' => 20
+        ]));
         $this->set('mayEdit', $this->Permissions->IsHead());
     }
 
@@ -52,11 +61,11 @@ class RolesController extends AppController
      */
     public function view($id = null)
     {
-        if (!$this->Role->exists($id)) {
-            throw new NotFoundException(__('Invalid role'));
-        }
-        $options = array('conditions' => array('Role.' . $this->Role->primaryKey => $id));
-        $this->set('role', $this->Role->find('first', $options));
+        $this->set('role', $this->Roles->get($id, [
+            'contain' => [
+                'Permissions'
+            ]
+        ]));
         $this->set('mayEdit', $this->Permissions->IsHead());
     }
 
@@ -70,8 +79,7 @@ class RolesController extends AppController
         if ($this->request->is('post')) {
             if ($this->request->data['action'] == 'Cancel') {
                 $this->redirect(['action' => 'index']);
-            }
-            else {
+            } else {
                 $this->Role->create();
                 if ($this->Role->save($this->request->data)) {
                     $this->Session->setFlash(__('The role has been saved.'));
@@ -82,8 +90,8 @@ class RolesController extends AppController
             }
         }
         $permissions = $this->Role->Permission->find('list', [
-                'order' => 'permission_name'
-            ]);
+            'order' => 'permission_name'
+        ]);
         $this->set(compact('permissions'));
     }
 
@@ -102,8 +110,7 @@ class RolesController extends AppController
         if ($this->request->is(array('post', 'put'))) {
             if ($this->request->data['action'] == 'Cancel') {
                 $this->redirect(['action' => 'index']);
-            }
-            else {
+            } else {
                 if ($this->Role->save($this->request->data)) {
                     $this->Session->setFlash(__('The role has been saved.'));
                     $this->redirect(array('action' => 'index'));
@@ -143,7 +150,8 @@ class RolesController extends AppController
         $this->redirect(array('action' => 'index'));
     }
 
-    public function isAuthorized($action) {
+    public function isAuthorized($action)
+    {
         return $this->Permissions->IsHead();
     }
 }
