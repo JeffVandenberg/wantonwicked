@@ -1,18 +1,15 @@
 <?php
-use classes\character\data\CharacterBeatRecord;
-
 /**
  * Created by PhpStorm.
  * User: JeffVandenberg
  * Date: 2/25/2017
  * Time: 8:57 AM
  */
-
 namespace classes\character\nwod2;
-
 
 use classes\character\data\BeatStatus;
 use classes\character\data\CharacterBeat;
+use classes\character\data\CharacterBeatRecord;
 use classes\character\repository\CharacterBeatRecordRepository;
 use classes\character\repository\CharacterBeatRepository;
 use classes\character\repository\CharacterRepository;
@@ -131,8 +128,7 @@ class BeatService
         /* @var CharacterRepository $characterRepo */
         $characters = $characterRepo->listCharactersWithOutstandingBeats();
 
-        foreach($characters as $character)
-        {
+        foreach ($characters as $character) {
             $this->awardOutstandingBeatsToCharacter($character['id']);
         }
     }
@@ -152,8 +148,8 @@ class BeatService
         $beatRecord = $beatRecordRepo->findByCharacterIdAndRecordMonth($characterId, date('Y-m-d'));
 
         // loop through beats to award them
-        foreach($beats as $beat) {
-            if(($beatRecord->ExperienceEarned+.1) >= $this->maxXpPerMonth) { // eww... PHP Math. :/
+        foreach ($beats as $beat) {
+            if (($beatRecord->ExperienceEarned + .1) >= $this->maxXpPerMonth) { // eww... PHP Math. :/
                 // stop processing more beats6
                 break;
             }

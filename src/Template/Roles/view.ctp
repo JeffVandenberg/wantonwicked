@@ -1,5 +1,12 @@
-<?php /* @var View $this */;
-$this->set('title_for_layout', $role['Role']['name']);
+<?php
+use App\Model\Entity\Role;
+use App\View\AppView;
+
+/* @var AppView $this */
+/* @var Role $role */
+/* @var bool $mayEdit */
+
+$this->set('title_for_layout', $role->name);
 $menu['Actions']['submenu']['Back'] = [
     'link' => [
         'action' => 'index'
@@ -26,22 +33,22 @@ $this->set('menu', $menu);
     <dl>
         <dt><?php echo __('Name'); ?></dt>
         <dd>
-            <?php echo h($role['Role']['name']); ?>
+            <?php echo h($role->name); ?>
             &nbsp;
         </dd>
         <dt><?php echo __('Description'); ?></dt>
         <dd>
-            <?php echo $role['Role']['description']; ?>
+            <?php echo $role->description; ?>
             &nbsp;
         </dd>
     </dl>
     <?php if ($mayEdit): ?>
         <h3><?php echo __('Permissions'); ?></h3>
-        <?php if (!empty($role['Permission'])): ?>
+        <?php if (!empty($role->permissions)): ?>
             <ul>
-                <?php foreach ($role['Permission'] as $permission): ?>
+                <?php foreach ($role->permissions as $permission): ?>
                     <li>
-                        <?php echo $permission['permission_name']; ?>
+                        <?php echo $permission->permission_name; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>

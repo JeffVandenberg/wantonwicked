@@ -66,8 +66,8 @@ EOQ;
         }
 
         $sql .= <<<EOQ
- ORDER BY
-    created DESC
+ORDER BY
+    id DESC
 LIMIT
     $startIndex, $pageSize
 EOQ;

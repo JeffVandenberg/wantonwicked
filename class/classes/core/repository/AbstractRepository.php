@@ -83,7 +83,7 @@ EOQ;
             {
                 $oItem = $this->populateObject($row);
             }
-            RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$id] = $oItem;
+            $this->addToCache($oItem);
         }
         return clone RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$id];
     }
@@ -218,10 +218,7 @@ sortColumn;
     public function save(DataModel $item)
     {
         $this->beforeSave($item);
-        $idProperty = $item->getIdProperty();
-        if(isset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty])) {
-            unset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty]);
-        }
+        $this->removeFromCache($item);
         $tableName = $this->ManagedObject->getTableName();
         $idColumn = $this->ManagedObject->getIdColumn();
         $idProperty = $this->ManagedObject->getIdProperty();
@@ -274,6 +271,7 @@ sortColumn;
                 $item->{$this->ManagedObject->getIdProperty()} = $this->Handler->lastInsertId();
             }
 
+            $this->addToCache($item);
             $this->afterSave($item);
         }
 
@@ -360,7 +358,7 @@ EOQ;
     /**
      * @param $table
      * @param $select
-     * @return array
+     * @return string
      */
     public function processSelect($table, $select)
     {
@@ -385,6 +383,28 @@ EOQ;
             }
         }
         return $sql;
+    }
+
+    /**
+     * @param DataModel $item
+     * @return string
+     */
+    public function removeFromCache(DataModel $item)
+    {
+        $idProperty = $item->getIdProperty();
+        if (isset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty])) {
+            unset(RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$item->$idProperty]);
+        }
+        return $idProperty;
+    }
+
+    /**
+     * @param $oItem
+     */
+    public function addToCache($oItem)
+    {
+        $idProp = $this->ManagedObject->getIdProperty();
+        RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$oItem->$idProp] = $oItem;
     }
 
     /**
