@@ -218,7 +218,6 @@ sortColumn;
     public function save(DataModel $item)
     {
         $this->beforeSave($item);
-        $this->removeFromCache($item);
         $tableName = $this->ManagedObject->getTableName();
         $idColumn = $this->ManagedObject->getIdColumn();
         $idProperty = $this->ManagedObject->getIdProperty();
