@@ -1,6 +1,8 @@
 <?php
-/* @var View $this */
+use App\View\AppView;
 use classes\character\data\Character;
+
+/* @var AppView $this */
 
 /* @var Character $character */
 $this->set('title_for_layout', 'View Character: ' . $character->CharacterName);
@@ -20,4 +22,5 @@ $this->set('title_for_layout', 'View Character: ' . $character->CharacterName);
         </div>
     </div>
 </form>
-<?php $this->Html->script('create_character_nwod2', ['inline' => false]);
+<?php
+echo $this->Html->script('create_character_nwod2');

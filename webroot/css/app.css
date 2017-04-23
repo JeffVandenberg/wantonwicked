@@ -6123,3 +6123,6 @@ textarea {
 /* character sheet */
 .power-level-column {
   width: 70px; }
+
+.checkbox {
+  display: inline; }

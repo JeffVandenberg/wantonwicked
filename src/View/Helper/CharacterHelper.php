@@ -278,7 +278,8 @@ class CharacterHelper extends AppHelper
                     'value' => $character->CharacterType,
                     'empty' => false,
                     'label' => false,
-                    'div' => false
+                    'div' => false,
+                    'id' => 'character_type'
                 ]);
             $city = $this->Form->select('city', $this->games, [
                 'label' => false,
@@ -981,7 +982,7 @@ class CharacterHelper extends AppHelper
                             <?php endif; ?>
                         </td>
                         <td>
-                            <label class="hide-for-large-only">Is Public</label>
+                            <label class="hide-for-large">Is Public</label>
                             <?php if ($this->mayEditOpen()): ?>
                                 <?php echo $this->Form->checkbox('equipment.' . $i . '.is_public', [
                                     'label' => false,
@@ -2003,10 +2004,13 @@ class CharacterHelper extends AppHelper
                     </div>
                 </div>
                 <div class="small-12 medium-6 column float-left">
-                    <div class="subheader">
-                        Renown
-                    </div>
                     <div class="row">
+                        <div class="small-12 column subheader">
+                            Renown
+                            <?php if($this->mayEditOpen()): ?>
+                                <div style="font-size:15px;display:inline;">&nbsp;</div>
+                            <?php endif; ?>
+                        </div>
                         <table class="stack">
                             <?php echo $this->makeWolfRenownRow($character, 0, 'Cunning', 'cunning'); ?>
                             <?php echo $this->makeWolfRenownRow($character, 1, 'Glory', 'glory'); ?>
@@ -2184,7 +2188,7 @@ class CharacterHelper extends AppHelper
                 'header' => 'Level',
                 'extra' => [
                     'class' => 'power-level-column',
-                    'html_before' => '<label class="hide-for-large-only">Level</label>'
+                    'html_before' => '<label class="hide-for-large">Level</label>'
                 ],
                 'inputs' => [
                     [
@@ -2199,7 +2203,7 @@ class CharacterHelper extends AppHelper
                 'header' => 'Level',
                 'extra' => [
                     'class' => 'power-level-column',
-                    'html_before' => '<label class="hide-for-large-only">Level</label>'
+                    'html_before' => '<label class="hide-for-large">Level</label>'
                 ],
                 'inputs' => [
                     [
@@ -2456,7 +2460,7 @@ class CharacterHelper extends AppHelper
                     ]); ?>
                     <?php echo $this->Form->control('renown.' . $index . '.id', [
                         'type' => 'hidden',
-                        'value' => $character->getPowerByTypeAndName('renown', $renownKey)->PowerLevel
+                        'value' => $character->getPowerByTypeAndName('renown', $renownKey)->Id
                     ]); ?>
                 <?php endif; ?>
             </td>
