@@ -3,12 +3,6 @@
 /app/Config/core.php
 /app/Config/database.php
 /app/tmp
-/lib/Cake/Console/Templates/skel/tmp/
-/plugins
-/vendors
-/build
-/dist
-/tags
 
 # OS generated files #
 ######################
@@ -30,8 +24,13 @@ Thumbs.db
 
 # application specific
 /class/classes/core/repository/DatabaseMapper.php
-/app/webroot/chat/includes/db.php
-app/webroot/forum
+/webroot/chat/includes/db.php
+webroot/forum/
 build_number
 node_modules
 **/.sass-cache
+/config/app.php
+logs/cli-error.log
+logs/error.log
+logs/debug.log
+tmp/

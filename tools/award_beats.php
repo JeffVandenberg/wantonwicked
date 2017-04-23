@@ -5,10 +5,10 @@
  * Date: 3/12/2017
  * Time: 10:17 PM
  */
-
 use classes\character\nwod2\BeatService;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../webroot/cgi-bin/start_of_page.php';
 
 // grab command line params
 $options = getopt('c::', []);

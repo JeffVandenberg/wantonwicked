@@ -1,4 +1,6 @@
 <?php
+namespace tools;
+
 use classes\character\nwod2\BeatService;
 use classes\character\repository\CharacterRepository;
 use classes\core\repository\Database;
