@@ -30,7 +30,7 @@
     
 */
 # Version date
-$RecipeInfo['NewPageBoxPlus']['Version'] = '2009-01-29';
+$RecipeInfo['NewPageBoxPlus']['Version'] = '2014-02-21';
 
 # save=true option disabled by default, but available if authorised at 'edit' level
 SDV($EnableAutoSave, false);
@@ -44,80 +44,79 @@ SDVA($NewPageProtectedGroups, array('SiteAdmin','Site'));
 # Example: $NewPageBaseGroup = 'Main';
 
 # add markup (:newpagebox:)
-Markup('newpagebox', 'directives',
-  '/\\(:newpagebox\\s*(.*?):\\)/ei',
-  "NewPageBox(\$pagename, PSS('$1'))");
-  
+Markup_e('newpagebox', 'directives',
+    '/\\(:newpagebox\\s*(.*?):\\)/i',
+    "NewPageBox(\$pagename, \$m[1])");
+
 # add action=new (the form sends this with the other values)
 $HandleActions['new'] = 'HandleNew';
 
 # add form function. The values for parameter defaults can be changed here
 function NewPageBox($pagename, $opt) {
-  $PageUrl = PageVar($pagename, '$PageUrl');    
-  $defaults = array(
+    $PageUrl = PageVar($pagename, '$PageUrl');
+    $defaults = array(
 #    'size'   => '30',
-    'label' => FmtPageName(' $[Create a new page called:] ', $pagename),
-    'button' => 'left');
-  $opt = array_merge($defaults, ParseArgs($opt));
-  $buttonHTML = "    <input class='inputbutton newpagebutton' type='submit' value='{$opt['label']}' /> \n";
-  $onfocusHTML = "
+        'label' => FmtPageName(' $[Create a new page called:] ', $pagename),
+        'button' => 'left');
+    $opt = array_merge($defaults, ParseArgs($opt));
+    $buttonHTML = "    <input class='inputbutton newpagebutton' type='submit' value='{$opt['label']}' /> \n";
+    $onfocusHTML = "
       onfocus=\"if(this.value=='{$opt['value']}') {this.value=''}\" onblur=\"if(this.value=='') {this.value='{$opt['value']}'}\" ";
-  $out = "\n   <form class='newpage' action='{$PageUrl}' method='post'>
+    $out = "\n   <form class='newpage' action='{$PageUrl}' method='post'>
     <input type='hidden' name='n' value='$pagename' />
     <input type='hidden' name='action' value='new' /> \n".
-    ($opt['value'] ? "    <input type='hidden' name='value' value='{$opt['value']}' /> \n" : "").
-    ($opt['focus'] ? "    <input type='hidden' name='focus' value='{$opt['focus']}' /> \n" : "").
-    ($opt['base'] ? "     <input type='hidden' name='base' value='{$opt['base']}' /> \n" : "").
-    ($opt['prefix'] ? "    <input type='hidden' name='prefix' value='{$opt['prefix']}' /> \n" : "").
-    ($opt['suffix'] ? "    <input type='hidden' name='suffix' value='{$opt['suffix']}' /> \n" : "").
-    ($opt['save'] ? "    <input type='hidden' name='save' value='{$opt['save']}' /> \n" : "").
-    ($opt['template'] ? "    <input type='hidden' name='template' value='{$opt['template']}' /> \n" : "").
-    ($opt['button']=="left" ? $buttonHTML : "") .
-    "    <input class='inputbox newpagetext' type='text' name='name' value='{$opt['value']}' size='{$opt['size']}'" .
-    ($opt['focus']==1||$opt['focus']=='true' ? $onfocusHTML : "") . 
-    "/> \n" .
-    ($opt['button']=="right" ? $buttonHTML : "") .
-    "  </form>";
+        ($opt['value'] ? "    <input type='hidden' name='value' value='{$opt['value']}' /> \n" : "").
+        ($opt['focus'] ? "    <input type='hidden' name='focus' value='{$opt['focus']}' /> \n" : "").
+        ($opt['base'] ? "     <input type='hidden' name='base' value='{$opt['base']}' /> \n" : "").
+        ($opt['prefix'] ? "    <input type='hidden' name='prefix' value='{$opt['prefix']}' /> \n" : "").
+        ($opt['suffix'] ? "    <input type='hidden' name='suffix' value='{$opt['suffix']}' /> \n" : "").
+        ($opt['save'] ? "    <input type='hidden' name='save' value='{$opt['save']}' /> \n" : "").
+        ($opt['template'] ? "    <input type='hidden' name='template' value='{$opt['template']}' /> \n" : "").
+        ($opt['button']=="left" ? $buttonHTML : "") .
+        "    <input class='inputbox newpagetext' type='text' name='name' value='{$opt['value']}' size='{$opt['size']}'" .
+        ($opt['focus']==1||$opt['focus']=='true' ? $onfocusHTML : "") .
+        "/> \n" .
+        ($opt['button']=="right" ? $buttonHTML : "") .
+        "  </form>";
     return Keep($out);
 }
 
 # handles action=new, i.e. what the form sends, sends new page to edit
 function HandleNew($pagename) {
-	global $Author, $Now, $EnableAutoSave, $NewPageProtectedGroups, $NewPageBaseGroup, $PageUrl;
-	$name = @$_REQUEST['name'];
-	if (!$name) WikiRedirect($pagename);
-	if(@$_REQUEST['prefix']) $name = $_REQUEST['prefix'].$name;
-	if(@$_REQUEST['suffix']) $name = $name.$_REQUEST['suffix'];
-	if (@$_REQUEST['focus'] && $name==$_REQUEST['value']) WikiRedirect($pagename);
-	if (isset($NewPageBaseGroup)) 
-	  $base = MakePageName($pagename, $NewPageBaseGroup.".HomePage");
-	else if ($_REQUEST['base'])
-		$base = MakePageName($pagename, $_REQUEST['base']);
-	$basegroup = PageVar($base, '$Group'); 
-	if (isset($NewPageBaseGroup) OR $_REQUEST['base']) {
-		$name = str_replace(".", "", $name);
-		$newpage = MakePageName($base, "$basegroup.$name");	
-	}
-	else $newpage = MakePageName($pagename, $name);
+    global $Author, $Now, $EnableAutoSave, $NewPageProtectedGroups, $NewPageBaseGroup, $PageUrl;
+    $name = @$_REQUEST['name'];
+    if (!$name) Redirect($pagename);
+    if(@$_REQUEST['prefix']) $name = $_REQUEST['prefix'].$name;
+    if(@$_REQUEST['suffix']) $name = $name.$_REQUEST['suffix'];
+    if (@$_REQUEST['focus'] && $name==$_REQUEST['value']) Redirect($pagename);
+    if (isset($NewPageBaseGroup))
+        $base = MakePageName($pagename, $NewPageBaseGroup.".HomePage");
+    else if ($_REQUEST['base'])
+        $base = MakePageName($pagename, $_REQUEST['base']);
+    $basegroup = PageVar($base, '$Group');
+    if (isset($NewPageBaseGroup) OR $_REQUEST['base']) {
+        $name = str_replace(".", "", $name);
+        $newpage = MakePageName($base, "$basegroup.$name");
+    }
+    else $newpage = MakePageName($pagename, $name);
 
-	if (in_array(PageVar($newpage, '$Group'),$NewPageProtectedGroups)) WikiRedirect($pagename);
-	$urlfmt = '$PageUrl?action=edit';
-	if (@$_REQUEST['template']) {
-		$urlfmt .= '&template=' . MakePageName($base, $_REQUEST['template']); 
-	}
-	if ((@$_REQUEST['save']=='1' || @$_REQUEST['save']=='true') AND ($EnableAutoSave==1 OR CondAuth($pagename,'edit'))) { 
-		if(PageExists($newpage)) WikiRedirect($newpage, $urlfmt);
-		if (@$_REQUEST['template'] && PageExists($_REQUEST['template'])) {
-			$p = RetrieveAuthPage($_REQUEST['template'], 'read', false, READPAGE_CURRENT);
-			if ($p['text'] > '') $new['text'] = $p['text']; 
-			$new['author'] = $Author;
-			$new['ctime'] = $Now; 
-		}
-		SaveAttributes($newpage, $new, $new);
-		PostPage($newpage, $new, $new);
-		PostRecentChanges($newpage, $new, $new);
-		WikiRedirect($newpage);
-	}
-	WikiRedirect($newpage, $urlfmt);
+    if (in_array(PageVar($newpage, '$Group'),$NewPageProtectedGroups)) Redirect($pagename);
+    $urlfmt = '$PageUrl?action=edit';
+    if (@$_REQUEST['template']) {
+        $urlfmt .= '&template=' . MakePageName($base, $_REQUEST['template']);
+    }
+    if ((@$_REQUEST['save']=='1' || @$_REQUEST['save']=='true') AND ($EnableAutoSave==1 OR CondAuth($pagename,'edit'))) {
+        if(PageExists($newpage)) Redirect($newpage, $urlfmt);
+        if (@$_REQUEST['template'] && PageExists($_REQUEST['template'])) {
+            $p = RetrieveAuthPage($_REQUEST['template'], 'read', false, READPAGE_CURRENT);
+            if ($p['text'] > '') $new['text'] = $p['text'];
+            $new['author'] = $Author;
+            $new['ctime'] = $Now;
+        }
+        SaveAttributes($newpage, $new, $new);
+        PostPage($newpage, $new, $new);
+        PostRecentChanges($newpage, $new, $new);
+        Redirect($newpage);
+    }
+    Redirect($newpage, $urlfmt);
 }
-

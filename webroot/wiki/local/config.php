@@ -8,14 +8,13 @@
 ##  $WikiTitle is the name that appears in the browser's title bar.
 $WikiTitle = 'Wanton Wicked Wiki';
 
+$EnableDiag = 1;
 ## MarcD: added TOC
+include_once("cookbook/markup.php");
 include_once("cookbook/pagetoc.php");
 include_once("cookbook/toggle.php");
 include_once("cookbook/sortable.php");
 include_once("cookbook/newpageboxplus.php");
-include_once("cookbook/extendmarkup.php");
-include_once("cookbook/break_page.php");
-//include_once("$FarmD/cookbook/FacebookLikeButton.php");
 
 ## set group patterns
 $GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
@@ -238,4 +237,4 @@ function getIsLoggedIn()
     return $isLoggedIn;
 }
 
-Markup('noedit', 'directives',  '/\\(:noedit:\\)/ei', "SetTmplDisplay('PageEditLinkFmt',0)"); ;
+Markup_e('noedit', 'directives',  '/\\(:noedit:\\)/i', "SetTmplDisplay('PageEditLinkFmt',0)"); ;

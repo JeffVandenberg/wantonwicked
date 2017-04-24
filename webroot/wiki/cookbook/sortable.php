@@ -32,11 +32,18 @@
 | copy all other files to pub/sortable/ (create a new folder 'sortable' in pub/).
 +----------------------------------------------------------------------+
 */
-$RecipeInfo['SortableTables']['Version'] = '2009-07-20';
+$RecipeInfo['SortableTables']['Version'] = '2015-06-12';
 
-Markup('sortable', 'directives',
-  '/\\(:sortable\\s*(.*?)\\s*:\\)/e',
-  "LoadSortable(\$pagename, PSS('$1'))");
+if(function_exists('Markup_e')) { 
+	Markup_e('sortable', 'directives',
+  	'/\\(:sortable\\s*(.*?)\\s*:\\)/',
+  	"LoadSortable(\$pagename, \$m[1])");
+}
+else { 
+	Markup('sortable', 'directives',
+  	'/\\(:sortable\\s*(.*?)\\s*:\\)/e',
+  	"LoadSortable(\$pagename, PSS('$1'))");
+}
   
 function LoadSortable($pagenam, $args) {
 	global $PubDirUrl, $HTMLHeaderFmt;
@@ -46,8 +53,10 @@ function LoadSortable($pagenam, $args) {
 		'evenrowbg'   => '#e8e8e8',
 		'headerrowbg' => '#bbb',
 		'bottomrowbg' => '#d6d6d6',
+		'negnumcolor' => 'red',
 		'arrows' => 'white',
 		'headerrow'   => '#fff',  //header row font color
+		'headerrowhover' => '#333', //header row font hover colour
 		'altrowbg' => 1,
 	);
 	$args = ParseArgs($args);
@@ -80,13 +89,15 @@ function LoadSortable($pagenam, $args) {
 		</script>
 		<script type="text/javascript" language="JavaScript1.2" src="$PubDirUrl/sortable/sortable.js"></script>
 		<style type="text/css">
-			.sortable * { padding:0 0.3em; }
-			.even { background:'.$args["evenrowbg"].'; }
-			.odd  { background:'.$args["oddrowbg"].'; }
-			.sortable th, td.unsortable { background:'.$args["headerrowbg"].';  }
-			.sortable th a, td.unsortable { color:'.$args["headerrow"].'; text-decoration:none; }
-			.sortable th a:hover { text-decoration:underline; }
-			.sortbottom { background:'.$args["bottomrowbg"].'; }
+			.sortable * {padding:0 0.3em;}
+			.even {background:'.$args["evenrowbg"].';}
+			.odd  {background:'.$args["oddrowbg"].';}
+			.sortable th, td.unsortable {background:'.$args["headerrowbg"].';}
+			.sortable th a, td.unsortable {color:'.$args["headerrow"].'; text-decoration:none;}
+			.sortable th a:hover {color:'.$args["headerrowhover"].';}
+			.sortable td.unsortable {vertical-align: bottom;}
+			.sortbottom {background:'.$args["bottomrowbg"].';}
+			.sortable td.negnum {color:'.$args["negnumcolor"].';}
 		</style>';
 }
 
