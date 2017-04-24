@@ -124,7 +124,7 @@ wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
     <div id="rightContainer">
         <img id="roomIcon" class="roomIcon" src="images/rooms.gif" alt="" onclick="newRoom('<?php if($_GET['sID']){?>0<?php }else{?>1<?php }?>');">
         <div id="roomCreate" class="roomCreate">
-        <span><a href="/wiki/index.php?n=City.City#city" target="_new">Complete list of Districts</a><br>
+        <span><a href="/wiki/City/City#city" target="_new">Complete list of Districts</a><br>
         <br></span>
             <span><?php echo C_LANG129;?> <span title="Use () to designate a district location for the room, like (HD). Use [] if the room is located in another world, like [Hedge]."><img src="/chat/images/menu/help_small.png" height="15px"></span><input class="roomInput" type="text" id="roomName" name="roomName" value=""></span>
         <!--<span><select name="room_type_id" id="room_type_id"><option value="1">General</option><option value="5">Changeling</option><option value="3">Mage</option><option value="8">Mortal</option><option value="2">Vampire</option><option value="4">Werewolf</option><option value="7">ST Scene (ST only)</option></select></span>-->

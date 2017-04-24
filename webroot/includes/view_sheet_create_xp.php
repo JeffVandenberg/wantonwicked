@@ -37,11 +37,11 @@ $characterSheet = $characterSheetHelper->MakeNewView(array(), $characterType);
 ob_start();
 ?>
     When creating a character, please make sure you have reviewed
-    <a href="/wiki/index.php?n=GameRef.CharacterCreation" target="_blank">Character Creation Guidelines</a>.<br>
+    <a href="/wiki/GameRef/CharacterCreation" target="_blank">Character Creation Guidelines</a>.<br>
     <br>
     <br>
     Please make sure you have read over the
-    <a href="/wiki/index.php?n=GameRef.CharacterSheetFAQ" target="_blank">Character Sheet FAQ</a>.
+    <a href="/wiki/GameRef/CharacterSheetFAQ" target="_blank">Character Sheet FAQ</a>.
     his character sheet is based off of XP Pools rather than dot allocation.
     <br>
     <form name="character_sheet" id="character_sheet" method="post"

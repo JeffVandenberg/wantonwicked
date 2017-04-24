@@ -62,7 +62,7 @@ $characterMenu['Help'] = [
     'link' => '#',
     'submenu' => [
         'Request System Help' => [
-            'link' => '/wiki/index.php?n=GameRef.GameInterfaceHelp'
+            'link' => '/wiki/GameRef/GameInterfaceHelp'
         ]
     ]
 ];

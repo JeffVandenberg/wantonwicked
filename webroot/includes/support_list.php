@@ -18,7 +18,7 @@ ob_start();
 <?php if($isSupporter): ?>
     <a href="support.php?action=setCharacters" class="button">Update Support Status</a>
 <?php endif; ?>
-<a href="/wiki/index.php?n=GameRef.5For5Offer" class="button">View Supporter Information</a>
+<a href="/wiki/GameRef/5For5Offer" class="button">View Supporter Information</a>
 <div>
     <img src="http://wantonwicked.gamingsandbox.com/wiki/images/wickedsupporter.jpg" />
 </div>
