@@ -403,7 +403,7 @@ EOQ;
     public function addToCache($oItem)
     {
         $idProp = $this->ManagedObject->getIdProperty();
-        RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$oItem->$idProp] = $oItem;
+        RepositoryManager::$cache[$this->ManagedObject->getRepositoryClass()][$oItem->$idProp] = clone $oItem;
     }
 
     /**
