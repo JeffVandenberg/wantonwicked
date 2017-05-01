@@ -8,6 +8,7 @@ use classes\log\data\ActionType;
 
 
 include __DIR__ . '/../vendor/autoload.php';
+include __DIR__ . '/../webroot/cgi-bin/start_of_page.php';
 
 $db = new Database();
 $beatService = new BeatService();
