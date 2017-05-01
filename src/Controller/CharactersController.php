@@ -91,7 +91,7 @@ class CharactersController extends AppController
         $this->set('characters', $this->paginate($query, [
             'limit' => 20,
             'order' => [
-                'Characters.character_name'
+                'Characters.character_name' => 'asc'
             ],
             'sortWhitelist' => [
                 'Users.username',
