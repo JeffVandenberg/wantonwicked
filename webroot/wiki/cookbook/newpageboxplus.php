@@ -100,13 +100,13 @@ function HandleNew($pagename) {
     }
     else $newpage = MakePageName($pagename, $name);
 
-    if (in_array(PageVar($newpage, '$Group'),$NewPageProtectedGroups)) Redirect($pagename);
+    if (in_array(PageVar($newpage, '$Group'),$NewPageProtectedGroups)) WikiRedirect($pagename);
     $urlfmt = '$PageUrl?action=edit';
     if (@$_REQUEST['template']) {
         $urlfmt .= '&template=' . MakePageName($base, $_REQUEST['template']);
     }
     if ((@$_REQUEST['save']=='1' || @$_REQUEST['save']=='true') AND ($EnableAutoSave==1 OR CondAuth($pagename,'edit'))) {
-        if(PageExists($newpage)) Redirect($newpage, $urlfmt);
+        if(PageExists($newpage)) WikiRedirect($newpage, $urlfmt);
         if (@$_REQUEST['template'] && PageExists($_REQUEST['template'])) {
             $p = RetrieveAuthPage($_REQUEST['template'], 'read', false, READPAGE_CURRENT);
             if ($p['text'] > '') $new['text'] = $p['text'];
@@ -116,7 +116,7 @@ function HandleNew($pagename) {
         SaveAttributes($newpage, $new, $new);
         PostPage($newpage, $new, $new);
         PostRecentChanges($newpage, $new, $new);
-        Redirect($newpage);
+        WikiRedirect($newpage);
     }
-    Redirect($newpage, $urlfmt);
+    WikiRedirect($newpage, $urlfmt);
 }
