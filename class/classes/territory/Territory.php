@@ -18,88 +18,50 @@ class Territory
         $territoryList = "";
         if ($mayEdit) {
             $territoryList .= <<<EOQ
-<div class="paragraph">
-	<a href="#" onclick="return createTerritory();">Create Territory</a>
-</div>
+<a href="#" onclick="return createTerritory();" class="button">Create Territory</a>
 EOQ;
         }
 
         $territoryList .= <<<EOQ
-<div class="tableRowHeader" style="width:770px;">
-	<div class="tableRowHeaderCell firstCell cell" style="width:150px;">
-		Territory Name
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:60px;">
-		Type
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:160px;">
-		Held By
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:30px;">
-		PCs
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:30px;">
-		NPCs
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:30px;">
-		Q.
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:30px;">
-		C.Q.
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:30px;">
-		S.
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:70px;">
-		O. P.
-	</div>
-	<div class="tableRowHeaderCell cell" style="width:120px;">
-		&nbsp;
-	</div>
-</div>
+<table>
+    <thead>
+    <tr>
+        <th>Territory Name</th>
+        <th>Type</th>
+        <th>Held By</th>
+        <th>PCs</th>
+        <th>NPCs</th>
+        <th><span title="Quality">Q.</span></th>
+        <th><span title="Current Quality">C. Q.</span></th>
+        <th><span title="Security">S.</span></th>
+        <th><span title="Optimal Population">O. P.</span></th>
+        <th></th>
+    </tr>
+    </thead>        
 EOQ;
 
-        $row = 0;
         if (count($territories)) {
-            foreach ($territories as $territoryDetail) {
-                $rowAlt = (($row++) % 2) ? "Alt" : "";
-
+            foreach ($territories as $i => $territoryDetail) {
                 $territoryList .= <<<EOQ
-<div class="tableRow$rowAlt" style="clear:both;width:770px;" id="territoryRow$territoryDetail[id]">
-	<div class="firstCell cell" style="width:120px;">
-		$territoryDetail[territory_name]
-	</div>
-	<div class="cell" style="width:60px;">
-		Domain
-	</div>
-	<div class="cell" style="width:160px;">
-		$territoryDetail[character_name]
-	</div>
-	<div class="cell" style="width:30px;">
-		$territoryDetail[pc_count]
-	</div>
-	<div class="cell" style="width:30px;">
-		$territoryDetail[npc_population]
-	</div>
-	<div class="cell" style="width:30px;">
-		$territoryDetail[quality]
-	</div>
-	<div class="cell" style="width:30px;">
-		$territoryDetail[current_quality]
-	</div>
-	<div class="cell" style="width:30px;">
-		$territoryDetail[security]
-	</div>
-	<div class="cell" style="width:70px;">
-		$territoryDetail[optimal_population]
-	</div>
-	<div class="cell" style="width:150px;">
-		<a href="#" onclick="return viewTerritory($territoryDetail[id]);">View</a>
-		<a href="/territory.php?action=edit&id=$territoryDetail[id]">Manage</a>
-	</div>
-</div>
+    <tr id="territoryRow${territoryDetail['id']}">
+        <td>${territoryDetail['territory_name']}</td>
+        <td>Domain</td>
+        <td>${territoryDetail['character_name']}</td>
+        <td>${territoryDetail['pc_count']}</td>
+        <td>${territoryDetail['npc_population']}</td>
+        <td>${territoryDetail['quality']}</td>
+        <td>${territoryDetail['current_quality']}</td>
+        <td>${territoryDetail['security']}</td>
+        <td>${territoryDetail['optimal_population']}</td>
+        <td>
+            <a href="#" onclick="return viewTerritory(${territoryDetail['id']});">View</a>
+            <a href="/territory.php?action=edit&id=${territoryDetail['id']}">Manage</a>
+        </td>
+    </tr>
 EOQ;
             }
+
+            $territoryList .= '</table>';
         } else {
             $territoryList .= <<<EOQ
 <div style="clear:both;">
@@ -141,7 +103,7 @@ EOQ;
 
         $row = 0;
         if (count($territories)) {
-			foreach($territories as $territoryDetail) {
+            foreach ($territories as $territoryDetail) {
                 $rowAlt = (($row++) % 2) ? "Alt" : "";
 
                 $isOpen = $territoryDetail['is_open'] ? 'Yes' : 'No';
@@ -225,8 +187,8 @@ SELECT
 	CT.is_poaching,
 	CT.created_on
 FROM
-	characters_territories as CT
-	LEFT JOIN characters as C ON CT.character_id = C.character_id
+	characters_territories AS CT
+	LEFT JOIN characters AS C ON CT.character_id = C.character_id
 WHERE
 	CT.territory_id = ?
 	AND CT.is_active = 1
@@ -238,13 +200,13 @@ ORDER BY
 	character_name
 EOQ;
 
-		$params = array($id);
-		$rows = Database::getInstance()->query($query)->all($params);
+        $params = array($id);
+        $rows = Database::getInstance()->query($query)->all($params);
 
         $characterList = "";
 
         if (count($rows)) {
-			foreach($rows as $detail) {
+            foreach ($rows as $detail) {
                 if (!$detail['is_poaching'] || ($showPoachers && ($detail['is_poaching'] == 1))) {
                     $characterList .= <<<EOQ
 <div style="width:250px;">
@@ -288,11 +250,11 @@ WHERE
 	AND (CT.updated_on IS NULL OR CT.updated_on > now())
 EOQ;
 
-		$params = array(
-			$territoryId
-		);
+        $params = array(
+            $territoryId
+        );
 
-		$numberOfLeeches = Database::getInstance()->query($sql)->value($params);
+        $numberOfLeeches = Database::getInstance()->query($sql)->value($params);
 
         return $numberOfLeeches;
     }
