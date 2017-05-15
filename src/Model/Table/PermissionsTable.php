@@ -34,7 +34,7 @@ class PermissionsTable extends Table
         parent::initialize($config);
 
         $this->setTable('permissions');
-        $this->setDisplayField('id');
+        $this->setDisplayField('permission_name');
         $this->setPrimaryKey('id');
 
         $this->hasMany('PermissionsUsers', [

@@ -3,6 +3,8 @@ namespace App\Model\Table;
 
 use App\Model\Entity\Role;
 use Cake\Datasource\EntityInterface;
+use Cake\ORM\Association\BelongsToMany;
+use Cake\ORM\Association\HasMany;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -10,10 +12,10 @@ use Cake\Validation\Validator;
 /**
  * Roles Model
  *
- * @property \Cake\ORM\Association\HasMany $PhpbbAclRoles
- * @property \Cake\ORM\Association\HasMany $PhpbbAclRolesData
- * @property \Cake\ORM\Association\HasMany $PhpbbUsers
- * @property \Cake\ORM\Association\BelongsToMany $Permissions
+ * @property HasMany $PhpbbAclRoles
+ * @property HasMany $PhpbbAclRolesData
+ * @property HasMany $PhpbbUsers
+ * @property BelongsToMany $Permissions
  *
  * @method Role get($primaryKey, $options = [])
  * @method Role newEntity($data = null, array $options = [])

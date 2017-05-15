@@ -8,12 +8,9 @@ use App\View\AppView;
 $this->set('title_for_layout', "Wanton Wicked Staff");
 ?>
 
-<div style="text-align: center;">
-    <?php echo $this->Html->link('Master list of roles', ['controller' => 'roles', 'action' => 'index']); ?>
+<div>
+    <?php echo $this->Html->link('All site roles', ['controller' => 'roles', 'action' => 'index'], ['class' => 'button']); ?>
 </div>
-<h2>
-    Our Staff
-</h2>
 <table>
     <tr>
         <th>
