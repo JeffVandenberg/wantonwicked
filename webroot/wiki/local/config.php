@@ -8,14 +8,13 @@
 ##  $WikiTitle is the name that appears in the browser's title bar.
 $WikiTitle = 'Wanton Wicked Wiki';
 
+$EnableDiag = 1;
 ## MarcD: added TOC
+include_once("cookbook/markup.php");
 include_once("cookbook/pagetoc.php");
 include_once("cookbook/toggle.php");
 include_once("cookbook/sortable.php");
 include_once("cookbook/newpageboxplus.php");
-include_once("cookbook/extendmarkup.php");
-include_once("cookbook/break_page.php");
-//include_once("$FarmD/cookbook/FacebookLikeButton.php");
 
 ## set group patterns
 $GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
@@ -29,7 +28,7 @@ $DeleteKeyPattern = "^\\s*123This Page Is Removed321\\s*$";
 
 ##  $ScriptUrl is your preferred URL for accessing wiki3.0 pages
 ##  $PubDirUrl is the URL for the pub directory.
-# $ScriptUrl = 'http://www.mydomain.com/path/to/pmwiki.php';
+$ScriptUrl = ('http' . ($_SERVER['HTTPS'] ? 's' : '')) . '://' . $_SERVER['SERVER_NAME'] . '/wiki';
 # $PubDirUrl = 'http://www.mydomain.com/path/to/pub';
 
 ##  If you want to use URLs of the form .../pmwiki.php/Group/PageName
@@ -38,7 +37,7 @@ $DeleteKeyPattern = "^\\s*123This Page Is Removed321\\s*$";
 ##  it depends on your webserver and PHP configuration.  You might also 
 ##  want to check http://www.pmwiki.org/wiki3.0/Cookbook/CleanUrls more
 ##  details about this setting and other ways to create nicer-looking urls.
-# $EnablePathInfo = 1;
+$EnablePathInfo = 1;
 
 ## $PageLogoUrl is the URL for a logo image -- you can change this
 ## to your own logo if you wish.
@@ -50,7 +49,7 @@ $DeleteKeyPattern = "^\\s*123This Page Is Removed321\\s*$";
 $Skin = 'wantonwicked';
 
 ## You'll probably want to set an administrative password that you
-## can use to get into password-protected pages.  Also, by default 
+## can use to get into password-protected pages.  Also, sby default
 ## the "attr" passwords for the PmWiki and Main groups are locked, so
 ## an admin password is a good way to unlock those.  See PmWiki.Passwords
 ## and PmWiki.PasswordsAdmin.
@@ -238,4 +237,4 @@ function getIsLoggedIn()
     return $isLoggedIn;
 }
 
-Markup('noedit', 'directives',  '/\\(:noedit:\\)/ei', "SetTmplDisplay('PageEditLinkFmt',0)"); ;
+Markup_e('noedit', 'directives',  '/\\(:noedit:\\)/i', "SetTmplDisplay('PageEditLinkFmt',0)"); ;

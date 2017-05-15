@@ -1,13 +1,11 @@
 <?php
-namespace tools;
-
 use classes\character\nwod2\BeatService;
 use classes\character\repository\CharacterRepository;
 use classes\core\repository\Database;
 use classes\log\data\ActionType;
 
-
 include __DIR__ . '/../vendor/autoload.php';
+include __DIR__ . '/../webroot/cgi-bin/start_of_page.php';
 
 $db = new Database();
 $beatService = new BeatService();

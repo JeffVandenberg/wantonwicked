@@ -7,6 +7,7 @@ use App\Model\Table\RolesTable;
 use Cake\Controller\Component\PaginatorComponent;
 use Cake\Event\Event;
 use Cake\Network\Exception\NotFoundException;
+use Cake\Network\Exception\NotImplementedException;
 
 /**
  * Roles Controller
@@ -76,20 +77,25 @@ class RolesController extends AppController
      */
     public function add()
     {
-        if ($this->request->is('post')) {
-            if ($this->request->data['action'] == 'Cancel') {
+        $role = $this->Roles->newEntity();
+
+        if ($this->request->is(array('post', 'put'))) {
+            if ($this->request->getData('action') == 'Cancel') {
                 $this->redirect(['action' => 'index']);
             } else {
-                $this->Role->create();
-                if ($this->Role->save($this->request->data)) {
-                    $this->Session->setFlash(__('The role has been saved.'));
+                $data = $this->request->getData();
+                $permissions = array_values($data['permissions']);
+                $data['permissions']['_ids'] = $permissions;
+                $role = $this->Roles->patchEntity($role, $data, ['associated' => 'Permissions']);
+                if ($this->Roles->save($role)) {
+                    $this->Flash->set(__('The role has been saved.'));
                     $this->redirect(array('action' => 'index'));
                 } else {
-                    $this->Session->setFlash(__('The role could not be saved. Please, try again.'));
+                    $this->Flash->set(__('The role could not be saved. Please, try again.'));
                 }
             }
         }
-        $permissions = $this->Role->Permission->find('list', [
+        $permissions = $this->Roles->Permissions->find('list', [
             'order' => 'permission_name'
         ]);
         $this->set(compact('permissions'));
@@ -104,28 +110,31 @@ class RolesController extends AppController
      */
     public function edit($id = null)
     {
-        if (!$this->Role->exists($id)) {
-            throw new NotFoundException(__('Invalid role'));
-        }
+        $role = $this->Roles->get($id, [
+            'contain' => [
+                'Permissions'
+            ]
+        ]);
         if ($this->request->is(array('post', 'put'))) {
-            if ($this->request->data['action'] == 'Cancel') {
+            if ($this->request->getData('action') == 'Cancel') {
                 $this->redirect(['action' => 'index']);
             } else {
-                if ($this->Role->save($this->request->data)) {
-                    $this->Session->setFlash(__('The role has been saved.'));
+                $data = $this->request->getData();
+                $permissions = array_values($data['permissions']);
+                $data['permissions']['_ids'] = $permissions;
+                $role = $this->Roles->patchEntity($role, $data, ['associated' => 'Permissions']);
+                if ($this->Roles->save($role)) {
+                    $this->Flash->set(__('The role has been saved.'));
                     $this->redirect(array('action' => 'index'));
                 } else {
-                    $this->Session->setFlash(__('The role could not be saved. Please, try again.'));
+                    $this->Flash->set(__('The role could not be saved. Please, try again.'));
                 }
             }
-        } else {
-            $options = array('conditions' => array('Role.' . $this->Role->primaryKey => $id));
-            $this->request->data = $this->Role->find('first', $options);
         }
-        $permissions = $this->Role->Permission->find('list', [
+        $permissions = $this->Roles->Permissions->find('list', [
             'order' => 'permission_name'
-        ]);
-        $this->set(compact('permissions'));
+        ])->toArray();
+        $this->set(compact('role', 'permissions'));
     }
 
     /**
@@ -137,17 +146,7 @@ class RolesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->Role->id = $id;
-        if (!$this->Role->exists()) {
-            throw new NotFoundException(__('Invalid role'));
-        }
-        $this->request->onlyAllow('post', 'delete');
-        if ($this->Role->delete()) {
-            $this->Session->setFlash(__('The role has been deleted.'));
-        } else {
-            $this->Session->setFlash(__('The role could not be deleted. Please, try again.'));
-        }
-        $this->redirect(array('action' => 'index'));
+        throw new NotImplementedException('This Route does not exist');
     }
 
     public function isAuthorized($action)

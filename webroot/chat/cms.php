@@ -52,7 +52,7 @@ $auth->acl($user->data);
 $userdata = $user->data;
 $user->setup('');
 
-include_once __DIR__ . '/../../../app/webroot/cgi-bin/start_of_page.php';
+require_once __DIR__ . '/../../webroot/cgi-bin/start_of_page.php';
 
 define('C_CUSTOM_LOGIN','1'); // 0 OFF, 1 ON
 

@@ -1,9 +1,3 @@
-# User specific & automatically generated files #
-#################################################
-/app/Config/core.php
-/app/Config/database.php
-/app/tmp
-
 # OS generated files #
 ######################
 .DS_Store
@@ -17,14 +11,18 @@ Thumbs.db
 # IDE/Project files
 .idea
 .git
-.vagrant
 
 # composer ignores
 /vendor
 
 # application specific
+/app/Config/core.php
+/app/Config/database.php
+/tmp/
 /class/classes/core/repository/DatabaseMapper.php
 /webroot/chat/includes/db.php
+
+
 webroot/forum/
 build_number
 node_modules
@@ -33,4 +31,19 @@ node_modules
 logs/cli-error.log
 logs/error.log
 logs/debug.log
-tmp/
+
+/webroot/wiki/wiki.d/Archive.*
+/webroot/wiki/wiki.d/Changeling.*
+/webroot/wiki/wiki.d/City.*
+/webroot/wiki/wiki.d/GameRef.*
+/webroot/wiki/wiki.d/Mage.*
+/webroot/wiki/wiki.d/Main.*
+/webroot/wiki/wiki.d/Mortal.*
+/webroot/wiki/wiki.d/Players.*
+/webroot/wiki/wiki.d/Profile.*
+/webroot/wiki/wiki.d/Profiles.*
+/webroot/wiki/wiki.d/Sandbox.*
+/webroot/wiki/wiki.d/Site.*
+/webroot/wiki/wiki.d/SiteAdmin.*
+/webroot/wiki/wiki.d/Vampire.*
+/webroot/wiki/wiki.d/Werewolf.*

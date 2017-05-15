@@ -1,5 +1,5 @@
 <?php if (!defined('PmWiki')) exit();
-/*  Copyright 2005-2013 Patrick R. Michaud (pmichaud@pobox.com)
+/*  Copyright 2005-2015 Patrick R. Michaud (pmichaud@pobox.com)
     This file is part of PmWiki; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published
     by the Free Software Foundation; either version 2 of the License, or
@@ -17,6 +17,8 @@
 
     If there is no ?setprefs= request, then the script uses the
     'setprefs' cookie from the browser to load the preference settings.
+    
+    Script maintained by Petko YOTOV www.pmwiki.org/petko
 */
 
 SDV($PrefsCookie, $CookiePrefix.'setprefs');
@@ -37,9 +39,6 @@ if(is_array($XL['prefs'])) {
       unset($XL['prefs'][$k]);
   }
 }
-
-if(preg_match('/^e_(rows|cols)$/', $k)) $v = intval($v);
-      elseif(preg_match('/^ak_/', $k)) $v = $v{0};
 
 XLSDV('en', array(
   'ak_view' => '',

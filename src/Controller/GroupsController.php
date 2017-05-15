@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\Component\MenuComponent;
 use App\Controller\Component\PermissionsComponent;
+use App\Model\Entity\Group;
 use App\Model\Table\GroupsTable;
 use Cake\Network\Exception\NotFoundException;
 
@@ -142,32 +143,33 @@ class GroupsController extends AppController
 
     public function listRequestTypes($id = null)
     {
-        $this->Group->id = $id;
-        if (!$this->Group->exists()) {
-            throw new NotFoundException(__('Invalid group'));
-        }
-        $options = array(
-            'conditions' => array(
-                'Group.' . $this->Group->primaryKey => $id
-            ),
-            'contain' => array(
-                'RequestType'
-            ),
-        );
-        $this->Group->recursive = false;
-        $group = $this->Group->find('first', $options);
+        $group = $this->Groups
+            ->find()
+            ->where([
+                'Groups.id' => $id
+            ])
+            ->contain([
+                'RequestTypes' => [
+                    'sort' => [
+                        'RequestTypes.name'
+                    ]
+                ]
+            ])
+            ->first();
+        /* @var Group $group */
 
         $list = array();
-        foreach ($group['RequestType'] as $requestType) {
+        foreach ($group->request_types as $request_type) {
             $list[] = array(
-                'id' => $requestType['id'],
-                'name' => $requestType['name']
+                'id' => $request_type->id,
+                'name' => $request_type->name
             );
         }
 
         $this->response->disableCache();
-        $this->set(compact('list'));
-        $this->set('_serialize', array('list'));
+        header('Content-Type: application/json');
+        echo json_encode(compact('list'));
+        die();
     }
 
     /**

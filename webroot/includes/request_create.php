@@ -117,11 +117,11 @@ ob_start();
         </div>
         <div class="formInput">
             <label for="title">Group:</label>
-            <?php echo FormHelper::Select($groups, 'group_id', $defaultGroupId); ?>
+            <?php echo FormHelper::Select($groups, 'group_id', $defaultGroupId, ['group-id']); ?>
         </div>
         <div class="formInput">
             <label for="request-type">Request Type:</label>
-            <?php echo FormHelper::Select($requestTypeOptions, 'request_type_id', $requestTypeId); ?>
+            <?php echo FormHelper::Select($requestTypeOptions, 'request_type_id', $requestTypeId, ['id' => 'request-type-id']); ?>
         </div>
         <div class="formInput">
             <label for="request-type">Body:</label>

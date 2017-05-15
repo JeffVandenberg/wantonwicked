@@ -16,7 +16,7 @@ if ($mayEdit) {
     $menu['Actions']['submenu']['Edit'] = [
         'link' => [
             'action' => 'edit',
-            $role['Role']['id']
+            $role->id
         ]
     ];
     $menu['Actions']['submenu']['New Role'] = [
@@ -29,6 +29,10 @@ if ($mayEdit) {
 $this->set('menu', $menu);
 ?>
 
+<?php echo $this->Html->link('<< Back', ['action' => 'index'], ['class' => 'button']); ?>
+<?php if($mayEdit): ?>
+    <?php echo $this->Html->link('Edit', ['action' => 'edit', $role->id] , ['class' => 'button']); ?>
+<?php endif; ?>
 <div class="roles view">
     <dl>
         <dt><?php echo __('Name'); ?></dt>

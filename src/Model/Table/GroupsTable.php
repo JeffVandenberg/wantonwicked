@@ -1,6 +1,8 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Group;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -15,13 +17,13 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $StGroups
  * @property \Cake\ORM\Association\BelongsToMany $RequestTypes
  *
- * @method \App\Model\Entity\Group get($primaryKey, $options = [])
- * @method \App\Model\Entity\Group newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Group[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Group|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Group patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Group[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Group findOrCreate($search, callable $callback = null, $options = [])
+ * @method Group get($primaryKey, $options = [])
+ * @method Group newEntity($data = null, array $options = [])
+ * @method Group[] newEntities(array $data, array $options = [])
+ * @method Group|bool save(EntityInterface $entity, $options = [])
+ * @method Group patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method Group[] patchEntities($entities, array $data, array $options = [])
+ * @method Group findOrCreate($search, callable $callback = null, $options = [])
  */
 class GroupsTable extends Table
 {

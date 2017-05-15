@@ -1,49 +1,16 @@
 <?php
 // get list of territories with PC & NPC counts and domain holder
-use classes\core\repository\Database;
+use classes\territory\service\TerritoryService;
 use classes\territory\Territory;
 
-$territoryQuery = <<<EOQ
-SELECT
-	T.territory_name,
-	T.id,
-	C.character_name,
-	(
-		SELECT
-			COUNT(*)
-		FROM
-			characters_territories AS CT
-			LEFT JOIN characters as C2 ON CT.character_id = C2.id
-		WHERE
-			CT.is_active = 1
-			AND (CT.updated_on IS NULL OR CT.updated_on > NOW())
-			AND C2.is_sanctioned = 'Y'
-			AND C2.is_deleted = 'N'
-			AND CT.territory_id = T.id
-	) AS pc_count,
-	T.npc_population,
-	T.quality,
-	T.current_quality,
-	T.max_quality,
-	T.security,
-	T.optimal_population
-FROM
-	territories as T
-	LEFT JOIN characters AS C ON T.character_id = C.id
-WHERE
-	T.is_active = 1
-	AND C.is_sanctioned = 'Y'
-	AND C.is_deleted = 'N'
-GROUP BY
-	T.id
-ORDER BY
-	T.territory_name
-EOQ;
-$territories = Database::getInstance()->query($territoryQuery)->all();
+$service = new TerritoryService();
+
+$territories  = $service->listTerritoriesWithPopulation();
 
 $page_title = "ST Territory List";
 
-$page_content = <<<EOQ
+ob_start();
+?>
 <div id="territoryPane" style="display:none;">
 	<div id="territoryPaneClose">
 		Close
@@ -58,13 +25,11 @@ $page_content = <<<EOQ
 <h2>
 	Territory Information
 </h2>
-<a href="territory.php?action=update_all">Update Territory Quality</a>
-EOQ;
+<a href="/territory.php?action=update_all" class="button">Update Territory Quality</a>
 
-$page_content .= Territory::CreateTerritoryList($territories, true);
+<?php echo Territory::CreateTerritoryList($territories, true); ?>
 
-$page_content .= <<<EOQ
-<script type="text/javascript">	
+<script type="text/javascript">
 	$(document).ready(function(){
 		$("#territoryPaneClose").click(function(e){
 			$("#territoryPane").css("display", "none");
@@ -83,4 +48,5 @@ $page_content .= <<<EOQ
 		});
 	});
 </script>
-EOQ;
+<?php
+$page_content = ob_get_clean();

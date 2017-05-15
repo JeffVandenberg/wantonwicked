@@ -4,7 +4,8 @@
  * User: JeffVandenberg
  * Date: 11/27/2016
  * Time: 8:21 PM
- */namespace app\Lib;
+ */
+namespace app\Lib;
 
 
 
@@ -32,42 +33,42 @@ $menuComponents['base'] = [
                 'link' => '/staff'
             ],
             'Terms of Use' => [
-                'link' => '/wiki/index.php?n=GameRef.TermsOfUse',
+                'link' => '/wiki/GameRef/TermsOfUse',
             ],
             'Code of Conduct' => [
-                'link' => '/wiki/index.php?n=GameRef.CodeOfConduct',
+                'link' => '/wiki/GameRef/CodeOfConduct',
             ],
             'Site Policies' => [
-                'link' => '/wiki/index.php?n=GameRef.SitePoliciesAndPractices',
+                'link' => '/wiki/GameRef/SitePoliciesAndPractices',
             ],
             'House Rules' => [
-                'link' => '/wiki/index.php?n=GameRef.HouseRules',
+                'link' => '/wiki/GameRef/HouseRules',
             ],
             'New Player Help' => [
-                'link' => '/wiki/index.php?n=GameRef.Help',
+                'link' => '/wiki/GameRef/Help',
             ],
             'Guides' => [
                 'link' => '#',
                 'submenu' => [
                     'Wiki Guide' => [
-                        'link' => '/wiki/index.php?n=GameRef.Wiki',
+                        'link' => '/wiki/GameRef/Wiki',
                     ],
                     'Chat Help' => [
-                        'link' => '/wiki/index.php?n=GameRef.Chat',
+                        'link' => '/wiki/GameRef/Chat',
                     ],
                     'Request System' => [
-                        'link' => '/wiki/index.php?n=GameRef.Requests',
+                        'link' => '/wiki/GameRef/Requests',
                     ],
                     'Experience Guide' => [
-                        'link' => '/wiki/index.php?n=GameRef.Experience',
+                        'link' => '/wiki/GameRef/Experience',
                     ],
                     'Sanctioning Guide' => [
-                        'link' => '/wiki/index.php?n=GameRef.Sanctioning',
+                        'link' => '/wiki/GameRef/Sanctioning',
                     ]
                 ]
             ],
             'Character Creation' => [
-                'link' => '/wiki/index.php?n=GameRef.CharacterCreation'
+                'link' => '/wiki/GameRef/CharacterCreation'
             ]
         ]
     ],
@@ -75,19 +76,19 @@ $menuComponents['base'] = [
         'link' => '#',
         'submenu' => [
             'Setting Introduction' => [
-                'link' => '/wiki/index.php?n=City.City'
+                'link' => '/wiki/City/City'
             ],
             'The Embassy' => [
-                'link' => '/wiki/index.php?n=City.Embassy'
+                'link' => '/wiki/City/Embassy'
             ],
             'Spheres' => [
-                'link' => '/wiki/index.php?n=City.Spheres'
+                'link' => '/wiki/City/Spheres'
             ],
             'Map' => [
                 'link' => '/mapww5/map.html'
             ],
             'The Districts' => [
-                'link' => '/wiki/index.php?n=City.Districts'
+                'link' => '/wiki/City/Districts'
             ],
             'Cast List' => [
                 'link' => '/characters/cast/'
@@ -101,10 +102,10 @@ $menuComponents['base'] = [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/index.php?n=Changeling.Changeling'
+                        'link' => '/wiki/Changeling/Changeling'
                     ],
                     'Changeling Player Guide' => [
-                        'link' => '/wiki/index.php?n=Changeling.PlayerGuide'
+                        'link' => '/wiki/Changeling/PlayerGuide'
                     ],
                     'Changeling Forums' => [
                         'link' => '/forum/viewforum.php?f=615'
@@ -121,10 +122,10 @@ $menuComponents['base'] = [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/index.php?n=Mage.Mage'
+                        'link' => '/wiki/Mage/Mage'
                     ],
                     'Mage Player Guide' => [
-                        'link' => '/wiki/index.php?n=Mage.PlayerGuide'
+                        'link' => '/wiki/Mage/PlayerGuide'
                     ],
                     'Mage Forums' => [
                         'link' => '/forum/viewforum.php?f=624'
@@ -138,10 +139,10 @@ $menuComponents['base'] = [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/index.php?n=Mortal.Mortal'
+                        'link' => '/wiki/Mortal/Mortal'
                     ],
                     'Mortal/+ Player Guide' => [
-                        'link' => '/wiki/index.php?n=Mortal.PlayerGuide'
+                        'link' => '/wiki/Mortal/PlayerGuide'
                     ],
                     'Mortal/+ Forums' => [
                         'link' => '/forum/viewforum.php?f=625'
@@ -155,10 +156,10 @@ $menuComponents['base'] = [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/index.php?n=Vampire.Vampire'
+                        'link' => '/wiki/Vampire/Vampire'
                     ],
                     'Vampire Player Guide' => [
-                        'link' => '/wiki/index.php?n=Vampire.PlayerGuide'
+                        'link' => '/wiki/Vampire/PlayerGuide'
                     ],
                     'Vampire Forums' => [
                         'link' => '/forum/viewforum.php?f=665'
@@ -175,10 +176,10 @@ $menuComponents['base'] = [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/index.php?n=Werewolf.Werewolf'
+                        'link' => '/wiki/Werewolf/Werewolf'
                     ],
                     'Werewolf Player Guide' => [
-                        'link' => '/wiki/index.php?n=Werewolf.PlayerGuide'
+                        'link' => '/wiki/Werewolf/PlayerGuide'
                     ],
                     'Werewolf Forums' => [
                         'link' => '/forum/viewforum.php?f=626'

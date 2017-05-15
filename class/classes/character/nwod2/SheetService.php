@@ -87,7 +87,7 @@ class SheetService
         // initialize specialities
         $this->addList($character, 3, 'specialty');
         $this->addList($character, 5, 'merit');
-        $this->addList($character, 2, 'miscPower');
+        $this->addList($character, 2, 'misc_power');
         $this->addList($character, 4, 'equipment');
         $this->addList($character, 3, 'aspiration');
 

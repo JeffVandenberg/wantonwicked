@@ -1,8 +1,10 @@
 <?php
-/* @var View $this */
+use App\View\AppView;
+use classes\character\data\Character;
+
+/* @var AppView $this */
 /* @var array $icons */
 /* @var array $cities */
-use classes\character\data\Character;
 
 if (isset($character) && $character->Id) {
     /* @var Character $character */
@@ -71,13 +73,13 @@ if (isset($character) && $character->Id) {
             <div class="small-12 columns text-center">
                 <?php echo $this->Form->button('Save', [
                     'class' => 'button',
-                    'id' => 'save',
+                    'id' => 'save-character-button',
                     'name' => 'action'
                 ]); ?>
             </div>
         </div>
     </form>
-    <?php $this->Html->script('create_character_nwod2', ['inline' => false]); ?>
+    <?php echo $this->Html->script('create_character_nwod2'); ?>
 <?php endif; ?>
 <script>
     $(function () {

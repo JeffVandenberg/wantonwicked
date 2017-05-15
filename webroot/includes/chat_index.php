@@ -88,8 +88,7 @@ ob_start();
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="/wiki/?n=Players.<?php echo preg_replace("/[^A-Za-z0-9]/", '', $character->CharacterName); ?>"
-                                                   >Profile
+                                                <a href="/wiki/Players/<?php echo preg_replace("/[^A-Za-z0-9]/", '', $character->CharacterName); ?>">Profile
                                                 </a>
                                             </li>
                                             <li>
@@ -99,7 +98,7 @@ ob_start();
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="request.php?action=create&character_id=<?php echo $character->Id; ?>">
+                                                <a href="/request.php?action=create&character_id=<?php echo $character->Id; ?>">
                                                     New Request
                                                 </a>
                                             </li>
