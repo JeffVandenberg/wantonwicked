@@ -19,7 +19,7 @@
 *
 */
 
-include '../../../../vendor/autoload.php';
+include '../../../vendor/autoload.php';
 
 include("../includes/ini.php");
 include("../includes/session.php");
