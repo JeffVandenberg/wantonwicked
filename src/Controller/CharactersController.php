@@ -380,6 +380,7 @@ class CharactersController extends AppController
 
         $this->autoRender = false;
         echo json_encode($data);
+        die();
     }
 
     public function assignCondition()
