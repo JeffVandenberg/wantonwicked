@@ -9,6 +9,7 @@
 namespace classes\scene\repository;
 
 
+use classes\character\data\CharacterStatus;
 use classes\core\repository\AbstractRepository;
 
 class SceneRepository extends AbstractRepository
@@ -95,7 +96,7 @@ FROM
     LEFT JOIN characters as C ON SC.character_id = C.id
 WHERE
     C.user_id = ?
-    AND C.is_deleted = 'N'
+    AND C.character_status_id != ?
     AND S.run_on_date >= now()
 GROUP BY
     S.id,
@@ -109,7 +110,8 @@ ORDER BY
 LIMIT 5
 EOQ;
         $params = [
-            $userId
+            $userId,
+            CharacterStatus::Deleted
         ];
 
         return $this->query($sql)->all($params);

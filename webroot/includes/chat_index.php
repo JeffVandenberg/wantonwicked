@@ -1,5 +1,6 @@
 <?php
 use classes\character\data\Character;
+use classes\character\data\CharacterStatus;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
@@ -59,15 +60,21 @@ ob_start();
                         <?php $identifier = ($character->Slug) ? $character->Slug : $character->Id; ?>
                         <tr>
                             <td>
-                                <?php if ($character->IsSanctioned == 'Y'): ?>
-                                    <div class="success badge has-tip" data-tooltip title="Sanctioned"><i
-                                                class="fi-check"></i></div>
-                                <?php elseif ($character->IsSanctioned == 'N'): ?>
-                                    <div class="alert badge has-tip" data-tooltip title="Desanctioned"><i
-                                                class="fi-x"></i></div>
-                                <?php else: ?>
-                                    <div class="badge has-tip" data-tooltip title="New"><i class="fi-x"></i></div>
-                                <?Php endif; ?>
+                                <?php if($character->CharacterStatusId == CharacterStatus::New): ?>
+                                        <div class="badge has-tip" data-tooltip title="New"><i class="fi-unlock"></i></div>
+                                <?php elseif($character->CharacterStatusId == CharacterStatus::Active): ?>
+                                        <div class="success badge has-tip" data-tooltip title="Sanctioned (Active)"><i
+                                                    class="fi-check"></i></div>
+                                <?php elseif($character->CharacterStatusId == CharacterStatus::Idle): ?>
+                                        <div class="warning badge has-tip" data-tooltip title="Sanctioned (Idle)"><i
+                                                    class="fi-check"></i></div>
+                                <?php elseif($character->CharacterStatusId == CharacterStatus::Inactive): ?>
+                                        <div class="secondary badge has-tip" data-tooltip title="Sanctioned (Inactive)"><i
+                                                    class="fi-check"></i></div>
+                                <?php elseif($character->CharacterStatusId == CharacterStatus::Unsanctioned): ?>
+                                        <div class="alert badge has-tip" data-tooltip title="Desanctioned"><i
+                                                    class="fi-x"></i></div>
+                                <?php endif; ?>
                                 <?php echo htmlspecialchars($character->CharacterName); ?>
                             </td>
                             <td>
@@ -102,7 +109,7 @@ ob_start();
                                                     New Request
                                                 </a>
                                             </li>
-                                            <?php if($character->IsSanctioned === 'Y'): ?>
+                                            <?php if($character->inSanctionedStatus()): ?>
                                                 <li>
                                                     <a href="/characters/beats/<?php echo $character->Slug; ?>">
                                                         Beat Tracker

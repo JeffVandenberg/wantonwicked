@@ -19,9 +19,6 @@ ob_start();
 		Territory Pane
 	</div>
 </div>
-<div class="paragraph">
-	<a href="/abp.php">Back to ABP Home</a>
-</div>
 <h2>
 	Territory Information
 </h2>

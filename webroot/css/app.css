@@ -3697,7 +3697,7 @@ select {
       background-color: #0E3B43;
       color: #fefefe; }
     .button.disabled.primary, .button[disabled].primary {
-      opacity: 0.25;
+      opa1city: 0.25;
       cursor: not-allowed; }
       .button.disabled.primary:hover, .button.disabled.primary:focus, .button[disabled].primary:hover, .button[disabled].primary:focus {
         background-color: #0E3B43;

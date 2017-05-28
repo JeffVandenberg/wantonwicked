@@ -17,21 +17,6 @@ EOQ;
 if(Database::getInstance()->query($sql)->execute())
 {
 	echo "Successfully removed character";
-	$sql = <<<EOQ
-SELECT
-	character_id
-FROM
-	characters_territories
-WHERE
-	id = ?
-EOQ;
-	$params = array(
-		$id
-	);
-	$detail = Database::getInstance()->query($sql)->single($params);
-	
-	$abp = new ABP();
-	$abp->UpdateABP($detail['character_id']);
 }
 else
 {

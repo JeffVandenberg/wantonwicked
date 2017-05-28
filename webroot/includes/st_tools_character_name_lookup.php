@@ -1,27 +1,42 @@
 <?php
+use classes\character\data\CharacterStatus;
 use classes\core\helpers\MenuHelper;
 use classes\core\repository\Database;
 
-$page_title   = "Look up Character Names";
+$page_title = "Look up Character Names";
 $page_content = "Look up Character";
 
 $character_name = "";
-$result_set     = "";
+$result_set = "";
 
 // do search
 if (isset($_GET['character_name'])) {
     $character_name = str_replace("*", "%", $_GET['character_name']);
 
-    $character_query = "select * from characters where character_name like ? and is_deleted='n';";
-    $params = array(
-        $character_name
-    );
+    $character_query = <<<SQL
+SELECT 
+  id,
+  character_name,
+  city,
+  character_type,
+  slug
+FROM 
+  characters AS C
+WHERE 
+  character_name LIKE ? 
+  AND C.character_status_id != ?;
+SQL;
+    $params = [
+        $character_name,
+        CharacterStatus::Deleted
+    ];
+
     $character = Database::getInstance()->query($character_query)->all($params);
 
     if (count($character) > 0) {
         $result_set = <<<EOQ
 <br><br>
-<table border="0" cellpadding="2" cellspacing="2" class="normal_text">
+<table>
   <tr>
     <th>
       Character Name
@@ -38,11 +53,9 @@ if (isset($_GET['character_name'])) {
 EOQ;
 
         $i = 0;
-        foreach($character as $character_detail) {
-            $row_color = (($i++) % 2) ? "#443f33" : "";
-
+        foreach ($character as $character_detail) {
             $result_set .= <<<EOQ
-  <tr bgcolor="$row_color">
+  <tr>
     <td>
       $character_detail[character_name]
     </td>
@@ -61,8 +74,7 @@ EOQ;
 
         $result_set .= "</table>";
         $character_name = stripslashes($character_name);
-    }
-    else {
+    } else {
         $result_set = "<br><br>No characters found.";
     }
 }

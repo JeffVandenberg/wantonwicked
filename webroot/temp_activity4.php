@@ -1,4 +1,5 @@
 <?php
+use classes\character\data\CharacterStatus;
 use classes\core\repository\Database;
 
 include 'cgi-bin/start_of_page.php';
@@ -7,6 +8,7 @@ $startDate = date('Y-m-d', strtotime('+1 days'));
 
 $i = 0;
 $multiplier = 7;
+$statuses = implode(',', CharacterStatus::Sanctioned);
 while($i < 7)
 {
 	$endDate = $startDate;
@@ -24,24 +26,22 @@ SELECT
 			COUNT(*)
 		FROM
 			character_logins AS CL
-			LEFT JOIN characters AS C ON CL.character_id = C.character_id
+			LEFT JOIN characters AS C ON CL.character_id = C.id
 		WHERE
-			C.is_sanctioned = 'Y'
+            C.character_status_id IN ($statuses) 
 			AND C.is_npc = 'N'
-			AND C.is_deleted = 'N'
-			AND C.city = 'San Diego'
+			AND C.city = 'Portland'
 			AND CL.login_time >= '$startDate'
 			AND CL.login_time < '$endDate'
 		)
 	) AS percentage
 FROM
 	character_logins AS CL
-	LEFT JOIN characters AS C ON CL.character_id = C.character_id
+	LEFT JOIN characters AS C ON CL.character_id = C.id
 WHERE
-	C.is_sanctioned = 'Y'
+    C.character_status_id IN ($statuses) 
 	AND C.is_npc = 'N'
-	AND C.is_deleted = 'N'
-	AND C.city = 'San Diego'
+	AND C.city = 'Portland'
 	AND CL.login_time >= '$startDate'
 	AND CL.login_time < '$endDate'
 GROUP BY

@@ -1,5 +1,6 @@
 <?php
 use classes\character\data\Character;
+use classes\character\data\CharacterStatus;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
@@ -19,7 +20,7 @@ $character = $characterRepository->getById($character_id);
 if(!$character) {
     Response::redirect('chat.php', 'Unable to find character.');
 }
-if($character->IsSanctioned == 'Y') {
+if($character->inSanctionedStatus()) {
     Response::redirect('request.php?action=create&request_type_id='.RequestType::Sanction.'&character_id='.$character->Id.'&title=Desanction '.$character->CharacterName);
 }
 

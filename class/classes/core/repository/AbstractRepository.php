@@ -407,6 +407,20 @@ EOQ;
     }
 
     /**
+     * Returns a comma separated list of ? placeholders for queries for a list of array values
+     *
+     * @param $values
+     * @return string
+     */
+    protected function buildPlaceholdersForValues($values)
+    {
+        if (!is_array($values)) {
+            return '?';
+        }
+        return implode(',', array_fill(0, count($values), '?'));
+    }
+
+    /**
      * @param $source
      * @param $target
      * @return string

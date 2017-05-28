@@ -1,4 +1,5 @@
 <?php
+use classes\character\data\CharacterStatus;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
@@ -13,7 +14,9 @@ $minPowerLevel = Request::getValue('min_power_level', 0);
 $maxPowerLevel = Request::getValue('max_power_level', 8);
 
 if (Request::isPost()) {
-    $sql    = <<<EOQ
+    $statuses = implode(',', CharacterStatus::Sanctioned);
+
+    $sql = <<<EOQ
 SELECT
 	character_name,
 	character_type,
@@ -22,13 +25,13 @@ SELECT
 	power_type,
 	power_name,
 	power_note,
-	power_level
+	power_level,
+	CP.extra
 FROM
 	characters AS C
 	LEFT JOIN character_powers AS CP ON C.id = CP.character_id
 WHERE
-	C.is_sanctioned = 'Y'
-	AND C.is_deleted = 'N'
+	C.character_status_id IN ($statuses)
 	AND CP.power_type = ?
 	AND CP.power_name LIKE ?
 	AND CP.power_note LIKE ?
@@ -40,48 +43,45 @@ ORDER BY
 EOQ;
     $params = array($powerType, $powerName . '%', $powerNote . '%', $minPowerLevel, $maxPowerLevel);
     $powers = Database::getInstance()->query($sql)->all($params);
+
+    $powers = array_map(function($item) {
+        $extra = json_decode($item['extra']);
+        $text = '';
+        if(count($extra)) {
+            foreach($extra as $key => $value) {
+                $text .= $key . ': ' . $value . '<br />';
+            }
+        }
+        $item['extra'] = $text;
+        return $item;
+    }, $powers);
 }
 
 $powerTypes = array(
-    'Attribute'  => 'Attribute',
-    'Skill'      => 'Skill',
-    "Merit"      => "Merit",
-    "Flaw"       => "Flaw",
-    "Misc"       => "Misc Traits",
-    'Equipment'  => 'Equipment',
-    'Vampire'    => array(
-        "ICDisc"   => 'In-Clan Discipline',
-        "OOCDisc"  => 'Out-of-Clan Discipline',
+    'Attribute' => 'Attribute',
+    'Skill' => 'Skill',
+    "Merit" => "Merit",
+    "Flaw" => "Flaw",
+    "Misc" => "Misc Traits",
+    'Equipment' => 'Equipment',
+    'Vampire' => array(
+        "ICDisc" => 'In-Clan Discipline',
+        "OOCDisc" => 'Out-of-Clan Discipline',
         "Devotion" => 'Devotion',
     ),
-    'Werewolf'   => array(
-        'AffGift'    => 'Affinity Gifts',
-        'NonAffGift' => 'Non-Affinity Gifts',
-        'Ritual'     => 'Rituals',
-        'Ritulas'    => 'Ritual Rating',
-        'Cunning'    => 'Cunning',
-        'Glory'      => 'Glory',
-        'Honor'      => 'Honor',
-        'Purity'     => 'Purity',
-        'Wisdom'     => 'Wisdom',
-
+    'Werewolf' => array(
+        'moongift' => 'Moon Gifts',
+        'shadowgift' => 'Shadow Gifts',
+        'wolfgift' => 'Wolf Gifts',
+        'Renown' => 'Renown',
     ),
-    'Mage'       => array(
-        'RulingArcana'   => 'Ruling Arcana',
-        'CommonArcana'   => 'Common Arcana',
-        'InferiorArcana' => 'Inferior Arcana',
-        'Rote'           => 'Rote'
+    'Mage' => array(
+        'arcana' => 'Arcana',
+        'Rote' => 'Rote'
     ),
     'Changeling' => array(
-        'AffContract'    => 'Affinity Contracts',
-        'NonAffContract' => 'Non-Affiny Contracts',
-        'GoblinContract' => 'Goblin Contracts'
+        'contract' => 'Contracts'
     ),
-    'Geist'      => array(
-        'Key'           => 'Key',
-        'Manifestation' => 'Manifestation',
-        'Ceremonies'    => 'Ceremony'
-    )
 );
 
 
@@ -89,7 +89,7 @@ $storytellerMenu = require_once('menus/storyteller_menu.php');
 $menu = MenuHelper::GenerateMenu($storytellerMenu);
 ob_start();
 ?>
-    <?php echo $menu; ?>
+<?php echo $menu; ?>
     <form method="post" action="/st_tools.php?action=power_search">
         <table>
             <tr>
@@ -106,8 +106,9 @@ ob_start();
                     Min Level
                 </td>
                 <td>
-
+                    Max Level
                 </td>
+                <td></td>
             </tr>
             <tr>
                 <td>
@@ -155,6 +156,9 @@ ob_start();
                     Power Level
                 </th>
                 <th>
+                    Extra
+                </th>
+                <th>
 
                 </th>
             </tr>
@@ -177,6 +181,9 @@ ob_start();
                     </td>
                     <td>
                         <?php echo $row['power_level']; ?>
+                    </td>
+                    <td>
+                        <?php echo $row['extra']; ?>
                     </td>
                     <td>
                         <a href="/characters/stView/<?php echo $row['id']; ?>">View</a>

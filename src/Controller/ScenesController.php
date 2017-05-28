@@ -13,6 +13,7 @@ use Cake\Controller\Component\PaginatorComponent;
 use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
+use classes\character\data\CharacterStatus;
 
 
 /**
@@ -302,8 +303,7 @@ class ScenesController extends AppController
             ])
             ->where([
                 'Characters.user_id' => $this->Auth->user('user_id'),
-                'Characters.is_sanctioned' => 'Y',
-                'Characters.is_deleted' => 'N',
+                'Characters.character_status_id IN ' => CharacterStatus::Sanctioned,
             ])
             ->notMatching('SceneCharacters', function (Query $q) use ($scene) {
                 return $q->where([

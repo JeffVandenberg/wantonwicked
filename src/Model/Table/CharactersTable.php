@@ -7,6 +7,7 @@ use Cake\Datasource\EntityInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use classes\character\data\CharacterStatus;
 
 /**
  * Characters Model
@@ -14,6 +15,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $UpdatedBy
  * @property \Cake\ORM\Association\BelongsTo $Locations
+ * @property \Cake\ORM\Association\BelongsTo $CharacterStatus
  * @property \Cake\ORM\Association\HasMany $CharacterBeatRecords
  * @property \Cake\ORM\Association\HasMany $CharacterBeats
  * @property \Cake\ORM\Association\HasMany $CharacterLogins
@@ -59,6 +61,9 @@ class CharactersTable extends Table
         $this->belongsTo('UpdatedBy', [
             'foreignKey' => 'updated_by_id',
             'className' => 'Users'
+        ]);
+        $this->belongsTo('CharacterStatus', [
+            'foreignKey' => 'character_status_id',
         ]);
         $this->hasMany('CharacterBeatRecords', [
             'foreignKey' => 'character_id'
@@ -298,16 +303,6 @@ class CharactersTable extends Table
             ->notEmpty('goals');
 
         $validator
-            ->allowEmpty('is_sanctioned');
-
-        $validator
-            ->allowEmpty('asst_sanctioned');
-
-        $validator
-            ->requirePresence('is_deleted', 'create')
-            ->notEmpty('is_deleted');
-
-        $validator
             ->numeric('current_experience')
             ->requirePresence('current_experience', 'create')
             ->notEmpty('current_experience');
@@ -416,7 +411,7 @@ class CharactersTable extends Table
             ]);
         if ($onlySanctioned) {
             $query->where([
-                'Characters.is_sanctioned' => 'Y'
+                'Characters.character_status_id IN' => CharacterStatus::Sanctioned
             ]);
         }
 
@@ -425,8 +420,6 @@ class CharactersTable extends Table
             $list[$row->character_type] = $row->character_type;
         }
         return $list;
-
-
     }
 
     public function findNameUsedInCity($id, $name, $city)
@@ -452,6 +445,7 @@ class CharactersTable extends Table
 
     public function listBarelyPlaying()
     {
+        $statuses = implode(',', CharacterStatus::Sanctioned);
         $query = <<<EOQ
 SELECT
   *
@@ -468,9 +462,8 @@ FROM
       INNER JOIN characters AS C ON LC.character_id = C.id
     WHERE
       action_type_id = 2
-      AND C.is_deleted = 'N'
       AND C.is_npc = 'N'
-      AND C.is_sanctioned = 'Y'
+      AND C.character_status_id IN ($statuses)
     GROUP BY
       character_id,
       `year`,
@@ -488,6 +481,8 @@ EOQ;
 
     public function listAllLoginActivity()
     {
+        $statuses = implode(',', CharacterStatus::Sanctioned);
+
         $query = <<<EOQ
 SELECT
   *
@@ -505,9 +500,8 @@ FROM
     WHERE
       action_type_id = 2
       AND created > '2015-01-01'
-      AND C.is_deleted = 'N'
       AND C.is_npc = 'N'
-      AND C.is_sanctioned = 'Y'
+      AND C.character_status_id IN ($statuses)
     GROUP BY
       character_id,
       `year`,

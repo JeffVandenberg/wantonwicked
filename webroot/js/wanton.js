@@ -151,13 +151,6 @@ function leaveTerritory(characterId, territoryId, territoryName, link) {
     return false;
 }
 
-function refreshAbpRuleList(data) {
-    if (data) {
-        alert(data);
-    }
-    $("#abpRuleList").load("/abp.php?action=get_abp_rule_list");
-}
-
 // Strips HTML and PHP tags from a string
 // returns 1: 'Kevin <b>van</b> <i>Zonneveld</i>'
 // example 2: strip_tags('<p>Kevin <img src="someimage.png" onmouseover="someFunction()">van <i>Zonneveld</i></p>', '<p>');

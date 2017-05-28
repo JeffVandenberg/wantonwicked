@@ -26,6 +26,7 @@ use classes\core\repository\RepositoryManager;
  * @property CharacterPower[] CharacterPower
  * @property User UpdatedBy
  * @property User User
+ * @Property CharacterStatus CharacterStatus
  */
 class Character extends DataModel
 {
@@ -69,7 +70,6 @@ class Character extends DataModel
     public $History;
     public $CharacterNotes;
     public $Goals;
-    public $IsSanctioned;
     public $CurrentExperience;
     public $TotalExperience;
     public $UpdatedById;
@@ -87,10 +87,10 @@ class Character extends DataModel
     public $WillpowerPerm;
     public $AveragePowerPoints;
     public $PowerPointsModifier;
-    public $AsstSanctioned;
     public $BonusReceived;
     public $Slug;
     public $Gameline;
+    public $CharacterStatusId;
 
     private $powers;
     private $lastStNote;
@@ -106,7 +106,8 @@ class Character extends DataModel
 
     public $BelongsTo = [
         'User' => 'classes\core\data\User',
-        'UpdatedBy' => 'classes\core\data\User'
+        'UpdatedBy' => 'classes\core\data\User',
+        'CharacterStatus'
     ];
 
     function __construct()
@@ -235,5 +236,10 @@ class Character extends DataModel
     public function setLastStNote(CharacterNote $stNote)
     {
         $this->lastStNote = $stNote;
+    }
+
+    public function inSanctionedStatus()
+    {
+        return in_array($this->CharacterStatusId, CharacterStatus::Sanctioned);
     }
 }

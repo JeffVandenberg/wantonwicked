@@ -1,4 +1,5 @@
 <?php
+use classes\character\data\CharacterStatus;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
@@ -18,10 +19,11 @@ $only_sanctioned = Request::getValue('only_sanctioned', false);
 
 // test if submitting anything to search for
 if (count($selected_cities) || count($selected_splat1) || count($selected_splat2) || Request::isPost()) {
-    $character_query = "select * from characters where is_deleted='N' and ";
+    $character_query = "select * from characters where TRUE and ";
 
     if ($only_sanctioned) {
-        $character_query .= " is_sanctioned='Y' and ";
+        $statuses = implode(',', CharacterStatus::Sanctioned);
+        $character_query .= " character_status_id IN ($statuses) and ";
     }
 
     if ($selected_character_types) {

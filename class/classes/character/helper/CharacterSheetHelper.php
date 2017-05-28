@@ -316,7 +316,7 @@ class CharacterSheetHelper
                 'edit_experience' => true,
                 'show_st_notes' => false,
                 'calculate_derived' => true,
-                'xp_create_mode' => ($stats['asst_sanctioned'] == '') && ($stats['is_sanctioned'] == ''),
+                'xp_create_mode' => ($stats['is_sanctioned'] == ''),
                 'user_type' => 'player'
             );
         }
@@ -355,7 +355,7 @@ class CharacterSheetHelper
                 'edit_experience' => true,
                 'show_st_notes' => false,
                 'calculate_derived' => true,
-                'xp_create_mode' => ($oldCharacter->AsstSanctioned == '') && ($oldCharacter->IsSanctioned == ''),
+                'xp_create_mode' => false,
                 'user_type' => 'player'
             );
         }

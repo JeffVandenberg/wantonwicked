@@ -14,6 +14,7 @@ use classes\character\data\BeatStatus;
 use classes\character\data\BeatType;
 use classes\character\data\Character;
 use classes\character\data\CharacterBeat;
+use classes\character\data\CharacterStatus;
 use classes\character\nwod2\BeatService;
 use classes\character\nwod2\SheetService;
 use classes\character\repository\CharacterNoteRepository;
@@ -68,11 +69,11 @@ class CharactersController extends AppController
                 'Characters.splat1',
                 'Characters.splat2',
                 'Characters.is_npc',
+                'Characters.character_status_id',
             ])
             ->where([
-                'Characters.is_sanctioned' => 'Y',
+                'Characters.character_status_id IN ' => CharacterStatus::Sanctioned,
                 'Characters.city' => 'portland',
-                'Characters.is_deleted' => 'N'
             ])
             ->contain([
                 'Users' => [
@@ -130,9 +131,8 @@ class CharactersController extends AppController
                 ]
             ])
             ->where([
-                'Characters.is_sanctioned' => 'Y',
+                'Characters.character_status_id IN ' => CharacterStatus::Sanctioned,
                 'Characters.city' => 'portland',
-                'Characters.is_deleted' => 'N',
                 'CharacterPowers.power_type' => 'aspiration'
             ]);
 
@@ -230,15 +230,15 @@ class CharactersController extends AppController
             'edit_mode' => 'limited', // other values "open", "none"
         ];
 
-        if ($character->IsSanctioned === '') {
+        if ($character->CharacterStatusId == CharacterStatus::New) {
             $options['edit_mode'] = 'open';
             $sheetService->addMinPowersForEdit($character);
         }
 
         if ($this->request->is('post')) {
             // save update
-            $updatedData = $this->request->data;
-            $updatedData['slug'] = Inflector::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
+            $updatedData = $this->request->getData();
+            $updatedData['slug'] = Text::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
 
             $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
 

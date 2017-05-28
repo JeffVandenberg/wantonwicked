@@ -12,6 +12,7 @@ namespace App\Controller\Component;
 use App\Model\Entity\Character;
 use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
+use classes\character\data\CharacterStatus;
 
 
 /**
@@ -48,9 +49,11 @@ class MenuComponent extends Component
                     'Characters.slug'
                 ])
                 ->where([
-                    'Characters.is_sanctioned' => 'Y',
+                    'Characters.character_status_id IN' => CharacterStatus::Sanctioned,
                     'Characters.user_id' => $this->Auth->user('user_id'),
-                    'Characters.is_deleted' => 'N'
+                ])
+                ->order([
+                    'Characters.character_name'
                 ]);
             $sanctionedCharacters = $query->toArray();
             /* @var Character[] $sanctionedCharacters */

@@ -40,9 +40,6 @@ if(Database::getInstance()->query($sql)->execute())
 		$domain->AddNoteToDomainHolder($characterId);
 	}
 	
-	$abp = new ABP();
-	$abp->UpdateABP($characterId);
-
 	echo $message;
 }
 else
