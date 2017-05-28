@@ -61,7 +61,7 @@ ob_start();
                         <tr>
                             <td>
                                 <?php if($character->CharacterStatusId == CharacterStatus::New): ?>
-                                        <div class="badge has-tip" data-tooltip title="New"><i class="fi-unlock"></i></div>
+                                        <div class="badge has-tip" data-tooltip title="New"><i class="fi-x"></i></div>
                                 <?php elseif($character->CharacterStatusId == CharacterStatus::Active): ?>
                                         <div class="success badge has-tip" data-tooltip title="Sanctioned (Active)"><i
                                                     class="fi-check"></i></div>
