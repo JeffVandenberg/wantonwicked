@@ -29,10 +29,6 @@ EOQ;
 if(Database::getInstance()->query($sql)->execute())
 {
 	$message = "You are now feeding from the domain.";
-	
-	$abp = new ABP();
-	$abp->UpdateABP($characterId);
-
 	echo $message;
 }
 else

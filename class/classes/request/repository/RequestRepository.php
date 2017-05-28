@@ -10,6 +10,7 @@
 namespace classes\request\repository;
 
 
+use classes\character\data\CharacterStatus;
 use classes\core\data\DataModel;
 use classes\core\repository\AbstractRepository;
 use classes\core\repository\RepositoryManager;
@@ -50,12 +51,12 @@ class RequestRepository extends AbstractRepository
         $sql = <<<EOQ
 SELECT
     R.*,
-    G.name as group_name,
+    G.name AS group_name,
     U.username
 FROM
     requests AS R
-    LEFT JOIN groups as G ON R.group_id = G.id
-    LEFT JOIN phpbb_users as U ON R.created_by_id = U.user_id
+    LEFT JOIN groups AS G ON R.group_id = G.id
+    LEFT JOIN phpbb_users AS U ON R.created_by_id = U.user_id
 WHERE
     R.id = ?
 EOQ;
@@ -75,11 +76,11 @@ EOQ;
         $sql = <<<EOQ
 SELECT
     R.*,
-    RT.name as request_type_name,
-    RS.name as request_status_name,
+    RT.name AS request_type_name,
+    RS.name AS request_status_name,
     UB.username AS updated_by_username
 FROM
-    requests as R
+    requests AS R
     LEFT JOIN request_characters AS RC ON R.id = RC.request_id
     LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
     LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
@@ -134,8 +135,8 @@ EOQ;
 SELECT
     COUNT(*) AS `count`
 FROM
-    requests as R
-    LEFT JOIN request_characters as RC ON R.id = RC.request_id
+    requests AS R
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
 WHERE
     RC.character_id = ?
     AND RC.is_primary = 1
@@ -174,7 +175,7 @@ EOQ;
 SELECT
     count(*) AS `rows`
 FROM
-    requests as R
+    requests AS R
     LEFT JOIN request_characters AS RC ON R.id = RC.request_id
     LEFT JOIN characters AS C ON RC.character_id = C.id
 WHERE
@@ -200,7 +201,7 @@ SELECT
     R.*
 FROM
     requests AS R
-    LEFT JOIN request_characters as RC ON R.id = RC.request_id
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
     LEFT JOIN request_requests AS RR ON (R.id = RR.from_request_id AND RR.to_request_id = ?)
 WHERE
     RR.to_request_id IS NULL
@@ -481,7 +482,7 @@ EOQ;
             $parameters[] = RequestType::BlueBook;
         }
 
-        if($filter['request_group_id']) {
+        if ($filter['request_group_id']) {
             $sql .= ' AND R.group_id = ? ';
             $parameters[] = $filter['request_group_id'];
         }
@@ -534,7 +535,7 @@ EOQ;
     public function SearchCharactersForRequest($onlySanctioned, $characterName)
     {
         $onlySanctioned = (int)$onlySanctioned;
-
+        $placeholders = $this->buildPlaceholdersForValues(CharacterStatus::Sanctioned);
         $sql = <<<EOQ
 SELECT
     C.character_name,
@@ -543,22 +544,25 @@ FROM
     characters AS C
 WHERE
     (
-        (C.is_sanctioned = 'Y' AND (? = 1))
+        (C.character_status_id IN ($placeholders) AND (? = 1))
         OR
         (? = 0)
     )
-    AND C.is_deleted = 'N'
+    AND C.character_status_id != ?
     AND C.character_name like ?
 ORDER BY
     C.character_name
 LIMIT 20
 EOQ;
 
-        $params = array(
-            $onlySanctioned,
-            $onlySanctioned,
-            $characterName . '%'
-        );
+        $params = array_merge(
+            CharacterStatus::Sanctioned,
+            [
+                $onlySanctioned,
+                $onlySanctioned,
+                CharacterStatus::Deleted,
+                $characterName . '%'
+            ]);
 
         return $this->query($sql)->all($params);
     }
@@ -589,7 +593,8 @@ EOQ;
     {
         $characterId = (int)$characterId;
         $blueBook = RequestType::BlueBook;
-        $terminalPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Terminal), '?'));
+        $terminalPlaceholders = $this->buildPlaceholdersForValues(RequestStatus::$Terminal);
+        $sanctionedPlaceholders = $this->buildPlaceholdersForValues(CharacterStatus::Sanctioned);
         $sql = <<<EOQ
 SELECT
     R.id as request_id,
@@ -606,13 +611,12 @@ WHERE
     R.request_status_id NOT IN ($terminalPlaceholders)
     AND R.request_type_id != ?
     AND RC.character_id = ?
-    AND C.is_sanctioned = 'Y'
-    AND C.is_deleted = 'N'
+    AND C.character_status_id IN ($sanctionedPlaceholders)
     AND RC.is_primary = 0
 ORDER BY
     R.title
 EOQ;
-        $params = array_merge(RequestStatus::$Terminal, array($blueBook, $characterId));
+        $params = array_merge(RequestStatus::$Terminal, [$blueBook, $characterId], CharacterStatus::Sanctioned);
         return $this->query($sql)->all($params);
     }
 
@@ -658,9 +662,9 @@ EOQ;
     {
         $sql = <<<EOQ
 SELECT
-    COUNT(*) as `count`
+    COUNT(*) AS `count`
 FROM
-    requests as R
+    requests AS R
 WHERE
     R.character_id = ?
     AND R.request_type_id = ?
@@ -710,7 +714,7 @@ FROM
                 AND RSH.request_status_id = 1
             GROUP BY
                 RSH.request_id
-        ) as created,
+        ) AS created,
         (
             SELECT
                 min(created_on)
@@ -721,7 +725,7 @@ FROM
                 AND RSH.request_status_id = 2
             GROUP BY
                 RSH.request_id
-        ) as first_view,
+        ) AS first_view,
         (
             SELECT
                 min(created_on)
@@ -732,7 +736,7 @@ FROM
                 AND RSH.request_status_id IN (4,5)
             GROUP BY
                 RSH.request_id
-        ) as terminal_status,
+        ) AS terminal_status,
         (
             SELECT
                 min(created_on)
@@ -743,10 +747,10 @@ FROM
                 AND RSH.request_status_id = 7
             GROUP BY
                 RSH.request_id
-        ) as closed
+        ) AS closed
     FROM
         requests AS R
-        INNER JOIN characters as C ON R.character_id = C.id
+        INNER JOIN characters AS C ON R.character_id = C.id
     ) AS A
 WHERE
     created IS NOT NULL
@@ -814,7 +818,7 @@ EOQ;
         if (!is_array($characterIds)) {
             $characterIds = array($characterIds);
         }
-        $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
+        $characterIdPlaceholders = $this->buildPlaceholdersForValues($characterIds);
 
         $sql = <<<EOQ
 UPDATE
@@ -847,11 +851,11 @@ EOQ;
         $sql = <<<EOQ
 SELECT
     R.*,
-    RT.name as request_type_name,
-    RS.name as request_status_name,
+    RT.name AS request_type_name,
+    RS.name AS request_status_name,
     UB.username AS updated_by_username
 FROM
-    requests as R
+    requests AS R
     LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
     LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
     LEFT JOIN phpbb_users AS UB ON R.updated_by_id = UB.user_id
@@ -927,7 +931,7 @@ EOQ;
 SELECT
     U.user_id,
     U.username,
-    RS.name as status_name,
+    RS.name AS status_name,
     COUNT(*) AS total
 FROM
     phpbb_users AS U
@@ -1022,7 +1026,7 @@ EOQ;
 SELECT
     count(*) AS `rows`
 FROM
-    requests as R
+    requests AS R
 WHERE
     R.id = ?
     AND R.created_by_id = ?
@@ -1076,7 +1080,7 @@ EOQ;
     {
         $sql = <<<EOQ
 SELECT
-	count(*) as `total`
+	count(*) AS `total`
 FROM
 	requests AS R
 	LEFT JOIN groups AS G ON R.group_id = G.id
@@ -1098,9 +1102,9 @@ EOQ;
     public function listEmailsForUsersInGroup($groupId)
     {
         $sql = <<<EOQ
-select
+SELECT
  U.user_email
-from
+FROM
  phpbb_users AS U
  LEFT JOIN st_groups AS SG ON U.user_id = SG.user_id
 WHERE
@@ -1117,10 +1121,10 @@ EOQ;
     {
         $sql = <<<EOQ
 SELECT
-    G.name as group_name,
-    RS.id as request_status_id,
-    RS.name as request_status_name,
-	count(*) as `total`
+    G.name AS group_name,
+    RS.id AS request_status_id,
+    RS.name AS request_status_name,
+	count(*) AS `total`
 FROM
 	requests AS R
 	LEFT JOIN groups AS G ON R.group_id = G.id
@@ -1152,7 +1156,7 @@ EOQ;
 SELECT
     count(*)
 FROM
-    requests as R
+    requests AS R
 WHERE
     R.created_by_id = ?
 EOQ;
@@ -1223,7 +1227,7 @@ SQL;
     {
         $sql = <<<SQL
 SELECT
-	count(*) as `total`
+	count(*) AS `total`
 FROM
 	requests AS R
 	LEFT JOIN groups AS G ON R.group_id = G.id
@@ -1239,5 +1243,4 @@ SQL;
 
         return $this->query($sql)->value($params);
     }
-
 }

@@ -166,7 +166,6 @@ EOQ;
         $gm_notes = "";
         $sheet_updates = "";
         $is_sanctioned = "";
-        $asst_sanctioned = "";
         $view_status = "";
         $bonus_attribute = "";
 
@@ -245,7 +244,6 @@ EOQ;
             $gm_notes = $stats['gm_notes'];
             $sheet_updates = $stats['sheet_update'];
             $is_sanctioned = $stats['is_sanctioned'];
-            $asst_sanctioned = $stats['asst_sanctioned'];
             $bonus_attribute = $stats['bonus_attribute'];
 
             if ($characterId) {
@@ -837,10 +835,7 @@ EOQ;
         }
 
         // create human readable version of status
-        $temp_asst = ($asst_sanctioned == "") ? "X" : $asst_sanctioned;
-        $temp_sanc = ($is_sanctioned == "") ? "X" : $is_sanctioned;
-
-        $temp_status = $temp_sanc . $temp_asst;
+        $temp_status = (($is_sanctioned == "") ? "X" : $is_sanctioned) . 'X';
 
         switch ($temp_status) {
             case 'YY':
@@ -869,15 +864,6 @@ EOQ;
                 $is_sanctioned = <<<EOQ
 Yes: <input type="radio" name="is_sanctioned" value="Y" $sanc_yes_check>
 No: <input type="radio" name="is_sanctioned" value="N" $sanc_no_check>
-EOQ;
-            }
-
-            if ($this->viewOptions['user_type'] == 'asst') {
-                $asst_sanc_yes_check = ($asst_sanctioned == 'Y') ? "checked" : "";
-                $asst_sanc_no_check = ($asst_sanctioned == 'N') ? "checked" : "";
-                $asst_sanctioned = <<<EOQ
-Yes: <input type="radio" name="asst_sanctioned" value="Y" $asst_sanc_yes_check>
-No: <input type="radio" name="asst_sanctioned" value="N" $asst_sanc_no_check>
 EOQ;
             }
 
@@ -942,7 +928,6 @@ EOQ;
                         Pre-Sanctioned
                     </td>
                     <td>
-                        <?php echo $asst_sanctioned; ?>
                     </td>
                     <td>
                         When Last ST Updated
@@ -2119,7 +2104,6 @@ EOQ;
                     // something bad has happened here
                     break;
                 case 'asst':
-                    $character->AsstSanctioned = $stats['asst_sanctioned'];
                     break;
                 case 'st':
                 case 'head':

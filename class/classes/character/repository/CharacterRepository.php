@@ -12,6 +12,7 @@ namespace classes\character\repository;
 
 use classes\character\data\BeatStatus;
 use classes\character\data\Character;
+use classes\character\data\CharacterStatus;
 use classes\core\repository\AbstractRepository;
 use classes\core\repository\Database;
 use classes\log\CharacterLog;
@@ -208,30 +209,36 @@ EOQ;
 SELECT
     C.id,
     C.character_name,
-    C.is_sanctioned,
+    C.character_status_id,
     U.username as updated_by_name,
     C.updated_on
 FROM
     characters AS C
     LEFT JOIN phpbb_users as U ON C.updated_by_id = U.user_id
+    LEFT JOIN character_statuses AS CS ON C.character_status_id = CS.id
 WHERE
     C.user_id = ?
-    AND C.is_deleted = 'N'
+    AND C.character_status_id != ?
 ORDER BY
-    is_sanctioned DESC,
+    CS.sort_order,
     character_name
 EOQ;
+        $params = [
+            $userId,
+            CharacterStatus::Deleted
+        ];
 
-        return $this->query($sql)->all(array($userId));
+        return $this->query($sql)->all($params);
     }
 
     public function ListSanctionedCharactersByPlayerId($userId)
     {
+        $placeholders = implode(',', array_fill(0, count(CharacterStatus::Sanctioned), '?'));
         $sql = <<<EOQ
 SELECT
     C.id,
     C.character_name,
-    C.is_sanctioned,
+    C.character_status_id,
     C.slug,
     U.username as updated_by_name,
     C.updated_on
@@ -240,13 +247,13 @@ FROM
     LEFT JOIN phpbb_users as U ON C.updated_by_id = U.user_id
 WHERE
     C.user_id = ?
-    AND C.is_deleted = 'N'
-    AND C.is_sanctioned = 'Y'
+    AND C.character_status_id IN ($placeholders)
 ORDER BY
     character_name
 EOQ;
 
-        return $this->query($sql)->all(array($userId));
+        $params = array_merge([$userId], CharacterStatus::Sanctioned);
+        return $this->query($sql)->all($params);
     }
 
     public function FindByName($characterName)
@@ -270,6 +277,7 @@ EOQ;
 
     public function AutocompleteSearch($characterName, $onlySanctioned, $city = 'portland')
     {
+        $statusIds = implode(',', CharacterStatus::Sanctioned);
         $sql = <<<EOQ
 SELECT
     C.id,
@@ -277,9 +285,8 @@ SELECT
 FROM
     characters AS C
 WHERE
-    C.is_deleted = 'N'
-    AND (
-        (C.is_sanctioned = 'Y' AND (:only_sanctioned = 1))
+    (
+        (C.character_status_id IN ($statusIds) AND (:only_sanctioned = 1))
         OR
         (:only_sanctioned = 0)
     )
@@ -295,86 +302,6 @@ EOQ;
             'city' => $city
         );
         return $this->query($sql)->all($params);
-    }
-
-    public function UnsanctionInactiveCharacters($cutoffDate)
-    {
-        // get list of characters
-        $characterListQuery = <<<EOQ
-SELECT
-    DISTINCT
-    id
-FROM
-    characters AS C
-    LEFT JOIN (
-        SELECT
-            LC.character_id,
-            count(*) AS `rows`
-        FROM
-            log_characters AS LC
-        WHERE
-            LC.created >= ?
-            AND LC.action_type_id IN (?, ?)
-		GROUP BY
-			LC.character_id
-    ) AS A ON C.id = A.character_id
-WHERE
-    C.is_sanctioned = 'Y'
-    AND C.is_npc = 'N'
-	AND A.rows IS NULL
-EOQ;
-
-        $unsanctionLogParams = array($cutoffDate, ActionType::Sanctioned, ActionType::Login);
-
-        $characterList = $this->query($characterListQuery)->all($unsanctionLogParams);
-        $characterIds = array_map(function ($item) {
-            return $item['id'];
-        }, $characterList);
-        if (count($characterIds)) {
-            $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
-
-            // add desanction note to character log
-            $unsanctionLogQuery = <<<EOQ
-INSERT INTO
-    log_characters
-    (
-        character_id,
-        action_type_id,
-        note,
-        created
-    )
-SELECT
-    id,
-    ?,
-    'Auto-Desanction for inactivity',
-    NOW()
-FROM
-    characters
-WHERE
-    id IN ($characterIdPlaceholders)
-EOQ;
-            $unsanctionLogParams = array_merge(array(ActionType::Desanctioned), $characterIds);
-            $this->query($unsanctionLogQuery)->execute($unsanctionLogParams);
-
-            // desanction the characters
-            $unsanctionQuery = <<<EOQ
-UPDATE
-    characters
-SET
-    is_sanctioned='N'
-WHERE
-    id IN ($characterIdPlaceholders)
-EOQ;
-
-            $unsanctionParams = $characterIds;
-            $this->query($unsanctionQuery)->execute($unsanctionParams);
-
-            // close all requests attached to the characters
-            $requestRepository = new RequestRepository();
-            $requestRepository->CloseRequestsForCharacter($characterIds);
-        }
-
-        return count($characterIds);
     }
 
     public function DoesCharacterHavePowerAtLevel($characterId, $powerName, $powerLevel)
@@ -437,22 +364,25 @@ EOQ;
      */
     public function listForDashboard($userId)
     {
+        $activeStatuses = CharacterStatus::NonDeleted;
+        $statusPlaceholders = implode(',', array_fill(0, count($activeStatuses), '?'));
+
         $sql = <<<SQL
 SELECT
-  *
+  C.*
 FROM
-  characters
+  characters AS C
+  LEFT JOIN character_statuses AS CS ON C.character_status_id = CS.id
 WHERE
   user_id = ?
-  AND is_deleted = 'N'
+  AND C.character_status_id IN ($statusPlaceholders)
   AND city = 'portland'
 ORDER BY
-  is_sanctioned DESC,
+  CS.sort_order,
   character_name
 SQL;
 
-        $params = [$userId];
-
+        $params = array_merge([$userId], $activeStatuses);
         $rows = [];
         foreach($this->query($sql)->all($params) as $row) {
             $rows[] = $this->populateObject($row);
@@ -478,5 +408,86 @@ SQL;
         ];
 
         return $this->query($sql)->all($params);
+    }
+
+    public function findCharactersWithNoActivityInDate($currentStatusId, $dateAdjustment)
+    {
+        $cutoffDate = date('Y-m-d', strtotime($dateAdjustment));
+        // get list of characters
+        $characterListQuery = <<<EOQ
+SELECT
+    DISTINCT
+    id
+FROM
+    characters AS C
+    LEFT JOIN (
+        SELECT
+            LC.character_id,
+            count(*) AS `rows`
+        FROM
+            log_characters AS LC
+        WHERE
+            LC.created >= ?
+            AND LC.action_type_id IN (?, ?)
+		GROUP BY
+			LC.character_id
+    ) AS A ON C.id = A.character_id
+WHERE
+    C.character_status_id = ?
+    AND C.is_npc = 'N'
+	AND A.rows IS NULL
+EOQ;
+
+        $params = array($cutoffDate, $currentStatusId, ActionType::Login, CharacterStatus::Active);
+
+        $characterList = $this->query($characterListQuery)->all($params);
+        $characterIds = array_map(function ($item) {
+            return $item['id'];
+        }, $characterList);
+
+        return $characterIds;
+    }
+
+    public function migrateCharactersToNewStatus($characterIds, $statusId, $logNote)
+    {
+        if (count($characterIds)) {
+            $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));
+
+            // add desanction note to character log
+            $query = <<<EOQ
+INSERT INTO
+    log_characters
+    (
+        character_id,
+        action_type_id,
+        note,
+        created
+    )
+SELECT
+    id,
+    ?,
+    ?,
+    NOW()
+FROM
+    characters
+WHERE
+    id IN ($characterIdPlaceholders)
+EOQ;
+            $unsanctionLogParams = array_merge([ActionType::UpdateCharacter, $logNote], $characterIds);
+            $this->query($query)->execute($unsanctionLogParams);
+
+            // migrate characters to new status
+            $query = <<<EOQ
+UPDATE
+    characters
+SET
+    character_status_id = ?
+WHERE
+    id IN ($characterIdPlaceholders)
+EOQ;
+
+            $params = array_merge([$statusId], $characterIds);
+            $this->query($query)->execute($params);
+        }
     }
 }

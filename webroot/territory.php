@@ -47,7 +47,6 @@ include 'user_panel.php';
 include 'menu_bar.php';
 
 // TODO: Let's kill these!
-include 'includes/classes/tenacy/abp/abp.php';
 include 'includes/classes/tenacy/domain.php';
 
 if (isset($_GET['action'])) {

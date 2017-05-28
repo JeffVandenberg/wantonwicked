@@ -31,8 +31,13 @@
 // Enable custom login details
 
 // perform required includes
+use classes\character\data\Character;
+use classes\character\data\CharacterStatus;
+use classes\character\nwod2\SheetService;
 use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
+use classes\log\CharacterLog;
+use classes\log\data\ActionType;
 use classes\support\repository\SupporterRepository;
 
 define('IN_PHPBB', true);
@@ -62,38 +67,23 @@ $userTypeId = 0;
 $isInvisible = 0;
 if(isset($_GET['character_id'])) {
     $characterId = (int) $_GET['character_id'];
-    $query = <<<EOQ
-SELECT
-    C.character_name,
-    C.character_type,
-    C.is_sanctioned,
-    icon,
-    hide_icon
-FROM
-    characters AS C
-WHERE
-    C.id = ?
-	AND C.user_id = ?
-EOQ;
+    $service = new SheetService();
+    $character = $service->loadSheet($characterId);
+    /* @var Character $character */
 
-    /* @var PDO $dbh */
-    $dbh = db_connect();
-    $action = $dbh->prepare($query);
-    $action->execute(array($characterId, $userdata['user_id']));
-    $character = $action->fetch(PDO::FETCH_ASSOC);
-
-    if($character === false) {
+    if(!$character || ($character->UserId != $userdata['user_id'])) {
         Response::endRequest('Not Allowed');
     }
-    $encoded = htmlspecialchars($character['character_name']);
+
+    $encoded = htmlspecialchars($character->CharacterName);
     $cleanName = str_replace("'", '&#39;', $encoded);
     define('C_CUSTOM_USERNAME', $cleanName); // username
     define('C_CUSTOM_USERID', $characterId); // userid
     define('C_CUSTOM_ACTION', 'CHARACTER LOGIN');
 
     $icon = 'unsanctioned.png';
-    if($character['is_sanctioned'] == 'Y') {
-        switch(strtolower($character['character_type'])) {
+    if($character->CharacterStatusId == CharacterStatus::Active) {
+        switch(strtolower($character->CharacterType)) {
             case 'mortal':
                 $icon = 'wodm.png';
                 break;
@@ -123,14 +113,14 @@ EOQ;
                 break;
         }
 
-        if((((int) $character['icon']) === 0) && ($character['hide_icon'] == 'N')){
-            $icon = $character['icon'];
+        if((((int) $character->Icon) === 0) && ($character->HideIcon == 'N')){
+            $icon = $character->Icon;
         }
     }
-    if(strtolower($character['is_sanctioned']) == 'n') {
+    if($character->CharacterStatusId == CharacterStatus::Unsanctioned) {
         $icon = 'desanctioned.png';
     }
-    if($character['location'] == 'Side Game') {
+    if($character->City == 'Side Game') {
         $icon = 'sidegames.png';
     }
 
@@ -165,33 +155,7 @@ EOQ;
     }
 
     // add login record to character log
-    $query = <<<EOQ
-INSERT INTO
-    log_characters
-    (
-        character_id,
-        action_type_id,
-        created_by_id,
-        created,
-        note
-    )
-VALUES
-    (
-        ?,
-        ?,
-        ?,
-        ?,
-        'Chat Login'
-    )
-EOQ;
-    $params = array(
-        $characterId,
-        2, // login
-        $userdata['user_id'],
-        date('Y-m-d H:i:s')
-    );
-    $action = $dbh->prepare($query);
-    $action->execute($params);
+    CharacterLog::LogAction($characterId, ActionType::Login, 'Chat Login', $userdata['user_id']);
 
     $loggedIn = true;
 }

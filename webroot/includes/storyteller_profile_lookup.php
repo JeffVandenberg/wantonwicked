@@ -1,4 +1,5 @@
 <?php
+use classes\character\data\CharacterStatus;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
@@ -25,25 +26,34 @@ SELECT
     C.id,
     C.character_name,
     C.character_type,
-    C.is_sanctioned
+    C.character_status_id
 FROM
     phpbb_users AS U
     INNER JOIN characters AS C ON C.user_id = U.user_id
+    INNER JOIN character_statuses AS CS ON C.character_status_id = CS.id
 WHERE
     U.username = ?
-    and C.is_deleted='N'
+    and C.character_status_id != ?
 ORDER BY
-    C.is_sanctioned ASC,
+    CS.sort_order ASC,
     C.character_name;
 EOQ;
+    $params = array_merge($params, [CharacterStatus::Deleted]);
+
     $characterList = Database::getInstance()->query($sql)->all($params);
     $characters    = array();
     foreach ($characterList as $character) {
-        switch ($character['is_sanctioned']) {
-            case 'Y':
-                $sanctionStatus = 'Sanctioned';
+        switch ($character['character_status_id']) {
+            case CharacterStatus::Active:
+                $sanctionStatus = 'Active';
                 break;
-            case 'N':
+            case CharacterStatus::Idle:
+                $sanctionStatus = 'Idle';
+                break;
+            case CharacterStatus::Inactive:
+                $sanctionStatus = 'Inactive';
+                break;
+            case CharacterStatus::Unsanctioned:
                 $sanctionStatus = 'Desanctioned';
                 break;
             default:

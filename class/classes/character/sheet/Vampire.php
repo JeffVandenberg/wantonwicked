@@ -470,17 +470,12 @@ class Vampire extends SheetRenderer
             </tr>
             <tr>
                 <td>
-                    ABP
                 </td>
                 <td colspan="2">
-                    <?php echo $average_power_points; ?>
-                    <a href="abp.php?action=show_modifiers&character_id=<?php echo $sheet->stats['id']; ?>" target="_blank">Explanation</a>
                 </td>
                 <td>
-                    ABP Modifier
                 </td>
                 <td colspan="2">
-                    <?php echo $power_points_modifier; ?>
                 </td>
             </tr>
         </table>

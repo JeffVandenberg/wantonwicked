@@ -7,6 +7,7 @@ use Cake\View\Helper\HtmlHelper;
 use Cake\View\View;
 use classes\character\data\Character;
 use classes\character\data\CharacterPower;
+use classes\character\data\CharacterStatus;
 use Exception;
 
 /**
@@ -121,10 +122,12 @@ class CharacterHelper extends AppHelper
     /**
      * @var array
      */
-    private $sanctionStatuses = [
-        '' => 'New',
-        'N' => 'Desanctioned',
-        'Y' => 'Sanctioned'
+    private $characterStatuses = [
+        CharacterStatus::New => 'New',
+        CharacterStatus::Active => 'Active',
+        CharacterStatus::Idle => 'Idle',
+        CharacterStatus::Inactive => 'Inactive',
+        CharacterStatus::Unsanctioned => 'Desanctioned',
     ];
 
     /**
@@ -544,7 +547,7 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 columns">
                     <label>Notes</label>
                     <?php echo $characterNotes; ?>
-                    <?php if ($character->IsSanctioned === ''): ?>
+                    <?php if (in_array($character->CharacterStatusId, CharacterStatus::Sanctioned)): ?>
                         <p class="help-text" id="notes-help-text">
                             At Character Creation this section should include a list of all traits or bonuses provided
                             by purchase of applicable merits, abilities or by character type choices. Those bonuses will
@@ -1529,6 +1532,11 @@ class CharacterHelper extends AppHelper
      */
     private function buildAdminSection(Character $character)
     {
+        // can't revert back to new status
+        if($character->CharacterStatusId != CharacterStatus::New) {
+            unset($this->characterStatuses[CharacterStatus::New]);
+        }
+
         ob_start();
         ?>
         <a href="#csheet-admin" role="tab" class="accordion-title" id="csheet-admin-heading"
@@ -1563,15 +1571,16 @@ class CharacterHelper extends AppHelper
                     ); ?>
                 </div>
                 <div class="small-6 medium-1 column">
-                    Sanctioned
+                    Activity
                 </div>
                 <div class="small-6 medium-3 column">
                     <?php echo $this->Form->select(
-                        'is_sanctioned',
-                        $this->sanctionStatuses,
+                        'character_status_id',
+                        $this->characterStatuses,
                         [
-                            'value' => $character->IsSanctioned,
-                            'empty' => false
+                            'value' => $character->CharacterStatusId,
+                            'empty' => false,
+                            'id' => 'character_status_id'
                         ]);
                     ?>
                 </div>

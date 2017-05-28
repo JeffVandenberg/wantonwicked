@@ -50,9 +50,7 @@ use Cake\ORM\Entity;
  * @property string $public_effects
  * @property string $history
  * @property string $goals
- * @property string $is_sanctioned
- * @property string $asst_sanctioned
- * @property string $is_deleted
+ * @property int $character_status_id
  * @property float $current_experience
  * @property float $total_experience
  * @property int $bonus_received

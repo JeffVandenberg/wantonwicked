@@ -9,6 +9,7 @@ use Cake\Datasource\EntityInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use classes\character\data\CharacterStatus;
 
 /**
  * PlayPreferenceResponses Model
@@ -178,6 +179,8 @@ EOQ;
         if (strtolower($playPreferenceId) == 'all') {
             $playPreferenceId = 0;
         }
+        $statuses = implode(',', CharacterStatus::Sanctioned);
+
         $sql = <<<SQL
 SELECT
   C.character_type,
@@ -189,10 +192,9 @@ SELECT
       play_preference_responses AS PPR1
       INNER JOIN characters AS C2 ON PPR1.user_id = C2.user_id
     WHERE
-      C2.is_sanctioned = 'Y'
+      C2.character_status_id IN ($statuses)
       AND C2.character_type = C.character_type
       AND C2.is_npc = 'N'
-      AND C2.is_deleted = 'N'
       AND PPR1.rating = 1
       AND PPR1.play_preference_id = PP.id
       AND (
@@ -206,10 +208,9 @@ SELECT
       play_preference_responses AS PPR2
       INNER JOIN characters AS C2 ON PPR2.user_id = C2.user_id
     WHERE
-      C2.is_sanctioned = 'Y'
+      C2.character_status_id IN ($statuses)
       AND C2.character_type = C.character_type
       AND C2.is_npc = 'N'
-      AND C2.is_deleted = 'N'
       AND PPR2.play_preference_id = PP.id
       AND (
         C.character_type = :venue
@@ -220,10 +221,10 @@ FROM
   play_preferences AS PP
   CROSS JOIN (
                SELECT DISTINCT character_type
-               FROM characters
-               WHERE is_sanctioned = 'Y'
-               AND is_npc = 'N'
-               AND is_deleted = 'N'
+               FROM characters AS C2
+               WHERE 
+               C2.character_status_id IN ($statuses)
+               AND C2.is_npc = 'N'
              ) AS C
 WHERE
   (
@@ -255,6 +256,7 @@ SQL;
 
     public function getVenuePlayerReport($venue, $playPreferenceSlug)
     {
+        $placeholders = implode(',', array_fill(0, count(CharacterStatus::Sanctioned), '?'));
         $sql = <<<SQL
 SELECT
   U.user_id,
@@ -269,17 +271,19 @@ FROM
 WHERE
   C.character_type = ?
   AND PP.slug = ?
-  AND C.is_sanctioned = 'Y'
+  AND C.character_status_id IN ($placeholders)
   AND C.is_npc = 'N'
-  AND C.is_deleted = 'N'
   AND PPR.rating = 1
 ORDER BY
   U.username
 SQL;
-        $params = [
-            $venue,
-            $playPreferenceSlug
-        ];
+        $params = array_merge(
+            [
+                $venue,
+                $playPreferenceSlug
+            ],
+            CharacterStatus::Sanctioned
+        );
 
         $conn = ConnectionManager::get('default');
         /* @var Connection $conn */
@@ -292,13 +296,13 @@ SQL;
 SELECT
   PP.name,
   (
-    select
+    SELECT
       (sum(rating)) / count(id) * 100
     FROM
       play_preference_responses AS PPR
     WHERE
       PPR.play_preference_id = PP.id
-  ) as percentage
+  ) AS percentage
 FROM
   play_preferences AS PP
 ORDER BY

@@ -12,6 +12,7 @@ namespace classes\character\nwod2;
 use classes\character\data\Character;
 use classes\character\data\CharacterNote;
 use classes\character\data\CharacterPower;
+use classes\character\data\CharacterStatus;
 use classes\character\repository\CharacterPowerRepository;
 use classes\character\repository\CharacterRepository;
 use classes\core\data\DataModel;
@@ -19,6 +20,7 @@ use classes\core\repository\Database;
 use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
+use classes\request\repository\RequestRepository;
 
 /**
  * Class SheetService
@@ -333,7 +335,7 @@ class SheetService
             $character->History = htmlspecialchars($stats['history']);
             $character->CharacterNotes = htmlspecialchars($stats['notes']);
             $character->Slug = $stats['slug'];
-            $character->Friends = $stats['friends'];
+            $character->Friends = $stats['friends'] ?? '';
         }
 
         if (in_array($options['edit_mode'], ['open', 'limited'])) {
@@ -349,7 +351,7 @@ class SheetService
         }
         if ($options['show_admin']) {
             $character->Status = $stats['status'];
-            $character->IsSanctioned = $stats['is_sanctioned'];
+            $character->CharacterStatusId = $stats['character_status_id'];
             $character->IsNpc = ($stats['is_npc'] == 'Y') ? 'Y' : 'N';
             if ($stats['xp_spent'] > 0) {
                 $character->CurrentExperience -= $stats['xp_spent'];
@@ -360,7 +362,7 @@ class SheetService
                 $character->BonusReceived += $stats['xp_gained'];
             }
 
-            if($stats['st_note']) {
+            if ($stats['st_note']) {
                 $note = new CharacterNote();
                 $note->CharacterId = $stats['character_id'];
                 $note->UserId = $user['user_id'];
@@ -482,11 +484,11 @@ class SheetService
             return true;
         }
 
-        if ($newCharacter->IsSanctioned != $oldCharacter->IsSanctioned) {
-            if ($newCharacter->IsSanctioned == 'Y') {
+        if ($newCharacter->CharacterStatusId != $oldCharacter->CharacterStatusId) {
+            if ($newCharacter->CharacterStatusId == CharacterStatus::Active) {
                 CharacterLog::LogAction($newCharacter->Id, ActionType::Sanctioned, 'ST Sanctioned Character', $user['user_id']);
             }
-            if ($newCharacter->IsSanctioned == 'N') {
+            if ($newCharacter->CharacterStatusId == CharacterStatus::Unsanctioned) {
                 CharacterLog::LogAction($newCharacter->Id, ActionType::Desanctioned, 'ST Desanctioned Character', $user['user_id']);
             }
         }
@@ -602,7 +604,7 @@ SQL;
         $character = $this->repository->getById($characterId);
         /* @var Character $character */
 
-        if(!$characterId) {
+        if (!$characterId) {
             return false;
         }
 
@@ -614,5 +616,91 @@ SQL;
             . '<br />Total Experience: ' . $character->TotalExperience);
         CharacterLog::LogAction($characterId, ActionType::XPModification, $logNote, $userId);
         return true;
+    }
+
+    public function awardXpToActiveCharacters($xpAward)
+    {
+        $xpAward = (int)$xpAward;
+        $update_experience_query = <<<SQL
+UPDATE 
+  characters 
+SET 
+  current_experience = current_experience + ?, 
+  total_experience = total_experience + ?, 
+  bonus_received = 0 
+WHERE 
+  character_status_id = ?;
+SQL;
+
+        $this->repository->query($update_experience_query)->execute([
+            $xpAward,
+            $xpAward,
+            CharacterStatus::Active
+        ]);
+
+        $xpLogQuery = <<<EOQ
+INSERT INTO
+    log_characters
+    (
+        character_id,
+        action_type_id,
+        note,
+        created
+    )
+SELECT
+    id,
+    ?,
+    'Monthly XP Award: $xpAward',
+    NOW()
+FROM
+    characters AS C
+WHERE
+    C.character_status_id = ?;
+EOQ;
+        $params = [
+            ActionType::XPModification,
+            CharacterStatus::Active
+        ];
+        $this->repository->query($xpLogQuery)->execute($params);
+    }
+
+    public function restoreTempWillpower()
+    {
+        $update_willpower_query = "UPDATE characters SET willpower_temp = willpower_temp + 1 WHERE willpower_temp < willpower_perm;";
+        $this->repository->query($update_willpower_query)->execute();
+    }
+
+    public function checkCharacterActivity()
+    {
+        // mark idle characters with 1 month of no activity
+        $idleCharacterIds = $this->repository->findCharactersWithNoActivityInDate(
+            CharacterStatus::Active,
+            '-1 month');
+        $this->repository->migrateCharactersToNewStatus(
+            $idleCharacterIds,
+            CharacterStatus::Idle,
+            'Moved to Idle status for inactivity'
+        );
+
+        // mark inactive characters with 4 months of no activity
+        $inactiveCharacterIds = $this->repository->findCharactersWithNoActivityInDate(
+            CharacterStatus::Idle,
+            '-4 month'
+        );
+        $this->repository->migrateCharactersToNewStatus(
+            $inactiveCharacterIds,
+            CharacterStatus::Inactive,
+            'Moved to Inactive status for inactivity'
+        );
+
+        // close requests for Inactive Characters
+        $requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
+        /* @var RequestRepository $requestRepository */
+        $requestRepository->CloseRequestsForCharacter($inactiveCharacterIds);
+
+        return [
+            'idle' => count($idleCharacterIds),
+            'inactive' => count($inactiveCharacterIds)
+        ];
     }
 }

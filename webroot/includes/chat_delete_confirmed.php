@@ -1,5 +1,6 @@
 <?php
 /* @var array $userdata */
+use classes\character\data\CharacterStatus;
 use classes\character\repository\CharacterRepository;
 use classes\core\repository\Database;
 use classes\request\repository\RequestRepository;
@@ -19,7 +20,6 @@ FROM
     characters AS C
 WHERE
     C.user_id = ?
-    AND C.is_deleted = 'N'
     AND C.id = ?
 EOQ;
 
@@ -35,8 +35,9 @@ if ($characterRepository->MayViewCharacter($character_id, $userdata['user_id']))
         $id = Database::getInstance()->query($id_query)->value($params);
 
         // mark the character as deleted
-        $update_query  = "update characters set is_deleted='Y', character_name = ? where id = ?;";
+        $update_query  = "update characters set character_status_id = ?, character_name = ? where id = ?;";
         $params = array(
+            CharacterStatus::Deleted,
             $temp_name . '_' . $id,
             $character_id
         );
@@ -48,7 +49,7 @@ if ($characterRepository->MayViewCharacter($character_id, $userdata['user_id']))
     $page_content = <<<EOQ
 $character[character_name] has been deleted. This is a permanent action. It can not and will not be undone.<br>
 <br>
-<a href="$_SERVER[PHP_SELF]">Return to Chat Interface</a>
+<a href="/chat.php">Return to Chat Interface</a>
 EOQ;
     }
 }

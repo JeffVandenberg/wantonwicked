@@ -40,7 +40,7 @@ if (Request::isPost()) {
 
 
 $edit_xp = "false";
-if ($character['is_sanctioned'] == '' && $character['asst_sanctioned'] == '') {
+if ($character['is_sanctioned'] == '') {
     $edit_xp = "true";
 }
 

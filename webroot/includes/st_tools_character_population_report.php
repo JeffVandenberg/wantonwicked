@@ -1,4 +1,5 @@
 <?php
+use classes\character\data\CharacterStatus;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\repository\Database;
@@ -9,7 +10,9 @@ $query = '';
 $params = array();
 $headerLinks = array();
 
+$sanctionedStatusIds = implode(',', CharacterStatus::Sanctioned);
 if (!Request::getValue('character_type')) {
+
     $query = <<<EOQ
 SELECT
     character_type as `group`,
@@ -17,9 +20,8 @@ SELECT
 FROM
     characters AS C
 WHERE
-    is_sanctioned = 'Y'
+    C.character_status_id IN ($sanctionedStatusIds)
     AND is_npc = 'N'
-    AND is_deleted = 'N'
 GROUP BY
     character_type
 EOQ;
@@ -42,9 +44,8 @@ SELECT
 FROM
     characters AS C
 WHERE
-    is_sanctioned = 'Y'
+    C.character_status_id IN ($sanctionedStatusIds)
     AND is_npc = 'N'
-    AND is_deleted = 'N'
     AND character_type = ?
 GROUP BY
     $splat

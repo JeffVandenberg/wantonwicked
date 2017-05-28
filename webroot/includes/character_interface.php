@@ -59,8 +59,6 @@ switch ($character->CharacterType) {
     case 'Vampire':
         $morality = "Humanity";
 
-        $abpRating = $character->AveragePowerPoints;
-
         $extraLinks = <<<EOQ
 <div style="margin-bottom:10px;text-align:center;">
     <a href="/territory.php?action=list_territories&character_id=$characterId" target="_blank">View Tenancy for Character</a>
@@ -82,15 +80,6 @@ EOQ;
     </td>
     <td>
         $character->PowerPoints
-    </td>
-</tr>
-<tr>
-    <td>
-        ABP
-    </td>
-    <td>
-        $abpRating
-        <a href="abp.php?action=show_modifiers&character_id=$characterId" target="_blank">Details</a>
     </td>
 </tr>
 EOQ;

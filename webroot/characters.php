@@ -1,4 +1,5 @@
 <?php
+use classes\character\data\CharacterStatus;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\repository\Database;
@@ -7,26 +8,27 @@ include 'cgi-bin/start_of_page.php';
 $characterId = Request::getValue('character_id', 0);
 $includeAll = Request::getValue('include_all', false);
 $term = Request::getValue('term') . '%';
+$statuses = implode(',', CharacterStatus::Sanctioned);
 
 $characterQuery = <<<EOQ
 SELECT
     id,
     character_name
 FROM
-    characters
+    characters AS C
 WHERE
-    character_name LIKE ?
-    AND is_sanctioned = 'Y'
-    AND is_deleted='N'
+    C.character_name LIKE ?
+    AND C.character_status_id IN ($statuses)
 ORDER BY
     character_name LIMIT 20;
 EOQ;
-$params = array($term);
+
+$params = [$term];
 $characters = Database::getInstance()->query($characterQuery)->all($params);
 
 if(count($characters) === 0)
 {
-	$characters[] = array("id" => '0', 'characterName' => 'No Matches');
+	$characters[] = ["id" => '0', 'characterName' => 'No Matches'];
 }
 
 $returnArray['characters'] = $characters;
