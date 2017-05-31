@@ -17,7 +17,7 @@ class CharacterStatus extends DataModel
     public $Name;
     public $SortOrder;
 
-    const New = 1;
+    const NewCharacter = 1;
     const Active = 2;
     const Unsanctioned = 3;
     const Inactive = 4;
@@ -25,7 +25,7 @@ class CharacterStatus extends DataModel
     const Idle = 6;
 
     const NonDeleted = [
-        self::New,
+        self::NewCharacter,
         self::Active,
         self::Unsanctioned,
         self::Inactive,
