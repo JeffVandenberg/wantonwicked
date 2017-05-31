@@ -17,31 +17,36 @@ SDV($TocSize,'smaller');
 SDV($TocFloat,false);
 $HTMLStylesFmt['toc'] = "
 span.anchor {
-	float: left;
-	font-size: 60%;
-	margin-left: -1em;
-	width: 1em;
+	float: right;
+	font-size: 10px;
+	margin-left: -10px;
+	width: 10px;
     position:relative; top:-0.1em;
 	text-align: center;
 }
 span.anchor a { text-decoration: none; }
 span.anchor a:hover { text-decoration: underline; }
-ol.toc { text-indent:-25px; list-style: none; margin-bottom:5px; }
-ol ol.toc { margin-left:-24px; text-indent:-24px; }";
+ol.toc { text-indent:-5px; list-style: none; }
+ol.toc ol.toc { text-indent:-15px; }";
 $HTMLStylesFmt['tocf'] = "
-div.tocfloat { font-size: $TocSize; margin-bottom: 10px;
-    border-top: 1px dotted #555555; border-bottom: 1px dotted #555555;
-    padding-top: 5px; 
-    width: 38%; float: right; margin-left: 10px; clear: right;
-    margin-right:-21px; padding-right: 13px; padding-left: 13px;
-    background-color: #eeeeee; }
-div.toc { font-size: $TocSize; 
-    border: 1px dotted #cccccc;
-    background: #f7f7f7;
-    margin-bottom: 10px; }
-div.toc p { background-color: #f9f6d6;
-    padding: 5px;
-    border-bottom:  1px dotted #cccccc; }";
+div.tocfloat { font-size: $TocSize; margin-left:10px; margin-bottom:10px; width:300px;
+	border: 1px solid #333; padding:5px; float: right; background-color: #222; }
+div.toc { 
+    font-size: $TocSize; 
+    width:300px;	
+    border: 1px solid #333; 
+    padding:5px; 
+    background-color: #222; 
+    z-index:100; 
+    float: right;
+    margin: 5px 0 10px 10px;
+}
+div.toc p { background-color: #222; width:300px;
+    margin-top:-5px;   padding-top: 5px;
+    margin-left:-5px;  padding-left: 5px;
+    margin-right:-5px; padding-right: 5px;
+    padding-bottom: 3px;
+    border-bottom:  1px solid #333; }";
 SDV($ToggleText, array('hide', 'show'));
 $HTMLHeaderFmt['toggle'] = ($action=="print" || $action=="publish") ? '' :
     "<script type=\"text/javascript\">
@@ -393,5 +398,3 @@ function TableOfContents($pagename,$number,$float,$title,$includeq,$text) {
     if ($r!='') $r = str_replace('$List',$r,$toc);
     return $r;
 }
-
-?>
