@@ -335,7 +335,7 @@ class SheetService
             $character->History = htmlspecialchars($stats['history']);
             $character->CharacterNotes = htmlspecialchars($stats['notes']);
             $character->Slug = $stats['slug'];
-            $character->Friends = $stats['friends'] ?? '';
+            $character->Friends = ($stats['friends']) ? $stats['friends'] : '';
         }
 
         if (in_array($options['edit_mode'], ['open', 'limited'])) {
