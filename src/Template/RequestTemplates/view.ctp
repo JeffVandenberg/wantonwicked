@@ -1,34 +1,33 @@
-<div class="requestTemplates view">
-<h2><?php echo __('Request Template'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($requestTemplate['RequestTemplate']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Name'); ?></dt>
-		<dd>
-			<?php echo h($requestTemplate['RequestTemplate']['name']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Description'); ?></dt>
-		<dd>
-			<?php echo h($requestTemplate['RequestTemplate']['description']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Content'); ?></dt>
-		<dd>
-			<?php echo h($requestTemplate['RequestTemplate']['content']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Request Template'), array('action' => 'edit', $requestTemplate['RequestTemplate']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Request Template'), array('action' => 'delete', $requestTemplate['RequestTemplate']['id']), null, __('Are you sure you want to delete # {0}?', $requestTemplate['RequestTemplate']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Request Templates'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Request Template'), array('action' => 'add')); ?> </li>
-	</ul>
+<?php
+use App\Model\Entity\RequestTemplate;
+use App\View\AppView;
+/* @var AppView $this */
+/* @var RequestTemplate $requestTemplate */
+
+$this->set('title_for_layout', 'Request Template: ' . $requestTemplate->name);
+?>
+
+<div class="row">
+    <div class="small-12 columns">
+        <?php echo $this->Html->link('<< Back', ['action' => 'index'], ['class' => 'button']); ?>
+        <?php echo $this->Html->link('Edit', ['action' => 'edit', $requestTemplate->id], ['class' => 'button']); ?>
+    </div>
+    <div class="small-12 medium-2 columns">
+        <?php echo __('Name'); ?>
+    </div>
+    <div class="small-12 medium-9 column">
+        <?php echo h($requestTemplate->name); ?>
+    </div>
+    <div class="small-12 medium-2 columns">
+        <?php echo __('Description'); ?>
+    </div>
+    <div class="small-12 medium-9 column">
+        <?php echo h($requestTemplate->description); ?>
+    </div>
+    <div class="small-12 medium-2 columns">
+        <?php echo __('Content'); ?>
+    </div>
+    <div class="small-12 medium-9 column tinymce-content">
+        <?php echo $requestTemplate->content; ?>
+    </div>
 </div>

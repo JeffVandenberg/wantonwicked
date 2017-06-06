@@ -38,16 +38,6 @@ class RequestTemplatesController extends AppController
         'Menu'
     );
 
-    /**
-     * index method
-     *
-     * @return void
-     */
-    public function index()
-    {
-        $this->set('requestTemplates', $this->paginate($this->RequestTemplates));
-    }
-
     public function getList()
     {
         $templates = $this->RequestTemplates->find()->toArray();
@@ -74,6 +64,29 @@ class RequestTemplatesController extends AppController
     public function view($id = null)
     {
         $this->set('requestTemplate', $this->RequestTemplates->get($id));
+        $storytellerMenu = $this->Menu->createStorytellerMenu();
+        $storytellerMenu['Actions'] = array(
+            'link' => '#',
+            'submenu' => array(
+                'List' => array(
+                    'link' => array(
+                        'action' => 'index'
+                    )
+                ),
+                'Edit' => array(
+                    'link' => array(
+                        'action' => 'edit',
+                        $id
+                    )
+                ),
+                'New Template' => array(
+                    'link' => array(
+                        'action' => 'add'
+                    )
+                ),
+            )
+        );
+        $this->set('submenu', $storytellerMenu);
     }
 
     /**
@@ -83,13 +96,18 @@ class RequestTemplatesController extends AppController
      */
     public function add()
     {
-        if ($this->request->is('post')) {
-            $this->RequestTemplate->create();
-            if ($this->RequestTemplate->save($this->request->data)) {
-                $this->Session->setFlash(__('The request template has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+        if($this->request->is(['post', 'patch', 'put'])) {
+            if ($this->request->getData('action') == 'cancel') {
+                $this->redirect(['action' => 'index']);
+                return;
+            }
+
+            $requestTemplate = $this->RequestTemplates->patchEntity($this->RequestTemplates->newEntity(), $this->request->getData());
+            if($this->RequestTemplates->save($requestTemplate)) {
+                $this->Flash->set($requestTemplate->name . ' has been saved.');
+                $this->redirect(['action' => 'index']);
             } else {
-                $this->Session->setFlash(__('The request template could not be saved. Please, try again.'));
+                $this->Flash->set('Error saving Request Template');
             }
         }
     }
@@ -103,20 +121,25 @@ class RequestTemplatesController extends AppController
      */
     public function edit($id = null)
     {
-        if (!$this->RequestTemplate->exists($id)) {
-            throw new NotFoundException(__('Invalid request template'));
-        }
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->RequestTemplate->save($this->request->data)) {
-                $this->Session->setFlash(__('The request template has been saved.'));
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The request template could not be saved. Please, try again.'));
+        $requestTemplate = $this->RequestTemplates->get($id, [
+            'contain' => []
+        ]);
+
+        if($this->request->is(['post', 'patch', 'put'])) {
+            if ($this->request->getData('action') == 'cancel') {
+                $this->redirect(['action' => 'index']);
+                return;
             }
-        } else {
-            $options = array('conditions' => array('RequestTemplate.' . $this->RequestTemplate->primaryKey => $id));
-            $this->request->data = $this->RequestTemplate->find('first', $options);
+
+            $requestTemplate = $this->RequestTemplates->patchEntity($requestTemplate, $this->request->getData());
+            if($this->RequestTemplates->save($requestTemplate)) {
+                $this->Flash->set($requestTemplate->name . ' has been updated');
+                $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->set('Error updating Request Template');
+            }
         }
+        $this->set('requestTemplate', $requestTemplate);
     }
 
     /**
@@ -146,9 +169,8 @@ class RequestTemplatesController extends AppController
      *
      * @return void
      */
-    public function admin_index()
+    public function index()
     {
-        $this->RequestTemplate->recursive = 0;
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $storytellerMenu['Actions'] = array(
             'link' => '#',
@@ -161,111 +183,11 @@ class RequestTemplatesController extends AppController
             )
         );
         $this->set('submenu', $storytellerMenu);
-        $this->set('requestTemplates', $this->Paginator->paginate());
-    }
-
-    /**
-     * admin_view method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function admin_view($id = null)
-    {
-        if (!$this->RequestTemplate->exists($id)) {
-            throw new NotFoundException(__('Invalid request template'));
-        }
-        $options = array('conditions' => array('RequestTemplate.' . $this->RequestTemplate->primaryKey => $id));
-        $this->set('requestTemplate', $this->RequestTemplate->find('first', $options));
-        $storytellerMenu = $this->Menu->createStorytellerMenu();
-        $storytellerMenu['Actions'] = array(
-            'link' => '#',
-            'submenu' => array(
-                'List' => array(
-                    'link' => array(
-                        'action' => 'index'
-                    )
-                ),
-                'Edit' => array(
-                    'link' => array(
-                        'action' => 'edit',
-                        $id
-                    )
-                ),
-                'New Template' => array(
-                    'link' => array(
-                        'action' => 'add'
-                    )
-                ),
-            )
-        );
-        $this->set('submenu', $storytellerMenu);
-    }
-
-    /**
-     * admin_add method
-     *
-     * @return void
-     */
-    public function admin_add()
-    {
-        if ($this->request->is('post')) {
-            $this->RequestTemplate->create();
-            if ($this->RequestTemplate->save($this->request->data)) {
-                $this->Session->setFlash(__('The request template has been saved.'));
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The request template could not be saved. Please, try again.'));
-            }
-        }
-    }
-
-    /**
-     * admin_edit method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function admin_edit($id = null)
-    {
-        if (!$this->RequestTemplate->exists($id)) {
-            throw new NotFoundException(__('Invalid request template'));
-        }
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->RequestTemplate->save($this->request->data)) {
-                $this->Session->setFlash(__('The request template has been saved.'));
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The request template could not be saved. Please, try again.'));
-            }
-        } else {
-            $options = array('conditions' => array('RequestTemplate.' . $this->RequestTemplate->primaryKey => $id));
-            $this->request->data = $this->RequestTemplate->find('first', $options);
-        }
-    }
-
-    /**
-     * admin_delete method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function admin_delete($id = null)
-    {
-        $this->RequestTemplate->id = $id;
-        if (!$this->RequestTemplate->exists()) {
-            throw new NotFoundException(__('Invalid request template'));
-        }
-        $this->request->onlyAllow('post', 'delete');
-        if ($this->RequestTemplate->delete()) {
-            $this->Session->setFlash(__('The request template has been deleted.'));
-        } else {
-            $this->Session->setFlash(__('The request template could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(array('action' => 'index'));
+        $this->set('requestTemplates', $this->paginate($this->RequestTemplates, [
+            'order' => [
+                'RequestTemplates.name'
+            ]
+        ]));
     }
 
     public function isAuthorized($user)
