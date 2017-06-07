@@ -34,9 +34,26 @@ class GroupsController extends AppController
     {
         $this->set('groups', $this->paginate($this->Groups, [
             'contain' => [
-                'GroupTypes'
+                'GroupTypes',
+                'Users'
+            ],
+            'order' => [
+                'Groups.name'
             ]
         ]));
+
+        $storytellerMenu = $this->Menu->createStorytellerMenu();
+        $storytellerMenu['Actions'] = array(
+            'link' => '#',
+            'submenu' => array(
+                'List' => array(
+                    'link' => array(
+                        'action' => 'index'
+                    )
+                ),
+            )
+        );
+        $this->set('submenu', $storytellerMenu);
     }
 
     /**
@@ -50,31 +67,61 @@ class GroupsController extends AppController
     {
         $this->set('group', $this->Groups->get($id, [
             'contain' => [
-                'GroupTypes'
+                'GroupTypes',
+                'Users'
             ]
         ]));
+
+        $storytellerMenu = $this->Menu->createStorytellerMenu();
+        $storytellerMenu['Actions'] = array(
+            'link' => '#',
+            'submenu' => array(
+                'List' => array(
+                    'link' => array(
+                        'action' => 'index'
+                    )
+                ),
+            )
+        );
+        $this->set('submenu', $storytellerMenu);
     }
 
     /**
      * add method
      *
-     * @return void
+     * @return \Cake\Network\Response
      */
     public function add()
     {
         if ($this->request->is('post')) {
-            $this->Group->create();
-            if ($this->Group->save($this->request->data)) {
-                $this->Session->setFlash(__('The group has been saved.'));
+            $group = $this->Groups->newEntity($this->request->getData());
+            $group->is_deleted = false;
+            $group->created_by = $this->Auth->user('user_id');
+            debug($group);
+            if ($this->Groups->save($group)) {
+                $this->Flash->set(__('The group has been saved.'));
 
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The group could not be saved. Please, try again.'));
+                $this->Flash->set(__('The group could not be saved. Please, try again.'));
+                debug($group->getErrors());
             }
         }
-        $groupTypes = $this->Group->GroupType->find('list');
-        $requestTypes = $this->Group->RequestType->find('list');
-        $this->set(compact('groupTypes', 'requestTypes'));
+        $groupTypes = $this->Groups->GroupTypes->find('list');
+        $this->set(compact('groupTypes'));
+
+        $storytellerMenu = $this->Menu->createStorytellerMenu();
+        $storytellerMenu['Actions'] = array(
+            'link' => '#',
+            'submenu' => array(
+                'List' => array(
+                    'link' => array(
+                        'action' => 'index'
+                    )
+                ),
+            )
+        );
+        $this->set('submenu', $storytellerMenu);
     }
 
     /**
@@ -170,41 +217,6 @@ class GroupsController extends AppController
         header('Content-Type: application/json');
         echo json_encode(compact('list'));
         die();
-    }
-
-    /**
-     * admin_add method
-     *
-     * @return void
-     */
-    public function admin_add()
-    {
-        if ($this->request->is('post')) {
-            $this->Group->create();
-            $this->request->data['Group']['created_by'] = $this->Auth->user('user_id');
-            if ($this->Group->save($this->request->data)) {
-                $this->Session->setFlash(__('The group has been saved.'));
-
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The group could not be saved. Please, try again.'));
-            }
-        }
-        $groupTypes = $this->Group->GroupType->find('list');
-        $requestTypes = $this->Group->RequestType->find('list');
-        $this->set(compact('groupTypes', 'requestTypes'));
-        $storytellerMenu = $this->Menu->createStorytellerMenu();
-        $storytellerMenu['Actions'] = array(
-            'link' => '#',
-            'submenu' => array(
-                'List' => array(
-                    'link' => array(
-                        'action' => 'index'
-                    )
-                ),
-            )
-        );
-        $this->set('submenu', $storytellerMenu);
     }
 
     public function isAuthorized($user)

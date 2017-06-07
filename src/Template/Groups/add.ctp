@@ -10,9 +10,13 @@ $this->set('title_for_layout', 'Add Group');
     <?php
     echo $this->Form->control('name');
     echo $this->Form->control('group_type_id');
-    echo $this->Form->control('RequestType', array(
-        'size' => 6
-    ));
     ?>
-    <?php echo $this->Form->end(__('Submit')); ?>
+    <?php echo $this->Form->button(__('Save'), [
+            'class' => 'button',
+            'type' => 'submit',
+            'value' => 'save',
+            'name' => 'action'
+        ]
+    ) ?>
+    <?php echo $this->Form->end(); ?>
 </div>

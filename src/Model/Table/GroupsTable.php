@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
 /**
  * Groups Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $GroupTypes
  * @property \Cake\ORM\Association\HasMany $GroupIcons
  * @property \Cake\ORM\Association\HasMany $Requests
@@ -42,6 +43,10 @@ class GroupsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Users', [
+            'foreignKey' => 'created_by',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('GroupTypes', [
             'foreignKey' => 'group_type_id',
             'joinType' => 'INNER'

@@ -23,12 +23,12 @@ $this->set('title_for_layout', 'View Group: ' . $group->name);
         </dd>
         <dt><?php echo __('Is Deleted'); ?></dt>
         <dd>
-            <?php echo h($group->is_deleted); ?>
+            <?php echo ($group->is_deleted) ? 'Yes' : 'No'; ?>
             &nbsp;
         </dd>
         <dt><?php echo __('Created By'); ?></dt>
         <dd>
-            <?php echo h($group->created_by); ?>
+            <?php echo h($group->user->username); ?>
             &nbsp;
         </dd>
     </dl>

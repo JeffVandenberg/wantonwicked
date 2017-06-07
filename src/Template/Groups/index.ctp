@@ -8,6 +8,7 @@ $this->set('title_for_layout', 'Groups');
 ?>
 
 <div class="groups index">
+    <?php echo $this->Html->link('New Group', ['action' => 'add'], ['class' => 'button']); ?>
     <table>
         <tr>
             <th><?php echo $this->Paginator->sort('name'); ?></th>
@@ -22,8 +23,8 @@ $this->set('title_for_layout', 'Groups');
                 <td>
                     <?php echo $this->Html->link($group->group_type->name, array('controller' => 'group_types', 'action' => 'view', $group->group_type->id)); ?>
                 </td>
-                <td><?php echo h($group->is_deleted); ?>&nbsp;</td>
-                <td><?php echo h($group->created_by); ?>&nbsp;</td>
+                <td><?php echo ($group->is_deleted) ? 'Yes' : 'No'; ?>&nbsp;</td>
+                <td><?php echo h($group->user->username); ?>&nbsp;</td>
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $group->id)); ?>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $group->id)); ?>

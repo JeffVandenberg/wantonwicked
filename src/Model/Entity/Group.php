@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property int $created_by
  *
  * @property \App\Model\Entity\GroupType $group_type
+ * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\GroupIcon[] $group_icons
  * @property \App\Model\Entity\Request[] $requests
  * @property \App\Model\Entity\StGroup[] $st_groups
