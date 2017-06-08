@@ -1,44 +1,41 @@
-<div class="requestTypes index">
-    <h2><?php echo __('Request Types'); ?></h2>
-    <table cellpadding="0" cellspacing="0">
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+$this->set('title_for_layout', 'Request Types');
+?>
+<?php echo $this->Html->link('New Request Type', ['action' => 'add'], ['class' => 'button']); ?>
+<table cellpadding="0" cellspacing="0" class="stack">
+    <thead>
+    <tr>
+        <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+        <th scope="col" class="actions"><?= __('Actions') ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($requestTypes as $requestType): ?>
         <tr>
-            <th><?php echo $this->Paginator->sort('id'); ?></th>
-            <th><?php echo $this->Paginator->sort('name'); ?></th>
-            <th class="actions"><?php echo __('Actions'); ?></th>
+            <td><?= h($requestType->name) ?></td>
+            <td class="actions">
+                <?= $this->Html->link(__('View'), ['action' => 'view', $requestType->id]) ?>
+                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $requestType->id]) ?>
+                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $requestType->id], ['confirm' => __('Are you sure you want to delete # {0}?', $requestType->id)]) ?>
+            </td>
         </tr>
-        <?php foreach ($requestTypes as $requestType): ?>
-            <tr>
-                <td><?php echo h($requestType['RequestType']['id']); ?>&nbsp;</td>
-                <td><?php echo h($requestType['RequestType']['name']); ?>&nbsp;</td>
-                <td class="actions">
-                    <?php echo $this->Html->link(__('View'), array('action' => 'view', $requestType['RequestType']['id'])); ?>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $requestType['RequestType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $requestType['RequestType']['id']), null, __('Are you sure you want to delete # {0}?', $requestType['RequestType']['id'])); ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <p>
-        <?php
-        echo $this->Paginator->counter(array(
-            'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-        ));
-        ?>    </p>
-    <div class="paging">
-        <?php
-        echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-        echo $this->Paginator->numbers(array('separator' => ''));
-        echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-        ?>
-    </div>
-</div>
-<div class="actions">
-    <h3><?php echo __('Actions'); ?></h3>
-    <ul>
-        <li><?php echo $this->Html->link(__('New Request Type'), array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link(__('List Requests'), array('controller' => 'requests', 'action' => 'index')); ?> </li>
-        <li><?php echo $this->Html->link(__('New Request'), array('controller' => 'requests', 'action' => 'add')); ?> </li>
-        <li><?php echo $this->Html->link(__('List Groups'), array('controller' => 'groups', 'action' => 'index')); ?> </li>
-        <li><?php echo $this->Html->link(__('New Group'), array('controller' => 'groups', 'action' => 'add')); ?> </li>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<div class="paginator small callout">
+    <ul class="pagination">
+        <?php if ($this->Paginator->hasPrev()): ?>
+            <?= $this->Paginator->first('<< ' . __('First')) ?>
+            <?= $this->Paginator->prev('< ' . __('Previous')) ?>
+        <?php endif; ?>
+        <?= $this->Paginator->numbers() ?>
+        <?php if ($this->Paginator->hasNext()): ?>
+            <?= $this->Paginator->next(__('Next') . ' >') ?>
+            <?= $this->Paginator->last(__('Last') . ' >>') ?>
+        <?php endif; ?>
     </ul>
+    <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
 </div>

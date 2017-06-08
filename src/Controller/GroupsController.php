@@ -73,16 +73,6 @@ class GroupsController extends AppController
         ]));
 
         $storytellerMenu = $this->Menu->createStorytellerMenu();
-        $storytellerMenu['Actions'] = array(
-            'link' => '#',
-            'submenu' => array(
-                'List' => array(
-                    'link' => array(
-                        'action' => 'index'
-                    )
-                ),
-            )
-        );
         $this->set('submenu', $storytellerMenu);
     }
 

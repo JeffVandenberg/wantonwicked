@@ -1,131 +1,33 @@
 <?php
 namespace App\Controller;
+use App\Controller\Component\MenuComponent;
+use App\Controller\Component\PermissionsComponent;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * RequestTypes Controller
  *
- * @property RequestType $RequestType
- * @property PaginatorComponent $Paginator
+ * @property \App\Model\Table\RequestTypesTable $RequestTypes
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
  */
 class RequestTypesController extends AppController
 {
     /**
-     * Components
+     * Index method
      *
-     * @var array
-     */
-    public $components = array(
-    );
-
-    /**
-     * index method
-     *
-     * @return void
+     * @return \Cake\Network\Response|null|void
      */
     public function index()
     {
-        $this->set('requestTypes', $this->Paginator->paginate());
-    }
+        $requestTypes = $this->paginate($this->RequestTypes, [
+            'order' => [
+                'RequestTypes.name'
+            ]
+        ]);
 
-    /**
-     * view method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function view($id = null)
-    {
-        if (!$this->RequestType->exists($id)) {
-            throw new NotFoundException(__('Invalid request type'));
-        }
-        $options = array('conditions' => array('RequestType.' . $this->RequestType->primaryKey => $id));
-        $this->set('requestType', $this->RequestType->find('first', $options));
-    }
-
-    /**
-     * add method
-     *
-     * @return void
-     */
-    public function add()
-    {
-        if ($this->request->is('post')) {
-            $this->RequestType->create();
-            if ($this->RequestType->save($this->request->data)) {
-                $this->Session->setFlash(__('The request type has been saved.'));
-
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The request type could not be saved. Please, try again.'));
-            }
-        }
-        $groups = $this->RequestType->Group->find('list');
-        $this->set(compact('groups'));
-    }
-
-    /**
-     * edit method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function edit($id = null)
-    {
-        if (!$this->RequestType->exists($id)) {
-            throw new NotFoundException(__('Invalid request type'));
-        }
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->RequestType->save($this->request->data)) {
-                $this->Session->setFlash(__('The request type has been saved.'));
-
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The request type could not be saved. Please, try again.'));
-            }
-        } else {
-            $options = array('conditions' => array('RequestType.' . $this->RequestType->primaryKey => $id));
-            $this->request->data = $this->RequestType->find('first', $options);
-        }
-        $groups = $this->RequestType->Group->find('list');
-        $this->set(compact('groups'));
-    }
-
-    /**
-     * delete method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function delete($id = null)
-    {
-        $this->RequestType->id = $id;
-        if (!$this->RequestType->exists()) {
-            throw new NotFoundException(__('Invalid request type'));
-        }
-        $this->request->onlyAllow('post', 'delete');
-        if ($this->RequestType->delete()) {
-            $this->Session->setFlash(__('The request type has been deleted.'));
-        } else {
-            $this->Session->setFlash(__('The request type could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(array('action' => 'index'));
-    }
-
-    /**
-     * admin_index method
-     *
-     * @return void
-     */
-    public function admin_index()
-    {
-        $this->RequestType->recursive = 0;
-        $this->set('requestTypes', $this->Paginator->paginate());
+        $this->set(compact('requestTypes'));
+        $this->set('_serialize', ['requestTypes']);
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $storytellerMenu['Actions'] = array(
             'link' => '#',
@@ -141,23 +43,27 @@ class RequestTypesController extends AppController
     }
 
     /**
-     * admin_view method
+     * view method
      *
      * @throws NotFoundException
      * @param string $id
      * @return void
      */
-    public function admin_view($id = null)
+    public function view($id = null)
     {
-        if (!$this->RequestType->exists($id)) {
-            throw new NotFoundException(__('Invalid request type'));
-        }
-        $options = array(
-            'conditions' => array(
-                'RequestType.' . $this->RequestType->primaryKey => $id
-            )
-        );
-        $this->set('requestType', $this->RequestType->find('first', $options));
+        $requestType = $this->RequestTypes->get($id, [
+            'contain' => [
+                'Groups' => [
+                    'sort' => [
+                        'Groups.name'
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->set('requestType', $requestType);
+        $this->set('_serialize', ['requestType']);
+
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $storytellerMenu['Actions'] = array(
             'link' => '#',
@@ -184,24 +90,32 @@ class RequestTypesController extends AppController
     }
 
     /**
-     * admin_add method
+     * add method
      *
-     * @return void
+     * @return \Cake\Network\Response|null|void
      */
-    public function admin_add()
+    public function add()
     {
+        $requestType = $this->RequestTypes->newEntity();
         if ($this->request->is('post')) {
-            $this->RequestType->create();
-            if ($this->RequestType->save($this->request->data)) {
-                $this->Session->setFlash(__('The request type has been saved.'));
+            $requestType = $this->RequestTypes->patchEntity($requestType, $this->request->getData());
+            if ($this->RequestTypes->save($requestType)) {
+                $this->Flash->success(__('The request type has been saved.'));
 
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The request type could not be saved. Please, try again.'));
+                return $this->redirect(['action' => 'index']);
             }
+            $this->Flash->error(__('The request type could not be saved. Please, try again.'));
         }
-        $groups = $this->RequestType->Group->find('list');
+        $this->set(compact('requestType'));
+        $this->set('_serialize', ['requestType']);
+
+        $groups = $this->RequestTypes->Groups->find('list', [
+            'order' => [
+                'Groups.name'
+            ]
+        ]);
         $this->set(compact('groups'));
+
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $storytellerMenu['Actions'] = array(
             'link' => '#',
@@ -217,30 +131,36 @@ class RequestTypesController extends AppController
     }
 
     /**
-     * admin_edit method
+     * edit method
      *
      * @throws NotFoundException
      * @param string $id
      * @return void
      */
-    public function admin_edit($id = null)
+    public function edit($id = null)
     {
-        if (!$this->RequestType->exists($id)) {
-            throw new NotFoundException(__('Invalid request type'));
-        }
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->RequestType->save($this->request->data)) {
-                $this->Session->setFlash(__('The request type has been saved.'));
+        $requestType = $this->RequestTypes->get($id, [
+            'contain' => [
+                'Groups'
+            ]
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $requestType = $this->RequestTypes->patchEntity($requestType, $this->request->getData());
+            if ($this->RequestTypes->save($requestType)) {
+                $this->Flash->success(__('The request type has been saved.'));
 
-                return $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The request type could not be saved. Please, try again.'));
+                return $this->redirect(['action' => 'index']);
             }
-        } else {
-            $options = array('conditions' => array('RequestType.' . $this->RequestType->primaryKey => $id));
-            $this->request->data = $this->RequestType->find('first', $options);
+            $this->Flash->error(__('The request type could not be saved. Please, try again.'));
         }
-        $groups = $this->RequestType->Group->find('list');
+        $this->set(compact('requestType'));
+        $this->set('_serialize', ['requestType']);
+
+        $groups = $this->RequestTypes->Groups->find('list', [
+            'order' => [
+                'Groups.name'
+            ]
+        ]);
         $this->set(compact('groups'));
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $storytellerMenu['Actions'] = array(
@@ -257,13 +177,13 @@ class RequestTypesController extends AppController
     }
 
     /**
-     * admin_delete method
+     * delete method
      *
      * @throws NotFoundException
      * @param string $id
      * @return void
      */
-    public function admin_delete($id = null)
+    public function delete($id = null)
     {
         $this->RequestType->id = $id;
         if (!$this->RequestType->exists()) {

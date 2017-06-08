@@ -1,22 +1,29 @@
-<div class="requestTypes form">
-<?php echo $this->Form->create('RequestType'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Request Type'); ?></legend>
-	<?php
-		echo $this->Form->input('name');
-		echo $this->Form->input('Group');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php
+use App\Model\Entity\Group;
+/* @var \App\View\AppView $this */
+/* @var Group[] $groups */
 
-		<li><?php echo $this->Html->link(__('List Request Types'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Requests'), array('controller' => 'requests', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Request'), array('controller' => 'requests', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Groups'), array('controller' => 'groups', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Group'), array('controller' => 'groups', 'action' => 'add')); ?> </li>
-	</ul>
+$this->set('title_for_layout', 'Add Request Type');
+?>
+<?= $this->Form->create($requestType) ?>
+<div class="rows">
+    <div class="small-12 columns">
+        <?php echo $this->Html->link('<< Back', ['action' => 'view', $requestType->id], ['class' => 'button']); ?>
+    </div>
+    <div class="small-12 columns">
+        <?php echo $this->Form->control('name'); ?>
+    </div>
+    <div class="small-12 columns">
+        <?php echo $this->Form->control('groups._ids', [
+            'options' => $groups,
+            'size' => 10
+        ]); ?>
+    </div>
+    <div class="small-12 columns text-center">
+        <?= $this->Form->button(__('Submit'), [
+            'class' => 'button',
+            'type' => 'submit'
+        ]) ?>
+    </div>
 </div>
+<?= $this->Form->end() ?>
