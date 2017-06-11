@@ -9,13 +9,26 @@ $this->set('title_for_layout', 'Edit Group: ' . $group->name);
 ?>
 <div class="groups form">
     <?= $this->Form->create($group) ?>
-    <fieldset>
-        <legend><?= __('Edit Group') ?></legend>
-        <?php
-        echo $this->Form->control('name');
-        echo $this->Form->control('group_type_id');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit', ['class' => 'button'])) ?>
+    <div class="rows">
+        <div class="small-12 columns">
+            <?php echo $this->Html->link('<< Back', ['action' => 'index'], ['class' => 'button']); ?>
+        </div>
+        <div class="small-12 columns">
+            <?php echo $this->Form->control('name'); ?>
+        </div>
+        <div class="small-12 columns">
+            <?php echo $this->Form->control('group_type_id'); ?>
+        </div>
+        <div class="small-12 columns text-center">
+            <?php echo $this->Form->control('id'); ?>
+            <?php echo $this->Form->button(__('Save'), [
+                    'class' => 'button',
+                    'type' => 'submit',
+                    'value' => 'save',
+                    'name' => 'action'
+                ]
+            ) ?>
+        </div>
+    </div>
     <?= $this->Form->end() ?>
 </div>

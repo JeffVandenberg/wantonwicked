@@ -26,7 +26,7 @@ class RequestsController extends AppController
         parent::beforeFilter($event);
     }
 
-    public function adminIndex()
+    public function admin()
     {
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $this->set('submenu', $storytellerMenu);

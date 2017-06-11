@@ -60,7 +60,7 @@ ob_start();
                         <?php $identifier = ($character->Slug) ? $character->Slug : $character->Id; ?>
                         <tr>
                             <td>
-                                <?php if($character->CharacterStatusId == CharacterStatus::New): ?>
+                                <?php if($character->CharacterStatusId == CharacterStatus::NewCharacter): ?>
                                         <div class="badge has-tip" data-tooltip title="New"><i class="fi-x"></i></div>
                                 <?php elseif($character->CharacterStatusId == CharacterStatus::Active): ?>
                                         <div class="success badge has-tip" data-tooltip title="Sanctioned (Active)"><i

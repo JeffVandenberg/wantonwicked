@@ -116,7 +116,7 @@ if(UserdataHelper::IsAdmin($userdata)) {
         'link' => '/configurations'
     );
     $storytellerMenu['Requests']['submenu']['Administration'] = array(
-        'link' => '/admin/request'
+        'link' => '/requests/admin'
     );
 }
 

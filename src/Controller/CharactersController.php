@@ -230,7 +230,7 @@ class CharactersController extends AppController
             'edit_mode' => 'limited', // other values "open", "none"
         ];
 
-        if ($character->CharacterStatusId == CharacterStatus::New) {
+        if ($character->CharacterStatusId == CharacterStatus::NewCharacter) {
             $options['edit_mode'] = 'open';
             $sheetService->addMinPowersForEdit($character);
         }

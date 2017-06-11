@@ -123,7 +123,7 @@ class CharacterHelper extends AppHelper
      * @var array
      */
     private $characterStatuses = [
-        CharacterStatus::New => 'New',
+        CharacterStatus::NewCharacter => 'New',
         CharacterStatus::Active => 'Active',
         CharacterStatus::Idle => 'Idle',
         CharacterStatus::Inactive => 'Inactive',
@@ -1533,8 +1533,8 @@ class CharacterHelper extends AppHelper
     private function buildAdminSection(Character $character)
     {
         // can't revert back to new status
-        if($character->CharacterStatusId != CharacterStatus::New) {
-            unset($this->characterStatuses[CharacterStatus::New]);
+        if($character->CharacterStatusId != CharacterStatus::NewCharacter) {
+            unset($this->characterStatuses[CharacterStatus::NewCharacter]);
         }
 
         ob_start();

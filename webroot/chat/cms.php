@@ -145,6 +145,7 @@ WHERE
     AND userid = :userid
 EOQ;
 
+    $dbh = db_connect();
     $action = $dbh->prepare($query);
     $action->bindValue('userid', C_CUSTOM_USERID, PDO::PARAM_INT);
     $action->bindValue('username', makeSafe(C_CUSTOM_USERNAME));

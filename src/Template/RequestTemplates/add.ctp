@@ -1,19 +1,37 @@
-<div class="requestTemplates form">
-<?php echo $this->Form->create('RequestTemplate'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Request Template'); ?></legend>
-	<?php
-		echo $this->Form->input('name');
-		echo $this->Form->input('description');
-		echo $this->Form->input('content');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php
+use App\View\AppView;
 
-		<li><?php echo $this->Html->link(__('List Request Templates'), array('action' => 'index')); ?></li>
-	</ul>
-</div>
+/* @var AppView $this */
+$this->set('title_for_layout', 'Add Request Template');
+?>
+
+<?php echo $this->Form->create('RequestTemplate'); ?>
+    <div class="rows">
+        <div class="small-12 columns">
+            <?php echo $this->Form->control('name'); ?>
+        </div>
+        <div class="small-12 columns">
+            <?php echo $this->Form->control('description'); ?>
+        </div>
+        <div class="small-12 columns">
+            <?php echo $this->Form->control('content', [
+                'class' => 'tinymce-textarea',
+                'type' => 'textarea'
+            ]); ?>
+        </div>
+        <div class="small-12 columns text-center" style="margin-top:15px;">
+            <?php echo $this->Form->button('Save', [
+                'name' => 'action',
+                'class' => 'button',
+                'type' => 'submit',
+                'value' => 'save'
+            ]); ?>
+            <?php echo $this->Form->button('Cancel', [
+                'name' => 'action',
+                'class' => 'button',
+                'type' => 'submit',
+                'value' => 'cancel'
+            ]); ?>
+        </div>
+    </div>
+<?php echo $this->Form->end(); ?>

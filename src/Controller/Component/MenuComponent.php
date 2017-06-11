@@ -218,7 +218,7 @@ class MenuComponent extends Component
             $menu['Requests']['submenu']['Administration'] = array(
                 'link' => [
                     'controller' => 'requests',
-                    'action' => 'adminIndex',
+                    'action' => 'admin',
                 ]
             );
         }
