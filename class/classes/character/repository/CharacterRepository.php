@@ -438,7 +438,7 @@ WHERE
 	AND A.rows IS NULL
 EOQ;
 
-        $params = array($cutoffDate, $currentStatusId, ActionType::Login, CharacterStatus::Active);
+        $params = array($cutoffDate, ActionType::Sanctioned, ActionType::Login, CharacterStatus::Active);
 
         $characterList = $this->query($characterListQuery)->all($params);
         $characterIds = array_map(function ($item) {
