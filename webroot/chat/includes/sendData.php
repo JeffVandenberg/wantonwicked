@@ -100,7 +100,7 @@ if ($_POST) {
     // send message
     if (isset($_POST['umessage']) && !empty($_POST['umessage'])) {
         // get senders permissions
-        list($admin, $mod, $speaker, $userTypeId) = adminPermissions();
+        list($admin, $mod, $speaker, $userTypeId) = adminPermissions($userId);
 
         // get toUser permissions
         list($toUseradmin, $toUsermod, $toUserspeaker, $toUserTypeId) = toUserPermissions($_POST['to_user_id']);
@@ -251,7 +251,25 @@ if ($_POST) {
             $senderName = $CONFIG['intelliBotName'];
         }
         else {
-            $senderName = $_SESSION['display_name'];
+            $sql = <<<SQL
+SELECT
+  display_name
+FROM 
+  prochatrooms_users
+WHERE
+  id = ?
+SQL;
+            $query = $dbh->prepare($sql);
+            $query->execute([
+                $userId
+            ]);
+            if($query->rowCount()) {
+                $data = $query->fetch(PDO::FETCH_ASSOC);
+                $senderName = $data['display_name'];
+            }
+            else {
+                die('Unable to find username');
+            }
         }
 
         // if user is not silenced
