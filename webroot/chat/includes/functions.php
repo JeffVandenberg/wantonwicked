@@ -1035,10 +1035,10 @@ function updateUser($userId = null, $roomId = null)
 
         $params = array(
             'userIP' => $_SERVER['REMOTE_ADDR'],
-            'room' => makeSafe($roomId ?? $_SESSION['room']),
+            'room' => makeSafe(($roomId)  ? $roomId : $_SESSION['room']),
             'isActive' => getTime(),
             'isOnline' => '1',
-            'streamID' => makeSafe($_SESSION['myStreamID'] ?? ''),
+            'streamID' => makeSafe(($_SESSION['myStreamID']) ? $_SESSION['myStreamID'] : ''),
             'userid' => makeSafe($userId)
         );
         $query = "UPDATE prochatrooms_users 
