@@ -65,25 +65,7 @@ list($admin, $mod, $speaker, $userTypeId) = adminPermissions($userId);
 * update user
 *
 */
-updateUser($userId);
-
-/*
-* virtual credits
-*
-*/
-
-//virtualCredits();
-
-/*
-* eCredits
-*
-*/
-
-//if ($_SESSION['eCreditsInit'] == '1') {
-//    if ($_SESSION['eCreditsAwardTo'] != $_SESSION['myProfileID']) {
-//        eCredits($_SESSION['eCreditsAwardTo']);
-//    }
-//}
+updateUser($userId, $_GET['roomID']);
 
 /*
 * start XML file
@@ -222,12 +204,12 @@ EOQ;
             $xml .= $i['watching'] . "||"; //13
             $xml .= $CONFIG['eCreditsOn'] . "||"; // 14
             $xml .= $i['eCredits'] . "||"; // 15
-            $xml .= $_SESSION['groupCams'] . "||"; // 16
-            $xml .= $_SESSION['groupWatch'] . "||"; // 17
-            $xml .= $_SESSION['groupChat'] . "||"; // 18
-            $xml .= $_SESSION['groupPChat'] . "||"; // 19
-            $xml .= $_SESSION['groupRooms'] . "||"; // 20
-            $xml .= $_SESSION['groupVideo'] . "||"; // 21
+            $xml .= ($_SESSION['groupCams'] ?? '') . "||"; // 16
+            $xml .= ($_SESSION['groupWatch'] ?? '') . "||"; // 17
+            $xml .= ($_SESSION['groupChat'] ?? '') . "||"; // 18
+            $xml .= ($_SESSION['groupPChat'] ?? '') . "||"; // 19
+            $xml .= ($_SESSION['groupRooms'] ?? '') . "||"; // 20
+            $xml .= ($_SESSION['groupVideo'] ?? '') . "||"; // 21
             $xml .= $i['active'] . "||"; // 22
             $xml .= $i['lastActive'] . "||"; // 23
 

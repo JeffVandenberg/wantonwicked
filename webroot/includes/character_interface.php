@@ -52,6 +52,7 @@ $character_type = $character->CharacterType;
 
 // set up user information
 $extraLinks = "";
+$extra_rows = '';
 switch ($character->CharacterType) {
     case 'Mortal':
         $morality = "Morality";

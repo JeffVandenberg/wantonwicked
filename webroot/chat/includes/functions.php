@@ -7,39 +7,42 @@
 
 function db_connect()
 {
-    include(dirname(__FILE__) . "/db.php");
-    /* @var string $host */
-    /* @var string $dbname */
-    /* @var string $user */
-    /* @var string $pass */
-
-    try {
-        # MS SQL Server
-        #$dbh = new PDO("mssql:host=$host;dbname=$dbname, $user, $pass");
-
-        # Sybase with PDO_DBLIB
-        # $dbh = new PDO("sybase:host=$host;dbname=$dbname, $user, $pass");
-
-        # MySQL with PDO_MYSQL
-        $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass, array(PDO::ATTR_PERSISTENT => true));
-
-        # SQLite Database
-        # $dbh = new PDO("sqlite:my/database/path/database.db");
-
-        # set error reporting
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        return ($dbh);
-    } catch (PDOException $e) {
-        $error = "Function: " . __FUNCTION__ . "\n";
-        $error .= "File: " . basename(__FILE__) . "\n";
-        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-        debugError($error);
-    }
-    return false;
+    return DBConnection::getConnection();
 }
 
+class DBConnection
+{
+    private static $instance;
+
+    public static function getConnection()
+    {
+        if(!self::$instance) {
+
+            include(dirname(__FILE__) . "/db.php");
+            /* @var string $host */
+            /* @var string $dbname */
+            /* @var string $user */
+            /* @var string $pass */
+
+            try {
+                # MySQL with PDO_MYSQL
+                self::$instance = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+
+                # set error reporting
+                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            } catch (PDOException $e) {
+                $error = "Function: " . __FUNCTION__ . "\n";
+                $error .= "File: " . basename(__FILE__) . "\n";
+                $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+                debugError($error);
+                return false;
+            }
+        }
+        return self::$instance;
+    }
+}
 /*
 * error reporting
 *
@@ -530,17 +533,78 @@ function createUser($loginName, $loginID, $loginPass, $loginGender, $login, $gue
 
     if (!$login) {
         // user session already set
-        return array($_SESSION['display_name'], $_SESSION['username'], $_SESSION['userid'], '0');
+        return array($_SESSION['display_name'], $loginName, $loginID, '0');
     }
     return false;
 }
+
+function loadUser($userId)
+{
+    $dbh = db_connect();
+
+    $sql = <<<SQL
+SELECT
+  *
+FROM
+  prochatrooms_users
+WHERE
+  id = ?
+SQL;
+
+    $params = [
+        $userId
+    ];
+
+    try {
+        $query = $dbh->prepare($sql);
+        $query->execute($params);
+
+        if(!$query->rowCount()) {
+            die('No User');
+        }
+        return $query->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        die('ERROR Loading User: ' . $e->getMessage());
+    }
+}
+
+function validateCharacter($characterId, $userId) {
+    $dbh = db_connect();
+
+    $sql = <<<SQL
+SELECT
+  C.id
+FROM
+  characters AS C
+  INNER JOIN phpbb_users AS U ON C.user_id = U.user_id
+WHERE
+  C.id = ?
+  AND U.user_id = ?
+SQL;
+
+    $params = [
+        $characterId,
+        $userId
+    ];
+
+    $query = $dbh->prepare($sql);
+    $query->execute($params);
+
+    return true;
+}
+
+function validateStaff($loginId, $userId)
+{
+    return($loginId == $userId);
+}
+
 
 /*
 * get users details
 *
 */
 
-function getUser($prevRoom, $roomID)
+function getUser($prevRoom, $roomID, $userId = null)
 {
     $loginError = '0';
 
@@ -561,7 +625,7 @@ function getUser($prevRoom, $roomID)
     try {
         $dbh = db_connect();
         $params = array(
-            'id' => $_SESSION['user_id']
+            'id' => $userId
         );
         $query = "SELECT id, userid, avatar, kick, ban, blocked, room, guest, userGroup, user_type_id, is_invisible
 				  FROM prochatrooms_users 
@@ -645,7 +709,7 @@ EOQ;
             $dbh = db_connect();
             $params = array(
                 'lastActive' => getTime(),
-                'userid' => $_SESSION['user_id']
+                'userid' => $userId
             );
             $query = "UPDATE prochatrooms_users 
 					  SET watching = '', webcam = '0', lastActive = :lastActive  
@@ -839,6 +903,7 @@ function addUser($defaultIcon, $userTypeId)
             $dbh = db_connect();
             $params = array(
                 'username' => makeSafe($_SESSION['username']),
+                'displayname' => makeSafe($_SESSION['username']),
                 'userid' => makeSafe($_SESSION['userid']),
                 'userIP' => $_SERVER['REMOTE_ADDR'],
                 'room' => '1',
@@ -851,6 +916,7 @@ function addUser($defaultIcon, $userTypeId)
             $query = "INSERT INTO prochatrooms_users
 								(
 									username,
+									display_name,
 									userid,
 									userIP,
 									room, 
@@ -858,10 +924,13 @@ function addUser($defaultIcon, $userTypeId)
 									webcam,
 									active,
 									userGroup,
-									user_type_id
+									user_type_id,
+									watching,
+									blocked
 								) 
 								VALUES 
 								(
+									:username,
 									:username,
 									:userid,
 									:userIP,
@@ -870,7 +939,9 @@ function addUser($defaultIcon, $userTypeId)
 									:webcam,
 									:active,
 									:userGroup,
-									:usertypeid
+									:usertypeid,
+									'',
+									''
 								)";
             $action = $dbh->prepare($query);
             $action->execute($params);
@@ -953,7 +1024,7 @@ function totalRooms()
 *
 */
 
-function updateUser($userId = null)
+function updateUser($userId = null, $roomId = null)
 {
     if(!$userId) {
         $userId = $_SESSION['user_id'];
@@ -964,10 +1035,10 @@ function updateUser($userId = null)
 
         $params = array(
             'userIP' => $_SERVER['REMOTE_ADDR'],
-            'room' => makeSafe($_SESSION['room']),
+            'room' => makeSafe($roomId ?? $_SESSION['room']),
             'isActive' => getTime(),
             'isOnline' => '1',
-            'streamID' => makeSafe($_SESSION['myStreamID']),
+            'streamID' => makeSafe($_SESSION['myStreamID'] ?? ''),
             'userid' => makeSafe($userId)
         );
         $query = "UPDATE prochatrooms_users 
@@ -996,22 +1067,20 @@ function updateUser($userId = null)
 *
 */
 
-function prevRoom()
+function prevRoom($userId = null, $roomId = null)
 {
-    $prevRoom = '1';
-
-    if (isset($_SESSION['room'])) {
-        $prevRoom = $_SESSION['room'];
+    if (!$roomId) {
+        $roomId = $_SESSION['room'];
     }
 
-    if (isset($_SESSION['username'])) {
+    if ($userId) {
         // update users previous room
         try {
             $dbh = db_connect();
             $params = array(
-                'prevroom' => makeSafe($prevRoom),
+                'prevroom' => makeSafe($roomId),
                 'status' => '1',
-                'id' => $_SESSION['user_id'],
+                'id' => $userId,
             );
             $query = "UPDATE prochatrooms_users 
 					  SET prevroom = :prevroom, 
@@ -1031,7 +1100,7 @@ function prevRoom()
 
     }
 
-    return $prevRoom;
+    return $roomId;
 
 }
 
@@ -1065,7 +1134,7 @@ function deleteUserRoom($id)
 *
 */
 
-function chatRoomID($id, $pass)
+function chatRoomID($id, $pass, $user = null)
 {
     // include files
     include(getDocPath() . "includes/config.php");
@@ -1088,7 +1157,7 @@ function chatRoomID($id, $pass)
         $roomPassword = "1";
         $roomowner = '0';
         // admin & mods dont need a password ;)
-        if (getAdmin($_SESSION['user_id']) || getModerator($_SESSION['user_id'])) {
+        if ($user['admin'] || $user['moderator']) {
             $roomPassword = '';
         }
 
@@ -1147,9 +1216,7 @@ function chatRoomID($id, $pass)
 
             debugError($error);
         }
-
     }
-    updateRoomUserCount($id);
 }
 
 /*
@@ -2647,7 +2714,7 @@ function confirmReg($id, $email)
 *
 */
 
-function getTranscripts($room)
+function getTranscripts($room, $userId, $messageId)
 {
     // include files
     include(getDocPath() . "includes/session.php");
@@ -2660,17 +2727,12 @@ function getTranscripts($room)
         return "Invalid RoomID";
     }
 
-    // check active session
-    if (!$_SESSION['user_id']) {
-        return C_LANG47;
-    }
-
     // get user blocked list
     $blocked = array();
     try {
         $dbh = db_connect();
         $params = array(
-            'id' => $_SESSION['user_id']
+            'id' => $userId
         );
         $query = "SELECT blocked   
 				  FROM prochatrooms_users 
@@ -2702,9 +2764,9 @@ function getTranscripts($room)
         $dbh = db_connect();
 
         $params = array(
-            'transcriptID' => $_SESSION['transcriptsID'],
+            'transcriptID' => $messageId,
             'room' => makeSafe($room),
-            'userid' => $_SESSION['user_id']
+            'userid' => $userId
         );
         $query = <<<EOQ
 SELECT
@@ -2738,7 +2800,7 @@ EOQ;
         $action = $dbh->prepare($query);
         $action->execute($params);
 
-        $html = "<table class='table' width='100%' style='background-color:#333333;'>";
+        $html = "<table class='table' width='100%' style='background-color:#000000;'>";
         $html .= "<tr class='header' style='color:#FFFFFF'><td>" . C_LANG49 . "</td><td>" . C_LANG50 . "</td><td>" . C_LANG51 . "</td><td>" . C_LANG52 . "</td><td>" . C_LANG53 . "</td></tr>";
 
         foreach ($action as $i) {
@@ -2770,7 +2832,7 @@ EOQ;
             }
 
             // final output
-            $html .= "<tr class='row' valign='top'><td>" . date("H:i:s", $i['messtime']) . "</td><td align='center'>" . urldecode($i['roomname']) . "</td><td>" . urldecode($i['username']) . "</td><td>" . urldecode($i['to_user_name']) . "</td><td>" . $message . "</td></tr>";
+            $html .= "<tr valign='top'><td>" . date("H:i:s", $i['messtime']) . "</td><td align='center'>" . urldecode($i['roomname']) . "</td><td>" . urldecode($i['username']) . "</td><td>" . urldecode($i['to_user_name']) . "</td><td>" . $message . "</td></tr>";
         }
 
         $dbh = null;

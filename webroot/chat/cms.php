@@ -361,7 +361,7 @@ $_SESSION['user_type_id'] = $userTypeId;
 
 // if remote login via CMS
 
-	if($remotely_hosted){
+	if(isset($remotely_hosted) && $remotely_hosted){
 
 		// check username isset
 		if(!isset($_COOKIE["uname"])){
@@ -407,7 +407,7 @@ $_SESSION['user_type_id'] = $userTypeId;
 
 // if default login
 
-	if(!$remotely_hosted && !C_CUSTOM_LOGIN){
+	if(isset($remotely_hosted) && !$remotely_hosted && !C_CUSTOM_LOGIN){
 
 	?>
 

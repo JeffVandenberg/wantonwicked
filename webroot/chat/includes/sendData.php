@@ -97,10 +97,16 @@ if ($_POST) {
     $_POST['addRoom'] = !isset($_POST['addRoom']) ? "0" : checkNumeric($_POST['addRoom']);
     $_POST['newRoomOwner'] = !isset($_POST['newRoomOwner']) ? "0" : checkNumeric($_POST['newRoomOwner']);
 
+    // get user
+    $user = loadUser($userId);
+
     // send message
     if (isset($_POST['umessage']) && !empty($_POST['umessage'])) {
         // get senders permissions
-        list($admin, $mod, $speaker, $userTypeId) = adminPermissions($userId);
+        $admin = $user['admin'];
+        $mod = $user['mod'];
+        $speaker = $user['speaker'];
+        $userTypeId = $user['user_type_id'];
 
         // get toUser permissions
         list($toUseradmin, $toUsermod, $toUserspeaker, $toUserTypeId) = toUserPermissions($_POST['to_user_id']);
@@ -247,29 +253,11 @@ if ($_POST) {
         }
 
         // if intelli-bot is enabled
-        if ($CONFIG['intelliBot'] && !$_POST['uname'] && $_SESSION['username']) {
+        if ($CONFIG['intelliBot'] && !$_POST['uname'] && $user['username']) {
             $senderName = $CONFIG['intelliBotName'];
         }
         else {
-            $sql = <<<SQL
-SELECT
-  display_name
-FROM 
-  prochatrooms_users
-WHERE
-  id = ?
-SQL;
-            $query = $dbh->prepare($sql);
-            $query->execute([
-                $userId
-            ]);
-            if($query->rowCount()) {
-                $data = $query->fetch(PDO::FETCH_ASSOC);
-                $senderName = $data['display_name'];
-            }
-            else {
-                die('Unable to find username');
-            }
+            $senderName = $user['display_name'];
         }
 
         // if user is not silenced
@@ -447,7 +435,7 @@ SQL;
                 $dbh = db_connect();
                 $params = array(
                     'webcamStatus' => makeSafe($webcamStatus),
-                    'username' => makeSafe($_SESSION['username'])
+                    'username' => makeSafe($user['username'])
                 );
                 $query = "UPDATE prochatrooms_users
 						  SET webcam = :webcamStatus

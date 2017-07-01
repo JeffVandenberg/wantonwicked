@@ -1,18 +1,18 @@
 <?php
 /********************************************************************************************
-*
-*  Software: Pro Chat Rooms
-*  Developer: Pro Chat Rooms
-*  Url: http://prochatrooms.com
-*  Support: http://community.prochatrooms.com
-* 
-*  Pro Chat Rooms is NOT free software - For more details visit, http://www.prochatrooms.com
-*  This software and all of its source code/files are protected by Copyright Laws. 
-*  The software license permits you to install this software on one domain only. Additional
-*  installations require additional licences (one software licence per installation).
-*  Pro Chat Rooms is unable to provide support if this software is modified by the end user.
-*
-********************************************************************************************/
+ *
+ *  Software: Pro Chat Rooms
+ *  Developer: Pro Chat Rooms
+ *  Url: http://prochatrooms.com
+ *  Support: http://community.prochatrooms.com
+ *
+ *  Pro Chat Rooms is NOT free software - For more details visit, http://www.prochatrooms.com
+ *  This software and all of its source code/files are protected by Copyright Laws.
+ *  The software license permits you to install this software on one domain only. Additional
+ *  installations require additional licences (one software licence per installation).
+ *  Pro Chat Rooms is unable to provide support if this software is modified by the end user.
+ *
+ ********************************************************************************************/
 
 /*
 * include files
@@ -25,11 +25,11 @@ include("includes/config.php");
 include("includes/functions.php");
 /* @var array $CONFIG */
 
-if($_SESSION['user_id'] && !$_SESSION['username']) {
+if ($_SESSION['user_id'] && !$_SESSION['username']) {
     unset($_SESSION['user_id']);
 }
 
-if(!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) {
     unset($_SESSION['username']);
     unset($_SESSION['display_name']);
     unset($_SESSION['userid']);
@@ -38,19 +38,14 @@ if(!isset($_SESSION['user_id'])) {
     unset($_SESSION['room']);
     unset($_SESSION['guest']);
 }
+
 /*
 * include language file
 *
 */
 
-include("lang/".getLang($_POST['langID']));
+include("lang/" . getLang($_POST['langID']));
 
-/*
-* check software
-*
-*/
-
-validSoftware();
 
 /*
 * reset login errors
@@ -59,83 +54,60 @@ validSoftware();
 
 $loginError = '';
 
-if(getUsersOnline('1') >= $CONFIG['maxUsers'] && !isset($_GET['logout']))
-{
-	$loginError = C_LANG200;
-
-	include("templates/".$CONFIG['template']."/login.php");
-	die;
-}
-
-/*
+    /*
 * cms integration
 *
 */
 
-if($CONFIG['CMS'] && !isset($_GET['logout']))
-{
-	// cookie login
-	if($_REQUEST['uname'])
-	{
+$userId = isset($_GET['userId'])
+    ? $_GET['userId']
+    : (isset($_SESSION['user_id'])
+        ? $_SESSION['user_id']
+        : null
+    );
 
-		if(isset($_COOKIE['login']))
-		{
-			// assign user details
-			$_REQUEST['userName'] = $_REQUEST['uname'];
-			$_SESSION['username'] = $_REQUEST['uname'];
-			$_SESSION['userid'] = $_REQUEST['uid'];
+if ($CONFIG['CMS'] && !isset($_GET['logout'])) {
+    // session login
+    if (!$userId) {
+        // include files
+        include("cms.php");
+        $userId = $_SESSION['user_id'];
+    }
 
-			// unset login
-			setcookie($_COOKIE['login'],'',time()-3600);
-		}
-		else
-		{
-			die("Login error, please try again.");
-		}
-	}
-
-	// session login
-	if(!$_SESSION['user_id'])
-	{
-		// include files
-		include("cms.php");
-	}
-
-	// add user
-	addUser(C_CUSTOM_AVATAR, $_SESSION['user_type_id']);
-
-	// assign default room login
-	if(!$_REQUEST['roomID'])
-	{
-		$_REQUEST['roomID'] = '1';
-
-		// version 6 used room names, in 7 and above we use room id instead
-		if(isset($_REQUEST['room']) && is_numeric($_REQUEST['room']))
-		{
-			$_REQUEST['roomID'] = $_REQUEST['room'];
-		}
-	}
-	
-	// if js login, redirect to index.php
-	if(isset($_REQUEST['uname']) && isset($_COOKIE['login']))
-	{		
-		// unset login
-		setcookie($_COOKIE['login'],'',time()-3600);
-		header('Location: index.php');
-	}
+    // assign default room login
+    if (!isset($_REQUEST['roomID'])) {
+        $_REQUEST['roomID'] = '1';
+    }
 }
 
-/*
-* check events
-*
-*/
+// setup and validate user_id
+if(!$userId) {
+    header('Location: /');
+}
 
-$loginError = checkEvent();
+// load all user information!
+$user = loadUser($userId);
 
-if($loginError)
-{
-	include("templates/".$CONFIG['template']."/login.php");
-	die;
+switch($user['user_type_id']) {
+    case 1:
+        // ooc login no validation
+        break;
+    case 3:
+        // validate character is associated with the logged in user
+        if(!validateCharacter($user['userid'], $_SESSION['Auth']['User']['user_id'])) {
+            header('Location: /');
+        }
+        break;
+    case 2:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+        // validate user ID
+        if(!validateStaff($user['userid'], $_SESSION['Auth']['User']['user_id'])) {
+            header('Location: /');
+        }
+        break;
 }
 
 /*
@@ -143,85 +115,9 @@ if($loginError)
 *
 */
 
-if(isset($_GET['transcripts']) && isset($_GET['roomID']))
-{
-	include("templates/".$CONFIG['template']."/transcripts.php");
-	die;
-}
-
-/*
-* confirm email register
-*
-*/
-
-if(isset($_GET['nReg']) && isset($_GET['email']))
-{
-	$loginError = confirmReg($_GET['nReg'],$_GET['email']);
-
-	include("templates/".$CONFIG['template']."/login.php");
-	die;
-}
-
-/*
-* register user
-*
-*/
-
-if(isset($_POST['reg']))
-{
-	if(empty($_POST['rUsername']))
-	{
-		$loginError .= C_LANG1."<br>";
-	}
-	else
-	{
-		$loginError .= validChars($_POST['rUsername']);
-	}
-
-	if(empty($_POST['rPassword']))
-	{
-		$loginError .= C_LANG2."<br>";
-	}
-
-	if(empty($_POST['rEmail']))
-	{
-		$loginError .= C_LANG3."<br>";
-	}
-	else
-	{
-		$loginError .= validEmail($_POST['rEmail']);
-	}
-
-	if(empty($_POST['terms']))
-	{
-		$loginError .= C_LANG4."<br>";
-	}
-
-	if($loginError)
-	{
-		include("templates/".$CONFIG['template']."/login.php");
-		die;	
-	}
-	else
-	{
-		$loginError = registerUser($_POST['rUsername'],$_POST['rPassword'],$_POST['rEmail']);
-
-		include("templates/".$CONFIG['template']."/login.php");
-		die;
-	}	
-
-}
-
-/*
-* reset eCredit sessions
-*
-*/
-
-if($_SESSION['eCreditsInit'])
-{
-	unset($_SESSION['eCreditsInit']);
-	unset($_SESSION['eCreditsAwardTo']);
-	unset($_SESSION['eCredits_start']);
+if (isset($_GET['transcripts']) && isset($_GET['roomID'])) {
+    include("templates/" . $CONFIG['template'] . "/transcripts.php");
+    die;
 }
 
 /*
@@ -229,23 +125,21 @@ if($_SESSION['eCreditsInit'])
 *
 */
 
-if(isset($_REQUEST['logout']) && isset($_SESSION['user_id']))
-{
-	logoutUser($_SESSION['user_id'],$_SESSION['room']);
+if (isset($_REQUEST['logout']) && isset($user['id'])) {
+    logoutUser($user['id'], $user['room']);
 
-	if($_REQUEST['logout'] == 'kick')
-	{
-		banKickUser('KICK', $_SESSION['username']);
-	}
+    if ($_REQUEST['logout'] == 'kick') {
+        banKickUser('KICK', $user['username']);
+    }
 
-	unset($_SESSION['username']);
+    unset($_SESSION['username']);
     unset($_SESSION['display_name']);
-	unset($_SESSION['userid']);
-	unset($_SESSION['user_id']);
-	unset($_SESSION['user_type_id']);
-	unset($_SESSION['room']);
-	unset($_SESSION['guest']);
-    header('location:/');
+    unset($_SESSION['userid']);
+    unset($_SESSION['user_id']);
+    unset($_SESSION['user_type_id']);
+    unset($_SESSION['room']);
+    unset($_SESSION['guest']);
+    header('Location: /');
 }
 
 /*
@@ -253,119 +147,29 @@ if(isset($_REQUEST['logout']) && isset($_SESSION['user_id']))
 *
 */
 
-if(!$_REQUEST['roomID'][0])
-{
-	header('location:/');
-	die;
+if (!$_REQUEST['roomID'][0]) {
+    header('location:/');
+    die;
 }
 
-/*
-* check username is valid
-*
-*/
 
-if(!isset($_SESSION['username']) && empty($_REQUEST['userName']))
-{
-	$loginError = C_LANG1;
+if (empty($_REQUEST['userName']) && isset($_REQUEST['login'])) {
+    $loginError = C_LANG1;
 
-	header('location:/');
-	die;
+    header('location:/');
+    die;
 }
 
-if(empty($_REQUEST['userName']) && isset($_REQUEST['login']))
-{
-	$loginError = C_LANG1;
-
-	header('location:/');
-	die;
-}
-
-if(isset($_REQUEST['userName']))
-{
-	$loginError = validChars($_REQUEST['userName']);
-
-	if($loginError)
-	{
-		include("templates/".$CONFIG['template']."/login.php");
-		die;
-	}
-
-}
-
-if($_POST['userName'])
-{
-	unset($_SESSION['guest']);
-}
-
-/*
-* if user is not guest and password is empty
-* 
-*/
-
-if(!$_POST['isGuest'] && isset($_POST['userPass']) && empty($_POST['userPass']))
-{
-	$loginError = C_LANG6;
-
-	include("templates/".$CONFIG['template']."/login.php");
-	die;
-}
-
-/*
-* count total rooms
-*
-*/
 
 $totalRooms = totalRooms();
 
-if($CONFIG['singleRoom'] || $_REQUEST['singleRoom'])
-{
-	$totalRooms = '1';
-}
 
 /*
 * get previous room id
 * 
 */
 
-$prevRoom = prevRoom();
-
-
-/*
-* create user
-*
-*/
-
-if(isset($_SESSION['username']))
-{
-    $_REQUEST['userName'] = $_SESSION['username'];
-}
-
-if(isset($_SESSION['userid']))
-{
-    $_REQUEST['userId'] = $_SESSION['userid'];
-}
-
-if(empty($_REQUEST['userId']))
-{
-	$_REQUEST['userId'] = '-1';
-}
-
-list($displayName,$username,$userid,$loginError) =
-    createUser(
-        $_REQUEST['userName'],
-        $_REQUEST['userId'],
-        $_REQUEST['userPass'],
-        $_REQUEST['genderID'],
-        isset($_REQUEST['login']),
-        isset($_POST['isGuest'])
-    );
-
-if(isset($_REQUEST['login']) && $loginError)
-{
-//	include("templates/".$CONFIG['template']."/login.php");
-	header('location:/');
-	die;
-}
+$prevRoom = prevRoom($userId, $user['room']);
 
 /*
 * get create room details
@@ -374,14 +178,13 @@ if(isset($_REQUEST['login']) && $loginError)
 
 $roomPass = '';
 
-if(isset($_REQUEST['roomPass']))
-{
+if (isset($_REQUEST['roomPass'])) {
     $roomPass = $_REQUEST['roomPass'];
 }
 
-list($roomID,$roomOwnerID) = chatRoomID($_REQUEST['roomID'],$roomPass);
+list($roomID, $roomOwnerID) = chatRoomID($_REQUEST['roomID'], $roomPass, $user);
 
-list($roomBg,$roomDesc) = chatRoomDesc($roomID);
+list($roomBg, $roomDesc) = chatRoomDesc($roomID);
 
 /*
 * get user details
@@ -390,37 +193,18 @@ list($roomBg,$roomDesc) = chatRoomDesc($roomID);
 
 $guestUser = '0';
 
-if($_POST['isGuest'])
-{
-}
-
-list($id,$avatar,$loginError,$blockedList,$guestUser, $userTypeId, $isInvisible) = getUser($prevRoom,$roomID);
+list($id, $avatar, $loginError, $blockedList, $guestUser, $userTypeId, $isInvisible) = getUser(
+    $prevRoom,
+    $roomID,
+    $userId
+);
 
 /*
 * assign user group
 *
 */
 
-getUserGroup($_SESSION['userGroup']);
-
-/*
-* final check for user login error
-*
-*/
-
-if($loginError)
-{
-	// if single room mode, ignore user name not found error
-	// this is only an option for multi user rooms and cms
-	if($CONFIG['singleRoom'] && $loginError == C_LANG17)
-	{
-		$loginError = '';
-	}
-
-	// show login error
-	include("templates/".$CONFIG['template']."/login.php");
-	die;
-}
+getUserGroup($user['userGroup']);
 
 /*
 * assign room owner
@@ -429,9 +213,8 @@ if($loginError)
 
 $roomOwner = '0';
 
-if($id == $roomOwnerID)
-{
-	$roomOwner = '1';
+if ($id == $roomOwnerID) {
+    $roomOwner = '1';
 }
 
 /*
@@ -453,4 +236,4 @@ $lastMessageID = getLastMessageID($roomID);
 *
 */
 
-include("templates/".$CONFIG['template']."/main.php");
+include("templates/" . $CONFIG['template'] . "/main.php");

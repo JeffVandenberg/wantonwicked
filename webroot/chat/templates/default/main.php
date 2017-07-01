@@ -40,14 +40,14 @@
 <!--
 
 /* user details */
-var userName = '<?php echo $displayName;?>';
-var userID = <?php echo $userid;?>;
-var uID = '<?php echo $id;?>';
-var userTypeId = <?php echo $userTypeId; ?>;
-var userAvatar = '<?php echo $avatar;?>';
+var userName = '<?php echo $user['display_name'];?>';
+var userID = <?php echo $user['userid'];?>;
+var uID = '<?php echo $user['id'];?>';
+var userTypeId = <?php echo $user['user_type_id']; ?>;
+var userAvatar = '<?php echo $user['avatar'];?>';
 var roomOwner = <?php echo $roomOwner;?>;
-var blockedList = '<?php echo $blockedList;?>';
-var isInvisible = <?php echo $isInvisible; ?>;
+var blockedList = '<?php echo $user['blocked'];?>';
+var isInvisible = <?php echo $user['is_invisible']; ?>;
 
 /* room details */
 var totalRooms = <?php echo $totalRooms;?>;
@@ -56,6 +56,8 @@ var currRoom = <?php echo $roomID;?>;
 var prevRoom = <?php echo $prevRoom;?>;
 var publicWelcome = "<?php echo $roomDesc;?>";
 
+/* first message in the room */
+var firstMessageId = <?php echo $lastMessageID;?>;
 /* last message ID */
 var lastMessageID = <?php echo $lastMessageID;?>;
 
@@ -96,22 +98,13 @@ wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 		</span>
             <div id="tool-wrapper">
                 <div id="server-time"></div>
-<!--                <ul id="user-tool-menu">-->
-<!--                    <li>-->
-<!--                        Tools-->
-<!--                        <ul id="user-tools">-->
-<!--                            <li><a href="/scenes">Scenes</a></li>-->
-<!---->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                </ul>-->
             </div>
 
             <input class="optionsSend" id="optionsSend" type="button" value="<?php echo C_LANG136;?>" onclick="addMessage('optionsBar','chatContainer')">
 
-            <?php if(!$_GET['sID']){?>
+            <?php if(!isset($_GET['sID'])): ?>
                 <input class="optionsLogout" id="optionsLogout" type="button" value="<?php echo C_LANG137;?>" onclick="logout('0');">
-            <?php }?>
+            <?php endif; ?>
 
         </div>
         <div id="menuWin" class="menuWin"></div>

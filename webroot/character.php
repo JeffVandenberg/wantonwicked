@@ -66,7 +66,7 @@ $template->assign_vars(array(
         "JAVA_SCRIPT" => $java_script,
         "USER_PANEL" => $user_panel,
         "MENU_BAR" => $menu_bar,
-        "TOP_IMAGE" => $page_image,
+        "TOP_IMAGE" => $page_image ?? null,
         "PAGE_CONTENT" => $page_content,
         "CONTENT_HEADER" => $contentHeader,
         "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
