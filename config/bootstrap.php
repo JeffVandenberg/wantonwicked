@@ -13,11 +13,6 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-// You can remove this if you are confident that your PHP version is sufficient.
-if (version_compare(PHP_VERSION, '5.6.0') < 0) {
-    trigger_error('Your PHP version must be equal or higher than 5.6.0 to use CakePHP.', E_USER_ERROR);
-}
-
 /*
  *  You can remove this if you are confident you have intl installed.
  */
@@ -216,6 +211,8 @@ Type::build('timestamp')
  */
 
 // strap in phpbb
+global $phpbb_container, $phpbb_root_path, $phpEx, $user, $auth, $cache, $db, $config, $template,
+       $table_prefix, $phpbb_dispatcher, $symfony_request, $phpbb_filesystem;
 define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : WWW_ROOT . '/forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
@@ -230,15 +227,6 @@ $request->enable_super_globals();
 //
 /* @var $user session */
 /* @var $auth auth */
-
-$GLOBALS['request'] = $request;
-$GLOBALS['config'] = $config;
-$GLOBALS['symfony_request'] = $symfony_request;
-$GLOBALS['phpbb_filesystem'] = $phpbb_filesystem;
-$GLOBALS['phpbb_dispatcher'] = $phpbb_dispatcher;
-$GLOBALS['db'] = $db;
-$GLOBALS['phpbb_container'] = $phpbb_container;
-$GLOBALS['cache'] = $cache;
 
 $user->session_begin();
 $auth->acl($user->data);
