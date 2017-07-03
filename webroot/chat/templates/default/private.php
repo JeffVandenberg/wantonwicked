@@ -64,13 +64,13 @@
 
 	<div id="privateLogin" class="privateLogin">
 
-		<form method="post" action="index.php?roomID=<?php echo $_REQUEST['roomID'];?>&userId=<?php $_REQUEST['userId']?>" name="privateRoom">
+		<form method="post" action="index.php?roomID=<?php echo $_REQUEST['roomID'];?>&userId=<?php echo $_REQUEST['userId']?>" name="privateRoom">
 		<table class="privateloginUserTable">
 		<tr class="privateloginUserTableHeader"><td colspan="2">:: <?php echo C_LANG139;?></td></tr>
 		<tr><td><?php echo C_LANG115;?></td><td><input class="privateloginInput" type="text" name="roomPass" value=""></td></tr>
 		<tr><td>&nbsp;</td><td><input class="privateloginSubmit" type="submit" name="plogin" value="<?php echo C_LANG122;?>"></td></tr>
 		<tr><td colspan="2">&nbsp;</td></tr>
-		<tr><td colspan="2" align="right"><span class="linka"><a href="index.php?roomID=<?php echo $CONFIG['defaultRoom'];?>&userId=<?php $_REQUEST['userId']?>"><?php echo C_LANG140;?></a></span></td></tr>
+		<tr><td colspan="2" align="right"><span class="linka"><a href="index.php?roomID=<?php echo $CONFIG['defaultRoom'];?>&userId=<?php echo $_REQUEST['userId']?>"><?php echo C_LANG140;?></a></span></td></tr>
 		</table>
 		</form>
 
