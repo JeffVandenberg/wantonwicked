@@ -51,33 +51,6 @@ function addRoom()
 		return false;
 	}
 
-    // check for badwords/chars
-    /*newRoomName = newRoomName.replaceAll(' ', '&nbsp;');
-	var checkRoomName = filterBadword(newRoomName.replace(/\|/g,""));
-		checkRoomName = checkRoomName.split("");
-
-	for (i=0; i < checkRoomName.length; i++)
-	{
-		if(badChars.indexOf("|"+checkRoomName[i]+"|") != '-1')
-		{
-			// check for badwords
-			if(checkRoomName[i] == '*')
-			{
-				checkRoomName[i] = '****';
-			}
-
-			// check for space
-			if(checkRoomName[i] == ' ')
-			{
-				checkRoomName[i] = 'space';
-			}
-
-			showInfoBox("system","220","300","200","","Room name contains illegal characters [ "+checkRoomName[i]+" ]");
-
-			return false;
-		}
-	}*/
-
     var params = {
         action: 'add',
         roomName: encodeURIComponent(document.getElementById("roomName").value),
@@ -95,7 +68,7 @@ function addRoom()
     $.post('includes/room.php', params, function(response) {
         closeMdiv('system');
         if(response.status) {
-            document.location = 'index.php?roomID=' + response.roomId;
+            document.location = 'index.php?roomID=' + response.roomId + '&userId=' + uID;
         }
         else {
             alert(response.message);
