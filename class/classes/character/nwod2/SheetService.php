@@ -693,10 +693,12 @@ EOQ;
             'Moved to Inactive status for inactivity'
         );
 
-        // close requests for Inactive Characters
-        $requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
-        /* @var RequestRepository $requestRepository */
-        $requestRepository->CloseRequestsForCharacter($inactiveCharacterIds);
+        if(count($inactiveCharacterIds)) {
+            // close requests for Inactive Characters
+            $requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
+            /* @var RequestRepository $requestRepository */
+            $requestRepository->CloseRequestsForCharacter($inactiveCharacterIds);
+        }
 
         return [
             'idle' => count($idleCharacterIds),

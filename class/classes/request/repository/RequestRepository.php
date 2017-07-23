@@ -815,6 +815,9 @@ EOQ;
 
     public function CloseRequestsForCharacter($characterIds)
     {
+        if(!$characterIds || count($characterIds) == 0) {
+            return 0;
+        }
         if (!is_array($characterIds)) {
             $characterIds = array($characterIds);
         }
