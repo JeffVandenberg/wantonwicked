@@ -27,7 +27,7 @@ $seed = mt_rand(100000, 999999);
 $startTime = microtime(true);
 $dbh = db_connect();
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_POST['user_id'])) {
     echo 'No ID';
     return;
 }
@@ -37,10 +37,15 @@ $response = array(
     'message' => 'Unknown action'
 );
 
-list($admin, $mod, $speaker, $userTypeId) = adminPermissions();
+$user = loadUser($_POST['user_id']);
+$admin = $user['admin'];
+$mod = $user['moderator'];
+$speaker = $user['speaker'];
+$userTypeId = $user['user_type_id'];
+
 if (!$admin && !$mod) {
     header('content-type: application/json');
-    $response['message'] = 'Not admin or moderator. User ID: ' . $_SESSION['user_id'];
+    $response['message'] = 'Not admin or moderator. User ID: ' . $_POST['user_id'];
     echo json_encode($response);
 } else {
     $sql = '';
@@ -57,7 +62,7 @@ WHERE
 EOQ;
             $parameters = array(
                 $_POST['new_name'],
-                $_SESSION['user_id']
+                $_POST['user_id']
             );
             break;
         default:
@@ -68,7 +73,6 @@ EOQ;
         $statement = $dbh->prepare($sql);
         $result = $statement->execute($parameters);
         if ($result) {
-            $_SESSION['display_name'] = $_POST['new_name'];
             $response = array(
                 'status' => true,
                 'message' => 'Updated Nick'

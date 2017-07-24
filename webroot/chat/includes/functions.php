@@ -270,274 +270,6 @@ function showLang()
 *
 */
 
-function registerUser($username, $password, $email)
-{
-    $result = '0';
-
-    // include files
-    include(getDocPath() . "includes/config.php");
-    /* @var array $CONFIG */
-
-    $username = urlencode($username);
-    $pass = '';
-
-    // check username is in database
-    try {
-        $dbh = db_connect();
-        $params = array(
-            'username' => makeSafe($username)
-        );
-        $query = "SELECT password 
-				  FROM prochatrooms_users 
-				  WHERE username = :username
-				  LIMIT 1";
-        $action = $dbh->prepare($query);
-        $action->execute($params);
-
-        foreach ($action as $i) {
-            $pass = $i['password'];
-
-            $result = '1';
-        }
-
-        $dbh = null;
-    } catch (PDOException $e) {
-        $error = "Function: " . __FUNCTION__ . "\n";
-        $error .= "File: " . basename(__FILE__) . "\n";
-        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-        debugError($error);
-    }
-
-    // if user exists but no password is found, 
-    // update guest username to member status
-    if (!$pass && $result) {
-        // user found in db but has no password assigned (guest)
-        // allow the user to register this username
-        try {
-            $dbh = db_connect();
-            $params = array(
-                'password' => md5($password),
-                'email' => makeSafe($email),
-                'username' => makeSafe($username),
-            );
-            $query = "UPDATE prochatrooms_users 
-					  SET password = :password, 
-					      email = :email 
-					  WHERE username = :username
-					  ";
-            $action = $dbh->prepare($query);
-            $action->execute($params);
-            $dbh = null;
-        } catch (PDOException $e) {
-            $error = "Function: " . __FUNCTION__ . "\n";
-            $error .= "File: " . basename(__FILE__) . "\n";
-            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-            debugError($error);
-        }
-
-        $result = C_LANG10;
-
-        return $result;
-    }
-
-    // if username exists and password exists, 
-    // user is already registered (already member)
-    if ($pass) {
-        $result = C_LANG11;
-    }
-    else {
-        // if new registrations require email confirmation
-        if ($CONFIG['approve']) {
-            $CONFIG['approve'] = substr(md5(date("U") . rand(1, 99999)), 0, -20);
-
-            sendUserEmail($CONFIG['approve'], $username, $email, '', '2');
-
-            $result = C_LANG12;
-        }
-        else {
-            $result = C_LANG13;
-        }
-
-        $incUserGroup = $CONFIG['userGroup'];
-
-        if (is_numeric($_SESSION['userGroup'])) {
-            $incUserGroup = $_SESSION['userGroup'];
-        }
-
-        // user doesnt exist, add to database
-        try {
-            $dbh = db_connect();
-            $params = array(
-                'username' => makeSafe($username),
-                'userid' => '-1',
-                'password' => md5($password),
-                'email' => makeSafe($email),
-                'room' => '1',
-                'userIP' => $_SERVER['REMOTE_ADDR'],
-                'avatar' => assignGenderImage('0'),
-                'webcam' => '0',
-                'online' => '0',
-                'enabled' => $CONFIG['approve'],
-                'active' => '0',
-                'userGroup' => makeSafe($incUserGroup)
-            );
-            $query = "INSERT INTO prochatrooms_users
-								(
-									username,
-									userid,
-									password,
-									email,
-									room, 
-									userIP,
-									avatar, 
-									webcam,
-									online,
-									enabled,
-									active,
-									userGroup
-								) 
-								VALUES 
-								(
-									:username, 
-									:userid,
-									:password,
-									:email,
-									:room, 
-									:userIP,
-									:avatar, 
-									:webcam,
-									:online,
-									:enabled,
-									:active,
-									:userGroup
-								)";
-            $action = $dbh->prepare($query);
-            $action->execute($params);
-            $dbh = null;
-        } catch (PDOException $e) {
-            $error = "Function: " . __FUNCTION__ . "\n";
-            $error .= "File: " . basename(__FILE__) . "\n";
-            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-            debugError($error);
-        }
-
-        // create a new user profile entry in db
-        try {
-            $dbh = db_connect();
-            $params = array(
-                'username' => makeSafe($username)
-            );
-            $query = "INSERT INTO prochatrooms_profiles
-								(
-									username
-								) 
-								VALUES 
-								(
-									:username
-								)";
-            $action = $dbh->prepare($query);
-            $action->execute($params);
-            $dbh = null;
-        } catch (PDOException $e) {
-            $error = "Function: " . __FUNCTION__ . "\n";
-            $error .= "File: " . basename(__FILE__) . "\n";
-            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-            debugError($error);
-        }
-
-    }
-
-    return $result;
-}
-
-/*
-* create user
-*
-*/
-
-function createUser($loginName, $loginID, $loginPass, $loginGender, $login, $guest)
-{
-    // include files
-    include(getDocPath() . "includes/config.php");
-    /* @var array $CONFIG */
-
-    if ($login) {
-        if ($loginName != $_SESSION['username']) {
-            $loginName = urlencode($loginName);
-            $password = '';
-
-            // check username status	
-            try {
-                $dbh = db_connect();
-                $params = array(
-                    'loginname' => makeSafe($loginName)
-                );
-                $query = "SELECT active, password, enabled, kick, ban    
-						  FROM prochatrooms_users 
-						  WHERE username = :loginname
-						  LIMIT 1
-						  ";
-                $action = $dbh->prepare($query);
-                $action->execute($params);
-
-                foreach ($action as $i) {
-                    if (!$guest) {
-                        if ($CONFIG['approve'] && ($i['enabled'] != '1') && $i['kick'] == '' && $i['ban'] == '') {
-                            $loginError = C_LANG14;
-                            return array('', '', $loginError);
-                        }
-                    }
-
-                    if ($i['active'] > date("U") - 15) {
-                        $loginError = C_LANG15;
-                        return array('', '', $loginError);
-                    }
-
-                    $password = $i['password'];
-                }
-
-                if ($loginPass && $password != md5($loginPass) || $password && $password != md5($loginPass)) {
-                    $loginError = C_LANG16;
-                    return array('', '', $loginError);
-                }
-
-                $dbh = null;
-            } catch (PDOException $e) {
-                $error = "Function: " . __FUNCTION__ . "\n";
-                $error .= "File: " . basename(__FILE__) . "\n";
-                $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-                debugError($error);
-            }
-
-        }
-
-        // unset old session
-        unset($_SESSION['username']);
-        unset($_SESSION['userid']);
-
-        // create new user session
-        $_SESSION['username'] = $loginName;
-        $_SESSION['userid'] = $loginID;
-
-        // add user to database
-        addUser($loginGender, 2);
-
-        // return details
-        return array($_SESSION['display_name'], $_SESSION['username'], $_SESSION['userid'], '0');
-    }
-
-    if (!$login) {
-        // user session already set
-        return array($_SESSION['display_name'], $loginName, $loginID, '0');
-    }
-    return false;
-}
-
 function loadUser($userId)
 {
     $dbh = db_connect();
@@ -590,7 +322,7 @@ SQL;
     $query = $dbh->prepare($sql);
     $query->execute($params);
 
-    return true;
+    return $query->rowCount() == 1;
 }
 
 function validateStaff($loginId, $userId)
@@ -600,11 +332,11 @@ function validateStaff($loginId, $userId)
 
 
 /*
-* get users details
+* validate user ability to login
 *
 */
 
-function getUser($prevRoom, $roomID, $userId = null)
+function validateUser($user)
 {
     $loginError = '0';
 
@@ -613,51 +345,9 @@ function getUser($prevRoom, $roomID, $userId = null)
     /* @var array $CONFIG */
 
     // check username is in database
-    $id = '';
-    $avatar = '';
-    $kick = '';
-    $ban = '';
-    $blockedList = '';
-    $guest = '';
-    $userTypeId = '';
-    $isInvisible = 0;
-
-    try {
-        $dbh = db_connect();
-        $params = array(
-            'id' => $userId
-        );
-        $query = "SELECT id, userid, avatar, kick, ban, blocked, room, guest, userGroup, user_type_id, is_invisible
-				  FROM prochatrooms_users 
-				  WHERE id = :id
-				  LIMIT 1
-				  ";
-        $action = $dbh->prepare($query);
-        $action->execute($params);
-
-        foreach ($action as $i) {
-            $id = $i['id'];
-            $avatar = $i['avatar'];
-            $kick = $i['kick'];
-            $ban = $i['ban'];
-            $blockedList = $i['blocked'];
-            $guest = $i['guest'];
-            $userTypeId = $i['user_type_id'];
-            $isInvisible = $i['is_invisible'];
-
-            $_SESSION['userGroup'] = $i['userGroup'];
-            $_SESSION['myProfileID'] = $id;
-            $_SESSION['myStreamID'] = streamID();
-        }
-
-        $dbh = null;
-    } catch (PDOException $e) {
-        $error = "Function: " . __FUNCTION__ . "\n";
-        $error .= "File: " . basename(__FILE__) . "\n";
-        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-        debugError($error);
-    }
+    $id = $user['id'];
+    $kick = $user['kick'];
+    $ban = $user['ban'];
 
     if (!$id) {
         $loginError = C_LANG17;
@@ -675,62 +365,48 @@ function getUser($prevRoom, $roomID, $userId = null)
         $loginError = C_LANG20;
     }
 
-    if (!$loginError) {
-        // update user in database
-        updateUser();
+    // return login error
+    return $loginError;
+}
 
-        // update room counts
-        try {
-            $dbh = db_connect();
-            $query = <<<EOQ
-update prochatrooms_rooms AS R set roomusers = (
-    SELECT
-        count(*)
-    FROM
-        prochatrooms_users AS U
-    WHERE
-        U.room = R.id
-        AND U.online = 1
-)
-EOQ;
-            $action = $dbh->prepare($query);
-            $action->execute();
-            $dbh = null;
-        } catch (PDOException $e) {
-            $error = "Function: " . __FUNCTION__ . "\n";
-            $error .= "File: " . basename(__FILE__) . "\n";
-            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+function updateUserRoom($userId, $roomId)
+{
+    // update user in database
+    updateUser($userId, $roomId);
 
-            debugError($error);
-        }
+    // update room counts
+    try {
+        $dbh = db_connect();
+        updateRoomUserCount($dbh);
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-        // update watching, webcam, avatar, lastactive 
-        try {
-            $dbh = db_connect();
-            $params = array(
-                'lastActive' => getTime(),
-                'userid' => $userId
-            );
-            $query = "UPDATE prochatrooms_users 
+        debugError($error);
+    }
+
+    // update watching, webcam, avatar, lastactive
+    try {
+        $dbh = db_connect();
+        $params = array(
+            'lastActive' => getTime(),
+            'userid' => $userId
+        );
+        $query = "UPDATE prochatrooms_users 
 					  SET watching = '', webcam = '0', lastActive = :lastActive  
 					  WHERE id = :userid
 					  ";
-            $action = $dbh->prepare($query);
-            $action->execute($params);
-            $dbh = null;
-        } catch (PDOException $e) {
-            $error = "Function: " . __FUNCTION__ . "\n";
-            $error .= "File: " . basename(__FILE__) . "\n";
-            $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+        $action = $dbh->prepare($query);
+        $action->execute($params);
+        $dbh = null;
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
 
-            debugError($error);
-        }
-
+        debugError($error);
     }
-
-    // return details
-    return array($id, $avatar, $loginError, $blockedList, $guest, $userTypeId, $isInvisible);
-
 }
 
 /*
@@ -746,14 +422,14 @@ function getUserGroup($id)
 
     if (!is_numeric($id)) {
         // set default user group
-        $_SESSION['userGroup'] = $CONFIG['userGroup'];
+        $id = $CONFIG['userGroup'];
     }
 
     // select user group 
     try {
         $dbh = db_connect();
         $params = array(
-            'userGroup' => makeSafe($_SESSION['userGroup'])
+            'userGroup' => makeSafe($id)
         );
         $query = "SELECT *  
 				  FROM prochatrooms_group 
@@ -764,13 +440,7 @@ function getUserGroup($id)
         $action->execute($params);
 
         foreach ($action as $i) {
-            $_SESSION['groupChat'] = $i['groupChat'];
-            $_SESSION['groupPChat'] = $i['groupPChat'];
-            $_SESSION['groupCams'] = $i['groupCams'];
-            $_SESSION['groupWatch'] = $i['groupWatch'];
-            $_SESSION['groupRooms'] = $i['groupRooms'];
-            $_SESSION['groupShare'] = $i['groupShare'];
-            $_SESSION['groupVideo'] = $i['groupVideo'];
+            return $i;
         }
 
         $dbh = null;
@@ -809,51 +479,11 @@ function assignGenderImage($loginGender)
 }
 
 /*
-* update guest avatar
-*
-*/
-
-function updateGuestAvatar($loginGender)
-{
-    // assign guest user
-    $_SESSION['guest'] = '1';
-
-    // assign avatar
-    $loginGender = assignGenderImage($loginGender);
-
-    // update watching, webcam, avatar
-    try {
-        $dbh = db_connect();
-        $params = array(
-            'avatar' => makeSafe($loginGender),
-            'userIP' => $_SERVER['REMOTE_ADDR'],
-            'guest' => $_SESSION['guest'],
-            'id' => $_SESSION['user_id'],
-        );
-        $query = "UPDATE prochatrooms_users 
-				  SET avatar = :avatar, userIP = :userIP, guest = :guest
-				  WHERE id = :id
-				  ";
-        $action = $dbh->prepare($query);
-        $action->execute($params);
-        $dbh = null;
-    } catch (PDOException $e) {
-        $error = "Function: " . __FUNCTION__ . "\n";
-        $error .= "File: " . basename(__FILE__) . "\n";
-        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-        debugError($error);
-    }
-
-    return $_SESSION['guest'];
-}
-
-/*
 * add guest user to database
 *
 */
 
-function addUser($defaultIcon, $userTypeId)
+function addUser($defaultIcon, $userTypeId, $externalUserId = null, $userName = null, $userGroup = 2)
 {
     // include files
     include(getDocPath() . "includes/config.php");
@@ -869,7 +499,7 @@ function addUser($defaultIcon, $userTypeId)
     try {
         $dbh = db_connect();
         $params = array(
-            makeSafe($_SESSION['username']),
+            makeSafe($userName),
             $userTypeId
         );
         $query = "SELECT username 
@@ -895,16 +525,16 @@ function addUser($defaultIcon, $userTypeId)
     if (!$count) {
         $incUserGroup = $CONFIG['userGroup'];
 
-        if (is_numeric($_SESSION['userGroup'])) {
-            $incUserGroup = $_SESSION['userGroup'];
+        if (is_numeric($userGroup)) {
+            $incUserGroup = $userGroup;
         }
 
         try {
             $dbh = db_connect();
             $params = array(
-                'username' => makeSafe($_SESSION['username']),
-                'displayname' => makeSafe($_SESSION['username']),
-                'userid' => makeSafe($_SESSION['userid']),
+                'username' => makeSafe($userName),
+                'displayname' => makeSafe($userName),
+                'userid' => makeSafe($externalUserId),
                 'userIP' => $_SERVER['REMOTE_ADDR'],
                 'room' => '1',
                 'avatar' => makeSafe($defaultIcon),
@@ -960,7 +590,7 @@ function addUser($defaultIcon, $userTypeId)
         try {
             $dbh = db_connect();
             $params = array(
-                'username' => makeSafe($_SESSION['username'])
+                'username' => makeSafe($userName)
             );
             $query = "INSERT INTO prochatrooms_profiles
 								(
@@ -1024,21 +654,17 @@ function totalRooms()
 *
 */
 
-function updateUser($userId = null, $roomId = null)
+function updateUser($userId, $roomId)
 {
-    if(!$userId) {
-        $userId = $_SESSION['user_id'];
-    }
     // update details
     try {
         $dbh = db_connect();
 
         $params = array(
             'userIP' => $_SERVER['REMOTE_ADDR'],
-            'room' => makeSafe(($roomId)  ? $roomId : $_SESSION['room']),
+            'room' => makeSafe($roomId),
             'isActive' => getTime(),
             'isOnline' => '1',
-            'streamID' => makeSafe(($_SESSION['myStreamID']) ? $_SESSION['myStreamID'] : ''),
             'userid' => makeSafe($userId)
         );
         $query = "UPDATE prochatrooms_users 
@@ -1046,8 +672,7 @@ function updateUser($userId = null, $roomId = null)
 				  userIP = :userIP,
 				  room = :room, 
 				  active = :isActive, 
-				  online = :isOnline, 
-				  streamID = :streamID  
+				  online = :isOnline
 				  WHERE id = :userid
 				  ";
         $action = $dbh->prepare($query);
@@ -1070,7 +695,7 @@ function updateUser($userId = null, $roomId = null)
 function prevRoom($userId = null, $roomId = null)
 {
     if (!$roomId) {
-        $roomId = $_SESSION['room'];
+        $roomId = 1;
     }
 
     if ($userId) {
@@ -1134,17 +759,15 @@ function deleteUserRoom($id)
 *
 */
 
-function chatRoomID($id, $pass, $user = null)
+function chatRoomID($roomId, $pass, $user = null)
 {
     // include files
     include(getDocPath() . "includes/config.php");
     /* @var array $CONFIG */
 
-    if (!$id || !is_numeric($id)) {
+    if (!$roomId || !is_numeric($roomId)) {
         // if no room ID or room ID is not numeric then
         // log user into default room (set in config.php)
-
-        $_SESSION['room'] = $CONFIG['defaultRoom'];
 
         return array($CONFIG['defaultRoom'], '1');
     }
@@ -1155,7 +778,7 @@ function chatRoomID($id, $pass, $user = null)
         }
 
         $roomPassword = "1";
-        $roomowner = '0';
+        $roomOwner = '0';
         // admin & mods dont need a password ;)
         if ($user['admin'] || $user['moderator']) {
             $roomPassword = '';
@@ -1167,7 +790,7 @@ function chatRoomID($id, $pass, $user = null)
 
             if ($roomPassword) {
                 $params = array(
-                    'id' => makeSafe($id),
+                    'id' => makeSafe($roomId),
                     'roompassword' => makeSafe($pass)
                 );
                 $query = "SELECT id, roomid, roomowner   
@@ -1180,7 +803,7 @@ function chatRoomID($id, $pass, $user = null)
             }
             else {
                 $params = array(
-                    'id' => makeSafe($id)
+                    'id' => makeSafe($roomId)
                 );
                 $query = "SELECT id, roomid, roomowner   
 						  FROM prochatrooms_rooms 
@@ -1196,12 +819,12 @@ function chatRoomID($id, $pass, $user = null)
 
             if ($count) {
                 foreach ($action as $i) {
-                    $_SESSION['room'] = $i['id'];
-                    $roomowner = $i['roomowner'];
+                    $roomId = $i['id'];
+                    $roomOwner = $i['roomowner'];
                 }
 
                 $dbh = null;
-                return array($id, $roomowner);
+                return array($roomId, $roomOwner);
             }
             else {
                 $dbh = null;
@@ -1300,10 +923,7 @@ function getLastMessageID($room)
         debugError($error);
     }
 
-    $_SESSION['transcriptsID'] = $id + 1;
-
     return $id;
-
 }
 
 /*
@@ -1330,7 +950,7 @@ function logoutUser($userId, $room)
     $dbh = db_connect();
     if ($showLogout) {
         if (file_exists(getDocPath() . "lang/" . $_SESSION['lang'])) {
-            include(getDocPath() . "lang/" . $_SESSION['lang']);
+            include_once(getDocPath() . "lang/" . $_SESSION['lang']);
         }
 
         // set user to offline
@@ -1419,13 +1039,13 @@ function logoutUser($userId, $room)
 * 
 */
 
-function streamID()
+function streamID($userName = 'randomname')
 {
     // include files
     include(getDocPath() . "includes/config.php");
     /* @var array $CONFIG */
 
-    $id = md5(date("U") . $CONFIG['salt'] . $_SESSION['username'] . rand(1, 9999999));
+    $id = md5(date("U") . $CONFIG['salt'] .$userName . rand(1, 9999999));
 
     return $id;
 }
@@ -1465,113 +1085,6 @@ function validStreamID($id)
     }
 
     return $valid;
-}
-
-/*
-* admin permissions
-*			
-*/
-
-function adminPermissions($userId = null)
-{
-    if(!$userId) {
-        $userId = $_SESSION['user_id'];
-    }
-    // include files
-    include(getDocPath() . "includes/config.php");
-    /* @var array $CONFIG */
-
-    // default values	
-    $admin = '0';
-    $mod = '0';
-    $speaker = '0';
-    $userTypeId = 1;
-
-    try {
-        $dbh = db_connect();
-        $params = array(
-            'id' => $userId
-        );
-        $query = "SELECT admin, moderator, speaker, user_type_id
-				  FROM prochatrooms_users 
-				  WHERE id = :id
-				  LIMIT 1
-				  ";
-        $action = $dbh->prepare($query);
-        $action->execute($params);
-
-        foreach ($action as $i) {
-            $admin = $i['admin'];
-            $mod = $i['moderator'];
-            $speaker = $i['speaker'];
-            $userTypeId = $i['user_type_id'];
-
-            // if user is admin and config setting is set to 1 
-            // allows auto-login to admin area
-            if ($admin && $CONFIG['adminArea']) {
-                $_SESSION['adminUser'] = '1';
-            }
-        }
-
-        $dbh = null;
-    } catch (PDOException $e) {
-        $error = "Function: " . __FUNCTION__ . "\n";
-        $error .= "File: " . basename(__FILE__) . "\n";
-        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-        debugError($error);
-    }
-
-    return array($admin, $mod, $speaker, $userTypeId);
-}
-
-/*
-* toUser permissions
-* this function is called when we send a message to a user
-* sendData.php		
-*/
-
-function toUserPermissions($id)
-{
-    // include files
-    include(getDocPath() . "includes/config.php");
-
-    // default values	
-    $admin = '0';
-    $mod = '0';
-    $speaker = '0';
-    $userTypeId = 1;
-
-    try {
-        $dbh = db_connect();
-        $params = array(
-            'id' => makeSafe($id)
-        );
-        $query = "SELECT admin, moderator, speaker, user_type_id
-				  FROM prochatrooms_users 
-				  WHERE id = :id
-				  LIMIT 1
-				  ";
-        $action = $dbh->prepare($query);
-        $action->execute($params);
-
-        foreach ($action as $i) {
-            $admin = $i['admin'];
-            $mod = $i['moderator'];
-            $speaker = $i['speaker'];
-            $userTypeId = $i['user_type_id'];
-        }
-
-        $dbh = null;
-    } catch (PDOException $e) {
-        $error = "Function: " . __FUNCTION__ . "\n";
-        $error .= "File: " . basename(__FILE__) . "\n";
-        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
-
-        debugError($error);
-    }
-
-    return array($admin, $mod, $speaker, $userTypeId);
 }
 
 
@@ -2584,15 +2097,11 @@ function sendUserEmail($id, $username, $email, $newpass, $status)
 *
 */
 
-function sendAdminEmail($status, $targetUserId, $targetUserName, $message)
+function sendAdminEmail($status, $user, $targetUserId, $targetUserName, $message)
 {
     // include files
     include(getDocPath() . "includes/config.php");
     /* @var array $CONFIG */
-
-    if (!$_SESSION['user_id']) {
-        return "no access";
-    }
 
     if (empty($message)) {
         return C_LANG65 . " [<a href=\"javascript:history.go(-1)\">" . C_LANG159 . "</a>]";
@@ -2610,11 +2119,13 @@ function sendAdminEmail($status, $targetUserId, $targetUserName, $message)
     $headers .= "X-Mailer: php\n";
     $headers .= "From: \"" . $CONFIG['chatroomName'] . "\" <" . $CONFIG['chatroomEmail'] . ">\n";
 
+    $email_message = 'Blank Message';
+    $email_subject = 'Blank Subject';
     // send confirmation register email
     if ($status == '1') {
         $email_subject = $CONFIG['chatroomName'] . " - " . C_LANG37;
         $email_message = C_LANG38 . ",\r\n\r\n";
-        $email_message .= C_LANG39 . " " . $_SESSION['username'] . " " . C_LANG40 . ": " . urldecode($targetUserName) . ' (ID:' . $targetUserId . ')' . "\r\n\r\n";
+        $email_message .= C_LANG39 . " " . $user['username'] . " " . C_LANG40 . ": " . urldecode($targetUserName) . ' (ID:' . $targetUserId . ')' . "\r\n\r\n";
         $email_message .= C_LANG41 . ":\r\n\r\n";
         $email_message .= $message . "\r\n\r\n";
         $email_message .= C_LANG33 . ",\r\n";
@@ -2629,14 +2140,9 @@ function sendAdminEmail($status, $targetUserId, $targetUserName, $message)
         return C_LANG43;
     }
 
-    if ($_SESSION['username']) {
-        $_SESSION['lastReportAgainst'] = $targetUserId;
-
-        mail($CONFIG['chatroomEmail'], $email_subject, $email_message, $headers);
-
-        return C_LANG44;
-    }
-
+    $_SESSION['lastReportAgainst'] = $targetUserId;
+    mail($CONFIG['chatroomEmail'], $email_subject, $email_message, $headers);
+    return C_LANG44;
 }
 
 /*
@@ -2894,7 +2400,7 @@ function banKickUser($message, $toUserId)
             $action = $dbh->prepare($query);
             $action->execute($params);
         }
-        $dbh = null;
+
     } catch (PDOException $e) {
         $error = "Function: " . __FUNCTION__ . "\n";
         $error .= "File: " . basename(__FILE__) . "\n";
@@ -2918,7 +2424,6 @@ function banKickUser($message, $toUserId)
 				  ";
         $action = $dbh->prepare($query);
         $action->execute($params);
-        $dbh = null;
     } catch (PDOException $e) {
         $error = "Function: " . __FUNCTION__ . "\n";
         $error .= "File: " . basename(__FILE__) . "\n";
@@ -2926,7 +2431,39 @@ function banKickUser($message, $toUserId)
 
         debugError($error);
     }
+}
 
+function silenceUser($userId, $silenceStartTimestamp)
+{
+    $sql = <<<SQL
+UPDATE 
+  prochatrooms_users
+SET 
+  silence_start = ?
+WHERE
+  id = ?
+SQL;
+
+    $params = [
+        $silenceStartTimestamp,
+        $userId
+    ];
+
+    $db = db_connect();
+
+    try {
+      $action = $db->prepare($sql);
+      $action->execute($params);
+
+    } catch (PDOException $e) {
+        $error = "Function: " . __FUNCTION__ . "\n";
+        $error .= "File: " . basename(__FILE__) . "\n";
+        $error .= 'PDOException: ' . $e->getCode() . '-' . $e->getMessage() . "\n\n";
+
+        debugError($error);
+        return false;
+    }
+    return true;
 }
 
 /*
@@ -3259,4 +2796,16 @@ UPDATE prochatrooms_rooms AS R set roomusers = (
 EOQ;
 
     $dbh->query($query)->execute();
+}
+
+function sendRedirectResponse($location = '/')
+{
+    $response = <<<EOQ
+<?xml version="1.0" ?>
+<root>
+    <redirect>1</redirect>
+</root>
+EOQ;
+    echo $response;
+    exit;
 }

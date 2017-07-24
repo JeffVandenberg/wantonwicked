@@ -618,6 +618,9 @@ SQL;
         return true;
     }
 
+    /**
+     * @param $xpAward
+     */
     public function awardXpToActiveCharacters($xpAward)
     {
         $xpAward = (int)$xpAward;
@@ -664,12 +667,18 @@ EOQ;
         $this->repository->query($xpLogQuery)->execute($params);
     }
 
+    /**
+     *
+     */
     public function restoreTempWillpower()
     {
         $update_willpower_query = "UPDATE characters SET willpower_temp = willpower_temp + 1 WHERE willpower_temp < willpower_perm;";
         $this->repository->query($update_willpower_query)->execute();
     }
 
+    /**
+     * @return array
+     */
     public function checkCharacterActivity()
     {
         // mark idle characters with 1 month of no activity
@@ -702,5 +711,26 @@ EOQ;
             'idle' => count($idleCharacterIds),
             'inactive' => count($inactiveCharacterIds)
         ];
+    }
+
+    /**
+     * @param Character $character
+     * @return bool
+     */
+    public function saveModel(Character $character)
+    {
+        $this->repository->save($character);
+    }
+
+    /**
+     * @param Character $character
+     * @param int $userId
+     * @param string $note
+     */
+    public function reactivateCharacter(Character $character, int $userId, string $note)
+    {
+        $character->CharacterStatusId = CharacterStatus::Active;
+        $this->repository->save($character);
+        CharacterLog::LogAction($character->Id, ActionType::UpdateCharacter, $note, $userId);
     }
 }

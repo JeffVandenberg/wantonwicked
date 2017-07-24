@@ -7,9 +7,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="/css/wanton/jquery-ui.min.css?v=<?php echo $CONFIG['version']; ?>">
+    <link type="text/css" rel="stylesheet" href="/css/wanton/jquery.toast.min.css?v=<?php echo $CONFIG['version']; ?>">
     <link type="text/css" rel="stylesheet" href="templates/<?php echo $CONFIG['template'];?>/style.css?v=<?php echo $CONFIG['version']; ?>">
     <script type="text/javascript" src="/js/jquery.min.js?v=<?php echo $CONFIG['version']; ?>"></script>
     <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.toast.min.js"></script>
     <script type="text/javascript" src="/chat/includes/lang.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
     <script type="text/javascript" src="/chat/includes/settings.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
     <?php if(file_exists(__DIR__ . '/../../js/cache/compiled-' . $CONFIG['version'] . '.js')): ?>
@@ -49,6 +51,48 @@ var roomOwner = <?php echo $roomOwner;?>;
 var blockedList = '<?php echo $user['blocked'];?>';
 var isInvisible = <?php echo $user['is_invisible']; ?>;
 
+/*
+ * user status
+ *
+ */
+
+var admin = <?php echo $user['admin']; ?>;
+var moderator = <?php echo $user['moderator']; ?>;
+var speaker = <?php echo $user['speaker']; ?>;
+/*
+ * system variables
+ *
+ */
+
+var groupChat = <?php echo $groupInfo['groupChat'];?>;
+var groupPChat = <?php echo $groupInfo['groupPChat'];?>;
+var groupCams = <?php echo $groupInfo['groupCams'];?>;
+var groupWatch = <?php echo $groupInfo['groupWatch'];?>;
+var groupRooms = <?php echo $groupInfo['groupRooms'];?>;
+var groupVideo = <?php echo $groupInfo['groupVideo'];?>;
+
+<?php if (!isset($groupInfo['groupChat'])): ?>
+groupCams = 0;
+groupWatch = 0;
+groupChat = 0;
+groupPChat = 0;
+groupRooms = 0;
+groupVideo = 0;
+<?php endif; ?>
+
+/*
+ * silent user
+ *
+ */
+
+var isSilenced = 0;
+
+<?php if ($user['silence_start'] > date("U") - ($CONFIG['silent'] * 60)): ?>
+isSilenced = 1;
+initDoSilence = setInterval('doSilence()', 1000);
+<?Php endif; ?>
+
+
 /* room details */
 var totalRooms = <?php echo $totalRooms;?>;
 var roomID = <?php echo $roomID;?>;
@@ -60,6 +104,8 @@ var publicWelcome = "<?php echo $roomDesc;?>";
 var firstMessageId = <?php echo $lastMessageID;?>;
 /* last message ID */
 var lastMessageID = <?php echo $lastMessageID;?>;
+var version = <?php echo $CONFIG['version'] == 'NA' ? 0 : $CONFIG['version']; ?>;
+var versionNoticeShown = false;
 
 wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 

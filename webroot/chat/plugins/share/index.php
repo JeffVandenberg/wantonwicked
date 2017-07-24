@@ -10,13 +10,17 @@
 #
 use classes\core\helpers\FormHelper;
 
-include("../../includes/session.php");
-include("../../lang/" . $_SESSION['lang']);
-include("../../includes/config.php");
-include("includes/functions.php");
-include_once __DIR__ . '/../../../../../app/webroot/cgi-bin/start_of_page.php';
+include_once("../../includes/session.php");
+include_once("../../lang/" . ($_SESSION['lang'] ?? 'english.php'));
+include_once("../../includes/config.php");
+include_once __DIR__ . '/../../../../webroot/cgi-bin/start_of_page.php';
+include_once('../../includes/functions.php');
 
 /* @var array $CONFIG */
+$user = loadUser($_REQUEST['user_id']);
+$groupInfo = getUserGroup($user['userGroup']);
+
+include_once("includes/functions.php");
 ###########################################
 ?>
 
@@ -74,8 +78,8 @@ include_once __DIR__ . '/../../../../../app/webroot/cgi-bin/start_of_page.php';
 
 <form style="padding: 0 0 0 3px;" enctype="multipart/form-data" name="upload" action="index.php" method="post">
 
-    <?php if (isset($_SESSION['groupShare']) && $_SESSION['groupShare'] < 1) {
-        echo "<div style='padding-left: 5px;'>You may not share." . /*C_LANG60 .*/ "</div>";
+    <?php if (isset($group['groupShare']) && $group['groupShare'] < 1) {
+        echo "<div style='padding-left: 5px;'>You may noYt share." . /*C_LANG60 .*/ "</div>";
     }
     else if ($_POST):
 
@@ -94,11 +98,12 @@ include_once __DIR__ . '/../../../../../app/webroot/cgi-bin/start_of_page.php';
         $users = [
             0 => 'All'
         ];
+
+        $users = [];
         foreach ($action as $i) {
             $users[$i['id']] = $i['display_name'];
         }
 
-        $users = [];
         $userSelect = FormHelper::Select($users, 'shareWithUserId', $_REQUEST['shareWithUserId']);
 
         $publicChecked = (!($_REQUEST['shareWithUserId'])) ? "checked" : "";
@@ -144,6 +149,7 @@ include_once __DIR__ . '/../../../../../app/webroot/cgi-bin/start_of_page.php';
             </tr>
             <tr>
                 <td style="text-align: center;">
+                    <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>" />
                     <input class="button" type="submit" name="submit" value="Upload File"/>
                 </td>
             </tr>

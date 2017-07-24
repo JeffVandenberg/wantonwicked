@@ -8,23 +8,11 @@ include("../../lang/".getLang(''));
 $showCaptcha = getCaptchaText();
 
 $targetUserId = $_REQUEST['id'];
-$sql = <<<EOQ
-SELECT
-    username
-FROM
-    prochatrooms_users
-WHERE
-    id = ?
-EOQ;
-
-$db = db_connect();
-$query = $db->prepare($sql);
-$query->execute(array($targetUserId));
-$user = $query->fetch(PDO::FETCH_ASSOC);
+$user = loadUser($targetUserId);
 
 // send email
 if($_POST) {
-    $result = sendAdminEmail('1',$_POST['id'],$user['username'], $_POST['report']);
+    $result = sendAdminEmail('1',$user, $_POST['id'],$user['username'], $_POST['report']);
 }
 ?>
 

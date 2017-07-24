@@ -5,17 +5,21 @@
 *
 */
 
-include("../../includes/ini.php");
-include("../../includes/session.php");
-include("../../includes/functions.php");
+include_once("../../includes/ini.php");
+include_once("../../includes/session.php");
+include_once("../../includes/functions.php");
+
+/* @var array $user */
 
 /*
 * check session is set
 *
 */
 
-if (!isset($_SESSION['adminUser']) && !$_SESSION['user_id']) {
-    die("no access");
+if(!isset($skipCheck)) {
+    if (/*!isset($user['admin']) && */!$user['id']) {
+        die("no access");
+    }
 }
 
 /*
@@ -237,8 +241,8 @@ if ($_POST) {
             $dbh = db_connect();
             $params = array(
                 'ref' => $fileRef,
-                'username' => makeSafe($_SESSION['username']),
-                'userid' => $_SESSION['user_id'],
+                'username' => makeSafe($user['username']),
+                'userid' => $user['id'],
                 'file' => makeSafe($_FILES['uploadedfile']['type']) . "|" . makeSafe(basename($uploadfile))
             );
             $query = "INSERT INTO prochatrooms_share
@@ -271,13 +275,13 @@ if ($_POST) {
         try {
             $dbh = db_connect();
             $params = array(
-                'uid' => makeSafe($_SESSION['user_id']),
+                'uid' => makeSafe($user['id']),
                 'mid' => makeSafe("chatContainer"),
-                'username' => makeSafe($_SESSION['username']),
+                'username' => makeSafe($user['username']),
                 'tousername' => $shareWithUserId,
                 'message' => $shareMessage,
                 'sfx' => makeSafe("beep_high.mp3"),
-                'room' => makeSafe($_SESSION['room']),
+                'room' => makeSafe($user['room']),
                 'share' => '1',
                 'messtime' => getTime()
             );

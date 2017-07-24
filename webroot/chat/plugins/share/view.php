@@ -5,6 +5,7 @@
 * 
 */
 
+$skipCheck = true;
 include("includes/functions.php");
 
 /*

@@ -927,7 +927,7 @@ setInterval('floodControl();',1000);
 
 function logout(id)
 {
-	window.location.replace("index.php?" + roomText + "logout");
+	window.location.replace("index.php?" + roomText + "logout&userId="+uID+"&reason="+id);
 }
 
 /*
@@ -1030,7 +1030,7 @@ function blockUsers(i,id)
 		blockedList = blockedList.replace("|"+id+"|","");
 	}
 
-	var param = '?';
+	var param = 'uid='+ uID;
 	param += '&myBlockList=' + encodeURI(blockedList);	
 
 	// if ready to send message to DB
