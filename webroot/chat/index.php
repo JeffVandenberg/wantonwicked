@@ -118,9 +118,9 @@ switch($user['user_type_id']) {
         break;
     case 3:
         // validate character is associated with the logged in user
-        if(!validateCharacter($user['userid'], $_SESSION['Auth']['User']['user_id'])) {
+        if(!validateCharacter($user['userid'], $userdata['user_id'])) {
             CharacterLog::LogAction($user['userid'], ActionType::InvalidAccess,
-                'User ID: ' . $_SESSION['Auth']['User']['user_id'] . ' attempted access to chatrooms with character.');
+                'User ID: ' . $userdata['user_id'] . ' attempted access to chatrooms with character.');
             Response::redirect('/', 'Illegal Character Access.');
         }
         break;
@@ -130,7 +130,7 @@ switch($user['user_type_id']) {
     case 6:
     case 7:
         // validate user ID
-        if(!validateStaff($user['userid'], $_SESSION['Auth']['User']['user_id'])) {
+        if(!validateStaff($user['userid'], $userdata['user_id'])) {
             Response::redirect('/', 'Invalid user permissions');
         }
         break;
