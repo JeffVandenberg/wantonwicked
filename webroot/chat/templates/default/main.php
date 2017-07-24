@@ -105,7 +105,6 @@ var firstMessageId = <?php echo $lastMessageID;?>;
 /* last message ID */
 var lastMessageID = <?php echo $lastMessageID;?>;
 var version = <?php echo $CONFIG['version'] == 'NA' ? 0 : $CONFIG['version']; ?>;
-var versionNoticeShown = false;
 
 wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 

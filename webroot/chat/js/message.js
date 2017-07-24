@@ -766,7 +766,7 @@ function handleMessages()
 
 		// check version
 		var remoteVersion = parseInt(xmldoc.getElementsByTagName("version")[0].childNodes[0].nodeValue);
-		if(remoteVersion > version && !versionNoticeShown) {
+		if(remoteVersion > version) {
 			$.toast({
 				text: "There has been a chat service update. <a href='#' onclick='window.location.reload();'>Reload?</a>",
 				heading: 'Server Updated',
@@ -775,7 +775,7 @@ function handleMessages()
 				icon: 'info',
                 allowToastClose: true
 			});
-			versionNoticeShown = true;
+			version = remoteVersion;
 		}
 	}
 }
