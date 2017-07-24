@@ -771,7 +771,7 @@ function handleMessages()
 				text: "There has been a chat service update. <a href='#' onclick='window.location.reload();'>Reload?</a>",
 				heading: 'Server Updated',
 				position: 'top-right',
-				hideAfter: 10000,
+				hideAfter: false,
 				icon: 'info',
                 allowToastClose: true
 			});
