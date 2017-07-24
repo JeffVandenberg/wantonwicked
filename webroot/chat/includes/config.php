@@ -136,7 +136,7 @@ $CONFIG['kickTime'] = '15'; // minutes
 * users are unable to type until time has expired
 */
 
-$CONFIG['silent'] = '1'; // minutes
+$CONFIG['silent'] = '5'; // minutes
 
 /*
 * single/multi room

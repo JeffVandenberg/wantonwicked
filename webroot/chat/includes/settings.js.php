@@ -440,15 +440,6 @@ if (isset($_SESSION['adminUser'])) {
 ?>
 
 /* 
- * user status
- *
- */
-
-var admin = <?php echo getAdmin($_SESSION['user_id']); ?>;
-var moderator = <?php echo getModerator($_SESSION['user_id']); ?>;
-var speaker = <?php echo getSpeaker($_SESSION['user_id']); ?>;
-
-/* 
  * user messages
  *
  */
@@ -469,53 +460,14 @@ var stextColor = '<?php echo $CONFIG['text']['color'];?>';
 var stextSize = '<?php echo $CONFIG['text']['size'];?>';
 var stextFamily = '<?php echo $CONFIG['text']['family'];?>';
 
-/* 
- * system variables
- *
- */
-
-var groupChat = <?php echo $_SESSION['groupChat'];?>;
-var groupPChat = <?php echo $_SESSION['groupPChat'];?>;
-var groupCams = <?php echo $_SESSION['groupCams'];?>;
-var groupWatch = <?php echo $_SESSION['groupWatch'];?>;
-var groupRooms = <?php echo $_SESSION['groupRooms'];?>;
-var groupVideo = <?php echo $_SESSION['groupVideo'];?>;
-
-<?php if (!isset($_SESSION['groupChat'])): ?>
-groupCams = 0;
-groupWatch = 0;
-groupChat = 0;
-groupPChat = 0;
-groupRooms = 0;
-groupVideo = 0;
-<?php endif; ?>
-
-/* 
+/*
  * style folder
  *
  */
 
 var styleFolder = '<?php echo $CONFIG['template'];?>';
 
-/* 
- * silent user
- *
- */
-
 var silent = <?php echo $CONFIG['silent'];?>;
-
-/*
- * silence length in minutes
- * features built in anti cheat mode
- * (restarts silence counter on page reload)
- */
-
-var isSilenced = 0;
-
-<?php if ($_SESSION['silenceStart'] > date("U") - ($CONFIG['silent'] * 60)): ?>
-isSilenced = 1;
-initDoSilence = setInterval('doSilence()', 1000);
-<?Php endif; ?>
 
 /* 
  * invisible

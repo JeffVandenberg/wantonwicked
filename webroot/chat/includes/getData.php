@@ -42,15 +42,9 @@ header("Content-Type: text/xml; charset=utf-8");
 $dbh = db_connect();
 
 $userId = $_GET['u'];
+
 if (!$userId) {
-    $response = <<<EOQ
-<?xml version="1.0" ?>
-<root>
-    <redirect>1</redirect>
-</root>
-EOQ;
-    echo $response;
-    exit;
+    sendRedirectResponse('/');
 }
 
 /*
@@ -58,9 +52,13 @@ EOQ;
 *
 */
 
-list($admin, $mod, $speaker, $userTypeId) = adminPermissions($userId);
+$user = loadUser($userId);
+$admin = $user['admin'];
+$mod = $user['moderator'];
+$speaker = $user['speaker'];
+$userTypeId = $user['user_type_id'];
 
-//;.if($_GET['roomID'] == 1) { die(); }
+$group = getUserGroup($user['userGroup']);
 /*
 * update user
 *
@@ -80,7 +78,7 @@ $xml = '<?xml version="1.0" ?><root>';
 */
 
 if ($CONFIG['moderatedChatPlugin']) {
-    if (!getAdmin($_SESSION['user_id']) && !getModerator($_SESSION['user_id']) && !getSpeaker($_SESSION['user_id'])) {
+    if (!$admin && !$mod && $speaker) {
         $_GET['history'] = 1;
         $showApproved = '';
     }
@@ -204,12 +202,12 @@ EOQ;
             $xml .= $i['watching'] . "||"; //13
             $xml .= $CONFIG['eCreditsOn'] . "||"; // 14
             $xml .= $i['eCredits'] . "||"; // 15
-            $xml .= (($_SESSION['groupCams']) ? $_SESSION['groupCams'] : '') . "||"; // 16
-            $xml .= ($_SESSION['groupWatch'] ? $_SESSION['groupWatch'] : '') . "||"; // 17
-            $xml .= ($_SESSION['groupChat'] ? $_SESSION['groupChat'] : '') . "||"; // 18
-            $xml .= ($_SESSION['groupPChat'] ? $_SESSION['groupPChat'] : '') . "||"; // 19
-            $xml .= ($_SESSION['groupRooms'] ? $_SESSION['groupRooms'] : '') . "||"; // 20
-            $xml .= ($_SESSION['groupVideo'] ? $_SESSION['groupVideo'] : '') . "||"; // 21
+            $xml .= $group['groupCams']. "||"; // 16
+            $xml .= $group['groupWatch']. "||"; // 17
+            $xml .= $group['groupChat'] . "||"; // 18
+            $xml .= $group['groupPChat'] . "||"; // 19
+            $xml .= $group['groupRooms'] . "||"; // 20
+            $xml .= $group['groupVideo'] . "||"; // 21
             $xml .= $i['active'] . "||"; // 22
             $xml .= $i['lastActive'] . "||"; // 23
 
@@ -341,11 +339,11 @@ EOQ;
 
         // check if user has been silenced
         // if so, set silence start time
-        if ($i['message'] == 'SILENCE' && $i['to_user_id'] == $userId) {
-            if (!$_SESSION['silenceStart'] || $_SESSION['silenceStart'] < date("U") - ($CONFIG['silent'] * 60)) {
-                $_SESSION['silenceStart'] = date("U");
-            }
-        }
+//        if ($i['message'] == 'SILENCE' && $i['to_user_id'] == $userId) {
+//            if (!$_SESSION['silenceStart'] || $_SESSION['silenceStart'] < date("U") - ($CONFIG['silent'] * 60)) {
+//                //$_SESSION['silenceStart'] = date("U");
+//            }
+//        }
     }
 } catch (PDOException $e) {
     $error = "Action: Get Messages\n";
@@ -433,6 +431,9 @@ EOQ;
 }
 
 $dbh = null;
+
+// get version
+$xml .= ('<version>' . ($CONFIG['version'] == 'NA' ? '0' : $CONFIG['version']). '</version>');
 
 /*
 * end XML file

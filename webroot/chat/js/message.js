@@ -763,6 +763,20 @@ function handleMessages()
 
 			showHistory = 0;
 		}
+
+		// check version
+		var remoteVersion = parseInt(xmldoc.getElementsByTagName("version")[0].childNodes[0].nodeValue);
+		if(remoteVersion > version && !versionNoticeShown) {
+			$.toast({
+				text: "There has been a chat service update. <a href='#' onclick='window.location.reload();'>Reload?</a>",
+				heading: 'Server Updated',
+				position: 'top-right',
+				hideAfter: 10000,
+				icon: 'info',
+                allowToastClose: true
+			});
+			versionNoticeShown = true;
+		}
 	}
 }
 
@@ -866,7 +880,6 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 
 	if(message == 'BAN' && mToUser == uID)
 	{
-		logout('ban');
 		return false;
 	}
 
@@ -1325,6 +1338,7 @@ nick.change = function(commandLine) {
             '/chat/includes/nick.php',
             {
                 action: 'change',
+				user_id: uID,
                 new_name: remainder
             },
             function(response) {
@@ -1358,6 +1372,7 @@ var dice = {
                 '/chat/includes/dice.php',
                 {
                     action: action,
+					user_id: uID,
                     command: remainder
                 },
                 function(response) {

@@ -108,8 +108,20 @@ if ($_POST) {
         $speaker = $user['speaker'];
         $userTypeId = $user['user_type_id'];
 
+        $toUser = null;
+        $toUseradmin = false;
+        $toUsermod = false;
+        $toUserspeaker = false;
+        $toUserTypeId = 0;
+        
         // get toUser permissions
-        list($toUseradmin, $toUsermod, $toUserspeaker, $toUserTypeId) = toUserPermissions($_POST['to_user_id']);
+        if($_POST['to_user_id']) {
+            $toUser = loadUser($_POST['to_user_id']);
+            $toUseradmin = $toUser['admin'];
+            $toUsermod = $toUser['moderator'];
+            $toUserspeaker = $toUser['speaker'];
+            $toUserTypeId = $toUser['user_type_id'];
+        }
 
         // if kick or ban, for mobile compatibility
         $explodeMessage = explode('|', $_POST['umessage']);
@@ -152,6 +164,10 @@ if ($_POST) {
         // prevent admins/mods from being silenced
         if (!$admin && ($_POST['umessage'] == 'SILENCE' && ($toUseradmin || $toUsermod))) {
             die("cannot silence admins/mods, incorrect permissions");
+        }
+
+        if($_POST['umessage'] == 'SILENCE' && $toUser) {
+            silenceUser($toUser['id'], date('U'));
         }
 
         // prevent admins/mods from being kicked
@@ -261,9 +277,7 @@ if ($_POST) {
         }
 
         // if user is not silenced
-        if (!$_SESSION['silenceStart'] || $_SESSION['silenceStart'] < (date("U") - $CONFIG['silent'] * 60)) {
-            unset($_SESSION['silenceStart']);
-
+        if (!$user['silence_start'] || $user['silence_start'] < (date("U") - $CONFIG['silent'] * 60)) {
             if (!$senderName || empty($senderName)) {
                 die("invalid username");
             }

@@ -1,36 +1,4 @@
 <?php
-#############################################
-# Author: Pro Chatrooms
-# Software: Pro Chatrooms
-# Url: http://www.prochatrooms.com
-# Support: support@prochatrooms.com
-############################################# 
-
-
-// INTEGRATION NOTES FOR CUSTOM DEVELOPERS
-
-// You can insert your existing CMS user Global values into the 
-// login procedure. Simply replace the values $_FOO['username'] 
-// and $_FOO['userid'] with your SESSION, COOKIE or MySQL results.
-
-// Example Code:
-
-// define('C_CUSTOM_LOGIN','1'); // 0 OFF, 1 ON
-// define('C_CUSTOM_USERNAME',$_SESSION['username']); // username
-// define('C_CUSTOM_USERID',$_SESSION['userid']); // userid
-
-// You will be able to link directly to the chat room by adding 
-// an <a href> link to your web pages like shown below and only 
-// registered users will be able to auto-login to your chat room.
-
-// <a href="http://yoursite.com/prochatrooms/">Chat Room</a>
-
-
-## CUSTOM INTEGRATION SETTINGS ##############
-
-// Enable custom login details
-
-// perform required includes
 use classes\character\data\Character;
 use classes\character\data\CharacterStatus;
 use classes\character\nwod2\SheetService;
@@ -39,23 +7,6 @@ use classes\core\helpers\UserdataHelper;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\support\repository\SupporterRepository;
-
-define('IN_PHPBB', true);
-$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../forum/';
-$phpEx = substr(strrchr(__FILE__, '.'), 1);
-include($phpbb_root_path . 'common.' . $phpEx);
-$request = $phpbb_container->get('request');
-/* @var \phpbb\request\request $request */
-$request->enable_super_globals();
-
-//
-// Start session management
-//
-
-$user->session_begin();
-$auth->acl($user->data);
-$userdata = $user->data;
-$user->setup('');
 
 require_once __DIR__ . '/../../webroot/cgi-bin/start_of_page.php';
 
@@ -124,12 +75,11 @@ if(isset($_GET['character_id'])) {
         $icon = 'sidegames.png';
     }
 
-    $_SESSION['username'] = str_replace('\'', '\\\'', C_CUSTOM_USERNAME);
-    $_SESSION['userid'] = C_CUSTOM_USERID;
-    $_SESSION['userGroup'] = 2;
-    $_SESSION['is_invisible'] = 0;
     $userTypeId = 3;
-    addUser($icon, $userTypeId); // login type 3 = character
+    addUser($icon, $userTypeId, C_CUSTOM_USERID,
+        str_replace('\'', '\\\'', C_CUSTOM_USERNAME),
+        2
+    ); // login type 3 = character
 
     $query = <<<EOQ
 UPDATE
@@ -158,17 +108,16 @@ EOQ;
     // add login record to character log
     CharacterLog::LogAction($characterId, ActionType::Login, 'Chat Login', $userdata['user_id']);
 
+    // check character status
+    if(in_array($character->CharacterStatusId, [CharacterStatus::Idle, CharacterStatus::Inactive])) {
+        $service->reactivateCharacter($character, $userdata['user_id'], 'Restored to Active Status via Login.');
+    }
     $loggedIn = true;
 }
 else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
     if(UserdataHelper::IsSt($userdata)) {
         define('C_CUSTOM_USERNAME', $userdata['username']);
         define('C_CUSTOM_USERID', $userdata['user_id']);
-
-        $_SESSION['username'] = str_replace('\'', '\\\'', C_CUSTOM_USERNAME);
-        $_SESSION['userid'] = C_CUSTOM_USERID;
-        $_SESSION['userGroup'] = 3;
-        $_SESSION['is_invisible'] = isset($_GET['invisible']);
 
         $icon = 'st.png';
         $userTypeId = 4; // regular ST
@@ -190,7 +139,7 @@ else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
             $mod = 0;
         }
 
-        addUser($icon, $userTypeId);
+        addUser($icon, $userTypeId, C_CUSTOM_USERID, C_CUSTOM_USERNAME, 3);
 
         $isInvisible = 0;//isset($_GET['invisible']) + 0;
 
@@ -250,10 +199,6 @@ else if($userdata['username'] !== 'Anonymous') {
     define('C_CUSTOM_USERID', $userdata['user_id']); // userid
     define('C_CUSTOM_ACTION', 'OOC LOGIN');
 
-    $_SESSION['username'] = str_replace('\'', '\\\'', C_CUSTOM_USERNAME);
-    $_SESSION['userid'] = C_CUSTOM_USERID;
-    $_SESSION['userGroup'] = 2;
-    $_SESSION['is_invisible'] = 0;
     $icon = 'ooc.png';
 
     $dbh = db_connect();
@@ -265,7 +210,7 @@ else if($userdata['username'] !== 'Anonymous') {
     }
 
     $userTypeId = 2;
-    addUser($icon, $userTypeId); // registered ooc user
+    addUser($icon, $userTypeId, C_CUSTOM_USERID, C_CUSTOM_USERNAME, 2); // registered ooc user
 
     $query = <<<EOQ
 UPDATE
@@ -295,12 +240,10 @@ else if(isset($_POST['username']) && (trim($_POST['username']) !== '')) {
     define('C_CUSTOM_USERID', -1); // userid
     define('C_CUSTOM_ACTION', 'GUEST LOGIN');
 
-    $_SESSION['username'] = str_replace('\'', '\\\'', C_CUSTOM_USERNAME);
-    $_SESSION['userid'] = C_CUSTOM_USERID;
-    $_SESSION['userGroup'] = 1;
-    $_SESSION['is_invisible'] = 0;
     $userTypeId = 1;
-    addUser('ooc.png', $userTypeId); // guest user
+    addUser('ooc.png', $userTypeId, C_CUSTOM_USERID,
+        str_replace('\'', '\\\'', C_CUSTOM_USERNAME),
+        1); // guest user
 
     $query = <<<EOQ
 UPDATE
@@ -329,7 +272,7 @@ else {
 
 if(!$loggedIn)
 {
-    Response::endRequest('Not Logged In');
+    Response::redirect('/', 'Unable to log you in to the chat.');
 }
 
 $sql = <<<EOQ
@@ -350,12 +293,14 @@ $result = $statement->fetch(PDO::FETCH_ASSOC);
 
 // set chat information
 // session login
-$_SESSION['username'] = C_CUSTOM_USERNAME;
-$_SESSION['userid'] = C_CUSTOM_USERID;
-$_SESSION['display_name'] = C_CUSTOM_USERNAME;
-$_SESSION['user_id'] = $result['id'];
-$_SESSION['user_type_id'] = $userTypeId;
+//$_SESSION['username'] = C_CUSTOM_USERNAME;
+//$_SESSION['userid'] = C_CUSTOM_USERID;
+//$_SESSION['display_name'] = C_CUSTOM_USERNAME;
+//$_SESSION['user_id'] = $result['id'];
+//$_SESSION['user_type_id'] = $userTypeId;
 
+// assign userId for external access
+$userId = $result['id'];
 ## DO NOT EDIT BELOW THIS LINE ##############
 
 

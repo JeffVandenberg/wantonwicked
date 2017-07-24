@@ -20,9 +20,11 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
 header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_POST['user_id'])) {
     return;
 }
+
+$user = loadUser($_POST['user_id']);
 
 $response = array(
     'status' => false,
@@ -90,7 +92,7 @@ switch ($_POST['action']) {
         $result = $wodDice->rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
             $isRote);
         $now = date('Y-m-d H:i:s');
-        $characterId = ($_SESSION['user_type_id'] == 3) ? $_SESSION['userid'] : '0';
+        $characterId = ($user['user_type_id'] == 3) ? $user['userid'] : '0';
 
         $sql = <<<EOQ
 INSERT INTO
@@ -139,7 +141,7 @@ EOQ;
         $params = array(
             'characterId' => $characterId,
             'rollDate' => $now,
-            'characterName' => htmlspecialchars($_SESSION['display_name']),
+            'characterName' => htmlspecialchars($user['display_name']),
             'description' => htmlspecialchars($action),
             'dice' => $dice,
             'tenAgain' => $ten_again,
@@ -186,12 +188,12 @@ EOQ;
             $mod = (int)number_format($command);
         }
 
-        if ($_SESSION['user_type_id'] == 3) {
+        if ($user['user_type_id'] == 3) {
             // load character for modifier
             $sql = "SELECT initiative_mod FROM characters WHERE id = ?";
             $dbh = db_connect();
             $query = $dbh->prepare($sql);
-            $query->execute(array($_SESSION['userid']));
+            $query->execute(array($user['userid']));
             $row = $query->fetch();
             $mod += $row['initiative_mod'];
         }
@@ -242,12 +244,12 @@ VALUES
     )
 EOQ;
 
-        $characterId = ($_SESSION['user_type_id'] == 3) ? $_SESSION['userid'] : '0';
+        $characterId = ($user['user_type_id'] == 3) ? $user['userid'] : '0';
         $now = date('Y-m-d H:i:s');
         $params = array(
             'characterId' => $characterId,
             'rollDate' => $now,
-            'characterName' => htmlspecialchars($_SESSION['display_name']),
+            'characterName' => htmlspecialchars($user['display_name']),
             'description' => 'Initiative + ' . $mod,
             'dice' => 1,
             'tenAgain' => 'N',

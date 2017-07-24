@@ -14,9 +14,10 @@ class SessionHelper
 {
     public static function SetFlashMessage($message, $section = 'flash')
     {
-        $_SESSION['Message'][$section] = array(
+        $_SESSION['Flash'][$section][] = array(
             'message' => $message,
-            'element' => 'default',
+            'key' => 'flash',
+            'element' => 'Flash/default',
             'params' => []
         );
     }

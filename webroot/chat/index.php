@@ -19,13 +19,42 @@
 *
 */
 
+use classes\core\helpers\Request;
+use classes\core\helpers\Response;
+use classes\core\helpers\SessionHelper;
+use classes\log\CharacterLog;
+use classes\log\data\ActionType;
+
+// Prochat room includes
 include("includes/ini.php");
 include("includes/session.php");
 include("includes/config.php");
 include("includes/functions.php");
 /* @var array $CONFIG */
 
-if ($_SESSION['user_id'] && !$_SESSION['username']) {
+// PHPBB Integration includes
+define('IN_PHPBB', true);
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../forum/';
+$phpEx = substr(strrchr(__FILE__, '.'), 1);
+include($phpbb_root_path . 'common.' . $phpEx);
+/* @var \phpbb\request\request $request */
+$request = $phpbb_container->get('request');
+$request->enable_super_globals();
+
+//
+// Start session management
+//
+
+$user->session_begin();
+$auth->acl($user->data);
+$userdata = $user->data;
+$user->setup();
+
+// Composer includess
+require_once '../../vendor/autoload.php';
+
+// these probably can go away soon
+if (isset($_SESSION['user_id']) && !$_SESSION['username']) {
     unset($_SESSION['user_id']);
 }
 
@@ -44,49 +73,44 @@ if (!isset($_SESSION['user_id'])) {
 *
 */
 
-include("lang/" . getLang($_POST['langID']));
+include_once("lang/" . getLang($_POST['langID'] ?? null));
 
 
 /*
-* reset login errors
+* Check for user login
 *
 */
 
-$loginError = '';
-
-    /*
-* cms integration
-*
-*/
-
-$userId = isset($_GET['userId'])
-    ? $_GET['userId']
-    : (isset($_SESSION['user_id'])
-        ? $_SESSION['user_id']
-        : null
-    );
+$userId = $_GET['userId'] ?? null;
 
 if ($CONFIG['CMS'] && !isset($_GET['logout'])) {
-    // session login
-    if (!$userId) {
-        // include files
-        include("cms.php");
-        $userId = $_SESSION['user_id'];
-    }
-
     // assign default room login
     if (!isset($_REQUEST['roomID'])) {
         $_REQUEST['roomID'] = '1';
     }
+
+    if (!$userId) {
+        // include files
+        include("cms.php");
+
+        if($userId) {
+            // redirect to starting page
+            Response::redirect('/chat/?userId='.$userId.'&roomID='.$_REQUEST['roomID']);
+        }
+    }
 }
 
-// setup and validate user_id
+// validate user_id
 if(!$userId) {
-    header('Location: /');
+    Response::redirect('/', 'Unable to login user.');
 }
 
 // load all user information!
 $user = loadUser($userId);
+
+if(!$user) {
+    Response::redirect('/', 'Unable to find user.');
+}
 
 switch($user['user_type_id']) {
     case 1:
@@ -95,7 +119,9 @@ switch($user['user_type_id']) {
     case 3:
         // validate character is associated with the logged in user
         if(!validateCharacter($user['userid'], $_SESSION['Auth']['User']['user_id'])) {
-            header('Location: /');
+            CharacterLog::LogAction($user['userid'], ActionType::InvalidAccess,
+                'User ID: ' . $_SESSION['Auth']['User']['user_id'] . ' attempted access to chatrooms with character.');
+            Response::redirect('/', 'Illegal Character Access.');
         }
         break;
     case 2:
@@ -105,7 +131,7 @@ switch($user['user_type_id']) {
     case 7:
         // validate user ID
         if(!validateStaff($user['userid'], $_SESSION['Auth']['User']['user_id'])) {
-            header('Location: /');
+            Response::redirect('/', 'Invalid user permissions');
         }
         break;
 }
@@ -132,14 +158,18 @@ if (isset($_REQUEST['logout']) && isset($user['id'])) {
         banKickUser('KICK', $user['username']);
     }
 
-    unset($_SESSION['username']);
-    unset($_SESSION['display_name']);
-    unset($_SESSION['userid']);
-    unset($_SESSION['user_id']);
-    unset($_SESSION['user_type_id']);
-    unset($_SESSION['room']);
-    unset($_SESSION['guest']);
-    header('Location: /');
+    $reason = Request::getValue('reason', '');
+    switch($reason) {
+        case 'kick':
+            $message = 'You have kicked out of the chat.';
+            break;
+        case 'ban':
+            $message = 'You have been banned from the chat.';
+            break;
+        default:
+            $message = 'You have successfully logged out of the chat.';
+    }
+    Response::redirect('/', $message);
 }
 
 /*
@@ -152,17 +182,7 @@ if (!$_REQUEST['roomID'][0]) {
     die;
 }
 
-
-if (empty($_REQUEST['userName']) && isset($_REQUEST['login'])) {
-    $loginError = C_LANG1;
-
-    header('location:/');
-    die;
-}
-
-
 $totalRooms = totalRooms();
-
 
 /*
 * get previous room id
@@ -193,18 +213,22 @@ list($roomBg, $roomDesc) = chatRoomDesc($roomID);
 
 $guestUser = '0';
 
-list($id, $avatar, $loginError, $blockedList, $guestUser, $userTypeId, $isInvisible) = getUser(
-    $prevRoom,
-    $roomID,
-    $userId
-);
+$loginError = validateUser($user);
+
+if($loginError) {
+    // set session message and redirect home
+    SessionHelper::SetFlashMessage($loginError);
+    Response::redirect('/');
+} else {
+    updateUserRoom($user['id'], $roomID);
+}
 
 /*
 * assign user group
 *
 */
 
-getUserGroup($user['userGroup']);
+$groupInfo = getUserGroup($user['userGroup']);
 
 /*
 * assign room owner
@@ -213,7 +237,7 @@ getUserGroup($user['userGroup']);
 
 $roomOwner = '0';
 
-if ($id == $roomOwnerID) {
+if ($user['id'] == $roomOwnerID) {
     $roomOwner = '1';
 }
 
