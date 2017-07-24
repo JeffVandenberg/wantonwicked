@@ -160,7 +160,7 @@ wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 
     </div>
     <div id="rightContainer">
-        <img id="roomIcon" class="roomIcon" src="images/rooms.gif" alt="" onclick="newRoom('<?php if($_GET['sID']){?>0<?php }else{?>1<?php }?>');">
+        <img id="roomIcon" class="roomIcon" src="images/rooms.gif" alt="" onclick="newRoom('<?php if(isset($_GET['sID'])){?>0<?php }else{?>1<?php }?>');">
         <div id="roomCreate" class="roomCreate">
         <span><a href="/wiki/City/City#city" target="_new">Complete list of Districts</a><br>
         <br></span>

@@ -62,7 +62,7 @@ if($_POST['action'] == 'add') {
                 $params = array(
                     'id' => $roomId,
                     'roomname' => makeSafe($roomName),
-                    'roomowner' => $_SESSION['user_id'],
+                    'roomowner' => $_POST['user_id'],
                     'roompassword' => makeSafe($roomPass),
                     'roomusers' => '0',
                     'roomcreated' => $roomId,
