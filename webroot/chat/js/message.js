@@ -770,7 +770,7 @@ function handleMessages()
 			$.toast({
 				text: "There has been a chat service update. <a href='#' onclick='window.location.reload();'>Reload?</a>",
 				heading: 'Server Updated',
-				position: 'top-right',
+				position: {top:20, right:70},
 				hideAfter: false,
 				icon: 'info',
                 allowToastClose: true
