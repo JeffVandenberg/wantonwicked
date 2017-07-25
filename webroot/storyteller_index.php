@@ -98,7 +98,7 @@ $template->assign_vars(array(
         "TOP_IMAGE" => $page_image,
         "MENU_BAR" => $menu_bar,
         "PAGE_CONTENT" => $page_content,
-        "EXTRA_HEADERS" => $extra_headers,
+        "EXTRA_HEADERS" => $extra_headers ?? '',
         "USER_PANEL" => $user_panel,
         "CONTENT_HEADER" => $contentHeader,
         "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),

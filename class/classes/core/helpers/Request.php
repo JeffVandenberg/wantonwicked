@@ -30,11 +30,7 @@ class Request {
 
     public static function isAjax()
     {
-        if($_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest")
-        {
-            return true;
-        }
-        return false;
+        return (isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && ($_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"));
     }
 
     public static function isGet()

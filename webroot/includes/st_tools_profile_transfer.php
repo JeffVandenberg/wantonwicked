@@ -18,7 +18,7 @@ if (Request::isPost()) {
     $character = Database::getInstance()->query($character_query)->single([$character_name]);
 
     // make sure that the profile exists
-    $profile_name = strtolower(htmlspecialchars($_POST['profile_name']));
+    $profile_name = strtolower(htmlspecialchars($_POST['username']));
     $login_query = "SELECT user_id FROM phpbb_users WHERE username_clean = ?;";
     $login = Database::getInstance()->query($login_query)->single([$profile_name]);
 
