@@ -14,7 +14,7 @@ if (isset($character) && $character->Id) {
 }
 ?>
 
-<form method="get">
+<form>
     <div class="row align-middle">
         <div class="small-12 medium-4 column">
             <label for="view_character_name">Character</label>
