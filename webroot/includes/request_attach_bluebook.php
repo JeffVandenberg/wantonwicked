@@ -34,6 +34,10 @@ $request = $requestRepository->FindById($requestId);
 $linkedCharacter = $requestCharacterRepository->FindLinkedCharacterForUser($requestId, $userdata['user_id']);
 /* @var RequestCharacter $linkedCharacter */
 
+if(!$linkedCharacter->Id) {
+    Response::redirect('/request.php?action=view&request_id='.$requestId, 'You do not have a character linked to the request.');
+}
+
 $page_title = 'Attach Bluebook Entry to: ' . $request['title'];
 $contentHeader = $page_title;
 
@@ -54,9 +58,9 @@ ob_start();
             <?php echo FormHelper::Select($requests, 'bluebook_id', ''); ?>
         </div>
         <div class="formInput">
+            <button class="button" name="action" value="Attach Bluebook">Attach Bluebook</button>
+            <button class="button" name="action" value="Cancel">Cancel</button>
             <?php echo FormHelper::Hidden('request_id', $requestId); ?>
-            <?php echo FormHelper::Button('action', 'Attach Bluebook'); ?>
-            <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
 <?php else: ?>
