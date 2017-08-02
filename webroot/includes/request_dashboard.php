@@ -12,6 +12,7 @@ $contentHeader = $page_title;
 
 $page = Request::getValue('page', 1);
 $pageSize = Request::getValue('page_size', 25);
+$sort = Request::getValue('sort', 'updated_on DESC');
 
 $filter = array();
 $pagination = new Pagination();

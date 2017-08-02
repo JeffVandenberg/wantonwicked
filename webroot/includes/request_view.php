@@ -15,7 +15,7 @@ $requestId         = Request::getValue('request_id', 0);
 $linkedCharacterId = Request::getValue('character_id', 0);
 $requestRepository = new RequestRepository();
 
-if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])
+if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])
 ) {
     SessionHelper::SetFlashMessage('Unable to view Request');
     Response::redirect('/');
