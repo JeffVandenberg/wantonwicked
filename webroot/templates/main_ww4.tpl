@@ -41,10 +41,12 @@
             {CONTENT_HEADER}
         </div>
         <div id="contenta" class="contentbox">
-            <!-- IF FLASH_MESSAGE -->
+            <!-- BEGIN messages -->
             <div class="flash-message">
-                {FLASH_MESSAGE}
+                {messages.message}
             </div>
+            <!-- END messages -->
+            <!-- IF FLASH_MESSAGE -->
             <!-- ENDIF -->
             {PAGE_CONTENT}
         </div>
