@@ -1304,7 +1304,7 @@ function initTextSearchArea()
 	var options = {
 		maxCount: 5,
 		debounce: 300,
-        placement: ''
+        placement: 'top'
 	};
 
 	$("#optionsBar").textcomplete(

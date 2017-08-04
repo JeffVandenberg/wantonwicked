@@ -29,6 +29,7 @@ function resizeDivs()
     var jqWindow = $(window);
     w = jqWindow.width();
     h = jqWindow.height();
+	$('body').height(h);
 
 	// set main container width
 	document.getElementById("mainContainer").style.width = (w - 7) + "px";

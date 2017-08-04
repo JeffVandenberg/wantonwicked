@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/js/jquery.min.js?v=<?php echo $CONFIG['version']; ?>"></script>
     <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/js/jquery.toast.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.textcomplete.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.textcomplete.js"></script>
     <script type="text/javascript" src="/chat/includes/lang.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
     <script type="text/javascript" src="/chat/includes/settings.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
     <?php if(file_exists(__DIR__ . '/../../js/cache/compiled-' . $CONFIG['version'] . '.js')): ?>
