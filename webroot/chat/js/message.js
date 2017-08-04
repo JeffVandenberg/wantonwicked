@@ -1190,24 +1190,7 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		}
 	}
 
-	// play sound
-	var playSounds = 0;
-
-	if(document.getElementById('soundsID').checked==true && sfx == 'beep_high.mp3')
-	{
-		doSound(sfx);
-	}
-
-	if(document.getElementById('entryExitID').checked==true && (sfx == 'doorbell.mp3' || sfx == 'door_close.mp3'))
-	{
-		doSound(sfx);
-	}
-
-	if(document.getElementById('sfxID').checked==true && mySFX.toString().lastIndexOf(sfx) == -1 && (sfx != 'doorbell.mp3' && sfx != 'door_close.mp3' && sfx != 'beep_high.mp3'))
-	{
-		doSound(sfx);
-	}
-
+    doSound(sfx);
 }
 
 /*
