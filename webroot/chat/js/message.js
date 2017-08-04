@@ -713,7 +713,8 @@ function handleMessages()
         ;
 		
 		// message data
-		for (var i = 0; i < xmldoc.getElementsByTagName("usermessage").length;)
+		var lastSound = null;
+		for (i = 0; i < xmldoc.getElementsByTagName("usermessage").length;)
 		{
 			// for each message
 			var userMessage = xmldoc.getElementsByTagName("usermessage")[i].childNodes[0].nodeValue;	
@@ -735,16 +736,21 @@ function handleMessages()
 						userMessageArray[2], 
 						showMessages+1, 
 						userMessageArray[5], 
-						userMessageArray[7], // FIX by JeffV
-						userMessageArray[3],
-						userMessageArray[4],
-						userMessageArray[8] // Guess by JeffV
+						null, // sound
+						userMessageArray[3], // user
+						userMessageArray[4], // to user
+						userMessageArray[8] // Time
 					);
+			lastSound = userMessageArray[7];
 
 			lastMessageID = userMessageArray[0];	
 
 			// loop
 			i++;			
+		}
+
+		if(lastSound) {
+			doSound(lastSound);
 		}
 			
 		if(showHistory == 1)
@@ -965,6 +971,10 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		if(mStatus == 1)
 		{
 			newdiv.className = 'welcomeMessage';
+		}
+
+		if((mDiv == 'chatContainer') && (message.indexOf('@' + userName) > -1)) {
+			newdiv.className = 'chatMessage user-mention';
 		}
 
 		// webcam options

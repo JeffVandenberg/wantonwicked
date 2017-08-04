@@ -1197,3 +1197,8 @@ a:hover {
 a:active {
     color: #EFD6AC;
 }
+
+.user-mention {
+	background-color: #333;
+	font-weight: bold;
+}
