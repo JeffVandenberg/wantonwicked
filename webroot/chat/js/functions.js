@@ -1295,7 +1295,7 @@ function openPmWindow() {
 function initTextSearchArea()
 {
 	var strategies = [{
-		match: /(^|\s)@(\w*)$/,
+		match: /(^|\s)@(.*)$/,
 		search: doUserListSearch,
 		replace: function(value) {
 			return '$1@' + value + ' ';
