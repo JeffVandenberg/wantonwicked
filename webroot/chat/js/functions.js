@@ -1295,12 +1295,11 @@ function openPmWindow() {
 function initTextSearchArea()
 {
 	var strategies = [{
-		match: /(^|\s)@(.*)$/,
+		match: /(^|\s)@([^@]*)$/,
 		search: doUserListSearch,
 		replace: function(value) {
 			return '$1@' + value + ' ';
-		},
-		cache: true
+		}
 	}];
 	var options = {
 		maxCount: 5,
