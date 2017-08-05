@@ -262,3 +262,15 @@ var addUrlParam = function(search, key, val){
 
     return params;
 };
+
+function copyToClipboard(selector, callback) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(selector).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    if(callback) {
+        callback()
+    }
+}
