@@ -21,12 +21,12 @@ use Cake\Core\Configure;
     if (Configure::read('debug')) {
         echo $this->Html->css([
             'app',
-//            'wanton/jquery.toast'
+            'wanton/jquery.toast'
         ]);
         echo $this->Html->script([
             'jquery',
             'jquery.autocomplete',
-//            'jquery.toast',
+            'jquery.toast',
             'server_time',
             'foundation',
             'tinymce/tinymce.min',
@@ -35,14 +35,14 @@ use Cake\Core\Configure;
     } else {
         $this->Shrink->css(array(
             'app.css',
-//            'wanton/jquery.toast.min.js'
+            'wanton/jquery.toast.min.css'
         ));
         echo $this->Shrink->fetch('css');
 
         $this->Shrink->js([
             'jquery.min.js',
             'jquery.autocomplete.min.js',
-//            'jquery.toast.min.js',
+            'jquery.toast.min.js',
             'server_time.js',
             'foundation.min.js',
             'tinymce/tinymce.min.js',
