@@ -96,8 +96,12 @@ class CharactersController extends AppController
             ],
             'sortWhitelist' => [
                 'Users.username',
+                'Characters.character_name',
                 'character_name',
+                'Characters.character_type',
                 'character_type',
+                'Characters.splat1',
+                'Characters.splat2',
                 'splat1',
                 'splat2',
             ]

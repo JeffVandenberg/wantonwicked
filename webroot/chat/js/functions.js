@@ -45,6 +45,7 @@ function initAll()
 		roomlogin();
 	}
 
+	initTextSearchArea();
 	getMessages();
 	showRoomHeaders();
 }
@@ -1289,4 +1290,35 @@ function endScroll() {
 function openPmWindow() {
     //alert($(this).html());
     //createPChatDiv(userName,uUser,uuID,uID);
+}
+
+function initTextSearchArea()
+{
+	var strategies = [{
+		match: /(^|\s)@([^@]*)$/,
+		search: doUserListSearch,
+		replace: function(value) {
+			return '$1@' + value + ' ';
+		}
+	}];
+	var options = {
+		maxCount: 5,
+		debounce: 300,
+        placement: 'top'
+	};
+
+	$("#optionsBar").textcomplete(
+		strategies,
+		options
+	);
+}
+
+function doUserListSearch(term, callback) {
+	var list = [];
+	$("#room_"+roomID).find('span.username').each(function(i, item) {
+		if($(item).text().toLowerCase().indexOf(term.toLowerCase())> -1) {
+			list.push($(item).text());
+		}
+	});
+	callback(list);
 }

@@ -713,7 +713,8 @@ function handleMessages()
         ;
 		
 		// message data
-		for (var i = 0; i < xmldoc.getElementsByTagName("usermessage").length;)
+		var lastSound = null;
+		for (i = 0; i < xmldoc.getElementsByTagName("usermessage").length;)
 		{
 			// for each message
 			var userMessage = xmldoc.getElementsByTagName("usermessage")[i].childNodes[0].nodeValue;	
@@ -735,16 +736,21 @@ function handleMessages()
 						userMessageArray[2], 
 						showMessages+1, 
 						userMessageArray[5], 
-						userMessageArray[7], // FIX by JeffV
-						userMessageArray[3],
-						userMessageArray[4],
-						userMessageArray[8] // Guess by JeffV
+						null, // sound
+						userMessageArray[3], // user
+						userMessageArray[4], // to user
+						userMessageArray[8] // Time
 					);
+			lastSound = userMessageArray[7];
 
 			lastMessageID = userMessageArray[0];	
 
 			// loop
 			i++;			
+		}
+
+		if(lastSound) {
+			doSound(lastSound);
 		}
 			
 		if(showHistory == 1)
@@ -766,16 +772,16 @@ function handleMessages()
 
 		// check version
 		var remoteVersion = parseInt(xmldoc.getElementsByTagName("version")[0].childNodes[0].nodeValue);
-		if(remoteVersion > version && !versionNoticeShown) {
+		if(remoteVersion > version) {
 			$.toast({
 				text: "There has been a chat service update. <a href='#' onclick='window.location.reload();'>Reload?</a>",
 				heading: 'Server Updated',
-				position: 'top-right',
-				hideAfter: 10000,
+				position: {top:20, right:70},
+				hideAfter: false,
 				icon: 'info',
                 allowToastClose: true
 			});
-			versionNoticeShown = true;
+			version = remoteVersion;
 		}
 	}
 }
@@ -965,6 +971,10 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		if(mStatus == 1)
 		{
 			newdiv.className = 'welcomeMessage';
+		}
+
+		if((mDiv == 'chatContainer') && (message.indexOf('@' + userName) > -1)) {
+			newdiv.className = 'chatMessage user-mention';
 		}
 
 		// webcam options
@@ -1180,24 +1190,7 @@ function createMessageDiv(mStatus, mUID, mDiv, mID, message, sfx, mUser, mToUser
 		}
 	}
 
-	// play sound
-	var playSounds = 0;
-
-	if(document.getElementById('soundsID').checked==true && sfx == 'beep_high.mp3')
-	{
-		doSound(sfx);
-	}
-
-	if(document.getElementById('entryExitID').checked==true && (sfx == 'doorbell.mp3' || sfx == 'door_close.mp3'))
-	{
-		doSound(sfx);
-	}
-
-	if(document.getElementById('sfxID').checked==true && mySFX.toString().lastIndexOf(sfx) == -1 && (sfx != 'doorbell.mp3' && sfx != 'door_close.mp3' && sfx != 'beep_high.mp3'))
-	{
-		doSound(sfx);
-	}
-
+    doSound(sfx);
 }
 
 /*

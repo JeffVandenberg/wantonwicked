@@ -1197,3 +1197,38 @@ a:hover {
 a:active {
     color: #EFD6AC;
 }
+
+.user-mention {
+	background-color: #333;
+	font-weight: bold;
+}
+
+/*text complete*/
+.textcomplete-dropdown {
+	border: 1px solid #ddd;
+	background-color: #000000;
+}
+
+.textcomplete-dropdown li {
+	border-top: 1px solid #ddd;
+	padding: 2px 5px;
+}
+
+.textcomplete-dropdown li:first-child {
+	border-top: none;
+}
+
+.textcomplete-dropdown li:hover,
+.textcomplete-dropdown .active {
+	background-color: #222222;
+}
+
+.textcomplete-dropdown {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.textcomplete-dropdown a:hover {
+	cursor: pointer;
+}

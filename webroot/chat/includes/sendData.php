@@ -104,7 +104,7 @@ if ($_POST) {
     if (isset($_POST['umessage']) && !empty($_POST['umessage'])) {
         // get senders permissions
         $admin = $user['admin'];
-        $mod = $user['mod'];
+        $mod = $user['moderator'];
         $speaker = $user['speaker'];
         $userTypeId = $user['user_type_id'];
 

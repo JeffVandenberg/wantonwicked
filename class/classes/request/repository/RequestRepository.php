@@ -815,6 +815,9 @@ EOQ;
 
     public function CloseRequestsForCharacter($characterIds)
     {
+        if(!$characterIds || count($characterIds) == 0) {
+            return 0;
+        }
         if (!is_array($characterIds)) {
             $characterIds = array($characterIds);
         }
@@ -863,12 +866,12 @@ WHERE
     R.created_by_id = ?
 EOQ;
         $parameters = array($userId);
-        if ($filter['title'] !== '') {
+        if (isset($filter['title']) && $filter['title'] !== '') {
             $sql .= ' AND R.title LIKE ? ';
             $parameters[] = $filter['title'] . '%';
         }
 
-        if ($filter['request_type_id'] != 0) {
+        if (isset($filter['request_type_id']) && $filter['request_type_id'] != 0) {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
         } else {
@@ -876,7 +879,7 @@ EOQ;
             $parameters[] = RequestType::BlueBook;
         }
 
-        if ($filter['request_status_id'] != 0) {
+        if (isset($filter['request_status_id']) && $filter['request_status_id'] != 0) {
             $sql .= ' AND R.request_status_id = ? ';
             $parameters[] = $filter['request_status_id'];
         } else {

@@ -47,8 +47,8 @@ ob_start();
 
 <?php if(!Request::isAjax()): ?>
     <a href="/request.php?action=st_list" class="button">Back</a>
-    <?php if(in_array($request['request_status_id'], RequestStatus::$Storyteller)): ?>
     <a href="/request.php?action=st_add_note&request_id=<?php echo $request['id']; ?>" class="button">Add Note</a>
+    <?php if(in_array($request['request_status_id'], RequestStatus::$Storyteller)): ?>
     <a href="/request.php?action=st_approve&request_id=<?php echo $request['id']; ?>" class="button">Approve</a>
     <a href="/request.php?action=st_forward&request_id=<?php echo $request['id']; ?>" class="button">Forward</a>
     <a href="/request.php?action=st_deny&request_id=<?php echo $request['id']; ?>" class="button">Deny</a>

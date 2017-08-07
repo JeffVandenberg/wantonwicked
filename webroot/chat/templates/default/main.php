@@ -12,6 +12,7 @@
     <script type="text/javascript" src="/js/jquery.min.js?v=<?php echo $CONFIG['version']; ?>"></script>
     <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/js/jquery.toast.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.textcomplete.js"></script>
     <script type="text/javascript" src="/chat/includes/lang.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
     <script type="text/javascript" src="/chat/includes/settings.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
     <?php if(file_exists(__DIR__ . '/../../js/cache/compiled-' . $CONFIG['version'] . '.js')): ?>
@@ -105,7 +106,6 @@ var firstMessageId = <?php echo $lastMessageID;?>;
 /* last message ID */
 var lastMessageID = <?php echo $lastMessageID;?>;
 var version = <?php echo $CONFIG['version'] == 'NA' ? 0 : $CONFIG['version']; ?>;
-var versionNoticeShown = false;
 
 wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 
@@ -161,7 +161,7 @@ wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
 
     </div>
     <div id="rightContainer">
-        <img id="roomIcon" class="roomIcon" src="images/rooms.gif" alt="" onclick="newRoom('<?php if($_GET['sID']){?>0<?php }else{?>1<?php }?>');">
+        <img id="roomIcon" class="roomIcon" src="images/rooms.gif" alt="" onclick="newRoom('<?php if(isset($_GET['sID'])){?>0<?php }else{?>1<?php }?>');">
         <div id="roomCreate" class="roomCreate">
         <span><a href="/wiki/City/City#city" target="_new">Complete list of Districts</a><br>
         <br></span>

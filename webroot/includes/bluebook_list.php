@@ -64,7 +64,7 @@ ob_start();
                     <?php echo FormHelper::Hidden('sort', $sort); ?>
                     <?php echo FormHelper::Hidden('action', 'list'); ?>
                     <?php echo FormHelper::Hidden('character_id', $characterId); ?>
-                    <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;')); ?>
+                    <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;display: inline-block;', 'div' => false)); ?>
                 </form>
                 <?php if($hasNext): ?>
                     <a href="/bluebook.php?action=list&character_id=<?php echo $characterId; ?>&page=<?php echo $page+1; ?>&sort=<?php echo $pagination->GetSort(); ?>">&gt; &gt;</a>
@@ -90,6 +90,9 @@ ob_start();
             </th>
             <th>
                 Updated On
+            </th>
+            <th>
+                Actions
             </th>
         </tr>
 

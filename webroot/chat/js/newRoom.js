@@ -54,7 +54,8 @@ function addRoom()
     var params = {
         action: 'add',
         roomName: encodeURIComponent(document.getElementById("roomName").value),
-        roomPass: document.getElementById("roomPass").value
+        roomPass: document.getElementById("roomPass").value,
+        user_id: uID
     };
 
     // clr input fields
