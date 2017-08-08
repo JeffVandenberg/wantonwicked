@@ -162,6 +162,6 @@ class BeatService
         $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
         /* @var CharacterBeatRepository $beatRepo */
 
-        $beatRepo->setStatusForBeatsOlderThan(BeatStatus::NewBeat, date('Y-m-d', strtotime('-1 month')));
+        $beatRepo->setStatusForBeatsOlderThan(BeatStatus::Expired, date('Y-m-d', strtotime('-1 month')));
     }
 }
