@@ -467,14 +467,14 @@ class CharacterHelper extends AppHelper
                     <?php if ($this->sheetFields['splat2']) echo $splat2; ?>
                 </div>
                 <div class="medium-1 columns">
-                    <?php if ($this->sheetFields['friends']): ?>
+                    <?php if (isset($this->sheetFields['friends'])): ?>
                         <label for="friends">
                             <?php echo $this->Language->translate('friends', $character->CharacterType); ?>
                         </label>
                     <?php endif; ?>
                 </div>
                 <div class="medium-3 columns">
-                    <?php if ($this->sheetFields['friends']) echo $friends; ?>
+                    <?php if (isset($this->sheetFields['friends'])) echo $friends; ?>
                 </div>
             </div>
             <div class="row">
@@ -1624,7 +1624,7 @@ class CharacterHelper extends AppHelper
                         By <?php echo $character->getLastStNote()->User->Username; ?>
                         On <?php echo $character->getLastStNote()->Created; ?>
                         <div class="text-center">
-                            <a href="/characters/notes/<?php echo $character->Slug; ?>" target="_blank">View Previous
+                            <a href="/characters/notes/<?php echo $character->Slug; ?>" target="_blank">View All
                                 Notes</a>
                         </div>
                     <?php else: ?>
