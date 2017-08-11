@@ -28,6 +28,11 @@ $up_loginout = <<<EOQ
 <a href="/forum/ucp.php?mode=register&redirect=$redirect">Register</a>
 EOQ;
 
+$userInfo = [];
+$userInfo['redirect'] = $redirect;
+$userInfo['username'] = 'Login';
+$userInfo['logged_in'] = false;
+
 $userControlPanel = "";
 if ($userdata['user_id'] != 1) {
     $logout = append_sid("/forum/ucp.php", "mode=logout&redirect=$redirect", true, $user->session_id);
@@ -56,6 +61,12 @@ EOQ;
         $userControlPanel .= <<<EOQ
  <br><a href="/request.php?action=st_list">New Requests to Process ($newStRequestCount)</a>
 EOQ;
+
+        $userInfo['username'] = $userdata['username'];
+        $userInfo['logout_link'] = $logout;
+        $userInfo['request_count'] = $requestCount;
+        $userInfo['new_request_count'] = $newStRequestCount;
+        $userInfo['logged_in'] = true;
     }
 
     WikiInformation::setUpName($up_name);

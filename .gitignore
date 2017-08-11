@@ -24,6 +24,8 @@ logs/cli-error.log
 logs/error.log
 logs/debug.log
 
+webroot/css/shrink*
+webroot/js/shrink*
 webroot/wiki/wiki.d/.flock
 webroot/wiki/wiki.d/.lastmod
 webroot/wiki/wiki.d/Archive.*
@@ -41,5 +43,3 @@ webroot/wiki/wiki.d/Site.*
 webroot/wiki/wiki.d/SiteAdmin.*
 webroot/wiki/wiki.d/Vampire.*
 webroot/wiki/wiki.d/Werewolf.*
-
-delete

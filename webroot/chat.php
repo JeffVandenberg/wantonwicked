@@ -1,8 +1,9 @@
 <?php
+
+use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
 use phpbb\auth\auth;
-use phpbb\request\request;
 use phpbb\template\twig\twig;
 use phpbb\user;
 
@@ -15,7 +16,7 @@ $phpEx = substr(strrchr(__FILE__, '.'), 1);
 /** @noinspection PhpIncludeInspection */
 include($phpbb_root_path . 'common.' . $phpEx);
 $request = $phpbb_container->get('request');
-/* @var request $request */
+/* @var \phpbb\request\request $request */
 $request->enable_super_globals();
 
 //
@@ -47,10 +48,6 @@ include 'menu_bar.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
-        case 'login':
-            $template_file = 'empty_template.tpl';
-            include 'includes/chat_login.php';
-            break;
         case 'ooc_login':
             $template_file = "blank_layout4.tpl";
             include 'includes/chat_ooc_login.php';
@@ -79,11 +76,12 @@ $template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage())
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
-        "TOP_IMAGE" => $page_image,
+        "TOP_IMAGE" => $page_image ?? '',
         "MENU_BAR" => $menu_bar,
         "PAGE_CONTENT" => $page_content,
-        "EXTRA_HEADERS" => $extra_headers,
+        "EXTRA_HEADERS" => $extra_headers ?? '',
         "USER_PANEL" => $user_panel,
+        "USER_INFO" => $userInfo,
         "CONTENT_HEADER" => $contentHeader,
         "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
         "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../build_number'),

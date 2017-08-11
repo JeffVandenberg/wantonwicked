@@ -5006,14 +5006,14 @@ select {
 
 .drilldown a {
   padding: 0.7rem 1rem;
-  background: #fefefe; }
+  background: #0E3B43; }
 .drilldown .is-drilldown-submenu {
   position: absolute;
   top: 0;
   left: 100%;
   z-index: -1;
   width: 100%;
-  background: #fefefe;
+  background: #0E3B43;
   transition: transform 0.15s linear; }
   .drilldown .is-drilldown-submenu.is-active {
     z-index: 1;
@@ -5042,7 +5042,7 @@ select {
     content: '';
     border-right-width: 0;
     border-left-style: solid;
-    border-color: transparent transparent transparent #0e3b43; }
+    border-color: transparent transparent transparent #cccccc; }
 .drilldown.align-left .is-drilldown-submenu-parent > a::after {
   left: auto;
   right: 1rem;
@@ -5073,7 +5073,7 @@ select {
   content: '';
   border-left-width: 0;
   border-right-style: solid;
-  border-color: transparent #0e3b43 transparent transparent;
+  border-color: transparent #cccccc transparent transparent;
   border-left-width: 0;
   display: inline-block;
   vertical-align: middle;
@@ -5459,7 +5459,7 @@ select {
   z-index: 12;
   transition: transform 0.5s ease;
   backface-visibility: hidden;
-  background: #e6e6e6; }
+  background: #0E3B43; }
   [data-whatinput='mouse'] .off-canvas {
     outline: 0; }
   .off-canvas.is-transition-push {
@@ -5478,7 +5478,7 @@ select {
   z-index: 12;
   transition: transform 0.5s ease;
   backface-visibility: hidden;
-  background: #e6e6e6; }
+  background: #0E3B43; }
   [data-whatinput='mouse'] .off-canvas-absolute {
     outline: 0; }
   .off-canvas-absolute.is-transition-push {
@@ -6308,7 +6308,7 @@ a.thumbnail {
 
 .title-bar {
   padding: 0.5rem;
-  background: #0a0a0a;
+  background: #0E3B43;
   color: #fefefe;
   display: flex;
   justify-content: flex-start;
@@ -7447,9 +7447,48 @@ textarea {
 .sticky {
   z-index: 1; }
 
+.topbar-title a {
+  padding: 0 1rem; }
+
+.title-bar {
+  text-align: center; }
+
+.title-logo {
+  width: 100%; }
+
+.button-badge {
+  background-color: #0e3b43;
+  text-decoration: none;
+  padding: .5rem .5rem;
+  position: relative;
+  display: inline-block;
+  border-radius: .2rem;
+  transition: all ease 0.4s; }
+
+.button-badge:hover {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6); }
+
+.badge-primary {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: .8em; }
+
+.badge-secondary {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  font-size: .8em; }
+
+.fa {
+  color: white;
+  font-size: 1.5rem; }
+
 /* character sheet */
 .power-level-column {
   width: 70px; }
 
 .checkbox {
   display: inline; }
+
+/*# sourceMappingURL=app.css.map */
