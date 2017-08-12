@@ -3,13 +3,14 @@
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\UserdataHelper;
 use classes\request\data\RequestNote;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
-if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+if (!UserdataHelper::IsAdmin($userdata) && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     Response::redirect('/', 'Unable to view that request');
 }
 
@@ -52,9 +53,9 @@ ob_start();
             <?php echo FormHelper::Textarea('note', '', ['class' => 'tinymce-textarea']); ?>
         </div>
         <div class="formInput">
+            <button class="button" name="action" value="Add Note" type="submit">Add Note</button>
+            <button class="button" name="action" value="Cancel" type="submit">Cancel</button>
             <?php echo FormHelper::Hidden('request_id', $requestId); ?>
-            <?php echo FormHelper::Button('action', 'Add Note'); ?>
-            <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
     <h3>Request</h3>

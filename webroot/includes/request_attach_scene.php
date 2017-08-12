@@ -3,6 +3,7 @@ use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 use classes\request\data\RequestCharacter;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
@@ -14,7 +15,7 @@ $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
 $sceneRepository = new SceneRepository();
 
-if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+if (!UserdataHelper::IsAdmin($userdata) && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     Response::redirect('/', 'Unable to view that request');
 }
 
@@ -60,9 +61,9 @@ ob_start();
             <?php echo FormHelper::Textarea('note', '', array('class' => 'tinymce-textarea')); ?>
         </div>
         <div class="formInput">
+            <button class="button" name="action" value="Attach Scene" type="submit">Attach Scene</button>
+            <button class="button" name="action" value="Cancel" type="submit">Cancel</button>
             <?php echo FormHelper::Hidden('request_id', $requestId); ?>
-            <?php echo FormHelper::Button('action', 'Attach Scene'); ?>
-            <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
 <?php else: ?>

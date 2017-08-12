@@ -6,8 +6,10 @@
     <META NAME="copyright" content="(c) <?php echo date('Y'); ?> Jeff Vandenberg">
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
     <link type="text/css" href="/css/app.css" rel="Stylesheet"/>
+    <link type="text/css" href="/css/wanton/jquery-ui.min.css" rel="Stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/js/jquery.autocomplete.min.js"></script>
     <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript" src="/js/server_time.js"></script>

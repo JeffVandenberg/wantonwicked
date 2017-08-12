@@ -1,51 +1,63 @@
 <?php
 /* @var array $userdata */
+
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
+use classes\core\repository\RepositoryManager;
+use classes\request\data\RequestCharacter;
 use classes\request\repository\RequestRepository;
 
 $requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
-if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+if (!UserdataHelper::IsAdmin($userdata) && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     Response::redirect('/', 'Unable to view that request');
 }
 
 $onlySanctioned = Request::getValue('only_sanctioned', true);
 $isPrimary = Request::getValue('is_primary', false);
-$note = "";
 $characterId = "";
 $characterName = "";
 if (Request::isPost()) {
     if ($_POST['action'] == 'Cancel') {
         Response::redirect('request.php?action=view&request_id=' . $requestId);
-    }
-    elseif ($_POST['action'] == 'Add') {
+    } elseif ($_POST['action'] == 'Add') {
         $characterId = Request::getValue('character_id', 0);
         $characterName = Request::getValue('character_name');
-        $note = htmlspecialchars(Request::getValue('note'));
-        if($requestRepository->AddCharacter($requestId, $characterId, $isPrimary)) {
-            $requestRepository->TouchRecord($requestId, $userdata['user_id']);
-            SessionHelper::SetFlashMessage('Attached ' . $characterName);
-            Response::redirect('request.php?action=view&request_id=' . $requestId);
-        }
-        else {
-            SessionHelper::SetFlashMessage('Error Attaching Character');
+        $note = Request::getValue('note', '');
+        if ($characterId) {
+            $requestCharacter = new RequestCharacter();
+            $requestCharacter->CharacterId = $characterId;
+            $requestCharacter->RequestId = $requestId;
+            $requestCharacter->IsPrimary = $isPrimary;
+            $requestCharacter->Note = $odx;
+            $requestCharacter->IsApproved = false;
+            $requestCharacterRepo = RepositoryManager::GetRepository(RequestCharacter::class);
+            if ($requestCharacterRepo->save($requestCharacter)) {
+                $requestRepository->TouchRecord($requestId, $userdata['user_id']);
+                SessionHelper::SetFlashMessage('Attached ' . $characterName);
+                Response::redirect('request.php?action=view&request_id=' . $requestId);
+            } else {
+                SessionHelper::SetFlashMessage('Error Attaching Character');
+            }
+
+        } else {
+            SessionHelper::SetFlashMessage('No Selected Character given.');
         }
     }
 }
 $request = $requestRepository->FindById($requestId);
 
-$primaryOptions = array(
-);
+$primaryOptions = array();
 
-if($requestRepository->RequestHasPrimaryCharacter($requestId)) {
+if ($requestRepository->RequestHasPrimaryCharacter($requestId)) {
     $primaryOptions['disabled'] = 'disabled';
 }
 
 
-    $page_title = 'Add Character to: ' . $request['title'];
+$page_title = 'Add Character to: ' . $request['title'];
 $contentHeader = $page_title;
 
 ob_start();
@@ -79,12 +91,12 @@ ob_start();
     </form>
     <script>
         $(function () {
-            $("#save-button").click(function(e) {
-                if($("#character-id").val() == '') {
+            $("#save-button").click(function (e) {
+                if ($("#character-id").val() == '') {
                     alert('Please select a character.');
                     e.preventDefault();
                 }
-                if($("#note").val() == '') {
+                if ($("#note").val() == '') {
                     alert('Please enter a note to indicate the character\'s involvement.');
                     e.preventDefault();
                 }
@@ -94,14 +106,13 @@ ob_start();
                 minChars: 2,
                 autoSelectFirst: true,
                 preserveInput: true,
-                params: {
-                },
+                params: {},
                 onSearchStart: function (query) {
                     query.request_id = $("#request-id").val();
                     query.only_sanctioned = $("#only-sanctioned").prop('checked');
                 },
-                onSelect: function(item) {
-                    if(item.data > 0) {
+                onSelect: function (item) {
+                    if (item.data > 0) {
                         $("#character-id").val(item.data);
                         $("#character-name").val(item.value);
                     } else {

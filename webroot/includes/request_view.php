@@ -5,6 +5,7 @@ use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 use classes\request\data\RequestCharacter;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestCharacterRepository;
@@ -15,10 +16,8 @@ $requestId = Request::getValue('request_id', 0);
 $linkedCharacterId = Request::getValue('character_id', 0);
 $requestRepository = new RequestRepository();
 
-if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])
-) {
-    SessionHelper::SetFlashMessage('Unable to view Request');
-    Response::redirect('/');
+if (!UserdataHelper::IsAdmin($userdata) && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+    Response::redirect('/', 'Unable to view that request');
 }
 
 $request = $requestRepository->getById($requestId);
@@ -106,7 +105,7 @@ if (!in_array($request->RequestStatusId, RequestStatus::$Terminal)) {
         );
         if ($characterId) {
             $characterMenu['Attach']['submenu']['Dice Roll'] = array(
-                'link' => 'dieroller.php?action=character&character_id=' . $characterId
+                'link' => 'dieroller.php?action=character&character_id=' . $characterId . '&request_id=' . $requestId
             );
         }
         $characterMenu['Attach']['submenu']['Scene'] = array(
