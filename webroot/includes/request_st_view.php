@@ -180,26 +180,24 @@ ob_start();
         No Notes for this Request
     </div>
 <?php endif; ?>
-    <div id="modal-subview" style="display:none;"></div>
+    <div id="modal-subview" class="reveal" data-reveal>
+        <div id="modal-subview-content"></div>
+        <button class="close-button" data-close aria-label="Close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <script>
-        $(function() {
-            $(".button")
-                .button();
-            $(".ajax-link").click(function(e) {
+        $(function () {
+            $(".ajax-link").click(function (e) {
                 var url = $(this).attr('href');
-                $("#modal-subview")
+                $("#modal-subview-content")
                     .load(
-                    url,
-                    null,
-                    function() {
-                        $(this)
-                            .dialog({
-                                modal: true,
-                                height: 600,
-                                width: 800
-                            });
-                    }
-                );
+                        url,
+                        null,
+                        function () {
+                            $("#modal-subview").foundation('open');
+                        }
+                    );
                 e.preventDefault();
             });
         });
