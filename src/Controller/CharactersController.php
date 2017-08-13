@@ -263,7 +263,8 @@ class CharactersController extends AppController
         }
 
         $icons = $sheetService->listAvailableIcons();
-        $this->set(compact('character', 'options', 'icons'));
+        $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName, $character->Slug);
+        $this->set(compact('character', 'options', 'icons', 'submenu'));
 
     }
 
@@ -448,7 +449,7 @@ class CharactersController extends AppController
         if ($isSt) {
             $submenu = $this->Menu->createStorytellerMenu();
         } else {
-            $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName);
+            $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName, $character->Slug);
         }
         $this->set(compact('character', 'beatList', 'currentBeatStatus', 'pastBeats', 'submenu'));
     }

@@ -6,6 +6,7 @@ use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Pagination;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
+use classes\core\helpers\UserdataHelper;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestRepository;
 use classes\request\repository\RequestStatusRepository;
@@ -19,7 +20,7 @@ $sort = Request::getValue('sort', 'updated_on DESC');
 $filter = Request::getValue('filter', array('title' => '', 'request_type_id' => 0, 'request_status_id' => 0));
 
 $characterRepository = new CharacterRepository();
-if (!$userdata['is_admin'] && !$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
+if (!UserdataHelper::IsAdmin($userdata) && !$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
     Response::redirect('/');
 }
 
