@@ -5,34 +5,33 @@ use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 use classes\request\data\RequestCharacter;
 use classes\request\data\RequestStatus;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestNoteRepository;
 use classes\request\repository\RequestRepository;
 
-$requestId         = Request::getValue('request_id', 0);
+$requestId = Request::getValue('request_id', 0);
 $linkedCharacterId = Request::getValue('character_id', 0);
 $requestRepository = new RequestRepository();
 
-if (!$requestRepository->MayViewRequest($requestId, $userdata['user_id'])
-) {
-    SessionHelper::SetFlashMessage('Unable to view Request');
-    Response::redirect('/');
+if (!UserdataHelper::IsAdmin($userdata) && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+    Response::redirect('/', 'Unable to view that request');
 }
 
 $request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
-$requestNoteRepository      = new RequestNoteRepository();
-$requestNotes               = $requestNoteRepository->ListByRequestId($requestId);
+$requestNoteRepository = new RequestNoteRepository();
+$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
 $requestCharacterRepository = new RequestCharacterRepository();
-$requestCharacters          = $requestCharacterRepository->ListByRequestId($requestId);
+$requestCharacters = $requestCharacterRepository->ListByRequestId($requestId);
 
-$supportingRequests  = $requestRepository->ListSupportingRequests($requestId);
-$supportingRolls     = $requestRepository->ListSupportingRolls($requestId);
+$supportingRequests = $requestRepository->ListSupportingRequests($requestId);
+$supportingRolls = $requestRepository->ListSupportingRolls($requestId);
 $supportingBluebooks = $requestRepository->ListSupportingBluebookEntries($requestId);
-$supportingScenes    = $requestRepository->ListSupportingScenes($requestId);
+$supportingScenes = $requestRepository->ListSupportingScenes($requestId);
 
 $contentHeader = $page_title = 'Request: ' . $request->Title;
 
@@ -51,9 +50,9 @@ if ($linkedCharacter->Id != 0) {
 
 require_once('menus/character_menu.php');
 $characterMenu['Actions'] = array(
-    'link'    => '#',
+    'link' => '#',
     'submenu' => array(
-        'Back'         => array(
+        'Back' => array(
             'link' => $backLink
         ),
         'View History' => array(
@@ -61,57 +60,57 @@ $characterMenu['Actions'] = array(
         )
     )
 );
-if ($linkedCharacterId == 0) {
-    if ($request->RequestStatusId == RequestStatus::NewRequest) {
-        $characterMenu['Actions']['submenu']['Edit Request'] = array(
-            'link' => 'request.php?action=edit&request_id=' . $requestId
-        );
-    }
-    if ($request->RequestStatusId != RequestStatus::Closed) {
-        $characterMenu['Actions']['submenu']['Forward Request'] = array(
-            'link' => 'request.php?action=forward&request_id=' . $requestId
-        );
-        $characterMenu['Actions']['submenu']['Close Request']   = array(
-            'link' => 'request.php?action=close&request_id=' . $requestId
-        );
-    }
-    if (in_array($request->RequestStatusId, RequestStatus::$PlayerSubmit)) {
-        $characterMenu['Actions']['submenu']['Submit Request'] = array(
-            'link' => 'request.php?action=submit&request_id=' . $requestId
-        );
-    }
-    if ($request->RequestStatusId == RequestStatus::NewRequest) {
-        $characterMenu['Actions']['submenu']['Delete Request'] = array(
-            'link' => 'request.php?action=delete&request_id=' . $requestId
-        );
-    }
+if ($request->RequestStatusId == RequestStatus::NewRequest) {
+    $characterMenu['Actions']['submenu']['Edit Request'] = array(
+        'link' => 'request.php?action=edit&request_id=' . $requestId
+    );
+}
+if ($request->RequestStatusId != RequestStatus::Closed) {
+    $characterMenu['Actions']['submenu']['Forward Request'] = array(
+        'link' => 'request.php?action=forward&request_id=' . $requestId
+    );
+    $characterMenu['Actions']['submenu']['Close Request'] = array(
+        'link' => 'request.php?action=close&request_id=' . $requestId
+    );
+}
+if (in_array($request->RequestStatusId, RequestStatus::$PlayerSubmit)) {
+    $characterMenu['Actions']['submenu']['Submit Request'] = array(
+        'link' => 'request.php?action=submit&request_id=' . $requestId
+    );
+}
+if ($request->RequestStatusId == RequestStatus::NewRequest) {
+    $characterMenu['Actions']['submenu']['Delete Request'] = array(
+        'link' => 'request.php?action=delete&request_id=' . $requestId
+    );
+}
 
-    if (!in_array($request->RequestStatusId, RequestStatus::$Terminal)) {
-        $characterMenu['Attach'] = array(
-            'link'    => '#',
-            'submenu' => array(
-                'New Note' => array(
-                    'link' => 'request.php?action=add_note&request_id=' . $requestId
-                )
+if (!in_array($request->RequestStatusId, RequestStatus::$Terminal)) {
+    $characterMenu['Attach'] = array(
+        'link' => '#',
+        'submenu' => array(
+            'New Note' => array(
+                'link' => 'request.php?action=add_note&request_id=' . $requestId
             )
+        )
+    );
+    if (in_array($request->RequestStatusId, RequestStatus::$PlayerEdit)) {
+        $characterMenu['Attach']['submenu']['Character'] = array(
+            'link' => 'request.php?action=add_character&request_id=' . $requestId
         );
-        if (in_array($request->RequestStatusId, RequestStatus::$PlayerEdit)) {
-            $characterMenu['Attach']['submenu']['Character']      = array(
-                'link' => 'request.php?action=add_character&request_id=' . $requestId
-            );
-            $characterMenu['Attach']['submenu']['Request']        = array(
-                'link' => 'request.php?action=attach_request&request_id=' . $requestId
-            );
-            $characterMenu['Attach']['submenu']['Bluebook Entry'] = array(
-                'link' => 'request.php?action=attach_bluebook&request_id=' . $requestId
-            );
-            $characterMenu['Attach']['submenu']['Dice Roll']      = array(
-                'link' => 'dieroller.php?action=character&character_id=' . $request->CharacterId
-            );
-            $characterMenu['Attach']['submenu']['Scene']      = array(
-                'link' => 'request.php?action=attach_scene&request_id=' . $requestId
+        $characterMenu['Attach']['submenu']['Request'] = array(
+            'link' => 'request.php?action=attach_request&request_id=' . $requestId
+        );
+        $characterMenu['Attach']['submenu']['Bluebook Entry'] = array(
+            'link' => 'request.php?action=attach_bluebook&request_id=' . $requestId
+        );
+        if ($characterId) {
+            $characterMenu['Attach']['submenu']['Dice Roll'] = array(
+                'link' => 'dieroller.php?action=character&character_id=' . $characterId . '&request_id=' . $requestId
             );
         }
+        $characterMenu['Attach']['submenu']['Scene'] = array(
+            'link' => 'request.php?action=attach_scene&request_id=' . $requestId
+        );
     }
 }
 $menu = MenuHelper::GenerateMenu($characterMenu);
@@ -178,9 +177,9 @@ ob_start();
         <?php if ($requestCharacter->IsPrimary): ?>
             </strong>
         <?php endif; ?>
-        <br />
+        <br/>
     <?php endforeach; ?>
-    <br />
+    <br/>
 <?php endif; ?>
 
 <?php if (count($supportingRolls) > 0): ?>
@@ -257,24 +256,24 @@ ob_start();
         No Notes for this Request
     </div>
 <?php endif; ?>
-    <div id="modal-subview" style="display:none;"></div>
+    <div id="modal-subview" class="reveal" data-reveal>
+        <div id="modal-subview-content"></div>
+        <button class="close-button" data-close aria-label="Close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <script>
         $(function () {
             $(".ajax-link").click(function (e) {
                 var url = $(this).attr('href');
-                $("#modal-subview")
+                $("#modal-subview-content")
                     .load(
-                    url,
-                    null,
-                    function () {
-                        $(this)
-                            .dialog({
-                                modal : true,
-                                height: 600,
-                                width : 800
-                            });
-                    }
-                );
+                        url,
+                        null,
+                        function () {
+                            $("#modal-subview").foundation('open');
+                        }
+                    );
                 e.preventDefault();
             });
         });

@@ -108,7 +108,7 @@ ob_start();
         </div>
         <div class="formInput">
             <input type="hidden" name="sourceCharacterId" value="<?php echo $characterId; ?>"/>
-            <input type="submit" name="formSubmit" id="formSubmit" value="Grant Favor"/>
+            <button class="button" type="submit" name="formSubmit" id="formSubmit" value="Grant Favor">Grant Favor</button>
         </div>
     </form>
     <script language="javascript">
@@ -133,29 +133,19 @@ ob_start();
                 return true;
             });
             $('#targetCharacter').autocomplete({
-                source   : function (request, response) {
-                    $.ajax({
-                        url     : "/characters.php?action=quick_search",
-                        type    : "post",
-                        dataType: "json",
-                        data    : {
-                            term      : request.term,
-                            maxResults: 20
-                        },
-                        success : function (data) {
-                            response($.map(data, function (item) {
-                                return {
-                                    name : item.characterName,
-                                    value: item.characterName,
-                                    id   : item.id
-                                }
-                            }))
-                        }
-                    });
+                serviceUrl: '/character.php?action=search',
+                minChars: 2,
+                autoSelectFirst: true,
+                preserveInput: true,
+                params: {},
+                onSearchStart: function (query) {
+                    query.city = 'Portland';
+                    query.only_sanctioned = 1;
                 },
-                minLength: 2,
-                select   : function (event, ui) {
-                    $('#targetCharacterId').val(ui.item.id);
+                onSelect: function (item) {
+                    $("#targetCharacterId").val(item.data);
+                    $("#targetCharacter").val(item.value);
+                    return false;
                 }
             });
         });

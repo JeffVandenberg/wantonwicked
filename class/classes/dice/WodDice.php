@@ -14,7 +14,7 @@ class WodDice
     public function rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
                                 $is_rote = false, $min_successes = 0)
     {
-        $return = "";
+        $return = [];
         $result = "";
         $note = "Failure";
         $num_of_successes = 0;

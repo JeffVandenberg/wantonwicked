@@ -60,7 +60,6 @@ $current_form = Request::getValue('current_form', SessionHelper::Read('current_f
 $showOnlyMyRolls = Request::getValue('show_only_my_rolls', false);
 
 SessionHelper::Write('current_form', $current_form);
-$updated_pp = $character['updated_pp'];
 
 $max_power_points = CharacterHelper::getMaxPowerPoints($character['power_stat']);
 if ($power_points > $max_power_points) {
@@ -178,8 +177,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 $result['note'], $result['num_of_successes'], $chance_die, $bias, $is_rote
             );
 
-            if (Database::getInstance()->query($query)->execute($params)) {
-            }
+            Database::getInstance()->query($query)->execute($params);
             $rollId = Database::getInstance()->getInsertId();
 
             // update relevant stats
@@ -202,10 +200,10 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
             }
 
             // test if attaching to a request
-            if ($_POST['request_id'] > 0) {
+            if (Request::getValue('request_id')) {
                 $requestRepository = new RequestRepository();
-                $requestRepository->AttachRollToRequest($_POST['request_id'], $rollId);
-                $requestRepository->TouchRecord($_POST['request_id'], $userdata['user_id']);
+                $requestRepository->AttachRollToRequest(Request::getValue('request_id'), $rollId);
+                $requestRepository->TouchRecord(Request::getValue('request_id'), $userdata['user_id']);
             }
         }
     }
@@ -580,7 +578,7 @@ ob_start();
                             <div><?php echo $extra_row; ?></div>
                         <?php endif; ?>
                         <div class="small-12 columns">
-                            Attach to Request: <?php echo FormHelper::Select($requests, 'request_id', ''); ?>
+                            Attach to Request: <?php echo FormHelper::Select($requests, 'request_id', Request::getValue('request_id')); ?>
                         </div>
                     </div>
                     <input type="hidden" name="current_form" value="<?php echo $current_form; ?>">

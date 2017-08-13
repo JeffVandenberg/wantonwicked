@@ -4,6 +4,7 @@ use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
 use classes\core\helpers\Response;
 use classes\core\helpers\SessionHelper;
+use classes\core\helpers\UserdataHelper;
 use classes\request\data\RequestCharacter;
 use classes\request\repository\RequestCharacterRepository;
 use classes\request\repository\RequestRepository;
@@ -11,7 +12,7 @@ use classes\request\repository\RequestRepository;
 $requestId = Request::getValue('request_id', 0);
 $requestRepository = new RequestRepository();
 $requestCharacterRepository = new RequestCharacterRepository();
-if (!$userdata['is_admin'] && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
+if (!UserdataHelper::IsAdmin($userdata) && !$requestRepository->MayViewRequest($requestId, $userdata['user_id'])) {
     Response::redirect('/', 'Unable to view that request');
 }
 

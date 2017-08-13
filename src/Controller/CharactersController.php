@@ -8,6 +8,7 @@ use App\Model\Table\CharactersTable;
 use Cake\Controller\Component\PaginatorComponent;
 use Cake\Event\Event;
 use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use Cake\Utility\Text;
 use classes\character\data\BeatStatus;
@@ -181,6 +182,7 @@ class CharactersController extends AppController
             case 'stGoals':
             case 'stView':
             case 'stBeats':
+            case 'notes':
                 return $this->Permissions->IsST();
             case 'add':
             case 'validateName':
@@ -261,7 +263,8 @@ class CharactersController extends AppController
         }
 
         $icons = $sheetService->listAvailableIcons();
-        $this->set(compact('character', 'options', 'icons'));
+        $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName, $character->Slug);
+        $this->set(compact('character', 'options', 'icons', 'submenu'));
 
     }
 
@@ -446,9 +449,41 @@ class CharactersController extends AppController
         if ($isSt) {
             $submenu = $this->Menu->createStorytellerMenu();
         } else {
-            $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName);
+            $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName, $character->Slug);
         }
         $this->set(compact('character', 'beatList', 'currentBeatStatus', 'pastBeats', 'submenu'));
+    }
+
+    public function notes($slug = null)
+    {
+        $service = new SheetService();
+        $character = $service->loadSheet($slug);
+
+        if(!$character->Id) {
+            $this->Flash->set('Unable to find: ' . $slug);
+            $this->redirect('/');
+        }
+        $this->set('character', $character);
+
+        $characterNotes = TableRegistry::get('CharacterNotes');
+        $query = $characterNotes->find()
+            ->select([
+                'CharacterNotes.note',
+                'CharacterNotes.created',
+                'Users.username'
+            ])
+            ->contain([
+                'Users'
+            ])
+            ->where([
+                'CharacterNotes.character_id' => $character->Id
+            ]);
+        $this->set('rows', $this->paginate($query, [
+            'limit' => 20,
+            'order' => [
+                'CharacterNotes.created DESC',
+            ]
+        ]));
     }
 
     public function stBeats()

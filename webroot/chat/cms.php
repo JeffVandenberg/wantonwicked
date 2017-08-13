@@ -26,6 +26,11 @@ if(isset($_GET['character_id'])) {
         Response::endRequest('Not Allowed');
     }
 
+    // check character status
+    if(in_array($character->CharacterStatusId, [CharacterStatus::Idle, CharacterStatus::Inactive])) {
+        $service->reactivateCharacter($character, $userdata['user_id'], 'Restored to Active Status via Login.');
+    }
+
     $encoded = htmlspecialchars($character->CharacterName);
     $cleanName = str_replace("'", '&#39;', $encoded);
     define('C_CUSTOM_USERNAME', $cleanName); // username
@@ -108,10 +113,6 @@ EOQ;
     // add login record to character log
     CharacterLog::LogAction($characterId, ActionType::Login, 'Chat Login', $userdata['user_id']);
 
-    // check character status
-    if(in_array($character->CharacterStatusId, [CharacterStatus::Idle, CharacterStatus::Inactive])) {
-        $service->reactivateCharacter($character, $userdata['user_id'], 'Restored to Active Status via Login.');
-    }
     $loggedIn = true;
 }
 else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {

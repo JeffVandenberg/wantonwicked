@@ -398,6 +398,9 @@ function removeRoomsDiv(divID)
 
 function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uBlock,uIP)
 {
+    userName = userName.replaceAll("'", "&#39;");
+    targetUserName = targetUserName.replaceAll("'", "&#39;");
+
 	// if user is Intelli-bot, disable options
 	if(targetUserName.toLowerCase() == intelliBotName.toLowerCase())
 	{
@@ -428,32 +431,16 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
 		newdiv.innerHTML += "<div style='height:2px;'>&nbsp;</div>";
 
 		// private chat
-		if(privateOn && uID != targetUserId)
-		{		
-			// if user has no eCredits
-			// disable option to send PM requests
-			if(eCredits == 1 && document.getElementById("eCreditsID").innerHTML == '0')
-			{
-				newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"system\",\"220\",\"300\",\"200\",\"\",\""+lang32+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/private.gif'><span style='padding-left:11px;'>"+lang33+"</span></div>";
-			}
-			else
-			{
-				if(groupPChat == 0)
-				{
-					newdiv.innerHTML += "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='showInfoBox(\"system\",\"220\",\"300\",\"200\",\"\",\""+lang6+"\")' class='highliteOff'><img style='vertical-align:middle;' src='images/usermenu/private.gif'><span style='padding-left:11px;'>"+lang33+"</span></div>";
-				}
-				else
-				{
-					newdiv.innerHTML +=
-                        "<div onmouseover=\"this.className='highliteOn'\" " +
-                            "onmouseout=\"this.className='highliteOff'\" " +
-                            "onclick='clearWhisper();createPChatDiv(\""+userName+"\",\""+targetUserName+"\",\""+uID+"\",\""+targetUserId+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")'" +
-                            " class='highliteOff'>" +
-                                "<img style='vertical-align:middle;' src='images/usermenu/private.gif'>" +
-                                "<span style='padding-left:11px;'>"+lang33+"</span>" +
-                        "</div>";
-				}
-			}
+		if(uID != targetUserId)
+		{
+			newdiv.innerHTML +=
+				"<div onmouseover=\"this.className='highliteOn'\" " +
+					"onmouseout=\"this.className='highliteOff'\" " +
+					"onclick='clearWhisper();createPChatDiv(\""+userName+"\",\""+targetUserName+"\",\""+uID+"\",\""+targetUserId+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")'" +
+					" class='highliteOff'>" +
+						"<img style='vertical-align:middle;' src='images/usermenu/private.gif'>" +
+						"<span style='padding-left:11px;'>"+lang33+"</span>" +
+				"</div>";
 		}
 		
 		// whisper

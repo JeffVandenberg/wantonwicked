@@ -49,9 +49,9 @@ ob_start();
             <?php echo FormHelper::Textarea('note', ''); ?>
         </div>
         <div class="formInput">
+            <button class="button" name="action" value="Add Note" type="submit">Add Note</button>
+            <button class="button" name="action" value="Cancel" type="submit">Cancel</button>
             <?php echo FormHelper::Hidden('request_id', $requestId); ?>
-            <?php echo FormHelper::Button('action', 'Add Note'); ?>
-            <?php echo FormHelper::Button('action', 'Cancel'); ?>
         </div>
     </form>
     <h3>Request</h3>

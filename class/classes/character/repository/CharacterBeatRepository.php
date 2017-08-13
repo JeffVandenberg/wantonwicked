@@ -87,11 +87,11 @@ SQL;
     }
 
     /**
-     * @param $beatStatusId
+     * @param $newBeatStatusId
      * @param $cutoffDate
      * @return int
      */
-    public function setStatusForBeatsOlderThan($beatStatusId, $cutoffDate)
+    public function setStatusForBeatsOlderThan($newBeatStatusId, $cutoffDate)
     {
         $sql = <<<SQL
 UPDATE
@@ -103,7 +103,7 @@ WHERE
   AND created <= ?
 SQL;
         $params = [
-            $beatStatusId,
+            $newBeatStatusId,
             BeatStatus::NewBeat,
             $cutoffDate
         ];

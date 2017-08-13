@@ -16,6 +16,7 @@ if (date('j') == 1) {
     $sheetService->awardXpToActiveCharacters(2);
     $beatService->awardOutstandingBeats();
 }
+$beatService->expireOldBeats();
 $sheetService->restoreTempWillpower();
 
 $characterCounts = $sheetService->checkCharacterActivity();
