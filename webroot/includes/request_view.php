@@ -48,7 +48,10 @@ if ($linkedCharacter->Id != 0) {
     $backLink = 'request.php?action=list&character_id=' . $linkedCharacter->CharacterId;
 }
 
-require_once('menus/character_menu.php');
+$characterMenu = [];
+if($characterId) {
+    require_once('menus/character_menu.php');
+}
 $characterMenu['Actions'] = array(
     'link' => '#',
     'submenu' => array(
