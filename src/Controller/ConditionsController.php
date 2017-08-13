@@ -142,29 +142,16 @@ class ConditionsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->Condition->id = $id;
-        if (!$this->Condition->exists()) {
-            throw new NotFoundException(__('Invalid condition'));
-        }
-        $this->request->allowMethod('post', 'delete');
-        if ($this->Condition->delete()) {
-            $this->Flash->success(__('The condition has been deleted.'));
-        } else {
-            $this->Flash->error(__('The condition could not be deleted. Please, try again.'));
-        }
         return $this->redirect(array('action' => 'index'));
     }
 
     public function isAuthorized($user)
     {
-        switch (strtolower($this->request->params['action'])) {
+        switch (strtolower($this->request->getParam('action'))) {
             case 'edit':
             case 'delete':
             case 'add':
-                return $this->Permissions->CheckSitePermission(
-                    $user['user_id'],
-                    SitePermission::$ManageDatabase
-                );
+                return $this->Permissions->MayManageDatabase();
                 break;
         }
         return false;
