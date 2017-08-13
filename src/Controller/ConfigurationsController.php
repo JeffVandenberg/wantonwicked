@@ -1,5 +1,6 @@
 <?php
-use App\Model\Entity\Configuration;
+
+namespace App\Controller;
 
 /**
  * Created by PhpStorm.
@@ -10,9 +11,8 @@ use App\Model\Entity\Configuration;
  * @property PermissionsComponent Permissions
  */
 
-namespace App\Controller;
 
-
+use App\Model\Entity\Configuration;
 use App\Controller\Component\PermissionsComponent;
 use App\Model\Table\ConfigurationsTable;
 use Cake\Event\Event;
@@ -47,7 +47,7 @@ class ConfigurationsController extends AppController
             // try to save
             $data = $this->request->getData();
             $configurations = [];
-            foreach($data as $row) {
+            foreach ($data as $row) {
                 $item = $this->Configurations->get($row['key']);
                 /* @var Configuration $item */
                 $item->value = $row['value'];

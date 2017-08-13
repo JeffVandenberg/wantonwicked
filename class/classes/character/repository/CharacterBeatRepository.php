@@ -1,13 +1,12 @@
 <?php
+namespace classes\character\repository;
+
 /**
  * Created by PhpStorm.
  * User: JeffVandenberg
  * Date: 2/25/2017
  * Time: 12:05 PM
  */
-
-namespace classes\character\repository;
-
 
 use classes\character\data\BeatStatus;
 use classes\character\data\CharacterBeat;
