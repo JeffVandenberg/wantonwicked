@@ -6,6 +6,7 @@
  * Time: 11:37 AM
  * To change this template use File | Settings | File Templates.
  */
+
 namespace App\Controller\Component;
 
 
@@ -49,6 +50,15 @@ class PermissionsComponent extends Component
 
         return $this->CheckSitePermission($userdata['user_id'], array(
             Permission::$WikiManager
+        ));
+    }
+
+    public function MayManageDatabase()
+    {
+        $userdata = $this->Auth->user();
+
+        return $this->CheckSitePermission($userdata['user_id'], array(
+            Permission::$ManageDatabase
         ));
     }
 
