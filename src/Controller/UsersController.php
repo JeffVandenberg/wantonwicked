@@ -1,6 +1,6 @@
 <?php
-use App\Model\Entity\User;
-use App\Model\Table\PhpbbGroupsTable;
+
+namespace App\Controller;
 
 /**
  * Created by PhpStorm.
@@ -9,7 +9,8 @@ use App\Model\Table\PhpbbGroupsTable;
  * Time: 8:32 PM
  */
 
-namespace App\Controller;
+use App\Model\Entity\User;
+use App\Model\Table\PhpbbGroupsTable;
 use App\Controller\Component\PermissionsComponent;
 use App\Model\Table\UsersTable;
 use Cake\Event\Event;

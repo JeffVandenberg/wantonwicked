@@ -1,4 +1,7 @@
 <?php
+
+namespace App\View\Helper;
+
 use Cake\View\Helper\HtmlHelper;
 
 /**
@@ -8,8 +11,6 @@ use Cake\View\Helper\HtmlHelper;
  * Time: 1:27 PM
  * @property HtmlHelper Html
  */
-namespace App\View\Helper;
-
 class CalendarHelper extends AppHelper
 {
     public $helpers = array('Html');
@@ -28,7 +29,6 @@ class CalendarHelper extends AppHelper
         $days_in_month = date('t', mktime(0, 0, 0, $month, 1, $year));
         $days_in_this_week = 1;
         $day_counter = 0;
-        $dates_array = array();
 
         /* row for week one */
         $calendar .= '<tr class="calendar-row">';
@@ -44,15 +44,15 @@ class CalendarHelper extends AppHelper
         for ($list_day = 1; $list_day <= $days_in_month; $list_day++):
             $todayClass = '';
             $listDayPadded = str_pad($list_day, 2, '0', STR_PAD_LEFT);
-            if($today == date($year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $listDayPadded)) {
+            if ($today == date($year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $listDayPadded)) {
                 $todayClass = 'calendar-day-today';
             }
             $calendar .= '<td class="calendar-day ' . $todayClass . '">';
             /* add in the day number */
             $calendar .= '<div class="day-number">' . $list_day . '</div>';
 
-            if(isset($links[$listDayPadded])) {
-                foreach($links[$listDayPadded] as $link) {
+            if (isset($links[$listDayPadded])) {
+                foreach ($links[$listDayPadded] as $link) {
                     $calendar .= '<div class="' . $link['class'] . '">'
                         . $this->Html->link(
                             $link['title'],

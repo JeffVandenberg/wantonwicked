@@ -1,17 +1,22 @@
 <?php
+
 namespace app\Controller;
 
+use App\Controller\Component\PermissionsComponent;
+use App\Model\Table\ConditionsTable;
 use Cake\Cache\Cache;
-use App\Controller\AppController;
+use Cake\Controller\Component\FlashComponent;
+use Cake\Controller\Component\PaginatorComponent;
+use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * Conditions Controller
  *
- * @property Condition $Condition
  * @property PaginatorComponent $Paginator
- * @property SessionComponent $Session
  * @property FlashComponent $Flash
  * @property PermissionsComponent Permissions
+ * @property ConditionsTable Conditions
  */
 class ConditionsController extends AppController
 {
@@ -26,10 +31,7 @@ class ConditionsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->set('mayEdit', $this->Permissions->CheckSitePermission(
-            $this->Auth->user('user_id'),
-            SitePermission::$ManageDatabase
-        ));
+        $this->set('mayEdit', $this->Permissions->MayManageDatabase());
         $this->Auth->allow(['index', 'view']);
     }
 
@@ -40,19 +42,11 @@ class ConditionsController extends AppController
      */
     public function index()
     {
-        $this->Condition->recursive = 0;
-        $this->Paginator->settings = [
-            'limit' => 1,
+        $this->set('conditions', $this->Paginator->paginate($this->Conditions, [
             'order' => [
-                'Condition.name',
+                'Condition.name'
             ],
-            'contain' => [
-                'CreatedBy' => ['username'],
-                'UpdatedBy' => ['username']
-            ]
-        ];
-        $this->set('conditions', $this->Paginator->paginate());
-        use App\Model\SitePermission;
+        ]));
     }
 
     /**
@@ -64,18 +58,17 @@ class ConditionsController extends AppController
      */
     public function view($slug = null)
     {
-        $conditionCount = $this->Condition->findCondition($slug, 'count');
-        if (!$conditionCount) {
-            throw new NotFoundException(__('Invalid condition'));
-        }
         $options = [
+            'where' => [
+                'Conditions.slug' => $slug
+            ],
             'contain' => [
                 'CreatedBy' => ['username'],
                 'UpdatedBy' => ['username'],
                 'ConditionType'
             ]
         ];
-        $this->set('condition', $this->Condition->findCondition($slug, 'first', $options));
+        $this->set('condition', $this->Conditions->find('first', $options));
     }
 
     /**
@@ -121,7 +114,7 @@ class ConditionsController extends AppController
 
         if ($this->request->is(array('post', 'put'))) {
             if ($this->request->data['action'] == 'Cancel') {
-                $this->redirect('/conditions/view/'.$slug);
+                $this->redirect('/conditions/view/' . $slug);
             }
             if ($this->request->data['action'] == 'Submit') {
                 $condition = $this->request->data;
@@ -149,29 +142,16 @@ class ConditionsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->Condition->id = $id;
-        if (!$this->Condition->exists()) {
-            throw new NotFoundException(__('Invalid condition'));
-        }
-        $this->request->allowMethod('post', 'delete');
-        if ($this->Condition->delete()) {
-            $this->Flash->success(__('The condition has been deleted.'));
-        } else {
-            $this->Flash->error(__('The condition could not be deleted. Please, try again.'));
-        }
         return $this->redirect(array('action' => 'index'));
     }
 
     public function isAuthorized($user)
     {
-        switch(strtolower($this->request->params['action'])) {
+        switch (strtolower($this->request->getParam('action'))) {
             case 'edit':
             case 'delete':
             case 'add':
-                return $this->Permissions->CheckSitePermission(
-                    $user['user_id'],
-                    SitePermission::$ManageDatabase
-                );
+                return $this->Permissions->MayManageDatabase();
                 break;
         }
         return false;

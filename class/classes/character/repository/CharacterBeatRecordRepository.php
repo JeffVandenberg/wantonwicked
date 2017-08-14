@@ -1,5 +1,6 @@
 <?php
-use classes\character\data\CharacterBeatRecord;
+
+namespace classes\character\repository;
 
 /**
  * Created by PhpStorm.
@@ -7,8 +8,6 @@ use classes\character\data\CharacterBeatRecord;
  * Date: 2/25/2017
  * Time: 9:20 AM
  */
-
-namespace classes\character\repository;
 
 
 use classes\character\data\CharacterBeatRecord;
@@ -42,7 +41,7 @@ SQL;
 
         $record = $this->query($sql)->single($params);
 
-        if($record) {
+        if ($record) {
             return $this->populateObject($record);
         } else {
             $obj = new $this->ManagedObject();
