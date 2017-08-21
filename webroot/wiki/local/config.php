@@ -1,4 +1,6 @@
-<?php if (!defined('PmWiki')) exit();
+<?php use classes\core\helpers\UserdataHelper;
+
+if (!defined('PmWiki')) exit();
 ##  This is a sample config.php file.  To use this file, copy it to
 ##  local/config.php, then edit it for whatever customizations you want.
 ##  Also, be sure to take a look at http://www.pmichaud.com/wiki3.0/Cookbook
@@ -19,7 +21,7 @@ include_once("cookbook/newpageboxplus.php");
 ## set group patterns
 $GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
 $isST = false;
-if(($userdata['is_asst'] || $userdata['is_gm'] || $userdata['wiki_manager']|| $userdata['is_head'] || $userdata['is_admin']) && (!$userdata['cell_id']))
+if(UserdataHelper::IsSt($userdata))
 {
   $isST = true;
   $GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox|Storytellers)';
@@ -28,7 +30,7 @@ $DeleteKeyPattern = "^\\s*123This Page Is Removed321\\s*$";
 
 ##  $ScriptUrl is your preferred URL for accessing wiki3.0 pages
 ##  $PubDirUrl is the URL for the pub directory.
-$ScriptUrl = ('http' . ($_SERVER['HTTPS'] ? 's' : '')) . '://' . $_SERVER['SERVER_NAME'] . '/wiki';
+$ScriptUrl = ('http' . (isset($_SERVER['HTTPS']) ? 's' : '')) . '://' . $_SERVER['SERVER_NAME'] . '/wiki';
 # $PubDirUrl = 'http://www.mydomain.com/path/to/pub';
 
 ##  If you want to use URLs of the form .../pmwiki.php/Group/PageName
@@ -53,7 +55,7 @@ $Skin = 'wantonwicked';
 ## the "attr" passwords for the PmWiki and Main groups are locked, so
 ## an admin password is a good way to unlock those.  See PmWiki.Passwords
 ## and PmWiki.PasswordsAdmin.
-$DefaultPasswords['admin'] = crypt('mySecret1');
+$DefaultPasswords['admin'] = crypt('mySecret1', 'moocow123eclipse');
 
 ## If you're running a publicly available site and allow anyone to
 ## edit without requiring a password, you probably want to put some
@@ -200,8 +202,6 @@ include_once('../user_panel.php');
 $FmtPV['$ServerTime'] = ((microtime(true) + date('Z'))*1000);
 $FmtPV['$UserControlPanel'] = "UserPanel::getUserControlPanel()";
 $FmtPV['$SiteUserName'] = "\"$userdata[username]\"";
-$FmtPV['$SiteUPName'] = "UserPanel::getUpName()";
-$FmtPV['$LogInOut'] = "UserPanel::getUpLogInOut()";
 
 include_once('../menu_bar.php');
 

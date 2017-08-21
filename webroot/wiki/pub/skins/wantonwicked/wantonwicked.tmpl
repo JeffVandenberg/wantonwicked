@@ -20,43 +20,32 @@
     </script>
 </head>
 <body>
-<body>
 <div id="header">
-    <div class="widthsetter">
-		<div id="logo"></div>
-		<div id="userpanel"><span>{$SiteUPName}</span>
-			<span id="server-time" style="float:right;"></span><br>
-			{$LogInOut}<br>
+    <div class="title-bar" data-hide-for="medium" data-responsive-toggle="nav-top">
+        <button class="menu-icon" type="button" data-toggle></button>
+        <div class="title-logo" role="banner">
+            <a href="/" title="Wanton Wicked">
+                <img src="/img/ww_logo_50x50.png" alt="Wanton Wicked Logo"/>
+            </a>
+        </div>
+    </div>
+    <nav id="nav-top" class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%"
+         data-top-anchor="main-content">
+        <ul class="menu">
+            <li class="topbar-title title-logo show-for-medium"
+                role="banner">
+                <a href="/" title="Wanton Wicked">
+                    <img src="/img/ww_logo_50x50.png" alt="Wanton Wicked Logo"/>
+                </a>
+            </li>
+        </ul>
+        <div class="top-bar-left">
+            {$MenuBar}
+        </div>
+        <div class="top-bar-right">
             {$UserControlPanel}
         </div>
-        <div id="nav" data-sticky-container>
-            <div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
-                <button class="menu-icon" type="button" data-toggle></button>
-                <div class="title-bar-title">Menu</div>
-            </div>
-
-            <div class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="main-content">
-                <div class="top-bar-left">
-                    {$MenuBar}
-                </div>
-                <div class="top-bar-right">
-                    <form action='{$ScriptUrl}'>
-                        <ul class="menu">
-                            <li>
-                                <input type='hidden' name='n' value='{$FullName}' />
-                                <input type='hidden' name='action' value='search' />
-                                <!--<a href='{$ScriptUrl}/$[{$SiteGroup}/Search]'>$[Search]</a>:-->
-                                <input type='text' name='q' value='' class='' placeholder="$[Search]" />
-                            </li>
-                            <li>
-                                <button type='submit' class="button">$[Go]</button>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-    	</div>
-    </div>
+    </nav>
 </div>
 <div id="main-content" class="widthsetter">
     <div class="row">

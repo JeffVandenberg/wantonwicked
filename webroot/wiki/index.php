@@ -1,4 +1,6 @@
 <?php
+require_once '../../vendor/autoload.php';
+
 // perform required includes
 define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../forum/';
@@ -970,8 +972,11 @@ function XLSDV($lang,$a) {
   global $XL;
   foreach($a as $k=>$v) {
     if (!isset($XL[$lang][$k])) {
-      if (preg_match('/^e_(rows|cols)$/', $k)) $v = intval($v);
-      elseif (preg_match('/^ak_/', $k)) $v = $v{0};
+      if (preg_match('/^e_(rows|cols)$/', $k)) {
+          $v = intval($v);
+      } elseif (preg_match('/^ak_/', $k) && strlen($v) > 0) {
+          $v = $v{0};
+      }
       $XL[$lang][$k]=$v;
     }
   }
