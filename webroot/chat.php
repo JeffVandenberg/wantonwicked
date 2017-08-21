@@ -97,4 +97,3 @@ $template->set_filenames(array(
         'body' => $template_file)
 );
 $template->display('body');
-

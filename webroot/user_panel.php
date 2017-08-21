@@ -61,19 +61,18 @@ EOQ;
         $userControlPanel .= <<<EOQ
  <br><a href="/request.php?action=st_list">New Requests to Process ($newStRequestCount)</a>
 EOQ;
-
-        $userInfo['username'] = $userdata['username'];
-        $userInfo['logout_link'] = $logout;
-        $userInfo['request_count'] = $requestCount;
-        $userInfo['new_request_count'] = $newStRequestCount;
-        $userInfo['logged_in'] = true;
     }
+
+    $userInfo['username'] = $userdata['username'];
+    $userInfo['logout_link'] = $logout;
+    $userInfo['request_count'] = $requestCount;
+    $userInfo['new_request_count'] = $newStRequestCount;
+    $userInfo['logged_in'] = true;
 
     WikiInformation::setUpName($up_name);
     WikiInformation::setLoginOut($up_loginout);
     WikiInformation::setUcp($userControlPanel);
 }
-
 
 $user_panel = <<<EOQ
 $up_name 

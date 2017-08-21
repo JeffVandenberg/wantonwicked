@@ -62,25 +62,31 @@ use Cake\Core\Configure;
 </head>
 <body>
 <div id="header">
-    <div class="widthsetter">
-        <div id="logo"></div>
-        <div id="userpanel"><?php echo $this->UserPanel->Create($this->Url->build()); ?></div>
-        <div id="nav" data-sticky-container>
-            <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="large">
-                <button class="menu-icon" type="button" data-toggle="main-menu"></button>
-                <div class="title-bar-title">Menu</div>
-            </div>
-
-            <div class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%"
-                 data-top-anchor="main-content">
-                <div class="top-bar-left">
-                    <?php echo $this->MainMenu->Create($menu); ?>
-                </div>
-                <div class="top-bar-right">
-                </div>
-            </div>
+    <div class="title-bar" data-hide-for="medium" data-responsive-toggle="nav-top">
+        <button class="menu-icon" type="button" data-toggle></button>
+        <div class="title-logo" role="banner">
+            <a href="/" title="Wanton Wicked">
+                <img src="/img/ww_logo_50x50.png" alt="Wanton Wicked Logo"/>
+            </a>
         </div>
     </div>
+    <nav id="nav-top" class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%"
+         data-top-anchor="main-content">
+        <ul class="menu">
+            <li class="topbar-title title-logo show-for-medium"
+                role="banner">
+                <a href="/" title="Wanton Wicked">
+                    <img src="/img/ww_logo_50x50.png" alt="Wanton Wicked Logo"/>
+                </a>
+            </li>
+        </ul>
+        <div class="top-bar-left">
+            <?php echo $this->MainMenu->Create($menu); ?>
+        </div>
+        <div class="top-bar-right">
+            <?php echo $this->UserPanel->Create($this->Url->build()); ?>
+        </div>
+    </nav>
 </div>
 <div id="main-content" class="widthsetter">
     <div id="content">
