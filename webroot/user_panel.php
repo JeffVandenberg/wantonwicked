@@ -90,12 +90,3 @@ $user_panel = <<<EOQ
 $up_name 
 $up_loginout
 EOQ;
-
-
-class UserPanel
-{
-    public static function getUserControlPanel()
-    {
-        return WikiInformation::getUcp();
-    }
-}

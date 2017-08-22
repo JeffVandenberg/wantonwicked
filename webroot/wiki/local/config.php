@@ -200,7 +200,7 @@ include_once('../cgi-bin/start_of_page.php');
 include_once('../user_panel.php');
 
 $FmtPV['$ServerTime'] = ((microtime(true) + date('Z'))*1000);
-$FmtPV['$UserControlPanel'] = "UserPanel::getUserControlPanel()";
+$FmtPV['$UserControlPanel'] = "classes\integration\WikiInformation::getUcp()";
 $FmtPV['$SiteUserName'] = "\"$userdata[username]\"";
 
 include_once('../menu_bar.php');
