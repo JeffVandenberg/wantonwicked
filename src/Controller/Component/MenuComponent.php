@@ -37,7 +37,7 @@ class MenuComponent extends Component
             return;
         }
 
-        if ($this->Auth->user()) {
+        if ($this->Auth->user('user_id') != 1) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['player']);
 
             $characterTable = TableRegistry::get('Characters');

@@ -87,19 +87,19 @@ if (isset($_GET['action'])) {
     }
 }
 
-/* @var $template twig */
+/* @var twig $template */
 $template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
-
+$template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage());
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
         "TOP_IMAGE" => $page_image ?? '',
         "MENU_BAR" => $menu_bar,
         "PAGE_CONTENT" => $page_content,
-        "EXTRA_HEADERS" => $extra_headers,
+        "EXTRA_HEADERS" => $extra_headers ?? '',
         "USER_PANEL" => $user_panel,
+        "USER_INFO" => $userInfo,
         "CONTENT_HEADER" => $contentHeader,
-        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
         "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
         "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../build_number'),
     )
@@ -114,4 +114,3 @@ $template->set_filenames(array(
         'body' => $template_file)
 );
 $template->display('body');
-

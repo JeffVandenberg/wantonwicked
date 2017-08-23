@@ -23,7 +23,7 @@ class MainMenuHelper extends AppHelper
         }
 
         $renderedMenu = <<<EOQ
-<ul class="dropdown menu" id='main-menu' data-dropdown-menu>
+<ul class="vertical medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown">
 EOQ;
 
         $renderedMenu .= $this->AppendLevel($menu, true);
@@ -38,7 +38,7 @@ EOQ;
         $menuLevel = '';
 
         if (!$firstLayer) {
-            $menuLevel .= '<ul class="menu">';
+            $menuLevel .= '<ul class="vertical menu">';
         }
 
         foreach ($menu as $label => $item) {

@@ -830,7 +830,7 @@ function emquoHandler($m) {
     return $m[1].ltrim(SmartenQuotes(' '.$m[2])).$m[3];
 }
 function squoHandler($m) {
-    return BypassHTML($m[1],$m[2]);
+    return BypassHTML($m[1],$m[2] ?? '');
 }
 function squolinkHandler($m) {
     return $m[1].SmartenLinkText($m[2]).$m[3];

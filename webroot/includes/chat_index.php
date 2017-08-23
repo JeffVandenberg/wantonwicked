@@ -82,11 +82,11 @@ ob_start();
                                     <a href="/character.php?action=interface&character_id=<?php echo $character->Id; ?>"
                                        target="_blank" class="button float-right">Interface
                                     </a>
-                                    <a class="dropdown button arrow-only" type="button"
+                                    <button class="dropdown button arrow-only" type="button"
                                        data-toggle="<?php echo $character->Id; ?>-dropdown">
                                         <span class="show-for-sr">Show menu</span>
-                                    </a>
-                                    <div class="dropdown-pane bottom" id="<?php echo $character->Id; ?>-dropdown"
+                                    </button>
+                                    <div class="dropdown-pane bottom right" id="<?php echo $character->Id; ?>-dropdown"
                                          data-dropdown data-auto-focus="true">
                                         <ul class="vertical menu">
                                             <li>

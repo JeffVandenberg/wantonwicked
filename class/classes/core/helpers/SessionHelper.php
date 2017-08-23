@@ -27,11 +27,11 @@ class SessionHelper
         $messages = [];
         if (isset($_SESSION['Flash'][$section]) && count($_SESSION['Flash'][$section])) {
             foreach($_SESSION['Flash'][$section] as $data) {
-                $messages[] = $data['message'];
+                $messages[] = $data;
             }
             unset($_SESSION['Flash'][$section]);
         }
-        return implode(' ', $messages);
+        return $messages;
     }
 
     public static function Read($index, $default = null)

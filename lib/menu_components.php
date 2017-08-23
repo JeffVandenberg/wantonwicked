@@ -11,10 +11,6 @@ namespace app\Lib;
 
 $menuComponents = [];
 $menuComponents['base'] = [
-    'Home' => [
-        'link' => '/',
-        'target' => '_top'
-    ],
     'Forums' => [
         'link' => '/forum/index.php',
     ],

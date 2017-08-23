@@ -14,6 +14,8 @@
 namespace App\View;
 
 use App\View\Helper\CharacterHelper;
+use App\View\Helper\MainMenuHelper;
+use App\View\Helper\UserPanelHelper;
 use Cake\View\View;
 use Shrink\View\Helper\ShrinkHelper;
 
@@ -24,6 +26,8 @@ use Shrink\View\Helper\ShrinkHelper;
  *
  * @property ShrinkHelper Shrink
  * @property CharacterHelper Character
+ * @property UserPanelHelper UserPanel
+ * @property MainMenuHelper MainMenu
  * @link http://book.cakephp.org/3.0/en/views.html#the-app-view
  */
 class AppView extends View

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\View\Helper;
 
 use Cake\View\Helper\HtmlHelper;
@@ -19,8 +20,8 @@ class UserPanelHelper extends AppHelper
     public function Create($page)
     {
         $panel = <<<EOQ
+<span id="server-time"></span>
 <a href="/forum/ucp.php?mode=login&redirect=$page">Login</a>
-<span id="server-time"></span><br>
 <a href="/forum/ucp.php?mode=register&redirect=$page">Register</a>
 EOQ;
 
@@ -30,30 +31,43 @@ EOQ;
 
             $requestRepo = new RequestRepository();
             $requestCount = $requestRepo->countOpenForUser($this->request->session()->read('Auth.User.user_id'));
+            $stRequests = $requestRepo->countNewStRequests($this->request->session()->read('Auth.User.user_id'));
 
             $logout = $this->Html->link('Logout', $this->Html->Url->build('/') . 'forum/ucp.php?mode=logout&sid=' . $this->request->session()->read('Auth.User.session_id'));
 
             $panel = <<<EOQ
-<span>$userName</span>
-<span id="server-time"></span><br>
-$logout <br />
-<a href="/forum/ucp.php">User Control Panel</a>
+<span id="server-time"></span>&nbsp;
+EOQ;
+            if ($stRequests) {
+                $panel .= <<<EOQ
+<a href="/request.php" class="button-badge">
+    <i class="fa fi-clipboard storyteller-action" title="ST Request Dashboard"></i>
+    <span class="badge badge-primary warning" title="New Requests">$stRequests</span>
+</a>&nbsp;
+EOQ;
+            }
+
+            $panel .= <<<EOQ
+<a href="/request.php" class="button-badge">
+    <i class="fa fi-clipboard" title="Your Requests"></i>
 EOQ;
             if ($requestCount) {
-                $panel .= ' - ' . $this->Html->link(
-                        'Open Requests (' . $requestCount . ')',
-                        '/request.php');
+                $panel .= '<span class="badge badge-primary warning" title="Open Requests">' . $requestCount . '</span>';
             }
+            $panel .= '</a>&nbsp;';
 
-            $stRequests = $requestRepo->countNewStRequests($this->request->session()->read('Auth.User.user_id'));
+            $panel .= <<<EOQ
+<button class="button" type="button" data-toggle="user-dropdown">
+    $userName
+</button>
+<div class="dropdown-pane" id="user-dropdown" data-dropdown>
+    <div><a href="/forum/ucp.php">User Control Panel</a></div>
+    <div><a href="$logout">Logout</a></div>
+</div>
+EOQ;
 
-            if ($stRequests) {
-                $panel .= ' - ' . $this->Html->link(
-                        'New Requests to Process (' . $stRequests . ')',
-                        '/request.php?action=st_list');
-            }
         }
 
         return $panel;
     }
-} 
+}

@@ -40,7 +40,7 @@ $page_image = "";
 $page_content = "";
 $java_script = "";
 $contentHeader = "";
-$template_file = "main_ww4";
+$template_file = "main_ww4.tpl";
 include 'user_panel.php';
 // build links
 include 'menu_bar.php';
@@ -76,16 +76,19 @@ if (isset($_GET['action'])) {
     $page_content = "OOC Die Roller";
 }
 
-/* @var $template twig */
+/* @var twig $template */
+$template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
+$template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage());
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,
-        "USER_PANEL" => $user_panel,
+        "TOP_IMAGE" => $page_image ?? '',
         "MENU_BAR" => $menu_bar,
-        "TOP_IMAGE" => $page_image,
         "PAGE_CONTENT" => $page_content,
+        "EXTRA_HEADERS" => $extra_headers ?? '',
+        "USER_PANEL" => $user_panel,
+        "USER_INFO" => $userInfo,
         "CONTENT_HEADER" => $contentHeader,
-        "FLASH_MESSAGE" => SessionHelper::GetFlashMessage(),
         "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
         "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../build_number'),
     )
@@ -93,18 +96,10 @@ $template->assign_vars(array(
 
 if(Request::isAjax())
 {
-    $template_file = 'empty';
+    $template_file = 'empty.tpl';
 }
-
-$template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
-$template_file = $template_file . '.tpl';
-// Output page
-page_header($page_title, true);
-
-$template->set_filenames(
-    array(
-        'body' => $template_file
-    )
+// initialize template
+$template->set_filenames(array(
+        'body' => $template_file)
 );
-
-page_footer();
+$template->display('body');

@@ -1,5 +1,6 @@
 <?php
 /* @var array $userdata */
+
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
 use classes\core\helpers\Pagination;
@@ -69,8 +70,8 @@ ob_start();
 ?>
 <?php echo $menu; ?>
     <h2>Filters</h2>
-    <div class="row">
-        <form method="get" action="/request.php">
+    <form method="get" action="/request.php">
+        <div class="row align-middle">
             <div class="small-12 medium-6 column">
                 <?php echo FormHelper::Text('filter[title]', $filter['title'], ['label' => 'Request Name']); ?>
             </div>
@@ -86,12 +87,12 @@ ob_start();
             <div class="small-12 medium-3 column">
                 <?php echo FormHelper::Select($requestStatuses, 'filter[request_status_id]', $filter['request_status_id'], ['label' => 'Request Status']); ?>
             </div>
-            <div class="small-12 medium-2 column">
+            <div class="small-12 medium-2 column bottom">
                 <?php echo FormHelper::Hidden('action', 'st_list'); ?>
                 <button class="button" type="submit" name="page_action">Update Filters</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
     <table>
         <tr>
             <th>
