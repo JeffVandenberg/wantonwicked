@@ -195,26 +195,26 @@ class CharacterHelper extends AppHelper
         ?>
         <ul id="character-form-edit" class="accordion" data-accordion data-multi-expand="true"
             data-allow-all-closed="true">
-            <li class="accordion-item is-active">
+            <li class="accordion-item is-active" data-accordion-item>
                 <?php echo $bio; ?>
             </li>
-            <li class="accordion-item">
+            <li class="accordion-item" data-accordion-item>
                 <?php echo $stats; ?>
             </li>
-            <li class="accordion-item">
+            <li class="accordion-item" data-accordion-item>
                 <?php echo $powers; ?>
             </li>
-            <li class="accordion-item">
+            <li class="accordion-item" data-accordion-item>
                 <?php echo $derived; ?>
             </li>
-            <li class="accordion-item">
+            <li class="accordion-item" data-accordion-item>
                 <?php echo $equipment; ?>
             </li>
-            <li class="accordion-item">
+            <li class="accordion-item" data-accordion-item>
                 <?php echo $conditions; ?>
             </li>
             <?php if ($this->options['show_admin']): ?>
-                <li class="accordion-item">
+                <li class="accordion-item" data-accordion-item>
                     <?php echo $admin; ?>
                 </li>
             <?php endif; ?>

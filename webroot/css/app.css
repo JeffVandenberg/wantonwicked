@@ -4484,7 +4484,7 @@ select {
   border-bottom: 0;
   font-size: 0.75rem;
   line-height: 1;
-  color: #0e3b43; }
+  color: #efd7ae; }
   :last-child:not(.is-active) > .accordion-title {
     border-bottom: 1px solid #222222;
     border-radius: 0 0 0 0; }
