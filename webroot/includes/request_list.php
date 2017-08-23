@@ -75,6 +75,9 @@ $menu = MenuHelper::GenerateMenu($characterMenu);
 ob_start();
 ?>
 <?php echo $menu; ?>
+    <div class="">
+        <a class="button" href="/request.php?action=create&character_id=<?php echo $characterId; ?>">New Request</a>
+    </div>
     <table>
         <tr>
             <th>

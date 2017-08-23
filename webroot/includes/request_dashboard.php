@@ -56,6 +56,14 @@ if(UserdataHelper::mayManageRequests($userdata)) {
 
 ob_start();
 ?>
+    <div class="clearfix">
+        <div class="">
+            <a class="button" href="/request.php?action=create">New Request</a>
+            <?php if(UserdataHelper::mayManageRequests($userdata)): ?>
+                <a class="button" href="/request.php?action=st_list">Manage Requests</a>
+            <?php endif; ?>
+        </div>
+    </div>
     <h2>Your Open Requests</h2>
     <table>
         <tr>
