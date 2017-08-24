@@ -774,8 +774,8 @@ function handleMessages()
 		var remoteVersion = parseInt(xmldoc.getElementsByTagName("version")[0].childNodes[0].nodeValue);
 		if(remoteVersion > version) {
 			$.toast({
-				text: "There has been a chat service update. <a href='#' onclick='window.location.reload();'>Reload?</a>",
-				heading: 'Server Updated',
+				text: "There has been an update to the site. <a href='#' onclick='window.location.reload();'>Reload?</a>",
+				heading: 'New Site Version',
 				position: {top:20, right:70},
 				hideAfter: false,
 				icon: 'info',
