@@ -37,7 +37,7 @@ $menu_bar = "";
 $top_image = "";
 $page_content = "";
 $java_script = "";
-$template_file = "main_ww4";
+$template_file = "main_ww4.tpl";
 $contentHeader = "";
 
 

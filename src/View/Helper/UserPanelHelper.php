@@ -62,7 +62,7 @@ EOQ;
 </button>
 <div class="dropdown-pane" id="user-dropdown" data-dropdown>
     <div><a href="/forum/ucp.php">User Control Panel</a></div>
-    <div><a href="$logout">Logout</a></div>
+    <div>$logout</div>
 </div>
 EOQ;
 

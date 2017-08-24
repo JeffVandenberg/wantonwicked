@@ -17,6 +17,7 @@ use Cake\Core\Configure;
     <?php echo $this->Html->meta('icon'); ?>
     <META NAME="copyright" content="(c) <?php echo date('Y'); ?> Jeff Vandenberg">
     <META NAME="ROBOTS" CONTENT="noimageindex,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
     if (Configure::read('debug')) {
         echo $this->Html->css([

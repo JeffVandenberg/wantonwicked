@@ -8,6 +8,7 @@ use Cake\View\View;
 
 /* @var View $this */
 /* @var Scene $scene */
+/* @var bool $mayEdit */
 /* @var SceneCharacter[] $sceneCharacters */
 
 $this->set('title_for_layout', 'Scene: ' . $scene->name);
@@ -38,7 +39,7 @@ if ($mayEdit || ($scene->created_by_id == $this->request->session()->read('Auth.
             $scene->slug
         ]
     ];
-    if ($scene['Scene']['scene_status_id'] == SceneStatus::Open) {
+    if ($scene->scene_status_id == SceneStatus::Open) {
         $menu['Actions']['submenu']['Complete Scene'] = [
             'link' => [
                 'action' => 'complete',

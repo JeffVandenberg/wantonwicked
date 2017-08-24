@@ -21,7 +21,7 @@ if ($mayAdd) {
 if ($this->request->session()->read('Auth.User.user_id') > 1) {
     $menu['Actions']['submenu']['My Scenes'] = [
         'link' => [
-            'action' => 'my_scenes'
+            'action' => 'my-scenes'
         ]
     ];
 }
