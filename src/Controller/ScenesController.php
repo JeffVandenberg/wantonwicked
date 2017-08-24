@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\Component\PermissionsComponent;
@@ -381,58 +382,60 @@ class ScenesController extends AppController
         }
     }
 
-    public function my_scenes()
+    public function myScenes()
     {
-        $this->Scene->recursive = 0;
-        $this->Paginator->settings = array(
-            'fields' => array(
-                'Scene.id',
-                'Scene.name',
-                'Scene.run_on_date',
-                'Scene.summary',
-                'Scene.slug',
-                'Scene.run_by_id',
-                'SceneStatus.name',
+        $query = $this->Scenes
+            ->query()
+            ->select([
+                'Scenes.id',
+                'Scenes.name',
+                'Scenes.run_on_date',
+                'Scenes.summary',
+                'Scenes.slug',
+                'Scenes.run_by_id',
+                'SceneStatuses.name',
                 'CreatedBy.username',
                 'UpdatedBy.username',
                 'RunBy.username'
-            ),
-            'conditions' => array(
-//                'Scene.scene_status_id !=' => SceneStatus::Cancelled,
-                'or' => array(
-                    'Scene.run_by_id' => $this->Auth->user('user_id'),
-                    'Character.user_id' => $this->Auth->user('user_id')
-                )
-            ),
-            'order' => array(
-                'Scene.run_on_date' => 'asc'
-            ),
-            'contain' => array(
-                'SceneStatus',
+            ])
+            ->where([
+                'or' => [
+                    'Scenes.run_by_id' => $this->Auth->user('user_id'),
+                    'Characters.user_id' => $this->Auth->user('user_id')
+                ]
+            ])
+            ->contain([
+                'SceneStatuses',
                 'RunBy',
                 'CreatedBy',
                 'UpdatedBy',
-                'SceneCharacter' => array(
-                    'Character'
+                'SceneCharacters' => array(
+                    'Characters'
                 )
-            ),
-            'joins' => array(
-                array(
-                    'alias' => 'SceneCharacter',
-                    'table' => 'scene_characters',
-                    'type' => 'LEFT',
-                    'conditions' => '`Scene`.`id` = `SceneCharacter`.`scene_id`'
-                ),
-                array(
-                    'alias' => 'Character',
-                    'table' => 'characters',
-                    'type' => 'LEFT',
-                    'conditions' => '`SceneCharacter`.`character_id` = `Character`.`id`'
-                )
+            ])
+            ->join([
+                    [
+                        'alias' => 'SceneCharacters',
+                        'table' => 'scene_characters',
+                        'type' => 'LEFT',
+                        'conditions' => '`Scenes`.`id` = `SceneCharacters`.`scene_id`'
+                    ],
+                    [
+                        'alias' => 'Characters',
+                        'table' => 'characters',
+                        'type' => 'LEFT',
+                        'conditions' => '`SceneCharacters`.`character_id` = `Characters`.`id`'
+                    ]
+                ]
             )
-        );
+        ;
 
-        $this->set('scenes', $this->Paginator->paginate());
+        $this->set('scenes', $this->paginate($query, [
+            'limit' => 25,
+            'order' => [
+                'Scenes.run_on_date' => 'asc'
+            ]
+        ]));
         $this->set('mayEdit', $this->Permissions->IsST());
         $this->set(compact('includePast'));
 
