@@ -127,6 +127,7 @@ class SheetService
         $powers = [];
         switch ($character->CharacterType) {
             case 'mortal':
+            case 'wolfblooded':
                 $powers = [
                     'break_point' => 5
                 ];

@@ -256,7 +256,7 @@ class CharacterHelper extends AppHelper
         $vice = $character->Vice;
         $history = str_replace("\n", "<br />", $character->History);
         $characterNotes = str_replace("\n", "<br />", $character->CharacterNotes);
-        $icon = $this->icons[$character->Icon];
+        $icon = $this->icons[$character->Icon] ?? '';
         $friends = $character->Friends;
 
         if ($this->mayEditOpen()) {
