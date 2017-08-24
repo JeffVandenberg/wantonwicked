@@ -42,7 +42,7 @@
             <span id="server-time"></span>
             <!-- IF USER_INFO.logged_in -->
                 <!-- IF USER_INFO.new_request_count -->
-                <a href="/request.php" class="button-badge">
+                <a href="/request.php?action=st_list" class="button-badge">
                     <i class="fa fi-clipboard storyteller-action" title="ST Request Dashboard"></i>
                     <span class="badge badge-primary warning" title="New Requests">{USER_INFO.new_request_count}</span>
                 </a>

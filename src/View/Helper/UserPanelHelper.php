@@ -40,7 +40,7 @@ EOQ;
 EOQ;
             if ($stRequests) {
                 $panel .= <<<EOQ
-<a href="/request.php" class="button-badge">
+<a href="/request.php?action=st_list" class="button-badge">
     <i class="fa fi-clipboard storyteller-action" title="ST Request Dashboard"></i>
     <span class="badge badge-primary warning" title="New Requests">$stRequests</span>
 </a>&nbsp;

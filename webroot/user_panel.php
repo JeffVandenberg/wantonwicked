@@ -46,7 +46,7 @@ if ($userdata['user_id'] != 1) {
     ob_start(); ?>
 <span id="server-time"></span>
 <?php if($newStRequestCount): ?>
-<a href="/request.php" class="button-badge">
+<a href="/request.php?action=st_list" class="button-badge">
     <i class="fa fi-clipboard storyteller-action" title="ST Request Dashboard"></i>
     <span class="badge badge-primary warning" title="New Requests"><?php echo $newStRequestCount; ?></span>
     </a>
