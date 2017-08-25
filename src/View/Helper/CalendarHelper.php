@@ -22,7 +22,7 @@ class CalendarHelper extends AppHelper
 
         /* table headings */
         $headings = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-        $calendar .= '<tr class="calendar-row show-for-large-only"><td class="calendar-day-head">' .
+        $calendar .= '<tr class="calendar-row show-for-large"><td class="calendar-day-head">' .
             implode('</td><td class="calendar-day-head">', $headings) .
             '</td></tr>';
 

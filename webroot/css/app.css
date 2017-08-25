@@ -7144,11 +7144,11 @@ div.formInput {
 
 /* Calendar classes */
 .calendar-day-head {
-  font-weight: bold; }
+  font-weight: bold;
+  width: 14%; }
 
 .calendar-day {
-  vertical-align: top;
-  width: 14%; }
+  vertical-align: top; }
 
 .calendar-day-today {
   background-color: #222222; }
