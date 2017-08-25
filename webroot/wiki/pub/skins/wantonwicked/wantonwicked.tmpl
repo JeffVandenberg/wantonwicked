@@ -51,6 +51,21 @@
 <div id="main-content" class="widthsetter">
     <div class="row">
         <div class="small-12 column text-center">
+            <div class="float-right">
+                <form action='{$ScriptUrl}'>
+                    <ul class="menu">
+                        <li>
+                            <input type='hidden' name='n' value='{$FullName}' />
+                            <input type='hidden' name='action' value='search' />
+                            <!--<a href='{$ScriptUrl}/$[{$SiteGroup}/Search]'>$[Search]</a>:-->
+                            <input type='text' name='q' value='' class='' placeholder="$[Search]" />
+                        </li>
+                        <li>
+                            <button type='submit' class="button">$[Go]</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
             <h3><a href="{$ScriptUrl}/{$Group}">$Group</a>: {$Title}</h3>
         </div>
     </div>
