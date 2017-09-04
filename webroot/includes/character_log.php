@@ -16,6 +16,7 @@ $page = Request::getValue('page', 1);
 $pageSize = Request::getValue('page_size', 25);
 
 $characterId = Request::getValue('character_id', 0);
+$actionTypeId = Request::getValue('action_type_id', 0);
 $filterLogins = Request::getValue('filter_logins', 1);
 $logId = Request::getValue('log_id', null);
 
@@ -27,6 +28,7 @@ if ((!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])
 $logCharacterRepository = RepositoryManager::GetRepository('classes\character\data\LogCharacter');
 $filterOptions = [
     'character_id' => $characterId,
+    'action_type_id' => $actionTypeId,
     'filter_logins' => $filterLogins,
     'log_id' => $logId
 ];
@@ -46,16 +48,19 @@ if(ceil($count / $pageSize) > $page) {
     $hasNext = true;
 }
 
-$characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
+$actionTypeRepo = RepositoryManager::GetRepository(ActionType::class);
+$characterRepository = RepositoryManager::GetRepository(Character::class);
 $character = $characterRepository->getById($characterId);
 /* @var Character $character */
 
+$actionTypes = array_merge([0 => 'All'], $actionTypeRepo->simpleListAll());
 $page_title = 'Log for ' . $character->CharacterName;
 $contentHeader = $page_title;
 
 $options = http_build_query([
     'action' => 'log',
     'character_id' => $characterId,
+    'action_type_id' => $actionTypeId,
     'filter_logins' => $filterLogins
 ]);
 
@@ -72,19 +77,26 @@ ob_start();
     }
 </style>
 <div style="padding: 10px 0;">
-    <form method="get" action="/character.php">
-        <?php echo FormHelper::Hidden('character_id', $characterId); ?>
-        <?php echo FormHelper::Hidden('action', 'log'); ?>
-        <?php echo FormHelper::Checkbox('filter_logins', 1, $filterLogins == 1, [
-            'label' => 'Filter out Chat Logins'
-        ]); ?>
-        <?php echo FormHelper::Checkbox('clear_log_id', 0, false, [
-            'label' => 'Clear Log ID Filter'
-        ]); ?>
-        <button type="submit" class="button" value="Update">Update</button>
+    <form method="get" action="/character.php" class="row">
+        <div class="small-12 medium-4 columns">
+            <?php echo FormHelper::Hidden('character_id', $characterId); ?>
+            <?php echo FormHelper::Hidden('action', 'log'); ?>
+            <?php echo FormHelper::Checkbox('filter_logins', 1, $filterLogins == 1, [
+                'label' => 'Filter out Chat Logins'
+            ]); ?>
+            <?php echo FormHelper::Checkbox('clear_log_id', 0, false, [
+                'label' => 'Clear Log ID Filter'
+            ]); ?>
+        </div>
+        <div class="small-12 medium-3 columns">
+            <?php echo FormHelper::Select($actionTypes, 'action_type_id', $actionTypeId, ['label' => 'Action']); ?>
+        </div>
+        <div class="small-12 medium-5 columns">
+            <button type="submit" class="button" value="Update">Update</button>
+        </div>
     </form>
 </div>
-<table>
+<table class="stacked">
     <tr>
         <th colspan="5">
             <?php if($hasPrev): ?>

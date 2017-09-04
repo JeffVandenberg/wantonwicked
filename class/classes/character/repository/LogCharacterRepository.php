@@ -65,6 +65,11 @@ EOQ;
             $params[]  = $filterOptions['log_id'];
         }
 
+        if($filterOptions['action_type_id']) {
+            $sql .= ' AND action_type_id = ? ';
+            $params[] = $filterOptions['action_type_id'];
+        }
+
         $sql .= <<<EOQ
 ORDER BY
     id DESC
@@ -96,6 +101,11 @@ EOQ;
 
         if($filterOptions['filter_logins']) {
             $sql .= ' AND action_type_id != 2 ';
+        }
+
+        if($filterOptions['action_type_id']) {
+            $sql .= ' AND action_type_id = ? ';
+            $params[] = $filterOptions['action_type_id'];
         }
 
         if($filterOptions['log_id']) {
