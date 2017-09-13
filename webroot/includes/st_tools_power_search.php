@@ -1,4 +1,5 @@
 <?php
+
 use classes\character\data\CharacterStatus;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\MenuHelper;
@@ -16,7 +17,33 @@ $maxPowerLevel = Request::getValue('max_power_level', 8);
 if (Request::isPost()) {
     $statuses = implode(',', CharacterStatus::Sanctioned);
 
-    $sql = <<<EOQ
+    if (in_array($powerType, ['power_stat'])) {
+        $sql = <<<SQL
+SELECT
+	character_name,
+	character_type,
+	is_npc,
+	C.id,
+	"$powerType" as power_name,
+	$powerType as `power_level`,
+	NULL as power_note,
+	NULL as extra
+FROM
+	characters AS C
+WHERE
+	C.character_status_id IN ($statuses)
+	AND C.$powerType >= ?
+	AND C.$powerType <= ?
+ORDER BY
+	character_type,
+	character_name
+SQL;
+        $params = [
+            $minPowerLevel,
+            $maxPowerLevel
+        ];
+    } else {
+        $sql = <<<EOQ
 SELECT
 	character_name,
 	character_type,
@@ -41,14 +68,16 @@ ORDER BY
 	character_type,
 	character_name
 EOQ;
-    $params = array($powerType, $powerName . '%', $powerNote . '%', $minPowerLevel, $maxPowerLevel);
+        $params = array($powerType, $powerName . '%', $powerNote . '%', $minPowerLevel, $maxPowerLevel);
+    }
+
     $powers = Database::getInstance()->query($sql)->all($params);
 
-    $powers = array_map(function($item) {
+    $powers = array_map(function ($item) {
         $extra = json_decode($item['extra']);
         $text = '';
-        if(count($extra)) {
-            foreach($extra as $key => $value) {
+        if (count($extra)) {
+            foreach ($extra as $key => $value) {
                 $text .= $key . ': ' . $value . '<br />';
             }
         }
@@ -64,6 +93,7 @@ $powerTypes = array(
     "Flaw" => "Flaw",
     "Misc" => "Misc Traits",
     'Equipment' => 'Equipment',
+    'power_stat' => 'Power Stat',
     'Vampire' => array(
         "ICDisc" => 'In-Clan Discipline',
         "OOCDisc" => 'Out-of-Clan Discipline',
@@ -127,7 +157,7 @@ ob_start();
                     <?php echo FormHelper::Text('max_power_level', $maxPowerLevel); ?>
                 </td>
                 <td>
-                    <?php echo FormHelper::Button('action', 'Search'); ?>
+                    <button type="submit" value="Search" class="button">Search</button>
                 </td>
             </tr>
         </table>
