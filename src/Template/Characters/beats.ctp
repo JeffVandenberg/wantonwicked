@@ -49,7 +49,7 @@ $this->set('title_for_layout', 'Beats for ' . $character->CharacterName);
     <div class="small-12 column subheader">
         Past Beats
     </div>
-    <div class="smal-12 column">
+    <div id="beat-content" class="small-12 column">
         <table class="stack">
             <thead>
             <tr>
@@ -71,26 +71,41 @@ $this->set('title_for_layout', 'Beats for ' . $character->CharacterName);
             </tr>
             </thead>
             <?php foreach ($pastBeats as $characterBeat): ?>
-                <tr class="clickable beat-detail" data-beat-id="<?php echo $characterBeat->Id; ?>"
+                <?php /* @var \App\Model\Entity\CharacterBeat $characterBeat */?>
+                <tr class="clickable beat-detail" data-beat-id="<?php echo $characterBeat->id; ?>"
                     title="Click for Detail">
                     <td>
                         <div>
-                            <?php echo $characterBeat->BeatType->Name; ?>
+                            <?php echo $characterBeat->beat_type->name; ?>
                         </div>
                     </td>
                     <td>
-                        <?php if (strlen($characterBeat->Note) > 40): ?>
-                            <?php echo substr($characterBeat->Note, 0, 40); ?>...
+                        <?php if (strlen($characterBeat->note) > 40): ?>
+                            <?php echo substr($characterBeat->note, 0, 40); ?>...
                         <?php else: ?>
-                            <?php echo $characterBeat->Note; ?>
+                            <?php echo $characterBeat->note; ?>
                         <?php endif; ?>
                     </td>
-                    <td><?php echo $characterBeat->CreatedBy->Username; ?></td>
-                    <td><?php echo $characterBeat->Created; ?></td>
-                    <td><?php echo $characterBeat->BeatStatus->Name; ?></td>
+                    <td><?php echo $characterBeat->created_by->username; ?></td>
+                    <td><?php echo $characterBeat->created; ?></td>
+                    <td><?php echo $characterBeat->beat_status->name; ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
+        <div class="paginator small callout">
+            <ul class="pagination">
+                <?php if ($this->Paginator->hasPrev()): ?>
+                    <?= $this->Paginator->first('<< ' . __('First')) ?>
+                    <?= $this->Paginator->prev('< ' . __('Previous')) ?>
+                <?php endif; ?>
+                <?= $this->Paginator->numbers() ?>
+                <?php if ($this->Paginator->hasNext()): ?>
+                    <?= $this->Paginator->next(__('Next') . ' >') ?>
+                    <?= $this->Paginator->last(__('Last') . ' >>') ?>
+                <?php endif; ?>
+            </ul>
+            <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        </div>
     </div>
 </div>
 <div class="reveal" id="detail-modal" data-reveal>
@@ -112,5 +127,19 @@ $this->set('title_for_layout', 'Beats for ' . $character->CharacterName);
                 $modal.foundation('open');
             });
         });
+
+        $(document).on('click', '.pagination a, #content-table thead a', function () {
+            var target = $(this).attr('href');
+
+            $.get(target, function (data) {
+                $('#beat-content').html($(data).find("#beat-content").html());
+                var state = {html: 'doTo'};
+                window.history.pushState(state, 'Character Beats', target);
+
+            }, 'html');
+
+            return false;
+        });
+
     })
 </script>

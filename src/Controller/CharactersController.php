@@ -445,7 +445,38 @@ class CharactersController extends AppController
             $beatList[$beatType->Id] = $beatType->Name;
         }
 
-        $pastBeats = $beatService->listPastBeatsForCharacter($character->Id);
+        $characterBeats = TableRegistry::get('CharacterBeats');
+        $query = $characterBeats
+            ->find('all')
+            ->select([
+                'CharacterBeats.id',
+                'CharacterBeats.note',
+                'CharacterBeats.created',
+                'CharacterBeats.updated',
+                'CharacterBeats.applied_on',
+                'CharacterBeats.beats_awarded',
+                'BeatTypes.name',
+                'BeatStatuses.name',
+                'CreatedBy.username',
+                'UpdatedBy.username'
+            ])
+            ->where([
+                'CharacterBeats.character_id' => $character->Id
+            ])
+            ->contain([
+                'Characters',
+                'BeatTypes',
+                'BeatStatuses',
+                'CreatedBy',
+                'UpdatedBy'
+            ]);
+
+        $pastBeats = $this->paginate($query, [
+            'limit' => 20,
+            'order' => [
+                'CharacterBeats.created DESC',
+            ]
+        ]);
         if ($isSt) {
             $submenu = $this->Menu->createStorytellerMenu();
         } else {
