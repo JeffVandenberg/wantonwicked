@@ -115,7 +115,7 @@ EOQ;
 
     $loggedIn = true;
 }
-else if(isset($_GET['st_login']) || ($_GET['action'] == 'st_login')) {
+else if(isset($_GET['st_login']) || (isset($_GET['action']) && $_GET['action'] == 'st_login')) {
     if(UserdataHelper::IsSt($userdata)) {
         define('C_CUSTOM_USERNAME', $userdata['username']);
         define('C_CUSTOM_USERID', $userdata['user_id']);
