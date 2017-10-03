@@ -17,7 +17,9 @@
     <script type="text/javascript" src="/chat/includes/settings.js.php?v=<?php echo $CONFIG['version']; ?>"></script>
     <?php if(file_exists(__DIR__ . '/../../js/cache/compiled-' . $CONFIG['version'] . '.js')): ?>
         <script type="text/javascript" src="/chat/js/cache/compiled-<?php echo $CONFIG['version']; ?>.js"></script>
+        <script type="text/javascript" src="/js/howler.min.js"></script>
     <?php else: ?>
+        <script type="text/javascript" src="/js/howler.js"></script>
         <script type="text/javascript" src="/chat/js/sortelements.js?v=<?php echo $CONFIG['version']; ?>"></script>
         <script type="text/javascript" src="/chat/js/XmlHttpRequest.js?v=<?php echo $CONFIG['version']; ?>"></script>
         <script type="text/javascript" src="/chat/js/cookie.js?v=<?php echo $CONFIG['version']; ?>"></script>
@@ -175,8 +177,6 @@ wantonWickedTime.serverTime = <?php echo (microtime(true) + date('Z'))*1000; ?>;
         <select id="roomSelect" class="roomSelect" onchange="changeRooms(this.value);"></select>
         <div class="userContainer" id="userContainer"></div>
     </div>
-	<div id="playSndDiv"></div>
-
 </div>
 
 <div id="oInfo" class="oInfo"></div>
