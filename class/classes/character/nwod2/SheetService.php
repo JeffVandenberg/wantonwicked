@@ -100,8 +100,9 @@ class SheetService
 
     /**
      * @param Character $character
+     * @param array $powerTypes
      */
-    public function addMinPowersForEdit(Character $character)
+    public function addMinPowers(Character $character, $powerTypes = [])
     {
         $powerTypeList = [
             'specialty' => 3,
@@ -110,8 +111,15 @@ class SheetService
             'equipment' => 3,
             'aspiration' => 3,
         ];
+        if(is_null($powerTypes)) {
+            $powerTypes = array_keys($powerTypeList);
+        }
+        if(!is_array($powerTypes)) {
+            $powerTypes = [$powerTypes];
+        }
+
         foreach ($powerTypeList as $type => $min) {
-            if (count($character->getPowerList($type)) < $min) {
+            if (count($character->getPowerList($type)) < $min && in_array($type, $powerTypes)) {
                 $this->addList($character, $min - count($character->getPowerList($type)), $type);
             }
         }

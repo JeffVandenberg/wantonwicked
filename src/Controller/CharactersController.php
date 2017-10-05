@@ -238,7 +238,9 @@ class CharactersController extends AppController
 
         if ($character->CharacterStatusId == CharacterStatus::NewCharacter) {
             $options['edit_mode'] = 'open';
-            $sheetService->addMinPowersForEdit($character);
+            $sheetService->addMinPowers($character);
+        } else {
+            $sheetService->addMinPowers($character, ['aspiration']);
         }
 
         if ($this->request->is('post')) {
@@ -315,7 +317,7 @@ class CharactersController extends AppController
                 if ($characterNote) {
                     $character->setLastStNote($characterNote);
                 }
-                $sheetService->addMinPowersForEdit($character);
+                $sheetService->addMinPowers($character);
                 $this->set(compact('character'));
             }
         }
