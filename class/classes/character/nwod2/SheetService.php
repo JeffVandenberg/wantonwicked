@@ -102,7 +102,7 @@ class SheetService
      * @param Character $character
      * @param array $powerTypes
      */
-    public function addMinPowers(Character $character, $powerTypes = [])
+    public function addMinPowers(Character $character, array $powerTypes = [])
     {
         $powerTypeList = [
             'specialty' => 3,
@@ -111,11 +111,8 @@ class SheetService
             'equipment' => 3,
             'aspiration' => 3,
         ];
-        if(is_null($powerTypes)) {
+        if(!count($powerTypes)) {
             $powerTypes = array_keys($powerTypeList);
-        }
-        if(!is_array($powerTypes)) {
-            $powerTypes = [$powerTypes];
         }
 
         foreach ($powerTypeList as $type => $min) {

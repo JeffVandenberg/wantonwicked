@@ -240,7 +240,7 @@ class CharactersController extends AppController
             $options['edit_mode'] = 'open';
             $sheetService->addMinPowers($character);
         } else {
-            $sheetService->addMinPowers($character, ['aspiration']);
+            $sheetService->addMinPowers($character, ['aspiration', 'equipment']);
         }
 
         if ($this->request->is('post')) {
