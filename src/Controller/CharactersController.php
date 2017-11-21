@@ -101,6 +101,8 @@ class CharactersController extends AppController
                 'character_name',
                 'Characters.character_type',
                 'character_type',
+                'Characters.is_npc',
+                'is_npc',
                 'Characters.splat1',
                 'Characters.splat2',
                 'splat1',
