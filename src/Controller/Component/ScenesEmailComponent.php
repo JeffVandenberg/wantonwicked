@@ -56,7 +56,7 @@ class ScenesEmailComponent extends Component
         $query = TableRegistry::get('SceneCharacters')->query();
         $query
             ->select([
-                'Character.character_name',
+                'Characters.character_name',
                 'Users.user_email'
             ])
             ->contain([

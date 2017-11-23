@@ -22,11 +22,13 @@ use Cake\Core\Configure;
     if (Configure::read('debug')) {
         echo $this->Html->css([
             'app',
-            'wanton/jquery.toast'
+            'wanton/jquery.toast',
+            'wanton/jquery.datetimepicker.min'
         ]);
         echo $this->Html->script([
             'jquery',
             'jquery.autocomplete',
+            'jquery.datetimepicker.full',
             'jquery.toast',
             'server_time',
             'foundation',
@@ -36,13 +38,15 @@ use Cake\Core\Configure;
     } else {
         $this->Shrink->css(array(
             'app.css',
-            'wanton/jquery.toast.min.css'
+            'wanton/jquery.toast.min.css',
+            'wanton/jquery.datetimepicker.min.css'
         ));
         echo $this->Shrink->fetch('css');
 
         $this->Shrink->js([
             'jquery.min.js',
             'jquery.autocomplete.min.js',
+            'jquery.datetimepicker.full.js',
             'jquery.toast.min.js',
             'server_time.js',
             'foundation.min.js',

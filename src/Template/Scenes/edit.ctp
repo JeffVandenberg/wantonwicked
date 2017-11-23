@@ -29,30 +29,11 @@ $this->set('title_for_layout', 'Edit: ' . $scene->name);
             <td style="width:50%">
                 <label>
                     Scheduled For<br/>
-                    <?php echo $this->Form->dateTime('run_on_date', [
-                        'minYear' => date('Y'),
-                        'monthNames' => false,
-                        'empty' => false,
-                        'interval' => 15,
-                        'timeFormat' => 12,
-                        'year' => [
-                            'style' => 'width: 100px;'
-                        ],
-                        'month' => [
-                            'style' => 'width:60px;'
-                        ],
-                        'day' => [
-                            'style' => 'width:60px;'
-                        ],
-                        'hour' => [
-                            'style' => 'width:60px;',
-                        ],
-                        'minute' => [
-                            'style' => 'width:60px;',
-                        ],
-                        'meridian' => [
-                            'style' => 'width:60px;'
-                        ]
+                    <?php echo $this->Form->control('run_on_date', [
+                        'class' => 'datepicker-input',
+                        'type' => 'text',
+                        'label' => false,
+                        'required' => 'required'
                     ]); ?>
                 </label>
             </td>

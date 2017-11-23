@@ -24,6 +24,12 @@ $(function () {
     });
 
     $("input[type=submit]").addClass("button");
+
+    $(".datepicker-input").datetimepicker({
+        'format': 'Y-m-d H:i',
+        'step': 30,
+        'theme': 'dark'
+    });
 });
 
 function giveFavor(characterId) {

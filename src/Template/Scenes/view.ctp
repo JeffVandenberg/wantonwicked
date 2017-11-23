@@ -26,7 +26,7 @@ if ($isLoggedIn && ($scene->scene_status_id == SceneStatus::Open)) {
         )
     );
 }
-if ($mayEdit || ($scene->created_by_id == $this->request->session()->read('Auth.User.user_id'))) {
+if ($mayEdit) {
     $menu['Actions']['submenu']['Edit Scene'] = array(
         'link' => array(
             'action' => 'edit',
@@ -59,8 +59,12 @@ if ($mayEdit || ($scene->created_by_id == $this->request->session()->read('Auth.
 $this->set('menu', $menu);
 ?>
 
+<?php echo $this->Html->link('<< Back', array('action' => 'index'), ['class' => 'button']); ?>
 <?php if ($isLoggedIn && ($scene->scene_status_id == SceneStatus::Open)): ?>
     <?php echo $this->Html->link('Join Scene', array('action' => 'join', $scene->slug), ['class' => 'button']); ?>
+    <?php if($mayEdit): ?>
+        <?php echo $this->Html->link('Edit', ['action' => 'edit', $scene->slug], ['class' => 'button']); ?>
+    <?php endif; ?>
 <?php endif; ?>
 
 <table>
