@@ -132,7 +132,8 @@ class ScenesController extends AppController
         $this->set('scene', $query->first());
         $this->set('mayEdit',
             $this->Permissions->IsST() ||
-            $this->Auth->user('user_id') == $scene->created_by_id);
+            $this->Auth->user('user_id') == $scene->created_by_id ||
+            $this->Auth->user('user_id') == $scene->run_by_id);
         $this->set('isLoggedIn', $this->Auth->user('user_id') != 1);
 
 
