@@ -1037,7 +1037,7 @@ class CharacterHelper extends AppHelper
         if ($this->mayEditOpen()) {
             $powerStat = $this->Form->select(
                 'power_stat',
-                range(0, $this->maxDots),
+                range(0, 10),
                 [
                     'value' => $character->PowerStat,
                     'empty' => false
@@ -1045,7 +1045,7 @@ class CharacterHelper extends AppHelper
             );
             $willpowerPerm = $this->Form->select(
                 'willpower_perm',
-                range(0, $this->maxDots),
+                range(0, 10),
                 [
                     'value' => $character->WillpowerPerm,
                     'empty' => false
@@ -1282,7 +1282,7 @@ class CharacterHelper extends AppHelper
                                 <?php echo $this->Form->hidden('break_point.' . $i . '.name', ['value' => 'break_point' . $i]); ?>
                                 <?php echo $this->Form->hidden('break_point.' . $i . '.id', ['value' => $power->Id]); ?>
                                 <?php echo $this->Form->textarea('break_point.' . $i . '.explanation', [
-                                    'value' => $power->Extra['explanation'],
+                                    'value' => $power->Extra['explanation'] ?? '',
                                     'label' => false,
                                     'rows' => 3
                                 ]); ?>

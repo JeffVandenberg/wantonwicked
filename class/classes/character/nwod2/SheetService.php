@@ -233,7 +233,7 @@ class SheetService
             return new Character();
         }
 
-        if (is_int($identifier) || ($identifier + 0 > 0)) {
+        if (is_int($identifier) || ((int)$identifier > 0)) {
             $character = $this->repository->getById($identifier);
         } else {
             $character = $this->repository->FindBySlug($identifier);
