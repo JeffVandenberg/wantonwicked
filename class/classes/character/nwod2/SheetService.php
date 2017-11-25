@@ -271,10 +271,10 @@ class SheetService
 
         if ($oldCharacter->Id) {
             // log xp change
-            if ($stats['xp_spent'] > 0) {
+            if (isset($stats['xp_spent']) && $stats['xp_spent'] > 0) {
                 CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_spent'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
             }
-            if ($stats['xp_gained'] > 0) {
+            if (isset($stats['xp_gained']) && $stats['xp_gained'] > 0) {
                 CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Added ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
             }
 
@@ -319,15 +319,15 @@ class SheetService
             $character->CharacterType = $stats['character_type'];
             $character->City = $stats['city'];
             $character->Age = $stats['age'] + 0;
-            $character->ApparentAge = $stats['apparent_age'] + 0;
+            $character->ApparentAge = $stats['apparent_age'] ?? 0;
             $character->Sex = 'Male';//$stats['sex'];
             $character->Virtue = $stats['virtue'];
             $character->Vice = $stats['vice'];
             $character->Splat1 = ($stats['splat1']) ? $stats['splat1'] : '';
-            $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
-            $character->Subsplat = ($stats['subsplat']) ? $stats['subsplat'] : '';
+            $character->Splat2 = $stats['splat2'] ?? '';
+            $character->Subsplat = $stats['subsplat'] ?? '';
             $character->Concept = $stats['concept'];
-            $character->PowerStat = $stats['power_stat'] + 0;
+            $character->PowerStat = $stats['power_stat'] ?? 0;
             $character->WillpowerPerm = $stats['willpower_perm'] + 0;
             $character->Morality = $stats['morality'] + 0;
             $character->Size = $stats['size'] + 0;
@@ -336,12 +336,12 @@ class SheetService
             $character->Defense = $stats['defense'] + 0;
             $character->Armor = $stats['armor'];
             $character->Health = $stats['health'] + 0;
-            $character->PowerPointsModifier = $stats['power_points_modifier'] + 0;
-            $character->BonusAttribute = ($stats['bonus_attribute']) ? $stats['bonus_attribute'] : '';
+            $character->PowerPointsModifier = $stats['power_points_modifier'] ?? 0;
+            $character->BonusAttribute = $stats['bonus_attribute'] ?? '';
             $character->History = htmlspecialchars($stats['history']);
             $character->CharacterNotes = htmlspecialchars($stats['notes']);
             $character->Slug = $stats['slug'];
-            $character->Friends = ($stats['friends']) ? $stats['friends'] : '';
+            $character->Friends = $stats['friends'] ?? '';
         }
 
         if (in_array($options['edit_mode'], ['open', 'limited'])) {
@@ -379,6 +379,10 @@ class SheetService
             }
         }
 
+        if($options['owner']) {
+            $character->ViewPassword = $stats['view_password'];
+        }
+
         // fixed values
         $character->UpdatedById = $user['user_id'];
         $character->UpdatedOn = date('Y-m-d H:i:s');
@@ -386,7 +390,6 @@ class SheetService
 
         // values to figure out
         $character->ShowSheet = 'N';//$stats['show_sheet'];
-        $character->ViewPassword = '';//$stats['view_password'];
         $character->HideIcon = 'N';//$stats['hide_icon'];
         $character->SafePlace = '';//$stats['safe_place'];
         $character->Helper = '';//$stats['friends'];
@@ -438,9 +441,9 @@ class SheetService
                         'id' => ($power['id']) ? $power['id'] : null,
                         'power_type' => $powerType,
                         'power_name' => $power['name'],
-                        'power_note' => $power['note'],
-                        'power_level' => $power['level'],
-                        'is_public' => $power['is_public'],
+                        'power_note' => $power['note'] ?? '',
+                        'power_level' => $power['level'] ?? 0,
+                        'is_public' => $power['is_public'] ?? false,
                     ];
 
                     $pp['extra'] = json_encode(array_diff($power, $pp));
@@ -450,8 +453,8 @@ class SheetService
                     $cp->CharacterId = $character->Id;
                     $cp->PowerType = $pp['power_type'];
                     $cp->PowerName = $pp['power_name'];
-                    $cp->PowerNote = ($pp['power_note']) ? $pp['power_note'] : '';
-                    $cp->PowerLevel = $pp['power_level'] + 0;
+                    $cp->PowerNote = $pp['power_note'] ?? '';
+                    $cp->PowerLevel = (int) $pp['power_level'];
                     $cp->IsPublic = $pp['is_public'] + 0;
                     $cp->Extra = $pp['extra'];
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Controller\Component\MenuComponent;
@@ -9,7 +8,6 @@ use Cake\Controller\Component\PaginatorComponent;
 use Cake\Event\Event;
 use Cake\Network\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
-use Cake\Utility\Inflector;
 use Cake\Utility\Text;
 use classes\character\data\BeatStatus;
 use classes\character\data\BeatType;
@@ -189,6 +187,7 @@ class CharactersController extends AppController
             case 'add':
             case 'validateName':
             case 'viewOwn':
+            case 'viewOther':
             case 'beats':
                 return $this->Auth->user();
         }
@@ -235,6 +234,7 @@ class CharactersController extends AppController
 
         $options = [
             'show_admin' => false,
+            'owner' => true,
             'edit_mode' => 'limited', // other values "open", "none"
         ];
 
@@ -272,10 +272,60 @@ class CharactersController extends AppController
 
     }
 
+    /**
+     * @param null $slug
+     */
+    public function viewOther($slug = null)
+    {
+        $sheetService = new SheetService();
+
+        if ($this->request->is('post')) {
+            $characterId = $this->request->getData('view_character_id');
+            $password = $this->request->getData('password');
+
+            $character = $sheetService->loadSheet($characterId);
+            /* @var Character $character */
+            if (!$character->Id) {
+                $this->Flash->set('Please select a character');
+                return;
+            }
+
+            $this->set('viewCharacterName', $character->CharacterName);
+            $this->set('viewCharacterId', $character->Id);
+
+            if(!$character->ViewPassword) {
+                CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'Attempted to view sheet with no password set.', $this->Auth->user('user_id'));
+                $this->Flash->set('Character has no view password set');
+                return;
+            }
+
+            if($character->ViewPassword !== $password) {
+                CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'Attempted to view with incorrect password.', $this->Auth->user('user_id'));
+                $this->Flash->set('Password does not match');
+                return;
+            }
+            $options = [
+                'show_admin' => false,
+                'owner' => false,
+                'edit_mode' => 'none', // other values "open", "none"
+            ];
+
+            $this->set(compact('character', 'options'));
+            CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'Player View', $this->Auth->user('user_id'));
+        }
+
+        if($this->request->is('get') && $slug) {
+            $character = $sheetService->loadSheet($slug);
+            $this->set('viewCharacterName', $character->CharacterName);
+            $this->set('viewCharacterId', $character->Id);
+        }
+    }
+
     public function stView($characterId = null)
     {
         $options = [
             'show_admin' => true,
+            'owner' => false,
             'edit_mode' => 'open', // other values "open", "none"
         ];
         $sheetService = new SheetService();
@@ -421,8 +471,8 @@ class CharactersController extends AppController
         if ($this->request->is('post')) {
             // attempt to save
             $beat = new CharacterBeat();
-            $beat->BeatTypeId = $this->request->data['beat_type_id'];
-            $beat->Note = $this->request->data['note'];
+            $beat->BeatTypeId = $this->request->getData(['beat_type_id']);
+            $beat->Note = $this->request->getData(['note']);
 
             $beat->CharacterId = $character->Id;
             $beat->BeatStatusId = ($isSt) ? BeatStatus::StaffAwarded : BeatStatus::NewBeat;
@@ -494,7 +544,7 @@ class CharactersController extends AppController
         $service = new SheetService();
         $character = $service->loadSheet($slug);
 
-        if(!$character->Id) {
+        if (!$character->Id) {
             $this->Flash->set('Unable to find: ' . $slug);
             $this->redirect('/');
         }

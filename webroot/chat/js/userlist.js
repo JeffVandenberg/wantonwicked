@@ -523,6 +523,14 @@ function userPanel(userName,targetUserName,targetUserId,roomId,userID,uAvatar,uB
                     "</div>";
         }
 
+        if((uID != targetUserId)) {//} && userTypeId == 3) {
+            newdiv.innerHTML +=
+                "<div onmouseover=\"this.className='highliteOn'\" onmouseout=\"this.className='highliteOff'\" onclick='viewOtherSheet(\""+userID+"\",\""+targetUserName+"\");deleteDiv(\"userpanel_"+targetUserId+roomId+"\",\"userlist_"+targetUserId+roomId+"\")' class='highliteOff'>" +
+                "<img style='vertical-align:middle;' src='images/usermenu/profile.gif'>" +
+                "<span style='padding-left:10px;'>View Sheet</span>" +
+                "</div>";
+		}
+
         if((admin && uID != targetUserId) || (moderator && uID != targetUserId))
         {
             // view sheet
@@ -652,6 +660,10 @@ function viewProfile(uID,uUser) {
 
 function viewSheet(characterId) {
     window.open('/characters/viewOwn/'+characterId);
+}
+
+function viewOtherSheet(characterId) {
+    window.open('/characters/viewOther/'+characterId);
 }
 
 function viewDice(characterId) {

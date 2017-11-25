@@ -183,6 +183,7 @@ class CharacterHelper extends AppHelper
         $this->options = array_merge($this->options, $options);
         $this->setupSheetOptions($character->CharacterType);
 
+
         $bio = $this->buildBioEdit($character);
         $stats = $this->buildStatEdit($character);
         $powers = $this->buildPowersSection($character);
@@ -190,6 +191,7 @@ class CharacterHelper extends AppHelper
         $equipment = $this->buildEquipmentSection($character);
         $conditions = $this->buildConditionsSection($character);
         $admin = ($this->options['show_admin']) ? $this->buildAdminSection($character) : '';
+        $owner = ($this->options['owner']) ? $this->buildOwnerSection($character) : '';
 
         ob_start();
         ?>
@@ -216,6 +218,11 @@ class CharacterHelper extends AppHelper
             <?php if ($this->options['show_admin']): ?>
                 <li class="accordion-item" data-accordion-item>
                     <?php echo $admin; ?>
+                </li>
+            <?php endif; ?>
+            <?php if($this->options['owner']): ?>
+                <li class="accordion-item" data-accordion-item>
+                    <?php echo $owner; ?>
                 </li>
             <?php endif; ?>
         </ul>
@@ -2490,6 +2497,38 @@ class CharacterHelper extends AppHelper
                 <?php endif; ?>
             </td>
         </tr>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function buildOwnerSection(Character $character)
+    {
+        ob_start();
+        ?>
+        <a href="#csheet-owner" role="tab" class="accordion-title" id="csheet-owner-heading"
+           aria-controls="csheet-owner">Player Options</a>
+        <div id="csheet-owner" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-owner-heading">
+            <div class="row">
+                <div class="small-6 medium-3 column">
+                    <label for="is_npc">
+                        View Password
+                        <span class="badge has-tip" data-tooltip title="If you want another player to be able to view your sheet, enter a password."><i class="fi-pencil"></i></span>
+                    </label>
+                </div>
+                <div class="small-6 medium-9 column">
+                    <?php echo $this->Form->control(
+                        'view_password',
+                        [
+                            'maxlength' => 30,
+                            'label' => false,
+                            'value' => $character->ViewPassword
+                        ]
+                    ); ?>
+                </div>
+            </div>
+        </div>
+
         <?php
         return ob_get_clean();
     }

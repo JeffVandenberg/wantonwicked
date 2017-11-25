@@ -208,6 +208,9 @@ $menuComponents['player'] = [
                     ],
                     'Play Preferences' => [
                         'link' => '/play_preferences'
+                    ],
+                    'View Other Character' => [
+                        'link' => '/characters/viewOther/'
                     ]
                 ]
             ]
