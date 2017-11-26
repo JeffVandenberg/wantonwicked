@@ -289,7 +289,7 @@ WHERE
     (
         (C.character_status_id IN ($statusIds) AND (:only_sanctioned = 1))
         OR
-        (C.character_status_id IN ($statusIds) AND (:only_sanctioned = 0))
+        (C.character_status_id IN ($nonDeletedStatuses) AND (:only_sanctioned = 0))
     )
     AND C.character_name like :character_name
     AND C.city = :city
