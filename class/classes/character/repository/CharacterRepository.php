@@ -278,6 +278,7 @@ EOQ;
     public function AutocompleteSearch($characterName, $onlySanctioned, $city = 'portland')
     {
         $statusIds = implode(',', CharacterStatus::Sanctioned);
+        $nonDeletedStatuses = implode(',', CharacterStatus::NonDeleted);
         $sql = <<<EOQ
 SELECT
     C.id,
@@ -288,7 +289,7 @@ WHERE
     (
         (C.character_status_id IN ($statusIds) AND (:only_sanctioned = 1))
         OR
-        (:only_sanctioned = 0)
+        (C.character_status_id IN ($statusIds) AND (:only_sanctioned = 0))
     )
     AND C.character_name like :character_name
     AND C.city = :city
