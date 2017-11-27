@@ -141,7 +141,7 @@ class ScenesTable extends Table
                 'Scenes.run_on_date >=' => date('Y-m-d H:i:s')
             ])
             ->order([
-                'Scenes.run_on_date' => 'desc'
+                'Scenes.run_on_date' => 'asc'
             ])
             ->limit($sceneCount)
             ->toList();
