@@ -19,6 +19,9 @@ class ConfigComponent extends Component
         /* @var ConfigurationsTable $configuration */
 
         $result = $configuration->find()->select(['value'])->where(['Configurations.key' => $key])->toArray();
-        return $result[0]->value;
+        if(count($result)) {
+            return $result[0]->value;
+        }
+        return null;
     }
 } 

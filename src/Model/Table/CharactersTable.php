@@ -399,7 +399,7 @@ class CharactersTable extends Table
     public function listCharacterTypes($onlySanctioned)
     {
         $query = $this
-            ->find()
+            ->find('all')
             ->select([
                 'Characters.character_type'
             ])

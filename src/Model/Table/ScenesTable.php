@@ -1,6 +1,8 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Scene;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -16,17 +18,16 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $SceneCharacters
  * @property \Cake\ORM\Association\HasMany $SceneRequests
  *
- * @method \App\Model\Entity\Scene get($primaryKey, $options = [])
- * @method \App\Model\Entity\Scene newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Scene[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Scene|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Scene patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Scene[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Scene findOrCreate($search, callable $callback = null, $options = [])
+ * @method Scene get($primaryKey, $options = [])
+ * @method Scene newEntity($data = null, array $options = [])
+ * @method Scene[] newEntities(array $data, array $options = [])
+ * @method Scene|bool save(EntityInterface $entity, $options = [])
+ * @method Scene patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method Scene[] patchEntities($entities, array $data, array $options = [])
+ * @method Scene findOrCreate($search, callable $callback = null, $options = [])
  */
 class ScenesTable extends Table
 {
-
     /**
      * Initialize method
      *
@@ -123,5 +124,26 @@ class ScenesTable extends Table
         $rules->add($rules->existsIn(['scene_status_id'], 'SceneStatuses'));
 
         return $rules;
+    }
+
+    public function listForHome($sceneCount = 5)
+    {
+        return $this
+            ->find()
+            ->select([
+                'Scenes.id',
+                'Scenes.name',
+                'Scenes.run_on_date',
+                'Scenes.slug'
+            ])
+            ->where([
+                'Scenes.scene_status_id' => 1,
+                'Scenes.run_on_date >=' => date('Y-m-d H:i:s')
+            ])
+            ->order([
+                'Scenes.run_on_date' => 'desc'
+            ])
+            ->limit($sceneCount)
+            ->toList();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Model\Table\ScenesTable;
+
 /**
  * Created by PhpStorm.
  * User: jvandenberg
@@ -9,9 +11,9 @@
 namespace App\Controller;
 
 use App\Controller\Component\ConfigComponent;
-use App\Model\LegacyUser;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use classes\request\repository\RequestRepository;
 
 /**
  * @property ConfigComponent Config
@@ -30,7 +32,19 @@ class HomeController extends AppController
 
     public function home()
     {
+        // get scene information
+        $scenes = TableRegistry::get('Scenes');
+        /* @var ScenesTable $scenes */
+        $sceneList = $scenes->listForHome();
+
+        // get request information
+        $requestRepo = new RequestRepository();
+        $playerRequests = $requestRepo->ListByUserId($this->Auth->user('user_id'), 1, 5, 'updated_on desc', []);
+
+        // set info for home
         $this->set('content', $this->Config->Read('FRONT_PAGE'));
+        $this->set('plots', $this->Config->Read('CURRENT_PLOTS'));
+        $this->set(compact('sceneList', 'playerRequests'));
     }
 
     public function staff()
