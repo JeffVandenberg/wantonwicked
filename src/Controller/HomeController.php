@@ -1,7 +1,4 @@
 <?php
-
-use App\Model\Table\ScenesTable;
-
 /**
  * Created by PhpStorm.
  * User: jvandenberg
@@ -11,6 +8,7 @@ use App\Model\Table\ScenesTable;
 namespace App\Controller;
 
 use App\Controller\Component\ConfigComponent;
+use App\Model\Table\ScenesTable;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 use classes\request\repository\RequestRepository;
