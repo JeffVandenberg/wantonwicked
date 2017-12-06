@@ -7154,7 +7154,7 @@ div.formInput {
   background-color: #222222; }
 
 .mortal {
-  border: solid 1px #f6db60;
+  border-bottom: solid 1px #cccccc;
   padding: 3px; }
 
 ul.tags {
