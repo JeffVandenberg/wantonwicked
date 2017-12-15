@@ -15,7 +15,8 @@ $character_id = $_POST['character_id'] + 0;
 $character_query = <<<EOQ
 SELECT
     C.id,
-    character_name
+    character_name,
+    slug
 FROM
     characters AS C
 WHERE
@@ -29,16 +30,18 @@ $characterRepository = new CharacterRepository();
 if ($characterRepository->MayViewCharacter($character_id, $userdata['user_id'])) {
     if ($character) {
         // get # of characters with the same name
-        $temp_name = addslashes($character['character_name']);
+        $temp_name = $character['character_name'];
+        $slug = $character['slug'];
         $id_query  = "select count(*) from characters where character_name like ?;";
         $params = array($temp_name .'%');
         $id = Database::getInstance()->query($id_query)->value($params);
 
         // mark the character as deleted
-        $update_query  = "update characters set character_status_id = ?, character_name = ? where id = ?;";
+        $update_query  = "update characters set character_status_id = ?, character_name = ?, slug = ? where id = ?;";
         $params = array(
             CharacterStatus::Deleted,
             $temp_name . '_' . $id,
+            $slug . '_' . $id,
             $character_id
         );
         $update_result = Database::getInstance()->query($update_query)->execute($params);
