@@ -16,6 +16,8 @@ use classes\character\repository\CharacterBeatRecordRepository;
 use classes\character\repository\CharacterBeatRepository;
 use classes\character\repository\CharacterRepository;
 use classes\core\repository\RepositoryManager;
+use function intval;
+use function settype;
 use function var_dump;
 
 /**
@@ -46,6 +48,7 @@ class BeatService
             // give beat immediately
             return $this->grantBeat($beat, $beatRecord);
         } else {
+            die('add to queue');
             // add beat to the end of the queue
             return $beatRepo->save($beat);
         }
@@ -65,6 +68,7 @@ class BeatService
 
         $numberOfBeatsToGrant = $beat->BeatType->NumberOfBeats;
         $numberOfBeatsRemaining = $this->getNumberOfBeatsRemaining($beatRecord);
+
         $beatSpillOver = 0;
         if($numberOfBeatsToGrant > $numberOfBeatsRemaining) {
             $beatSpillOver = $numberOfBeatsToGrant - $numberOfBeatsRemaining;
@@ -191,7 +195,8 @@ class BeatService
      */
     private function getNumberOfBeatsRemaining(CharacterBeatRecord $beatRecord): int
     {
-        return (int)(($this->maxXpPerMonth - $beatRecord->ExperienceEarned) / .2);
+        $difference = ($this->maxXpPerMonth* 5) - ($beatRecord->ExperienceEarned * 5);
+        return (int) $difference;
     }
 
     private function createSplitBeat($characterId, $beatSpillOver)
