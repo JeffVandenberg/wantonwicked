@@ -48,7 +48,6 @@ class BeatService
             // give beat immediately
             return $this->grantBeat($beat, $beatRecord);
         } else {
-            die('add to queue');
             // add beat to the end of the queue
             return $beatRepo->save($beat);
         }
