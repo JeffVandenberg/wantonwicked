@@ -81,12 +81,6 @@ class PermissionsComponent extends Component
         ));
     }
 
-    public function IsSupporter($userId)
-    {
-        $user = new User();
-        return $user->CheckUserSupporterStatus($userId);
-    }
-
     public function MayEditCharacter($characterId)
     {
         $character = TableRegistry::get('Characters')->get($characterId);
@@ -96,5 +90,15 @@ class PermissionsComponent extends Component
                 ||
                 $this->CheckSitePermission($this->Auth->user('user_id'), Permission::$ManageCharacters)
             );
+    }
+
+    public function isPlotManager($userId)
+    {
+        return $this->CheckSitePermission($userId, Permission::$PlotsManage);
+    }
+
+    public function isPlotViewer($userId)
+    {
+        return $this->CheckSitePermission($userId, Permission::$PlotsView);
     }
 }

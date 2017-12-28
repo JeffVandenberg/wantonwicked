@@ -17,6 +17,9 @@ $menuComponents['base'] = [
     'Utilities' => [
         'link' => '#',
         'submenu' => [
+            'Plots' => [
+                'link' => '/plots',
+            ],
             'Scenes' => [
                 'link' => '/scenes'
             ]

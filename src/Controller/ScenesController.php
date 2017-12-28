@@ -15,6 +15,7 @@ use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use classes\character\data\CharacterStatus;
+use IntlDateFormatter;
 
 
 /**
@@ -47,7 +48,7 @@ class ScenesController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['index', 'view', 'tag']);
+        $this->Auth->allow(['index', 'view', 'tag', 'search']);
     }
 
     public function beforeRender(Event $event)
@@ -489,5 +490,41 @@ class ScenesController extends AppController
         /* @var PlayPreferenceResponsesTable $repo */
         $this->set('report', $repo->reportResponsesForPlayersInScene($scene->id));
         $this->set('scene', $scene);
+    }
+
+    public function search()
+    {
+        $query = $this->request->getQuery('query', '');
+        $suggestions = [];
+        if($query) {
+            $scenes = $this->Scenes->find('all', [
+                'contain' => [
+                    'RunBy' => [
+                        'fields' => ['username']
+                    ]
+                ],
+                'fields' => [
+                    'Scenes.name',
+                    'Scenes.id',
+                    'Scenes.run_on_date'
+                ],
+                'conditions' => [
+                    'Scenes.name like' => $query . '%',
+                ],
+                'order' => [
+                    'Scenes.name' => 'asc',
+                    'Scenes.run_on_date' => 'asc'
+                ]
+            ]);
+            /* @var Scene[] $scenes */
+            foreach($scenes as $scene) {
+                $suggestions[] = [
+                    'data' => $scene->id,
+                    'value' => $scene->name . ' on ' . $scene->run_on_date . ' by ' . $scene->run_by->username
+                ];
+            }
+        }
+        $this->set(compact('query', 'suggestions'));
+        $this->set('_serialize', ['query', 'suggestions']);
     }
 }

@@ -19,7 +19,7 @@ $this->set('menu', $menu);
 <?php echo $this->Html->link('<< Back', ['action' => 'index'], ['class' => 'button']); ?>
 <div class="row">
     <div class="small-2 medium-1 column">
-        <label>Name</label>
+        <label>Beat Type</label>
     </div>
     <div class="small-10 medium-3 column">
         <?php echo h($beatType->name); ?>
