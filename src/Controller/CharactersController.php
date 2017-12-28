@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\Component\MenuComponent;
 use App\Controller\Component\PermissionsComponent;
+use App\Model\Entity\Permission;
 use App\Model\Table\CharactersTable;
 use Cake\Controller\Component\PaginatorComponent;
 use Cake\Event\Event;
@@ -64,14 +65,16 @@ class CharactersController extends AppController
             ->select([
                 'Characters.id',
                 'Characters.character_name',
+                'Characters.slug',
                 'Characters.character_type',
                 'Characters.splat1',
                 'Characters.splat2',
                 'Characters.is_npc',
                 'Characters.character_status_id',
+                'CharacterStatuses.name'
             ])
             ->where([
-                'Characters.character_status_id IN ' => CharacterStatus::Sanctioned,
+                'Characters.character_status_id IN ' => [CharacterStatus::Active, CharacterStatus::Idle],
                 'Characters.city' => 'portland',
             ])
             ->contain([
@@ -80,7 +83,8 @@ class CharactersController extends AppController
                         'user_id',
                         'username'
                     ]
-                ]
+                ],
+                'CharacterStatuses'
             ]);
 
         if (strtolower($type) !== 'all') {
@@ -111,7 +115,11 @@ class CharactersController extends AppController
             "All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
             "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', 'Changing Breed' => 'Changing Breed',
             "Mage" => 'Mage', "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
-        $this->set(compact('type', 'characterTypes'));
+        $mayManageCharacters = $this->Permissions->CheckSitePermission(
+            $this->Auth->user('user_id'),
+            Permission::$ManageCharacters
+        );
+        $this->set(compact('type', 'characterTypes', 'mayManageCharacters'));
     }
 
     public function stGoals($type = 'all')

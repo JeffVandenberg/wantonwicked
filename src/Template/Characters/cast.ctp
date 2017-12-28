@@ -5,6 +5,7 @@ use App\View\AppView;
 
 /* @var Character[] $characters ; */
 /* @var string $type ; */
+/* @var bool $mayManageCharacters ; */
 /* @var AppView $this */
 
 $this->set('title_for_layout', ucfirst($type) . ' Characters');
@@ -34,10 +35,18 @@ $this->Paginator->options([
             <?php endif; ?>
             <th><?php echo $this->Paginator->sort('splat1'); ?></th>
             <th><?php echo $this->Paginator->sort('splat2'); ?></th>
+            <th>Status</th>
             <th><?php echo $this->Paginator->sort('is_npc'); ?></th>
+            <?php if ($mayManageCharacters): ?>
+                <th>
+                    Admin
+                </th>
+            <?php endif; ?>
         </tr>
         </thead>
-        <?php foreach ($characters as $character): ?>
+        <?php foreach ($characters
+
+                       as $character): ?>
             <tr>
                 <td>
                     <?php echo $this->Html->link(
@@ -53,7 +62,7 @@ $this->Paginator->options([
                 <?php if (strtolower($type) == 'all'): ?>
                     <td>
                         <?php echo $this->Html->link(
-                            $character->character_type,
+                            ucfirst($character->character_type),
                             [
                                 $character->character_type
                             ]
@@ -67,7 +76,22 @@ $this->Paginator->options([
                     <?php echo $character->splat2; ?>
                 </td>
                 <td>
+                    <?php echo $character->character_status->name; ?>
+                </td>
+                <td>
                     <?php echo ($character->is_npc == 'Y') ? 'Yes' : 'No'; ?>
+                </td>
+                <td>
+                    <?php echo $this->Html->link(
+                        'Edit',
+                        [
+                            'action' => 'st-view',
+                            $character->slug
+                        ],
+                        [
+                            'class' => 'button'
+                        ]
+                    ); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

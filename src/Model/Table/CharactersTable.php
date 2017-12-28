@@ -62,7 +62,7 @@ class CharactersTable extends Table
             'foreignKey' => 'updated_by_id',
             'className' => 'Users'
         ]);
-        $this->belongsTo('CharacterStatus', [
+        $this->belongsTo('CharacterStatuses', [
             'foreignKey' => 'character_status_id',
         ]);
         $this->hasMany('CharacterBeatRecords', [
@@ -392,6 +392,7 @@ class CharactersTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['updated_by_id'], 'Users'));
         $rules->add($rules->existsIn(['location_id'], 'Locations'));
+        $rules->add($rules->existsIn(['character_status_id'], 'CharacterStatuses'));
 
         return $rules;
     }

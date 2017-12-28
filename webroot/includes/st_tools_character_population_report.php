@@ -10,7 +10,7 @@ $query = '';
 $params = array();
 $headerLinks = array();
 
-$sanctionedStatusIds = implode(',', CharacterStatus::Sanctioned);
+$sanctionedStatusIds = implode(',', [CharacterStatus::Active, CharacterStatus::Idle]);
 if (!Request::getValue('character_type')) {
 
     $query = <<<EOQ

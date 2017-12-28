@@ -73,6 +73,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\CharacterNote[] $character_notes
  * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\CharacterStatus $character_status
  * @property \App\Model\Entity\UpdatedBy $updated_by
  * @property \App\Model\Entity\Location[] $locations
  * @property \App\Model\Entity\CharacterBeatRecord[] $character_beat_records
