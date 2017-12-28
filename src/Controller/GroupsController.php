@@ -35,10 +35,15 @@ class GroupsController extends AppController
         $this->set('groups', $this->paginate($this->Groups, [
             'contain' => [
                 'GroupTypes',
-                'Users'
+                'Users' => [
+                    'fields' => ['username']
+                ]
             ],
             'order' => [
                 'Groups.name'
+            ],
+            'conditions' => [
+                'Groups.is_deleted' => false
             ]
         ]));
 
@@ -158,24 +163,21 @@ class GroupsController extends AppController
     /**
      * delete method
      *
-     * @throws NotFoundException
      * @param string $id
-     * @return void
+     * @return \Cake\Network\Response|null
      */
     public function delete($id = null)
     {
-        $this->Group->id = $id;
-        if (!$this->Group->exists()) {
-            throw new NotFoundException(__('Invalid group'));
-        }
-        $this->request->onlyAllow('post', 'delete');
-        if ($this->Group->delete()) {
-            $this->Session->setFlash(__('The group has been deleted.'));
+        $this->request->allowMethod(['post', 'delete']);
+        $group = $this->Groups->get($id);
+        $group->is_deleted = true;
+        if ($this->Groups->save($group)) {
+            $this->Flash->success(__($group->name . ' has been deleted.'));
         } else {
-            $this->Session->setFlash(__('The group could not be deleted. Please, try again.'));
+            $this->Flash->error(__($group->name . ' could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(array('action' => 'index'));
+        return $this->redirect(['action' => 'index']);
     }
 
     public function listRequestTypes($id = null)

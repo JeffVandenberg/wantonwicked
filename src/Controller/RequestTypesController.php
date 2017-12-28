@@ -56,6 +56,9 @@ class RequestTypesController extends AppController
                 'Groups' => [
                     'sort' => [
                         'Groups.name'
+                    ],
+                    'conditions' => [
+                        'is_deleted' => false
                     ]
                 ]
             ]

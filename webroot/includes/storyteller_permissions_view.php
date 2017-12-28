@@ -1,4 +1,6 @@
 <?php
+
+use classes\core\data\Group;
 use classes\core\data\User;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
@@ -50,7 +52,12 @@ if (Request::isPost()) {
 $permissions = $permissionRepository->simpleListAll();
 $userPermissions = $permissionRepository->ListPermissionsForUser($userId);
 
-$groups = $groupRepository->simpleListAll();
+$groupObjs = $groupRepository->ListByIsDeleted(false);
+/* @var Group[] $groupObjs */
+$groups = [];
+foreach($groupObjs as $group) {
+    $groups[$group->Id] = $group->Name;
+}
 $selectedGroups = $groupRepository->ListGroupsForUser($userId);;
 
 $roles = $roleRepository->simpleListAll();
@@ -96,7 +103,7 @@ ob_start();
                     Groups:
                 </td>
                 <td>
-                    <?php echo FormHelper::Multiselect($groups, 'groups[]', $selectedGroups); ?>
+                    <?php echo FormHelper::Multiselect($groups, 'groups[]', $selectedGroups, ['size' => 8]); ?>
                 </td>
             </tr>
             <tr>
