@@ -23,6 +23,8 @@ class Permission extends Entity
     public static $ManageCharacters = 7;
     public static $ManageScenes = 8;
     public static $ManageDatabase = 9;
+    public static $PlotsManage = 10;
+    public static $PlotsView = 11;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

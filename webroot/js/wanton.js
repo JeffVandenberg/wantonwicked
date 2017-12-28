@@ -248,7 +248,7 @@ tinymce.init({
         "searchreplace wordcount visualblocks code fullscreen",
         "insertdatetime media table contextmenu paste textcolor placeholder"
     ],
-    toolbar: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent"
+    toolbar: "undo redo | styleselect | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 });
 
 var addUrlParam = function(search, key, val){

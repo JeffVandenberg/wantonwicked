@@ -893,7 +893,14 @@ textarea {
     color: $ww-orange;
 }
 
+.checkboxlist {
+    width: 100%;
+}
 
+.checkboxlist .item {
+    width: 200px;
+    float: left;
+}
 /* character sheet */
 .power-level-column {
     width: 70px;
