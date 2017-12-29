@@ -16,6 +16,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $UpdatedBiy
  * @property \Cake\ORM\Association\BelongsTo $SceneStatus
  * @property \Cake\ORM\Association\HasMany $SceneCharacters
+ * @property \Cake\ORM\Association\HasMany $PlotScenes
  * @property \Cake\ORM\Association\HasMany $SceneRequests
  *
  * @method Scene get($primaryKey, $options = [])
@@ -64,6 +65,9 @@ class ScenesTable extends Table
             'foreignKey' => 'scene_id'
         ]);
         $this->hasMany('SceneRequests', [
+            'foreignKey' => 'scene_id'
+        ]);
+        $this->hasMany('PlotScenes', [
             'foreignKey' => 'scene_id'
         ]);
     }

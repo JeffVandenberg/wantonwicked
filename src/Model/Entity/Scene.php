@@ -28,6 +28,7 @@ use Cake\Utility\Text;
  * @property \App\Model\Entity\SceneStatus $scene_status
  * @property \App\Model\Entity\SceneCharacter[] $scene_characters
  * @property \App\Model\Entity\SceneRequest[] $scene_requests
+ * @property \App\Model\Entity\PlotScene[] $plot_scene
  */
 class Scene extends Entity
 {

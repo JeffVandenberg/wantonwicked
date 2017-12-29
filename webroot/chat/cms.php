@@ -127,14 +127,12 @@ else if(isset($_GET['st_login']) || (isset($_GET['action']) && $_GET['action'] =
         if(UserdataHelper::IsAsst($userdata)) {
             $userTypeId = 5;
             $mod = 1;
-        }
-        if(UserdataHelper::IsAdmin($userdata)) {
+        } else if(UserdataHelper::IsAdmin($userdata)) {
             $icon = 'admin.png';
             $userTypeId = 6;
             $admin = 1;
             $mod = 1;
-        }
-        else if(UserdataHelper::IsWikiManager($userdata)) {
+        } else if(UserdataHelper::IsWikiManager($userda11ta)) {
             $icon = 'wiki.png';
             $userTypeId = 7;
             $mod = 0;
