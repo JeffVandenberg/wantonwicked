@@ -45,9 +45,8 @@ class AppController extends Controller
             'loginAction' => '/forum/ucp.php?mode=login',
             'unauthorizedRedirect' => '/forum/ucp.php?mode=login'
         ],
-        'Menu',
         'Permissions',
-        'RequestHandler',
+        'Menu',
         'Flash'
     );
 

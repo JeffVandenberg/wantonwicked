@@ -36,6 +36,7 @@ $character = $characterRepository->FindById($characterId);
 
 $requestRepository = new RequestRepository();
 $requests = $requestRepository->ListByCharacterId($characterId, $page, $pageSize, $pagination->GetSort(), $statusId, $filter);
+$requestSummary = $requestRepository->summaryOfRequestTypesByCharacterId($characterId);
 $count = $requestRepository->ListByCharacterIdCount($characterId, $statusId, $filter);
 
 $hasPrev = false;
@@ -67,9 +68,7 @@ $characterMenu['Help'] = [
         ]
     ]
 ];
-$characterMenu['Create Request'] = [
-    'link' => "request.php?action=create&character_id=$characterId"
-];
+
 $menu = MenuHelper::GenerateMenu($characterMenu);
 
 ob_start();
@@ -77,6 +76,20 @@ ob_start();
 <?php echo $menu; ?>
     <div class="">
         <a class="button" href="/request.php?action=create&character_id=<?php echo $characterId; ?>">New Request</a>
+    </div>
+    <div class="row">
+        <div class="text-center small-12 columns">
+            <strong>Your current Open Request Status</strong>
+        </div>
+        <?php foreach($requestSummary as $summary): ?>
+            <?php $textClass = ($summary['total'] > 2) ? 'alert' : ''; ?>
+            <div class="small-12 medium-4 large-3 columns">
+                <?php echo $summary['request_type_name']; ?>:
+                <span class="badge <?php echo $textClass; ?>">
+                    <?php echo $summary['total']; ?>
+                </span>
+            </div>
+        <?php endforeach; ?>
     </div>
     <table>
         <tr>
@@ -244,8 +257,6 @@ ob_start();
 <?php endif; ?>
     <script>
         $(function () {
-            $(".button")
-                .button();
         });
     </script>
 <?php

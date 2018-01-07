@@ -10,6 +10,7 @@
 namespace classes\request\repository;
 
 
+use function array_merge;
 use classes\character\data\CharacterStatus;
 use classes\core\data\DataModel;
 use classes\core\repository\AbstractRepository;
@@ -815,7 +816,7 @@ EOQ;
 
     public function CloseRequestsForCharacter($characterIds)
     {
-        if(!$characterIds || count($characterIds) == 0) {
+        if (!$characterIds || count($characterIds) == 0) {
             return 0;
         }
         if (!is_array($characterIds)) {
@@ -1245,5 +1246,36 @@ SQL;
         ];
 
         return $this->query($sql)->value($params);
+    }
+
+    public function summaryOfRequestTypesByCharacterId($characterId)
+    {
+        $inProgressStatuses = [
+            RequestStatus::Submitted,
+            RequestStatus::InProgress,
+            RequestStatus::Returned,
+        ];
+        $openPlaceHolders = $this->buildPlaceholdersForValues($inProgressStatuses);
+
+        $sql = <<<SQL
+SELECT
+    RT.name AS request_type_name,
+    count(R.id) as total
+FROM
+    requests AS R
+    LEFT JOIN request_characters AS RC ON R.id = RC.request_id
+    LEFT JOIN request_types AS RT ON R.request_type_id = RT.id
+    LEFT JOIN request_statuses AS RS ON R.request_status_id = RS.id
+WHERE
+    RC.character_id = ?
+    AND RC.is_primary = 1
+    AND R.request_status_id IN ($openPlaceHolders)
+GROUP BY 
+    request_type_name
+SQL;
+        $params = array_merge([$characterId], $inProgressStatuses);
+
+        return $this->query($sql)->all($params);
+
     }
 }
