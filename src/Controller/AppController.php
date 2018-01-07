@@ -47,6 +47,7 @@ class AppController extends Controller
         ],
         'Permissions',
         'Menu',
+        'RequestHandler',
         'Flash'
     );
 
