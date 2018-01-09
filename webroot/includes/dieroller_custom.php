@@ -1,5 +1,9 @@
 <?php
-use classes\core\helpers\Response;use classes\core\repository\Database;$page_title = "Side Game Dieroller";
+
+use classes\core\helpers\Response;
+use classes\core\repository\Database;
+
+$page_title = "Side Game Dieroller";
 $contentHeader = $page_title;
 
 // Action Logic
@@ -7,7 +11,7 @@ $page = (isset($_POST['page'])) ? $_POST['page'] + 0 : 1;
 $page = (isset($_GET['page'])) ? $_GET['page'] + 0 : $page;
 $page_size = 30;
 
-if ($_POST['number_of_dice']) {
+if (isset($_POST['number_of_dice'])) {
     $number_of_dice = $_POST['number_of_dice'] + 0;
     $sides = $_POST['sides'] + 0;
     $modifier = $_POST['modifier'] + 0;
@@ -22,7 +26,7 @@ if ($_POST['number_of_dice']) {
 
         $total += $modifier;
 
-        $description = addslashes(htmlspecialchars($_POST['description']));
+        $description = htmlspecialchars($_POST['description']);
 
         $query = <<<EOQ
 INSERT INTO
@@ -48,12 +52,12 @@ VALUES
 	)
 EOQ;
         $params = array(
-                $description,
-                $number_of_dice,
-                $sides,
-                $modifier,
-                $total,
-                $rolls
+            $description,
+            $number_of_dice,
+            $sides,
+            $modifier,
+            $total,
+            $rolls
         );
         Database::getInstance()->query($query)->execute($params);
 
@@ -100,84 +104,91 @@ $rolls_data = Database::getInstance()->query($rolls_query)->all();
 
 ob_start();
 ?>
-    <div class="ui-widget">
-        <form method="post" action="dieroller.php?action=custom" id="roll-dice">
-            <div align="center">
-                <div style="margin:5px">
-                    Description: <input type="text" name="description" id="description" value="" maxlength="200"
-                                        style="width:200px;"/>
-                </div>
-                <div style="margin-bottom:5px;">
-                    Number: <input type="text" name="number_of_dice" id="number-of-dice" value="" maxlength="3"
-                                   style="width:30px;"/>
-
-                    Sides: <input type="text" name="sides" id="sides" value="" maxlength="3" style="width:30px;"/>
-
-                    Modifier: <input type="text" name="modifier" id="modifier" value="0" maxlength="4"
-                                     style="width:30px;"/>
-                    <input type="button" value="Roll" name="roll_dice_button" id="roll-dice-button"/>
-                </div>
+    <form method="post" action="/dieroller.php?action=custom" id="roll-dice">
+        <div class="row align-middle">
+            <div class="small-12 column">
+                <label for="description">Description:
+                    <input type="text" name="description" id="description" value="" maxlength="200"/>
+                </label>
             </div>
+            <div class="small-12 medium-4 large-3 columns">
+                <label for="number-of-dice">Number:
+                    <input type="text" name="number_of_dice" id="number-of-dice" value="" maxlength="3"/>
+                </label>
             </div>
-        </form>
+            <div class="small-12 medium-4 large-3 columns">
+                <label for="sides">Sides:
+                    <input type="text" name="sides" id="sides" value="" maxlength="3"/>
+                </label>
+            </div>
+            <div class="small-12 medium-4 large-3 columns">
+                <label for="modifier">Modifier:
+                    <input type="text" name="modifier" id="modifier" value="0" maxlength="4"/>
+                </label>
+            </div>
+            <div class="small-12 medium-12 large-3 columns text-center">
+                <input type="button" value="Roll" name="roll_dice_button" id="roll-dice-button" class="button"/>
+            </div>
+        </div>
+    </form>
 
-        <table>
+    <table class="stacked">
+        <tr>
+            <td style="font-weight:bold;">
+                Description
+            </td>
+            <td style="font-weight:bold;">
+                Total
+            </td>
+            <td style="font-weight:bold;">
+                Number
+            </td>
+            <td style="font-weight:bold;">
+                Sides
+            </td>
+            <td style="font-weight:bold;">
+                Modifier
+            </td>
+            <td style="font-weight:bold;">
+                Actions
+            </td>
+        </tr>
+        <?php foreach ($rolls_data as $key => $roll): ?>
             <tr>
-                <td style="font-weight:bold;">
-                    Description
+                <td>
+                    <?php echo $roll['description']; ?>
                 </td>
-                <td style="font-weight:bold;">
-                    Total
+                <td>
+                    <?php echo $roll['total']; ?>
                 </td>
-                <td style="font-weight:bold;">
-                    Number
+                <td>
+                    <?php echo $roll['number_of_dice']; ?>
                 </td>
-                <td style="font-weight:bold;">
-                    Sides
+                <td>
+                    <?php echo $roll['sides']; ?>
                 </td>
-                <td style="font-weight:bold;">
-                    Modifier
+                <td>
+                    <?php echo $roll['modifier']; ?>
                 </td>
-                <td style="font-weight:bold;">
-                    Actions
+                <td>
+                    <div rollid="<?php echo $roll['id']; ?>" class="toggle-roll-row clickable link">Show Rolls</div>
                 </td>
             </tr>
-            <?php foreach ($rolls_data as $key => $roll): ?>
-                <tr>
-                    <td>
-                        <?php echo $roll['description']; ?>
-                    </td>
-                    <td>
-                        <?php echo $roll['total']; ?>
-                    </td>
-                    <td>
-                        <?php echo $roll['number_of_dice']; ?>
-                    </td>
-                    <td>
-                        <?php echo $roll['sides']; ?>
-                    </td>
-                    <td>
-                        <?php echo $roll['modifier']; ?>
-                    </td>
-                    <td>
-                        <div rollid="<?php echo $roll['id']; ?>" class="toggle-roll-row clickable link">Show Rolls</div>
-                    </td>
-                </tr>
-                <tr id="row<?php echo $roll['id']; ?>" style="display:none;">
-                    <td colspan="6">
-                        Rolls: <?php echo $roll['rolls']; ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
+            <tr id="row<?php echo $roll['id']; ?>" style="display:none;">
+                <td colspan="6">
+                    Rolls: <?php echo $roll['rolls']; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 
-        <form method="get" action="dieroller.php">
-            Page <input type="text" value="<?php echo $page; ?>" name="page" style="width:30px;"/>
-            of <?php echo $pages; ?>
-            <input type="hidden" name="action" value="custom"/>
-            <input type="submit" value="Go to Page"/>
-        </form>
-    </div>
+    <form method="get" action="/dieroller.php">
+        Page <input type="text" value="<?php echo $page; ?>" name="page" style="width:30px;display:inline;"/>
+        of <?php echo $pages; ?>
+        <input type="hidden" name="action" value="custom"/>
+        <button type="submit" value="Go to Page" class="button">Go to Page</button>
+    </form>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $(document)
