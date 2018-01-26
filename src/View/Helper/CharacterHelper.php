@@ -2313,7 +2313,7 @@ class CharacterHelper extends AppHelper
     private function buildConditionsSection(Character $character)
     {
         $conditions = $character->getPowerList('conditions');
-        $conditions = $conditions[0];
+        $conditions = (!empty($conditions)) ? $conditions[0]->Extra['conditions'] : '';
         ob_start();
         ?>
         <a href="#csheet-conditions" role="tab" class="accordion-title" id="csheet-conditions-heading"
@@ -2329,11 +2329,11 @@ class CharacterHelper extends AppHelper
                             'conditions.0.conditions',
                             [
                                 'rows' => 6,
-                                'value' => $conditions->Extra['conditions']
+                                'value' => $conditions
                             ]
                         ); ?>
                     <?php else: ?>
-                        <?php echo str_replace("\n", '<br />', $conditions->Extra['conditions']); ?>
+                        <?php echo str_replace("\n", '<br />', $conditions); ?>
                     <?php endif; ?>
                 </div>
             </div>

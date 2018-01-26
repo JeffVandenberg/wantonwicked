@@ -32,7 +32,7 @@ if (Request::isPost()) {
             $requestCharacter->CharacterId = $characterId;
             $requestCharacter->RequestId = $requestId;
             $requestCharacter->IsPrimary = $isPrimary;
-            $requestCharacter->Note = $odx;
+            $requestCharacter->Note = $note;
             $requestCharacter->IsApproved = false;
             $requestCharacterRepo = RepositoryManager::GetRepository(RequestCharacter::class);
             if ($requestCharacterRepo->save($requestCharacter)) {

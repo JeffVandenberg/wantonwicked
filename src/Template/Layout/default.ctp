@@ -36,11 +36,11 @@ use Cake\Core\Configure;
             'wanton',
         ]);
     } else {
-        $this->Shrink->css(array(
+        $this->Shrink->css([
             'app.css',
             'wanton/jquery.toast.min.css',
             'wanton/jquery.datetimepicker.min.css'
-        ));
+        ]);
         echo $this->Shrink->fetch('css');
 
         $this->Shrink->js([

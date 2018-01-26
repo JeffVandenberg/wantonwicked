@@ -93,8 +93,6 @@ class RequestTypesController extends AppController
     }
 
     /**
-     * add method
-     *
      * @return \Cake\Network\Response|null|void
      */
     public function add()
@@ -105,7 +103,8 @@ class RequestTypesController extends AppController
             if ($this->RequestTypes->save($requestType)) {
                 $this->Flash->success(__('The request type has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                $this->redirect(['action' => 'index']);
+                return;
             }
             $this->Flash->error(__('The request type could not be saved. Please, try again.'));
         }
@@ -138,7 +137,6 @@ class RequestTypesController extends AppController
      *
      * @throws NotFoundException
      * @param string $id
-     * @return void
      */
     public function edit($id = null)
     {
@@ -152,7 +150,7 @@ class RequestTypesController extends AppController
             if ($this->RequestTypes->save($requestType)) {
                 $this->Flash->success(__('The request type has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The request type could not be saved. Please, try again.'));
         }
@@ -177,29 +175,6 @@ class RequestTypesController extends AppController
             )
         );
         $this->set('submenu', $storytellerMenu);
-    }
-
-    /**
-     * delete method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
-     */
-    public function delete($id = null)
-    {
-        $this->RequestType->id = $id;
-        if (!$this->RequestType->exists()) {
-            throw new NotFoundException(__('Invalid request type'));
-        }
-        $this->request->onlyAllow('post', 'delete');
-        if ($this->RequestType->delete()) {
-            $this->Session->setFlash(__('The request type has been deleted.'));
-        } else {
-            $this->Session->setFlash(__('The request type could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(array('action' => 'index'));
     }
 
     public function isAuthorized($user)
