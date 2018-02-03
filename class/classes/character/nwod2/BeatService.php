@@ -200,10 +200,11 @@ class BeatService
 
     private function createSplitBeat($characterId, $beatSpillOver)
     {
-        $beatTypeId = $this->findSplitBeatTypeIdForAmount($beatSpillOver);
+        $beatType = $this->findSplitBeatTypeIdForAmount($beatSpillOver);
+        /* @var BeatType $beatType */
 
         $beat = new CharacterBeat();
-        $beat->BeatTypeId = $beatTypeId;
+        $beat->BeatTypeId = $beatType->Id;
         $beat->CharacterId = $characterId;
         $beat->BeatStatusId = BeatStatus::StaffAwarded;
         $beat->Note = "Split Beat for: $beatSpillOver";
