@@ -881,6 +881,7 @@ class CharacterHelper extends AppHelper
     /**
      * @param Character $character
      * @return string
+     * @throws Exception
      */
     public function buildMortalPowersSection(Character $character)
     {
@@ -2384,7 +2385,7 @@ class CharacterHelper extends AppHelper
             }
             return $this->Form->control($powerType . '.' . $i . '.' . $input['name'], $inputOptions);
         } else {
-            if ($field['translate']) {
+            if (isset($field['translate'])) {
                 $value = $field['translate']($value);
             }
             return $value;
@@ -2409,7 +2410,7 @@ class CharacterHelper extends AppHelper
                 $inputOptions
             );
         } else {
-            if ($field['translate']) {
+            if (isset($field['translate'])) {
                 $value = $field['translate']($value);
             }
             return $value;
