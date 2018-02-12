@@ -23,6 +23,7 @@ config/Migrations/schema-dump-default.lock
 logs/cli-error.log
 logs/error.log
 logs/debug.log
+logs/test.log
 
 webroot/css/shrink*
 webroot/js/shrink*
