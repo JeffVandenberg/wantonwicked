@@ -4,23 +4,17 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * RequestType Entity
+ * RequestRequest Entity
  *
  * @property int $id
- * @property string $name
+ * @property int $from_request_id
+ * @property int $to_request_id
  *
- * @property \App\Model\Entity\Request[] $requests
- * @property \App\Model\Entity\Group[] $groups
+ * @property \App\Model\Entity\Request $from_request
+ * @property \App\Model\Entity\Request $to_request
  */
-class RequestType extends Entity
+class RequestRequest extends Entity
 {
-    const Sanction      = 1;
-    const XpRequest     = 2;
-    const NonXpRequest  = 3;
-    const BlueBook      = 4;
-    const CreativeThaum = 5;
-    const SceneRequest  = 6;
-    const XpRecommend   = 7;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

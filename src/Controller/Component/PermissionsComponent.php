@@ -10,11 +10,10 @@
 namespace App\Controller\Component;
 
 
-use app\Model\Character;
+use App\Model\Entity\Character;
 use App\Model\Entity\Permission;
 use App\Model\Table\UsersTable;
 use Cake\Controller\Component;
-use App\Model\User;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -72,11 +71,10 @@ class PermissionsComponent extends Component
         ));
     }
 
-    public function IsAdmin()
+    public function IsAdmin($userId = null)
     {
-        $userdata = $this->Auth->user();
-
-        return $this->CheckSitePermission($userdata['user_id'], array(
+        $userId = $userId ?? $this->Auth->user('user_id');
+        return $this->CheckSitePermission($userId, array(
             Permission::$IsAdmin,
         ));
     }
@@ -100,5 +98,17 @@ class PermissionsComponent extends Component
     public function isPlotViewer($userId)
     {
         return $this->CheckSitePermission($userId, Permission::$PlotsView);
+    }
+
+    public function isRequestManager($userId = null)
+    {
+        $userId = $userId ?? $this->Auth->user('user_id');
+        return $this->CheckSitePermission($userId, Permission::$ManageRequests);
+    }
+
+    public function mayViewCharacter(Character $character, $userId = null)
+    {
+        $userId = $userId ?? $this->Auth->user('user_id');
+        return $character->user_id == $userId || $this->IsAdmin($userId);
     }
 }

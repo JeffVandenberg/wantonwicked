@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Group;
@@ -108,5 +109,22 @@ class GroupsTable extends Table
         $rules->add($rules->existsIn(['group_type_id'], 'GroupTypes'));
 
         return $rules;
+    }
+
+    /**
+     * @param $characterId
+     * @return EntityInterface
+     */
+    public function getDefaultGroupForCharacter($characterId)
+    {
+        return $this->find()
+            ->leftJoin(
+                ['Characters' => 'characters'],
+                'Groups.name = Characters.character_type'
+            )
+            ->where([
+                'Characters.id' => $characterId
+            ])
+            ->first();
     }
 }
