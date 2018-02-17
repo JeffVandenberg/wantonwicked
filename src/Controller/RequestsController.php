@@ -13,10 +13,12 @@ namespace App\Controller;
 use App\Controller\Component\PermissionsComponent;
 use App\Controller\Component\RequestEmailComponent;
 use App\Model\Entity\Character;
+use App\Model\Entity\CharacterStatus;
 use App\Model\Entity\Request;
 use App\Model\Entity\RequestStatus;
 use App\Model\Table\RequestsTable;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 use classes\request\RequestMailer;
 use function compact;
 use Exception;
@@ -59,6 +61,7 @@ class RequestsController extends AppController
             case 'attachrequest':
             case 'attachbluebook':
             case 'attachscene':
+            case 'charactersearch':
                 return $user['user_id'] != 1;
                 break;
             case 'admin';
@@ -454,7 +457,32 @@ class RequestsController extends AppController
 
     public function characterSearch()
     {
-        // do we actually need?
+        $requestId = $this->request->getQuery('request_id');
+        $onlySanctioned = $this->request->getQuery('only_sanctioned');
+        $query = $this->request->getQuery('query');
+
+        $characterTable = TableRegistry::get('Characters');
+        $characters = $characterTable->find('list')
+            ->where([
+                'character_name like' => $query . '%',
+                'character_status_id !=' => CharacterStatus::Deleted
+            ]);
+
+        if($onlySanctioned) {
+            $characters->andWhere([
+                'character_status_id IN' => CharacterStatus::Sanctioned
+            ]);
+        }
+        $suggestions = [];
+        foreach($characters as $key => $value) {
+            $suggestions[] = [
+                'value' => $value,
+                'data' => $key
+            ];
+        }
+
+        $this->set(compact('query', 'suggestions'));
+        $this->set('_serialize', ['query', 'suggestions']);
     }
 
     public function attachRequest()

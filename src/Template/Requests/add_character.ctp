@@ -61,10 +61,11 @@ $this->set('title_for_layout', 'Add character to: ' . $request->title);
             }
         });
         $("#character-name").autocomplete({
-            serviceUrl: '/request.php?action=character_search',
+            serviceUrl: '/requests/character-search/.json',
             minChars: 2,
             autoSelectFirst: true,
             preserveInput: true,
+            showNoSuggestionNotice: true,
             params: {},
             onSearchStart: function (query) {
                 query.request_id = $("#request-id").val();
