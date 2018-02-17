@@ -101,8 +101,8 @@ $this->set('title_for_layout', 'Request: ' . $request->title);
             <h4>Supporting Requests</h4>
             <?php foreach ($request->request_requests as $linkedRequest): ?>
                 <?= $this->Html->link(
-                    $linkedRequest->to_request->title,
-                    ['action' => 'view', $linkedRequest->to_request->id],
+                    $linkedRequest->from_request->title,
+                    ['action' => 'view', $linkedRequest->from_request->id],
                     [
                         'class' => 'ajax-link'
                     ]

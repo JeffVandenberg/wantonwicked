@@ -19,9 +19,8 @@ use App\Model\Entity\RequestStatus;
 use App\Model\Table\RequestsTable;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
-use classes\request\RequestMailer;
 use function compact;
-use Exception;
+
 
 /**
  * @property PermissionsComponent Permissions
@@ -160,7 +159,7 @@ class RequestsController extends AppController
             }
             $request = $this->Requests->patchEntity($request, $this->request->getData());
             $request->updated_by_id =
-                $request->created_by_id =
+            $request->created_by_id =
                 $this->Auth->user('user_id');
             $request->request_status_id = RequestStatus::NewRequest;
 
@@ -250,9 +249,9 @@ class RequestsController extends AppController
                     'Rolls'
                 ],
                 'RequestRequests' => [
-                    'ToRequest',
+                    'FromRequest',
                     'sort' => [
-                        'ToRequest.title'
+                        'FromRequest.title'
                     ]
                 ],
                 'RequestBluebooks' => [
@@ -384,8 +383,8 @@ class RequestsController extends AppController
         $requestNote = $this->Requests->RequestNotes->newEntity();
         $request = $this->Requests->get($requestId);
         $this->validateRequestView($request);
-        if($this->request->is(['post', 'put'])) {
-            if(strtolower($this->request->getData('action')) == 'cancel') {
+        if ($this->request->is(['post', 'put'])) {
+            if (strtolower($this->request->getData('action')) == 'cancel') {
                 $this->redirect(['action' => 'view', $requestId]);
             }
             $requestNote = $this->Requests->RequestNotes->patchEntity(
@@ -395,7 +394,7 @@ class RequestsController extends AppController
 
             $requestNote->created_by_id = $this->Auth->user('user_id');
 
-            if($this->Requests->RequestNotes->save($requestNote)) {
+            if ($this->Requests->RequestNotes->save($requestNote)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
                 $this->redirect(['action' => 'view', $requestId]);
@@ -429,8 +428,8 @@ class RequestsController extends AppController
         $requestCharacter->is_approved = false;
         $requestCharacter->is_primary = false;
 
-        if($this->request->is(['post', 'put'])) {
-            if(strtolower($this->request->getData('action')) == 'cancel') {
+        if ($this->request->is(['post', 'put'])) {
+            if (strtolower($this->request->getData('action')) == 'cancel') {
                 $this->redirect(['action' => 'view', $requestId]);
                 return;
             }
@@ -441,7 +440,7 @@ class RequestsController extends AppController
                     'validate' => false
                 ]
             );
-            if($this->Requests->RequestCharacters->save($requestCharacter)) {
+            if ($this->Requests->RequestCharacters->save($requestCharacter)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
                 $this->Flash->set('Attached ' . $this->request->getData('character_name'));
@@ -468,13 +467,13 @@ class RequestsController extends AppController
                 'character_status_id !=' => CharacterStatus::Deleted
             ]);
 
-        if($onlySanctioned) {
+        if ($onlySanctioned) {
             $characters->andWhere([
                 'character_status_id IN' => CharacterStatus::Sanctioned
             ]);
         }
         $suggestions = [];
-        foreach($characters as $key => $value) {
+        foreach ($characters as $key => $value) {
             $suggestions[] = [
                 'value' => $value,
                 'data' => $key
@@ -485,16 +484,69 @@ class RequestsController extends AppController
         $this->set('_serialize', ['query', 'suggestions']);
     }
 
-    public function attachRequest()
+    public function attachRequest($requestId)
     {
+        $requestRequest = $this->Requests->RequestRequests->newEntity();
+        $request = $this->Requests->get($requestId);
+        $this->validateRequestView($request);
+        if ($this->request->is(['post', 'put'])) {
+            if (strtolower($this->request->getData('action')) == 'cancel') {
+                return $this->redirect(['action' => 'view', $requestId]);
+            }
+
+            $requestRequest = $this->Requests->RequestRequests->patchEntity(
+                $requestRequest,
+                $this->request->getData()
+            );
+            $requestRequest->to_request_id = $requestId;
+
+            if($this->Requests->RequestRequests->save($requestRequest)) {
+                $request->updated_by_id = $this->Auth->user('user_id');
+                $this->Requests->save($request);
+
+                $this->Flash->set("Attached Request");
+                return $this->redirect([
+                    'action' => 'view',
+                    $requestId
+                ]);
+            } else {
+                $this->Flash->set('Unable to attach Request');
+            }
+        }
+
+        $unattachedRequests = $this->Requests->listUnattachedRequests(
+            $requestId, $this->Auth->user('user_id')
+        );
+
+        $this->set(compact('request', 'requestRequest', 'unattachedRequests'));
     }
 
-    public function attachBluebook()
+    public function attachBluebook($requestId)
     {
+        $requestBluebook = $this->Requests->RequestBluebooks->newEntity();
+        $request = $this->Requests->get($requestId);
+        $this->validateRequestView($request);
+        if ($this->request->is(['post', 'put'])) {
+            if (strtolower($this->request->getData('action')) == 'cancel') {
+                $this->redirect(['action' => 'view', $requestId]);
+                return;
+            }
+
+        }
     }
 
-    public function attachScene()
+    public function attachScene($requestId)
     {
+        $requestScene = $this->Requests->SceneRequests->newEntity();
+        $request = $this->Requests->get($requestId);
+        $this->validateRequestView($request);
+        if ($this->request->is(['post', 'put'])) {
+            if (strtolower($this->request->getData('action')) == 'cancel') {
+                $this->redirect(['action' => 'view', $requestId]);
+                return;
+            }
+
+        }
     }
 
     public function stDashboard()

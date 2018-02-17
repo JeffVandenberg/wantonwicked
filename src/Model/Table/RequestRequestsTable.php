@@ -77,8 +77,8 @@ class RequestRequestsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['from_request_id'], 'FromRequests'));
-        $rules->add($rules->existsIn(['to_request_id'], 'ToRequests'));
+        $rules->add($rules->existsIn(['from_request_id'], 'FromRequest'));
+        $rules->add($rules->existsIn(['to_request_id'], 'ToRequest'));
 
         return $rules;
     }

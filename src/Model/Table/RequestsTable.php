@@ -37,7 +37,7 @@ use Cake\Validation\Validator;
  * @property RequestRollsTable|HasMany $RequestRolls
  * @property RequestStatusHistoriesTable|HasMany $RequestStatusHistories
  * @property SceneRequestsTable|HasMany $SceneRequests
- * @property RequestsTable $RequestRequests
+ * @property RequestRequestsTable $RequestRequests
  *
  * @method Request get($primaryKey, $options = [])
  * @method Request newEntity($data = null, array $options = [])
@@ -358,5 +358,55 @@ class RequestsTable extends Table
             ->enableHydration(false)
             ->firstOrFail();
         return $result['rows'] > 0;
+    }
+
+    public function listUnattachedRequests($requestId, $userId)
+    {
+        // get linked characters if any
+        $linkedCharacter = $this->RequestCharacters->Characters->find('list')
+            ->leftJoin(
+                ['RequestCharacters' => 'request_characters'],
+                'RequestCharacters.character_id = characters.id'
+            )
+            ->where([
+                'RequestCharacters.request_id' => $requestId,
+                'Characters.user_id' => $userId
+            ])
+            ->toArray();
+
+        $unattachedRequests = $this
+            ->find('list')
+            ->contain(false)
+            ->leftJoin(
+                ['RequestRequests' => 'request_requests'],
+                [
+                    'Requests.id = RequestRequests.from_request_id',
+                    'RequestRequests.to_request_id' => $requestId
+                ]
+            )
+            ->where([
+                'RequestRequests.to_request_id IS NULL',
+                'Requests.request_type_id != ' => RequestType::BlueBook,
+                'Requests.id != ' . $requestId
+            ])
+            ->order([
+                'Requests.title'
+            ]);
+
+        if (count($linkedCharacter)) {
+            $unattachedRequests
+                ->leftJoin(
+                    ['RequestCharacters' => 'request_characters'],
+                    'Requests.id = RequestCharacters.request_id'
+                )->andWhere([
+                    'RequestCharacters.character_id IN' => array_keys($linkedCharacter)
+                ]);
+        } else {
+            $unattachedRequests->andWhere([
+                'Requests.created_by_id' => $userId
+            ]);
+        }
+
+        return $unattachedRequests;
     }
 }
