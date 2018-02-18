@@ -7,7 +7,7 @@
  */
 
 if(!isset($characterId) && !isset($characterSlug) && !isset($characterName)) {
-    die('this request has not be properly prepared. Please notify jeffvandenberg@gmail.com of this URL.');
+    throw new Exception('this request has not be properly prepared. Please notify jeffvandenberg@gmail.com of this URL.');
 }
 
 $characterMenu = [

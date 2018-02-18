@@ -15,6 +15,7 @@ use App\Controller\Component\PermissionsComponent;
 use App\Model\Table\UsersTable;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use Exception;
 
 
 /**

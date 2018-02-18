@@ -20,10 +20,9 @@
 namespace app\Controller;
 
 use Cake\Core\Configure;
+use Cake\Network\Exception\NotFoundException;
 use Cake\Utility\Inflector;
-
-
-use App\Controller\AppController;
+use Cake\View\Exception\MissingViewException;
 
 /**
  * Static content controller
@@ -46,10 +45,8 @@ class PagesController extends AppController
     /**
      * Displays a view
      *
-     * @param mixed What page to display
-     * @return void
-     * @throws NotFoundException When the view file could not be found
-     *    or MissingViewException in debug mode.
+     * @return \Cake\Network\Response|void
+     * @throws \Exception
      */
     public function display()
     {
@@ -57,7 +54,7 @@ class PagesController extends AppController
 
         $count = count($path);
         if (!$count) {
-            return $this->redirect('/');
+            $this->redirect('/');
         }
         $page = $subpage = $title_for_layout = null;
 
