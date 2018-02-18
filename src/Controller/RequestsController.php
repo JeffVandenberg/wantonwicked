@@ -16,8 +16,10 @@ use App\Model\Entity\Character;
 use App\Model\Entity\CharacterStatus;
 use App\Model\Entity\Request;
 use App\Model\Entity\RequestStatus;
+use App\Model\Entity\Scene;
 use App\Model\Table\BluebooksTable;
 use App\Model\Table\RequestsTable;
+use App\Model\Table\ScenesTable;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 use function compact;
@@ -504,7 +506,6 @@ class RequestsController extends AppController
             if($this->Requests->RequestRequests->save($requestRequest)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
-
                 $this->Flash->set("Attached Request");
                 return $this->redirect([
                     'action' => 'view',
@@ -529,8 +530,7 @@ class RequestsController extends AppController
         $this->validateRequestView($request);
         if ($this->request->is(['post', 'put'])) {
             if (strtolower($this->request->getData('action')) == 'cancel') {
-                $this->redirect(['action' => 'view', $requestId]);
-                return;
+                return $this->redirect(['action' => 'view', $requestId]);
             }
             $requestBluebook = $this->Requests->RequestBluebooks->patchEntity(
                 $requestBluebook,
@@ -540,7 +540,8 @@ class RequestsController extends AppController
             if($this->Requests->RequestBluebooks->save($requestBluebook)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
-                $this->redirect(['action' => 'view', $requestId]);
+                $this->Flash->set('Attached Bluebook');
+                return $this->redirect(['action' => 'view', $requestId]);
             }
         }
 
@@ -555,16 +556,45 @@ class RequestsController extends AppController
 
     public function attachScene($requestId)
     {
-        $requestScene = $this->Requests->SceneRequests->newEntity();
+        $sceneRequest = $this->Requests->SceneRequests->newEntity();
         $request = $this->Requests->get($requestId);
         $this->validateRequestView($request);
         if ($this->request->is(['post', 'put'])) {
             if (strtolower($this->request->getData('action')) == 'cancel') {
-                $this->redirect(['action' => 'view', $requestId]);
-                return;
+                return $this->redirect(['action' => 'view', $requestId]);
             }
 
+            $sceneRequest = $this->Requests->SceneRequests->patchEntity(
+                $sceneRequest, $this->request->getData(),
+                ['validate' => false]
+            );
+            $sceneRequest->added_on = date('Y-m-d H:i:s');
+
+            if($this->Requests->SceneRequests->save($sceneRequest)) {
+                $request->updated_by_id = $this->Auth->user('user_id');
+                $this->Requests->save($request);
+                $this->Flash->set('Attached scene');
+                return $this->redirect(['action' => 'view', $requestId]);
+            } else {
+                $this->Flash->set('Unable to attach scene right now');
+            }
         }
+
+        $scenesTable = TableRegistry::get('Scenes');
+        /* @var ScenesTable $scenesTable */
+        $items = $scenesTable->listUnattachedScenes(
+            $requestId, $this->Auth->user('user_id')
+        );
+
+        // reformat for date inclusion
+        $unattachedScenes = [];
+        foreach($items as $item) {
+            /* @var Scene $item */
+            $unattachedScenes[$item->id] = $item->name .
+                ' (' . $item->run_on_date->toDateString() . ')';
+        }
+
+        $this->set(compact('request', 'sceneRequest', 'unattachedScenes'));
     }
 
     public function stDashboard()

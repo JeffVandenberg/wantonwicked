@@ -2,10 +2,12 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\Scene;
+use App\Model\Entity\SceneStatus;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -130,6 +132,10 @@ class ScenesTable extends Table
         return $rules;
     }
 
+    /**
+     * @param int $sceneCount
+     * @return array
+     */
     public function listForHome($sceneCount = 5)
     {
         return $this
@@ -149,5 +155,37 @@ class ScenesTable extends Table
             ])
             ->limit($sceneCount)
             ->toList();
+    }
+
+    /**
+     * @param $requestId
+     * @param $userId
+     * @return array|Query
+     */
+    public function listUnattachedScenes($requestId, $userId)
+    {
+        $linkedCharacter = TableRegistry::get('Characters')->find('list')
+            ->leftJoin(
+                ['RequestCharacters' => 'request_characters'],
+                'RequestCharacters.character_id = characters.id'
+            )
+            ->where([
+                'RequestCharacters.request_id' => $requestId,
+                'Characters.user_id' => $userId
+            ])
+            ->toArray();
+
+        return $this->find('all')
+            ->leftJoin(
+                ['SceneCharacters' => 'scene_characters'],
+                'SceneCharacters.scene_id = Scenes.id'
+            )
+            ->where([
+                'SceneCharacters.character_id IN' => array_keys($linkedCharacter),
+                'Scenes.scene_status_id !=' => SceneStatus::Cancelled
+            ])
+            ->order([
+                'Scenes.name'
+            ]);
     }
 }
