@@ -8,6 +8,7 @@ use App\Model\Entity\RequestType;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -312,4 +313,52 @@ class BluebooksTable extends Table
             ->firstOrFail();
         return $result['rows'] > 0;
     }
+
+    public function listUnattachedBluebooks($requestId, $userId)
+    {
+        // get linked characters if any
+        $linkedCharacter = TableRegistry::get('Characters')->find('list')
+            ->leftJoin(
+                ['RequestCharacters' => 'request_characters'],
+                'RequestCharacters.character_id = characters.id'
+            )
+            ->where([
+                'RequestCharacters.request_id' => $requestId,
+                'Characters.user_id' => $userId
+            ])
+            ->toArray();
+
+        $unattachedRequests = $this
+            ->find('list')
+            ->contain(false)
+            ->leftJoin(
+                ['RequestBluebooks' => 'request_bluebooks'],
+                [
+                    'Bluebooks.id = RequestBluebooks.bluebook_id',
+                    'RequestBluebooks.request_id' => $requestId
+                ]
+            )
+            ->where([
+                'RequestBluebooks.request_id IS NULL',
+                'Bluebooks.request_type_id =' => RequestType::BlueBook,
+                'Bluebooks.id != ' . $requestId
+            ])
+            ->order([
+                'Bluebooks.title'
+            ]);
+
+        if (count($linkedCharacter)) {
+            $unattachedRequests
+                ->andWhere([
+                    'Bluebooks.character_id IN' => array_keys($linkedCharacter)
+                ]);
+        } else {
+            $unattachedRequests->andWhere([
+                'Bluebooks.created_by_id' => $userId
+            ]);
+        }
+
+        return $unattachedRequests;
+    }
+
 }

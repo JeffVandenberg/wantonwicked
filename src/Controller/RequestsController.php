@@ -16,6 +16,7 @@ use App\Model\Entity\Character;
 use App\Model\Entity\CharacterStatus;
 use App\Model\Entity\Request;
 use App\Model\Entity\RequestStatus;
+use App\Model\Table\BluebooksTable;
 use App\Model\Table\RequestsTable;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
@@ -531,8 +532,25 @@ class RequestsController extends AppController
                 $this->redirect(['action' => 'view', $requestId]);
                 return;
             }
+            $requestBluebook = $this->Requests->RequestBluebooks->patchEntity(
+                $requestBluebook,
+                $this->request->getData()
+            );
 
+            if($this->Requests->RequestBluebooks->save($requestBluebook)) {
+                $request->updated_by_id = $this->Auth->user('user_id');
+                $this->Requests->save($request);
+                $this->redirect(['action' => 'view', $requestId]);
+            }
         }
+
+        $blueBooksTable = TableRegistry::get('BlueBooks');
+        /* @var BluebooksTable $blueBooksTable */
+        $unattachedBluebooks = $blueBooksTable->listUnattachedBluebooks(
+            $requestId, $this->Auth->user('user_id')
+        );
+
+        $this->set(compact('request', 'requestBluebook', 'unattachedBluebooks'));
     }
 
     public function attachScene($requestId)
