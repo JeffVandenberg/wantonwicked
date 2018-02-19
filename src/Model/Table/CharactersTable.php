@@ -558,4 +558,19 @@ EOQ;
             ])
             ->first();
     }
+
+    public function findPrimaryCharacterForRequest($requestId)
+    {
+        return $this->find('all')
+            ->leftJoin(
+                ['RequestCharacters' => 'request_characters'],
+                'RequestCharacters.character_id = Characters.id'
+            )
+            ->where([
+                'RequestCharacters.is_primary' => true,
+                'RequestCharacters.request_id' => $requestId
+            ])
+            ->first();
+
+    }
 }
