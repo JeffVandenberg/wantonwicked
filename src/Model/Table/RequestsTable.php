@@ -281,7 +281,7 @@ class RequestsTable extends Table
                 'request_characters.is_primary' => true
             ]);
 
-        if($filter['request_type_id']) {
+        if ($filter['request_type_id']) {
             $query->andWhere([
                 'Requests.request_type_id' => $filter['request_type_id']
             ]);
@@ -291,13 +291,13 @@ class RequestsTable extends Table
             ]);
         }
 
-        if($filter['title']) {
+        if ($filter['title']) {
             $query->andWhere([
                 'Requests.title LIKE' => $filter['title'] . '%'
             ]);
         }
 
-        if($filter['request_status_id']) {
+        if ($filter['request_status_id']) {
             $query->andWhere([
                 'Requests.request_status_id' => $filter['request_status_id']
             ]);
@@ -336,8 +336,7 @@ class RequestsTable extends Table
                 'RequestCharacters.is_primary' => false,
                 'Requests.request_type_id != ' => RequestType::BlueBook,
                 'Requests.request_status_id IN ' => RequestStatus::$Player
-            ])
-            ;
+            ]);
     }
 
     public function isUserAttachedToRequest($requestId, $userId)
@@ -408,5 +407,20 @@ class RequestsTable extends Table
         }
 
         return $unattachedRequests;
+    }
+
+    public function isRequestCreatedByUser($requestId, $userId)
+    {
+        $result = $this->query()
+            ->select([
+                'rows' => 'count(*)'
+            ])
+            ->where([
+                'Requests.id' => $requestId,
+                'Requests.created_by_id' => $userId,
+            ])
+            ->enableHydration(false)
+            ->firstOrFail();
+        return $result['rows'] > 0;
     }
 }

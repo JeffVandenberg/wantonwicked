@@ -64,6 +64,8 @@ class RequestsController extends AppController
             case 'attachbluebook':
             case 'attachscene':
             case 'charactersearch':
+            case 'forward':
+            case 'close':
                 return $user['user_id'] != 1;
                 break;
             case 'admin';
@@ -642,8 +644,46 @@ class RequestsController extends AppController
     {
     }
 
-    public function forward()
+    public function forward($requestId)
     {
+        $request = $this->Requests->get($requestId);
+        $this->validateRequestEdit($request);
+
+        if($this->request->is(['post', 'put'])) {
+            if (strtolower($this->request->getData('action')) == 'cancel') {
+                return $this->redirect(['action' => 'view', $requestId]);
+            }
+
+            $oldGroupId = $request->group_id;
+            $request = $this->Requests->patchEntity($request, $this->request->getData());
+            $newGroupId = $request->group_id;
+
+            if($oldGroupId != $newGroupId) {
+                $oldGroup = $this->Requests->Groups->get($oldGroupId);
+                $newGroup = $this->Requests->Groups->get($newGroupId);
+
+                $requestNote = $this->Requests->RequestNotes->newEntity();
+                $requestNote->created_by_id = $this->Auth->user('user_id');
+                $requestNote->note = 'Forwarded from group: ' . $oldGroup->name . ' to group: ' . $newGroup->name;
+                $requestNote->request_id = $requestId;
+
+                $this->Requests->RequestNotes->save($requestNote);
+                $this->Requests->save($request);
+                $this->redirect(['action' => 'view', $requestId]);
+            } else {
+                $this->Flash->set('You selected the same group for your request');
+            }
+        }
+
+        $groups = $this->Requests->Groups->find('list', [
+            'conditions' => [
+                'is_deleted' => 0
+            ],
+            'order' => [
+                'name'
+            ]
+        ]);
+        $this->set(compact('request', 'groups'));
     }
 
     public function stForward()
@@ -703,6 +743,12 @@ class RequestsController extends AppController
             || $this->Permissions->isRequestManager();
     }
 
+    private function mayEditRequest(Request $request)
+    {
+        return $this->Requests->isRequestCreatedByUser($request->id, $this->Auth->user('user_id'))
+            || $this->Permissions->isRequestManager();
+    }
+
     /**
      * @param Request $request
      */
@@ -710,6 +756,14 @@ class RequestsController extends AppController
     {
         if (!$this->mayViewRequest($request)) {
             $this->Flash->set('Unable to view that request');
+            $this->redirect(['action' => 'index']);
+        }
+    }
+
+    private function validateRequestEdit(Request $request): void
+    {
+        if (!$this->mayEditRequest($request)) {
+            $this->Flash->set('Unable to edit that request');
             $this->redirect(['action' => 'index']);
         }
     }
