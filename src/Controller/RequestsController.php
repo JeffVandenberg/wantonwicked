@@ -640,8 +640,19 @@ class RequestsController extends AppController
     {
     }
 
-    public function close()
+    public function close($requestId)
     {
+        $request = $this->Requests->get($requestId);
+        $this->validateRequestEdit($request);
+
+        $request->request_status_id = RequestStatus::Closed;
+        $request->updated_by_id = $this->Auth->user('user_id');
+        if($this->Requests->save($request)) {
+            $this->Flash->set('Closed request: ' . $request->title);
+        } else {
+            $this->Flash->set('Error closing request.');
+        }
+        return $this->redirect(['action' => 'view', $requestId]);
     }
 
     public function forward($requestId)
