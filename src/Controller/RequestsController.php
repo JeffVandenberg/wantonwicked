@@ -22,6 +22,8 @@ use App\Model\Table\RequestsTable;
 use App\Model\Table\ScenesTable;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use classes\log\CharacterLog;
+use classes\log\data\ActionType;
 use function compact;
 
 
@@ -71,6 +73,9 @@ class RequestsController extends AppController
             case 'delete':
                 return $user['user_id'] != 1;
                 break;
+            case 'stdashboard':
+            case 'stview':
+                return $this->Permissions->isRequestManager();
             case 'admin';
                 return $this->Permissions->isAdmin();
                 break;
@@ -233,58 +238,7 @@ class RequestsController extends AppController
 
     public function view($id)
     {
-        // map to request_view.php
-        $request = $this->Requests->get($id, [
-            'contain' => [
-                'Groups',
-                'RequestNotes' => [
-                    'CreatedBy' => [
-                        'fields' => ['username']
-                    ]
-                ],
-                'RequestCharacters' => [
-                    'Characters' => [
-                        'fields' => [
-                            'character_name',
-                            'slug'
-                        ]
-                    ],
-                    'sort' => [
-                        'Characters.character_name'
-                    ]
-                ],
-                'RequestRolls' => [
-                    'Rolls'
-                ],
-                'RequestRequests' => [
-                    'FromRequest',
-                    'sort' => [
-                        'FromRequest.title'
-                    ]
-                ],
-                'RequestBluebooks' => [
-                    'Bluebooks',
-                    'sort' => [
-                        'Bluebooks.title'
-                    ]
-                ],
-                'SceneRequests' => [
-                    'Scenes',
-                    'sort' => [
-                        'Scenes.name'
-                    ]
-                ],
-                'RequestStatuses',
-                'RequestTypes',
-                'UpdatedBy' => [
-                    'fields' => [
-                        'username'
-                    ]
-                ]
-            ]
-        ]);
-        /* @var Request $request */
-
+        $request = $this->Requests->getFullRequest($id);
         $this->validateRequestView($request);
 
         if ($request->request_status_id == RequestStatus::NewRequest) {
@@ -665,10 +619,85 @@ class RequestsController extends AppController
 
     public function stDashboard()
     {
+        $groups = $this->Requests->Groups->listStGroupsForUser($this->Auth->user('user_id'));
+        $requestStatuses = [-1 => 'All'] + $this->Requests->RequestStatuses->find('list', ['order' => 'name'])->toArray();
+        $requestTypes = $this->Requests->RequestTypes->find('list', ['order' => 'name']);
+        $requestsQuery = $this->Requests->findByGroups($groups->toArray());
+
+        if($this->request->getQuery('title')) {
+            $requestsQuery->andWhere([
+                'Requests.title LIKE' => $this->request->getQuery('title') . '%'
+            ]);
+        }
+
+        if($this->request->getQuery('username')) {
+            $requestsQuery->andWhere([
+                'CreatedBy.username_clean LIKE' => strtolower($this->request->getQuery('username')) . '%'
+            ]);
+        }
+
+        if($this->request->getQuery('request_type_id')) {
+            $requestsQuery->andWhere([
+                'Requests.request_type_id' => $this->request->getQuery('request_type_id')
+            ]);
+        }
+
+        if($this->request->getQuery('group_id')) {
+            $requestsQuery->andWhere([
+                'Requests.group_id' => $this->request->getQuery('group_id')
+            ]);
+        }
+
+        if($this->request->getQuery('request_status_id')) {
+            if($this->request->getQuery('request_status_id') != -1) {
+                $requestsQuery->andWhere([
+                    'Requests.request_status_id' => $this->request->getQuery('request_status_id')
+                ]);
+            }
+        } else {
+            $requestsQuery->andWhere([
+                'Requests.request_status_id IN' => RequestStatus::$Storyteller
+            ]);
+        }
+
+        $requests = $this->Paginator->paginate(
+            $requestsQuery,
+            [
+                'limit' => 20,
+                'order' => [
+                    'Requests.updated_on' => 'DESC'
+                ],
+                'sortWhitelist' => [
+                    'Requests.title',
+                    'Requests.created_on',
+                    'Requests.updated_on',
+                    'CreatedBy.username_clean',
+                    'UpdatedBy.username_clean',
+                    'Groups.name',
+                    'RequestTypes.name',
+                    'RequestStatuses.name',
+                ]
+            ]
+        );
+
+        $submenu = $this->Menu->createStorytellerMenu();
+        $this->set(compact('groups', 'requests', 'requestTypes', 'requestStatuses', 'submenu'));
     }
 
-    public function stView()
+    public function stView($requestId)
     {
+        $request = $this->Requests->getFullRequest($requestId);
+
+        CharacterLog::LogAction($request['character_id'], ActionType::ViewRequest, 'View Request', $this->Auth->user('user_id'), $requestId);
+        if($request->request_status_id == RequestStatus::Submitted) {
+            $request->request_status_id = RequestStatus::InProgress;
+            $request->updated_by_id = $this->Auth->user('user_id');
+            $this->Requests->save($request);
+        }
+
+        $submenu = $this->Menu->createStorytellerMenu();
+        $isAdmin = $this->Permissions->IsAdmin();
+        $this->set(compact('request', 'submenu', 'isAdmin'));
     }
 
     public function stAddNote()

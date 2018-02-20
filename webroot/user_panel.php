@@ -6,7 +6,7 @@ use classes\request\repository\RequestRepository;
 $get_vars = "";
 $is_first = true;
 foreach($_GET as $key => $value) {
-    if ($key != 'sid') {
+    if ($key != 'sid' && is_string($value)) {
         if ($is_first) {
             $get_vars .= "?$key=$value";
             $is_first = false;

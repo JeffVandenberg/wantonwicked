@@ -127,4 +127,16 @@ class GroupsTable extends Table
             ])
             ->first();
     }
+
+    public function listStGroupsForUser($userId)
+    {
+        return $this->find('list')
+            ->leftJoin(
+                ['StGroups' => 'st_groups'],
+                'StGroups.group_id = Groups.id'
+            )
+            ->where([
+                'StGroups.user_id' => $userId
+            ]);
+    }
 }

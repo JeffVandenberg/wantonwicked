@@ -207,7 +207,7 @@ $menuComponents['player'] = [
                         'link' => '/characters/add'
                     ],
                     'Requests' => [
-                        'link' => '/request.php'
+                        'link' => '/requests/'
                     ],
                     'Play Preferences' => [
                         'link' => '/play_preferences'
@@ -233,7 +233,7 @@ $menuComponents['staff'] = [
                         'link' => '/characters/stView',
                     ],
                     'Request Dashboard' => [
-                        'link' => '/request.php?action=st_list'
+                        'link' => '/requests/st-dashboard'
                     ],
                     'Chat Login' => [
                         'link' => '/chat/?st_login',

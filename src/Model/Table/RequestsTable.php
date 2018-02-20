@@ -1,23 +1,14 @@
 <?php
-
 namespace App\Model\Table;
 
+use App\Model\Entity\Group;
 use App\Model\Entity\Request;
 use App\Model\Entity\RequestStatus;
 use App\Model\Entity\RequestType;
-use App\Model\Table\CharactersTable;
-use App\Model\Table\GroupsTable;
-use App\Model\Table\RequestBluebooksTable;
-use App\Model\Table\RequestCharactersTable;
-use App\Model\Table\RequestNotesTable;
-use App\Model\Table\RequestRollsTable;
-use App\Model\Table\RequestStatusesTable;
-use App\Model\Table\RequestStatusHistoriesTable;
-use App\Model\Table\RequestTypesTable;
-use App\Model\Table\UsersTable;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\HasMany;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -422,5 +413,85 @@ class RequestsTable extends Table
             ->enableHydration(false)
             ->firstOrFail();
         return $result['rows'] > 0;
+    }
+
+    /**
+     * @param $groups
+     * @return Query
+     */
+    public function findByGroups($groups)
+    {
+        return $this->query()
+            ->contain([
+                'CreatedBy' => [
+                    'fields' => ['username']
+                ],
+                'UpdatedBy' => [
+                    'fields' => ['username']
+                ],
+                'RequestTypes',
+                'Groups',
+                'RequestStatuses'
+            ])
+            ->where([
+                'Requests.group_id IN' => array_keys($groups),
+            ]);
+    }
+
+    /**
+     * @param $id
+     * @return Request
+     */
+    public function getFullRequest($id): Request
+    {
+        return $this->get($id, [
+            'contain' => [
+                'Groups',
+                'RequestNotes' => [
+                    'CreatedBy' => [
+                        'fields' => ['username']
+                    ]
+                ],
+                'RequestCharacters' => [
+                    'Characters' => [
+                        'fields' => [
+                            'character_name',
+                            'slug'
+                        ]
+                    ],
+                    'sort' => [
+                        'Characters.character_name'
+                    ]
+                ],
+                'RequestRolls' => [
+                    'Rolls'
+                ],
+                'RequestRequests' => [
+                    'FromRequest',
+                    'sort' => [
+                        'FromRequest.title'
+                    ]
+                ],
+                'RequestBluebooks' => [
+                    'Bluebooks',
+                    'sort' => [
+                        'Bluebooks.title'
+                    ]
+                ],
+                'SceneRequests' => [
+                    'Scenes',
+                    'sort' => [
+                        'Scenes.name'
+                    ]
+                ],
+                'RequestStatuses',
+                'RequestTypes',
+                'UpdatedBy' => [
+                    'fields' => [
+                        'username'
+                    ]
+                ]
+            ]
+        ]);
     }
 }
