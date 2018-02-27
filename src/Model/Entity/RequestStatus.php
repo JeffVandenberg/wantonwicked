@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use OAuth\Common\Exception\Exception;
 
 /**
  * RequestStatus Entity
@@ -71,4 +72,43 @@ class RequestStatus extends Entity
         '*' => true,
         'id' => false
     ];
+
+    /**
+     * @param $state
+     * @return int
+     * @throws Exception
+     */
+    public static function getIdForState($state)
+    {
+        switch (strtolower($state)) {
+            case 'return':
+                return self::Returned;
+            case 'deny':
+                return self::Denied;
+            case 'approve':
+                return self::Approved;
+            case 'new':
+                return self::NewRequest;
+            case 'close':
+                return self::Closed;
+            default:
+                throw new Exception('Unknown Request Status: ' . $state);
+        }
+    }
+
+    public static function getPastTenseForState($state)
+    {
+        switch(strtolower($state)) {
+            case 'deny':
+                return 'denied';
+            case 'approve':
+                return 'approved';
+            case 'new':
+                return 'created';
+            case 'close':
+                return 'closed';
+            default:
+                return $state . 'ed';
+        }
+    }
 }

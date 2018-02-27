@@ -1,7 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Group;
 use App\Model\Entity\Request;
 use App\Model\Entity\RequestStatus;
 use App\Model\Entity\RequestType;
@@ -33,7 +32,6 @@ use Cake\Validation\Validator;
  * @method Request get($primaryKey, $options = [])
  * @method Request newEntity($data = null, array $options = [])
  * @method Request[] newEntities(array $data, array $options = [])
- * @method Request|bool save(EntityInterface $entity, $options = [])
  * @method Request patchEntity(EntityInterface $entity, array $data, array $options = [])
  * @method Request[] patchEntities($entities, array $data, array $options = [])
  * @method Request findOrCreate($search, callable $callback = null, $options = [])
@@ -494,4 +492,20 @@ class RequestsTable extends Table
             ]
         ]);
     }
+
+    public function save(EntityInterface $entity, $options = [])
+    {
+        /* @var Request $entity */
+        $result = parent::save($entity, $options);
+        if($result) {
+            $history = $this->RequestStatusHistories->newEntity();
+            $history->request_id = $entity->id;
+            $history->request_status_id = $entity->request_status_id;
+            $history->created_by_id = $entity->updated_by_id;
+            $histResult = $this->RequestStatusHistories->save($history);
+        }
+        return $result;
+    }
+
+
 }

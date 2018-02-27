@@ -30,6 +30,10 @@ $(function () {
         'step': 30,
         'theme': 'dark'
     });
+
+    $(document).on('click', '.dead-link', function(e) {
+        return false;
+    });
 });
 
 function giveFavor(characterId) {

@@ -40,6 +40,13 @@ class RequestStatusHistoriesTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created_on' => 'new'
+                ]
+            ]
+        ]);
         $this->belongsTo('Requests', [
             'foreignKey' => 'request_id',
             'joinType' => 'INNER'
@@ -66,11 +73,6 @@ class RequestStatusHistoriesTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
-
-        $validator
-            ->dateTime('created_on')
-            ->requirePresence('created_on', 'create')
-            ->notEmpty('created_on');
 
         return $validator;
     }

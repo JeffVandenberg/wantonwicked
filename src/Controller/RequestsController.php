@@ -25,6 +25,7 @@ use Cake\ORM\TableRegistry;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use function compact;
+use GuzzleHttp\Query;
 
 
 /**
@@ -75,6 +76,7 @@ class RequestsController extends AppController
                 break;
             case 'stdashboard':
             case 'stview':
+            case 'setstate':
                 return $this->Permissions->isRequestManager();
             case 'admin';
                 return $this->Permissions->isAdmin();
@@ -331,7 +333,7 @@ class RequestsController extends AppController
             }
         }
         $this->set('submenu', $menu);
-        $this->set(compact('request', 'isRequestManager'));
+        $this->set(compact('request', 'isRequestManager', 'character', 'backLink'));
     }
 
     public function edit($requestId)
@@ -374,6 +376,7 @@ class RequestsController extends AppController
             ]);
 
         $this->set(compact('request', 'groups', 'requestTypes'));
+        return null;
     }
 
     public function delete($requestId)
@@ -382,8 +385,8 @@ class RequestsController extends AppController
         $request = $this->Requests->get($requestId);
         $this->validateRequestEdit($request);
 
-        if($request->request_status_id == RequestStatus::NewRequest) {
-            if($this->Requests->delete($request)) {
+        if ($request->request_status_id == RequestStatus::NewRequest) {
+            if ($this->Requests->delete($request)) {
                 $this->Flash->set('Request ' . $request->title . ' has been deleted');
             } else {
                 $this->Flash->set('Error deleting request');
@@ -394,7 +397,7 @@ class RequestsController extends AppController
 
         $character = $this->Requests->RequestCharacters->Characters->findPrimaryCharacterForRequest($requestId);
         /* @var Character $character */
-        if($character->user_id == $this->Auth->user('user_id')) {
+        if ($character->user_id == $this->Auth->user('user_id')) {
             return $this->redirect(['action' => 'character', $character->id]);
         } else {
             return $this->redirect(['action' => 'index']);
@@ -408,7 +411,7 @@ class RequestsController extends AppController
         $this->validateRequestView($request);
         if ($this->request->is(['post', 'put'])) {
             if (strtolower($this->request->getData('action')) == 'cancel') {
-                $this->redirect(['action' => 'view', $requestId]);
+                return $this->redirectToView($requestId);
             }
             $requestNote = $this->Requests->RequestNotes->patchEntity(
                 $requestNote,
@@ -420,26 +423,15 @@ class RequestsController extends AppController
             if ($this->Requests->RequestNotes->save($requestNote)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
-                $this->redirect(['action' => 'view', $requestId]);
+                return $this->redirectToView($requestId);
             } else {
                 $this->Flash->set('Error adding note.');
             }
         }
-        $notes = $this->Requests->RequestNotes->find('all', [
-            'conditions' => [
-                'RequestNotes.request_id' => $requestId
-            ],
-            'order' => [
-                'created_on' => 'ASC'
-            ],
-            'contain' => [
-                'CreatedBy' => [
-                    'fields' => ['username']
-                ]
-            ]
-        ]);
+        $notes = $this->listNotesForRequest($requestId);
 
         $this->set(compact('request', 'notes', 'requestNote'));
+        return null;
     }
 
     public function addCharacter($requestId)
@@ -479,7 +471,6 @@ class RequestsController extends AppController
 
     public function characterSearch()
     {
-        $requestId = $this->request->getQuery('request_id');
         $onlySanctioned = $this->request->getQuery('only_sanctioned');
         $query = $this->request->getQuery('query');
 
@@ -541,6 +532,7 @@ class RequestsController extends AppController
         );
 
         $this->set(compact('request', 'requestRequest', 'unattachedRequests'));
+        return null;
     }
 
     public function attachBluebook($requestId)
@@ -572,6 +564,7 @@ class RequestsController extends AppController
         );
 
         $this->set(compact('request', 'requestBluebook', 'unattachedBluebooks'));
+        return null;
     }
 
     public function attachScene($requestId)
@@ -615,41 +608,43 @@ class RequestsController extends AppController
         }
 
         $this->set(compact('request', 'sceneRequest', 'unattachedScenes'));
+        return null;
     }
 
     public function stDashboard()
     {
         $groups = $this->Requests->Groups->listStGroupsForUser($this->Auth->user('user_id'));
+        /* @var Query $groups */
         $requestStatuses = [-1 => 'All'] + $this->Requests->RequestStatuses->find('list', ['order' => 'name'])->toArray();
         $requestTypes = $this->Requests->RequestTypes->find('list', ['order' => 'name']);
         $requestsQuery = $this->Requests->findByGroups($groups->toArray());
 
-        if($this->request->getQuery('title')) {
+        if ($this->request->getQuery('title')) {
             $requestsQuery->andWhere([
                 'Requests.title LIKE' => $this->request->getQuery('title') . '%'
             ]);
         }
 
-        if($this->request->getQuery('username')) {
+        if ($this->request->getQuery('username')) {
             $requestsQuery->andWhere([
                 'CreatedBy.username_clean LIKE' => strtolower($this->request->getQuery('username')) . '%'
             ]);
         }
 
-        if($this->request->getQuery('request_type_id')) {
+        if ($this->request->getQuery('request_type_id')) {
             $requestsQuery->andWhere([
                 'Requests.request_type_id' => $this->request->getQuery('request_type_id')
             ]);
         }
 
-        if($this->request->getQuery('group_id')) {
+        if ($this->request->getQuery('group_id')) {
             $requestsQuery->andWhere([
                 'Requests.group_id' => $this->request->getQuery('group_id')
             ]);
         }
 
-        if($this->request->getQuery('request_status_id')) {
-            if($this->request->getQuery('request_status_id') != -1) {
+        if ($this->request->getQuery('request_status_id')) {
+            if ($this->request->getQuery('request_status_id') != -1) {
                 $requestsQuery->andWhere([
                     'Requests.request_status_id' => $this->request->getQuery('request_status_id')
                 ]);
@@ -689,7 +684,7 @@ class RequestsController extends AppController
         $request = $this->Requests->getFullRequest($requestId);
 
         CharacterLog::LogAction($request['character_id'], ActionType::ViewRequest, 'View Request', $this->Auth->user('user_id'), $requestId);
-        if($request->request_status_id == RequestStatus::Submitted) {
+        if ($request->request_status_id == RequestStatus::Submitted) {
             $request->request_status_id = RequestStatus::InProgress;
             $request->updated_by_id = $this->Auth->user('user_id');
             $this->Requests->save($request);
@@ -700,13 +695,58 @@ class RequestsController extends AppController
         $this->set(compact('request', 'submenu', 'isAdmin'));
     }
 
-    public function stAddNote()
+    /**
+     * @param $requestId
+     * @return \Cake\Network\Response|null
+     * @throws \OAuth\Common\Exception\Exception
+     */
+    public function setState($requestId)
     {
-        // do we need?
-    }
+        $request = $this->Requests->get($requestId);
+        $state = $this->request->getQuery('state');
+        if(!in_array($state, ['return', 'approve', 'deny', 'close'])) {
+            $this->Flash->set('Unknown state to assign');
+            return $this->redirect(['action' => 'st-view', $requestId]);
+        }
 
-    public function stApprove()
-    {
+        if ($this->request->is(['post', 'put'])) {
+            if (strtolower($this->request->getData('action')) == 'cancel') {
+                return $this->redirect(['action' => 'view', $requestId]);
+            }
+
+            $note = $this->request->getData('note');
+            if(!$note) {
+                $this->Flash->set('Please include a note');
+            } else {
+                $request->request_status_id = RequestStatus::getIdForState($state);
+                $request->updated_by_id = $this->Auth->user('user_id');
+
+                if($this->Requests->save($request)) {
+                    // save note
+                    $requestNote = $this->Requests->RequestNotes->newEntity();
+                    $requestNote->created_by_id = $this->Auth->user('user_id');
+                    $requestNote->request_id = $requestId;
+                    $requestNote->note = $note;
+                    $this->Requests->RequestNotes->save($requestNote);
+
+                    // send email
+                    $this->RequestEmail->notificationToPlayer(
+                        $this->Auth->user('user_email'),
+                        $this->Auth->user('username'),
+                        $state,
+                        $note,
+                        $request
+                    );
+                    $this->Flash->set('Updated request');
+                    return $this->redirect(['action' => 'st-view', $requestId]);
+                } else {
+                    $this->Flash->set('Error updating state');
+                }
+            }
+        }
+
+        $notes = $this->listNotesForRequest($requestId);
+        $this->set(compact('request', 'state', 'notes'));
     }
 
     public function stReturn()
@@ -742,12 +782,12 @@ class RequestsController extends AppController
                 $this->Flash->set('Error sending notification.');
             }
         } else {
-            $this->Flash->set('Unable to submit the rquest');
+            $this->Flash->set('Unable to submit the request');
         }
 
         $character = $this->Requests->RequestCharacters->Characters->findPrimaryCharacterForRequest($requestId);
         /* @var Character $character */
-        if($character->user_id == $this->Auth->user('user_id')) {
+        if ($character->user_id == $this->Auth->user('user_id')) {
             return $this->redirect(['action' => 'character', $character->id]);
         } else {
             return $this->redirect(['action' => 'index']);
@@ -769,6 +809,10 @@ class RequestsController extends AppController
         return $this->redirect(['action' => 'view', $requestId]);
     }
 
+    /**
+     * @param $requestId
+     * @return \Cake\Network\Response|null
+     */
     public function forward($requestId)
     {
         $request = $this->Requests->get($requestId);
@@ -776,7 +820,7 @@ class RequestsController extends AppController
 
         if ($this->request->is(['post', 'put'])) {
             if (strtolower($this->request->getData('action')) == 'cancel') {
-                return $this->redirect(['action' => 'view', $requestId]);
+                return $this->redirectToView($requestId);
             }
 
             $oldGroupId = $request->group_id;
@@ -789,12 +833,12 @@ class RequestsController extends AppController
 
                 $requestNote = $this->Requests->RequestNotes->newEntity();
                 $requestNote->created_by_id = $this->Auth->user('user_id');
-                $requestNote->note = 'Forwarded from group: ' . $oldGroup->name . ' to group: ' . $newGroup->name;
+                $requestNote->note = '<p>Forwarded from group: ' . $oldGroup->name . ' to group: ' . $newGroup->name . '</p>';
                 $requestNote->request_id = $requestId;
 
                 $this->Requests->RequestNotes->save($requestNote);
                 $this->Requests->save($request);
-                $this->redirect(['action' => 'view', $requestId]);
+                return $this->redirectToView($requestId);
             } else {
                 $this->Flash->set('You selected the same group for your request');
             }
@@ -849,8 +893,8 @@ class RequestsController extends AppController
                     'fields' => ['username']
                 ]
             ],
-            'sort' => [
-                'RequestStatuses.created_on'
+            'order' => [
+                'RequestStatusHistories.created_on'
             ]
         ]);
         /* @var RequestStatus[] $history */
@@ -891,5 +935,40 @@ class RequestsController extends AppController
             $this->Flash->set('Unable to edit that request');
             $this->redirect(['action' => 'index']);
         }
+    }
+
+    /**
+     * @param $requestId
+     * @return \Cake\Network\Response|null
+     */
+    private function redirectToView($requestId)
+    {
+        if ($this->request->getQuery('st')) {
+            return $this->redirect(['action' => 'st-view', $requestId]);
+        } else {
+            return $this->redirect(['action' => 'view', $requestId]);
+        }
+    }
+
+    /**
+     * @param $requestId
+     * @return \Cake\ORM\Query
+     */
+    private function listNotesForRequest($requestId): \Cake\ORM\Query
+    {
+        $notes = $this->Requests->RequestNotes->find('all', [
+            'conditions' => [
+                'RequestNotes.request_id' => $requestId
+            ],
+            'order' => [
+                'created_on' => 'ASC'
+            ],
+            'contain' => [
+                'CreatedBy' => [
+                    'fields' => ['username']
+                ]
+            ]
+        ]);
+        return $notes;
     }
 }

@@ -73,7 +73,6 @@ $contentHeader = $page_title;
 
 ob_start();
 ?>
-
     <form method="post">
         <div class="formInput">
             <label>
