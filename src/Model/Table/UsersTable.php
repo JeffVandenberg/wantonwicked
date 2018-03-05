@@ -2,6 +2,7 @@
 
 namespace App\Model\Table;
 
+use App\Model\Entity\User;
 use Cake\Database\Connection;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\RulesChecker;
@@ -81,6 +82,11 @@ class UsersTable extends Table
         return $rules;
     }
 
+    /**
+     * @param $userId
+     * @param $permissionIds
+     * @return bool
+     */
     public function checkUserPermission($userId, $permissionIds)
     {
         if (!$userId || !$permissionIds) {
@@ -109,6 +115,10 @@ SQL;
         return $count[0]['Count'] > 0;
     }
 
+    /**
+     * @param $userId
+     * @return array
+     */
     public function listUserGroups($userId)
     {
         $userId = (int)$userId;
@@ -135,6 +145,10 @@ EOQ;
 
     }
 
+    /**
+     * @param $data
+     * @return bool
+     */
     public function saveUserGroups($data)
     {
         foreach ($data['group_id'] as $row => $groupId) {
@@ -150,6 +164,12 @@ EOQ;
         return true;
     }
 
+    /**
+     * @param $userId
+     * @param $groupId
+     * @param $isGroupLeader
+     * @return bool
+     */
     private function addUserGroupRole($userId, $groupId, $isGroupLeader)
     {
         $userId = (int)$userId;
@@ -206,6 +226,11 @@ EOQ;
         return true;
     }
 
+    /**
+     * @param $userId
+     * @param $groupId
+     * @return bool
+     */
     private function deleteUserGroup($userId, $groupId)
     {
         $userId = (int)$userId;
@@ -228,6 +253,9 @@ EOQ;
         return true;
     }
 
+    /**
+     * @param $userId
+     */
     private function updateUserAclPermissions($userId)
     {
         $sql = <<<EOQ
@@ -245,6 +273,9 @@ EOQ;
         $this->getConnection()->execute($sql, $params);
     }
 
+    /**
+     * @return mixed
+     */
     public function listUsersWithGroups()
     {
         $sql = <<<EOQ
@@ -280,6 +311,11 @@ EOQ;
 
     }
 
+    /**
+     * @param $user
+     * @return bool
+     * @throws \Exception
+     */
     public function addUserToSite($user)
     {
         // check if the username is already in use on the site
@@ -409,5 +445,20 @@ EOQ;
         // return happy state
         $connection->commit();
         return true;
+    }
+
+    /**
+     * @param $groupId
+     * @return User[]
+     */
+    public function listUsersInGroup($groupId)
+    {
+        return $this->find()
+            ->contain([
+                'Groups'
+            ])
+            ->where([
+                'Groups.id' => $groupId
+            ]);
     }
 }

@@ -14,6 +14,26 @@ use Cake\ORM\Entity;
  */
 class CharacterStatus extends Entity
 {
+    const NewCharacter = 1;
+    const Active = 2;
+    const Unsanctioned = 3;
+    const Inactive = 4;
+    const Deleted = 5;
+    const Idle = 6;
+
+    const NonDeleted = [
+        self::NewCharacter,
+        self::Active,
+        self::Unsanctioned,
+        self::Inactive,
+        self::Idle,
+    ];
+
+    const Sanctioned = [
+        self::Active,
+        self::Inactive,
+        self::Idle
+    ];
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

@@ -6,6 +6,16 @@ use classes\character\data\Character;
 
 /* @var Character $character */
 $this->set('title_for_layout', 'View Character: ' . $character->CharacterName);
+echo $this->Html->script('create_character_nwod2');
+$this->start('script');
+?>
+<script defer>
+    $(function() {
+        $('.remove-character-row').hide();
+    })
+</script>
+<?php
+$this->end();
 ?>
 <form method="post" data-abide novalidate id="character-form">
     <div data-abide-error class="alert callout" style="display: none;">
@@ -22,5 +32,3 @@ $this->set('title_for_layout', 'View Character: ' . $character->CharacterName);
         </div>
     </div>
 </form>
-<?php
-echo $this->Html->script('create_character_nwod2');

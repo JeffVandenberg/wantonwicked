@@ -624,9 +624,9 @@ label {
     display: block;
     margin: 0;
     font-size: 0.875rem;
-    font-weight: normal;
+    font-weight: bold;
     line-height: 1.8;
-    color: #cccccc;
+    color: $secondary-color;
 }
 
 label.middle {

@@ -9,6 +9,7 @@ use classes\character\data\Character;
 use classes\character\data\CharacterPower;
 use classes\character\data\CharacterStatus;
 use Exception;
+use phpbb\notification\method\email;
 
 /**
  * Created by PhpStorm.
@@ -880,6 +881,7 @@ class CharacterHelper extends AppHelper
     /**
      * @param Character $character
      * @return string
+     * @throws Exception
      */
     public function buildMortalPowersSection(Character $character)
     {
@@ -2313,7 +2315,13 @@ class CharacterHelper extends AppHelper
     private function buildConditionsSection(Character $character)
     {
         $conditions = $character->getPowerList('conditions');
-        $conditions = (!empty($conditions)) ? $conditions[0]->Extra['conditions'] : '';
+        $conditionId = 0;
+        $conditionText = '';
+        if(!empty($conditions)) {
+            $conditionId = $conditions[0]->Id;
+            $conditionText = $conditions[0]->Extra['conditions'];
+        }
+        $conditions = [];
         ob_start();
         ?>
         <a href="#csheet-conditions" role="tab" class="accordion-title" id="csheet-conditions-heading"
@@ -2323,13 +2331,13 @@ class CharacterHelper extends AppHelper
             <div class="row">
                 <div class="small-12 column">
                     <?php if ($this->mayEditLimited()): ?>
-                        <?php echo $this->Form->hidden('conditions.0.id', ['value' => $conditions->Id]); ?>
+                        <?php echo $this->Form->hidden('conditions.0.id', ['value' => $conditionId]); ?>
                         <?php echo $this->Form->hidden('conditions.0.name', ['value' => 'conditions']); ?>
                         <?php echo $this->Form->textarea(
                             'conditions.0.conditions',
                             [
                                 'rows' => 6,
-                                'value' => $conditions
+                                'value' => $conditionText
                             ]
                         ); ?>
                     <?php else: ?>
@@ -2377,7 +2385,7 @@ class CharacterHelper extends AppHelper
             }
             return $this->Form->control($powerType . '.' . $i . '.' . $input['name'], $inputOptions);
         } else {
-            if ($field['translate']) {
+            if (isset($field['translate'])) {
                 $value = $field['translate']($value);
             }
             return $value;
@@ -2402,7 +2410,7 @@ class CharacterHelper extends AppHelper
                 $inputOptions
             );
         } else {
-            if ($field['translate']) {
+            if (isset($field['translate'])) {
                 $value = $field['translate']($value);
             }
             return $value;

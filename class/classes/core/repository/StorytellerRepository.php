@@ -32,6 +32,11 @@ class StorytellerRepository
 
     }
 
+    /**
+     * @param $userId
+     * @return array
+     * @throws \Exception
+     */
     public function ListGroupsForStoryteller($userId)
     {
         $userId = (int)$userId;
@@ -43,7 +48,7 @@ FROM
     st_groups AS SG
     INNER JOIN groups AS G ON SG.group_id = G.id
 WHERE
-    user_id = ?
+    SG.user_id = ?
 EOQ;
         $params = array(
             $userId

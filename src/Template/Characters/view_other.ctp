@@ -11,6 +11,15 @@ if (isset($character)) {
 } else {
     $this->set('title_for_layout', 'View Another Character');
 }
+$this->start('script');
+?>
+<script defer>
+    $(function() {
+        $('.remove-character-row').hide();
+    })
+</script>
+<?php
+$this->end();
 ?>
 <form method="post" class="row align-middle">
     <div class="small-12 medium-4 columns">
