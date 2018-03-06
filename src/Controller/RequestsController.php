@@ -111,12 +111,12 @@ class RequestsController extends AppController
         // map to request_list.php
         if (!$characterId) {
             $this->Flash->set('No character specified');
-            $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
         }
 
         $character = $this->Requests->Characters->get($characterId);
         if (!$this->Permissions->mayViewCharacter($character)) {
-            $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
         }
 
         $filter = [
@@ -167,9 +167,9 @@ class RequestsController extends AppController
         if ($this->request->is(['post', 'put'])) {
             if ($this->request->getData('action') == 'cancel') {
                 if ($characterId) {
-                    $this->redirect(['action' => 'character', $characterId]);
+                    return $this->redirect(['action' => 'character', $characterId]);
                 } else {
-                    $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
                 }
             }
             $request = $this->Requests->patchEntity($request, $this->request->getData());
@@ -196,7 +196,7 @@ class RequestsController extends AppController
                         $this->Flash->set('Error sending notification.');
                     }
                 }
-                $this->redirect([
+                return $this->redirect([
                     'action' => 'view',
                     $request->id
                 ]);
@@ -445,8 +445,7 @@ class RequestsController extends AppController
 
         if ($this->request->is(['post', 'put'])) {
             if (strtolower($this->request->getData('action')) == 'cancel') {
-                $this->redirect(['action' => 'view', $requestId]);
-                return;
+                return $this->redirect(['action' => 'view', $requestId]);
             }
             $requestCharacter = $this->Requests->RequestCharacters->patchEntity(
                 $requestCharacter,
@@ -459,7 +458,7 @@ class RequestsController extends AppController
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
                 $this->Flash->set('Attached ' . $this->request->getData('character_name'));
-                $this->redirect(['action' => 'view', $requestId]);
+                return $this->redirect(['action' => 'view', $requestId]);
             } else {
                 $this->Flash->set('Error Attaching Character');
             }
@@ -921,7 +920,7 @@ class RequestsController extends AppController
     /**
      * @param Request $request
      */
-    private function validateRequestView(Request $request): void
+    private function validateRequestView(Request $request)
     {
         if (!$this->mayViewRequest($request)) {
             $this->Flash->set('Unable to view that request');
@@ -929,7 +928,7 @@ class RequestsController extends AppController
         }
     }
 
-    private function validateRequestEdit(Request $request): void
+    private function validateRequestEdit(Request $request)
     {
         if (!$this->mayEditRequest($request)) {
             $this->Flash->set('Unable to edit that request');
