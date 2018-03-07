@@ -334,8 +334,7 @@ class RequestsTable extends Table
             ->select([
                 'rows' => 'count(*)'
             ])
-            ->leftJoinWith('RequestCharacters')
-            ->leftJoinWith('Characters')
+            ->leftJoinWith('RequestCharacters.Characters')
             ->where([
                 'Requests.id' => $requestId,
                 'OR' => [

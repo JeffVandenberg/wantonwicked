@@ -1,3 +1,11 @@
+<?php
+
+use App\Model\Entity\Request;
+
+/**
+ * @var Request $request
+ */
+?>
 <div class="row">
     <div class="small-12 columns">
         <label>Title:</label>
@@ -68,12 +76,15 @@
             <h4>Supporting Rolls</h4>
             <?php foreach ($request->request_rolls as $roll): ?>
                 <?= $this->Html->link(
-                    $roll->roll->Description . ' (' . $roll->roll->Num_of_Successes . ' Successes)',
+                    $roll->roll->Description . ' (' . $roll->roll->Num_of_Successes. ' Successes)',
                     '/dieroller.php?action=view_roll&r=' . $roll->roll_id,
                     [
                         'class' => 'ajax-link'
                     ]
                 ); ?>
+                <?php if ($roll->roll->Character_Name): ?>
+                    (<?= $roll->roll->Character_Name; ?>)
+                <?php endif; ?>
                 <br/>
             <?php endforeach; ?>
         </div>

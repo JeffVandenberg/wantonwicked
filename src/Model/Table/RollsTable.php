@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * WodDierolls Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Characters
+ *
  * @method Roll get($primaryKey, $options = [])
  * @method Roll newEntity($data = null, array $options = [])
  * @method Roll[] newEntities(array $data, array $options = [])
@@ -35,7 +37,18 @@ class RollsTable extends Table
         $this->setTable('wod_dierolls');
         $this->setDisplayField('Description');
         $this->setPrimaryKey('Roll_ID');
+
+        $this->belongsTo('Characters', [
+            'foreignKey' => 'Character_ID',
+            'joinType' => 'LEFT'
+        ]);
     }
+
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['Character_ID'], 'Characters'));
+    }
+
 
     /**
      * Default validation rules.

@@ -1,6 +1,8 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\RequestRoll;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -12,13 +14,13 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\RequestsTable|\Cake\ORM\Association\BelongsTo $Requests
  * @property \App\Model\Table\RollsTable|\Cake\ORM\Association\BelongsTo $Rolls
  *
- * @method \App\Model\Entity\RequestRoll get($primaryKey, $options = [])
- * @method \App\Model\Entity\RequestRoll newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\RequestRoll[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\RequestRoll|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\RequestRoll patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\RequestRoll[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\RequestRoll findOrCreate($search, callable $callback = null, $options = [])
+ * @method RequestRoll get($primaryKey, $options = [])
+ * @method RequestRoll newEntity($data = null, array $options = [])
+ * @method RequestRoll[] newEntities(array $data, array $options = [])
+ * @method RequestRoll|bool save(EntityInterface $entity, $options = [])
+ * @method RequestRoll patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method RequestRoll[] patchEntities($entities, array $data, array $options = [])
+ * @method RequestRoll findOrCreate($search, callable $callback = null, $options = [])
  */
 class RequestRollsTable extends Table
 {
