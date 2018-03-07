@@ -24,6 +24,8 @@ use Cake\ORM\Entity;
  * @property string $Chance_Die
  * @property string $Bias
  * @property string $Is_Rote
+ *
+ * @property \App\Model\Entity\Character $character
  */
 class Roll extends Entity
 {
