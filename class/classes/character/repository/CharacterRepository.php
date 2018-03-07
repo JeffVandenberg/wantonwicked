@@ -396,7 +396,7 @@ SQL;
     {
         $sql = <<<SQL
 SELECT
-  DISTINCT C.id
+  DISTINCT C.id, C.character_name
 FROM
   characters AS C
   INNER JOIN character_beats AS CB ON C.id = CB.character_id

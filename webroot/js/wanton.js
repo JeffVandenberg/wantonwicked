@@ -15,7 +15,7 @@ $(function () {
     });
 
     // general method for removing required properties when cancelling out of a form
-    $('input[value="Cancel"], button[value="cancel"], button[value=Cancel]').click(function () {
+    $('input[value="Cancel"], button[value="cancel"], button[value="Cancel"]').click(function () {
         $('input[required],textarea[required],select[required]').attr('required', false);
     });
 
@@ -29,6 +29,10 @@ $(function () {
         'format': 'Y-m-d H:i',
         'step': 30,
         'theme': 'dark'
+    });
+
+    $(document).on('click', '.dead-link', function(e) {
+        return false;
     });
 });
 
@@ -47,6 +51,7 @@ function viewFavor(favorId) {
     });
     return false;
 }
+
 function transferFavor(favorId) {
     $.get("/favors.php?action=transfer&favor_id=" + favorId, function (content) {
         $("#favorPaneContent").html(content).dialog({
@@ -55,6 +60,7 @@ function transferFavor(favorId) {
     });
     return false;
 }
+
 function dischargeFavor(favorId) {
     if (confirm('Are you sure you want to discharge the favor?')) {
         $.ajax({
@@ -238,8 +244,8 @@ tinymce.init({
         // remove all tags => plain text
         o.content = strip_tags(o.content, '<br>');
     },
-    setup: function(editor) {
-        editor.on('blur', function() {
+    setup: function (editor) {
+        editor.on('blur', function () {
             editor.save();
         });
     },
@@ -250,8 +256,27 @@ tinymce.init({
     ],
     toolbar: "undo redo | styleselect | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 });
+tinymce.init({
+    selector: "textarea.tinymce-request",
+    menubar: false,
+    height: 200,
+    paste_preprocess : function(pl, o) {
+        //example: keep bold,italic,underline and paragraphs
+        //o.content = strip_tags( o.content,'<b><u><i><p>' );
 
-var addUrlParam = function(search, key, val){
+        // remove all tags => plain text
+        o.content = strip_tags( o.content,'<br>' );
+    },
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace wordcount visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste textcolor template"
+    ],
+    toolbar1: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | copy paste | template",
+    templates: '/requestTemplates/getList'
+});
+
+var addUrlParam = function (search, key, val) {
     var newParam = encodeURIComponent(key) + '=' + encodeURIComponent(val),
         params = '?' + newParam;
 
@@ -276,7 +301,7 @@ function copyToClipboard(selector, callback) {
     document.execCommand("copy");
     $temp.remove();
 
-    if(callback) {
+    if (callback) {
         callback()
     }
 }

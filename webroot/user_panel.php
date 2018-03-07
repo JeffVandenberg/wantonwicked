@@ -6,7 +6,7 @@ use classes\request\repository\RequestRepository;
 $get_vars = "";
 $is_first = true;
 foreach($_GET as $key => $value) {
-    if ($key != 'sid') {
+    if ($key != 'sid' && is_string($value)) {
         if ($is_first) {
             $get_vars .= "?$key=$value";
             $is_first = false;
@@ -46,12 +46,12 @@ if ($userdata['user_id'] != 1) {
     ob_start(); ?>
 <span id="server-time"></span>
 <?php if($newStRequestCount): ?>
-<a href="/request.php?action=st_list" class="button-badge">
+<a href="/requests/st-dashboard" class="button-badge">
     <i class="fa fi-clipboard storyteller-action" title="ST Request Dashboard"></i>
     <span class="badge badge-primary warning" title="New Requests"><?php echo $newStRequestCount; ?></span>
     </a>
 <?php endif; ?>
-<a href="/request.php" class="button-badge">
+<a href="/requests" class="button-badge">
     <i class="fa fi-clipboard" title="Your Requests"></i>
     <?php if($requestCount): ?>
     <span class="badge badge-primary warning" title="Open Requests"><?php echo $requestCount; ?></span>

@@ -7,7 +7,7 @@
  */
 
 if(!isset($characterId) && !isset($characterSlug) && !isset($characterName)) {
-    die('this request has not be properly prepared. Please notify jeffvandenberg@gmail.com of this URL.');
+    throw new Exception('this request has not be properly prepared. Please notify jeffvandenberg@gmail.com of this URL.');
 }
 
 $characterMenu = [
@@ -55,7 +55,7 @@ $characterMenu = [
                 'link' => "/request.php?action=list&character_id=$characterId",
                 'submenu' => [
                     'New' => [
-                        'link' => "/request.php?action=create&character_id=$characterId"
+                        'link' => "/requests/add?character_id=$characterId"
                     ]
                 ]
             ],

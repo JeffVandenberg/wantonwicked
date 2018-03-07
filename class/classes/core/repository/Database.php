@@ -42,6 +42,7 @@ class Database
      * Build the initial connection to the database
      * @param array|null $connection Connection Information.
      * @throws PDOException
+     * @throws Exception
      */
     function __construct($connection = null)
     {
@@ -83,6 +84,7 @@ class Database
     /**
      * Clean up the database connection and ensure that we are not
      * inside of any transactions
+     * @throws Exception
      */
     function __destruct()
     {
@@ -263,6 +265,10 @@ class Database
         return $this;
     }
 
+    /**
+     * @return Database
+     * @throws Exception
+     */
     public static function getInstance() {
         if(self::$instance === null) {
             self::$instance = new Database();

@@ -9,10 +9,7 @@ use App\View\AppView;
 /* @var AppView $this */
 
 $this->set('title_for_layout', ucfirst($type) . ' Characters');
-$this->Paginator->options([
-    'update' => '#page-content',
-    'evalScripts' => true,
-]); ?>
+?>
 <div id="page-content">
     <div class="row align-center">
         <div class="small-12 medium-4 column end">

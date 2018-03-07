@@ -66,7 +66,11 @@ class MenuComponent extends Component
                             'link' => '/chat/?character_id=' . $character->id
                         ],
                         'Requests' => [
-                            'link' => '/request.php?action=list&character_id=' . $character->id
+                            'link' => [
+                                'controller' => 'requests',
+                                'action' => 'character',
+                                $character->id
+                            ]
                         ],
                         'Bluebook' => [
                             'link' => '/bluebook.php?action=list&character_id=' . $character->id

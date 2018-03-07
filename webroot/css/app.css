@@ -7259,9 +7259,9 @@ label {
   display: block;
   margin: 0;
   font-size: 0.875rem;
-  font-weight: normal;
+  font-weight: bold;
   line-height: 1.8;
-  color: #cccccc; }
+  color: #3c6e71; }
 
 label.middle {
   margin: 0 0 1rem;
