@@ -205,10 +205,8 @@ class GroupsController extends AppController
             );
         }
 
-        $this->response->disableCache();
-        header('Content-Type: application/json');
-        echo json_encode(compact('list'));
-        die();
+        $this->set(compact('list'));
+        $this->set('_serialize', ['list']);
     }
 
     public function isAuthorized($user)

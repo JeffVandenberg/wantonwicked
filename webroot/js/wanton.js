@@ -273,7 +273,7 @@ tinymce.init({
         "insertdatetime media table contextmenu paste textcolor template"
     ],
     toolbar1: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | copy paste | template",
-    templates: '/requestTemplates/getList'
+    templates: '/requestTemplates/getList.json'
 });
 
 var addUrlParam = function (search, key, val) {

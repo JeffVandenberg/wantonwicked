@@ -437,19 +437,20 @@ class CharactersController extends AppController
         $characterName = $this->request->getQuery('name');
         $city = $this->request->getQuery('city');
 
+        $success = false;
+        $in_use = true;
         $data = [
             'success' => false,
             'in_use' => true
         ];
 
         if ($characterName && $city) {
-            $data['in_use'] = $this->Characters->findNameUsedInCity($id, $characterName, $city);
-            $data['success'] = true;
+            $in_use = $this->Characters->findNameUsedInCity($id, $characterName, $city);
+            $success = true;
         }
 
-        $this->autoRender = false;
-        echo json_encode($data);
-        die();
+        $this->set(compact('in_use', 'success'));
+        $this->set('_serialize', ['in_use', 'success']);
     }
 
     public function assignCondition()

@@ -50,8 +50,9 @@ class RequestTemplatesController extends AppController
                 'content' => $template->content,
             );
         }
-        echo json_encode($list);
-        die();
+
+        $this->set(compact('list'));
+        $this->set('_serialize', 'list');
     }
 
     /**
