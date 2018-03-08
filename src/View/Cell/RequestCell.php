@@ -23,10 +23,11 @@ class RequestCell extends Cell
      * Default display method.
      *
      * @param Request $request
+     * @param $adminView
      * @return void
      */
-    public function display(Request $request)
+    public function display(Request $request, $adminView)
     {
-        $this->set(compact('request'));
+        $this->set(compact('request', 'adminView'));
     }
 }

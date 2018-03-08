@@ -4,7 +4,9 @@ use App\Model\Entity\Request;
 
 /**
  * @var Request $request
+ * @var bool $adminView
  */
+$action = ($adminView) ? 'st-view' : 'view-other';
 ?>
 <div class="row">
     <div class="small-12 columns">
@@ -50,10 +52,18 @@ use App\Model\Entity\Request;
                 <?php foreach ($request->request_characters as $character): ?>
                     <div class="small-12 medium-6 large-4 columns">
                         <label>Character</label>
+                        <?= $this->Html->link(
+                            $character->character->character_name,
+                            [
+                                'controller' => 'characters',
+                                'action' => $action,
+                                $character->character->slug
+                            ],
+                            [
+                                'target' => '_blank'
+                            ]); ?>
                         <?php if ($character->is_primary): ?>
-                            <strong><?= $character->character->character_name; ?></strong>
-                        <?php else: ?>
-                            <?= $character->character->character_name; ?>
+                            <strong>Primary</strong>
                         <?php endif; ?>
                         <br/>
                         <label>Note</label>
@@ -76,7 +86,7 @@ use App\Model\Entity\Request;
             <h4>Supporting Rolls</h4>
             <?php foreach ($request->request_rolls as $roll): ?>
                 <?= $this->Html->link(
-                    $roll->roll->Description . ' (' . $roll->roll->Num_of_Successes. ' Successes)',
+                    $roll->roll->Description . ' (' . $roll->roll->Num_of_Successes . ' Successes)',
                     '/dieroller.php?action=view_roll&r=' . $roll->roll_id,
                     [
                         'class' => 'ajax-link'

@@ -56,7 +56,7 @@ $this->set('title_for_layout', 'Request: ' . $request->title);
     <?php } ?>
 </div>
 <?php
-echo $this->cell('Request', [$request]);
+echo $this->cell('Request', [$request, false]);
 ?>
 <?php $this->start('script'); ?>
 <script>
