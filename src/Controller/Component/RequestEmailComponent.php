@@ -29,16 +29,16 @@ class RequestEmailComponent extends Component
         /* @var User[] $users */
 
         foreach($users as $user) {
-            $email->addTo($user->user_email);
+            $email = $email->addTo($user->user_email);
         }
 
-        $result = $email->setFrom('wantonwicked@gamingsandbox.com')
+        /*$result = $email->setFrom('wantonwicked@gamingsandbox.com')
             ->setSubject('Request Submitted: ' . $request->title)
             ->setEmailFormat('html')
             ->setLayout('wantonwicked')
             ->setTemplate('new_request')
             ->setViewVars(compact('request'))
-            ->send();
+            ->send();*/
         return true;
     }
 
