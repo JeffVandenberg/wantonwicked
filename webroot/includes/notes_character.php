@@ -58,7 +58,7 @@ $order_dir = "desc";
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'update') {
         $note_list = $_POST['delete'];
-        while (list($key, $value) = each($note_list)) {
+        foreach($note_list as $key => $value) {
             $delete_query = "update personal_notes set is_deleted='Y' where personal_note_id=?;";
             $params = array(
                 $value

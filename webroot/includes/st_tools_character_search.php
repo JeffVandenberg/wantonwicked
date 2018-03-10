@@ -29,7 +29,7 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
     if ($selected_character_types) {
         $character_query .= "( ";
 
-        while (list($key, $value) = each($selected_character_types)) {
+        foreach($selected_character_types as $key => $value) {
             $character_query .= " character_type = '$value' or ";
         }
 
@@ -39,7 +39,7 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
     if ($selected_cities) {
         $character_query .= "( ";
 
-        while (list($key, $value) = each($selected_cities)) {
+        foreach($selected_cities as $key => $value) {
             $character_query .= " city = '$value' or ";
         }
 
@@ -49,7 +49,7 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
     if ($selected_splat1) {
         $character_query .= "( ";
 
-        while (list($key, $value) = each($selected_splat1)) {
+        foreach($selected_splat1 as $key => $value) {
             $character_query .= " splat1 = '$value' or ";
         }
 
@@ -59,7 +59,7 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
     if ($selected_splat2) {
         $character_query .= "( ";
 
-        while (list($key, $value) = each($selected_splat2)) {
+        foreach($selected_splat2 as $key => $value) {
             $character_query .= " splat2 = '$value' or ";
         }
 
@@ -79,7 +79,7 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
     if ($selected_vices) {
         $character_query .= "( ";
 
-        while (list($key, $value) = each($selected_vices)) {
+        foreach($selected_vices as $key => $value) {
             $character_query .= " vice = '$value' or ";
         }
 

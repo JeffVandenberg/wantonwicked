@@ -320,7 +320,7 @@ class SheetService
             $character->City = $stats['city'];
             $character->Age = $stats['age'] + 0;
             $character->ApparentAge = $stats['apparent_age'] ?? 0;
-            $character->Sex = 'Male';//$stats['sex'];
+            $character->Sex = 'Male';
             $character->Virtue = $stats['virtue'];
             $character->Vice = $stats['vice'];
             $character->Splat1 = ($stats['splat1']) ? $stats['splat1'] : '';
@@ -389,10 +389,10 @@ class SheetService
         $character->Gameline = 'NWoD2';
 
         // values to figure out
-        $character->ShowSheet = 'N';//$stats['show_sheet'];
-        $character->HideIcon = 'N';//$stats['hide_icon'];
-        $character->SafePlace = '';//$stats['safe_place'];
-        $character->Helper = '';//$stats['friends'];
+        $character->ShowSheet = 'N';
+        $character->HideIcon = 'N';
+        $character->SafePlace = '';
+        $character->Helper = '';
 
         // legacy values. Woof.
         $character->Merits = '';

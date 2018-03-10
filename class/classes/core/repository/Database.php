@@ -267,13 +267,16 @@ class Database
 
     /**
      * @return Database
-     * @throws Exception
      */
     public static function getInstance() {
-        if(self::$instance === null) {
-            self::$instance = new Database();
+        try {
+            if(self::$instance === null) {
+                self::$instance = new Database();
+            }
+            return self::$instance;
+        } catch (Exception $e) {
+            return null;
         }
-        return self::$instance;
     }
 
     public function value($parameters = null)

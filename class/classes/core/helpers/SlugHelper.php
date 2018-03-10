@@ -5,13 +5,15 @@ class SlugHelper
 {
     public static function FromPropertyToName($sName)
     {
-        return substr(preg_replace_callback("/[A-Z]/", create_function('$matches', 'return \'_\' . strtolower($matches[0]);'), $sName), 1);
+        return substr(preg_replace_callback("/[A-Z]/",
+            function($matches) {return '_' . strtolower($matches[0]);}, $sName), 1);
     }
 
     public static function FromNameToProperty($sName)
     {
         $sName = "_$sName";
-        return preg_replace_callback("/_[a-z]/", create_function('$matches', 'return substr(strtoupper($matches[0]), 1);'), $sName);
+        return preg_replace_callback("/_[a-z]/",
+            function($matches) { return substr(strtoupper($matches[0]), 1); }, $sName);
     }
 
     public static function FromClassToTable($className)
@@ -47,6 +49,6 @@ class SlugHelper
     public static function FromNameToLabel($name)
     {
         $name = "_$name";
-        return preg_replace_callback("/_[a-z]/", create_function('$matches', 'return " " . substr(strtoupper($matches[0]), 1);'), $name);
+        return preg_replace_callback("/_[a-z]/", function($matches) {return " " . substr(strtoupper($matches[0]), 1);}, $name);
     }
 }

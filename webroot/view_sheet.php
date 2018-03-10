@@ -49,7 +49,6 @@ require_once('user_panel.php');
 $menu_bar = include 'menu_bar.php';
 
 if (isset($_GET['action'])) {
-    //echo $_GET['action']."<br>";
     switch ($_GET['action']) {
         case 'st_view_xp':
             Response::redirect('/characters/stView/'. \classes\core\helpers\Request::getValue('view_character_id', 0));

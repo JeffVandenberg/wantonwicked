@@ -28,7 +28,6 @@ if(isset($_POST['icon_name']) && isset($_POST['icon_id']))
   $admin_viewable = (isset($_POST['admin_viewable'])) ? "Y" : "N";
   
 	$icon_query = "update icons set icon_name=?, icon_id=?, player_viewable=?, gm_viewable=?, admin_viewable=? where id=?;";
-	//echo "$icon_query<br>";
     Database::getInstance()->query($icon_query)->execute(array($icon_name, $icon_id, $player_viewable, $gm_viewable, $admin_viewable, $id));
 
 	// add js

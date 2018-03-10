@@ -10,14 +10,6 @@ $phpbb_root_path = './forum/';
 include($phpbb_root_path . 'extension.inc');
 include($phpbb_root_path . 'common.' . $phpEx);
 
-//
-// Start session management
-//
-$userdata = session_pagestart($user_ip, WEBSITE);
-init_userprefs($userdata);
-//
-// End session management
-//
 
 if (!UserdataHelper::IsHead($userdata)) {
     Response::redirect('/', 'You may not view icons');
@@ -38,7 +30,7 @@ include 'menu_bar.php';
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'update') {
         $skill_list = $_POST['delete'];
-        while (list($key, $value) = each($skill_list)) {
+        foreach($skill_list as $key => $value) {
             $delete_query = "delete from icons where id=$value;";
             Database::getInstance()->query($delete_query)->execute();
         }
