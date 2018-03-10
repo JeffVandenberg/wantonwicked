@@ -432,6 +432,7 @@ class RequestsTable extends Table
             ])
             ->where([
                 'Requests.group_id IN' => array_keys($groups),
+                'Requests.request_type_id !=' => RequestType::BlueBook
             ]);
     }
 
