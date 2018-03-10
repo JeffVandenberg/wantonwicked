@@ -502,7 +502,7 @@ class RequestsTable extends Table
             $history->request_id = $entity->id;
             $history->request_status_id = $entity->request_status_id;
             $history->created_by_id = $entity->updated_by_id;
-            $histResult = $this->RequestStatusHistories->save($history);
+            $this->RequestStatusHistories->save($history);
         }
         return $result;
     }

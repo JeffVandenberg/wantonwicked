@@ -439,10 +439,6 @@ class CharactersController extends AppController
 
         $success = false;
         $in_use = true;
-        $data = [
-            'success' => false,
-            'in_use' => true
-        ];
 
         if ($characterName && $city) {
             $in_use = $this->Characters->findNameUsedInCity($id, $characterName, $city);

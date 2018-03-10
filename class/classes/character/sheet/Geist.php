@@ -232,7 +232,7 @@ class Geist extends SheetRenderer
                 </tr>
             <?php endforeach; ?>
         </table>
-        <?
+        <?php
         $keyList = ob_get_clean();
 
         $powers = $sheet->getPowers($sheet->stats['id'], 'manifestation', WodSheet::NAMENOTE, 4);
