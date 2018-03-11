@@ -175,17 +175,21 @@ class ScenesTable extends Table
             ])
             ->toArray();
 
-        return $this->find('all')
-            ->leftJoin(
-                ['SceneCharacters' => 'scene_characters'],
-                'SceneCharacters.scene_id = Scenes.id'
-            )
-            ->where([
-                'SceneCharacters.character_id IN' => array_keys($linkedCharacter),
-                'Scenes.scene_status_id !=' => SceneStatus::Cancelled
-            ])
-            ->order([
-                'Scenes.name'
-            ]);
+        if(count($linkedCharacter)) {
+            return $this->find('all')
+                ->leftJoin(
+                    ['SceneCharacters' => 'scene_characters'],
+                    'SceneCharacters.scene_id = Scenes.id'
+                )
+                ->where([
+                    'SceneCharacters.character_id IN' => array_keys($linkedCharacter),
+                    'Scenes.scene_status_id !=' => SceneStatus::Cancelled
+                ])
+                ->order([
+                    'Scenes.name'
+                ]);
+        } else {
+            return [];
+        }
     }
 }

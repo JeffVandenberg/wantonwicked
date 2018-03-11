@@ -556,7 +556,7 @@ class RequestsController extends AppController
             }
         }
 
-        $blueBooksTable = TableRegistry::get('BlueBooks');
+        $blueBooksTable = TableRegistry::get('Bluebooks');
         /* @var BluebooksTable $blueBooksTable */
         $unattachedBluebooks = $blueBooksTable->listUnattachedBluebooks(
             $requestId, $this->Auth->user('user_id')
