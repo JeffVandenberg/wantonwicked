@@ -167,7 +167,7 @@ class ScenesTable extends Table
         $linkedCharacter = TableRegistry::get('Characters')->find('list')
             ->leftJoin(
                 ['RequestCharacters' => 'request_characters'],
-                'RequestCharacters.character_id = characters.id'
+                'RequestCharacters.character_id = Characters.id'
             )
             ->where([
                 'RequestCharacters.request_id' => $requestId,
