@@ -40,7 +40,11 @@ class RequestTemplatesController extends AppController
 
     public function getList()
     {
-        $templates = $this->RequestTemplates->find()->toArray();
+        $templates = $this->RequestTemplates->find('all', [
+            'order' => [
+                'RequestTemplates.name' => 'asc'
+            ]
+        ])->toArray();
         /* @var RequestTemplate[] $templates */
         $list = array();
         foreach ($templates as $template) {
