@@ -264,7 +264,7 @@ class RequestsController extends AppController
         if ($this->Permissions->isRequestManager()) {
             $backLink = '/requests/stDashboard/';
         }
-        if ($character->id != 0) {
+        if ($character && $character->id != 0) {
             $backLink = '/requests/character/' . $character->id;
         }
 
@@ -942,11 +942,13 @@ class RequestsController extends AppController
      */
     private function redirectToView($requestId)
     {
+
         if ($this->request->getQuery('st')) {
-            return $this->redirect(['action' => 'st-view', $requestId]);
+            $action = 'st-view';
         } else {
-            return $this->redirect(['action' => 'view', $requestId]);
+            $action = 'view';
         }
+        return $this->redirect(['action' => $action, $requestId]);
     }
 
     /**

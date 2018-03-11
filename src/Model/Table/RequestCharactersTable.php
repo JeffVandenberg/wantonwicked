@@ -96,12 +96,13 @@ class RequestCharactersTable extends Table
 
     public function requestHasPrimaryCharacter($requestId)
     {
-        return $this->find('all', [
-                'where' => [
-                    'RequestCharacters.request_id' => $requestId,
-                    'RequestCharacters.is_primary' => 1,
-                ],
-                'contain' => false
-            ])->count() > 0;
+        $count = $this->find('all', [
+            'conditions' => [
+                'RequestCharacters.request_id' => $requestId,
+                'RequestCharacters.is_primary' => 1,
+            ],
+            'contain' => false
+        ])->count();
+        return $count > 0;
     }
 }
