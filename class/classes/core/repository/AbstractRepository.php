@@ -121,7 +121,7 @@ EOQ;
         if(is_array($row))
         {
             foreach ($row as $sKey => $lineValue) {
-                $sPropertyName = $this->ManagedObject->GetColumnMapping($sKey);
+                $sPropertyName = $this->ManagedObject->getColumnMapping($sKey);
                 if(property_exists($class, $sPropertyName)) {
                     $oItem->$sPropertyName = $lineValue;
                 }
@@ -234,9 +234,9 @@ sortColumn;
             foreach ($item as $property => $lineValue) {
                 if (!(is_object($lineValue) || is_array($lineValue))) {
                     if ($item->$property === null) {
-                        $fields[] = $this->ManagedObject->GetPropertyMapping($property) . "= null";
+                        $fields[] = $this->ManagedObject->getPropertyMapping($property) . "= null";
                     } else {
-                        $fields[] = $this->ManagedObject->GetPropertyMapping($property) . " = ? ";
+                        $fields[] = $this->ManagedObject->getPropertyMapping($property) . " = ? ";
                         $params[] = $item->$property;
                     }
                 }
@@ -251,7 +251,7 @@ sortColumn;
                     || is_array($item->$property)
                     || $item->$property === null)
                 ) {
-                    $columns[] = $this->ManagedObject->GetPropertyMapping($property);
+                    $columns[] = $this->ManagedObject->getPropertyMapping($property);
                     $params[] = $item->$property;
 
                 }
@@ -300,7 +300,7 @@ EOQ;
             $columns = [];
             $values = [];
             foreach ($fields as $i => $field) {
-                $columns[] = ' ' . $this->ManagedObject->GetPropertyMapping($field) . ' = ? ';
+                $columns[] = ' ' . $this->ManagedObject->getPropertyMapping($field) . ' = ? ';
                 $values[] = $arguments[$i];
             }
 
@@ -333,7 +333,7 @@ EOQ;
             $columns = [];
             $values = [];
             foreach ($fields as $i => $field) {
-                $columns[] = ' ' . SlugHelper::FromPropertyToName($field) . ' = ? ';
+                $columns[] = ' ' . SlugHelper::fromPropertyToName($field) . ' = ? ';
                 $values[] = $arguments[$i];
             }
 
@@ -363,7 +363,7 @@ EOQ;
     {
         $sql = "";
         if ($table != '') {
-            $managedObject = $this->ManagedObject->GetManagedObject($table);
+            $managedObject = $this->ManagedObject->getManagedObject($table);
         }
         foreach ($select as $key => $linealue) {
             if (is_array($linealue)) {
@@ -371,12 +371,12 @@ EOQ;
             } else {
                 // table name in field
                 if ($table == '') {
-                    $managedObject = $this->ManagedObject->GetManagedObject($key);
+                    $managedObject = $this->ManagedObject->getManagedObject($key);
                     /* @var DataModel $managedObject */
                     $sql .= ' ' . $managedObject->getTableName() . ".*,\n";
                 } else {
                     /* @var DataModel $managedObject */
-                    $columnName = $managedObject->GetPropertyMapping($linealue);
+                    $columnName = $managedObject->getPropertyMapping($linealue);
                     $sql .= ' ' . $managedObject->getTableName() . '.' . $columnName . ",\n";
                 }
             }
@@ -430,14 +430,14 @@ EOQ;
         $sql = "";
         foreach ($target as $key => $table) {
             if (is_array($table)) {
-                $rootObject = $this->ManagedObject->GetManagedObject($key);
+                $rootObject = $this->ManagedObject->getManagedObject($key);
                 /* @var DataModel $rootObject */
                 $sql .= ' ' . $rootObject->getTableName() . " \n";
                 $sql .= $this->processFrom($key, $table);
             } else {
                 if ($table != '') {
-                    $sourceObject = $this->ManagedObject->GetManagedObject($source);
-                    $sql .= ' LEFT JOIN ' . $sourceObject->GetJoin($table) . " \n";
+                    $sourceObject = $this->ManagedObject->getManagedObject($source);
+                    $sql .= ' LEFT JOIN ' . $sourceObject->getJoin($table) . " \n";
                 }
             }
         }

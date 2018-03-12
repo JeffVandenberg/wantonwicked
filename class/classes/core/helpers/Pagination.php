@@ -8,7 +8,13 @@
 
 namespace classes\core\helpers;
 
-
+/**
+ * Class Pagination
+ * @package classes\core\helpers
+ *
+ * TODO: Remove this class after refactoring out bluebooks
+ * @deprecated Remove this class from the code base
+ */
 class Pagination
 {
     private $SortColumn;

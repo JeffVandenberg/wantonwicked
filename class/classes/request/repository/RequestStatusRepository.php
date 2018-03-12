@@ -43,7 +43,7 @@ EOQ;
         return $list;
     }
 
-    public function FindById($id)
+    public function findById($id)
     {
         $id = (int) $id;
         $sql = <<<EOQ

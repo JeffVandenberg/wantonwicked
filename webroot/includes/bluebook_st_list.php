@@ -24,7 +24,7 @@ $filter = Request::getValue('filter', array());
 $pagination = new Pagination();
 $pagination->SetSort($sort);
 
-CharacterLog::LogAction($characterId, ActionType::BlueBookList, 'View Bluebook List: Page: ' . $page, $userdata['user_id']);
+CharacterLog::LogAction($characterId, ActionType::BLUE_BOOK_LIST, 'View Bluebook List: Page: ' . $page, $userdata['user_id']);
 $requests = $requestRepository->ListBlueBookByCharacterId($characterId, $page, $pageSize, $sort);
 $count = $requestRepository->ListBlueBookByCharacterIdCount($characterId);
 

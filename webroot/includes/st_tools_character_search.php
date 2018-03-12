@@ -136,7 +136,7 @@ $virtues = ArrayTools::array_valuekeys(array("Charity", "Faith", "Fortitude", "H
 $vices = ArrayTools::array_valuekeys(array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath"));
 
 $storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$menu = MenuHelper::generateMenu($storytellerMenu);
 
 ob_start();
 ?>

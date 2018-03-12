@@ -34,13 +34,13 @@ ob_start();
                 <?php echo $row['character_type']; ?>
             </td>
             <td>
-                <?php echo TimeHelper::ToHumanTime($row['first_view']); ?>
+                <?php echo TimeHelper::toHumanTime($row['first_view']); ?>
             </td>
             <td>
-                <?php echo TimeHelper::ToHumanTime($row['terminal_status']); ?>
+                <?php echo TimeHelper::toHumanTime($row['terminal_status']); ?>
             </td>
             <td>
-                <?php echo TimeHelper::ToHumanTime($row['closed']); ?>
+                <?php echo TimeHelper::toHumanTime($row['closed']); ?>
             </td>
         </tr>
     <?php endforeach; ?>

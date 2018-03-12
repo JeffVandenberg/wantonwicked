@@ -18,7 +18,7 @@ if (!$requestRepository->MayEditRequest($requestId, $userdata['user_id'])) {
 }
 
 $request = $requestRepository->getById($requestId);
-$requestRepository->UpdateStatus($requestId, RequestStatus::Closed, $userdata['user_id']);
+$requestRepository->UpdateStatus($requestId, RequestStatus::CLOSED, $userdata['user_id']);
 SessionHelper::SetFlashMessage('Closed Request: ' . $request->Title);
 
 $primaryCharacter = $requestCharacterRepository->FindByRequestIdAndIsPrimary($requestId, true);

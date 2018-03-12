@@ -143,7 +143,7 @@ class BluebooksTable extends Table
             ->where([
                 'characters.user_id' => $userId,
                 'request_characters.is_primary' => 0,
-                'Requests.request_type_id != ' => RequestType::BlueBook,
+                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
                 'Requests.request_status_id IN ' => RequestStatus::$Player
             ])
             ->order([
@@ -168,7 +168,7 @@ class BluebooksTable extends Table
             ])
             ->where([
                 'Requests.created_by_id' => $userId,
-                'Requests.request_type_id != ' => RequestType::BlueBook,
+                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
                 'Requests.request_status_id IN ' => RequestStatus::$Player
             ]);
     }
@@ -241,7 +241,7 @@ class BluebooksTable extends Table
             ]);
         } else {
             $query->andWhere([
-                'Requests.request_type_id !=' => RequestType::BlueBook
+                'Requests.request_type_id !=' => RequestType::BLUE_BOOK
             ]);
         }
 
@@ -288,7 +288,7 @@ class BluebooksTable extends Table
             ->where([
                 'Characters.id' => $characterId,
                 'RequestCharacters.is_primary' => false,
-                'Requests.request_type_id != ' => RequestType::BlueBook,
+                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
                 'Requests.request_status_id IN ' => RequestStatus::$Player
             ])
             ;
@@ -340,7 +340,7 @@ class BluebooksTable extends Table
             )
             ->where([
                 'RequestBluebooks.request_id IS NULL',
-                'Bluebooks.request_type_id =' => RequestType::BlueBook,
+                'Bluebooks.request_type_id =' => RequestType::BLUE_BOOK,
                 'Bluebooks.id != ' . $requestId
             ])
             ->order([

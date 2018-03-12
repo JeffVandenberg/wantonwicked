@@ -272,10 +272,10 @@ class SheetService
         if ($oldCharacter->Id) {
             // log xp change
             if (isset($stats['xp_spent']) && $stats['xp_spent'] > 0) {
-                CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Removed ' . $stats['xp_spent'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
+                CharacterLog::LogAction($stats['character_id'], ActionType::XP_MODIFICATION, 'Removed ' . $stats['xp_spent'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
             }
             if (isset($stats['xp_gained']) && $stats['xp_gained'] > 0) {
-                CharacterLog::LogAction($stats['character_id'], ActionType::XPModification, 'Added ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
+                CharacterLog::LogAction($stats['character_id'], ActionType::XP_MODIFICATION, 'Added ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
             }
 
             // log character differences
@@ -495,10 +495,10 @@ class SheetService
 
         if ($newCharacter->CharacterStatusId != $oldCharacter->CharacterStatusId) {
             if ($newCharacter->CharacterStatusId == CharacterStatus::Active) {
-                CharacterLog::LogAction($newCharacter->Id, ActionType::Sanctioned, 'ST Sanctioned Character', $user['user_id']);
+                CharacterLog::LogAction($newCharacter->Id, ActionType::SANCTIONED, 'ST Sanctioned Character', $user['user_id']);
             }
             if ($newCharacter->CharacterStatusId == CharacterStatus::Unsanctioned) {
-                CharacterLog::LogAction($newCharacter->Id, ActionType::Desanctioned, 'ST Desanctioned Character', $user['user_id']);
+                CharacterLog::LogAction($newCharacter->Id, ActionType::DESANCTIONED, 'ST Desanctioned Character', $user['user_id']);
             }
         }
 
@@ -573,7 +573,7 @@ class SheetService
                 ' Level: ' . $power['new']->PowerLevel . "<br />";
         }
 
-        CharacterLog::LogAction($newCharacter->Id, ActionType::UpdateCharacter, str_replace("\n", "<br/>", $note),
+        CharacterLog::LogAction($newCharacter->Id, ActionType::UPDATE_CHARACTER, str_replace("\n", "<br/>", $note),
             $user['user_id']);
 
         return true;
@@ -623,7 +623,7 @@ SQL;
         $this->repository->save($character);
         $logNote .= ('<br />Current XP: ' . $character->CurrentExperience
             . '<br />Total Experience: ' . $character->TotalExperience);
-        CharacterLog::LogAction($characterId, ActionType::XPModification, $logNote, $userId);
+        CharacterLog::LogAction($characterId, ActionType::XP_MODIFICATION, $logNote, $userId);
         return true;
     }
 
@@ -670,7 +670,7 @@ WHERE
     C.character_status_id = ?;
 EOQ;
         $params = [
-            ActionType::XPModification,
+            ActionType::XP_MODIFICATION,
             CharacterStatus::Active
         ];
         $this->repository->query($xpLogQuery)->execute($params);
@@ -742,6 +742,6 @@ EOQ;
     {
         $character->CharacterStatusId = CharacterStatus::Active;
         $this->repository->save($character);
-        CharacterLog::LogAction($character->Id, ActionType::UpdateCharacter, $note, $userId);
+        CharacterLog::LogAction($character->Id, ActionType::UPDATE_CHARACTER, $note, $userId);
     }
 }

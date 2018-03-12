@@ -15,7 +15,7 @@ use classes\request\data\RequestNote;
 
 class RequestNoteRepository
 {
-    public function ListByRequestId($requestId)
+    public function listByRequestId($requestId)
     {
         $requestId = (int) $requestId;
 
@@ -37,7 +37,7 @@ EOQ;
         return Database::getInstance()->query($sql)->all($params);
     }
 
-    public function Save(RequestNote $requestNote)
+    public function save(RequestNote $requestNote)
     {
         $sql = <<<EOQ
 INSERT INTO

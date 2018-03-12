@@ -49,7 +49,7 @@ EOQ;
         return $list;
     }
 
-    public function FindById($id)
+    public function findById($id)
     {
         $id = (int) $id;
         $sql = <<<EOQ
@@ -66,7 +66,7 @@ EOQ;
         return $this->query($sql)->single($params);
     }
 
-    public function ListForGroupId($groupId)
+    public function listForGroupId($groupId)
     {
         $sql = <<<EOQ
 SELECT

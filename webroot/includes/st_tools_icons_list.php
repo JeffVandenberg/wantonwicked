@@ -20,7 +20,7 @@ $icon_query = "select * from icons order by Icon_Name";
 $icons = Database::getInstance()->query($icon_query)->all();
 
 $storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$menu = MenuHelper::generateMenu($storytellerMenu);
 
 ob_start();
 ?>

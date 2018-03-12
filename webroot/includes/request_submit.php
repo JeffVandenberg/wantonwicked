@@ -21,7 +21,7 @@ if (!$requestRepository->MayEditRequest($requestId, $userdata['user_id'])) {
 $request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
-$requestRepository->UpdateStatus($requestId, RequestStatus::Submitted, $userdata['user_id']);
+$requestRepository->UpdateStatus($requestId, RequestStatus::SUBMITTED, $userdata['user_id']);
 $mailer = new RequestMailer();
 $mailer->newRequestSubmission($request);
 

@@ -111,7 +111,7 @@ EOQ;
     }
 
     // add login record to character log
-    CharacterLog::LogAction($characterId, ActionType::Login, 'Chat Login', $userdata['user_id']);
+    CharacterLog::LogAction($characterId, ActionType::LOGIN, 'Chat Login', $userdata['user_id']);
 
     $loggedIn = true;
 }

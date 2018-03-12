@@ -10,8 +10,8 @@ $requestId = Request::getValue('bluebook_id', 0);
 $requestRepository = new RequestRepository();
 $request = $requestRepository->FindById($requestId);
 
-CharacterLog::LogAction($request['character_id'], ActionType::BlueBookView, 'View Bluebook Entry', $userdata['user_id'], $requestId);
-$requestRepository->UpdateStatus($requestId, RequestStatus::InProgress, $userdata['user_id']);
+CharacterLog::LogAction($request['character_id'], ActionType::BLUE_BOOK_VIEW, 'View Bluebook Entry', $userdata['user_id'], $requestId);
+$requestRepository->UpdateStatus($requestId, RequestStatus::IN_PROGRESS, $userdata['user_id']);
 $page_title = 'Bluebook Entry: ' . $request['title'];
 $contentHeader = $page_title;
 

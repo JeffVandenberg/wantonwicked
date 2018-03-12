@@ -3,13 +3,13 @@ namespace classes\core\helpers;
 
 class SlugHelper
 {
-    public static function FromPropertyToName($sName)
+    public static function fromPropertyToName($sName)
     {
         return substr(preg_replace_callback("/[A-Z]/",
             function($matches) {return '_' . strtolower($matches[0]);}, $sName), 1);
     }
 
-    public static function FromNameToProperty($sName)
+    public static function fromNameToProperty($sName)
     {
         $sName = "_$sName";
         return preg_replace_callback("/_[a-z]/",
@@ -28,7 +28,7 @@ class SlugHelper
             $className .= 's';
         }
 
-        return self::FromPropertyToName($className);
+        return self::fromPropertyToName($className);
     }
 
     public static function FromTableToClass($tableName)
@@ -43,7 +43,7 @@ class SlugHelper
             $tableName = substr($tableName, 0, strlen($tableName) -1);
         }
 
-        return self::FromNameToProperty($tableName);
+        return self::fromNameToProperty($tableName);
     }
 
     public static function FromNameToLabel($name)

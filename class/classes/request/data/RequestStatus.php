@@ -14,48 +14,48 @@ use classes\core\data\DataModel;
 
 class RequestStatus extends DataModel
 {
-    const NewRequest = 1;
-    const Submitted = 6;
-    const InProgress = 2;
-    const Returned = 3;
-    const Approved = 4;
-    const Denied = 5;
-    const Closed = 7;
+    const NEW_REQUEST = 1;
+    const SUBMITTED = 6;
+    const IN_PROGRESS = 2;
+    const RETURNED = 3;
+    const APPROVED = 4;
+    const DENIED = 5;
+    const CLOSED = 7;
 
     public static $Player = array(
-        RequestStatus::NewRequest,
-        RequestStatus::Submitted,
-        RequestStatus::InProgress,
-        RequestStatus::Returned,
-        RequestStatus::Approved,
-        RequestStatus::Denied
+        RequestStatus::NEW_REQUEST,
+        RequestStatus::SUBMITTED,
+        RequestStatus::IN_PROGRESS,
+        RequestStatus::RETURNED,
+        RequestStatus::APPROVED,
+        RequestStatus::DENIED
     );
 
     public static $PlayerEdit = array(
-        RequestStatus::NewRequest,
-        RequestStatus::Submitted,
-        RequestStatus::Returned
+        RequestStatus::NEW_REQUEST,
+        RequestStatus::SUBMITTED,
+        RequestStatus::RETURNED
     );
 
     public static $Storyteller = array(
-        RequestStatus::Submitted,
-        RequestStatus::InProgress
+        RequestStatus::SUBMITTED,
+        RequestStatus::IN_PROGRESS
     );
 
     public static $PlayerSubmit = array(
-        RequestStatus::NewRequest,
-        RequestStatus::Returned
+        RequestStatus::NEW_REQUEST,
+        RequestStatus::RETURNED
     );
 
     public static $Final = array(
-        RequestStatus::Approved,
-        RequestStatus::Denied
+        RequestStatus::APPROVED,
+        RequestStatus::DENIED
     );
 
     public static $Terminal = array(
-        RequestStatus::Approved,
-        RequestStatus::Denied,
-        RequestStatus::Closed
+        RequestStatus::APPROVED,
+        RequestStatus::DENIED,
+        RequestStatus::CLOSED
     );
 
     public $Id;

@@ -82,7 +82,7 @@ foreach (Database::getInstance()->query($sql)->all($params) as $row) {
 
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 
 ob_start();
 ?>

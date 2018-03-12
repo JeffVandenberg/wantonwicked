@@ -66,7 +66,7 @@ $options = http_build_query([
 
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 ob_start();
 ?>
 
@@ -153,7 +153,7 @@ ob_start();
                 <?php echo $record->Created; ?>
             </td>
             <td>
-                <?php if ($record->ActionTypeId == ActionType::ViewRequest): ?>
+                <?php if ($record->ActionTypeId == ActionType::VIEW_REQUEST): ?>
                     <?php if(UserdataHelper::IsSt($userdata)): ?>
                         <a href="/request.php?action=st_view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
                     <?php else: ?>

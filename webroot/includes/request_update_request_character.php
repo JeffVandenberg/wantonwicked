@@ -16,14 +16,14 @@ if(!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) 
     Response::redirect('');
 }
 $requestCharacterRepository = new RequestCharacterRepository();
-$requestCharacter = $requestCharacterRepository->FindById($requestCharacterId);
+$requestCharacter = $requestCharacterRepository->findById($requestCharacterId);
 
 if($characterId != $requestCharacter['character_id']) {
     SessionHelper::SetFlashMessage('Unable to process request');
     Response::redirect('request.php?action=list&character_id=' . $characterId);
 }
 
-$requestCharacterRepository->SetIsApproved($requestCharacterId, $isApproved);
+$requestCharacterRepository->setIsApproved($requestCharacterId, $isApproved);
 
 SessionHelper::SetFlashMessage('Updated Request');
 Response::redirect('request.php?action=list&character_id=' . $characterId);

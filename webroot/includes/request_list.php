@@ -69,7 +69,7 @@ $characterMenu['Help'] = [
     ]
 ];
 
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 
 ob_start();
 ?>
@@ -198,7 +198,7 @@ ob_start();
                             <a href="/request.php?action=add_note&request_id=<?php echo $request['id']; ?>">
                                 Add Note
                             </a>
-                            <?php if ($request['request_status_id'] == RequestStatus::NewRequest): ?>
+                            <?php if ($request['request_status_id'] == RequestStatus::NEW_REQUEST): ?>
                                 <a href="/request.php?action=edit&request_id=<?php echo $request['id']; ?>">
                                     Edit
                                 </a>
@@ -207,7 +207,7 @@ ob_start();
                                     Delete
                                 </a>
                             <?php endif; ?>
-                            <?php if ($request['request_status_id'] != RequestStatus::Closed): ?>
+                            <?php if ($request['request_status_id'] != RequestStatus::CLOSED): ?>
                                 <a href="/request.php?action=close&request_id=<?php echo $request['id']; ?>">
                                     Close
                                 </a>

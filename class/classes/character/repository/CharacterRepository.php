@@ -144,7 +144,7 @@ EOQ;
 
         $characters = $this->query($sql)->all(array($bonusXp));
         foreach ($characters as $character) {
-            CharacterLog::LogAction($character['id'], ActionType::SupporterXP, 'Awarded Bonus XP for: ' . $date);
+            CharacterLog::LogAction($character['id'], ActionType::SUPPORTER_XP, 'Awarded Bonus XP for: ' . $date);
         }
 
         // set supporters
@@ -305,7 +305,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function DoesCharacterHavePowerAtLevel($characterId, $powerName, $powerLevel)
+    public function doesCharacterHavePowerAtLevel($characterId, $powerName, $powerLevel)
     {
         $query = <<<EOQ
 SELECT
@@ -439,7 +439,7 @@ WHERE
 	AND A.rows IS NULL
 EOQ;
 
-        $params = array($cutoffDate, ActionType::Sanctioned, ActionType::Login, CharacterStatus::Active);
+        $params = array($cutoffDate, ActionType::SANCTIONED, ActionType::LOGIN, CharacterStatus::Active);
 
         $characterList = $this->query($characterListQuery)->all($params);
         $characterIds = array_map(function ($item) {
@@ -474,7 +474,7 @@ FROM
 WHERE
     id IN ($characterIdPlaceholders)
 EOQ;
-            $unsanctionLogParams = array_merge([ActionType::UpdateCharacter, $logNote], $characterIds);
+            $unsanctionLogParams = array_merge([ActionType::UPDATE_CHARACTER, $logNote], $characterIds);
             $this->query($query)->execute($unsanctionLogParams);
 
             // migrate characters to new status
