@@ -44,7 +44,7 @@ class Database
      * @throws PDOException
      * @throws Exception
      */
-    function __construct($connection = null)
+    public function __construct($connection = null)
     {
         $params = ($connection === null) ? DatabaseMapper::GetPrimary() : $connection;
         try {
@@ -86,7 +86,7 @@ class Database
      * inside of any transactions
      * @throws Exception
      */
-    function __destruct()
+    public function __destruct()
     {
         if ($this->TransactionCounter > 0) {
             $this->Handler->rollBack();

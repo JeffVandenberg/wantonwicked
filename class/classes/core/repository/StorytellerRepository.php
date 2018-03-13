@@ -12,32 +12,12 @@ namespace classes\core\repository;
 
 class StorytellerRepository
 {
-    public function AddStoryteller()
-    {
-
-    }
-
-    public function UpdateStoryteller()
-    {
-
-    }
-
-    public function ListStorytellers()
-    {
-
-    }
-
-    public function DeleteStoryteller($id)
-    {
-
-    }
-
     /**
      * @param $userId
      * @return array
      * @throws \Exception
      */
-    public function ListGroupsForStoryteller($userId)
+    public function listGroupsForStoryteller($userId)
     {
         $userId = (int)$userId;
         $sql = <<<EOQ

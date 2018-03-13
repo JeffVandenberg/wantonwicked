@@ -36,7 +36,7 @@ class Supporter extends DataModel
         'UpdatedBy' => 'classes\core\data\User'
     );
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct('', '');
         $this->SortColumn = 'expires_on';

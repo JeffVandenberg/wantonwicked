@@ -68,7 +68,7 @@ class SheetService
     /**
      * SheetService constructor.
      */
-    function __construct()
+    public function __construct()
     {
         $this->repository = new CharacterRepository();
         $this->powerRepository = new CharacterPowerRepository();

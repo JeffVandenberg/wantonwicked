@@ -15,7 +15,7 @@ class DiceRepository extends AbstractRepository
 {
     /**
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\dice\data\Dice');
     }
@@ -62,5 +62,4 @@ EOQ;
 
         return $this->query($sql)->all($params);
     }
-
 }

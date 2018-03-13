@@ -91,7 +91,7 @@ abstract class DataModel
      */
     protected $ForeignId;
 
-    function __construct($tablePrefix = '', $database = null)
+    public function __construct($tablePrefix = '', $database = null)
     {
         if($database === null) {
             $params = DatabaseMapper::GetPrimary();

@@ -23,7 +23,7 @@ class User extends DataModel
         'Id' => 'user_id'
     );
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct('', '');
         $this->TableName = 'phpbb_users';

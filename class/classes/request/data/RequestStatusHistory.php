@@ -31,7 +31,7 @@ class RequestStatusHistory extends DataModel
         'CreatedBy' => 'classes\core\data\User'
     );
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->NameProperty = 'CreatedOn';

@@ -42,8 +42,9 @@ abstract class AbstractRepository extends Database
     /**
      * @param string|null $className
      * @param null $connection
+     * @throws Exception
      */
-    function __construct($className = null, $connection = null)
+    public function __construct($className = null, $connection = null)
     {
         parent::__construct($connection);
         if($className !== null)

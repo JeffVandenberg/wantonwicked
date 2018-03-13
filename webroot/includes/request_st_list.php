@@ -34,7 +34,7 @@ $pagination->SetParameters(array(
 ));
 
 $storytellerRepository = new StorytellerRepository();
-$stGroups = $storytellerRepository->ListGroupsForStoryteller($userdata['user_id']);
+$stGroups = $storytellerRepository->listGroupsForStoryteller($userdata['user_id']);
 $groups = [
     '' => 'All Groups'
 ];

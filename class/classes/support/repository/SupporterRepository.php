@@ -20,7 +20,7 @@ class SupporterRepository extends AbstractRepository
 {
     private $SupporterGroupId = 1738;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\support\data\Supporter');
     }

@@ -24,7 +24,7 @@ use classes\request\data\RequestType;
 class RequestRepository extends AbstractRepository
 {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\request\data\Request');
     }

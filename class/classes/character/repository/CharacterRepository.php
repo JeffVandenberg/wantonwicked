@@ -26,7 +26,7 @@ use classes\request\repository\RequestRepository;
 class CharacterRepository extends AbstractRepository
 {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\character\data\Character');
     }

@@ -14,7 +14,7 @@ use classes\core\repository\AbstractRepository;
 
 class LogCharacterRepository extends AbstractRepository 
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\character\data\LogCharacter');
     }
