@@ -178,7 +178,7 @@ class RequestsTable extends Table
             ->where([
                 'characters.user_id' => $userId,
                 'request_characters.is_primary' => 0,
-                'Requests.request_type_id != ' => RequestType::BlueBook,
+                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
                 'Requests.request_status_id IN ' => RequestStatus::$Player
             ])
             ->order([
@@ -203,7 +203,7 @@ class RequestsTable extends Table
             ])
             ->where([
                 'Requests.created_by_id' => $userId,
-                'Requests.request_type_id != ' => RequestType::BlueBook,
+                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
                 'Requests.request_status_id IN ' => RequestStatus::$Player
             ]);
     }
@@ -276,7 +276,7 @@ class RequestsTable extends Table
             ]);
         } else {
             $query->andWhere([
-                'Requests.request_type_id !=' => RequestType::BlueBook
+                'Requests.request_type_id !=' => RequestType::BLUE_BOOK
             ]);
         }
 
@@ -323,7 +323,7 @@ class RequestsTable extends Table
             ->where([
                 'Characters.id' => $characterId,
                 'RequestCharacters.is_primary' => false,
-                'Requests.request_type_id != ' => RequestType::BlueBook,
+                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
                 'Requests.request_status_id IN ' => RequestStatus::$Player
             ]);
     }
@@ -373,7 +373,7 @@ class RequestsTable extends Table
             )
             ->where([
                 'RequestRequests.to_request_id IS NULL',
-                'Requests.request_type_id != ' => RequestType::BlueBook,
+                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
                 'Requests.id != ' . $requestId
             ])
             ->order([
@@ -432,7 +432,7 @@ class RequestsTable extends Table
             ])
             ->where([
                 'Requests.group_id IN' => array_keys($groups),
-                'Requests.request_type_id !=' => RequestType::BlueBook
+                'Requests.request_type_id !=' => RequestType::BLUE_BOOK
             ]);
     }
 

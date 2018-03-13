@@ -222,7 +222,7 @@ else {
     include_once 'includes/request_dashboard.php';
 }
 
-$menu_bar = MenuHelper::GenerateMenu($mainMenu);
+$menu_bar = MenuHelper::generateMenu($mainMenu);
 /* @var twig $template */
 $template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
 $template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage());

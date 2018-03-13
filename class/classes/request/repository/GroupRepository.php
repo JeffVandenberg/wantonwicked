@@ -14,12 +14,12 @@ use classes\core\repository\AbstractRepository;
 
 class GroupRepository extends AbstractRepository {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\core\data\Group');
     }
 
-    public function ListAvailableForCharacter($characterId)
+    public function listAvailableForCharacter($characterId)
     {
         $characterId = (int) $characterId;
         $sql = <<<EOQ
@@ -39,7 +39,7 @@ EOQ;
         return $this->query($sql)->all();
     }
 
-    public function FindDefaultGroupForCharacter($characterId)
+    public function findDefaultGroupForCharacter($characterId)
     {
         $characterId = (int) $characterId;
         $sql = <<<EOQ
@@ -58,7 +58,7 @@ EOQ;
         return $this->query($sql)->single($params);
     }
 
-    public function ListGroupsForUser($userId)
+    public function listGroupsForUser($userId)
     {
         $sql = <<<EOQ
 SELECT
@@ -78,7 +78,7 @@ EOQ;
         return $list;
     }
 
-    public function SaveGroupsForUser($userId, $groups)
+    public function saveGroupsForUser($userId, $groups)
     {
         $query = <<<EOQ
 DELETE FROM

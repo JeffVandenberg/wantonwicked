@@ -52,7 +52,7 @@ if (Request::isPost()) {
             $requestNote->Note        = 'Forwarded from group: ' . $oldGroup->Name . ' to group: ' . $newGroup->Name;
             $requestNote->RequestId   = $requestId;
 
-            $requestNoteRepository->Save($requestNote);
+            $requestNoteRepository->save($requestNote);
 
             $request->GroupId = $newGroupId;
             $requestRepository->save($request);

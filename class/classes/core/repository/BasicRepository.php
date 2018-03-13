@@ -14,7 +14,7 @@ use classes\core\repository\AbstractRepository;
 
 class BasicRepository extends AbstractRepository 
 {
-    function __construct($className)
+    public function __construct($className)
     {
         parent::__construct($className);
     }

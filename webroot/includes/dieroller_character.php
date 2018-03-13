@@ -32,14 +32,14 @@ if ($character === false) {
 /* @var Character $character */
 if ($character['is_npc'] == 'Y') {
     if (!UserdataHelper::IsSt($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface',
+        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface',
             $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
     }
 } else {
     if (($character['user_id'] != $userdata['user_id']) && !UserdataHelper::IsAdmin($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface',
+        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface',
             $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
@@ -504,7 +504,7 @@ foreach ($openRequests as $r) {
 
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 $rollTypes = array(
     0 => 'Simple Roll',
     1 => 'Extended Roll'

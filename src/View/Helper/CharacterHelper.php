@@ -163,7 +163,7 @@ class CharacterHelper extends AppHelper
      * @param View $view
      * @param array $settings
      */
-    function __construct(View $view, $settings = [])
+    public function __construct(View $view, $settings = [])
     {
         parent::__construct($view, $settings);
         $list = array_merge($this->skills['mental'], $this->skills['physical'], $this->skills['social']);

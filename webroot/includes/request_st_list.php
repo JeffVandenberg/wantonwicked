@@ -34,7 +34,7 @@ $pagination->SetParameters(array(
 ));
 
 $storytellerRepository = new StorytellerRepository();
-$stGroups = $storytellerRepository->ListGroupsForStoryteller($userdata['user_id']);
+$stGroups = $storytellerRepository->listGroupsForStoryteller($userdata['user_id']);
 $groups = [
     '' => 'All Groups'
 ];
@@ -64,7 +64,7 @@ $requestStatuses = $requestStatusRepository->simpleListAll();
 $requestStatuses = array(0 => 'Open', -1 => 'All') + $requestStatuses;
 
 $storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$menu = MenuHelper::generateMenu($storytellerMenu);
 
 ob_start();
 ?>

@@ -14,7 +14,7 @@ use classes\core\repository\AbstractRepository;
 
 class SceneRepository extends AbstractRepository
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\scene\data\Scene');
     }

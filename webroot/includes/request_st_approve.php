@@ -25,7 +25,7 @@ if (isset($_POST['action'])) {
             SessionHelper::SetFlashMessage('Please Include a Note');
         }
         else {
-            if($requestRepository->UpdateStatus($requestId, RequestStatus::Approved, $userdata['user_id']))
+            if($requestRepository->UpdateStatus($requestId, RequestStatus::APPROVED, $userdata['user_id']))
             {
                 $requestNote = new RequestNote();
                 $requestNote->RequestId = $requestId;
@@ -34,7 +34,7 @@ if (isset($_POST['action'])) {
                 $requestNote->CreatedOn = date('Y-m-d H:i:s');
 
                 $requestNoteRepository = new RequestNoteRepository();
-                if($requestNoteRepository->Save($requestNote)) {
+                if($requestNoteRepository->save($requestNote)) {
                     // send notice to the player
                     $request = $requestRepository->getById($requestId);
                     /* @var \classes\request\data\Request $request */
@@ -66,7 +66,7 @@ if (isset($_POST['action'])) {
 $request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 $requestNoteRepository = new RequestNoteRepository();
-$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
+$requestNotes = $requestNoteRepository->listByRequestId($requestId);
 
 $page_title = 'Approve Request: ' . $request->Title;
 $contentHeader = $page_title;

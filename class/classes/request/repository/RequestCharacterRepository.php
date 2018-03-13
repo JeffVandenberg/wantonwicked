@@ -15,7 +15,7 @@ use classes\request\data\RequestCharacter;
 
 class RequestCharacterRepository extends AbstractRepository
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\request\data\RequestCharacter');
     }
@@ -24,7 +24,7 @@ class RequestCharacterRepository extends AbstractRepository
      * @param $requestId
      * @return RequestCharacter[]s
      */
-    public function ListByRequestId($requestId)
+    public function listByRequestId($requestId)
     {
         $sql = <<<EOQ
 SELECT
@@ -47,7 +47,7 @@ EOQ;
         return $list;
     }
 
-    public function FindById($id)
+    public function findById($id)
     {
         $id = (int) $id;
 
@@ -63,7 +63,7 @@ EOQ;
         return $this->query($sql)->single($params);
     }
 
-    public function SetIsApproved($id, $isApproved)
+    public function setIsApproved($id, $isApproved)
     {
         $id = (int) $id;
         $isApproved = ($isApproved) ? 1 : 0;
@@ -83,7 +83,7 @@ EOQ;
         return $this->query($sql)->execute($params);
     }
 
-    public function FindLinkedCharacterForUser($requestId, $userId)
+    public function findLinkedCharacterForUser($requestId, $userId)
     {
         $sql = <<<EOQ
 SELECT

@@ -43,7 +43,7 @@ if (Request::isPost() && UserdataHelper::IsHead($userdata)) {
         SessionHelper::SetFlashMessage('No User Indicated');
     } else {
         $permissionRepository->SavePermissionsForUser($userId, $userPermissions);
-        $groupsRepository->SaveGroupsForUser($userId, $selectedGroups);
+        $groupsRepository->saveGroupsForUser($userId, $selectedGroups);
         $user = $userRepository->FindByUserId($userId);
         /* @var User $user */
         $user->RoleId = Request::getValue('role_id');

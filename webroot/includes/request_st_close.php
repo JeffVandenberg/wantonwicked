@@ -22,7 +22,7 @@ if (isset($_POST['action'])) {
             SessionHelper::SetFlashMessage('Please Include a Note');
         }
         else {
-            if ($requestRepository->UpdateStatus($requestId, RequestStatus::Closed, $userdata['user_id'])) {
+            if ($requestRepository->UpdateStatus($requestId, RequestStatus::CLOSED, $userdata['user_id'])) {
                 $requestNote = new RequestNote();
                 $requestNote->RequestId = $requestId;
                 $requestNote->Note = Request::getValue('note');
@@ -30,7 +30,7 @@ if (isset($_POST['action'])) {
                 $requestNote->CreatedOn = date('Y-m-d H:i:s');
 
                 $requestNoteRepository = new RequestNoteRepository();
-                if ($requestNoteRepository->Save($requestNote)) {
+                if ($requestNoteRepository->save($requestNote)) {
                     SessionHelper::SetFlashMessage('Closed Request');
                     Response::redirect('request.php?action=st_list');
                 }
@@ -47,7 +47,7 @@ if (isset($_POST['action'])) {
 $request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 $requestNoteRepository = new RequestNoteRepository();
-$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
+$requestNotes = $requestNoteRepository->listByRequestId($requestId);
 
 $page_title = 'Close Request: ' . $request->Title;
 $contentHeader = $page_title;

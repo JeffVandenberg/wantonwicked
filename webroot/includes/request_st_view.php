@@ -21,19 +21,19 @@ if($request === null)
     Response::redirect('/', 'Unable to find that request');
 }
 
-CharacterLog::LogAction($request['character_id'], ActionType::ViewRequest, 'View Request', $userdata['user_id'], $requestId);
-if($request['request_status_id'] == RequestStatus::Submitted) {
-    $requestRepository->UpdateStatus($requestId, RequestStatus::InProgress, $userdata['user_id']);
+CharacterLog::LogAction($request['character_id'], ActionType::VIEW_REQUEST, 'View Request', $userdata['user_id'], $requestId);
+if($request['request_status_id'] == RequestStatus::SUBMITTED) {
+    $requestRepository->UpdateStatus($requestId, RequestStatus::IN_PROGRESS, $userdata['user_id']);
 }
 
 $requestTypeRepository = new RequestTypeRepository();
-$requestType = $requestTypeRepository->FindById($request['request_type_id']);
+$requestType = $requestTypeRepository->findById($request['request_type_id']);
 $requestStatusRepository = new RequestStatusRepository();
-$requestStatus = $requestStatusRepository->FindById($request['request_status_id']);
+$requestStatus = $requestStatusRepository->findById($request['request_status_id']);
 $requestNoteRepository = new RequestNoteRepository();
-$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
+$requestNotes = $requestNoteRepository->listByRequestId($requestId);
 $requestCharacterRepository = new RequestCharacterRepository();
-$requestCharacters = $requestCharacterRepository->ListByRequestId($requestId);
+$requestCharacters = $requestCharacterRepository->listByRequestId($requestId);
 
 $supportingRequests = $requestRepository->ListSupportingRequests($requestId);
 $supportingRolls = $requestRepository->ListSupportingRolls($requestId);

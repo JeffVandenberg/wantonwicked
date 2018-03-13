@@ -11,13 +11,13 @@ namespace classes\core\helpers;
 
 class MenuHelper
 {
-    public static function GenerateMenu($menuItems) {
+    public static function generateMenu($menuItems) {
         $menu = <<<EOQ
 <ul class="vertical medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown">
 EOQ;
         if(is_array($menuItems))
         {
-            $menu .= self::AppendMenuLevel($menuItems, true);
+            $menu .= self::appendMenuLevel($menuItems, true);
         }
 
         $menu .= <<<EOQ
@@ -26,7 +26,7 @@ EOQ;
         return $menu;
     }
 
-    private static function AppendMenuLevel($menuItems, $firstLayer)
+    private static function appendMenuLevel($menuItems, $firstLayer)
     {
         $menuLevel = "";
         if(!$firstLayer) {
@@ -57,7 +57,7 @@ EOQ;
                     $menuLevel .= $liTag . '<a href="' . $link. '" ' . $target . '>' . $icon . $label . '</a>';
 
                     if(isset($item['submenu'])) {
-                        $menuLevel .= self::AppendMenuLevel($item['submenu'], false);
+                        $menuLevel .= self::appendMenuLevel($item['submenu'], false);
                     }
 
                     $menuLevel .= '</li>';

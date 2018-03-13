@@ -15,7 +15,7 @@ use classes\request\data\RequestType;
 
 class RequestTypeRepository extends AbstractRepository
 {
-    function __construct() {
+    public function __construct() {
         parent::__construct('classes\request\data\RequestType');
     }
 
@@ -49,7 +49,7 @@ EOQ;
         return $list;
     }
 
-    public function FindById($id)
+    public function findById($id)
     {
         $id = (int) $id;
         $sql = <<<EOQ
@@ -66,7 +66,7 @@ EOQ;
         return $this->query($sql)->single($params);
     }
 
-    public function ListForGroupId($groupId)
+    public function listForGroupId($groupId)
     {
         $sql = <<<EOQ
 SELECT

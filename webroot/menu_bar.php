@@ -40,5 +40,5 @@ if (UserdataHelper::IsSt($userdata)) {
     $mainMenu = array_merge_recursive($mainMenu, $menuComponents['staff']);
 }
 
-$menu_bar = MenuHelper::GenerateMenu($mainMenu);
+$menu_bar = MenuHelper::generateMenu($mainMenu);
 return $mainMenu;

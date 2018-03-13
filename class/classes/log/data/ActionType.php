@@ -14,22 +14,22 @@ use classes\core\data\DataModel;
 
 class ActionType extends DataModel
 {
-    const ViewCharacter = 1;
-    const Login = 2;
-    const UpdateCharacter = 3;
-    const ViewRequest = 4;
-    const SupporterXP = 5;
-    const Sanctioned = 6;
-    const InvalidAccess = 7;
-    const BlueBookList = 8;
-    const BlueBookView = 9;
-    const Desanctioned = 10;
-    const XPModification = 11;
+    const VIEW_CHARACTER = 1;
+    const LOGIN = 2;
+    const UPDATE_CHARACTER = 3;
+    const VIEW_REQUEST = 4;
+    const SUPPORTER_XP = 5;
+    const SANCTIONED = 6;
+    const INVALID_ACCESS = 7;
+    const BLUE_BOOK_LIST = 8;
+    const BLUE_BOOK_VIEW = 9;
+    const DESANCTIONED = 10;
+    const XP_MODIFICATION = 11;
 
     public $Id;
     public $Name;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }

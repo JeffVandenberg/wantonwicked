@@ -46,7 +46,7 @@ require_once('menus/character_menu.php');
 $characterMenu['Create Entry'] = array(
     'link' => 'bluebook.php?action=create&character_id=' . $characterId
 );
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 ob_start();
 ?>
 
@@ -113,7 +113,7 @@ ob_start();
                     </td>
                     <td>
                         <a href="/bluebook.php?action=view&bluebook_id=<?php echo $request['id']; ?>">View</a>
-                        <?php if($request['request_status_id'] == RequestStatus::NewRequest): ?>
+                        <?php if($request['request_status_id'] == RequestStatus::NEW_REQUEST): ?>
                             <a href="/bluebook.php?action=edit&bluebook_id=<?php echo $request['id']; ?>">Edit</a>
                         <?php endif; ?>
                     </td>

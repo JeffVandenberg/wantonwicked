@@ -27,7 +27,7 @@ if (isset($_POST['action'])) {
         $request->Title = htmlspecialchars(Request::getValue('title'));
         $request->RequestTypeId = RequestType::BlueBook;
         $request->GroupId = 0;
-        $request->RequestStatusId = RequestStatus::NewRequest;
+        $request->RequestStatusId = RequestStatus::NEW_REQUEST;
         $request->Body = Request::getValue('body');
         $request->CreatedById = $userdata['user_id'];
         $request->CreatedOn = date('Y-m-d H:i:s');

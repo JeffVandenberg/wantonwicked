@@ -30,7 +30,7 @@ $characterMenu['Actions'] = array(
     )
 );
 
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 ob_start();
 ?>
 

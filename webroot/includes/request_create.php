@@ -45,7 +45,7 @@ if (Request::isPost()) {
             $request->Title = htmlspecialchars($title);
             $request->RequestTypeId = $requestTypeId;
             $request->GroupId = $groupId;
-            $request->RequestStatusId = RequestStatus::NewRequest;
+            $request->RequestStatusId = RequestStatus::NEW_REQUEST;
             $request->Body = $body;
             $request->CreatedById = $userdata['user_id'];
             $request->CreatedOn = date('Y-m-d H:i:s');
@@ -67,7 +67,7 @@ if (Request::isPost()) {
                     $requestCharacterRepository->save($requestCharacter);
                 }
                 if ($_POST['action'] == 'Submit Request') {
-                    $request->RequestStatusId = RequestStatus::Submitted;
+                    $request->RequestStatusId = RequestStatus::SUBMITTED;
                     $requestRepository->save($request);
 
                     $mailer = new RequestMailer();
@@ -86,7 +86,7 @@ $page_title = 'Create Request';
 if ($characterId) {
     $character = $characterRepository->FindById($characterId);
     $page_title .= ' for ' . $character['character_name'];
-    $defaultGroup = $groupRepository->FindDefaultGroupForCharacter($characterId);
+    $defaultGroup = $groupRepository->findDefaultGroupForCharacter($characterId);
     $defaultGroupId = $defaultGroup['id'];
 
 } else {
@@ -102,7 +102,7 @@ $groups = [];
 foreach($groupData as $group) {
     $groups[$group->Id] = $group->Name;
 }
-$requestTypes = $requestTypeRepository->ListForGroupId($defaultGroupId);
+$requestTypes = $requestTypeRepository->listForGroupId($defaultGroupId);
 $requestTypeOptions = array();
 foreach ($requestTypes as $requestType) {
     $requestTypeOptions[$requestType->Id] = $requestType->Name;

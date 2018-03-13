@@ -28,4 +28,4 @@ EOQ;
 
         return $db->query($sql)->value($params);
     }
-} 
+}

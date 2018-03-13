@@ -12,7 +12,7 @@ namespace classes\core\helpers;
 
 class TimeHelper
 {
-    public static function ToHumanTime($time) {
+    public static function toHumanTime($time) {
         if($time === null) {
             return '';
         }

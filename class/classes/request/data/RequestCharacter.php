@@ -30,9 +30,8 @@ class RequestCharacter extends DataModel
         'Character' => 'classes\character\data\Character'
     );
 
-    function __construct($tablePrefix = '', $database = null)
+    public function __construct($tablePrefix = '', $database = null)
     {
         parent::__construct($tablePrefix, $database);
     }
-
 }

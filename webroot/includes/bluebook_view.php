@@ -29,12 +29,12 @@ $characterMenu['Actions'] = array(
         ),
     )
 );
-if($request['request_status_id'] == RequestStatus::NewRequest) {
+if($request['request_status_id'] == RequestStatus::NEW_REQUEST) {
     $characterMenu['Actions']['submenu']['Edit'] = array(
         'link' => '/bluebook.php?action=edit&bluebook_id=' . $requestId
     );
 }
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 ob_start();
 ?>
 <?php if(!Request::isAjax()): ?>

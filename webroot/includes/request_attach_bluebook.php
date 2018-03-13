@@ -32,7 +32,7 @@ if (isset($_POST['action'])) {
     }
 }
 $request = $requestRepository->FindById($requestId);
-$linkedCharacter = $requestCharacterRepository->FindLinkedCharacterForUser($requestId, $userdata['user_id']);
+$linkedCharacter = $requestCharacterRepository->findLinkedCharacterForUser($requestId, $userdata['user_id']);
 /* @var RequestCharacter $linkedCharacter */
 
 if(!$linkedCharacter->Id) {

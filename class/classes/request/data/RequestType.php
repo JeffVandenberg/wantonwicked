@@ -23,7 +23,7 @@ class RequestType extends DataModel
     public $Id;
     public $Name;
 
-    function __construct() {
+    public function __construct() {
         parent::__construct();
     }
 }

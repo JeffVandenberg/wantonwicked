@@ -24,9 +24,9 @@ $request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 
 $requestNoteRepository = new RequestNoteRepository();
-$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
+$requestNotes = $requestNoteRepository->listByRequestId($requestId);
 $requestCharacterRepository = new RequestCharacterRepository();
-$requestCharacters = $requestCharacterRepository->ListByRequestId($requestId);
+$requestCharacters = $requestCharacterRepository->listByRequestId($requestId);
 
 $supportingRequests = $requestRepository->ListSupportingRequests($requestId);
 $supportingRolls = $requestRepository->ListSupportingRolls($requestId);
@@ -35,11 +35,11 @@ $supportingScenes = $requestRepository->ListSupportingScenes($requestId);
 
 $contentHeader = $page_title = 'Request: ' . $request->Title;
 
-if ($request->RequestStatusId == RequestStatus::NewRequest) {
+if ($request->RequestStatusId == RequestStatus::NEW_REQUEST) {
     SessionHelper::SetFlashMessage('This request is not yet submitted to STs.');
 }
 
-$linkedCharacter = $requestCharacterRepository->FindLinkedCharacterForUser($requestId, $userdata['user_id']);
+$linkedCharacter = $requestCharacterRepository->findLinkedCharacterForUser($requestId, $userdata['user_id']);
 /* @var RequestCharacter $linkedCharacter */
 $characterId = $linkedCharacter->CharacterId;
 
@@ -63,12 +63,12 @@ $characterMenu['Actions'] = array(
         )
     )
 );
-if ($request->RequestStatusId == RequestStatus::NewRequest) {
+if ($request->RequestStatusId == RequestStatus::NEW_REQUEST) {
     $characterMenu['Actions']['submenu']['Edit Request'] = array(
         'link' => 'request.php?action=edit&request_id=' . $requestId
     );
 }
-if ($request->RequestStatusId != RequestStatus::Closed) {
+if ($request->RequestStatusId != RequestStatus::CLOSED) {
     $characterMenu['Actions']['submenu']['Forward Request'] = array(
         'link' => 'request.php?action=forward&request_id=' . $requestId
     );
@@ -81,7 +81,7 @@ if (in_array($request->RequestStatusId, RequestStatus::$PlayerSubmit)) {
         'link' => 'request.php?action=submit&request_id=' . $requestId
     );
 }
-if ($request->RequestStatusId == RequestStatus::NewRequest) {
+if ($request->RequestStatusId == RequestStatus::NEW_REQUEST) {
     $characterMenu['Actions']['submenu']['Delete Request'] = array(
         'link' => 'request.php?action=delete&request_id=' . $requestId
     );
@@ -116,7 +116,7 @@ if (!in_array($request->RequestStatusId, RequestStatus::$Terminal)) {
         );
     }
 }
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 ob_start();
 ?>
 <?php if (!Request::isAjax()): ?>

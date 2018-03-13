@@ -24,7 +24,7 @@ if (isset($_POST['action'])) {
         $requestNote->CreatedById = $userdata['user_id'];
         $requestNote->CreatedOn = date('Y-m-d H:i:s');
         $requestNoteRepository = new RequestNoteRepository();
-        if($requestNoteRepository->Save($requestNote))
+        if($requestNoteRepository->save($requestNote))
         {
             $requestRepository->TouchRecord($requestId, $userdata['user_id']);
             Response::redirect('request.php?action=view&request_id=' . $requestId);
@@ -38,7 +38,7 @@ if (isset($_POST['action'])) {
 $request = $requestRepository->getById($requestId);
 /* @var \classes\request\data\Request $request */
 $requestNoteRepository = new RequestNoteRepository();
-$requestNotes = $requestNoteRepository->ListByRequestId($requestId);
+$requestNotes = $requestNoteRepository->listByRequestId($requestId);
 
 $contentHeader = $page_title = 'Add Note to: ' . $request->Title;
 
