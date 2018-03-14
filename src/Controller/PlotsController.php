@@ -31,6 +31,11 @@ class PlotsController extends AppController
             'index',
             'view'
         ]);
+
+        // set common permissions
+        $isPlotManager = $this->Permissions->isPlotManager($this->Auth->user('user_id'));
+        $isPlotViewer = $this->Permissions->isPlotViewer($this->Auth->user('user_id'));
+        $this->set(compact('isPlotManager', 'isPlotViewer'));
     }
 
     /**
@@ -110,7 +115,7 @@ class PlotsController extends AppController
             'conditions' => $where
         ]);
 
-        $this->set(compact('plots', 'isPlotManager', 'isPlotViewer', 'viewAll'));
+        $this->set(compact('plots', 'viewAll'));
         $this->set('_serialize', ['plots']);
     }
 

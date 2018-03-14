@@ -19,6 +19,11 @@ $this->set('title_for_layout', 'Add Plot');
                 'class' => 'tinymce-textarea'
             ]); ?>
         </div>
+        <div class="small-12 column">
+            <?php echo $this->Form->control('admin_notes', [
+                'class' => 'tinymce-textarea'
+            ]); ?>
+        </div>
         <div class="small-12 medium-4 column">
             <?php echo $this->Form->control('run_by_name', [
                 'label' => 'Run By',
