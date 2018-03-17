@@ -135,7 +135,7 @@ ob_start();
                     Active Requests
                 </h3>
                 <div class="button-group float-right">
-                    <a class="button small" href="/request.php">All Requests</a>
+                    <a class="button small" href="/requests">All Requests</a>
                 </div>
             </div>
             <div class="" style="">

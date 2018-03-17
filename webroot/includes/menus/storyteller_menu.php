@@ -30,7 +30,7 @@ $storytellerMenu = [
         'link' => '#',
         'submenu' => [
             'Dashboard' => [
-                'link' => 'request.php?action=st_list'
+                'link' => '/requests/st-dashboard'
             ]
         ]
     ],

@@ -281,7 +281,7 @@ ob_start();
                             New
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::NEW_REQUEST; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::NEW_REQUEST; ?>">
                                 <?php echo $newRequests; ?>
                             </a>
                         </td>
@@ -291,7 +291,7 @@ ob_start();
                             Sent to STs
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::SUBMITTED; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::SUBMITTED; ?>">
                                 <?php echo $stRequests; ?>
                             </a>
                         </td>
@@ -301,7 +301,7 @@ ob_start();
                             Viewed by ST
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::IN_PROGRESS; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::IN_PROGRESS; ?>">
                                 <?php echo $stViewedRequests; ?>
                             </a>
                         </td>
@@ -311,7 +311,7 @@ ob_start();
                             Returned
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::RETURNED; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::RETURNED; ?>">
                                 <?php echo $returnedRequests; ?>
                             </a>
                         </td>
@@ -321,7 +321,7 @@ ob_start();
                             Approved
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::APPROVED; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::APPROVED; ?>">
                                 <?php echo $approvedRequests; ?>
                             </a>
                         </td>
@@ -331,7 +331,7 @@ ob_start();
                             Denied
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::DENIED; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::DENIED; ?>">
                                 <?php echo $rejectedRequests; ?>
                             </a>
                         </td>

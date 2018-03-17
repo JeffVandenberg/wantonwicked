@@ -130,7 +130,7 @@ class MenuComponent extends Component
                 'link' => '#',
                 'submenu' => [
                     'Dashboard' => [
-                        'link' => '/request.php?action=st_list'
+                        'link' => '/requests/st-dashboard/'
                     ]
                 ]
             ],

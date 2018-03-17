@@ -21,7 +21,7 @@ if(!$character) {
     Response::redirect('chat.php', 'Unable to find character.');
 }
 if($character->inSanctionedStatus()) {
-    Response::redirect('request.php?action=create&request_type_id='.RequestType::Sanction.'&character_id='.$character->Id.'&title=Desanction '.$character->CharacterName);
+    Response::redirect('/requests/add?request_type_id='.RequestType::Sanction.'&character_id='.$character->Id.'&title=Desanction '.$character->CharacterName);
 }
 
 ob_start();
