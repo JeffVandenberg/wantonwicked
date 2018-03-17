@@ -120,7 +120,7 @@ $action = ($adminView) ? 'st-view' : 'view-other';
             <?php foreach ($request->request_bluebooks as $bluebook): ?>
                 <?= $this->Html->link(
                     $bluebook->bluebook->title,
-                    '/bluebook.php?action=view&bluebook_id=' . $bluebook->bluebook_id,
+                    '/bluebooks/view/' . $bluebook->bluebook_id,
                     [
                         'class' => 'ajax-link'
                     ]
