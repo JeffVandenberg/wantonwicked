@@ -10,7 +10,6 @@ use Cake\ORM\Entity;
  * @property int $character_id
  * @property string $title
  * @property string $body
- * @property int $request_type_id
  * @property int $created_by_id
  * @property \Cake\I18n\Time $created_on
  * @property int $updated_by_id

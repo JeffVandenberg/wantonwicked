@@ -21,10 +21,10 @@ if ($userdata['user_id'] != ANONYMOUS) {
                     'link' => '/chat/?character_id=' . $character['id']
                 ],
                 'Requests' => [
-                    'link' => '/request.php?action=list&character_id=' . $character['id']
+                    'link' => '/requests/character/' . $character['id']
                 ],
                 'Bluebook' => [
-                    'link' => '/bluebook.php?action=list&character_id=' . $character['id']
+                    'link' => '/bluebooks/character/' . $character['id']
                 ],
                 'Sheet' => [
                     'link' => '/characters/viewOwn/' . $character['slug']

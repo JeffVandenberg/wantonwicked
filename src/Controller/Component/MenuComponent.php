@@ -73,7 +73,11 @@ class MenuComponent extends Component
                             ]
                         ],
                         'Bluebook' => [
-                            'link' => '/bluebook.php?action=list&character_id=' . $character->id
+                            'link' => [
+                                'controller' => 'bluebooks',
+                                'action' => 'character',
+                                $character->id
+                            ]
                         ],
                         'Sheet' => [
                             'link' => '/characters/viewOwn/' . $character->slug
