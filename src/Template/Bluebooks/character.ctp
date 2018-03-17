@@ -31,6 +31,7 @@ $this->set('title_for_layout', 'Bluebook Entries for ' . $character->character_n
             <th>
                 <?= $this->Paginator->sort('updated_on'); ?>
             </th>
+            <th></th>
         </tr>
         </thead>
         <?php foreach ($bluebooks as $bluebook): ?>
@@ -43,6 +44,9 @@ $this->set('title_for_layout', 'Bluebook Entries for ' . $character->character_n
                 </td>
                 <td>
                     <?= $this->Time->format($bluebook->updated_on); ?>
+                </td>
+                <td>
+                    <?= $this->Html->link('Edit', ['action' => 'edit', $bluebook->id]); ?>
                 </td>
             </tr>
         <?php endforeach; ?>
