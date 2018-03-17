@@ -14,18 +14,10 @@ use Cake\Validation\Validator;
 /**
  * Requests Model
  *
- * @property \App\Model\Table\GroupsTable|\Cake\ORM\Association\BelongsTo $Groups
  * @property \App\Model\Table\CharactersTable|\Cake\ORM\Association\BelongsTo $Characters
- * @property \App\Model\Table\RequestTypesTable|\Cake\ORM\Association\BelongsTo $RequestTypes
- * @property \App\Model\Table\RequestStatusesTable|\Cake\ORM\Association\BelongsTo $RequestStatuses
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $CreatedBies
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $UpdatedBies
  * @property \App\Model\Table\RequestBluebooksTable|\Cake\ORM\Association\HasMany $RequestBluebooks
- * @property \App\Model\Table\RequestCharactersTable|\Cake\ORM\Association\HasMany $RequestCharacters
- * @property \App\Model\Table\RequestNotesTable|\Cake\ORM\Association\HasMany $RequestNotes
- * @property \App\Model\Table\RequestRollsTable|\Cake\ORM\Association\HasMany $RequestRolls
- * @property \App\Model\Table\RequestStatusHistoriesTable|\Cake\ORM\Association\HasMany $RequestStatusHistories
- * @property \App\Model\Table\SceneRequestsTable|\Cake\ORM\Association\HasMany $SceneRequests
  *
  * @method Request get($primaryKey, $options = [])
  * @method Request newEntity($data = null, array $options = [])
@@ -48,9 +40,18 @@ class BluebooksTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('requests');
+        $this->setTable('bluebooks');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created_on' => 'new',
+                    'updated_on' => 'always',
+                ]
+            ]
+        ]);
 
         $this->belongsTo('Characters', [
             'foreignKey' => 'character_id',
@@ -67,7 +68,7 @@ class BluebooksTable extends Table
             'className' => 'Users'
         ]);
         $this->hasMany('Requests', [
-            'foreignKey' => ''
+            'foreignKey' => 'bluebook_id'
         ]);
     }
 
@@ -91,16 +92,6 @@ class BluebooksTable extends Table
             ->requirePresence('body', 'create')
             ->notEmpty('body');
 
-        $validator
-            ->dateTime('created_on')
-            ->requirePresence('created_on', 'create')
-            ->notEmpty('created_on');
-
-        $validator
-            ->dateTime('updated_on')
-            ->requirePresence('updated_on', 'create')
-            ->notEmpty('updated_on');
-
         return $validator;
     }
 
@@ -113,205 +104,11 @@ class BluebooksTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['group_id'], 'Groups'));
         $rules->add($rules->existsIn(['character_id'], 'Characters'));
-        $rules->add($rules->existsIn(['request_type_id'], 'RequestTypes'));
-        $rules->add($rules->existsIn(['request_status_id'], 'RequestStatuses'));
         $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
         $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBy'));
 
         return $rules;
-    }
-
-    public function listRequestsLinkedByCharacterToUser($userId)
-    {
-        return $this->find('all')
-            ->contain([
-                'RequestTypes',
-                'RequestStatuses',
-                'UpdatedBy' => [
-                    'fields' => ['username']
-                ],
-                'RequestCharacters' => [
-                    'Characters' => [
-                        'fields' => ['character_name']
-                    ]
-                ]
-            ])
-            ->leftJoin('request_characters', 'Requests.id = request_characters.request_id')
-            ->leftJoin('characters', 'request_characters.character_id = characters.id')
-            ->where([
-                'characters.user_id' => $userId,
-                'request_characters.is_primary' => 0,
-                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
-                'Requests.request_status_id IN ' => RequestStatus::$Player
-            ])
-            ->order([
-                'Requests.updated_on' => 'DESC'
-            ]);
-    }
-
-    public function buildUserRequestQuery($userId)
-    {
-        return $this->query()
-            ->contain([
-                'RequestTypes',
-                'RequestStatuses',
-                'UpdatedBy' => [
-                    'fields' => ['username']
-                ],
-                'RequestCharacters' => [
-                    'Characters' => [
-                        'fields' => ['character_name']
-                    ]
-                ]
-            ])
-            ->where([
-                'Requests.created_by_id' => $userId,
-                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
-                'Requests.request_status_id IN ' => RequestStatus::$Player
-            ]);
-    }
-
-    public function getSummaryForCharacter($characterId)
-    {
-        return $this->query()
-            ->select([
-                'request_type_id' => 'rt.id',
-                'request_type_name' => 'rt.name',
-                'total' => 'count(r.id)'
-            ])
-            ->from([
-                'r' => 'requests'
-            ])
-            ->leftJoin(
-                ['rc' => 'request_characters'],
-                'r.id = rc.request_id'
-            )
-            ->leftJoin(
-                ['rt' => 'request_types'],
-                'r.request_type_id = rt.id'
-            )
-            ->leftJoin(
-                ['rs' => 'request_statuses'],
-                'r.request_status_id = rs.id'
-            )
-            ->group([
-                'rt.id',
-                'rt.name'
-            ])
-            ->where([
-                'rc.character_id' => $characterId,
-                'rc.is_primary' => 1,
-                'r.request_status_id IN ' => [
-                    RequestStatus::Submitted,
-                    RequestStatus::InProgress,
-                    RequestStatus::InProgress,
-                ]
-            ])
-            ->enableHydration(false)
-            ->toArray();
-    }
-
-    public function listByCharacterId($characterId, $filter)
-    {
-        $query = $this->find('all')
-            ->contain([
-                'RequestTypes',
-                'RequestStatuses',
-                'UpdatedBy' => [
-                    'fields' => ['username']
-                ],
-                'RequestCharacters' => [
-                    'Characters' => [
-                        'fields' => ['character_name']
-                    ]
-                ]
-            ])
-            ->leftJoin('request_characters', 'Requests.id = request_characters.request_id')
-            ->leftJoin('characters', 'request_characters.character_id = characters.id')
-            ->where([
-                'request_characters.character_id' => $characterId,
-                'request_characters.is_primary' => true
-            ]);
-
-        if($filter['request_type_id']) {
-            $query->andWhere([
-                'Requests.request_type_id' => $filter['request_type_id']
-            ]);
-        } else {
-            $query->andWhere([
-                'Requests.request_type_id !=' => RequestType::BLUE_BOOK
-            ]);
-        }
-
-        if($filter['title']) {
-            $query->andWhere([
-                'Requests.title LIKE' => $filter['title'] . '%'
-            ]);
-        }
-
-        if($filter['request_status_id']) {
-            $query->andWhere([
-                'Requests.request_status_id' => $filter['request_status_id']
-            ]);
-        } else {
-            $query->andWhere([
-                'Requests.request_status_id IN' => RequestStatus::$Player
-            ]);
-        }
-
-        return $query;
-    }
-
-    public function listLinkedRequestsForCharacter($characterId)
-    {
-        return $this
-            ->find('all')
-            ->contain([
-                'RequestCharacters' => [
-                    'Characters' => [
-                        'fields' => [
-                            'character_name'
-                        ]
-                    ]
-                ]
-            ])
-            ->leftJoin(
-                ['RequestCharacters' => 'request_characters'],
-                'Requests.id = RequestCharacters.request_id'
-            )
-            ->leftJoin(
-                ['Characters' => 'characters'],
-                'RequestCharacters.character_id = Characters.id'
-            )
-            ->where([
-                'Characters.id' => $characterId,
-                'RequestCharacters.is_primary' => false,
-                'Requests.request_type_id != ' => RequestType::BLUE_BOOK,
-                'Requests.request_status_id IN ' => RequestStatus::$Player
-            ])
-            ;
-    }
-
-    public function isUserAttachedToRequest($requestId, $userId)
-    {
-        $result = $this->query()
-            ->select([
-                'rows' => 'count(*)'
-            ])
-            ->leftJoinWith('RequestCharacters')
-            ->leftJoinWith('Characters')
-            ->where([
-                'Requests.id' => $requestId,
-                'OR' => [
-                    'Requests.created_by_id' => $userId,
-                    'Characters.user_id' => $userId
-                ]
-            ])
-            ->enableHydration(false)
-            ->firstOrFail();
-        return $result['rows'] > 0;
     }
 
     public function listUnattachedBluebooks($requestId, $userId)
@@ -340,7 +137,6 @@ class BluebooksTable extends Table
             )
             ->where([
                 'RequestBluebooks.request_id IS NULL',
-                'Bluebooks.request_type_id =' => RequestType::BLUE_BOOK,
                 'Bluebooks.id != ' . $requestId
             ])
             ->order([
@@ -360,5 +156,4 @@ class BluebooksTable extends Table
 
         return $unattachedRequests;
     }
-
 }

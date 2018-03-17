@@ -52,7 +52,7 @@ $characterMenu = [
                 'link' => "/dieroller.php?action=character&character_id=$characterId"
             ],
             'Requests' => [
-                'link' => "/request.php?action=list&character_id=$characterId",
+                'link' => "/requests/character/$characterId",
                 'submenu' => [
                     'New' => [
                         'link' => "/requests/add?character_id=$characterId"
@@ -60,10 +60,10 @@ $characterMenu = [
                 ]
             ],
             'Bluebook' => [
-                'link' => "/bluebook.php?action=list&character_id=$characterId",
+                'link' => "/bluebooks/character/$characterId",
                 'submenu' => [
                     'New' => [
-                        'link' => "/bluebook.php?action=create&character_id=$characterId"
+                        'link' => "/bluebooks/add?character_id=$characterId"
                     ]
                 ]
             ],
