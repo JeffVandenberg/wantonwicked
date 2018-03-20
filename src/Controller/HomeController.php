@@ -1,7 +1,5 @@
 <?php
-
-use App\Model\Table\CharactersTable;
-use App\Model\Table\PlotsTable;
+namespace App\Controller;
 
 /**
  * Created by PhpStorm.
@@ -9,9 +7,10 @@ use App\Model\Table\PlotsTable;
  * Date: 12/27/13
  * Time: 11:56 AM
  */
-namespace App\Controller;
 
 use App\Controller\Component\ConfigComponent;
+use App\Model\Table\CharactersTable;
+use App\Model\Table\PlotsTable;
 use App\Model\Table\ScenesTable;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
