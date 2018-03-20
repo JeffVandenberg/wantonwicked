@@ -14,10 +14,12 @@ $this->set('title_for_layout', 'Your Bluebooks');
 ?>
 <div class="clearfix">
     <div class="">
+        <?php if(is_array($characters) && count($characters)): ?>
         <form method="get" action="/bluebooks/add">
             <?= $this->Form->select('character_id', $characters, ['style' => 'display:inline-block;width:300px;',]); ?>
             <button type="submit" value="New Request" class="button">New Bluebook Entry</button>
         </form>
+        <?php endif; ?>
     </div>
 </div>
 <div id="page-content">

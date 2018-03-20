@@ -5,8 +5,8 @@
  * Date: 11/27/2016
  * Time: 8:21 PM
  */
-namespace app\Lib;
 
+namespace app\Lib;
 
 
 $menuComponents = [];
@@ -24,6 +24,12 @@ $menuComponents['base'] = [
                 'link' => '/scenes'
             ]
         ]
+    ],
+    'Characters' => [
+
+    ],
+    'Staff Utilities' => [
+
     ],
     'Help' => [
         'link' => '#',
@@ -197,49 +203,34 @@ $menuComponents['base'] = [
 $menuComponents['player'] = [
     'Utilities' => [
         'submenu' => [
-            'Player Utilities' => [
-                'link' => '#',
-                'submenu' => [
-                    'Dashboard' => [
-                        'link' => '/chat.php',
-                    ],
-                    'Create a Character' => [
-                        'link' => '/characters/add'
-                    ],
-                    'Requests' => [
-                        'link' => '/requests/'
-                    ],
-                    'Play Preferences' => [
-                        'link' => '/play_preferences'
-                    ],
-                    'View Other Character' => [
-                        'link' => '/characters/viewOther/'
-                    ]
-                ]
-            ]
+            'Requests' => [
+                'link' => '/requests/'
+            ],
+            'Bluebooks' => [
+                'link' => '/bluebooks/'
+            ],
+            'Play Preferences' => [
+                'link' => '/play_preferences'
+            ],
         ]
     ]
 ];
 $menuComponents['staff'] = [
-    'Utilities' => [
+    'Staff Utilities' => [
+        'link' => '#',
         'submenu' => [
-            'Staff Utilities' => [
-                'link' => '#',
-                'submenu' => [
-                    'Dashboard' => [
-                        'link' => '/storyteller_index.php',
-                    ],
-                    'Character Lookup' => [
-                        'link' => '/characters/stView',
-                    ],
-                    'Request Dashboard' => [
-                        'link' => '/requests/st-dashboard'
-                    ],
-                    'Chat Login' => [
-                        'link' => '/chat/?st_login',
-                        'target' => '_blank'
-                    ]
-                ]
+            'Dashboard' => [
+                'link' => '/storyteller_index.php',
+            ],
+            'Character Lookup' => [
+                'link' => '/characters/stView',
+            ],
+            'Request Dashboard' => [
+                'link' => '/requests/st-dashboard'
+            ],
+            'Chat Login' => [
+                'link' => '/chat/?st_login',
+                'target' => '_blank'
             ]
         ]
     ]

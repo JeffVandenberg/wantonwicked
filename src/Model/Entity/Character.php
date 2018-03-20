@@ -104,4 +104,9 @@ class Character extends Entity
         '*' => true,
         'id' => false
     ];
+
+    public function isSanctioned()
+    {
+        return in_array($this->character_status_id, CharacterStatus::Sanctioned);
+    }
 }
