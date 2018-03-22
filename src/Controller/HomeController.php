@@ -9,6 +9,7 @@ namespace App\Controller;
  */
 
 use App\Controller\Component\ConfigComponent;
+use App\Controller\Component\PermissionsComponent;
 use App\Model\Table\CharactersTable;
 use App\Model\Table\PlotsTable;
 use App\Model\Table\ScenesTable;
@@ -19,6 +20,7 @@ use function compact;
 
 /**
  * @property ConfigComponent Config
+ * @property PermissionsComponent Permissions
  */
 class HomeController extends AppController
 {
@@ -55,7 +57,7 @@ class HomeController extends AppController
         }
 
         // set info for home
-        $this->set('content', $this->Config->Read('FRONT_PAGE'));
+        $this->set('isPlotManager', $this->Permissions->isPlotManager());
         $this->set(compact('sceneList', 'playerRequests', 'plotList'));
     }
 

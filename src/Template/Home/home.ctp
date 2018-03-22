@@ -14,7 +14,7 @@ use classes\request\data\Request;
 /* @var Request[] $playerRequests */
 /* @var string $plots */
 $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Roleplaying Game");
-if($isLoggedIn) {
+if ($isLoggedIn) {
     $this->set('header_for_layout', 'Dashboard');
 }
 ?>
@@ -26,7 +26,10 @@ if($isLoggedIn) {
         </div>
     <?php endif; ?>
     <div class="small-12 medium-8 cell" style=";">
-        <h3>Current Plots</h3>
+        <h3 class="float-left">Current Plots</h3>
+        <div class="button-group float-right">
+            <a class="button small" href="/plots/add">New</a>
+        </div>
         <?php if (count($plotList)): ?>
             <table class="stack">
                 <thead>
@@ -153,7 +156,10 @@ if($isLoggedIn) {
         <?php endif; ?>
     </div>
     <div class="small-12 medium-4 cell">
-        <h3>Requests</h3>
+        <h3 class="float-left">Requests</h3>
+        <div class="button-group float-right">
+            <a class="button small" href="/requests/add">New</a>
+        </div>
         <?php if ($this->request->session()->read('Auth.User.user_id') == 1): ?>
             You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a
                     href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
@@ -175,7 +181,10 @@ if($isLoggedIn) {
                 <?php endforeach; ?>
             </table>
         <?php endif; ?>
-        <h3>Scenes</h3>
+        <h3 class="float-left">Scenes</h3>
+        <div class="button-group float-right">
+            <a class="button small" href="/scenes/add">New</a>
+        </div>
         <?php if (count($sceneList)): ?>
             <table class="stack">
                 <tr>
@@ -201,21 +210,23 @@ if($isLoggedIn) {
                 <?php endforeach; ?>
             </table>
         <?php else: ?>
-            No upcoming Scenes
+        <div style="clear:both;">
+            No upcoming scenes
+        </div>
         <?php endif; ?>
     </div>
     <!--    <div class="small-12 medium-8 cell" style="">-->
     <!--        Your ST Requests needing attention (staff)-->
     <!--    </div>-->
 </div>
-<?php if(!$isLoggedIn): ?>
-<div class="row">
-    <div class="small-12 medium-4 column">
-        <h2>Log In OOC</h2>
-        <form method="post" action="/chat/index.php">
-            Name: <input type="text" name="username"/>
-            <button type="submit" class="button">Log in</button>
-        </form>
+<?php if (!$isLoggedIn): ?>
+    <div class="row">
+        <div class="small-12 medium-4 column">
+            <h2>Log In OOC</h2>
+            <form method="post" action="/chat/index.php">
+                Name: <input type="text" name="username"/>
+                <button type="submit" class="button">Log in</button>
+            </form>
+        </div>
     </div>
-</div>
 <?php endif; ?>

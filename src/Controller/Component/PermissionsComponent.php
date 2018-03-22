@@ -90,8 +90,11 @@ class PermissionsComponent extends Component
             );
     }
 
-    public function isPlotManager($userId)
+    public function isPlotManager($userId = null)
     {
+        if(!$userId) {
+            $userId = $this->Auth->user('user_id');
+        }
         return $this->CheckSitePermission($userId, Permission::$PlotsManage);
     }
 
