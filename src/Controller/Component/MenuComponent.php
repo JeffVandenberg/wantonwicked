@@ -94,7 +94,7 @@ class MenuComponent extends Component
 
         // prune the menu
         foreach($this->menu as $header => $menuOptions) {
-            if(empty($menuOptions) || empty($menuOptions['submenu'])) {
+            if(!isset($menuOptions['link']) && (empty($menuOptions) || empty($menuOptions['submenu']))) {
                 unset($this->menu[$header]);
             }
         }

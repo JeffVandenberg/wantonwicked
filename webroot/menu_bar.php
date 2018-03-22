@@ -41,7 +41,7 @@ if (UserdataHelper::IsSt($userdata)) {
 }
 
 foreach($mainMenu as $header => $menuOptions) {
-    if(empty($menuOptions) || empty($menuOptions['submenu'])) {
+    if(!isset($menuOptions['link']) && (empty($menuOptions) || empty($menuOptions['submenu']))) {
         unset($mainMenu[$header]);
     }
 }

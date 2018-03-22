@@ -28,7 +28,6 @@ $menuComponents['base'] = [
     'Characters' => [
     ],
     'Staff Utilities' => [
-
     ],
     'Help' => [
         'link' => '#',
