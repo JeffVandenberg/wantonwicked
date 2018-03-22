@@ -46,6 +46,7 @@ class CharactersController extends AppController
         parent::beforeFilter($event);
         $this->Auth->allow(
             array(
+                'index',
                 'city',
                 'cast',
                 'activity'
@@ -209,7 +210,21 @@ class CharactersController extends AppController
      */
     public function index()
     {
-        $this->set('characters', $this->Paginator->paginate($this->Characters));
+        $query = $this->Characters
+            ->find()
+            ->contain([
+                'CharacterStatuses',
+            ])
+            ->where([
+                'Characters.user_id' => $this->Auth->user('user_id'),
+                'Characters.city' => 'portland'
+            ]);
+        $this->set('characters', $this->Paginator->paginate($query, [
+            'order' => [
+                'Characters.character_name'
+            ],
+            'limit' => '20'
+        ]));
     }
 
     /**

@@ -1,35 +1,162 @@
 <?php
 
+use App\Model\Entity\Character;
+use App\Model\Entity\CharacterStatus;
+use App\Model\Entity\Plot;
 use App\Model\Entity\Scene;
 use App\View\AppView;
 use classes\request\data\Request;
 
 /* @var AppView $this */
 /* @var Scene[] $sceneList ; */
+/* @var Plot[] $plotList ; */
+/* @var Character[] $characterList ; */
 /* @var Request[] $playerRequests */
 /* @var string $plots */
 $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Roleplaying Game");
+if($isLoggedIn) {
+    $this->set('header_for_layout', 'Dashboard');
+}
 ?>
 
 <div class="grid-x grid-padding-x grid-padding-y grid-margin-x">
+    <?php if (isset($content) && $content): ?>
+        <div class="small-12 cell">
+            <?= $content; ?>
+        </div>
+    <?php endif; ?>
     <div class="small-12 medium-8 cell" style=";">
         <h3>Current Plots</h3>
-        <div class="tinymce-content">
-            <?php if ($plots): ?>
-                <?php echo $plots; ?>
-            <?php else: ?>
-                No plot information at this time.
+        <?php if (count($plotList)): ?>
+            <table class="stack">
+                <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Run By
+                    </th>
+                </tr>
+                </thead>
+                <?php foreach ($plotList as $plot): ?>
+                    <tr>
+                        <td>
+                            <?=
+                            $this->Html->link(
+                                $plot->name,
+                                [
+                                    'controller' => 'plots',
+                                    'action' => 'view',
+                                    $plot->slug
+                                ]
+                            ); ?>
+                        </td>
+                        <td>
+                            <?= $plot->run_by->username; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php else: ?>
+            No current plots. Staff is slacking!
+        <?php endif; ?>
+        <?php if ($isLoggedIn): ?>
+            <h3 class="float-left">
+                Characters
+            </h3>
+            <div class="button-group float-right">
+                <a class="button small" href="/characters/add">New</a>
+                <!--                <a class="button small hide-for-small-only" href="/chat">OOC Chat</a>-->
+            </div>
+            <?php if (isset($characterList) && count($characterList) > 0): ?>
+                <table>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                    <?php foreach ($characterList as $character): ?>
+                        <?php $identifier = ($character->slug) ? $character->slug : $character->id; ?>
+                        <tr>
+                            <td>
+                                <?php if ($character->character_status_id == CharacterStatus::NewCharacter): ?>
+                                    <div class="badge has-tip" data-tooltip title="New"><i class="fi-x"></i></div>
+                                <?php elseif ($character->character_status_id == CharacterStatus::Active): ?>
+                                    <div class="success badge has-tip" data-tooltip title="Sanctioned (Active)"><i
+                                                class="fi-check"></i></div>
+                                <?php elseif ($character->character_status_id == CharacterStatus::Idle): ?>
+                                    <div class="warning badge has-tip" data-tooltip title="Sanctioned (Idle)"><i
+                                                class="fi-check"></i></div>
+                                <?php elseif ($character->character_status_id == CharacterStatus::Inactive): ?>
+                                    <div class="secondary badge has-tip" data-tooltip title="Sanctioned (Inactive)"><i
+                                                class="fi-check"></i></div>
+                                <?php elseif ($character->character_status_id == CharacterStatus::Unsanctioned): ?>
+                                    <div class="alert badge has-tip" data-tooltip title="Desanctioned"><i
+                                                class="fi-x"></i></div>
+                                <?php endif; ?>
+                                <?php echo htmlspecialchars($character->character_name); ?>
+                            </td>
+                            <td>
+                                <div class="button-group float-right">
+                                    <a href="/character.php?action=interface&character_id=<?php echo $character->id; ?>"
+                                       target="_blank" class="button float-right">Interface
+                                    </a>
+                                    <button class="dropdown button arrow-only" type="button"
+                                            data-toggle="<?php echo $character->id; ?>-dropdown">
+                                        <span class="show-for-sr">Show menu</span>
+                                    </button>
+                                    <div class="dropdown-pane bottom right" id="<?php echo $character->id; ?>-dropdown"
+                                         data-dropdown data-auto-focus="true">
+                                        <ul class="vertical menu">
+                                            <li>
+                                                <a href="/characters/viewOwn/<?php echo $identifier; ?>">Sheet</a>
+                                            </li>
+                                            <?php if ($character->isSanctioned()): ?>
+                                                <li>
+                                                    <a href="/characters/beats/<?php echo $character->slug; ?>">
+                                                        Beats
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+                                            <li>
+                                                <?= $this->Html->link('Requests',
+                                                    [
+                                                        'controller' => 'requests',
+                                                        'action' => 'character',
+                                                        $character->slug
+                                                    ]
+                                                ); ?>
+                                            </li>
+                                            <li>
+                                                <a href="/dieroller.php?action=character&character_id=<?= $character->id ?>">Diceroller</a>
+                                            </li>
+                                            <li>
+                                                <a href="/chat?character_id=<?php echo $character->id; ?>"
+                                                   target="_blank" class="">Chat</a>
+                                            </li>
+                                            <li>
+                                                <a href="/wiki/Players/<?php echo preg_replace("/[^A-Za-z0-9]/", '', $character->character_name); ?>">Profile
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
             <?php endif; ?>
-        </div>
-        <h3>News</h3>
-        <div class="tinymce-content">
-            <?php echo $content; ?>
-        </div>
+        <?php endif; ?>
     </div>
     <div class="small-12 medium-4 cell">
         <h3>Requests</h3>
         <?php if ($this->request->session()->read('Auth.User.user_id') == 1): ?>
-            You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
+            You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a
+                    href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
         <?php else: ?>
             <table class="stack">
                 <thead>
@@ -40,7 +167,9 @@ $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Rolepl
                 </thead>
                 <?php foreach ($playerRequests as $request): ?>
                     <tr>
-                        <td><a href="/request.php?action=view&request_id=<?php echo $request->Id; ?>"><?php echo $request->Title; ?></a></td>
+                        <td>
+                            <a href="/request.php?action=view&request_id=<?php echo $request->Id; ?>"><?php echo $request->Title; ?></a>
+                        </td>
                         <td><?php echo $request->RequestStatus->Name; ?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -78,10 +207,8 @@ $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Rolepl
     <!--    <div class="small-12 medium-8 cell" style="">-->
     <!--        Your ST Requests needing attention (staff)-->
     <!--    </div>-->
-    <!--    <div class="medium-4 cell hide-for-small-only">-->
-    <!--        Character Dashboard Links (registered users)-->
-    <!--    </div>-->
 </div>
+<?php if(!$isLoggedIn): ?>
 <div class="row">
     <div class="small-12 medium-4 column">
         <h2>Log In OOC</h2>
@@ -91,4 +218,4 @@ $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Rolepl
         </form>
     </div>
 </div>
-
+<?php endif; ?>

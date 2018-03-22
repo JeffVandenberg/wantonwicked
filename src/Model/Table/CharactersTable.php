@@ -3,13 +3,13 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\Character;
+use App\Model\Entity\CharacterStatus;
 use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
-use classes\character\data\CharacterStatus;
 
 /**
  * Characters Model
@@ -535,7 +535,8 @@ EOQ;
     public function save(EntityInterface $entity, $options = [])
     {
         $return = parent::save($entity, $options);
-        Cache::delete('character_id' . $entity->id . '_simple');
+        Cache::delete('character_' . $entity->id . '_simple');
+        Cache::delete($entity->user_id . '_characters_home');
         return $return;
     }
 
@@ -572,5 +573,30 @@ EOQ;
             ])
             ->first();
 
+    }
+
+    public function listForHome($userId)
+    {
+        return $this
+            ->find()
+            ->select([
+                'Characters.id',
+                'Characters.character_name',
+                'Characters.character_status_id',
+                'Characters.slug'
+            ])
+            ->contain([
+                'CharacterStatuses'
+            ])
+            ->where([
+                'Characters.city' => 'portland',
+                'Characters.character_status_id IN' => CharacterStatus::NonDeleted,
+                'Characters.user_id' => $userId
+            ])
+            ->order([
+                'CharacterStatuses.sort_order',
+                'Characters.character_name'
+            ])
+            ->cache($userId . '_characters_home');
     }
 }

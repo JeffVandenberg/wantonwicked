@@ -2,6 +2,8 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\Plot;
+use App\Model\Entity\PlotStatus;
+use App\Model\Entity\PlotVisibility;
 use function array_merge;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\RulesChecker;
@@ -153,5 +155,35 @@ class PlotsTable extends Table
             ->where($where)
             ->contain($contain)
             ->firstOrFail();
+    }
+
+    public function listForHome()
+    {
+        return $this
+            ->find()
+            ->select([
+                'Plots.id',
+                'Plots.name',
+                'Plots.slug',
+                'RunBy.username'
+            ])
+            ->contain([
+                'PlotVisibilities',
+                'PlotStatuses',
+                'RunBy'
+            ])
+            ->where([
+                'PlotVisibilities.id IN' => [
+                    PlotVisibility::Promoted,
+                    PlotVisibility::Public,
+                ],
+                'PlotStatuses.id IN' => [
+                    PlotStatus::InProgress
+                ]
+            ])
+            ->order([
+                'Plots.name'
+            ])
+            ->cache('plots_frontpage');
     }
 }

@@ -80,6 +80,7 @@ class AppController extends Controller
         $this->set('menu', $this->Menu->GetMenu());
         $this->set('serverTime', (microtime(true) + date('Z')) * 1000);
         $this->set('buildNumber', file_get_contents(ROOT . '/build_number'));
+        $this->set('isLoggedIn', $this->Auth->user('user_id') > 1);
     }
 
 }

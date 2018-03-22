@@ -84,7 +84,7 @@ class MenuComponent extends Component
                         ]
                     ]
                 ];
-                $this->menu['Utilities']['submenu']['Characters']['submenu'][$character->character_name] = $characterMenu;
+                $this->menu['Characters']['submenu'][$character->character_name] = $characterMenu;
             }
         }
 
