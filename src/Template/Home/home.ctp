@@ -14,6 +14,9 @@ use classes\request\data\Request;
 /* @var Request[] $playerRequests */
 /* @var string $plots */
 $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Roleplaying Game");
+if($isLoggedIn) {
+    $this->set('header_for_layout', 'Dashboard');
+}
 ?>
 
 <div class="grid-x grid-padding-x grid-padding-y grid-margin-x">
@@ -64,7 +67,7 @@ $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Rolepl
             </h3>
             <div class="button-group float-right">
                 <a class="button small" href="/characters/add">New</a>
-<!--                <a class="button small hide-for-small-only" href="/chat">OOC Chat</a>-->
+                <!--                <a class="button small hide-for-small-only" href="/chat">OOC Chat</a>-->
             </div>
             <?php if (isset($characterList) && count($characterList) > 0): ?>
                 <table>
@@ -80,18 +83,18 @@ $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Rolepl
                         <?php $identifier = ($character->slug) ? $character->slug : $character->id; ?>
                         <tr>
                             <td>
-                                <?php if($character->character_status_id == CharacterStatus::NewCharacter): ?>
+                                <?php if ($character->character_status_id == CharacterStatus::NewCharacter): ?>
                                     <div class="badge has-tip" data-tooltip title="New"><i class="fi-x"></i></div>
-                                <?php elseif($character->character_status_id == CharacterStatus::Active): ?>
+                                <?php elseif ($character->character_status_id == CharacterStatus::Active): ?>
                                     <div class="success badge has-tip" data-tooltip title="Sanctioned (Active)"><i
                                                 class="fi-check"></i></div>
-                                <?php elseif($character->character_status_id == CharacterStatus::Idle): ?>
+                                <?php elseif ($character->character_status_id == CharacterStatus::Idle): ?>
                                     <div class="warning badge has-tip" data-tooltip title="Sanctioned (Idle)"><i
                                                 class="fi-check"></i></div>
-                                <?php elseif($character->character_status_id == CharacterStatus::Inactive): ?>
+                                <?php elseif ($character->character_status_id == CharacterStatus::Inactive): ?>
                                     <div class="secondary badge has-tip" data-tooltip title="Sanctioned (Inactive)"><i
                                                 class="fi-check"></i></div>
-                                <?php elseif($character->character_status_id == CharacterStatus::Unsanctioned): ?>
+                                <?php elseif ($character->character_status_id == CharacterStatus::Unsanctioned): ?>
                                     <div class="alert badge has-tip" data-tooltip title="Desanctioned"><i
                                                 class="fi-x"></i></div>
                                 <?php endif; ?>
@@ -112,26 +115,33 @@ $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Rolepl
                                             <li>
                                                 <a href="/characters/viewOwn/<?php echo $identifier; ?>">Sheet</a>
                                             </li>
+                                            <?php if ($character->isSanctioned()): ?>
+                                                <li>
+                                                    <a href="/characters/beats/<?php echo $character->slug; ?>">
+                                                        Beats
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
                                             <li>
-                                                <a href="/wiki/Players/<?php echo preg_replace("/[^A-Za-z0-9]/", '', $character->character_name); ?>">Profile
-                                                </a>
+                                                <?= $this->Html->link('Requests',
+                                                    [
+                                                        'controller' => 'requests',
+                                                        'action' => 'character',
+                                                        $character->slug
+                                                    ]
+                                                ); ?>
+                                            </li>
+                                            <li>
+                                                <a href="/dieroller.php?action=character&character_id=<?= $character->id ?>">Diceroller</a>
                                             </li>
                                             <li>
                                                 <a href="/chat?character_id=<?php echo $character->id; ?>"
                                                    target="_blank" class="">Chat</a>
                                             </li>
                                             <li>
-                                                <a href="/requests/add/?character_id=<?php echo $character->id; ?>">
-                                                    New Request
+                                                <a href="/wiki/Players/<?php echo preg_replace("/[^A-Za-z0-9]/", '', $character->character_name); ?>">Profile
                                                 </a>
                                             </li>
-                                            <?php if($character->isSanctioned()): ?>
-                                                <li>
-                                                    <a href="/characters/beats/<?php echo $character->slug; ?>">
-                                                        Beat Tracker
-                                                    </a>
-                                                </li>
-                                            <?php endif; ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -198,6 +208,7 @@ $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Rolepl
     <!--        Your ST Requests needing attention (staff)-->
     <!--    </div>-->
 </div>
+<?php if(!$isLoggedIn): ?>
 <div class="row">
     <div class="small-12 medium-4 column">
         <h2>Log In OOC</h2>
@@ -207,3 +218,4 @@ $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Rolepl
         </form>
     </div>
 </div>
+<?php endif; ?>
