@@ -91,6 +91,13 @@ class MenuComponent extends Component
         if ($this->Permissions->IsST()) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['staff']);
         }
+
+        // prune the menu
+        foreach($this->menu as $header => $menuOptions) {
+            if(empty($menuOptions) || empty($menuOptions['submenu'])) {
+                unset($this->menu[$header]);
+            }
+        }
     }
 
     public function GetMenu()

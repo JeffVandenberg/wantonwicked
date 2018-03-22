@@ -26,12 +26,6 @@ $menuComponents['base'] = [
         ]
     ],
     'Characters' => [
-        'link' => '#',
-        'submenu' => [
-            'List' => [
-                'link' => '/characters/'
-            ]
-        ]
     ],
     'Staff Utilities' => [
 
@@ -218,7 +212,15 @@ $menuComponents['player'] = [
                 'link' => '/play_preferences'
             ],
         ]
-    ]
+    ],
+    'Characters' => [
+        'link' => '#',
+        'submenu' => [
+            'List' => [
+                'link' => '/characters/'
+            ]
+        ]
+    ],
 ];
 $menuComponents['staff'] = [
     'Staff Utilities' => [

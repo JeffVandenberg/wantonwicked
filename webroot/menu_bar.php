@@ -40,5 +40,10 @@ if (UserdataHelper::IsSt($userdata)) {
     $mainMenu = array_merge_recursive($mainMenu, $menuComponents['staff']);
 }
 
+foreach($mainMenu as $header => $menuOptions) {
+    if(empty($menuOptions) || empty($menuOptions['submenu'])) {
+        unset($mainMenu[$header]);
+    }
+}
 $menu_bar = MenuHelper::generateMenu($mainMenu);
 return $mainMenu;
