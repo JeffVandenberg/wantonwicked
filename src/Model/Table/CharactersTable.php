@@ -10,6 +10,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use function intval;
 
 /**
  * Characters Model
@@ -517,25 +518,38 @@ EOQ;
     }
 
 
+    /**
+     * @param $characterId
+     * @param null $options
+     * @return EntityInterface|mixed
+     */
     public function get($characterId, $options = null)
     {
+        if(intval($characterId)) {
+            $conditions = [
+                'Characters.id' => $characterId
+            ];
+        } else {
+            $conditions = [
+                'Characters.slug' => $characterId
+            ];
+        }
         return $this
             ->find('all', [
-                'conditions' => [
-                    'Characters.id' => $characterId
-                ],
+                'conditions' => $conditions,
                 'contain' => false
             ])
             ->cache(function ($q) use ($characterId) {
                 return 'character_' . $characterId . '_simple';
             })
-            ->firstOrFail();
+            ->first();
     }
 
     public function save(EntityInterface $entity, $options = [])
     {
         $return = parent::save($entity, $options);
         Cache::delete('character_' . $entity->id . '_simple');
+        Cache::delete('character_' . $entity->slug . '_simple');
         Cache::delete($entity->user_id . '_characters_home');
         return $return;
     }

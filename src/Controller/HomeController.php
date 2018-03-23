@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 /**
@@ -10,6 +11,7 @@ namespace App\Controller;
 
 use App\Controller\Component\ConfigComponent;
 use App\Controller\Component\PermissionsComponent;
+use App\Model\Entity\RequestStatus;
 use App\Model\Table\CharactersTable;
 use App\Model\Table\PlotsTable;
 use App\Model\Table\ScenesTable;
@@ -42,14 +44,25 @@ class HomeController extends AppController
         $sceneList = $scenes->listForHome();
 
         // get request information
-        $requestRepo = new RequestRepository();
-        $playerRequests = $requestRepo->ListByUserId($this->Auth->user('user_id'), 1, 5, 'updated_on desc', []);
+        $requests = TableRegistry::get('Requests');
+        $playerRequests = $requests->find()
+            ->contain([
+                'RequestStatuses'
+            ])
+            ->where([
+                'Requests.created_by_id' => $this->Auth->user('user_id'),
+                'Requests.request_status_id IN' => RequestStatus::$Player
+            ])
+            ->order([
+                'Requests.updated_on' => 'DESC'
+            ])
+            ->limit(5);
 
         $plots = TableRegistry::get('Plots');
         /* @var PlotsTable $plots */
         $plotList = $plots->listForHome();
 
-        if($this->Auth->user('user_id') > 1) {
+        if ($this->Auth->user('user_id') > 1) {
             $characters = TableRegistry::get('Characters');
             /* @var CharactersTable $characters */
             $characterList = $characters->listForHome($this->Auth->user('user_id'));

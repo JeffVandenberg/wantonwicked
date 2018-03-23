@@ -3,9 +3,9 @@
 use App\Model\Entity\Character;
 use App\Model\Entity\CharacterStatus;
 use App\Model\Entity\Plot;
+use App\Model\Entity\Request;
 use App\Model\Entity\Scene;
 use App\View\AppView;
-use classes\request\data\Request;
 
 /* @var AppView $this */
 /* @var Scene[] $sceneList ; */
@@ -27,9 +27,11 @@ if ($isLoggedIn) {
     <?php endif; ?>
     <div class="small-12 medium-8 cell" style=";">
         <h3 class="float-left">Current Plots</h3>
-        <div class="button-group float-right">
-            <a class="button small" href="/plots/add">New</a>
-        </div>
+        <?php if ($isLoggedIn): ?>
+            <div class="button-group float-right">
+                <a class="button small" href="/plots/add">New</a>
+            </div>
+        <?php endif; ?>
         <?php if (count($plotList)): ?>
             <table class="stack">
                 <thead>
@@ -70,7 +72,6 @@ if ($isLoggedIn) {
             </h3>
             <div class="button-group float-right">
                 <a class="button small" href="/characters/add">New</a>
-                <!--                <a class="button small hide-for-small-only" href="/chat">OOC Chat</a>-->
             </div>
             <?php if (isset($characterList) && count($characterList) > 0): ?>
                 <table>
@@ -157,12 +158,16 @@ if ($isLoggedIn) {
     </div>
     <div class="small-12 medium-4 cell">
         <h3 class="float-left">Requests</h3>
-        <div class="button-group float-right">
-            <a class="button small" href="/requests/add">New</a>
-        </div>
+        <?php if ($isLoggedIn): ?>
+            <div class="button-group float-right">
+                <a class="button small" href="/requests/add">New</a>
+            </div>
+        <?php endif; ?>
         <?php if ($this->request->session()->read('Auth.User.user_id') == 1): ?>
-            You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a
-                    href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
+            <div style="clear: both;">
+                You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a
+                        href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
+            </div>
         <?php else: ?>
             <table class="stack">
                 <thead>
@@ -174,17 +179,23 @@ if ($isLoggedIn) {
                 <?php foreach ($playerRequests as $request): ?>
                     <tr>
                         <td>
-                            <a href="/request.php?action=view&request_id=<?php echo $request->Id; ?>"><?php echo $request->Title; ?></a>
+                            <?= $this->Html->link($request->title, [
+                                'controller' => 'requests',
+                                'action' => 'view',
+                                $request->id
+                            ]); ?>
                         </td>
-                        <td><?php echo $request->RequestStatus->Name; ?></td>
+                        <td><?php echo $request->request_status->name; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
         <?php endif; ?>
-        <h3 class="float-left">Scenes</h3>
-        <div class="button-group float-right">
-            <a class="button small" href="/scenes/add">New</a>
-        </div>
+        <h3 class="float-left" style="clear: both;">Scenes</h3>
+        <?php if ($isLoggedIn): ?>
+            <div class="button-group float-right">
+                <a class="button small" href="/scenes/add">New</a>
+            </div>
+        <?php endif; ?>
         <?php if (count($sceneList)): ?>
             <table class="stack">
                 <tr>
@@ -210,9 +221,9 @@ if ($isLoggedIn) {
                 <?php endforeach; ?>
             </table>
         <?php else: ?>
-        <div style="clear:both;">
-            No upcoming scenes
-        </div>
+            <div style="clear:both;">
+                No upcoming scenes
+            </div>
         <?php endif; ?>
     </div>
     <!--    <div class="small-12 medium-8 cell" style="">-->
