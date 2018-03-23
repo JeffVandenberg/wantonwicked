@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Controller\Component\ConfigComponent;
 use App\Controller\Component\PermissionsComponent;
 use App\Model\Entity\RequestStatus;
+use App\Model\Entity\RequestType;
 use App\Model\Table\CharactersTable;
 use App\Model\Table\PlotsTable;
 use App\Model\Table\ScenesTable;
@@ -51,7 +52,8 @@ class HomeController extends AppController
             ])
             ->where([
                 'Requests.created_by_id' => $this->Auth->user('user_id'),
-                'Requests.request_status_id IN' => RequestStatus::$Player
+                'Requests.request_status_id IN' => RequestStatus::$Player,
+                'Requests.request_type_id !=' => RequestType::BLUE_BOOK
             ])
             ->order([
                 'Requests.updated_on' => 'DESC'
