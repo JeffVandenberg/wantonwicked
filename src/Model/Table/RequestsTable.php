@@ -506,6 +506,4 @@ class RequestsTable extends Table
         }
         return $result;
     }
-
-
 }

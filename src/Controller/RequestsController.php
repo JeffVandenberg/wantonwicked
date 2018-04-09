@@ -79,6 +79,8 @@ class RequestsController extends AppController
             case 'setstate':
                 return $this->Permissions->isRequestManager();
             case 'admin';
+            case 'activityreport':
+            case 'timereport':
                 return $this->Permissions->isAdmin();
                 break;
         }
@@ -87,8 +89,6 @@ class RequestsController extends AppController
 
     public function index()
     {
-        // show the user dashboard of requests
-        // map to: request_dashboard.php
         $userRequestsQuery = $this->Requests->buildUserRequestQuery($this->Auth->user('user_id'));
         $this->set('userRequests', $this->Paginator->paginate(
             $userRequestsQuery,
@@ -108,7 +108,6 @@ class RequestsController extends AppController
 
     public function character($characterId = null)
     {
-        // map to request_list.php
         if (!$characterId) {
             $this->Flash->set('No character specified');
             return $this->redirect(['action' => 'index']);
@@ -159,7 +158,6 @@ class RequestsController extends AppController
 
     public function add()
     {
-        // map to request_create.php
         $request = $this->Requests->newEntity();
 
         $characterId = $this->request->getQuery('character_id');
@@ -338,7 +336,6 @@ class RequestsController extends AppController
 
     public function edit($requestId)
     {
-        // map to request_edit
         $request = $this->Requests->get($requestId);
         $this->mayEditRequest($request);
 
@@ -703,7 +700,7 @@ class RequestsController extends AppController
     {
         $request = $this->Requests->get($requestId);
         $state = $this->request->getQuery('state');
-        if(!in_array($state, ['return', 'approve', 'deny', 'close'])) {
+        if (!in_array($state, ['return', 'approve', 'deny', 'close'])) {
             $this->Flash->set('Unknown state to assign');
             return $this->redirect(['action' => 'st-view', $requestId]);
         }
@@ -714,13 +711,13 @@ class RequestsController extends AppController
             }
 
             $note = $this->request->getData('note');
-            if(!$note) {
+            if (!$note) {
                 $this->Flash->set('Please include a note');
             } else {
                 $request->request_status_id = RequestStatus::getIdForState($state);
                 $request->updated_by_id = $this->Auth->user('user_id');
 
-                if($this->Requests->save($request)) {
+                if ($this->Requests->save($request)) {
                     // save note
                     $requestNote = $this->Requests->RequestNotes->newEntity();
                     $requestNote->created_by_id = $this->Auth->user('user_id');
@@ -746,26 +743,6 @@ class RequestsController extends AppController
 
         $notes = $this->listNotesForRequest($requestId);
         $this->set(compact('request', 'state', 'notes'));
-    }
-
-    public function stReturn()
-    {
-    }
-
-    public function stDeny()
-    {
-    }
-
-    public function adminTimeReport()
-    {
-    }
-
-    public function adminStatusReport()
-    {
-    }
-
-    public function adminActivityReport()
-    {
     }
 
     public function submit($requestId)
@@ -854,16 +831,6 @@ class RequestsController extends AppController
         $this->set(compact('request', 'groups'));
     }
 
-    public function stForward()
-    {
-        // do we need?
-    }
-
-    public function stClose()
-    {
-        // do we need?
-    }
-
     public function history($id)
     {
         $request = $this->Requests->get($id);
@@ -901,8 +868,19 @@ class RequestsController extends AppController
         $this->set(compact('request', 'history'));
     }
 
-    public function updateRequestCharacter()
+    public function activityReport()
     {
+        $startDate = $this->request->getQuery('start_date', date('Y-m-d', strtotime('-7 days')));
+        $endDate = $this->request->getQuery('end_date', date('Y-m-d'));
+
+        $data = $this->Requests->RequestStatusHistories->getActivityReport($startDate, $endDate);
+        $this->set(compact('startDate', 'endDate', 'data'));
+    }
+
+    public function timeReport()
+    {
+        $data = $this->Requests->RequestStatusHistories->getTimeReport();
+        $this->set(compact('data'));
     }
 
     private function mayViewRequest(Request $request)

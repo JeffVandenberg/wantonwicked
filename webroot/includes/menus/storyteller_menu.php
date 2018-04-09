@@ -77,10 +77,6 @@ $storytellerMenu = [
     ]
 ];
 
-$storytellerMenu['Reports']['submenu']['Request ST Activity Report'] = array(
-    'link' => 'request.php?action=admin_activity_report'
-);
-
 if(UserdataHelper::IsHead($userdata)) {
     $storytellerMenu['Chat']['submenu']['Prochat Admin'] = array(
         'link' => 'chat/admin'
@@ -100,11 +96,14 @@ if(UserdataHelper::IsHead($userdata)) {
     $storytellerMenu['Tools']['submenu']['Beat Types'] = [
         'link' => '/beatTypes'
     ];
+    $storytellerMenu['Reports']['submenu']['Request ST Activity Report'] = array(
+        'link' => '/requests/activity-report'
+    );
     $storytellerMenu['Reports']['submenu']['Request Time Report'] = array(
-        'link' => 'request.php?action=admin_time_report'
+        'link' => '/requests/time-report'
     );
     $storytellerMenu['Reports']['submenu']['Request Status Report'] = array(
-        'link' => 'request.php?action=admin_status_report'
+        'link' => '/requests/status-report'
     );
     $storytellerMenu['Reports']['submenu']['ST Activity Report'] = array(
         'link' => '/st_tools.php?action=st_activity_report'

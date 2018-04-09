@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\RequestStatusHistory;
@@ -91,5 +92,103 @@ class RequestStatusHistoriesTable extends Table
         $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
 
         return $rules;
+    }
+
+    public function getActivityReport($startDate, $endDate)
+    {
+        $query = $this->find();
+        return $query
+            ->select([
+                'CreatedBy.username',
+                'RequestStatuses.name',
+                'total' => $query->func()->count('*')
+            ])
+            ->contain([
+                'CreatedBy',
+                'RequestStatuses'
+            ])
+            ->where([
+                'created_on >=' => $startDate,
+                'created_on <=' => $endDate
+            ])
+            ->group([
+                'CreatedBy.username',
+                'RequestStatuses.name'
+            ])
+            ->order([
+                'CreatedBy.username',
+                'RequestStatuses.name'
+            ])
+            ->enableHydration(false)
+            ->toArray();
+    }
+
+    public function getTimeReport()
+    {
+        $sql = <<<SQL
+SELECT
+    character_type,
+    AVG(UNIX_TIMESTAMP(first_view)-UNIX_TIMESTAMP(created)) AS first_view,
+    AVG(UNIX_TIMESTAMP(terminal_status)-UNIX_TIMESTAMP(created)) AS terminal_status,
+    AVG(UNIX_TIMESTAMP(closed)-UNIX_TIMESTAMP(created)) AS closed
+FROM
+    (
+    SELECT
+        C.character_type,
+        (
+            SELECT
+                min(created_on)
+            FROM
+                request_status_histories AS RSH
+            WHERE
+                RSH.request_id = R.id
+                AND RSH.request_status_id = 1
+            GROUP BY
+                RSH.request_id
+        ) AS created,
+        (
+            SELECT
+                min(created_on)
+            FROM
+                request_status_histories AS RSH
+            WHERE
+                RSH.request_id = R.id
+                AND RSH.request_status_id = 2
+            GROUP BY
+                RSH.request_id
+        ) AS first_view,
+        (
+            SELECT
+                min(created_on)
+            FROM
+                request_status_histories AS RSH
+            WHERE
+                RSH.request_id = R.id
+                AND RSH.request_status_id IN (4,5)
+            GROUP BY
+                RSH.request_id
+        ) AS terminal_status,
+        (
+            SELECT
+                min(created_on)
+            FROM
+                request_status_histories AS RSH
+            WHERE
+                RSH.request_id = R.id
+                AND RSH.request_status_id = 7
+            GROUP BY
+                RSH.request_id
+        ) AS closed
+    FROM
+        requests AS R
+        INNER JOIN characters AS C ON R.character_id = C.id
+    ) AS A
+WHERE
+    created IS NOT NULL
+GROUP BY
+    character_type
+SQL;
+
+        return $this->getConnection()->execute($sql);
     }
 }

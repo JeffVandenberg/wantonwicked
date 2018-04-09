@@ -25,6 +25,11 @@ $(function () {
 
     $("input[type=submit]").addClass("button");
 
+    $(".date-input").datetimepicker({
+        'format': 'Y-m-d',
+        'timepicker': false,
+        'theme': 'dark'
+    });
     $(".datepicker-input").datetimepicker({
         'format': 'Y-m-d H:i',
         'step': 30,

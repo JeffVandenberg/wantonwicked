@@ -216,10 +216,10 @@ class MenuComponent extends Component
                 'link' => '/beatTypes'
             ];
             $menu['Reports']['submenu']['Request Time Report'] = array(
-                'link' => '/request.php?action=admin_time_report'
+                'link' => '/requests/time-report'
             );
             $menu['Reports']['submenu']['Request Status Report'] = array(
-                'link' => '/request.php?action=admin_status_report'
+                'link' => '/requests/status-report'
             );
             $menu['Reports']['submenu']['ST Activity Report'] = array(
                 'link' => '/st_tools.php?action=st_activity_report'
