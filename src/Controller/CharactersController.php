@@ -284,7 +284,7 @@ class CharactersController extends AppController
                 } else {
                     $this->Flash->set('Updated ' . $character->CharacterName . '.');
                 }
-                $this->redirect('/chat.php');
+                $this->redirect('/characters');
             }
 
         }
@@ -432,7 +432,7 @@ class CharactersController extends AppController
                 $this->set('data', $character);
             } else {
                 $this->Flash->set('Created ' . $character['character_name'] . '.');
-                $this->redirect('/chat.php');
+                $this->redirect('/characters');
             }
         } else {
             $characterType = ($this->request->getQuery('character_type'))

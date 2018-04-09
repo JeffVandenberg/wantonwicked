@@ -20,6 +20,11 @@ if ($isLoggedIn) {
 ?>
 
 <div class="grid-x grid-padding-x grid-padding-y grid-margin-x">
+    <?php if ($isLoggedIn): ?>
+        <div class="small-12 cell">
+            <?= $this->Html->link('Login OOC', '/chat/', ['class' => 'button']); ?>
+        </div>
+    <?php endif; ?>
     <?php if (isset($content) && $content): ?>
         <div class="small-12 cell">
             <?= $content; ?>
