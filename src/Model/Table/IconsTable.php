@@ -82,10 +82,12 @@ class IconsTable extends Table
     {
         return $this->find('list')
             ->where([
-                'Icons.player_visible' => 'Y'
+                'Icons.player_viewable' => 'Y'
             ])
             ->order([
                 'Icons.icon_name'
-            ]);
+            ])
+            ->enableHydration(false)
+            ->toArray();
     }
 }
