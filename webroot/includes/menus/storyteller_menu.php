@@ -88,7 +88,7 @@ if(UserdataHelper::IsHead($userdata)) {
         'link' => '/users/assignGroups'
     );
     $storytellerMenu['Tools']['submenu']['Icons'] = array(
-        'link' => 'st_tools.php?action=icons_list'
+        'link' => '/icons'
     );
     $storytellerMenu['Tools']['submenu']['Character Transfer'] = array(
         'link' => 'st_tools.php?action=profile_transfer'

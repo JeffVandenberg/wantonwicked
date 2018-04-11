@@ -207,7 +207,7 @@ class MenuComponent extends Component
                 )
             );
             $menu['Tools']['submenu']['Icons'] = array(
-                'link' => '/st_tools.php?action=icons_list'
+                'link' => '/icons/'
             );
             $menu['Tools']['submenu']['Character Transfer'] = array(
                 'link' => '/st_tools.php?action=profile_transfer'

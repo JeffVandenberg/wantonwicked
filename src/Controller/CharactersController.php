@@ -289,7 +289,7 @@ class CharactersController extends AppController
 
         }
 
-        $icons = $sheetService->listAvailableIcons();
+        $icons = TableRegistry::get('Icons')->listAvailableIcons();
         $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName, $character->Slug);
         $this->set(compact('character', 'options', 'icons', 'submenu'));
 
@@ -416,6 +416,7 @@ class CharactersController extends AppController
     public function add()
     {
         $options = [
+            'owner' => true,
             'show_admin' => false,
             'edit_mode' => 'open', // other values "open", "none"
         ];

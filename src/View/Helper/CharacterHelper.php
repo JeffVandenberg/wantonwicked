@@ -192,7 +192,7 @@ class CharacterHelper extends AppHelper
         $equipment = $this->buildEquipmentSection($character);
         $conditions = $this->buildConditionsSection($character);
         $admin = ($this->options['show_admin']) ? $this->buildAdminSection($character) : '';
-        $owner = ($this->options['owner']) ? $this->buildOwnerSection($character) : '';
+        $owner = (isset($this->options['owner']) && $this->options['owner']) ? $this->buildOwnerSection($character) : '';
 
         ob_start();
         ?>
@@ -221,7 +221,7 @@ class CharacterHelper extends AppHelper
                     <?php echo $admin; ?>
                 </li>
             <?php endif; ?>
-            <?php if($this->options['owner']): ?>
+            <?php if(isset($this->options['owner']) && $this->options['owner']): ?>
                 <li class="accordion-item" data-accordion-item>
                     <?php echo $owner; ?>
                 </li>

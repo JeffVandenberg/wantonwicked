@@ -586,12 +586,12 @@ class SheetService
     {
         $sql = <<<SQL
 SELECT
-  Icon_ID AS id,
-  Icon_Name AS name
+  icon_id AS id,
+  icon_name AS name
 FROM
   icons
 WHERE
-  icons.Player_Viewable = 'Y'
+  icons.player_viewable = 'Y'
 SQL;
 
         $rows = [];

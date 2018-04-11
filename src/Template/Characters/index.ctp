@@ -14,7 +14,6 @@ $this->set('title_for_layout', 'Your Characters');
             <?php if ($isLoggedIn): ?>
                 <?= $this->Html->link('New Character',
                     [
-                        'controllers' => 'characters',
                         'action' => 'add'
                     ],
                     [
