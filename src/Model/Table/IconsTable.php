@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -80,7 +81,11 @@ class IconsTable extends Table
 
     public function listAvailableIcons()
     {
-        return $this->find('list')
+        $list = $this->find('all')
+            ->select([
+                'Icons.icon_id',
+                'Icons.icon_name'
+            ])
             ->where([
                 'Icons.player_viewable' => 'Y'
             ])
@@ -89,5 +94,12 @@ class IconsTable extends Table
             ])
             ->enableHydration(false)
             ->toArray();
+
+        $icons = [];
+        foreach ($list as $item) {
+            $icons[$item['icon_id']] = $item['icon_name'];
+        }
+
+        return $icons;
     }
 }
