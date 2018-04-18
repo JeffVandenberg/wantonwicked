@@ -28,7 +28,6 @@ use IntlDateFormatter;
  */
 class ScenesController extends AppController
 {
-
     /**
      * Components
      *
@@ -92,9 +91,16 @@ class ScenesController extends AppController
         ]);
     }
 
-    public function tag($tag = null)
+    public function tagged($tag = null)
     {
-        $scenes = $this->Scenes->listScenesWithTag($tag);
+        $scenes = $this->paginate(
+            $this->Scenes->listScenesWithTag($tag),
+            [
+                'limit' => 25,
+                'order' => [
+                    'Scenes.run_on_date' => 'asc'
+                ]
+            ]);
 
         $this->set([
             'scenes' => $scenes,
@@ -121,6 +127,7 @@ class ScenesController extends AppController
                 'CreatedBy',
                 'UpdatedBy',
                 'SceneStatuses',
+                'Tags'
             ]);
 
         $scene = $query->firstOrFail();
@@ -204,7 +211,8 @@ class ScenesController extends AppController
                     'fields' => [
                         'username'
                     ]
-                ]
+                ],
+                'Tags'
             ])
             ->first();
         /* @var Scene $scene */
@@ -429,8 +437,7 @@ class ScenesController extends AppController
                         'conditions' => '`SceneCharacters`.`character_id` = `Characters`.`id`'
                     ]
                 ]
-            )
-        ;
+            );
 
         $this->set('scenes', $this->paginate($query, [
             'limit' => 25,
@@ -496,7 +503,7 @@ class ScenesController extends AppController
     {
         $query = $this->request->getQuery('query', '');
         $suggestions = [];
-        if($query) {
+        if ($query) {
             $scenes = $this->Scenes->find('all', [
                 'contain' => [
                     'RunBy' => [
@@ -517,7 +524,7 @@ class ScenesController extends AppController
                 ]
             ]);
             /* @var Scene[] $scenes */
-            foreach($scenes as $scene) {
+            foreach ($scenes as $scene) {
                 $suggestions[] = [
                     'data' => $scene->id,
                     'value' => $scene->name . ' on ' . $scene->run_on_date . ' by ' . $scene->run_by->username

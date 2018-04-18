@@ -40,7 +40,7 @@ $this->set('title_for_layout', 'Edit: ' . $scene->name);
         </tr>
         <tr>
             <td colspan="2">
-                <?php echo $this->Form->control('tags'); ?>
+                <?php echo $this->Form->control('tag_list'); ?>
             </td>
         </tr>
         <tr>

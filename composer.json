@@ -17,7 +17,8 @@
     "phpmailer/phpmailer": "^5.2",
     "cakephp/cakephp": "^3.4",
     "cakephp/migrations": "~1.0",
-    "trentrichardson/cakephp-shrink": "~3.0"
+    "trentrichardson/cakephp-shrink": "^3.0",
+    "dereuromark/cakephp-tags": "^0.3"
   },
   "require-dev": {
     "psy/psysh": "@stable",

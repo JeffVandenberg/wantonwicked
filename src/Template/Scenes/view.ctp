@@ -57,6 +57,7 @@ if ($mayEdit) {
     }
 }
 $this->set('menu', $menu);
+$this->loadHelper('Tag');
 ?>
 
 <?php echo $this->Html->link('<< Back', array('action' => 'index'), ['class' => 'button']); ?>
@@ -111,12 +112,7 @@ $this->set('menu', $menu);
     <tr>
         <td colspan="2">
             <b>Tags</b>
-            <ul class="tags">
-                <!--                --><?php //foreach($scene['Tag'] as $tag): ?>
-                <!--                    <li>-->
-                <?php //echo $this->Html->link($tag['name'], ['controller' => 'scenes', 'action' => 'tag', $tag['name']]); ?><!--</li>-->
-                <!--                --><?php //endforeach; ?>
-            </ul>
+            <?= $this->Tag->linkList($scene->tags, ['controller' => 'scenes', 'action' => 'tagged']); ?>
         </td>
     </tr>
     <tr>

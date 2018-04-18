@@ -72,6 +72,8 @@ class ScenesTable extends Table
         $this->hasMany('PlotScenes', [
             'foreignKey' => 'scene_id'
         ]);
+
+        $this->addBehavior('Tags.Tag', []);
     }
 
     /**
@@ -191,5 +193,13 @@ class ScenesTable extends Table
         } else {
             return [];
         }
+    }
+
+    public function listScenesWithTag($tag)
+    {
+        return $this
+            ->find('tagged', [
+                'tag' => $tag
+            ]);
     }
 }

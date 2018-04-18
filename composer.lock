@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ee97de112e9cbce5be1ba797de7e8821",
-    "content-hash": "d1c3b62ff971b6e9c069045162c1dc95",
+    "hash": "2d771dbd7fd8ec269ee7a3c7a460402d",
+    "content-hash": "b56242fb0107b36eca7d004c5cc9a593",
     "packages": [
         {
             "name": "aura/intl",
@@ -354,6 +354,71 @@
                 "zikula"
             ],
             "time": "2017-08-09 07:53:48"
+        },
+        {
+            "name": "dereuromark/cakephp-tags",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dereuromark/cakephp-tags.git",
+                "reference": "54d26d4d11460e41734aa0b469e278cfb842661c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tags/zipball/54d26d4d11460e41734aa0b469e278cfb842661c",
+                "reference": "54d26d4d11460e41734aa0b469e278cfb842661c",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^3.4",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "cakephp/cakephp": "^3.4",
+                "cakephp/migrations": "*",
+                "dereuromark/cakephp-tools": "^1.0",
+                "fig-r/psr2r-sniffer": "dev-master"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Tags\\": "src/",
+                    "Tags\\Test\\Fixture\\": "tests/Fixture/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jad Bitar",
+                    "homepage": "http://jadb.io",
+                    "role": "Author"
+                },
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "http://www.dereuromark.de",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "ADmad",
+                    "homepage": "https://github.com/ADmad",
+                    "role": "Author"
+                },
+                {
+                    "name": "Others",
+                    "homepage": "https://github.com/dereuromark/cakephp-tags/graphs/contributors"
+                }
+            ],
+            "description": "Tags plugin for CakePHP 3.x",
+            "homepage": "https://github.com/dereuromark/cakephp-tags",
+            "keywords": [
+                "cakephp",
+                "tagging",
+                "tags"
+            ],
+            "time": "2018-03-03 13:52:10"
         },
         {
             "name": "leafo/lessphp",
