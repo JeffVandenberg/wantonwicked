@@ -29,7 +29,8 @@ class PlotsController extends AppController
         parent::beforeFilter($event);
         $this->Auth->allow([
             'index',
-            'view'
+            'view',
+            'tagged'
         ]);
 
         // set common permissions
@@ -119,6 +120,51 @@ class PlotsController extends AppController
         $this->set('_serialize', ['plots']);
     }
 
+    public function tagged($tag)
+    {
+        $isPlotManager = $this->Permissions->isPlotManager($this->Auth->user('user_id'));
+        $isPlotViewer = $this->Permissions->isPlotViewer($this->Auth->user('user_id'));
+
+        if ($isPlotManager || $isPlotViewer) {
+            $where = [
+                'PlotStatuses.id IN' => [
+                    PlotStatus::Pending,
+                    PlotStatus::InProgress
+                ]
+            ];
+        } else {
+            $where = [
+                'PlotVisibilities.id IN' => [
+                    PlotVisibility::Promoted,
+                    PlotVisibility::Public,
+                ],
+                'PlotStatuses.id IN' => [
+                    PlotStatus::InProgress
+                ]
+            ];
+        }
+
+        $plots = $this->paginate(
+            $this->Plots
+                ->find('tagged', ['tag' => $tag])
+                ->contain([
+                    'PlotStatuses',
+                    'PlotVisibilities',
+                    'RunBy' => ['fields' => ['username']],
+                    'CreatedBy' => ['fields' => ['username']],
+                    'UpdatedBy' => ['fields' => ['username']],
+                ])
+                ->where($where),
+            [
+                'limit' => 25,
+                'order' => [
+                    'Plots.name' => ''
+                ]
+            ]);
+
+        $this->set(compact('plots', 'tag', 'isPlotManager', 'isPlotViewer'));
+    }
+
     /**
      * View method
      *
@@ -131,6 +177,7 @@ class PlotsController extends AppController
         $isPlotManager = $this->Permissions->isPlotManager($this->Auth->user('user_id'));
         $plot = $this->Plots->getByIdOrSlug($id, [
             'PlotStatuses',
+            'Tags',
             'PlotVisibilities',
             'CreatedBy' => [
                 'fields' => ['username']
@@ -205,7 +252,8 @@ class PlotsController extends AppController
                 'fields' => [
                     'username', 'user_id'
                 ]
-            ]
+            ],
+            'Tags'
         ]);
         if (!$this->mayManagePlot($plot)) {
             $this->Flash->set('You may not edit that plot');
@@ -272,20 +320,20 @@ class PlotsController extends AppController
     public function addCharacter($id)
     {
         $plot = $this->Plots->getByIdOrSlug($id);
-        if(!$this->mayManagePlot($plot)) {
+        if (!$this->mayManagePlot($plot)) {
             $this->Flash->set('You may not manager that plot');
             $this->redirect(['action' => 'view', $id]);
         }
 
         $plotCharacter = $this->Plots->PlotCharacters->newEntity();
-        if($this->request->is(['post', 'patch', 'put'])) {
+        if ($this->request->is(['post', 'patch', 'put'])) {
             if ($this->request->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'view', $id]);
                 return;
             }
 
             $plotCharacter = $this->Plots->PlotCharacters->patchEntity($plotCharacter, $this->request->getData());
-            if($this->Plots->PlotCharacters->save($plotCharacter)) {
+            if ($this->Plots->PlotCharacters->save($plotCharacter)) {
                 $this->Flash->set('Added character to plot.');
                 $this->redirect(['action' => 'view', $id]);
             } else {
@@ -298,20 +346,20 @@ class PlotsController extends AppController
     public function addScene($id)
     {
         $plot = $this->Plots->getByIdOrSlug($id);
-        if(!$this->mayManagePlot($plot)) {
+        if (!$this->mayManagePlot($plot)) {
             $this->Flash->set('You may not manager that plot');
             $this->redirect(['action' => 'view', $id]);
         }
 
         $plotScene = $this->Plots->PlotScenes->newEntity();
-        if($this->request->is(['post', 'patch', 'put'])) {
+        if ($this->request->is(['post', 'patch', 'put'])) {
             if ($this->request->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'view', $id]);
                 return;
             }
 
             $plotScene = $this->Plots->PlotCharacters->patchEntity($plotScene, $this->request->getData());
-            if($this->Plots->PlotScenes->save($plotScene)) {
+            if ($this->Plots->PlotScenes->save($plotScene)) {
                 $this->Flash->set('Added scene to plot.');
                 $this->redirect(['action' => 'view', $id]);
             } else {

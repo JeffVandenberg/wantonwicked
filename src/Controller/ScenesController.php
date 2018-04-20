@@ -47,7 +47,7 @@ class ScenesController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['index', 'view', 'tag', 'search']);
+        $this->Auth->allow(['index', 'view', 'tag', 'search', 'tagged']);
     }
 
     public function beforeRender(Event $event)

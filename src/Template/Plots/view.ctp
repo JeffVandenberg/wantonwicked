@@ -6,6 +6,7 @@
  * @var \App\Model\Entity\Plot $plot
  */
 $this->set('title_for_layout', $plot->name);
+$this->loadHelper('Tag');
 ?>
 <div class="plots form">
     <div>
@@ -17,6 +18,10 @@ $this->set('title_for_layout', $plot->name);
         <?php endif; ?>
     </div>
     <div class="row align-top">
+        <div class="small-12 column">
+            <h4>Tags</h4>
+            <?= $this->Tag->linkList($plot->tags, ['controller' => 'plots', 'action' => 'tagged']); ?>
+        </div>
         <div class="small-12 column tinymce-content">
             <h4>Description</h4>
             <?php echo $plot->description; ?>

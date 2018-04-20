@@ -59,6 +59,8 @@ class PlotsTable extends Table
             ]
         ]);
 
+        $this->addBehavior('Tags.Tag', []);
+
         $this->belongsTo('PlotStatuses', [
             'foreignKey' => 'plot_status_id',
             'joinType' => 'INNER'
