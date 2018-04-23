@@ -16,6 +16,7 @@ namespace App\View;
 use App\View\Helper\CharacterHelper;
 use App\View\Helper\MainMenuHelper;
 use App\View\Helper\UserPanelHelper;
+use Cake\Core\Configure;
 use Cake\View\View;
 use Shrink\View\Helper\ShrinkHelper;
 
@@ -45,5 +46,14 @@ class AppView extends View
     public function initialize()
     {
         parent::initialize();
+    }
+
+    public function addScript($scriptName)
+    {
+        if(Configure::read('debug')) {
+            echo $this->Html->script('game-map', ['block' => true]);
+        } else {
+            $this->Shrink->js($scriptName . '.js');
+        }
     }
 }

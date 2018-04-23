@@ -8,6 +8,7 @@ use Cake\Core\Configure;
  */
 
 $this->set('title_for_layout', 'City Map');
+$this->addScript('game-map');
 ?>
 <div>
     <button class="button" id="record-zone-button">New Territory</button>
@@ -15,61 +16,6 @@ $this->set('title_for_layout', 'City Map');
 <div id="map"></div>
 <script>
     let myMap;
-
-    class PageMap {
-        constructor(map, creatingZone = false, zonePoints = []) {
-            this.map = map;
-            this.creatingZone = creatingZone;
-            this.zonePoints = zonePoints;
-            this.drawingPoints = [];
-        }
-
-        finishZone() {
-            if (myMap.zonePoints.length > 2) {
-                myMap.zonePoints.push(this.zonePoints[0]);
-
-                let poly = new google.maps.Polygon({
-                    paths: myMap.zonePoints,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 1.0,
-                    strokeWeight: 2
-                });
-                poly.setMap(myMap.map);
-            } else {
-                alert('Not enough points')
-            }
-            this.clearTempMarkers();
-            myMap.creatingZone = false;
-        }
-
-        checkClick(e) {
-            if (myMap.creatingZone) {
-                myMap.zonePoints.push(e.latLng);
-                let point = new google.maps.Marker({
-                    position: e.latLng,
-                    map: myMap.map,
-                    title: 'Drawing'
-                });
-                this.drawingPoints.push(point);
-            } else {
-            }
-        }
-
-        isCreatingZone() {
-            return this.creatingZone;
-        }
-
-        setCreatingZone(creatingZone) {
-            this.creatingZone = creatingZone;
-        }
-
-        clearTempMarkers() {
-            this.drawingPoints.forEach((point) => {
-                point.setMap(null);
-            });
-            this.drawingPoints = [];
-        }
-    }
 
     $(function () {
         $("#record-zone-button").click((e) => {
@@ -88,7 +34,7 @@ $this->set('title_for_layout', 'City Map');
             center: {lat: 45.5231, lng: -122.6765},
             zoom: 12
         });
-        myMap = new PageMap(map);
+        myMap = new GameMap(map);
 
         map.addListener('click', (e) => {myMap.checkClick(e); });
     }
