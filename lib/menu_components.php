@@ -45,7 +45,15 @@ $menuComponents['base'] = [
                 'link' => '/wiki/GameRef/SitePoliciesAndPractices',
             ],
             'House Rules' => [
-                'link' => '/wiki/GameRef/HouseRules',
+                'link' => '#',
+                'submenu' => [
+                    'Home' => [
+                        'link' => '/wiki/GameRef/HouseRules',
+                    ],
+                    'Custom Item/Powers' => [
+                        'link' => '/wiki/GameRef/CustomItemsAndPowers'
+                    ]
+                ]
             ],
             'New Player Help' => [
                 'link' => '/wiki/GameRef/Help',
