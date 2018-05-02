@@ -89,7 +89,7 @@ class RequestsController extends AppController
 
     public function index()
     {
-        $userRequestsQuery = $this->getRequest()s->buildUserRequestQuery($this->Auth->user('user_id'));
+        $userRequestsQuery = $this->Requests->buildUserRequestQuery($this->Auth->user('user_id'));
         $this->set('userRequests', $this->Paginator->paginate(
             $userRequestsQuery,
             [
@@ -100,7 +100,7 @@ class RequestsController extends AppController
             ]
         ));
         $characterRequests =
-            $this->getRequest()s
+            $this->Requests
                 ->listRequestsLinkedByCharacterToUser($this->Auth->user('user_id'));
 
         $this->set(compact('characterRequests'));
@@ -113,7 +113,7 @@ class RequestsController extends AppController
             return $this->redirect(['action' => 'index']);
         }
 
-        $character = $this->getRequest()s->Characters->get($characterId);
+        $character = $this->Requests->Characters->get($characterId);
         if (!$this->Permissions->mayViewCharacter($character)) {
             return $this->redirect(['action' => 'index']);
         }
@@ -124,9 +124,9 @@ class RequestsController extends AppController
             'title' => $this->getRequest()->getQuery('title', '')
         ];
 
-        $requestSummary = $this->getRequest()s->getSummaryForCharacter($character->id);
-        $characterRequests = $this->getRequest()s->listByCharacterId($character->id, $filter);
-        $linkedRequests = $this->getRequest()s->listLinkedRequestsForCharacter($character->id);
+        $requestSummary = $this->Requests->getSummaryForCharacter($character->id);
+        $characterRequests = $this->Requests->listByCharacterId($character->id, $filter);
+        $linkedRequests = $this->Requests->listLinkedRequestsForCharacter($character->id);
 
         $submenu = $this->Menu->createCharacterMenu(
             $character->id,
@@ -142,9 +142,9 @@ class RequestsController extends AppController
             ]
         ];
         $requestStatuses =
-            $this->getRequest()s->RequestStatuses->find('list')->cache('request_status_list');
+            $this->Requests->RequestStatuses->find('list')->cache('request_status_list');
         $requestTypes =
-            $this->getRequest()s->RequestTypes->find('list')->cache('request_stype_list');
+            $this->Requests->RequestTypes->find('list')->cache('request_stype_list');
 
         $this->set(compact('character', 'requestSummary', 'submenu', 'filter', 'requestStatuses',
             'requestTypes', 'linkedRequests'));
@@ -158,7 +158,7 @@ class RequestsController extends AppController
 
     public function add()
     {
-        $request = $this->getRequest()s->newEntity();
+        $request = $this->Requests->newEntity();
 
         $characterId = $this->getRequest()->getQuery('character_id');
 
@@ -170,27 +170,27 @@ class RequestsController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
             }
-            $request = $this->getRequest()s->patchEntity($request, $this->getRequest()->getData());
+            $request = $this->Requests->patchEntity($request, $this->getRequest()->getData());
             $request->updated_by_id =
             $request->created_by_id =
                 $this->Auth->user('user_id');
             $request->request_status_id = RequestStatus::NewRequest;
 
-            if ($this->getRequest()s->save($request)) {
+            if ($this->Requests->save($request)) {
                 if ($characterId) {
-                    $reqChar = $this->getRequest()s->RequestCharacters->newEntity();
+                    $reqChar = $this->Requests->RequestCharacters->newEntity();
                     $reqChar->character_id = $characterId;
                     $reqChar->request_id = $request->id;
                     $reqChar->is_primary = true;
                     $reqChar->note = '';
                     $reqChar->is_approved = true;
-                    $this->getRequest()s->RequestCharacters->save($reqChar);
+                    $this->Requests->RequestCharacters->save($reqChar);
                 }
                 if ($this->getRequest()->getData('action') == 'submit') {
                     $request->request_status_id = RequestStatus::Submitted;
-                    $this->getRequest()s->save($request);
+                    $this->Requests->save($request);
 
-                    if (!$this->getRequest()Email->newRequestSubmission($request)) {
+                    if (!$this->RequestEmail->newRequestSubmission($request)) {
                         $this->Flash->set('Error sending notification.');
                     }
                 }
@@ -204,16 +204,16 @@ class RequestsController extends AppController
         }
 
         if ($characterId) {
-            $character = $this->getRequest()s->Characters->get($characterId);
+            $character = $this->Requests->Characters->get($characterId);
             $this->set(compact('character'));
-            $group = $this->getRequest()s->Groups->getDefaultGroupForCharacter($character->id);
+            $group = $this->Requests->Groups->getDefaultGroupForCharacter($character->id);
             if ($group) {
                 $request->group_id = $group->id;
             }
         } else {
             $request->group_id = 1;
         }
-        $groups = $this->getRequest()s->Groups->find('list', [
+        $groups = $this->Requests->Groups->find('list', [
             'conditions' => [
                 'is_deleted' => 0
             ],
@@ -222,7 +222,7 @@ class RequestsController extends AppController
             ]
         ]);
 
-        $requestTypes = $this->getRequest()s->RequestTypes->find('list')
+        $requestTypes = $this->Requests->RequestTypes->find('list')
             ->innerJoin(
                 ['GRT' => 'groups_request_types'],
                 'RequestTypes.id = GRT.request_type_id'
@@ -238,14 +238,14 @@ class RequestsController extends AppController
 
     public function view($id)
     {
-        $request = $this->getRequest()s->getFullRequest($id);
+        $request = $this->Requests->getFullRequest($id);
         $this->validateRequestView($request);
 
         if ($request->request_status_id == RequestStatus::NewRequest) {
             $this->Flash->set('This request is not yet submitted to STs.');
         }
 
-        $character = $this->getRequest()s->Characters->findCharacterLinkedToRequest(
+        $character = $this->Requests->Characters->findCharacterLinkedToRequest(
             $this->Auth->user('user_id'),
             $id
         );
@@ -336,14 +336,14 @@ class RequestsController extends AppController
 
     public function edit($requestId)
     {
-        $request = $this->getRequest()s->get($requestId);
+        $request = $this->Requests->get($requestId);
         $this->mayEditRequest($request);
 
         if ($this->getRequest()->is(['post', 'put'])) {
-            $request = $this->getRequest()s->patchEntity($request, $this->getRequest()->getData());
+            $request = $this->Requests->patchEntity($request, $this->getRequest()->getData());
             $request->updated_by_id = $this->Auth->user('user_id');
 
-            if ($this->getRequest()s->save($request)) {
+            if ($this->Requests->save($request)) {
                 $this->Flash->set('Updated Request');
                 return $this->redirect(['action' => 'view', $requestId]);
             } else {
@@ -351,7 +351,7 @@ class RequestsController extends AppController
             }
         }
 
-        $groups = $this->getRequest()s->Groups->find('list', [
+        $groups = $this->Requests->Groups->find('list', [
             'conditions' => [
                 'is_deleted' => 0
             ],
@@ -360,7 +360,7 @@ class RequestsController extends AppController
             ]
         ]);
 
-        $requestTypes = $this->getRequest()s->RequestTypes->find('list')
+        $requestTypes = $this->Requests->RequestTypes->find('list')
             ->innerJoin(
                 ['GRT' => 'groups_request_types'],
                 'RequestTypes.id = GRT.request_type_id'
@@ -379,11 +379,11 @@ class RequestsController extends AppController
     public function delete($requestId)
     {
         // map to request_delete
-        $request = $this->getRequest()s->get($requestId);
+        $request = $this->Requests->get($requestId);
         $this->validateRequestEdit($request);
 
         if ($request->request_status_id == RequestStatus::NewRequest) {
-            if ($this->getRequest()s->delete($request)) {
+            if ($this->Requests->delete($request)) {
                 $this->Flash->set('Request ' . $request->title . ' has been deleted');
             } else {
                 $this->Flash->set('Error deleting request');
@@ -392,7 +392,7 @@ class RequestsController extends AppController
             $this->Flash->set('Can not delete a request that has been submitted');
         }
 
-        $character = $this->getRequest()s->RequestCharacters->Characters->findPrimaryCharacterForRequest($requestId);
+        $character = $this->Requests->RequestCharacters->Characters->findPrimaryCharacterForRequest($requestId);
         /* @var Character $character */
         if ($character->user_id == $this->Auth->user('user_id')) {
             return $this->redirect(['action' => 'character', $character->id]);
@@ -403,23 +403,23 @@ class RequestsController extends AppController
 
     public function addNote($requestId)
     {
-        $requestNote = $this->getRequest()s->RequestNotes->newEntity();
-        $request = $this->getRequest()s->get($requestId);
+        $requestNote = $this->Requests->RequestNotes->newEntity();
+        $request = $this->Requests->get($requestId);
         $this->validateRequestView($request);
         if ($this->getRequest()->is(['post', 'put'])) {
             if (strtolower($this->getRequest()->getData('action')) == 'cancel') {
                 return $this->redirectToView($requestId);
             }
-            $requestNote = $this->getRequest()s->RequestNotes->patchEntity(
+            $requestNote = $this->Requests->RequestNotes->patchEntity(
                 $requestNote,
                 $this->getRequest()->getData()
             );
 
             $requestNote->created_by_id = $this->Auth->user('user_id');
 
-            if ($this->getRequest()s->RequestNotes->save($requestNote)) {
+            if ($this->Requests->RequestNotes->save($requestNote)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
-                $this->getRequest()s->save($request);
+                $this->Requests->save($request);
                 return $this->redirectToView($requestId);
             } else {
                 $this->Flash->set('Error adding note.');
@@ -433,8 +433,8 @@ class RequestsController extends AppController
 
     public function addCharacter($requestId)
     {
-        $requestCharacter = $this->getRequest()s->RequestCharacters->newEntity();
-        $request = $this->getRequest()s->get($requestId);
+        $requestCharacter = $this->Requests->RequestCharacters->newEntity();
+        $request = $this->Requests->get($requestId);
         $this->validateRequestView($request);
         $requestCharacter->request_id = $request->id;
         $requestCharacter->is_approved = false;
@@ -444,16 +444,16 @@ class RequestsController extends AppController
             if (strtolower($this->getRequest()->getData('action')) == 'cancel') {
                 return $this->redirect(['action' => 'view', $requestId]);
             }
-            $requestCharacter = $this->getRequest()s->RequestCharacters->patchEntity(
+            $requestCharacter = $this->Requests->RequestCharacters->patchEntity(
                 $requestCharacter,
                 $this->getRequest()->getData(),
                 [
                     'validate' => false
                 ]
             );
-            if ($this->getRequest()s->RequestCharacters->save($requestCharacter)) {
+            if ($this->Requests->RequestCharacters->save($requestCharacter)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
-                $this->getRequest()s->save($request);
+                $this->Requests->save($request);
                 $this->Flash->set('Attached ' . $this->getRequest()->getData('character_name'));
                 return $this->redirect(['action' => 'view', $requestId]);
             } else {
@@ -461,7 +461,7 @@ class RequestsController extends AppController
             }
         }
 
-        $hasPrimary = $this->getRequest()s->RequestCharacters->requestHasPrimaryCharacter($requestId);
+        $hasPrimary = $this->Requests->RequestCharacters->requestHasPrimaryCharacter($requestId);
         $this->set(compact('hasPrimary', 'requestCharacter', 'request'));
     }
 
@@ -496,23 +496,23 @@ class RequestsController extends AppController
 
     public function attachRequest($requestId)
     {
-        $requestRequest = $this->getRequest()s->RequestRequests->newEntity();
-        $request = $this->getRequest()s->get($requestId);
+        $requestRequest = $this->Requests->RequestRequests->newEntity();
+        $request = $this->Requests->get($requestId);
         $this->validateRequestView($request);
         if ($this->getRequest()->is(['post', 'put'])) {
             if (strtolower($this->getRequest()->getData('action')) == 'cancel') {
                 return $this->redirect(['action' => 'view', $requestId]);
             }
 
-            $requestRequest = $this->getRequest()s->RequestRequests->patchEntity(
+            $requestRequest = $this->Requests->RequestRequests->patchEntity(
                 $requestRequest,
                 $this->getRequest()->getData()
             );
             $requestRequest->to_request_id = $requestId;
 
-            if ($this->getRequest()s->RequestRequests->save($requestRequest)) {
+            if ($this->Requests->RequestRequests->save($requestRequest)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
-                $this->getRequest()s->save($request);
+                $this->Requests->save($request);
                 $this->Flash->set("Attached Request");
                 return $this->redirect([
                     'action' => 'view',
@@ -523,7 +523,7 @@ class RequestsController extends AppController
             }
         }
 
-        $unattachedRequests = $this->getRequest()s->listUnattachedRequests(
+        $unattachedRequests = $this->Requests->listUnattachedRequests(
             $requestId, $this->Auth->user('user_id')
         );
 
@@ -533,21 +533,21 @@ class RequestsController extends AppController
 
     public function attachBluebook($requestId)
     {
-        $requestBluebook = $this->getRequest()s->RequestBluebooks->newEntity();
-        $request = $this->getRequest()s->get($requestId);
+        $requestBluebook = $this->Requests->RequestBluebooks->newEntity();
+        $request = $this->Requests->get($requestId);
         $this->validateRequestView($request);
         if ($this->getRequest()->is(['post', 'put'])) {
             if (strtolower($this->getRequest()->getData('action')) == 'cancel') {
                 return $this->redirect(['action' => 'view', $requestId]);
             }
-            $requestBluebook = $this->getRequest()s->RequestBluebooks->patchEntity(
+            $requestBluebook = $this->Requests->RequestBluebooks->patchEntity(
                 $requestBluebook,
                 $this->getRequest()->getData()
             );
 
-            if ($this->getRequest()s->RequestBluebooks->save($requestBluebook)) {
+            if ($this->Requests->RequestBluebooks->save($requestBluebook)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
-                $this->getRequest()s->save($request);
+                $this->Requests->save($request);
                 $this->Flash->set('Attached Bluebook');
                 return $this->redirect(['action' => 'view', $requestId]);
             }
@@ -565,23 +565,23 @@ class RequestsController extends AppController
 
     public function attachScene($requestId)
     {
-        $sceneRequest = $this->getRequest()s->SceneRequests->newEntity();
-        $request = $this->getRequest()s->get($requestId);
+        $sceneRequest = $this->Requests->SceneRequests->newEntity();
+        $request = $this->Requests->get($requestId);
         $this->validateRequestView($request);
         if ($this->getRequest()->is(['post', 'put'])) {
             if (strtolower($this->getRequest()->getData('action')) == 'cancel') {
                 return $this->redirect(['action' => 'view', $requestId]);
             }
 
-            $sceneRequest = $this->getRequest()s->SceneRequests->patchEntity(
+            $sceneRequest = $this->Requests->SceneRequests->patchEntity(
                 $sceneRequest, $this->getRequest()->getData(),
                 ['validate' => false]
             );
             $sceneRequest->added_on = date('Y-m-d H:i:s');
 
-            if ($this->getRequest()s->SceneRequests->save($sceneRequest)) {
+            if ($this->Requests->SceneRequests->save($sceneRequest)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
-                $this->getRequest()s->save($request);
+                $this->Requests->save($request);
                 $this->Flash->set('Attached scene');
                 return $this->redirect(['action' => 'view', $requestId]);
             } else {
@@ -609,11 +609,11 @@ class RequestsController extends AppController
 
     public function stDashboard()
     {
-        $groups = $this->getRequest()s->Groups->listStGroupsForUser($this->Auth->user('user_id'));
+        $groups = $this->Requests->Groups->listStGroupsForUser($this->Auth->user('user_id'));
         /* @var Query $groups */
-        $requestStatuses = [-1 => 'All'] + $this->getRequest()s->RequestStatuses->find('list', ['order' => 'name'])->toArray();
-        $requestTypes = $this->getRequest()s->RequestTypes->find('list', ['order' => 'name']);
-        $requestsQuery = $this->getRequest()s->findByGroups($groups->toArray());
+        $requestStatuses = [-1 => 'All'] + $this->Requests->RequestStatuses->find('list', ['order' => 'name'])->toArray();
+        $requestTypes = $this->Requests->RequestTypes->find('list', ['order' => 'name']);
+        $requestsQuery = $this->Requests->findByGroups($groups->toArray());
 
         if ($this->getRequest()->getQuery('title')) {
             $requestsQuery->andWhere([
@@ -677,13 +677,13 @@ class RequestsController extends AppController
 
     public function stView($requestId)
     {
-        $request = $this->getRequest()s->getFullRequest($requestId);
+        $request = $this->Requests->getFullRequest($requestId);
 
         CharacterLog::LogAction($request['character_id'], ActionType::VIEW_REQUEST, 'View Request', $this->Auth->user('user_id'), $requestId);
         if ($request->request_status_id == RequestStatus::Submitted) {
             $request->request_status_id = RequestStatus::InProgress;
             $request->updated_by_id = $this->Auth->user('user_id');
-            $this->getRequest()s->save($request);
+            $this->Requests->save($request);
         }
 
         $submenu = $this->Menu->createStorytellerMenu();
@@ -698,7 +698,7 @@ class RequestsController extends AppController
      */
     public function setState($requestId)
     {
-        $request = $this->getRequest()s->get($requestId);
+        $request = $this->Requests->get($requestId);
         $state = $this->getRequest()->getQuery('state');
         if (!in_array($state, ['return', 'approve', 'deny', 'close'])) {
             $this->Flash->set('Unknown state to assign');
@@ -717,16 +717,16 @@ class RequestsController extends AppController
                 $request->request_status_id = RequestStatus::getIdForState($state);
                 $request->updated_by_id = $this->Auth->user('user_id');
 
-                if ($this->getRequest()s->save($request)) {
+                if ($this->Requests->save($request)) {
                     // save note
-                    $requestNote = $this->getRequest()s->RequestNotes->newEntity();
+                    $requestNote = $this->Requests->RequestNotes->newEntity();
                     $requestNote->created_by_id = $this->Auth->user('user_id');
                     $requestNote->request_id = $requestId;
                     $requestNote->note = $note;
-                    $this->getRequest()s->RequestNotes->save($requestNote);
+                    $this->Requests->RequestNotes->save($requestNote);
 
                     // send email
-                    $this->getRequest()Email->notificationToPlayer(
+                    $this->RequestEmail->notificationToPlayer(
                         $this->Auth->user('user_email'),
                         $this->Auth->user('username'),
                         $state,
@@ -747,21 +747,21 @@ class RequestsController extends AppController
 
     public function submit($requestId)
     {
-        $request = $this->getRequest()s->get($requestId);
+        $request = $this->Requests->get($requestId);
         $this->validateRequestEdit($request);
 
         $request->request_status_id = RequestStatus::Submitted;
         $request->updated_by_id = $this->Auth->user('user_id');
-        if ($this->getRequest()s->save($request)) {
+        if ($this->Requests->save($request)) {
             $this->Flash->set('Request has been submitted.');
-            if (!$this->getRequest()Email->newRequestSubmission($request)) {
+            if (!$this->RequestEmail->newRequestSubmission($request)) {
                 $this->Flash->set('Error sending notification.');
             }
         } else {
             $this->Flash->set('Unable to submit the request');
         }
 
-        $character = $this->getRequest()s->RequestCharacters->Characters->findPrimaryCharacterForRequest($requestId);
+        $character = $this->Requests->RequestCharacters->Characters->findPrimaryCharacterForRequest($requestId);
         /* @var Character $character */
         if ($character->user_id == $this->Auth->user('user_id')) {
             return $this->redirect(['action' => 'character', $character->id]);
@@ -772,12 +772,12 @@ class RequestsController extends AppController
 
     public function close($requestId)
     {
-        $request = $this->getRequest()s->get($requestId);
+        $request = $this->Requests->get($requestId);
         $this->validateRequestEdit($request);
 
         $request->request_status_id = RequestStatus::Closed;
         $request->updated_by_id = $this->Auth->user('user_id');
-        if ($this->getRequest()s->save($request)) {
+        if ($this->Requests->save($request)) {
             $this->Flash->set('Closed request: ' . $request->title);
         } else {
             $this->Flash->set('Error closing request.');
@@ -791,7 +791,7 @@ class RequestsController extends AppController
      */
     public function forward($requestId)
     {
-        $request = $this->getRequest()s->get($requestId);
+        $request = $this->Requests->get($requestId);
         $this->validateRequestEdit($request);
 
         if ($this->getRequest()->is(['post', 'put'])) {
@@ -800,27 +800,27 @@ class RequestsController extends AppController
             }
 
             $oldGroupId = $request->group_id;
-            $request = $this->getRequest()s->patchEntity($request, $this->getRequest()->getData());
+            $request = $this->Requests->patchEntity($request, $this->getRequest()->getData());
             $newGroupId = $request->group_id;
 
             if ($oldGroupId != $newGroupId) {
-                $oldGroup = $this->getRequest()s->Groups->get($oldGroupId);
-                $newGroup = $this->getRequest()s->Groups->get($newGroupId);
+                $oldGroup = $this->Requests->Groups->get($oldGroupId);
+                $newGroup = $this->Requests->Groups->get($newGroupId);
 
-                $requestNote = $this->getRequest()s->RequestNotes->newEntity();
+                $requestNote = $this->Requests->RequestNotes->newEntity();
                 $requestNote->created_by_id = $this->Auth->user('user_id');
                 $requestNote->note = '<p>Forwarded from group: ' . $oldGroup->name . ' to group: ' . $newGroup->name . '</p>';
                 $requestNote->request_id = $requestId;
 
-                $this->getRequest()s->RequestNotes->save($requestNote);
-                $this->getRequest()s->save($request);
+                $this->Requests->RequestNotes->save($requestNote);
+                $this->Requests->save($request);
                 return $this->redirectToView($requestId);
             } else {
                 $this->Flash->set('You selected the same group for your request');
             }
         }
 
-        $groups = $this->getRequest()s->Groups->find('list', [
+        $groups = $this->Requests->Groups->find('list', [
             'conditions' => [
                 'is_deleted' => 0
             ],
@@ -833,10 +833,10 @@ class RequestsController extends AppController
 
     public function history($id)
     {
-        $request = $this->getRequest()s->get($id);
+        $request = $this->Requests->get($id);
         $this->validateRequestView($request);
 
-        $character = $this->getRequest()s->Characters->findCharacterLinkedToRequest(
+        $character = $this->Requests->Characters->findCharacterLinkedToRequest(
             $this->Auth->user('user_id'),
             $id
         );
@@ -849,7 +849,7 @@ class RequestsController extends AppController
             $this->set('submenu', $submenu);
         }
 
-        $history = $this->getRequest()s->RequestStatusHistories->find('all', [
+        $history = $this->Requests->RequestStatusHistories->find('all', [
             'conditions' => [
                 'RequestStatusHistories.request_id' => $request->id
             ],
@@ -873,25 +873,25 @@ class RequestsController extends AppController
         $startDate = $this->getRequest()->getQuery('start_date', date('Y-m-d', strtotime('-7 days')));
         $endDate = $this->getRequest()->getQuery('end_date', date('Y-m-d'));
 
-        $data = $this->getRequest()s->RequestStatusHistories->getActivityReport($startDate, $endDate);
+        $data = $this->Requests->RequestStatusHistories->getActivityReport($startDate, $endDate);
         $this->set(compact('startDate', 'endDate', 'data'));
     }
 
     public function timeReport()
     {
-        $data = $this->getRequest()s->RequestStatusHistories->getTimeReport();
+        $data = $this->Requests->RequestStatusHistories->getTimeReport();
         $this->set(compact('data'));
     }
 
     private function mayViewRequest(Request $request)
     {
-        return $this->getRequest()s->isUserAttachedToRequest($request->id, $this->Auth->user('user_id'))
+        return $this->Requests->isUserAttachedToRequest($request->id, $this->Auth->user('user_id'))
             || $this->Permissions->isRequestManager();
     }
 
     private function mayEditRequest(Request $request)
     {
-        return $this->getRequest()s->isRequestCreatedByUser($request->id, $this->Auth->user('user_id'))
+        return $this->Requests->isRequestCreatedByUser($request->id, $this->Auth->user('user_id'))
             || $this->Permissions->isRequestManager();
     }
 
@@ -935,7 +935,7 @@ class RequestsController extends AppController
      */
     private function listNotesForRequest($requestId): \Cake\ORM\Query
     {
-        $notes = $this->getRequest()s->RequestNotes->find('all', [
+        $notes = $this->Requests->RequestNotes->find('all', [
             'conditions' => [
                 'RequestNotes.request_id' => $requestId
             ],
