@@ -5,14 +5,19 @@ use Cake\Core\Configure;
 
 /**
  * @var AppView $this
+ * @var bool $isMapAdmin
+ * @var array $coords
  */
 
 $this->set('title_for_layout', 'City Map');
 $this->addScript('game-map');
 ?>
+<?php if($isMapAdmin): ?>
 <div>
     <button class="button" id="record-zone-button">New Territory</button>
+    <?= $this->Html->link('Location Types', ['controller' => 'location-types', 'action' => 'index'], ['class' => 'button']); ?>
 </div>
+<?php endif; ?>
 <div id="map"></div>
 <script>
     let myMap;
@@ -31,7 +36,7 @@ $this->addScript('game-map');
 
     function initMap() {
         let map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 45.5231, lng: -122.6765},
+            center: {lat: <?= $coords['lat']; ?>, lng: <?= $coords['long']; ?>},
             zoom: 12
         });
         myMap = new GameMap(map);

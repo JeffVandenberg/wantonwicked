@@ -23,7 +23,7 @@ class RequestEmailComponent extends Component
     {
         $email = new Email();
 
-        $userTable = TableRegistry::get('Users');
+        $userTable = TableRegistry::getTableLocator()->get('Users');
         /* @var UsersTable $userTable */
         $users = $userTable->listUsersInGroup($request->group_id);
         /* @var User[] $users */

@@ -25,15 +25,15 @@ class UserPanelHelper extends AppHelper
 <a href="/forum/ucp.php?mode=register&redirect=$page">Register</a>
 EOQ;
 
-        if ($this->request->session()->read('Auth.User.user_id') != 1) {
+        if ($this->request->getSession()->read('Auth.User.user_id') != 1) {
             // show user name
-            $userName = $this->request->session()->read('Auth.User.username');
+            $userName = $this->request->getSession()->read('Auth.User.username');
 
             $requestRepo = new RequestRepository();
-            $requestCount = $requestRepo->countOpenForUser($this->request->session()->read('Auth.User.user_id'));
-            $stRequests = $requestRepo->countNewStRequests($this->request->session()->read('Auth.User.user_id'));
+            $requestCount = $requestRepo->countOpenForUser($this->request->getSession()->read('Auth.User.user_id'));
+            $stRequests = $requestRepo->countNewStRequests($this->request->getSession()->read('Auth.User.user_id'));
 
-            $logout = $this->Html->link('Logout', $this->Html->Url->build('/') . 'forum/ucp.php?mode=logout&sid=' . $this->request->session()->read('Auth.User.session_id'));
+            $logout = $this->Html->link('Logout', $this->Html->Url->build('/') . 'forum/ucp.php?mode=logout&sid=' . $this->request->getSession()->read('Auth.User.session_id'));
 
             $panel = <<<EOQ
 <span id="server-time"></span>&nbsp;

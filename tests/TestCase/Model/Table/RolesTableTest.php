@@ -41,8 +41,8 @@ class RolesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Roles') ? [] : ['className' => 'App\Model\Table\RolesTable'];
-        $this->Roles = TableRegistry::get('Roles', $config);
+        $config = TableRegistry::getTableLocator()->exists('Roles') ? [] : ['className' => 'App\Model\Table\RolesTable'];
+        $this->Roles = TableRegistry::getTableLocator()->get('Roles', $config);
     }
 
     /**

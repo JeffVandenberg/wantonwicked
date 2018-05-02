@@ -31,7 +31,7 @@ class ConditionsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->set('mayEdit', $this->Permissions->MayManageDatabase());
+        $this->set('mayEdit', $this->Permissions->mayManageDatabase());
         $this->Auth->allow(['index', 'view']);
     }
 
@@ -76,18 +76,16 @@ class ConditionsController extends AppController
      */
     public function add()
     {
-        if ($this->request->is('post')) {
-            if ($this->request->data['action'] == 'Cancel') {
+        $condition = $this->Conditions->newEntity();
+        if ($this->getRequest()->is('post')) {
+            if ($this->getRequest()->getData('action') == 'Cancel') {
                 $this->redirect('/conditions');
             }
-            if ($this->request->data['action'] == 'Submit') {
-                $this->Condition->create();
-                $condition = $this->request->data;
+            if ($this->getRequest()->getData('action') == 'Submit') {
+                $condition->created_by = $condition->updated_by = $this->Auth->user('user_id');
+                $condition = $this->Conditions->patchEntity($condition, $this->getRequest()->getData());
 
-                $condition['Condition']['created_by'] = $this->Auth->user('user_id');
-                $condition['Condition']['updated_by'] = $this->Auth->user('user_id');
-
-                if ($this->Condition->saveCondition($condition)) {
+                if ($this->Conditions->save($condition)) {
                     $this->Flash->success(__('The condition has been saved.'));
                     $this->redirect(array('action' => 'index'));
                 } else {
@@ -96,6 +94,7 @@ class ConditionsController extends AppController
             }
         }
         $this->set('conditionTypes', $this->Condition->ConditionType->find('list'));
+        $this->set(compact('condition'));
     }
 
     /**
@@ -106,21 +105,16 @@ class ConditionsController extends AppController
      */
     public function edit($slug = null)
     {
-        Cache::read('characters');
-        $conditionCount = $this->Condition->findCondition($slug, 'count');
-        if (!$conditionCount) {
-            throw new NotFoundException(__('Invalid condition'));
-        }
-
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->request->data['action'] == 'Cancel') {
+        $condition = $this->Conditions->findCondition($slug);
+        if ($this->getRequest()->is(array('post', 'put'))) {
+            if ($this->getRequest()->getData('action') == 'Cancel') {
                 $this->redirect('/conditions/view/' . $slug);
             }
-            if ($this->request->data['action'] == 'Submit') {
-                $condition = $this->request->data;
-                $condition['Condition']['updated_by'] = $this->Auth->user('user_id');
+            if ($this->getRequest()->getData('action') == 'Submit') {
+                $condition = $this->Conditions->patchEntity($condition, $this->getRequest()->getData());
+                $condition->updated_by = $this->Auth->user('user_id');
 
-                if ($this->Condition->saveCondition($condition)) {
+                if ($this->Conditions->save($condition)) {
                     $this->Flash->success(__('The condition has been saved.'));
                     $this->redirect(array('action' => 'view', $slug));
                 } else {
@@ -128,7 +122,6 @@ class ConditionsController extends AppController
                 }
             }
         } else {
-            $this->request->data = $this->Condition->findCondition($slug);
         }
         $this->set('conditionTypes', $this->Condition->ConditionType->find('list'));
     }
@@ -147,11 +140,11 @@ class ConditionsController extends AppController
 
     public function isAuthorized($user)
     {
-        switch (strtolower($this->request->getParam('action'))) {
+        switch (strtolower($this->getRequest()->getParam('action'))) {
             case 'edit':
             case 'delete':
             case 'add':
-                return $this->Permissions->MayManageDatabase();
+                return $this->Permissions->mayManageDatabase();
                 break;
         }
         return false;

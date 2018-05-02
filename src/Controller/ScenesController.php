@@ -70,7 +70,7 @@ class ScenesController extends AppController
         $monthStart = "$year-$month-01";
         $monthEnd = date("Y-m-d", strtotime("+1 month", strtotime($monthStart)));
 
-        $scenes = TableRegistry::get('Scenes')
+        $scenes = TableRegistry::getTableLocator()->get('Scenes')
             ->find()
             ->where(
                 [
@@ -87,7 +87,7 @@ class ScenesController extends AppController
             'scenes' => $scenes,
             'year' => $year,
             'month' => $month,
-            'mayEdit' => $this->Permissions->IsST(),
+            'mayEdit' => $this->Permissions->isST(),
         ]);
     }
 
@@ -105,7 +105,7 @@ class ScenesController extends AppController
         $this->set([
             'scenes' => $scenes,
             'tag' => $tag,
-            'mayEdit' => $this->Permissions->IsST(),
+            'mayEdit' => $this->Permissions->isST(),
             'mayAdd' => $this->Auth->user('id') != 1,
         ]);
     }
@@ -139,13 +139,13 @@ class ScenesController extends AppController
         }
         $this->set('scene', $query->first());
         $this->set('mayEdit',
-            $this->Permissions->IsST() ||
+            $this->Permissions->isST() ||
             $this->Auth->user('user_id') == $scene->created_by_id ||
             $this->Auth->user('user_id') == $scene->run_by_id);
         $this->set('isLoggedIn', $this->Auth->user('user_id') != 1);
 
 
-        $sceneCharactersTable = TableRegistry::get('SceneCharacters');
+        $sceneCharactersTable = TableRegistry::getTableLocator()->get('SceneCharacters');
 
         $sceneCharacters = $sceneCharactersTable
             ->query()
@@ -167,13 +167,13 @@ class ScenesController extends AppController
      */
     public function add()
     {
-        if ($this->request->is('post')) {
-            if ($this->request->getData()['action'] == 'Cancel') {
+        if ($this->getRequest()->is('post')) {
+            if ($this->getRequest()->getData()['action'] == 'Cancel') {
                 $this->redirect('/scenes');
             }
-            if ($this->request->getData()['action'] == 'Create') {
+            if ($this->getRequest()->getData()['action'] == 'Create') {
                 $scene = $this->Scenes->newEntity();
-                $scene = $this->Scenes->patchEntity($scene, $this->request->getData());
+                $scene = $this->Scenes->patchEntity($scene, $this->getRequest()->getData());
                 $scene->scene_status_id = SceneStatus::Open;
                 $scene->created_by_id = $this->Auth->user('user_id');
                 $scene->created_on = date('Y-m-d H:i:s');
@@ -222,13 +222,13 @@ class ScenesController extends AppController
             $this->redirect(array('action' => 'index'));
         }
 
-        if ($this->request->is(['post', 'put', 'patch'])) {
-            if ($this->request->getData()['action'] == 'Cancel') {
+        if ($this->getRequest()->is(['post', 'put', 'patch'])) {
+            if ($this->getRequest()->getData()['action'] == 'Cancel') {
                 $this->redirect(['action' => 'view', $scene->slug]);
             }
-            if ($this->request->getdata()['action'] == 'Update') {
+            if ($this->getRequest()->getdata()['action'] == 'Update') {
                 $oldScene = clone $scene;
-                $scene = $this->Scenes->patchEntity($scene, $this->request->getData());
+                $scene = $this->Scenes->patchEntity($scene, $this->getRequest()->getData());
 
                 $scene->updated_by_id = $this->Auth->user('user_id');
                 $scene->updated_on = date('Y-m-d H:i:s');
@@ -280,15 +280,15 @@ class ScenesController extends AppController
             $this->redirect(array('action' => 'view', $slug));
         }
 
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->request->getData()['action'] == 'Cancel') {
+        if ($this->getRequest()->is(array('post', 'put'))) {
+            if ($this->getRequest()->getData()['action'] == 'Cancel') {
                 $this->redirect(array('action' => 'view', $slug));
             }
-            if ($this->request->getData()['action'] == 'Join') {
-                $sceneCharacters = TableRegistry::get('SceneCharacters');
+            if ($this->getRequest()->getData()['action'] == 'Join') {
+                $sceneCharacters = TableRegistry::getTableLocator()->get('SceneCharacters');
                 $sceneCharacter = $sceneCharacters->newEntity();
                 /* @var SceneCharacter $sceneCharacter */
-                $data = $this->request->getData();
+                $data = $this->getRequest()->getData();
                 $sceneCharacter->character_id = $data['character_id'];
                 $sceneCharacter->scene_id = $data['scene_id'];
                 $sceneCharacter->note = $data['note'];
@@ -304,7 +304,7 @@ class ScenesController extends AppController
             }
         }
 
-        $characterTable = TableRegistry::get('Characters');
+        $characterTable = TableRegistry::getTableLocator()->get('Characters');
         /* @var CharactersTable $characters */
         $query = $characterTable
             ->find('list')
@@ -386,9 +386,9 @@ class ScenesController extends AppController
 
     public function isAuthorized($user)
     {
-        switch ($this->request->getParam('action')) {
+        switch ($this->getRequest()->getParam('action')) {
             default:
-                return true || $this->Permissions->IsAdmin();
+                return true || $this->Permissions->isAdmin();
         }
     }
 
@@ -445,7 +445,7 @@ class ScenesController extends AppController
                 'Scenes.run_on_date' => 'asc'
             ]
         ]));
-        $this->set('mayEdit', $this->Permissions->IsST());
+        $this->set('mayEdit', $this->Permissions->isST());
         $this->set(compact('includePast'));
 
     }
@@ -460,14 +460,14 @@ class ScenesController extends AppController
             )
             ->first();
 
-        if (!$this->Permissions->MayEditCharacter($characterId)) {
+        if (!$this->Permissions->mayEditCharacter($characterId)) {
             $this->Flash->set('You may not act on that character');
             $this->redirect(array(
                 'action' => 'view',
                 $slug
             ));
         }
-        $sceneCharacterTable = TableRegistry::get('SceneCharacters');
+        $sceneCharacterTable = TableRegistry::getTableLocator()->get('SceneCharacters');
         if ($sceneCharacterTable->deleteAll(array(
             'SceneCharacter.scene_id' => $scene->id,
             'SceneCharacter.character_id' => $characterId
@@ -493,7 +493,7 @@ class ScenesController extends AppController
             )
             ->first();
 
-        $repo = TableRegistry::get('PlayPreferenceResponses');//
+        $repo = TableRegistry::getTableLocator()->get('PlayPreferenceResponses');//
         /* @var PlayPreferenceResponsesTable $repo */
         $this->set('report', $repo->reportResponsesForPlayersInScene($scene->id));
         $this->set('scene', $scene);
@@ -501,7 +501,7 @@ class ScenesController extends AppController
 
     public function search()
     {
-        $query = $this->request->getQuery('query', '');
+        $query = $this->getRequest()->getQuery('query', '');
         $suggestions = [];
         if ($query) {
             $scenes = $this->Scenes->find('all', [

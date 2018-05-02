@@ -131,7 +131,7 @@ $this->loadHelper('Tag');
             <?php foreach ($sceneCharacters as $sceneCharacter): ?>
                 <dt>
                     <?php echo $sceneCharacter->character->character_name; ?>
-                    <?php if ($this->request->session()->read('Auth.User.user_id') == $sceneCharacter->character->user_id): ?>
+                    <?php if ($this->request->getSession()->read('Auth.User.user_id') == $sceneCharacter->character->user_id): ?>
                         <span id="leave-scene" class="clickable link" scene-id="<?php echo $scene->slug; ?>"
                               character-id="<?php echo $sceneCharacter->character_id; ?>"
                         >

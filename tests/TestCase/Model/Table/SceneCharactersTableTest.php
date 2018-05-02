@@ -57,8 +57,8 @@ class SceneCharactersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('SceneCharacters') ? [] : ['className' => 'App\Model\Table\SceneCharactersTable'];
-        $this->SceneCharacters = TableRegistry::get('SceneCharacters', $config);
+        $config = TableRegistry::getTableLocator()->exists('SceneCharacters') ? [] : ['className' => 'App\Model\Table\SceneCharactersTable'];
+        $this->SceneCharacters = TableRegistry::getTableLocator()->get('SceneCharacters', $config);
     }
 
     /**

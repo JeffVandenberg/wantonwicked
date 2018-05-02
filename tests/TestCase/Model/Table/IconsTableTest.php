@@ -35,8 +35,8 @@ class IconsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Icons') ? [] : ['className' => IconsTable::class];
-        $this->Icons = TableRegistry::get('Icons', $config);
+        $config = TableRegistry::getTableLocator()->exists('Icons') ? [] : ['className' => IconsTable::class];
+        $this->Icons = TableRegistry::getTableLocator()->get('Icons', $config);
     }
 
     /**

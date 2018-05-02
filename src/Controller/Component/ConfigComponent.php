@@ -15,7 +15,7 @@ use Cake\ORM\TableRegistry;
 class ConfigComponent extends Component
 {
     public function Read($key) {
-        $configuration = TableRegistry::get('Configurations');
+        $configuration = TableRegistry::getTableLocator()->get('Configurations');
         /* @var ConfigurationsTable $configuration */
 
         $result = $configuration->find()->select(['value'])->where(['Configurations.key' => $key])->toArray();

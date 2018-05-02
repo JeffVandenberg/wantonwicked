@@ -82,8 +82,8 @@ class RequestBluebooksTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestBluebooks') ? [] : ['className' => RequestBluebooksTable::class];
-        $this->RequestBluebooks = TableRegistry::get('RequestBluebooks', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestBluebooks') ? [] : ['className' => RequestBluebooksTable::class];
+        $this->RequestBluebooks = TableRegistry::getTableLocator()->get('RequestBluebooks', $config);
     }
 
     /**

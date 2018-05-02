@@ -40,7 +40,7 @@ class MenuComponent extends Component
         if ($this->Auth->user('user_id') != 1) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['player']);
 
-            $characterTable = TableRegistry::get('Characters');
+            $characterTable = TableRegistry::getTableLocator()->get('Characters');
             $query = $characterTable
                 ->find()
                 ->select([
@@ -88,7 +88,7 @@ class MenuComponent extends Component
             }
         }
 
-        if ($this->Permissions->IsST()) {
+        if ($this->Permissions->isST()) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['staff']);
         }
 
@@ -193,7 +193,7 @@ class MenuComponent extends Component
             ]
         ];
 
-        if ($this->Permissions->IsHead()) {
+        if ($this->Permissions->isHead()) {
             $menu['Chat']['submenu']['Prochat Admin'] = array(
                 'link' => '/chat/admin'
             );
@@ -226,7 +226,7 @@ class MenuComponent extends Component
             );
         }
 
-        if ($this->Permissions->IsAdmin()) {
+        if ($this->Permissions->isAdmin()) {
             $menu['Tools']['submenu']['Configuration'] = array(
                 'link' => '/configurations'
             );

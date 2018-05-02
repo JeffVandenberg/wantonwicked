@@ -57,8 +57,8 @@ class SceneRequestsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('SceneRequests') ? [] : ['className' => 'App\Model\Table\SceneRequestsTable'];
-        $this->SceneRequests = TableRegistry::get('SceneRequests', $config);
+        $config = TableRegistry::getTableLocator()->exists('SceneRequests') ? [] : ['className' => 'App\Model\Table\SceneRequestsTable'];
+        $this->SceneRequests = TableRegistry::getTableLocator()->get('SceneRequests', $config);
     }
 
     /**

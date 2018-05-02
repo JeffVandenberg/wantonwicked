@@ -39,8 +39,8 @@ class PlayPreferencesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PlayPreferences') ? [] : ['className' => 'App\Model\Table\PlayPreferencesTable'];
-        $this->PlayPreferences = TableRegistry::get('PlayPreferences', $config);
+        $config = TableRegistry::getTableLocator()->exists('PlayPreferences') ? [] : ['className' => 'App\Model\Table\PlayPreferencesTable'];
+        $this->PlayPreferences = TableRegistry::getTableLocator()->get('PlayPreferences', $config);
     }
 
     /**

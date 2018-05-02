@@ -35,8 +35,8 @@ class DieRollsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('DieRolls') ? [] : ['className' => RollsTable::class];
-        $this->DieRolls = TableRegistry::get('DieRolls', $config);
+        $config = TableRegistry::getTableLocator()->exists('DieRolls') ? [] : ['className' => RollsTable::class];
+        $this->DieRolls = TableRegistry::getTableLocator()->get('DieRolls', $config);
     }
 
     /**

@@ -57,8 +57,8 @@ class IconsController extends AppController
     public function add()
     {
         $icon = $this->Icons->newEntity();
-        if ($this->request->is('post')) {
-            if($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is('post')) {
+            if($this->getRequest()->getData('action') == 'cancel') {
                 return $this->redirect(['action' => 'view', $icon->id]);
             }
 
@@ -88,8 +88,8 @@ class IconsController extends AppController
         $icon = $this->Icons->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            if($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            if($this->getRequest()->getData('action') == 'cancel') {
                 return $this->redirect(['action' => 'view', $icon->id]);
             }
 
@@ -115,7 +115,7 @@ class IconsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $icon = $this->Icons->get($id);
         if ($this->Icons->delete($icon)) {
             $this->Flash->success(__('The icon has been deleted.'));
@@ -128,7 +128,7 @@ class IconsController extends AppController
 
     public function isAuthorized($user)
     {
-        return $this->Permissions->IsAdmin();
+        return $this->Permissions->isAdmin();
     }
 
     /**
@@ -136,10 +136,10 @@ class IconsController extends AppController
      */
     private function populateIcon($icon): void
     {
-        $icon->icon_name = $this->request->getData('icon_name');
-        $icon->icon_id = $this->request->getData('icon_id');
-        $icon->player_viewable = $this->request->getData('player_viewable') ? 'Y' : 'N';
-        $icon->staff_viewable = $this->request->getData('staff_viewable') ? 'Y' : 'N';
-        $icon->admin_viewable = $this->request->getData('admin_viewable') ? 'Y' : 'N';
+        $icon->icon_name = $this->getRequest()->getData('icon_name');
+        $icon->icon_id = $this->getRequest()->getData('icon_id');
+        $icon->player_viewable = $this->getRequest()->getData('player_viewable') ? 'Y' : 'N';
+        $icon->staff_viewable = $this->getRequest()->getData('staff_viewable') ? 'Y' : 'N';
+        $icon->admin_viewable = $this->getRequest()->getData('admin_viewable') ? 'Y' : 'N';
     }
 }

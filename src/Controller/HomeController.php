@@ -20,6 +20,8 @@ use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 use classes\request\repository\RequestRepository;
 use function compact;
+use const E_USER_DEPRECATED;
+use function error_reporting;
 
 /**
  * @property ConfigComponent Config
@@ -40,12 +42,12 @@ class HomeController extends AppController
     public function home()
     {
         // get scene information
-        $scenes = TableRegistry::get('Scenes');
+        $scenes = TableRegistry::getTableLocator()->get('Scenes');
         /* @var ScenesTable $scenes */
         $sceneList = $scenes->listForHome();
 
         // get request information
-        $requests = TableRegistry::get('Requests');
+        $requests = TableRegistry::getTableLocator()->get('Requests');
         $playerRequests = $requests->find()
             ->contain([
                 'RequestStatuses'
@@ -60,12 +62,12 @@ class HomeController extends AppController
             ])
             ->limit(5);
 
-        $plots = TableRegistry::get('Plots');
+        $plots = TableRegistry::getTableLocator()->get('Plots');
         /* @var PlotsTable $plots */
         $plotList = $plots->listForHome();
 
         if ($this->Auth->user('user_id') > 1) {
-            $characters = TableRegistry::get('Characters');
+            $characters = TableRegistry::getTableLocator()->get('Characters');
             /* @var CharactersTable $characters */
             $characterList = $characters->listForHome($this->Auth->user('user_id'));
             $this->set(compact('characterList'));
@@ -78,7 +80,7 @@ class HomeController extends AppController
 
     public function staff()
     {
-        $users = TableRegistry::get('Users');
+        $users = TableRegistry::getTableLocator()->get('Users');
         $staff = $users->listUsersWithGroups();
         $this->set(compact('staff'));
     }

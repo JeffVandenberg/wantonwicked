@@ -53,10 +53,10 @@ use Cake\Core\Plugin;
 use Cake\Database\Type;
 use Cake\Datasource\ConnectionManager;
 use Cake\Error\ErrorHandler;
+use Cake\Http\ServerRequest;
 use Cake\I18n\FrozenTime;
 use Cake\Log\Log;
 use Cake\Mailer\Email;
-use Cake\Network\Request;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
 use phpbb\auth\auth;
@@ -151,7 +151,7 @@ ConnectionManager::setConfig(Configure::consume('Datasources'));
 Email::setConfigTransport(Configure::consume('EmailTransport'));
 Email::setConfig(Configure::consume('Email'));
 Log::setConfig(Configure::consume('Log'));
-Security::salt(Configure::consume('Security.salt'));
+Security::setSalt(Configure::consume('Security.salt'));
 
 /*
  * The default crypto extension in 3.0 is OpenSSL.
@@ -163,12 +163,12 @@ Security::salt(Configure::consume('Security.salt'));
 /*
  * Setup detectors for mobile and tablet.
  */
-Request::addDetector('mobile', function ($request) {
+ServerRequest::addDetector('mobile', function ($request) {
     $detector = new \Detection\MobileDetect();
 
     return $detector->isMobile();
 });
-Request::addDetector('tablet', function ($request) {
+ServerRequest::addDetector('tablet', function ($request) {
     $detector = new \Detection\MobileDetect();
 
     return $detector->isTablet();
@@ -242,4 +242,7 @@ $GLOBALS['userdata'] = $userdata;
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
-Plugin::load('Tags');
+Plugin::load([
+    'Tags',
+    'Muffin/Slug'
+]);

@@ -38,8 +38,8 @@ class PhpbbUsersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PhpbbUsers') ? [] : ['className' => 'App\Model\Table\PhpbbUsersTable'];
-        $this->PhpbbUsers = TableRegistry::get('PhpbbUsers', $config);
+        $config = TableRegistry::getTableLocator()->exists('PhpbbUsers') ? [] : ['className' => 'App\Model\Table\PhpbbUsersTable'];
+        $this->PhpbbUsers = TableRegistry::getTableLocator()->get('PhpbbUsers', $config);
     }
 
     /**

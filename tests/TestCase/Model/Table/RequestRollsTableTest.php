@@ -81,8 +81,8 @@ class RequestRollsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestRolls') ? [] : ['className' => RequestRollsTable::class];
-        $this->RequestRolls = TableRegistry::get('RequestRolls', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestRolls') ? [] : ['className' => RequestRollsTable::class];
+        $this->RequestRolls = TableRegistry::getTableLocator()->get('RequestRolls', $config);
     }
 
     /**

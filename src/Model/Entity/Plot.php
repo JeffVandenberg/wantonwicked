@@ -47,7 +47,7 @@ class Plot extends Entity
     protected function _setName($value)
     {
         $slug = Text::slug(strtolower($value));
-        $sceneTable = TableRegistry::get('Plots');
+        $sceneTable = TableRegistry::getTableLocator()->get('Plots');
         $query = $sceneTable
             ->find();
         $query

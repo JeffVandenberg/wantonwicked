@@ -24,11 +24,11 @@ class BeatTypesController extends AppController
 
     public function isAuthorized($user)
     {
-        switch ($this->request->getParam('action')) {
+        switch ($this->getRequest()->getParam('action')) {
             case 'listTypes':
                 return true;
         }
-        return $this->Permissions->IsST();
+        return $this->Permissions->isST();
     }
 
     /**
@@ -87,13 +87,13 @@ class BeatTypesController extends AppController
      */
     public function add()
     {
-        if ($this->request->is('post')) {
-            if ($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is('post')) {
+            if ($this->getRequest()->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'index']);
                 return;
             }
             $item = $this->BeatTypes->newEntity();
-            $item = $this->BeatTypes->patchEntity($item, $this->request->getData());
+            $item = $this->BeatTypes->patchEntity($item, $this->getRequest()->getData());
             $item->created_by_id = $this->Auth->user('user_id');
             $item->updated_by_id = $this->Auth->user('user_id');
             if ($this->BeatTypes->save($item)) {
@@ -119,13 +119,13 @@ class BeatTypesController extends AppController
             'contain' => []
         ]);
 
-        if ($this->request->is(array('post', 'put', 'patch'))) {
-            if ($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is(array('post', 'put', 'patch'))) {
+            if ($this->getRequest()->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'index']);
                 return;
             }
 
-            $beatType = $this->BeatTypes->patchEntity($beatType, $this->request->getData());
+            $beatType = $this->BeatTypes->patchEntity($beatType, $this->getRequest()->getData());
             $beatType->updated_by_id;
             if ($this->BeatTypes->save($beatType)) {
                 $this->Flash->set(__('The beat type has been saved.'));

@@ -41,8 +41,8 @@ class GroupTypesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('GroupTypes') ? [] : ['className' => 'App\Model\Table\GroupTypesTable'];
-        $this->GroupTypes = TableRegistry::get('GroupTypes', $config);
+        $config = TableRegistry::getTableLocator()->exists('GroupTypes') ? [] : ['className' => 'App\Model\Table\GroupTypesTable'];
+        $this->GroupTypes = TableRegistry::getTableLocator()->get('GroupTypes', $config);
     }
 
     /**

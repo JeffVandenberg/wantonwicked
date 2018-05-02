@@ -82,8 +82,8 @@ class RequestStatusHistoriesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestStatusHistories') ? [] : ['className' => RequestStatusHistoriesTable::class];
-        $this->RequestStatusHistories = TableRegistry::get('RequestStatusHistories', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestStatusHistories') ? [] : ['className' => RequestStatusHistoriesTable::class];
+        $this->RequestStatusHistories = TableRegistry::getTableLocator()->get('RequestStatusHistories', $config);
     }
 
     /**

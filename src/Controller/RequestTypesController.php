@@ -20,7 +20,7 @@ class RequestTypesController extends AppController
      */
     public function index()
     {
-        $requestTypes = $this->paginate($this->RequestTypes, [
+        $requestTypes = $this->paginate($this->getRequest()Types, [
             'order' => [
                 'RequestTypes.name'
             ]
@@ -51,7 +51,7 @@ class RequestTypesController extends AppController
      */
     public function view($id = null)
     {
-        $requestType = $this->RequestTypes->get($id, [
+        $requestType = $this->getRequest()Types->get($id, [
             'contain' => [
                 'Groups' => [
                     'sort' => [
@@ -97,10 +97,10 @@ class RequestTypesController extends AppController
      */
     public function add()
     {
-        $requestType = $this->RequestTypes->newEntity();
-        if ($this->request->is('post')) {
-            $requestType = $this->RequestTypes->patchEntity($requestType, $this->request->getData());
-            if ($this->RequestTypes->save($requestType)) {
+        $requestType = $this->getRequest()Types->newEntity();
+        if ($this->getRequest()->is('post')) {
+            $requestType = $this->getRequest()Types->patchEntity($requestType, $this->getRequest()->getData());
+            if ($this->getRequest()Types->save($requestType)) {
                 $this->Flash->success(__('The request type has been saved.'));
 
                 $this->redirect(['action' => 'index']);
@@ -111,7 +111,7 @@ class RequestTypesController extends AppController
         $this->set(compact('requestType'));
         $this->set('_serialize', ['requestType']);
 
-        $groups = $this->RequestTypes->Groups->find('list', [
+        $groups = $this->getRequest()Types->Groups->find('list', [
             'order' => [
                 'Groups.name'
             ]
@@ -140,14 +140,14 @@ class RequestTypesController extends AppController
      */
     public function edit($id = null)
     {
-        $requestType = $this->RequestTypes->get($id, [
+        $requestType = $this->getRequest()Types->get($id, [
             'contain' => [
                 'Groups'
             ]
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $requestType = $this->RequestTypes->patchEntity($requestType, $this->request->getData());
-            if ($this->RequestTypes->save($requestType)) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $requestType = $this->getRequest()Types->patchEntity($requestType, $this->getRequest()->getData());
+            if ($this->getRequest()Types->save($requestType)) {
                 $this->Flash->success(__('The request type has been saved.'));
 
                 $this->redirect(['action' => 'index']);
@@ -157,7 +157,7 @@ class RequestTypesController extends AppController
         $this->set(compact('requestType'));
         $this->set('_serialize', ['requestType']);
 
-        $groups = $this->RequestTypes->Groups->find('list', [
+        $groups = $this->getRequest()Types->Groups->find('list', [
             'order' => [
                 'Groups.name'
             ]
@@ -179,6 +179,6 @@ class RequestTypesController extends AppController
 
     public function isAuthorized($user)
     {
-        return $this->Permissions->IsAdmin();
+        return $this->Permissions->isAdmin();
     }
 }

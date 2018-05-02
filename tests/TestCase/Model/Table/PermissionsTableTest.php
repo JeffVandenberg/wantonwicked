@@ -38,8 +38,8 @@ class PermissionsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Permissions') ? [] : ['className' => 'App\Model\Table\PermissionsTable'];
-        $this->Permissions = TableRegistry::get('Permissions', $config);
+        $config = TableRegistry::getTableLocator()->exists('Permissions') ? [] : ['className' => 'App\Model\Table\PermissionsTable'];
+        $this->Permissions = TableRegistry::getTableLocator()->get('Permissions', $config);
     }
 
     /**

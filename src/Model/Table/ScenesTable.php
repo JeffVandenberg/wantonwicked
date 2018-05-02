@@ -166,7 +166,7 @@ class ScenesTable extends Table
      */
     public function listUnattachedScenes($requestId, $userId)
     {
-        $linkedCharacter = TableRegistry::get('Characters')->find('list')
+        $linkedCharacter = TableRegistry::getTableLocator()->get('Characters')->find('list')
             ->leftJoin(
                 ['RequestCharacters' => 'request_characters'],
                 'RequestCharacters.character_id = Characters.id'

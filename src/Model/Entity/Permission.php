@@ -25,6 +25,7 @@ class Permission extends Entity
     public static $ManageDatabase = 9;
     public static $PlotsManage = 10;
     public static $PlotsView = 11;
+    public static $MapAdmin = 12;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

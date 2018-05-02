@@ -37,8 +37,8 @@ class RequestRequestsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestRequests') ? [] : ['className' => RequestRequestsTable::class];
-        $this->RequestRequests = TableRegistry::get('RequestRequests', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestRequests') ? [] : ['className' => RequestRequestsTable::class];
+        $this->RequestRequests = TableRegistry::getTableLocator()->get('RequestRequests', $config);
     }
 
     /**

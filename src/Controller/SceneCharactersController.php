@@ -53,8 +53,8 @@ class SceneCharactersController extends AppController
     public function add()
     {
         $sceneCharacter = $this->SceneCharacters->newEntity();
-        if ($this->request->is('post')) {
-            $sceneCharacter = $this->SceneCharacters->patchEntity($sceneCharacter, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $sceneCharacter = $this->SceneCharacters->patchEntity($sceneCharacter, $this->getRequest()->getData());
             if ($this->SceneCharacters->save($sceneCharacter)) {
                 $this->Flash->success(__('The scene character has been saved.'));
 
@@ -81,8 +81,8 @@ class SceneCharactersController extends AppController
         $sceneCharacter = $this->SceneCharacters->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $sceneCharacter = $this->SceneCharacters->patchEntity($sceneCharacter, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $sceneCharacter = $this->SceneCharacters->patchEntity($sceneCharacter, $this->getRequest()->getData());
             if ($this->SceneCharacters->save($sceneCharacter)) {
                 $this->Flash->success(__('The scene character has been saved.'));
 
@@ -106,7 +106,7 @@ class SceneCharactersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $sceneCharacter = $this->SceneCharacters->get($id);
         if ($this->SceneCharacters->delete($sceneCharacter)) {
             $this->Flash->success(__('The scene character has been deleted.'));

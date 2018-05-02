@@ -73,8 +73,8 @@ class PlotVisibilitiesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PlotVisibilities') ? [] : ['className' => PlotVisibilitiesTable::class];
-        $this->PlotVisibilities = TableRegistry::get('PlotVisibilities', $config);
+        $config = TableRegistry::getTableLocator()->exists('PlotVisibilities') ? [] : ['className' => PlotVisibilitiesTable::class];
+        $this->PlotVisibilities = TableRegistry::getTableLocator()->get('PlotVisibilities', $config);
     }
 
     /**

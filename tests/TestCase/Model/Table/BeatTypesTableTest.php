@@ -38,8 +38,8 @@ class BeatTypesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('BeatTypes') ? [] : ['className' => 'App\Model\Table\BeatTypesTable'];
-        $this->BeatTypes = TableRegistry::get('BeatTypes', $config);
+        $config = TableRegistry::getTableLocator()->exists('BeatTypes') ? [] : ['className' => 'App\Model\Table\BeatTypesTable'];
+        $this->BeatTypes = TableRegistry::getTableLocator()->get('BeatTypes', $config);
     }
 
     /**

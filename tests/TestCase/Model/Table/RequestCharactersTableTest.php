@@ -80,8 +80,8 @@ class RequestCharactersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestCharacters') ? [] : ['className' => RequestCharactersTable::class];
-        $this->RequestCharacters = TableRegistry::get('RequestCharacters', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestCharacters') ? [] : ['className' => RequestCharactersTable::class];
+        $this->RequestCharacters = TableRegistry::getTableLocator()->get('RequestCharacters', $config);
     }
 
     /**

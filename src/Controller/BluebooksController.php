@@ -122,7 +122,7 @@ class BluebooksController extends AppController
             ]
         ]);
 
-        if(!$this->Permissions->mayViewCharacter($bluebook->character) && !$this->Permissions->IsST()) {
+        if(!$this->Permissions->mayViewCharacter($bluebook->character) && !$this->Permissions->isST()) {
             $this->Flash->set('You may not view this bluebook');
             return $this->redirect(['action' => 'index']);
         }
@@ -140,22 +140,22 @@ class BluebooksController extends AppController
     public function add()
     {
         $bluebook = $this->Bluebooks->newEntity();
-        $characterId = $this->request->getQuery('character_id');
+        $characterId = $this->getRequest()->getQuery('character_id');
         $character = $this->Bluebooks->Characters->get($characterId);
         if(!$this->Permissions->mayViewCharacter($character)) {
             $this->Flash->set('Not allowed to create bluebooks for that character.');
             return $this->redirect(['action' => 'index']);
         }
 
-        if ($this->request->is('post')) {
-            if ($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is('post')) {
+            if ($this->getRequest()->getData('action') == 'cancel') {
                 if ($characterId) {
                     return $this->redirect(['action' => 'character', $characterId]);
                 } else {
                     return $this->redirect(['action' => 'index']);
                 }
             }
-            $bluebook = $this->Bluebooks->patchEntity($bluebook, $this->request->getData());
+            $bluebook = $this->Bluebooks->patchEntity($bluebook, $this->getRequest()->getData());
             $bluebook->character_id = $characterId;
             $bluebook->created_by_id = $bluebook->updated_by_id = $this->Auth->user('user_id');
 
@@ -190,8 +190,8 @@ class BluebooksController extends AppController
             return $this->redirect(['action' => 'index']);
         }
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $bluebook = $this->Bluebooks->patchEntity($bluebook, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $bluebook = $this->Bluebooks->patchEntity($bluebook, $this->getRequest()->getData());
             $bluebook->updated_by_id = $this->Auth->user('user_id');
 
             if ($this->Bluebooks->save($bluebook)) {

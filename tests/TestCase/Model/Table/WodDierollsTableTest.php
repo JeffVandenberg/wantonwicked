@@ -35,8 +35,8 @@ class WodDierollsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('WodDierolls') ? [] : ['className' => RollsTable::class];
-        $this->WodDierolls = TableRegistry::get('WodDierolls', $config);
+        $config = TableRegistry::getTableLocator()->exists('WodDierolls') ? [] : ['className' => RollsTable::class];
+        $this->WodDierolls = TableRegistry::getTableLocator()->get('WodDierolls', $config);
     }
 
     /**

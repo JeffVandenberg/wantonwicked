@@ -168,7 +168,7 @@ if ($isLoggedIn) {
                 <a class="button small" href="/requests/add">New</a>
             </div>
         <?php endif; ?>
-        <?php if ($this->request->session()->read('Auth.User.user_id') == 1): ?>
+        <?php if ($this->request->getSession()->read('Auth.User.user_id') == 1): ?>
             <div style="clear: both;">
                 You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a
                         href="/forum/ucp.php?mode=register&redirect=/">Register</a>.

@@ -57,8 +57,8 @@ class SceneStatusesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('SceneStatuses') ? [] : ['className' => 'App\Model\Table\SceneStatusesTable'];
-        $this->SceneStatuses = TableRegistry::get('SceneStatuses', $config);
+        $config = TableRegistry::getTableLocator()->exists('SceneStatuses') ? [] : ['className' => 'App\Model\Table\SceneStatusesTable'];
+        $this->SceneStatuses = TableRegistry::getTableLocator()->get('SceneStatuses', $config);
     }
 
     /**

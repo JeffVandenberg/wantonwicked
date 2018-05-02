@@ -36,8 +36,8 @@ class PhpbbGroupsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PhpbbGroups') ? [] : ['className' => 'App\Model\Table\PhpbbGroupsTable'];
-        $this->PhpbbGroups = TableRegistry::get('PhpbbGroups', $config);
+        $config = TableRegistry::getTableLocator()->exists('PhpbbGroups') ? [] : ['className' => 'App\Model\Table\PhpbbGroupsTable'];
+        $this->PhpbbGroups = TableRegistry::getTableLocator()->get('PhpbbGroups', $config);
     }
 
     /**

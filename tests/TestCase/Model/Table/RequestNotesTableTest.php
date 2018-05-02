@@ -80,8 +80,8 @@ class RequestNotesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestNotes') ? [] : ['className' => RequestNotesTable::class];
-        $this->RequestNotes = TableRegistry::get('RequestNotes', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestNotes') ? [] : ['className' => RequestNotesTable::class];
+        $this->RequestNotes = TableRegistry::getTableLocator()->get('RequestNotes', $config);
     }
 
     /**

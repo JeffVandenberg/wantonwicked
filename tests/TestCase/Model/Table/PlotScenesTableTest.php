@@ -72,8 +72,8 @@ class PlotScenesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PlotScenes') ? [] : ['className' => PlotScenesTable::class];
-        $this->PlotScenes = TableRegistry::get('PlotScenes', $config);
+        $config = TableRegistry::getTableLocator()->exists('PlotScenes') ? [] : ['className' => PlotScenesTable::class];
+        $this->PlotScenes = TableRegistry::getTableLocator()->get('PlotScenes', $config);
     }
 
     /**

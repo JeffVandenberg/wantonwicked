@@ -76,7 +76,7 @@ class AppController extends Controller
     public function beforeRender(Event $event)
     {
         parent::beforeRender($event);
-        $this->viewBuilder()->setLayout(($this->request->is("ajax")) ? "ajax" : "default");
+        $this->viewBuilder()->setLayout(($this->getRequest()->is("ajax")) ? "ajax" : "default");
         $this->set('menu', $this->Menu->GetMenu());
         $this->set('serverTime', (microtime(true) + date('Z')) * 1000);
         $this->set('buildNumber', file_get_contents(ROOT . '/build_number'));

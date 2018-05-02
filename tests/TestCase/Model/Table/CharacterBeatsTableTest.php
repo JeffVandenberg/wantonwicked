@@ -70,8 +70,8 @@ class CharacterBeatsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('CharacterBeats') ? [] : ['className' => CharacterBeatsTable::class];
-        $this->CharacterBeats = TableRegistry::get('CharacterBeats', $config);
+        $config = TableRegistry::getTableLocator()->exists('CharacterBeats') ? [] : ['className' => CharacterBeatsTable::class];
+        $this->CharacterBeats = TableRegistry::getTableLocator()->get('CharacterBeats', $config);
     }
 
     /**

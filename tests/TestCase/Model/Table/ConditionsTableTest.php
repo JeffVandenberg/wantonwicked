@@ -36,8 +36,8 @@ class ConditionsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Conditions') ? [] : ['className' => ConditionsTable::class];
-        $this->Conditions = TableRegistry::get('Conditions', $config);
+        $config = TableRegistry::getTableLocator()->exists('Conditions') ? [] : ['className' => ConditionsTable::class];
+        $this->Conditions = TableRegistry::getTableLocator()->get('Conditions', $config);
     }
 
     /**

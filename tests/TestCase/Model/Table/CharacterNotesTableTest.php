@@ -66,8 +66,8 @@ class CharacterNotesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('CharacterNotes') ? [] : ['className' => CharacterNotesTable::class];
-        $this->CharacterNotes = TableRegistry::get('CharacterNotes', $config);
+        $config = TableRegistry::getTableLocator()->exists('CharacterNotes') ? [] : ['className' => CharacterNotesTable::class];
+        $this->CharacterNotes = TableRegistry::getTableLocator()->get('CharacterNotes', $config);
     }
 
     /**

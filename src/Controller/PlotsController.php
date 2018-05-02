@@ -48,7 +48,7 @@ class PlotsController extends AppController
     {
         $isPlotManager = $this->Permissions->isPlotManager($this->Auth->user('user_id'));
         $isPlotViewer = $this->Permissions->isPlotViewer($this->Auth->user('user_id'));
-        $viewAll = $this->request->getQuery('view_all', false);
+        $viewAll = $this->getRequest()->getQuery('view_all', false);
 
         if ($isPlotManager || $isPlotViewer) {
             $where = [
@@ -216,13 +216,13 @@ class PlotsController extends AppController
     public function add()
     {
         $plot = $this->Plots->newEntity();
-        if ($this->request->is('post')) {
-            if ($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is('post')) {
+            if ($this->getRequest()->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'index']);
                 return null;
             }
 
-            $plot = $this->Plots->patchEntity($plot, $this->request->getData());
+            $plot = $this->Plots->patchEntity($plot, $this->getRequest()->getData());
             $plot->created_by_id = $plot->updated_by_id = $this->Auth->user('user_id');
 
             if ($this->Plots->save($plot)) {
@@ -259,13 +259,13 @@ class PlotsController extends AppController
             $this->Flash->set('You may not edit that plot');
             $this->redirect(['action' => 'index']);
         }
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            if ($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            if ($this->getRequest()->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'view', $id]);
                 return;
             }
 
-            $plot = $this->Plots->patchEntity($plot, $this->request->getData());
+            $plot = $this->Plots->patchEntity($plot, $this->getRequest()->getData());
             $plot->updated_by_id = $this->Auth->user('user_id');
 
             if ($this->Plots->save($plot)) {
@@ -287,7 +287,7 @@ class PlotsController extends AppController
      */
     public function isAuthorized($user)
     {
-        switch ($this->request->getParam('action')) {
+        switch ($this->getRequest()->getParam('action')) {
             default:
                 return true;
         }
@@ -326,13 +326,13 @@ class PlotsController extends AppController
         }
 
         $plotCharacter = $this->Plots->PlotCharacters->newEntity();
-        if ($this->request->is(['post', 'patch', 'put'])) {
-            if ($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is(['post', 'patch', 'put'])) {
+            if ($this->getRequest()->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'view', $id]);
                 return;
             }
 
-            $plotCharacter = $this->Plots->PlotCharacters->patchEntity($plotCharacter, $this->request->getData());
+            $plotCharacter = $this->Plots->PlotCharacters->patchEntity($plotCharacter, $this->getRequest()->getData());
             if ($this->Plots->PlotCharacters->save($plotCharacter)) {
                 $this->Flash->set('Added character to plot.');
                 $this->redirect(['action' => 'view', $id]);
@@ -352,13 +352,13 @@ class PlotsController extends AppController
         }
 
         $plotScene = $this->Plots->PlotScenes->newEntity();
-        if ($this->request->is(['post', 'patch', 'put'])) {
-            if ($this->request->getData('action') == 'cancel') {
+        if ($this->getRequest()->is(['post', 'patch', 'put'])) {
+            if ($this->getRequest()->getData('action') == 'cancel') {
                 $this->redirect(['action' => 'view', $id]);
                 return;
             }
 
-            $plotScene = $this->Plots->PlotCharacters->patchEntity($plotScene, $this->request->getData());
+            $plotScene = $this->Plots->PlotCharacters->patchEntity($plotScene, $this->getRequest()->getData());
             if ($this->Plots->PlotScenes->save($plotScene)) {
                 $this->Flash->set('Added scene to plot.');
                 $this->redirect(['action' => 'view', $id]);

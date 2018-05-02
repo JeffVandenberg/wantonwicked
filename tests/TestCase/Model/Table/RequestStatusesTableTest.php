@@ -80,8 +80,8 @@ class RequestStatusesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestStatuses') ? [] : ['className' => RequestStatusesTable::class];
-        $this->RequestStatuses = TableRegistry::get('RequestStatuses', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestStatuses') ? [] : ['className' => RequestStatusesTable::class];
+        $this->RequestStatuses = TableRegistry::getTableLocator()->get('RequestStatuses', $config);
     }
 
     /**

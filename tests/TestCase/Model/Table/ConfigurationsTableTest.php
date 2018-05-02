@@ -35,8 +35,8 @@ class ConfigurationsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Configurations') ? [] : ['className' => 'App\Model\Table\ConfigurationsTable'];
-        $this->Configurations = TableRegistry::get('Configurations', $config);
+        $config = TableRegistry::getTableLocator()->exists('Configurations') ? [] : ['className' => 'App\Model\Table\ConfigurationsTable'];
+        $this->Configurations = TableRegistry::getTableLocator()->get('Configurations', $config);
     }
 
     /**
