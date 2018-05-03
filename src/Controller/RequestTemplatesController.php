@@ -40,7 +40,7 @@ class RequestTemplatesController extends AppController
 
     public function getList()
     {
-        $templates = $this->getRequest()Templates->find('all', [
+        $templates = $this->RequestTemplates->find('all', [
             'order' => [
                 'RequestTemplates.name' => 'asc'
             ]
@@ -68,7 +68,7 @@ class RequestTemplatesController extends AppController
      */
     public function view($id = null)
     {
-        $this->set('requestTemplate', $this->getRequest()Templates->get($id));
+        $this->set('requestTemplate', $this->RequestTemplates->get($id));
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $storytellerMenu['Actions'] = array(
             'link' => '#',
@@ -107,8 +107,8 @@ class RequestTemplatesController extends AppController
                 return;
             }
 
-            $requestTemplate = $this->getRequest()Templates->patchEntity($this->getRequest()Templates->newEntity(), $this->getRequest()->getData());
-            if($this->getRequest()Templates->save($requestTemplate)) {
+            $requestTemplate = $this->RequestTemplates->patchEntity($this->RequestTemplates->newEntity(), $this->getRequest()->getData());
+            if($this->RequestTemplates->save($requestTemplate)) {
                 $this->Flash->set($requestTemplate->name . ' has been saved.');
                 $this->redirect(['action' => 'index']);
             } else {
@@ -126,7 +126,7 @@ class RequestTemplatesController extends AppController
      */
     public function edit($id = null)
     {
-        $requestTemplate = $this->getRequest()Templates->get($id, [
+        $requestTemplate = $this->RequestTemplates->get($id, [
             'contain' => []
         ]);
 
@@ -136,8 +136,8 @@ class RequestTemplatesController extends AppController
                 return;
             }
 
-            $requestTemplate = $this->getRequest()Templates->patchEntity($requestTemplate, $this->getRequest()->getData());
-            if($this->getRequest()Templates->save($requestTemplate)) {
+            $requestTemplate = $this->RequestTemplates->patchEntity($requestTemplate, $this->getRequest()->getData());
+            if($this->RequestTemplates->save($requestTemplate)) {
                 $this->Flash->set($requestTemplate->name . ' has been updated');
                 $this->redirect(['action' => 'index']);
             } else {
@@ -156,12 +156,12 @@ class RequestTemplatesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->getRequest()Template->id = $id;
-        if (!$this->getRequest()Template->exists()) {
+        $this->RequestTemplates->id = $id;
+        if (!$this->RequestTemplates->exists()) {
             throw new NotFoundException(__('Invalid request template'));
         }
         $this->getRequest()->onlyAllow('post', 'delete');
-        if ($this->getRequest()Template->delete()) {
+        if ($this->requestTemplate->delete()) {
             $this->Session->setFlash(__('The request template has been deleted.'));
         } else {
             $this->Session->setFlash(__('The request template could not be deleted. Please, try again.'));
@@ -188,7 +188,7 @@ class RequestTemplatesController extends AppController
             )
         );
         $this->set('submenu', $storytellerMenu);
-        $this->set('requestTemplates', $this->paginate($this->getRequest()Templates, [
+        $this->set('requestTemplates', $this->paginate($this->RequestTemplates, [
             'order' => [
                 'RequestTemplates.name'
             ]
