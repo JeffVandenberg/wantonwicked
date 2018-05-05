@@ -33,7 +33,7 @@ $this->set('title_for_layout', $ucState . ' Request: ' . $request->title);
 <?= $this->Form->end(); ?>
 <h3>Request</h3>
 <div class="tinymce-content">
-    <?php echo $request->Body; ?>
+    <?= $request->body; ?>
 </div>
 <h3>Past Notes</h3>
 <?php if (count($notes) > 0): ?>
