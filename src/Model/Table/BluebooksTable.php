@@ -112,7 +112,7 @@ class BluebooksTable extends Table
     public function listUnattachedBluebooks($requestId, $userId)
     {
         // get linked characters if any
-        $linkedCharacter = TableRegistry::getTableLocator()->getTableLocator()->get('Characters')->find('list')
+        $linkedCharacter = TableRegistry::getTableLocator()->get('Characters')->find('list')
             ->leftJoin(
                 ['RequestCharacters' => 'request_characters'],
                 'RequestCharacters.character_id = Characters.id'
