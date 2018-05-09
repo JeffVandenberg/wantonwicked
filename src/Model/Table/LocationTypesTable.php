@@ -37,7 +37,6 @@ class LocationTypesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Muffin/Slug.Slug', [
-            'onUpdate' => true
         ]);
 
         $this->hasMany('Locations', [

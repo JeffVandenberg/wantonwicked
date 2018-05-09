@@ -20,7 +20,8 @@ class LocationsController extends AppController
     {
         parent::initialize();
         $this->Auth->allow([
-            'index'
+            'index',
+            'view'
         ]);
     }
 

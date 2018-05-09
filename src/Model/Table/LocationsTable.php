@@ -10,9 +10,9 @@ use Cake\Validation\Validator;
  * Locations Model
  *
  * @property \App\Model\Table\DistrictsTable|\Cake\ORM\Association\BelongsTo $Districts
- * @property \App\Model\Table\CreatedBiesTable|\Cake\ORM\Association\BelongsTo $CreatedBies
- * @property \App\Model\Table\UpdatedBiesTable|\Cake\ORM\Association\BelongsTo $UpdatedBies
- * @property \App\Model\Table\CharactersTable|\Cake\ORM\Association\BelongsTo $Characters
+ * @property \App\Model\Table\CreatedBiesTable|\Cake\ORM\Association\BelongsTo $CreatedBy
+ * @property \App\Model\Table\UpdatedBiesTable|\Cake\ORM\Association\BelongsTo $UpdatedBy
+ * @property \App\Model\Table\CharactersTable|\Cake\ORM\Association\BelongsTo $OwningCharacter
  * @property \App\Model\Table\LocationTypesTable|\Cake\ORM\Association\BelongsTo $LocationTypes
  * @property \App\Model\Table\CharactersTable|\Cake\ORM\Association\HasMany $Characters
  * @property \App\Model\Table\LocationTraitsTable|\Cake\ORM\Association\HasMany $LocationTraits
@@ -39,22 +39,37 @@ class LocationsTable extends Table
         parent::initialize($config);
 
         $this->setTable('locations');
-        $this->setDisplayField('id');
+        $this->setDisplayField('location_name');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created_on' => 'new',
+                    'updated_on' => 'always',
+                ]
+            ]
+        ]);
+
+        $this->addBehavior('Muffin/Slug.Slug', [
+        ]);
 
         $this->belongsTo('Districts', [
             'foreignKey' => 'district_id'
         ]);
-        $this->belongsTo('CreatedBies', [
+        $this->belongsTo('CreatedBy', [
             'foreignKey' => 'created_by_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'className' => 'Users'
         ]);
-        $this->belongsTo('UpdatedBies', [
+        $this->belongsTo('UpdatedBy', [
             'foreignKey' => 'updated_by_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'className' => 'Users'
         ]);
-        $this->belongsTo('Characters', [
-            'foreignKey' => 'character_id'
+        $this->belongsTo('OwningCharacter', [
+            'foreignKey' => 'character_id',
+            'className' => 'Characaters'
         ]);
         $this->belongsTo('LocationTypes', [
             'foreignKey' => 'location_type_id',
@@ -130,9 +145,9 @@ class LocationsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['district_id'], 'Districts'));
-        $rules->add($rules->existsIn(['created_by_id'], 'CreatedBies'));
-        $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBies'));
-        $rules->add($rules->existsIn(['character_id'], 'Characters'));
+        $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
+        $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBy'));
+        $rules->add($rules->existsIn(['character_id'], 'OwningCharacter'));
         $rules->add($rules->existsIn(['location_type_id'], 'LocationTypes'));
 
         return $rules;
