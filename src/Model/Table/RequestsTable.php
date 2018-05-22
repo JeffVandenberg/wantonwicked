@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Request;
 use App\Model\Entity\RequestStatus;
 use App\Model\Entity\RequestType;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\HasMany;
@@ -493,11 +495,37 @@ class RequestsTable extends Table
         ]);
     }
 
+    /**
+     * Return Requests for user for home page
+     *
+     * @param int $userId
+     * @return array|Query
+     */
+    public function listForHome($userId)
+    {
+        return $this
+            ->find()
+            ->contain([
+                'RequestStatuses'
+            ])
+            ->where([
+                'Requests.created_by_id' => $userId,
+                'Requests.request_status_id IN' => RequestStatus::$Player,
+                'Requests.request_type_id !=' => RequestType::BLUE_BOOK
+            ])
+            ->order([
+                'Requests.updated_on' => 'DESC'
+            ])
+            ->cache('requests_home_' . $userId)
+            ->limit(5);
+    }
+
     public function save(EntityInterface $entity, $options = [])
     {
         /* @var Request $entity */
+        Cache::delete('requests_home_' . $entity->created_by_id);
         $result = parent::save($entity, $options);
-        if($result) {
+        if ($result) {
             $history = $this->RequestStatusHistories->newEntity();
             $history->request_id = $entity->id;
             $history->request_status_id = $entity->request_status_id;

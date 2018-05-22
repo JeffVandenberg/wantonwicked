@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Scene;
 use App\Model\Entity\SceneStatus;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -24,7 +26,6 @@ use Cake\Validation\Validator;
  * @method Scene get($primaryKey, $options = [])
  * @method Scene newEntity($data = null, array $options = [])
  * @method Scene[] newEntities(array $data, array $options = [])
- * @method Scene|bool save(EntityInterface $entity, $options = [])
  * @method Scene patchEntity(EntityInterface $entity, array $data, array $options = [])
  * @method Scene[] patchEntities($entities, array $data, array $options = [])
  * @method Scene findOrCreate($search, callable $callback = null, $options = [])
@@ -37,7 +38,7 @@ class ScenesTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -76,13 +77,19 @@ class ScenesTable extends Table
         $this->addBehavior('Tags.Tag', []);
     }
 
+    public function save(EntityInterface $entity, $options = [])
+    {
+        Cache::delete('scenes_home_' . date('Y-m-d'));
+        return parent::save($entity, $options);
+    }
+
     /**
      * Default validation rules.
      *
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -124,7 +131,7 @@ class ScenesTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['run_by_id'], 'RunBy'));
         $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
@@ -138,7 +145,7 @@ class ScenesTable extends Table
      * @param int $sceneCount
      * @return array
      */
-    public function listForHome($sceneCount = 5)
+    public function listForHome($sceneCount = 5): array
     {
         return $this
             ->find()
@@ -156,6 +163,7 @@ class ScenesTable extends Table
                 'Scenes.run_on_date' => 'asc'
             ])
             ->limit($sceneCount)
+            ->cache('scenes_home_' . date('Y-m-d'))
             ->toList();
     }
 
@@ -177,7 +185,7 @@ class ScenesTable extends Table
             ])
             ->toArray();
 
-        if(count($linkedCharacter)) {
+        if (count($linkedCharacter)) {
             return $this->find('all')
                 ->leftJoin(
                     ['SceneCharacters' => 'scene_characters'],
@@ -190,10 +198,11 @@ class ScenesTable extends Table
                 ->order([
                     'Scenes.name'
                 ]);
-        } else {
-            return [];
         }
+
+        return [];
     }
+
 
     public function listScenesWithTag($tag)
     {
