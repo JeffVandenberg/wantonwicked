@@ -41,6 +41,7 @@ class RequestEmailComponent extends Component
                 ->setTemplate('new_request')
                 ->setViewVars(compact('request'))
                 ->send();
+            return $result;
         }
         return true;
     }

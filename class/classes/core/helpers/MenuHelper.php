@@ -26,7 +26,7 @@ EOQ;
         return $menu;
     }
 
-    private static function appendMenuLevel($menuItems, $firstLayer)
+    private static function appendMenuLevel($menuItems, $firstLayer): string
     {
         $menuLevel = "";
         if(!$firstLayer) {
@@ -38,13 +38,13 @@ EOQ;
         foreach($menuItems as $label => $item) {
             if($item !== 'break') {
                 if(is_array($item)) {
-                    $link = (isset($item['link'])) ? $item['link'] : '#';
-                    $icon = (isset($item['icon'])) ? '<img src="' . $item['icon'] . '" />' : '';
-                    $id = (isset($item['id'])) ? $item['id'] : null;
-                    $class = (isset($item['class'])) ? $item['class'] : null;
+                    $link = $item['link'] ?? '#';
+                    $icon = isset($item['icon']) ? '<img src="' . $item['icon'] . '" />' : '';
+                    $id = $item['id'] ?? null;
+                    $class = $item['class'] ?? null;
                     $target = isset($item['target']) ? 'target="' . $item['target'] . '"': '';
 
-                    $liTag = "<li ";
+                    $liTag = '<li ';
                     if($id !== null) {
                         $liTag .= "id=\"$id\" ";
                     }
@@ -52,7 +52,7 @@ EOQ;
                     if($class !== null) {
                         $liTag .="class=\"$class\"";
                     }
-                    $liTag .= ">";
+                    $liTag .= '>';
 
                     $menuLevel .= $liTag . '<a href="' . $link. '" ' . $target . '>' . $icon . $label . '</a>';
 

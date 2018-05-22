@@ -30,7 +30,6 @@ class TagHelper extends AppHelper
      */
     public function linkList(array $tags, array $baseUrl)
     {
-        $htmlHelper  = $this->Html;
         return implode(', ', array_map(function(Tag $tag) use ($baseUrl) {
             return $this->Html->link(
                 $tag->label,
