@@ -63,26 +63,6 @@ EOQ;
         return $this->query($sql)->single($params);
     }
 
-    public function setIsApproved($id, $isApproved)
-    {
-        $id = (int) $id;
-        $isApproved = ($isApproved) ? 1 : 0;
-
-        $sql = <<<EOQ
-UPDATE
-    request_characters
-SET
-    is_approved = $isApproved
-WHERE
-    id = $id
-EOQ;
-        $params = array(
-            $isApproved,
-            $id
-        );
-        return $this->query($sql)->execute($params);
-    }
-
     public function findLinkedCharacterForUser($requestId, $userId)
     {
         $sql = <<<EOQ

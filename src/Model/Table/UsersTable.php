@@ -75,9 +75,6 @@ class UsersTable extends Table
     {
         $rules->add($rules->isUnique(['username']));
         $rules->add($rules->isUnique(['username_clean']));
-//        $rules->add($rules->existsIn(['user_id'], 'Users'));
-//        $rules->add($rules->existsIn(['group_id'], 'Groups'));
-//        $rules->add($rules->existsIn(['role_id'], 'Roles'));
 
         return $rules;
     }

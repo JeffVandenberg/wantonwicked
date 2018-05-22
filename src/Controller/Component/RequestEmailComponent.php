@@ -32,13 +32,16 @@ class RequestEmailComponent extends Component
             $email = $email->addTo($user->user_email);
         }
 
-        /*$result = $email->setFrom('wantonwicked@gamingsandbox.com')
-            ->setSubject('Request Submitted: ' . $request->title)
-            ->setEmailFormat('html')
-            ->setLayout('wantonwicked')
-            ->setTemplate('new_request')
-            ->setViewVars(compact('request'))
-            ->send();*/
+        // don't send messages right now.
+        if(random_int(0, 1) > 2) {
+            $result = $email->setFrom('wantonwicked@gamingsandbox.com')
+                ->setSubject('Request Submitted: ' . $request->title)
+                ->setEmailFormat('html')
+                ->setLayout('wantonwicked')
+                ->setTemplate('new_request')
+                ->setViewVars(compact('request'))
+                ->send();
+        }
         return true;
     }
 

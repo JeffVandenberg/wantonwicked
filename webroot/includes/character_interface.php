@@ -60,12 +60,6 @@ switch ($character->CharacterType) {
     case 'Vampire':
         $morality = "Humanity";
 
-        $extraLinks = <<<EOQ
-<div style="margin-bottom:10px;text-align:center;">
-    <a href="/territory.php?action=list_territories&character_id=$characterId" target="_blank">View Tenancy for Character</a>
-</div>
-EOQ;
-
         $extra_rows = <<<EOQ
 <tr>
     <td>

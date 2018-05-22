@@ -56,9 +56,6 @@ $storytellerMenu = [
             'Profile Lookup' => [
                 'link' => 'storyteller_index.php?action=profile_lookup'
             ],
-            'Territory Management' => [
-                'link' => 'territory.php?action=list'
-            ]
         ]
     ],
     'Reports' => [
