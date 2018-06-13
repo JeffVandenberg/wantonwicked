@@ -7,12 +7,15 @@ use App\Model\Entity\Request;
 use App\Model\Entity\Scene;
 use App\View\AppView;
 
-/* @var AppView $this */
-/* @var Scene[] $sceneList ; */
-/* @var Plot[] $plotList ; */
-/* @var Character[] $characterList ; */
-/* @var Request[] $playerRequests */
-/* @var string $plots */
+/**
+ * @var AppView $this
+ * @var Scene[] $sceneList
+ * @var Plot[] $plotList
+ * @var Character[] $characterList
+ * @var Request[] $playerRequests
+ * @var string $plots
+ * @var bool $isPlotManager
+ */
 $this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Roleplaying Game");
 if ($isLoggedIn) {
     $this->set('header_for_layout', 'Dashboard');
@@ -32,7 +35,7 @@ if ($isLoggedIn) {
     <?php endif; ?>
     <div class="small-12 medium-8 cell" style=";">
         <h3 class="float-left">Current Plots</h3>
-        <?php if ($isLoggedIn): ?>
+        <?php if ($isPlotManager): ?>
             <div class="button-group float-right">
                 <a class="button small" href="/plots/add">New</a>
             </div>

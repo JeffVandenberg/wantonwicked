@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Controller\Component\PermissionsComponent;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 
 /**
@@ -32,9 +33,16 @@ class MapController extends AppController
 
         // load districts
 
+        // load location types
+        $locationTypes = TableRegistry::get('LocationTypes')
+            ->find('list')
+            ->order([
+                'LocationTypes.name'
+            ])
+            ->toArray();
         // load locations
 
-        $this->set(compact('coords'));
+        $this->set(compact('coords', 'locationTypes'));
     }
 
     public function isAuthorized($user)

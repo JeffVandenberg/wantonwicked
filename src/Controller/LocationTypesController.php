@@ -73,7 +73,7 @@ class LocationTypesController extends AppController
     {
         $locationType = $this->LocationTypes->newEntity();
         if ($this->getRequest()->is('post')) {
-            if ($this->getRequest()->getData('action') == 'cancel') {
+            if ($this->getRequest()->getData('action') === 'cancel') {
                 return $this->redirect(['action' => 'index']);
             }
 
@@ -142,6 +142,10 @@ class LocationTypesController extends AppController
     private function saveLocationType(LocationType $locationType)
     {
         $icon = $this->getRequest()->getUploadedFile('icon');
+        if(!$icon) {
+            return false;
+        }
+
         if (!$icon->getSize() && !$locationType->id) {
             $this->Flash->set('No Icon uploaded.');
             // show error that there is no icon
@@ -154,7 +158,9 @@ class LocationTypesController extends AppController
             $imagePath = $directory . $icon->getClientFilename();
             $fileName = WWW_ROOT . $imagePath;
 
-            if (!file_exists(WWW_ROOT . $directory) && !mkdir(WWW_ROOT . $directory, 0755, true)) {
+            if (!is_dir(WWW_ROOT . $directory) &&
+                !mkdir(WWW_ROOT . $directory, 0755, true)
+                && !is_dir(WWW_ROOT . $directory)) {
                 // error making directory
                 $this->Flash->set('Unable to create directory to save images.');
                 return false;
