@@ -7,11 +7,12 @@
 $this->set('title_for_layout', 'Location Types')
 ?>
 <div class="row">
-    <?php if ($isMapAdmin): ?>
-        <div class="small-12 column">
+    <div class="small-12 column">
+        <?= $this->Html->link('<< Back', ['controller' => 'map', 'action' => 'index'], ['class' => 'button']); ?>
+        <?php if ($isMapAdmin): ?>
             <?= $this->Html->link('New', ['action' => 'add'], ['class' => 'button']); ?>
-        </div>
-    <?php endif; ?>
+        <?php endif; ?>
+    </div>
     <div class="locationTypes index small-12 columns content">
         <table cellpadding="0" cellspacing="0">
             <thead>
@@ -28,7 +29,7 @@ $this->set('title_for_layout', 'Location Types')
                     <td><?= $this->Html->image($locationType->icon) ?></td>
                     <?php if ($isMapAdmin): ?>
                         <td class="actions">
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $locationType->id]) ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $locationType->slug]) ?>
                             <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $locationType->id], ['confirm' => __('Are you sure you want to delete # {0}?', $locationType->id)]) ?>
                         </td>
                     <?php endif; ?>

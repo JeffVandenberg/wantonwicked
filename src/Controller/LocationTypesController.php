@@ -146,7 +146,7 @@ class LocationTypesController extends AppController
             return false;
         }
 
-        if (!$icon->getSize() && !$locationType->id) {
+        if (!$locationType->id && !$icon->getSize()) {
             $this->Flash->set('No Icon uploaded.');
             // show error that there is no icon
             return false;

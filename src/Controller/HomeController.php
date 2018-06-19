@@ -42,6 +42,9 @@ class HomeController extends AppController
 
     public function home()
     {
+        // get news content
+        $this->set(['content' => $this->Config->Read('FRONT_PAGE')]);
+
         // get scene information
         $scenes = TableRegistry::getTableLocator()->get('Scenes');
         /* @var ScenesTable $scenes */
