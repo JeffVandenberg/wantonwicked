@@ -16,7 +16,7 @@ use App\View\AppView;
  * @var string $plots
  * @var bool $isPlotManager
  */
-$this->set('title_for_layout', "Wanton Wicked an Online World of Darkness Roleplaying Game");
+$this->set('title_for_layout', 'Wanton Wicked an Online World of Darkness Roleplaying Game');
 if ($isLoggedIn) {
     $this->set('header_for_layout', 'Dashboard');
 }
@@ -92,7 +92,7 @@ if ($isLoggedIn) {
                         </th>
                     </tr>
                     <?php foreach ($characterList as $character): ?>
-                        <?php $identifier = ($character->slug) ? $character->slug : $character->id; ?>
+                        <?php $identifier = $character->slug ?: $character->id; ?>
                         <tr>
                             <td>
                                 <?php if ($character->character_status_id == CharacterStatus::NewCharacter): ?>
@@ -151,7 +151,7 @@ if ($isLoggedIn) {
                                                    target="_blank" class="">Chat</a>
                                             </li>
                                             <li>
-                                                <a href="/wiki/Players/<?php echo preg_replace("/[^A-Za-z0-9]/", '', $character->character_name); ?>">Profile
+                                                <a href="/wiki/Players/<?php echo preg_replace('/[^A-Za-z0-9]/', '', $character->character_name); ?>">Profile
                                                 </a>
                                             </li>
                                         </ul>
@@ -171,7 +171,7 @@ if ($isLoggedIn) {
                 <a class="button small" href="/requests/add">New</a>
             </div>
         <?php endif; ?>
-        <?php if ($this->request->getSession()->read('Auth.User.user_id') == 1): ?>
+        <?php if ((int) $this->request->getSession()->read('Auth.User.user_id') === 1): ?>
             <div style="clear: both;">
                 You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a
                         href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
