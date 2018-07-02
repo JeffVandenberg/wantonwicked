@@ -238,14 +238,3 @@ if ($isLoggedIn) {
     <!--        Your ST Requests needing attention (staff)-->
     <!--    </div>-->
 </div>
-<?php if (!$isLoggedIn): ?>
-    <div class="row">
-        <div class="small-12 medium-4 column">
-            <h2>Log In OOC</h2>
-            <form method="post" action="/chat/index.php">
-                Name: <input type="text" name="username"/>
-                <button type="submit" class="button">Log in</button>
-            </form>
-        </div>
-    </div>
-<?php endif; ?>
