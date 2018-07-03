@@ -51,7 +51,7 @@ class AppView extends View
     public function addScript($scriptName)
     {
         if(Configure::read('debug')) {
-            echo $this->Html->script('game-map', ['block' => true]);
+            echo $this->Html->script($scriptName, ['block' => true]);
         } else {
             $this->Shrink->js($scriptName . '.js');
         }

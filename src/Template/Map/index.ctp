@@ -7,7 +7,6 @@ use Cake\Core\Configure;
  * @var AppView $this
  * @var bool $isMapAdmin
  * @var array $coords
- * @var array $locationTypes
  */
 
 $this->set('title_for_layout', 'City Map');
@@ -21,21 +20,11 @@ $this->addScript('game-map');
 </div>
 <?php endif; ?>
 <div id="map"></div>
-
-<div class="reveal" id="location-options-modal" data-reveal>
-    <div id="location-options-modal-content">
-        <label>Type</label>
-        <?= $this->Form->select('location_type', $locationTypes); ?>
-    </div>
-    <button class="close-button" data-close aria-label="Close modal" type="button">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
 <script>
     let myMap;
 
     $(function () {
-        $("#record-zone-button").click(e => {
+        $("#record-zone-button").click((e) => {
             if (myMap.isCreatingZone()) {
                 e.target.innerText = 'New Territory';
                 myMap.finishZone();
