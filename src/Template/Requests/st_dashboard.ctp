@@ -61,7 +61,7 @@ $this->set('title_for_layout', 'Pending Requests');
                 <?= $this->Paginator->sort('RequestStatuses.name', 'Status'); ?>
             </th>
             <th>
-                <?= $this->Paginator->sort('Requests.created_on', 'Created'); ?>
+                <?= $this->Paginator->sort('AssignedUser.username_clean', 'Assigned To'); ?>
             </th>
             <th>
                 <?= $this->Paginator->sort('UpdateBy.username_clean', 'Updated By'); ?>
@@ -124,7 +124,7 @@ $this->set('title_for_layout', 'Pending Requests');
                                 'class' => 'ajax-link'
                             ]); ?>
                     </td>
-                    <td><?= $this->Time->format($request->created_on, 'MM/dd/yyyy'); ?></td>
+                    <td><?= $request->assigned_user->username; ?></td>
                     <td><?= $request->updated_by->username; ?></td>
                     <td><?= $this->Time->format($request->updated_on, 'MM/dd/yyyy'); ?></td>
                 </tr>

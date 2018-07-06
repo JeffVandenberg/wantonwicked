@@ -458,4 +458,33 @@ EOQ;
                 'Groups.id' => $groupId
             ]);
     }
+
+    /**
+     * @param array $permissions
+     * @return array
+     */
+    public function listUsersWithPermission(array $permissions): array
+    {
+        $placeholders = implode(',', array_fill(0, count($permissions), '?'));
+        $sql = <<<SQL
+SELECT
+  DISTINCT 
+  U.user_id,
+  U.username
+FROM
+  phpbb_users AS U
+  LEFT JOIN permissions_users AS PU on U.user_id = PU.user_id
+WHERE
+  PU.permission_id IN ($placeholders)
+ORDER BY
+  U.username
+SQL;
+
+        $rows = $this->getConnection()->execute($sql, $permissions)->fetchAll('assoc');
+        $list = [];
+        foreach($rows as $item) {
+            $list[$item['user_id']] = $item['username'];
+        }
+        return $list;
+    }
 }

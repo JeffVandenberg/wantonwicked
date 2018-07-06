@@ -1,12 +1,15 @@
 <?php
 
 use App\Model\Entity\Request;
+use App\View\AppView;
 
 /**
+ * @var  AppView $this;
  * @var Request $request
  * @var bool $adminView
  */
-$action = ($adminView) ? 'st-view' : 'view-other';
+$userId = $this->request->getSession()->read('Auth.User.user_id');
+$action = $adminView ? 'st-view' : 'view-other';
 ?>
 <div class="row">
     <div class="small-12 columns">
@@ -25,6 +28,12 @@ $action = ($adminView) ? 'st-view' : 'view-other';
         <label>Request Status:</label>
         <?= $request->request_status->name; ?>
     </div>
+    <?php if($request->assigned_user_id): ?>
+        <div class="small-12 columns">
+            <label>Assigned To:</label>
+            <?= $request->assigned_user->username; ?>
+        </div>
+    <?php endif; ?>
     <div class="small-12 columns">
         <label>Request:</label>
         <div class="tinymce-content">
@@ -56,7 +65,8 @@ $action = ($adminView) ? 'st-view' : 'view-other';
                             $character->character->character_name,
                             [
                                 'controller' => 'characters',
-                                'action' => $action,
+                                'action' => (!$adminView && ($request->created_by_id === $userId))
+                                    ? 'view-own' : $action,
                                 $character->character->slug
                             ],
                             [

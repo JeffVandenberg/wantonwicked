@@ -15,6 +15,7 @@ $this->set('title_for_layout', 'Request: ' . $request->title);
     <div class="small-12 columns button-group">
         <?= $this->Html->link('Back', ['action' => 'st-dashboard'], ['class' => 'button']); ?>
         <?= $this->Html->link('Add Note', ['action' => 'add-note', $request->id, '?' => ['st' => 1]], ['class' => 'button']); ?>
+        <?= $this->Html->link('Assign', ['action' => 'assign', $request->id], ['class' => 'button']); ?>
         <?php if(in_array($request->request_status_id, RequestStatus::$Storyteller)): ?>
             <?= $this->Html->link('Approve', ['action' => 'set-state', $request->id, '?' => ['state' => 'approve']], ['class' => 'button']); ?>
             <?= $this->Html->link('Forward', ['action' => 'forward', $request->id, '?' => ['st' => 1]], ['class' => 'button']); ?>

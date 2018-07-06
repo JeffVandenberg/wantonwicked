@@ -18,11 +18,13 @@ use function debug_backtrace;
  * @property \Cake\I18n\Time $created_on
  * @property int $updated_by_id
  * @property \Cake\I18n\Time $updated_on
+ * @property int $assigned_user_id
  *
  * @property \App\Model\Entity\Group $group
  * @property \App\Model\Entity\Character $character
  * @property \App\Model\Entity\RequestType $request_type
  * @property \App\Model\Entity\RequestStatus $request_status
+ * @property \App\Model\Entity\User $assigned_user
  * @property \App\Model\Entity\User $created_by
  * @property \App\Model\Entity\User $updated_by
  * @property \App\Model\Entity\RequestBluebook[] $request_bluebooks

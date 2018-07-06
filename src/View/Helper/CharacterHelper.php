@@ -545,15 +545,11 @@ class CharacterHelper extends AppHelper
             <div class="row">
                 <div class="medium-12 columns subheader">Character</div>
                 <div class="small-12 columns">
-                    <label for="history">Description</label>
-                    <?php echo $description; ?>
-                </div>
-                <div class="small-12 columns">
                     <label for="history">Biography</label>
                     <?php echo $history; ?>
                 </div>
                 <div class="small-12 columns">
-                    <label>Notes</label>
+                    <label>Power Notes</label>
                     <?php echo $characterNotes; ?>
                     <?php if (in_array($character->CharacterStatusId, CharacterStatus::Sanctioned)): ?>
                         <p class="help-text" id="notes-help-text">
@@ -562,6 +558,10 @@ class CharacterHelper extends AppHelper
                             be added to the sheet by the sanctioningstaff.
                         </p>
                     <?php endif; ?>
+                </div>
+                <div class="small-12 columns">
+                    <label for="history">Player Notes</label>
+                    <?php echo $description; ?>
                 </div>
             </div>
         </div>

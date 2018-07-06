@@ -70,7 +70,7 @@ class RequestsTable extends Table
         ]);
         $this->belongsTo('Characters', [
             'foreignKey' => 'character_id',
-            'joinType' => 'INNER'
+            'joinType' => 'LEFT'
         ]);
         $this->belongsTo('RequestTypes', [
             'foreignKey' => 'request_type_id',
@@ -88,6 +88,11 @@ class RequestsTable extends Table
         $this->belongsTo('UpdatedBy', [
             'foreignKey' => 'updated_by_id',
             'joinType' => 'INNER',
+            'className' => 'Users'
+        ]);
+        $this->belongsTo('AssignedUser', [
+            'foreignKey' => 'assigned_user_id',
+            'joinType' => 'LEFT',
             'className' => 'Users'
         ]);
         $this->hasMany('RequestBluebooks', [
@@ -151,7 +156,6 @@ class RequestsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['group_id'], 'Groups'));
-        $rules->add($rules->existsIn(['character_id'], 'Characters'));
         $rules->add($rules->existsIn(['request_type_id'], 'RequestTypes'));
         $rules->add($rules->existsIn(['request_status_id'], 'RequestStatuses'));
         $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
@@ -428,6 +432,9 @@ class RequestsTable extends Table
                 'UpdatedBy' => [
                     'fields' => ['username']
                 ],
+                'AssignedUser' => [
+                    'fields' => ['username']
+                ],
                 'RequestTypes',
                 'Groups',
                 'RequestStatuses'
@@ -490,7 +497,12 @@ class RequestsTable extends Table
                     'fields' => [
                         'username'
                     ]
-                ]
+                ],
+                'AssignedUser' => [
+                    'fields' => [
+                        'username'
+                    ]
+                ],
             ]
         ]);
     }

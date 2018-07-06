@@ -14,6 +14,7 @@ use App\Controller\Component\PermissionsComponent;
 use App\Controller\Component\RequestEmailComponent;
 use App\Model\Entity\Character;
 use App\Model\Entity\CharacterStatus;
+use App\Model\Entity\Permission;
 use App\Model\Entity\Request;
 use App\Model\Entity\RequestStatus;
 use App\Model\Entity\Scene;
@@ -21,6 +22,7 @@ use App\Model\Table\BluebooksTable;
 use App\Model\Table\RequestsTable;
 use App\Model\Table\ScenesTable;
 use Cake\Event\Event;
+use Cake\ORM\Locator\TableLocator;
 use Cake\ORM\TableRegistry;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
@@ -77,6 +79,7 @@ class RequestsController extends AppController
             case 'stdashboard':
             case 'stview':
             case 'setstate':
+            case 'assign':
                 return $this->Permissions->isRequestManager();
             case 'admin';
             case 'activityreport':
@@ -171,6 +174,7 @@ class RequestsController extends AppController
                 }
             }
             $request = $this->Requests->patchEntity($request, $this->getRequest()->getData());
+            $request->character_id = 0;
             $request->updated_by_id =
             $request->created_by_id =
                 $this->Auth->user('user_id');
@@ -198,9 +202,9 @@ class RequestsController extends AppController
                     'action' => 'view',
                     $request->id
                 ]);
-            } else {
-                $this->Flash->set('Error saving request. Please try again.');
             }
+
+            $this->Flash->set('Error saving request. Please try again.');
         }
 
         if ($characterId) {
@@ -664,6 +668,7 @@ class RequestsController extends AppController
                     'Requests.updated_on',
                     'CreatedBy.username_clean',
                     'UpdatedBy.username_clean',
+                    'AssignedUser.username_clean',
                     'Groups.name',
                     'RequestTypes.name',
                     'RequestStatuses.name',
@@ -700,14 +705,14 @@ class RequestsController extends AppController
     {
         $request = $this->Requests->get($requestId);
         $state = $this->getRequest()->getQuery('state');
-        if (!in_array($state, ['return', 'approve', 'deny', 'close'])) {
+        if (!\in_array($state, ['return', 'approve', 'deny', 'close'])) {
             $this->Flash->set('Unknown state to assign');
             return $this->redirect(['action' => 'st-view', $requestId]);
         }
 
         if ($this->getRequest()->is(['post', 'put'])) {
-            if (strtolower($this->getRequest()->getData('action')) == 'cancel') {
-                return $this->redirect(['action' => 'view', $requestId]);
+            if (strtolower($this->getRequest()->getData('action')) === 'cancel') {
+                return $this->redirect(['action' => 'st-view', $requestId]);
             }
 
             $note = $this->getRequest()->getData('note');
@@ -735,9 +740,9 @@ class RequestsController extends AppController
                     );
                     $this->Flash->set('Updated request');
                     return $this->redirect(['action' => 'st-view', $requestId]);
-                } else {
-                    $this->Flash->set('Error updating state');
                 }
+
+                $this->Flash->set('Error updating state');
             }
         }
 
@@ -765,9 +770,9 @@ class RequestsController extends AppController
         /* @var Character $character */
         if ($character->user_id == $this->Auth->user('user_id')) {
             return $this->redirect(['action' => 'character', $character->id]);
-        } else {
-            return $this->redirect(['action' => 'index']);
         }
+
+        return $this->redirect(['action' => 'index']);
     }
 
     public function close($requestId)
@@ -795,7 +800,7 @@ class RequestsController extends AppController
         $this->validateRequestEdit($request);
 
         if ($this->getRequest()->is(['post', 'put'])) {
-            if (strtolower($this->getRequest()->getData('action')) == 'cancel') {
+            if (strtolower($this->getRequest()->getData('action')) === 'cancel') {
                 return $this->redirectToView($requestId);
             }
 
@@ -815,9 +820,9 @@ class RequestsController extends AppController
                 $this->Requests->RequestNotes->save($requestNote);
                 $this->Requests->save($request);
                 return $this->redirectToView($requestId);
-            } else {
-                $this->Flash->set('You selected the same group for your request');
             }
+
+            $this->Flash->set('You selected the same group for your request');
         }
 
         $groups = $this->Requests->Groups->find('list', [
@@ -883,13 +888,52 @@ class RequestsController extends AppController
         $this->set(compact('data'));
     }
 
-    private function mayViewRequest(Request $request)
+    public function assign($requestId)
+    {
+        $request = $this->Requests->get($requestId);
+        $this->validateRequestEdit($request);
+
+        if ($this->request->is(['put', 'post'])) {
+            if (strtolower($this->getRequest()->getData('action')) === 'cancel') {
+                return $this->redirect(['action' => 'st-view', $requestId]);
+            }
+
+            $note = $this->getRequest()->getData('note');
+            if (!$note) {
+                $this->Flash->set('Please include a note');
+            } else {
+                $request->assigned_user_id = $this->getRequest()->getData('assigned_user_id');
+                $request->updated_by = $this->Auth->user('user_id');
+
+                if ($this->Requests->save($request)) {
+                    $requestNote = $this->Requests->RequestNotes->newEntity();
+                    $requestNote->created_by_id = $this->Auth->user('user_id');
+                    $requestNote->request_id = $requestId;
+                    $requestNote->note = $note;
+                    $this->Requests->RequestNotes->save($requestNote);
+
+                    $this->Flash->set(
+                        $request->assigned_user_id ? 'Assigned Request' : 'Unassigned Request'
+                    );
+                    return $this->redirect(['action' => 'st-view', $requestId]);
+                }
+                $this->Flash->set('Unable to assign request. Please try again.');
+            }
+        }
+
+        $staff = TableRegistry::get('Users')->listUsersWithPermission([
+            Permission::$ManageRequests
+        ]);
+        $this->set(compact('request', 'staff'));
+    }
+
+    private function mayViewRequest(Request $request): bool
     {
         return $this->Requests->isUserAttachedToRequest($request->id, $this->Auth->user('user_id'))
             || $this->Permissions->isRequestManager();
     }
 
-    private function mayEditRequest(Request $request)
+    private function mayEditRequest(Request $request): bool
     {
         return $this->Requests->isRequestCreatedByUser($request->id, $this->Auth->user('user_id'))
             || $this->Permissions->isRequestManager();
@@ -898,7 +942,7 @@ class RequestsController extends AppController
     /**
      * @param Request $request
      */
-    private function validateRequestView(Request $request)
+    private function validateRequestView(Request $request): void
     {
         if (!$this->mayViewRequest($request)) {
             $this->Flash->set('Unable to view that request');
@@ -906,7 +950,7 @@ class RequestsController extends AppController
         }
     }
 
-    private function validateRequestEdit(Request $request)
+    private function validateRequestEdit(Request $request): void
     {
         if (!$this->mayEditRequest($request)) {
             $this->Flash->set('Unable to edit that request');
