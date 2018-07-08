@@ -23,7 +23,7 @@ if ($isLoggedIn) {
 ?>
 
 <div class="grid-x">
-    <div class="small-10 cell">
+    <div class="small-12 medium-8 large-10 cell">
         <div class="grid-x grid-padding-x grid-padding-y grid-margin-x">
             <?php if ($isLoggedIn): ?>
                 <div class="small-12 cell">
@@ -242,7 +242,7 @@ if ($isLoggedIn) {
             </div>
         </div>
     </div>
-    <div class="small-2 cell">
+    <div class="small-12 medium-4 large-2 cell">
         <iframe src="https://discordapp.com/widget?id=454034748344631297&theme=dark" width="350" height="500"
                 allowtransparency="true" frameborder="0"></iframe>
     </div>
