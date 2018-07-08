@@ -15,13 +15,20 @@ use App\View\AppView;
 $this->set('title_for_layout', 'Assign Request: ' . $request->title);
 ?>
 <?= $this->Form->create($request); ?>
-<div class="row">
-    <div class="small-12 column">
+<div class="row align-middle">
+    <div class="small-12 medium-8 column">
         <?= $this->Form->control('assigned_user_id', [
             'options' => $staff,
             'type' => 'select',
             'label' => 'Staff Name',
             'empty' => 'Unassigned'
+        ]); ?>
+    </div>
+    <div class="small-12 medium-4 column">
+        <?= $this->Form->control('send_notice', [
+            'type' => 'checkbox',
+            'checked' => 'true',
+            'value' => '1'
         ]); ?>
     </div>
     <div class="small-12 column">

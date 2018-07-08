@@ -5,6 +5,7 @@ namespace App\Model\Table;
 use App\Model\Entity\User;
 use Cake\Database\Connection;
 use Cake\Datasource\ConnectionManager;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -32,7 +33,7 @@ class UsersTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -44,12 +45,18 @@ class UsersTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Groups', [
-            'foreignKey' => 'group_id',
-            'joinType' => 'INNER'
-        ]);
+//        $this->belongsTo('Groups', [
+//            'foreignKey' => 'group_id',
+//            'joinType' => 'INNER'
+//        ]);
         $this->belongsTo('Roles', [
             'foreignKey' => 'role_id'
+        ]);
+
+        $this->belongsToMany('Groups', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'group_id',
+            'joinThrough' => 'st_groups'
         ]);
     }
 
@@ -59,7 +66,7 @@ class UsersTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         return $validator;
     }
@@ -71,7 +78,7 @@ class UsersTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['username']));
         $rules->add($rules->isUnique(['username_clean']));
@@ -84,12 +91,12 @@ class UsersTable extends Table
      * @param $permissionIds
      * @return bool
      */
-    public function checkUserPermission($userId, $permissionIds)
+    public function checkUserPermission($userId, $permissionIds): bool
     {
         if (!$userId || !$permissionIds) {
             return false;
         }
-        if (!is_array($permissionIds)) {
+        if (!\is_array($permissionIds)) {
             $permissionIds = array($permissionIds);
         }
         $permissionsPlaceholder = implode(',', array_fill(0, count($permissionIds), '?'));
@@ -116,7 +123,7 @@ SQL;
      * @param $userId
      * @return array
      */
-    public function listUserGroups($userId)
+    public function listUserGroups($userId): array
     {
         $userId = (int)$userId;
 
@@ -146,7 +153,7 @@ EOQ;
      * @param $data
      * @return bool
      */
-    public function saveUserGroups($data)
+    public function saveUserGroups($data): bool
     {
         foreach ($data['group_id'] as $row => $groupId) {
             if ($data['is_member'][$groupId]) {
@@ -167,7 +174,7 @@ EOQ;
      * @param $isGroupLeader
      * @return bool
      */
-    private function addUserGroupRole($userId, $groupId, $isGroupLeader)
+    private function addUserGroupRole($userId, $groupId, $isGroupLeader): bool
     {
         $userId = (int)$userId;
         $groupId = (int)$groupId;
@@ -228,7 +235,7 @@ EOQ;
      * @param $groupId
      * @return bool
      */
-    private function deleteUserGroup($userId, $groupId)
+    private function deleteUserGroup($userId, $groupId): bool
     {
         $userId = (int)$userId;
         $groupId = (int)$groupId;
@@ -253,7 +260,7 @@ EOQ;
     /**
      * @param $userId
      */
-    private function updateUserAclPermissions($userId)
+    private function updateUserAclPermissions($userId): void
     {
         $sql = <<<EOQ
 UPDATE
@@ -313,10 +320,10 @@ EOQ;
      * @return bool
      * @throws \Exception
      */
-    public function addUserToSite($user)
+    public function addUserToSite($user): bool
     {
         // check if the username is already in use on the site
-        $userNameClean = trim(strtolower($user['username']));
+        $userNameClean = strtolower(trim($user['username']));
         $connection = $this->getConnection();
         /* @var Connection $connection */
 
@@ -331,8 +338,8 @@ EOQ;
         $params = [$userNameClean];
 
         $data = $connection->execute($sql, $params);
-        if($data[0][0]['count'] > 0) {
-            throw new \Exception('Username is already in use.');
+        if ($data[0][0]['count'] > 0) {
+            throw new \RuntimeException('Username is already in use.');
         }
 
         // find the registered user group
@@ -346,8 +353,8 @@ WHERE
 EOQ;
 
         $data = $connection->execute($sql);
-        if(!$data) {
-            throw new \Exception('Error finding Registered Group');
+        if (!$data) {
+            throw new \RuntimeException('Error finding Registered Group');
         }
         $groupId = $data[0]['G']['group_id'];
 
@@ -361,8 +368,8 @@ where
   config_name = 'default_style';
 EOQ;
         $data = $connection->execute($sql);
-        if(!$data) {
-            throw new \Exception('Error finding default style');
+        if (!$data) {
+            throw new \RuntimeException('Error finding default style');
         }
         $styleId = $data[0]['C']['config_value'];
 
@@ -423,9 +430,9 @@ EOQ;
         $connection->begin();
         $statement = $connection->insert($sql, array_values($paramsToMigrate));
 
-        if(!$statement->rowCount()) {
+        if (!$statement->rowCount()) {
             $connection->rollback();
-            throw new \Exception('Error adding to the site: ' . $sql);
+            throw new \RuntimeException('Error adding to the site: ' . $sql);
         }
 
         $userId = $statement->lastInsertId();
@@ -434,9 +441,9 @@ EOQ;
         $sql = "INSERT INTO phpbb_user_group (group_id, user_id, group_leader, user_pending) VALUES ($groupId, $userId, 0, 0,);";
         $result = $connection->execute($sql);
 
-        if(!$result) {
+        if (!$result) {
             $connection->rollback();
-            throw new \Exception('Error adding to group: ' . $sql);
+            throw new \RuntimeException('Error adding to group: ' . $sql);
         }
 
         // return happy state
@@ -446,17 +453,28 @@ EOQ;
 
     /**
      * @param $groupId
-     * @return User[]
+     * @return array
      */
-    public function listUsersInGroup($groupId)
+    public function listUsersInGroup($groupId): array
     {
         return $this->find()
-            ->contain([
-                'Groups'
+            ->select([
+                'user_id',
+                'username',
+                'user_email'
             ])
+            ->leftJoin(
+                [
+                    'StGroups' => 'st_groups'
+                ],
+                [
+                    'Users.user_id = StGroups.user_id'
+                ]
+            )
             ->where([
-                'Groups.id' => $groupId
-            ]);
+                'StGroups.group_id' => $groupId
+            ])
+            ->toArray();
     }
 
     /**
@@ -482,7 +500,7 @@ SQL;
 
         $rows = $this->getConnection()->execute($sql, $permissions)->fetchAll('assoc');
         $list = [];
-        foreach($rows as $item) {
+        foreach ($rows as $item) {
             $list[$item['user_id']] = $item['username'];
         }
         return $list;

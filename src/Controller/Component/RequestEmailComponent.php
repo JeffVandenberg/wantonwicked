@@ -28,12 +28,11 @@ class RequestEmailComponent extends Component
         $users = $userTable->listUsersInGroup($request->group_id);
         /* @var User[] $users */
 
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $email = $email->addTo($user->user_email);
         }
 
-        // don't send messages right now.
-        if(random_int(0, 1) > 2) {
+        try {
             $result = $email->setFrom('wantonwicked@gamingsandbox.com')
                 ->setSubject('Request Submitted: ' . $request->title)
                 ->setEmailFormat('html')
@@ -41,22 +40,44 @@ class RequestEmailComponent extends Component
                 ->setTemplate('new_request')
                 ->setViewVars(compact('request'))
                 ->send();
-            return $result;
+            return true;
+        } catch (\Exception $e) {
+            return false;
         }
-        return true;
     }
 
     public function notificationToPlayer($email, $username, $state, $note, Request $request): bool
     {
         $statePast = RequestStatus::getPastTenseForState($state);
-        $email = (new Email())
-            ->addTo($email)
-            ->setSubject('Request ' . $request->title . ' was ' . $statePast)
-            ->setEmailFormat('html')
-            ->setLayout('wantonwicked')
-            ->setTemplate('player_request_notification')
-            ->setViewVars(compact('username', 'statePast', 'note', 'request'))
-            ->send();
-        return true;
+        try {
+            $email = (new Email())
+                ->addTo($email)
+                ->setSubject('Request ' . $request->title . ' was ' . $statePast)
+                ->setEmailFormat('html')
+                ->setLayout('wantonwicked')
+                ->setTemplate('player_request_notification')
+                ->setViewVars(compact('username', 'statePast', 'note', 'request'))
+                ->send();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    public function assignedRequest($email, $username, $note, Request $request): bool
+    {
+        try {
+            $email = (new Email())
+                ->addTo($email)
+                ->setSubject('Request ' . $request->title . ' was assigned to you.')
+                ->setEmailFormat('html')
+                ->setLayout('wantonwicked')
+                ->setTemplate('assigned_request_notification')
+                ->setViewVars(compact('username', 'note', 'request'))
+                ->send();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
