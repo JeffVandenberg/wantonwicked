@@ -11,7 +11,6 @@ namespace classes\core\helpers;
 
 
 use classes\core\repository\Database;
-use classes\support\repository\SupporterRepository;
 
 class UserdataHelper
 {
@@ -97,16 +96,6 @@ EOQ;
             ));
         }
         return self::$userPermissions['IsAdmin'];
-    }
-
-    public static function IsSupporter($userdata)
-    {
-        if(!isset(self::$userPermissions['IsSupporter'])) {
-            $supporterRepository = new SupporterRepository();
-            self::$userPermissions['IsSupporter'] =
-                $supporterRepository->CheckIsCurrentSupporter($userdata['user_id']);;
-        }
-        return self::$userPermissions['IsSupporter'];
     }
 
     public static function IsLoggedIn($userdata)
