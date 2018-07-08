@@ -217,7 +217,8 @@ class CharactersController extends AppController
             ])
             ->where([
                 'Characters.user_id' => $this->Auth->user('user_id'),
-                'Characters.city' => 'portland'
+                'Characters.city' => 'portland',
+                'Characters.character_status_id !=' => CharacterStatus::Deleted
             ]);
         $this->set('characters', $this->Paginator->paginate($query, [
             'order' => [
