@@ -77,7 +77,9 @@ $this->loadHelper('Tag');
                 <?php echo $this->Html->link(
                         $this->Url->build(
                             [
-                                'scenes', 'join', $scene->slug
+                                'controller' => 'scenes',
+                                'action' => 'join',
+                                $scene->slug
                             ],
                             [
                                 'fullBase' => true

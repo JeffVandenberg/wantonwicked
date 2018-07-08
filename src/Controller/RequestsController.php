@@ -472,12 +472,20 @@ class RequestsController extends AppController
     public function characterSearch()
     {
         $onlySanctioned = $this->getRequest()->getQuery('only_sanctioned');
+        $requestId = $this->getRequest()->getQuery('request_id');
+
         $query = $this->getRequest()->getQuery('query');
 
         $characterTable = TableRegistry::getTableLocator()->get('Characters');
         $characters = $characterTable->find('list')
+            ->leftJoinWith('RequestCharacters', function($q) use ($requestId) {
+                return $q->where([
+                    'RequestCharacters.request_id' => $requestId
+                ]);
+            })
             ->where([
                 'character_name like' => $query . '%',
+                'RequestCharacters.request_id IS NULL',
                 'character_status_id !=' => CharacterStatus::Deleted
             ]);
 
