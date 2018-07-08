@@ -1,11 +1,11 @@
 <?php
 use classes\core\repository\Database;
 
-$message = "Nothing Posted";
+$message = 'Nothing Posted';
 	
 	if(isset($_POST['targetCharacterId']))
 	{
-		$message = "Attempt to save.";
+		$message = 'Attempt to save.';
 		// attempt to save favor
 		$favorTypeId = $_POST['favorTypeId'] + 0;
 		$sourceCharacterId = $_POST['sourceCharacterId'] + 0;
@@ -44,9 +44,10 @@ EOQ;
 
 		if($rows)
 		{
-			$message = "Successfully added favor.";
+			$message = 'Successfully added favor.';
 		}
 	}
 ?>
 
 <?php echo $message; ?>
+

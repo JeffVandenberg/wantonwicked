@@ -284,7 +284,7 @@ sortColumn;
      * @return array
      * @throws \Exception
      */
-    function __call($name, $arguments)
+    public function __call($name, $arguments)
     {
         $tableName = $this->ManagedObject->getTableName();
         $sortColumn = $this->ManagedObject->getSortColumn();

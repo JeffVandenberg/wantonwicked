@@ -478,7 +478,7 @@ class RequestsController extends AppController
 
         $characterTable = TableRegistry::getTableLocator()->get('Characters');
         $characters = $characterTable->find('list')
-            ->leftJoinWith('RequestCharacters', function($q) use ($requestId) {
+            ->leftJoinWith('RequestCharacters', function(\Cake\ORM\Query $q) use ($requestId) {
                 return $q->where([
                     'RequestCharacters.request_id' => $requestId
                 ]);

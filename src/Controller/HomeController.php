@@ -78,7 +78,7 @@ class HomeController extends AppController
         $this->set(compact('staff'));
     }
 
-    function gsNews()
+    public function gsNews()
     {
         $news = $this->Config->Read('gs_frontpage');
         $this->viewBuilder()->setLayout('blank');

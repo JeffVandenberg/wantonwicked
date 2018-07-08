@@ -60,13 +60,13 @@ EOQ;
     $rows = Database::getInstance()->query($updateQuery)->execute($params);
 
     if ($rows > 0) {
-        $message = "Successfully Transferred Favor.";
+        $message = 'Successfully Transferred Favor.';
     } else {
 		Database::getInstance()->rollBackTransaction();
-        $message = "There was an error cancelling your favor. Please try again later.";
+        $message = 'There was an error cancelling your favor. Please try again later.';
     }
 } else {
-    $message = "There was an error. Please try again later.";
+    $message = 'There was an error. Please try again later.';
 }
 
 Database::getInstance()->commitTransaction();

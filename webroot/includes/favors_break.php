@@ -21,13 +21,13 @@ $result = Database::getInstance()->query($dischargeQuery)->execute(
 
 if($result)
 {
-	$message = "Successfully broke favor.";
+	$message = 'Successfully broke favor.';
 }
 else
 {
-	$message = "There was an error. Please try again later.";
+	$message = 'There was an error. Please try again later.';
 }
 ?>
 
-
 <?php echo $message; ?>
+

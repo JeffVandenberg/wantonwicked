@@ -17,7 +17,7 @@ $params = array(
 );
 $rows = Database::getInstance()->query($dischargeQuery)->execute($params);
 if ($rows) {
-    echo "Successfully discharged favor.";
+    echo 'Successfully discharged favor.';
 } else {
-    echo "There was an error. Please try again later.";
+    echo 'There was an error. Please try again later.';
 }
