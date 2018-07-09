@@ -6,6 +6,7 @@ use App\Model\Entity\Plot;
 use App\Model\Entity\PlotStatus;
 use App\Model\Entity\PlotVisibility;
 use function array_merge;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
