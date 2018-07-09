@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Plot;
@@ -26,7 +27,6 @@ use function is_numeric;
  * @method Plot get($primaryKey, $options = [])
  * @method Plot newEntity($data = null, array $options = [])
  * @method Plot[] newEntities(array $data, array $options = [])
- * @method Plot|bool save(EntityInterface $entity, $options = [])
  * @method Plot patchEntity(EntityInterface $entity, array $data, array $options = [])
  * @method Plot[] patchEntities($entities, array $data, array $options = [])
  * @method Plot findOrCreate($search, callable $callback = null, $options = [])
@@ -42,7 +42,7 @@ class PlotsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -98,7 +98,7 @@ class PlotsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -126,7 +126,7 @@ class PlotsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['plot_status_id'], 'PlotStatuses'));
         $rules->add($rules->existsIn(['plot_visibility_id'], 'PlotVisibilities'));
@@ -137,13 +137,20 @@ class PlotsTable extends Table
         return $rules;
     }
 
+    public function save(EntityInterface $entity, $options = [])
+    {
+        Cache::delete('plots_frontpage');
+        return parent::save($entity, $options);
+    }
+
+
     public function getByIdOrSlug($identifier, $contain = null)
     {
-        if(is_null($contain)) {
+        if (null === $contain) {
             $contain = ['PlotStatuses', 'PlotVisibilities', 'RunBy',
                 'CreatedBy', 'UpdatedBy', 'PlotCharacters', 'PlotScenes'];
         }
-        if(is_numeric($identifier)) {
+        if (is_numeric($identifier)) {
             $where = [
                 'Plots.id' => $identifier
             ];
