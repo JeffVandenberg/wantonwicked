@@ -22,6 +22,7 @@ logs/cli-error.log
 logs/error.log
 logs/debug.log
 
+webroot/chat/error_log.txt
 webroot/css/shrink*
 webroot/js/shrink*
 webroot/wiki/wiki.d/.flock
