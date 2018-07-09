@@ -148,7 +148,7 @@ class RequestsController extends AppController
         $requestStatuses =
             $this->Requests->RequestStatuses->find('list')->cache('request_status_list');
         $requestTypes =
-            $this->Requests->RequestTypes->find('list')->cache('request_stype_list');
+            $this->Requests->RequestTypes->find('list')->cache('request_type_list');
 
         $this->set(compact('character', 'requestSummary', 'submenu', 'filter', 'requestStatuses',
             'requestTypes', 'linkedRequests'));

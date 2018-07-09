@@ -111,6 +111,9 @@ if(UserdataHelper::IsAdmin($userdata)) {
     $storytellerMenu['Tools']['submenu']['Configuration'] = array(
         'link' => '/configurations'
     );
+    $storytellerMenu['Tools']['submenu']['Clear Cache'] = array(
+        'link' => '/home/clear-cache'
+    );
     $storytellerMenu['Requests']['submenu']['Administration'] = array(
         'link' => '/requests/admin'
     );

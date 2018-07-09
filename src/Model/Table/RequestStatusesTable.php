@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -15,7 +16,6 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\RequestStatus get($primaryKey, $options = [])
  * @method \App\Model\Entity\RequestStatus newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\RequestStatus[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\RequestStatus|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\RequestStatus patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\RequestStatus[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\RequestStatus findOrCreate($search, callable $callback = null, $options = [])
@@ -62,5 +62,11 @@ class RequestStatusesTable extends Table
             ->notEmpty('name');
 
         return $validator;
+    }
+
+    public function save(EntityInterface $entity, $options = [])
+    {
+        Cache::delete('request_status_list');
+        return parent::save($entity, $options);
     }
 }

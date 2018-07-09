@@ -17,12 +17,14 @@ use App\Model\Table\CharactersTable;
 use App\Model\Table\PlotsTable;
 use App\Model\Table\RequestsTable;
 use App\Model\Table\ScenesTable;
+use Cake\Cache\Cache;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 use classes\request\repository\RequestRepository;
 use function compact;
 use const E_USER_DEPRECATED;
 use function error_reporting;
+use GuzzleHttp\Client;
 
 /**
  * @property ConfigComponent Config
@@ -37,7 +39,11 @@ class HomeController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow();
+        $this->Auth->allow([
+            'home',
+            'staff',
+            'gsNews'
+        ]);
     }
 
     public function home()
@@ -83,5 +89,21 @@ class HomeController extends AppController
         $news = $this->Config->Read('gs_frontpage');
         $this->viewBuilder()->setLayout('blank');
         $this->set(compact('news'));
+    }
+
+    public function clearCache()
+    {
+        Cache::clearAll();
+        $this->Flash->set('Application Cache cleared');
+        $this->redirect('/storyteller_index.php');
+    }
+
+    public function isAuthorized($user)
+    {
+        switch (strtolower($this->getRequest()->getParam('action'))) {
+            case 'clearcache':
+                return $this->Permissions->isAdmin();
+        }
+        return false;
     }
 }

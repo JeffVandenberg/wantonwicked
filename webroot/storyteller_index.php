@@ -32,12 +32,12 @@ $user->setup('');
 
 // check page actions
 $template_file = 'main_ww4.tpl';
-$page_title = "";
-$menu_bar = "";
-$page_image = "";
-$page_content = "";
-$java_script = "";
-$contentHeader = "";
+$page_title = '';
+$menu_bar = '';
+$page_image = '';
+$page_content = '';
+$java_script = '';
+$contentHeader = '';
 
 include 'user_panel.php';
 include 'menu_bar.php';
@@ -45,65 +45,63 @@ include 'menu_bar.php';
 if (!UserdataHelper::IsSt($userdata)) {
     include 'includes/index_redirect.php';
 }
-else {
-    if (isset($_GET['action'])) {
-        switch ($_GET['action']) {
-            case 'permissions_view':
-                if (UserdataHelper::IsHead($userdata)) {
-                    include 'includes/storyteller_permissions_view.php';
-                }
-                else {
-                    include 'includes/storyteller_index.php';
-                }
-                break;
-
-            case 'permissions_add':
-                if (UserdataHelper::IsHead($userdata)) {
-                    include 'includes/storyteller_permissions_add.php';
-                }
-                else {
-                    include 'includes/storyteller_index.php';
-                }
-                break;
-
-            case 'permissions':
-                if (UserdataHelper::IsHead($userdata)) {
-                    include 'includes/storyteller_permissions.php';
-                }
-                else {
-                    include 'includes/storyteller_index.php';
-                }
-                break;
-
-            case 'profile_lookup':
-                include 'includes/storyteller_profile_lookup.php';
-                break;
-
-            default:
+else if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'permissions_view':
+            if (UserdataHelper::IsHead($userdata)) {
+                include 'includes/storyteller_permissions_view.php';
+            }
+            else {
                 include 'includes/storyteller_index.php';
-                break;
-        }
+            }
+            break;
+
+        case 'permissions_add':
+            if (UserdataHelper::IsHead($userdata)) {
+                include 'includes/storyteller_permissions_add.php';
+            }
+            else {
+                include 'includes/storyteller_index.php';
+            }
+            break;
+
+        case 'permissions':
+            if (UserdataHelper::IsHead($userdata)) {
+                include 'includes/storyteller_permissions.php';
+            }
+            else {
+                include 'includes/storyteller_index.php';
+            }
+            break;
+
+        case 'profile_lookup':
+            include 'includes/storyteller_profile_lookup.php';
+            break;
+
+        default:
+            include 'includes/storyteller_index.php';
+            break;
     }
-    else {
-        include 'includes/storyteller_index.php';
-    }
+}
+else {
+    include 'includes/storyteller_index.php';
 }
 
 /* @var twig $template */
 $template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
 $template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage());
 $template->assign_vars(array(
-        "PAGE_TITLE" => $page_title,
-        "JAVA_SCRIPT" => $java_script,
-        "TOP_IMAGE" => $page_image ?? '',
-        "MENU_BAR" => $menu_bar,
-        "PAGE_CONTENT" => $page_content,
-        "EXTRA_HEADERS" => $extra_headers ?? '',
-        "USER_PANEL" => $user_panel,
-        "USER_INFO" => $userInfo,
-        "CONTENT_HEADER" => $contentHeader,
-        "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
-        "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../build_number'),
+        'PAGE_TITLE' => $page_title,
+        'JAVA_SCRIPT' => $java_script,
+        'TOP_IMAGE' => $page_image ?? '',
+        'MENU_BAR' => $menu_bar,
+        'PAGE_CONTENT' => $page_content,
+        'EXTRA_HEADERS' => $extra_headers ?? '',
+        'USER_PANEL' => $user_panel,
+        'USER_INFO' => $userInfo,
+        'CONTENT_HEADER' => $contentHeader,
+        'SERVER_TIME' => (microtime(true) + date('Z'))*1000,
+        'BUILD_NUMBER' => file_get_contents(ROOT_PATH . '../build_number'),
     )
 );
 
