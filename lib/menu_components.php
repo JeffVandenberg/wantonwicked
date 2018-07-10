@@ -103,6 +103,9 @@ $menuComponents['base'] = [
             ],
             'Cast List' => [
                 'link' => '/characters/cast/'
+            ],
+            'Mystery Cults' => [
+                'link' => '/wiki/City/MysteryCult'
             ]
         ]
     ],

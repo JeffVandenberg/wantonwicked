@@ -104,6 +104,7 @@ class HomeController extends AppController
             case 'clearcache':
                 return $this->Permissions->isAdmin();
         }
+
         return false;
     }
 }
