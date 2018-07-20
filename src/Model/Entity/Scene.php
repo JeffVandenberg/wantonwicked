@@ -21,6 +21,7 @@ use Cake\Utility\Text;
  * @property \Cake\I18n\Time $updated_on
  * @property string $slug
  * @property int $scene_status_id
+ * @property int $signup_limit
  *
  * @property \App\Model\Entity\User $run_by
  * @property \App\Model\Entity\User $created_by
