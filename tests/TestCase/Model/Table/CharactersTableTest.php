@@ -55,8 +55,8 @@ class CharactersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Characters') ? [] : ['className' => 'App\Model\Table\CharactersTable'];
-        $this->Characters = TableRegistry::get('Characters', $config);
+        $config = TableRegistry::getTableLocator()->exists('Characters') ? [] : ['className' => 'App\Model\Table\CharactersTable'];
+        $this->Characters = TableRegistry::getTableLocator()->get('Characters', $config);
     }
 
     /**

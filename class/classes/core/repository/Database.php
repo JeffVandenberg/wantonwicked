@@ -42,8 +42,9 @@ class Database
      * Build the initial connection to the database
      * @param array|null $connection Connection Information.
      * @throws PDOException
+     * @throws Exception
      */
-    function __construct($connection = null)
+    public function __construct($connection = null)
     {
         $params = ($connection === null) ? DatabaseMapper::GetPrimary() : $connection;
         try {
@@ -83,8 +84,9 @@ class Database
     /**
      * Clean up the database connection and ensure that we are not
      * inside of any transactions
+     * @throws Exception
      */
-    function __destruct()
+    public function __destruct()
     {
         if ($this->TransactionCounter > 0) {
             $this->Handler->rollBack();
@@ -263,11 +265,18 @@ class Database
         return $this;
     }
 
+    /**
+     * @return Database
+     */
     public static function getInstance() {
-        if(self::$instance === null) {
-            self::$instance = new Database();
+        try {
+            if(self::$instance === null) {
+                self::$instance = new Database();
+            }
+            return self::$instance;
+        } catch (Exception $e) {
+            return null;
         }
-        return self::$instance;
     }
 
     public function value($parameters = null)

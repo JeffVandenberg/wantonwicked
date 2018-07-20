@@ -35,8 +35,8 @@ class RequestTemplatesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestTemplates') ? [] : ['className' => 'App\Model\Table\RequestTemplatesTable'];
-        $this->RequestTemplates = TableRegistry::get('RequestTemplates', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestTemplates') ? [] : ['className' => 'App\Model\Table\RequestTemplatesTable'];
+        $this->RequestTemplates = TableRegistry::getTableLocator()->get('RequestTemplates', $config);
     }
 
     /**

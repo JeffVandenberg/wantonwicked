@@ -30,7 +30,7 @@ class BeatsController extends AppController
             $beat = $beatService->findBeatById($beatId);
 
             if ($beat) {
-                if (!$this->Permissions->MayEditCharacter($beat->CharacterId)) {
+                if (!$this->Permissions->mayEditCharacter($beat->CharacterId)) {
                     $this->set('message', 'You may not be able to view that character');
                 } else {
                     $this->set(compact('beat'));
@@ -43,7 +43,7 @@ class BeatsController extends AppController
 
     public function isAuthorized()
     {
-        switch (strtolower($this->request->getParam('action'))) {
+        switch (strtolower($this->getRequest()->getParam('action'))) {
         }
 
         return true;

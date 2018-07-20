@@ -72,8 +72,8 @@ class PlotCharactersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PlotCharacters') ? [] : ['className' => PlotCharactersTable::class];
-        $this->PlotCharacters = TableRegistry::get('PlotCharacters', $config);
+        $config = TableRegistry::getTableLocator()->exists('PlotCharacters') ? [] : ['className' => PlotCharactersTable::class];
+        $this->PlotCharacters = TableRegistry::getTableLocator()->get('PlotCharacters', $config);
     }
 
     /**

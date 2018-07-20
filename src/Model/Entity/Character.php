@@ -74,7 +74,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\CharacterNote[] $character_notes
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\CharacterStatus $character_status
- * @property \App\Model\Entity\UpdatedBy $updated_by
+ * @property \App\Model\Entity\User $updated_by
  * @property \App\Model\Entity\Location[] $locations
  * @property \App\Model\Entity\CharacterBeatRecord[] $character_beat_records
  * @property \App\Model\Entity\CharacterBeat[] $character_beats
@@ -87,7 +87,6 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\SceneCharacter[] $scene_characters
  * @property \App\Model\Entity\SupporterCharacter[] $supporter_characters
  * @property \App\Model\Entity\Territory[] $territories
- * @property \App\Model\Entity\L5rPlot[] $l5r_plots
  */
 class Character extends Entity
 {
@@ -105,4 +104,9 @@ class Character extends Entity
         '*' => true,
         'id' => false
     ];
+
+    public function isSanctioned()
+    {
+        return in_array($this->character_status_id, CharacterStatus::Sanctioned);
+    }
 }

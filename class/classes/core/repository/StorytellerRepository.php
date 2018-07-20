@@ -12,27 +12,12 @@ namespace classes\core\repository;
 
 class StorytellerRepository
 {
-    public function AddStoryteller()
-    {
-
-    }
-
-    public function UpdateStoryteller()
-    {
-
-    }
-
-    public function ListStorytellers()
-    {
-
-    }
-
-    public function DeleteStoryteller($id)
-    {
-
-    }
-
-    public function ListGroupsForStoryteller($userId)
+    /**
+     * @param $userId
+     * @return array
+     * @throws \Exception
+     */
+    public function listGroupsForStoryteller($userId)
     {
         $userId = (int)$userId;
         $sql = <<<EOQ
@@ -43,7 +28,7 @@ FROM
     st_groups AS SG
     INNER JOIN groups AS G ON SG.group_id = G.id
 WHERE
-    user_id = ?
+    SG.user_id = ?
 EOQ;
         $params = array(
             $userId

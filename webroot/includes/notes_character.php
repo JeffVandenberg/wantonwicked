@@ -28,7 +28,7 @@ if ($character->Id == 0) {
 
 if ($character->IsNpc == 'Y') {
     if (!UserdataHelper::IsSt($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character notes',
+        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character notes',
                                 $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('');
@@ -36,7 +36,7 @@ if ($character->IsNpc == 'Y') {
 }
 else {
     if ($character->UserId != $userdata['user_id']) {
-        CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character notes',
+        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character notes',
                                 $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('');
@@ -58,7 +58,7 @@ $order_dir = "desc";
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'update') {
         $note_list = $_POST['delete'];
-        while (list($key, $value) = each($note_list)) {
+        foreach($note_list as $key => $value) {
             $delete_query = "update personal_notes set is_deleted='Y' where personal_note_id=?;";
             $params = array(
                 $value
@@ -83,7 +83,7 @@ $notes = Database::getInstance()->query($note_query)->all([$characterId]);
 
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 ob_start();
 echo $menu;
 ?>

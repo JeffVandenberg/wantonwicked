@@ -58,8 +58,8 @@ class CharacterPowersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('CharacterPowers') ? [] : ['className' => 'App\Model\Table\CharacterPowersTable'];
-        $this->CharacterPowers = TableRegistry::get('CharacterPowers', $config);
+        $config = TableRegistry::getTableLocator()->exists('CharacterPowers') ? [] : ['className' => 'App\Model\Table\CharacterPowersTable'];
+        $this->CharacterPowers = TableRegistry::getTableLocator()->get('CharacterPowers', $config);
     }
 
     /**

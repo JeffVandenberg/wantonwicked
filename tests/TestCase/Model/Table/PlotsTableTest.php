@@ -40,8 +40,8 @@ class PlotsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Plots') ? [] : ['className' => PlotsTable::class];
-        $this->Plots = TableRegistry::get('Plots', $config);
+        $config = TableRegistry::getTableLocator()->exists('Plots') ? [] : ['className' => PlotsTable::class];
+        $this->Plots = TableRegistry::getTableLocator()->get('Plots', $config);
     }
 
     /**

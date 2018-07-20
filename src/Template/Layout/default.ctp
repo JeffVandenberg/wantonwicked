@@ -10,6 +10,15 @@ use Cake\Core\Configure;
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115948072-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-115948072-1');
+    </script>
     <?php echo $this->Html->charset(); ?>
     <title>
         <?php echo $title_for_layout; ?>

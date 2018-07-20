@@ -15,7 +15,7 @@ $(function () {
     });
 
     // general method for removing required properties when cancelling out of a form
-    $('input[value="Cancel"], button[value="cancel"], button[value=Cancel]').click(function () {
+    $('input[value="Cancel"], button[value="cancel"], button[value="Cancel"]').click(function () {
         $('input[required],textarea[required],select[required]').attr('required', false);
     });
 
@@ -25,10 +25,19 @@ $(function () {
 
     $("input[type=submit]").addClass("button");
 
+    $(".date-input").datetimepicker({
+        'format': 'Y-m-d',
+        'timepicker': false,
+        'theme': 'dark'
+    });
     $(".datepicker-input").datetimepicker({
         'format': 'Y-m-d H:i',
         'step': 30,
         'theme': 'dark'
+    });
+
+    $(document).on('click', '.dead-link', function(e) {
+        return false;
     });
 });
 
@@ -47,6 +56,7 @@ function viewFavor(favorId) {
     });
     return false;
 }
+
 function transferFavor(favorId) {
     $.get("/favors.php?action=transfer&favor_id=" + favorId, function (content) {
         $("#favorPaneContent").html(content).dialog({
@@ -55,6 +65,7 @@ function transferFavor(favorId) {
     });
     return false;
 }
+
 function dischargeFavor(favorId) {
     if (confirm('Are you sure you want to discharge the favor?')) {
         $.ajax({
@@ -78,81 +89,6 @@ function breakFavor(favorId) {
         $.get("/favors.php?action=break&favorId=" + favorId, function (content) {
             alert(content);
         });
-    }
-    return false;
-}
-
-function createTerritory() {
-    $("#territoryPaneContent").load("/territory.php?action=add", function () {
-        $("#territoryPane").css("display", "block")
-    });
-    return false;
-}
-
-function viewTerritory(id) {
-    $("#territoryPaneContent").load("/territory.php?action=view&id=" + id, function () {
-        $("#territoryPane").css("display", "block")
-    });
-    return false;
-}
-
-function adminAddCharacterToTerritory(id) {
-    $("#territoryPaneContent").load("/territory.php?action=admin_add_character&id=" + id, function () {
-        $("#territoryPane").css("display", "block")
-    });
-    return false;
-}
-
-function RefreshAdminTerritoryCharacterList(id) {
-    $("#associatedCharacters").load("/territory.php?action=get_admin_associated_characters&id=" + id);
-}
-
-function adminRemoveCharacterFromTerritory(characterId, territoryId, characterName) {
-    if (confirm("Do you want to remove " + characterName + "?")) {
-        $.get(
-            "/territory.php?action=admin_remove_character&id=" + characterId,
-            function (data) {
-                alert(data);
-                RefreshAdminTerritoryCharacterList(territoryId);
-            }
-        );
-    }
-    return false;
-}
-
-function poachTerritory(territoryId, characterId, territoryName, link) {
-    if (confirm("Do you want to poach from " + territoryName + "?")) {
-        $.get(
-            "/territory.php?action=poach&id=" + territoryId + "&character_id=" + characterId,
-            function (data) {
-                alert(data);
-                link.style.visibility = 'hidden';
-            }
-        );
-    }
-}
-
-function feedFromTerritory(territoryId, characterId, territoryName, link) {
-    if (confirm("Do you want to feed from " + territoryName + "?")) {
-        $.get(
-            "/territory.php?action=feed&id=" + territoryId + "&character_id=" + characterId,
-            function (data) {
-                alert(data);
-                link.style.visibility = 'hidden';
-            }
-        );
-    }
-}
-
-function leaveTerritory(characterId, territoryId, territoryName, link) {
-    if (confirm("Do you want to stop feeding from " + territoryName + "?")) {
-        $.get(
-            "/territory.php?action=admin_remove_character&id=" + characterId,
-            function (data) {
-                alert(data);
-                link.style.visibility = 'hidden';
-            }
-        );
     }
     return false;
 }
@@ -238,8 +174,8 @@ tinymce.init({
         // remove all tags => plain text
         o.content = strip_tags(o.content, '<br>');
     },
-    setup: function(editor) {
-        editor.on('blur', function() {
+    setup: function (editor) {
+        editor.on('blur', function () {
             editor.save();
         });
     },
@@ -250,8 +186,27 @@ tinymce.init({
     ],
     toolbar: "undo redo | styleselect | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 });
+tinymce.init({
+    selector: "textarea.tinymce-request",
+    menubar: false,
+    height: 200,
+    paste_preprocess : function(pl, o) {
+        //example: keep bold,italic,underline and paragraphs
+        //o.content = strip_tags( o.content,'<b><u><i><p>' );
 
-var addUrlParam = function(search, key, val){
+        // remove all tags => plain text
+        o.content = strip_tags( o.content,'<br>' );
+    },
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace wordcount visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste textcolor template"
+    ],
+    toolbar1: "undo redo | bold italic | forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | copy paste | template",
+    templates: '/requestTemplates/getList.json'
+});
+
+var addUrlParam = function (search, key, val) {
     var newParam = encodeURIComponent(key) + '=' + encodeURIComponent(val),
         params = '?' + newParam;
 
@@ -276,7 +231,7 @@ function copyToClipboard(selector, callback) {
     document.execCommand("copy");
     $temp.remove();
 
-    if(callback) {
+    if (callback) {
         callback()
     }
 }

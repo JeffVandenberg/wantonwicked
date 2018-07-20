@@ -24,7 +24,7 @@ use classes\request\data\RequestType;
 class RequestRepository extends AbstractRepository
 {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct('classes\request\data\Request');
     }
@@ -516,7 +516,7 @@ EOQ;
 
     public function Submit($id)
     {
-        $submitted = RequestStatus::Submitted;
+        $submitted = RequestStatus::SUBMITTED;
         $id = (int)$id;
         $sql = <<<EOQ
 UPDATE
@@ -834,7 +834,7 @@ WHERE
     RC.character_id IN ($characterIdPlaceholders)
     AND RC.is_primary = 1
 EOQ;
-        $params = array_merge(array(RequestStatus::Closed), $characterIds);
+        $params = array_merge(array(RequestStatus::CLOSED), $characterIds);
 
         return $this->query($sql)->execute($params);
     }
@@ -1096,8 +1096,8 @@ WHERE
 EOQ;
         $params = array(
             $userId,
-            RequestStatus::Submitted,
-            RequestStatus::InProgress,
+            RequestStatus::SUBMITTED,
+            RequestStatus::IN_PROGRESS,
             RequestType::BlueBook
         );
         return $this->query($sql)->value($params);
@@ -1177,10 +1177,10 @@ EOQ;
     public function listForDashboard($id)
     {
         $statuses = [
-            RequestStatus::NewRequest,
-            RequestStatus::Submitted,
-            RequestStatus::InProgress,
-            RequestStatus::Returned
+            RequestStatus::NEW_REQUEST,
+            RequestStatus::SUBMITTED,
+            RequestStatus::IN_PROGRESS,
+            RequestStatus::RETURNED
         ];
         $placeholders = implode(',', array_fill(0, count($statuses), '?'));
         $sql = <<<SQL
@@ -1251,9 +1251,9 @@ SQL;
     public function summaryOfRequestTypesByCharacterId($characterId)
     {
         $inProgressStatuses = [
-            RequestStatus::Submitted,
-            RequestStatus::InProgress,
-            RequestStatus::Returned,
+            RequestStatus::SUBMITTED,
+            RequestStatus::IN_PROGRESS,
+            RequestStatus::RETURNED,
         ];
         $openPlaceHolders = $this->buildPlaceholdersForValues($inProgressStatuses);
 

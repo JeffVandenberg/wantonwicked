@@ -1,5 +1,5 @@
 <?php
-$condition = $this->request->data;
+$condition = $this->getRequest()->data;
 $this->set('title_for_layout', 'Edit Condition: ' . $condition['Condition']['name']);
 ?>
 <div class="conditions form">

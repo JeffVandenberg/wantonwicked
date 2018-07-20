@@ -29,14 +29,14 @@ if($character->Id == 0) {
 
 if($character->IsNpc == 'Y') {
     if(!UserdataHelper::IsSt($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface', $userdata['user_id']);
+        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface', $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
     }
 }
 else {
     if(($character->UserId != $userdata['user_id']) && !UserdataHelper::IsAdmin($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::InvalidAccess, 'Attempted access to character interface', $userdata['user_id']);
+        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface', $userdata['user_id']);
         SessionHelper::SetFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
     }
@@ -59,12 +59,6 @@ switch ($character->CharacterType) {
         break;
     case 'Vampire':
         $morality = "Humanity";
-
-        $extraLinks = <<<EOQ
-<div style="margin-bottom:10px;text-align:center;">
-    <a href="/territory.php?action=list_territories&character_id=$characterId" target="_blank">View Tenancy for Character</a>
-</div>
-EOQ;
 
         $extra_rows = <<<EOQ
 <tr>
@@ -245,16 +239,16 @@ $characterInfo = <<<EOQ
 EOQ;
 
 $requestRepository = new RequestRepository();
-$newRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::NewRequest);
-$stRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::Submitted);
-$stViewedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::InProgress);
-$returnedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::Returned);
-$approvedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::Approved);
-$rejectedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::Denied);
+$newRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::NEW_REQUEST);
+$stRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::SUBMITTED);
+$stViewedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::IN_PROGRESS);
+$returnedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::RETURNED);
+$approvedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::APPROVED);
+$rejectedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::DENIED);
 
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */
-$menu = MenuHelper::GenerateMenu($characterMenu);
+$menu = MenuHelper::generateMenu($characterMenu);
 ob_start();
 ?>
     <?php echo $menu; ?>
@@ -281,7 +275,7 @@ ob_start();
                             New
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::NewRequest; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::NEW_REQUEST; ?>">
                                 <?php echo $newRequests; ?>
                             </a>
                         </td>
@@ -291,7 +285,7 @@ ob_start();
                             Sent to STs
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::Submitted; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::SUBMITTED; ?>">
                                 <?php echo $stRequests; ?>
                             </a>
                         </td>
@@ -301,7 +295,7 @@ ob_start();
                             Viewed by ST
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::InProgress; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::IN_PROGRESS; ?>">
                                 <?php echo $stViewedRequests; ?>
                             </a>
                         </td>
@@ -311,7 +305,7 @@ ob_start();
                             Returned
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::Returned; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::RETURNED; ?>">
                                 <?php echo $returnedRequests; ?>
                             </a>
                         </td>
@@ -321,7 +315,7 @@ ob_start();
                             Approved
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::Approved; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::APPROVED; ?>">
                                 <?php echo $approvedRequests; ?>
                             </a>
                         </td>
@@ -331,7 +325,7 @@ ob_start();
                             Denied
                         </td>
                         <td>
-                            <a href="/request.php?filter[title]=&filter[request_type_id]=0&filter[request_status_id]=<?php echo RequestStatus::Denied; ?>&character_id=<?php echo $characterId; ?>&action=list">
+                            <a href="/requests/character/<?= $characterId; ?>?request_status_id=<?php echo RequestStatus::DENIED; ?>">
                                 <?php echo $rejectedRequests; ?>
                             </a>
                         </td>

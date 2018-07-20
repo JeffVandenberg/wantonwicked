@@ -72,8 +72,8 @@ class PlotStatusesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PlotStatuses') ? [] : ['className' => PlotStatusesTable::class];
-        $this->PlotStatuses = TableRegistry::get('PlotStatuses', $config);
+        $config = TableRegistry::getTableLocator()->exists('PlotStatuses') ? [] : ['className' => PlotStatusesTable::class];
+        $this->PlotStatuses = TableRegistry::getTableLocator()->get('PlotStatuses', $config);
     }
 
     /**

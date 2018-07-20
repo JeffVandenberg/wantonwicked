@@ -40,7 +40,7 @@ class MenuComponent extends Component
         if ($this->Auth->user('user_id') != 1) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['player']);
 
-            $characterTable = TableRegistry::get('Characters');
+            $characterTable = TableRegistry::getTableLocator()->get('Characters');
             $query = $characterTable
                 ->find()
                 ->select([
@@ -66,22 +66,37 @@ class MenuComponent extends Component
                             'link' => '/chat/?character_id=' . $character->id
                         ],
                         'Requests' => [
-                            'link' => '/request.php?action=list&character_id=' . $character->id
+                            'link' => [
+                                'controller' => 'requests',
+                                'action' => 'character',
+                                $character->id
+                            ]
                         ],
                         'Bluebook' => [
-                            'link' => '/bluebook.php?action=list&character_id=' . $character->id
+                            'link' => [
+                                'controller' => 'bluebooks',
+                                'action' => 'character',
+                                $character->id
+                            ]
                         ],
                         'Sheet' => [
                             'link' => '/characters/viewOwn/' . $character->slug
                         ]
                     ]
                 ];
-                $this->menu['Utilities']['submenu']['Characters']['submenu'][$character->character_name] = $characterMenu;
+                $this->menu['Characters']['submenu'][$character->character_name] = $characterMenu;
             }
         }
 
-        if ($this->Permissions->IsST()) {
+        if ($this->Permissions->isST()) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['staff']);
+        }
+
+        // prune the menu
+        foreach($this->menu as $header => $menuOptions) {
+            if(!isset($menuOptions['link']) && (empty($menuOptions) || empty($menuOptions['submenu']))) {
+                unset($this->menu[$header]);
+            }
         }
     }
 
@@ -122,7 +137,7 @@ class MenuComponent extends Component
                 'link' => '#',
                 'submenu' => [
                     'Dashboard' => [
-                        'link' => '/request.php?action=st_list'
+                        'link' => '/requests/st-dashboard/'
                     ]
                 ]
             ],
@@ -178,7 +193,7 @@ class MenuComponent extends Component
             ]
         ];
 
-        if ($this->Permissions->IsHead()) {
+        if ($this->Permissions->isHead()) {
             $menu['Chat']['submenu']['Prochat Admin'] = array(
                 'link' => '/chat/admin'
             );
@@ -192,7 +207,7 @@ class MenuComponent extends Component
                 )
             );
             $menu['Tools']['submenu']['Icons'] = array(
-                'link' => '/st_tools.php?action=icons_list'
+                'link' => '/icons/'
             );
             $menu['Tools']['submenu']['Character Transfer'] = array(
                 'link' => '/st_tools.php?action=profile_transfer'
@@ -201,17 +216,17 @@ class MenuComponent extends Component
                 'link' => '/beatTypes'
             ];
             $menu['Reports']['submenu']['Request Time Report'] = array(
-                'link' => '/request.php?action=admin_time_report'
+                'link' => '/requests/time-report'
             );
             $menu['Reports']['submenu']['Request Status Report'] = array(
-                'link' => '/request.php?action=admin_status_report'
+                'link' => '/requests/status-report'
             );
             $menu['Reports']['submenu']['ST Activity Report'] = array(
                 'link' => '/st_tools.php?action=st_activity_report'
             );
         }
 
-        if ($this->Permissions->IsAdmin()) {
+        if ($this->Permissions->isAdmin()) {
             $menu['Tools']['submenu']['Configuration'] = array(
                 'link' => '/configurations'
             );

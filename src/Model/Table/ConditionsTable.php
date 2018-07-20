@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Condition;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -110,5 +111,18 @@ class ConditionsTable extends Table
         $rules->add($rules->existsIn(['condition_type_id'], 'ConditionTypes'));
 
         return $rules;
+    }
+
+    /**
+     * @param $slug
+     * @return Condition
+     */
+    public function findCondition($slug) {
+        return $this->find()
+            ->contain(false)
+            ->where([
+                'Conditions.slug' => $slug
+            ])
+            ->firstOrFail();
     }
 }

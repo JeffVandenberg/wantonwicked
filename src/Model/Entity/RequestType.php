@@ -14,6 +14,13 @@ use Cake\ORM\Entity;
  */
 class RequestType extends Entity
 {
+    const SANCTION      = 1;
+    const XP_REQUEST     = 2;
+    const NON_XP_REQUEST  = 3;
+    const BLUE_BOOK      = 4;
+    const CREATIVE_THAUM = 5;
+    const SCENE_REQUEST  = 6;
+    const XP_RECOMMEND   = 7;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

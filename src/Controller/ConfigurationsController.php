@@ -43,9 +43,9 @@ class ConfigurationsController extends AppController
 
     public function edit()
     {
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
             // try to save
-            $data = $this->request->getData();
+            $data = $this->getRequest()->getData();
             $configurations = [];
             foreach ($data as $row) {
                 $item = $this->Configurations->get($row['key']);
@@ -66,10 +66,10 @@ class ConfigurationsController extends AppController
 
     public function isAuthorized($user = null)
     {
-        switch ($this->request->getParam('action')) {
+        switch ($this->getRequest()->getParam('action')) {
             case 'index':
             case 'edit':
-                return $this->Permissions->IsAdmin();
+                return $this->Permissions->isAdmin();
                 break;
             case 'read':
                 return true;

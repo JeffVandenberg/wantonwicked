@@ -91,7 +91,7 @@ abstract class DataModel
      */
     protected $ForeignId;
 
-    function __construct($tablePrefix = '', $database = null)
+    public function __construct($tablePrefix = '', $database = null)
     {
         if($database === null) {
             $params = DatabaseMapper::GetPrimary();
@@ -109,25 +109,25 @@ abstract class DataModel
         $this->IdProperty = 'Id';
         $this->NameProperty = 'Name';
 
-        $this->InitializeDerivedValues();
+        $this->initializeDerivedValues();
     }
 
     public function __get($property)
     {
-        if($this->FindMappedObject($property, $this->HasMany)) {
-            $targetModel = $this->GetMappedObject($property, $this->HasMany);
+        if($this->findMappedObject($property, $this->HasMany)) {
+            $targetModel = $this->getMappedObject($property, $this->HasMany);
             /* @var DataModel $targetModel */
 
             $targetRepository = RepositoryManager::GetRepository($targetModel->getFullClassName());
 
-            $method = 'ListBy' . $this->GetForeignIdProperty();
+            $method = 'ListBy' . $this->getForeignIdProperty();
             $selfIdColumn = $this->getIdProperty();
             $this->$property = $targetRepository->$method($this->$selfIdColumn);
             return $this->$property;
         }
 
-        if($this->FindMappedObject($property, $this->HasOne)) {
-            $targetModel = $this->GetMappedObject($property, $this->HasOne);
+        if($this->findMappedObject($property, $this->HasOne)) {
+            $targetModel = $this->getMappedObject($property, $this->HasOne);
             /* @var DataModel $targetModel */
 
             $targetRepository = RepositoryManager::GetRepository($targetModel->getFullClassName());
@@ -138,9 +138,9 @@ abstract class DataModel
             return $this->$property;
         }
 
-        if($this->FindMappedObject($property, $this->BelongsTo)) {
+        if($this->findMappedObject($property, $this->BelongsTo)) {
             if(!isset($this->$property)) {
-                $targetModel = $this->GetMappedObject($property, $this->BelongsTo);
+                $targetModel = $this->getMappedObject($property, $this->BelongsTo);
                 /* @var DataModel $targetModel */
 
                 $targetRepository = RepositoryManager::GetRepository($targetModel->getFullClassName());
@@ -160,7 +160,7 @@ abstract class DataModel
      * @param string $propertyName
      * @return string
      */
-    public function GetPropertyMapping($propertyName)
+    public function getPropertyMapping($propertyName)
     {
         if(isset($this->Mapping[$propertyName]))
         {
@@ -168,7 +168,7 @@ abstract class DataModel
         }
         else
         {
-            return SlugHelper::FromPropertyToName($propertyName);
+            return SlugHelper::fromPropertyToName($propertyName);
         }
     }
 
@@ -178,7 +178,7 @@ abstract class DataModel
      * @param $columnName
      * @return mixed
      */
-    public function GetColumnMapping($columnName)
+    public function getColumnMapping($columnName)
     {
         if(in_array($columnName, $this->Mapping))
         {
@@ -186,7 +186,7 @@ abstract class DataModel
         }
         else
         {
-            return SlugHelper::FromNameToProperty($columnName);
+            return SlugHelper::fromNameToProperty($columnName);
         }
     }
 
@@ -199,7 +199,7 @@ abstract class DataModel
      * @param string $model
      * @return string
      */
-    private function GetClass($model)
+    private function getClass($model)
     {
         $class = get_class($this);
         $nameSpace = substr($class, 0, strrpos($class, '\\') + 1);
@@ -299,18 +299,18 @@ abstract class DataModel
         return $this->TableName;
     }
 
-    private function FindMappedObject($object, $list)
+    private function findMappedObject($object, $list)
     {
         return (isset($list[$object]) || array_search($object, $list) !== false);
     }
 
-    private function GetMappedObject($object, $list)
+    private function getMappedObject($object, $list)
     {
         if (isset($list[$object]) || array_search($object, $list) !== false) {
             if (isset($list[$object])) {
                 $modelClass = $list[$object];
             } else {
-                $modelClass = $this->GetClass($object);
+                $modelClass = $this->getClass($object);
             }
 
             $targetModel = new $modelClass();
@@ -325,7 +325,7 @@ abstract class DataModel
      * @throws Exception
      * @return DataModel
      */
-    public function GetManagedObject($object)
+    public function getManagedObject($object)
     {
         if($object == $this->ClassName)
         {
@@ -334,21 +334,21 @@ abstract class DataModel
         }
         else
         {
-            if($this->FindMappedObject($object, $this->HasMany))
+            if($this->findMappedObject($object, $this->HasMany))
             {
-                $mappedObject = $this->GetMappedObject($object, $this->HasMany);
+                $mappedObject = $this->getMappedObject($object, $this->HasMany);
                 /* @var DataModel $mappedObject */
                 return $mappedObject;
             }
-            if($this->FindMappedObject($object, $this->HasOne))
+            if($this->findMappedObject($object, $this->HasOne))
             {
-                $mappedObject = $this->GetMappedObject($object, $this->HasOne);
+                $mappedObject = $this->getMappedObject($object, $this->HasOne);
                 /* @var DataModel $mappedObject */
                 return $mappedObject;
             }
-            if($this->FindMappedObject($object, $this->BelongsTo))
+            if($this->findMappedObject($object, $this->BelongsTo))
             {
-                $mappedObject = $this->GetMappedObject($object, $this->BelongsTo);
+                $mappedObject = $this->getMappedObject($object, $this->BelongsTo);
                 /* @var DataModel $mappedObject */
                 return $mappedObject;
             }
@@ -356,13 +356,13 @@ abstract class DataModel
         throw new Exception('Unable to map ' . $object .' in DataModel ' . $this->FullClassName);
     }
 
-    public function GetJoin($targetObject)
+    public function getJoin($targetObject)
     {
-        $targetManagedObject = $this->GetManagedObject($targetObject);
+        $targetManagedObject = $this->getManagedObject($targetObject);
         /* @var DataModel $targetManagedObject */
         $join = $targetManagedObject->getTableName();
 
-        if($this->FindMappedObject($targetObject, $this->HasMany) || $this->FindMappedObject($targetObject, $this->HasOne)) {
+        if($this->findMappedObject($targetObject, $this->HasMany) || $this->findMappedObject($targetObject, $this->HasOne)) {
             $joinColumn = $this->getIdColumn();
         }
         else {
@@ -374,16 +374,16 @@ abstract class DataModel
         return $join;
     }
 
-    protected function InitializeDerivedValues()
+    protected function initializeDerivedValues()
     {
-        $this->BaseTableName = SlugHelper::FromPropertyToName($this->ClassName);
-        $this->IdColumn = SlugHelper::FromPropertyToName($this->IdProperty);
+        $this->BaseTableName = SlugHelper::fromPropertyToName($this->ClassName);
+        $this->IdColumn = SlugHelper::fromPropertyToName($this->IdProperty);
         $this->ForeignId = $this->ClassName . 'Id';
-        $this->NameColumn = SlugHelper::FromPropertyToName($this->NameProperty);
+        $this->NameColumn = SlugHelper::fromPropertyToName($this->NameProperty);
         $this->SortColumn = $this->NameColumn;
     }
 
-    protected function GetForeignIdProperty()
+    protected function getForeignIdProperty()
     {
         return $this->ForeignId;
     }

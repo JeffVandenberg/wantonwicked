@@ -204,29 +204,3 @@ class Scrub
         return $data;
     }
 }
-
-/**
- *         ?>
-<h3>
-Events for <?php echo implode(', ', $eventTypes); ?>
-</h3>
--------------------------------------------------<br />
-Store: <?php echo $store['Organization']['Name']; ?><br/>
-Id: <?php echo $store['Organization']['Id']; ?><br/>
-Phone: <input type="text" value="<?php echo $store['Organization']['Phone']; ?>" /><br/>
-Email: <input type="text" value="<?php echo $store['Organization']['Email']; ?>" /><br/>
-URL: <input type="text" value="<?php echo $store['Organization']['PrimaryUrl']; ?>" /><br/>
-Address:
-<textarea style="width:300px;height:80px;">
-<?php echo $store['Address']['Line1'] . "\n"; ?>
-<?php if ($store['Address']['Line2']): ?><?php echo $store['Address']['Line2'] . "\n"; ?><?php endif; ?>
-<?php if ($store['Address']['Line3']): ?><?php echo $store['Address']['Line3'] . "\n"; ?><?php endif; ?>
-<?php echo $store['Address']['City']; ?>, <?php echo $store['Address']['StateProvinceCode']; ?> <?php echo $store['Address']['PostalCode']; ?>
-</textarea>
-<br/>
-<?php echo Scrub::printEventDetails($eventTypes, $store['Address']['Id'], $store['Organization']['Id']); ?>
-<br/>
--------------------------------------------------<br />
-<?php
-
- */

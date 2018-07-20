@@ -30,7 +30,7 @@ class CharacterPower extends DataModel
         'Character'
     );
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->NameProperty = 'PowerName';

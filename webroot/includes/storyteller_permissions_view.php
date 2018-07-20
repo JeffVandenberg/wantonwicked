@@ -38,7 +38,7 @@ if (Request::isPost()) {
     $permissionRepository->SavePermissionsForUser($userId, Request::getValue('permissions'));
 
     // update groups
-    $groupRepository->SaveGroupsForUser($userId, Request::getValue('groups'));
+    $groupRepository->saveGroupsForUser($userId, Request::getValue('groups'));
 
     // update role
     $user->RoleId = Request::getValue('role_id');
@@ -58,7 +58,7 @@ $groups = [];
 foreach($groupObjs as $group) {
     $groups[$group->Id] = $group->Name;
 }
-$selectedGroups = $groupRepository->ListGroupsForUser($userId);;
+$selectedGroups = $groupRepository->listGroupsForUser($userId);;
 
 $roles = $roleRepository->simpleListAll();
 $rolePermissions = $roleRepository->listRolesWithPermissions();

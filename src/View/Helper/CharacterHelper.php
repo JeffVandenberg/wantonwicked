@@ -163,7 +163,7 @@ class CharacterHelper extends AppHelper
      * @param View $view
      * @param array $settings
      */
-    function __construct(View $view, $settings = [])
+    public function __construct(View $view, $settings = [])
     {
         parent::__construct($view, $settings);
         $list = array_merge($this->skills['mental'], $this->skills['physical'], $this->skills['social']);
@@ -192,7 +192,7 @@ class CharacterHelper extends AppHelper
         $equipment = $this->buildEquipmentSection($character);
         $conditions = $this->buildConditionsSection($character);
         $admin = ($this->options['show_admin']) ? $this->buildAdminSection($character) : '';
-        $owner = ($this->options['owner']) ? $this->buildOwnerSection($character) : '';
+        $owner = (isset($this->options['owner']) && $this->options['owner']) ? $this->buildOwnerSection($character) : '';
 
         ob_start();
         ?>
@@ -221,7 +221,7 @@ class CharacterHelper extends AppHelper
                     <?php echo $admin; ?>
                 </li>
             <?php endif; ?>
-            <?php if($this->options['owner']): ?>
+            <?php if(isset($this->options['owner']) && $this->options['owner']): ?>
                 <li class="accordion-item" data-accordion-item>
                     <?php echo $owner; ?>
                 </li>
@@ -545,15 +545,11 @@ class CharacterHelper extends AppHelper
             <div class="row">
                 <div class="medium-12 columns subheader">Character</div>
                 <div class="small-12 columns">
-                    <label for="history">Description</label>
-                    <?php echo $description; ?>
-                </div>
-                <div class="small-12 columns">
                     <label for="history">Biography</label>
                     <?php echo $history; ?>
                 </div>
                 <div class="small-12 columns">
-                    <label>Notes</label>
+                    <label>Power Notes</label>
                     <?php echo $characterNotes; ?>
                     <?php if (in_array($character->CharacterStatusId, CharacterStatus::Sanctioned)): ?>
                         <p class="help-text" id="notes-help-text">
@@ -562,6 +558,10 @@ class CharacterHelper extends AppHelper
                             be added to the sheet by the sanctioningstaff.
                         </p>
                     <?php endif; ?>
+                </div>
+                <div class="small-12 columns">
+                    <label for="history">Player Notes</label>
+                    <?php echo $description; ?>
                 </div>
             </div>
         </div>

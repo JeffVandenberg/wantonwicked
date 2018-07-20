@@ -33,7 +33,7 @@ class PlayPreferencesController extends AppController
     public function beforeRender(Event $event)
     {
         parent::beforeRender($event);
-        $this->set('isHead', $this->Permissions->IsHead());
+        $this->set('isHead', $this->Permissions->isHead());
     }
 
     /**
@@ -50,23 +50,23 @@ class PlayPreferencesController extends AppController
      */
     public function index()
     {
-        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        $playerPrefs = TableRegistry::getTableLocator()->get('PlayPreferenceResponses');
         /* @var PlayPreferenceResponsesTable $playerPrefs */
         $preferences = $playerPrefs->listByUserId($this->Auth->user('user_id'));
         $this->set(compact('preferences'));
-        $this->set('isSt', $this->Permissions->IsST());
+        $this->set('isSt', $this->Permissions->isST());
     }
 
     public function respond()
     {
-        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        $playerPrefs = TableRegistry::getTableLocator()->get('PlayPreferenceResponses');
         /* @var PlayPreferenceResponsesTable $playerPrefs */
 
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
 
             if ($playerPrefs->updateUserResponse(
                 $this->Auth->user('user_id'),
-                $this->request->getData())
+                $this->getRequest()->getData())
             ) {
                 $this->Flash->set('Updated Your Play Preferences');
                 $this->redirect(['action' => 'index']);
@@ -81,7 +81,7 @@ class PlayPreferencesController extends AppController
                 $userPreference->rating;
         }
 
-        $playPreferences = TableRegistry::get('PlayPreferences');
+        $playPreferences = TableRegistry::getTableLocator()->get('PlayPreferences');
         /* @var PlayPreferencesTable $playPreferences */
         $preferences = $playPreferences
             ->find()
@@ -99,12 +99,12 @@ class PlayPreferencesController extends AppController
                 'PlayPreferences.name'
             ],
         ]));
-        $this->set('isSt', $this->Permissions->IsST());
+        $this->set('isSt', $this->Permissions->isST());
     }
 
     public function reportAggregate()
     {
-        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        $playerPrefs = TableRegistry::getTableLocator()->get('PlayPreferenceResponses');
         /* @var PlayPreferenceResponsesTable $playerPrefs */
 
         $this->set(
@@ -119,7 +119,7 @@ class PlayPreferencesController extends AppController
 
     public function reportVenue($venue = 'All', $playPreferenceId = 'All')
     {
-        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        $playerPrefs = TableRegistry::getTableLocator()->get('PlayPreferenceResponses');
         /* @var PlayPreferenceResponsesTable $playerPrefs */
 
         $this->set(
@@ -132,7 +132,7 @@ class PlayPreferencesController extends AppController
             $this->Menu->createStorytellerMenu()
         );
 
-        $characterTable = TableRegistry::get('Characters');
+        $characterTable = TableRegistry::getTableLocator()->get('Characters');
         /* @var CharactersTable $characterTable */
         $types = ['all' => 'All'];
         $types += $characterTable->listCharacterTypes(true);
@@ -149,7 +149,7 @@ class PlayPreferencesController extends AppController
 
     public function reportVenuePlayers($venue, $playPreferenceSlug)
     {
-        $playerPrefs = TableRegistry::get('PlayPreferenceResponses');
+        $playerPrefs = TableRegistry::getTableLocator()->get('PlayPreferenceResponses');
         /* @var PlayPreferenceResponsesTable $playerPrefs */
 
         $this->set(
@@ -208,10 +208,10 @@ class PlayPreferencesController extends AppController
     public function add()
     {
         $playPreference = $this->PlayPreferences->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
             /* @var PlayPreference $playPreference */
 
-            $playPreference = $this->PlayPreferences->patchEntity($playPreference, $this->request->getData());
+            $playPreference = $this->PlayPreferences->patchEntity($playPreference, $this->getRequest()->getData());
             $playPreference->created_by_id = $this->Auth->user('user_id');
             $playPreference->updated_by_id = $this->Auth->user('user_id');
             $playPreference->created_on = $playPreference->updated_on = date('Y-m-d H:i:s');
@@ -238,8 +238,8 @@ class PlayPreferencesController extends AppController
         $playPreference = $this->PlayPreferences->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(array('post', 'put', 'patch'))) {
-            $playPreference = $this->PlayPreferences->patchEntity($playPreference, $this->request->getData());
+        if ($this->getRequest()->is(array('post', 'put', 'patch'))) {
+            $playPreference = $this->PlayPreferences->patchEntity($playPreference, $this->getRequest()->getData());
             $playPreference->updated_by_id = $this->Auth->user('user_id');
             $playPreference->updated_on = date('Y-m-d H:i:s');
 
@@ -267,13 +267,13 @@ class PlayPreferencesController extends AppController
 
     public function isAuthorized($user)
     {
-        switch ($this->request->getParam('action')) {
+        switch ($this->getRequest()->getParam('action')) {
             case 'index':
             case 'respond':
                 return ($this->Auth->user('user_id') > 1);
                 break;
             default:
-                return $this->Permissions->IsST();
+                return $this->Permissions->isST();
         }
 
     }

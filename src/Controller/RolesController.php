@@ -50,7 +50,7 @@ class RolesController extends AppController
             ],
             'limit' => 20
         ]));
-        $this->set('mayEdit', $this->Permissions->IsHead());
+        $this->set('mayEdit', $this->Permissions->isHead());
     }
 
     /**
@@ -67,7 +67,7 @@ class RolesController extends AppController
                 'Permissions'
             ]
         ]));
-        $this->set('mayEdit', $this->Permissions->IsHead());
+        $this->set('mayEdit', $this->Permissions->isHead());
     }
 
     /**
@@ -79,11 +79,11 @@ class RolesController extends AppController
     {
         $role = $this->Roles->newEntity();
 
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->request->getData('action') == 'Cancel') {
+        if ($this->getRequest()->is(array('post', 'put'))) {
+            if ($this->getRequest()->getData('action') == 'Cancel') {
                 $this->redirect(['action' => 'index']);
             } else {
-                $data = $this->request->getData();
+                $data = $this->getRequest()->getData();
                 $permissions = array_values($data['permissions']);
                 $data['permissions']['_ids'] = $permissions;
                 $role = $this->Roles->patchEntity($role, $data, ['associated' => 'Permissions']);
@@ -115,11 +115,11 @@ class RolesController extends AppController
                 'Permissions'
             ]
         ]);
-        if ($this->request->is(array('post', 'put'))) {
-            if ($this->request->getData('action') == 'Cancel') {
+        if ($this->getRequest()->is(array('post', 'put'))) {
+            if ($this->getRequest()->getData('action') == 'Cancel') {
                 $this->redirect(['action' => 'index']);
             } else {
-                $data = $this->request->getData();
+                $data = $this->getRequest()->getData();
                 $permissions = array_values($data['permissions']);
                 $data['permissions']['_ids'] = $permissions;
                 $role = $this->Roles->patchEntity($role, $data, ['associated' => 'Permissions']);
@@ -151,6 +151,6 @@ class RolesController extends AppController
 
     public function isAuthorized($action)
     {
-        return $this->Permissions->IsHead();
+        return $this->Permissions->isHead();
     }
 }

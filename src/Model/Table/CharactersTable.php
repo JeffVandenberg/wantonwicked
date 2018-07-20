@@ -3,11 +3,14 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\Character;
+use App\Model\Entity\CharacterStatus;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
-use classes\character\data\CharacterStatus;
+use function intval;
 
 /**
  * Characters Model
@@ -29,10 +32,8 @@ use classes\character\data\CharacterStatus;
  * @property \Cake\ORM\Association\HasMany $SupporterCharacters
  * @property \Cake\ORM\Association\HasMany $Territories
  *
- * @method Character get($primaryKey, $options = [])
  * @method Character newEntity($data = null, array $options = [])
  * @method Character[] newEntities(array $data, array $options = [])
- * @method Character|bool save(EntityInterface $entity, $options = [])
  * @method Character patchEntity(EntityInterface $entity, array $data, array $options = [])
  * @method Character[] patchEntities($entities, array $data, array $options = [])
  * @method Character findOrCreate($search, callable $callback = null, $options = [])
@@ -515,5 +516,101 @@ ORDER BY
 EOQ;
         return $this->getConnection()->execute($query)->fetchAll('assoc');
     }
-}
 
+
+    /**
+     * @param $characterId
+     * @param null $options
+     * @return EntityInterface|mixed
+     */
+    public function get($characterId, $options = null)
+    {
+        if(intval($characterId)) {
+            $conditions = [
+                'Characters.id' => $characterId
+            ];
+        } else {
+            $conditions = [
+                'Characters.slug' => $characterId
+            ];
+        }
+        return $this
+            ->find('all', [
+                'conditions' => $conditions,
+                'contain' => false
+            ])
+            ->cache(function ($q) use ($characterId) {
+                return 'character_' . $characterId . '_simple';
+            })
+            ->first();
+    }
+
+    public function save(EntityInterface $entity, $options = [])
+    {
+        $return = parent::save($entity, $options);
+        Cache::delete('character_' . $entity->id . '_simple');
+        Cache::delete('character_' . $entity->slug . '_simple');
+        Cache::delete($entity->user_id . '_characters_home');
+        return $return;
+    }
+
+    public function findCharacterLinkedToRequest($userId, $requestId)
+    {
+        return $this
+            ->query()
+            ->select([
+                'Characters.id',
+                'Characters.character_name',
+                'Characters.slug',
+            ])
+            ->leftJoin(
+                ['RequestCharacters' => 'request_characters'],
+                'Characters.id = RequestCharacters.character_id'
+            )
+            ->where([
+                'Characters.user_id' => $userId,
+                'RequestCharacters.request_id' => $requestId
+            ])
+            ->first();
+    }
+
+    public function findPrimaryCharacterForRequest($requestId)
+    {
+        return $this->find('all')
+            ->leftJoin(
+                ['RequestCharacters' => 'request_characters'],
+                'RequestCharacters.character_id = Characters.id'
+            )
+            ->where([
+                'RequestCharacters.is_primary' => true,
+                'RequestCharacters.request_id' => $requestId
+            ])
+            ->first();
+
+    }
+
+    public function listForHome($userId)
+    {
+        return $this
+            ->find()
+            ->select([
+                'Characters.id',
+                'Characters.character_name',
+                'Characters.character_status_id',
+                'Characters.slug'
+            ])
+            ->contain([
+                'CharacterStatuses'
+            ])
+            ->where([
+                'Characters.city' => 'portland',
+                'Characters.character_status_id IN' => CharacterStatus::NonDeleted,
+                'Characters.user_id' => $userId
+            ])
+            ->order([
+                'CharacterStatuses.sort_order',
+                'Characters.character_name'
+            ])
+            ->cache($userId . '_characters_home');
+    }
+}

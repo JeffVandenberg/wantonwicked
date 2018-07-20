@@ -1,11 +1,15 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Scene;
+use App\Model\Entity\SceneStatus;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -22,7 +26,6 @@ use Cake\Validation\Validator;
  * @method Scene get($primaryKey, $options = [])
  * @method Scene newEntity($data = null, array $options = [])
  * @method Scene[] newEntities(array $data, array $options = [])
- * @method Scene|bool save(EntityInterface $entity, $options = [])
  * @method Scene patchEntity(EntityInterface $entity, array $data, array $options = [])
  * @method Scene[] patchEntities($entities, array $data, array $options = [])
  * @method Scene findOrCreate($search, callable $callback = null, $options = [])
@@ -70,6 +73,14 @@ class ScenesTable extends Table
         $this->hasMany('PlotScenes', [
             'foreignKey' => 'scene_id'
         ]);
+
+        $this->addBehavior('Tags.Tag', []);
+    }
+
+    public function save(EntityInterface $entity, $options = [])
+    {
+        Cache::delete('scenes_home_' . date('Y-m-d'));
+        return parent::save($entity, $options);
     }
 
     /**
@@ -78,7 +89,7 @@ class ScenesTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -120,7 +131,7 @@ class ScenesTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['run_by_id'], 'RunBy'));
         $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
@@ -130,7 +141,11 @@ class ScenesTable extends Table
         return $rules;
     }
 
-    public function listForHome($sceneCount = 5)
+    /**
+     * @param int $sceneCount
+     * @return array
+     */
+    public function listForHome($sceneCount = 5): array
     {
         return $this
             ->find()
@@ -148,6 +163,52 @@ class ScenesTable extends Table
                 'Scenes.run_on_date' => 'asc'
             ])
             ->limit($sceneCount)
+            ->cache('scenes_home_' . date('Y-m-d'))
             ->toList();
+    }
+
+    /**
+     * @param $requestId
+     * @param $userId
+     * @return array|Query
+     */
+    public function listUnattachedScenes($requestId, $userId)
+    {
+        $linkedCharacter = TableRegistry::getTableLocator()->get('Characters')->find('list')
+            ->leftJoin(
+                ['RequestCharacters' => 'request_characters'],
+                'RequestCharacters.character_id = Characters.id'
+            )
+            ->where([
+                'RequestCharacters.request_id' => $requestId,
+                'Characters.user_id' => $userId
+            ])
+            ->toArray();
+
+        if (count($linkedCharacter)) {
+            return $this->find('all')
+                ->leftJoin(
+                    ['SceneCharacters' => 'scene_characters'],
+                    'SceneCharacters.scene_id = Scenes.id'
+                )
+                ->where([
+                    'SceneCharacters.character_id IN' => array_keys($linkedCharacter),
+                    'Scenes.scene_status_id !=' => SceneStatus::Cancelled
+                ])
+                ->order([
+                    'Scenes.name'
+                ]);
+        }
+
+        return [];
+    }
+
+
+    public function listScenesWithTag($tag)
+    {
+        return $this
+            ->find('tagged', [
+                'tag' => $tag
+            ]);
     }
 }

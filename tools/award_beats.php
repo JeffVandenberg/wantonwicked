@@ -32,5 +32,3 @@ if ($characterId) {
     echo "Award beats to All\n";
     $service->awardOutstandingBeats();
 }
-
-exit(0);

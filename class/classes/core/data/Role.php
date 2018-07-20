@@ -21,5 +21,4 @@ class Role extends DataModel
     {
         parent::__construct();
     }
-
 }

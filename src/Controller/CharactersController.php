@@ -46,6 +46,7 @@ class CharactersController extends AppController
         parent::beforeFilter($event);
         $this->Auth->allow(
             array(
+                'index',
                 'city',
                 'cast',
                 'activity'
@@ -115,7 +116,7 @@ class CharactersController extends AppController
             "All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
             "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', 'Changing Breed' => 'Changing Breed',
             "Mage" => 'Mage', "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
-        $mayManageCharacters = $this->Permissions->CheckSitePermission(
+        $mayManageCharacters = $this->Permissions->checkSitePermission(
             $this->Auth->user('user_id'),
             Permission::$ManageCharacters
         );
@@ -169,13 +170,13 @@ class CharactersController extends AppController
 
     public function admin_xpEdit()
     {
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
             $sheetService = new SheetService();
             $sheetService->grantXpToCharacter(
-                $this->request->getData('character_id'),
-                $this->request->getData('xp_amount'),
-                'Admin XP Override. Amount: ' . $this->request->getData('xp_amount') .
-                ' Note: ' . $this->request->getData('xp_note'),
+                $this->getRequest()->getData('character_id'),
+                $this->getRequest()->getData('xp_amount'),
+                'Admin XP Override. Amount: ' . $this->getRequest()->getData('xp_amount') .
+                ' Note: ' . $this->getRequest()->getData('xp_note'),
                 $this->Auth->user('user_id')
             );
             $this->Flash->set('Updated XP for Character');
@@ -184,14 +185,14 @@ class CharactersController extends AppController
 
     public function isAuthorized()
     {
-        switch ($this->request->getParam('action')) {
+        switch ($this->getRequest()->getParam('action')) {
             case 'admin_xpEdit':
-                return $this->Permissions->IsAdmin();
+                return $this->Permissions->isAdmin();
             case 'stGoals':
             case 'stView':
             case 'stBeats':
             case 'notes':
-                return $this->Permissions->IsST();
+                return $this->Permissions->isST();
             case 'add':
             case 'validateName':
             case 'viewOwn':
@@ -209,7 +210,22 @@ class CharactersController extends AppController
      */
     public function index()
     {
-        $this->set('characters', $this->Paginator->paginate($this->Characters));
+        $query = $this->Characters
+            ->find()
+            ->contain([
+                'CharacterStatuses',
+            ])
+            ->where([
+                'Characters.user_id' => $this->Auth->user('user_id'),
+                'Characters.city' => 'portland',
+                'Characters.character_status_id !=' => CharacterStatus::Deleted
+            ]);
+        $this->set('characters', $this->Paginator->paginate($query, [
+            'order' => [
+                'Characters.character_name'
+            ],
+            'limit' => '20'
+        ]));
     }
 
     /**
@@ -227,14 +243,14 @@ class CharactersController extends AppController
     public function viewOwn($slug)
     {
         $sheetService = new SheetService();
-        $characterType = $this->request->getQuery('character_type');
+        $characterType = $this->getRequest()->getQuery('character_type');
         $character = $sheetService->loadSheet($slug, $characterType);
         /* @var Character $character */
         if (!$character->Id) {
             throw new NotFoundException(__('Invalid character'));
         }
 
-        if (($character->UserId != $this->Auth->user('user_id')) && !($this->Permissions->IsAdmin())) {
+        if (($character->UserId != $this->Auth->user('user_id')) && !($this->Permissions->isAdmin())) {
             $this->Flash->set('Unauthorized Access');
             $this->redirect('/');
             return;
@@ -253,9 +269,9 @@ class CharactersController extends AppController
             $sheetService->addMinPowers($character, ['aspiration', 'equipment']);
         }
 
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
             // save update
-            $updatedData = $this->request->getData();
+            $updatedData = $this->getRequest()->getData();
             $updatedData['slug'] = Text::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
 
             $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
@@ -269,12 +285,12 @@ class CharactersController extends AppController
                 } else {
                     $this->Flash->set('Updated ' . $character->CharacterName . '.');
                 }
-                $this->redirect('/chat.php');
+                $this->redirect('/characters');
             }
 
         }
 
-        $icons = $sheetService->listAvailableIcons();
+        $icons = TableRegistry::getTableLocator()->get('Icons')->listAvailableIcons();
         $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName, $character->Slug);
         $this->set(compact('character', 'options', 'icons', 'submenu'));
 
@@ -287,9 +303,9 @@ class CharactersController extends AppController
     {
         $sheetService = new SheetService();
 
-        if ($this->request->is('post')) {
-            $characterId = $this->request->getData('view_character_id');
-            $password = $this->request->getData('password');
+        if ($this->getRequest()->is('post')) {
+            $characterId = $this->getRequest()->getData('view_character_id');
+            $password = $this->getRequest()->getData('password');
 
             $character = $sheetService->loadSheet($characterId);
             /* @var Character $character */
@@ -302,13 +318,13 @@ class CharactersController extends AppController
             $this->set('viewCharacterId', $character->Id);
 
             if(!$character->ViewPassword) {
-                CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'Attempted to view sheet with no password set.', $this->Auth->user('user_id'));
+                CharacterLog::LogAction($character->Id, ActionType::VIEW_CHARACTER, 'Attempted to view sheet with no password set.', $this->Auth->user('user_id'));
                 $this->Flash->set('Character has no view password set');
                 return;
             }
 
             if($character->ViewPassword !== $password) {
-                CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'Attempted to view with incorrect password.', $this->Auth->user('user_id'));
+                CharacterLog::LogAction($character->Id, ActionType::VIEW_CHARACTER, 'Attempted to view with incorrect password.', $this->Auth->user('user_id'));
                 $this->Flash->set('Password does not match');
                 return;
             }
@@ -319,10 +335,10 @@ class CharactersController extends AppController
             ];
 
             $this->set(compact('character', 'options'));
-            CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'Player View', $this->Auth->user('user_id'));
+            CharacterLog::LogAction($character->Id, ActionType::VIEW_CHARACTER, 'Player View', $this->Auth->user('user_id'));
         }
 
-        if($this->request->is('get') && $slug) {
+        if($this->getRequest()->is('get') && $slug) {
             $character = $sheetService->loadSheet($slug);
             $this->set('viewCharacterName', $character->CharacterName);
             $this->set('viewCharacterId', $character->Id);
@@ -338,10 +354,10 @@ class CharactersController extends AppController
         ];
         $sheetService = new SheetService();
 
-        if ($this->request->is('post')) {
-            if ($this->request->getData()['character_id']) {
+        if ($this->getRequest()->is('post')) {
+            if ($this->getRequest()->getData()['character_id']) {
                 // try to update the character
-                $updatedData = $this->request->getData();
+                $updatedData = $this->getRequest()->getData();
                 $updatedData['slug'] = Text::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
                 $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
 
@@ -353,12 +369,12 @@ class CharactersController extends AppController
                 }
             }
         }
-        if ($this->request->is('get')) {
-            $characterType = $this->request->getQuery('character_type');
+        if ($this->getRequest()->is('get')) {
+            $characterType = $this->getRequest()->getQuery('character_type');
             $character = null;
-            if ($this->request->getQuery('view_character_id')) {
+            if ($this->getRequest()->getQuery('view_character_id')) {
                 // attempt to load the character
-                $character = $sheetService->loadSheet($this->request->getQuery('view_character_id'), $characterType);
+                $character = $sheetService->loadSheet($this->getRequest()->getQuery('view_character_id'), $characterType);
                 if (!$character->Id) {
                     $this->Flash->set('Unable to find character');
                 }
@@ -370,7 +386,7 @@ class CharactersController extends AppController
             }
 
             if ($character && $character->Id) {
-                CharacterLog::LogAction($character->Id, ActionType::ViewCharacter, 'ST View', $this->Auth->user('user_id'));
+                CharacterLog::LogAction($character->Id, ActionType::VIEW_CHARACTER, 'ST View', $this->Auth->user('user_id'));
                 $repo = RepositoryManager::GetRepository('classes\character\data\CharacterNote');
                 /* @var CharacterNoteRepository $repo */
                 $characterNote = $repo->getMostRecentForCharacter($character->Id);
@@ -401,13 +417,14 @@ class CharactersController extends AppController
     public function add()
     {
         $options = [
+            'owner' => true,
             'show_admin' => false,
             'edit_mode' => 'open', // other values "open", "none"
         ];
         $sheetService = new SheetService();
 
-        if ($this->request->is('post')) {
-            $character = $this->request->getData();
+        if ($this->getRequest()->is('post')) {
+            $character = $this->getRequest()->getData();
             $character['slug'] = Text::slug($character['city'] . ' ' . $character['character_name']);
 
             $result = $sheetService->saveSheet($character, $options, $this->Auth->user());
@@ -417,11 +434,11 @@ class CharactersController extends AppController
                 $this->set('data', $character);
             } else {
                 $this->Flash->set('Created ' . $character['character_name'] . '.');
-                $this->redirect('/chat.php');
+                $this->redirect('/characters');
             }
         } else {
-            $characterType = ($this->request->getQuery('character_type'))
-                ? $this->request->getQuery('character_type')
+            $characterType = ($this->getRequest()->getQuery('character_type'))
+                ? $this->getRequest()->getQuery('character_type')
                 : 'mortal';
             $character = $sheetService->initializeSheet($characterType);
             $this->set(compact('character'));
@@ -433,23 +450,20 @@ class CharactersController extends AppController
 
     public function validateName()
     {
-        $id = $this->request->getQuery('id');
-        $characterName = $this->request->getQuery('name');
-        $city = $this->request->getQuery('city');
+        $id = $this->getRequest()->getQuery('id');
+        $characterName = $this->getRequest()->getQuery('name');
+        $city = $this->getRequest()->getQuery('city');
 
-        $data = [
-            'success' => false,
-            'in_use' => true
-        ];
+        $success = false;
+        $in_use = true;
 
         if ($characterName && $city) {
-            $data['in_use'] = $this->Characters->findNameUsedInCity($id, $characterName, $city);
-            $data['success'] = true;
+            $in_use = $this->Characters->findNameUsedInCity($id, $characterName, $city);
+            $success = true;
         }
 
-        $this->autoRender = false;
-        echo json_encode($data);
-        die();
+        $this->set(compact('in_use', 'success'));
+        $this->set('_serialize', ['in_use', 'success']);
     }
 
     public function assignCondition()
@@ -467,20 +481,20 @@ class CharactersController extends AppController
             $this->redirect('/chat.php');
         }
 
-        if (!$this->Permissions->MayEditCharacter($character->Id)) {
-            CharacterLog::LogAction($character->Id, ActionType::InvalidAccess, 'Attempted Access to Beats', $this->Auth->user('user_id'));
+        if (!$this->Permissions->mayEditCharacter($character->Id)) {
+            CharacterLog::LogAction($character->Id, ActionType::INVALID_ACCESS, 'Attempted Access to Beats', $this->Auth->user('user_id'));
             $this->Flash->set('Unable to view that character');
             $this->redirect('/');
         }
 
-        $isSt = $this->Permissions->IsST();
+        $isSt = $this->Permissions->isST();
         $currentBeatStatus = $beatService->getBeatStatusForCharacter($character->Id);
 
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
             // attempt to save
             $beat = new CharacterBeat();
-            $beat->BeatTypeId = $this->request->getData(['beat_type_id']);
-            $beat->Note = $this->request->getData(['note']);
+            $beat->BeatTypeId = $this->getRequest()->getData(['beat_type_id']);
+            $beat->Note = $this->getRequest()->getData(['note']);
 
             $beat->CharacterId = $character->Id;
             $beat->BeatStatusId = ($isSt) ? BeatStatus::StaffAwarded : BeatStatus::NewBeat;
@@ -507,7 +521,7 @@ class CharactersController extends AppController
             $beatList[$beatType->Id] = $beatType->Name;
         }
 
-        $characterBeats = TableRegistry::get('CharacterBeats');
+        $characterBeats = TableRegistry::getTableLocator()->get('CharacterBeats');
         $query = $characterBeats
             ->find('all')
             ->select([
@@ -558,7 +572,7 @@ class CharactersController extends AppController
         }
         $this->set('character', $character);
 
-        $characterNotes = TableRegistry::get('CharacterNotes');
+        $characterNotes = TableRegistry::getTableLocator()->get('CharacterNotes');
         $query = $characterNotes->find()
             ->select([
                 'CharacterNotes.note',
@@ -581,12 +595,12 @@ class CharactersController extends AppController
 
     public function stBeats()
     {
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
             $beatService = new BeatService();
             $beat = new CharacterBeat();
-            $beat->CharacterId = $this->request->getData('character_id');
-            $beat->BeatTypeId = $this->request->getData('beat_type_id');
-            $beat->Note = $this->request->getData('note');
+            $beat->CharacterId = $this->getRequest()->getData('character_id');
+            $beat->BeatTypeId = $this->getRequest()->getData('beat_type_id');
+            $beat->Note = $this->getRequest()->getData('note');
 
             $beat->CreatedById = $beat->UpdatedById = $this->Auth->user('user_id');
             $beat->Created = $beat->Updated = date('Y-m-d H:i:s');

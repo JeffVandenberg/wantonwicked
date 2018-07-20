@@ -62,32 +62,6 @@ if (UserdataHelper::IsSt($userdata) || UserdataHelper::IsWikiManager($userdata))
                 include 'includes/st_tools_scene_list.php';
                 break;
 
-            case 'icons_list':
-                if (UserdataHelper::IsWikiManager($userdata) || UserdataHelper::IsHead($userdata)) {
-                    include 'includes/st_tools_icons_list.php';
-                }
-                else {
-                    include 'includes/storyteller_index.php';
-                }
-                break;
-            case 'icons_add':
-                if (UserdataHelper::IsWikiManager($userdata) || UserdataHelper::IsHead($userdata)) {
-                    include 'includes/st_tools_icons_add.php';
-                    $template_file = 'blank_layout4.tpl';
-                }
-                else {
-                    include 'includes/storyteller_index.php';
-                }
-                break;
-            case 'icons_view':
-                if (UserdataHelper::IsWikiManager($userdata) || UserdataHelper::IsHead($userdata)) {
-                    include 'includes/st_tools_icons_view.php';
-                    $template_file = 'blank_layout4.tpl';
-                }
-                else {
-                    include 'includes/storyteller_index.php';
-                }
-                break;
             case 'profile_transfer':
                 if (UserdataHelper::IsHead($userdata)) {
                     include 'includes/st_tools_profile_transfer.php';

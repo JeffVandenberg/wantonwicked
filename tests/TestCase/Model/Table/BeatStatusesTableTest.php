@@ -70,8 +70,8 @@ class BeatStatusesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('BeatStatuses') ? [] : ['className' => BeatStatusesTable::class];
-        $this->BeatStatuses = TableRegistry::get('BeatStatuses', $config);
+        $config = TableRegistry::getTableLocator()->exists('BeatStatuses') ? [] : ['className' => BeatStatusesTable::class];
+        $this->BeatStatuses = TableRegistry::getTableLocator()->get('BeatStatuses', $config);
     }
 
     /**

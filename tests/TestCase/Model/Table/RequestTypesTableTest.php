@@ -46,8 +46,8 @@ class RequestTypesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RequestTypes') ? [] : ['className' => 'App\Model\Table\RequestTypesTable'];
-        $this->RequestTypes = TableRegistry::get('RequestTypes', $config);
+        $config = TableRegistry::getTableLocator()->exists('RequestTypes') ? [] : ['className' => 'App\Model\Table\RequestTypesTable'];
+        $this->RequestTypes = TableRegistry::getTableLocator()->get('RequestTypes', $config);
     }
 
     /**

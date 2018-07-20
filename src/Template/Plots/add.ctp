@@ -15,7 +15,15 @@ $this->set('title_for_layout', 'Add Plot');
             <?php echo $this->Form->control('name'); ?>
         </div>
         <div class="small-12 column">
+            <?php echo $this->Form->control('tag_list'); ?>
+        </div>
+        <div class="small-12 column">
             <?php echo $this->Form->control('description', [
+                'class' => 'tinymce-textarea'
+            ]); ?>
+        </div>
+        <div class="small-12 column">
+            <?php echo $this->Form->control('admin_notes', [
                 'class' => 'tinymce-textarea'
             ]); ?>
         </div>

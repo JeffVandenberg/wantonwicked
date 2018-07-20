@@ -6,7 +6,6 @@ use classes\core\helpers\Response;
 use classes\core\helpers\UserdataHelper;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
-use classes\support\repository\SupporterRepository;
 
 require_once __DIR__ . '/../../webroot/cgi-bin/start_of_page.php';
 
@@ -111,7 +110,7 @@ EOQ;
     }
 
     // add login record to character log
-    CharacterLog::LogAction($characterId, ActionType::Login, 'Chat Login', $userdata['user_id']);
+    CharacterLog::LogAction($characterId, ActionType::LOGIN, 'Chat Login', $userdata['user_id']);
 
     $loggedIn = true;
 }
@@ -201,12 +200,6 @@ else if($userdata['username'] !== 'Anonymous') {
     $icon = 'ooc.png';
 
     $dbh = db_connect();
-
-    // check if they are a supporter
-    $supporterRepository = new SupporterRepository();
-    if($supporterRepository->CheckIsCurrentSupporter($userdata['user_id'])) {
-        $icon = 'supporter.png';
-    }
 
     $userTypeId = 2;
     addUser($icon, $userTypeId, C_CUSTOM_USERID, C_CUSTOM_USERNAME, 2); // registered ooc user

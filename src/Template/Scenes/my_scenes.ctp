@@ -48,7 +48,7 @@ $this->Paginator->options(array(
             <tr>
                 <td><?php echo h($scene->name); ?>&nbsp;</td>
                 <td>
-                    <?php if ($scene->run_by_id == $this->request->session()->read('user_id')): ?>
+                    <?php if ($scene->run_by_id == $this->request->getSession()->read('user_id')): ?>
                         Running
                     <?php else: ?>
                         Playing
@@ -59,7 +59,7 @@ $this->Paginator->options(array(
                 <td><?php echo date('Y-m-d g:i A', strtotime($scene->run_on_date)); ?>&nbsp;</td>
                 <td class="actions">
                     <?php echo $this->Html->link(__('View'), array('action' => 'view', $scene->slug)); ?>
-                    <?php if (($mayEdit || ($scene->run_by_id == $this->request->session()->read('user_id'))) && SceneStatus::Cancelled != $scene['SceneStatus']['id']): ?>
+                    <?php if (($mayEdit || ($scene->run_by_id == $this->request->getSession()->read('user_id'))) && SceneStatus::Cancelled != $scene['SceneStatus']['id']): ?>
                         <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $scene->slug)); ?>
                         <?php echo $this->Html->link(__('Cancel'),
                                                      array('action' => 'cancel', $scene->slug)); ?>

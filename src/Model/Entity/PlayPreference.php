@@ -42,7 +42,7 @@ class PlayPreference extends Entity
     protected function _setName($value)
     {
         $slug = Text::slug(strtolower($value));
-        $sceneTable = TableRegistry::get('PlayPreferences');
+        $sceneTable = TableRegistry::getTableLocator()->get('PlayPreferences');
         $query = $sceneTable
             ->find();
         $query

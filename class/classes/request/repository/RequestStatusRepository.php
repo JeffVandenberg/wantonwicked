@@ -14,7 +14,7 @@ use classes\core\repository\AbstractRepository;
 
 class RequestStatusRepository extends AbstractRepository
 {
-    function __construct() {
+    public function __construct() {
         parent::__construct('classes\request\data\RequestStatus');
     }
 
@@ -43,7 +43,7 @@ EOQ;
         return $list;
     }
 
-    public function FindById($id)
+    public function findById($id)
     {
         $id = (int) $id;
         $sql = <<<EOQ

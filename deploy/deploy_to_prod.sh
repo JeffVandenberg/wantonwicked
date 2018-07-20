@@ -4,6 +4,7 @@ echo "cd ~/wantonwicked" > ./deploy_script
 echo "echo $CIRCLE_BUILD_NUM > build_number" >> ./deploy_script
 echo "git pull" >> ./deploy_script
 echo "bin/cake migrations migrate" >> ./deploy_script
+echo "bin/cake migrations migrate -p Tags" >> ./deploy_script
 echo "bin/cake orm_cache clear" >> ./deploy_script
 echo "php ~/tools/composer.phar self-update" >> ./deploy_script
 echo "php ~/tools/composer.phar install --no-dev" >> ./deploy_script

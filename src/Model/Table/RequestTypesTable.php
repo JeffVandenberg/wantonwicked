@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\RequestType;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -17,7 +18,6 @@ use Cake\Validation\Validator;
  * @method RequestType get($primaryKey, $options = [])
  * @method RequestType newEntity($data = null, array $options = [])
  * @method RequestType[] newEntities(array $data, array $options = [])
- * @method RequestType|bool save(EntityInterface $entity, $options = [])
  * @method RequestType patchEntity(EntityInterface $entity, array $data, array $options = [])
  * @method RequestType[] patchEntities($entities, array $data, array $options = [])
  * @method RequestType findOrCreate($search, callable $callback = null, $options = [])
@@ -66,5 +66,16 @@ class RequestTypesTable extends Table
             ->notEmpty('name');
 
         return $validator;
+    }
+
+    /**
+     * @param EntityInterface $entity
+     * @param array $options
+     * @return EntityInterface|false
+     */
+    public function save(EntityInterface $entity, $options = [])
+    {
+        Cache::delete('request_type_list');
+        return parent::save($entity, $options);
     }
 }

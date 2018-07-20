@@ -13,7 +13,7 @@ use classes\core\data\DataModel;
 
 class Dice extends DataModel
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->IdColumn = 'id';

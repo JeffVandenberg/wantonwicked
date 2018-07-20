@@ -14,7 +14,7 @@ Foundation.Abide.defaults.validators['character_name'] = function ($el, required
     var result = false;
     $.ajax({
         method: 'get',
-        url: '/characters/validateName',
+        url: '/characters/validateName.json',
         data: {
             id: $('#character_id').val(),
             name: $el.val(),
@@ -22,7 +22,6 @@ Foundation.Abide.defaults.validators['character_name'] = function ($el, required
         },
         async: false,
         success: function (response) {
-            response = JSON.parse(response);
             if (response.success) {
                 parent.find('.form-error').text('Character Name is already in use.');
                 result = !response.in_use;

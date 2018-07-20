@@ -28,5 +28,4 @@ class ArrayTools
         }
         return $list;
     }
-
 }

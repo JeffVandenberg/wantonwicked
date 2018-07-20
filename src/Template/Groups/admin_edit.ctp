@@ -1,5 +1,5 @@
 <?php /* @var View $this */ ?>
-<?php $this->set('title_for_layout', 'Edit Group: '.$this->request->data['Group']['name']); ?>
+<?php $this->set('title_for_layout', 'Edit Group: '.$this->getRequest()->data['Group']['name']); ?>
 
 <div class="groups form">
 <?php echo $this->Form->create('Group'); ?>

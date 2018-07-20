@@ -12,6 +12,7 @@ use Cake\Utility\Text;
  * @property string $name
  * @property string $description
  * @property string slug
+ * @property string $admin_notes
  * @property int $plot_status_id
  * @property int run_by_id
  * @property int $created_by_id
@@ -46,7 +47,7 @@ class Plot extends Entity
     protected function _setName($value)
     {
         $slug = Text::slug(strtolower($value));
-        $sceneTable = TableRegistry::get('Plots');
+        $sceneTable = TableRegistry::getTableLocator()->get('Plots');
         $query = $sceneTable
             ->find();
         $query

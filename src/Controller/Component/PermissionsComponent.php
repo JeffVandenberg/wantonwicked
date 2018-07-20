@@ -10,11 +10,10 @@
 namespace App\Controller\Component;
 
 
-use app\Model\Character;
+use App\Model\Entity\Character;
 use App\Model\Entity\Permission;
 use App\Model\Table\UsersTable;
 use Cake\Controller\Component;
-use App\Model\User;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -26,17 +25,17 @@ class PermissionsComponent extends Component
         'Auth'
     ];
 
-    public function CheckSitePermission($userId, $SitePermissionId)
+    public function checkSitePermission($userId, $SitePermissionId)
     {
-        $userTable = TableRegistry::get('Users');
+        $userTable = TableRegistry::getTableLocator()->get('Users');
         /* @var UsersTable $userTable */
         return $userTable->checkUserPermission($userId, $SitePermissionId);
     }
 
-    public function IsST()
+    public function isST()
     {
         $userdata = $this->Auth->user();
-        return $this->CheckSitePermission($userdata['user_id'], array(
+        return $this->checkSitePermission($userdata['user_id'], array(
             Permission::$IsAsst,
             Permission::$IsST,
             Permission::$IsHead,
@@ -44,61 +43,88 @@ class PermissionsComponent extends Component
         ));
     }
 
-    public function IsWikiManager()
+    public function isWikiManager()
     {
         $userdata = $this->Auth->user();
 
-        return $this->CheckSitePermission($userdata['user_id'], array(
+        return $this->checkSitePermission($userdata['user_id'], array(
             Permission::$WikiManager
         ));
     }
 
-    public function MayManageDatabase()
+    public function mayManageDatabase()
     {
         $userdata = $this->Auth->user();
 
-        return $this->CheckSitePermission($userdata['user_id'], array(
+        return $this->checkSitePermission($userdata['user_id'], array(
             Permission::$ManageDatabase
         ));
     }
 
-    public function IsHead()
+    public function isHead()
     {
         $userdata = $this->Auth->user();
 
-        return $this->CheckSitePermission($userdata['user_id'], array(
+        return $this->checkSitePermission($userdata['user_id'], array(
             Permission::$IsHead,
             Permission::$IsAdmin,
         ));
     }
 
-    public function IsAdmin()
+    public function isAdmin($userId = null)
     {
-        $userdata = $this->Auth->user();
-
-        return $this->CheckSitePermission($userdata['user_id'], array(
+        $userId = $userId ?? $this->Auth->user('user_id');
+        return $this->checkSitePermission($userId, array(
             Permission::$IsAdmin,
         ));
     }
 
-    public function MayEditCharacter($characterId)
+    public function mayEditCharacter($characterId)
     {
-        $character = TableRegistry::get('Characters')->get($characterId);
+        $character = TableRegistry::getTableLocator()->get('Characters')->get($characterId);
         return
             (
                 $character->user_id == $this->Auth->user('user_id')
                 ||
-                $this->CheckSitePermission($this->Auth->user('user_id'), Permission::$ManageCharacters)
+                $this->checkSitePermission($this->Auth->user('user_id'), Permission::$ManageCharacters)
             );
     }
 
-    public function isPlotManager($userId)
+    public function isPlotManager($userId = null)
     {
-        return $this->CheckSitePermission($userId, Permission::$PlotsManage);
+        if(!$userId) {
+            $userId = $this->Auth->user('user_id');
+        }
+        return $this->checkSitePermission($userId, Permission::$PlotsManage);
     }
 
-    public function isPlotViewer($userId)
+    public function isPlotViewer($userId = null)
     {
-        return $this->CheckSitePermission($userId, Permission::$PlotsView);
+        return $this->checkSitePermission(
+            $userId ?? $this->Auth->user('user_id'),
+            Permission::$PlotsView
+        );
+    }
+
+    public function isRequestManager($userId = null)
+    {
+        return $this->checkSitePermission(
+            $userId ?? $this->Auth->user('user_id'),
+            Permission::$ManageRequests
+        );
+    }
+
+    public function mayViewCharacter(Character $character, $userId = null)
+    {
+        $userId = $userId ?? $this->Auth->user('user_id');
+        return $character->user_id == $userId || $this->isAdmin($userId);
+    }
+
+    public function isMapAdmin($userId = null)
+    {
+        return $this->checkSitePermission(
+            $userId ?? $this->Auth->user('user_id'),
+            Permission::$MapAdmin
+        );
     }
 }

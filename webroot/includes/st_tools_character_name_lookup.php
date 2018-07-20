@@ -80,7 +80,7 @@ EOQ;
 }
 
 $storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$menu = MenuHelper::generateMenu($storytellerMenu);
 // detail form
 $search_form = <<<EOQ
 $menu

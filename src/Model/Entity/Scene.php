@@ -50,7 +50,7 @@ class Scene extends Entity
     protected function _setName($value)
     {
         $slug = Text::slug(strtolower($value));
-        $sceneTable = TableRegistry::get('Scenes');
+        $sceneTable = TableRegistry::getTableLocator()->get('Scenes');
         $query = $sceneTable
             ->find();
         $query

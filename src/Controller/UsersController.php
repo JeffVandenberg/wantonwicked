@@ -15,6 +15,7 @@ use App\Controller\Component\PermissionsComponent;
 use App\Model\Table\UsersTable;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use Exception;
 
 
 /**
@@ -40,12 +41,12 @@ class UsersController extends AppController
 
     public function assignGroups($userId = 0)
     {
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
             // lookup user or save
 
-            if ($this->request->getData('action')) {
+            if ($this->getRequest()->getData('action')) {
                 // trying to save user groups
-                if ($this->Users->saveUserGroups($this->request->getData())) {
+                if ($this->Users->saveUserGroups($this->getRequest()->getData())) {
                     $this->Flash->set('Updated User Groups');
                     $this->redirect('');
                 } else {
@@ -53,8 +54,8 @@ class UsersController extends AppController
                 }
             }
 
-            if ($this->request->getData('user_id')) {
-                $user = $this->Users->get($this->request->getData('user_id'));
+            if ($this->getRequest()->getData('user_id')) {
+                $user = $this->Users->get($this->getRequest()->getData('user_id'));
                 /* @var User $user */
 
                 $userGroups = $this->Users->listUserGroups($user->user_id);
@@ -63,7 +64,7 @@ class UsersController extends AppController
                     $userGroupList[$userGroup['group_id']] = $userGroup;
                 }
 
-                $phpbbGroups = TableRegistry::get('PhpbbGroups');
+                $phpbbGroups = TableRegistry::getTableLocator()->get('PhpbbGroups');
                 /* @var PhpbbGroupsTable $phpbbGroups */
 
                 $groups = $phpbbGroups->find('list')->order(['PhpbbGroups.group_name'])->toArray();
@@ -82,7 +83,7 @@ class UsersController extends AppController
     public function receiveUser()
     {
         // receive a user from the main site for migration. Whoo!
-        $user = $this->request->data['user'];
+        $user = $this->getRequest()->getData('user');
 
         $repo = new User();
 
@@ -104,9 +105,9 @@ class UsersController extends AppController
 
     public function isAuthorized($user)
     {
-        switch ($this->request->params['action']) {
+        switch ($this->getRequest()->getParam('action')) {
             case 'assignGroups':
-                return $this->Permissions->IsHead();
+                return $this->Permissions->isHead();
                 break;
         }
         return false;

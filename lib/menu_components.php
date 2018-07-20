@@ -5,8 +5,8 @@
  * Date: 11/27/2016
  * Time: 8:21 PM
  */
-namespace app\Lib;
 
+namespace app\Lib;
 
 
 $menuComponents = [];
@@ -25,6 +25,10 @@ $menuComponents['base'] = [
             ]
         ]
     ],
+    'Characters' => [
+    ],
+    'Staff Utilities' => [
+    ],
     'Help' => [
         'link' => '#',
         'submenu' => [
@@ -41,7 +45,15 @@ $menuComponents['base'] = [
                 'link' => '/wiki/GameRef/SitePoliciesAndPractices',
             ],
             'House Rules' => [
-                'link' => '/wiki/GameRef/HouseRules',
+                'link' => '#',
+                'submenu' => [
+                    'Home' => [
+                        'link' => '/wiki/GameRef/HouseRules',
+                    ],
+                    'Custom Item/Powers' => [
+                        'link' => '/wiki/GameRef/CustomItemsAndPowers'
+                    ]
+                ]
             ],
             'New Player Help' => [
                 'link' => '/wiki/GameRef/Help',
@@ -91,6 +103,9 @@ $menuComponents['base'] = [
             ],
             'Cast List' => [
                 'link' => '/characters/cast/'
+            ],
+            'Mystery Cults' => [
+                'link' => '/wiki/City/MysteryCult'
             ]
         ]
     ],
@@ -197,49 +212,42 @@ $menuComponents['base'] = [
 $menuComponents['player'] = [
     'Utilities' => [
         'submenu' => [
-            'Player Utilities' => [
-                'link' => '#',
-                'submenu' => [
-                    'Dashboard' => [
-                        'link' => '/chat.php',
-                    ],
-                    'Create a Character' => [
-                        'link' => '/characters/add'
-                    ],
-                    'Requests' => [
-                        'link' => '/request.php'
-                    ],
-                    'Play Preferences' => [
-                        'link' => '/play_preferences'
-                    ],
-                    'View Other Character' => [
-                        'link' => '/characters/viewOther/'
-                    ]
-                ]
+            'Requests' => [
+                'link' => '/requests/'
+            ],
+            'Bluebooks' => [
+                'link' => '/bluebooks/'
+            ],
+            'Play Preferences' => [
+                'link' => '/play_preferences'
+            ],
+        ]
+    ],
+    'Characters' => [
+        'link' => '#',
+        'submenu' => [
+            'List' => [
+                'link' => '/characters/'
             ]
         ]
-    ]
+    ],
 ];
 $menuComponents['staff'] = [
-    'Utilities' => [
+    'Staff Utilities' => [
+        'link' => '#',
         'submenu' => [
-            'Staff Utilities' => [
-                'link' => '#',
-                'submenu' => [
-                    'Dashboard' => [
-                        'link' => '/storyteller_index.php',
-                    ],
-                    'Character Lookup' => [
-                        'link' => '/characters/stView',
-                    ],
-                    'Request Dashboard' => [
-                        'link' => '/request.php?action=st_list'
-                    ],
-                    'Chat Login' => [
-                        'link' => '/chat/?st_login',
-                        'target' => '_blank'
-                    ]
-                ]
+            'Dashboard' => [
+                'link' => '/storyteller_index.php',
+            ],
+            'Character Lookup' => [
+                'link' => '/characters/stView',
+            ],
+            'Request Dashboard' => [
+                'link' => '/requests/st-dashboard'
+            ],
+            'Chat Login' => [
+                'link' => '/chat/?st_login',
+                'target' => '_blank'
             ]
         ]
     ]

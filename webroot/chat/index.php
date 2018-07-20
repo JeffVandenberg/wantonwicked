@@ -26,17 +26,17 @@ use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 
 // Prochat room includes
-include("includes/ini.php");
-include("includes/session.php");
-include("includes/config.php");
-include("includes/functions.php");
+include 'includes/ini.php';
+include 'includes/session.php';
+include 'includes/config.php';
+include 'includes/functions.php';
 /* @var array $CONFIG */
 
 // PHPBB Integration includes
 define('IN_PHPBB', true);
-$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../forum/';
+$phpbb_root_path = defined('PHPBB_ROOT_PATH') ? PHPBB_ROOT_PATH : '../forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
-include($phpbb_root_path . 'common.' . $phpEx);
+include $phpbb_root_path . 'common.' . $phpEx;
 /* @var \phpbb\request\request $request */
 $request = $phpbb_container->get('request');
 $request->enable_super_globals();
@@ -59,13 +59,8 @@ if (isset($_SESSION['user_id']) && !$_SESSION['username']) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    unset($_SESSION['username']);
-    unset($_SESSION['display_name']);
-    unset($_SESSION['userid']);
-    unset($_SESSION['user_id']);
-    unset($_SESSION['user_type_id']);
-    unset($_SESSION['room']);
-    unset($_SESSION['guest']);
+    unset($_SESSION['username'], $_SESSION['display_name'], $_SESSION['userid'], $_SESSION['user_id'],
+        $_SESSION['user_type_id'], $_SESSION['room'], $_SESSION['guest']);
 }
 
 /*
@@ -73,7 +68,7 @@ if (!isset($_SESSION['user_id'])) {
 *
 */
 
-include_once("lang/" . getLang($_POST['langID'] ?? null));
+include_once 'lang/' . getLang($_POST['langID'] ?? null);
 
 
 /*
@@ -83,7 +78,7 @@ include_once("lang/" . getLang($_POST['langID'] ?? null));
 
 $userId = $_GET['userId'] ?? null;
 
-if ($CONFIG['CMS'] && !isset($_GET['logout'])) {
+if (!isset($_GET['logout']) && $CONFIG['CMS']) {
     // assign default room login
     if (!isset($_REQUEST['roomID'])) {
         $_REQUEST['roomID'] = '1';
@@ -91,7 +86,7 @@ if ($CONFIG['CMS'] && !isset($_GET['logout'])) {
 
     if (!$userId) {
         // include files
-        include("cms.php");
+        include 'cms.php';
 
         if($userId) {
             // redirect to starting page
@@ -119,7 +114,7 @@ switch($user['user_type_id']) {
     case 3:
         // validate character is associated with the logged in user
         if(!validateCharacter($user['userid'], $userdata['user_id'])) {
-            CharacterLog::LogAction($user['userid'], ActionType::InvalidAccess,
+            CharacterLog::LogAction($user['userid'], ActionType::INVALID_ACCESS,
                 'User ID: ' . $userdata['user_id'] . ' attempted access to chatrooms with character.');
             Response::redirect('/', 'Illegal Character Access.');
         }
@@ -141,8 +136,8 @@ switch($user['user_type_id']) {
 *
 */
 
-if (isset($_GET['transcripts']) && isset($_GET['roomID'])) {
-    include("templates/" . $CONFIG['template'] . "/transcripts.php");
+if (isset($_GET['transcripts'], $_GET['roomID'])) {
+    include 'templates/' . $CONFIG['template'] . '/transcripts.php';
     die;
 }
 
@@ -151,10 +146,10 @@ if (isset($_GET['transcripts']) && isset($_GET['roomID'])) {
 *
 */
 
-if (isset($_REQUEST['logout']) && isset($user['id'])) {
+if (isset($_REQUEST['logout'], $user['id'])) {
     logoutUser($user['id'], $user['room']);
 
-    if ($_REQUEST['logout'] == 'kick') {
+    if ($_REQUEST['logout'] === 'kick') {
         banKickUser('KICK', $user['username']);
     }
 
@@ -202,9 +197,9 @@ if (isset($_REQUEST['roomPass'])) {
     $roomPass = $_REQUEST['roomPass'];
 }
 
-list($roomID, $roomOwnerID) = chatRoomID($_REQUEST['roomID'], $roomPass, $user);
+[$roomID, $roomOwnerID] = chatRoomID($_REQUEST['roomID'], $roomPass, $user);
 
-list($roomBg, $roomDesc) = chatRoomDesc($roomID);
+[$roomBg, $roomDesc] = chatRoomDesc($roomID);
 
 /*
 * get user details
@@ -260,4 +255,4 @@ $lastMessageID = getLastMessageID($roomID);
 *
 */
 
-include("templates/" . $CONFIG['template'] . "/main.php");
+include 'templates/' . $CONFIG['template'] . '/main.php';

@@ -1,5 +1,3 @@
-Thumbs.db
-
 # IDE/Project files
 .idea
 
@@ -25,6 +23,7 @@ logs/error.log
 logs/debug.log
 logs/test.log
 
+webroot/chat/error_log.txt
 webroot/css/shrink*
 webroot/js/shrink*
 webroot/wiki/wiki.d/.flock

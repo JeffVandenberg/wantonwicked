@@ -14,7 +14,7 @@ $sceneRepository = new SceneRepository();
 $sceneSummary = $sceneRepository->findStSceneDashboard($userdata['user_id']);
 
 $storytellerMenu = require_once('menus/storyteller_menu.php');
-$menu = MenuHelper::GenerateMenu($storytellerMenu);
+$menu = MenuHelper::generateMenu($storytellerMenu);
 ob_start();
 ?>
 <?php echo $menu; ?>
@@ -41,7 +41,7 @@ ob_start();
                             <td><?php echo $row['group_name']; ?></td>
                             <td><?php echo $row['request_status_name']; ?></td>
                             <td>
-                                <a href="request.php?filter%5Btitle%5D=&filter%5Busername%5D=&filter%5Brequest_type_id%5D=0&filter%5Brequest_status_id%5D=<?php echo $row['request_status_id']; ?>&action=st_list&page_action=Update+Filters">
+                                <a href="/requests/st-dashboard/?request_status_id=<?= $row['request_status_id'] ?>">
                                     <?php echo $row['total']; ?>
                                 </a>
                             </td>
@@ -49,7 +49,7 @@ ob_start();
                     <?php endforeach; ?>
                 </table>
                 <div style="text-align:center;">
-                    <a href="request.php">
+                    <a href="/requests/st-dashboard">
                         View all Requests
                     </a>
                 </div>

@@ -21,7 +21,7 @@ class ScenesEmailComponent extends Component
     public function SendJoinEmail(Scene $scene, SceneCharacter $sceneCharacter)
     {
         // load runner
-        $usersTable = TableRegistry::get('Users');
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
         $user = $usersTable->get($scene->run_by_id);
         /* @var User $user */
 
@@ -31,7 +31,7 @@ class ScenesEmailComponent extends Component
         }
 
         // load character
-        $characters = TableRegistry::get('Characters');
+        $characters = TableRegistry::getTableLocator()->get('Characters');
         $character = $characters->get($sceneCharacter->character_id);
         /* @var Character $character */
 
@@ -53,7 +53,7 @@ class ScenesEmailComponent extends Component
 
     public function SendScheduleChange(Scene $newScene, $oldScene)
     {
-        $query = TableRegistry::get('SceneCharacters')->query();
+        $query = TableRegistry::getTableLocator()->get('SceneCharacters')->query();
         $query
             ->select([
                 'Characters.character_name',
@@ -89,7 +89,7 @@ class ScenesEmailComponent extends Component
 
     public function SendCancelEmails(Scene $scene)
     {
-        $sceneCharacterTable = TableRegistry::get('SceneCharacters');
+        $sceneCharacterTable = TableRegistry::getTableLocator()->get('SceneCharacters');
         $sceneCharacters = $sceneCharacterTable
             ->find()
             ->select()

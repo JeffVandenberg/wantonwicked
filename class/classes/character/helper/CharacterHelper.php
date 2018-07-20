@@ -13,17 +13,6 @@ use classes\character\repository\CharacterRepository;
 
 class CharacterHelper
 {
-
-    public static function IncreaseAttribute(&$stats, $bonusAttribute)
-    {
-        for ($i = 0; $i < 9; $i++) {
-            if (strtolower($stats['attribute' . $i . '_name']) == strtolower($bonusAttribute)) {
-                $stats['attribute' . $i]++;
-                break;
-            }
-        }
-    }
-
     public static function getMaxPowerPoints($power_rank = 1)
     {
         $points = 0;
@@ -65,14 +54,14 @@ class CharacterHelper
         return $points;
     }
 
-    public static function DetermineBloodPotency($sourceCharacterId, $targetCharacter)
+    public static function determineBloodPotency($sourceCharacterId, $targetCharacter)
     {
         $bloodPotency = $targetCharacter['Power_Stat'];
         // do they have obfuscate 2?
         $repository = new CharacterRepository();
-        if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Obfuscate', 2)) {
+        if ($repository->doesCharacterHavePowerAtLevel($targetCharacter['id'], 'Obfuscate', 2)) {
             $bloodPotency = 'None';
-        } else if ($repository->DoesCharacterHavePowerAtLevel($targetCharacter['id'], 'Protean', 1)) {
+        } else if ($repository->doesCharacterHavePowerAtLevel($targetCharacter['id'], 'Protean', 1)) {
             // do they have Protean 1?
             $sourceCharacter = $repository->getById($sourceCharacterId);
             if ($targetCharacter['Power_Stat'] < $sourceCharacter['Power_Stat']) {

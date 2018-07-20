@@ -98,8 +98,8 @@ class RequestTypesController extends AppController
     public function add()
     {
         $requestType = $this->RequestTypes->newEntity();
-        if ($this->request->is('post')) {
-            $requestType = $this->RequestTypes->patchEntity($requestType, $this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $requestType = $this->RequestTypes->patchEntity($requestType, $this->getRequest()->getData());
             if ($this->RequestTypes->save($requestType)) {
                 $this->Flash->success(__('The request type has been saved.'));
 
@@ -145,8 +145,8 @@ class RequestTypesController extends AppController
                 'Groups'
             ]
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $requestType = $this->RequestTypes->patchEntity($requestType, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $requestType = $this->RequestTypes->patchEntity($requestType, $this->getRequest()->getData());
             if ($this->RequestTypes->save($requestType)) {
                 $this->Flash->success(__('The request type has been saved.'));
 
@@ -179,6 +179,6 @@ class RequestTypesController extends AppController
 
     public function isAuthorized($user)
     {
-        return $this->Permissions->IsAdmin();
+        return $this->Permissions->isAdmin();
     }
 }

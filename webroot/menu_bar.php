@@ -21,10 +21,10 @@ if ($userdata['user_id'] != ANONYMOUS) {
                     'link' => '/chat/?character_id=' . $character['id']
                 ],
                 'Requests' => [
-                    'link' => '/request.php?action=list&character_id=' . $character['id']
+                    'link' => '/requests/character/' . $character['id']
                 ],
                 'Bluebook' => [
-                    'link' => '/bluebook.php?action=list&character_id=' . $character['id']
+                    'link' => '/bluebooks/character/' . $character['id']
                 ],
                 'Sheet' => [
                     'link' => '/characters/viewOwn/' . $character['slug']
@@ -40,5 +40,10 @@ if (UserdataHelper::IsSt($userdata)) {
     $mainMenu = array_merge_recursive($mainMenu, $menuComponents['staff']);
 }
 
-$menu_bar = MenuHelper::GenerateMenu($mainMenu);
+foreach($mainMenu as $header => $menuOptions) {
+    if(!isset($menuOptions['link']) && (empty($menuOptions) || empty($menuOptions['submenu']))) {
+        unset($mainMenu[$header]);
+    }
+}
+$menu_bar = MenuHelper::generateMenu($mainMenu);
 return $mainMenu;

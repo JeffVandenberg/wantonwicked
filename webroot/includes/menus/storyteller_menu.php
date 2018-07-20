@@ -30,7 +30,7 @@ $storytellerMenu = [
         'link' => '#',
         'submenu' => [
             'Dashboard' => [
-                'link' => 'request.php?action=st_list'
+                'link' => '/requests/st-dashboard'
             ]
         ]
     ],
@@ -56,9 +56,6 @@ $storytellerMenu = [
             'Profile Lookup' => [
                 'link' => 'storyteller_index.php?action=profile_lookup'
             ],
-            'Territory Management' => [
-                'link' => 'territory.php?action=list'
-            ]
         ]
     ],
     'Reports' => [
@@ -77,10 +74,6 @@ $storytellerMenu = [
     ]
 ];
 
-$storytellerMenu['Reports']['submenu']['Request ST Activity Report'] = array(
-    'link' => 'request.php?action=admin_activity_report'
-);
-
 if(UserdataHelper::IsHead($userdata)) {
     $storytellerMenu['Chat']['submenu']['Prochat Admin'] = array(
         'link' => 'chat/admin'
@@ -92,7 +85,7 @@ if(UserdataHelper::IsHead($userdata)) {
         'link' => '/users/assignGroups'
     );
     $storytellerMenu['Tools']['submenu']['Icons'] = array(
-        'link' => 'st_tools.php?action=icons_list'
+        'link' => '/icons'
     );
     $storytellerMenu['Tools']['submenu']['Character Transfer'] = array(
         'link' => 'st_tools.php?action=profile_transfer'
@@ -100,11 +93,14 @@ if(UserdataHelper::IsHead($userdata)) {
     $storytellerMenu['Tools']['submenu']['Beat Types'] = [
         'link' => '/beatTypes'
     ];
+    $storytellerMenu['Reports']['submenu']['Request ST Activity Report'] = array(
+        'link' => '/requests/activity-report'
+    );
     $storytellerMenu['Reports']['submenu']['Request Time Report'] = array(
-        'link' => 'request.php?action=admin_time_report'
+        'link' => '/requests/time-report'
     );
     $storytellerMenu['Reports']['submenu']['Request Status Report'] = array(
-        'link' => 'request.php?action=admin_status_report'
+        'link' => '/requests/status-report'
     );
     $storytellerMenu['Reports']['submenu']['ST Activity Report'] = array(
         'link' => '/st_tools.php?action=st_activity_report'
@@ -114,6 +110,9 @@ if(UserdataHelper::IsHead($userdata)) {
 if(UserdataHelper::IsAdmin($userdata)) {
     $storytellerMenu['Tools']['submenu']['Configuration'] = array(
         'link' => '/configurations'
+    );
+    $storytellerMenu['Tools']['submenu']['Clear Cache'] = array(
+        'link' => '/home/clear-cache'
     );
     $storytellerMenu['Requests']['submenu']['Administration'] = array(
         'link' => '/requests/admin'

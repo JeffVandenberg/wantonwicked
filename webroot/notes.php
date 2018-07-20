@@ -1,4 +1,4 @@
-<?
+<?php
 use classes\core\helpers\Request;
 use classes\core\helpers\SessionHelper;
 use phpbb\auth\auth;

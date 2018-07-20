@@ -88,8 +88,8 @@ class GroupsController extends AppController
      */
     public function add()
     {
-        if ($this->request->is('post')) {
-            $group = $this->Groups->newEntity($this->request->getData());
+        if ($this->getRequest()->is('post')) {
+            $group = $this->Groups->newEntity($this->getRequest()->getData());
             $group->is_deleted = false;
             $group->created_by = $this->Auth->user('user_id');
             debug($group);
@@ -131,8 +131,8 @@ class GroupsController extends AppController
         $group = $this->Groups->get($id, [
             'contain' => ['RequestTypes']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $group = $this->Groups->patchEntity($group, $this->request->getData());
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $group = $this->Groups->patchEntity($group, $this->getRequest()->getData());
             $group->created_by = $this->Auth->user('user_id');
             if ($this->Groups->save($group)) {
                 $this->Flash->success(__('The group has been saved.'));
@@ -168,7 +168,7 @@ class GroupsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $group = $this->Groups->get($id);
         $group->is_deleted = true;
         if ($this->Groups->save($group)) {
@@ -205,20 +205,18 @@ class GroupsController extends AppController
             );
         }
 
-        $this->response->disableCache();
-        header('Content-Type: application/json');
-        echo json_encode(compact('list'));
-        die();
+        $this->set(compact('list'));
+        $this->set('_serialize', ['list']);
     }
 
     public function isAuthorized($user)
     {
-        switch ($this->request->getParam('action')) {
+        switch ($this->getRequest()->getParam('action')) {
             case 'listRequestTypes':
                 return true;
                 break;
             default:
-                return $this->Permissions->IsAdmin();
+                return $this->Permissions->isAdmin();
         }
     }
 }

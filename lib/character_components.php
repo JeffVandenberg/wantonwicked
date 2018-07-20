@@ -7,7 +7,7 @@
  */
 
 if(!isset($characterId) && !isset($characterSlug) && !isset($characterName)) {
-    die('this request has not be properly prepared. Please notify jeffvandenberg@gmail.com of this URL.');
+    throw new Exception('this request has not be properly prepared. Please notify jeffvandenberg@gmail.com of this URL.');
 }
 
 $characterMenu = [
@@ -52,18 +52,18 @@ $characterMenu = [
                 'link' => "/dieroller.php?action=character&character_id=$characterId"
             ],
             'Requests' => [
-                'link' => "/request.php?action=list&character_id=$characterId",
+                'link' => "/requests/character/$characterId",
                 'submenu' => [
                     'New' => [
-                        'link' => "/request.php?action=create&character_id=$characterId"
+                        'link' => "/requests/add?character_id=$characterId"
                     ]
                 ]
             ],
             'Bluebook' => [
-                'link' => "/bluebook.php?action=list&character_id=$characterId",
+                'link' => "/bluebooks/character/$characterId",
                 'submenu' => [
                     'New' => [
-                        'link' => "/bluebook.php?action=create&character_id=$characterId"
+                        'link' => "/bluebooks/add?character_id=$characterId"
                     ]
                 ]
             ],

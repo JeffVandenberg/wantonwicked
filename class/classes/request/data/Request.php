@@ -39,7 +39,7 @@ class Request extends DataModel
     public $RequestTypeId;
     public $GroupId;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->NameProperty = 'Title';

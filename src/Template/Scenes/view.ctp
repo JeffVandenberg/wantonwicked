@@ -57,6 +57,7 @@ if ($mayEdit) {
     }
 }
 $this->set('menu', $menu);
+$this->loadHelper('Tag');
 ?>
 
 <?php echo $this->Html->link('<< Back', array('action' => 'index'), ['class' => 'button']); ?>
@@ -76,7 +77,9 @@ $this->set('menu', $menu);
                 <?php echo $this->Html->link(
                         $this->Url->build(
                             [
-                                'scenes', 'join', $scene->slug
+                                'controller' => 'scenes',
+                                'action' => 'join',
+                                $scene->slug
                             ],
                             [
                                 'fullBase' => true
@@ -111,12 +114,7 @@ $this->set('menu', $menu);
     <tr>
         <td colspan="2">
             <b>Tags</b>
-            <ul class="tags">
-                <!--                --><?php //foreach($scene['Tag'] as $tag): ?>
-                <!--                    <li>-->
-                <?php //echo $this->Html->link($tag['name'], ['controller' => 'scenes', 'action' => 'tag', $tag['name']]); ?><!--</li>-->
-                <!--                --><?php //endforeach; ?>
-            </ul>
+            <?= $this->Tag->linkList($scene->tags, ['controller' => 'scenes', 'action' => 'tagged']); ?>
         </td>
     </tr>
     <tr>
@@ -135,7 +133,7 @@ $this->set('menu', $menu);
             <?php foreach ($sceneCharacters as $sceneCharacter): ?>
                 <dt>
                     <?php echo $sceneCharacter->character->character_name; ?>
-                    <?php if ($this->request->session()->read('Auth.User.user_id') == $sceneCharacter->character->user_id): ?>
+                    <?php if ($this->request->getSession()->read('Auth.User.user_id') == $sceneCharacter->character->user_id): ?>
                         <span id="leave-scene" class="clickable link" scene-id="<?php echo $scene->slug; ?>"
                               character-id="<?php echo $sceneCharacter->character_id; ?>"
                         >

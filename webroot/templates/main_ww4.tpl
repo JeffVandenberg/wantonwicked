@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115948072-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-115948072-1');
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{PAGE_TITLE}</title>
     <META NAME="copyright" content="(c) <?php echo date('Y'); ?> Jeff Vandenberg">
@@ -43,12 +52,12 @@
             <span id="server-time"></span>
             <!-- IF USER_INFO.logged_in -->
                 <!-- IF USER_INFO.new_request_count -->
-                <a href="/request.php?action=st_list" class="button-badge">
+                <a href="/requests/st-dashboard" class="button-badge">
                     <i class="fa fi-clipboard storyteller-action" title="ST Request Dashboard"></i>
                     <span class="badge badge-primary warning" title="New Requests">{USER_INFO.new_request_count}</span>
                 </a>
                 <!-- ENDIF -->
-                <a href="/request.php" class="button-badge">
+                <a href="/requests" class="button-badge">
                     <i class="fa fi-clipboard" title="Your Requests"></i>
                     <!-- IF USER_INFO.request_count-->
                     <span class="badge badge-primary warning" title="Open Requests">{USER_INFO.request_count}</span>

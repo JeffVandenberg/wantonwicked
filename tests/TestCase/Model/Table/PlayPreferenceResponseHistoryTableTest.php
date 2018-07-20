@@ -42,8 +42,8 @@ class PlayPreferenceResponseHistoryTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PlayPreferenceResponseHistory') ? [] : ['className' => 'App\Model\Table\PlayPreferenceResponseHistoryTable'];
-        $this->PlayPreferenceResponseHistory = TableRegistry::get('PlayPreferenceResponseHistory', $config);
+        $config = TableRegistry::getTableLocator()->exists('PlayPreferenceResponseHistory') ? [] : ['className' => 'App\Model\Table\PlayPreferenceResponseHistoryTable'];
+        $this->PlayPreferenceResponseHistory = TableRegistry::getTableLocator()->get('PlayPreferenceResponseHistory', $config);
     }
 
     /**

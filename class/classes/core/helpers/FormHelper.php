@@ -14,8 +14,8 @@ use Exception;
 
 class FormHelper
 {
-    static $_label;
-    static $_id;
+    public static $_label;
+    public static $_id;
 
     public static function Text($name, $value, $options = null)
     {
