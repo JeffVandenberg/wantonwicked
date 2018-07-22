@@ -61,19 +61,23 @@ $this->loadHelper('Tag');
 ?>
 
 <?php echo $this->Html->link('<< Back', array('action' => 'index'), ['class' => 'button']); ?>
-<?php if ($isLoggedIn && ($scene->scene_status_id == SceneStatus::Open)): ?>
-    <?php echo $this->Html->link('Join Scene', array('action' => 'join', $scene->slug), ['class' => 'button']); ?>
+<?php if ($isLoggedIn && ($scene->scene_status_id === SceneStatus::Open)): ?>
+    <?php if($scene->signup_limit === 0 || (count($sceneCharacters) < $scene->signup_limit)): ?>
+        <?php echo $this->Html->link('Join Scene', array('action' => 'join', $scene->slug), ['class' => 'button']); ?>
+    <?php endif; ?>
     <?php if($mayEdit): ?>
         <?php echo $this->Html->link('Edit', ['action' => 'edit', $scene->slug], ['class' => 'button']); ?>
     <?php endif; ?>
 <?php endif; ?>
 
-<table>
+<table class="stack">
     <tr>
-        <th colspan="2">
+        <th colspan="1">
             This scene is: <?php echo $scene->scene_status->name; ?>
-            <?php if ($scene->scene_status_id == SceneStatus::Open): ?>
-                <br />Click to copy:
+        </th>
+        <th>
+            <?php if (($scene->scene_status_id === SceneStatus::Open) && (($scene->signup_limit === 0) || (count($sceneCharacters) < $scene->signup_limit))): ?>
+                Share:
                 <?php echo $this->Html->link(
                         $this->Url->build(
                             [
@@ -90,6 +94,7 @@ $this->loadHelper('Tag');
                         ],
                         [
                             'id' => 'scene-share-link',
+                            'title' => 'Click to copy'
                         ]
                     ); ?>
             <?php endif; ?>
@@ -112,9 +117,13 @@ $this->loadHelper('Tag');
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td>
             <b>Tags</b>
             <?= $this->Tag->linkList($scene->tags, ['controller' => 'scenes', 'action' => 'tagged']); ?>
+        </td>
+        <td>
+            <b>Sign-up limit</b>
+            <?= $scene->signup_limit; ?>
         </td>
     </tr>
     <tr>
