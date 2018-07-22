@@ -219,32 +219,31 @@ class ScenesController extends AppController
 
         if (!$scene) {
             $this->Flash->set('Unable to find Scene');
-            $this->redirect(array('action' => 'index'));
+            return $this->redirect(array('action' => 'index'));
         }
 
         if ($this->getRequest()->is(['post', 'put', 'patch'])) {
-            if ($this->getRequest()->getData()['action'] == 'Cancel') {
-                $this->redirect(['action' => 'view', $scene->slug]);
+            if ($this->getRequest()->getData('action') === 'Cancel') {
+                return $this->redirect(['action' => 'view', $scene->slug]);
             }
-            if ($this->getRequest()->getdata()['action'] == 'Update') {
-                $oldScene = clone $scene;
-                $scene = $this->Scenes->patchEntity($scene, $this->getRequest()->getData());
 
-                $scene->updated_by_id = $this->Auth->user('user_id');
-                $scene->updated_on = date('Y-m-d H:i:s');
+            $oldScene = clone $scene;
+            $scene = $this->Scenes->patchEntity($scene, $this->getRequest()->getData());
 
-                if ($this->Scenes->save($scene)) {
-                    if ($oldScene->run_on_date != $scene->run_on_date) {
-                        $this->ScenesEmail->SendScheduleChange($scene, $oldScene);
-                    }
+            $scene->updated_by_id = $this->Auth->user('user_id');
+            $scene->updated_on = date('Y-m-d H:i:s');
 
-                    $this->Flash->set(__('The scene has been saved.'));
-
-                    $this->redirect(array('action' => 'view', $scene->slug));
-                } else {
-                    $this->Flash->set(__('The scene could not be saved. Please, try again.'));
+            if ($this->Scenes->save($scene)) {
+                if ($oldScene->run_on_date != $scene->run_on_date) {
+                    $this->ScenesEmail->SendScheduleChange($scene, $oldScene);
                 }
+
+                $this->Flash->set(__('The scene has been saved.'));
+
+                return $this->redirect(array('action' => 'view', $scene->slug));
             }
+
+            $this->Flash->set(__('The scene could not be saved. Please, try again.'));
         }
         $this->set(compact('scene'));
     }

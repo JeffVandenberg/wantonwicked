@@ -10,10 +10,10 @@ use phpbb\user;
 include 'cgi-bin/start_of_page.php';
 // perform required includes
 define('IN_PHPBB', true);
-$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './forum/';
+$phpbb_root_path = defined('PHPBB_ROOT_PATH') ? PHPBB_ROOT_PATH : './forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 /** @noinspection PhpIncludeInspection */
-include($phpbb_root_path . 'common.' . $phpEx);
+include $phpbb_root_path . 'common.' . $phpEx;
 $request = $phpbb_container->get('request');
 /* @var \phpbb\request\request $request */
 $request->enable_super_globals();
@@ -33,12 +33,12 @@ $user->setup('');
 //
 
 // check page actions
-$page_title = "";
-$menu_bar = "";
-$top_image = "";
-$page_content = "";
-$java_script = "";
-$contentHeader = "";
+$page_title = '';
+$menu_bar = '';
+$top_image = '';
+$page_content = '';
+$java_script = '';
+$contentHeader = '';
 
 // build links
 include 'user_panel.php';
@@ -77,17 +77,17 @@ if (isset($_GET['action'])) {
 $template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
 $template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage());
 $template->assign_vars(array(
-        "PAGE_TITLE" => $page_title,
-        "JAVA_SCRIPT" => $java_script,
-        "TOP_IMAGE" => $page_image ?? '',
-        "MENU_BAR" => $menu_bar,
-        "PAGE_CONTENT" => $page_content,
-        "EXTRA_HEADERS" => $extra_headers ?? '',
-        "USER_PANEL" => $user_panel,
-        "USER_INFO" => $userInfo,
-        "CONTENT_HEADER" => $contentHeader,
-        "SERVER_TIME" => (microtime(true) + date('Z'))*1000,
-        "BUILD_NUMBER" => file_get_contents(ROOT_PATH . '../build_number'),
+        'PAGE_TITLE' => $page_title,
+        'JAVA_SCRIPT' => $java_script,
+        'TOP_IMAGE' => $page_image ?? '',
+        'MENU_BAR' => $menu_bar,
+        'PAGE_CONTENT' => $page_content,
+        'EXTRA_HEADERS' => $extra_headers ?? '',
+        'USER_PANEL' => $user_panel,
+        'USER_INFO' => $userInfo,
+        'CONTENT_HEADER' => $contentHeader,
+        'SERVER_TIME' => (microtime(true) + date('Z'))*1000,
+        'BUILD_NUMBER' => file_get_contents(ROOT_PATH . '../build_number'),
     )
 );
 
