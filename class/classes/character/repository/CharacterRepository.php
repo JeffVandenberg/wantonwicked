@@ -52,7 +52,7 @@ EOQ;
         return $this->query($sql)->value($params) > 0;
     }
 
-    public function FindById($characterId)
+    public function findById($characterId)
     {
         $characterId = (int)$characterId;
         $sql = <<<EOQ
@@ -67,7 +67,7 @@ FROM
 WHERE
     C.id = ?
 EOQ;
-        $params = array($characterId);
+        $params = [$characterId];
         return $this->query($sql)->single($params);
     }
 

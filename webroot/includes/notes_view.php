@@ -27,7 +27,7 @@ if (!$character_id) {
 }
 
 $characterRepository = new CharacterRepository();
-$character = $characterRepository->FindById($character_id);
+$character = $characterRepository->findById($character_id);
 
 if (!$character) {
     Response::redirect('/notes.php', 'Unable to find character');
