@@ -22,32 +22,28 @@ $characterRepository = RepositoryManager::GetRepository('classes\character\data\
 /* @var CharacterRepository $characterRepository */
 $character = $characterRepository->getById($characterId);
 /* @var Character $character */
-if($character->Id == 0) {
+if ($character->Id == 0) {
     SessionHelper::SetFlashMessage("Invalid Character");
     Response::redirect('/chat.php');
 }
 
-if($character->IsNpc == 'Y') {
-    if(!UserdataHelper::IsSt($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface', $userdata['user_id']);
-        SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::redirect('/');
-    }
-}
-else {
-    if(($character->UserId != $userdata['user_id']) && !UserdataHelper::IsAdmin($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface', $userdata['user_id']);
-        SessionHelper::SetFlashMessage("You're not authorized to view that character.");
-        Response::redirect('/');
-    }
+$mayView = false;
+if (($character->IsNpc == 'Y') && UserdataHelper::IsSt($userdata)) {
+    $mayView = true;
+} else if (($character->UserId == $userdata['user_id']) || UserdataHelper::IsAdmin($userdata)) {
+    $mayView = true;
 }
 
+if (!$mayView) {
+    CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface', $userdata['user_id']);
+    SessionHelper::SetFlashMessage("You're not authorized to view that character.");
+    Response::redirect('/');
+}
 
 // found a character
 $page_title = "Interface for $character->CharacterName";
 $contentHeader = $character->CharacterName;
 $character_type = $character->CharacterType;
-
 
 
 // set up user information
@@ -251,7 +247,7 @@ require_once('menus/character_menu.php');
 $menu = MenuHelper::generateMenu($characterMenu);
 ob_start();
 ?>
-    <?php echo $menu; ?>
+<?php echo $menu; ?>
     <form id="character-login" method="get" action="/chat" target="_blank">
         <input type="hidden" name="character_id" value="<?php echo $characterId; ?>"/>
     </form>
@@ -344,9 +340,9 @@ ob_start();
 
                     var _plm = _plm || [];
                     _plm.push(['_btn', 52154]);
-                    _plm.push(['_loc','usor0275']);
-                    _plm.push(['location', document.location.host ]);
-                    (function(d,e,i) {
+                    _plm.push(['_loc', 'usor0275']);
+                    _plm.push(['location', document.location.host]);
+                    (function (d, e, i) {
                         if (d.getElementById(i)) return;
                         var px = d.createElement(e);
                         px.type = 'text/javascript';
@@ -363,7 +359,37 @@ ob_start();
                         s.parentNode.insertBefore(py, s);
                     })(document, 'script', 'plmxbtn');</script>
                 <!-- // Begin Current Moon Phase HTML (c) MoonConnection.com // -->
-                <div style="width:142px;margin: 0 auto;"><div style="padding:2px;background-color:#000000;border: 1px solid #000000"><div style="padding:15px;padding-bottom:5px;padding-top:11px;border: 1px solid #AFB2D8" align="center"><script language="JavaScript" type="text/javascript">var ccm_cfg = { pth:"http://www.moonmodule.com/cs/", fn:"ccm_v1.swf", lg:"en", hs:1, tf:"12hr", scs:0, df:"std", dfd:0, tc:"FFFFFF", bgc:"000000", mc:"000000", fw:104, fh:153, js:0, msp:0, u:"mc" }</script><script language="JavaScript" type="text/javascript" src="http://www.moonmodule.com/cs/ccm_fl.js"></script><div style="padding-top:5px" align="center"><a href="http://www.moonconnection.com/moon_cycle.phtml" target="mc_moon_ph" style="font-size:10px;font-family:arial,verdana,sans-serif;color:#7F7F7F;text-decoration:underline;background:#000000;border:none;"><span style="color:#7F7F7F">moon cycles</span></a></div></div></div></div><!-- // end moon phase HTML // -->
+                <div style="width:142px;margin: 0 auto;">
+                    <div style="padding:2px;background-color:#000000;border: 1px solid #000000">
+                        <div style="padding:15px;padding-bottom:5px;padding-top:11px;border: 1px solid #AFB2D8"
+                             align="center">
+                            <script language="JavaScript" type="text/javascript">var ccm_cfg = {
+                                    pth: "http://www.moonmodule.com/cs/",
+                                    fn: "ccm_v1.swf",
+                                    lg: "en",
+                                    hs: 1,
+                                    tf: "12hr",
+                                    scs: 0,
+                                    df: "std",
+                                    dfd: 0,
+                                    tc: "FFFFFF",
+                                    bgc: "000000",
+                                    mc: "000000",
+                                    fw: 104,
+                                    fh: 153,
+                                    js: 0,
+                                    msp: 0,
+                                    u: "mc"
+                                }</script>
+                            <script language="JavaScript" type="text/javascript"
+                                    src="http://www.moonmodule.com/cs/ccm_fl.js"></script>
+                            <div style="padding-top:5px" align="center"><a
+                                        href="http://www.moonconnection.com/moon_cycle.phtml" target="mc_moon_ph"
+                                        style="font-size:10px;font-family:arial,verdana,sans-serif;color:#7F7F7F;text-decoration:underline;background:#000000;border:none;"><span
+                                            style="color:#7F7F7F">moon cycles</span></a></div>
+                        </div>
+                    </div>
+                </div><!-- // end moon phase HTML // -->
             </div>
         </div>
     </div>
