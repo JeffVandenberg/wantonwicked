@@ -21,6 +21,7 @@ use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\request\repository\RequestRepository;
+use classes\request\data\Request;
 
 /**
  * Class SheetService
@@ -58,6 +59,10 @@ class SheetService
             'touchstone',
             'pledge',
             'renown',
+            'misc',
+            'theme',
+            'twist',
+            'malison',
         ],
         'limited' => [
             'aspiration',
@@ -78,10 +83,10 @@ class SheetService
      * @param string $characterType
      * @return Character
      */
-    public function initializeSheet($characterType = 'mortal')
+    public function initializeSheet($characterType = 'mortal'): Character
     {
         $character = new Character();
-        $characterType = ($characterType) ? $characterType : 'mortal';
+        $characterType = $characterType ?: 'mortal';
         $character->CharacterType = $characterType;
         $character->Size = 5;
         $character->Morality = 7;
@@ -102,7 +107,7 @@ class SheetService
      * @param Character $character
      * @param array $powerTypes
      */
-    public function addMinPowers(Character $character, array $powerTypes = [])
+    public function addMinPowers(Character $character, array $powerTypes = []): void
     {
         $powerTypeList = [
             'specialty' => 3,
@@ -111,12 +116,12 @@ class SheetService
             'equipment' => 3,
             'aspiration' => 3,
         ];
-        if(!count($powerTypes)) {
+        if (!count($powerTypes)) {
             $powerTypes = array_keys($powerTypeList);
         }
 
         foreach ($powerTypeList as $type => $min) {
-            if (count($character->getPowerList($type)) < $min && in_array($type, $powerTypes)) {
+            if (\in_array($type, $powerTypes, true) && count($character->getPowerList($type)) < $min) {
                 $this->addList($character, $min - count($character->getPowerList($type)), $type);
             }
         }
@@ -127,7 +132,7 @@ class SheetService
     /**
      * @param Character $character
      */
-    private function addCharacterTypePowers(Character $character)
+    private function addCharacterTypePowers(Character $character): void
     {
         $powers = [];
         switch ($character->CharacterType) {
@@ -184,6 +189,13 @@ class SheetService
                     'devotion' => 1,
                 ];
                 break;
+            case 'dhamphir':
+                $powers = [
+                    'theme' => 2,
+                    'twist' => 2,
+                    'malison' => 2
+                ];
+                break;
         }
 
         foreach ($powers as $type => $min) {
@@ -192,12 +204,12 @@ class SheetService
 
                 $this->addList($character, $count, $type);
 
-                if (($character->CharacterType == 'vampire') && ($type == 'touchstone') && $count > 0) {
+                if (($character->CharacterType === 'vampire') && ($type === 'touchstone') && $count > 0) {
                     $list = $character->getPowerList('touchstone');
                     $list[0]->PowerLevel = 6;
                 }
 
-                if (($character->CharacterType == 'werewolf') && ($type == 'touchstone') && $count > 0) {
+                if (($character->CharacterType === 'werewolf') && ($type === 'touchstone') && $count > 0) {
                     $list = $character->getPowerList('touchstone');
                     $list[0]->PowerName = 'Physical';
                     $list[1]->PowerName = 'Spiritual';
@@ -211,7 +223,7 @@ class SheetService
      * @param $numOfItems
      * @param $powerType
      */
-    public function addList(Character $character, $numOfItems, $powerType)
+    public function addList(Character $character, $numOfItems, $powerType): void
     {
         foreach (range(1, $numOfItems) as $i) {
             $power = new CharacterPower();
@@ -233,7 +245,7 @@ class SheetService
             return new Character();
         }
 
-        if (is_int($identifier) || ((int)$identifier > 0)) {
+        if (\is_int($identifier) || ((int)$identifier > 0)) {
             $character = $this->repository->getById($identifier);
         } else {
             $character = $this->repository->FindBySlug($identifier);
@@ -265,7 +277,7 @@ class SheetService
         // save new data
         $result = $this->saveData($stats, $options, $user);
 
-        if (is_string($result)) {
+        if (\is_string($result)) {
             return $result;
         }
 
@@ -294,7 +306,7 @@ class SheetService
      * @param array $user
      * @return bool
      */
-    public function saveData(array $stats, array $options, array $user)
+    public function saveData(array $stats, array $options, array $user): bool
     {
         // clean data
         array_walk_recursive($stats, function (&$item, $value) {
@@ -311,29 +323,29 @@ class SheetService
         /* @var Character $character */
         $character->loadPowers();
 
-        if ($options['edit_mode'] == 'open') {
+        if ($options['edit_mode'] === 'open') {
             $character->CharacterName = htmlspecialchars($stats['character_name']);
             if (!$character->CharacterName) {
-                $character->CharacterName = 'Character ' . mt_rand(9999999, 100000000);
+                $character->CharacterName = 'Character ' . random_int(9999999, 100000000);
             }
             $character->CharacterType = $stats['character_type'];
             $character->City = $stats['city'];
-            $character->Age = $stats['age'] + 0;
+            $character->Age = (int) $stats['age'];
             $character->ApparentAge = $stats['apparent_age'] ?? 0;
             $character->Sex = 'Male';
             $character->Virtue = $stats['virtue'];
             $character->Vice = $stats['vice'];
-            $character->Splat1 = ($stats['splat1']) ? $stats['splat1'] : '';
+            $character->Splat1 = $stats['splat1'] ?: '';
             $character->Splat2 = $stats['splat2'] ?? '';
             $character->Subsplat = $stats['subsplat'] ?? '';
             $character->Concept = $stats['concept'];
             $character->PowerStat = $stats['power_stat'] ?? 0;
             $character->WillpowerPerm = $stats['willpower_perm'] + 0;
             $character->Morality = $stats['morality'] + 0;
-            $character->Size = $stats['size'] + 0;
-            $character->Speed = $stats['speed'] + 0;
-            $character->InitiativeMod = $stats['initiative_mod'] + 0;
-            $character->Defense = $stats['defense'] + 0;
+            $character->Size = (int) $stats['size'];
+            $character->Speed = (int) $stats['speed'];
+            $character->InitiativeMod = (int) $stats['initiative_mod'];
+            $character->Defense = (int) $stats['defense'];
             $character->Armor = $stats['armor'];
             $character->Health = $stats['health'] + 0;
             $character->PowerPointsModifier = $stats['power_points_modifier'] ?? 0;
@@ -344,21 +356,21 @@ class SheetService
             $character->Friends = $stats['friends'] ?? '';
         }
 
-        if (in_array($options['edit_mode'], ['open', 'limited'])) {
+        if (\in_array($options['edit_mode'], ['open', 'limited'])) {
             $character->Description = htmlspecialchars($stats['description']);
-            $character->Splat1 = ($stats['splat1']) ? $stats['splat1'] : '';
-            $character->Splat2 = ($stats['splat2']) ? $stats['splat2'] : '';
-            $character->PowerPoints = $stats['power_points'] + 0;
-            $character->WoundsAgg = $stats['wounds_agg'] + 0;
-            $character->WoundsLethal = $stats['wounds_lethal'] + 0;
-            $character->WoundsBashing = $stats['wounds_bashing'] + 0;
-            $character->WillpowerTemp = $stats['willpower_temp'] + 0;
+            $character->Splat1 = $stats['splat1'] ?: '';
+            $character->Splat2 = $stats['splat2'] ?: '';
+            $character->PowerPoints = (int) $stats['power_points'];
+            $character->WoundsAgg = (int) $stats['wounds_agg'];
+            $character->WoundsLethal = (int) $stats['wounds_lethal'];
+            $character->WoundsBashing = (int) $stats['wounds_bashing'];
+            $character->WillpowerTemp = (int) $stats['willpower_temp'];
             $character->Icon = $stats['icon'];
         }
         if ($options['show_admin']) {
             $character->Status = $stats['status'];
             $character->CharacterStatusId = $stats['character_status_id'];
-            $character->IsNpc = ($stats['is_npc'] == 'Y') ? 'Y' : 'N';
+            $character->IsNpc = ($stats['is_npc'] === 'Y') ? 'Y' : 'N';
             if ($stats['xp_spent'] > 0) {
                 $character->CurrentExperience -= $stats['xp_spent'];
             }
@@ -374,12 +386,12 @@ class SheetService
                 $note->UserId = $user['user_id'];
                 $note->Note = $stats['st_note'];
                 $note->Created = date('Y-m-d H:i:s');
-                $noteRepo = RepositoryManager::GetRepository('classes\character\data\CharacterNote');
+                $noteRepo = RepositoryManager::GetRepository(CharacterNote::class);
                 $noteRepo->save($note);
             }
         }
 
-        if($options['owner']) {
+        if ($options['owner']) {
             $character->ViewPassword = $stats['view_password'];
         }
 
@@ -415,7 +427,7 @@ class SheetService
 
         $characterPowers = [];
 
-        if ($options['edit_mode'] == 'open') {
+        if ($options['edit_mode'] === 'open') {
             // save attributes
             foreach ($stats['attribute'] as $attribute => $value) {
                 $cp = $character->getAttribute($attribute);
@@ -435,10 +447,10 @@ class SheetService
 
         // save all other powers
         foreach ($this->powerList[$options['edit_mode']] as $powerType) {
-            if (isset($stats[$powerType]) && is_array($stats[$powerType])) {
+            if (isset($stats[$powerType]) && \is_array($stats[$powerType])) {
                 foreach ($stats[$powerType] as $power) {
                     $pp = [
-                        'id' => ($power['id']) ? $power['id'] : null,
+                        'id' => $power['id'] ?: null,
                         'power_type' => $powerType,
                         'power_name' => $power['name'],
                         'power_note' => $power['note'] ?? '',
@@ -454,7 +466,7 @@ class SheetService
                     $cp->PowerType = $pp['power_type'];
                     $cp->PowerName = $pp['power_name'];
                     $cp->PowerNote = $pp['power_note'] ?? '';
-                    $cp->PowerLevel = (int) $pp['power_level'];
+                    $cp->PowerLevel = (int)$pp['power_level'];
                     $cp->IsPublic = $pp['is_public'] + 0;
                     $cp->Extra = $pp['extra'];
 
@@ -486,18 +498,18 @@ class SheetService
      * @param array $user
      * @return bool
      */
-    private function logChanges(Character $newCharacter, Character $oldCharacter, array $user)
+    private function logChanges(Character $newCharacter, Character $oldCharacter, array $user): bool
     {
         if (!$oldCharacter->Id) {
             // first save
             return true;
         }
 
-        if ($newCharacter->CharacterStatusId != $oldCharacter->CharacterStatusId) {
-            if ($newCharacter->CharacterStatusId == CharacterStatus::Active) {
+        if ((int)$newCharacter->CharacterStatusId !== (int)$oldCharacter->CharacterStatusId) {
+            if ((int)$newCharacter->CharacterStatusId === CharacterStatus::Active) {
                 CharacterLog::LogAction($newCharacter->Id, ActionType::SANCTIONED, 'ST Sanctioned Character', $user['user_id']);
             }
-            if ($newCharacter->CharacterStatusId == CharacterStatus::Unsanctioned) {
+            if ((int)$newCharacter->CharacterStatusId === CharacterStatus::Unsanctioned) {
                 CharacterLog::LogAction($newCharacter->Id, ActionType::DESANCTIONED, 'ST Desanctioned Character', $user['user_id']);
             }
         }
@@ -509,17 +521,15 @@ class SheetService
 
         $changedProperties = [];
         foreach ($newCharacter as $property => $value) {
-            if (!in_array($property, $excludedProperties)) {
-                if ($newCharacter->$property != $oldCharacter->$property) {
-                    $changedProperties[] = $property;
-                }
+            if ($newCharacter->$property !== $oldCharacter->$property && !\in_array($property, $excludedProperties, true)) {
+                $changedProperties[] = $property;
             }
         }
 
-        $note = "";
+        $note = '';
         if (count($changedProperties) > 0) {
             foreach ($changedProperties as $property) {
-                $note .= $property . ' changed from ' . $oldCharacter->$property . ' to ' . $newCharacter->$property . "<br />";
+                $note .= $property . ' changed from ' . $oldCharacter->$property . ' to ' . $newCharacter->$property . '<br />';
             }
         }
 
@@ -531,18 +541,17 @@ class SheetService
         foreach ($newCharacter->CharacterPower as $i => $newPower) {
             foreach ($oldCharacter->CharacterPower as $j => $oldPower) {
                 // if they are the same
-                if ($newPower->Id == $oldPower->Id) {
-                    if (($newPower->PowerName != $oldPower->PowerName)
-                        || ($newPower->PowerNote != $oldPower->PowerNote)
-                        || ($newPower->PowerLevel != $oldPower->PowerLevel)
+                if ((int)$newPower->Id === (int)$oldPower->Id) {
+                    if (($newPower->PowerName !== $oldPower->PowerName)
+                        || ($newPower->PowerNote !== $oldPower->PowerNote)
+                        || ((int)$newPower->PowerLevel !== (int)$oldPower->PowerLevel)
                     ) {
                         $changedPowerList[] = array(
                             'old' => $oldPower,
                             'new' => $newPower
                         );
                     }
-                    unset($newPowerList[$i]);
-                    unset($oldPowerList[$j]);
+                    unset($newPowerList[$i], $oldPowerList[$j]);
                 }
             }
         }
@@ -551,14 +560,14 @@ class SheetService
             $note .= 'Added Power: ' . $newPower->PowerType .
                 ' Name: ' . $newPower->PowerName .
                 ' Note: ' . $newPower->PowerNote .
-                ' Level: ' . $newPower->PowerLevel . "<br />";
+                ' Level: ' . $newPower->PowerLevel . '<br />';
         }
 
         foreach ($oldPowerList as $oldPower) {
             $note .= 'Removed Power: ' . $oldPower->PowerType .
                 ' Name: ' . $oldPower->PowerName .
                 ' Note: ' . $oldPower->PowerNote .
-                ' Level: ' . $oldPower->PowerLevel . "<br />";
+                ' Level: ' . $oldPower->PowerLevel . '<br />';
         }
 
         foreach ($changedPowerList as $power) {
@@ -570,10 +579,10 @@ class SheetService
                 ' <b>NEW</b> ' .
                 ' Name: ' . $power['new']->PowerName .
                 ' Note: ' . $power['new']->PowerNote .
-                ' Level: ' . $power['new']->PowerLevel . "<br />";
+                ' Level: ' . $power['new']->PowerLevel . '<br />';
         }
 
-        CharacterLog::LogAction($newCharacter->Id, ActionType::UPDATE_CHARACTER, str_replace("\n", "<br/>", $note),
+        CharacterLog::LogAction($newCharacter->Id, ActionType::UPDATE_CHARACTER, str_replace("\n", '<br/>', $note),
             $user['user_id']);
 
         return true;
@@ -582,7 +591,7 @@ class SheetService
     /**
      * @return array
      */
-    public function listAvailableIcons()
+    public function listAvailableIcons(): array
     {
         $sql = <<<SQL
 SELECT
@@ -608,7 +617,7 @@ SQL;
      * @param $userId
      * @return bool
      */
-    public function grantXpToCharacter($characterId, $xpAmount, $logNote, $userId)
+    public function grantXpToCharacter($characterId, $xpAmount, $logNote, $userId): bool
     {
         $character = $this->repository->getById($characterId);
         /* @var Character $character */
@@ -630,7 +639,7 @@ SQL;
     /**
      * @param $xpAward
      */
-    public function awardXpToActiveCharacters($xpAward)
+    public function awardXpToActiveCharacters($xpAward): void
     {
         $xpAward = (int)$xpAward;
         $update_experience_query = <<<SQL
@@ -679,16 +688,16 @@ EOQ;
     /**
      *
      */
-    public function restoreTempWillpower()
+    public function restoreTempWillpower(): void
     {
-        $update_willpower_query = "UPDATE characters SET willpower_temp = willpower_temp + 1 WHERE willpower_temp < willpower_perm;";
+        $update_willpower_query = 'UPDATE characters SET willpower_temp = willpower_temp + 1 WHERE willpower_temp < willpower_perm;';
         $this->repository->query($update_willpower_query)->execute();
     }
 
     /**
      * @return array
      */
-    public function checkCharacterActivity()
+    public function checkCharacterActivity(): array
     {
         // mark idle characters with 1 month of no activity
         $idleCharacterIds = $this->repository->findCharactersWithNoActivityInDate(
@@ -711,9 +720,9 @@ EOQ;
             'Moved to Inactive status for inactivity'
         );
 
-        if(count($inactiveCharacterIds)) {
+        if (count($inactiveCharacterIds)) {
             // close requests for Inactive Characters
-            $requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
+            $requestRepository = RepositoryManager::GetRepository(Request::class);
             /* @var RequestRepository $requestRepository */
             $requestRepository->CloseRequestsForCharacter($inactiveCharacterIds);
         }
@@ -728,7 +737,7 @@ EOQ;
      * @param Character $character
      * @return bool
      */
-    public function saveModel(Character $character)
+    public function saveModel(Character $character): ?bool
     {
         $this->repository->save($character);
     }
@@ -738,7 +747,7 @@ EOQ;
      * @param int $userId
      * @param string $note
      */
-    public function reactivateCharacter(Character $character, int $userId, string $note)
+    public function reactivateCharacter(Character $character, int $userId, string $note): void
     {
         $character->CharacterStatusId = CharacterStatus::Active;
         $this->repository->save($character);
