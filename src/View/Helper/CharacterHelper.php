@@ -82,6 +82,7 @@ class CharacterHelper extends AppHelper
         'mortal' => 'Mortal',
         'vampire' => 'Vampire',
         'ghoul' => 'Ghoul',
+        'dhamphir' => 'Dhamphir',
         'werewolf' => 'Werewolf',
         'wolfblooded' => 'Wolfblooded'
     ];
@@ -98,11 +99,11 @@ class CharacterHelper extends AppHelper
      * @var array
      */
     private $statuses = [
-        "Ok" => "Ok",
-        "Imprisoned" => "Imprisoned",
-        "Hospitalized" => "Hospitalized",
-        "Torpored" => "Torpored",
-        "Dead" => "Dead"
+        'Ok' => 'Ok',
+        'Imprisoned' => 'Imprisoned',
+        'Hospitalized' => 'Hospitalized',
+        'Torpored' => 'Torpored',
+        'Dead' => 'Dead'
     ];
 
     /**
@@ -150,6 +151,7 @@ class CharacterHelper extends AppHelper
         'power_stat' => false,
         'power_points' => false,
         'pledge' => false,
+        'destiny' => false,
     ];
 
     /**
@@ -178,7 +180,7 @@ class CharacterHelper extends AppHelper
      * @param array|null $options
      * @return string
      */
-    public function render(Character $character, $icons, $options = null)
+    public function render(Character $character, $icons, $options = null): string
     {
         $this->icons = $icons;
         $this->options = array_merge($this->options, $options);
@@ -191,7 +193,7 @@ class CharacterHelper extends AppHelper
         $derived = $this->buildDerivedSection($character);
         $equipment = $this->buildEquipmentSection($character);
         $conditions = $this->buildConditionsSection($character);
-        $admin = ($this->options['show_admin']) ? $this->buildAdminSection($character) : '';
+        $admin = $this->options['show_admin'] ? $this->buildAdminSection($character) : '';
         $owner = (isset($this->options['owner']) && $this->options['owner']) ? $this->buildOwnerSection($character) : '';
 
         ob_start();
@@ -221,7 +223,7 @@ class CharacterHelper extends AppHelper
                     <?php echo $admin; ?>
                 </li>
             <?php endif; ?>
-            <?php if(isset($this->options['owner']) && $this->options['owner']): ?>
+            <?php if (isset($this->options['owner']) && $this->options['owner']): ?>
                 <li class="accordion-item" data-accordion-item>
                     <?php echo $owner; ?>
                 </li>
@@ -250,7 +252,7 @@ class CharacterHelper extends AppHelper
      * @param Character $character
      * @return string
      */
-    private function buildBioEdit(Character $character)
+    private function buildBioEdit(Character $character): string
     {
         $characterName = $character->CharacterName;
         $description = $character->Description;
@@ -262,10 +264,12 @@ class CharacterHelper extends AppHelper
         $splat2 = $character->Splat2;
         $virtue = $character->Virtue;
         $vice = $character->Vice;
-        $history = str_replace("\n", "<br />", $character->History);
-        $characterNotes = str_replace("\n", "<br />", $character->CharacterNotes);
+        $history = str_replace("\n", '<br />', $character->History);
+        $characterNotes = str_replace("\n", '<br />', $character->CharacterNotes);
         $icon = $this->icons[$character->Icon] ?? '';
         $friends = $character->Friends;
+        $destinyPower = $character->getPowerByTypeAndName('misc', 'destiny');
+        $destiny = $destinyPower->PowerNote;
 
         if ($this->mayEditOpen()) {
             $characterName = $this->Form->text('character_name', [
@@ -362,6 +366,17 @@ class CharacterHelper extends AppHelper
                     'aria-describedby' => 'notes-help-text'
                 ]
             );
+            $destiny = $this->Form->hidden('destiny[0][id]', [
+                    'value' => $destinyPower->Id
+                ]) . $this->Form->hidden('destiny[0][type]', [
+                    'value' => 'misc'
+                ]) . $this->Form->control('destiny[0][note]', [
+                    'label' => false,
+                    'div' => false,
+                    'placeholder' => 'Destiny',
+                    'value' => $destinyPower->PowerNote,
+                    'maxlength' => 255
+                ]);
         }
         if ($this->mayEditLimited()) {
             $splat1 = $this->Form->control(
@@ -482,7 +497,9 @@ class CharacterHelper extends AppHelper
                     <?php endif; ?>
                 </div>
                 <div class="medium-3 columns">
-                    <?php if (isset($this->sheetFields['friends'])) echo $friends; ?>
+                    <?php if (isset($this->sheetFields['friends'])) {
+                        echo $friends;
+                    } ?>
                 </div>
             </div>
             <div class="row">
@@ -507,7 +524,18 @@ class CharacterHelper extends AppHelper
                 <div class="medium-3 column">
                     <?php echo $vice; ?>
                 </div>
-                <div class="medium-4 column">&nbsp;</div>
+                <div class="medium-1 column">
+                    <?php if ($this->sheetFields['destiny']): ?>
+                        <label for="destiny">
+                            Destiny
+                        </label>
+                    <?php endif; ?>
+                </div>
+                <div class="medium-3 column">
+                    <?php if ($this->sheetFields['destiny']): ?>
+                        <?php echo $destiny; ?>
+                    <?php endif; ?>
+                </div>
             </div>
             <div class="row">
                 <div class="small-12 column subheader">
@@ -551,7 +579,7 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 columns">
                     <label>Power Notes</label>
                     <?php echo $characterNotes; ?>
-                    <?php if (in_array($character->CharacterStatusId, CharacterStatus::Sanctioned)): ?>
+                    <?php if (\in_array($character->CharacterStatusId, CharacterStatus::Sanctioned)): ?>
                         <p class="help-text" id="notes-help-text">
                             At Character Creation this section should include a list of all traits or bonuses provided
                             by purchase of applicable merits, abilities or by character type choices. Those bonuses will
@@ -573,7 +601,7 @@ class CharacterHelper extends AppHelper
      * @param Character $character
      * @return string
      */
-    private function buildStatEdit(Character $character)
+    private function buildStatEdit(Character $character): string
     {
         ob_start();
         ?>
@@ -858,7 +886,7 @@ class CharacterHelper extends AppHelper
      * @param Character $character
      * @return string
      */
-    private function buildPowersSection(Character $character)
+    private function buildPowersSection(Character $character): ?string
     {
         switch (strtolower($character->CharacterType)) {
             case 'mortal':
@@ -873,6 +901,8 @@ class CharacterHelper extends AppHelper
             case 'changeling':
             case 'fae-touched':
                 return $this->buildChangelingPowersSection($character);
+            case 'dhamphir':
+                return $this->buildDhamphirPowersSection($character);
             default:
                 return $this->buildMortalPowersSection($character);
         }
@@ -883,7 +913,7 @@ class CharacterHelper extends AppHelper
      * @return string
      * @throws Exception
      */
-    public function buildMortalPowersSection(Character $character)
+    public function buildMortalPowersSection(Character $character): string
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
         $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
@@ -931,7 +961,7 @@ class CharacterHelper extends AppHelper
      * @param Character $character
      * @return string
      */
-    private function buildEquipmentSection(Character $character)
+    private function buildEquipmentSection(Character $character): string
     {
         ob_start();
         ?>
@@ -1026,7 +1056,7 @@ class CharacterHelper extends AppHelper
      * @param Character $character
      * @return string
      */
-    private function buildDerivedSection(Character $character)
+    private function buildDerivedSection(Character $character): string
     {
         $willpowerPerm = $character->WillpowerPerm;
         $willpowerTemp = $character->WillpowerTemp;
@@ -1296,7 +1326,7 @@ class CharacterHelper extends AppHelper
                                     'rows' => 3
                                 ]); ?>
                             <?php else: ?>
-                                <?php echo str_replace("\n", "<br />", $power->Extra['explanation']); ?>
+                                <?php echo str_replace("\n", '<br />', $power->Extra['explanation']); ?>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
@@ -1449,7 +1479,7 @@ class CharacterHelper extends AppHelper
                                     'label' => false
                                 ]); ?>
                             <?php else: ?>
-                                <?php echo str_replace("\n", "<br />", $power->Extra['pledge']); ?>
+                                <?php echo str_replace("\n", '<br />', $power->Extra['pledge']); ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
@@ -1539,10 +1569,10 @@ class CharacterHelper extends AppHelper
      * @param Character $character
      * @return string
      */
-    private function buildAdminSection(Character $character)
+    private function buildAdminSection(Character $character): string
     {
         // can't revert back to new status
-        if($character->CharacterStatusId != CharacterStatus::NewCharacter) {
+        if ($character->CharacterStatusId != CharacterStatus::NewCharacter) {
             unset($this->characterStatuses[CharacterStatus::NewCharacter]);
         }
 
@@ -1561,7 +1591,7 @@ class CharacterHelper extends AppHelper
                         'is_npc',
                         $this->yesNoOptions,
                         [
-                            'value' => ($character->IsNpc) ? $character->IsNpc : 'N',
+                            'value' => $character->IsNpc ? $character->IsNpc : 'N',
                             'empty' => false
                         ]
                     ); ?>
@@ -1574,7 +1604,7 @@ class CharacterHelper extends AppHelper
                         'status',
                         $this->statuses,
                         [
-                            'value' => ($character->Status) ? $character->IsNpc : 'N',
+                            'value' => $character->Status ? $character->IsNpc : 'N',
                             'empty' => true
                         ]
                     ); ?>
@@ -1629,7 +1659,7 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 medium-6 column">
                     <label>Last ST Note</label>
                     <?php if ($character->getLastStNote()): ?>
-                        <?php echo str_replace("\n", "<br />", $character->getLastStNote()->Note); ?><br/>
+                        <?php echo str_replace("\n", '<br />', $character->getLastStNote()->Note); ?><br/>
                         By <?php echo $character->getLastStNote()->User->Username; ?>
                         On <?php echo $character->getLastStNote()->Created; ?>
                         <div class="text-center">
@@ -1651,17 +1681,17 @@ class CharacterHelper extends AppHelper
     /**
      * @return bool
      */
-    private function mayEditLimited()
+    private function mayEditLimited(): bool
     {
-        return in_array($this->options['edit_mode'], ['open', 'limited']);
+        return \in_array($this->options['edit_mode'], ['open', 'limited']);
     }
 
-    private function mayEditOpen()
+    private function mayEditOpen(): bool
     {
-        return in_array($this->options['edit_mode'], ['open']);
+        return $this->options['edit_mode'] === 'open';
     }
 
-    private function setupSheetOptions($characterType)
+    private function setupSheetOptions($characterType): void
     {
         switch ($characterType) {
             case 'mortal':
@@ -1714,6 +1744,11 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['break_points'] = true;
+                break;
+            case 'dhamphir':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['break_points'] = true;
+                $this->sheetFields['destiny'] = true;
                 break;
         }
     }
@@ -2025,7 +2060,7 @@ class CharacterHelper extends AppHelper
                     <div class="row">
                         <div class="small-12 column subheader">
                             Renown
-                            <?php if($this->mayEditOpen()): ?>
+                            <?php if ($this->mayEditOpen()): ?>
                                 <div style="font-size:15px;display:inline;">&nbsp;</div>
                             <?php endif; ?>
                         </div>
@@ -2170,6 +2205,108 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
+    private function buildDhamphirPowersSection(Character $character)
+    {
+        $meritTable = $this->buildTable($character, 'merit', 'merits');
+        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']);
+        $themesTable = $this->buildTable($character, 'theme', 'themes',
+            ['name', 'levelselect', 'public']);
+        $twistsTable = $this->buildTable($character, 'twist', 'twists',
+            ['name', 'levelselect', 'public']);
+        $malisonsTable = $this->buildTable($character, 'malison', 'malisons',
+            ['name', 'public']);
+        ob_start();
+        ?>
+        <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
+           aria-controls="csheet-template">Abilities</a>
+        <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-template-heading">
+            <div class="row">
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Merits
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="merits"><i
+                                            class="fi-plus"></i></div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $meritTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="misc-abilities">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $miscPowerTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Themes
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="themes">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $themesTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Twists
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="twists">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $twistsTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Malisons
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="malisons">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $malisonsTable; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
     private function buildTable(Character $character, $powerType, $tableId, $columns = null)
     {
         $fields = [
@@ -2234,7 +2371,7 @@ class CharacterHelper extends AppHelper
             'public' => [
                 'header' => 'Public',
                 'translate' => function ($val) {
-                    return ($val) ? 'Yes' : 'No';
+                    return $val ? 'Yes' : 'No';
                 },
                 'extra' => [
                     'html_after' => '<div class="alert badge clickable remove-character-row" data-target-table=' . $tableId . '><i class="fi-minus"></i></div>',
@@ -2256,7 +2393,7 @@ class CharacterHelper extends AppHelper
             }
         } else {
             foreach ($columns as $column => $options) {
-                if (is_array($options)) {
+                if (\is_array($options)) {
                     if (isset($fields[$column])) {
                         $displayFields[$column] = array_merge($fields[$column], $options);
                     } else {
@@ -2266,7 +2403,7 @@ class CharacterHelper extends AppHelper
                     if (isset($fields[$options])) {
                         $displayFields[$options] = $fields[$options];
                     } else {
-                        throw new Exception('Unknown field type: ' . $options);
+                        throw new RuntimeException('Unknown field type: ' . $options);
                     }
                 }
             }
@@ -2274,7 +2411,7 @@ class CharacterHelper extends AppHelper
 
 
         if (!count($displayFields)) {
-            throw new Exception('No fields to display for: ' . $powerType);
+            throw new RuntimeException('No fields to display for: ' . $powerType);
         }
 
         ob_start();
@@ -2317,7 +2454,7 @@ class CharacterHelper extends AppHelper
         $conditions = $character->getPowerList('conditions');
         $conditionId = 0;
         $conditionText = '';
-        if(!empty($conditions)) {
+        if (!empty($conditions)) {
             $conditionId = $conditions[0]->Id;
             $conditionText = $conditions[0]->Extra['conditions'];
         }
@@ -2380,16 +2517,16 @@ class CharacterHelper extends AppHelper
                 'type' => $input['type'],
                 'maxlength' => 255,
             ];
-            if (isset($input['extra']) && is_array($input['extra'])) {
+            if (isset($input['extra']) && \is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
             }
             return $this->Form->control($powerType . '.' . $i . '.' . $input['name'], $inputOptions);
-        } else {
-            if (isset($field['translate'])) {
-                $value = $field['translate']($value);
-            }
-            return $value;
         }
+
+        if (isset($field['translate'])) {
+            $value = $field['translate']($value);
+        }
+        return $value;
     }
 
     private function renderSelectInput($field, $powerType, $power, $i, $input)
@@ -2401,7 +2538,7 @@ class CharacterHelper extends AppHelper
                 'label' => false,
                 'empty' => false
             ];
-            if (isset($input['extra']) && is_array($input['extra'])) {
+            if (isset($input['extra']) && \is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
             }
             return $this->Form->select(
@@ -2409,15 +2546,15 @@ class CharacterHelper extends AppHelper
                 $input['range'],
                 $inputOptions
             );
-        } else {
-            if (isset($field['translate'])) {
-                $value = $field['translate']($value);
-            }
-            return $value;
         }
+
+        if (isset($field['translate'])) {
+            $value = $field['translate']($value);
+        }
+        return $value;
     }
 
-    private function renderHiddenInput($field, $powerType, $power, $i, $input)
+    private function renderHiddenInput($field, $powerType, $power, $i, $input): string
     {
         $value = $this->getValueFromPower($power, $input['value']);
         if ($this->mayEditOpen()) {
@@ -2425,39 +2562,39 @@ class CharacterHelper extends AppHelper
                 'value' => $value,
                 'type' => 'hidden'
             ];
-            if (isset($input['extra']) && is_array($input['extra'])) {
+            if (isset($input['extra']) && \is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
             }
             return $this->Form->control(
                 $powerType . '.' . $i . '.' . $input['name'],
                 $inputOptions
             );
-        } else {
-            return '';
         }
+
+        return '';
     }
 
-    private function renderCheckboxInput($field, $powerType, $power, $i, $input)
+    private function renderCheckboxInput($field, $powerType, $power, $i, $input): string
     {
         $value = $this->getValueFromPower($power, $input['value']);
         if ($this->mayEditOpen()) {
             $inputOptions = [
                 'value' => $value,
                 'type' => 'checkbox',
-                'checked' => ($value > 0),
+                'checked' => $value > 0,
                 'label' => false,
                 'div' => false
             ];
-            if (isset($input['extra']) && is_array($input['extra'])) {
+            if (isset($input['extra']) && \is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
             }
             return $this->Form->control(
                 $powerType . '.' . $i . '.' . $input['name'],
                 $inputOptions
             );
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     private function getValueFromPower(CharacterPower $power, $property)
@@ -2465,9 +2602,9 @@ class CharacterHelper extends AppHelper
         if (strpos($property, '.') !== false) {
             $parts = explode('.', $property);
             return $power->{$parts[0]}[$parts[1]];
-        } else {
-            return $power->$property;
         }
+
+        return $power->$property;
     }
 
     private function makeWolfRenownRow(Character $character, $index, $renownLabel, $renownKey)
@@ -2521,7 +2658,9 @@ class CharacterHelper extends AppHelper
                 <div class="small-6 medium-3 column">
                     <label for="is_npc">
                         View Password
-                        <span class="badge has-tip" data-tooltip title="If you want another player to be able to view your sheet, enter a password."><i class="fi-pencil"></i></span>
+                        <span class="badge has-tip" data-tooltip
+                              title="If you want another player to be able to view your sheet, enter a password."><i
+                                    class="fi-pencil"></i></span>
                     </label>
                 </div>
                 <div class="small-6 medium-9 column">
