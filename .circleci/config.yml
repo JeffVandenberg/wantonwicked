@@ -1,6 +1,5 @@
 version: 2
 
-
 ## Customize the test machine
 jobs:
   build:
@@ -11,49 +10,47 @@ jobs:
       TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
       APP_ENV: test
 
+  test:
+    docker:
+      - image: circleci/php:7.1-apache-jessie-node-browsers
+
+    environment:
+      TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
+      APP_ENV: test
     steps:
       - checkout
       - run: echo 127.0.0.1 dev-wanton | sudo tee -a /etc/hosts
       - run:
         - name: composer
         - command: composer install
+      - run:
+        - name: phpunit
+        - command: vendor/bin/phpunit tests
+
+  deploy_to_prod:
+    docker:
+      - image: circleci/php:7.1-apache-jessie-node-browsers
+    steps:
+      - checkout
+      - run:
+        - name: Prod Script
 
 workflows:
   version: 2
   deploy_prod:
     jobs:
       - deploy_to_prod
-      requires:
-        - test
-      filters:
-        branches:
-          only: master
+        requires:
+          - test
+        filters:
+          branches:
+            only: master
 
   deploy_staging:
     jobs:
       - deploy_to_test
-      requires:
-        - test
-      filters:
-        branches:
-          only: develop
-  test:
-    run:
-      - name: phpunit
-      - command: vendor/bin/phpunit tests
-
-test:
-  override:
-    -
-
-deployment:
-  staging:
-    branch: develop
-    commands:
-      - ./deploy/deploy_to_test.sh
-
-  prod:
-    branch: master
-    commands:
-      - ./deploy/deploy_to_prod.sh
-
+        requires:
+          - test
+        filters:
+          branches:
+            only: develop
