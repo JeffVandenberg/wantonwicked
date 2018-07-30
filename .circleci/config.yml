@@ -32,8 +32,7 @@ jobs:
       - checkout
       - run:
           name: Prod Script
-          command: echo "Deploy to Prod"
-#          - ./deploy/deploy_to_prod.sh
+          command: ./deploy/deploy_to_prod.sh
   deploy_to_test:
     docker:
       - image: circleci/php:7.1-apache-jessie-node-browsers
@@ -41,10 +40,17 @@ jobs:
       - checkout
       - run:
           name: Prod Script
-          command: echo "Deploy to Test"
-#          - ./deploy/deploy_to_test.sh
+          command: ./deploy/deploy_to_test.sh
 workflows:
   version: 2
   test:
     jobs:
       - test
+deploy_staging:
+  jobs:
+  - deploy_to_test
+    requires:
+    - test
+    filters:
+      branches:
+        only: develop
