@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;

@@ -2418,7 +2418,7 @@ class CharacterHelper extends AppHelper
 
 
         if (!count($displayFields)) {
-            throw new RuntimeException('No fields to display for: ' . $powerType);
+            throw new \RuntimeException('No fields to display for: ' . $powerType);
         }
 
         ob_start();
