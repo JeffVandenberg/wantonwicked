@@ -49,25 +49,3 @@ jobs:
           - ./deploy/deploy_to_test.sh
 
 workflows:
-  version: 2
-  deploy_prod:
-    jobs:
-      - deploy_to_prod
-        requires:
-          - test
-        filters:
-          branches:
-            only: master
-
-  deploy_staging:
-    jobs:
-      - deploy_to_test
-        requires:
-          - test
-        filters:
-          branches:
-            only: develop
-
-  test:
-    jobs:
-      - test
