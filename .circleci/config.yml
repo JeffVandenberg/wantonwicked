@@ -45,12 +45,6 @@ jobs:
 #          - ./deploy/deploy_to_test.sh
 workflows:
   version: 2
-  deploy_prod:
-    jobs:
-      - deploy_to_prod
-  deploy_staging:
-    jobs:
-      - deploy_to_test
   test:
     jobs:
       - test
