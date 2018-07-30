@@ -268,7 +268,12 @@ class CharacterHelper extends AppHelper
         $characterNotes = str_replace("\n", '<br />', $character->CharacterNotes);
         $icon = $this->icons[$character->Icon] ?? '';
         $friends = $character->Friends;
-        $destinyPower = $character->getPowerByTypeAndName('misc', 'destiny');
+        $destinyPower = $character->getPowerList('misc');
+        if(\is_array($destinyPower)) {
+            $destinyPower = $destinyPower[0];
+        } else {
+            $destinyPower = new CharacterPower();
+        }
         $destiny = $destinyPower->PowerNote;
 
         if ($this->mayEditOpen()) {
@@ -366,11 +371,13 @@ class CharacterHelper extends AppHelper
                     'aria-describedby' => 'notes-help-text'
                 ]
             );
-            $destiny = $this->Form->hidden('destiny[0][id]', [
+            $destiny = $this->Form->hidden('misc[0][id]', [
                     'value' => $destinyPower->Id
-                ]) . $this->Form->hidden('destiny[0][type]', [
+                ]) . $this->Form->hidden('misc[0][type]', [
                     'value' => 'misc'
-                ]) . $this->Form->control('destiny[0][note]', [
+                ]) . $this->Form->hidden('misc[0][name]', [
+                    'value' => 'destiny'
+                ]) . $this->Form->control('misc[0][note]', [
                     'label' => false,
                     'div' => false,
                     'placeholder' => 'Destiny',

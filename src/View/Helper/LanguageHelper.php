@@ -93,7 +93,7 @@ class LanguageHelper extends AppHelper
             'break_point4' => 'What is the most traumatic thing that has ever happened to the character?',
         ],
         'dhamphir' => [
-            'splat1' => 'Guild',
+            'splat1' => 'Parent Clan',
             'morality' => 'Integrity',
             'virtue' => 'Virtue',
             'vice' => 'Vice',

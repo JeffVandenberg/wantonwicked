@@ -193,7 +193,8 @@ class SheetService
                 $powers = [
                     'theme' => 2,
                     'twist' => 2,
-                    'malison' => 2
+                    'malison' => 2,
+                    'break_point' => 5,
                 ];
                 break;
         }

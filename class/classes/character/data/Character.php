@@ -13,6 +13,7 @@ namespace classes\character\data;
 use classes\core\data\DataModel;
 use classes\core\data\User;
 use classes\core\repository\RepositoryManager;
+use classes\character\data\CharacterPower;
 
 /**
  * @property CharacterPower[] Attributes
@@ -96,17 +97,17 @@ class Character extends DataModel
     private $lastStNote;
 
     public $HasMany = [
-        'Attributes' => 'classes\character\data\CharacterPower',
-        'Skills' => 'classes\character\data\CharacterPower',
-        'Specialities' => 'classes\character\data\CharacterPower',
-        'Merits' => 'classes\character\data\CharacterPower',
+        'Attributes' => CharacterPower::class,
+        'Skills' => CharacterPower::class,
+        'Specialities' => CharacterPower::class,
+        'Merits' => CharacterPower::class,
         'CharacterPower',
         'CharacterNote'
     ];
 
     public $BelongsTo = [
-        'User' => 'classes\core\data\User',
-        'UpdatedBy' => 'classes\core\data\User',
+        'User' => User::class,
+        'UpdatedBy' => User::class,
         'CharacterStatus'
     ];
 
@@ -124,15 +125,15 @@ class Character extends DataModel
     {
         switch (strtolower($property)) {
             case 'attributes':
-                return $this->getPowerlist('attribute');
+                return $this->getPowerList('attribute');
             case 'skills':
-                return $this->getPowerlist('skill');
+                return $this->getPowerList('skill');
             case 'specialties':
-                return $this->getPowerlist('specialty');
+                return $this->getPowerList('specialty');
             case 'merits':
                 return $this->getPowerList('merit');
             case 'flaws':
-                return $this->getPowerlist('flaw');
+                return $this->getPowerList('flaw');
             default:
                 return parent::__get($property);
                 break;
@@ -197,14 +198,14 @@ class Character extends DataModel
     public function getPowerList($powerType)
     {
         if (!isset($this->powers[$powerType])) {
-            $this->powers[$powerType] = RepositoryManager::GetRepository('classes\character\data\CharacterPower')->ListByCharacterIdAndPowerType($this->CharacterId, ucfirst($powerType));
+            $this->powers[$powerType] = RepositoryManager::GetRepository(CharacterPower::class)->ListByCharacterIdAndPowerType($this->CharacterId, ucfirst($powerType));
         }
         return $this->powers[$powerType];
     }
 
     public function loadPowers()
     {
-        $powers = RepositoryManager::GetRepository('classes\character\data\CharacterPower')->ListByCharacterId($this->Id);
+        $powers = RepositoryManager::GetRepository(CharacterPower::class)->ListByCharacterId($this->Id);
         /* @var CharacterPower[] $powers */
         foreach ($powers as $power) {
             $powertype = lcfirst($power->PowerType);
