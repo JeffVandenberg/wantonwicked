@@ -21,11 +21,11 @@ $filterLogins = Request::getValue('filter_logins', 1);
 $logId = Request::getValue('log_id', null);
 
 $characterRepository = new CharacterRepository();
-if ((!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) && !UserdataHelper::IsSt($userdata)) {
+if ((!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) && !UserdataHelper::isSt($userdata)) {
     Response::redirect('/', 'Unable to view that character');
 }
 
-$logCharacterRepository = RepositoryManager::GetRepository('classes\character\data\LogCharacter');
+$logCharacterRepository = RepositoryManager::getRepository('classes\character\data\LogCharacter');
 $filterOptions = [
     'character_id' => $characterId,
     'action_type_id' => $actionTypeId,
@@ -34,9 +34,9 @@ $filterOptions = [
 ];
 
 /* @var LogCharacterRepository $logCharacterRepository */
-$records = $logCharacterRepository->ListByCharacterIdPaged($filterOptions, $page, $pageSize);
+$records = $logCharacterRepository->listByCharacterIdPaged($filterOptions, $page, $pageSize);
 /* @var LogCharacter[] $records */
-$count = $logCharacterRepository->ListByCharacterIdRowRount($filterOptions);
+$count = $logCharacterRepository->listByCharacterIdRowRount($filterOptions);
 
 $hasPrev = false;
 $hasNext = false;
@@ -48,8 +48,8 @@ if(ceil($count / $pageSize) > $page) {
     $hasNext = true;
 }
 
-$actionTypeRepo = RepositoryManager::GetRepository(ActionType::class);
-$characterRepository = RepositoryManager::GetRepository(Character::class);
+$actionTypeRepo = RepositoryManager::getRepository(ActionType::class);
+$characterRepository = RepositoryManager::getRepository(Character::class);
 $character = $characterRepository->getById($characterId);
 /* @var Character $character */
 
@@ -79,17 +79,17 @@ ob_start();
 <div style="padding: 10px 0;">
     <form method="get" action="/character.php" class="row">
         <div class="small-12 medium-4 columns">
-            <?php echo FormHelper::Hidden('character_id', $characterId); ?>
-            <?php echo FormHelper::Hidden('action', 'log'); ?>
-            <?php echo FormHelper::Checkbox('filter_logins', 1, $filterLogins == 1, [
+            <?php echo FormHelper::hidden('character_id', $characterId); ?>
+            <?php echo FormHelper::hidden('action', 'log'); ?>
+            <?php echo FormHelper::checkbox('filter_logins', 1, $filterLogins == 1, [
                 'label' => 'Filter out Chat Logins'
             ]); ?>
-            <?php echo FormHelper::Checkbox('clear_log_id', 0, false, [
+            <?php echo FormHelper::checkbox('clear_log_id', 0, false, [
                 'label' => 'Clear Log ID Filter'
             ]); ?>
         </div>
         <div class="small-12 medium-3 columns">
-            <?php echo FormHelper::Select($actionTypes, 'action_type_id', $actionTypeId, ['label' => 'Action']); ?>
+            <?php echo FormHelper::select($actionTypes, 'action_type_id', $actionTypeId, ['label' => 'Action']); ?>
         </div>
         <div class="small-12 medium-5 columns">
             <button type="submit" class="button" value="Update">Update</button>
@@ -106,10 +106,10 @@ ob_start();
             <?php endif; ?>
             <form method="get" style="display: inline;" action="character.php">
                 Page:
-                <?php echo FormHelper::Hidden('character_id', $characterId); ?>
-                <?php echo FormHelper::Hidden('action', 'log'); ?>
-                <?php echo FormHelper::Hidden('filter_logins', $filterLogins); ?>
-                <?php echo FormHelper::Text('page', $page, array('style' => 'width: 30px;display: inline-block;')); ?>
+                <?php echo FormHelper::hidden('character_id', $characterId); ?>
+                <?php echo FormHelper::hidden('action', 'log'); ?>
+                <?php echo FormHelper::hidden('filter_logins', $filterLogins); ?>
+                <?php echo FormHelper::text('page', $page, array('style' => 'width: 30px;display: inline-block;')); ?>
             </form>
             <?php if($hasNext): ?>
                 <a href="character.php?<?php echo $options; ?>&page=<?php echo $page+1; ?>">&gt; &gt;</a>
@@ -154,7 +154,7 @@ ob_start();
             </td>
             <td>
                 <?php if ($record->ActionTypeId == ActionType::VIEW_REQUEST): ?>
-                    <?php if(UserdataHelper::IsSt($userdata)): ?>
+                    <?php if(UserdataHelper::isSt($userdata)): ?>
                         <a href="/request.php?action=st_view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>
                     <?php else: ?>
                         <a href="/request.php?action=view&request_id=<?php echo $record->ReferenceId; ?>">View Request</a>

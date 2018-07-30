@@ -154,13 +154,13 @@ ob_start();
                 Character Type:
             </td>
             <td>
-                <?php echo FormHelper::Multiselect($characterTypes, 'character_types[]', $selected_character_types); ?>
+                <?php echo FormHelper::multiselect($characterTypes, 'character_types[]', $selected_character_types); ?>
             </td>
             <td>
                 City:
             </td>
             <td>
-                <?php echo FormHelper::Multiselect($cities, 'cities[]', $selected_cities); ?>
+                <?php echo FormHelper::multiselect($cities, 'cities[]', $selected_cities); ?>
             </td>
         </tr>
         <tr>
@@ -169,14 +169,14 @@ ob_start();
                 (Clan/Auspice/Path)
             </td>
             <td>
-                <?php echo FormHelper::Multiselect($splat1, 'splat1[]', $selected_splat1, array('size' => 10)); ?>
+                <?php echo FormHelper::multiselect($splat1, 'splat1[]', $selected_splat1, array('size' => 10)); ?>
             </td>
             <td>
                 Splat 2<br>
                 (Covenant/Tribe/Order)
             </td>
             <td>
-                <?php echo FormHelper::Multiselect($splat2, 'splat2[]', $selected_splat2, array('size' => 10)); ?>
+                <?php echo FormHelper::multiselect($splat2, 'splat2[]', $selected_splat2, array('size' => 10)); ?>
             </td>
         </tr>
         <tr>
@@ -184,13 +184,13 @@ ob_start();
                 Virtue:
             </td>
             <td>
-                <?php echo FormHelper::Multiselect($virtues, 'virtues[]', $selected_virtues); ?>
+                <?php echo FormHelper::multiselect($virtues, 'virtues[]', $selected_virtues); ?>
             </td>
             <td>
                 Vice:
             </td>
             <td>
-                <?php echo FormHelper::Multiselect($vices, 'vices[]', $selected_vices); ?>
+                <?php echo FormHelper::multiselect($vices, 'vices[]', $selected_vices); ?>
             </td>
         </tr>
         <tr>
@@ -198,7 +198,7 @@ ob_start();
                 Only Sanctioned
             </td>
             <td>
-                <?php echo FormHelper::Checkbox('only_sanctioned', 1, $only_sanctioned); ?>
+                <?php echo FormHelper::checkbox('only_sanctioned', 1, $only_sanctioned); ?>
             </td>
             <td>
             </td>

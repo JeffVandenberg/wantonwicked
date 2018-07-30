@@ -6,7 +6,7 @@ $contentHeader = $page_title = 'View Upcoming events';
 
 ob_start();
 ?>
-<?php if(UserdataHelper::IsSt($userdata)): ?>
+<?php if(UserdataHelper::isSt($userdata)): ?>
     <div style="text-align: center;">
         <a class="button" href="https://www.google.com/calendar/render?eid=aW43MDhyam5ucTRtdTBwZ2htaTB1bDY2NGMgNjExZG9tanJ0bmJzbGxudm00YXZmM21jMW9AZw&ctz=America/Chicago&sf=true&output=xml" target="_blank">Add Event</a>
     </div>

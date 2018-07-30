@@ -33,7 +33,7 @@ class RequestEmailComponent extends Component
         }
 
         try {
-            $result = $email->setFrom('wantonwicked@gamingsandbox.com')
+            $email->setFrom('wantonwicked@gamingsandbox.com')
                 ->setSubject('Request Submitted: ' . $request->title)
                 ->setEmailFormat('html')
                 ->setLayout('wantonwicked')
@@ -50,7 +50,7 @@ class RequestEmailComponent extends Component
     {
         $statePast = RequestStatus::getPastTenseForState($state);
         try {
-            $email = (new Email())
+            (new Email())
                 ->addTo($email)
                 ->setSubject('Request ' . $request->title . ' was ' . $statePast)
                 ->setEmailFormat('html')
@@ -67,7 +67,7 @@ class RequestEmailComponent extends Component
     public function assignedRequest($email, $username, $note, Request $request): bool
     {
         try {
-            $email = (new Email())
+            (new Email())
                 ->addTo($email)
                 ->setSubject('Request ' . $request->title . ' was assigned to you.')
                 ->setEmailFormat('html')

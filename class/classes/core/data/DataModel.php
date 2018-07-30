@@ -100,7 +100,7 @@ abstract class DataModel
         $this->Database = $database;
         $this->FullClassName = get_class($this);
         $this->ClassName = substr($this->FullClassName, strrpos($this->FullClassName, '\\') + 1);
-        $this->TableName = $this->Database . '.' . $tablePrefix . SlugHelper::FromClassToTable($this->ClassName);
+        $this->TableName = $this->Database . '.' . $tablePrefix . SlugHelper::fromClassToTable($this->ClassName);
 
         $nameSpace = substr($this->FullClassName, 0, strrpos($this->FullClassName, '\\'));
         $commonSpace = substr($nameSpace, 0, strrpos($nameSpace, '\\'));
@@ -118,7 +118,7 @@ abstract class DataModel
             $targetModel = $this->getMappedObject($property, $this->HasMany);
             /* @var DataModel $targetModel */
 
-            $targetRepository = RepositoryManager::GetRepository($targetModel->getFullClassName());
+            $targetRepository = RepositoryManager::getRepository($targetModel->getFullClassName());
 
             $method = 'ListBy' . $this->getForeignIdProperty();
             $selfIdColumn = $this->getIdProperty();
@@ -130,7 +130,7 @@ abstract class DataModel
             $targetModel = $this->getMappedObject($property, $this->HasOne);
             /* @var DataModel $targetModel */
 
-            $targetRepository = RepositoryManager::GetRepository($targetModel->getFullClassName());
+            $targetRepository = RepositoryManager::getRepository($targetModel->getFullClassName());
             $method = 'FindBy' . $this->getIdProperty();
 
             $selfIdColumn = $this->getIdProperty();
@@ -143,7 +143,7 @@ abstract class DataModel
                 $targetModel = $this->getMappedObject($property, $this->BelongsTo);
                 /* @var DataModel $targetModel */
 
-                $targetRepository = RepositoryManager::GetRepository($targetModel->getFullClassName());
+                $targetRepository = RepositoryManager::getRepository($targetModel->getFullClassName());
 
                 $method = 'GetById';
                 $idColumn = $property . 'Id';

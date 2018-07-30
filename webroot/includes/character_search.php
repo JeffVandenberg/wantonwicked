@@ -10,7 +10,7 @@ $term = Request::getValue('query');
 $city = Request::getValue('city', 'portland');
 
 $characterRepository = new CharacterRepository();
-$characters = $characterRepository->AutocompleteSearch($term, $onlySanctioned, $city);
+$characters = $characterRepository->autocompleteSearch($term, $onlySanctioned, $city);
 
 $list = array();
 foreach($characters as $i => $character)

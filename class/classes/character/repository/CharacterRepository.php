@@ -28,10 +28,10 @@ class CharacterRepository extends AbstractRepository
 
     public function __construct()
     {
-        parent::__construct('classes\character\data\Character');
+        parent::__construct(Character::class);
     }
 
-    public function MayViewCharacter($characterId, $userId)
+    public function MayViewCharacter($characterId, $userId): bool
     {
         $characterId = (int)$characterId;
         $userId = (int)$userId;
@@ -75,7 +75,7 @@ EOQ;
      * @param $supporterId
      * @return Character[]
      */
-    public function ListSelectedCharactersForSupporter($supporterId)
+    public function listSelectedCharactersForSupporter($supporterId): array
     {
         $sql = <<<EOQ
 SELECT
@@ -98,7 +98,7 @@ EOQ;
         return $list;
     }
 
-    public function ClearBonusXP()
+    public function clearBonusXP(): void
     {
         $sql = <<<EOQ
 UPDATE
@@ -110,7 +110,7 @@ EOQ;
         $this->query($sql)->execute();
     }
 
-    public function AwardSupporterBonusXP($bonusXp = 5)
+    public function awardSupporterBonusXP($bonusXp = 5): void
     {
         $date = date('Y-m-d');
         $sql = <<<EOQ
@@ -144,7 +144,7 @@ EOQ;
 
         $characters = $this->query($sql)->all(array($bonusXp));
         foreach ($characters as $character) {
-            CharacterLog::LogAction($character['id'], ActionType::SUPPORTER_XP, 'Awarded Bonus XP for: ' . $date);
+            CharacterLog::logAction($character['id'], ActionType::SUPPORTER_XP, 'Awarded Bonus XP for: ' . $date);
         }
 
         // set supporters
@@ -172,7 +172,7 @@ EOQ;
         $this->query($sql)->execute(array($bonusXp));
     }
 
-    public function ListSupporterCharacters()
+    public function listSupporterCharacters(): array
     {
         $sql = <<<EOQ
 SELECT
@@ -189,7 +189,7 @@ EOQ;
         return $this->query($sql)->all();
     }
 
-    public function FindByIdObj($characterId)
+    public function findByIdObj($characterId)
     {
         $sql = <<<EOQ
 SELECT
@@ -200,10 +200,10 @@ WHERE
     C.id = ?
 EOQ;
 
-        return $this->populateObject($this->query($sql)->single(array($characterId)));
+        return $this->populateObject($this->query($sql)->single([$characterId]));
     }
 
-    public function ListCharactersByPlayerId($userId)
+    public function listCharactersByPlayerId($userId): array
     {
         $sql = <<<EOQ
 SELECT
@@ -231,7 +231,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function ListSanctionedCharactersByPlayerId($userId)
+    public function listSanctionedCharactersByPlayerId($userId): array
     {
         $placeholders = implode(',', array_fill(0, count(CharacterStatus::Sanctioned), '?'));
         $sql = <<<EOQ
@@ -256,7 +256,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function FindByName($characterName)
+    public function findByName($characterName)
     {
         $query = <<<EOQ
 SELECT
@@ -275,7 +275,7 @@ EOQ;
         return $this->query($query)->single($params);
     }
 
-    public function AutocompleteSearch($characterName, $onlySanctioned, $city = 'portland')
+    public function autocompleteSearch($characterName, $onlySanctioned, $city = 'portland'): array
     {
         $statusIds = implode(',', CharacterStatus::Sanctioned);
         $nonDeletedStatuses = implode(',', CharacterStatus::NonDeleted);
@@ -305,7 +305,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function doesCharacterHavePowerAtLevel($characterId, $powerName, $powerLevel)
+    public function doesCharacterHavePowerAtLevel($characterId, $powerName, $powerLevel): bool
     {
         $query = <<<EOQ
 SELECT
@@ -327,7 +327,7 @@ EOQ;
         return ($row['HitCount'] > 0);
     }
 
-    public function isNameInUse($character_name, $character_id, $city = 'portland')
+    public function isNameInUse($character_name, $character_id, $city = 'portland'): bool
     {
         $str_to_find = array("'", "\"");
         $str_to_replace = array("-", "-");
@@ -363,7 +363,7 @@ EOQ;
      * @param $userId
      * @return array
      */
-    public function listForDashboard($userId)
+    public function listForDashboard($userId): array
     {
         $activeStatuses = CharacterStatus::NonDeleted;
         $statusPlaceholders = implode(',', array_fill(0, count($activeStatuses), '?'));
@@ -392,7 +392,7 @@ SQL;
         return $rows;
     }
 
-    public function listCharactersWithOutstandingBeats()
+    public function listCharactersWithOutstandingBeats(): array
     {
         $sql = <<<SQL
 SELECT
@@ -404,8 +404,8 @@ WHERE
   CB.beat_status_id IN (?, ?)
 SQL;
         $params = [
-            BeatStatus::NewBeat,
-            BeatStatus::StaffAwarded
+            BeatStatus::NEW_BEAT,
+            BeatStatus::STAFF_AWARDED
         ];
 
         return $this->query($sql)->all($params);
@@ -449,7 +449,7 @@ EOQ;
         return $characterIds;
     }
 
-    public function migrateCharactersToNewStatus($characterIds, $statusId, $logNote)
+    public function migrateCharactersToNewStatus($characterIds, $statusId, $logNote): void
     {
         if (count($characterIds)) {
             $characterIdPlaceholders = implode(',', array_fill(0, count($characterIds), '?'));

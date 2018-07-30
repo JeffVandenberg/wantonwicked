@@ -5,11 +5,10 @@
  * Date: 9/6/2015
  * Time: 12:58 PM
  */
-
 namespace classes\character\repository;
 
-
 use classes\core\repository\AbstractRepository;
+use classes\character\data\CharacterPower;
 
 class CharacterPowerRepository extends AbstractRepository
 {
@@ -18,10 +17,10 @@ class CharacterPowerRepository extends AbstractRepository
      */
     public function __construct()
     {
-        parent::__construct('\classes\character\data\CharacterPower');
+        parent::__construct(CharacterPower::class);
     }
 
-    public function ListPowersForCharacter($characterId, $powerType, $orderBy)
+    public function listPowersForCharacter($characterId, $powerType, $orderBy): array
     {
         $sql = <<<EOQ
 select

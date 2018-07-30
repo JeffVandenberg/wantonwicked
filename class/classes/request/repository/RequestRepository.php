@@ -40,7 +40,7 @@ class RequestRepository extends AbstractRepository
             $requestStatusHistory->RequestStatusId = $request->RequestStatusId;
             $requestStatusHistory->CreatedById = $request->UpdatedById;
             $requestStatusHistory->CreatedOn = date('Y-m-d H:i:s');
-            $requestStatusHistoryRepository = RepositoryManager::GetRepository('classes\request\data\RequestStatusHistory');
+            $requestStatusHistoryRepository = RepositoryManager::getRepository('classes\request\data\RequestStatusHistory');
             return $requestStatusHistoryRepository->save($requestStatusHistory);
         }
         return $result;

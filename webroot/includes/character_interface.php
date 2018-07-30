@@ -18,25 +18,25 @@ $characterId = Request::getValue('character_id', 0);
 
 $character_type = "";
 
-$characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
+$characterRepository = RepositoryManager::getRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 $character = $characterRepository->getById($characterId);
 /* @var Character $character */
 if ($character->Id == 0) {
-    SessionHelper::SetFlashMessage("Invalid Character");
+    SessionHelper::setFlashMessage("Invalid Character");
     Response::redirect('/chat.php');
 }
 
 $mayView = false;
-if (($character->IsNpc == 'Y') && UserdataHelper::IsSt($userdata)) {
+if (($character->IsNpc == 'Y') && UserdataHelper::isSt($userdata)) {
     $mayView = true;
-} else if (($character->UserId == $userdata['user_id']) || UserdataHelper::IsAdmin($userdata)) {
+} else if (($character->UserId == $userdata['user_id']) || UserdataHelper::isAdmin($userdata)) {
     $mayView = true;
 }
 
 if (!$mayView) {
-    CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface', $userdata['user_id']);
-    SessionHelper::SetFlashMessage("You're not authorized to view that character.");
+    CharacterLog::logAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface', $userdata['user_id']);
+    SessionHelper::setFlashMessage("You're not authorized to view that character.");
     Response::redirect('/');
 }
 

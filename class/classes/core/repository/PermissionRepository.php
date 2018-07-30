@@ -10,6 +10,8 @@
 namespace classes\core\repository;
 
 
+use classes\core\data\Permission;
+
 class PermissionRepository extends AbstractRepository
 {
 
@@ -18,10 +20,10 @@ class PermissionRepository extends AbstractRepository
      */
     public function __construct()
     {
-        parent::__construct('classes\core\data\Permission');
+        parent::__construct(Permission::class);
     }
 
-    public function RemovePermissions($userId)
+    public function removePermissions($userId): int
     {
         $sql = <<<EOQ
 DELETE FROM
@@ -55,7 +57,7 @@ SQL;
         return $this->query($sql)->execute($params);
     }
 
-    public function ListPermissionsForUser($userId)
+    public function listPermissionsForUser($userId): array
     {
         $sql = <<<EOQ
 SELECT
@@ -74,7 +76,7 @@ EOQ;
         return $list;
     }
 
-    public function SavePermissionsForUser($userId, $permissions)
+    public function savePermissionsForUser($userId, $permissions): void
     {
         $sql = <<<EOQ
 DELETE FROM permissions_users WHERE user_id = ?

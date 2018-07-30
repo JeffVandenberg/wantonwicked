@@ -23,9 +23,9 @@ use classes\character\data\Character;
 
 $characterId = Request::getValue('character_id', 0);
 
-$characterRepository = RepositoryManager::GetRepository(Character::class);
+$characterRepository = RepositoryManager::getRepository(Character::class);
 /* @var CharacterRepository $characterRepository */
-$diceRepository = RepositoryManager::GetRepository(Dice::class);
+$diceRepository = RepositoryManager::getRepository(Dice::class);
 /* @var DiceRepository $diceRepository */
 
 $character = $characterRepository->findById($characterId);
@@ -34,17 +34,17 @@ if ($character === false) {
 }
 /* @var Character $character */
 if ($characteer['is_npc'] === 'Y') {
-    if (!UserdataHelper::IsSt($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface',
+    if (!UserdataHelper::isSt($userdata)) {
+        CharacterLog::logAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface',
             $userdata['user_id']);
-        SessionHelper::SetFlashMessage("You're not authorized to view that character.");
+        SessionHelper::setFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
     }
 } else {
-    if (($character['user_id'] != $userdata['user_id']) && !UserdataHelper::IsAdmin($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface',
+    if (($character['user_id'] != $userdata['user_id']) && !UserdataHelper::isAdmin($userdata)) {
+        CharacterLog::logAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface',
             $userdata['user_id']);
-        SessionHelper::SetFlashMessage("You're not authorized to view that character.");
+        SessionHelper::setFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
     }
 }
@@ -59,10 +59,10 @@ $temporary_health_levels = $character['temporary_health_levels'];
 $total_health = $temporary_health_levels;
 $size = $character['size'];
 $werewolf_form = '';
-$current_form = Request::getValue('current_form', SessionHelper::Read('current_form', 'Hishu'));
+$current_form = Request::getValue('current_form', SessionHelper::read('current_form', 'Hishu'));
 $showOnlyMyRolls = Request::getValue('show_only_my_rolls', false);
 
-SessionHelper::Write('current_form', $current_form);
+SessionHelper::write('current_form', $current_form);
 
 $max_power_points = CharacterHelper::getMaxPowerPoints($character['power_stat']);
 if ($power_points > $max_power_points) {
@@ -314,7 +314,7 @@ EOQ;
         'Urshul' => 'Urshul',
         'Urhan' => 'Urhan',
     ];
-    $form_select = FormHelper::Select($forms, 'current_form', $current_form);
+    $form_select = FormHelper::select($forms, 'current_form', $current_form);
     $werewolf_form = <<<EOQ
 Form: $form_select<br>
 EOQ;
@@ -533,18 +533,18 @@ ob_start();
                       action="<?php echo $_SERVER['PHP_SELF']; ?>?action=character&character_id=<?php echo $characterId; ?>">
                     <div class="row">
                         <div class="small-12 medium-6 columns">
-                            <?php echo FormHelper::Select($rollTypes, 'roll_type', 0, array(
+                            <?php echo FormHelper::select($rollTypes, 'roll_type', 0, array(
                                 'label' => 'Roll Type'
                             )); ?>
                         </div>
                         <div class="small-12 medium-6 columns" id="number-of-rolls-cell">
-                            <?php echo FormHelper::Text('number_of_rolls', 1, array(
+                            <?php echo FormHelper::text('number_of_rolls', 1, array(
                                 'label' => true,
                                 'size' => 2
                             )); ?>
                         </div>
                         <div class="small-12 medium-5 columns">
-                            <?php echo FormHelper::Text('character_name', $character['character_name'], array(
+                            <?php echo FormHelper::text('character_name', $character['character_name'], array(
                                 'size' => 20,
                                 'maxlength' => 35,
                                 'label' => 'Name'
@@ -563,7 +563,7 @@ ob_start();
                             </label>
                         </div>
                         <div class="small-12 medium-6 columns">
-                            <?php echo FormHelper::Select($rerolls, 'reroll', '10again', array(
+                            <?php echo FormHelper::select($rerolls, 'reroll', '10again', array(
                                 'label' => 'Reroll',
                             )); ?>
                         </div>
@@ -581,7 +581,7 @@ ob_start();
                             <div><?php echo $extra_row; ?></div>
                         <?php endif; ?>
                         <div class="small-12 columns">
-                            Attach to Request: <?php echo FormHelper::Select($requests, 'request_id', Request::getValue('request_id')); ?>
+                            Attach to Request: <?php echo FormHelper::select($requests, 'request_id', Request::getValue('request_id')); ?>
                         </div>
                     </div>
                     <input type="hidden" name="current_form" value="<?php echo $current_form; ?>">
@@ -637,7 +637,7 @@ ob_start();
             of <?php echo $pages; ?>
             <input type="hidden" name="action" value="character"/>
             <input type="hidden" name="character_id" value="<?php echo $characterId; ?>"/>
-            <?php echo FormHelper::Hidden('show_only_my_rolls', $showOnlyMyRolls); ?>
+            <?php echo FormHelper::hidden('show_only_my_rolls', $showOnlyMyRolls); ?>
             <input type="submit" value="Go to Page"/>
             <?php if ($showPrev): ?>
                 <a href="dieroller.php?action=character&show_only_my_rolls=<?php echo $showOnlyMyRolls; ?>&character_id=<?php echo $characterId; ?>&page=<?php echo($page - 1); ?>">
@@ -648,7 +648,7 @@ ob_start();
                     &gt; &gt;</a>
             <?php endif; ?>
             <div class="checkbox" style="display:inline;">
-                <?php echo FormHelper::Checkbox('show_only_my_rolls', 1, $showOnlyMyRolls, array(
+                <?php echo FormHelper::checkbox('show_only_my_rolls', 1, $showOnlyMyRolls, array(
                     'label' => 'Only Show My Rolls',
                     'id' => 'show-only-my-rolls-check'
                 )); ?>

@@ -8,7 +8,7 @@ use classes\request\repository\RequestRepository;
 
 /* @var array $userdata */
 
-if(!UserdataHelper::IsAdmin($userdata)) {
+if(!UserdataHelper::isAdmin($userdata)) {
     Response::redirect('/', 'You do not have permission to this page.');
 }
 
@@ -40,7 +40,7 @@ $userIds = array_keys($users);
 $userIdPlaceholders = implode(',', array_fill(0, count($userIds), '?'));
 
 // get count of requests processed in the interval
-$requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
+$requestRepository = RepositoryManager::getRepository('classes\request\data\Request');
 /* @var RequestRepository $requestRepository */
 
 $startDate = Request::getValue('start_date', date('Y-m-d', strtotime('-7 days')));

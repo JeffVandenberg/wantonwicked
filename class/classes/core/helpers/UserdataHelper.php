@@ -27,9 +27,9 @@ class UserdataHelper
 
     private static $userPermissions = array();
 
-    public static function CheckPermission($userId, $userPerms)
+    public static function checkPermission($userId, $userPerms)
     {
-        if(!is_array($userPerms)) {
+        if(!\is_array($userPerms)) {
             $userPerms = array($userPerms);
         }
 
@@ -54,10 +54,10 @@ EOQ;
         return self::$userPermissions[$key];
     }
 
-    public static function IsSt($userdata)
+    public static function isSt($userdata)
     {
         if(!isset(self::$userPermissions['IsSt'])) {
-            self::$userPermissions['IsSt'] = self::CheckPermission($userdata['user_id'], array(
+            self::$userPermissions['IsSt'] = self::checkPermission($userdata['user_id'], array(
                 self::$permissions['is_asst'],
                 self::$permissions['is_gm'],
                 self::$permissions['is_head'],
@@ -67,20 +67,20 @@ EOQ;
         return self::$userPermissions['IsSt'];
     }
 
-    public static function IsWikiManager($userdata)
+    public static function isWikiManager($userdata)
     {
         if(!isset(self::$userPermissions['IsWikiManager'])) {
-            self::$userPermissions['IsWikiManager'] = self::CheckPermission($userdata['user_id'], array(
+            self::$userPermissions['IsWikiManager'] = self::checkPermission($userdata['user_id'], array(
                 self::$permissions['wiki_manager']
             ));
         }
         return self::$userPermissions['IsWikiManager'];
     }
 
-    public static function IsHead($userdata)
+    public static function isHead($userdata)
     {
         if(!isset(self::$userPermissions['IsHead'])) {
-            self::$userPermissions['IsHead'] = self::CheckPermission($userdata['user_id'], array(
+            self::$userPermissions['IsHead'] = self::checkPermission($userdata['user_id'], array(
                 self::$permissions['is_head'],
                 self::$permissions['is_admin']
             ));
@@ -88,35 +88,35 @@ EOQ;
         return self::$userPermissions['IsHead'];
     }
 
-    public static function IsAdmin($userdata)
+    public static function isAdmin($userdata)
     {
         if(!isset(self::$userPermissions['IsAdmin'])) {
-            self::$userPermissions['IsAdmin'] = self::CheckPermission($userdata['user_id'], array(
+            self::$userPermissions['IsAdmin'] = self::checkPermission($userdata['user_id'], array(
                 self::$permissions['is_admin']
             ));
         }
         return self::$userPermissions['IsAdmin'];
     }
 
-    public static function IsLoggedIn($userdata)
+    public static function isLoggedIn($userdata): bool
     {
-        return (($userdata !== null) && ($userdata['user_id'] != 1));
+        return (($userdata !== null) && ((int)$userdata['user_id'] !== 1));
     }
 
-    public static function IsAsst($userdata)
+    public static function isAsst($userdata)
     {
         if(!isset(self::$userPermissions['IsAsst'])) {
-            self::$userPermissions['IsAsst'] = self::CheckPermission($userdata['user_id'], array(
+            self::$userPermissions['IsAsst'] = self::checkPermission($userdata['user_id'], array(
                 self::$permissions['is_asst']
             ));
         }
         return self::$userPermissions['IsAsst'];
     }
 
-    public static function IsOnlySt($userdata)
+    public static function isOnlySt($userdata)
     {
         if(!isset(self::$userPermissions['IsOnlySt'])) {
-            self::$userPermissions['IsOnlySt'] = self::CheckPermission($userdata['user_id'], array(
+            self::$userPermissions['IsOnlySt'] = self::checkPermission($userdata['user_id'], array(
                 self::$permissions['is_gm']
             ));
         }
@@ -126,7 +126,7 @@ EOQ;
     public static function mayManageRequests($userdata)
     {
         if(!isset(self::$userPermissions['ManageRequests'])) {
-            self::$userPermissions['ManageRequests'] = self::CheckPermission($userdata['user_id'], array(
+            self::$userPermissions['ManageRequests'] = self::checkPermission($userdata['user_id'], array(
                 self::$permissions['manage_requests']
             ));
         }

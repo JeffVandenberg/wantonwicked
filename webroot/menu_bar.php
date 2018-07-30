@@ -12,7 +12,7 @@ if ($userdata['user_id'] != ANONYMOUS) {
     $mainMenu = array_merge_recursive($mainMenu, $menuComponents['player']);
 
     $characterRepository = new CharacterRepository();
-    $sanctionedCharacters = $characterRepository->ListSanctionedCharactersByPlayerId($userdata['user_id']);
+    $sanctionedCharacters = $characterRepository->listSanctionedCharactersByPlayerId($userdata['user_id']);
     foreach ($sanctionedCharacters as $character) {
         $characterMenu = [
             'link' => '/character.php?action=interface&character_id=' . $character['id'],
@@ -36,7 +36,7 @@ if ($userdata['user_id'] != ANONYMOUS) {
 }
 
 
-if (UserdataHelper::IsSt($userdata)) {
+if (UserdataHelper::isSt($userdata)) {
     $mainMenu = array_merge_recursive($mainMenu, $menuComponents['staff']);
 }
 

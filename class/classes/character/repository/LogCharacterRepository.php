@@ -11,15 +11,28 @@ namespace classes\character\repository;
 
 
 use classes\core\repository\AbstractRepository;
+use classes\character\data\LogCharacter;
 
-class LogCharacterRepository extends AbstractRepository 
+/**
+ * Class LogCharacterRepository
+ * @package classes\character\repository
+ */
+class LogCharacterRepository extends AbstractRepository
 {
+    /**
+     * LogCharacterRepository constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
-        parent::__construct('classes\character\data\LogCharacter');
+        parent::__construct(LogCharacter::class);
     }
 
-    public function ListByCharacterId($characterId)
+    /**
+     * @param $characterId
+     * @return array
+     */
+    public function listByCharacterId($characterId): array
     {
         $table = $this->ManagedObject->getTableName();
         $sql = <<<EOQ
@@ -40,7 +53,13 @@ EOQ;
         return $items;
     }
 
-    public function ListByCharacterIdPaged($filterOptions, $page, $pageSize)
+    /**
+     * @param $filterOptions
+     * @param $page
+     * @param $pageSize
+     * @return array
+     */
+    public function listByCharacterIdPaged($filterOptions, $page, $pageSize): array
     {
         $startIndex = ($page - 1) * $pageSize;
         $sql = <<<EOQ
@@ -84,7 +103,11 @@ EOQ;
         return $items;
     }
 
-    public function ListByCharacterIdRowRount($filterOptions)
+    /**
+     * @param $filterOptions
+     * @return int
+     */
+    public function listByCharacterIdRowRount($filterOptions): int
     {
         $sql = <<<EOQ
 SELECT

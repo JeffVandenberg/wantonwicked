@@ -72,7 +72,7 @@ ob_start();
         <tr style="vertical-align: top;">
             <td style="width: 45%;">
                 <form name="lookup" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?action=profile_lookup">
-                    <?php echo FormHelper::Text('profile_name', $profileName, array('label' => true)); ?><br />
+                    <?php echo FormHelper::text('profile_name', $profileName, array('label' => true)); ?><br />
                     <input type="submit" name="Lookup Profile" value="Lookup Profile">
                 </form>
             </td>
@@ -80,8 +80,8 @@ ob_start();
                 <?php if (isset($user) && isset($characters)): ?>
                     The Characters attached to <?php echo $user['username']; ?>'s profile are:<br/>
                     <form name="sanction" method="get" action="/characters/stView" target="_blank">
-                        <?php echo FormHelper::Select($characters, 'view_character_id'); ?>
-                        <?php echo FormHelper::Button('button', 'View Character Sheet'); ?>
+                        <?php echo FormHelper::select($characters, 'view_character_id'); ?>
+                        <?php echo FormHelper::button('button', 'View Character Sheet'); ?>
                     </form>
                     <br/>
                     <div class="paragraph">

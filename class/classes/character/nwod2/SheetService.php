@@ -226,7 +226,8 @@ class SheetService
      */
     public function addList(Character $character, $numOfItems, $powerType): void
     {
-        foreach (range(1, $numOfItems) as $i) {
+        $i = 0;
+        while($i++ < $numOfItems) {
             $power = new CharacterPower();
             $power->PowerType = $powerType;
             $character->addPower($powerType, $power);
@@ -273,7 +274,9 @@ class SheetService
     {
         // load old character
         $oldCharacter = $this->loadSheet($stats['character_id']);
-        $powers = $oldCharacter->CharacterPower;
+
+        // load old powers
+        count($oldCharacter->CharacterPower);
 
         // save new data
         $result = $this->saveData($stats, $options, $user);
@@ -285,14 +288,14 @@ class SheetService
         if ($oldCharacter->Id) {
             // log xp change
             if (isset($stats['xp_spent']) && $stats['xp_spent'] > 0) {
-                CharacterLog::LogAction($stats['character_id'], ActionType::XP_MODIFICATION, 'Removed ' . $stats['xp_spent'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
+                CharacterLog::logAction($stats['character_id'], ActionType::XP_MODIFICATION, 'Removed ' . $stats['xp_spent'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
             }
             if (isset($stats['xp_gained']) && $stats['xp_gained'] > 0) {
-                CharacterLog::LogAction($stats['character_id'], ActionType::XP_MODIFICATION, 'Added ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
+                CharacterLog::logAction($stats['character_id'], ActionType::XP_MODIFICATION, 'Added ' . $stats['xp_gained'] . 'XP: ' . $stats['xp_note'], $user['user_id']);
             }
 
             // log character differences
-            RepositoryManager::ClearCache();
+            RepositoryManager::clearCache();
             $newCharacter = $this->repository->getById($stats['character_id']);
             /* @var Character $newCharacter */
             $this->logChanges($newCharacter, $oldCharacter, $user);
@@ -387,7 +390,7 @@ class SheetService
                 $note->UserId = $user['user_id'];
                 $note->Note = $stats['st_note'];
                 $note->Created = date('Y-m-d H:i:s');
-                $noteRepo = RepositoryManager::GetRepository(CharacterNote::class);
+                $noteRepo = RepositoryManager::getRepository(CharacterNote::class);
                 $noteRepo->save($note);
             }
         }
@@ -508,10 +511,10 @@ class SheetService
 
         if ((int)$newCharacter->CharacterStatusId !== (int)$oldCharacter->CharacterStatusId) {
             if ((int)$newCharacter->CharacterStatusId === CharacterStatus::Active) {
-                CharacterLog::LogAction($newCharacter->Id, ActionType::SANCTIONED, 'ST Sanctioned Character', $user['user_id']);
+                CharacterLog::logAction($newCharacter->Id, ActionType::SANCTIONED, 'ST Sanctioned Character', $user['user_id']);
             }
             if ((int)$newCharacter->CharacterStatusId === CharacterStatus::Unsanctioned) {
-                CharacterLog::LogAction($newCharacter->Id, ActionType::DESANCTIONED, 'ST Desanctioned Character', $user['user_id']);
+                CharacterLog::logAction($newCharacter->Id, ActionType::DESANCTIONED, 'ST Desanctioned Character', $user['user_id']);
             }
         }
 
@@ -583,7 +586,7 @@ class SheetService
                 ' Level: ' . $power['new']->PowerLevel . '<br />';
         }
 
-        CharacterLog::LogAction($newCharacter->Id, ActionType::UPDATE_CHARACTER, str_replace("\n", '<br/>', $note),
+        CharacterLog::logAction($newCharacter->Id, ActionType::UPDATE_CHARACTER, str_replace("\n", '<br/>', $note),
             $user['user_id']);
 
         return true;
@@ -633,7 +636,7 @@ SQL;
         $this->repository->save($character);
         $logNote .= ('<br />Current XP: ' . $character->CurrentExperience
             . '<br />Total Experience: ' . $character->TotalExperience);
-        CharacterLog::LogAction($characterId, ActionType::XP_MODIFICATION, $logNote, $userId);
+        CharacterLog::logAction($characterId, ActionType::XP_MODIFICATION, $logNote, $userId);
         return true;
     }
 
@@ -723,7 +726,7 @@ EOQ;
 
         if (count($inactiveCharacterIds)) {
             // close requests for Inactive Characters
-            $requestRepository = RepositoryManager::GetRepository(Request::class);
+            $requestRepository = RepositoryManager::getRepository(Request::class);
             /* @var RequestRepository $requestRepository */
             $requestRepository->CloseRequestsForCharacter($inactiveCharacterIds);
         }
@@ -752,6 +755,6 @@ EOQ;
     {
         $character->CharacterStatusId = CharacterStatus::Active;
         $this->repository->save($character);
-        CharacterLog::LogAction($character->Id, ActionType::UPDATE_CHARACTER, $note, $userId);
+        CharacterLog::logAction($character->Id, ActionType::UPDATE_CHARACTER, $note, $userId);
     }
 }

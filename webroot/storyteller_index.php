@@ -42,13 +42,13 @@ $contentHeader = '';
 include 'user_panel.php';
 include 'menu_bar.php';
 
-if (!UserdataHelper::IsSt($userdata)) {
+if (!UserdataHelper::isSt($userdata)) {
     include 'includes/index_redirect.php';
 }
 else if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'permissions_view':
-            if (UserdataHelper::IsHead($userdata)) {
+            if (UserdataHelper::isHead($userdata)) {
                 include 'includes/storyteller_permissions_view.php';
             }
             else {
@@ -57,7 +57,7 @@ else if (isset($_GET['action'])) {
             break;
 
         case 'permissions_add':
-            if (UserdataHelper::IsHead($userdata)) {
+            if (UserdataHelper::isHead($userdata)) {
                 include 'includes/storyteller_permissions_add.php';
             }
             else {
@@ -66,7 +66,7 @@ else if (isset($_GET['action'])) {
             break;
 
         case 'permissions':
-            if (UserdataHelper::IsHead($userdata)) {
+            if (UserdataHelper::isHead($userdata)) {
                 include 'includes/storyteller_permissions.php';
             }
             else {
@@ -89,7 +89,7 @@ else {
 
 /* @var twig $template */
 $template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
-$template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage());
+$template->assign_block_vars_array('messages', SessionHelper::getFlashMessage());
 $template->assign_vars(array(
         'PAGE_TITLE' => $page_title,
         'JAVA_SCRIPT' => $java_script,

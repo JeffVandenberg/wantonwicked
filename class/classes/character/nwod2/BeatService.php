@@ -35,8 +35,8 @@ class BeatService
      */
     public function addNewBeat(CharacterBeat $beat)
     {
-        $beatRepo = RepositoryManager::GetRepository(CharacterBeat::class);
-        $historyRepo = RepositoryManager::GetRepository(CharacterBeatRecord::class);
+        $beatRepo = RepositoryManager::getRepository(CharacterBeat::class);
+        $historyRepo = RepositoryManager::getRepository(CharacterBeatRecord::class);
         /* @var CharacterBeatRecordRepository $historyRepo */
 
         // load history record
@@ -60,8 +60,8 @@ class BeatService
      */
     private function grantBeat(CharacterBeat $beat, CharacterBeatRecord $beatRecord)
     {
-        $beatRepo = RepositoryManager::GetRepository(CharacterBeat::class);
-        $historyRepo = RepositoryManager::GetRepository(CharacterBeatRecord::class);
+        $beatRepo = RepositoryManager::getRepository(CharacterBeat::class);
+        $historyRepo = RepositoryManager::getRepository(CharacterBeatRecord::class);
 
         $beatRepo->startTransaction();
 
@@ -94,7 +94,7 @@ class BeatService
         }
 
         // mark beat as granted
-        $beat->BeatStatusId = BeatStatus::Applied;
+        $beat->BeatStatusId = BeatStatus::APPLIED;
         $beat->AppliedOn = date('Y-m-d H:i:s');
         $beat->BeatsAwarded = $numberOfBeatsToGrant;
 
@@ -114,7 +114,7 @@ class BeatService
             $date = date('Y-m-01');
         }
 
-        $historyRepo = RepositoryManager::GetRepository(CharacterBeatRecord::class);
+        $historyRepo = RepositoryManager::getRepository(CharacterBeatRecord::class);
         /* @var CharacterBeatRecordRepository $historyRepo */
 
         // load history record
@@ -127,7 +127,7 @@ class BeatService
      */
     public function listPastBeatsForCharacter($characterId)
     {
-        $beatRepo = RepositoryManager::GetRepository(CharacterBeat::class);
+        $beatRepo = RepositoryManager::getRepository(CharacterBeat::class);
         /* @var CharacterBeatRepository $beatRep */
         return $beatRepo->listPastBeatsForCharacter($characterId);
     }
@@ -138,14 +138,14 @@ class BeatService
      */
     public function findBeatById($beatId)
     {
-        $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
+        $beatRepo = RepositoryManager::getRepository('classes\character\data\CharacterBeat');
         /* @var CharacterBeatRepository $beatRep */
         return $beatRepo->getById($beatId);
     }
 
     public function awardOutstandingBeats()
     {
-        $characterRepo = RepositoryManager::GetRepository('classes\character\data\Character');
+        $characterRepo = RepositoryManager::getRepository('classes\character\data\Character');
         /* @var CharacterRepository $characterRepo */
         $characters = $characterRepo->listCharactersWithOutstandingBeats();
 
@@ -156,9 +156,9 @@ class BeatService
 
     public function awardOutstandingBeatsToCharacter($characterId)
     {
-        $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
+        $beatRepo = RepositoryManager::getRepository('classes\character\data\CharacterBeat');
         /* @var CharacterBeatRepository $beatRepo */
-        $beatRecordRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeatRecord');
+        $beatRecordRepo = RepositoryManager::getRepository('classes\character\data\CharacterBeatRecord');
         /* @var CharacterBeatRecordRepository $beatRecordRepo */
 
         // list beats for character
@@ -182,10 +182,10 @@ class BeatService
 
     public function expireOldBeats()
     {
-        $beatRepo = RepositoryManager::GetRepository('classes\character\data\CharacterBeat');
+        $beatRepo = RepositoryManager::getRepository('classes\character\data\CharacterBeat');
         /* @var CharacterBeatRepository $beatRepo */
 
-        $beatRepo->setStatusForBeatsOlderThan(BeatStatus::Expired, date('Y-m-d', strtotime('-1 month')));
+        $beatRepo->setStatusForBeatsOlderThan(BeatStatus::EXPIRED, date('Y-m-d', strtotime('-1 month')));
     }
 
     /**
@@ -206,7 +206,7 @@ class BeatService
         $beat = new CharacterBeat();
         $beat->BeatTypeId = $beatType->Id;
         $beat->CharacterId = $characterId;
-        $beat->BeatStatusId = BeatStatus::StaffAwarded;
+        $beat->BeatStatusId = BeatStatus::STAFF_AWARDED;
         $beat->Note = "Split Beat for: $beatSpillOver";
         $beat->CreatedById = $this->staffId;
         $beat->Created = date('Y-m-d H:i:s');
@@ -217,7 +217,7 @@ class BeatService
 
     private function findSplitBeatTypeIdForAmount($beatSpillOver)
     {
-        $beatTypeRepository = RepositoryManager::GetRepository(BeatType::class);
+        $beatTypeRepository = RepositoryManager::getRepository(BeatType::class);
         $beatTypeName = "Split Beat ($beatSpillOver)";
         $beatType = $beatTypeRepository->FindByNameAndNumberOfBeats($beatTypeName, $beatSpillOver);
         /* @var BeatType $beatType */

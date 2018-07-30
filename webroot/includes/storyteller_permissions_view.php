@@ -27,7 +27,7 @@ $permissionRepository = new PermissionRepository();
 $groupRepository = new GroupRepository();
 $roleRepository = new RoleRepository();
 
-$userRepository = RepositoryManager::GetRepository('classes\core\data\User');
+$userRepository = RepositoryManager::getRepository('classes\core\data\User');
 $user = $userRepository->FindByUserId($userId);
 /* @var User $user */
 
@@ -35,7 +35,7 @@ $user = $userRepository->FindByUserId($userId);
 if (Request::isPost()) {
 
     // update permissions
-    $permissionRepository->SavePermissionsForUser($userId, Request::getValue('permissions'));
+    $permissionRepository->savePermissionsForUser($userId, Request::getValue('permissions'));
 
     // update groups
     $groupRepository->saveGroupsForUser($userId, Request::getValue('groups'));
@@ -50,7 +50,7 @@ if (Request::isPost()) {
 
 
 $permissions = $permissionRepository->simpleListAll();
-$userPermissions = $permissionRepository->ListPermissionsForUser($userId);
+$userPermissions = $permissionRepository->listPermissionsForUser($userId);
 
 $groupObjs = $groupRepository->ListByIsDeleted(false);
 /* @var Group[] $groupObjs */
@@ -95,7 +95,7 @@ ob_start();
                     Role:
                 </td>
                 <td>
-                    <?php echo FormHelper::Select($roles, 'role_id', $user->RoleId); ?>
+                    <?php echo FormHelper::select($roles, 'role_id', $user->RoleId); ?>
                 </td>
             </tr>
             <tr>
@@ -103,7 +103,7 @@ ob_start();
                     Groups:
                 </td>
                 <td>
-                    <?php echo FormHelper::Multiselect($groups, 'groups[]', $selectedGroups, ['size' => 8]); ?>
+                    <?php echo FormHelper::multiselect($groups, 'groups[]', $selectedGroups, ['size' => 8]); ?>
                 </td>
             </tr>
             <tr>
@@ -111,7 +111,7 @@ ob_start();
                     Permissions
                 </td>
                 <td>
-                    <?php echo FormHelper::CheckboxList('permissions[]',
+                    <?php echo FormHelper::checkboxList('permissions[]',
                         $permissions,
                         $userPermissions);
                     ?>
@@ -119,8 +119,8 @@ ob_start();
             </tr>
         </table>
         <div style="text-align: center;">
-            <?php echo FormHelper::Hidden('user_id', $userId); ?>
-            <?php echo FormHelper::Button('action', 'Submit', 'submit'); ?>
+            <?php echo FormHelper::hidden('user_id', $userId); ?>
+            <?php echo FormHelper::button('action', 'Submit', 'submit'); ?>
         </div>
     </form>
 <?php

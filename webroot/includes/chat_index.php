@@ -13,18 +13,18 @@ use classes\scene\repository\SceneRepository;
 
 $page_title = $contentHeader = "Player Dashboard";
 
-if (!UserdataHelper::IsLoggedIn($userdata)) {
+if (!UserdataHelper::isLoggedIn($userdata)) {
     Response::redirect('/', 'You are not logged in');
 }
 
-$characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
-$requestRepository = RepositoryManager::GetRepository('classes\request\data\Request');
+$characterRepository = RepositoryManager::getRepository('classes\character\data\Character');
+$requestRepository = RepositoryManager::getRepository('classes\request\data\Request');
 $sceneRepository = new SceneRepository();
 /* @var CharacterRepository $characterRepository */
 /* @var RequestRepository $requestRepository */
 
 $id = $userdata['user_id'];
-if (UserdataHelper::IsAdmin($userdata)) {
+if (UserdataHelper::isAdmin($userdata)) {
     $id = Request::getValue('u', $id);
 }
 $characters = $characterRepository->listForDashboard($id);

@@ -773,7 +773,7 @@ EOQ;
 			$html .= '<tr><td colspan="2">&nbsp;</td></tr>';
 			$html .= '<input type="hidden" name="addRoom" value="1">';
 			$html .= '<tr><td width="70">RoomName: </td><td><input type="text" name="room" value=""></td></tr>';
-			$html .= '<tr><td width="70">Type: </td><td>' . FormHelper::Select($rooms, 'roomtypeid') . '</td></tr>';
+			$html .= '<tr><td width="70">Type: </td><td>' . FormHelper::select($rooms, 'roomtypeid') . '</td></tr>';
 			$html .= '<tr><td>Password: </td><td><input type="text" name="pass" value=""> (optional)</td></tr>';
 			$html .= '<tr><td>Background: </td><td><input type="text" name="bg" value=""> (upload image to folder <i>/images/</i> or enter <i>url</i> to image)</td></tr>';
 			$html .= '<tr><td>Description: </td><td><textarea name="desc"></textarea></td></tr>';
@@ -809,7 +809,7 @@ EOQ;
 				}
 				
 				$html .= '<tr><td>RoomName: </td><td><input type="text" name="room" value="'.urldecode($i['roomname']).'"></td></tr>';
-                $html .= '<tr><td width="70">Type: </td><td>' . FormHelper::Select($rooms, 'roomtypeid', $i['room_type_id']) . '</td></tr>';
+                $html .= '<tr><td width="70">Type: </td><td>' . FormHelper::select($rooms, 'roomtypeid', $i['room_type_id']) . '</td></tr>';
 				$html .= '<tr><td>Password: </td><td><input type="text" name="pass" value=""> (leave blank if no change)</td></tr>';
 				$html .= '<tr><td>Background: </td><td><input type="text" name="bg" value="'.$i['roombg'].'"> (upload image to folder <i>/images/</i> or enter <i>url</i> to image)</td></tr>';
 				$html .= '<tr><td>Description: </td><td><textarea name="desc">'.stripslashes(urldecode($i['roomdesc'])).'</textarea></td></tr>';

@@ -21,7 +21,7 @@ include_once("cookbook/newpageboxplus.php");
 ## set group patterns
 $GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
 $isST = false;
-if(UserdataHelper::IsSt($userdata))
+if(UserdataHelper::isSt($userdata))
 {
   $isST = true;
   $GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox|Storytellers)';

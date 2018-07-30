@@ -198,14 +198,14 @@ class Character extends DataModel
     public function getPowerList($powerType)
     {
         if (!isset($this->powers[$powerType])) {
-            $this->powers[$powerType] = RepositoryManager::GetRepository(CharacterPower::class)->ListByCharacterIdAndPowerType($this->CharacterId, ucfirst($powerType));
+            $this->powers[$powerType] = RepositoryManager::getRepository(CharacterPower::class)->ListByCharacterIdAndPowerType($this->CharacterId, ucfirst($powerType));
         }
         return $this->powers[$powerType];
     }
 
     public function loadPowers()
     {
-        $powers = RepositoryManager::GetRepository(CharacterPower::class)->ListByCharacterId($this->Id);
+        $powers = RepositoryManager::getRepository(CharacterPower::class)->ListByCharacterId($this->Id);
         /* @var CharacterPower[] $powers */
         foreach ($powers as $power) {
             $powertype = lcfirst($power->PowerType);

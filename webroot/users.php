@@ -69,7 +69,7 @@ if (isset($_GET['action'])) {
 
 /* @var twig $template */
 $template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
-$template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage());
+$template->assign_block_vars_array('messages', SessionHelper::getFlashMessage());
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,

@@ -15,9 +15,9 @@ if (isset($_POST['action'])) {
         $list = $_POST['delete'];
         $permissionRepository = new PermissionRepository();
         foreach ($list as $value) {
-            $permissionRepository->RemovePermissions($value);
+            $permissionRepository->removePermissions($value);
         }
-        SessionHelper::SetFlashMessage('Removed Users');
+        SessionHelper::setFlashMessage('Removed Users');
     }
 }
 
@@ -63,7 +63,7 @@ ob_start();
         <input type="hidden" name="action" id="action" value="update">
         <table>
             <tr>
-                <?php if (UserdataHelper::IsAdmin($userdata)): ?>
+                <?php if (UserdataHelper::isAdmin($userdata)): ?>
                     <th>
                         Delete
                     </th>
@@ -80,7 +80,7 @@ ob_start();
             </tr>
             <?php foreach ($storytellers as $login_detail): ?>
                 <tr>
-                    <?php if (UserdataHelper::IsHead($userdata)): ?>
+                    <?php if (UserdataHelper::isHead($userdata)): ?>
                         <td>
                             <label>
                                 <input type="checkbox" name="delete[]" value="<?php echo $login_detail['user_id']; ?>">
@@ -99,7 +99,7 @@ ob_start();
                     </td>
                 </tr>
             <?php endforeach; ?>
-            <?php if (UserdataHelper::IsHead($userdata)): ?>
+            <?php if (UserdataHelper::isHead($userdata)): ?>
                 <tfoot>
                 <tr>
                     <th colspan="4">

@@ -114,7 +114,7 @@ switch($user['user_type_id']) {
     case 3:
         // validate character is associated with the logged in user
         if(!validateCharacter($user['userid'], $userdata['user_id'])) {
-            CharacterLog::LogAction($user['userid'], ActionType::INVALID_ACCESS,
+            CharacterLog::logAction($user['userid'], ActionType::INVALID_ACCESS,
                 'User ID: ' . $userdata['user_id'] . ' attempted access to chatrooms with character.');
             Response::redirect('/', 'Illegal Character Access.');
         }
@@ -212,7 +212,7 @@ $loginError = validateUser($user);
 
 if($loginError) {
     // set session message and redirect home
-    SessionHelper::SetFlashMessage($loginError);
+    SessionHelper::setFlashMessage($loginError);
     Response::redirect('/');
 } else {
     updateUserRoom($user['id'], $roomID);

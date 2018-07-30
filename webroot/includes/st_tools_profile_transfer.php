@@ -26,14 +26,14 @@ if (Request::isPost()) {
         // set the login's id as the primary login id
         $char_update_query = "update characters set user_id = $login[user_id] where id = $character[id];";
         Database::getInstance()->query($char_update_query)->execute();
-        SessionHelper::SetFlashMessage("$character_name has been moved to $profile_name.");
+        SessionHelper::setFlashMessage("$character_name has been moved to $profile_name.");
     } else {
         if (!$character) {
-            SessionHelper::SetFlashMessage("$character_name wasn't found.");
+            SessionHelper::setFlashMessage("$character_name wasn't found.");
         }
 
         if (!$login) {
-            SessionHelper::SetFlashMessage("$profile_name wasn't found.");
+            SessionHelper::setFlashMessage("$profile_name wasn't found.");
         }
     }
 }
@@ -48,10 +48,10 @@ ob_start();
         <table>
             <tr>
                 <td>
-                    <?php echo FormHelper::Text('character_name', $characterName, ['label' => true]); ?>
+                    <?php echo FormHelper::text('character_name', $characterName, ['label' => true]); ?>
                 </td>
                 <td>
-                    <?php echo FormHelper::Text('username', $username, array('label' => 'Attach To')); ?>
+                    <?php echo FormHelper::text('username', $username, array('label' => 'Attach To')); ?>
                 </td>
             </tr>
             <tr>

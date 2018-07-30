@@ -16,29 +16,29 @@ use classes\log\data\ActionType;
 
 $characterId = Request::getValue('character_id', 0);
 
-$characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
+$characterRepository = RepositoryManager::getRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 $character = $characterRepository->getById($characterId);
 /* @var Character $character */
 
 if ($character->Id == 0) {
-    SessionHelper::SetFlashMessage("Invalid Character");
+    SessionHelper::setFlashMessage("Invalid Character");
     Response::redirect('chat.php');
 }
 
 if ($character->IsNpc == 'Y') {
-    if (!UserdataHelper::IsSt($userdata)) {
-        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character notes',
+    if (!UserdataHelper::isSt($userdata)) {
+        CharacterLog::logAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character notes',
                                 $userdata['user_id']);
-        SessionHelper::SetFlashMessage("You're not authorized to view that character.");
+        SessionHelper::setFlashMessage("You're not authorized to view that character.");
         Response::redirect('');
     }
 }
 else {
     if ($character->UserId != $userdata['user_id']) {
-        CharacterLog::LogAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character notes',
+        CharacterLog::logAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character notes',
                                 $userdata['user_id']);
-        SessionHelper::SetFlashMessage("You're not authorized to view that character.");
+        SessionHelper::setFlashMessage("You're not authorized to view that character.");
         Response::redirect('');
     }
 }

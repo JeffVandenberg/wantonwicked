@@ -13,18 +13,18 @@ use classes\core\repository\RepositoryManager;
 
 $characterId = Request::getValue('character_id', 0);
 
-$characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
+$characterRepository = RepositoryManager::getRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    SessionHelper::SetFlashMessage('Not a valid character to view!');
+    SessionHelper::setFlashMessage('Not a valid character to view!');
     Response::redirect('');
 }
 
-$character = $characterRepository->FindByIdObj($characterId);
+$character = $characterRepository->findByIdObj($characterId);
 /* @var Character $character */
 
-$contentHeader = $page_title = "Favors for: " . $character->CharacterName;
+$contentHeader = $page_title = 'Favors for: ' . $character->CharacterName;
 
 
 $sql = <<<EOQ

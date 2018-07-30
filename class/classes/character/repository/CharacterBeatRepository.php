@@ -73,8 +73,8 @@ ORDER BY
 SQL;
         $params = [
             $characterId,
-            BeatStatus::NewBeat,
-            BeatStatus::StaffAwarded
+            BeatStatus::NEW_BEAT,
+            BeatStatus::STAFF_AWARDED
         ];
 
         $list = [];
@@ -103,7 +103,7 @@ WHERE
 SQL;
         $params = [
             $newBeatStatusId,
-            BeatStatus::NewBeat,
+            BeatStatus::NEW_BEAT,
             $cutoffDate
         ];
 

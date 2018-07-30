@@ -45,7 +45,7 @@ $template_file = 'main_ww4.tpl';
 include 'user_panel.php';
 include 'menu_bar.php';
 
-if (UserdataHelper::IsSt($userdata) || UserdataHelper::IsWikiManager($userdata)) {
+if (UserdataHelper::isSt($userdata) || UserdataHelper::isWikiManager($userdata)) {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
             case 'character_name_lookup':
@@ -63,7 +63,7 @@ if (UserdataHelper::IsSt($userdata) || UserdataHelper::IsWikiManager($userdata))
                 break;
 
             case 'profile_transfer':
-                if (UserdataHelper::IsHead($userdata)) {
+                if (UserdataHelper::isHead($userdata)) {
                     include 'includes/st_tools_profile_transfer.php';
                 }
                 else {
@@ -71,7 +71,7 @@ if (UserdataHelper::IsSt($userdata) || UserdataHelper::IsWikiManager($userdata))
                 }
                 break;
             case 'suspend_venue':
-                if (UserdataHelper::IsHead($userdata)) {
+                if (UserdataHelper::isHead($userdata)) {
                     include 'includes/st_tools_suspend_venue.php';
                 }
                 else {
@@ -99,7 +99,7 @@ else {
 
 /* @var twig $template */
 $template->set_custom_style('wantonwicked', array(ROOT_PATH . 'templates/'));
-$template->assign_block_vars_array('messages', SessionHelper::GetFlashMessage());
+$template->assign_block_vars_array('messages', SessionHelper::getFlashMessage());
 $template->assign_vars(array(
         "PAGE_TITLE" => $page_title,
         "JAVA_SCRIPT" => $java_script,

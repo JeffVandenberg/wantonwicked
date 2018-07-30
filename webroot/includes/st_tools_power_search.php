@@ -142,19 +142,19 @@ ob_start();
             </tr>
             <tr>
                 <td>
-                    <?php echo FormHelper::Select($powerTypes, 'power_type', $powerType); ?>
+                    <?php echo FormHelper::select($powerTypes, 'power_type', $powerType); ?>
                 </td>
                 <td>
-                    <?php echo FormHelper::Text('power_name', $powerName); ?>
+                    <?php echo FormHelper::text('power_name', $powerName); ?>
                 </td>
                 <td>
-                    <?php echo FormHelper::Text('power_note', $powerNote); ?>
+                    <?php echo FormHelper::text('power_note', $powerNote); ?>
                 </td>
                 <td>
-                    <?php echo FormHelper::Text('min_power_level', $minPowerLevel); ?>
+                    <?php echo FormHelper::text('min_power_level', $minPowerLevel); ?>
                 </td>
                 <td>
-                    <?php echo FormHelper::Text('max_power_level', $maxPowerLevel); ?>
+                    <?php echo FormHelper::text('max_power_level', $maxPowerLevel); ?>
                 </td>
                 <td>
                     <button type="submit" value="Search" class="button">Search</button>

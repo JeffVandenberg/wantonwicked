@@ -15,7 +15,7 @@ class Response {
     public static function redirect($url, $message = null)
     {
         if($message) {
-            SessionHelper::SetFlashMessage($message);
+            SessionHelper::setFlashMessage($message);
         }
         header('location:' . $url);
         exit();

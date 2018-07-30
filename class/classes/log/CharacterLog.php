@@ -12,7 +12,7 @@ use classes\core\repository\Database;
 
 class CharacterLog
 {
-    public static function LogAction($characterId, $actionTypeId, $note, $userId = null, $referenceId = null)
+    public static function logAction($characterId, $actionTypeId, $note, $userId = null, $referenceId = null): void
     {
         $sql = <<<EOQ
 INSERT INTO

@@ -97,21 +97,21 @@ if ($isLoggedIn) {
                                 <?php $identifier = $character->slug ?: $character->id; ?>
                                 <tr>
                                     <td>
-                                        <?php if ($character->character_status_id == CharacterStatus::NewCharacter): ?>
+                                        <?php if ($character->character_status_id == CharacterStatus::NEW_CHARACTER): ?>
                                             <div class="badge has-tip" data-tooltip title="New"><i class="fi-x"></i>
                                             </div>
-                                        <?php elseif ($character->character_status_id == CharacterStatus::Active): ?>
+                                        <?php elseif ($character->character_status_id == CharacterStatus::ACTIVE): ?>
                                             <div class="success badge has-tip" data-tooltip title="Sanctioned (Active)">
                                                 <i
                                                         class="fi-check"></i></div>
-                                        <?php elseif ($character->character_status_id == CharacterStatus::Idle): ?>
+                                        <?php elseif ($character->character_status_id == CharacterStatus::IDLE): ?>
                                             <div class="warning badge has-tip" data-tooltip title="Sanctioned (Idle)"><i
                                                         class="fi-check"></i></div>
-                                        <?php elseif ($character->character_status_id == CharacterStatus::Inactive): ?>
+                                        <?php elseif ($character->character_status_id == CharacterStatus::INACTIVE): ?>
                                             <div class="secondary badge has-tip" data-tooltip
                                                  title="Sanctioned (Inactive)"><i
                                                         class="fi-check"></i></div>
-                                        <?php elseif ($character->character_status_id == CharacterStatus::Unsanctioned): ?>
+                                        <?php elseif ($character->character_status_id == CharacterStatus::UNSANCTIONED): ?>
                                             <div class="alert badge has-tip" data-tooltip title="Desanctioned"><i
                                                         class="fi-x"></i></div>
                                         <?php endif; ?>

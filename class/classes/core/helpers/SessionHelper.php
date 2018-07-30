@@ -12,8 +12,12 @@ namespace classes\core\helpers;
 
 class SessionHelper
 {
-    public static function SetFlashMessage($message, $section = 'flash')
+    public static function setFlashMessage($message, $section = 'flash'): void
     {
+        if($section === '') {
+            throw new \RuntimeException('No section specified for flash message');
+        }
+
         $_SESSION['Flash'][$section][] = array(
             'message' => $message,
             'key' => 'flash',
@@ -22,7 +26,7 @@ class SessionHelper
         );
     }
 
-    public static function GetFlashMessage($section = 'flash')
+    public static function getFlashMessage($section = 'flash'): array
     {
         $messages = [];
         if (isset($_SESSION['Flash'][$section]) && count($_SESSION['Flash'][$section])) {
@@ -34,7 +38,7 @@ class SessionHelper
         return $messages;
     }
 
-    public static function Read($index, $default = null)
+    public static function read($index, $default = null)
     {
         if(isset($_SESSION[$index])) {
             return $_SESSION[$index];
@@ -42,12 +46,13 @@ class SessionHelper
         return $default;
     }
 
-    public static function Write($index, $value)
+    public static function write($index, $value): void
     {
         $_SESSION[$index] = $value;
     }
 
-    public static function Has($index) {
+    public static function has($index): bool
+    {
         return isset($_SESSION[$index]);
     }
 }

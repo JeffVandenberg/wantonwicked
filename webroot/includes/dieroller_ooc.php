@@ -66,7 +66,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
         $result = Database::getInstance()->query($query)->execute($params);
         if (!$row) {
-            SessionHelper::SetFlashMessage('Error Saving Roll');
+            SessionHelper::setFlashMessage('Error Saving Roll');
         }
     }
 }

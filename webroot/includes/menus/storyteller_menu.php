@@ -74,7 +74,7 @@ $storytellerMenu = [
     ]
 ];
 
-if(UserdataHelper::IsHead($userdata)) {
+if(UserdataHelper::isHead($userdata)) {
     $storytellerMenu['Chat']['submenu']['Prochat Admin'] = array(
         'link' => 'chat/admin'
     );
@@ -107,7 +107,7 @@ if(UserdataHelper::IsHead($userdata)) {
     );
 }
 
-if(UserdataHelper::IsAdmin($userdata)) {
+if(UserdataHelper::isAdmin($userdata)) {
     $storytellerMenu['Tools']['submenu']['Configuration'] = array(
         'link' => '/configurations'
     );

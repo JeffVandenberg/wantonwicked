@@ -110,12 +110,12 @@ EOQ;
     }
 
     // add login record to character log
-    CharacterLog::LogAction($characterId, ActionType::LOGIN, 'Chat Login', $userdata['user_id']);
+    CharacterLog::logAction($characterId, ActionType::LOGIN, 'Chat Login', $userdata['user_id']);
 
     $loggedIn = true;
 }
 else if(isset($_GET['st_login']) || (isset($_GET['action']) && $_GET['action'] == 'st_login')) {
-    if(UserdataHelper::IsSt($userdata)) {
+    if(UserdataHelper::isSt($userdata)) {
         define('C_CUSTOM_USERNAME', $userdata['username']);
         define('C_CUSTOM_USERID', $userdata['user_id']);
 
@@ -123,15 +123,15 @@ else if(isset($_GET['st_login']) || (isset($_GET['action']) && $_GET['action'] =
         $userTypeId = 4; // regular ST
         $admin = 0;
         $mod = 1;
-        if(UserdataHelper::IsAsst($userdata)) {
+        if(UserdataHelper::isAsst($userdata)) {
             $userTypeId = 5;
             $mod = 1;
-        } else if(UserdataHelper::IsAdmin($userdata)) {
+        } else if(UserdataHelper::isAdmin($userdata)) {
             $icon = 'admin.png';
             $userTypeId = 6;
             $admin = 1;
             $mod = 1;
-        } else if(UserdataHelper::IsWikiManager($userda11ta)) {
+        } else if(UserdataHelper::isWikiManager($userda11ta)) {
             $icon = 'wiki.png';
             $userTypeId = 7;
             $mod = 0;

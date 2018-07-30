@@ -12,11 +12,11 @@ use classes\core\repository\RepositoryManager;
 
 $characterId = Request::getValue('character_id');
 
-$characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
+$characterRepository = RepositoryManager::getRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 
 if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
-    SessionHelper::SetFlashMessage('Not a valid character to view!');
+    SessionHelper::setFlashMessage('Not a valid character to view!');
     Response::redirect('');
 }
 
@@ -71,7 +71,7 @@ EOQ;
         )
     );
 
-    SessionHelper::SetFlashMessage('Favor has been created');
+    SessionHelper::setFlashMessage('Favor has been created');
     Response::redirect('favors.php?action=list&character_id='.$characterId);
 }
 
@@ -96,7 +96,7 @@ ob_start();
         </div>
         <div class="formInput">
             <label>Favor Type:</label>
-            <?php echo FormHelper::Select($favorTypes, 'favorTypeId', $favorType); ?>
+            <?php echo FormHelper::select($favorTypes, 'favorTypeId', $favorType); ?>
         </div>
         <div class="formInput">
             <label for="favorDescription">Favor Description:</label>

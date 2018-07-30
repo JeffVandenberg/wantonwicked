@@ -20,14 +20,14 @@ class RepositoryManager
      * @param $className
      * @return AbstractRepository
      */
-    public static function GetRepository($className)
+    public static function getRepository($className): AbstractRepository
     {
         $obj = new $className();
         /* @var DataModel $obj */
         $repositoryClass = $obj->getRepositoryClass();
 
         if(!isset(self::$repositories[$repositoryClass])) {
-            if(defined('ROOT')) {
+            if(\defined('ROOT')) {
                 $path = ROOT . '/class/' . str_replace('\\', DIRECTORY_SEPARATOR, $repositoryClass);
             } else {
                 $path = ROOT_PATH . '../class/' . str_replace('\\', DIRECTORY_SEPARATOR, $repositoryClass);
@@ -42,7 +42,7 @@ class RepositoryManager
         return self::$repositories[$repositoryClass];
     }
 
-    public static function ClearCache()
+    public static function clearCache(): void
     {
         self::$cache = null;
     }

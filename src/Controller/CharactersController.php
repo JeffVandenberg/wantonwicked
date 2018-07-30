@@ -318,13 +318,13 @@ class CharactersController extends AppController
             $this->set('viewCharacterId', $character->Id);
 
             if(!$character->ViewPassword) {
-                CharacterLog::LogAction($character->Id, ActionType::VIEW_CHARACTER, 'Attempted to view sheet with no password set.', $this->Auth->user('user_id'));
+                CharacterLog::logAction($character->Id, ActionType::VIEW_CHARACTER, 'Attempted to view sheet with no password set.', $this->Auth->user('user_id'));
                 $this->Flash->set('Character has no view password set');
                 return;
             }
 
             if($character->ViewPassword !== $password) {
-                CharacterLog::LogAction($character->Id, ActionType::VIEW_CHARACTER, 'Attempted to view with incorrect password.', $this->Auth->user('user_id'));
+                CharacterLog::logAction($character->Id, ActionType::VIEW_CHARACTER, 'Attempted to view with incorrect password.', $this->Auth->user('user_id'));
                 $this->Flash->set('Password does not match');
                 return;
             }
@@ -335,7 +335,7 @@ class CharactersController extends AppController
             ];
 
             $this->set(compact('character', 'options'));
-            CharacterLog::LogAction($character->Id, ActionType::VIEW_CHARACTER, 'Player View', $this->Auth->user('user_id'));
+            CharacterLog::logAction($character->Id, ActionType::VIEW_CHARACTER, 'Player View', $this->Auth->user('user_id'));
         }
 
         if($this->getRequest()->is('get') && $slug) {
@@ -386,8 +386,8 @@ class CharactersController extends AppController
             }
 
             if ($character && $character->Id) {
-                CharacterLog::LogAction($character->Id, ActionType::VIEW_CHARACTER, 'ST View', $this->Auth->user('user_id'));
-                $repo = RepositoryManager::GetRepository('classes\character\data\CharacterNote');
+                CharacterLog::logAction($character->Id, ActionType::VIEW_CHARACTER, 'ST View', $this->Auth->user('user_id'));
+                $repo = RepositoryManager::getRepository('classes\character\data\CharacterNote');
                 /* @var CharacterNoteRepository $repo */
                 $characterNote = $repo->getMostRecentForCharacter($character->Id);
                 if ($characterNote) {
@@ -482,7 +482,7 @@ class CharactersController extends AppController
         }
 
         if (!$this->Permissions->mayEditCharacter($character->Id)) {
-            CharacterLog::LogAction($character->Id, ActionType::INVALID_ACCESS, 'Attempted Access to Beats', $this->Auth->user('user_id'));
+            CharacterLog::logAction($character->Id, ActionType::INVALID_ACCESS, 'Attempted Access to Beats', $this->Auth->user('user_id'));
             $this->Flash->set('Unable to view that character');
             $this->redirect('/');
         }
@@ -497,7 +497,7 @@ class CharactersController extends AppController
             $beat->Note = $this->getRequest()->getData(['note']);
 
             $beat->CharacterId = $character->Id;
-            $beat->BeatStatusId = ($isSt) ? BeatStatus::StaffAwarded : BeatStatus::NewBeat;
+            $beat->BeatStatusId = ($isSt) ? BeatStatus::STAFF_AWARDED : BeatStatus::NEW_BEAT;
             $beat->CreatedById = $beat->UpdatedById = $this->Auth->user('user_id');
             $beat->Created = $beat->Updated = date('Y-m-d H:i:s');
             $beat->BeatsAwarded = 0;
@@ -509,7 +509,7 @@ class CharactersController extends AppController
             }
         }
 
-        $beatTypeRepo = RepositoryManager::GetRepository('classes\character\data\BeatType');
+        $beatTypeRepo = RepositoryManager::getRepository('classes\character\data\BeatType');
         if (!$isSt) {
             $beatTypes = $beatTypeRepo->ListByAdminOnly(false);
         } else {
@@ -604,7 +604,7 @@ class CharactersController extends AppController
 
             $beat->CreatedById = $beat->UpdatedById = $this->Auth->user('user_id');
             $beat->Created = $beat->Updated = date('Y-m-d H:i:s');
-            $beat->BeatStatusId = BeatStatus::StaffAwarded;
+            $beat->BeatStatusId = BeatStatus::STAFF_AWARDED;
             $beat->BeatsAwarded = 0;
 
             if ($beatService->addNewBeat($beat)) {
@@ -615,7 +615,7 @@ class CharactersController extends AppController
             }
         }
 
-        $beatTypeRepo = RepositoryManager::GetRepository('classes\character\data\BeatType');
+        $beatTypeRepo = RepositoryManager::getRepository('classes\character\data\BeatType');
         $beatTypes = $beatTypeRepo->listAll();
         /* @var BeatType[] $beatTypes */
         $beatList = [];

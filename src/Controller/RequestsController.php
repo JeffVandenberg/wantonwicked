@@ -487,7 +487,7 @@ class RequestsController extends AppController
             ->where([
                 'character_name like' => $query . '%',
                 'RequestCharacters.request_id IS NULL',
-                'character_status_id !=' => CharacterStatus::Deleted
+                'character_status_id !=' => CharacterStatus::DELETED
             ]);
 
         if ($onlySanctioned) {
@@ -693,7 +693,7 @@ class RequestsController extends AppController
     {
         $request = $this->Requests->getFullRequest($requestId);
 
-        CharacterLog::LogAction($request['character_id'], ActionType::VIEW_REQUEST, 'View Request', $this->Auth->user('user_id'), $requestId);
+        CharacterLog::logAction($request['character_id'], ActionType::VIEW_REQUEST, 'View Request', $this->Auth->user('user_id'), $requestId);
         if ($request->request_status_id === RequestStatus::Submitted) {
             $request->request_status_id = RequestStatus::InProgress;
             $request->updated_by_id = $this->Auth->user('user_id');

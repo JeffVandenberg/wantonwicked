@@ -12,13 +12,13 @@ use classes\core\data\DataModel;
 
 class RequestType extends DataModel
 {
-    const Sanction      = 1;
-    const XpRequest     = 2;
-    const NonXpRequest  = 3;
-    const BlueBook      = 4;
-    const CreativeThaum = 5;
-    const SceneRequest  = 6;
-    const XpRecommend   = 7;
+    public const SANCTION      = 1;
+    public const XP_REQUEST     = 2;
+    public const NON_XP_REQUEST  = 3;
+    public const BLUEBOOK      = 4;
+    public const CREATIVE_THAUM = 5;
+    public const SCENE  = 6;
+    public const XP_REC   = 7;
 
     public $Id;
     public $Name;

@@ -14,25 +14,25 @@ use Cake\ORM\Entity;
  */
 class CharacterStatus extends Entity
 {
-    const NewCharacter = 1;
-    const Active = 2;
-    const Unsanctioned = 3;
-    const Inactive = 4;
-    const Deleted = 5;
-    const Idle = 6;
+    public const NEW_CHARACTER = 1;
+    public const ACTIVE = 2;
+    public const UNSANCTIONED = 3;
+    public const INACTIVE = 4;
+    public const DELETED = 5;
+    public const IDLE = 6;
 
-    const NonDeleted = [
-        self::NewCharacter,
-        self::Active,
-        self::Unsanctioned,
-        self::Inactive,
-        self::Idle,
+    public const NonDeleted = [
+        self::NEW_CHARACTER,
+        self::ACTIVE,
+        self::UNSANCTIONED,
+        self::INACTIVE,
+        self::IDLE,
     ];
 
-    const Sanctioned = [
-        self::Active,
-        self::Inactive,
-        self::Idle
+    public const Sanctioned = [
+        self::ACTIVE,
+        self::INACTIVE,
+        self::IDLE
     ];
 
     /**

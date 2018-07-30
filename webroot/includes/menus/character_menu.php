@@ -3,7 +3,7 @@ use classes\character\data\Character;
 use classes\core\repository\RepositoryManager;
 
 /* @var int $characterId */
-$characterRepository = RepositoryManager::GetRepository('classes\character\data\Character');
+$characterRepository = RepositoryManager::getRepository('classes\character\data\Character');
 $privateCharacter = $characterRepository->getById($characterId);
 /* @var Character $privateCharacter */
 

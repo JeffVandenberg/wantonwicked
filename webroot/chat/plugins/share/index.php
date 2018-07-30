@@ -104,7 +104,7 @@ include_once("includes/functions.php");
             $users[$i['id']] = $i['display_name'];
         }
 
-        $userSelect = FormHelper::Select($users, 'shareWithUserId', $_REQUEST['shareWithUserId']);
+        $userSelect = FormHelper::select($users, 'shareWithUserId', $_REQUEST['shareWithUserId']);
 
         $publicChecked = (!($_REQUEST['shareWithUserId'])) ? "checked" : "";
         $privateChecked = (($_REQUEST['shareWithUserId'])) ? "checked" : "";

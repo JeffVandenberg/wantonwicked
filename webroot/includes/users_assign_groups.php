@@ -21,10 +21,10 @@ ob_start();
 
     <form method="post">
         <div style="text-align:center;">
-            <?php echo FormHelper::Text('username', '', array('label' => 'User Name')); ?>
-            <?php echo FormHelper::Hidden('user_id', ''); ?>
-            <?php echo FormHelper::Button('load_user', 'Load Permissions', 'button'); ?>
-            <?php echo FormHelper::Button('save_user', 'Save Permissions', 'button'); ?>
+            <?php echo FormHelper::text('username', '', array('label' => 'User Name')); ?>
+            <?php echo FormHelper::hidden('user_id', ''); ?>
+            <?php echo FormHelper::button('load_user', 'Load Permissions', 'button'); ?>
+            <?php echo FormHelper::button('save_user', 'Save Permissions', 'button'); ?>
         </div>
         <table>
             <thead>
@@ -46,10 +46,10 @@ ob_start();
                         <?php echo $group['group_name']; ?>
                     </td>
                     <td>
-                        <?php echo FormHelper::Checkbox('group_id[]', $group['group_id'], false); ?>
+                        <?php echo FormHelper::checkbox('group_id[]', $group['group_id'], false); ?>
                     </td>
                     <td>
-                        <?php echo FormHelper::Checkbox('is_moderator[]', 1, false); ?>
+                        <?php echo FormHelper::checkbox('is_moderator[]', 1, false); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
