@@ -1,26 +1,20 @@
 version: 2
-
 ## Customize the test machine
 jobs:
   build:
     docker:
       - image: circleci/php:7.1-apache-jessie-node-browsers
-
     environment:
       TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
       APP_ENV: test
-
     steps:
       - checkout
-
   test:
     docker:
       - image: circleci/php:7.1-apache-jessie-node-browsers
-
     environment:
       TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
       APP_ENV: test
-
     steps:
       - checkout
       - run: echo 127.0.0.1 dev-wanton | sudo tee -a /etc/hosts
@@ -40,7 +34,6 @@ jobs:
         - name: Prod Script
         - command:
           - ./deploy/deploy_to_prod.sh
-
   deploy_to_test:
     docker:
       - image: circleci/php:7.1-apache-jessie-node-browsers
@@ -50,7 +43,6 @@ jobs:
         - name: Prod Script
         - command:
           - ./deploy/deploy_to_test.sh
-
 workflows:
   version: 2
   deploy_prod:
@@ -61,7 +53,6 @@ workflows:
         filters:
           branches:
             only: master
-
   deploy_staging:
     jobs:
       - deploy_to_test
@@ -70,7 +61,6 @@ workflows:
         filters:
           branches:
             only: develop
-
   test:
     jobs:
       - test
