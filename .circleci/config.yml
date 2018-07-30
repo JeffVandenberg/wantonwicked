@@ -54,3 +54,11 @@ workflows:
         filters:
           branches:
             only: develop
+  deploy_prod:
+    jobs:
+      - deploy_to_prod:
+        requires:
+         - test
+        filters:
+          branches:
+            only: master
