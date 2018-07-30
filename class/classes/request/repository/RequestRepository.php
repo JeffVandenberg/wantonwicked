@@ -26,7 +26,7 @@ class RequestRepository extends AbstractRepository
 
     public function __construct()
     {
-        parent::__construct('classes\request\data\Request');
+        parent::__construct(Request::class);
     }
 
     public function save(DataModel $request)
@@ -40,7 +40,7 @@ class RequestRepository extends AbstractRepository
             $requestStatusHistory->RequestStatusId = $request->RequestStatusId;
             $requestStatusHistory->CreatedById = $request->UpdatedById;
             $requestStatusHistory->CreatedOn = date('Y-m-d H:i:s');
-            $requestStatusHistoryRepository = RepositoryManager::getRepository('classes\request\data\RequestStatusHistory');
+            $requestStatusHistoryRepository = RepositoryManager::getRepository(RequestStatusHistory::class);
             return $requestStatusHistoryRepository->save($requestStatusHistory);
         }
         return $result;
@@ -101,7 +101,7 @@ EOQ;
             $parameters[] = $filter['request_type_id'];
         } else {
             $sql .= ' AND R.request_type_id != ? ';
-            $parameters[] = RequestType::BlueBook;
+            $parameters[] = RequestType::BLUEBOOK;
         }
 
         if ($filter['request_status_id'] != 0) {
@@ -153,7 +153,7 @@ EOQ;
             $parameters[] = $filter['request_type_id'];
         } else {
             $sql .= ' AND R.request_type_id != ? ';
-            $parameters[] = RequestType::BlueBook;
+            $parameters[] = RequestType::BLUEBOOK;
         }
 
         if ($filter['request_status_id'] != 0) {
@@ -196,7 +196,6 @@ EOQ;
     {
         $requestId = (int)$requestId;
         $characterId = (int)$characterId;
-        $bluebook = RequestType::BlueBook;
         $sql = <<<EOQ
 SELECT
     R.*
@@ -249,7 +248,7 @@ EOQ;
     public function ListSupportingRequests($requestId)
     {
         $requestId = (int)$requestId;
-        $bluebook = RequestType::BlueBook;
+        $bluebook = RequestType::BLUEBOOK;
 
         $sql = <<<EOQ
 SELECT
@@ -273,7 +272,7 @@ EOQ;
     public function ListOpenRequestsForCharacter($characterId)
     {
         $characterId = (int)$characterId;
-        $blueBook = RequestType::BlueBook;
+        $blueBook = RequestType::BLUEBOOK;
         $edittablePlaceholders = implode(',', array_fill(0, count(RequestStatus::$Terminal), '?'));
         $sql = <<<EOQ
 SELECT
@@ -362,14 +361,14 @@ LIMIT
     $startIndex, $pageSize
 EOQ;
 
-        return $this->query($sql)->all(array($characterId, RequestType::BlueBook));
+        return $this->query($sql)->all(array($characterId, RequestType::BLUEBOOK));
     }
 
     public function ListBlueBookEntriesNotAttachedToRequest($requestId, $characterId)
     {
         $requestId = (int)$requestId;
         $characterId = (int)$characterId;
-        $bluebook = RequestType::BlueBook;
+        $bluebook = RequestType::BLUEBOOK;
 
         $sql = <<<EOQ
 SELECT
@@ -422,7 +421,7 @@ EOQ;
     public function ListSupportingBluebookEntries($requestId)
     {
         $requestId = (int)$requestId;
-        $bluebook = RequestType::BlueBook;
+        $bluebook = RequestType::BLUEBOOK;
 
         $sql = <<<EOQ
 SELECT
@@ -480,7 +479,7 @@ EOQ;
             $parameters[] = $filter['request_type_id'];
         } else {
             $sql .= ' AND R.request_type_id != ? ';
-            $parameters[] = RequestType::BlueBook;
+            $parameters[] = RequestType::BLUEBOOK;
         }
 
         if ($filter['request_group_id']) {
@@ -593,7 +592,7 @@ EOQ;
     public function ListRequestAssociatedWith($characterId)
     {
         $characterId = (int)$characterId;
-        $blueBook = RequestType::BlueBook;
+        $blueBook = RequestType::BLUEBOOK;
         $terminalPlaceholders = $this->buildPlaceholdersForValues(RequestStatus::$Terminal);
         $sanctionedPlaceholders = $this->buildPlaceholdersForValues(CharacterStatus::Sanctioned);
         $sql = <<<EOQ
@@ -644,7 +643,7 @@ EOQ;
             $parameters[] = $filter['request_type_id'];
         } else {
             $sql .= ' AND R.request_type_id != ? ';
-            $parameters[] = RequestType::BlueBook;
+            $parameters[] = RequestType::BLUEBOOK;
         }
 
         if ($filter['request_status_id'] > 0) {
@@ -672,7 +671,7 @@ WHERE
 EOQ;
 
         $count = 0;
-        foreach ($this->query($sql)->all(array($characterId, RequestType::BlueBook)) as $row) {
+        foreach ($this->query($sql)->all(array($characterId, RequestType::BLUEBOOK)) as $row) {
             $count = $row['count'];
         }
         return $count;
@@ -782,7 +781,7 @@ WHERE
     AND request_status_id IN ($statusPlaceholders)
 EOQ;
 
-        $params = array_merge(array(RequestType::BlueBook, $characterId), $requestStatuses);
+        $params = array_merge(array(RequestType::BLUEBOOK, $characterId), $requestStatuses);
         return $this->query($sql)->value($params);
     }
 
@@ -809,7 +808,7 @@ GROUP BY
   G.name,
   RS.name
 EOQ;
-        $params = array_merge(RequestStatus::$Terminal, array(RequestType::BlueBook));
+        $params = array_merge(RequestStatus::$Terminal, array(RequestType::BLUEBOOK));
 
         return $this->query($sql)->all($params);
     }
@@ -877,7 +876,7 @@ EOQ;
             $parameters[] = $filter['request_type_id'];
         } else {
             $sql .= ' AND R.request_type_id != ? ';
-            $parameters[] = RequestType::BlueBook;
+            $parameters[] = RequestType::BLUEBOOK;
         }
 
         if (isset($filter['request_status_id']) && $filter['request_status_id'] != 0) {
@@ -917,7 +916,7 @@ WHERE
     AND request_status_id IN ($statusPlaceholders)
 EOQ;
         $params = array_merge(array(
-            RequestType::BlueBook,
+            RequestType::BLUEBOOK,
             $userId
         ), RequestStatus::$Player);
         return $this->query($sql)->value($params);
@@ -1009,7 +1008,7 @@ EOQ;
 
         $params = array_merge(array(
             $userId,
-            RequestType::BlueBook
+            RequestType::BLUEBOOK
         ), RequestStatus::$Player);
 
         $list = array();
@@ -1098,7 +1097,7 @@ EOQ;
             $userId,
             RequestStatus::SUBMITTED,
             RequestStatus::IN_PROGRESS,
-            RequestType::BlueBook
+            RequestType::BLUEBOOK
         );
         return $this->query($sql)->value($params);
     }
@@ -1166,7 +1165,7 @@ WHERE
 EOQ;
         $parameters = array($userId);
         $sql .= ' AND R.request_type_id != ? ';
-        $parameters[] = RequestType::BlueBook;
+        $parameters[] = RequestType::BLUEBOOK;
 
         $sql .= ' AND R.request_status_id IN (' . implode(',', array_fill(0, count($openStatuses), '?')) . ') ';
         $parameters = array_merge($parameters, $openStatuses);
@@ -1202,7 +1201,7 @@ ORDER BY R.title
 SQL;
         $params = array_merge([
             $id,
-            RequestType::BlueBook
+            RequestType::BLUEBOOK
         ], $statuses);
 
         return $this->query($sql)->all($params);

@@ -16,12 +16,12 @@ use classes\request\data\RequestType;
 class RequestTypeRepository extends AbstractRepository
 {
     public function __construct() {
-        parent::__construct('classes\request\data\RequestType');
+        parent::__construct(RequestType::class);
     }
 
     public function listAll()
     {
-        $blueBook = RequestType::BlueBook;
+        $blueBook = RequestType::BLUEBOOK;
         $sql = <<<EOQ
 SELECT
     *
