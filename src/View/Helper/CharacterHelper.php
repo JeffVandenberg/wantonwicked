@@ -2410,7 +2410,7 @@ class CharacterHelper extends AppHelper
                     if (isset($fields[$options])) {
                         $displayFields[$options] = $fields[$options];
                     } else {
-                        throw new RuntimeException('Unknown field type: ' . $options);
+                        throw new \RuntimeException('Unknown field type: ' . $options);
                     }
                 }
             }

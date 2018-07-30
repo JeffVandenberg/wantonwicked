@@ -13,3 +13,9 @@ commit_failure_conditions:
 # By severities count (default configuration, any change will override it)
   - "project.severity.critical > 0"
   - "project.severity.major > 0"
+
+rules:
+  web.default_favicon:
+    enabled: false
+  web.missing_favicon:
+    enabled: false
