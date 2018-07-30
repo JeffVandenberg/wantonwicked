@@ -17,6 +17,7 @@ jobs:
     environment:
       TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
       APP_ENV: test
+
     steps:
       - checkout
       - run: echo 127.0.0.1 dev-wanton | sudo tee -a /etc/hosts
