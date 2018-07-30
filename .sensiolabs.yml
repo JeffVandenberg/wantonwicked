@@ -1,14 +1,15 @@
 php_version: 7.1
 
 global_exclude_dirs:
-- vendor
-- vendors
-- test
-- tests
-- Tests
-- webroot/wiki
+  - vendor
+  - vendors
+  - test
+  - tests
+  - Tests
+  - webroot/wiki
+  - webroot/chat
 
 commit_failure_conditions:
 # By severities count (default configuration, any change will override it)
-- "project.severity.critical > 0"
-- "project.severity.major > 0"
+  - "project.severity.critical > 0"
+  - "project.severity.major > 0"
