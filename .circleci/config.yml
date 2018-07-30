@@ -19,11 +19,11 @@ jobs:
       - checkout
       - run: echo 127.0.0.1 dev-wanton | sudo tee -a /etc/hosts
       - run:
-        - name: composer
-        - command: composer install
+        name: composer
+        command: composer install
       - run:
-        - name: phpunit
-        - command: vendor/bin/phpunit tests
+        name: phpunit
+        command: vendor/bin/phpunit tests
 
   deploy_to_prod:
     docker:
@@ -32,8 +32,7 @@ jobs:
       - checkout
       - run:
         - name: Prod Script
-        - command:
-          - echo "Deploy to Prod"
+        - command: echo "Deploy to Prod"
 #          - ./deploy/deploy_to_prod.sh
   deploy_to_test:
     docker:
@@ -42,8 +41,7 @@ jobs:
       - checkout
       - run:
         - name: Prod Script
-        - command:
-          - echo "Deploy to Test"
+        - command: echo "Deploy to Test"
 #          - ./deploy/deploy_to_test.sh
 workflows:
   version: 2
