@@ -28,7 +28,7 @@ EOQ;
 $params = array($userdata['user_id'], $character_id);
 $character = Database::getInstance()->query($character_query)->single($params);
 $characterRepository = new CharacterRepository();
-if ($character && $characterRepository->MayViewCharacter($character_id, $userdata['user_id'])) {
+if ($character && $characterRepository->mayViewCharacter($character_id, $userdata['user_id'])) {
     // get # of characters with the same name
     $temp_name = $character['character_name'];
     $slug = $character['slug'];
@@ -40,7 +40,7 @@ if ($character && $characterRepository->MayViewCharacter($character_id, $userdat
     $updateQuery = 'update characters set character_status_id = ?, character_name = ?, slug = ? where id = ?;';
     $updatedName = $temp_name . '_' . $id;
     $params = [
-        CharacterStatus::Deleted,
+        CharacterStatus::DELETED,
         $updatedName,
         $slug . '_' . $id,
         $character_id
@@ -59,7 +59,7 @@ SQL;
     Database::getInstance()->query($updateQuery)->execute($params);
 
     $requestRepository = new RequestRepository();
-    $requestRepository->CloseRequestsForCharacter($character_id);
+    $requestRepository->closeRequestsForCharacter($character_id);
 
     $page_content = <<<EOQ
 $character[character_name] has been deleted. This is a permanent action. It can not and will not be undone.<br>

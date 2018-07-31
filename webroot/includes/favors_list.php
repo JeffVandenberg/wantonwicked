@@ -16,7 +16,7 @@ $characterId = Request::getValue('character_id', 0);
 $characterRepository = RepositoryManager::getRepository('classes\character\data\Character');
 /* @var CharacterRepository $characterRepository */
 
-if (!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) {
+if (!$characterRepository->mayViewCharacter($characterId, $userdata['user_id'])) {
     SessionHelper::setFlashMessage('Not a valid character to view!');
     Response::redirect('');
 }

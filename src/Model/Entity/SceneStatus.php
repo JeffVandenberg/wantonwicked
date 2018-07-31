@@ -13,9 +13,9 @@ use Cake\ORM\Entity;
  */
 class SceneStatus extends Entity
 {
-    const Open = 1;
-    const Completed = 2;
-    const Cancelled = 3;
+    public const OPEN = 1;
+    public const COMPLETED = 2;
+    public const CANCELLED = 3;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

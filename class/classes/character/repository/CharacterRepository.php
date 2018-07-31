@@ -31,7 +31,7 @@ class CharacterRepository extends AbstractRepository
         parent::__construct(Character::class);
     }
 
-    public function MayViewCharacter($characterId, $userId): bool
+    public function mayViewCharacter($characterId, $userId): bool
     {
         $characterId = (int)$characterId;
         $userId = (int)$userId;
@@ -225,7 +225,7 @@ ORDER BY
 EOQ;
         $params = [
             $userId,
-            CharacterStatus::Deleted
+            CharacterStatus::DELETED
         ];
 
         return $this->query($sql)->all($params);
@@ -439,7 +439,7 @@ WHERE
 	AND A.rows IS NULL
 EOQ;
 
-        $params = array($cutoffDate, ActionType::SANCTIONED, ActionType::LOGIN, CharacterStatus::Active);
+        $params = array($cutoffDate, ActionType::SANCTIONED, ActionType::LOGIN, CharacterStatus::ACTIVE);
 
         $characterList = $this->query($characterListQuery)->all($params);
         $characterIds = array_map(function ($item) {

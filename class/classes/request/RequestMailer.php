@@ -15,7 +15,7 @@ use classes\request\repository\RequestRepository;
 
 class RequestMailer
 {
-    public function SendMailToPlayer($playerEmail, $fromUser, $status, $note, Request $request)
+    public function sendMailToPlayer($playerEmail, $fromUser, $status, $note, Request $request): bool
     {
         $mailer = new \PHPMailer();
 
@@ -45,19 +45,19 @@ EOQ;
         $mailer->isHTML(true);
 
         if (!$mailer->send()) {
-            throw new \Exception("Unable to send notice to player: " . $mailer->ErrorInfo);
+            throw new \RuntimeException('Unable to send notice to player: ' . $mailer->ErrorInfo);
         }
 
         return true;
     }
 
-    public function newRequestSubmission(Request $request)
+    public function newRequestSubmission(Request $request): void
     {
         $mailer = new \PHPMailer();
 
         $requestRepository = new RequestRepository();
         $groupEmails = $requestRepository->listEmailsForUsersInGroup($request->GroupId);
-        if(count($groupEmails) == 0) {
+        if(count($groupEmails) === 0) {
             return;
         }
         
@@ -99,7 +99,7 @@ EOQ;
         $mailer->isHTML(true);
 
         if (!$mailer->send()) {
-            throw new \Exception("Unable to send notice to group: " . $mailer->ErrorInfo);
+            throw new \RuntimeException('Unable to send notice to group: ' . $mailer->ErrorInfo);
         }
     }
 }

@@ -18,7 +18,7 @@ $menu['Actions']['submenu']['Back'] = array(
     )
 );
 
-if ($isLoggedIn && ($scene->scene_status_id == SceneStatus::Open)) {
+if ($isLoggedIn && ($scene->scene_status_id == SceneStatus::OPEN)) {
     $menu['Actions']['submenu']['Join Scene'] = array(
         'link' => array(
             'action' => 'join',
@@ -39,7 +39,7 @@ if ($mayEdit) {
             $scene->slug
         ]
     ];
-    if ($scene->scene_status_id == SceneStatus::Open) {
+    if ($scene->scene_status_id == SceneStatus::OPEN) {
         $menu['Actions']['submenu']['Complete Scene'] = [
             'link' => [
                 'action' => 'complete',
@@ -61,7 +61,7 @@ $this->loadHelper('Tag');
 ?>
 
 <?php echo $this->Html->link('<< Back', array('action' => 'index'), ['class' => 'button']); ?>
-<?php if ($isLoggedIn && ($scene->scene_status_id === SceneStatus::Open)): ?>
+<?php if ($isLoggedIn && ($scene->scene_status_id === SceneStatus::OPEN)): ?>
     <?php if($scene->signup_limit === 0 || (count($sceneCharacters) < $scene->signup_limit)): ?>
         <?php echo $this->Html->link('Join Scene', array('action' => 'join', $scene->slug), ['class' => 'button']); ?>
     <?php endif; ?>
@@ -76,7 +76,7 @@ $this->loadHelper('Tag');
             This scene is: <?php echo $scene->scene_status->name; ?>
         </th>
         <th>
-            <?php if (($scene->scene_status_id === SceneStatus::Open) && (($scene->signup_limit === 0) || (count($sceneCharacters) < $scene->signup_limit))): ?>
+            <?php if (($scene->scene_status_id === SceneStatus::OPEN) && (($scene->signup_limit === 0) || (count($sceneCharacters) < $scene->signup_limit))): ?>
                 Share:
                 <?php echo $this->Html->link(
                         $this->Url->build(

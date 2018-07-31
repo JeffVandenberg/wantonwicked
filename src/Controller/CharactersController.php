@@ -75,7 +75,7 @@ class CharactersController extends AppController
                 'CharacterStatuses.name'
             ])
             ->where([
-                'Characters.character_status_id IN ' => [CharacterStatus::Active, CharacterStatus::Idle],
+                'Characters.character_status_id IN ' => [CharacterStatus::ACTIVE, CharacterStatus::IDLE],
                 'Characters.city' => 'portland',
             ])
             ->contain([
@@ -168,26 +168,9 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes'));
     }
 
-    public function admin_xpEdit()
-    {
-        if ($this->getRequest()->is('post')) {
-            $sheetService = new SheetService();
-            $sheetService->grantXpToCharacter(
-                $this->getRequest()->getData('character_id'),
-                $this->getRequest()->getData('xp_amount'),
-                'Admin XP Override. Amount: ' . $this->getRequest()->getData('xp_amount') .
-                ' Note: ' . $this->getRequest()->getData('xp_note'),
-                $this->Auth->user('user_id')
-            );
-            $this->Flash->set('Updated XP for Character');
-        }
-    }
-
     public function isAuthorized()
     {
         switch ($this->getRequest()->getParam('action')) {
-            case 'admin_xpEdit':
-                return $this->Permissions->isAdmin();
             case 'stGoals':
             case 'stView':
             case 'stBeats':
@@ -218,7 +201,7 @@ class CharactersController extends AppController
             ->where([
                 'Characters.user_id' => $this->Auth->user('user_id'),
                 'Characters.city' => 'portland',
-                'Characters.character_status_id !=' => CharacterStatus::Deleted
+                'Characters.character_status_id !=' => CharacterStatus::DELETED
             ]);
         $this->set('characters', $this->Paginator->paginate($query, [
             'order' => [
@@ -262,7 +245,7 @@ class CharactersController extends AppController
             'edit_mode' => 'limited', // other values "open", "none"
         ];
 
-        if ($character->CharacterStatusId == CharacterStatus::NewCharacter) {
+        if ($character->CharacterStatusId == CharacterStatus::NEW_CHARACTER) {
             $options['edit_mode'] = 'open';
             $sheetService->addMinPowers($character);
         } else {

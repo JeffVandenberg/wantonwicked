@@ -29,7 +29,7 @@ class RequestRepository extends AbstractRepository
         parent::__construct(Request::class);
     }
 
-    public function save(DataModel $request)
+    public function save(DataModel $request): bool
     {
         /* @var Request $request */
 
@@ -46,7 +46,7 @@ class RequestRepository extends AbstractRepository
         return $result;
     }
 
-    public function FindById($id)
+    public function findById($id)
     {
         $id = (int)$id;
         $sql = <<<EOQ
@@ -66,10 +66,10 @@ EOQ;
         return $this->query($sql)->single($params);
     }
 
-    public function ListByCharacterId($characterId, $page, $pageSize, $sort, $statusId = 0, $filter)
+    public function listByCharacterId($characterId, $page, $pageSize, $sort, $statusId = 0, array $filter = []): array
     {
         $openStatuses = RequestStatus::$Player;
-        if ($statusId != 0) {
+        if ((int)$statusId !== 0) {
             $openStatuses = array($statusId);
         }
         $startIndex = ($page - 1) * $pageSize;
@@ -96,7 +96,7 @@ EOQ;
             $parameters[] = $filter['title'] . '%';
         }
 
-        if ($filter['request_type_id'] != 0) {
+        if ((int)$filter['request_type_id'] !== 0) {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
         } else {
@@ -104,7 +104,7 @@ EOQ;
             $parameters[] = RequestType::BLUEBOOK;
         }
 
-        if ($filter['request_status_id'] != 0) {
+        if ((int)$filter['request_status_id'] !== 0) {
             $sql .= ' AND R.request_status_id = ? ';
             $parameters[] = $filter['request_status_id'];
         } else {
@@ -123,12 +123,12 @@ EOQ;
     }
 
 
-    public function ListByCharacterIdCount($characterId, $statusId, $filter)
+    public function listByCharacterIdCount($characterId, $statusId, $filter)
     {
         $characterId = (int)$characterId;
 
         $openStatuses = RequestStatus::$Player;
-        if ($statusId != 0) {
+        if ((int)$statusId !== 0) {
             $openStatuses = array($statusId);
         }
 
@@ -148,7 +148,7 @@ EOQ;
             $parameters[] = $filter['title'] . '%';
         }
 
-        if ($filter['request_type_id'] != 0) {
+        if ((int)$filter['request_type_id'] !== 0) {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
         } else {
@@ -156,7 +156,7 @@ EOQ;
             $parameters[] = RequestType::BLUEBOOK;
         }
 
-        if ($filter['request_status_id'] != 0) {
+        if ((int)$filter['request_status_id'] !== 0) {
             $sql .= ' AND R.request_status_id = ? ';
             $parameters[] = $filter['request_status_id'];
         } else {
@@ -167,7 +167,7 @@ EOQ;
         return $this->query($sql)->value($parameters);
     }
 
-    public function MayViewRequest($requestId, $userId)
+    public function mayViewRequest($requestId, $userId): bool
     {
         $requestId = (int)$requestId;
         $userId = (int)$userId;
@@ -192,7 +192,7 @@ EOQ;
         return ($rows > 0);
     }
 
-    public function GetOpenRequestsNotAttachedToRequest($requestId, $characterId)
+    public function getOpenRequestsNotAttachedToRequest($requestId, $characterId): array
     {
         $requestId = (int)$requestId;
         $characterId = (int)$characterId;
@@ -220,7 +220,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function AttachRequestToRequest($requestId, $fromRequestId)
+    public function attachRequestToRequest($requestId, $fromRequestId): int
     {
         $requestId = (int)$requestId;
         $fromRequestId = (int)$fromRequestId;
@@ -245,7 +245,7 @@ EOQ;
         return $this->query($sql)->execute($params);
     }
 
-    public function ListSupportingRequests($requestId)
+    public function listSupportingRequests($requestId): array
     {
         $requestId = (int)$requestId;
         $bluebook = RequestType::BLUEBOOK;
@@ -269,7 +269,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function ListOpenRequestsForCharacter($characterId)
+    public function listOpenRequestsForCharacter($characterId): array
     {
         $characterId = (int)$characterId;
         $blueBook = RequestType::BLUEBOOK;
@@ -291,7 +291,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function AttachRollToRequest($requestId, $rollId)
+    public function attachRollToRequest($requestId, $rollId): int
     {
         $requestId = (int)$requestId;
         $rollId = (int)$rollId;
@@ -317,7 +317,7 @@ EOQ;
         return $this->query($sql)->execute($params);
     }
 
-    public function ListSupportingRolls($requestId)
+    public function listSupportingRolls($requestId): array
     {
         $requestId = (int)$requestId;
         $sql = <<<EOQ
@@ -337,7 +337,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function ListBlueBookByCharacterId($characterId, $page, $pageSize, $sort)
+    public function listBlueBookByCharacterId($characterId, $page, $pageSize, $sort): array
     {
         $startIndex = ($page - 1) * $pageSize;
 
@@ -364,7 +364,7 @@ EOQ;
         return $this->query($sql)->all(array($characterId, RequestType::BLUEBOOK));
     }
 
-    public function ListBlueBookEntriesNotAttachedToRequest($requestId, $characterId)
+    public function listBlueBookEntriesNotAttachedToRequest($requestId, $characterId): array
     {
         $requestId = (int)$requestId;
         $characterId = (int)$characterId;
@@ -393,7 +393,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function AttachBluebookToRequest($requestId, $bluebookId)
+    public function attachBluebookToRequest($requestId, $bluebookId): int
     {
         $requestId = (int)$requestId;
         $bluebookId = (int)$bluebookId;
@@ -418,7 +418,7 @@ EOQ;
         return $this->query($sql)->execute($params);
     }
 
-    public function ListSupportingBluebookEntries($requestId)
+    public function listSupportingBluebookEntries($requestId): array
     {
         $requestId = (int)$requestId;
         $bluebook = RequestType::BLUEBOOK;
@@ -442,7 +442,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function ListByGroups($groups, $page, $pageSize, $sort, $filter)
+    public function listByGroups($groups, $page, $pageSize, $sort, $filter): array
     {
         $groupListPlaceholders = implode(',', array_fill(0, count($groups), '?'));
 
@@ -470,11 +470,11 @@ WHERE
 EOQ;
         $parameters = $groups;
 
-        if ($filter['username'] != '') {
+        if ($filter['username'] !== '') {
             $sql .= ' AND CB.username_clean LIKE ? ';
             $parameters[] = strtolower($filter['username']) . '%';
         }
-        if ($filter['request_type_id'] != '0') {
+        if ((int)$filter['request_type_id'] !== 0) {
             $sql .= ' AND R.request_type_id = ? ';
             $parameters[] = $filter['request_type_id'];
         } else {
@@ -487,13 +487,13 @@ EOQ;
             $parameters[] = $filter['request_group_id'];
         }
 
-        if ($filter['title'] != '') {
+        if ($filter['title'] !== '') {
             $sql .= ' AND R.title LIKE ? ';
             $parameters[] = $filter['title'] . '%';
         }
 
-        if ($filter['request_status_id'] != '0') {
-            if ($filter['request_status_id'] != -1) {
+        if ((int)$filter['request_status_id'] !== 0) {
+            if ((int)$filter['request_status_id'] !== -1) {
                 $sql .= ' AND R.request_status_id = ? ';
                 $parameters[] = $filter['request_status_id'];
             }
@@ -513,7 +513,7 @@ EOQ;
         return $this->query($sql)->all($parameters);
     }
 
-    public function Submit($id)
+    public function submit($id): int
     {
         $submitted = RequestStatus::SUBMITTED;
         $id = (int)$id;
@@ -532,7 +532,7 @@ EOQ;
         return $this->query($sql)->execute($params);
     }
 
-    public function SearchCharactersForRequest($onlySanctioned, $characterName)
+    public function searchCharactersForRequest($onlySanctioned, $characterName): array
     {
         $onlySanctioned = (int)$onlySanctioned;
         $placeholders = $this->buildPlaceholdersForValues(CharacterStatus::Sanctioned);
@@ -560,14 +560,14 @@ EOQ;
             [
                 $onlySanctioned,
                 $onlySanctioned,
-                CharacterStatus::Deleted,
+                CharacterStatus::DELETED,
                 $characterName . '%'
             ]);
 
         return $this->query($sql)->all($params);
     }
 
-    public function AddCharacter($requestId, $characterId, $isPrimary)
+    public function addCharacter($requestId, $characterId, $isPrimary): bool
     {
         $requestCharacter = new RequestCharacter();
         $requestCharacter->RequestId = $requestId;
@@ -580,7 +580,7 @@ EOQ;
         return $requestCharacterRepository->save($requestCharacter);
     }
 
-    public function UpdateStatus($requestId, $requestStatusId, $userId)
+    public function updateStatus($requestId, $requestStatusId, $userId): bool
     {
         $request = $this->getById($requestId);
         /* @var \classes\request\data\Request $request */
@@ -589,7 +589,7 @@ EOQ;
         return $this->save($request);
     }
 
-    public function ListRequestAssociatedWith($characterId)
+    public function listRequestAssociatedWith($characterId): array
     {
         $characterId = (int)$characterId;
         $blueBook = RequestType::BLUEBOOK;
@@ -620,7 +620,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function ListByByGroupsCount($groups, $filter)
+    public function listByByGroupsCount($groups, $filter)
     {
         $groupListPlaceholders = implode(',', array_fill(0, count($groups), '?'));
 
@@ -658,7 +658,7 @@ EOQ;
         return $this->query($sql)->value($parameters);
     }
 
-    public function ListBlueBookByCharacterIdCount($characterId)
+    public function listBlueBookByCharacterIdCount($characterId)
     {
         $sql = <<<EOQ
 SELECT
@@ -677,7 +677,7 @@ EOQ;
         return $count;
     }
 
-    public function TouchRecord($requestId, $userId)
+    public function touchRecord($requestId, $userId): int
     {
         $sql = <<<EOQ
 UPDATE
@@ -692,7 +692,7 @@ EOQ;
     }
 
 
-    public function GetTimeReport()
+    public function getTimeReport(): array
     {
         $sql = <<<EOQ
 SELECT
@@ -761,9 +761,9 @@ EOQ;
         return $this->query($sql)->all();
     }
 
-    public function CountRequestsByCharacterIdAndStatus($characterId, $requestStatuses)
+    public function countRequestsByCharacterIdAndStatus($characterId, $requestStatuses)
     {
-        if (!is_array($requestStatuses)) {
+        if (!\is_array($requestStatuses)) {
             $requestStatuses = array($requestStatuses);
         }
         $statusPlaceholders = implode(',', array_fill(0, count($requestStatuses), '?'));
@@ -785,7 +785,7 @@ EOQ;
         return $this->query($sql)->value($params);
     }
 
-    public function GetStatusReport()
+    public function getStatusReport(): array
     {
         $statusParamsHolders = implode(
             ',',
@@ -813,12 +813,12 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function CloseRequestsForCharacter($characterIds)
+    public function closeRequestsForCharacter($characterIds): int
     {
-        if (!$characterIds || count($characterIds) == 0) {
+        if (!$characterIds || count($characterIds) === 0) {
             return 0;
         }
-        if (!is_array($characterIds)) {
+        if (!\is_array($characterIds)) {
             $characterIds = array($characterIds);
         }
         $characterIdPlaceholders = $this->buildPlaceholdersForValues($characterIds);
@@ -846,7 +846,7 @@ EOQ;
      * @param $filter
      * @return \classes\request\data\Request[]
      */
-    public function ListByUserId($userId, $page, $pageSize, $sort, $filter)
+    public function listByUserId($userId, $page, $pageSize, $sort, $filter): array
     {
         $openStatuses = RequestStatus::$Player;
         $startIndex = ($page - 1) * $pageSize;
@@ -928,7 +928,7 @@ EOQ;
      * @param $endDate
      * @return array
      */
-    public function GetSTActivityReport($userId, $startDate, $endDate)
+    public function getSTActivityReport($userId, $startDate, $endDate): array
     {
         $sql = <<<EOQ
 SELECT
@@ -964,7 +964,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function RequestHasPrimaryCharacter($requestId)
+    public function requestHasPrimaryCharacter($requestId): bool
     {
         $sql = <<<EOQ
 SELECT
@@ -981,7 +981,7 @@ EOQ;
         return ($this->query($sql)->value($params) > 0);
     }
 
-    public function ListRequestsLinkedByCharacterForUser($userId)
+    public function listRequestsLinkedByCharacterForUser($userId): array
     {
         $requestStatusPlaceholders = implode(',', array_fill(0, count(RequestStatus::$Player), '?'));
         $sql = <<<EOQ
@@ -1020,7 +1020,7 @@ EOQ;
         return $list;
     }
 
-    public function MayEditRequest($requestId, $userId)
+    public function mayEditRequest($requestId, $userId): bool
     {
         $requestId = (int)$requestId;
         $userId = (int)$userId;
@@ -1039,7 +1039,7 @@ EOQ;
         return ($rows > 0);
     }
 
-    public function AttachSceneToRequest($requestId, $sceneId, $note)
+    public function attachSceneToRequest($requestId, $sceneId, $note): int
     {
         $sql = <<<EOQ
 INSERT INTO
@@ -1059,7 +1059,7 @@ EOQ;
         return $this->query($sql)->execute($params);
     }
 
-    public function ListSupportingScenes($requestId)
+    public function listSupportingScenes($requestId): array
     {
         $sql = <<<EOQ
 SELECT
@@ -1102,7 +1102,7 @@ EOQ;
         return $this->query($sql)->value($params);
     }
 
-    public function listEmailsForUsersInGroup($groupId)
+    public function listEmailsForUsersInGroup($groupId): array
     {
         $sql = <<<EOQ
 SELECT
@@ -1120,7 +1120,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function findStRequestDashboard($user_id)
+    public function findStRequestDashboard($user_id): array
     {
         $sql = <<<EOQ
 SELECT
@@ -1173,7 +1173,7 @@ EOQ;
         return $this->query($sql)->value($parameters);
     }
 
-    public function listForDashboard($id)
+    public function listForDashboard($id): array
     {
         $statuses = [
             RequestStatus::NEW_REQUEST,
@@ -1247,7 +1247,7 @@ SQL;
         return $this->query($sql)->value($params);
     }
 
-    public function summaryOfRequestTypesByCharacterId($characterId)
+    public function summaryOfRequestTypesByCharacterId($characterId): array
     {
         $inProgressStatuses = [
             RequestStatus::SUBMITTED,

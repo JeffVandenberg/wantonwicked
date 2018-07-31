@@ -15,11 +15,11 @@ class ArrayTools
      * @param $array
      * @return array
      */
-    public static function array_valuekeys($array)
+    public static function array_valuekeys($array): array
     {
         $list = array();
         foreach ($array as $key => $value) {
-            if(is_array($value)) {
+            if(\is_array($value)) {
                 $list[$key] = self::array_valuekeys($value);
             }
             else {

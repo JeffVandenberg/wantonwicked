@@ -193,7 +193,7 @@ class ScenesTable extends Table
                 )
                 ->where([
                     'SceneCharacters.character_id IN' => array_keys($linkedCharacter),
-                    'Scenes.scene_status_id !=' => SceneStatus::Cancelled
+                    'Scenes.scene_status_id !=' => SceneStatus::CANCELLED
                 ])
                 ->order([
                     'Scenes.name'

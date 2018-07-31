@@ -49,7 +49,7 @@ class HomeController extends AppController
     public function home()
     {
         // get news content
-        $this->set(['content' => $this->Config->Read('FRONT_PAGE')]);
+        $this->set(['content' => $this->Config->read('FRONT_PAGE')]);
 
         // get scene information
         $scenes = TableRegistry::getTableLocator()->get('Scenes');
@@ -86,7 +86,7 @@ class HomeController extends AppController
 
     public function gsNews()
     {
-        $news = $this->Config->Read('gs_frontpage');
+        $news = $this->Config->read('gs_frontpage');
         $this->viewBuilder()->setLayout('blank');
         $this->set(compact('news'));
     }

@@ -6,6 +6,7 @@
  * Time: 10:37 AM
  * To change this template use File | Settings | File Templates.
  */
+
 namespace App\Controller\Component;
 
 
@@ -29,15 +30,15 @@ class MenuComponent extends Component
 
     private $menu = array();
 
-    public function InitializeMenu()
+    public function initializeMenu(): void
     {
-        $menuComponents = include_once(ROOT . '/lib/menu_components.php');
+        $menuComponents = include ROOT . '/lib/menu_components.php';
         $this->menu = $menuComponents['base'];
-        if (!is_array($this->menu)) {
+        if (!\is_array($this->menu)) {
             return;
         }
 
-        if ($this->Auth->user('user_id') != 1) {
+        if ((int)$this->Auth->user('user_id') !== 1) {
             $this->menu = array_merge_recursive($this->menu, $menuComponents['player']);
 
             $characterTable = TableRegistry::getTableLocator()->get('Characters');
@@ -57,7 +58,7 @@ class MenuComponent extends Component
                 ]);
             $sanctionedCharacters = $query->toArray();
             /* @var Character[] $sanctionedCharacters */
-            
+
             foreach ($sanctionedCharacters as $character) {
                 $characterMenu = [
                     'link' => '/character.php?action=interface&character_id=' . $character->id,
@@ -93,19 +94,19 @@ class MenuComponent extends Component
         }
 
         // prune the menu
-        foreach($this->menu as $header => $menuOptions) {
-            if(!isset($menuOptions['link']) && (empty($menuOptions) || empty($menuOptions['submenu']))) {
+        foreach ($this->menu as $header => $menuOptions) {
+            if (!isset($menuOptions['link']) && (empty($menuOptions) || empty($menuOptions['submenu']))) {
                 unset($this->menu[$header]);
             }
         }
     }
 
-    public function GetMenu()
+    public function GetMenu(): array
     {
         return $this->menu;
     }
 
-    public function createStorytellerMenu()
+    public function createStorytellerMenu(): array
     {
         $menu = [
             'Characters' => [
@@ -178,7 +179,7 @@ class MenuComponent extends Component
                         'link' => '/st_tools.php?action=power_search'
                     ],
                     'Player Preference Venue Report' => [
-                        'link' =>[
+                        'link' => [
                             'controller' => 'playPreferences',
                             'action' => 'reportVenue'
                         ]
@@ -243,8 +244,8 @@ class MenuComponent extends Component
 
     public function createCharacterMenu($characterId, $characterName, $characterSlug = null)
     {
-        $characterMenu = include_once(ROOT . '/lib/character_components.php');
-        if (!is_array($characterMenu)) {
+        $characterMenu = include ROOT . '/lib/character_components.php';
+        if (!\is_array($characterMenu)) {
             return null;
         }
 

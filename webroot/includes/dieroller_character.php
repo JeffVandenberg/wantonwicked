@@ -205,8 +205,8 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
             // test if attaching to a request
             if (Request::getValue('request_id')) {
                 $requestRepository = new RequestRepository();
-                $requestRepository->AttachRollToRequest(Request::getValue('request_id'), $rollId);
-                $requestRepository->TouchRecord(Request::getValue('request_id'), $userdata['user_id']);
+                $requestRepository->attachRollToRequest(Request::getValue('request_id'), $rollId);
+                $requestRepository->touchRecord(Request::getValue('request_id'), $userdata['user_id']);
             }
         }
     }
@@ -486,7 +486,7 @@ EOQ;
 $rolls .= '</table>';
 
 $requestRepository = new RequestRepository();
-$openRequests = $requestRepository->ListOpenRequestsForCharacter($characterId);
+$openRequests = $requestRepository->listOpenRequestsForCharacter($characterId);
 
 $requests = array('0' => 'None');
 foreach ($openRequests as $r) {
