@@ -30,14 +30,15 @@
     "roave/security-advisories": "dev-master",
     "psy/psysh": "@stable",
     "cakephp/cakephp-codesniffer": "^3.0",
-    "phpunit/phpunit": "^7.1",
+    "phpunit/phpunit": "^6.0",
     "cakephp/debug_kit": "^3.0",
     "cakephp/bake": "^1.1"
   },
   "autoload": {
     "psr-4": {
       "classes\\": "class/classes/",
-      "App\\": "src/"
+      "App\\": "src/",
+      "App\\Test\\": "tests/"
     },
     "files": [
     ]

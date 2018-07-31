@@ -3,13 +3,27 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.1-apache-jessie-node-browsers
+      - image: circleci/php:7.1-jessie-node-browsers
     working_directory: ~/wantonwicked
     environment:
       TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
       APP_ENV: test
     steps:
       - checkout
+      - run: sudo apt update && sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo docker-php-ext-install zip
+      # composer cache
+      - restore_cache:
+          keys:
+            - composer-dependencies-{{ checksum composer.lock }}
+            - composer-dependencies-
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-dependencies-{{ checksum composer.lock }}
+          paths:
+            - vendor
+      # Run Tests
+      - run:
   test:
     docker:
       - image: circleci/php:7.1-apache-jessie-node-browsers
@@ -22,9 +36,7 @@ jobs:
       - run:
           name: composer
           command: composer install
-      - run:
-          name: phpunit
-          command: vendor/bin/phpunit tests
+      - run: ./vendor/bin/phpunit tests
 
   deploy_to_prod:
     docker:
@@ -42,11 +54,12 @@ jobs:
       - run:
           name: Staging Script
           command: echo "Deploy to Test"
+
 workflows:
   version: 2
   deploy_staging:
     jobs:
-      - test
+      - build
       - deploy_to_test:
           requires:
             - test
