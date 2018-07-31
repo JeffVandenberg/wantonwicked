@@ -46,11 +46,3 @@ workflows:
   test:
     jobs:
       - test
-  deploy_staging:
-    jobs:
-      - deploy_to_test:
-        requires:
-         - test
-        filters:
-          branches:
-            only: develop
