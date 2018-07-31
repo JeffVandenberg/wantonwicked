@@ -43,6 +43,14 @@ jobs:
           command: ./deploy/deploy_to_test.sh
 workflows:
   version: 2
+  deploy_staging:
+    jobs:
+    - deploy_to_test:
+      requires:
+      - test
+      filters:
+        branches:
+          only: develop
   test:
     jobs:
       - test
