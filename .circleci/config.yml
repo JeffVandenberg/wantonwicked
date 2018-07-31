@@ -39,13 +39,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Prod Script
+          name: Staging Script
           command: echo "Deploy to Test"
 workflows:
   version: 2
   deploy_staging:
     jobs:
-    - deploy_to_test
+      - test
+      - deploy_to_test:
+          requires:
+            - test
+          filters:
+            branches:
+              only: develop
   test:
     jobs:
       - test
