@@ -40,14 +40,12 @@ jobs:
       - checkout
       - run:
           name: Prod Script
-          command: ./deploy/deploy_to_test.sh
+          command: echo "Deploy to Test"
 workflows:
   version: 2
   deploy_staging:
     jobs:
-    - deploy_to_test:
-      requires:
-      - test
+    - deploy_to_test
   test:
     jobs:
       - test
