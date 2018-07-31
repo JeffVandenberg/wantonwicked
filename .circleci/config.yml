@@ -4,6 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.1-apache-jessie-node-browsers
+    working_directory: ~/wantonwicked
     environment:
       TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
       APP_ENV: test
