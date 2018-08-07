@@ -70,7 +70,6 @@ ob_start();
         $(function () {
             $("#role-id").change(function () {
                 var permissions = rolePermissions[$(this).val()];
-                alert(permissions);
                 $.each(permissions, function (index, value) {
                     $("input[value=" + value + "]").prop('checked', true);
                 });
