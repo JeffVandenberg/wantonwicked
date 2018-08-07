@@ -22,8 +22,6 @@ jobs:
           key: composer-dependencies-{{ checksum composer.lock }}
           paths:
             - vendor
-      # Run Tests
-      - run:
   test:
     docker:
       - image: circleci/php:7.1-apache-jessie-node-browsers
@@ -59,13 +57,13 @@ workflows:
   version: 2
   deploy_staging:
     jobs:
-      - build
-      - deploy_to_test:
-          requires:
-            - test
+      - build:
           filters:
             branches:
               only: develop
+      - deploy_to_test:
+          requires:
+            - build
   test:
     jobs:
       - test
