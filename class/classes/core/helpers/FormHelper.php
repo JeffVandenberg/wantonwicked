@@ -38,7 +38,7 @@ EOQ;
         if (self::$_id !== null) {
             return self::$_id;
         }
-        return str_replace('_', '-', preg_replace('/[^\W]+/', '', $name));
+        return str_replace('_', '-', preg_replace('/[\W]+/', '', $name));
     }
 
     private static function appendOptions($options): string
