@@ -7,7 +7,8 @@ use App\Model\Table\SceneCharactersTable;
  * SceneCharacters Controller
  *
  * @property \App\Model\Table\SceneCharactersTable `$SceneCharacters
- * @property SceneCharactersTable SceneCharacters
+ * @property \App\Model\Table\SceneCharactersTable $SceneCharacters
+ * @method \App\Model\Entity\SceneCharacter[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class SceneCharactersController extends AppController
 {

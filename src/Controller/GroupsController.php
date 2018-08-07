@@ -11,7 +11,7 @@ use Cake\Network\Exception\NotFoundException;
 /**
  * Groups Controller
  *
- * @property GroupsTable $Groups
+ * @property \App\Model\Table\GroupsTable $Groups
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
  */

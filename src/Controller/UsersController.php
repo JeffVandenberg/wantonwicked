@@ -22,7 +22,7 @@ use Exception;
  * Characters Controller
  *
  * @property PermissionsComponent Permissions
- * @property UsersTable Users
+ * @property \App\Model\Table\UsersTable $Users
  */
 class UsersController extends AppController
 {

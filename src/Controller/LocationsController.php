@@ -10,8 +10,8 @@ use App\Model\Table\LocationsTable;
  * Locations Controller
  *
  *
- * @method Location[] paginate($object = null, array $settings = [])
- * @property LocationsTable Locations
+ * @method \App\Model\Entity\Location[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \App\Model\Table\LocationsTable $Locations
  * @property PermissionsComponent Permissions
  */
 class LocationsController extends AppController

@@ -18,7 +18,7 @@ use App\Model\Table\ConfigurationsTable;
 use Cake\Event\Event;
 
 /**
- * @property ConfigurationsTable Configurations
+ * @property \App\Model\Table\ConfigurationsTable $Configurations
  * @property PermissionsComponent Permissions
  */
 class ConfigurationsController extends AppController

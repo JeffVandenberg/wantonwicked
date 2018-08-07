@@ -12,13 +12,12 @@ use Cake\Network\Exception\NotImplementedException;
 /**
  * Roles Controller
  *
- * @property RolesTable $Roles
+ * @property \App\Model\Table\RolesTable $Roles
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  */
 class RolesController extends AppController
 {
-
     /**
      * Components
      *
