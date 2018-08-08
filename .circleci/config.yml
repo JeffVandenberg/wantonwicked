@@ -51,7 +51,7 @@ jobs:
       - checkout
       - run:
           name: Staging Script
-          command: echo "Deploy to Test"
+          command: ./deploy/deploy_to_test.sh
 
 workflows:
   version: 2
