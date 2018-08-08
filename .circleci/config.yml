@@ -70,6 +70,7 @@ workflows:
           filters:
             branches:
               only: master
+
   deploy_staging:
     jobs:
 #      - build:
