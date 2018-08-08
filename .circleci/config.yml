@@ -48,6 +48,10 @@ jobs:
     machine:
       enabled: true
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "dd:be:b8:3d:5c:bc:2f:58:02:a8:35:e6:c0:c8:6a:39"
+      - checkout
       - run:
           name: Staging Script
           command: ./deploy/deploy_to_test.sh
