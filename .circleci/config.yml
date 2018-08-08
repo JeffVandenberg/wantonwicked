@@ -63,22 +63,22 @@ workflows:
   version: 2
   deploy_prod:
     jobs:
-      - build:
+#      - build:
+      - deploy_to_prod:
+#          requires:
+#            - build
           filters:
             branches:
               only: master
-      - deploy_to_prod:
-          requires:
-            - build
   deploy_staging:
     jobs:
-      - build:
+#      - build:
+      - deploy_to_test:
+#          requires:
+#            - build
           filters:
             branches:
               only: develop
-      - deploy_to_test:
-          requires:
-            - build
   test:
     jobs:
       - test:
