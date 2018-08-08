@@ -43,10 +43,10 @@ jobs:
     - add_ssh_keys:
         fingerprints:
         - "dd:be:b8:3d:5c:bc:2f:58:02:a8:35:e6:c0:c8:6a:39"
-      - checkout
-      - run:
-          name: Prod Script
-          command: ./deploy/deploy_to_prod.sh
+    - checkout
+    - run:
+        name: Staging Script
+        command: ./deploy/deploy_to_prod.sh
   deploy_to_test:
     machine:
       enabled: true
@@ -61,6 +61,15 @@ jobs:
 
 workflows:
   version: 2
+  deploy_prod:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - deploy_to_prod:
+          requires:
+            - build
   deploy_staging:
     jobs:
       - build:
