@@ -45,10 +45,9 @@ jobs:
           name: Prod Script
           command: ./deploy/deploy_to_prod.sh
   deploy_to_test:
-    docker:
-      - image: circleci/php:7.1-apache-jessie-node-browsers
+    machine:
+      enabled: true
     steps:
-      - checkout
       - run:
           name: Staging Script
           command: ./deploy/deploy_to_test.sh
