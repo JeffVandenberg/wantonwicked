@@ -84,4 +84,4 @@ workflows:
       - test:
           filters:
             branches:
-              only: /^(develop|master)/
+              only: /^develop|master/
