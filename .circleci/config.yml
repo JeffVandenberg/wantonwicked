@@ -37,9 +37,12 @@ jobs:
       - run: echo "Do Tests Here!"
 
   deploy_to_prod:
-    docker:
-      - image: circleci/php:7.1-apache-jessie-node-browsers
+    machine:
+      enabled: true
     steps:
+    - add_ssh_keys:
+        fingerprints:
+        - "dd:be:b8:3d:5c:bc:2f:58:02:a8:35:e6:c0:c8:6a:39"
       - checkout
       - run:
           name: Prod Script
@@ -69,4 +72,7 @@ workflows:
             - build
   test:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only: /^(develop|master)/
