@@ -1,0 +1,88 @@
+version: 2
+## Customize the test machine
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.1-jessie-node-browsers
+    working_directory: ~/wantonwicked
+    environment:
+      TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
+      APP_ENV: test
+    steps:
+      - checkout
+      - run: sudo apt update && sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo docker-php-ext-install zip
+      # composer cache
+      - restore_cache:
+          keys:
+            - composer-dependencies-{{ checksum composer.lock }}
+            - composer-dependencies-
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-dependencies-{{ checksum composer.lock }}
+          paths:
+            - vendor
+  test:
+    docker:
+      - image: circleci/php:7.1-apache-jessie-node-browsers
+    environment:
+      TZ: "/usr/share/zoneinfo/Americas/Los_Angeles"
+      APP_ENV: test
+    steps:
+      - checkout
+      - run: echo 127.0.0.1 dev-wanton | sudo tee -a /etc/hosts
+      - run:
+          name: composer
+          command: composer install
+      - run: echo "Do Tests Here!"
+
+  deploy_to_prod:
+    machine:
+      enabled: true
+    steps:
+    - add_ssh_keys:
+        fingerprints:
+        - "dd:be:b8:3d:5c:bc:2f:58:02:a8:35:e6:c0:c8:6a:39"
+    - checkout
+    - run:
+        name: Staging Script
+        command: ./deploy/deploy_to_prod.sh
+  deploy_to_test:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "dd:be:b8:3d:5c:bc:2f:58:02:a8:35:e6:c0:c8:6a:39"
+      - checkout
+      - run:
+          name: Staging Script
+          command: ./deploy/deploy_to_test.sh
+
+workflows:
+  version: 2
+  deploy_prod:
+    jobs:
+#      - build:
+      - deploy_to_prod:
+#          requires:
+#            - build
+          filters:
+            branches:
+              only: master
+
+  deploy_staging:
+    jobs:
+#      - build:
+      - deploy_to_test:
+#          requires:
+#            - build
+          filters:
+            branches:
+              only: develop
+  test:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore: /^develop|master$/

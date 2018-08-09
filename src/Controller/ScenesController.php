@@ -23,8 +23,8 @@ use IntlDateFormatter;
  *
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
- * @property ScenesEmailComponent ScenesEmail
- * @property ScenesTable Scenes
+ * @property \app\Controller\Component\ScenesEmailComponent $ScenesEmail
+ * @property \App\Model\Table\ScenesTable $Scenes
  */
 class ScenesController extends AppController
 {

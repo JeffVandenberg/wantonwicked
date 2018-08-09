@@ -30,9 +30,10 @@ use Cake\Event\Event;
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @property MenuComponent Menu
+ * @property \App\Controller\Component\MenuComponent $Menu
  * @package        app.Controller
  * @link        http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @property \App\Controller\Component\PermissionsComponent $Permissions
  */
 class AppController extends Controller
 {

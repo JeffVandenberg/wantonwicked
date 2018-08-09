@@ -33,8 +33,8 @@ use GuzzleHttp\Query;
 
 /**
  * @property PermissionsComponent Permissions
- * @property RequestsTable Requests
- * @property RequestEmailComponent RequestEmail
+ * @property \App\Model\Table\RequestsTable $Requests
+ * @property \App\Controller\Component\RequestEmailComponent $RequestEmail
  */
 class RequestsController extends AppController
 {

@@ -16,10 +16,10 @@ use const WWW_ROOT;
 /**
  * LocationTypes Controller
  *
- * @property LocationTypesTable $LocationTypes
+ * @property \App\Model\Table\LocationTypesTable $LocationTypes
  * @property PermissionsComponent Permissions
  *
- * @method LocationType[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\LocationType[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class LocationTypesController extends AppController
 {

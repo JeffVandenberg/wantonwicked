@@ -27,12 +27,12 @@ class BluebooksControllerTest extends IntegrationTestCase
         'app.groups_request_types',
         'app.request_statuses',
         'app.request_status_histories',
-        'app.created_by',
+//        'app.created_by',
         'app.roles',
         'app.permissions',
         'app.permissions_users',
         'app.permissions_roles',
-        'app.updated_by',
+//        'app.updated_by',
         'app.request_bluebooks',
         'app.request_characters',
         'app.request_notes',
@@ -40,7 +40,7 @@ class BluebooksControllerTest extends IntegrationTestCase
         'app.rolls',
         'app.scene_requests',
         'app.scenes',
-        'app.run_by',
+//        'app.run_by',
         'app.scene_statuses',
         'app.scene_characters',
         'app.plot_scenes',
@@ -49,8 +49,8 @@ class BluebooksControllerTest extends IntegrationTestCase
         'app.plot_visibilities',
         'app.plot_characters',
         'app.request_requests',
-        'app.from_request',
-        'app.to_request',
+//        'app.from_request',
+//        'app.to_request',
         'app.st_groups',
         'app.character_statuses',
         'app.character_beat_records',
@@ -63,8 +63,8 @@ class BluebooksControllerTest extends IntegrationTestCase
         'app.character_updates',
         'app.locations',
         'app.log_characters',
-        'app.territories',
-        'app.characters_territories'
+//        'app.territories',
+//        'app.characters_territories'
     ];
 
     /**

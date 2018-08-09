@@ -10,7 +10,7 @@ use Cake\Event\Event;
  * @property \App\Model\Table\IconsTable $Icons
  * @property PermissionsComponent Permissions
  *
- * @method \App\Model\Entity\Icon[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Icon[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class IconsController extends AppController
 {

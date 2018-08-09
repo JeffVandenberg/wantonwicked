@@ -13,7 +13,7 @@ use Cake\Network\Exception\NotFoundException;
 /**
  * RequestTemplates Controller
  *
- * @property RequestTemplatesTable $RequestTemplates
+ * @property \App\Model\Table\RequestTemplatesTable $RequestTemplates
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu

@@ -27,7 +27,7 @@ use function error_reporting;
 use GuzzleHttp\Client;
 
 /**
- * @property ConfigComponent Config
+ * @property \App\Controller\Component\ConfigComponent $Config
  * @property PermissionsComponent Permissions
  */
 class HomeController extends AppController

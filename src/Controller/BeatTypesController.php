@@ -9,7 +9,7 @@ use Cake\Network\Exception\NotFoundException;
 /**
  * BeatTypes Controller
  *
- * @property BeatTypesTable $BeatTypes
+ * @property \App\Model\Table\BeatTypesTable $BeatTypes
  * @property PermissionsComponent Permissions
  */
 class BeatTypesController extends AppController

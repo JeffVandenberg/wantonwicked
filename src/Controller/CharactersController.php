@@ -28,7 +28,7 @@ use classes\log\data\ActionType;
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
- * @property CharactersTable Characters
+ * @property \App\Model\Table\CharactersTable $Characters
  */
 class CharactersController extends AppController
 {

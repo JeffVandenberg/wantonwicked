@@ -21,7 +21,7 @@ use Cake\Utility\Text;
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
- * @property PlayPreferencesTable PlayPreferences
+ * @property \App\Model\Table\PlayPreferencesTable $PlayPreferences
  */
 class PlayPreferencesController extends AppController
 {

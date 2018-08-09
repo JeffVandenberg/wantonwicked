@@ -16,7 +16,7 @@ use Cake\Network\Exception\NotFoundException;
  * @property PaginatorComponent $Paginator
  * @property FlashComponent $Flash
  * @property PermissionsComponent Permissions
- * @property ConditionsTable Conditions
+ * @property \App\Model\Table\ConditionsTable $Conditions
  */
 class ConditionsController extends AppController
 {
