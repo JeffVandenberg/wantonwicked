@@ -92,7 +92,7 @@ class LanguageHelper extends AppHelper
             'break_point3' => 'What has the character forgotten?',
             'break_point4' => 'What is the most traumatic thing that has ever happened to the character?',
         ],
-        'dhamphir' => [
+        'dhampir' => [
             'splat1' => 'Parent Clan',
             'morality' => 'Integrity',
             'virtue' => 'Virtue',
