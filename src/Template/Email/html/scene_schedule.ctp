@@ -1,4 +1,5 @@
 <?php
+
 use App\Model\Entity\Scene;
 use App\View\AppView;
 
@@ -10,12 +11,14 @@ use App\View\AppView;
 <p>The scheduled time for a scene you have a character participating in has changed. Here is the updated
     Information.</p>
 <p>Scene: <?php echo $this->Html->link($newScene->name,
-                                       array(
-                                           'full_base' => true,
-                                           'controller' => 'scenes',
-                                           'action'     => 'view',
-                                           $oldScene->slug
-                                       )
+        [
+            'controller' => 'scenes',
+            'action' => 'view',
+            $oldScene->slug
+        ],
+        [
+            'fullBase' => true
+        ]
     );
     ?></p>
 <p>Old Run Time: <?php echo date('Y-m-d g:i:s A', strtotime($oldScene->run_on_date)); ?></p>
