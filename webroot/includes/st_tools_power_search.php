@@ -15,7 +15,7 @@ $minPowerLevel = Request::getValue('min_power_level', 0);
 $maxPowerLevel = Request::getValue('max_power_level', 8);
 
 if (Request::isPost()) {
-    $statuses = implode(',', CharacterStatus::Sanctioned);
+    $statuses = implode(',', CharacterStatus::SANCTIONED);
 
     if (in_array($powerType, ['power_stat'])) {
         $sql = <<<SQL

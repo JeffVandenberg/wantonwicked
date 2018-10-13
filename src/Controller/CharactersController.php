@@ -145,7 +145,7 @@ class CharactersController extends AppController
                 ]
             ])
             ->where([
-                'Characters.character_status_id IN ' => CharacterStatus::Sanctioned,
+                'Characters.character_status_id IN ' => CharacterStatus::SANCTIONED,
                 'Characters.city' => 'portland',
                 'CharacterPowers.power_type' => 'aspiration'
             ]);

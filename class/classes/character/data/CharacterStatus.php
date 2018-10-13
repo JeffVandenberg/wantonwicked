@@ -24,7 +24,7 @@ class CharacterStatus extends DataModel
     public const DELETED = 5;
     public const IDLE = 6;
 
-    public const NonDeleted = [
+    public const NON_DELETED = [
         self::NEW_CHARACTER,
         self::ACTIVE,
         self::UNSANCTIONED,
@@ -32,7 +32,7 @@ class CharacterStatus extends DataModel
         self::IDLE,
     ];
 
-    public const Sanctioned = [
+    public const SANCTIONED = [
         self::ACTIVE,
         self::INACTIVE,
         self::IDLE

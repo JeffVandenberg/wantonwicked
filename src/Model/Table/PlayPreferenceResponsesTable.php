@@ -179,7 +179,7 @@ EOQ;
         if (strtolower($playPreferenceId) == 'all') {
             $playPreferenceId = 0;
         }
-        $statuses = implode(',', CharacterStatus::Sanctioned);
+        $statuses = implode(',', CharacterStatus::SANCTIONED);
 
         $sql = <<<SQL
 SELECT
@@ -256,7 +256,7 @@ SQL;
 
     public function getVenuePlayerReport($venue, $playPreferenceSlug)
     {
-        $placeholders = implode(',', array_fill(0, count(CharacterStatus::Sanctioned), '?'));
+        $placeholders = implode(',', array_fill(0, count(CharacterStatus::SANCTIONED), '?'));
         $sql = <<<SQL
 SELECT
   U.user_id,
@@ -282,7 +282,7 @@ SQL;
                 $venue,
                 $playPreferenceSlug
             ],
-            CharacterStatus::Sanctioned
+            CharacterStatus::SANCTIONED
         );
 
         $conn = ConnectionManager::get('default');

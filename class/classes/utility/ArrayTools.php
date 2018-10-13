@@ -15,12 +15,12 @@ class ArrayTools
      * @param $array
      * @return array
      */
-    public static function array_valuekeys($array): array
+    public static function arrayValuesKeys($array): array
     {
-        $list = array();
+        $list = [];
         foreach ($array as $key => $value) {
             if(\is_array($value)) {
-                $list[$key] = self::array_valuekeys($value);
+                $list[$key] = self::arrayValuesKeys($value);
             }
             else {
                 $list[$value] = $value;

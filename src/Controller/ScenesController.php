@@ -313,7 +313,7 @@ class ScenesController extends AppController
             ])
             ->where([
                 'Characters.user_id' => $this->Auth->user('user_id'),
-                'Characters.character_status_id IN ' => CharacterStatus::Sanctioned,
+                'Characters.character_status_id IN ' => CharacterStatus::SANCTIONED,
             ])
             ->notMatching('SceneCharacters', function (Query $q) use ($scene) {
                 return $q->where([

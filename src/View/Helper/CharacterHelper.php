@@ -586,7 +586,7 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 columns">
                     <label>Power Notes</label>
                     <?php echo $characterNotes; ?>
-                    <?php if (\in_array($character->CharacterStatusId, CharacterStatus::Sanctioned)): ?>
+                    <?php if (\in_array($character->CharacterStatusId, CharacterStatus::SANCTIONED)): ?>
                         <p class="help-text" id="notes-help-text">
                             At Character Creation this section should include a list of all traits or bonuses provided
                             by purchase of applicable merits, abilities or by character type choices. Those bonuses will

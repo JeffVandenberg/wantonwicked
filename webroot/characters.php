@@ -8,7 +8,7 @@ include 'cgi-bin/start_of_page.php';
 $characterId = Request::getValue('character_id', 0);
 $includeAll = Request::getValue('include_all', false);
 $term = Request::getValue('term') . '%';
-$statuses = implode(',', CharacterStatus::Sanctioned);
+$statuses = implode(',', CharacterStatus::SANCTIONED);
 
 $characterQuery = <<<EOQ
 SELECT

@@ -35,6 +35,7 @@ class CharacterStatus extends Entity
         self::IDLE
     ];
 
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

@@ -17,7 +17,7 @@ class UserPanelHelper extends AppHelper
     public $helpers = ['Html'];
 
 
-    public function Create($page)
+    public function Create($page): string
     {
         $panel = <<<EOQ
 <span id="server-time"></span>
@@ -25,7 +25,7 @@ class UserPanelHelper extends AppHelper
 <a href="/forum/ucp.php?mode=register&redirect=$page">Register</a>
 EOQ;
 
-        if ($this->request->getSession()->read('Auth.User.user_id') != 1) {
+        if ((int) $this->request->getSession()->read('Auth.User.user_id') !== 1) {
             // show user name
             $userName = $this->request->getSession()->read('Auth.User.username');
 

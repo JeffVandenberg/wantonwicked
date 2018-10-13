@@ -233,7 +233,7 @@ EOQ;
 
     public function listSanctionedCharactersByPlayerId($userId): array
     {
-        $placeholders = implode(',', array_fill(0, count(CharacterStatus::Sanctioned), '?'));
+        $placeholders = implode(',', array_fill(0, count(CharacterStatus::SANCTIONED), '?'));
         $sql = <<<EOQ
 SELECT
     C.id,
@@ -252,7 +252,7 @@ ORDER BY
     character_name
 EOQ;
 
-        $params = array_merge([$userId], CharacterStatus::Sanctioned);
+        $params = array_merge([$userId], CharacterStatus::SANCTIONED);
         return $this->query($sql)->all($params);
     }
 
@@ -277,8 +277,8 @@ EOQ;
 
     public function autocompleteSearch($characterName, $onlySanctioned, $city = 'portland'): array
     {
-        $statusIds = implode(',', CharacterStatus::Sanctioned);
-        $nonDeletedStatuses = implode(',', CharacterStatus::NonDeleted);
+        $statusIds = implode(',', CharacterStatus::SANCTIONED);
+        $nonDeletedStatuses = implode(',', CharacterStatus::NON_DELETED);
         $sql = <<<EOQ
 SELECT
     C.id,
@@ -365,7 +365,7 @@ EOQ;
      */
     public function listForDashboard($userId): array
     {
-        $activeStatuses = CharacterStatus::NonDeleted;
+        $activeStatuses = CharacterStatus::NON_DELETED;
         $statusPlaceholders = implode(',', array_fill(0, count($activeStatuses), '?'));
 
         $sql = <<<SQL
