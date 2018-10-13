@@ -22,7 +22,7 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
     $character_query = "select * from characters where TRUE and ";
 
     if ($only_sanctioned) {
-        $statuses = implode(',', CharacterStatus::Sanctioned);
+        $statuses = implode(',', CharacterStatus::SANCTIONED);
         $character_query .= " character_status_id IN ($statuses) and ";
     }
 
@@ -93,10 +93,10 @@ if (count($selected_cities) || count($selected_splat1) || count($selected_splat2
 
 // build form
 $character_types = array("Mortal", "Ghoul", "Vampire", "Werewolf", "Wolfblooded", "Mage", "Sleepwalker", "Psychic", "Thaumaturge", "Promethean", "Changeling", "Hunter", "Geist");
-$characterTypes = ArrayTools::array_valuekeys($character_types);
+$characterTypes = ArrayTools::arrayValuesKeys($character_types);
 sort($character_types);
 $cities = array("portland", "Savannah", "San Diego", "The City", "Side Game");
-$cities = ArrayTools::array_valuekeys($cities);
+$cities = ArrayTools::arrayValuesKeys($cities);
 
 $splat1 = array(
     'None',
@@ -116,7 +116,7 @@ $splat1 = array(
         "Academic", "Artist", "Athlete", "Cop", "Criminal", "Detective", "Doctor", "Engineer", "Hacker", "Hit man", "Journalist", "Laborer", "Occultist", "Professional", "Religious Leader", "Scientist", "Soldier", "Technician", "Vagrant"
     )
 );
-$splat1 = ArrayTools::array_valuekeys($splat1);
+$splat1 = ArrayTools::arrayValuesKeys($splat1);
 $splat2 = array(
     'Vampire' => array(
         "Carthian", "Circle of the Crone", "Invictus", "Lancea Sanctum", "Ordo Dracul", "Unaligned",
@@ -131,9 +131,9 @@ $splat2 = array(
         "Spring", "Summer", "Autumn", "Winter", "Courtless"
     )
 );
-$splat2 = ArrayTools::array_valuekeys($splat2);
-$virtues = ArrayTools::array_valuekeys(array("Charity", "Faith", "Fortitude", "Hope", "Justice", "Prudence", "Temperance"));
-$vices = ArrayTools::array_valuekeys(array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath"));
+$splat2 = ArrayTools::arrayValuesKeys($splat2);
+$virtues = ArrayTools::arrayValuesKeys(array("Charity", "Faith", "Fortitude", "Hope", "Justice", "Prudence", "Temperance"));
+$vices = ArrayTools::arrayValuesKeys(array("Envy", "Gluttony", "Greed", "Lust", "Pride", "Sloth", "Wrath"));
 
 $storytellerMenu = require_once('menus/storyteller_menu.php');
 $menu = MenuHelper::generateMenu($storytellerMenu);

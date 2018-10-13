@@ -235,12 +235,12 @@ $characterInfo = <<<EOQ
 EOQ;
 
 $requestRepository = new RequestRepository();
-$newRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::NEW_REQUEST);
-$stRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::SUBMITTED);
-$stViewedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::IN_PROGRESS);
-$returnedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::RETURNED);
-$approvedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::APPROVED);
-$rejectedRequests = $requestRepository->CountRequestsByCharacterIdAndStatus($characterId, RequestStatus::DENIED);
+$newRequests = $requestRepository->countRequestsByCharacterIdAndStatus($characterId, RequestStatus::NEW_REQUEST);
+$stRequests = $requestRepository->countRequestsByCharacterIdAndStatus($characterId, RequestStatus::SUBMITTED);
+$stViewedRequests = $requestRepository->countRequestsByCharacterIdAndStatus($characterId, RequestStatus::IN_PROGRESS);
+$returnedRequests = $requestRepository->countRequestsByCharacterIdAndStatus($characterId, RequestStatus::RETURNED);
+$approvedRequests = $requestRepository->countRequestsByCharacterIdAndStatus($characterId, RequestStatus::APPROVED);
+$rejectedRequests = $requestRepository->countRequestsByCharacterIdAndStatus($characterId, RequestStatus::DENIED);
 
 require_once('menus/character_menu.php');
 /* @var array $characterMenu */

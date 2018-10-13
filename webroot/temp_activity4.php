@@ -8,7 +8,7 @@ $startDate = date('Y-m-d', strtotime('+1 days'));
 
 $i = 0;
 $multiplier = 7;
-$statuses = implode(',', CharacterStatus::Sanctioned);
+$statuses = implode(',', CharacterStatus::SANCTIONED);
 while($i < 7)
 {
 	$endDate = $startDate;

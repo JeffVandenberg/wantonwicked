@@ -45,7 +45,7 @@ $requestRepository = RepositoryManager::getRepository('classes\request\data\Requ
 
 $startDate = Request::getValue('start_date', date('Y-m-d', strtotime('-7 days')));
 $endDate   = Request::getValue('end_date', date('Y-m-d'));
-$requestRows = $requestRepository->GetSTActivityReport(null, $startDate, $endDate);
+$requestRows = $requestRepository->getSTActivityReport(null, $startDate, $endDate);
 
 foreach($requestRows as $row) {
     $users[$row['user_id']]['number_of_requests'] += $row['total'];

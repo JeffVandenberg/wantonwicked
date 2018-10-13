@@ -241,6 +241,6 @@ class Character extends DataModel
 
     public function inSanctionedStatus()
     {
-        return in_array($this->CharacterStatusId, CharacterStatus::Sanctioned);
+        return in_array($this->CharacterStatusId, CharacterStatus::SANCTIONED);
     }
 }

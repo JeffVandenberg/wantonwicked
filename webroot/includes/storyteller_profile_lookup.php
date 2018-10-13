@@ -38,22 +38,22 @@ ORDER BY
     CS.sort_order ASC,
     C.character_name;
 EOQ;
-    $params = array_merge($params, [CharacterStatus::Deleted]);
+    $params = array_merge($params, [CharacterStatus::DELETED]);
 
     $characterList = Database::getInstance()->query($sql)->all($params);
     $characters    = array();
     foreach ($characterList as $character) {
         switch ($character['character_status_id']) {
-            case CharacterStatus::Active:
+            case CharacterStatus::ACTIVE:
                 $sanctionStatus = 'Active';
                 break;
-            case CharacterStatus::Idle:
+            case CharacterStatus::IDLE:
                 $sanctionStatus = 'Idle';
                 break;
-            case CharacterStatus::Inactive:
+            case CharacterStatus::INACTIVE:
                 $sanctionStatus = 'Inactive';
                 break;
-            case CharacterStatus::Unsanctioned:
+            case CharacterStatus::UNSANCTIONED:
                 $sanctionStatus = 'Desanctioned';
                 break;
             default:

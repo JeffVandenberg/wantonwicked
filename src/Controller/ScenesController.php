@@ -174,7 +174,7 @@ class ScenesController extends AppController
             if ($this->getRequest()->getData()['action'] == 'Create') {
                 $scene = $this->Scenes->newEntity();
                 $scene = $this->Scenes->patchEntity($scene, $this->getRequest()->getData());
-                $scene->scene_status_id = SceneStatus::Open;
+                $scene->scene_status_id = SceneStatus::OPEN;
                 $scene->created_by_id = $this->Auth->user('user_id');
                 $scene->created_on = date('Y-m-d H:i:s');
                 $scene->updated_by_id = $this->Auth->user('user_id');
@@ -274,7 +274,7 @@ class ScenesController extends AppController
             $this->redirect(array('action' => 'index'));
         }
 
-        if ($scene->scene_status_id == SceneStatus::Completed) {
+        if ($scene->scene_status_id == SceneStatus::COMPLETED) {
             $this->Flash->set('This Scene is closed');
             $this->redirect(array('action' => 'view', $slug));
         }
@@ -313,7 +313,7 @@ class ScenesController extends AppController
             ])
             ->where([
                 'Characters.user_id' => $this->Auth->user('user_id'),
-                'Characters.character_status_id IN ' => CharacterStatus::Sanctioned,
+                'Characters.character_status_id IN ' => CharacterStatus::SANCTIONED,
             ])
             ->notMatching('SceneCharacters', function (Query $q) use ($scene) {
                 return $q->where([
@@ -346,7 +346,7 @@ class ScenesController extends AppController
             $this->redirect(array('action' => 'index'));
         }
 
-        $scene->scene_status_id = SceneStatus::Cancelled;
+        $scene->scene_status_id = SceneStatus::CANCELLED;
 
         if ($this->Scenes->save($scene)) {
             $this->ScenesEmail->SendCancelEmails($scene);
@@ -373,7 +373,7 @@ class ScenesController extends AppController
             $this->redirect(array('action' => 'index'));
         }
 
-        $scene->scene_status_id = SceneStatus::Completed;
+        $scene->scene_status_id = SceneStatus::COMPLETED;
 
         if ($this->Scenes->save($scene)) {
             $this->Flash->set('Scene Completed');

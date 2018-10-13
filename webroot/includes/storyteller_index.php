@@ -5,7 +5,7 @@ use classes\core\helpers\MenuHelper;
 use classes\request\repository\RequestRepository;
 use classes\scene\repository\SceneRepository;
 
-$contentHeader = $page_title = "Storyteller Utilities";
+$contentHeader = $page_title = 'Storyteller Utilities';
 
 $requestRepository = new RequestRepository();
 $requestSummary = $requestRepository->findStRequestDashboard($userdata['user_id']);
@@ -13,7 +13,7 @@ $requestSummary = $requestRepository->findStRequestDashboard($userdata['user_id'
 $sceneRepository = new SceneRepository();
 $sceneSummary = $sceneRepository->findStSceneDashboard($userdata['user_id']);
 
-$storytellerMenu = require_once('menus/storyteller_menu.php');
+$storytellerMenu = require 'menus/storyteller_menu.php';
 $menu = MenuHelper::generateMenu($storytellerMenu);
 ob_start();
 ?>

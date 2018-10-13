@@ -28,7 +28,7 @@ WHERE
 SQL;
     $params = [
         $character_name,
-        CharacterStatus::Deleted
+        CharacterStatus::DELETED
     ];
 
     $character = Database::getInstance()->query($character_query)->all($params);

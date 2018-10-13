@@ -21,7 +21,7 @@ $filterLogins = Request::getValue('filter_logins', 1);
 $logId = Request::getValue('log_id', null);
 
 $characterRepository = new CharacterRepository();
-if ((!$characterRepository->MayViewCharacter($characterId, $userdata['user_id'])) && !UserdataHelper::isSt($userdata)) {
+if ((!$characterRepository->mayViewCharacter($characterId, $userdata['user_id'])) && !UserdataHelper::isSt($userdata)) {
     Response::redirect('/', 'Unable to view that character');
 }
 

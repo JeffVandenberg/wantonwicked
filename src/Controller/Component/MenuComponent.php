@@ -49,7 +49,7 @@ class MenuComponent extends Component
                     'Characters.slug'
                 ])
                 ->where([
-                    'Characters.character_status_id IN' => CharacterStatus::Sanctioned,
+                    'Characters.character_status_id IN' => CharacterStatus::SANCTIONED,
                     'Characters.user_id' => $this->Auth->user('user_id'),
                 ])
                 ->order([

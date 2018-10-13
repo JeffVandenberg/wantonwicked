@@ -510,10 +510,10 @@ class SheetService
         }
 
         if ((int)$newCharacter->CharacterStatusId !== (int)$oldCharacter->CharacterStatusId) {
-            if ((int)$newCharacter->CharacterStatusId === CharacterStatus::Active) {
+            if ((int)$newCharacter->CharacterStatusId === CharacterStatus::ACTIVE) {
                 CharacterLog::logAction($newCharacter->Id, ActionType::SANCTIONED, 'ST Sanctioned Character', $user['user_id']);
             }
-            if ((int)$newCharacter->CharacterStatusId === CharacterStatus::Unsanctioned) {
+            if ((int)$newCharacter->CharacterStatusId === CharacterStatus::UNSANCTIONED) {
                 CharacterLog::logAction($newCharacter->Id, ActionType::DESANCTIONED, 'ST Desanctioned Character', $user['user_id']);
             }
         }
@@ -660,7 +660,7 @@ SQL;
         $this->repository->query($update_experience_query)->execute([
             $xpAward,
             $xpAward,
-            CharacterStatus::Active
+            CharacterStatus::ACTIVE
         ]);
 
         $xpLogQuery = <<<EOQ
@@ -684,7 +684,7 @@ WHERE
 EOQ;
         $params = [
             ActionType::XP_MODIFICATION,
-            CharacterStatus::Active
+            CharacterStatus::ACTIVE
         ];
         $this->repository->query($xpLogQuery)->execute($params);
     }
@@ -705,22 +705,22 @@ EOQ;
     {
         // mark idle characters with 1 month of no activity
         $idleCharacterIds = $this->repository->findCharactersWithNoActivityInDate(
-            CharacterStatus::Active,
+            CharacterStatus::ACTIVE,
             '-1 month');
         $this->repository->migrateCharactersToNewStatus(
             $idleCharacterIds,
-            CharacterStatus::Idle,
+            CharacterStatus::IDLE,
             'Moved to Idle status for inactivity'
         );
 
         // mark inactive characters with 4 months of no activity
         $inactiveCharacterIds = $this->repository->findCharactersWithNoActivityInDate(
-            CharacterStatus::Idle,
+            CharacterStatus::IDLE,
             '-4 month'
         );
         $this->repository->migrateCharactersToNewStatus(
             $inactiveCharacterIds,
-            CharacterStatus::Inactive,
+            CharacterStatus::INACTIVE,
             'Moved to Inactive status for inactivity'
         );
 
@@ -728,7 +728,7 @@ EOQ;
             // close requests for Inactive Characters
             $requestRepository = RepositoryManager::getRepository(Request::class);
             /* @var RequestRepository $requestRepository */
-            $requestRepository->CloseRequestsForCharacter($inactiveCharacterIds);
+            $requestRepository->closeRequestsForCharacter($inactiveCharacterIds);
         }
 
         return [
@@ -753,7 +753,7 @@ EOQ;
      */
     public function reactivateCharacter(Character $character, int $userId, string $note): void
     {
-        $character->CharacterStatusId = CharacterStatus::Active;
+        $character->CharacterStatusId = CharacterStatus::ACTIVE;
         $this->repository->save($character);
         CharacterLog::logAction($character->Id, ActionType::UPDATE_CHARACTER, $note, $userId);
     }

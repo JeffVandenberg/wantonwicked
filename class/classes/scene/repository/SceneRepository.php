@@ -11,42 +11,16 @@ namespace classes\scene\repository;
 
 use classes\character\data\CharacterStatus;
 use classes\core\repository\AbstractRepository;
+use classes\scene\data\Scene;
 
 class SceneRepository extends AbstractRepository
 {
     public function __construct()
     {
-        parent::__construct('classes\scene\data\Scene');
+        parent::__construct(Scene::class);
     }
 
-    public function ListScenesForCharacter($characterId)
-    {
-        $sql = <<<EOQ
-SELECT
-    S.id,
-    S.name,
-    S.run_on_date
-FROM
-    scenes AS S
-    INNER JOIN scene_characters AS SC ON S.id = SC.scene_id
-WHERE
-    SC.character_id = ?
-    AND S.scene_status_id != 3
-ORDER BY
-    S.name
-EOQ;
-
-        $params = array($characterId);
-
-        $list = array();
-        foreach($this->query($sql)->all($params) as $row) {
-            $list[$row['id']] = $row['name'] . ' (' . date("Y-m-d", strtotime($row['run_on_date'])).')  ';
-        }
-
-        return $list;
-    }
-
-    public function findStSceneDashboard($userId)
+    public function findStSceneDashboard($userId): array
     {
         $sql = <<<EOQ
 select
@@ -79,7 +53,7 @@ EOQ;
         return $this->query($sql)->all($params);
     }
 
-    public function findPlayerSceneDashboard($userId)
+    public function findPlayerSceneDashboard($userId): array
     {
         $sql = <<<EOQ
 select
@@ -111,7 +85,7 @@ LIMIT 5
 EOQ;
         $params = [
             $userId,
-            CharacterStatus::Deleted
+            CharacterStatus::DELETED
         ];
 
         return $this->query($sql)->all($params);

@@ -26,7 +26,7 @@ if(isset($_GET['character_id'])) {
     }
 
     // check character status
-    if(in_array($character->CharacterStatusId, [CharacterStatus::Idle, CharacterStatus::Inactive])) {
+    if(in_array($character->CharacterStatusId, [CharacterStatus::IDLE, CharacterStatus::INACTIVE])) {
         $service->reactivateCharacter($character, $userdata['user_id'], 'Restored to Active Status via Login.');
     }
 
@@ -37,7 +37,7 @@ if(isset($_GET['character_id'])) {
     define('C_CUSTOM_ACTION', 'CHARACTER LOGIN');
 
     $icon = 'unsanctioned.png';
-    if($character->CharacterStatusId == CharacterStatus::Active) {
+    if($character->CharacterStatusId == CharacterStatus::ACTIVE) {
         switch(strtolower($character->CharacterType)) {
             case 'mortal':
                 $icon = 'wodm.png';
@@ -72,7 +72,7 @@ if(isset($_GET['character_id'])) {
             $icon = $character->Icon;
         }
     }
-    if($character->CharacterStatusId == CharacterStatus::Unsanctioned) {
+    if($character->CharacterStatusId == CharacterStatus::UNSANCTIONED) {
         $icon = 'desanctioned.png';
     }
     if($character->City == 'Side Game') {

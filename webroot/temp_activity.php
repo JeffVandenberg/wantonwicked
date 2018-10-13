@@ -4,7 +4,7 @@ use classes\core\repository\Database;
 
 include 'cgi-bin/start_of_page.php';
 
-$statuses = implode(',', CharacterStatus::Sanctioned);
+$statuses = implode(',', CharacterStatus::SANCTIONED);
 
 $query = <<<SQL
 SELECT 
