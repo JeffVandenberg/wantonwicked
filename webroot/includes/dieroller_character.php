@@ -3,6 +3,7 @@
 use classes\dice\data\Dice;
 
 /* @var array $userdata */
+
 // get character id
 use classes\character\helper\CharacterHelper;
 use classes\character\repository\CharacterRepository;
@@ -40,23 +41,21 @@ if ($characteer['is_npc'] === 'Y') {
         SessionHelper::setFlashMessage("You're not authorized to view that character.");
         Response::redirect('/');
     }
-} else {
-    if (($character['user_id'] != $userdata['user_id']) && !UserdataHelper::isAdmin($userdata)) {
-        CharacterLog::logAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface',
-            $userdata['user_id']);
-        SessionHelper::setFlashMessage("You're not authorized to view that character.");
-        Response::redirect('/');
-    }
+} else if (($character['user_id'] != $userdata['user_id']) && !UserdataHelper::isAdmin($userdata)) {
+    CharacterLog::logAction($characterId, ActionType::INVALID_ACCESS, 'Attempted access to character interface',
+        $userdata['user_id']);
+    SessionHelper::setFlashMessage("You're not authorized to view that character.");
+    Response::redirect('/');
 }
 
 $willpower_temp = $character['willpower_temp'];
 $power_points = $character['power_points'];
-$wounds_agg = $character['wounds_agg'];
-$wounds_lethal = $character['wounds_lethal'];
-$wounds_bashing = $character['wounds_bashing'];
+$woundsAgg = $character['wounds_agg'];
+$woundsLethal = $character['wounds_lethal'];
+$woundsBashing = $character['wounds_bashing'];
 $health = $character['health'];
-$temporary_health_levels = $character['temporary_health_levels'];
-$total_health = $temporary_health_levels;
+$tempHealthLevels = $character['temporary_health_levels'];
+$total_health = $tempHealthLevels;
 $size = $character['size'];
 $werewolf_form = '';
 $current_form = Request::getValue('current_form', SessionHelper::read('current_form', 'Hishu'));
@@ -74,7 +73,7 @@ if ($power_points > $max_power_points) {
 switch ($current_form) {
     case 'Dalu':
         $health += 2;
-        $size += 1;
+        ++$size;
         break;
     case 'Gauru':
         $health += 4;
@@ -82,7 +81,7 @@ switch ($current_form) {
         break;
     case 'Urshul':
         $health += 3;
-        $size += 1;
+        ++$size;
         break;
     default:
         break;
@@ -157,10 +156,10 @@ if (isset($_POST['submit_die_roller'])) {
         $diceForRoll = ($diceForRoll > 40) ? 40 : $diceForRoll;
         $diceForRoll = ($chance_die === 'Y') ? 1 : $diceForRoll;
 
-        $character_name = (trim($character_name) == '') ? 'Someone' : $character_name;
+        $character_name = (trim($character_name) === '') ? 'Someone' : $character_name;
         $rollDescription = $description;
 
-        if ($rollType == 1) {
+        if ($rollType === 1) {
             $rollDescription .= ' Roll #' . ($i + 1);
         }
 
@@ -215,34 +214,35 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 }
 
 if (isset($_POST['submit_update_stats'])) {
-    $wounds_agg = $_POST['wounds_agg'] + 0;
-    $wounds_agg = ($wounds_agg < 0) ? 0 : $wounds_agg;
+    $woundsAgg = $_POST['wounds_agg'] + 0;
+    $woundsAgg = ($woundsAgg < 0) ? 0 : $woundsAgg;
 
-    $wounds_lethal = $_POST['wounds_lethal'] + 0;
-    $wounds_lethal = ($wounds_lethal < 0) ? 0 : $wounds_lethal;
+    $woundsLethal = $_POST['wounds_lethal'] + 0;
+    $woundsLethal = ($woundsLethal < 0) ? 0 : $woundsLethal;
 
-    $wounds_bashing = $_POST['wounds_bashing'] + 0;
-    $wounds_bashing = ($wounds_bashing < 0) ? 0 : $wounds_bashing;
+    $woundsBashing = $_POST['wounds_bashing'] + 0;
+    $woundsBashing = ($woundsBashing < 0) ? 0 : $woundsBashing;
 
     $power_points = isset($_POST['power_points']) ? $_POST['power_points'] + 0 : $power_points;
     $power_points = ($power_points < 0) ? 0 : $power_points;
 
-    $temporary_health_levels = $_POST['temporary_health_levels'] + 0;
-    $health += $temporary_health_levels;
+    $tempHealthLevels = $_POST['temporary_health_levels'] + 0;
+    $health += $tempHealthLevels;
 
     if ($power_points > $max_power_points) {
         $power_points = $max_power_points;
     }
 
-    $willpower_temp = isset($_POST['extra_spend_willpower']) ? --$willpower_temp : $willpower_temp;
+    $willpower_temp = $_POST['extra_spend_willpower'] ? --$willpower_temp : $willpower_temp;
+    $willpower_temp = $_POST['extra_gain_willpower'] ? ++$willpower_temp : $willpower_temp;
 
     $params = array(
-        $wounds_agg,
-        $wounds_lethal,
-        $wounds_bashing,
+        $woundsAgg,
+        $woundsLethal,
+        $woundsBashing,
         $power_points,
         $willpower_temp,
-        $temporary_health_levels,
+        $tempHealthLevels,
         $characterId
     );
     $update_query = <<<EOQ
@@ -259,6 +259,13 @@ where
 	id = ?
 EOQ;
     $update_result = Database::getInstance()->query($update_query)->execute($params);
+    if (Request::getValue('extra_gain_willpower')) {
+        CharacterLog::logAction(
+            $characterId,
+            ActionType::UPDATE_CHARACTER,
+            'Gain WP: ' . Request::getValue('extra_gain_willpower_reason'),
+            $userdata['user_id']);
+    }
 
     Response::redirect('dieroller.php?action=character&character_id=' . $characterId);
 }
@@ -272,11 +279,6 @@ Spend Willpower on Roll:
     <input type="text" name="extended_willpower" id="extended-willpower" size="2" value="0" style="display:none;" />
     &nbsp;&nbsp;
 EOQ;
-
-    // for extraneous willpower expenditures
-    $extra_spend_willpower = <<<EOQ
-Spend Willpower: <input type="checkbox" name="extra_spend_willpower" value="y"><br> 
-EOQ;
 }
 
 // test if they are a vamp for blood spending
@@ -287,26 +289,35 @@ EOQ;
 }
 
 // show extra status areas
-$extra_status = '';
-if ($character['character_type'] === 'Vampire') {
-    $extra_status = <<<EOQ
-Blood: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
-EOQ;
+$extraStatus = '';
+if (strtolower($character['character_type']) === 'vampire') {
+    $extraStatus = FormHelper::text('power_points', $power_points, [
+        'size' => 3,
+        'maxlength' => 2,
+        'label' => 'Blood'
+    ]);
 }
-if ($character['character_type'] === 'Ghoul') {
-    $extra_status = <<<EOQ
-Blood: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
-EOQ;
+if (strtolower($character['character_type']) === 'ghoul') {
+    $extraStatus = FormHelper::text('power_points', $power_points, [
+        'size' => 3,
+        'maxlength' => 2,
+        'label' => 'Blood'
+    ]);
 }
-if ($character['character_type'] === 'Mage') {
-    $extra_status = <<<EOQ
-Mana: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
-EOQ;
+if (strtolower($character['character_type']) === 'mage') {
+    $extraStatus = FormHelper::text('power_points', $power_points, [
+        'size' => 3,
+        'maxlength' => 2,
+        'label' => 'Mana'
+    ]);
 }
-if ($character['character_type'] === 'Werewolf') {
-    $extra_status = <<<EOQ
-Essence: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
-EOQ;
+if (strtolower($character['character_type']) === 'werewolf') {
+    $extraStatus = FormHelper::text('power_points', $power_points, [
+        'size' => 3,
+        'maxlength' => 2,
+        'label' => 'Essence'
+    ]);
+
     $forms = [
         'Hishu' => 'Hishu',
         'Dalu' => 'Dalu',
@@ -319,63 +330,57 @@ EOQ;
 Form: $form_select<br>
 EOQ;
 }
-if ($character['character_type'] === 'Changeling') {
-    $extra_status = <<<EOQ
-Glamour: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
-EOQ;
-}
-if ($character['character_type'] === 'Geist') {
-    $extra_status = <<<EOQ
-Plasm: <input type="text" name="power_points" value="$power_points" size="3" maxlength="2">
-EOQ;
+if (strtolower($character['character_type']) === 'changeling') {
+    $extraStatus = FormHelper::text('power_points', $power_points, [
+        'size' => 3,
+        'maxlength' => 2,
+        'label' => 'Glamour'
+    ]);
 }
 
 // calculate Status
-$status = 'Still Standing<br>';
-if ($wounds_agg >= $health) {
-    $status = 'Dead (Game over man! Game Over!)<br>';
+$status = 'Still Standing';
+$totalHealth = $health + $tempHealthLevels;
+if ($woundsAgg >= $totalHealth) {
+    $status = 'Dead (Game over man! Game Over!)';
     $found_status = true;
 }
 
-if (!$found_status && (($wounds_agg + $wounds_lethal) >= $health)) {
+if (!$found_status && (($woundsAgg + $woundsLethal) >= $totalHealth)) {
     if ($character['character_type'] === 'Vampire') {
-        $status = 'On the ground in Torpor(No Actions)<br>';
+        $status = 'On the ground in Torpor (No Actions)';
     } else {
-        $status = 'On the ground bleeding (No Actions)<br>';
+        $status = 'On the ground bleeding (No Actions)';
     }
     $found_status = true;
 }
 
-if (!$found_status && (($wounds_agg + $wounds_lethal + $wounds_bashing) >= $health)) {
+if (!$found_status && (($woundsAgg + $woundsLethal + $woundsBashing) >= $totalHealth)) {
     if ($character['character_type'] === 'Vampire') {
-        $status = 'Gravely wounded<br>';
+        $status = 'Gravely wounded';
     } else {
-        $status = 'Ready to Pass out (Stamina Rolls Necessary)<br>';
+        $status = 'Ready to Pass out (Stamina Rolls Necessary)';
     }
 
     $found_status = true;
 }
 
 // make wound representation
-$wound_representation = '';
-for ($i = 1; $i <= $health; $i++) {
-    if ($i <= $wounds_agg) {
-        $wound_representation .= '<img src="img/forms/wound_agg.gif" width="13" height="13">';
+$woundImages = '';
+for ($i = 1; $i <= $totalHealth; $i++) {
+    if ($i <= $woundsAgg) {
+        $woundImages .= '<img src="img/forms/wound_agg.gif" width="13" height="13">';
+    } else if ($i <= ($woundsAgg + $woundsLethal)) {
+        $woundImages .= '<img src="img/forms/wound_lethal.gif" width="13" height="13">';
+    } else if ($i <= ($woundsAgg + $woundsLethal + $woundsBashing)) {
+        $woundImages .= '<img src="img/forms/wound_bashing.gif" width="13" height="13">';
     } else {
-        if ($i <= ($wounds_agg + $wounds_lethal)) {
-            $wound_representation .= '<img src="img/forms/wound_lethal.gif" width="13" height="13">';
-        } else {
-            if ($i <= ($wounds_agg + $wounds_lethal + $wounds_bashing)) {
-                $wound_representation .= '<img src="img/forms/wound_bashing.gif" width="13" height="13">';
-            } else {
-                $wound_representation .= '<img src="img/forms/wound_empty.gif" width="13" height="13">';
-            }
-        }
+        $woundImages .= '<img src="img/forms/wound_empty.gif" width="13" height="13">';
     }
 }
 
 // calculate wound penalty
-$wounds = ($health - 3) - $wounds_agg - $wounds_lethal - $wounds_bashing;
+$wounds = ($totalHealth - 3) - $woundsAgg - $woundsLethal - $woundsBashing;
 
 $wounds = ($wounds > 0) ? 0 : $wounds;
 $wounds = ($wounds < -3) ? -3 : $wounds;
@@ -385,7 +390,7 @@ if ($wounds) {
 }
 
 $page_size = 20;
-$page = Request::getValue('page', 1);
+$page = (int)Request::getValue('page', 1);
 if ($page < 1) {
     $page = 1;
 }
@@ -393,8 +398,8 @@ if ($page < 1) {
 $count_data = $diceRepository->findCountOfRolls($showOnlyMyRolls, $characterId);
 
 $count = $count_data['count'];
-$pages = round($count / $page_size, 0);
-if ($pages == 0) {
+$pages = (int)round($count / $page_size, 0);
+if ($pages === 0) {
     $pages = 1;
 }
 
@@ -406,10 +411,10 @@ $current_row = ($page - 1) * $page_size;
 $showNext = false;
 $showPrev = false;
 
-if ($page != $pages) {
+if ($page !== $pages) {
     $showNext = true;
 }
-if ($page != 1) {
+if ($page !== 1) {
     $showPrev = true;
 }
 
@@ -581,45 +586,77 @@ ob_start();
                             <div><?php echo $extra_row; ?></div>
                         <?php endif; ?>
                         <div class="small-12 columns">
-                            Attach to Request: <?php echo FormHelper::select($requests, 'request_id', Request::getValue('request_id')); ?>
+                            Attach to
+                            Request: <?php echo FormHelper::select($requests, 'request_id', Request::getValue('request_id')); ?>
                         </div>
                     </div>
                     <input type="hidden" name="current_form" value="<?php echo $current_form; ?>">
-                    <button id="submit-die-roller" type="submit" name="submit_die_roller" class="button">Roll Dice/Refresh</button>
+                    <button id="submit-die-roller" type="submit" name="submit_die_roller" class="button">Roll
+                        Dice/Refresh
+                    </button>
                 </form>
             </td>
-            <td style="text-align: center;width: 40%">
+            <td style="width: 40%">
                 <form method="post"
                       action="<?php echo $_SERVER['PHP_SELF']; ?>?action=character&character_id=<?php echo $characterId; ?>">
-                    <table style="border: 2px groove #223344;">
+                    <table class="unstriped">
                         <tr style="vertical-align: top;">
-                            <td width="45%">
-                                Health: <?php echo $health; ?><br>
-                                Temp. Health: <input type="text" name="temporary_health_levels"
-                                                     value="<?php echo $temporary_health_levels; ?>"
-                                                     style="display:inline;width:40px;"/><br/>
-                                <br>
-                                Wounds: <?php echo $wound_representation; ?><br>
-                                Agg: <input type="text" name="wounds_agg" value="<?php echo $wounds_agg; ?>" size="3"
-                                              maxlength="2" style="display:inline;width:40px;"><br>
-                                Lethal: <input type="text" name="wounds_lethal" value="<?php echo $wounds_lethal; ?>"
-                                                 size="3" maxlength="2" style="display:inline;width:40px;"><br>
-                                Bashing: <input type="text" name="wounds_bashing" value="<?php echo $wounds_bashing; ?>"
-                                                size="3" maxlength="2" style="display:inline;width:40px;"><br>
-                                <button type="submit" name="submit_update_stats" class="button">Update Stats</button>
-                            </td>
-                            <td width="10%">
-                            </td>
-                            <td width="45%">
-                                Status: <?php echo $status; ?><br>
+                            <td width="50%">
+                                <strong>Health</strong>: <?php echo $health; ?><br>
+                                <strong>Bonus Health</strong>: <input type="text" name="temporary_health_levels"
+                                                                      value="<?php echo $tempHealthLevels; ?>"
+                                                                      style="display:inline;width:40px;"/><br/>
                                 <?php echo $werewolf_form; ?>
+                                <div>
+                                    <strong>Status:</strong> <?php echo $status; ?><br /><br />
+                                </div>
+                                <strong>Wounds</strong>: <?php echo $woundImages; ?><br>
+                                <table>
+                                    <tr>
+                                        <th>Agg</th>
+                                        <th>Leth</th>
+                                        <th>Bash</th>
+                                    </tr>
+                                    <tr>
+                                        <td><?= FormHelper::text('wounds_agg', $woundsAgg); ?></td>
+                                        <td><?= FormHelper::text('wounds_lethal', $woundsLethal); ?></td>
+                                        <td><?= FormHelper::text('wounds_bashing', $woundsBashing); ?></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="50%">
+                                <strong>Willpower:</strong>
+                                Permanent: <?php echo $character['willpower_perm']; ?><br>
+                                Current: <?php echo $willpower_temp; ?><br>
+                                <?php if ($character['willpower_temp'] > 0): ?>
+                                    <?= FormHelper::checkbox('gain_willpower3', 1, false, [
+                                        'style' => 'display:none'
+                                    ]); ?>
+                                    <div>
+                                        <?= FormHelper::checkbox('extra_spend_willpower', 1, false, [
+                                            'label' => 'Spend Willpower'
+                                        ]); ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($willpower_temp < $character['willpower_perm']): ?>
+                                    <div>
+                                        <?= FormHelper::checkbox('extra_gain_willpower', 1, false, [
+                                            'label' => 'Gain Willpower'
+                                        ]); ?>
+                                        <div id="gain-willpower-reason-container" style="display:none;">
+                                            <?= FormHelper::text('gain_willpower_reason', '', [
+                                                'label' => 'Reason:'
+                                            ]); ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                                 <br>
-                                Willpower:<br>
-                                - Permanent: <?php echo $character['willpower_perm']; ?><br>
-                                - Current: <?php echo $willpower_temp; ?><br>
-                                <?php echo $extra_spend_willpower; ?>
-                                <br>
-                                <?php echo $extra_status; ?>
+                                <?php echo $extraStatus; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <button type="submit" name="submit_update_stats" class="button">Update Stats</button>
                             </td>
                         </tr>
                     </table>
@@ -693,6 +730,11 @@ ob_start();
             });
             $("#show-only-my-rolls-check").click(function () {
                 $("#dice-page-form").submit();
+            });
+            $("#extra-gain-willpower").click(function () {
+                $("#gain-willpower-reason-container").toggle();
+                var $gain = $("#gain-willpower-reason");
+                $gain.prop('required', !$gain.prop('required'));
             });
         });
     </script>
