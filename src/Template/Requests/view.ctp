@@ -24,7 +24,7 @@ $this->set('title_for_layout', 'Request: ' . $request->title);
         }
         if ($request->request_status_id != RequestStatus::Closed) {
             echo $this->Html->link('Forward', ['action' => 'forward', $request->id], ['class' => 'button']);
-            echo $this->Html->link('Close', ['action' => 'close', $request->id], ['class' => 'button']);
+            echo $this->Html->link('Close', ['action' => 'close', $request->id], ['class' => 'button', 'confirm' => __('Are you sure you want to close this request?')]);
         }
 
         if (in_array($request->request_status_id, RequestStatus::$PlayerSubmit)) {
