@@ -70,7 +70,7 @@ class AppController extends Controller
             $this->Auth->logout();
             $this->Auth->setUser($userdata);
         }
-        $this->Menu->InitializeMenu();
+        $this->Menu->initializeMenu();
         $this->Auth->deny();
     }
 

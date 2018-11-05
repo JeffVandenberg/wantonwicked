@@ -189,7 +189,7 @@ class SheetService
                     'devotion' => 1,
                 ];
                 break;
-            case 'dhamphir':
+            case 'dhampir':
                 $powers = [
                     'theme' => 2,
                     'twist' => 2,

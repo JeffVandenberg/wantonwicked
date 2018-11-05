@@ -82,7 +82,7 @@ class CharacterHelper extends AppHelper
         'mortal' => 'Mortal',
         'vampire' => 'Vampire',
         'ghoul' => 'Ghoul',
-        'dhamphir' => 'Dhamphir',
+        'dhampir' => 'Dhampir',
         'werewolf' => 'Werewolf',
         'wolfblooded' => 'Wolfblooded'
     ];
@@ -908,8 +908,8 @@ class CharacterHelper extends AppHelper
             case 'changeling':
             case 'fae-touched':
                 return $this->buildChangelingPowersSection($character);
-            case 'dhamphir':
-                return $this->buildDhamphirPowersSection($character);
+            case 'dhampir':
+                return $this->buildDhampirPowersSection($character);
             default:
                 return $this->buildMortalPowersSection($character);
         }
@@ -1752,7 +1752,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['break_points'] = true;
                 break;
-            case 'dhamphir':
+            case 'dhampir':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['break_points'] = true;
                 $this->sheetFields['destiny'] = true;
@@ -2212,7 +2212,7 @@ class CharacterHelper extends AppHelper
         return ob_get_clean();
     }
 
-    private function buildDhamphirPowersSection(Character $character)
+    private function buildDhampirPowersSection(Character $character)
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
         $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',

@@ -18,7 +18,7 @@ use Cake\ORM\TableRegistry;
 
 class ScenesEmailComponent extends Component
 {
-    public function SendJoinEmail(Scene $scene, SceneCharacter $sceneCharacter)
+    public function sendJoinEmail(Scene $scene, SceneCharacter $sceneCharacter): void
     {
         // load runner
         $usersTable = TableRegistry::getTableLocator()->get('Users');
@@ -51,7 +51,7 @@ class ScenesEmailComponent extends Component
         $emailer->send();
     }
 
-    public function SendScheduleChange(Scene $newScene, $oldScene)
+    public function sendScheduleChange(Scene $newScene, $oldScene): void
     {
         $query = TableRegistry::getTableLocator()->get('SceneCharacters')->query();
         $query
@@ -87,7 +87,7 @@ class ScenesEmailComponent extends Component
         }
     }
 
-    public function SendCancelEmails(Scene $scene)
+    public function sendCancelEmails(Scene $scene): void
     {
         $sceneCharacterTable = TableRegistry::getTableLocator()->get('SceneCharacters');
         $sceneCharacters = $sceneCharacterTable

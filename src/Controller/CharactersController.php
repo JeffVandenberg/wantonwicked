@@ -168,26 +168,9 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes'));
     }
 
-    public function admin_xpEdit()
-    {
-        if ($this->getRequest()->is('post')) {
-            $sheetService = new SheetService();
-            $sheetService->grantXpToCharacter(
-                $this->getRequest()->getData('character_id'),
-                $this->getRequest()->getData('xp_amount'),
-                'Admin XP Override. Amount: ' . $this->getRequest()->getData('xp_amount') .
-                ' Note: ' . $this->getRequest()->getData('xp_note'),
-                $this->Auth->user('user_id')
-            );
-            $this->Flash->set('Updated XP for Character');
-        }
-    }
-
     public function isAuthorized()
     {
         switch ($this->getRequest()->getParam('action')) {
-            case 'admin_xpEdit':
-                return $this->Permissions->isAdmin();
             case 'stGoals':
             case 'stView':
             case 'stBeats':

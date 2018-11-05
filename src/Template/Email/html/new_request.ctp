@@ -17,5 +17,7 @@ use App\View\AppView;
     <?= $request->body; ?>
 </p>
 <p>
-    <?= $this->Html->link('View Request', ['controller' => 'requests', 'action' => 'view', $request->id]); ?>
+    <?= $this->Html->link('View Request', ['controller' => 'requests', 'action' => 'view', $request->id], [
+            'fullBase' => true
+    ]); ?>
 </p>

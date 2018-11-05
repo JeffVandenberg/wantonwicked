@@ -12,18 +12,18 @@ use classes\core\repository\RoleRepository;
 use classes\core\repository\UserRepository;
 use classes\request\repository\GroupRepository;
 
-$page_title = "Add ST";
+$page_title = 'Add ST';
 $contentHeader = $page_title;
 
-$page = "";
-$page_content = "";
-$alert = "";
-$js = "";
+$page = '';
+$page_content = '';
+$alert = '';
+$js = '';
 $show_form = true;
-$mode = "debug";
+$mode = 'debug';
 
 // form variables
-$login_name = "";
+$login_name = '';
 $login_id = 0;
 $userId = 0;
 $userPermissions = array();
@@ -64,14 +64,14 @@ ob_start();
         var rolePermissions = {
         <?php foreach($rolePermissions as $rp): ?>
         <?php echo $rp['id'];?>: <?php echo json_encode(
-            explode(',',  $rp['permissions']));?>,
+            explode(',', $rp['permissions']));?>,
         <?php endforeach; ?>
         }
         $(function () {
             $("#role-id").change(function () {
                 var permissions = rolePermissions[$(this).val()];
-                $.each(permissions, function(index, value) {
-                    $("input[value=" + value +"]").prop('checked', true);
+                $.each(permissions, function (index, value) {
+                    $("input[value=" + value + "]").prop('checked', true);
                 });
             });
         });
@@ -122,29 +122,28 @@ ob_start();
     </form>
     <script>
         $(function () {
-            $(function () {
-                $("#login-name").autocomplete({
-                    serviceUrl: '/users.php?action=search&email=0',
-                    minChars: 2,
-                    autoSelectFirst: true,
-                    onSelect: function(ui) {
-                        $("#user-id").val(ui.data);
-                        $("#login-name").val(ui.value);
-                        return false;
-                    }
-                });
-                $('#permission-form').submit(function (e) {
-                    var userId = parseInt($("#user-id").val());
-
-                    if (isNaN(userId) || (userId == 0)) {
-                        alert('Please type a user name');
-                        e.preventDefault();
-                        return false;
-                    }
-                    return true;
-                });
+            $("#login-name").autocomplete({
+                serviceUrl: '/users.php?action=search&email=0',
+                minChars: 2,
+                autoSelectFirst: true,
+                onSelect: function (ui) {
+                    $("#user-id").val(ui.data);
+                    $("#login-name").val(ui.value);
+                    return false;
+                }
             });
-        });
+            $('#permission-form').submit(function (e) {
+                var userId = parseInt($("#user-id").val());
+
+                if (isNaN(userId) || (userId == 0)) {
+                    alert('Please type a user name');
+                    e.preventDefault();
+                    return false;
+                }
+                return true;
+            });
+        })
+        ;
     </script>
 <?php
 $page_content .= ob_get_clean();

@@ -235,7 +235,7 @@ class ScenesController extends AppController
 
             if ($this->Scenes->save($scene)) {
                 if ($oldScene->run_on_date != $scene->run_on_date) {
-                    $this->ScenesEmail->SendScheduleChange($scene, $oldScene);
+                    $this->ScenesEmail->sendScheduleChange($scene, $oldScene);
                 }
 
                 $this->Flash->set(__('The scene has been saved.'));
@@ -294,7 +294,7 @@ class ScenesController extends AppController
                 $sceneCharacter->added_on = date('Y-m-d H:i:s');
 
                 if ($sceneCharacters->save($sceneCharacter)) {
-                    $this->ScenesEmail->SendJoinEmail($scene, $sceneCharacter);
+                    $this->ScenesEmail->sendJoinEmail($scene, $sceneCharacter);
                     $this->Flash->set('Added character to scene');
                     $this->redirect(array('action' => 'view', $slug));
                 } else {
@@ -349,7 +349,7 @@ class ScenesController extends AppController
         $scene->scene_status_id = SceneStatus::CANCELLED;
 
         if ($this->Scenes->save($scene)) {
-            $this->ScenesEmail->SendCancelEmails($scene);
+            $this->ScenesEmail->sendCancelEmails($scene);
             $this->Flash->set('Scene Cancelled');
         } else {
             $this->Flash->set('Error Cancelling Scene');
