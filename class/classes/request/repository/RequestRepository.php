@@ -426,7 +426,7 @@ FROM
 WHERE
 	SG.user_id = ?
 	AND R.request_status_id IN (2,6)
-    AND R.request_type_id != 4
+    AND R.request_type_id NOT IN (4, 0)
 SQL;
         $params = [
             $userId

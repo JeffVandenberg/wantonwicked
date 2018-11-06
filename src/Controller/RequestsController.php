@@ -761,7 +761,7 @@ class RequestsController extends AppController
 
     public function submit($requestId)
     {
-        $request = $this->Requests->get($requestId);
+        $request = $this->Requests->getFullRequest($requestId);
         $this->validateRequestEdit($request);
 
         $request->request_status_id = RequestStatus::Submitted;
