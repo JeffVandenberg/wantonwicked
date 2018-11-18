@@ -28,7 +28,7 @@ $this->set('title_for_layout', 'Request: ' . $request->title);
         }
 
         if (in_array($request->request_status_id, RequestStatus::$PlayerSubmit)) {
-            echo $this->Html->link('Submit', ['action' => 'submit', $request->id], ['class' => 'button']);
+            echo $this->Html->link('Submit', ['action' => 'submit', $request->id], ['class' => 'button single-click']);
         }
         if (!in_array($request->request_status_id, RequestStatus::$Terminal)) {
         echo $this->Html->link('Add Note', ['action' => 'add-note', $request->id], ['class' => 'button', 'style' => 'display: inline-block']);

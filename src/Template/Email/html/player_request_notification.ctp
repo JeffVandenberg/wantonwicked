@@ -10,7 +10,7 @@ use App\View\AppView;
 ?>
 <p>Your request has been updated! Here are the details.</p>
 <p>Your Request: <?= $request->title ?></p>
-<p>New Status: <?= $status ?></p>
+<p>New Status: <?= ucfirst($statePast) ?></p>
 <p>By Storyteller: <?= $username ?></p>
 <p><strong>Note</strong><br/>
     <?= $note ?>

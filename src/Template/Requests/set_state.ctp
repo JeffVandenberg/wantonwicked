@@ -26,7 +26,7 @@ $this->set('title_for_layout', $ucState . ' Request: ' . $request->title);
         ]); ?>
     </div>
     <div class="small-12 columns text-center">
-        <button class="button" name="action" value="<?= $ucState; ?>" type="submit"><?= $ucState; ?></button>
+        <button class="button single-click" name="action" value="<?= $ucState; ?>" type="submit"><?= $ucState; ?></button>
         <button class="button" name="action" value="Cancel" type="submit">Cancel</button>
     </div>
 </div>

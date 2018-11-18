@@ -39,6 +39,13 @@ $(function () {
     $(document).on('click', '.dead-link', function(e) {
         return false;
     });
+
+    $(document).on('click', '.single-click', function(e)  {
+        if(e.target.tagName.toLowerCase() === 'button') {
+            $(this).closest('form').submit();
+        }
+        e.target.disabled = true;
+    });
 });
 
 function giveFavor(characterId) {
