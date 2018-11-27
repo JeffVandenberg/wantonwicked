@@ -143,6 +143,7 @@ class CharacterHelper extends AppHelper
     private $sheetFields = [
         'splat1' => false,
         'splat2' => false,
+        'subsplat' => false,
         'break_points' => false,
         'touchstone' => false,
         'wolf_touchstone' => false,
@@ -262,6 +263,7 @@ class CharacterHelper extends AppHelper
         $concept = $character->Concept;
         $splat1 = $character->Splat1;
         $splat2 = $character->Splat2;
+        $subsplat = $character->Subsplat;
         $virtue = $character->Virtue;
         $vice = $character->Vice;
         $history = str_replace("\n", '<br />', $character->History);
@@ -342,6 +344,16 @@ class CharacterHelper extends AppHelper
                     'maxlength' => 30,
                 ]
             );
+            $subsplat = $this->Form->control(
+                'subsplat',
+                [
+                    'value' => $character->Subsplat,
+                    'placeholder' => $this->Language->translate('splat2', $character->Subsplat),
+                    'label' => false,
+                    'div' => false,
+                    'maxlength' => 40,
+                ]
+            );
             $virtue = $this->Form->control('virtue', [
                 'value' => $character->Virtue,
                 'label' => false,
@@ -404,6 +416,16 @@ class CharacterHelper extends AppHelper
                     'label' => false,
                     'div' => false,
                     'maxlength' => 30,
+                ]
+            );
+            $subsplat = $this->Form->control(
+                'subsplat',
+                [
+                    'value' => $character->Subsplat,
+                    'placeholder' => $this->Language->translate('subsplat', $character->CharacterType),
+                    'label' => false,
+                    'div' => false,
+                    'maxlength' => 40,
                 ]
             );
             $icon = $this->Form->select('icon', $this->icons, [
@@ -497,13 +519,25 @@ class CharacterHelper extends AppHelper
                     <?php if ($this->sheetFields['splat2']) echo $splat2; ?>
                 </div>
                 <div class="medium-1 columns">
+                    <?php if (isset($this->sheetFields['subsplat'])): ?>
+                        <label for="friends">
+                            <?php echo $this->Language->translate('subsplat', $character->CharacterType); ?>
+                        </label>
+                    <?php endif; ?>
+                </div>
+                <div class="medium-3 columns">
+                    <?php if (isset($this->sheetFields['subsplat'])) {
+                        echo $subsplat;
+                    } ?>
+                </div>
+                <div class="medium-1 columns">
                     <?php if (isset($this->sheetFields['friends'])): ?>
                         <label for="friends">
                             <?php echo $this->Language->translate('friends', $character->CharacterType); ?>
                         </label>
                     <?php endif; ?>
                 </div>
-                <div class="medium-3 columns">
+                <div class="columns">
                     <?php if (isset($this->sheetFields['friends'])) {
                         echo $friends;
                     } ?>
@@ -1708,6 +1742,7 @@ class CharacterHelper extends AppHelper
             case 'vampire':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
+                $this->sheetFields['subsplat'] = true;
                 $this->sheetFields['touchstone'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
@@ -1722,6 +1757,7 @@ class CharacterHelper extends AppHelper
             case 'werewolf':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
+                $this->sheetFields['subsplat'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['wolf_touchstone'] = true;
@@ -1733,6 +1769,7 @@ class CharacterHelper extends AppHelper
             case 'mage':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
+                $this->sheetFields['subsplat'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['obsession'] = true;
@@ -1741,6 +1778,7 @@ class CharacterHelper extends AppHelper
             case 'changeling':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['splat2'] = true;
+                $this->sheetFields['subsplat'] = true;
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['changeling_touchstone'] = true;

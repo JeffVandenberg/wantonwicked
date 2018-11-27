@@ -26,6 +26,7 @@ class LanguageHelper extends AppHelper
         'vampire' => [
             'splat1' => 'Clan',
             'splat2' => 'Covenant',
+            'subsplat' => 'Bloodline',
             'virtue' => 'Mask',
             'vice' => 'Dirge',
             'morality' => 'Humanity',
@@ -39,6 +40,7 @@ class LanguageHelper extends AppHelper
         'mage' => [
             'splat1' => 'Path',
             'splat2' => 'Order',
+            'subsplat' => 'Legacy',
             'morality' => 'Wisdom',
             'virtue' => 'Virtue',
             'vice' => 'Vice',
@@ -51,6 +53,7 @@ class LanguageHelper extends AppHelper
         'werewolf' => [
             'splat1' => 'Auspice',
             'splat2' => 'Tribe',
+            'subsplat' => 'Lodge',
             'morality' => 'Harmony',
             'powerstat' => 'Primal Urge',
             'powerpoints' => 'Essence',
@@ -61,6 +64,7 @@ class LanguageHelper extends AppHelper
         'changeling' => [
             'splat1' => 'Seeming',
             'splat2' => 'Court',
+            'subsplat' => 'Entitlement',
             'virtue' => 'Mask',
             'vice' => 'Mein',
             'morality' => 'Clarity',
