@@ -55,7 +55,7 @@ $userPermissions = $permissionRepository->listPermissionsForUser($userId);
 $groupObjs = $groupRepository->ListByIsDeleted(false);
 /* @var Group[] $groupObjs */
 $groups = [];
-foreach($groupObjs as $group) {
+foreach ($groupObjs as $group) {
     $groups[$group->Id] = $group->Name;
 }
 $selectedGroups = $groupRepository->listGroupsForUser($userId);;
@@ -68,14 +68,14 @@ ob_start();
         var rolePermissions = {
         <?php foreach($rolePermissions as $rp): ?>
         <?php echo $rp['id'];?>: <?php echo json_encode(
-            explode(',',  $rp['permissions']));?>,
+            explode(',', $rp['permissions']));?>,
         <?php endforeach; ?>
         }
         $(function () {
             $("#role-id").change(function () {
                 var permissions = rolePermissions[$(this).val()];
-                $.each(permissions, function(index, value) {
-                    $("input[value=" + value +"]").prop('checked', true);
+                $.each(permissions, function (index, value) {
+                    $("input[value=" + value + "]").prop('checked', true);
                 });
             });
         });

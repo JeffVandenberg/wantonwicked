@@ -88,7 +88,7 @@ EOQ;
                 $options .= self::appendOptionValues($value, $selectedValues);
                 $options .= '</optgroup>';
             } else {
-                $selected = \in_array($index, $selectedValues, true) ? 'selected' : '';
+                $selected = \in_array($index, $selectedValues, false) ? 'selected' : '';
                 $options .= '<option value="' . $index . '" ' . $selected . '>' . $value . '</option>';
             }
         }
@@ -172,7 +172,7 @@ EOQ;
 
         $html = '<div class="checkboxlist">';
         foreach ($options as $id => $value) {
-            $checked = \in_array($id, $selected, true);
+            $checked = \in_array($id, $selected, false);
             $options = array(
                 'include_hidden' => false,
                 'label' => $value,

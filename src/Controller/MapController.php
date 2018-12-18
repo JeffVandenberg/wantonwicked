@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Controller\Component\PermissionsComponent;
 use Cake\Event\Event;
+use Cake\ORM\Locator\TableLocator;
 use Cake\ORM\TableRegistry;
 
 
@@ -24,7 +25,7 @@ class MapController extends AppController
         $this->set('isMapAdmin', $this->Permissions->isMapAdmin());
     }
 
-    public function index($cityId = null)
+    public function index($cityId = null): void
     {
         // load city
 
@@ -34,8 +35,13 @@ class MapController extends AppController
         // load districts
 
         // load location types
-        $locationTypes = TableRegistry::get('LocationTypes')
-            ->find('list')
+        $locationTypes = TableRegistry::getTableLocator()->get('LocationTypes')
+            ->find()
+            ->select([
+                'name',
+                'icon',
+                'id',
+            ])
             ->order([
                 'LocationTypes.name'
             ])
@@ -45,7 +51,7 @@ class MapController extends AppController
         $this->set(compact('coords', 'locationTypes'));
     }
 
-    public function isAuthorized($user)
+    public function isAuthorized($user): bool
     {
         return true;
     }

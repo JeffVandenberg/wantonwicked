@@ -339,7 +339,7 @@ class SheetService
             $character->Sex = 'Male';
             $character->Virtue = $stats['virtue'];
             $character->Vice = $stats['vice'];
-            $character->Splat1 = $stats['splat1'] ?: '';
+            $character->Splat1 = $stats['splat1'] ?? '';
             $character->Splat2 = $stats['splat2'] ?? '';
             $character->Subsplat = $stats['subsplat'] ?? '';
             $character->Concept = $stats['concept'];
