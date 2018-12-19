@@ -11,6 +11,7 @@ use Cake\Core\Configure;
 
 $this->set('title_for_layout', 'City Map');
 $this->addScript('game-map');
+$this->addScript('map-ui');
 ?>
 <?php if($isMapAdmin): ?>
 <div>
@@ -19,6 +20,7 @@ $this->addScript('game-map');
     <?= $this->Form->select('location-type', [], ['style' => 'display:none;width:200px;', 'id' => 'location-type']); ?>
     <button class="button" id="record-zone-button">New District</button>
     <?= $this->Html->link('Location Types', ['controller' => 'location-types', 'action' => 'index'], ['class' => 'button']); ?>
+    <?= $this->Html->link('District Types', ['controller' => 'district-types', 'action' => 'index'], ['class' => 'button']); ?>
 </div>
 <?php endif; ?>
 <div id="map"></div>
@@ -34,23 +36,28 @@ $this->addScript('game-map');
 <script>
     let myMap;
     let locationTypes = [];
+    let mapUI = new MapUI();
+
     JSON.parse('<?= json_encode($locationTypes); ?>').forEach((i) => {
         locationTypes[i.id] = {
             name: i.name,
             icon: i.icon
         }
     });
-    console.log(locationTypes);
 
     $(function () {
         // setup location type selector
         let $locationType = $("#location-type")
         locationTypes.forEach((i, key) => {
             $locationType.append(
-                $("<option>").attr('val', key).text(i.name)
+                $("<option>").attr('value', key).text(i.name)
             );
         });
+        $locationType.change((event) => {
+            myMap.setLocationIcon(locationTypes[$("#location-type").val()].icon);
+        })
 
+        // add location button behavior
         $("#add-location-button").click((e) => {
             if(myMap.isAddingLocation()) {
                 e.target.innerText = 'New Location';
@@ -83,10 +90,13 @@ $this->addScript('game-map');
         map.addListener('click', (e) => {
             // this is why you need a backing state to bind to
             if(myMap.isAddingLocation()) {
+                $("#location-type").toggle();
                 $("#add-location-button").text('New Location');
             }
             myMap.checkClick(e);
         });
+
+        myMap.setLocationIcon(locationTypes.find(element => { return !!element; }).icon);
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= Configure::read('Maps.key'); ?>&callback=initMap"

@@ -10,6 +10,7 @@ class GameMap {
         this.strokeWeight = 2;
         this.strokeOpacity = 1.0;
         this.isEditting = isEditting;
+        this.locationIcon = '';
     }
 
     finishZone() {
@@ -59,7 +60,7 @@ class GameMap {
             position: latLng,
             map: this.map,
             title: "New Location",
-            icon: '/images/map/locations/city.png'
+            icon: this.locationIcon
         });
         location.addListener('click', (e) => {
             let infoWindow = new google.maps.InfoWindow();
@@ -75,6 +76,10 @@ class GameMap {
 
     setCreatingZone(creatingZone) {
         this.creatingZone = creatingZone;
+    }
+
+    setLocationIcon(locationIcon) {
+        this.locationIcon = locationIcon;
     }
 
     isAddingLocation() {
