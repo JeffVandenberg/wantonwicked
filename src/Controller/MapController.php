@@ -34,6 +34,19 @@ class MapController extends AppController
 
         // load districts
 
+        // load district types
+        $districtTypes = TableRegistry::getTableLocator()->get('DistrictTypes')
+            ->find()
+            ->select([
+                'name',
+                'color',
+                'id'
+            ])
+            ->order([
+                'DistrictTypes.name'
+            ])
+            ->toArray();
+
         // load location types
         $locationTypes = TableRegistry::getTableLocator()->get('LocationTypes')
             ->find()
@@ -48,7 +61,7 @@ class MapController extends AppController
             ->toArray();
         // load locations
 
-        $this->set(compact('coords', 'locationTypes'));
+        $this->set(compact('coords', 'locationTypes', 'districtTypes'));
     }
 
     public function isAuthorized($user): bool

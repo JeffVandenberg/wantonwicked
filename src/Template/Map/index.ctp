@@ -7,18 +7,23 @@ use Cake\Core\Configure;
  * @var AppView $this
  * @var bool $isMapAdmin
  * @var array $coords
+ * @var array $districtTypes
+ * @var array $locationTypes
  */
 
 $this->set('title_for_layout', 'City Map');
-$this->addScript('game-map');
-$this->addScript('map-ui');
+$this->addScript('map/game-map');
+$this->addScript('map/map-ui');
+$this->addScript('map/district');
+$this->addScript('map/location');
 ?>
 <?php if($isMapAdmin): ?>
 <div>
 <!--    <button class="button" id="record-zone-button">New Territory</button>-->
     <button class="button" id="add-location-button">New Location</button>
     <?= $this->Form->select('location-type', [], ['style' => 'display:none;width:200px;', 'id' => 'location-type']); ?>
-    <button class="button" id="record-zone-button">New District</button>
+    <button class="button" id="add-district-button">New District</button>
+    <?= $this->Form->select('district-type', [], ['style' => 'display:none;width:200px;', 'id' => 'district-type']); ?>
     <?= $this->Html->link('Location Types', ['controller' => 'location-types', 'action' => 'index'], ['class' => 'button']); ?>
     <?= $this->Html->link('District Types', ['controller' => 'district-types', 'action' => 'index'], ['class' => 'button']); ?>
 </div>
@@ -34,9 +39,11 @@ $this->addScript('map-ui');
     </button>
 </div>
 <script>
-    let myMap;
-    let locationTypes = [];
-    let mapUI = new MapUI();
+    let locationTypes = [],
+        districtTypes = [],
+        isEditting = <?= $isMapAdmin ? 'true' : 'false'; ?>,
+        mapUI = new MapUI(isEditting),
+        myMap = new GameMap(null, isEditting, mapUI);
 
     JSON.parse('<?= json_encode($locationTypes); ?>').forEach((i) => {
         locationTypes[i.id] = {
@@ -44,6 +51,12 @@ $this->addScript('map-ui');
             icon: i.icon
         }
     });
+    JSON.parse('<?= json_encode($districtTypes); ?>').forEach((i) => {
+        districtTypes[i.id] = {
+            name: i.name,
+            color: i.color
+        }
+    })
 
     $(function () {
         // setup location type selector
@@ -57,25 +70,36 @@ $this->addScript('map-ui');
             myMap.setLocationIcon(locationTypes[$("#location-type").val()].icon);
         })
 
+        // setup district type selector
+        let $districtType = $("#district-type")
+        districtTypes.forEach((i, key) => {
+            $districtType.append(
+                $("<option>").attr('value', key).text(i.name)
+            );
+        });
+        $districtType.change((event) => {
+            myMap.setZoneColor(districtTypes[$("#district-type").val()].color);
+        })
+
+        // setup map defaults
+        myMap.setLocationIcon(locationTypes.find(element => { return !!element; }).icon);
+        myMap.setZoneColor(districtTypes.find(element => { return !!element; }).color);
+
         // add location button behavior
         $("#add-location-button").click((e) => {
             if(myMap.isAddingLocation()) {
-                e.target.innerText = 'New Location';
-                $("#location-type").toggle();
-                myMap.setAddingLocation(false);
+                myMap.cancelLocation();
             } else {
-                e.target.innerText = 'Cancel Location';
-                $("#location-type").toggle();
-                myMap.setAddingLocation(true);
+                myMap.startLocation();
             }
         });
-        $("#record-zone-button").click((e) => {
+
+        // setup district button behavior
+        $("#add-district-button").click((e) => {
             if (myMap.isCreatingZone()) {
-                e.target.innerText = 'New District';
-                myMap.finishZone();
+                myMap.finishDistrict();
             } else {
-                e.target.innerText = 'Finish District';
-                myMap.setCreatingZone(true);
+                myMap.startDistrict();
             }
         });
     });
@@ -85,18 +109,12 @@ $this->addScript('map-ui');
             center: {lat: <?= $coords['lat']; ?>, lng: <?= $coords['long']; ?>},
             zoom: 12
         });
-        myMap = new GameMap(map, <?= $isMapAdmin ? 'true' : 'false'; ?>);
 
         map.addListener('click', (e) => {
-            // this is why you need a backing state to bind to
-            if(myMap.isAddingLocation()) {
-                $("#location-type").toggle();
-                $("#add-location-button").text('New Location');
-            }
             myMap.checkClick(e);
         });
 
-        myMap.setLocationIcon(locationTypes.find(element => { return !!element; }).icon);
+        myMap.setMap(map);
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= Configure::read('Maps.key'); ?>&callback=initMap"
@@ -108,6 +126,20 @@ $this->addScript('map-ui');
     #map {
         height: 800px;
         width: 100%;
+    }
+
+    .info-box-content {
+        min-width: 200px;
+        color: #000000;
+    }
+
+    .info-box-content__admin {
+        background-color: #ffdddd;
+        margin-top: .5rem;
+    }
+
+    .info-box-content hr {
+        margin: .24rem 0;
     }
 </style>
 <?php $this->end(); ?>

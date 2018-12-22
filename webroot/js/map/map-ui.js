@@ -1,0 +1,68 @@
+class MapUI {
+    get isEditting() {
+        return this._isEditting;
+    }
+
+    set isEditting(value) {
+        this._isEditting = value;
+    }
+
+    constructor(isEditting = false) {
+        this._isEditting = isEditting;
+    }
+
+    showLocationTypeSelect() {
+        $("#location-type").show();
+    }
+
+    hideLocationTypeSelect() {
+        $("#location-type").hide();
+    }
+
+    showDistrictTypeSelect() {
+        $("#district-type").show();
+    }
+
+    hideDistrictTypeSelect() {
+        $("#district-type").hide();
+    }
+
+    setPassiveLocationButtonText() {
+        $("#add-location-button").text('New Location');
+    }
+
+    setActiveLocationButtonText() {
+        $("#add-location-button").text('Cancel Location');
+    }
+
+    setPassiveDistrictButtonText() {
+        $("#add-district-button").text('New District');
+    }
+
+    setActiveDistrictButtonText() {
+        $("#add-district-button").text('Finish District');
+    }
+
+    createInfoBoxContent(entity) {
+        let content = `
+<div class="info-box-content">
+<div class="info-box-content__body">
+<b>Name:</b><br />${entity.name}</div>
+<hr />
+<div>
+${entity.description}
+</div>
+`;
+
+        if (this.isEditting) {
+            content += `
+<div class="info-box-content__admin">
+<b>Admin: </b><hr />Edit - Delete
+</div>
+`;
+        }
+
+        content += `</div>`;
+        return content;
+    }
+}
