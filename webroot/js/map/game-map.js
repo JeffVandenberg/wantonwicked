@@ -54,6 +54,7 @@ class GameMap {
             this.zonePoints.push(this.zonePoints[0]);
             let district = this.createDistrict('New District', 'Test Description', this.zoneColor, this.zonePoints);
             this.districts.push(district);
+            this.mapUI.showDetailModel(district, () => { console.log('done!'); });
         } else {
             alert('Not enough points');
         }
@@ -99,6 +100,9 @@ class GameMap {
             infoWindow.setPosition(e.latLng);
             infoWindow.setMap(this.map);
         });
+        polygon.addListener('dragend', (e) => {
+            district.points = poligy.getPath().getArray();
+        })
         polygon.setMap(this.map);
         return district;
     }
@@ -107,15 +111,19 @@ class GameMap {
         let marker = new google.maps.Marker({
                 position: latLng,
                 map: this.map,
-                title: "New Location",
-                icon: this.locationIcon
+                title: name,
+                icon: icon,
+                draggable: this.isEditting
             }),
-            location = new Location(name, description, icon, marker);
+            location = new Location(name, description, icon, latLng, marker);
         marker.addListener('click', (e) => {
             let infoWindow = new google.maps.InfoWindow();
             infoWindow.setContent(this.mapUI.createInfoBoxContent(location));
             infoWindow.setPosition(e.latLng);
             infoWindow.setMap(this.map);
+        });
+        marker.addListener('dragend', (e) => {
+            location.point = e.latLng;
         });
         return location;
     }

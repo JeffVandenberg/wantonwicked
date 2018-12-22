@@ -32,6 +32,18 @@ $this->addScript('map/location');
 <div class="reveal" id="detail-modal" data-reveal>
     <div id="detail-modal-content">
         <div class="row">
+            <div class="small-12 columns">
+                <label>Name</label>
+                <input type="text" name="feature_name" id="detail-modal__feature-name" />
+            </div>
+            <div class="small-12 columns">
+                <label>Description</label>
+                <textarea name="feature_name" id="detail-modal__feature-description" class="tinymce-textarea"></textarea>
+            </div>
+            <div class="small-12 columns text-center">
+                <button class="button" id="detail-modal__save-button">Save</button>
+                <button class="button" id="detail-modal__cancel-button">Cancel</button>
+            </div>
         </div>
     </div>
     <button class="close-button" data-close aria-label="Close modal" type="button">
@@ -101,6 +113,14 @@ $this->addScript('map/location');
             } else {
                 myMap.startDistrict();
             }
+        });
+
+        // setup detail modal
+        $("#detail-modal__save-button").click((e) => {
+            mapUI.saveUpdate();
+        });
+        $("#detail-modal__cancel-button").click((e) => {
+            mapUI.cancelUpdate();
         });
     });
 
