@@ -1,26 +1,27 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Location;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
  * Locations Model
  *
  * @property \App\Model\Table\DistrictsTable|\Cake\ORM\Association\BelongsTo $Districts
- * @property \App\Model\Table\CreatedBiesTable|\Cake\ORM\Association\BelongsTo $CreatedBies
- * @property \App\Model\Table\UpdatedBiesTable|\Cake\ORM\Association\BelongsTo $UpdatedBies
+ * @property \App\Model\Table\CreatedBiesTable|\Cake\ORM\Association\BelongsTo $CreatedBy
+ * @property \App\Model\Table\UpdatedBiesTable|\Cake\ORM\Association\BelongsTo $UpdatedBy
  * @property \App\Model\Table\CharactersTable|\Cake\ORM\Association\BelongsTo $Characters
  * @property \App\Model\Table\LocationTypesTable|\Cake\ORM\Association\BelongsTo $LocationTypes
- * @property \App\Model\Table\CharactersTable|\Cake\ORM\Association\HasMany $Characters
  * @property \App\Model\Table\LocationTraitsTable|\Cake\ORM\Association\HasMany $LocationTraits
  *
  * @method \App\Model\Entity\Location get($primaryKey, $options = [])
  * @method \App\Model\Entity\Location newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Location[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Location|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\Location patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Location[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Location findOrCreate($search, callable $callback = null, $options = [])
@@ -39,19 +40,30 @@ class LocationsTable extends Table
         parent::initialize($config);
 
         $this->setTable('locations');
-        $this->setDisplayField('id');
+        $this->setDisplayField('location_name');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created_on' => 'new',
+                    'updated_on' => 'always',
+                ]
+            ]
+        ]);
 
         $this->belongsTo('Districts', [
             'foreignKey' => 'district_id'
         ]);
-        $this->belongsTo('CreatedBies', [
+        $this->belongsTo('CreatedBy', [
             'foreignKey' => 'created_by_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'className' => 'Users'
         ]);
-        $this->belongsTo('UpdatedBies', [
+        $this->belongsTo('UpdatedBy', [
             'foreignKey' => 'updated_by_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'className' => 'Users'
         ]);
         $this->belongsTo('Characters', [
             'foreignKey' => 'character_id'
@@ -74,7 +86,7 @@ class LocationsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -130,11 +142,19 @@ class LocationsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['district_id'], 'Districts'));
-        $rules->add($rules->existsIn(['created_by_id'], 'CreatedBies'));
-        $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBies'));
+        $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
+        $rules->add($rules->existsIn(['updated_by_id'], 'Updatedby'));
         $rules->add($rules->existsIn(['character_id'], 'Characters'));
         $rules->add($rules->existsIn(['location_type_id'], 'LocationTypes'));
 
         return $rules;
     }
+
+    public function save(EntityInterface $entity, $options = [])
+    {
+        $entity->slug = Text::slug($entity->location_name);
+        return parent::save($entity, $options);
+    }
+
+
 }

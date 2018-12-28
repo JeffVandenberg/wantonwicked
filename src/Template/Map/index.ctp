@@ -9,24 +9,26 @@ use Cake\Core\Configure;
  * @var array $coords
  * @var array $districtTypes
  * @var array $locationTypes
+ * @var array $locations
  */
 
 $this->set('title_for_layout', 'City Map');
 $this->addScript('map/game-map');
 $this->addScript('map/map-ui');
+$this->addScript('map/data-service');
 $this->addScript('map/district');
 $this->addScript('map/location');
 ?>
-<?php if($isMapAdmin): ?>
-<div>
-<!--    <button class="button" id="record-zone-button">New Territory</button>-->
-    <button class="button" id="add-location-button">New Location</button>
-    <?= $this->Form->select('location-type', [], ['style' => 'display:none;width:200px;', 'id' => 'location-type']); ?>
-    <button class="button" id="add-district-button">New District</button>
-    <?= $this->Form->select('district-type', [], ['style' => 'display:none;width:200px;', 'id' => 'district-type']); ?>
-    <?= $this->Html->link('Location Types', ['controller' => 'location-types', 'action' => 'index'], ['class' => 'button']); ?>
-    <?= $this->Html->link('District Types', ['controller' => 'district-types', 'action' => 'index'], ['class' => 'button']); ?>
-</div>
+<?php if ($isMapAdmin): ?>
+    <div>
+        <!--    <button class="button" id="record-zone-button">New Territory</button>-->
+        <button class="button" id="add-location-button">New Location</button>
+        <?= $this->Form->select('location-type', [], ['style' => 'display:none;width:200px;', 'id' => 'location-type']); ?>
+        <button class="button" id="add-district-button">New District</button>
+        <?= $this->Form->select('district-type', [], ['style' => 'display:none;width:200px;', 'id' => 'district-type']); ?>
+        <?= $this->Html->link('Location Types', ['controller' => 'location-types', 'action' => 'index'], ['class' => 'button']); ?>
+        <?= $this->Html->link('District Types', ['controller' => 'district-types', 'action' => 'index'], ['class' => 'button']); ?>
+    </div>
 <?php endif; ?>
 <div id="map"></div>
 <div class="reveal" id="detail-modal" data-reveal>
@@ -34,11 +36,12 @@ $this->addScript('map/location');
         <div class="row">
             <div class="small-12 columns">
                 <label>Name</label>
-                <input type="text" name="feature_name" id="detail-modal__feature-name" />
+                <input type="text" name="feature_name" id="detail-modal__feature-name" required/>
             </div>
             <div class="small-12 columns">
                 <label>Description</label>
-                <textarea name="feature_name" id="detail-modal__feature-description" class="tinymce-textarea"></textarea>
+                <textarea name="feature_name" id="detail-modal__feature-description"
+                          class="tinymce-textarea"></textarea>
             </div>
             <div class="small-12 columns text-center">
                 <button class="button" id="detail-modal__save-button">Save</button>
@@ -51,24 +54,30 @@ $this->addScript('map/location');
     </button>
 </div>
 <script>
-    let locationTypes = [],
+    const locationTypes = [],
         districtTypes = [],
         isEditting = <?= $isMapAdmin ? 'true' : 'false'; ?>,
+        mapData = new MapDataService(),
         mapUI = new MapUI(isEditting),
-        myMap = new GameMap(null, isEditting, mapUI);
+        myMap = new GameMap(null, isEditting, mapUI, mapData),
+        defaultDistrictDescription = `
+<div>
+    <b>Faction Control:</b><br />
+    <b>Wiki:</b><br />
+    <b>District:</b><br />
+    <b>Neighborhood:</b><br />
+</div>
+`,
+        defaultLocationDescription = `No Description Template Defined`,
+        locations = JSON.parse('<?= json_encode($locations); ?>');
 
     JSON.parse('<?= json_encode($locationTypes); ?>').forEach((i) => {
-        locationTypes[i.id] = {
-            name: i.name,
-            icon: i.icon
-        }
+        locationTypes[i.id] = i;
     });
     JSON.parse('<?= json_encode($districtTypes); ?>').forEach((i) => {
-        districtTypes[i.id] = {
-            name: i.name,
-            color: i.color
-        }
-    })
+        districtTypes[i.id] = i;
+    });
+
 
     $(function () {
         // setup location type selector
@@ -79,27 +88,39 @@ $this->addScript('map/location');
             );
         });
         $locationType.change((event) => {
-            myMap.setLocationIcon(locationTypes[$("#location-type").val()].icon);
+            let locationTypeId = $("#location-type").val();
+            myMap.setLocationIcon(locationTypes[locationTypeId].icon);
+            myMap.setLocationTypeId(locationTypeId);
         })
 
         // setup district type selector
-        let $districtType = $("#district-type")
+        const $districtType = $("#district-type")
         districtTypes.forEach((i, key) => {
             $districtType.append(
                 $("<option>").attr('value', key).text(i.name)
             );
         });
         $districtType.change((event) => {
-            myMap.setZoneColor(districtTypes[$("#district-type").val()].color);
+            let districtTypeId = $("#district-type").val();
+            myMap.setZoneColor(districtTypes[districtTypeId].color);
+            myMap.setDistrictTypeId(districtTypeId);
         })
 
         // setup map defaults
-        myMap.setLocationIcon(locationTypes.find(element => { return !!element; }).icon);
-        myMap.setZoneColor(districtTypes.find(element => { return !!element; }).color);
+        const firstLocationType = locationTypes.find(element => {
+                return !!element;
+            }),
+            firstDistrictType = districtTypes.find(element => {
+                return !!element;
+            });
+        myMap.setLocationIcon(firstLocationType.icon);
+        myMap.setLocationTypeId(firstLocationType.id)
+        myMap.setZoneColor(firstDistrictType.color);
+        myMap.setDistrictTypeId(firstDistrictType.id);
 
         // add location button behavior
         $("#add-location-button").click((e) => {
-            if(myMap.isAddingLocation()) {
+            if (myMap.isAddingLocation()) {
                 myMap.cancelLocation();
             } else {
                 myMap.startLocation();
@@ -135,6 +156,7 @@ $this->addScript('map/location');
         });
 
         myMap.setMap(map);
+        myMap.initFeatures(locations, []);
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= Configure::read('Maps.key'); ?>&callback=initMap"

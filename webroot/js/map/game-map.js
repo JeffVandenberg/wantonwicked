@@ -1,5 +1,5 @@
 class GameMap {
-    constructor(map = null, isEditting = false, mapUI = new MapUI()) {
+    constructor(map = null, isEditting = false, mapUI = new MapUI(), dataService = new MapDataService()) {
         this.map = map;
         this.addingLocation = false;
         this.creatingZone = false;
@@ -16,6 +16,9 @@ class GameMap {
         this.mapUI = mapUI;
         this.stagingLocation = null;
         this.stagingDistrict = null;
+        this.locationTypeId = 0;
+        this.districtTypeId = 0;
+        this.dataService = dataService;
     }
 
     setMap(map) {
@@ -24,6 +27,14 @@ class GameMap {
 
     setZoneColor(zoneColor) {
         this.zoneColor = zoneColor;
+    }
+
+    setDistrictTypeId(districtTypeId) {
+        this.districtTypeId = districtTypeId;
+    }
+
+    setLocationTypeId(locationTypeId) {
+        this.locationTypeId = locationTypeId;
     }
 
     checkClick(e) {
@@ -38,7 +49,7 @@ class GameMap {
         } else if (this.addingLocation) {
             this.mapUI.hideLocationTypeSelect();
             this.mapUI.setPassiveLocationButtonText();
-            this.addLocation(e.latLng);
+            this.newLocationFromPoint(e.latLng);
         }
     }
 
@@ -52,7 +63,8 @@ class GameMap {
     finishDistrict() {
         if (this.zonePoints.length > 2) {
             this.zonePoints.push(this.zonePoints[0]);
-            let district = this.createDistrict('New District', 'Test Description', this.zoneColor, this.zonePoints);
+            let district = this.createDistrict('', defaultDistrictDescription, this.districtTypeId,
+                this.zoneColor, this.zonePoints);
             this.districts.push(district);
             this.mapUI.showDetailModel(district, () => { console.log('done!'); });
         } else {
@@ -77,13 +89,22 @@ class GameMap {
         this.mapUI.setPassiveLocationButtonText();
     }
 
-    addLocation(latLng) {
-        let location = this.createLocation('New Location', 'Description', this.locationIcon, latLng);
+    addLocation(data) {
+        let latLng = new google.maps.LatLng(data.point.y, data.point.x),
+            location = this.createLocation(data.name, data.description, data.location_type_id,
+                data.icon, latLng, data.id);
         this.locations.push(location);
-        this.setAddingLocation(false);
     }
 
-    createDistrict(name, description, color, points) {
+    newLocationFromPoint(latLng) {
+        let location = this.createLocation('', defaultLocationDescription, this.locationTypeId,
+            this.locationIcon, latLng);
+        this.locations.push(location);
+        this.setAddingLocation(false);
+        this.mapUI.showDetailModel(location, this.dataService.saveLocation);
+    }
+
+    createDistrict(name, description, districtTypeId, color, points) {
         let polygon = new google.maps.Polygon({
                 paths: points,
                 fillColor: color,
@@ -93,7 +114,7 @@ class GameMap {
                 strokeWeight: this.strokeWeight,
                 draggable: this.isEditting
             }),
-            district = new District(name, description, color, points, polygon);
+            district = new District(name, description, districtTypeId, color, points, polygon);
         polygon.addListener('click', (e) => {
             let infoWindow = new google.maps.InfoWindow();
             infoWindow.setContent(this.mapUI.createInfoBoxContent(district));
@@ -107,7 +128,7 @@ class GameMap {
         return district;
     }
 
-    createLocation(name, description, icon, latLng) {
+    createLocation(name, description, locationTypeId, icon, latLng, id = null) {
         let marker = new google.maps.Marker({
                 position: latLng,
                 map: this.map,
@@ -115,7 +136,7 @@ class GameMap {
                 icon: icon,
                 draggable: this.isEditting
             }),
-            location = new Location(name, description, icon, latLng, marker);
+            location = new Location(name, description, locationTypeId, icon, latLng, marker, id);
         marker.addListener('click', (e) => {
             let infoWindow = new google.maps.InfoWindow();
             infoWindow.setContent(this.mapUI.createInfoBoxContent(location));
@@ -124,6 +145,7 @@ class GameMap {
         });
         marker.addListener('dragend', (e) => {
             location.point = e.latLng;
+            this.dataService.saveLocation(location);
         });
         return location;
     }
@@ -151,7 +173,7 @@ class GameMap {
 
     setDistrictVisible(visible) {
         this.districts.forEach(district => {
-            district.getPolygon().setVisible(visible);
+            district.polygon.setVisible(visible);
         });
     }
 
@@ -164,5 +186,15 @@ class GameMap {
 
     clearZonePoints() {
         this.zonePoints = [];
+    }
+
+    initFeatures(locations, districts)
+    {
+        // draw locations
+        locations.forEach((i) => {
+            this.addLocation(i);
+        })
+
+        // draw districts
     }
 }

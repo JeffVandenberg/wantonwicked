@@ -21,6 +21,8 @@ use Cake\ORM\Entity;
  * @property string $owning_character_name
  * @property int $location_type_id
  * @property string $location_rules
+ * @property string $point
+ * @property string $slug
  *
  * @property \App\Model\Entity\District $district
  * @property \App\Model\Entity\CreatedBy $created_by

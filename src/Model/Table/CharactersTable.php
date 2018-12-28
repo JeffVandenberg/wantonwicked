@@ -525,7 +525,7 @@ EOQ;
      */
     public function get($characterId, $options = null)
     {
-        if(intval($characterId)) {
+        if((int)$characterId) {
             $conditions = [
                 'Characters.id' => $characterId
             ];

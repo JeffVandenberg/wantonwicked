@@ -59,9 +59,33 @@ class MapController extends AppController
                 'LocationTypes.name'
             ])
             ->toArray();
-        // load locations
 
-        $this->set(compact('coords', 'locationTypes', 'districtTypes'));
+        // load locations
+        $locations = TableRegistry::getTableLocator()->get('Locations')
+            ->find()
+            ->select([
+                'id',
+                'name' => 'location_name',
+                'description' => 'location_description',
+                'location_type_id',
+                'slug',
+                'point',
+                'LocationTypes.icon'
+            ])
+            ->contain([
+                'LocationTypes'
+            ])
+            ->toArray();
+
+        // decode the points
+        $locations = array_map(function($item) {
+            $item->point = json_decode($item->point);
+            $item->icon = $item->location_type->icon;
+            unset($item->location_type);
+            return $item;
+        }, $locations);
+
+        $this->set(compact('coords', 'locationTypes', 'districtTypes', 'locations'));
     }
 
     public function isAuthorized($user): bool

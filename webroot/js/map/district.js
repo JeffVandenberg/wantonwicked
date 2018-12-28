@@ -1,11 +1,20 @@
 class District {
-    constructor(name, description, color, points, polygon, id = null) {
+    constructor(name, description, districtTypeId, color, points, polygon, id = null) {
         this._name = name;
         this._description = description;
         this._color = color;
         this._points = points;
         this._polygon = polygon;
         this._id = id;
+        this._districtTypeId = districtTypeId;
+    }
+
+    get districtTypeId() {
+        return this._districtTypeId;
+    }
+
+    set districtTypeId(value) {
+        this._districtTypeId = value;
     }
 
     get id() {

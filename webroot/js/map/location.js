@@ -1,11 +1,20 @@
 class Location {
-    constructor (name = '', description = '', icon = '', point = null, marker = null, id = null) {
+    constructor (name = '', description = '', locationTypeId = 0, icon = '', point = null, marker = null, id = null) {
         this._name = name;
         this._description = description;
         this._icon = icon;
         this._point = point;
         this._marker = marker;
         this._id = id;
+        this._locationTypeId = locationTypeId;
+    }
+
+    get locationTypeId() {
+        return this._locationTypeId;
+    }
+
+    set locationTypeId(value) {
+        this._locationTypeId = value;
     }
 
     get marker() {

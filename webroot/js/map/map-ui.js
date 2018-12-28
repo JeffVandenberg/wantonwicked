@@ -4,7 +4,6 @@ class MapUI {
         this._currentEntity = null;
         this._currentCallback = null;
         this.detailModal = $("#detail-modal");
-
     }
 
     get currentEntity() {
@@ -88,6 +87,7 @@ ${entity.description}
 
     showDetailModel(entity, callback) {
         this.detailModal.find('#detail-modal__feature-name').val(entity.name);
+        this.detailModal.find('#detail-modal__feature-description').val(entity.description);
         tinymce.activeEditor.setContent(entity.description);
         this.detailModal.foundation('open');
 
@@ -99,6 +99,7 @@ ${entity.description}
         this.currentEntity.name = this.detailModal.find('#detail-modal__feature-name').val();
         this.currentEntity.description = this.detailModal.find('#detail-modal__feature-description').val();
         this.detailModal.foundation('close');
+        this.currentCallback(this.currentEntity);
     }
 
     cancelUpdate() {
