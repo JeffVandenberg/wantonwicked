@@ -72,9 +72,6 @@ class MapController extends AppController
                 'point',
                 'LocationTypes.icon'
             ])
-            ->where([
-                'Locations.id' => 7
-            ])
             ->contain([
                 'LocationTypes'
             ])
