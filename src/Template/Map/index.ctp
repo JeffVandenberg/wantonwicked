@@ -10,6 +10,8 @@ use Cake\Core\Configure;
  * @var array $districtTypes
  * @var array $locationTypes
  * @var array $locations
+ * @var string $defaultDistrictDescription
+ * @var string $defaultLocationDescription
  */
 
 $this->set('title_for_layout', 'City Map');
@@ -60,15 +62,8 @@ $this->addScript('map/location');
         mapData = new MapDataService(),
         mapUI = new MapUI(isEditting),
         myMap = new GameMap(null, isEditting, mapUI, mapData),
-        defaultDistrictDescription = `
-<div>
-    <b>Faction Control:</b><br />
-    <b>Wiki:</b><br />
-    <b>District:</b><br />
-    <b>Neighborhood:</b><br />
-</div>
-`,
-        defaultLocationDescription = `No Description Template Defined`,
+        defaultDistrictDescription = `<?= $defaultDistrictDescription ?>`,
+        defaultLocationDescription = `<?= $defaultLocationDescription ?>`,
         locations = JSON.parse('<?= str_replace(["'", '\\"', '\n'], ["\'", '\\\"', '\\\n'], json_encode($locations)); ?>');
 
     JSON.parse('<?= json_encode($locationTypes); ?>').forEach((i) => {

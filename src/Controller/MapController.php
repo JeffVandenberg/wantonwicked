@@ -15,10 +15,15 @@ use Cake\ORM\TableRegistry;
 
 
 /**
+ * @property \App\Controller\Component\ConfigComponent $Config
  * @property PermissionsComponent Permissions
  */
 class MapController extends AppController
 {
+    public $components = array(
+        'Config'
+    );
+
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -29,8 +34,10 @@ class MapController extends AppController
     {
         // load city
 
-        // set map coordinates
+        // get configurations
         $coords = ['lat' => 45.5231, 'long' => -122.6765];
+        $defaultLocationDescription = $this->Config->read('default_location_description');
+        $defaultDistrictDescription = $this->Config->read('default_district_description');
 
         // load districts
 
@@ -85,7 +92,8 @@ class MapController extends AppController
             return $item;
         }, $locations);
 
-        $this->set(compact('coords', 'locationTypes', 'districtTypes', 'locations'));
+        $this->set(compact('coords', 'locationTypes', 'districtTypes', 'locations',
+            'defaultDistrictDescription', 'defaultLocationDescription'));
     }
 
     public function isAuthorized($user): bool
