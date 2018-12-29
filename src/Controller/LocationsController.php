@@ -147,13 +147,23 @@ class LocationsController extends AppController
     {
         $this->getRequest()->allowMethod(['post', 'delete']);
         $location = $this->Locations->get($id);
+        $message = '';
+        $success = true;
         if ($this->Locations->delete($location)) {
             $this->Flash->success(__('The location has been deleted.'));
         } else {
             $this->Flash->error(__('The location could not be deleted. Please, try again.'));
+            $success = false;
+            $message = 'The location could not be deleted. Please, try again.';
         }
 
-        return $this->redirect(['action' => 'index']);
+        if($this->getRequest()->is('ajax')) {
+            $data = compact('success', 'message');
+            $this->set(compact('data'));
+            $this->set('_serialize', ['data']);
+        } else {
+            return $this->redirect(['action' => 'index']);
+        }
     }
 
     public function isAuthorized($user)

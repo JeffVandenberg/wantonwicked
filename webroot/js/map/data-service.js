@@ -28,7 +28,17 @@ class MapDataService {
         });
     }
 
-    updateEntity(response) {
-        console.log(response);
+    deleteLocation(location, next) {
+        const url = `/locations/delete/${location.id}.json`,
+            data = {};
+        $.post(url, data, (response) => {
+            if (response.data.success) {
+                if (next) {
+                    next(location);
+                }
+            } else {
+                alert(response.data.message);
+            }
+        })
     }
 }

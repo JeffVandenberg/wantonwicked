@@ -183,6 +183,15 @@ $this->addScript('map/location');
         color: #000000;
     }
 
+    .info-box-content a {
+        color: #0E3B43;
+    }
+
+    .info-box-content a:hover {
+        color: #0E3B43;
+        text-decoration: underline;
+    }
+
     .info-box-content__admin {
         background-color: #ffdddd;
         margin-top: .5rem;

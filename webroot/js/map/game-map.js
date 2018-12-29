@@ -102,6 +102,13 @@ class GameMap {
         this.locations.push(location);
     }
 
+    removeLocation(location) {
+        if(location.infoWindow) {
+            location.infoWindow.setMap(null);
+        }
+        location.marker.setMap(null);
+    }
+
     newLocationFromPoint(latLng) {
         let location = this.createLocation('', defaultLocationDescription, this.locationTypeId,
             this.locationIcon, latLng);
@@ -151,6 +158,7 @@ class GameMap {
             infoWindow.setMap(this.map);
             this.setCurrentEntity(location);
             this.infoWindows.push(infoWindow);
+            location.infoWindow = infoWindow;
         });
         marker.addListener('dragend', (e) => {
             location.point = e.latLng;
@@ -177,10 +185,10 @@ class GameMap {
 
     setAddingLocation(addingLocation) {
         this.addingLocation = addingLocation;
-        this.setDistrictVisible(!addingLocation);
+        this.setDistrictsVisible(!addingLocation);
     }
 
-    setDistrictVisible(visible) {
+    setDistrictsVisible(visible) {
         this.districts.forEach(district => {
             district.polygon.setVisible(visible);
         });
@@ -220,7 +228,10 @@ class GameMap {
     }
 
     deleteCurrentEntity() {
-        console.log('delete');
-        console.log(this.currentEntity);
+        if(confirm(`Are you sure you want to delete "${this.currentEntity.name}"?`)) {
+            if(this.currentEntity instanceof Location) {
+                this.dataService.deleteLocation(this.currentEntity, this.removeLocation);
+            }
+        }
     }
 }
