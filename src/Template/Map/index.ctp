@@ -69,7 +69,7 @@ $this->addScript('map/location');
 </div>
 `,
         defaultLocationDescription = `No Description Template Defined`,
-        locations = JSON.parse('<?= str_replace(["'", '\\"'], ["\'", '\\\"'], json_encode($locations)); ?>');
+        locations = JSON.parse('<?= str_replace(["'", '\\"', '\n'], ["\'", '\\\"', '\\\n'], json_encode($locations)); ?>');
 
     JSON.parse('<?= json_encode($locationTypes); ?>').forEach((i) => {
         locationTypes[i.id] = i;
