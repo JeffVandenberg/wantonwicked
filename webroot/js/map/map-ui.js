@@ -76,7 +76,10 @@ ${entity.description}
         if (this.isEditting) {
             content += `
 <div class="info-box-content__admin">
-<b>Admin: </b><hr />Edit - Delete
+<b>Admin</b><hr />
+<a href="#" class="info-box-content__link--edit">Edit</a> 
+-
+<a href="#" class="info-box-content__link--delete">Delete</a> 
 </div>
 `;
         }
@@ -103,6 +106,12 @@ ${entity.description}
     }
 
     cancelUpdate() {
+        if(!this.currentEntity.id) {
+            if(this.currentEntity.marker) {
+                this.currentEntity.marker.setMap(null);
+                this.currentEntity = null;
+            }
+        }
         this.detailModal.foundation('close');
     }
 }

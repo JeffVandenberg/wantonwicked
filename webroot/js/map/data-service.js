@@ -23,6 +23,12 @@ class MapDataService {
                     y: location.point.lat()
                 }
             };
-        $.post(url, data, () => console.log('saved location'));
+        $.post(url, data, (response) => {
+            location.id = response.location.id;
+        });
+    }
+
+    updateEntity(response) {
+        console.log(response);
     }
 }

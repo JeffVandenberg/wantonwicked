@@ -19,6 +19,8 @@ class GameMap {
         this.locationTypeId = 0;
         this.districtTypeId = 0;
         this.dataService = dataService;
+        this.infoWindows = [];
+        this.currentEntity = null;
     }
 
     setMap(map) {
@@ -35,6 +37,10 @@ class GameMap {
 
     setLocationTypeId(locationTypeId) {
         this.locationTypeId = locationTypeId;
+    }
+
+    setCurrentEntity(entity) {
+        this.currentEntity = entity;
     }
 
     checkClick(e) {
@@ -138,10 +144,13 @@ class GameMap {
             }),
             location = new Location(name, description, locationTypeId, icon, latLng, marker, id);
         marker.addListener('click', (e) => {
+            this.clearInfoWindows();
             let infoWindow = new google.maps.InfoWindow();
             infoWindow.setContent(this.mapUI.createInfoBoxContent(location));
             infoWindow.setPosition(e.latLng);
             infoWindow.setMap(this.map);
+            this.setCurrentEntity(location);
+            this.infoWindows.push(infoWindow);
         });
         marker.addListener('dragend', (e) => {
             location.point = e.latLng;
@@ -188,6 +197,13 @@ class GameMap {
         this.zonePoints = [];
     }
 
+    clearInfoWindows() {
+        this.infoWindows.forEach(infoWindow => {
+            infoWindow.setMap(null);
+        });
+        this.infoWindows = [];
+    }
+
     initFeatures(locations, districts)
     {
         // draw locations
@@ -196,5 +212,15 @@ class GameMap {
         })
 
         // draw districts
+    }
+
+    editCurrentEntity() {
+        console.log(this.currentEntity);
+        this.mapUI.showDetailModel(this.currentEntity, this.dataService.saveLocation)
+    }
+
+    deleteCurrentEntity() {
+        console.log('delete');
+        console.log(this.currentEntity);
     }
 }

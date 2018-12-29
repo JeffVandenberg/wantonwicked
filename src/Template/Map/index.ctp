@@ -69,7 +69,7 @@ $this->addScript('map/location');
 </div>
 `,
         defaultLocationDescription = `No Description Template Defined`,
-        locations = JSON.parse('<?= json_encode($locations); ?>');
+        locations = JSON.parse('<?= str_replace(["'", '\\"'], ["\'", '\\\"'], json_encode($locations)); ?>');
 
     JSON.parse('<?= json_encode($locationTypes); ?>').forEach((i) => {
         locationTypes[i.id] = i;
@@ -143,6 +143,14 @@ $this->addScript('map/location');
         $("#detail-modal__cancel-button").click((e) => {
             mapUI.cancelUpdate();
         });
+
+        $(document).on('click', '.info-box-content__link--edit', () => {
+            myMap.editCurrentEntity();
+        });
+
+        $(document).on('click', '.info-box-content__link--delete', () => {
+            myMap.deleteCurrentEntity();
+        });
     });
 
     function initMap() {
@@ -178,6 +186,16 @@ $this->addScript('map/location');
     .info-box-content__admin {
         background-color: #ffdddd;
         margin-top: .5rem;
+        text-align: center;
+    }
+
+    .info-box-content__admin a {
+        color: #000000;
+    }
+
+    .info-box-content__admin a:hover {
+        color: #000000;
+        text-decoration: underline;
     }
 
     .info-box-content hr {
