@@ -155,6 +155,4 @@ class LocationsTable extends Table
         $entity->slug = Text::slug($entity->location_name);
         return parent::save($entity, $options);
     }
-
-
 }

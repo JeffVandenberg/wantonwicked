@@ -10,6 +10,7 @@ use Cake\Core\Configure;
  * @var array $districtTypes
  * @var array $locationTypes
  * @var array $locations
+ * @var array $districts
  * @var string $defaultDistrictDescription
  * @var string $defaultLocationDescription
  */
@@ -64,7 +65,8 @@ $this->addScript('map/location');
         myMap = new GameMap(null, isEditting, mapUI, mapData),
         defaultDistrictDescription = `<?= $defaultDistrictDescription ?>`,
         defaultLocationDescription = `<?= $defaultLocationDescription ?>`,
-        locations = JSON.parse('<?= str_replace(["'", '\\"', '\n'], ["\'", '\\\"', '\\\n'], json_encode($locations)); ?>');
+        locations = JSON.parse('<?= str_replace(["'", '\\"', '\n'], ["\'", '\\\"', '\\\n'], json_encode($locations)); ?>'),
+        districts = JSON.parse('<?= str_replace(["'", '\\"', '\n'], ["\'", '\\\"', '\\\n'], json_encode($districts)); ?>');
 
     JSON.parse('<?= json_encode($locationTypes); ?>').forEach((i) => {
         locationTypes[i.id] = i;
@@ -159,7 +161,7 @@ $this->addScript('map/location');
         });
 
         myMap.setMap(map);
-        myMap.initFeatures(locations, []);
+        myMap.initFeatures(locations, districts);
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= Configure::read('Maps.key'); ?>&callback=initMap"

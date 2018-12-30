@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use App\Controller\Component\PermissionsComponent;
+use App\Model\Entity\District;
 use Cake\Event\Event;
 use Cake\ORM\Locator\TableLocator;
 use Cake\ORM\TableRegistry;
@@ -38,8 +39,6 @@ class MapController extends AppController
         $coords = ['lat' => 45.5231, 'long' => -122.6765];
         $defaultLocationDescription = $this->Config->read('default_location_description');
         $defaultDistrictDescription = $this->Config->read('default_district_description');
-
-        // load districts
 
         // load district types
         $districtTypes = TableRegistry::getTableLocator()->get('DistrictTypes')
@@ -92,7 +91,32 @@ class MapController extends AppController
             return $item;
         }, $locations);
 
-        $this->set(compact('coords', 'locationTypes', 'districtTypes', 'locations',
+        // load districts
+        $districts = TableRegistry::getTableLocator()->get('districts')
+            ->find()
+            ->select([
+                'id',
+                'name' => 'district_name',
+                'description' => 'district_description',
+                'district_type_id',
+                'slug',
+                'points',
+                'DistrictTypes.color'
+            ])
+            ->contain([
+                'DistrictTypes'
+            ])
+            ->toArray();
+
+        $districts = array_map(function($item) {
+            /** @var District $item */
+            $item->points = json_decode($item->points);
+            $item->color = $item->district_type->color;
+            unset($item->district_type);
+            return $item;
+        }, $districts);
+
+        $this->set(compact('coords', 'locationTypes', 'districtTypes', 'locations', 'districts',
             'defaultDistrictDescription', 'defaultLocationDescription'));
     }
 

@@ -107,8 +107,11 @@ ${entity.description}
 
     cancelUpdate() {
         if(!this.currentEntity.id) {
-            if(this.currentEntity.marker) {
+            if(this.currentEntity instanceof Location) {
                 this.currentEntity.marker.setMap(null);
+                this.currentEntity = null;
+            } else if (this.currentEntity instanceof District) {
+                this.currentEntity.polygon.setMap(null);
                 this.currentEntity = null;
             }
         }

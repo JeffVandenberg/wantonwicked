@@ -19,6 +19,7 @@ use Cake\ORM\Entity;
  * @property int $reality_id
  * @property int $district_type_id
  * @property string $slug
+ * @property string $points
  *
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\CreatedBy $created_by

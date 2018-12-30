@@ -1,9 +1,11 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
@@ -19,7 +21,6 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\District get($primaryKey, $options = [])
  * @method \App\Model\Entity\District newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\District[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\District|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\District|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\District patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\District[] patchEntities($entities, array $data, array $options = [])
@@ -39,24 +40,35 @@ class DistrictsTable extends Table
         parent::initialize($config);
 
         $this->setTable('districts');
-        $this->setDisplayField('id');
+        $this->setDisplayField('district_name');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created_on' => 'new',
+                    'updated_on' => 'always',
+                ]
+            ]
+        ]);
 
         $this->belongsTo('Cities', [
             'foreignKey' => 'city_id',
-            'joinType' => 'INNER'
+            'joinType' => 'LEFT'
         ]);
-        $this->belongsTo('CreatedBies', [
+        $this->belongsTo('CreatedBy', [
             'foreignKey' => 'created_by_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'className' => 'Users'
         ]);
-        $this->belongsTo('UpdatedBies', [
+        $this->belongsTo('UpdatedBy', [
             'foreignKey' => 'updated_by_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'className' => 'Users'
         ]);
         $this->belongsTo('Realities', [
             'foreignKey' => 'reality_id',
-            'joinType' => 'INNER'
+            'joinType' => 'LEFT'
         ]);
         $this->belongsTo('DistrictTypes', [
             'foreignKey' => 'district_type_id',
@@ -127,12 +139,19 @@ class DistrictsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['city_id'], 'Cities'));
-        $rules->add($rules->existsIn(['created_by_id'], 'CreatedBies'));
-        $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBies'));
-        $rules->add($rules->existsIn(['reality_id'], 'Realities'));
+        // to revisit
+//        $rules->add($rules->existsIn(['city_id'], 'Cities'));
+//        $rules->add($rules->existsIn(['reality_id'], 'Realities'));
+        $rules->add($rules->existsIn(['created_by_id'], 'CreatedBy'));
+        $rules->add($rules->existsIn(['updated_by_id'], 'UpdatedBy'));
         $rules->add($rules->existsIn(['district_type_id'], 'DistrictTypes'));
 
         return $rules;
+    }
+
+    public function save(EntityInterface $entity, $options = [])
+    {
+        $entity->slug = Text::slug($entity->district_name);
+        return parent::save($entity, $options);
     }
 }

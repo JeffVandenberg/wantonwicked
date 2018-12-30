@@ -26,7 +26,6 @@ class LocationsController extends AppController
         ]);
     }
 
-
     /**
      * Index method
      *

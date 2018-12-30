@@ -72,7 +72,7 @@ class GameMap {
             let district = this.createDistrict('', defaultDistrictDescription, this.districtTypeId,
                 this.zoneColor, this.zonePoints);
             this.districts.push(district);
-            this.mapUI.showDetailModel(district, () => { console.log('done!'); });
+            this.mapUI.showDetailModel(district, this.dataService.saveDistrict);
         } else {
             alert('Not enough points');
         }
@@ -81,6 +81,20 @@ class GameMap {
         this.creatingZone = false;
         this.mapUI.setPassiveDistrictButtonText();
         this.mapUI.hideDistrictTypeSelect();
+    }
+
+    addDistrict(data) {
+        let latLngs = data.points.map(point => new google.maps.LatLng(point.y, point.x)),
+            district = this.createDistrict(data.name, data.description, data.district_type_id, data.color, latLngs,
+                data.id);
+        this.districts.push(district);
+    }
+
+    removeDistrict(district) {
+        if (district.infoWindow) {
+            district.infoWindow.setMap(null);
+        }
+        district.polygon.setMap(null);
     }
 
     startLocation() {
@@ -103,7 +117,7 @@ class GameMap {
     }
 
     removeLocation(location) {
-        if(location.infoWindow) {
+        if (location.infoWindow) {
             location.infoWindow.setMap(null);
         }
         location.marker.setMap(null);
@@ -117,7 +131,7 @@ class GameMap {
         this.mapUI.showDetailModel(location, this.dataService.saveLocation);
     }
 
-    createDistrict(name, description, districtTypeId, color, points) {
+    createDistrict(name, description, districtTypeId, color, points, id = null) {
         let polygon = new google.maps.Polygon({
                 paths: points,
                 fillColor: color,
@@ -127,15 +141,20 @@ class GameMap {
                 strokeWeight: this.strokeWeight,
                 draggable: this.isEditting
             }),
-            district = new District(name, description, districtTypeId, color, points, polygon);
+            district = new District(name, description, districtTypeId, color, points, polygon, id);
         polygon.addListener('click', (e) => {
+            this.clearInfoWindows();
             let infoWindow = new google.maps.InfoWindow();
             infoWindow.setContent(this.mapUI.createInfoBoxContent(district));
             infoWindow.setPosition(e.latLng);
             infoWindow.setMap(this.map);
+            this.setCurrentEntity(district);
+            this.infoWindows.push(infoWindow);
+            district.infoWindow = infoWindow;
         });
         polygon.addListener('dragend', (e) => {
-            district.points = poligy.getPath().getArray();
+            district.points = polygon.getPath().getArray();
+            this.dataService.saveDistrict(district);
         })
         polygon.setMap(this.map);
         return district;
@@ -212,25 +231,35 @@ class GameMap {
         this.infoWindows = [];
     }
 
-    initFeatures(locations, districts)
-    {
+    initFeatures(locations, districts) {
         // draw locations
         locations.forEach((i) => {
             this.addLocation(i);
         })
 
         // draw districts
+        districts.forEach((i) => {
+            this.addDistrict(i);
+        })
     }
 
     editCurrentEntity() {
-        console.log(this.currentEntity);
-        this.mapUI.showDetailModel(this.currentEntity, this.dataService.saveLocation)
+        if(this.currentEntity instanceof Location) {
+            this.mapUI.showDetailModel(this.currentEntity, this.dataService.saveLocation)
+        }
+        if(this.currentEntity instanceof District) {
+            this.mapUI.showDetailModel(this.currentEntity, this.dataService.saveDistrict)
+        }
     }
 
     deleteCurrentEntity() {
-        if(confirm(`Are you sure you want to delete "${this.currentEntity.name}"?`)) {
-            if(this.currentEntity instanceof Location) {
+        if (confirm(`Are you sure you want to delete "${this.currentEntity.name}"?`)) {
+            if (this.currentEntity instanceof Location) {
                 this.dataService.deleteLocation(this.currentEntity, this.removeLocation);
+            }
+
+            if (this.currentEntity instanceof District) {
+                this.dataService.deleteDistrict(this.currentEntity, this.removeDistrict);
             }
         }
     }

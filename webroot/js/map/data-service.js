@@ -41,4 +41,38 @@ class MapDataService {
             }
         })
     }
+
+    saveDistrict(district) {
+        const url = `/districts/save.json`,
+            data = {
+                id: district.id,
+                name: district.name,
+                description: district.description,
+                district_type_id: district.districtTypeId,
+                points: []
+            };
+        district.points.forEach((point) => {
+            data.points.push({
+                x: point.lng(),
+                y: point.lat()
+            });
+        });
+        $.post(url, data, (response) => {
+            district.id = response.district.id;
+        });
+    }
+
+    deleteDistrict(district, next) {
+        const url = `/districts/delete/${district.id}.json`,
+            data = {};
+        $.post(url, data, (response) => {
+            if (response.data.success) {
+                if (next) {
+                    next(district);
+                }
+            } else {
+                alert(response.data.message);
+            }
+        })
+    }
 }
