@@ -11,26 +11,16 @@ namespace classes\dice;
 
 class WodDice
 {
-    public function rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
+    public function rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias = '',
                                 $is_rote = false, $min_successes = 0)
     {
         $return = [];
-        $result = "";
-        $note = "Failure";
+        $result = '';
+        $note = 'Failure';
         $num_of_successes = 0;
 
         // set up array for rolls
-        switch ($bias) {
-            case 'high':
-                $num_array = array(1, 2, 3, 4, 5, 6, 7);
-                break;
-            case 'low':
-                $num_array = array(1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 9, 10);
-                break;
-            default:
-                $num_array = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-                break;
-        }
+        $num_array = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
         if ($chance_die == 'Y') {
             // process chance die roll
@@ -38,16 +28,16 @@ class WodDice
 
             do {
                 // roll the dice
-                $selected_index = mt_rand(0, sizeof($num_array) - 1);
+                $selected_index = random_int(0, sizeof($num_array) - 1);
                 $roll = $num_array[$selected_index];
 
                 // test for dramatic failure
-                if (($roll == 1) && (!$num_of_successes)) {
-                    $note = "Dramatic Failure";
+                if (($roll === 1) && (!$num_of_successes)) {
+                    $note = 'Dramatic Failure';
                 }
 
                 // count successes
-                if ($roll == 10) {
+                if ($roll === 10) {
                     $num_of_successes++;
                 }
 
@@ -60,12 +50,12 @@ class WodDice
                 }
 
                 // highlight next roll to show it was on the same die
-                if ($roll == 10) {
+                if ($roll === 10) {
                     $highlight_next_roll = true;
                 }
 
                 // determine if we roll again
-                if (($roll == 10) && ($ten_again == 'Y')) {
+                if (($roll === 10) && ($ten_again == 'Y')) {
                     $roll_again = true;
                 } else {
                     $roll_again = false;
@@ -84,7 +74,7 @@ class WodDice
                     $number_of_successes = 0;
                     do {
                         // do roll
-                        $selected_index = mt_rand(0, sizeof($num_array) - 1);
+                        $selected_index = random_int(0, sizeof($num_array) - 1);
                         usleep(1);
                         $roll = $num_array[$selected_index];
 
@@ -93,7 +83,7 @@ class WodDice
                             $num_of_successes++;
                         } else if ($is_rote && $is_first_roll) {
                             $first_roll = $roll;
-                            $selected_index = mt_rand(0, sizeof($num_array) - 1);
+                            $selected_index = random_int(0, sizeof($num_array) - 1);
                             $roll = $num_array[$selected_index];
 
                             // determine success
@@ -147,9 +137,9 @@ class WodDice
         // test to see if there are any sucesses
         if ($num_of_successes > 0) {
             if ($num_of_successes > 4) {
-                $note = "Exceptional Success";
+                $note = 'Exceptional Success';
             } else {
-                $note = "Success";
+                $note = 'Success';
             }
         }
 

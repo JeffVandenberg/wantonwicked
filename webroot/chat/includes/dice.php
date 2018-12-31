@@ -9,16 +9,16 @@
 use classes\core\helpers\Response;
 use classes\dice\WodDice;
 
-require_once("ini.php");
-require_once("session.php");
-require_once("config.php");
-require_once("functions.php");
+require_once('ini.php');
+require_once('session.php');
+require_once('config.php');
+require_once('functions.php');
 require_once('../../../vendor/autoload.php');
 
-header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
-header("Cache-Control: no-cache, must-revalidate");
-header("Pragma: no-cache");
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . 'GMT');
+header('Cache-Control: no-cache, must-revalidate');
+header('Pragma: no-cache');
 
 if (!isset($_POST['user_id'])) {
     return;
@@ -52,7 +52,7 @@ switch ($_POST['action']) {
         $spaceIndex = strpos($command, ' ');
         if ($spaceIndex === false) {
             $dice = $command;
-            $command = "";
+            $command = '';
         } else {
             $dice = substr($command, 0, $spaceIndex);
             $command = substr($command, $spaceIndex);
@@ -89,7 +89,7 @@ switch ($_POST['action']) {
         $chance_die = (strpos($command, 'chance') !== false) ? 'Y' : 'N';
         $isRote = (strpos($command, 'rote') !== false) ? true : false;
 
-        $result = $wodDice->rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
+        $result = $wodDice->rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, 'normal',
             $isRote);
         $now = date('Y-m-d H:i:s');
         $characterId = ($user['user_type_id'] == 3) ? $user['userid'] : '0';
@@ -169,11 +169,11 @@ EOQ;
                     '<a href="/dieroller.php?action=view_roll&r=' . $rollId . '" target="_blank" class="chat-viewable">View Roll</a>'
             );
             if ($spendWP && ($characterId > 0)) {
-                $sql = "UPDATE characters SET willpower_temp = willpower_temp -1 WHERE id = ?";
+                $sql = 'UPDATE characters SET willpower_temp = willpower_temp -1 WHERE id = ?';
                 $dbh->prepare($sql)->execute(array($characterId));
             }
             if ($spendPP && ($characterId > 0)) {
-                $sql = "UPDATE characters SET power_points = power_points - 1 WHERE id = ?";
+                $sql = 'UPDATE characters SET power_points = power_points - 1 WHERE id = ?';
                 $dbh->prepare($sql)->execute(array($characterId));
             }
         }
@@ -190,7 +190,7 @@ EOQ;
 
         if ($user['user_type_id'] == 3) {
             // load character for modifier
-            $sql = "SELECT initiative_mod FROM characters WHERE id = ?";
+            $sql = 'SELECT initiative_mod FROM characters WHERE id = ?';
             $dbh = db_connect();
             $query = $dbh->prepare($sql);
             $query->execute(array($user['userid']));

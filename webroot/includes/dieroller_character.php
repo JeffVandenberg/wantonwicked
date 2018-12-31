@@ -112,15 +112,6 @@ if (isset($_POST['submit_die_roller'])) {
     // check for bias
     $bias = 'normal';
 
-    if ($description[0] === '+') {
-        $description = substr($description, 1);
-        $bias = 'high';
-    }
-    if ($description[0] === '-') {
-        $description = substr($description, 1);
-        $bias = 'low';
-    }
-
     // validation and preprocessing
     $willpowerSpent = 0;
     if ($rollType == 0) {
