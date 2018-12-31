@@ -50,8 +50,7 @@ if (isset($_POST['submit_die_roller'])) {
 
     if ($dice) {
         $wodDice = new WodDice();
-        $result = $wodDice->rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $bias,
-            $is_rote == 'Y');
+        $result = $wodDice->rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $is_rote == 'Y');
 
         $query = "
 INSERT INTO wod_dierolls (Character_ID, Roll_Date, Character_Name, Description, Dice, 10_Again, 9_Again, 8_Again,

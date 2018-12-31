@@ -89,8 +89,7 @@ switch ($_POST['action']) {
         $chance_die = (strpos($command, 'chance') !== false) ? 'Y' : 'N';
         $isRote = (strpos($command, 'rote') !== false) ? true : false;
 
-        $result = $wodDice->rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, 'normal',
-            $isRote);
+        $result = $wodDice->rollWoDDice($dice, $ten_again, $nine_again, $eight_again, $one_cancel, $chance_die, $isRote);
         $now = date('Y-m-d H:i:s');
         $characterId = ($user['user_type_id'] == 3) ? $user['userid'] : '0';
 
@@ -198,7 +197,7 @@ EOQ;
             $mod += $row['initiative_mod'];
         }
 
-        $result = $wodDice->rollWoDDice('1', 'N', 'N', 'N', 'N', 'N', 'normal', false);
+        $result = $wodDice->rollWoDDice('1', 'N', 'N', 'N', 'N', 'N', false);
 
         $sql = <<<EOQ
 INSERT INTO
