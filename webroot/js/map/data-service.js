@@ -25,6 +25,13 @@ class MapDataService {
             };
         $.post(url, data, (response) => {
             location.id = response.location.id;
+            $.toast({
+                text: `${location.name} has been saved.`,
+                heading: 'Successs',
+                position: {top:20, right:70},
+                icon: 'info',
+                allowToastClose: true
+            });
         });
     }
 
@@ -33,11 +40,24 @@ class MapDataService {
             data = {};
         $.post(url, data, (response) => {
             if (response.data.success) {
+                $.toast({
+                    text: `${location.name} has been deleted.`,
+                    heading: 'Successs',
+                    position: {top:20, right:70},
+                    icon: 'info',
+                    allowToastClose: true
+                });
                 if (next) {
                     next(location);
                 }
             } else {
-                alert(response.data.message);
+                $.toast({
+                    text: `${response.data.message}`,
+                    heading: 'Error',
+                    position: {top:20, right:70},
+                    icon: 'error',
+                    allowToastClose: true
+                });
             }
         })
     }
@@ -59,6 +79,13 @@ class MapDataService {
         });
         $.post(url, data, (response) => {
             district.id = response.district.id;
+            $.toast({
+                text: `${district.name} has been added.`,
+                heading: 'Successs',
+                position: {top:20, right:70},
+                icon: 'info',
+                allowToastClose: true
+            });
         });
     }
 
@@ -67,10 +94,25 @@ class MapDataService {
             data = {};
         $.post(url, data, (response) => {
             if (response.data.success) {
+                $.toast({
+                    text: `${district.name} has been deleted.`,
+                    heading: 'Successs',
+                    position: {top:20, right:70},
+                    icon: 'info',
+                    allowToastClose: true
+                });
                 if (next) {
                     next(district);
                 }
             } else {
+                $.toast({
+                    text: `${response.data.message}`,
+                    heading: 'Error',
+                    position: {top:20, right:70},
+                    icon: 'error',
+                    allowToastClose: true
+                });
+
                 alert(response.data.message);
             }
         })

@@ -121,6 +121,7 @@ $this->addScript('map/location');
                 myMap.cancelLocation();
             } else {
                 myMap.startLocation();
+                myMap.cancelDistrict();
             }
         });
 
@@ -130,6 +131,7 @@ $this->addScript('map/location');
                 myMap.finishDistrict();
             } else {
                 myMap.startDistrict();
+                myMap.cancelLocation();
             }
         });
 

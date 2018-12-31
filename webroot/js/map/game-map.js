@@ -66,6 +66,14 @@ class GameMap {
         this.mapUI.setActiveDistrictButtonText();
     }
 
+    cancelDistrict() {
+        this.clearTempMarkers();
+        this.clearZonePoints();
+        this.creatingZone = false;
+        this.mapUI.setPassiveDistrictButtonText();
+        this.mapUI.hideDistrictTypeSelect();
+    }
+
     finishDistrict() {
         if (this.zonePoints.length > 2) {
             this.zonePoints.push(this.zonePoints[0]);
