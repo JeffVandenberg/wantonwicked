@@ -13,14 +13,16 @@ class GameMap {
         this.locationIcon = '';
         this.districts = [];
         this.locations = [];
-        this.mapUI = mapUI;
         this.stagingLocation = null;
         this.stagingDistrict = null;
         this.locationTypeId = 0;
         this.districtTypeId = 0;
-        this.dataService = dataService;
         this.infoWindows = [];
         this.currentEntity = null;
+
+        // dependencies
+        this.dataService = dataService;
+        this.mapUI = mapUI;
     }
 
     setMap(map) {
@@ -84,11 +86,7 @@ class GameMap {
         } else {
             alert('Not enough points');
         }
-        this.clearTempMarkers();
-        this.clearZonePoints();
-        this.creatingZone = false;
-        this.mapUI.setPassiveDistrictButtonText();
-        this.mapUI.hideDistrictTypeSelect();
+        this.cancelDistrict();
     }
 
     addDistrict(data) {
