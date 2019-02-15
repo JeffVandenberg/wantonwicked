@@ -95,8 +95,11 @@ $menuComponents['base'] = [
             'Spheres' => [
                 'link' => '/wiki/City/Spheres'
             ],
-            'Map' => [
+            'Map (Legacy)' => [
                 'link' => '/mapww5/map.html'
+            ],
+            'Map (New)' => [
+                'link' => '/map'
             ],
             'The Districts' => [
                 'link' => '/wiki/City/Districts'
