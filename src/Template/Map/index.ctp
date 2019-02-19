@@ -78,7 +78,7 @@ $this->addScript('map/location');
 
     $(function () {
         // setup location type selector
-        let $locationType = $("#location-type")
+        const $locationType = $("#location-type")
         locationTypes.forEach((i, key) => {
             $locationType.append(
                 $("<option>").attr('value', key).text(i.name)
