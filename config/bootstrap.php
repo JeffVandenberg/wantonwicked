@@ -44,6 +44,7 @@ require __DIR__ . '/paths.php';
  */
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
+use App\Application;
 use Cake\Cache\Cache;
 use Cake\Console\ConsoleErrorHandler;
 use Cake\Core\App;
@@ -240,9 +241,7 @@ $GLOBALS['userdata'] = $userdata;
  * Debug Kit should not be installed on a production system
  */
 if (Configure::read('debug')) {
-    Plugin::load('DebugKit', ['bootstrap' => true]);
+    Application::addPlugin('DebugKit', ['bootstrap' => true]);
 }
-Plugin::load([
-    'Tags',
-    'Muffin/Slug'
-]);
+
+Application::addPlugin('Tags')->addPlugin('Muffin/Slug');
