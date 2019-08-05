@@ -6,6 +6,7 @@ use App\Model\Entity\Character;
 use App\Model\Entity\CharacterStatus;
 use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -589,7 +590,11 @@ EOQ;
 
     }
 
-    public function listForHome($userId)
+    /**
+     * @param int $userId User ID
+     * @return array|Query
+     */
+    public function listForHome(int $userId)
     {
         return $this
             ->find()

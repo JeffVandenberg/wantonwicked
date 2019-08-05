@@ -37,7 +37,7 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
-    public $components = array(
+    public $components = [
         'RequestHandler',
         'Paginator',
         'Auth' => [
@@ -50,16 +50,16 @@ class AppController extends Controller
         'Menu',
         'RequestHandler',
         'Flash'
-    );
+    ];
 
-    public $helpers = array(
+    public $helpers = [
         'Html',
         'Form',
         'MainMenu',
         'Shrink.Shrink' => [
             'debugLevel' => 1
         ]
-    );
+    ];
 
     public function beforeFilter(Event $event)
     {

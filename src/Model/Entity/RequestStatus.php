@@ -15,49 +15,49 @@ use OAuth\Common\Exception\Exception;
  */
 class RequestStatus extends Entity
 {
-    const NewRequest = 1;
-    const Submitted = 6;
-    const InProgress = 2;
-    const Returned = 3;
-    const Approved = 4;
-    const Denied = 5;
-    const Closed = 7;
+    const NEW_REQUEST = 1;
+    const SUBMITTED = 6;
+    const IN_PROGRESS = 2;
+    const RETURNED = 3;
+    const APPROVED = 4;
+    const DENIED = 5;
+    const CLOSED = 7;
 
-    public static $Player = array(
-        RequestStatus::NewRequest,
-        RequestStatus::Submitted,
-        RequestStatus::InProgress,
-        RequestStatus::Returned,
-        RequestStatus::Approved,
-        RequestStatus::Denied
-    );
+    public static $Player = [
+        RequestStatus::NEW_REQUEST,
+        RequestStatus::SUBMITTED,
+        RequestStatus::IN_PROGRESS,
+        RequestStatus::RETURNED,
+        RequestStatus::APPROVED,
+        RequestStatus::DENIED
+    ];
 
-    public static $PlayerEdit = array(
-        RequestStatus::NewRequest,
-        RequestStatus::Submitted,
-        RequestStatus::Returned
-    );
+    public static $PlayerEdit = [
+        RequestStatus::NEW_REQUEST,
+        RequestStatus::SUBMITTED,
+        RequestStatus::RETURNED
+    ];
 
-    public static $Storyteller = array(
-        RequestStatus::Submitted,
-        RequestStatus::InProgress
-    );
+    public static $Storyteller = [
+        RequestStatus::SUBMITTED,
+        RequestStatus::IN_PROGRESS
+    ];
 
-    public static $PlayerSubmit = array(
-        RequestStatus::NewRequest,
-        RequestStatus::Returned
-    );
+    public static $PlayerSubmit = [
+        RequestStatus::NEW_REQUEST,
+        RequestStatus::RETURNED
+    ];
 
-    public static $Final = array(
-        RequestStatus::Approved,
-        RequestStatus::Denied
-    );
+    public static $Final = [
+        RequestStatus::APPROVED,
+        RequestStatus::DENIED
+    ];
 
-    public static $Terminal = array(
-        RequestStatus::Approved,
-        RequestStatus::Denied,
-        RequestStatus::Closed
-    );
+    public static $Terminal = [
+        RequestStatus::APPROVED,
+        RequestStatus::DENIED,
+        RequestStatus::CLOSED
+    ];
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -82,15 +82,15 @@ class RequestStatus extends Entity
     {
         switch (strtolower($state)) {
             case 'return':
-                return self::Returned;
+                return self::RETURNED;
             case 'deny':
-                return self::Denied;
+                return self::DENIED;
             case 'approve':
-                return self::Approved;
+                return self::APPROVED;
             case 'new':
-                return self::NewRequest;
+                return self::NEW_REQUEST;
             case 'close':
-                return self::Closed;
+                return self::CLOSED;
             default:
                 throw new Exception('Unknown Request Status: ' . $state);
         }

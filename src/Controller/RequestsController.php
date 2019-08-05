@@ -179,7 +179,7 @@ class RequestsController extends AppController
             $request->updated_by_id =
             $request->created_by_id =
                 $this->Auth->user('user_id');
-            $request->request_status_id = RequestStatus::NewRequest;
+            $request->request_status_id = RequestStatus::NEW_REQUEST;
 
             if ($this->Requests->save($request)) {
                 if ($characterId) {
@@ -192,7 +192,7 @@ class RequestsController extends AppController
                     $this->Requests->RequestCharacters->save($reqChar);
                 }
                 if ($this->getRequest()->getData('action') === 'submit') {
-                    $request->request_status_id = RequestStatus::Submitted;
+                    $request->request_status_id = RequestStatus::SUBMITTED;
                     $this->Requests->save($request);
 
                     if (!$this->RequestEmail->newRequestSubmission($request)) {
@@ -246,7 +246,7 @@ class RequestsController extends AppController
         $request = $this->Requests->getFullRequest($id);
         $this->validateRequestView($request);
 
-        if ($request->request_status_id == RequestStatus::NewRequest) {
+        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
             $this->Flash->set('This request is not yet submitted to STs.');
         }
 
@@ -282,12 +282,12 @@ class RequestsController extends AppController
                 )
             )
         );
-        if ($request->request_status_id == RequestStatus::NewRequest) {
+        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
             $menu['Actions']['submenu']['Edit Request'] = [
                 'link' => ['action' => 'edit', $id]
             ];
         }
-        if ($request->request_status_id != RequestStatus::Closed) {
+        if ($request->request_status_id != RequestStatus::CLOSED) {
             $menu['Actions']['submenu']['Forward Request'] = [
                 'link' => ['action' => 'forward', $id]
             ];
@@ -300,7 +300,7 @@ class RequestsController extends AppController
                 'link' => ['action' => 'submit', $id]
             ];
         }
-        if ($request->request_status_id == RequestStatus::NewRequest) {
+        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
             $menu['Actions']['submenu']['Delete Request'] = [
                 'link' => ['action' => 'delete', $id]
             ];
@@ -387,7 +387,7 @@ class RequestsController extends AppController
         $request = $this->Requests->get($requestId);
         $this->validateRequestEdit($request);
 
-        if ($request->request_status_id == RequestStatus::NewRequest) {
+        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
             if ($this->Requests->delete($request)) {
                 $this->Flash->set('Request ' . $request->title . ' has been deleted');
             } else {
@@ -694,8 +694,8 @@ class RequestsController extends AppController
         $request = $this->Requests->getFullRequest($requestId);
 
         CharacterLog::logAction($request['character_id'], ActionType::VIEW_REQUEST, 'View Request', $this->Auth->user('user_id'), $requestId);
-        if ($request->request_status_id === RequestStatus::Submitted) {
-            $request->request_status_id = RequestStatus::InProgress;
+        if ($request->request_status_id === RequestStatus::SUBMITTED) {
+            $request->request_status_id = RequestStatus::IN_PROGRESS;
             $request->updated_by_id = $this->Auth->user('user_id');
             $this->Requests->save($request);
         }
@@ -764,7 +764,7 @@ class RequestsController extends AppController
         $request = $this->Requests->getFullRequest($requestId);
         $this->validateRequestEdit($request);
 
-        $request->request_status_id = RequestStatus::Submitted;
+        $request->request_status_id = RequestStatus::SUBMITTED;
         $request->updated_by_id = $this->Auth->user('user_id');
         if ($this->Requests->save($request)) {
             $this->Flash->set('Request has been submitted.');
@@ -789,7 +789,7 @@ class RequestsController extends AppController
         $request = $this->Requests->get($requestId);
         $this->validateRequestEdit($request);
 
-        $request->request_status_id = RequestStatus::Closed;
+        $request->request_status_id = RequestStatus::CLOSED;
         $request->updated_by_id = $this->Auth->user('user_id');
         if ($this->Requests->save($request)) {
             $this->Flash->set('Closed request: ' . $request->title);
