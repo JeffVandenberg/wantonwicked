@@ -20,9 +20,13 @@
  */
 namespace App\Controller;
 
+use App\Controller\Component\ConfigComponent;
 use App\Controller\Component\MenuComponent;
+use App\Controller\Component\PermissionsComponent;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Http\Response;
+use Exception;
 
 /**
  * Application Controller
@@ -30,13 +34,17 @@ use Cake\Event\Event;
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @property \App\Controller\Component\MenuComponent $Menu
+ * @property MenuComponent $Menu
  * @package        app.Controller
  * @link        http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
- * @property \App\Controller\Component\PermissionsComponent $Permissions
+ * @property PermissionsComponent $Permissions
+ * @property ConfigComponent Config
  */
 class AppController extends Controller
 {
+    /**
+     * @var array
+     */
     public $components = [
         'RequestHandler',
         'Paginator',
@@ -49,9 +57,13 @@ class AppController extends Controller
         'Permissions',
         'Menu',
         'RequestHandler',
-        'Flash'
+        'Flash',
+        'Config',
     ];
 
+    /**
+     * @var array
+     */
     public $helpers = [
         'Html',
         'Form',
@@ -61,6 +73,10 @@ class AppController extends Controller
         ]
     ];
 
+    /**
+     * @param Event $event Event to handle
+     * @return Response|void|null
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -74,6 +90,11 @@ class AppController extends Controller
         $this->Auth->deny();
     }
 
+    /**
+     * @param Event $event Event to handle
+     * @return Response|void|null
+     * @throws Exception
+     */
     public function beforeRender(Event $event)
     {
         parent::beforeRender($event);
@@ -82,6 +103,6 @@ class AppController extends Controller
         $this->set('serverTime', (microtime(true) + date('Z')) * 1000);
         $this->set('buildNumber', file_get_contents(ROOT . '/build_number'));
         $this->set('isLoggedIn', $this->Auth->user('user_id') > 1);
+        $this->set('city', $this->Config->readGlobal('city'));
     }
-
 }

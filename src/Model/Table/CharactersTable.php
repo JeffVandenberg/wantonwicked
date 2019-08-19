@@ -6,6 +6,8 @@ use App\Model\Entity\Character;
 use App\Model\Entity\CharacterStatus;
 use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
+use Cake\ORM\Association\BelongsTo;
+use Cake\ORM\Association\HasMany;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -16,22 +18,22 @@ use function intval;
 /**
  * Characters Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\BelongsTo $UpdatedBy
- * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\BelongsTo $CharacterStatus
- * @property \Cake\ORM\Association\HasMany $CharacterBeatRecords
- * @property \Cake\ORM\Association\HasMany $CharacterBeats
- * @property \Cake\ORM\Association\HasMany $CharacterLogins
- * @property \Cake\ORM\Association\HasMany $CharacterNotes
- * @property \Cake\ORM\Association\HasMany $CharacterPowers
- * @property \Cake\ORM\Association\HasMany $CharacterUpdates
- * @property \Cake\ORM\Association\HasMany $LogCharacters
- * @property \Cake\ORM\Association\HasMany $RequestCharacters
- * @property \Cake\ORM\Association\HasMany $Requests
- * @property \Cake\ORM\Association\HasMany $SceneCharacters
- * @property \Cake\ORM\Association\HasMany $SupporterCharacters
- * @property \Cake\ORM\Association\HasMany $Territories
+ * @property BelongsTo $Users
+ * @property BelongsTo $UpdatedBy
+ * @property BelongsTo $Locations
+ * @property BelongsTo $CharacterStatus
+ * @property HasMany $CharacterBeatRecords
+ * @property HasMany $CharacterBeats
+ * @property HasMany $CharacterLogins
+ * @property HasMany $CharacterNotes
+ * @property HasMany $CharacterPowers
+ * @property HasMany $CharacterUpdates
+ * @property HasMany $LogCharacters
+ * @property HasMany $RequestCharacters
+ * @property HasMany $Requests
+ * @property HasMany $SceneCharacters
+ * @property HasMany $SupporterCharacters
+ * @property HasMany $Territories
  *
  * @method Character newEntity($data = null, array $options = [])
  * @method Character[] newEntities(array $data, array $options = [])
@@ -110,246 +112,228 @@ class CharactersTable extends Table
     /**
      * Default validation rules.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
+     * @param Validator $validator Validator instance.
+     * @return Validator
      */
     public function validationDefault(Validator $validator)
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyFor('id', 'create');
 
         $validator
             ->requirePresence('character_name', 'create')
-            ->notEmpty('character_name');
+            ->notEmptyString('character_name');
 
         $validator
             ->requirePresence('show_sheet', 'create')
-            ->notEmpty('show_sheet');
+            ->notEmptyString('show_sheet');
 
         $validator
             ->requirePresence('view_password', 'create')
-            ->notEmpty('view_password');
+            ->notEmptyString('view_password');
 
         $validator
             ->requirePresence('character_type', 'create')
-            ->notEmpty('character_type');
+            ->notEmptyString('character_type');
 
         $validator
             ->requirePresence('city', 'create')
-            ->notEmpty('city');
+            ->notEmptyString('city');
 
         $validator
             ->integer('age')
-            ->requirePresence('age', 'create')
-            ->notEmpty('age');
+            ->requirePresence('age', 'create');
 
         $validator
             ->requirePresence('sex', 'create')
-            ->notEmpty('sex');
+            ->notEmptyString('sex');
 
         $validator
             ->integer('apparent_age')
             ->requirePresence('apparent_age', 'create')
-            ->notEmpty('apparent_age');
+            ->notEmptyString('apparent_age');
 
         $validator
             ->requirePresence('concept', 'create')
-            ->notEmpty('concept');
+            ->notEmptyString('concept');
 
         $validator
             ->requirePresence('description', 'create')
-            ->notEmpty('description');
+            ->notEmptyString('description');
 
         $validator
             ->requirePresence('url', 'create')
-            ->notEmpty('url');
+            ->notEmptyString('url');
 
         $validator
             ->requirePresence('safe_place', 'create')
-            ->notEmpty('safe_place');
+            ->notEmptyString('safe_place');
 
         $validator
             ->requirePresence('friends', 'create')
-            ->notEmpty('friends');
+            ->notEmptyString('friends');
 
         $validator
             ->requirePresence('exit_line', 'create')
-            ->notEmpty('exit_line');
+            ->notEmptyString('exit_line');
 
         $validator
             ->requirePresence('icon', 'create')
-            ->notEmpty('icon');
+            ->notEmptyString('icon');
 
         $validator
             ->requirePresence('is_npc', 'create')
-            ->notEmpty('is_npc');
+            ->notEmptyString('is_npc');
 
         $validator
-            ->allowEmpty('virtue');
+            ->allowEmptyString('virtue');
 
         $validator
-            ->allowEmpty('vice');
+            ->allowEmptyString('vice');
 
         $validator
             ->requirePresence('splat1', 'create')
-            ->notEmpty('splat1');
+            ->notEmptyString('splat1');
 
         $validator
             ->requirePresence('splat2', 'create')
-            ->notEmpty('splat2');
+            ->notEmptyString('splat2');
 
         $validator
             ->requirePresence('subsplat', 'create')
-            ->notEmpty('subsplat');
+            ->notEmptyString('subsplat');
 
         $validator
             ->integer('size')
-            ->requirePresence('size', 'create')
-            ->notEmpty('size');
+            ->requirePresence('size', 'create');
 
         $validator
             ->integer('speed')
-            ->requirePresence('speed', 'create')
-            ->notEmpty('speed');
+            ->requirePresence('speed', 'create');
 
         $validator
             ->integer('initiative_mod')
-            ->requirePresence('initiative_mod', 'create')
-            ->notEmpty('initiative_mod');
+            ->requirePresence('initiative_mod', 'create');
 
         $validator
             ->integer('defense')
-            ->requirePresence('defense', 'create')
-            ->notEmpty('defense');
+            ->requirePresence('defense', 'create');
 
         $validator
-            ->requirePresence('armor', 'create')
-            ->notEmpty('armor');
+            ->requirePresence('armor', 'create');
 
         $validator
             ->integer('health')
-            ->requirePresence('health', 'create')
-            ->notEmpty('health');
+            ->requirePresence('health', 'create');
 
         $validator
             ->integer('wounds_agg')
-            ->requirePresence('wounds_agg', 'create')
-            ->notEmpty('wounds_agg');
+            ->requirePresence('wounds_agg', 'create');
 
         $validator
             ->integer('wounds_lethal')
-            ->requirePresence('wounds_lethal', 'create')
-            ->notEmpty('wounds_lethal');
+            ->requirePresence('wounds_lethal', 'create');
 
         $validator
             ->integer('wounds_bashing')
-            ->requirePresence('wounds_bashing', 'create')
-            ->notEmpty('wounds_bashing');
+            ->requirePresence('wounds_bashing', 'create');
 
         $validator
             ->integer('willpower_perm')
-            ->requirePresence('willpower_perm', 'create')
-            ->notEmpty('willpower_perm');
+            ->requirePresence('willpower_perm', 'create');
 
         $validator
             ->integer('willpower_temp')
-            ->requirePresence('willpower_temp', 'create')
-            ->notEmpty('willpower_temp');
+            ->requirePresence('willpower_temp', 'create');
 
         $validator
             ->integer('power_stat')
-            ->requirePresence('power_stat', 'create')
-            ->notEmpty('power_stat');
+            ->requirePresence('power_stat', 'create');
 
         $validator
             ->integer('power_points')
-            ->requirePresence('power_points', 'create')
-            ->notEmpty('power_points');
+            ->requirePresence('power_points', 'create');
 
         $validator
             ->integer('morality')
-            ->requirePresence('morality', 'create')
-            ->notEmpty('morality');
+            ->requirePresence('morality', 'create');
 
         $validator
             ->requirePresence('merits', 'create')
-            ->notEmpty('merits');
+            ->notEmptyString('merits');
 
         $validator
             ->requirePresence('flaws', 'create')
-            ->notEmpty('flaws');
+            ->notEmptyString('flaws');
 
         $validator
             ->requirePresence('equipment_public', 'create')
-            ->notEmpty('equipment_public');
+            ->notEmptyString('equipment_public');
 
         $validator
             ->requirePresence('equipment_hidden', 'create')
-            ->notEmpty('equipment_hidden');
+            ->notEmptyString('equipment_hidden');
 
         $validator
             ->requirePresence('public_effects', 'create')
-            ->notEmpty('public_effects');
+            ->notEmptyString('public_effects');
 
         $validator
             ->requirePresence('history', 'create')
-            ->notEmpty('history');
+            ->notEmptyString('history');
 
         $validator
             ->requirePresence('character_notes', 'create')
-            ->notEmpty('character_notes');
+            ->notEmptyString('character_notes');
 
         $validator
             ->requirePresence('goals', 'create')
-            ->notEmpty('goals');
+            ->notEmptyString('goals');
 
         $validator
             ->numeric('current_experience')
-            ->requirePresence('current_experience', 'create')
-            ->notEmpty('current_experience');
+            ->requirePresence('current_experience', 'create');
 
         $validator
             ->numeric('total_experience')
-            ->requirePresence('total_experience', 'create')
-            ->notEmpty('total_experience');
+            ->requirePresence('total_experience', 'create');
 
         $validator
             ->integer('bonus_received')
-            ->requirePresence('bonus_received', 'create')
-            ->notEmpty('bonus_received');
+            ->requirePresence('bonus_received', 'create');
 
         $validator
             ->dateTime('updated_on')
-            ->allowEmpty('updated_on');
+            ->allowEmptyDateTime('updated_on');
 
         $validator
             ->requirePresence('gm_notes', 'create')
-            ->notEmpty('gm_notes');
+            ->notEmptyString('gm_notes');
 
         $validator
             ->requirePresence('sheet_update', 'create')
-            ->notEmpty('sheet_update');
+            ->notEmptyString('sheet_update');
 
         $validator
             ->requirePresence('hide_icon', 'create')
-            ->notEmpty('hide_icon');
+            ->notEmptyString('hide_icon');
 
         $validator
             ->requirePresence('helper', 'create')
-            ->notEmpty('helper');
+            ->notEmptyString('helper');
 
         $validator
             ->requirePresence('status', 'create')
-            ->notEmpty('status');
+            ->notEmptyString('status');
 
         $validator
             ->requirePresence('bonus_attribute', 'create')
-            ->notEmpty('bonus_attribute');
+            ->notEmptyString('bonus_attribute');
 
         $validator
             ->requirePresence('misc_powers', 'create')
-            ->notEmpty('misc_powers');
+            ->notEmptyString('misc_powers');
 
         $validator
             ->decimal('average_power_points')
@@ -363,21 +347,19 @@ class CharactersTable extends Table
 
         $validator
             ->integer('temporary_health_levels')
-            ->requirePresence('temporary_health_levels', 'create')
-            ->notEmpty('temporary_health_levels');
+            ->requirePresence('temporary_health_levels', 'create');
 
         $validator
             ->boolean('is_suspended')
-            ->requirePresence('is_suspended', 'create')
-            ->notEmpty('is_suspended');
+            ->requirePresence('is_suspended', 'create');
 
         $validator
             ->requirePresence('gameline', 'create')
-            ->notEmpty('gameline');
+            ->notEmptyString('gameline');
 
         $validator
             ->requirePresence('slug', 'create')
-            ->notEmpty('slug');
+            ->notEmptyString('slug');
 
         return $validator;
     }
@@ -386,8 +368,8 @@ class CharactersTable extends Table
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
+     * @param RulesChecker $rules The rules object to be modified.
+     * @return RulesChecker
      */
     public function buildRules(RulesChecker $rules)
     {
@@ -399,7 +381,11 @@ class CharactersTable extends Table
         return $rules;
     }
 
-    public function listCharacterTypes($onlySanctioned)
+    /**
+     * @param bool $onlySanctioned only list sonctioned characters
+     * @return array
+     */
+    public function listCharacterTypes(bool $onlySanctioned)
     {
         $query = $this
             ->find('all')
@@ -422,6 +408,7 @@ class CharactersTable extends Table
         foreach ($query->toArray() as $row) {
             $list[$row->character_type] = $row->character_type;
         }
+
         return $list;
     }
 
@@ -443,6 +430,7 @@ class CharactersTable extends Table
         }
 
         $result = $query->first();
+
         return $result['total'] > 0;
     }
 
@@ -479,6 +467,7 @@ ORDER BY
   `year`,
   `month`
 EOQ;
+
         return $this->getConnection()->execute($query)->fetchAll('assoc');
     }
 
@@ -587,14 +576,14 @@ EOQ;
                 'RequestCharacters.request_id' => $requestId
             ])
             ->first();
-
     }
 
     /**
      * @param int $userId User ID
+     * @param string $city City to search in
      * @return array|Query
      */
-    public function listForHome(int $userId)
+    public function listForHome(int $userId, string $city)
     {
         return $this
             ->find()
@@ -608,7 +597,7 @@ EOQ;
                 'CharacterStatuses'
             ])
             ->where([
-                'Characters.city' => 'portland',
+                'Characters.city' => $city,
                 'Characters.character_status_id IN' => CharacterStatus::NonDeleted,
                 'Characters.user_id' => $userId
             ])

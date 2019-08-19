@@ -19,23 +19,25 @@ use App\Model\Table\RequestsTable;
 use App\Model\Table\ScenesTable;
 use Cake\Cache\Cache;
 use Cake\Event\Event;
+use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use classes\request\repository\RequestRepository;
+use Exception;
 use function compact;
 use const E_USER_DEPRECATED;
 use function error_reporting;
 use GuzzleHttp\Client;
 
 /**
- * @property \App\Controller\Component\ConfigComponent $Config
+ * @property ConfigComponent $Config
  * @property PermissionsComponent Permissions
  */
 class HomeController extends AppController
 {
-    public $components = array(
-        'Config'
-    );
-
+    /**
+     * @param Event $event Event to handle
+     * @return Response|void|null
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -46,9 +48,15 @@ class HomeController extends AppController
         ]);
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function home()
     {
         // get news content
+        $city = $this->Config->readGlobal('city');
+
         $this->set(['content' => $this->Config->read('FRONT_PAGE')]);
 
         // get scene information
@@ -68,7 +76,7 @@ class HomeController extends AppController
         if ($this->Auth->user('user_id') > 1) {
             $characters = TableRegistry::getTableLocator()->get('Characters');
             /* @var CharactersTable $characters */
-            $characterList = $characters->listForHome($this->Auth->user('user_id'));
+            $characterList = $characters->listForHome($this->Auth->user('user_id'), $city);
             $this->set(compact('characterList'));
         }
 
@@ -77,6 +85,9 @@ class HomeController extends AppController
         $this->set(compact('sceneList', 'playerRequests', 'plotList'));
     }
 
+    /**
+     * @return void
+     */
     public function staff()
     {
         $users = TableRegistry::getTableLocator()->get('Users');
@@ -84,6 +95,9 @@ class HomeController extends AppController
         $this->set(compact('staff'));
     }
 
+    /**
+     * @return void
+     */
     public function gsNews()
     {
         $news = $this->Config->read('gs_frontpage');
@@ -91,6 +105,9 @@ class HomeController extends AppController
         $this->set(compact('news'));
     }
 
+    /**
+     * @return void
+     */
     public function clearCache()
     {
         Cache::clearAll();
@@ -98,6 +115,10 @@ class HomeController extends AppController
         $this->redirect('/storyteller_index.php');
     }
 
+    /**
+     * @param array $user User Data
+     * @return bool
+     */
     public function isAuthorized($user)
     {
         switch (strtolower($this->getRequest()->getParam('action'))) {

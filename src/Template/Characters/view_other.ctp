@@ -73,7 +73,7 @@ $this->end();
             preserveInput: true,
             params: {},
             onSearchStart: function (query) {
-                query.city = 'portland';
+                query.city = <?= $character->City ?? 'portland'; ?>
                 query.only_sanctioned = 0;
             },
             onSelect: function (item) {

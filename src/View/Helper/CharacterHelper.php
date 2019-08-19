@@ -2,6 +2,7 @@
 
 namespace App\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\View\Helper\FormHelper;
 use Cake\View\Helper\HtmlHelper;
 use Cake\View\View;
@@ -109,9 +110,7 @@ class CharacterHelper extends AppHelper
     /**
      * @var array
      */
-    private $games = [
-        'portland' => 'Portland, OR'
-    ];
+    private $games = [];
 
     /**
      * @var array
@@ -172,6 +171,7 @@ class CharacterHelper extends AppHelper
         $list = array_merge($this->skills['mental'], $this->skills['physical'], $this->skills['social']);
         $keys = array_values($list);
         $this->skillList = array_combine($keys, $list);
+        $this->games = Configure::read('City.list');
         ksort($this->skillList);
     }
 

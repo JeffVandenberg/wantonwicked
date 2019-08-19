@@ -46,7 +46,7 @@ class Database
      */
     public function __construct($connection = null)
     {
-        $params = ($connection === null) ? DatabaseMapper::GetPrimary() : $connection;
+        $params = ($connection === null) ? DatabaseMapper::getPrimary() : $connection;
         try {
             $this->Handler = new PDO(
                 'mysql:host=' . $params['host'] . ';dbname=' . $params['db'],
