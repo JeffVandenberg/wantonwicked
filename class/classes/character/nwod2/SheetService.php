@@ -22,6 +22,11 @@ use classes\log\CharacterLog;
 use classes\log\data\ActionType;
 use classes\request\repository\RequestRepository;
 use classes\request\data\Request;
+use Exception;
+use function in_array;
+use function is_array;
+use function is_int;
+use function is_string;
 
 /**
  * Class SheetService
@@ -63,12 +68,23 @@ class SheetService
             'theme',
             'twist',
             'malison',
+            'avatism',
+            'nightmare',
+            'lair_trait',
         ],
         'limited' => [
             'aspiration',
             'conditions'
         ]
     ];
+    /**
+     * @var CharacterRepository
+     */
+    private $repository;
+    /**
+     * @var CharacterPowerRepository
+     */
+    private $powerRepository;
 
     /**
      * SheetService constructor.
@@ -121,7 +137,7 @@ class SheetService
         }
 
         foreach ($powerTypeList as $type => $min) {
-            if (\in_array($type, $powerTypes, true) && count($character->getPowerList($type)) < $min) {
+            if (in_array($type, $powerTypes, true) && count($character->getPowerList($type)) < $min) {
                 $this->addList($character, $min - count($character->getPowerList($type)), $type);
             }
         }
@@ -197,6 +213,13 @@ class SheetService
                     'break_point' => 5,
                 ];
                 break;
+            case 'beast':
+                $powers = [
+                    'avatism' => 3,
+                    'nightmare' => 3,
+                    'lair_trait' => 1
+                ];
+                break;
         }
 
         foreach ($powers as $type => $min) {
@@ -247,7 +270,7 @@ class SheetService
             return new Character();
         }
 
-        if (\is_int($identifier) || ((int)$identifier > 0)) {
+        if (is_int($identifier) || ((int)$identifier > 0)) {
             $character = $this->repository->getById($identifier);
         } else {
             $character = $this->repository->FindBySlug($identifier);
@@ -281,7 +304,7 @@ class SheetService
         // save new data
         $result = $this->saveData($stats, $options, $user);
 
-        if (\is_string($result)) {
+        if (is_string($result)) {
             return $result;
         }
 
@@ -309,6 +332,7 @@ class SheetService
      * @param array $options
      * @param array $user
      * @return bool
+     * @throws Exception
      */
     public function saveData(array $stats, array $options, array $user): bool
     {
@@ -360,7 +384,7 @@ class SheetService
             $character->Friends = $stats['friends'] ?? '';
         }
 
-        if (\in_array($options['edit_mode'], ['open', 'limited'])) {
+        if (in_array($options['edit_mode'], ['open', 'limited'])) {
             $character->Description = htmlspecialchars($stats['description']);
             $character->Splat1 = $stats['splat1'] ?: '';
             $character->Splat2 = $stats['splat2'] ?: '';
@@ -451,7 +475,7 @@ class SheetService
 
         // save all other powers
         foreach ($this->powerList[$options['edit_mode']] as $powerType) {
-            if (isset($stats[$powerType]) && \is_array($stats[$powerType])) {
+            if (isset($stats[$powerType]) && is_array($stats[$powerType])) {
                 foreach ($stats[$powerType] as $power) {
                     $pp = [
                         'id' => $power['id'] ?: null,
@@ -525,7 +549,7 @@ class SheetService
 
         $changedProperties = [];
         foreach ($newCharacter as $property => $value) {
-            if ($newCharacter->$property !== $oldCharacter->$property && !\in_array($property, $excludedProperties, true)) {
+            if ($newCharacter->$property !== $oldCharacter->$property && !in_array($property, $excludedProperties, true)) {
                 $changedProperties[] = $property;
             }
         }

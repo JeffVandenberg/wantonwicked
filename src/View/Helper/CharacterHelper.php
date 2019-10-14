@@ -85,7 +85,9 @@ class CharacterHelper extends AppHelper
         'ghoul' => 'Ghoul',
         'dhampir' => 'Dhampir',
         'werewolf' => 'Werewolf',
-        'wolfblooded' => 'Wolfblooded'
+        'wolfblooded' => 'Wolfblooded',
+        'beast' => 'Beast',
+        'herald' => 'Herald'
     ];
 
     /**
@@ -152,6 +154,8 @@ class CharacterHelper extends AppHelper
         'power_points' => false,
         'pledge' => false,
         'destiny' => false,
+        'morality' => false,
+        'lair_trait' => false
     ];
 
     /**
@@ -197,8 +201,7 @@ class CharacterHelper extends AppHelper
         $admin = $this->options['show_admin'] ? $this->buildAdminSection($character) : '';
         $owner = (isset($this->options['owner']) && $this->options['owner']) ? $this->buildOwnerSection($character) : '';
 
-        ob_start();
-        ?>
+        ob_start(); ?>
         <ul id="character-form-edit" class="accordion" data-accordion data-multi-expand="true"
             data-allow-all-closed="true">
             <li class="accordion-item is-active" data-accordion-item>
@@ -271,7 +274,7 @@ class CharacterHelper extends AppHelper
         $icon = $this->icons[$character->Icon] ?? '';
         $friends = $character->Friends;
         $destinyPower = $character->getPowerList('misc');
-        if(\is_array($destinyPower)) {
+        if (\is_array($destinyPower) && count($destinyPower)) {
             $destinyPower = $destinyPower[0];
         } else {
             $destinyPower = new CharacterPower();
@@ -302,7 +305,8 @@ class CharacterHelper extends AppHelper
                     'label' => false,
                     'div' => false,
                     'id' => 'character_type'
-                ]);
+                ]
+            );
             $city = $this->Form->select('city', $this->games, [
                 'label' => false,
                 'value' => $character->City,
@@ -373,7 +377,8 @@ class CharacterHelper extends AppHelper
                     'placeholder' => 'None',
                     'label' => 'Biography',
                     'value' => $character->History,
-                ]);
+                ]
+            );
             $characterNotes = $this->Form->textarea(
                 'notes',
                 [
@@ -433,15 +438,16 @@ class CharacterHelper extends AppHelper
                 'value' => $character->Icon,
                 'empty' => false
             ]);
-            $description = $this->Form->textarea('description',
+            $description = $this->Form->textarea(
+                'description',
                 [
                     'value' => $character->Description,
                     'label' => false,
                     'rows' => 6
-                ]);
+                ]
+            );
         }
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-bio" role="tab" class="accordion-title" id="csheet-bio-heading" aria-controls="csheet-bio">Dossier</a>
         <div id="csheet-bio" class="accordion-content" role="tabpanel" data-tab-content
              aria-labelledby="csheet-bio-heading">
@@ -490,8 +496,7 @@ class CharacterHelper extends AppHelper
                     <label for="concept">Concept</label>
                 </div>
                 <div class="medium-11 columns">
-                    <?php echo $concept;
-                    ?>
+                    <?php echo $concept; ?>
                 </div>
             </div>
             <div class="row">
@@ -506,7 +511,9 @@ class CharacterHelper extends AppHelper
                     <?php endif; ?>
                 </div>
                 <div class="medium-3 columns">
-                    <?php if ($this->sheetFields['splat1']) echo $splat1; ?>
+                    <?php if ($this->sheetFields['splat1']) {
+                        echo $splat1;
+                    } ?>
                 </div>
                 <div class="medium-1 columns">
                     <?php if ($this->sheetFields['splat2']): ?>
@@ -516,7 +523,9 @@ class CharacterHelper extends AppHelper
                     <?php endif; ?>
                 </div>
                 <div class="medium-3 columns">
-                    <?php if ($this->sheetFields['splat2']) echo $splat2; ?>
+                    <?php if ($this->sheetFields['splat2']) {
+                        echo $splat2;
+                    } ?>
                 </div>
                 <div class="medium-1 columns">
                     <?php if (isset($this->sheetFields['subsplat'])): ?>
@@ -644,8 +653,7 @@ class CharacterHelper extends AppHelper
      */
     private function buildStatEdit(Character $character): string
     {
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-stats" role="tab" class="accordion-title" id="csheet-stats-heading"
            aria-controls="csheet-stats">Stats</a>
         <div id="csheet-stats" class="accordion-content" role="tabpanel" data-tab-content
@@ -926,12 +934,11 @@ class CharacterHelper extends AppHelper
     /**
      * @param Character $character
      * @return string
+     * @throws Exception
      */
     private function buildPowersSection(Character $character): ?string
     {
         switch (strtolower($character->CharacterType)) {
-            case 'mortal':
-                return $this->buildMortalPowersSection($character);
             case 'vampire':
             case 'ghoul':
                 return $this->buildVampirePowersSection($character);
@@ -944,6 +951,10 @@ class CharacterHelper extends AppHelper
                 return $this->buildChangelingPowersSection($character);
             case 'dhampir':
                 return $this->buildDhampirPowersSection($character);
+            case 'beast':
+                return $this->buildBeastPowersSection($character);
+            case 'herald':
+            case 'mortal':
             default:
                 return $this->buildMortalPowersSection($character);
         }
@@ -957,10 +968,13 @@ class CharacterHelper extends AppHelper
     public function buildMortalPowersSection(Character $character): string
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
-        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
-            ['name', 'note', 'leveltext', 'public']);
-        ob_start();
-        ?>
+        $miscPowerTable = $this->buildTable(
+            $character,
+            'misc_power',
+            'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']
+        );
+        ob_start(); ?>
         <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
            aria-controls="csheet-template">Abilities</a>
         <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
@@ -1004,8 +1018,7 @@ class CharacterHelper extends AppHelper
      */
     private function buildEquipmentSection(Character $character): string
     {
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-equipment" role="tab" class="accordion-title" id="csheet-equipment-heading"
            aria-controls="csheet-equipment">
             Equipment
@@ -1223,8 +1236,7 @@ class CharacterHelper extends AppHelper
                 ]
             );
         }
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-derived" role="tab" class="accordion-title" id="csheet-derived-heading"
            aria-controls="csheet-derived">
             Secondary Stats
@@ -1244,12 +1256,14 @@ class CharacterHelper extends AppHelper
                 <div class="small-6 medium-1 column">
                     <?php echo $willpowerTemp; ?>
                 </div>
-                <div class="small-6 medium-3 column">
-                    <label for="integrity"><?php echo $this->Language->translate('morality', $character->CharacterType); ?></label>
-                </div>
-                <div class="small-6 medium-1 column">
-                    <?php echo $morality; ?>
-                </div>
+                <?php if ($this->sheetFields['morality']): ?>
+                    <div class="small-6 medium-3 column">
+                        <label for="morality"><?php echo $this->Language->translate('morality', $character->CharacterType); ?></label>
+                    </div>
+                    <div class="small-6 medium-1 column">
+                        <?php echo $morality; ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="row">
                 <div class="small-6 medium-3 column">
@@ -1319,6 +1333,28 @@ class CharacterHelper extends AppHelper
                             <?php echo $powerPoints; ?>
                         </div>
                     <?php endif; ?>
+                </div>
+            <?php endif; ?>
+            <?php if ($this->sheetFields['lair_trait']): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Lair Traits
+                    </div>
+                    <div class="small-12 column">
+                        <?php foreach ($character->getPowerList('lair_trait') as $i => $power): ?>
+                            <?php if ($this->mayEditOpen()): ?>
+                                <?php echo $this->Form->hidden('lair_trait.' . $i . '.id', ['value' => $power->Id]); ?>
+                                <?php echo $this->Form->hidden('lair_trait.' . $i . '.name', ['value' => 'lair_traits']); ?>
+                                <?php echo $this->Form->textarea('lair_trait.' . $i . '.lair_trait', [
+                                    'rows' => 4,
+                                    'value' => $power->Extra['lair_trait'],
+                                    'label' => false
+                                ]); ?>
+                            <?php else: ?>
+                                <?php echo str_replace("\n", '<br />', $power->Extra['lair_trait']); ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             <?php endif; ?>
             <div class="row">
@@ -1423,7 +1459,8 @@ class CharacterHelper extends AppHelper
                         <?php foreach ($character->getPowerList('touchstone') as $i => $power): ?>
                             <div class="small-12 medium-2 column">
                                 <?php if ($this->mayEditOpen()): ?>
-                                    <?php echo $this->Form->hidden('touchstone.' . $i . '.name',
+                                    <?php echo $this->Form->hidden(
+                                        'touchstone.' . $i . '.name',
                                         [
                                             'value' => $power->PowerName,
                                             'label' => false
@@ -1617,8 +1654,7 @@ class CharacterHelper extends AppHelper
             unset($this->characterStatuses[CharacterStatus::NEW_CHARACTER]);
         }
 
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-admin" role="tab" class="accordion-title" id="csheet-admin-heading"
            aria-controls="csheet-admin">Admin</a>
         <div id="csheet-admin" class="accordion-content" role="tabpanel" data-tab-content
@@ -1661,8 +1697,8 @@ class CharacterHelper extends AppHelper
                             'value' => $character->CharacterStatusId,
                             'empty' => false,
                             'id' => 'character_status_id'
-                        ]);
-                    ?>
+                        ]
+                    ); ?>
                 </div>
                 <div class="small-6 medium-2 column">
                     Spend XP
@@ -1732,12 +1768,13 @@ class CharacterHelper extends AppHelper
         return $this->options['edit_mode'] === 'open';
     }
 
-    private function setupSheetOptions($characterType): void
+    private function setupSheetOptions($characterType)
     {
         switch ($characterType) {
             case 'mortal':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['break_points'] = true;
+                $this->sheetFields['morality'] = true;
                 break;
             case 'vampire':
                 $this->sheetFields['splat1'] = true;
@@ -1747,12 +1784,14 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_stat'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['friends'] = true;
+                $this->sheetFields['morality'] = true;
                 break;
             case 'ghoul':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['break_points'] = true;
                 $this->sheetFields['friends'] = true;
+                $this->sheetFields['morality'] = true;
                 break;
             case 'werewolf':
                 $this->sheetFields['splat1'] = true;
@@ -1762,9 +1801,11 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['wolf_touchstone'] = true;
                 $this->sheetFields['friends'] = true;
+                $this->sheetFields['morality'] = true;
                 break;
             case 'wolfblooded':
                 $this->sheetFields['break_points'] = true;
+                $this->sheetFields['morality'] = true;
                 break;
             case 'mage':
                 $this->sheetFields['splat1'] = true;
@@ -1774,6 +1815,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['obsession'] = true;
                 $this->sheetFields['friends'] = true;
+                $this->sheetFields['morality'] = true;
                 break;
             case 'changeling':
                 $this->sheetFields['splat1'] = true;
@@ -1784,16 +1826,30 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['changeling_touchstone'] = true;
                 $this->sheetFields['friends'] = true;
                 $this->sheetFields['pledge'] = true;
+                $this->sheetFields['morality'] = true;
                 break;
             case 'fae-touched':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['break_points'] = true;
+                $this->sheetFields['morality'] = true;
                 break;
             case 'dhampir':
                 $this->sheetFields['splat1'] = true;
                 $this->sheetFields['break_points'] = true;
                 $this->sheetFields['destiny'] = true;
+                $this->sheetFields['morality'] = true;
+                break;
+            case 'beast':
+                $this->sheetFields['splat1'] = true;
+                $this->sheetFields['splat2'] = true;
+                $this->sheetFields['subsplat'] = true;
+                $this->sheetFields['power_stat'] = true;
+                $this->sheetFields['power_points'] = true;
+                $this->sheetFields['friends'] = true;
+                $this->sheetFields['lair_trait'] = true;
+                break;
+            case 'herald':
                 break;
         }
     }
@@ -1801,15 +1857,22 @@ class CharacterHelper extends AppHelper
     private function buildVampirePowersSection(Character $character)
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
-        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
-            ['name', 'note', 'leveltext', 'public']);
+        $miscPowerTable = $this->buildTable(
+            $character,
+            'misc_power',
+            'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']
+        );
         $icDiscTable = $this->buildTable($character, 'icdisc', 'icdiscs');
         $oocDiscTable = $this->buildTable($character, 'oocdisc', 'oocdiscs');
-        $devotionTable = $this->buildTable($character, 'devotion', 'devotions',
-            ['name', 'note', 'leveltext', 'public']);
+        $devotionTable = $this->buildTable(
+            $character,
+            'devotion',
+            'devotions',
+            ['name', 'note', 'leveltext', 'public']
+        );
 
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
            aria-controls="csheet-template">Abilities</a>
         <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
@@ -1899,12 +1962,24 @@ class CharacterHelper extends AppHelper
     private function buildMagePowersSection(Character $character)
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
-        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
-            ['name', 'note', 'leveltext', 'public']);
-        $rotesTable = $this->buildTable($character, 'rote', 'rotes',
-            ['name', 'note', 'leveltext', 'public']);
-        $praxisTable = $this->buildTable($character, 'praxis', 'praxes',
-            ['name', 'note', 'leveltext', 'public']);
+        $miscPowerTable = $this->buildTable(
+            $character,
+            'misc_power',
+            'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']
+        );
+        $rotesTable = $this->buildTable(
+            $character,
+            'rote',
+            'rotes',
+            ['name', 'note', 'leveltext', 'public']
+        );
+        $praxisTable = $this->buildTable(
+            $character,
+            'praxis',
+            'praxes',
+            ['name', 'note', 'leveltext', 'public']
+        );
         $attainmentTable = $this->buildTable($character, 'attainment', 'attainments');
 
         $arcanaTypes = [
@@ -1912,7 +1987,10 @@ class CharacterHelper extends AppHelper
             'Common' => 'Common',
             'Inferior' => 'Inferior'
         ];
-        $arcanaTable = $this->buildTable($character, 'arcana', 'arcana',
+        $arcanaTable = $this->buildTable(
+            $character,
+            'arcana',
+            'arcana',
             [
                 'name',
                 'type' => [
@@ -1930,9 +2008,9 @@ class CharacterHelper extends AppHelper
                 ],
                 'levelselect',
                 'public'
-            ]);
-        ob_start();
-        ?>
+            ]
+        );
+        ob_start(); ?>
         <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
            aria-controls="csheet-template">Abilities</a>
         <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
@@ -2045,8 +2123,12 @@ class CharacterHelper extends AppHelper
             'Wisdom' => 'Wisdom',
         ];
         $meritTable = $this->buildTable($character, 'merit', 'merits');
-        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
-            ['name', 'note', 'leveltext', 'public']);
+        $miscPowerTable = $this->buildTable(
+            $character,
+            'misc_power',
+            'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']
+        );
         $moonGifts = $this->buildTable($character, 'moongift', 'moongifts');
         $shadowGifts = $this->buildTable($character, 'shadowgift', 'shadowgifts', [
             'name',
@@ -2063,7 +2145,11 @@ class CharacterHelper extends AppHelper
             ],
             'public'
         ]);
-        $wolfGifts = $this->buildTable($character, 'wolfgift', 'wolfgifts', [
+        $wolfGifts = $this->buildTable(
+            $character,
+            'wolfgift',
+            'wolfgifts',
+            [
                 'name',
                 'facet' => [
                     'header' => 'Facet',
@@ -2080,8 +2166,7 @@ class CharacterHelper extends AppHelper
             ]
         );
 
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
            aria-controls="csheet-template">Abilities</a>
         <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
@@ -2190,10 +2275,13 @@ class CharacterHelper extends AppHelper
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
         $contractsTable = $this->buildTable($character, 'contract', 'contracts');
-        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
-            ['name', 'note', 'leveltext', 'public']);
-        ob_start();
-        ?>
+        $miscPowerTable = $this->buildTable(
+            $character,
+            'misc_power',
+            'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']
+        );
+        ob_start(); ?>
         <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
            aria-controls="csheet-template">Abilities</a>
         <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
@@ -2253,16 +2341,31 @@ class CharacterHelper extends AppHelper
     private function buildDhampirPowersSection(Character $character)
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
-        $miscPowerTable = $this->buildTable($character, 'misc_power', 'misc-abilities',
-            ['name', 'note', 'leveltext', 'public']);
-        $themesTable = $this->buildTable($character, 'theme', 'themes',
-            ['name', 'levelselect', 'public']);
-        $twistsTable = $this->buildTable($character, 'twist', 'twists',
-            ['name', 'levelselect', 'public']);
-        $malisonsTable = $this->buildTable($character, 'malison', 'malisons',
-            ['name', 'public']);
-        ob_start();
-        ?>
+        $miscPowerTable = $this->buildTable(
+            $character,
+            'misc_power',
+            'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']
+        );
+        $themesTable = $this->buildTable(
+            $character,
+            'theme',
+            'themes',
+            ['name', 'levelselect', 'public']
+        );
+        $twistsTable = $this->buildTable(
+            $character,
+            'twist',
+            'twists',
+            ['name', 'levelselect', 'public']
+        );
+        $malisonsTable = $this->buildTable(
+            $character,
+            'malison',
+            'malisons',
+            ['name', 'public']
+        );
+        ob_start(); ?>
         <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
            aria-controls="csheet-template">Abilities</a>
         <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
@@ -2344,6 +2447,102 @@ class CharacterHelper extends AppHelper
                     </div>
                     <div class="row">
                         <?php echo $malisonsTable; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+
+    private function buildBeastPowersSection(Character $character)
+    {
+        $meritTable = $this->buildTable($character, 'merit', 'merits');
+        $miscPowerTable = $this->buildTable(
+            $character,
+            'misc_power',
+            'misc-abilities',
+            ['name', 'note', 'leveltext', 'public']
+        );
+        $avatismsTable = $this->buildTable(
+            $character,
+            'avatism',
+            'avatisms',
+            ['name', 'note', 'public']
+        );
+        $nightmaresTable = $this->buildTable(
+            $character,
+            'nightmare',
+            'nightmares',
+            ['name', 'note', 'public']
+        );
+        ob_start(); ?>
+        <a href="#csheet-template" role="tab" class="accordion-title" id="csheet-template-heading"
+           aria-controls="csheet-template">Abilities</a>
+        <div id="csheet-template" class="accordion-content" role="tabpanel" data-tab-content
+             aria-labelledby="csheet-template-heading">
+            <div class="row">
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Merits
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="merits"><i
+                                            class="fi-plus"></i></div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $meritTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Misc Abilities
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="misc-abilities">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $miscPowerTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Avatisms
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="avatisms">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $avatismsTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Nightmares
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row"
+                                     data-target-table="nightmares">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $nightmaresTable; ?>
                     </div>
                 </div>
             </div>
@@ -2459,8 +2658,7 @@ class CharacterHelper extends AppHelper
             throw new \RuntimeException('No fields to display for: ' . $powerType);
         }
 
-        ob_start();
-        ?>
+        ob_start(); ?>
         <table id="<?php echo $tableId; ?>" class="stack">
             <thead>
             <tr>
@@ -2504,8 +2702,7 @@ class CharacterHelper extends AppHelper
             $conditionText = $conditions[0]->Extra['conditions'];
         }
         $conditions = [];
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-conditions" role="tab" class="accordion-title" id="csheet-conditions-heading"
            aria-controls="csheet-conditions">Conditions</a>
         <div id="csheet-conditions" class="accordion-content" role="tabpanel" data-tab-content
@@ -2654,8 +2851,7 @@ class CharacterHelper extends AppHelper
 
     private function makeWolfRenownRow(Character $character, $index, $renownLabel, $renownKey)
     {
-        ob_start();
-        ?>
+        ob_start(); ?>
         <tr>
             <td>
                 <?php echo $renownLabel; ?>
@@ -2680,8 +2876,7 @@ class CharacterHelper extends AppHelper
                             'label' => false,
                             'empty' => false
                         ]
-                    );
-                    ?>
+                    ); ?>
                 <?php else: ?>
                     <?php echo $character->getPowerByTypeAndName('renown', $renownKey)->PowerLevel + 0; ?>
                 <?php endif; ?>
@@ -2693,8 +2888,7 @@ class CharacterHelper extends AppHelper
 
     private function buildOwnerSection(Character $character)
     {
-        ob_start();
-        ?>
+        ob_start(); ?>
         <a href="#csheet-owner" role="tab" class="accordion-title" id="csheet-owner-heading"
            aria-controls="csheet-owner">Player Options</a>
         <div id="csheet-owner" class="accordion-content" role="tabpanel" data-tab-content

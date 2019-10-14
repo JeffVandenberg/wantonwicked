@@ -8,7 +8,6 @@
  */
 namespace App\View\Helper;
 
-
 class LanguageHelper extends AppHelper
 {
     private $translations = [
@@ -107,6 +106,16 @@ class LanguageHelper extends AppHelper
             'break_point3' => 'What has the character forgotten?',
             'break_point4' => 'What is the most traumatic thing that has ever happened to the character?',
         ],
+        'beast' => [
+            'virtue' => 'Legend',
+            'vice' => 'Life',
+            'splat1' => 'Family',
+            'splat2' => 'Hunger',
+            'subsplat' => 'Cult',
+            'powerstat' => 'Lair',
+            'powerpoints' => 'Satiety',
+            'friends' => 'Brood',
+        ],
         'general' => [
             'merit' => 'Merit',
             'misc_power' => 'Misc'
@@ -117,7 +126,7 @@ class LanguageHelper extends AppHelper
     {
         if (isset($this->translations[$characterType][$label])) {
             return $this->translations[$characterType][$label];
-        } else if (isset($this->translations['general'][$label])) {
+        } elseif (isset($this->translations['general'][$label])) {
             return $this->translations['general'][$label];
         }
         return $label;

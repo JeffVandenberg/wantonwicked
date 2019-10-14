@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.3",
     "ext-json": "*",
     "ext-intl": "*",
     "phpmailer/phpmailer": "^5.2",
