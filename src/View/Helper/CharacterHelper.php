@@ -1803,6 +1803,7 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['friends'] = true;
                 $this->sheetFields['morality'] = true;
                 break;
+            case 'herald':
             case 'wolfblooded':
                 $this->sheetFields['break_points'] = true;
                 $this->sheetFields['morality'] = true;
@@ -1848,8 +1849,6 @@ class CharacterHelper extends AppHelper
                 $this->sheetFields['power_points'] = true;
                 $this->sheetFields['friends'] = true;
                 $this->sheetFields['lair_trait'] = true;
-                break;
-            case 'herald':
                 break;
         }
     }
