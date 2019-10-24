@@ -528,14 +528,14 @@ class CharacterHelper extends AppHelper
                     } ?>
                 </div>
                 <div class="medium-1 columns">
-                    <?php if (isset($this->sheetFields['subsplat'])): ?>
-                        <label for="friends">
+                    <?php if ($this->sheetFields['subsplat']): ?>
+                        <label for="subsplat">
                             <?php echo $this->Language->translate('subsplat', $character->CharacterType); ?>
                         </label>
                     <?php endif; ?>
                 </div>
                 <div class="medium-3 columns">
-                    <?php if (isset($this->sheetFields['subsplat'])) {
+                    <?php if ($this->sheetFields['subsplat']) {
                         echo $subsplat;
                     } ?>
                 </div>
@@ -1126,6 +1126,12 @@ class CharacterHelper extends AppHelper
         $woundsAgg = $character->WoundsAgg;
         $powerStat = $character->PowerStat;
         $powerPoints = $character->PowerPoints;
+        $clarityWounds = $character->getPowerList('clarityHealth');
+        $clarityWoundName = '';
+        $clarityWoundId = '';
+        $clarityHealth = $clarityWounds[0]->Extra['clarity_health'];
+        $clarityMildWounds = $clarityWounds[0]->Extra['mild_wounds'];
+        $claritySevereWounds = $clarityWounds[0]->Extra['severe_wounds'];
 
         if ($this->mayEditOpen()) {
             $powerStat = $this->Form->select(
@@ -1235,6 +1241,34 @@ class CharacterHelper extends AppHelper
                     'label' => false
                 ]
             );
+            $clarityWoundName = $this->Form->hidden('clarityHealth.0.name', [
+                    'value' => 'clarity_health'
+            ]);
+            $clarityWoundId = $this->Form->hidden('clarityHealth.0.id', [
+                    'value' => $clarityWounds[0]->Id
+            ]);
+            $clarityHealth = $this->Form->select(
+                'clarityHealth.0.clarity_health',
+                range(0, $this->maxDots),
+                [
+                    'value' => $clarityHealth,
+                    'empty' => false
+                ]
+            );
+            $clarityMildWounds = $this->Form->control(
+                'clarityHealth.0.mild_wounds',
+                [
+                    'value' => $clarityMildWounds,
+                    'label' => false,
+                ]
+            );
+            $claritySevereWounds = $this->Form->control(
+                'clarityHealth.0.severe_wounds',
+                [
+                    'value' => $claritySevereWounds,
+                    'label' => false
+                ]
+            );
         }
         ob_start(); ?>
         <a href="#csheet-derived" role="tab" class="accordion-title" id="csheet-derived-heading"
@@ -1341,17 +1375,12 @@ class CharacterHelper extends AppHelper
                         Lair Traits
                     </div>
                     <div class="small-12 column">
-                        <?php foreach ($character->getPowerList('lair_trait') as $i => $power): ?>
+                        <?php foreach ($character->getPowerList('lairTrait') as $i => $power): ?>
                             <?php if ($this->mayEditOpen()): ?>
-                                <?php echo $this->Form->hidden('lair_trait.' . $i . '.id', ['value' => $power->Id]); ?>
-                                <?php echo $this->Form->hidden('lair_trait.' . $i . '.name', ['value' => 'lair_traits']); ?>
-                                <?php echo $this->Form->textarea('lair_trait.' . $i . '.lair_trait', [
-                                    'rows' => 4,
-                                    'value' => $power->Extra['lair_trait'],
-                                    'label' => false
-                                ]); ?>
+                                <?php echo $this->Form->hidden('lairTrait.' . $i . '.id', ['value' => $power->Id]); ?>
+                                <?php echo $this->Form->hidden('lairTrait.' . $i . '.name', ['value' => $power->PowerName]); ?>
                             <?php else: ?>
-                                <?php echo str_replace("\n", '<br />', $power->Extra['lair_trait']); ?>
+                                <?php echo str_replace("\n", '<br />', $power->PowerName); ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
@@ -1382,6 +1411,35 @@ class CharacterHelper extends AppHelper
                     <?php echo $woundsAgg; ?>
                 </div>
             </div>
+            <?php if ($character->CharacterType == "changeling"): ?>
+                <div class="row">
+                    <div class="small-12 column subheader">
+                        Clarity Wounds
+                        <?= $clarityWoundId ?>
+                        <?= $clarityWoundName ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-6 medium-3 column">
+                        <label for="wounds_bashing">Health</label>
+                    </div>
+                    <div class="small-6 medium-1 column">
+                        <?php echo $clarityHealth; ?>
+                    </div>
+                    <div class="small-6 medium-3 column">
+                        <label for="wounds_lethal">Mild</label>
+                    </div>
+                    <div class="small-6 medium-1 column">
+                        <?php echo $clarityMildWounds; ?>
+                    </div>
+                    <div class="small-6 medium-3 column">
+                        <label for="wounds_agg">Severe</label>
+                    </div>
+                    <div class="small-6 medium-1 column">
+                        <?php echo $claritySevereWounds; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
             <?php if ($this->sheetFields['break_points']): ?>
                 <div class="row">
                     <div class="small-12 column subheader">
@@ -1502,33 +1560,6 @@ class CharacterHelper extends AppHelper
                                 <?php if ($this->mayEditOpen()): ?>
                                     <?php echo $this->Form->hidden('touchstone.' . $i . '.id', ['value' => $power->Id]); ?>
                                     <?php echo $this->Form->control('touchstone.' . $i . '.name', [
-                                        'value' => $power->PowerName,
-                                        'label' => false,
-                                        'maxlength' => 255,
-                                    ]); ?>
-                                <?php else: ?>
-                                    <?php echo $power->PowerName; ?>
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="small-12 column subheader">
-                        Triggers
-                        <?php if ($this->mayEditOpen()): ?>
-                            <div class="success badge clickable add-foundation-row" data-target-table="triggers"><i
-                                        class="fi-plus"></i></div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <div id="triggers">
-                    <div class="row">
-                        <?php foreach ($character->getPowerList('trigger') as $i => $power): ?>
-                            <div class="small-12 column">
-                                <?php if ($this->mayEditOpen()): ?>
-                                    <?php echo $this->Form->hidden('trigger.' . $i . '.id', ['value' => $power->Id]); ?>
-                                    <?php echo $this->Form->control('trigger.' . $i . '.name', [
                                         'value' => $power->PowerName,
                                         'label' => false,
                                         'maxlength' => 255,
@@ -2273,7 +2304,30 @@ class CharacterHelper extends AppHelper
     private function buildChangelingPowersSection(Character $character)
     {
         $meritTable = $this->buildTable($character, 'merit', 'merits');
-        $contractsTable = $this->buildTable($character, 'contract', 'contracts');
+        $contractsTable = $this->buildTable(
+                $character,
+                'contract',
+                'contracts',
+                [
+                    'name',
+                    'note',
+                    'level' => [
+                        'header' => 'Level',
+                        'extra' => [
+                            'html_before' => '<label class="hide-for-large">Level</label>'
+                        ],
+                        'inputs' => [
+                            [
+                                'type' => 'select',
+                                'name' => 'level',
+                                'value' => 'ContractLevel',
+                                'range' => ['common' => 'Common', 'royal' => 'Royal'],
+                            ]
+                        ]
+
+                    ],
+                    'public'
+                ]);
         $miscPowerTable = $this->buildTable(
             $character,
             'misc_power',
@@ -2303,21 +2357,6 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 medium-6 column float-left">
                     <div class="row">
                         <div class="small-12 column subheader">
-                            Contracts
-                            <?php if ($this->mayEditOpen()): ?>
-                                <div class="success badge clickable add-character-row" data-target-table="contracts">
-                                    <i class="fi-plus"></i>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <?php echo $contractsTable; ?>
-                    </div>
-                </div>
-                <div class="small-12 medium-6 column float-left">
-                    <div class="row">
-                        <div class="small-12 column subheader">
                             Misc Abilities
                             <?php if ($this->mayEditOpen()): ?>
                                 <div class="success badge clickable add-character-row"
@@ -2329,6 +2368,21 @@ class CharacterHelper extends AppHelper
                     </div>
                     <div class="row">
                         <?php echo $miscPowerTable; ?>
+                    </div>
+                </div>
+                <div class="small-12 medium-12 column float-left">
+                    <div class="row">
+                        <div class="small-12 column subheader">
+                            Contracts
+                            <?php if ($this->mayEditOpen()): ?>
+                                <div class="success badge clickable add-character-row" data-target-table="contracts">
+                                    <i class="fi-plus"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php echo $contractsTable; ?>
                     </div>
                 </div>
             </div>

@@ -70,11 +70,13 @@ class SheetService
             'malison',
             'avatism',
             'nightmare',
-            'lair_trait',
+            'lairTrait',
+            'clarityHealth',
         ],
         'limited' => [
             'aspiration',
-            'conditions'
+            'conditions',
+            'clarityHealth',
         ]
     ];
     /**
@@ -191,6 +193,7 @@ class SheetService
                     'trigger' => 3,
                     'touchstone' => 1,
                     'pledge' => 1,
+                    'clarityHealth' => 1,
                 ];
                 break;
             case 'fae-touched':
@@ -217,12 +220,12 @@ class SheetService
                 $powers = [
                     'avatism' => 3,
                     'nightmare' => 3,
-                    'lair_trait' => 1
+                    'lairTrait' => 1
                 ];
                 break;
         }
 
-        foreach ($powers as $type => $min) {
+            foreach ($powers as $type => $min) {
             if (count($character->getPowerList($type)) < $min) {
                 $count = $min - count($character->getPowerList($type));
 
