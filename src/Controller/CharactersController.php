@@ -1,11 +1,14 @@
 <?php
+
 namespace App\Controller;
 
+use App\Controller\Component\ConfigComponent;
 use App\Controller\Component\MenuComponent;
 use App\Controller\Component\PermissionsComponent;
 use App\Model\Entity\Permission;
 use App\Model\Table\CharactersTable;
 use Cake\Controller\Component\PaginatorComponent;
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Network\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
@@ -21,6 +24,7 @@ use classes\character\repository\CharacterNoteRepository;
 use classes\core\repository\RepositoryManager;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
+use Exception;
 
 /**
  * Characters Controller
@@ -28,7 +32,8 @@ use classes\log\data\ActionType;
  * @property PaginatorComponent $Paginator
  * @property PermissionsComponent Permissions
  * @property MenuComponent Menu
- * @property \App\Model\Table\CharactersTable $Characters
+ * @property CharactersTable $Characters
+ * @property ConfigComponent Config
  */
 class CharactersController extends AppController
 {
@@ -41,24 +46,37 @@ class CharactersController extends AppController
         'Flash'
     ];
 
+    /**
+     * @param Event $event Event to handle
+     * @return \Cake\Http\Response|void|null
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->Auth->allow(
-            array(
+            [
                 'index',
                 'city',
                 'cast',
                 'activity'
-            ));
+            ]
+        );
     }
 
+    /**
+     * @return void
+     */
     public function activity()
     {
         $this->set('data', $this->Characters->listBarelyPlaying());
         $this->set('data2', $this->Characters->listAllLoginActivity());
     }
 
+    /**
+     * @param string $type character type to list
+     * @return void
+     * @throws Exception
+     */
     public function cast($type = 'All')
     {
         $query = $this->Characters
@@ -76,7 +94,7 @@ class CharactersController extends AppController
             ])
             ->where([
                 'Characters.character_status_id IN ' => [CharacterStatus::ACTIVE, CharacterStatus::IDLE],
-                'Characters.city' => 'portland',
+                'Characters.city' => $this->Config->readGlobal('city'),
             ])
             ->contain([
                 'Users' => [
@@ -112,10 +130,10 @@ class CharactersController extends AppController
                 'splat2',
             ]
         ]));
-        $characterTypes = array(
+        $characterTypes = [
             "All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
             "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', 'Changing Breed' => 'Changing Breed',
-            "Mage" => 'Mage', "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
+            "Mage" => 'Mage', "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist'];
         $mayManageCharacters = $this->Permissions->checkSitePermission(
             $this->Auth->user('user_id'),
             Permission::$ManageCharacters
@@ -123,6 +141,11 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes', 'mayManageCharacters'));
     }
 
+    /**
+     * @param string $type Character Type
+     * @return void
+     * @throws Exception
+     */
     public function stGoals($type = 'all')
     {
         $storytellerMenu = $this->Menu->createStorytellerMenu();
@@ -146,7 +169,7 @@ class CharactersController extends AppController
             ])
             ->where([
                 'Characters.character_status_id IN ' => CharacterStatus::SANCTIONED,
-                'Characters.city' => 'portland',
+                'Characters.city' => $this->Config->readGlobal('city'),
                 'CharacterPowers.power_type' => 'aspiration'
             ]);
 
@@ -156,9 +179,9 @@ class CharactersController extends AppController
             ]);
         }
 
-        $characterTypes = array("All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
+        $characterTypes = ["All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
             "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', "Mage" => 'Mage',
-            "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist');
+            "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist'];
         $this->set('characters', $this->Paginator->paginate($query, [
             'limit' => 30,
             'order' => [
@@ -168,6 +191,9 @@ class CharactersController extends AppController
         $this->set(compact('type', 'characterTypes'));
     }
 
+    /**
+     * @return bool|mixed|null
+     */
     public function isAuthorized()
     {
         switch ($this->getRequest()->getParam('action')) {
@@ -183,6 +209,7 @@ class CharactersController extends AppController
             case 'beats':
                 return $this->Auth->user();
         }
+
         return false;
     }
 
@@ -190,6 +217,7 @@ class CharactersController extends AppController
      * index method
      *
      * @return void
+     * @throws Exception
      */
     public function index()
     {
@@ -200,7 +228,7 @@ class CharactersController extends AppController
             ])
             ->where([
                 'Characters.user_id' => $this->Auth->user('user_id'),
-                'Characters.city' => 'portland',
+                'Characters.city' => $this->Config->readGlobal('city'),
                 'Characters.character_status_id !=' => CharacterStatus::DELETED
             ]);
         $this->set('characters', $this->Paginator->paginate($query, [
@@ -214,15 +242,19 @@ class CharactersController extends AppController
     /**
      * view method
      *
-     * @throws NotFoundException
-     * @param string $id
+     * @param string $id Character ID to view
      * @return void
+     * @throws NotFoundException
      */
     public function view($id = null)
     {
         $this->set('character', $this->Characters->get($id));
     }
 
+    /**
+     * @param string $slug Slug to view
+     * @return void
+     */
     public function viewOwn($slug)
     {
         $sheetService = new SheetService();
@@ -236,6 +268,7 @@ class CharactersController extends AppController
         if (($character->UserId != $this->Auth->user('user_id')) && !($this->Permissions->isAdmin())) {
             $this->Flash->set('Unauthorized Access');
             $this->redirect('/');
+
             return;
         }
 
@@ -276,11 +309,11 @@ class CharactersController extends AppController
         $icons = TableRegistry::getTableLocator()->get('Icons')->listAvailableIcons();
         $submenu = $this->Menu->createCharacterMenu($character->Id, $character->CharacterName, $character->Slug);
         $this->set(compact('character', 'options', 'icons', 'submenu'));
-
     }
 
     /**
-     * @param null $slug
+     * @param string $slug Slug of character to view
+     * @return void
      */
     public function viewOther($slug = null)
     {
@@ -294,21 +327,24 @@ class CharactersController extends AppController
             /* @var Character $character */
             if (!$character->Id) {
                 $this->Flash->set('Please select a character');
+
                 return;
             }
 
             $this->set('viewCharacterName', $character->CharacterName);
             $this->set('viewCharacterId', $character->Id);
 
-            if(!$character->ViewPassword) {
+            if (!$character->ViewPassword) {
                 CharacterLog::logAction($character->Id, ActionType::VIEW_CHARACTER, 'Attempted to view sheet with no password set.', $this->Auth->user('user_id'));
                 $this->Flash->set('Character has no view password set');
+
                 return;
             }
 
-            if($character->ViewPassword !== $password) {
+            if ($character->ViewPassword !== $password) {
                 CharacterLog::logAction($character->Id, ActionType::VIEW_CHARACTER, 'Attempted to view with incorrect password.', $this->Auth->user('user_id'));
                 $this->Flash->set('Password does not match');
+
                 return;
             }
             $options = [
@@ -321,13 +357,17 @@ class CharactersController extends AppController
             CharacterLog::logAction($character->Id, ActionType::VIEW_CHARACTER, 'Player View', $this->Auth->user('user_id'));
         }
 
-        if($this->getRequest()->is('get') && $slug) {
+        if ($this->getRequest()->is('get') && $slug) {
             $character = $sheetService->loadSheet($slug);
             $this->set('viewCharacterName', $character->CharacterName);
             $this->set('viewCharacterId', $character->Id);
         }
     }
 
+    /**
+     * @param int $characterId Character ID to view
+     * @return void
+     */
     public function stView($characterId = null)
     {
         $options = [
@@ -361,7 +401,7 @@ class CharactersController extends AppController
                 if (!$character->Id) {
                     $this->Flash->set('Unable to find character');
                 }
-            } else if ($characterId) {
+            } elseif ($characterId) {
                 $character = $sheetService->loadSheet($characterId, $characterType);
                 if (!$character->Id) {
                     $this->Flash->set('Unable to find character');
@@ -382,13 +422,7 @@ class CharactersController extends AppController
         }
 
         $icons = $sheetService->listAvailableIcons();
-        $cities = [
-            "portland" => 'Portland',
-            "Savannah" => 'Savannah',
-            "San Diego" => 'San Diego',
-            "The City" => 'The City',
-            "Side Game" => 'Side Game'
-        ];
+        $cities = Configure::read('City.list');
         $this->set(compact('cities', 'options', 'icons'));
     }
 
@@ -431,6 +465,9 @@ class CharactersController extends AppController
     }
 
 
+    /**
+     * @return void
+     */
     public function validateName()
     {
         $id = $this->getRequest()->getQuery('id');
@@ -449,11 +486,10 @@ class CharactersController extends AppController
         $this->set('_serialize', ['in_use', 'success']);
     }
 
-    public function assignCondition()
-    {
-        // grant condition to character
-    }
-
+    /**
+     * @param int $characterId
+     * @return void
+     */
     public function beats($characterId)
     {
         $sheetService = new SheetService();
@@ -544,6 +580,10 @@ class CharactersController extends AppController
         $this->set(compact('character', 'beatList', 'currentBeatStatus', 'pastBeats', 'submenu'));
     }
 
+    /**
+     * @param string $slug slug of character
+     * @return void
+     */
     public function notes($slug = null)
     {
         $service = new SheetService();
@@ -576,6 +616,9 @@ class CharactersController extends AppController
         ]));
     }
 
+    /**
+     * @return void
+     */
     public function stBeats()
     {
         if ($this->getRequest()->is('post')) {
@@ -606,13 +649,7 @@ class CharactersController extends AppController
             $beatList[$beatType->Id] = $beatType->Name;
         }
 
-        $cities = [
-            "portland" => 'Portland',
-            "Savannah" => 'Savannah',
-            "San Diego" => 'San Diego',
-            "The City" => 'The City',
-            "Side Game" => 'Side Game'
-        ];
+        $cities = Configure::read('City.list');
 
         $this->set(compact('beatList', 'cities'));
     }

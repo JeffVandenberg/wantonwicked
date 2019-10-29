@@ -94,7 +94,7 @@ abstract class DataModel
     public function __construct($tablePrefix = '', $database = null)
     {
         if($database === null) {
-            $params = DatabaseMapper::GetPrimary();
+            $params = DatabaseMapper::getPrimary();
             $database = $params['db'];
         }
         $this->Database = $database;

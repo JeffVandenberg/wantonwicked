@@ -2,6 +2,7 @@
 /* @var array $userdata */
 
 // get character id
+use classes\character\data\Character;
 use classes\character\repository\CharacterRepository;
 use classes\core\helpers\FormHelper;
 use classes\core\helpers\Request;
@@ -12,7 +13,7 @@ use classes\core\repository\RepositoryManager;
 
 $characterId = Request::getValue('character_id');
 
-$characterRepository = RepositoryManager::getRepository('classes\character\data\Character');
+$characterRepository = RepositoryManager::getRepository(Character::class);
 /* @var CharacterRepository $characterRepository */
 
 if (!$characterRepository->mayViewCharacter($characterId, $userdata['user_id'])) {
@@ -28,11 +29,11 @@ $favorNotes = Request::getValue('favorNotes');
 
 if (Request::isPost()) {
     // attempt to save favor
-    $favorTypeId       = $_POST['favorTypeId'] + 0;
+    $favorTypeId = $_POST['favorTypeId'] + 0;
     $targetCharacterId = $_POST['targetCharacterId'] + 0;
-    $description       = htmlspecialchars($_POST['favorDescription']);
-    $notes             = htmlspecialchars($_POST['favorNotes']);
-    $now               = date('Y-m-d h:i:s');
+    $description = htmlspecialchars($_POST['favorDescription']);
+    $notes = htmlspecialchars($_POST['favorNotes']);
+    $now = date('Y-m-d h:i:s');
 
     $createFavorQuery = <<<EOQ
 INSERT INTO
@@ -61,26 +62,26 @@ VALUES
 EOQ;
 
     $createFavorResult = Database::getInstance()->query($createFavorQuery)->execute(
-        array(
+        [
             $characterId,
             $targetCharacterId,
             $favorTypeId,
             $description,
             $notes,
             $now
-        )
+        ]
     );
 
     SessionHelper::setFlashMessage('Favor has been created');
-    Response::redirect('favors.php?action=list&character_id='.$characterId);
+    Response::redirect('favors.php?action=list&character_id=' . $characterId);
 }
 
 
 $favorTypeQuery = "SELECT * FROM favor_types";
 
 $ids = $names = "";
-$favorTypes = array();
-foreach(Database::getInstance()->query($favorTypeQuery)->all() as $favorTypeDetail) {
+$favorTypes = [];
+foreach (Database::getInstance()->query($favorTypeQuery)->all() as $favorTypeDetail) {
     $favorTypes[$favorTypeDetail['id']] = $favorTypeDetail['name'];
 }
 
@@ -100,7 +101,8 @@ ob_start();
         </div>
         <div class="formInput">
             <label for="favorDescription">Favor Description:</label>
-            <input type="text" name="favorDescription" id="favorDescription" value="<?php echo $favorDescription; ?>"><br/>
+            <input type="text" name="favorDescription" id="favorDescription"
+                   value="<?php echo $favorDescription; ?>"><br/>
         </div>
         <div class="formInput">
             <label for="favorNotes">Favor Notes:</label>
@@ -108,25 +110,26 @@ ob_start();
         </div>
         <div class="formInput">
             <input type="hidden" name="sourceCharacterId" value="<?php echo $characterId; ?>"/>
-            <button class="button" type="submit" name="formSubmit" id="formSubmit" value="Grant Favor">Grant Favor</button>
+            <button class="button" type="submit" name="formSubmit" id="formSubmit" value="Grant Favor">Grant Favor
+            </button>
         </div>
     </form>
-    <script language="javascript">
+    <script>
         $(document).ready(function () {
             $('input:text').keypress(function (e) {
-                return e.keyCode != 13;
+                return e.keyCode !== 13;
 
             });
             $('#giveFavorForm').submit(function () {
                 var errors = '';
-                if ($.trim($('#targetCharacterId').val()) == '') {
+                if ($.trim($('#targetCharacterId').val()) === '') {
                     errors += " - Select a character to give the favor to.\\r\\n";
                 }
-                if ($.trim($('#favorDescription').val()) == '') {
+                if ($.trim($('#favorDescription').val()) === '') {
                     errors += ' - Provide a brief description of the favor being given.\\r\\n';
                 }
 
-                if (errors != '') {
+                if (errors !== '') {
                     alert('Please correct the following errors: \\r\\n' + errors);
                     return false;
                 }
