@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Controller\Component\PermissionsComponent;
 use App\Model\Entity\District;
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\ORM\Locator\TableLocator;
 use Cake\ORM\TableRegistry;
@@ -36,7 +37,7 @@ class MapController extends AppController
         // load city
 
         // get configurations
-        $coords = ['lat' => 45.5231, 'long' => -122.6765];
+        $coords = Configure::read('Maps.location');
         $defaultLocationDescription = $this->Config->read('default_location_description');
         $defaultDistrictDescription = $this->Config->read('default_district_description');
 

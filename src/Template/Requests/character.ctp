@@ -91,11 +91,11 @@ $this->set('title_for_layout', 'Requests for ' . $character->character_name)
                 <td><?= $this->Time->format($request->updated_on); ?></td>
                 <td>
                     <?= $this->Html->link('Add Note', ['action' => 'add-note', $request->id]); ?>
-                    <?php if ($request->request_status_id == RequestStatus::NewRequest): ?>
+                    <?php if ($request->request_status_id == RequestStatus::NEW_REQUEST): ?>
                         <?= $this->Html->link('Edit', ['action' => 'edit', $request->id]); ?>
                         <?= $this->Html->link('Delete', ['action' => 'delete', $request->id]); ?>
                     <?php endif; ?>
-                    <?php if ($request->request_status_id != RequestStatus::Closed): ?>
+                    <?php if ($request->request_status_id != RequestStatus::CLOSED): ?>
                         <?= $this->Html->link('Close', ['action' => 'close', $request->id]); ?>
                     <?php endif; ?>
                 </td>

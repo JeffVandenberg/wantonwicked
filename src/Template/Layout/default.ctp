@@ -98,7 +98,7 @@ use Cake\Core\Configure;
             <?php echo $this->MainMenu->Create($menu); ?>
         </div>
         <div class="top-bar-right">
-            <?php echo $this->UserPanel->Create($this->Url->build()); ?>
+            <?php echo $this->UserPanel->create($this->Url->build()); ?>
         </div>
     </nav>
 </div>

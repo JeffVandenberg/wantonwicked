@@ -126,22 +126,22 @@ class RequestsTable extends Table
     /**
      * Default validation rules.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
+     * @param Validator $validator Validator instance.
+     * @return Validator
      */
     public function validationDefault(Validator $validator)
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyFor('id', 'create');
 
         $validator
             ->requirePresence('title', 'create')
-            ->notEmpty('title');
+            ->notEmptyString('title');
 
         $validator
             ->requirePresence('body', 'create')
-            ->notEmpty('body');
+            ->notEmptyString('body');
 
         return $validator;
     }
@@ -150,8 +150,8 @@ class RequestsTable extends Table
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
+     * @param RulesChecker $rules The rules object to be modified.
+     * @return RulesChecker
      */
     public function buildRules(RulesChecker $rules)
     {
@@ -164,7 +164,11 @@ class RequestsTable extends Table
         return $rules;
     }
 
-    public function listRequestsLinkedByCharacterToUser($userId)
+    /**
+     * @param int $userId User ID
+     * @return array|Query
+     */
+    public function listRequestsLinkedByCharacterToUser(int $userId)
     {
         return $this->find('all')
             ->contain([
@@ -192,6 +196,10 @@ class RequestsTable extends Table
             ]);
     }
 
+    /**
+     * @param int $userId User ID
+     * @return array|Query
+     */
     public function buildUserRequestQuery($userId)
     {
         return $this->query()
@@ -214,6 +222,10 @@ class RequestsTable extends Table
             ]);
     }
 
+    /**
+     * @param int $characterId Character ID
+     * @return array|Query
+     */
     public function getSummaryForCharacter($characterId)
     {
         return $this->query()
@@ -245,15 +257,20 @@ class RequestsTable extends Table
                 'rc.character_id' => $characterId,
                 'rc.is_primary' => 1,
                 'r.request_status_id IN ' => [
-                    RequestStatus::Submitted,
-                    RequestStatus::InProgress,
-                    RequestStatus::InProgress,
+                    RequestStatus::SUBMITTED,
+                    RequestStatus::IN_PROGRESS,
+                    RequestStatus::IN_PROGRESS,
                 ]
             ])
             ->enableHydration(false)
             ->toArray();
     }
 
+    /**
+     * @param int $characterId User ID
+     * @param array $filter search criteria
+     * @return array|Query
+     */
     public function listByCharacterId($characterId, $filter)
     {
         $query = $this->find('all')
@@ -305,6 +322,10 @@ class RequestsTable extends Table
         return $query;
     }
 
+    /**
+     * @param int $characterId Character ID
+     * @return array|Query
+     */
     public function listLinkedRequestsForCharacter($characterId)
     {
         return $this
@@ -334,6 +355,11 @@ class RequestsTable extends Table
             ]);
     }
 
+    /**
+     * @param int $requestId Request ID
+     * @param int $userId User ID
+     * @return bool
+     */
     public function isUserAttachedToRequest($requestId, $userId)
     {
         $result = $this->query()
@@ -350,9 +376,15 @@ class RequestsTable extends Table
             ])
             ->enableHydration(false)
             ->firstOrFail();
+
         return $result['rows'] > 0;
     }
 
+    /**
+     * @param int $requestId Request ID
+     * @param int $userId User ID
+     * @return Query
+     */
     public function listUnattachedRequests($requestId, $userId)
     {
         // get linked characters if any
@@ -403,6 +435,11 @@ class RequestsTable extends Table
         return $unattachedRequests;
     }
 
+    /**
+     * @param int $requestId Request ID
+     * @param int $userId User ID
+     * @return bool
+     */
     public function isRequestCreatedByUser($requestId, $userId)
     {
         $result = $this->query()
@@ -415,14 +452,15 @@ class RequestsTable extends Table
             ])
             ->enableHydration(false)
             ->firstOrFail();
+
         return $result['rows'] > 0;
     }
 
     /**
-     * @param $groups
+     * @param array $groups Array of groups to search
      * @return Query
      */
-    public function findByGroups($groups)
+    public function findByGroups(array $groups)
     {
         return $this->query()
             ->contain([
@@ -446,7 +484,7 @@ class RequestsTable extends Table
     }
 
     /**
-     * @param $id
+     * @param int $id Request ID
      * @return Request
      */
     public function getFullRequest($id): Request
@@ -510,10 +548,10 @@ class RequestsTable extends Table
     /**
      * Return Requests for user for home page
      *
-     * @param int $userId
+     * @param int $userId User ID
      * @return array|Query
      */
-    public function listForHome($userId)
+    public function listForHome(int $userId)
     {
         return $this
             ->find()
@@ -532,6 +570,11 @@ class RequestsTable extends Table
             ->limit(5);
     }
 
+    /**
+     * @param EntityInterface $entity Entity to save
+     * @param array $options options listed
+     * @return EntityInterface|false
+     */
     public function save(EntityInterface $entity, $options = [])
     {
         /* @var Request $entity */
@@ -544,6 +587,39 @@ class RequestsTable extends Table
             $history->created_by_id = $entity->updated_by_id;
             $this->RequestStatusHistories->save($history);
         }
+
         return $result;
+    }
+
+    /**
+     * @param int $userId User ID
+     * @return int
+     */
+    public function getCountOpenForUser(int $userId)
+    {
+        return $this->find('all')
+            ->where([
+                'Requests.created_by_id' => $userId,
+                'Requests.request_type_id !=' => 4,
+                'Requests.request_status_id IN' => RequestStatus::$Player
+            ])
+            ->count();
+    }
+
+    /**
+     * @param int $userId User ID
+     * @return int
+     */
+    public function getCountNewStRequests(int $userId)
+    {
+        return $this->find('all')
+            ->leftJoin('groups', 'Requests.group_id = groups.id')
+            ->leftJoin('st_groups', 'groups.id = st_groups.group_id')
+            ->where([
+                'st_groups.user_id' => $userId,
+                'Requests.request_type_id NOT IN ' => [4, 0],
+                'Requests.request_status_id IN' => RequestStatus::$Storyteller
+            ])
+            ->count();
     }
 }

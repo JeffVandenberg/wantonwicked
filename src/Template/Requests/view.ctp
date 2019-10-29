@@ -19,10 +19,10 @@ $this->set('title_for_layout', 'Request: ' . $request->title);
     <div class="small-12 columns button-group">
         <?php
         echo $this->Html->link('Back', $backLink, ['class' => 'button']);
-        if ($request->request_status_id == RequestStatus::NewRequest) {
+        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
             echo $this->Html->link('Edit', ['action' => 'edit', $request->id], ['class' => 'button']);
         }
-        if ($request->request_status_id != RequestStatus::Closed) {
+        if ($request->request_status_id != RequestStatus::CLOSED) {
             echo $this->Html->link('Forward', ['action' => 'forward', $request->id], ['class' => 'button']);
             echo $this->Html->link('Close', ['action' => 'close', $request->id], ['class' => 'button', 'confirm' => __('Are you sure you want to close this request?')]);
         }

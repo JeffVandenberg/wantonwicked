@@ -5,6 +5,10 @@ namespace App\Model\Table;
 use App\Model\Entity\Plot;
 use App\Model\Entity\PlotStatus;
 use App\Model\Entity\PlotVisibility;
+use Cake\ORM\Association\BelongsTo;
+use Cake\ORM\Association\HasMany;
+use Cake\ORM\Behavior\TimestampBehavior;
+use Cake\ORM\Query;
 use function array_merge;
 use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
@@ -17,13 +21,13 @@ use function is_numeric;
 /**
  * Plots Model
  *
- * @property \App\Model\Table\PlotStatusesTable|\Cake\ORM\Association\BelongsTo $PlotStatuses
- * @property \App\Model\Table\PlotStatusesTable|\Cake\ORM\Association\BelongsTo $PlotVisibilities
- * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $RunBy
- * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $CreatedBy
- * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $UpdatedBy
- * @property \App\Model\Table\PlotCharactersTable|\Cake\ORM\Association\HasMany $PlotCharacters
- * @property \App\Model\Table\PlotScenesTable|\Cake\ORM\Association\HasMany $PlotScenes
+ * @property \App\Model\Table\PlotStatusesTable|BelongsTo $PlotStatuses
+ * @property \App\Model\Table\PlotStatusesTable|BelongsTo $PlotVisibilities
+ * @property \App\Model\Table\UsersTable|BelongsTo $RunBy
+ * @property \App\Model\Table\UsersTable|BelongsTo $CreatedBy
+ * @property \App\Model\Table\UsersTable|BelongsTo $UpdatedBy
+ * @property \App\Model\Table\PlotCharactersTable|HasMany $PlotCharacters
+ * @property \App\Model\Table\PlotScenesTable|HasMany $PlotScenes
  *
  * @method Plot get($primaryKey, $options = [])
  * @method Plot newEntity($data = null, array $options = [])
@@ -32,7 +36,7 @@ use function is_numeric;
  * @method Plot[] patchEntities($entities, array $data, array $options = [])
  * @method Plot findOrCreate($search, callable $callback = null, $options = [])
  *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @mixin TimestampBehavior
  */
 class PlotsTable extends Table
 {
@@ -138,6 +142,11 @@ class PlotsTable extends Table
         return $rules;
     }
 
+    /**
+     * @param EntityInterface $entity
+     * @param array $options
+     * @return EntityInterface|false
+     */
     public function save(EntityInterface $entity, $options = [])
     {
         Cache::delete('plots_frontpage');
@@ -145,6 +154,11 @@ class PlotsTable extends Table
     }
 
 
+    /**
+     * @param $identifier
+     * @param null $contain
+     * @return array|EntityInterface
+     */
     public function getByIdOrSlug($identifier, $contain = null)
     {
         if (null === $contain) {
@@ -167,6 +181,9 @@ class PlotsTable extends Table
             ->firstOrFail();
     }
 
+    /**
+     * @return array|Query
+     */
     public function listForHome()
     {
         return $this

@@ -10,7 +10,6 @@ use Cake\TestSuite\TestCase;
  */
 class RolesTableTest extends TestCase
 {
-
     /**
      * Test subject
      *
@@ -24,13 +23,8 @@ class RolesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.roles',
-        'app.phpbb_acl_roles',
-        'app.phpbb_acl_roles_data',
-        'app.phpbb_users',
-        'app.permissions',
-        'app.permissions_users',
-        'app.permissions_roles'
+        'app.Roles',
+        'app.Permissions'
     ];
 
     /**
@@ -41,7 +35,7 @@ class RolesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Roles') ? [] : ['className' => 'App\Model\Table\RolesTable'];
+        $config = TableRegistry::getTableLocator()->exists('Roles') ? [] : ['className' => RolesTable::class];
         $this->Roles = TableRegistry::getTableLocator()->get('Roles', $config);
     }
 

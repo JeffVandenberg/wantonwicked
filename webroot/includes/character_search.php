@@ -12,17 +12,15 @@ $city = Request::getValue('city', 'portland');
 $characterRepository = new CharacterRepository();
 $characters = $characterRepository->autocompleteSearch($term, $onlySanctioned, $city);
 
-$list = array();
-foreach($characters as $i => $character)
-{
+$list = [];
+foreach ($characters as $i => $character) {
     $list[] = [
         'value' => $character['character_name'],
         'data' => $character['id']
     ];
 }
 
-if(count($list) == 0)
-{
+if (count($list) == 0) {
     $list[] = [
         'value' => 'No Characters',
         'data' => -1
