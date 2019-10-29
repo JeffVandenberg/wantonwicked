@@ -1378,9 +1378,15 @@ class CharacterHelper extends AppHelper
                         <?php foreach ($character->getPowerList('lairTrait') as $i => $power): ?>
                             <?php if ($this->mayEditOpen()): ?>
                                 <?php echo $this->Form->hidden('lairTrait.' . $i . '.id', ['value' => $power->Id]); ?>
-                                <?php echo $this->Form->hidden('lairTrait.' . $i . '.name', ['value' => $power->PowerName]); ?>
+                                <?php echo $this->Form->hidden('lairTrait.' . $i . '.name', [
+                                    'value' => 'lair_trait',
+                                ]); ?>
+                                <?php echo $this->Form->textarea('lairTrait.' . $i . '.traits', [
+                                    'value' => $power->Extra['traits'],
+                                    'label' => false
+                                ]); ?>
                             <?php else: ?>
-                                <?php echo str_replace("\n", '<br />', $power->PowerName); ?>
+                                <?php echo str_replace("\n", '<br />', $power->Extra['traits']); ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
