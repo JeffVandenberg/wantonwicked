@@ -187,12 +187,15 @@ $TableRowIndexMax = 2;
 $TableRowAttrFmt = "class='ind\$TableRowIndex'";
 
 $WikiStyle['city']['color']    ='#fff';
+$WikiStyle['beast']['color']    ='#9966cc';
+$WikiStyle['chrisf']['color']    ='#ff00ff';
 $WikiStyle['changeling']['color']    ='#005826';
 $WikiStyle['geist']['color']    ='#415582';
 $WikiStyle['mage']['color']    ='#004a80';
 $WikiStyle['mortal']['color']    ='#6e68a3';
 $WikiStyle['vampire']['color']    ='#9e0b0f';
 $WikiStyle['werewolf']['color']    ='#74483f';
+
 
 $MarkupCss = true;
 
