@@ -207,6 +207,7 @@ class CharactersController extends AppController
             case 'viewOwn':
             case 'viewOther':
             case 'beats':
+            case 'all':
                 return $this->Auth->user();
         }
 
@@ -229,6 +230,31 @@ class CharactersController extends AppController
             ->where([
                 'Characters.user_id' => $this->Auth->user('user_id'),
                 'Characters.city' => $this->Config->readGlobal('city'),
+                'Characters.character_status_id !=' => CharacterStatus::DELETED
+            ]);
+        $this->set('characters', $this->Paginator->paginate($query, [
+            'order' => [
+                'Characters.character_name'
+            ],
+            'limit' => '20'
+        ]));
+    }
+
+    /**
+     * index method
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function all()
+    {
+        $query = $this->Characters
+            ->find()
+            ->contain([
+                'CharacterStatuses',
+            ])
+            ->where([
+                'Characters.user_id' => $this->Auth->user('user_id'),
                 'Characters.character_status_id !=' => CharacterStatus::DELETED
             ]);
         $this->set('characters', $this->Paginator->paginate($query, [

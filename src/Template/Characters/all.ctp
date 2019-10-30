@@ -6,14 +6,14 @@ use App\View\AppView;
 /* @var Character[] $characters ; */
 /* @var AppView $this */
 
-$this->set('title_for_layout', 'Your Characters');
+$this->set('title_for_layout', 'All of your Characters');
 ?>
 <div id="page-content">
     <div class="row">
         <div class="small-12 column">
             <?php if ($isLoggedIn): ?>
-                <?= $this->Html->link('All My Characters',
-                    ['action' => 'all'],
+                <?= $this->Html->link('Active Game',
+                    ['action' => 'index'],
                     ['class' => 'button']
                 ); ?>
                 <?= $this->Html->link('New Character',
