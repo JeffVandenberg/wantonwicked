@@ -19,12 +19,12 @@ include_once("cookbook/sortable.php");
 include_once("cookbook/newpageboxplus.php");
 
 ## set group patterns
-$GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
+$GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Beast|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox)';
 $isST = false;
 if(UserdataHelper::isSt($userdata))
 {
   $isST = true;
-  $GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox|Storytellers)';
+  $GroupPattern = '(?:Players|City|Changeling|Mage|Mortal|Vampire|Werewolf|Beast|Sphere|Profiles|GameRef|PmWiki|Site|Main|SideGames|Archive|Sandbox|Storytellers)';
 }
 $DeleteKeyPattern = "^\\s*123This Page Is Removed321\\s*$";
 
