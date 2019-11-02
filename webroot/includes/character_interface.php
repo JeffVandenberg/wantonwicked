@@ -339,8 +339,8 @@ ob_start();
                 <script type="text/javascript">
 
                     var _plm = _plm || [];
-                    _plm.push(['_btn', 52154]);
-                    _plm.push(['_loc', 'usor0275']);
+                    _plm.push(['_btn', 106918]);
+                    _plm.push(['_loc', 'usfl0316']);
                     _plm.push(['location', document.location.host]);
                     (function (d, e, i) {
                         if (d.getElementById(i)) return;
@@ -358,37 +358,7 @@ ob_start();
                         s.parentNode.insertBefore(px, s);
                         s.parentNode.insertBefore(py, s);
                     })(document, 'script', 'plmxbtn');</script>
-                <!-- // Begin Current Moon Phase HTML (c) MoonConnection.com // -->
-                <div style="width:142px;margin: 0 auto;">
-                    <div style="padding:2px;background-color:#000000;border: 1px solid #000000">
-                        <div style="padding:15px;padding-bottom:5px;padding-top:11px;border: 1px solid #AFB2D8"
-                             align="center">
-                            <script language="JavaScript" type="text/javascript">var ccm_cfg = {
-                                    pth: "http://www.moonmodule.com/cs/",
-                                    fn: "ccm_v1.swf",
-                                    lg: "en",
-                                    hs: 1,
-                                    tf: "12hr",
-                                    scs: 0,
-                                    df: "std",
-                                    dfd: 0,
-                                    tc: "FFFFFF",
-                                    bgc: "000000",
-                                    mc: "000000",
-                                    fw: 104,
-                                    fh: 153,
-                                    js: 0,
-                                    msp: 0,
-                                    u: "mc"
-                                }</script>
-                            <script language="JavaScript" type="text/javascript"
-                                    src="http://www.moonmodule.com/cs/ccm_fl.js"></script>
-                            <div style="padding-top:5px" align="center"><a
-                                        href="http://www.moonconnection.com/moon_cycle.phtml" target="mc_moon_ph"
-                                        style="font-size:10px;font-family:arial,verdana,sans-serif;color:#7F7F7F;text-decoration:underline;background:#000000;border:none;"><span
-                                            style="color:#7F7F7F">moon cycles</span></a></div>
-                        </div>
-                    </div>
+                <!-- // Begin Current Moon Phase HTML (c) MoonConnection.com // --><table cellpadding="0" cellspacing="0" border="0" width="128"><tr><td align="center"><a href="https://www.moonconnection.com" target="mc_moon_ph"><img src="https://www.moonmodule.com/cs/dm/vn.gif" width="128" height="196" border="0" alt="" /></a><div style="position:relative;width:128px;"><div style="position:absolute;top:-20px;left:6px;background:#000000;width:116px;text-align:center;"><a href="https://www.moonconnection.com/moon_phases.phtml" target="mc_moon_ph"><font color="#7F7F7F" size="1" face="arial,helvetica,sans-serif"><span style="color:#7F7F7F;font-family:arial,helvetica,sans-serif;font-size:10px;">moon phase info</span></font></a></div></div></td></tr></table><!-- // end moon phase HTML // -->
                 </div><!-- // end moon phase HTML // -->
             </div>
         </div>
