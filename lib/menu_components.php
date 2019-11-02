@@ -95,10 +95,7 @@ $menuComponents['base'] = [
             'Spheres' => [
                 'link' => '/wiki/City/Spheres'
             ],
-            'Map (Legacy)' => [
-                'link' => '/mapww5/map.html'
-            ],
-            'Map (New)' => [
+            'Map' => [
                 'link' => '/map'
             ],
             'The Districts' => [
@@ -115,17 +112,37 @@ $menuComponents['base'] = [
     'The Venues' => [
         'link' => '#',
         'submenu' => [
+            'Beast' => [
+                'link' => '#',
+                'submenu' => [
+                    'About the Venue' => [
+                        'link' => '/wiki/Beast/Beast'
+                    ],
+                    'Player Guide' => [
+                        'link' => '/wiki/Beast/PlayerGuide'
+                    ],
+                    'Forums' => [
+                        'link' => '/forum/viewforum.php?f=624'
+                    ],
+                    'Beast Cast List' => [
+                        'link' => '/characters/cast/beast'
+                    ],
+                    'Herald Cast List' => [
+                        'link' => '/characters/cast/herald'
+                    ]
+                ]
+            ],
             'Changeling' => [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
                         'link' => '/wiki/Changeling/Changeling'
                     ],
-                    'Changeling Player Guide' => [
+                    'Player Guide' => [
                         'link' => '/wiki/Changeling/PlayerGuide'
                     ],
-                    'Changeling Forums' => [
-                        'link' => '/forum/viewforum.php?f=615'
+                    'Forums' => [
+                        'link' => '#'
                     ],
                     'Changeling Cast List' => [
                         'link' => '/characters/cast/changeling'
@@ -135,36 +152,19 @@ $menuComponents['base'] = [
                     ]
                 ]
             ],
-            'Mage' => [
-                'link' => '#',
-                'submenu' => [
-                    'About the Venue' => [
-                        'link' => '/wiki/Mage/Mage'
-                    ],
-                    'Mage Player Guide' => [
-                        'link' => '/wiki/Mage/PlayerGuide'
-                    ],
-                    'Mage Forums' => [
-                        'link' => '/forum/viewforum.php?f=624'
-                    ],
-                    'Mage Cast List' => [
-                        'link' => '/characters/cast/mage'
-                    ]
-                ]
-            ],
             'Mortal/+' => [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
                         'link' => '/wiki/Mortal/Mortal'
                     ],
-                    'Mortal/+ Player Guide' => [
+                    'Player Guide' => [
                         'link' => '/wiki/Mortal/PlayerGuide'
                     ],
-                    'Mortal/+ Forums' => [
+                    'Forums' => [
                         'link' => '/forum/viewforum.php?f=625'
                     ],
-                    'Mortal/+ Cast List' => [
+                    'Cast List' => [
                         'link' => '/characters/cast/mortal'
                     ]
                 ]
@@ -175,10 +175,10 @@ $menuComponents['base'] = [
                     'About the Venue' => [
                         'link' => '/wiki/Vampire/Vampire'
                     ],
-                    'Vampire Player Guide' => [
+                    'Player Guide' => [
                         'link' => '/wiki/Vampire/PlayerGuide'
                     ],
-                    'Vampire Forums' => [
+                    'Forums' => [
                         'link' => '/forum/viewforum.php?f=665'
                     ],
                     'Vampire Cast List' => [
@@ -195,10 +195,10 @@ $menuComponents['base'] = [
                     'About the Venue' => [
                         'link' => '/wiki/Werewolf/Werewolf'
                     ],
-                    'Werewolf Player Guide' => [
+                    'Player Guide' => [
                         'link' => '/wiki/Werewolf/PlayerGuide'
                     ],
-                    'Werewolf Forums' => [
+                    'Forums' => [
                         'link' => '/forum/viewforum.php?f=626'
                     ],
                     'Werewolf Cast List' => [

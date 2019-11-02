@@ -63,7 +63,7 @@ class LanguageHelper extends AppHelper
         'changeling' => [
             'splat1' => 'Seeming',
             'splat2' => 'Court',
-            'subsplat' => 'Entitlement',
+            'subsplat' => 'Kith',
             'virtue' => 'Needle',
             'vice' => 'Thread',
             'morality' => 'Clarity',
