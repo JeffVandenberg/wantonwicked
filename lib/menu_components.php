@@ -108,6 +108,7 @@ $menuComponents['base'] = [
                 'link' => '/wiki/City/MysteryCult'
             ]
         ]
+
     ],
     'The Venues' => [
         'link' => '#',
