@@ -133,7 +133,8 @@ class CharactersController extends AppController
         $characterTypes = [
             "All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
             "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', 'Changing Breed' => 'Changing Breed',
-            "Mage" => 'Mage', "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist'];
+            "Changeling" => 'Changeling', "Geist" => 'Geist', 'Beast' => 'Beast', 'Herald' => 'Herald'
+        ];
         $mayManageCharacters = $this->Permissions->checkSitePermission(
             $this->Auth->user('user_id'),
             Permission::$ManageCharacters
