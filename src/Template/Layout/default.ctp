@@ -127,9 +127,9 @@ use Cake\Core\Configure;
             <div style="font-size: 9px;">The Storytelling System, Beast the Primordial, Changeling
                 the Lost, Chronicles of Darkness, Demon the Descent, Mage the Awakening, Vampire the Requiem, and
                 Werewolf the Forsaken
-                &copy;2014-2016 CCP hf and published by <a href="http://theonyxpath.com/" target="_blank">Onyx Path
+                &copy;2014-<?= date('Y') ?> CCP hf and published by <a href="http://theonyxpath.com/" target="_blank">Onyx Path
                     Publishing</a>.<br>
-                Produced by Jeff Vandenberg. Layout and Design by Jill Arden &copy;<?php echo date('Y'); ?>
+                Produced by Jeff Vandenberg. Layout and Design by Jill Arden &copy;<?= date('Y') ?>
                 Build # <?php echo $buildNumber; ?>
             </div>
         </div>
