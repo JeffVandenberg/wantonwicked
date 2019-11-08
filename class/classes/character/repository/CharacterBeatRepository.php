@@ -1,4 +1,5 @@
 <?php
+
 namespace classes\character\repository;
 
 /**
@@ -47,7 +48,7 @@ SQL;
         ];
 
         $rows = [];
-        foreach($this->query($sql)->all($params) as $record) {
+        foreach ($this->query($sql)->all($params) as $record) {
             $rows[] = $this->populateObject($record);
         }
 
@@ -64,12 +65,13 @@ SQL;
 SELECT
   *
 FROM
-  character_beats
+  character_beats AS cb
 WHERE
   character_id = ? 
   AND beat_status_id IN (?, ?)
 ORDER BY
-  id asc
+  cb.beat_status_id,
+  cb.created 
 SQL;
         $params = [
             $characterId,
@@ -78,7 +80,7 @@ SQL;
         ];
 
         $list = [];
-        foreach($this->query($sql)->all($params) as $data) {
+        foreach ($this->query($sql)->all($params) as $data) {
             $list[] = $this->populateObject($data);
         }
 
