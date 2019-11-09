@@ -68,7 +68,7 @@ class SheetService
             'theme',
             'twist',
             'malison',
-            'avatism',
+            'atavism',
             'nightmare',
             'lairTrait',
             'clarityHealth',
@@ -218,7 +218,7 @@ class SheetService
                 break;
             case 'beast':
                 $powers = [
-                    'avatism' => 3,
+                    'atavism' => 3,
                     'nightmare' => 3,
                     'lairTrait' => 1
                 ];

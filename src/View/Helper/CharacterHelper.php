@@ -2524,10 +2524,10 @@ class CharacterHelper extends AppHelper
             'misc-abilities',
             ['name', 'note', 'leveltext', 'public']
         );
-        $avatismsTable = $this->buildTable(
+        $atavismsTable = $this->buildTable(
             $character,
-            'avatism',
-            'avatisms',
+            'atavism',
+            'atavisms',
             ['name', 'note', 'public']
         );
         $nightmaresTable = $this->buildTable(
@@ -2575,17 +2575,17 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 medium-6 column float-left">
                     <div class="row">
                         <div class="small-12 column subheader">
-                            Avatisms
+                            Atavisms
                             <?php if ($this->mayEditOpen()): ?>
                                 <div class="success badge clickable add-character-row"
-                                     data-target-table="avatisms">
+                                     data-target-table="atavisms">
                                     <i class="fi-plus"></i>
                                 </div>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="row">
-                        <?php echo $avatismsTable; ?>
+                        <?php echo $atavismsTable; ?>
                     </div>
                 </div>
                 <div class="small-12 medium-6 column float-left">
