@@ -93,7 +93,7 @@ function InputToHTML($pagename, $type, $args, &$opt) {
   ##  convert any positional arguments to named arguments
   $posnames = @$InputTags[$type][':args'];
   if (!$posnames) $posnames = array('name', 'value');
-  while (count($posnames) > 0 && count(@$args['']) > 0) {
+  while (count($posnames) > 0 && isset($args['']) && count($args['']) > 0) {
     $n = array_shift($posnames);
     if (!isset($args[$n])) $args[$n] = array_shift($args['']);
   }

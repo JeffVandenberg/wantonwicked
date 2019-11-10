@@ -819,7 +819,8 @@ function PageIndexQueueUpdate($pagelist) {
     register_shutdown_function('PageIndexUpdate', NULL, getcwd());
   $PageIndexUpdateList = array_merge((array)@$PageIndexUpdateList,
                                      (array)$pagelist);
-  $c1 = count($pagelist); $c2 = count($PageIndexUpdateList);
+  $c1 = (is_array($pagelist) || is_countable($pagelist)) ? count($pagelist) : 0;
+  $c2 = (is_array($PageIndexUpdateList) || is_countable($PageIndexUpdateList)) ? count($PageIndexUpdateList) : 0;
   StopWatch("PageIndexQueueUpdate: queued $c1 pages ($c2 total)");
 }
 
