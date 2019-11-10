@@ -295,6 +295,7 @@ class SheetService
      * @param array $options
      * @param $user
      * @return string|bool
+     * @throws Exception
      */
     public function saveSheet(array $stats, array $options, array $user)
     {
@@ -489,7 +490,7 @@ class SheetService
                         'is_public' => $power['is_public'] ?? false,
                     ];
 
-                    $pp['extra'] = json_encode(array_diff($power, $pp));
+                    $pp['extra'] = json_encode(array_diff_key($power, $pp, ['name' => '', 'note' => '', 'level' => '']));
 
                     $cp = new CharacterPower();
                     $cp->Id = $pp['id'];

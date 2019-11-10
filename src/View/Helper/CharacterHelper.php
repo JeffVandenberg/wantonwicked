@@ -2531,7 +2531,27 @@ class CharacterHelper extends AppHelper
             $character,
             'atavism',
             'atavisms',
-            ['name', 'note', 'public']
+            [
+                'name',
+                'note',
+                'affinity' => [
+                    'header' => 'Affinity',
+                    'translate' => function ($val) {
+                        return $val ? 'Yes' : 'No';
+                    },
+                    'extra' => [
+                        'html_after' => '<div class="alert badge clickable remove-character-row" data-target-table="avatisms"><i class="fi-minus"></i></div>',
+                    ],
+                    'inputs' => [
+                        [
+                            'type' => 'checkbox',
+                            'name' => 'is_affinity',
+                            'value' => 'Extra.is_affinity',
+                        ]
+                    ]
+                ],
+                'public'
+            ]
         );
         $nightmaresTable = $this->buildTable(
             $character,
@@ -2883,7 +2903,7 @@ class CharacterHelper extends AppHelper
         $value = $this->getValueFromPower($power, $input['value']);
         if ($this->mayEditOpen()) {
             $inputOptions = [
-                'value' => $value,
+                'value' => 1,
                 'type' => 'checkbox',
                 'checked' => $value > 0,
                 'label' => false,
