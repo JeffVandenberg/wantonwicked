@@ -10,7 +10,9 @@ use classes\character\data\Character;
 use classes\character\data\CharacterPower;
 use classes\character\data\CharacterStatus;
 use Exception;
-use phpbb\notification\method\email;
+use RuntimeException;
+use function in_array;
+use function is_array;
 
 /**
  * Created by PhpStorm.
@@ -184,6 +186,7 @@ class CharacterHelper extends AppHelper
      * @param array $icons
      * @param array|null $options
      * @return string
+     * @throws Exception
      */
     public function render(Character $character, $icons, $options = null): string
     {
@@ -274,7 +277,7 @@ class CharacterHelper extends AppHelper
         $icon = $this->icons[$character->Icon] ?? '';
         $friends = $character->Friends;
         $destinyPower = $character->getPowerList('misc');
-        if (\is_array($destinyPower) && count($destinyPower)) {
+        if (is_array($destinyPower) && count($destinyPower)) {
             $destinyPower = $destinyPower[0];
         } else {
             $destinyPower = new CharacterPower();
@@ -629,7 +632,7 @@ class CharacterHelper extends AppHelper
                 <div class="small-12 columns">
                     <label>Power Notes</label>
                     <?php echo $characterNotes; ?>
-                    <?php if (\in_array($character->CharacterStatusId, CharacterStatus::SANCTIONED)): ?>
+                    <?php if (in_array($character->CharacterStatusId, CharacterStatus::SANCTIONED)): ?>
                         <p class="help-text" id="notes-help-text">
                             At Character Creation this section should include a list of all traits or bonuses provided
                             by purchase of applicable merits, abilities or by character type choices. Those bonuses will
@@ -1797,7 +1800,7 @@ class CharacterHelper extends AppHelper
      */
     private function mayEditLimited(): bool
     {
-        return \in_array($this->options['edit_mode'], ['open', 'limited']);
+        return in_array($this->options['edit_mode'], ['open', 'limited']);
     }
 
     private function mayEditOpen(): bool
@@ -2696,7 +2699,7 @@ class CharacterHelper extends AppHelper
             }
         } else {
             foreach ($columns as $column => $options) {
-                if (\is_array($options)) {
+                if (is_array($options)) {
                     if (isset($fields[$column])) {
                         $displayFields[$column] = array_merge($fields[$column], $options);
                     } else {
@@ -2706,7 +2709,7 @@ class CharacterHelper extends AppHelper
                     if (isset($fields[$options])) {
                         $displayFields[$options] = $fields[$options];
                     } else {
-                        throw new \RuntimeException('Unknown field type: ' . $options);
+                        throw new RuntimeException('Unknown field type: ' . $options);
                     }
                 }
             }
@@ -2714,7 +2717,7 @@ class CharacterHelper extends AppHelper
 
 
         if (!count($displayFields)) {
-            throw new \RuntimeException('No fields to display for: ' . $powerType);
+            throw new RuntimeException('No fields to display for: ' . $powerType);
         }
 
         ob_start(); ?>
@@ -2798,10 +2801,10 @@ class CharacterHelper extends AppHelper
                 return $this->renderSelectInput($field, $powerType, $power, $i, $input);
                 break;
             case 'hidden':
-                return $this->renderHiddenInput($field, $powerType, $power, $i, $input);
+                return $this->renderHiddenInput($powerType, $power, $i, $input);
                 break;
             case 'checkbox':
-                return $this->renderCheckboxInput($field, $powerType, $power, $i, $input);
+                return $this->renderCheckboxInput($powerType, $power, $i, $input);
                 break;
             default:
                 return 'Unknown Type: ' . $input['type'];
@@ -2818,7 +2821,7 @@ class CharacterHelper extends AppHelper
                 'type' => $input['type'],
                 'maxlength' => 255,
             ];
-            if (isset($input['extra']) && \is_array($input['extra'])) {
+            if (isset($input['extra']) && is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
             }
             return $this->Form->control($powerType . '.' . $i . '.' . $input['name'], $inputOptions);
@@ -2839,7 +2842,7 @@ class CharacterHelper extends AppHelper
                 'label' => false,
                 'empty' => false
             ];
-            if (isset($input['extra']) && \is_array($input['extra'])) {
+            if (isset($input['extra']) && is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
             }
             return $this->Form->select(
@@ -2855,7 +2858,7 @@ class CharacterHelper extends AppHelper
         return $value;
     }
 
-    private function renderHiddenInput($field, $powerType, $power, $i, $input): string
+    private function renderHiddenInput($powerType, $power, $i, $input): string
     {
         $value = $this->getValueFromPower($power, $input['value']);
         if ($this->mayEditOpen()) {
@@ -2863,7 +2866,7 @@ class CharacterHelper extends AppHelper
                 'value' => $value,
                 'type' => 'hidden'
             ];
-            if (isset($input['extra']) && \is_array($input['extra'])) {
+            if (isset($input['extra']) && is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
             }
             return $this->Form->control(
@@ -2875,7 +2878,7 @@ class CharacterHelper extends AppHelper
         return '';
     }
 
-    private function renderCheckboxInput($field, $powerType, $power, $i, $input): string
+    private function renderCheckboxInput($powerType, $power, $i, $input): string
     {
         $value = $this->getValueFromPower($power, $input['value']);
         if ($this->mayEditOpen()) {
@@ -2886,7 +2889,7 @@ class CharacterHelper extends AppHelper
                 'label' => false,
                 'div' => false
             ];
-            if (isset($input['extra']) && \is_array($input['extra'])) {
+            if (isset($input['extra']) && is_array($input['extra'])) {
                 $inputOptions = array_merge($inputOptions, $input['extra']);
             }
             return $this->Form->control(

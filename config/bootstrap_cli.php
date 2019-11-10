@@ -12,6 +12,8 @@
  * @since         3.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
+use App\Application;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Core\Plugin;
@@ -36,6 +38,9 @@ try {
 }
 
 Plugin::load('Migrations');
+Plugin::Load('Tags');
+Plugin::Load('Muffin/Slug');
+
 if (Configure::read('debug')) {
     Plugin::load('IdeHelper', ['bootstrap' => true]);
 }

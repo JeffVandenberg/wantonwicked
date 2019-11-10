@@ -28,6 +28,7 @@ webroot/js/shrink*
 webroot/wiki/wiki.d/.flock
 webroot/wiki/wiki.d/.lastmod
 webroot/wiki/wiki.d/Archive.*
+webroot/wiki/wiki.d/Beast.*
 webroot/wiki/wiki.d/Changeling.*
 webroot/wiki/wiki.d/City.*
 webroot/wiki/wiki.d/GameRef.*
