@@ -1,40 +1,6 @@
 /**
  * Created by JeffVandenberg on 1/20/2017.
  */
-// Foundation.Abide.defaults.validators['character_name'] = function ($el, required, parent) {
-//     return true;
-//     if (!required) {
-//         return true;
-//     }
-//
-//     if ($.trim($el.val()) === '') {
-//         parent.find('.form-error').text('Character Name is required');
-//         return false;
-//     }
-//
-//     let result = false;
-//     $.ajax({
-//         method: 'get',
-//         url: '/characters/validateName.json',
-//         data: {
-//             id: $('#character_id').val(),
-//             name: $el.val(),
-//             city: $("#city").val()
-//         },
-//         async: false,
-//         success: function (response) {
-//             if (response.success) {
-//                 parent.find('.form-error').text('Character Name is already in use.');
-//                 result = !response.in_use;
-//             } else {
-//                 alert('Error validating your character name');
-//             }
-//         }
-//     });
-//
-//     return result;
-// };
-
 function removeCharacterRow(row, message, secondaryTable) {
     row.find('td').addClass('callout secondary');
     setTimeout(function () {
@@ -168,9 +134,13 @@ $(() => {
     });
 
     $("form").submit(e => {
+        let form = this;
         $('#save-character-button').addClass('disabled').attr('disabled', true);
+        if('isValid' in form.data() && form.data().isValid) {
+            return true;
+        }
         $.toast({text: 'Validating character', position: 'top-right'});
-        let nameCheck = new Promise((resolve, reject) => {
+        new Promise((resolve, reject) => {
             $.ajax({
                 method: 'get',
                 url: '/characters/validateName.json',
@@ -181,7 +151,6 @@ $(() => {
                 },
                 success: function (response) {
                     if (response.success) {
-                        $(document).find('.form-error').text('Character Name is already in use.');
                         resolve(response);
                     } else {
                         reject(new Error('Error validating your character name.'));
@@ -192,14 +161,10 @@ $(() => {
             .then(data => {
                     if(!data.in_use) {
                         throw new Error('Character Name in use');
-                        // $.toast({
-                        //     text: "Character Name in use",
-                        //     position: 'top-right',
-                        //     icon: 'error',
-                        //     allowToastClose: true
-                        // });
                     }
                     else {
+                        form.data().isValid = true;
+                        form.submit();
                         $.toast({
                             text: "Submitting Character",
                             position: 'top-right',
@@ -210,6 +175,7 @@ $(() => {
                 }
             )
             .catch(error => {
+                form.data().isValid = false;
                 $.toast({
                     text: error.message,
                     position: 'top-right',
@@ -219,7 +185,7 @@ $(() => {
                 });
             })
             .finally(() => {
-                $('#save-character-button').addClass('disabled').attr('disabled', false);
+                $('#save-character-button').removeClass('disabled').attr('disabled', false);
             });
         e.preventDefault();
     });
