@@ -291,7 +291,7 @@ class CharacterHelper extends AppHelper
                 'required',
                 'div' => false,
                 'maxlength' => 45,
-                'data-validator' => 'character_name'
+                'id' => 'character_name'
             ]);
             $friends = $this->Form->control('friends', [
                 'value' => $character->Friends,
