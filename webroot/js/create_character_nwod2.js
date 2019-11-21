@@ -52,7 +52,62 @@ function addFoundationRow(sectionId) {
     section.append(lastRow);
 }
 
+function validateForm(form, submitForm) {
+    $.toast({text: 'Validating character', position: 'top-right'});
+    new Promise((resolve, reject) => {
+        $.ajax({
+            method: 'get',
+            url: '/characters/validateName.json',
+            data: {
+                id: $('#character_id').val(),
+                name: $('#character_name').val(),
+                city: $("#city").val()
+            },
+            success: function (response) {
+                if (response.success) {
+                    resolve(response);
+                } else {
+                    reject(new Error('Error validating your character name.'));
+                }
+            }
+        });
+    })
+        .then(data => {
+                if (data.in_use) {
+                    throw new Error('Character Name in use');
+                } else {
+                    form.data().isValid = true;
+                    if(submitForm) {
+                        form.submit();
+                        $.toast({
+                            text: "Submitting Character",
+                            position: 'top-right',
+                            icon: 'info',
+                            allowToastClose: true
+                        });
+                    }
+                }
+            }
+        )
+        .catch(error => {
+            form.data().isValid = false;
+            $.toast({
+                text: error.message,
+                position: 'top-right',
+                icon: 'error',
+                allowToastClose: true,
+                hideAfter: false
+            });
+        })
+        .finally(() => {
+            $('#save-character-button').removeClass('disabled').attr('disabled', false);
+        });
+}
+
 $(() => {
+    $(document).on('blur', '#character_name', e => {
+        validateForm($(e.currentTarget).closest('form'), false);
+    });
     $(document).on('change', '#character_type', function () {
         document.location = document.location.pathname + addUrlParam(
             document.location.search,
@@ -134,59 +189,12 @@ $(() => {
     });
 
     $("form").submit(e => {
-        let form = this;
+        let form = $(e.currentTarget);
         $('#save-character-button').addClass('disabled').attr('disabled', true);
         if('isValid' in form.data() && form.data().isValid) {
             return true;
         }
-        $.toast({text: 'Validating character', position: 'top-right'});
-        new Promise((resolve, reject) => {
-            $.ajax({
-                method: 'get',
-                url: '/characters/validateName.json',
-                data: {
-                    id: $('#character_id').val(),
-                    name: $('#character_name').val(),
-                    city: $("#city").val()
-                },
-                success: function (response) {
-                    if (response.success) {
-                        resolve(response);
-                    } else {
-                        reject(new Error('Error validating your character name.'));
-                    }
-                }
-            });
-            })
-            .then(data => {
-                    if(!data.in_use) {
-                        throw new Error('Character Name in use');
-                    }
-                    else {
-                        form.data().isValid = true;
-                        form.submit();
-                        $.toast({
-                            text: "Submitting Character",
-                            position: 'top-right',
-                            icon: 'info',
-                            allowToastClose: true
-                        });
-                    }
-                }
-            )
-            .catch(error => {
-                form.data().isValid = false;
-                $.toast({
-                    text: error.message,
-                    position: 'top-right',
-                    icon: 'error',
-                    allowToastClose: true,
-                    hideAfter: false
-                });
-            })
-            .finally(() => {
-                $('#save-character-button').removeClass('disabled').attr('disabled', false);
-            });
+        validateForm(form, true);
         e.preventDefault();
     });
 });
