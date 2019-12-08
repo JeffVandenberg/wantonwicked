@@ -7,7 +7,7 @@ use classes\core\helpers\Response;
 $requestId = Request::getValue('request_id', 0);
 $onlySanctioned = Request::getValue('only_sanctioned');
 $term = Request::getValue('query');
-$city = Request::getValue('city', 'portland');
+$city = Request::getValue('city', 'miami');
 
 $characterRepository = new CharacterRepository();
 $characters = $characterRepository->autocompleteSearch($term, $onlySanctioned, $city);

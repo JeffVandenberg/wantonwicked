@@ -25,7 +25,8 @@ if (isset($character) && $character->Id) {
             <label>City
                 <?php echo $this->Form->select('city', $cities, [
                     'label' => 'City',
-                    'empty' => false
+                    'empty' => false,
+                    'id' => 'search_city'
                 ]); ?>
             </label>
         </div>
@@ -118,7 +119,7 @@ if (isset($character) && $character->Id) {
             preserveInput: true,
             params: {},
             onSearchStart: function (query) {
-                query.city = $('#city').val();
+                query.city = $('#search_city').val();
                 query.only_sanctioned = $("#only_sanctioned").prop('checked') ? 1 : 0;
             },
             onSelect: function (item) {
