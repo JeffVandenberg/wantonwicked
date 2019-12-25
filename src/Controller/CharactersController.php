@@ -281,6 +281,7 @@ class CharactersController extends AppController
     /**
      * @param string $slug Slug to view
      * @return void
+     * @throws Exception
      */
     public function viewOwn($slug)
     {

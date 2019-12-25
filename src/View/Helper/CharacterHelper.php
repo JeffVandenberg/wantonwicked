@@ -2320,20 +2320,32 @@ class CharacterHelper extends AppHelper
                 [
                     'name',
                     'note',
-                    'level' => [
-                        'header' => 'Level',
+                    'affinity' => [
+                        'header' => 'Affinity',
                         'extra' => [
-                            'html_before' => '<label class="hide-for-large">Level</label>'
+                            'html_before' => '<label class="hide-for-large">Affinity</label>'
+                        ],
+                        'inputs' => [
+                            [
+                                'type' => 'checkbox',
+                                'name' => 'is_affinity',
+                                'value' => 'Extra.is_affinity',
+                            ]
+                        ]
+                    ],
+                    'Type' => [
+                        'header' => 'Type',
+                        'extra' => [
+                            'html_before' => '<label class="hide-for-large">Type</label>'
                         ],
                         'inputs' => [
                             [
                                 'type' => 'select',
-                                'name' => 'level',
-                                'value' => 'ContractLevel',
+                                'name' => 'type',
+                                'value' => 'Extra.type',
                                 'range' => ['common' => 'Common', 'royal' => 'Royal'],
                             ]
                         ]
-
                     ],
                     'public'
                 ]);

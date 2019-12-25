@@ -105,7 +105,7 @@ function validateCharacterName(form, submitForm) {
 
 function validateForm(form, submitForm) {
     $.toast({text: 'Validating character', position: 'top-right'});
-    if ($("#character_name").length() > 0) {
+    if ($("#character_name").length > 0) {
         validateCharacterName(form, submitForm);
     }
 }
