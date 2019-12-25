@@ -63,6 +63,12 @@ if(isset($_GET['character_id'])) {
             case 'wolfblooded':
                 $icon = 'wtfwb.png';
                 break;
+            case 'beast':
+                $icon = 'beast_beast.png';
+                break;
+            case 'herald':
+                $icon = 'beast_herald.png';
+                break;
             default:
                 $icon = 'player.png';
                 break;
