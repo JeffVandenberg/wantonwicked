@@ -52,8 +52,7 @@ function addFoundationRow(sectionId) {
     section.append(lastRow);
 }
 
-function validateForm(form, submitForm) {
-    $.toast({text: 'Validating character', position: 'top-right'});
+function validateCharacterName(form, submitForm) {
     new Promise((resolve, reject) => {
         $.ajax({
             method: 'get',
@@ -77,7 +76,7 @@ function validateForm(form, submitForm) {
                     throw new Error('Character Name in use');
                 } else {
                     form.data().isValid = true;
-                    if(submitForm) {
+                    if (submitForm) {
                         form.submit();
                         $.toast({
                             text: "Submitting Character",
@@ -102,6 +101,13 @@ function validateForm(form, submitForm) {
         .finally(() => {
             $('#save-character-button').removeClass('disabled').attr('disabled', false);
         });
+}
+
+function validateForm(form, submitForm) {
+    $.toast({text: 'Validating character', position: 'top-right'});
+    if ($("#character_name").length() > 0) {
+        validateCharacterName(form, submitForm);
+    }
 }
 
 $(() => {
@@ -191,7 +197,7 @@ $(() => {
     $("form").submit(e => {
         let form = $(e.currentTarget);
         $('#save-character-button').addClass('disabled').attr('disabled', true);
-        if('isValid' in form.data() && form.data().isValid) {
+        if ('isValid' in form.data() && form.data().isValid) {
             return true;
         }
         validateForm(form, true);
