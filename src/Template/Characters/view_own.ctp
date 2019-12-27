@@ -7,7 +7,7 @@ use classes\character\data\Character;
 /* @var Character $character */
 
 $this->set('title_for_layout', 'View Character: ' . $character->CharacterName);
-echo $this->Html->script('create_character_nwod2');
+echo $this->addScript('create_character_nwod2');
 ?>
 <form method="post" data-abide novalidate id="character-form">
     <div data-abide-error class="alert callout" style="display: none;">
