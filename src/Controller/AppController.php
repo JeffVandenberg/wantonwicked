@@ -52,7 +52,7 @@ class AppController extends Controller
             'authenticate' => ['Phpbb'],
             'authorize' => ['Controller'],
             'loginAction' => '/forum/ucp.php?mode=login',
-            'unauthorizedRedirect' => '/forum/ucp.php?mode=login'
+            'unauthorizedRedirect' => '/forum/ucp.php?mode=login',
         ],
         'Permissions',
         'Menu',
@@ -69,8 +69,8 @@ class AppController extends Controller
         'Form',
         'MainMenu',
         'Shrink.Shrink' => [
-            'debugLevel' => 1
-        ]
+            'debugLevel' => 1,
+        ],
     ];
 
     /**
@@ -82,7 +82,7 @@ class AppController extends Controller
         parent::beforeFilter($event);
 
         global $userdata;
-        if ($userdata['user_id'] != $this->Auth->user('user_id')) {
+        if ((int)$userdata['user_id'] !== (int)$this->Auth->user('user_id')) {
             $this->Auth->logout();
             $this->Auth->setUser($userdata);
         }
@@ -98,7 +98,7 @@ class AppController extends Controller
     public function beforeRender(Event $event)
     {
         parent::beforeRender($event);
-        $this->viewBuilder()->setLayout(($this->getRequest()->is("ajax")) ? "ajax" : "default");
+        $this->viewBuilder()->setLayout(($this->getRequest()->is('ajax')) ? 'ajax' : 'default');
         $this->set('menu', $this->Menu->GetMenu());
         $this->set('serverTime', (microtime(true) + date('Z')) * 1000);
         $this->set('buildNumber', file_get_contents(ROOT . '/build_number'));
