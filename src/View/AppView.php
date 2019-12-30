@@ -15,6 +15,7 @@ namespace App\View;
 
 use App\View\Helper\CharacterHelper;
 use App\View\Helper\MainMenuHelper;
+use App\View\Helper\SubMenuHelper;
 use App\View\Helper\UserPanelHelper;
 use Cake\Core\Configure;
 use Cake\View\View;
@@ -29,6 +30,7 @@ use Shrink\View\Helper\ShrinkHelper;
  * @property CharacterHelper Character
  * @property UserPanelHelper UserPanel
  * @property MainMenuHelper MainMenu
+ * @property SubMenuHelper SubMenu
  * @link http://book.cakephp.org/3.0/en/views.html#the-app-view
  */
 class AppView extends View
@@ -43,14 +45,18 @@ class AppView extends View
      *
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
     }
 
-    public function addScript($scriptName)
+    /**
+     * @param string $scriptName name of file to embed
+     * @return void
+     */
+    public function addScript($scriptName): void
     {
-        if(Configure::read('debug')) {
+        if (Configure::read('debug')) {
             echo $this->Html->script($scriptName, ['block' => true]);
         } else {
             $this->Shrink->js($scriptName . '.js');

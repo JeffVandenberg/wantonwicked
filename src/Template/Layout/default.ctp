@@ -1,20 +1,26 @@
 <?php
+
 use App\View\AppView;
 use Cake\Core\Configure;
 
 /* @var AppView $this */
 /* @var string $title_for_layout */
 /* @var string $buildNumber */
+/* @var float $serverTime */
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115948072-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-115948072-1');
@@ -87,8 +93,7 @@ use Cake\Core\Configure;
     <nav id="nav-top" class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%"
          data-top-anchor="main-content">
         <ul class="menu">
-            <li class="topbar-title title-logo show-for-medium"
-                role="banner">
+            <li class="topbar-title title-logo show-for-medium">
                 <a href="/" title="Wanton Wicked">
                     <img src="/img/ww_logo_50x50.png" alt="Wanton Wicked Logo"/>
                 </a>
@@ -113,7 +118,11 @@ use Cake\Core\Configure;
         </div>
         <div id="contenta" class="contentbox">
             <?php if (isset($submenu)): ?>
-                <?php echo $this->SubMenu->Create($submenu); ?>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <?php echo $this->SubMenu->Create($submenu); ?>
+                    </div>
+                </div>
             <?php endif; ?>
             <?php echo $this->Flash->render(); ?>
 
@@ -127,7 +136,8 @@ use Cake\Core\Configure;
             <div style="font-size: 9px;">The Storytelling System, Beast the Primordial, Changeling
                 the Lost, Chronicles of Darkness, Demon the Descent, Mage the Awakening, Vampire the Requiem, and
                 Werewolf the Forsaken
-                &copy;2014-<?= date('Y') ?> CCP hf and published by <a href="http://theonyxpath.com/" target="_blank">Onyx Path
+                &copy;2014-<?= date('Y') ?> CCP hf and published by <a href="http://theonyxpath.com/" target="_blank">Onyx
+                    Path
                     Publishing</a>.<br>
                 Produced by Jeff Vandenberg. Layout and Design by Jill Arden &copy;<?= date('Y') ?>
                 Build # <?php echo $buildNumber; ?>

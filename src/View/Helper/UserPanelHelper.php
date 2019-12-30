@@ -6,7 +6,6 @@ use App\Model\Table\RequestsTable;
 use Cake\Http\ServerRequest;
 use Cake\ORM\TableRegistry;
 use Cake\View\Helper\HtmlHelper;
-use Exception;
 
 /**
  * Created by PhpStorm.
@@ -20,11 +19,9 @@ class UserPanelHelper extends AppHelper
 {
     public $helpers = ['Html'];
 
-
     /**
      * @param string $page URL to refer to
      * @return string
-     * @throws Exception
      */
     public function create(string $page): string
     {
@@ -75,7 +72,6 @@ EOQ;
     <div>$logout</div>
 </div>
 EOQ;
-
         }
 
         return $panel;
