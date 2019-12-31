@@ -11,13 +11,13 @@ use App\View\AppView;
 
 ?>
 <p>A New request has been submitted</p>
-<p>Request: <?= $request->title; ?></p>
-<p>From User: <?= $request->updated_by->username; ?></p>
+<p>Request: <?= $request->title ?></p>
+<p>From User: <?= $request->updated_by->username ?></p>
 <p><strong>Request:</strong><br />
-    <?= $request->body; ?>
+    <?= $request->body ?>
 </p>
 <p>
     <?= $this->Html->link('View Request', ['controller' => 'requests', 'action' => 'st-view', $request->id], [
             'fullBase' => true
-    ]); ?>
+    ]) ?>
 </p>
