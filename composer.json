@@ -15,6 +15,7 @@
   "require": {
     "php": ">=7.3",
     "ext-json": "*",
+    "ext-pdo": "*",
     "ext-intl": "*",
     "phpmailer/phpmailer": "^5.2",
     "cakephp/cakephp": "^3.5",

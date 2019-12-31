@@ -9,24 +9,24 @@ use classes\log\data\ActionType;
 
 require_once __DIR__ . '/../../webroot/cgi-bin/start_of_page.php';
 
-define('C_CUSTOM_LOGIN','1'); // 0 OFF, 1 ON
+define('C_CUSTOM_LOGIN', '1'); // 0 OFF, 1 ON
 
 // Enter your CMS Global values below
 $loggedIn = false;
 $userTypeId = 0;
 $isInvisible = 0;
-if(isset($_GET['character_id'])) {
-    $characterId = (int) $_GET['character_id'];
+if (isset($_GET['character_id'])) {
+    $characterId = (int)$_GET['character_id'];
     $service = new SheetService();
     $character = $service->loadSheet($characterId);
     /* @var Character $character */
 
-    if(!$character || ($character->UserId != $userdata['user_id'])) {
+    if (!$character || ((int)$character->UserId !== (int)$userdata['user_id'])) {
         Response::endRequest('Not Allowed');
     }
 
     // check character status
-    if(in_array($character->CharacterStatusId, [CharacterStatus::IDLE, CharacterStatus::INACTIVE])) {
+    if (in_array($character->CharacterStatusId, [CharacterStatus::IDLE, CharacterStatus::INACTIVE], false)) {
         $service->reactivateCharacter($character, $userdata['user_id'], 'Restored to Active Status via Login.');
     }
 
@@ -37,8 +37,8 @@ if(isset($_GET['character_id'])) {
     define('C_CUSTOM_ACTION', 'CHARACTER LOGIN');
 
     $icon = 'unsanctioned.png';
-    if($character->CharacterStatusId == CharacterStatus::ACTIVE) {
-        switch(strtolower($character->CharacterType)) {
+    if ((int)$character->CharacterStatusId === CharacterStatus::ACTIVE) {
+        switch (strtolower($character->CharacterType)) {
             case 'mortal':
                 $icon = 'wodm.png';
                 break;
@@ -74,19 +74,22 @@ if(isset($_GET['character_id'])) {
                 break;
         }
 
-        if((((int) $character->Icon) === 0) && ($character->HideIcon == 'N')){
+        if ((((int)$character->Icon) === 0) && ($character->HideIcon === 'N')) {
             $icon = $character->Icon;
         }
     }
-    if($character->CharacterStatusId == CharacterStatus::UNSANCTIONED) {
+    if ((int)$character->CharacterStatusId === CharacterStatus::UNSANCTIONED) {
         $icon = 'desanctioned.png';
     }
-    if($character->City == 'Side Game') {
+    if (strtolower($character->City) === 'side game') {
         $icon = 'sidegames.png';
     }
 
     $userTypeId = 3;
-    addUser($icon, $userTypeId, C_CUSTOM_USERID,
+    addUser(
+        $icon,
+        $userTypeId,
+        C_CUSTOM_USERID,
         str_replace('\'', '\\\'', C_CUSTOM_USERNAME),
         2
     ); // login type 3 = character
@@ -111,7 +114,7 @@ EOQ;
     $action->bindValue('username', makeSafe(C_CUSTOM_USERNAME));
     $action->bindValue('icon', $icon);
     $action->bindValue('name', C_CUSTOM_USERNAME);
-    if(!$action->execute()) {
+    if (!$action->execute()) {
         return $action->errorInfo();
     }
 
@@ -119,9 +122,8 @@ EOQ;
     CharacterLog::logAction($characterId, ActionType::LOGIN, 'Chat Login', $userdata['user_id']);
 
     $loggedIn = true;
-}
-else if(isset($_GET['st_login']) || (isset($_GET['action']) && $_GET['action'] == 'st_login')) {
-    if(UserdataHelper::isSt($userdata)) {
+} elseif (isset($_GET['st_login']) || (isset($_GET['action']) && strtolower($_GET['action']) === 'st_login')) {
+    if (UserdataHelper::isSt($userdata)) {
         define('C_CUSTOM_USERNAME', $userdata['username']);
         define('C_CUSTOM_USERID', $userdata['user_id']);
 
@@ -129,15 +131,15 @@ else if(isset($_GET['st_login']) || (isset($_GET['action']) && $_GET['action'] =
         $userTypeId = 4; // regular ST
         $admin = 0;
         $mod = 1;
-        if(UserdataHelper::isAsst($userdata)) {
+        if (UserdataHelper::isAsst($userdata)) {
             $userTypeId = 5;
             $mod = 1;
-        } else if(UserdataHelper::isAdmin($userdata)) {
+        } elseif (UserdataHelper::isAdmin($userdata)) {
             $icon = 'admin.png';
             $userTypeId = 6;
             $admin = 1;
             $mod = 1;
-        } else if(UserdataHelper::isWikiManager($userda11ta)) {
+        } elseif (UserdataHelper::isWikiManager($userdata)) {
             $icon = 'wiki.png';
             $userTypeId = 7;
             $mod = 0;
@@ -174,8 +176,7 @@ EOQ;
         $action->bindValue('isInvisible', $isInvisible);
         $action->execute();
         $loggedIn = true;
-    }
-    else {
+    } else {
         // check if they have a profile and remove moderator permissions
         $query = <<<EOQ
 UPDATE
@@ -197,8 +198,7 @@ EOQ;
         $action->execute();
         Response::endRequest('You do not have ST Permissions');
     }
-}
-else if($userdata['username'] !== 'Anonymous') {
+} elseif ($userdata['username'] !== 'Anonymous') {
     define('C_CUSTOM_USERNAME', $userdata['username']); // username
     define('C_CUSTOM_USERID', $userdata['user_id']); // userid
     define('C_CUSTOM_ACTION', 'OOC LOGIN');
@@ -232,16 +232,19 @@ EOQ;
     $action->bindValue('icon', $icon);
     $action->execute();
     $loggedIn = true;
-}
-else if(isset($_POST['username']) && (trim($_POST['username']) !== '')) {
+} elseif (isset($_POST['username']) && (trim($_POST['username']) !== '')) {
     define('C_CUSTOM_USERNAME', $_POST['username']);
     define('C_CUSTOM_USERID', -1); // userid
     define('C_CUSTOM_ACTION', 'GUEST LOGIN');
 
     $userTypeId = 1;
-    addUser('ooc.png', $userTypeId, C_CUSTOM_USERID,
+    addUser(
+        'ooc.png',
+        $userTypeId,
+        C_CUSTOM_USERID,
         str_replace('\'', '\\\'', C_CUSTOM_USERNAME),
-        1); // guest user
+        1
+    ); // guest user
 
     $query = <<<EOQ
 UPDATE
@@ -260,16 +263,14 @@ EOQ;
 
     $dbh = db_connect();
     $action = $dbh->prepare($query);
-    $parameters = array(C_CUSTOM_USERNAME, C_CUSTOM_USERNAME, C_CUSTOM_USERID);
+    $parameters = [C_CUSTOM_USERNAME, C_CUSTOM_USERNAME, C_CUSTOM_USERID];
     $action->execute($parameters);
     $loggedIn = true;
-}
-else {
+} else {
     Response::redirect('/login_ooc.php');
 }
 
-if(!$loggedIn)
-{
+if (!$loggedIn) {
     Response::redirect('/', 'Unable to log you in to the chat.');
 }
 
@@ -285,7 +286,7 @@ WHERE
 EOQ;
 
 $statement = $dbh->prepare($sql);
-$params = array(makeSafe(C_CUSTOM_USERNAME), C_CUSTOM_USERID, $userTypeId);
+$params = [makeSafe(C_CUSTOM_USERNAME), C_CUSTOM_USERID, $userTypeId];
 $statement->execute($params);
 $result = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -299,87 +300,72 @@ $result = $statement->fetch(PDO::FETCH_ASSOC);
 
 // assign userId for external access
 $userId = $result['id'];
-## DO NOT EDIT BELOW THIS LINE ##############
+// DO NOT EDIT BELOW THIS LINE ##############
 
 
 // if remote login via CMS
 
-	if(isset($remotely_hosted) && $remotely_hosted){
+if (isset($remotely_hosted) && $remotely_hosted) {
+    // check username isset
+    if (!isset($_COOKIE['uname'])) {
+        header('Location: error.php');
+        die;
+    }
 
-		// check username isset
-		if(!isset($_COOKIE["uname"])){
-
-			header("Location: error.php");
-			die;
-
-		}
-
-		// if userid is null, assign userid
-		if(!isset($_COOKIE["uid"])){
-
-			$uid='-1';
-
-		}else{
-
-			$uid=$_COOKIE["uid"];
-
-		}
-
-	}
+    // if userid is null, assign userid
+    if (!isset($_COOKIE['uid'])) {
+        $uid = '-1';
+    } else {
+        $uid = $_COOKIE['uid'];
+    }
+}
 
 // if custom login
 
-	if(C_CUSTOM_LOGIN){
+if (C_CUSTOM_LOGIN) {
+    // assign username
+    $uname = str_replace('\'', '\\\'', C_CUSTOM_USERNAME);
 
-		// assign username
-		$uname = str_replace('\'', '\\\'', C_CUSTOM_USERNAME);
-
-		if(!C_CUSTOM_USERID){
-
-			// userid empty
-			$uid = '-1';
-
-		}else{
-
-			// assign userid
-			$uid = C_CUSTOM_USERID;
-
-		}
-
-	}
+    if (!C_CUSTOM_USERID) {
+        // userid empty
+        $uid = '-1';
+    } else {
+        // assign userid
+        $uid = C_CUSTOM_USERID;
+    }
+}
 
 // if default login
 
-	if(isset($remotely_hosted) && !$remotely_hosted && !C_CUSTOM_LOGIN){
+if (isset($remotely_hosted) && !$remotely_hosted && !C_CUSTOM_LOGIN) {
+    ?>
+    <SCRIPT LANGUAGE="JavaScript1.2">
+        <!--
+        function getCookieVal(offset) {
+            let endstr = document.cookie.indexOf(";", offset);
+            if (endstr == -1)
+                endstr = document.cookie.length;
+            return unescape(document.cookie.substring(offset, endstr));
+        }
 
-	?>
+        function GetCookie(name) {
+            const arg = name + "=";
+            const alen = arg.length;
+            const clen = document.cookie.length;
+            let i = 0;
+            while (i < clen) {
+                const j = i + alen;
+                if (document.cookie.substring(i, j) == arg)
+                    return getCookieVal(j);
+                i = document.cookie.indexOf(" ", i) + 1;
+                if (i == 0) break;
+            }
+            return null;
+        }
 
-		<SCRIPT LANGUAGE="JavaScript1.2">
-		<!-- 
-		function getCookieVal (offset) {
-	  		var endstr = document.cookie.indexOf (";", offset);
-	  		if (endstr == -1)
-	  		endstr = document.cookie.length;
-	  		return unescape(document.cookie.substring(offset, endstr));
-		}
-		function GetCookie (name) {
-	  		var arg = name + "=";
-	  		var alen = arg.length;
-	  		var clen = document.cookie.length;
-	  		var i = 0;
-	  		while (i < clen) {
-	    		var j = i + alen;
-	    		if (document.cookie.substring(i, j) == arg)
-	    		return getCookieVal (j);
-	    		i = document.cookie.indexOf(" ", i) + 1;
-	    		if (i == 0) break;
-	  		}
-	  		return null;
-		}
-		if(GetCookie("login") == null){ 
-			window.location="error.php";
-		}
-		// -->
-		</SCRIPT>
-
-<?php }?>
+        if (GetCookie("login") == null) {
+            window.location = "error.php";
+        }
+        // -->
+    </SCRIPT>
+<?php } ?>
