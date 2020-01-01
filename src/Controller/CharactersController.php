@@ -10,6 +10,7 @@ use App\Model\Table\CharactersTable;
 use Cake\Controller\Component\PaginatorComponent;
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Http\Response;
 use Cake\Network\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
@@ -38,17 +39,8 @@ use Exception;
 class CharactersController extends AppController
 {
     /**
-     * Components
-     *
-     * @var array
-     */
-    public $components = [
-        'Flash'
-    ];
-
-    /**
      * @param Event $event Event to handle
-     * @return \Cake\Http\Response|void|null
+     * @return Response|void|null
      */
     public function beforeFilter(Event $event)
     {
@@ -58,7 +50,7 @@ class CharactersController extends AppController
                 'index',
                 'city',
                 'cast',
-                'activity'
+                'activity',
             ]
         );
     }
@@ -66,7 +58,7 @@ class CharactersController extends AppController
     /**
      * @return void
      */
-    public function activity()
+    public function activity(): void
     {
         $this->set('data', $this->Characters->listBarelyPlaying());
         $this->set('data2', $this->Characters->listAllLoginActivity());
@@ -77,7 +69,7 @@ class CharactersController extends AppController
      * @return void
      * @throws Exception
      */
-    public function cast($type = 'All')
+    public function cast($type = 'All'): void
     {
         $query = $this->Characters
             ->find()
@@ -90,7 +82,7 @@ class CharactersController extends AppController
                 'Characters.splat2',
                 'Characters.is_npc',
                 'Characters.character_status_id',
-                'CharacterStatuses.name'
+                'CharacterStatuses.name',
             ])
             ->where([
                 'Characters.character_status_id IN ' => [CharacterStatus::ACTIVE, CharacterStatus::IDLE],
@@ -100,21 +92,21 @@ class CharactersController extends AppController
                 'Users' => [
                     'fields' => [
                         'user_id',
-                        'username'
-                    ]
+                        'username',
+                    ],
                 ],
-                'CharacterStatuses'
+                'CharacterStatuses',
             ]);
 
         if (strtolower($type) !== 'all') {
             $query->andWhere([
-                'Characters.character_type' => $type
+                'Characters.character_type' => $type,
             ]);
         }
         $this->set('characters', $this->paginate($query, [
             'limit' => 20,
             'order' => [
-                'character_name' => 'asc'
+                'character_name' => 'asc',
             ],
             'sortWhitelist' => [
                 'Users.username',
@@ -128,12 +120,13 @@ class CharactersController extends AppController
                 'Characters.splat2',
                 'splat1',
                 'splat2',
-            ]
+            ],
         ]));
         $characterTypes = [
-            "All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
-            "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', 'Changing Breed' => 'Changing Breed',
-            "Changeling" => 'Changeling', "Geist" => 'Geist', 'Beast' => 'Beast', 'Herald' => 'Herald'
+            'All' => 'All', 'Mortal' => 'Mortal', 'Vampire' => 'Vampire', 'Ghoul' => 'Ghoul',
+            'Werewolf' => 'Werewolf', 'Wolfblooded' => 'Wolfblooded', 'Changing Breed' => 'Changing Breed',
+            'Changeling' => 'Changeling', 'Fae-Touched' => 'Fae-Touched', 'Geist' => 'Geist', 'Beast' => 'Beast',
+            'Herald' => 'Herald',
         ];
         $mayManageCharacters = $this->Permissions->checkSitePermission(
             $this->Auth->user('user_id'),
@@ -147,7 +140,7 @@ class CharactersController extends AppController
      * @return void
      * @throws Exception
      */
-    public function stGoals($type = 'all')
+    public function stGoals($type = 'all'): void
     {
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $this->set('submenu', $storytellerMenu);
@@ -161,33 +154,33 @@ class CharactersController extends AppController
                 'Characters.splat2',
                 'Characters.is_npc',
                 'CharacterPowers.power_name',
-                'Users.username'
+                'Users.username',
             ])
             ->contain([
                 'Characters' => [
-                    'Users'
-                ]
+                    'Users',
+                ],
             ])
             ->where([
                 'Characters.character_status_id IN ' => CharacterStatus::SANCTIONED,
                 'Characters.city' => $this->Config->readGlobal('city'),
-                'CharacterPowers.power_type' => 'aspiration'
+                'CharacterPowers.power_type' => 'aspiration',
             ]);
 
         if (strtolower($type) !== 'all') {
             $query = $query->andWhere([
-                'Characters.character_type' => $type
+                'Characters.character_type' => $type,
             ]);
         }
 
-        $characterTypes = ["All" => 'All', "Mortal" => 'Mortal', "Vampire" => 'Vampire', "Ghoul" => 'Ghoul',
-            "Werewolf" => 'Werewolf', "Wolfblooded" => 'Wolfblooded', "Mage" => 'Mage',
-            "Sleepwalker" => 'Sleepwalker', "Changeling" => 'Changeling', "Geist" => 'Geist'];
+        $characterTypes = ['All' => 'All', 'Mortal' => 'Mortal', 'Vampire' => 'Vampire', 'Ghoul' => 'Ghoul',
+            'Werewolf' => 'Werewolf', 'Wolfblooded' => 'Wolfblooded', 'Mage' => 'Mage',
+            'Sleepwalker' => 'Sleepwalker', 'Changeling' => 'Changeling', 'Geist' => 'Geist'];
         $this->set('characters', $this->Paginator->paginate($query, [
             'limit' => 30,
             'order' => [
                 'Characters.character_name',
-            ]
+            ],
         ]));
         $this->set(compact('type', 'characterTypes'));
     }

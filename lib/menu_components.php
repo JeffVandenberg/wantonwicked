@@ -8,7 +8,6 @@
 
 namespace app\Lib;
 
-
 $menuComponents = [];
 $menuComponents['base'] = [
     'Forums' => [
@@ -21,9 +20,9 @@ $menuComponents['base'] = [
                 'link' => '/plots',
             ],
             'Scenes' => [
-                'link' => '/scenes'
-            ]
-        ]
+                'link' => '/scenes',
+            ],
+        ],
     ],
     'Characters' => [
     ],
@@ -33,7 +32,7 @@ $menuComponents['base'] = [
         'link' => '#',
         'submenu' => [
             'Meet the Team' => [
-                'link' => '/staff'
+                'link' => '/staff',
             ],
             'Terms of Use' => [
                 'link' => '/wiki/GameRef/TermsOfUse',
@@ -51,9 +50,9 @@ $menuComponents['base'] = [
                         'link' => '/wiki/GameRef/HouseRules',
                     ],
                     'Custom Item/Powers' => [
-                        'link' => '/wiki/GameRef/CustomItemsAndPowers'
-                    ]
-                ]
+                        'link' => '/wiki/GameRef/CustomItemsAndPowers',
+                    ],
+                ],
             ],
             'New Player Help' => [
                 'link' => '/wiki/GameRef/Help',
@@ -75,39 +74,39 @@ $menuComponents['base'] = [
                     ],
                     'Sanctioning Guide' => [
                         'link' => '/wiki/GameRef/Sanctioning',
-                    ]
-                ]
+                    ],
+                ],
             ],
             'Character Creation' => [
-                'link' => '/wiki/GameRef/CharacterCreation'
-            ]
-        ]
+                'link' => '/wiki/GameRef/CharacterCreation',
+            ],
+        ],
     ],
     'The City' => [
         'link' => '#',
         'submenu' => [
             'Setting Introduction' => [
-                'link' => '/wiki/City/City'
+                'link' => '/wiki/City/City',
             ],
             'The Embassy' => [
-                'link' => '/wiki/City/Embassy'
+                'link' => '/wiki/City/Embassy',
             ],
             'Spheres' => [
-                'link' => '/wiki/City/Spheres'
+                'link' => '/wiki/City/Spheres',
             ],
             'Map' => [
-                'link' => '/map'
+                'link' => '/map',
             ],
             'The Districts' => [
-                'link' => '/wiki/City/Districts'
+                'link' => '/wiki/City/Districts',
             ],
             'Cast List' => [
-                'link' => '/characters/cast/'
+                'link' => '/characters/cast/',
             ],
             'Mystery Cults' => [
-                'link' => '/wiki/City/MysteryCult'
-            ]
-        ]
+                'link' => '/wiki/City/MysteryCult',
+            ],
+        ],
     ],
     'The Venues' => [
         'link' => '#',
@@ -116,123 +115,123 @@ $menuComponents['base'] = [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/Beast/Beast'
+                        'link' => '/wiki/Beast/Beast',
                     ],
                     'Player Guide' => [
-                        'link' => '/wiki/Beast/PlayerGuide'
+                        'link' => '/wiki/Beast/PlayerGuide',
                     ],
                     'Forums' => [
-                        'link' => '/forum/viewforum.php?f=624'
+                        'link' => '/forum/viewforum.php?f=624',
                     ],
                     'Beast Cast List' => [
-                        'link' => '/characters/cast/beast'
+                        'link' => '/characters/cast/beast',
                     ],
                     'Herald Cast List' => [
-                        'link' => '/characters/cast/herald'
-                    ]
-                ]
+                        'link' => '/characters/cast/herald',
+                    ],
+                ],
             ],
             'Changeling' => [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/Changeling/Changeling'
+                        'link' => '/wiki/Changeling/Changeling',
                     ],
                     'Player Guide' => [
-                        'link' => '/wiki/Changeling/PlayerGuide'
+                        'link' => '/wiki/Changeling/PlayerGuide',
                     ],
                     'Forums' => [
-                        'link' => '#'
+                        'link' => '#',
                     ],
                     'Changeling Cast List' => [
-                        'link' => '/characters/cast/changeling'
+                        'link' => '/characters/cast/changeling',
                     ],
                     'Fae-Touched Cast List' => [
-                        'link' => '/characters/cast/faetouched'
-                    ]
-                ]
+                        'link' => '/characters/cast/fae-touched',
+                    ],
+                ],
             ],
             'Mortal/+' => [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/Mortal/Mortal'
+                        'link' => '/wiki/Mortal/Mortal',
                     ],
                     'Player Guide' => [
-                        'link' => '/wiki/Mortal/PlayerGuide'
+                        'link' => '/wiki/Mortal/PlayerGuide',
                     ],
                     'Forums' => [
-                        'link' => '/forum/viewforum.php?f=625'
+                        'link' => '/forum/viewforum.php?f=625',
                     ],
                     'Cast List' => [
-                        'link' => '/characters/cast/mortal'
-                    ]
-                ]
+                        'link' => '/characters/cast/mortal',
+                    ],
+                ],
             ],
             'Vampire' => [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/Vampire/Vampire'
+                        'link' => '/wiki/Vampire/Vampire',
                     ],
                     'Player Guide' => [
-                        'link' => '/wiki/Vampire/PlayerGuide'
+                        'link' => '/wiki/Vampire/PlayerGuide',
                     ],
                     'Forums' => [
-                        'link' => '/forum/viewforum.php?f=665'
+                        'link' => '/forum/viewforum.php?f=665',
                     ],
                     'Vampire Cast List' => [
-                        'link' => '/characters/cast/vampire'
+                        'link' => '/characters/cast/vampire',
                     ],
                     'Ghoul Cast List' => [
-                        'link' => '/characters/cast/ghoul'
-                    ]
-                ]
+                        'link' => '/characters/cast/ghoul',
+                    ],
+                ],
             ],
             'Werewolf' => [
                 'link' => '#',
                 'submenu' => [
                     'About the Venue' => [
-                        'link' => '/wiki/Werewolf/Werewolf'
+                        'link' => '/wiki/Werewolf/Werewolf',
                     ],
                     'Player Guide' => [
-                        'link' => '/wiki/Werewolf/PlayerGuide'
+                        'link' => '/wiki/Werewolf/PlayerGuide',
                     ],
                     'Forums' => [
-                        'link' => '/forum/viewforum.php?f=626'
+                        'link' => '/forum/viewforum.php?f=626',
                     ],
                     'Werewolf Cast List' => [
-                        'link' => '/characters/cast/werewolf'
+                        'link' => '/characters/cast/werewolf',
                     ],
                     'Wolfblooded Cast List' => [
-                        'link' => '/characters/cast/wolfblooded'
-                    ]
-                ]
-            ]
-        ]
-    ]
+                        'link' => '/characters/cast/wolfblooded',
+                    ],
+                ],
+            ],
+        ],
+    ],
 ];
 $menuComponents['player'] = [
     'Utilities' => [
         'submenu' => [
             'Requests' => [
-                'link' => '/requests/'
+                'link' => '/requests/',
             ],
             'Bluebooks' => [
-                'link' => '/bluebooks/'
+                'link' => '/bluebooks/',
             ],
             'Play Preferences' => [
-                'link' => '/play_preferences'
+                'link' => '/play_preferences',
             ],
-        ]
+        ],
     ],
     'Characters' => [
         'link' => '#',
         'submenu' => [
             'List' => [
-                'link' => '/characters/'
-            ]
-        ]
+                'link' => '/characters/',
+            ],
+        ],
     ],
 ];
 $menuComponents['staff'] = [
@@ -246,13 +245,14 @@ $menuComponents['staff'] = [
                 'link' => '/characters/stView',
             ],
             'Request Dashboard' => [
-                'link' => '/requests/st-dashboard'
+                'link' => '/requests/st-dashboard',
             ],
             'Chat Login' => [
                 'link' => '/chat/?st_login',
-                'target' => '_blank'
-            ]
-        ]
-    ]
+                'target' => '_blank',
+            ],
+        ],
+    ],
 ];
+
 return $menuComponents;
