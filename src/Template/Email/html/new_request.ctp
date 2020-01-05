@@ -12,7 +12,7 @@ use App\View\AppView;
 ?>
 <p>A New request has been submitted</p>
 <p>Request: <?= $request->title ?></p>
-<p>From User: <?= $request->updated_by->username ?></p>
+<p>From User: <?= $request->created_by->username ?></p>
 <p><strong>Request:</strong><br />
     <?= $request->body ?>
 </p>

@@ -2,7 +2,6 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use function debug_backtrace;
 
 /**
  * Request Entity
@@ -49,7 +48,7 @@ class Request extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'id' => false,
     ];
 
     public function setErrors(array $fields, $overwrite = false)

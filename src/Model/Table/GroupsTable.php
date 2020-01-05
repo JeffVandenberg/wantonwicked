@@ -128,7 +128,11 @@ class GroupsTable extends Table
             ->first();
     }
 
-    public function listStGroupsForUser($userId)
+    /**
+     * @param int $userId user id
+     * @return Query
+     */
+    public function listStGroupsForUser($userId): Query
     {
         return $this->find('list')
             ->leftJoin(
@@ -136,7 +140,26 @@ class GroupsTable extends Table
                 'StGroups.group_id = Groups.id'
             )
             ->where([
-                'StGroups.user_id' => $userId
+                'StGroups.user_id' => $userId,
             ]);
+    }
+
+    /**
+     * @return Query
+     */
+    public function findActiveGroups(): Query
+    {
+        return $this->find(
+            'list',
+            [
+                'conditions' => [
+                    'is_deleted' => 0,
+                ],
+                'order' => [
+                    'name',
+                ],
+            ]
+        );
+
     }
 }

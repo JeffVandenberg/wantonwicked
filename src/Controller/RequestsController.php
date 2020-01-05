@@ -5,6 +5,7 @@
  * User: JeffVandenberg
  * Date: 7/26/14
  * Time: 9:33 AM
+ *
  * @property mixed Permissions
  */
 
@@ -23,26 +24,34 @@ use App\Model\Table\BluebooksTable;
 use App\Model\Table\RequestsTable;
 use App\Model\Table\ScenesTable;
 use Cake\Event\Event;
-use Cake\ORM\Locator\TableLocator;
+use Cake\Network\Response;
+use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use classes\log\CharacterLog;
 use classes\log\data\ActionType;
+use OAuth\Common\Exception\Exception;
 use function compact;
-use GuzzleHttp\Query;
-
+use function in_array;
 
 /**
  * @property PermissionsComponent Permissions
- * @property \App\Model\Table\RequestsTable $Requests
- * @property \App\Controller\Component\RequestEmailComponent $RequestEmail
+ * @property RequestsTable $Requests
+ * @property RequestEmailComponent $RequestEmail
  */
 class RequestsController extends AppController
 {
-    public $components = array(
+    /**
+     * @var array
+     */
+    public $components = [
         'Permissions',
-        'RequestEmail'
-    );
+        'RequestEmail',
+    ];
 
+    /**
+     * @param Event $event event
+     * @return \Cake\Http\Response|void|null
+     */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -50,13 +59,20 @@ class RequestsController extends AppController
         $this->set('isRequestManager', $this->Permissions->isRequestManager());
     }
 
-    public function admin()
+    /**
+     * @return void
+     */
+    public function admin(): void
     {
         $storytellerMenu = $this->Menu->createStorytellerMenu();
         $this->set('submenu', $storytellerMenu);
     }
 
-    public function isAuthorized($user)
+    /**
+     * @param array $user user record to verify
+     * @return bool
+     */
+    public function isAuthorized($user): bool
     {
         switch (strtolower($this->getRequest()->getParam('action'))) {
             case 'index':
@@ -75,34 +91,39 @@ class RequestsController extends AppController
             case 'submit':
             case 'close':
             case 'delete':
-                return $user['user_id'] != 1;
-                break;
+                return (int)$user['user_id'] !== 1;
             case 'stdashboard':
             case 'stview':
             case 'setstate':
             case 'assign':
                 return $this->Permissions->isRequestManager();
-            case 'admin';
+            case 'admin':
             case 'activityreport':
             case 'timereport':
                 return $this->Permissions->isAdmin();
-                break;
         }
+
         return false;
     }
 
-    public function index()
+    /**
+     * @return void
+     */
+    public function index(): void
     {
         $userRequestsQuery = $this->Requests->buildUserRequestQuery($this->Auth->user('user_id'));
-        $this->set('userRequests', $this->Paginator->paginate(
-            $userRequestsQuery,
-            [
-                'limit' => 20,
-                'order' => [
-                    'Requests.updated_on' => 'DESC'
+        $this->set(
+            'userRequests',
+            $this->Paginator->paginate(
+                $userRequestsQuery,
+                [
+                    'limit' => 20,
+                    'order' => [
+                        'Requests.updated_on' => 'DESC',
+                    ],
                 ]
-            ]
-        ));
+            )
+        );
         $characterRequests =
             $this->Requests
                 ->listRequestsLinkedByCharacterToUser($this->Auth->user('user_id'));
@@ -110,10 +131,15 @@ class RequestsController extends AppController
         $this->set(compact('characterRequests'));
     }
 
+    /**
+     * @param null|int $characterId Optional character id to view requests for
+     * @return Response|void
+     */
     public function character($characterId = null)
     {
         if (!$characterId) {
             $this->Flash->set('No character specified');
+
             return $this->redirect(['action' => 'index']);
         }
 
@@ -125,7 +151,7 @@ class RequestsController extends AppController
         $filter = [
             'request_status_id' => $this->getRequest()->getQuery('request_status_id', 0),
             'request_type_id' => $this->getRequest()->getQuery('request_type_id', 0),
-            'title' => $this->getRequest()->getQuery('title', '')
+            'title' => $this->getRequest()->getQuery('title', ''),
         ];
 
         $requestSummary = $this->Requests->getSummaryForCharacter($character->id);
@@ -141,25 +167,35 @@ class RequestsController extends AppController
             'link' => '#',
             'submenu' => [
                 'Request System Help' => [
-                    'link' => '/wiki/GameRef/GameInterfaceHelp'
-                ]
-            ]
+                    'link' => '/wiki/GameRef/GameInterfaceHelp',
+                ],
+            ],
         ];
         $requestStatuses =
             $this->Requests->RequestStatuses->find('list')->cache('request_status_list');
         $requestTypes =
             $this->Requests->RequestTypes->find('list')->cache('request_type_list');
 
-        $this->set(compact('character', 'requestSummary', 'submenu', 'filter', 'requestStatuses',
-            'requestTypes', 'linkedRequests'));
-        $this->set('characterRequests', $this->Paginator->paginate($characterRequests, [
-            'order' => [
-                'Requests.updated_on' => 'DESC'
-            ],
-            'limit' => 10
-        ]));
+        $this->set(
+            compact('character', 'requestSummary', 'submenu', 'filter', 'requestStatuses', 'requestTypes', 'linkedRequests')
+        );
+        $this->set(
+            'characterRequests',
+            $this->Paginator->paginate(
+                $characterRequests,
+                [
+                    'order' => [
+                        'Requests.updated_on' => 'DESC',
+                    ],
+                    'limit' => 10,
+                ],
+            )
+        );
     }
 
+    /**
+     * @return Response|void
+     */
     public function add()
     {
         $request = $this->Requests->newEntity();
@@ -199,10 +235,13 @@ class RequestsController extends AppController
                         $this->Flash->set('Error sending notification.');
                     }
                 }
-                return $this->redirect([
-                    'action' => 'view',
-                    $request->id
-                ]);
+
+                return $this->redirect(
+                    [
+                        'action' => 'view',
+                        $request->id,
+                    ]
+                );
             }
 
             $this->Flash->set('Error saving request. Please try again.');
@@ -218,35 +257,37 @@ class RequestsController extends AppController
         } else {
             $request->group_id = 1;
         }
-        $groups = $this->Requests->Groups->find('list', [
-            'conditions' => [
-                'is_deleted' => 0
-            ],
-            'order' => [
-                'name'
-            ]
-        ]);
+
+        $groups = $this->Requests->Groups->findActiveGroups();
 
         $requestTypes = $this->Requests->RequestTypes->find('list')
             ->innerJoin(
                 ['GRT' => 'groups_request_types'],
                 'RequestTypes.id = GRT.request_type_id'
             )
-            ->where([
-                'GRT.group_id' => $request->group_id
-            ])
-            ->order([
-                'RequestTypes.name'
-            ]);
+            ->where(
+                [
+                    'GRT.group_id' => $request->group_id,
+                ]
+            )
+            ->order(
+                [
+                    'RequestTypes.name',
+                ]
+            );
         $this->set(compact('request', 'groups', 'requestTypes'));
     }
 
-    public function view($id)
+    /**
+     * @param int $id id of request
+     * @return void
+     */
+    public function view($id): void
     {
         $request = $this->Requests->getFullRequest($id);
         $this->validateRequestView($request);
 
-        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
+        if ((int)$request->request_status_id === RequestStatus::NEW_REQUEST) {
             $this->Flash->set('This request is not yet submitted to STs.');
         }
 
@@ -258,80 +299,78 @@ class RequestsController extends AppController
 
         $menu = [];
         if ($character) {
-            $menu = $this->Menu->createCharacterMenu(
-                $character->id, $character->character_name, $character->slug
-            );
+            $menu = $this->Menu->createCharacterMenu($character->id, $character->character_name, $character->slug);
         }
 
         $backLink = '/requests';
         if ($this->Permissions->isRequestManager()) {
             $backLink = '/requests/stDashboard/';
         }
-        if ($character && $character->id != 0) {
+        if ($character && (int)$character->id !== 0) {
             $backLink = '/requests/character/' . $character->id;
         }
 
-        $menu['Actions'] = array(
+        $menu['Actions'] = [
             'link' => '#',
-            'submenu' => array(
-                'Back' => array(
-                    'link' => $backLink
-                ),
-                'View History' => array(
-                    'link' => '/requests/history/' . $id
-                )
-            )
-        );
-        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
+            'submenu' => [
+                'Back' => [
+                    'link' => $backLink,
+                ],
+                'View History' => [
+                    'link' => '/requests/history/' . $id,
+                ],
+            ],
+        ];
+        if ((int)$request->request_status_id === RequestStatus::NEW_REQUEST) {
             $menu['Actions']['submenu']['Edit Request'] = [
-                'link' => ['action' => 'edit', $id]
+                'link' => ['action' => 'edit', $id],
             ];
         }
-        if ($request->request_status_id != RequestStatus::CLOSED) {
+        if ((int)$request->request_status_id !== RequestStatus::CLOSED) {
             $menu['Actions']['submenu']['Forward Request'] = [
-                'link' => ['action' => 'forward', $id]
+                'link' => ['action' => 'forward', $id],
             ];
             $menu['Actions']['submenu']['Close Request'] = [
-                'link' => ['action' => 'close', $id]
+                'link' => ['action' => 'close', $id],
             ];
         }
-        if (in_array($request->request_status_id, RequestStatus::$PlayerSubmit)) {
+        if (in_array((int)$request->request_status_id, RequestStatus::$PlayerSubmit, true)) {
             $menu['Actions']['submenu']['Submit Request'] = [
-                'link' => ['action' => 'submit', $id]
+                'link' => ['action' => 'submit', $id],
             ];
         }
-        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
+        if ((int)$request->request_status_id === RequestStatus::NEW_REQUEST) {
             $menu['Actions']['submenu']['Delete Request'] = [
-                'link' => ['action' => 'delete', $id]
+                'link' => ['action' => 'delete', $id],
             ];
         }
 
-        if (!in_array($request->request_status_id, RequestStatus::$Terminal)) {
+        if (!in_array($request->request_status_id, RequestStatus::$Terminal, true)) {
             $menu['Attach'] = [
                 'link' => '#',
                 'submenu' => [
                     'New Note' => [
-                        'link' => ['action' => 'add-note', $id]
-                    ]
-                ]
+                        'link' => ['action' => 'add-note', $id],
+                    ],
+                ],
             ];
-            if (in_array($request->request_status_id, RequestStatus::$PlayerEdit)) {
+            if (in_array($request->request_status_id, RequestStatus::$PlayerEdit, true)) {
                 $menu['Attach']['submenu']['Character'] = [
-                    'link' => ['action' => 'add-character', $id]
+                    'link' => ['action' => 'add-character', $id],
                 ];
                 $menu['Attach']['submenu']['Request'] = [
-                    'link' => ['action' => 'attach-request', $id]
+                    'link' => ['action' => 'attach-request', $id],
                 ];
                 $menu['Attach']['submenu']['Bluebook Entry'] = [
-                    'link' => ['action' => 'attach-bluebook', $id]
+                    'link' => ['action' => 'attach-bluebook', $id],
                 ];
                 if ($character) {
                     $menu['Attach']['submenu']['Dice Roll'] = [
-                        'link' => '/dieroller.php?action=character&character_id=' . $character->id . '&request_id=' . $id
+                        'link' => '/dieroller.php?action=character&character_id=' . $character->id . '&request_id=' . $id,
                     ];
                 }
                 $menu['Attach']['submenu']['Scene'] = [
-                    'link' => ['action' => 'attach-scene', $id]
+                    'link' => ['action' => 'attach-scene', $id],
                 ];
             }
         }
@@ -339,6 +378,10 @@ class RequestsController extends AppController
         $this->set(compact('request', 'character', 'backLink'));
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function edit($requestId)
     {
         $request = $this->Requests->get($requestId);
@@ -350,44 +393,45 @@ class RequestsController extends AppController
 
             if ($this->Requests->save($request)) {
                 $this->Flash->set('Updated Request');
+
                 return $this->redirect(['action' => 'view', $requestId]);
             }
 
             $this->Flash->set('Error updating request');
         }
 
-        $groups = $this->Requests->Groups->find('list', [
-            'conditions' => [
-                'is_deleted' => 0
-            ],
-            'order' => [
-                'name'
-            ]
-        ]);
+        $groups = $this->Requests->Groups->findActiveGroups();
 
         $requestTypes = $this->Requests->RequestTypes->find('list')
             ->innerJoin(
                 ['GRT' => 'groups_request_types'],
                 'RequestTypes.id = GRT.request_type_id'
             )
-            ->where([
-                'GRT.group_id' => $request->group_id
-            ])
-            ->order([
-                'RequestTypes.name'
-            ]);
+            ->where(
+                [
+                    'GRT.group_id' => $request->group_id,
+                ]
+            )
+            ->order(
+                [
+                    'RequestTypes.name',
+                ]
+            );
 
         $this->set(compact('request', 'groups', 'requestTypes'));
-        return null;
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return \Cake\Http\Response|void
+     */
     public function delete($requestId)
     {
         // map to request_delete
         $request = $this->Requests->get($requestId);
         $this->validateRequestEdit($request);
 
-        if ($request->request_status_id == RequestStatus::NEW_REQUEST) {
+        if ((int)$request->request_status_id === RequestStatus::NEW_REQUEST) {
             if ($this->Requests->delete($request)) {
                 $this->Flash->set('Request ' . $request->title . ' has been deleted');
             } else {
@@ -399,13 +443,17 @@ class RequestsController extends AppController
 
         $character = $this->Requests->RequestCharacters->Characters->findPrimaryCharacterForRequest($requestId);
         /* @var Character $character */
-        if ($character->user_id == $this->Auth->user('user_id')) {
+        if ((int)$character->user_id === (int)$this->Auth->user('user_id')) {
             return $this->redirect(['action' => 'character', $character->id]);
         }
 
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function addNote($requestId)
     {
         $requestNote = $this->Requests->RequestNotes->newEntity();
@@ -425,6 +473,7 @@ class RequestsController extends AppController
             if ($this->Requests->RequestNotes->save($requestNote)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
+
                 return $this->redirectToView($requestId);
             }
 
@@ -433,9 +482,12 @@ class RequestsController extends AppController
         $notes = $this->listNotesForRequest($requestId);
 
         $this->set(compact('request', 'notes', 'requestNote'));
-        return null;
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function addCharacter($requestId)
     {
         $requestCharacter = $this->Requests->RequestCharacters->newEntity();
@@ -453,13 +505,14 @@ class RequestsController extends AppController
                 $requestCharacter,
                 $this->getRequest()->getData(),
                 [
-                    'validate' => false
+                    'validate' => false,
                 ]
             );
             if ($this->Requests->RequestCharacters->save($requestCharacter)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
                 $this->Flash->set('Attached ' . $this->getRequest()->getData('character_name'));
+
                 return $this->redirect(['action' => 'view', $requestId]);
             }
 
@@ -470,7 +523,10 @@ class RequestsController extends AppController
         $this->set(compact('hasPrimary', 'requestCharacter', 'request'));
     }
 
-    public function characterSearch()
+    /**
+     * @return void
+     */
+    public function characterSearch(): void
     {
         $onlySanctioned = $this->getRequest()->getQuery('only_sanctioned');
         $requestId = $this->getRequest()->getQuery('request_id');
@@ -479,27 +535,36 @@ class RequestsController extends AppController
 
         $characterTable = TableRegistry::getTableLocator()->get('Characters');
         $characters = $characterTable->find('list')
-            ->leftJoinWith('RequestCharacters', function(\Cake\ORM\Query $q) use ($requestId) {
-                return $q->where([
-                    'RequestCharacters.request_id' => $requestId
-                ]);
-            })
-            ->where([
-                'character_name like' => $query . '%',
-                'RequestCharacters.request_id IS NULL',
-                'character_status_id !=' => CharacterStatus::DELETED
-            ]);
+            ->leftJoinWith(
+                'RequestCharacters',
+                static function (Query $q) use ($requestId) {
+                    return $q->where(
+                        [
+                            'RequestCharacters.request_id' => $requestId,
+                        ]
+                    );
+                }
+            )
+            ->where(
+                [
+                    'character_name like' => $query . '%',
+                    'RequestCharacters.request_id IS NULL',
+                    'character_status_id !=' => CharacterStatus::DELETED,
+                ]
+            );
 
         if ($onlySanctioned) {
-            $characters->andWhere([
-                'character_status_id IN' => CharacterStatus::Sanctioned
-            ]);
+            $characters->andWhere(
+                [
+                    'character_status_id IN' => CharacterStatus::Sanctioned,
+                ]
+            );
         }
         $suggestions = [];
         foreach ($characters as $key => $value) {
             $suggestions[] = [
                 'value' => $value,
-                'data' => $key
+                'data' => $key,
             ];
         }
 
@@ -507,6 +572,10 @@ class RequestsController extends AppController
         $this->set('_serialize', ['query', 'suggestions']);
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function attachRequest($requestId)
     {
         $requestRequest = $this->Requests->RequestRequests->newEntity();
@@ -526,24 +595,28 @@ class RequestsController extends AppController
             if ($this->Requests->RequestRequests->save($requestRequest)) {
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
-                $this->Flash->set("Attached Request");
-                return $this->redirect([
-                    'action' => 'view',
-                    $requestId
-                ]);
+                $this->Flash->set('Attached Request');
+
+                return $this->redirect(
+                    [
+                        'action' => 'view',
+                        $requestId,
+                    ]
+                );
             }
 
             $this->Flash->set('Unable to attach Request');
         }
 
-        $unattachedRequests = $this->Requests->listUnattachedRequests(
-            $requestId, $this->Auth->user('user_id')
-        );
+        $unattachedRequests = $this->Requests->listUnattachedRequests($requestId, $this->Auth->user('user_id'));
 
         $this->set(compact('request', 'requestRequest', 'unattachedRequests'));
-        return null;
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function attachBluebook($requestId)
     {
         $requestBluebook = $this->Requests->RequestBluebooks->newEntity();
@@ -562,20 +635,22 @@ class RequestsController extends AppController
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
                 $this->Flash->set('Attached Bluebook');
+
                 return $this->redirect(['action' => 'view', $requestId]);
             }
         }
 
         $blueBooksTable = TableRegistry::getTableLocator()->get('Bluebooks');
         /* @var BluebooksTable $blueBooksTable */
-        $unattachedBluebooks = $blueBooksTable->listUnattachedBluebooks(
-            $requestId, $this->Auth->user('user_id')
-        );
+        $unattachedBluebooks = $blueBooksTable->listUnattachedBluebooks($requestId, $this->Auth->user('user_id'));
 
         $this->set(compact('request', 'requestBluebook', 'unattachedBluebooks'));
-        return null;
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function attachScene($requestId)
     {
         $sceneRequest = $this->Requests->SceneRequests->newEntity();
@@ -587,7 +662,8 @@ class RequestsController extends AppController
             }
 
             $sceneRequest = $this->Requests->SceneRequests->patchEntity(
-                $sceneRequest, $this->getRequest()->getData(),
+                $sceneRequest,
+                $this->getRequest()->getData(),
                 ['validate' => false]
             );
             $sceneRequest->added_on = date('Y-m-d H:i:s');
@@ -596,6 +672,7 @@ class RequestsController extends AppController
                 $request->updated_by_id = $this->Auth->user('user_id');
                 $this->Requests->save($request);
                 $this->Flash->set('Attached scene');
+
                 return $this->redirect(['action' => 'view', $requestId]);
             }
 
@@ -604,9 +681,7 @@ class RequestsController extends AppController
 
         $scenesTable = TableRegistry::getTableLocator()->get('Scenes');
         /* @var ScenesTable $scenesTable */
-        $items = $scenesTable->listUnattachedScenes(
-            $requestId, $this->Auth->user('user_id')
-        );
+        $items = $scenesTable->listUnattachedScenes($requestId, $this->Auth->user('user_id'));
 
         // reformat for date inclusion
         $unattachedScenes = [];
@@ -617,9 +692,11 @@ class RequestsController extends AppController
         }
 
         $this->set(compact('request', 'sceneRequest', 'unattachedScenes'));
-        return null;
     }
 
+    /**
+     * @return void
+     */
     public function stDashboard(): void
     {
         $groups = $this->Requests->Groups->listStGroupsForUser($this->Auth->user('user_id'));
@@ -629,39 +706,51 @@ class RequestsController extends AppController
         $requestsQuery = $this->Requests->findByGroups($groups->toArray());
 
         if ($this->getRequest()->getQuery('title')) {
-            $requestsQuery->andWhere([
-                'Requests.title LIKE' => $this->getRequest()->getQuery('title') . '%'
-            ]);
+            $requestsQuery->andWhere(
+                [
+                    'Requests.title LIKE' => $this->getRequest()->getQuery('title') . '%',
+                ]
+            );
         }
 
         if ($this->getRequest()->getQuery('username')) {
-            $requestsQuery->andWhere([
-                'CreatedBy.username_clean LIKE' => strtolower($this->getRequest()->getQuery('username')) . '%'
-            ]);
+            $requestsQuery->andWhere(
+                [
+                    'CreatedBy.username_clean LIKE' => strtolower($this->getRequest()->getQuery('username')) . '%',
+                ]
+            );
         }
 
         if ($this->getRequest()->getQuery('request_type_id')) {
-            $requestsQuery->andWhere([
-                'Requests.request_type_id' => $this->getRequest()->getQuery('request_type_id')
-            ]);
+            $requestsQuery->andWhere(
+                [
+                    'Requests.request_type_id' => $this->getRequest()->getQuery('request_type_id'),
+                ]
+            );
         }
 
         if ($this->getRequest()->getQuery('group_id')) {
-            $requestsQuery->andWhere([
-                'Requests.group_id' => $this->getRequest()->getQuery('group_id')
-            ]);
+            $requestsQuery->andWhere(
+                [
+                    'Requests.group_id' => $this->getRequest()->getQuery('group_id'),
+                ]
+            );
         }
 
         if ($this->getRequest()->getQuery('request_status_id')) {
-            if ((int) $this->getRequest()->getQuery('request_status_id') !== -1) {
-                $requestsQuery->andWhere([
-                    'Requests.request_status_id' => $this->getRequest()->getQuery('request_status_id')
-                ]);
+            if ((int)$this->getRequest()->getQuery('request_status_id') !== -1) {
+                $requestsQuery->andWhere(
+                    [
+                        'Requests.request_status_id' => $this->getRequest()->getQuery('request_status_id'),
+                    ]
+                );
             }
         } else {
-            $requestsQuery->andWhere([
-                'Requests.request_status_id IN' => RequestStatus::$Storyteller
-            ]);
+            $requestsQuery->andWhere(
+                [
+                    'Requests.request_status_id IN' => RequestStatus::$Storyteller,
+                ]
+            );
         }
 
         $requests = $this->Paginator->paginate(
@@ -669,7 +758,7 @@ class RequestsController extends AppController
             [
                 'limit' => 20,
                 'order' => [
-                    'Requests.updated_on' => 'DESC'
+                    'Requests.updated_on' => 'DESC',
                 ],
                 'sortWhitelist' => [
                     'Requests.title',
@@ -681,7 +770,7 @@ class RequestsController extends AppController
                     'Groups.name',
                     'RequestTypes.name',
                     'RequestStatuses.name',
-                ]
+                ],
             ]
         );
 
@@ -689,6 +778,10 @@ class RequestsController extends AppController
         $this->set(compact('groups', 'requests', 'requestTypes', 'requestStatuses', 'submenu'));
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return void
+     */
     public function stView($requestId): void
     {
         $request = $this->Requests->getFullRequest($requestId);
@@ -706,16 +799,17 @@ class RequestsController extends AppController
     }
 
     /**
-     * @param $requestId
-     * @return \Cake\Network\Response|null
-     * @throws \OAuth\Common\Exception\Exception
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     * @throws Exception
      */
     public function setState($requestId)
     {
         $request = $this->Requests->get($requestId);
         $state = $this->getRequest()->getQuery('state');
-        if (!\in_array($state, ['return', 'approve', 'deny', 'close'])) {
+        if (!in_array($state, ['return', 'approve', 'deny', 'close'])) {
             $this->Flash->set('Unknown state to assign');
+
             return $this->redirect(['action' => 'st-view', $requestId]);
         }
 
@@ -748,6 +842,7 @@ class RequestsController extends AppController
                         $request
                     );
                     $this->Flash->set('Updated request');
+
                     return $this->redirect(['action' => 'st-view', $requestId]);
                 }
 
@@ -759,6 +854,10 @@ class RequestsController extends AppController
         $this->set(compact('request', 'state', 'notes'));
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function submit($requestId)
     {
         $request = $this->Requests->getFullRequest($requestId);
@@ -777,13 +876,17 @@ class RequestsController extends AppController
 
         $character = $this->Requests->RequestCharacters->Characters->findPrimaryCharacterForRequest($requestId);
         /* @var Character $character */
-        if ($character->user_id == $this->Auth->user('user_id')) {
+        if ((int)$character->user_id === (int)$this->Auth->user('user_id')) {
             return $this->redirect(['action' => 'character', $character->id]);
         }
 
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function close($requestId)
     {
         $request = $this->Requests->get($requestId);
@@ -796,12 +899,13 @@ class RequestsController extends AppController
         } else {
             $this->Flash->set('Error closing request.');
         }
+
         return $this->redirect(['action' => 'view', $requestId]);
     }
 
     /**
-     * @param $requestId
-     * @return \Cake\Network\Response|null
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
      */
     public function forward($requestId)
     {
@@ -817,7 +921,7 @@ class RequestsController extends AppController
             $request = $this->Requests->patchEntity($request, $this->getRequest()->getData());
             $newGroupId = $request->group_id;
 
-            if ($oldGroupId != $newGroupId) {
+            if ($oldGroupId !== $newGroupId) {
                 $oldGroup = $this->Requests->Groups->get($oldGroupId);
                 $newGroup = $this->Requests->Groups->get($newGroupId);
 
@@ -828,24 +932,32 @@ class RequestsController extends AppController
 
                 $this->Requests->RequestNotes->save($requestNote);
                 $this->Requests->save($request);
+
                 return $this->redirectToView($requestId);
             }
 
             $this->Flash->set('You selected the same group for your request');
         }
 
-        $groups = $this->Requests->Groups->find('list', [
-            'conditions' => [
-                'is_deleted' => 0
-            ],
-            'order' => [
-                'name'
+        $groups = $this->Requests->Groups->find(
+            'list',
+            [
+                'conditions' => [
+                    'is_deleted' => 0,
+                ],
+                'order' => [
+                    'name',
+                ],
             ]
-        ]);
+        );
         $this->set(compact('request', 'groups'));
     }
 
-    public function history($id)
+    /**
+     * @param int $id id of request
+     * @return void
+     */
+    public function history($id): void
     {
         $request = $this->Requests->get($id);
         $this->validateRequestView($request);
@@ -858,31 +970,39 @@ class RequestsController extends AppController
         if ($character) {
             /* @var Character $character */
             $submenu = $this->Menu->createCharacterMenu(
-                $character->id, $character->character_name, $character->slug
+                $character->id,
+                $character->character_name,
+                $character->slug
             );
             $this->set('submenu', $submenu);
         }
 
-        $history = $this->Requests->RequestStatusHistories->find('all', [
-            'conditions' => [
-                'RequestStatusHistories.request_id' => $request->id
-            ],
-            'contain' => [
-                'RequestStatuses',
-                'CreatedBy' => [
-                    'fields' => ['username']
-                ]
-            ],
-            'order' => [
-                'RequestStatusHistories.created_on'
+        $history = $this->Requests->RequestStatusHistories->find(
+            'all',
+            [
+                'conditions' => [
+                    'RequestStatusHistories.request_id' => $request->id,
+                ],
+                'contain' => [
+                    'RequestStatuses',
+                    'CreatedBy' => [
+                        'fields' => ['username'],
+                    ],
+                ],
+                'order' => [
+                    'RequestStatusHistories.created_on',
+                ],
             ]
-        ]);
+        );
         /* @var RequestStatus[] $history */
 
         $this->set(compact('request', 'history'));
     }
 
-    public function activityReport()
+    /**
+     * @return void
+     */
+    public function activityReport(): void
     {
         $startDate = $this->getRequest()->getQuery('start_date', date('Y-m-d', strtotime('-7 days')));
         $endDate = $this->getRequest()->getQuery('end_date', date('Y-m-d'));
@@ -891,12 +1011,19 @@ class RequestsController extends AppController
         $this->set(compact('startDate', 'endDate', 'data'));
     }
 
-    public function timeReport()
+    /**
+     * @return void
+     */
+    public function timeReport(): void
     {
         $data = $this->Requests->RequestStatusHistories->getTimeReport();
         $this->set(compact('data'));
     }
 
+    /**
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
+     */
     public function assign($requestId)
     {
         $request = $this->Requests->get($requestId);
@@ -912,7 +1039,7 @@ class RequestsController extends AppController
                 $this->Flash->set('Please include a note');
             } else {
                 $request->assigned_user_id = $this->getRequest()->getData('assigned_user_id');
-                $request->updated_by = $this->Auth->user('user_id');
+                $request->updated_by_id = $this->Auth->user('user_id');
 
                 if ($this->Requests->save($request)) {
                     $requestNote = $this->Requests->RequestNotes->newEntity();
@@ -925,30 +1052,46 @@ class RequestsController extends AppController
                         $request->assigned_user_id ? 'Assigned Request' : 'Unassigned Request'
                     );
 
-                    if($request->assigned_user_id && $this->getRequest()->getData('send_notice', 0)) {
-                        $user = TableRegistry::get('Users')->get($request->assigned_user_id);
+                    if ($request->assigned_user_id && $this->getRequest()->getData('send_notice', 0)) {
+                        $user = TableRegistry::getTableLocator()->get('Users')->get($request->assigned_user_id);
                         /* @var User $user */
-                        $this->RequestEmail->assignedRequest($user->user_email,
-                            $this->Auth->user('username'), $note, $request);
+                        $this->RequestEmail->assignedRequest(
+                            $user->user_email,
+                            $this->Auth->user('username'),
+                            $note,
+                            $request
+                        );
                     }
-                    return $this->redirect(['action' => 'st-view', $requestId]);
+
+//                    return $this->redirect(['action' => 'st-view', $requestId]);
+                } else {
+                    $this->Flash->set('Unable to assign request. Please try again.');
                 }
-                $this->Flash->set('Unable to assign request. Please try again.');
             }
         }
 
-        $staff = TableRegistry::get('Users')->listUsersWithPermission([
-            Permission::$ManageRequests
-        ]);
+        $staff = TableRegistry::getTableLocator()->get('Users')->listUsersWithPermission(
+            [
+                Permission::$ManageRequests,
+            ]
+        );
         $this->set(compact('request', 'staff'));
     }
 
+    /**
+     * @param Request $request Request Instance
+     * @return bool
+     */
     private function mayViewRequest(Request $request): bool
     {
         return $this->Requests->isUserAttachedToRequest($request->id, $this->Auth->user('user_id'))
             || $this->Permissions->isRequestManager();
     }
 
+    /**
+     * @param Request $request Request Instance
+     * @return bool
+     */
     private function mayEditRequest(Request $request): bool
     {
         return $this->Requests->isRequestCreatedByUser($request->id, $this->Auth->user('user_id'))
@@ -956,7 +1099,8 @@ class RequestsController extends AppController
     }
 
     /**
-     * @param Request $request
+     * @param Request $request Request Instance
+     * @return void
      */
     private function validateRequestView(Request $request): void
     {
@@ -966,6 +1110,10 @@ class RequestsController extends AppController
         }
     }
 
+    /**
+     * @param Request $request Request Instance
+     * @return void
+     */
     private function validateRequestEdit(Request $request): void
     {
         if (!$this->mayEditRequest($request)) {
@@ -975,39 +1123,41 @@ class RequestsController extends AppController
     }
 
     /**
-     * @param $requestId
-     * @return \Cake\Network\Response|null
+     * @param int $requestId Id of Request to handle
+     * @return Response|void
      */
     private function redirectToView($requestId)
     {
-
         if ($this->getRequest()->getQuery('st')) {
             $action = 'st-view';
         } else {
             $action = 'view';
         }
+
         return $this->redirect(['action' => $action, $requestId]);
     }
 
     /**
-     * @param $requestId
-     * @return \Cake\ORM\Query
+     * @param int $requestId Id of Request to handle
+     * @return Query
      */
-    private function listNotesForRequest($requestId): \Cake\ORM\Query
+    private function listNotesForRequest($requestId): Query
     {
-        $notes = $this->Requests->RequestNotes->find('all', [
-            'conditions' => [
-                'RequestNotes.request_id' => $requestId
-            ],
-            'order' => [
-                'created_on' => 'ASC'
-            ],
-            'contain' => [
-                'CreatedBy' => [
-                    'fields' => ['username']
-                ]
+        return $this->Requests->RequestNotes->find(
+            'all',
+            [
+                'conditions' => [
+                    'RequestNotes.request_id' => $requestId,
+                ],
+                'order' => [
+                    'created_on' => 'ASC',
+                ],
+                'contain' => [
+                    'CreatedBy' => [
+                        'fields' => ['username'],
+                    ],
+                ],
             ]
-        ]);
-        return $notes;
+        );
     }
 }
