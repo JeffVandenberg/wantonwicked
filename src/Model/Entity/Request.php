@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Entity;
 
+use Cake\I18n\Time;
 use Cake\ORM\Entity;
 
 /**
@@ -14,25 +15,25 @@ use Cake\ORM\Entity;
  * @property int $request_type_id
  * @property int $request_status_id
  * @property int $created_by_id
- * @property \Cake\I18n\Time $created_on
+ * @property Time $created_on
  * @property int $updated_by_id
- * @property \Cake\I18n\Time $updated_on
+ * @property Time $updated_on
  * @property int $assigned_user_id
  *
- * @property \App\Model\Entity\Group $group
- * @property \App\Model\Entity\Character $character
- * @property \App\Model\Entity\RequestType $request_type
- * @property \App\Model\Entity\RequestStatus $request_status
- * @property \App\Model\Entity\User $assigned_user
- * @property \App\Model\Entity\User $created_by
- * @property \App\Model\Entity\User $updated_by
- * @property \App\Model\Entity\RequestBluebook[] $request_bluebooks
- * @property \App\Model\Entity\RequestCharacter[] $request_characters
- * @property \App\Model\Entity\RequestNote[] $request_notes
- * @property \App\Model\Entity\RequestRoll[] $request_rolls
- * @property \App\Model\Entity\RequestStatusHistory[] $request_status_histories
- * @property \App\Model\Entity\SceneRequest[] $scene_requests
- * @property \App\Model\Entity\RequestRequest[] $request_requests
+ * @property Group $group
+ * @property Character $character
+ * @property RequestType $request_type
+ * @property RequestStatus $request_status
+ * @property User $assigned_user
+ * @property User $created_by
+ * @property User $updated_by
+ * @property RequestBluebook[] $request_bluebooks
+ * @property RequestCharacter[] $request_characters
+ * @property RequestNote[] $request_notes
+ * @property RequestRoll[] $request_rolls
+ * @property RequestStatusHistory[] $request_status_histories
+ * @property SceneRequest[] $scene_requests
+ * @property RequestRequest[] $request_requests
  */
 class Request extends Entity
 {
@@ -50,11 +51,4 @@ class Request extends Entity
         '*' => true,
         'id' => false,
     ];
-
-    public function setErrors(array $fields, $overwrite = false)
-    {
-        parent::setErrors($fields, $overwrite);
-    }
-
-
 }
