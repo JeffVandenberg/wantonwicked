@@ -59,8 +59,15 @@ if (isset($_SESSION['user_id']) && !$_SESSION['username']) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    unset($_SESSION['username'], $_SESSION['display_name'], $_SESSION['userid'], $_SESSION['user_id'],
-        $_SESSION['user_type_id'], $_SESSION['room'], $_SESSION['guest']);
+    unset(
+        $_SESSION['username'],
+        $_SESSION['display_name'],
+        $_SESSION['userid'],
+        $_SESSION['user_id'],
+        $_SESSION['user_type_id'],
+        $_SESSION['room'],
+        $_SESSION['guest']
+    );
 }
 
 /*
@@ -88,34 +95,37 @@ if (!isset($_GET['logout']) && $CONFIG['CMS']) {
         // include files
         include 'cms.php';
 
-        if($userId) {
+        if ($userId) {
             // redirect to starting page
-            Response::redirect('/chat/?userId='.$userId.'&roomID='.$_REQUEST['roomID']);
+            Response::redirect('/chat/?userId=' . $userId . '&roomID=' . $_REQUEST['roomID']);
         }
     }
 }
 
 // validate user_id
-if(!$userId) {
+if (!$userId) {
     Response::redirect('/', 'Unable to login user.');
 }
 
 // load all user information!
 $user = loadUser($userId);
 
-if(!$user) {
+if (!$user) {
     Response::redirect('/', 'Unable to find user.');
 }
 
-switch($user['user_type_id']) {
+switch ($user['user_type_id']) {
     case 1:
         // ooc login no validation
         break;
     case 3:
         // validate character is associated with the logged in user
-        if(!validateCharacter($user['userid'], $userdata['user_id'])) {
-            CharacterLog::logAction($user['userid'], ActionType::INVALID_ACCESS,
-                'User ID: ' . $userdata['user_id'] . ' attempted access to chatrooms with character.');
+        if (!validateCharacter($user['userid'], $userdata['user_id'])) {
+            CharacterLog::logAction(
+                $user['userid'],
+                ActionType::INVALID_ACCESS,
+                'User ID: ' . $userdata['user_id'] . ' attempted access to chatrooms with character.'
+            );
             Response::redirect('/', 'Illegal Character Access.');
         }
         break;
@@ -125,7 +135,7 @@ switch($user['user_type_id']) {
     case 6:
     case 7:
         // validate user ID
-        if(!validateStaff($user['userid'], $userdata['user_id'])) {
+        if (!validateStaff($user['userid'], $userdata['user_id'])) {
             Response::redirect('/', 'Invalid user permissions');
         }
         break;
@@ -154,7 +164,7 @@ if (isset($_REQUEST['logout'], $user['id'])) {
     }
 
     $reason = Request::getValue('reason', '');
-    switch($reason) {
+    switch ($reason) {
         case 'kick':
             $message = 'You have kicked out of the chat.';
             break;
@@ -210,7 +220,7 @@ $guestUser = '0';
 
 $loginError = validateUser($user);
 
-if($loginError) {
+if ($loginError) {
     // set session message and redirect home
     SessionHelper::setFlashMessage($loginError);
     Response::redirect('/');
@@ -232,7 +242,7 @@ $groupInfo = getUserGroup($user['userGroup']);
 
 $roomOwner = '0';
 
-if ($user['id'] == $roomOwnerID) {
+if ((int)$user['id'] === (int)$roomOwnerID) {
     $roomOwner = '1';
 }
 
