@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "update-scripts": "copy ",
     "build-assets": "sass scss/app.scss > webroot/css/app.css"
   },
   "repository": {
@@ -21,8 +22,9 @@
   },
   "homepage": "https://github.com/JeffVandenberg/wantonwicked#readme",
   "dependencies": {
-    "foundation-sites": "^6.5.3",
-    "howler": "^2.1.2",
+    "foundation-icons": "^1.0",
+    "foundation-sites": "^6.6",
+    "howler": "^2.1.3",
     "jquery": "^3.4.1",
     "jquery-datetimepicker": "^2.5.21",
     "jquery-toast-plugin": "^1.3.2",
