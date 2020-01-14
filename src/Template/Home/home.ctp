@@ -183,26 +183,7 @@ if ($isLoggedIn) {
                                 href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
                     </div>
                 <?php else: ?>
-                    <table class="stack">
-                        <thead>
-                        <tr>
-                            <th>Request</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <?php foreach ($playerRequests as $request): ?>
-                            <tr>
-                                <td>
-                                    <?= $this->Html->link($request->title, [
-                                        'controller' => 'requests',
-                                        'action' => 'view',
-                                        $request->id
-                                    ]); ?>
-                                </td>
-                                <td><?php echo $request->request_status->name; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
+                    <requests-summary />
                 <?php endif; ?>
                 <h3 class="float-left" style="clear: both;">Scenes</h3>
                 <?php if ($isLoggedIn): ?>

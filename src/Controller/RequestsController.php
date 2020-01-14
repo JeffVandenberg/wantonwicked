@@ -91,6 +91,7 @@ class RequestsController extends AppController
             case 'submit':
             case 'close':
             case 'delete':
+            case 'summary':
                 return (int)$user['user_id'] !== 1;
             case 'stdashboard':
             case 'stview':
@@ -189,7 +190,7 @@ class RequestsController extends AppController
                     ],
                     'limit' => 10,
                 ],
-            )
+                )
         );
     }
 
@@ -1076,6 +1077,20 @@ class RequestsController extends AppController
             ]
         );
         $this->set(compact('request', 'staff'));
+    }
+
+    /**
+     * @return void
+     */
+    public function summary(): void
+    {
+        // get request information
+        $requestTable = TableRegistry::getTableLocator()->get('Requests');
+        /* @var RequestsTable $requestTable */
+        $requests = $requestTable->listForHome($this->Auth->user('user_id'));
+
+        $this->set(compact('requests'));
+        $this->set('_serialize', ['requests']);
     }
 
     /**
