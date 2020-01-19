@@ -220,7 +220,11 @@ global $phpbb_container, $phpbb_root_path, $phpEx, $user, $auth, $cache, $db, $c
 define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : WWW_ROOT . '/forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
-include($phpbb_root_path . 'common.' . $phpEx);
+$commonFile = $phpbb_root_path . 'common.' . $phpEx;
+if (!file_exists($commonFile)) {
+    throw new RuntimeException('PHPBB Not Installed');
+}
+include($commonFile);
 /* @var $phpbb_container phpbb_cache_container */
 $request = $phpbb_container->get('request');
 /* @var phpbb\request\request $request */
@@ -241,7 +245,7 @@ $GLOBALS['userdata'] = $userdata;
  * Only try to load DebugKit in development mode
  * Debug Kit should not be installed on a production system
  */
-if(!$isCli) {
+if (!$isCli) {
     if (Configure::read('debug')) {
         Application::addPlugin('DebugKit', ['bootstrap' => true]);
     }

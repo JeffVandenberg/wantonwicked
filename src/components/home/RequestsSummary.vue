@@ -41,7 +41,7 @@
         methods: {
             async fetchRequestSummary() {
                 const result = await axios.get('/requests/summary.json');
-                // this.requests = result.data.requests;
+                this.requests = result.data.requests;
             }
         },
         async mounted() {
