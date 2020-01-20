@@ -32,50 +32,12 @@ if ($isLoggedIn) {
             <?php endif; ?>
             <?php if (isset($content) && $content): ?>
                 <div class="small-12 cell">
-                    <?= $content; ?>
+                    <?= $content ?>
                 </div>
             <?php endif; ?>
             <div class="small-12 medium-6 cell" style=";">
-                <h3 class="float-left">Current Plots</h3>
-                <?php if ($isPlotManager): ?>
-                    <div class="button-group float-right">
-                        <a class="button small" href="/plots/add">New</a>
-                    </div>
-                <?php endif; ?>
-                <?php if (count($plotList)): ?>
-                    <table class="stack">
-                        <thead>
-                        <tr>
-                            <th>
-                                Title
-                            </th>
-                            <th>
-                                Run By
-                            </th>
-                        </tr>
-                        </thead>
-                        <?php foreach ($plotList as $plot): ?>
-                            <tr>
-                                <td>
-                                    <?=
-                                    $this->Html->link(
-                                        $plot->name,
-                                        [
-                                            'controller' => 'plots',
-                                            'action' => 'view',
-                                            $plot->slug
-                                        ]
-                                    ); ?>
-                                </td>
-                                <td>
-                                    <?= $plot->run_by->username; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
-                <?php else: ?>
-                    No current plots. Staff is slacking!
-                <?php endif; ?>
+                <plots-summary :show-new="<?= (!$isPlotManager) ? 'true' : 'false' ?>"></plots-summary>
+
                 <?php if ($isLoggedIn): ?>
                     <h3 class="float-left">
                         Characters
@@ -171,20 +133,8 @@ if ($isLoggedIn) {
                 <?php endif; ?>
             </div>
             <div class="small-12 medium-6 cell">
-                <h3 class="float-left">Requests</h3>
-                <?php if ($isLoggedIn): ?>
-                    <div class="button-group float-right">
-                        <a class="button small" href="/requests/add">New</a>
-                    </div>
-                <?php endif; ?>
-                <?php if ((int)$this->request->getSession()->read('Auth.User.user_id') === 1): ?>
-                    <div style="clear: both;">
-                        You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a
-                                href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
-                    </div>
-                <?php else: ?>
-                    <requests-summary />
-                <?php endif; ?>
+                <requests-summary :is-logged-in="<?= ((int)$this->request->getSession()->read('Auth.User.user_id') > 1) ? 'true' : 'false' ?>"></requests-summary>
+
                 <h3 class="float-left" style="clear: both;">Scenes</h3>
                 <?php if ($isLoggedIn): ?>
                     <div class="button-group float-right">

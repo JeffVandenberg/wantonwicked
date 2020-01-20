@@ -6,13 +6,18 @@ use App\Controller\Component\PermissionsComponent;
 use App\Model\Entity\Plot;
 use App\Model\Entity\PlotStatus;
 use App\Model\Entity\PlotVisibility;
+use App\Model\Table\PlotsTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
+use Cake\Network\Response;
+use Cake\ORM\TableRegistry;
 use function compact;
 
 /**
  * Plots Controller
  *
- * @property \App\Model\Table\PlotsTable $Plots
+ * @property PlotsTable $Plots
  * @property PermissionsComponent Permissions
  *
  * @method Plot[] paginate($object = null, array $settings = [])
@@ -21,8 +26,8 @@ class PlotsController extends AppController
 {
 
     /**
-     * @param Event $event
-     * @return \Cake\Network\Response|null|void
+     * @param Event $event event to handle
+     * @return Response|null|void
      */
     public function beforeFilter(Event $event)
     {
@@ -30,7 +35,8 @@ class PlotsController extends AppController
         $this->Auth->allow([
             'index',
             'view',
-            'tagged'
+            'tagged',
+            'summary',
         ]);
 
         // set common permissions
@@ -54,8 +60,8 @@ class PlotsController extends AppController
             $where = [
                 'PlotStatuses.id IN' => [
                     PlotStatus::Pending,
-                    PlotStatus::InProgress
-                ]
+                    PlotStatus::InProgress,
+                ],
             ];
         } else {
             $where = [
@@ -64,8 +70,8 @@ class PlotsController extends AppController
                     PlotVisibility::Public,
                 ],
                 'PlotStatuses.id IN' => [
-                    PlotStatus::InProgress
-                ]
+                    PlotStatus::InProgress,
+                ],
             ];
         }
         if ($viewAll) {
@@ -79,21 +85,21 @@ class PlotsController extends AppController
                 'CreatedBy' => [
                     'fields' => [
                         'username',
-                        'user_id'
-                    ]
+                        'user_id',
+                    ],
                 ],
                 'UpdatedBy' => [
                     'fields' => [
                         'username',
-                        'user_id'
-                    ]
+                        'user_id',
+                    ],
                 ],
                 'RunBy' => [
                     'fields' => [
                         'username',
-                        'user_id'
-                    ]
-                ]
+                        'user_id',
+                    ],
+                ],
             ],
             'where' => $where,
         ];
@@ -108,19 +114,23 @@ class PlotsController extends AppController
                 'CreatedBy.username',
                 'UpdatedBy.username',
                 'created',
-                'updated'
+                'updated',
             ],
             'order' => [
-                'Plots.name' => 'asc'
+                'Plots.name' => 'asc',
             ],
-            'conditions' => $where
+            'conditions' => $where,
         ]);
 
         $this->set(compact('plots', 'viewAll'));
         $this->set('_serialize', ['plots']);
     }
 
-    public function tagged($tag)
+    /**
+     * @param string $tag tag to search on
+     * @return void
+     */
+    public function tagged($tag): void
     {
         $isPlotManager = $this->Permissions->isPlotManager($this->Auth->user('user_id'));
         $isPlotViewer = $this->Permissions->isPlotViewer($this->Auth->user('user_id'));
@@ -129,8 +139,8 @@ class PlotsController extends AppController
             $where = [
                 'PlotStatuses.id IN' => [
                     PlotStatus::Pending,
-                    PlotStatus::InProgress
-                ]
+                    PlotStatus::InProgress,
+                ],
             ];
         } else {
             $where = [
@@ -139,28 +149,33 @@ class PlotsController extends AppController
                     PlotVisibility::Public,
                 ],
                 'PlotStatuses.id IN' => [
-                    PlotStatus::InProgress
-                ]
+                    PlotStatus::InProgress,
+                ],
             ];
         }
 
         $plots = $this->paginate(
             $this->Plots
                 ->find('tagged', ['tag' => $tag])
-                ->contain([
-                    'PlotStatuses',
-                    'PlotVisibilities',
-                    'RunBy' => ['fields' => ['username']],
-                    'CreatedBy' => ['fields' => ['username']],
-                    'UpdatedBy' => ['fields' => ['username']],
-                ])
-                ->where($where),
+                ->contain(
+                    [
+                        'PlotStatuses',
+                        'PlotVisibilities',
+                        'RunBy' => ['fields' => ['username']],
+                        'CreatedBy' => ['fields' => ['username']],
+                        'UpdatedBy' => ['fields' => ['username']],
+                    ]
+                )
+                ->where(
+                    $where
+                ),
             [
                 'limit' => 25,
                 'order' => [
-                    'Plots.name' => ''
-                ]
-            ]);
+                    'Plots.name' => '',
+                ],
+            ],
+            );
 
         $this->set(compact('plots', 'tag', 'isPlotManager', 'isPlotViewer'));
     }
@@ -170,7 +185,7 @@ class PlotsController extends AppController
      *
      * @param string|null $id Plot id.
      * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
@@ -180,24 +195,24 @@ class PlotsController extends AppController
             'Tags',
             'PlotVisibilities',
             'CreatedBy' => [
-                'fields' => ['username']
+                'fields' => ['username'],
             ],
             'UpdatedBy' => [
-                'fields' => ['username']
+                'fields' => ['username'],
             ],
             'RunBy' => [
-                'fields' => ['username']
+                'fields' => ['username'],
             ],
             'PlotCharacters' => [
                 'Characters' => [
-                    'fields' => ['character_name', 'slug']
-                ]
+                    'fields' => ['character_name', 'slug'],
+                ],
             ],
             'PlotScenes' => [
                 'Scenes' => [
-                    'fields' => ['name', 'slug']
-                ]
-            ]
+                    'fields' => ['name', 'slug'],
+                ],
+            ],
         ]);
         if (!$this->mayViewPlot($plot)) {
             $this->Flash->set('You do not have permission to view that plot.');
@@ -211,15 +226,16 @@ class PlotsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
         $plot = $this->Plots->newEntity();
         if ($this->getRequest()->is('post')) {
-            if ($this->getRequest()->getData('action') == 'cancel') {
+            if (strtolower($this->getRequest()->getData('action')) === 'cancel') {
                 $this->redirect(['action' => 'index']);
-                return null;
+
+                return;
             }
 
             $plot = $this->Plots->patchEntity($plot, $this->getRequest()->getData());
@@ -242,26 +258,27 @@ class PlotsController extends AppController
      * Edit method
      *
      * @param string|null $id Plot id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return \Cake\Http\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws NotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $plot = $this->Plots->getByIdOrSlug($id, [
             'RunBy' => [
                 'fields' => [
-                    'username', 'user_id'
-                ]
+                    'username', 'user_id',
+                ],
             ],
-            'Tags'
+            'Tags',
         ]);
         if (!$this->mayManagePlot($plot)) {
             $this->Flash->set('You may not edit that plot');
             $this->redirect(['action' => 'index']);
         }
         if ($this->getRequest()->is(['patch', 'post', 'put'])) {
-            if ($this->getRequest()->getData('action') == 'cancel') {
+            if (strtolower($this->getRequest()->getData('action')) === 'cancel') {
                 $this->redirect(['action' => 'view', $id]);
+
                 return;
             }
 
@@ -282,10 +299,10 @@ class PlotsController extends AppController
     }
 
     /**
-     * @param $user
+     * @param array $user user object
      * @return bool
      */
-    public function isAuthorized($user)
+    public function isAuthorized($user): bool
     {
         switch ($this->getRequest()->getParam('action')) {
             default:
@@ -353,8 +370,9 @@ class PlotsController extends AppController
 
         $plotScene = $this->Plots->PlotScenes->newEntity();
         if ($this->getRequest()->is(['post', 'patch', 'put'])) {
-            if ($this->getRequest()->getData('action') == 'cancel') {
+            if (strtolower($this->getRequest()->getData('action')) === 'cancel') {
                 $this->redirect(['action' => 'view', $id]);
+
                 return;
             }
 
@@ -367,5 +385,17 @@ class PlotsController extends AppController
             }
         }
         $this->set(compact('plot', 'plotScene'));
+    }
+
+    /**
+     * @return void
+     */
+    public function summary(): void
+    {
+        $plotTable = TableRegistry::getTableLocator()->get('Plots');
+        /* @var PlotsTable $plotTable */
+        $plots = $plotTable->listForHome();
+        $this->set(compact('plots'));
+        $this->set('_serialize', ['plots']);
     }
 }

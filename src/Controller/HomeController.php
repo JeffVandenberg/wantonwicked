@@ -65,13 +65,10 @@ class HomeController extends AppController
         $sceneList = $scenes->listForHome();
 
         // get request information
-        $requests = TableRegistry::getTableLocator()->get('Requests');
-        /* @var RequestsTable $requests */
-        $playerRequests = $requests->listForHome($this->Auth->user('user_id'));
+//        $requests = TableRegistry::getTableLocator()->get('Requests');
+//        /* @var RequestsTable $requests */
+//        $playerRequests = $requests->listForHome($this->Auth->user('user_id'));
 
-        $plots = TableRegistry::getTableLocator()->get('Plots');
-        /* @var PlotsTable $plots */
-        $plotList = $plots->listForHome();
 
         if ($this->Auth->user('user_id') > 1) {
             $characters = TableRegistry::getTableLocator()->get('Characters');
@@ -82,7 +79,7 @@ class HomeController extends AppController
 
         // set info for home
         $this->set('isPlotManager', $this->Permissions->isPlotManager());
-        $this->set(compact('sceneList', 'playerRequests', 'plotList'));
+        $this->set(compact('sceneList'));
     }
 
     /**

@@ -1,30 +1,36 @@
 <template>
     <div>
-        <div v-if="requests.length === 0">
-            <div class="grid-x clearfix">
-                <div class="small-12 cell">
-                    Loading...
-                </div>
-            </div>
+        <h3 class="float-left">Requests</h3>
+        <div class="button-group float-right" v-if="this.isLoggedIn">
+            <a class="button small" href="/requests/add">New</a>
         </div>
-        <table class="stack" v-if="requests.length > 0">
-            <thead>
-            <tr>
-                <th>Request</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="request in requests" :key="request.id">
-                <td>
-                    <a href="/requests/view/{{ request.id }}">{{request.title}}</a>
-                </td>
-                <td>
-                    {{ request.request_status.name}}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div v-if="!this.isLoggedIn" class="clearfix">
+            You need to <a href="/forum/ucp.php?mode=login&redirect=/">Sign in</a> or <a
+                href="/forum/ucp.php?mode=register&redirect=/">Register</a>.
+        </div>
+        <div v-else>
+            <div v-if="requests === null" class="clearfix">
+                Loading...
+            </div>
+            <table class="stack" v-else>
+                <thead>
+                <tr>
+                    <th>Request</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="request in requests" :key="request.id">
+                    <td>
+                        <a href="/requests/view/{{ request.id }}">{{request.title}}</a>
+                    </td>
+                    <td>
+                        {{ request.request_status.name}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -35,7 +41,7 @@
         name: "RequestsSummary",
         data: function () {
             return {
-                requests: []
+                requests: null
             }
         },
         methods: {
@@ -45,8 +51,14 @@
             }
         },
         async mounted() {
-            await this.fetchRequestSummary();
+            console.log(typeof this.isLoggedIn);
+            if(this.isLoggedIn) {
+                await this.fetchRequestSummary();
+            }
         },
+        props: {
+            isLoggedIn: Boolean
+        }
     }
 </script>
 
