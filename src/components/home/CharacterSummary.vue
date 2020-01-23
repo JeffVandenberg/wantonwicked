@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.isLoggedIn">
+    <div v-if="this.isLoggedIn" id="character-summary">
         <h3 class="float-left">
             Characters
         </h3>
@@ -104,6 +104,12 @@
         },
         async mounted() {
             await this.fetchRequestSummary();
+        },
+        updated() {
+            this.characters.forEach(c => {
+                new Foundation.Dropdown($('#' + c.id + '-dropdown'));
+            });
+            console.log('updated ui');
         },
         props: {
             isLoggedIn: Boolean
