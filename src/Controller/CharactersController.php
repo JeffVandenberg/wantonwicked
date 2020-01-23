@@ -51,6 +51,7 @@ class CharactersController extends AppController
                 'city',
                 'cast',
                 'activity',
+                'summary',
             ]
         );
     }
@@ -673,5 +674,19 @@ class CharactersController extends AppController
         $cities = Configure::read('City.list');
 
         $this->set(compact('beatList', 'cities'));
+    }
+
+    /**
+     * @return void
+     * @throws Exception
+     */
+    public function summary(): void
+    {
+        $city = ($this->request->getQuery('city')) ?? $this->Config->readGlobal('city');
+        $characterTable = TableRegistry::getTableLocator()->get('Characters');
+        /* @var CharactersTable $characterTable */
+        $characters = $characterTable->listForHome($this->Auth->user('user_id'), $city);
+        $this->set(compact('characters'));
+        $this->set('_serialize', ['characters']);
     }
 }

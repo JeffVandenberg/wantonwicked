@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property int $sort_order
  *
- * @property \App\Model\Entity\Character[] $characters
+ * @property Character[] $characters
  */
 class CharacterStatus extends Entity
 {
@@ -32,7 +32,7 @@ class CharacterStatus extends Entity
     public const Sanctioned = [
         self::ACTIVE,
         self::INACTIVE,
-        self::IDLE
+        self::IDLE,
     ];
 
 

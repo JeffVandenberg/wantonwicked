@@ -64,19 +64,6 @@ class HomeController extends AppController
         /* @var ScenesTable $scenes */
         $sceneList = $scenes->listForHome();
 
-        // get request information
-//        $requests = TableRegistry::getTableLocator()->get('Requests');
-//        /* @var RequestsTable $requests */
-//        $playerRequests = $requests->listForHome($this->Auth->user('user_id'));
-
-
-        if ($this->Auth->user('user_id') > 1) {
-            $characters = TableRegistry::getTableLocator()->get('Characters');
-            /* @var CharactersTable $characters */
-            $characterList = $characters->listForHome($this->Auth->user('user_id'), $city);
-            $this->set(compact('characterList'));
-        }
-
         // set info for home
         $this->set('isPlotManager', $this->Permissions->isPlotManager());
         $this->set(compact('sceneList'));

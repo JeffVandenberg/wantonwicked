@@ -51,7 +51,6 @@
             }
         },
         async mounted() {
-            console.log(typeof this.isLoggedIn);
             if(this.isLoggedIn) {
                 await this.fetchRequestSummary();
             }
