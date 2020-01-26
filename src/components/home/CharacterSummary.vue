@@ -55,7 +55,7 @@
                              data-dropdown data-auto-focus="true">
                             <ul class="vertical menu">
                                 <li>
-                                    <a :href="'/characters/viewOwn/' + character.slug">Sheet</a>
+                                    <a :href="'/characters/viewOwn/' + characterDo character.slug">Sheet</a>
                                 </li>
                                 <li v-if="[2,4,6].includes(character.character_status_id)">
                                     <a :href="'/characters/beats/' + character.slug">
@@ -72,7 +72,7 @@
                                     <a :href="'/chat?character_id=' + character.id" target="_blank">Chat</a>
                                 </li>
                                 <li>
-                                    <a :href="'/wiki/Players/' + character.character_name.replace(/[^A-Za-z0-9]/g, '')">
+                                    <a :href="'/wiki/Players/' + this.characterModel character.character_name.replace(/[^A-Za-z0-9]/g, '')">
                                         Profile
                                     </a>
                                 </li>
@@ -88,6 +88,7 @@
 
 <script>
     import axios from 'axios';
+    import characterModel from '../domain/character';
 
     export default {
         name: "CharacterSummary",
@@ -100,6 +101,9 @@
             async fetchRequestSummary() {
                 const result = await axios.get('/characters/summary.json');
                 this.characters = result.data.characters;
+            },
+            getCharacterIdentifier(character) {
+                return characterModel.getIdOrSlug(character);
             }
         },
         async mounted() {
