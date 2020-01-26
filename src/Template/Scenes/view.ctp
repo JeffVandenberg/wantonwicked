@@ -90,7 +90,9 @@ $this->loadHelper('Tag');
                             ]
                         ),
                         [
-                            'scenes', 'join', $scene->slug
+                            'controller' => 'scenes',
+                            'action' => 'join',
+                            $scene->slug
                         ],
                         [
                             'id' => 'scene-share-link',
