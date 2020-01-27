@@ -47,7 +47,7 @@ class ScenesController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['index', 'view', 'tag', 'search', 'tagged']);
+        $this->Auth->allow(['index', 'view', 'tag', 'search', 'tagged', 'summary']);
     }
 
     public function beforeRender(Event $event)
@@ -532,5 +532,16 @@ class ScenesController extends AppController
         }
         $this->set(compact('query', 'suggestions'));
         $this->set('_serialize', ['query', 'suggestions']);
+    }
+
+    public function summary(): void
+    {
+        // get scene information
+        $sceneTable = TableRegistry::getTableLocator()->get('Scenes');
+        /* @var ScenesTable $sceneTable */
+        $scenes = $sceneTable->listForHome();
+
+        $this->set(compact('scenes'));
+        $this->set('_serialize', ['scenes']);
     }
 }

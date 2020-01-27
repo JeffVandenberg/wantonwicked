@@ -42,42 +42,7 @@ if ($isLoggedIn) {
             </div>
             <div class="small-12 medium-6 cell">
                 <requests-summary :is-logged-in="<?= ((int)$this->request->getSession()->read('Auth.User.user_id') > 1) ? 'true' : 'false' ?>"></requests-summary>
-
-                <h3 class="float-left" style="clear: both;">Scenes</h3>
-                <?php if ($isLoggedIn): ?>
-                    <div class="button-group float-right">
-                        <a class="button small" href="/scenes/add">New</a>
-                    </div>
-                <?php endif; ?>
-                <?php if (count($sceneList)): ?>
-                    <table class="stack">
-                        <tr>
-                            <th>Scene</th>
-                            <th>Date</th>
-                        </tr>
-                        <?php foreach ($sceneList as $scene): ?>
-                            <tr>
-                                <td>
-                                    <?php echo $this->Html->link(
-                                        $scene->name,
-                                        [
-                                            'controller' => 'scenes',
-                                            'action' => 'view',
-                                            $scene->slug
-                                        ]
-                                    ); ?>
-                                </td>
-                                <td>
-                                    <?php echo $scene->run_on_date; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
-                <?php else: ?>
-                    <div style="clear:both;">
-                        No upcoming scenes
-                    </div>
-                <?php endif; ?>
+                <scene-summary :is-logged-in="<?= ((int)$this->request->getSession()->read('Auth.User.user_id') > 1) ? 'true' : 'false' ?>"></scene-summary>
             </div>
         </div>
     </div>

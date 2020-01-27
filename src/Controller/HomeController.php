@@ -59,14 +59,8 @@ class HomeController extends AppController
 
         $this->set(['content' => $this->Config->read('FRONT_PAGE')]);
 
-        // get scene information
-        $scenes = TableRegistry::getTableLocator()->get('Scenes');
-        /* @var ScenesTable $scenes */
-        $sceneList = $scenes->listForHome();
-
         // set info for home
         $this->set('isPlotManager', $this->Permissions->isPlotManager());
-        $this->set(compact('sceneList'));
     }
 
     /**
