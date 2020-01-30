@@ -88,9 +88,6 @@ $menuComponents['base'] = [
             'Setting Introduction' => [
                 'link' => '/wiki/City/City',
             ],
-            'The Embassy' => [
-                'link' => '/wiki/City/Embassy',
-            ],
             'Spheres' => [
                 'link' => '/wiki/City/Spheres',
             ],
