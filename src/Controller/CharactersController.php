@@ -123,7 +123,7 @@ class CharactersController extends AppController
             ],
         ]));
         $characterTypes = [
-            'All' => 'All', 'Mortal' => 'Mortal', 'Vampire' => 'Vampire', 'Ghoul' => 'Ghoul',
+            'All' => 'All', 'Mortal' => 'Mortal', 'Vampire' => 'Vampire', 'Dhampir' => 'Dhampir', 'Ghoul' => 'Ghoul',
             'Werewolf' => 'Werewolf', 'Wolfblooded' => 'Wolfblooded', 'Changing Breed' => 'Changing Breed',
             'Changeling' => 'Changeling', 'Fae-Touched' => 'Fae-Touched', 'Geist' => 'Geist', 'Beast' => 'Beast',
             'Herald' => 'Herald',
