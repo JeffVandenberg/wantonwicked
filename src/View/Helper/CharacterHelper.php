@@ -2343,7 +2343,7 @@ class CharacterHelper extends AppHelper
                                 'type' => 'select',
                                 'name' => 'type',
                                 'value' => 'Extra.type',
-                                'range' => ['common' => 'Common', 'royal' => 'Royal'],
+                                'range' => ['goblin' => 'Goblin', 'common' => 'Common', 'royal' => 'Royal'],
                             ]
                         ]
                     ],
