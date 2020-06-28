@@ -35,13 +35,17 @@ class ScenesEmailComponent extends Component
         $character = $characters->get($sceneCharacter->character_id);
         /* @var Character $character */
 
-        $emailer = new Email();
-        $emailer->setTo($user->user_email);
-        $emailer->setFrom('wantonwicked@gamingsandbox.com');
-        $emailer->setSubject('A New character has joined your scene: ' . $scene->name);
-        $emailer->setEmailFormat('html');
-        $emailer->setLayout('wantonwicked');
-        $emailer->setTemplate('scene_join')->setViewVars(
+        $emailer = (new Email())
+            ->addTo($user->user_email)
+            ->setFrom('wantonwicked@gamingsandbox.com')
+            ->setSubject('A New character has joined your scene: ' . $scene->name)
+            ->setEmailFormat('html');
+
+        $emailer->viewBuilder()
+            ->setLayout('wantonwicked')
+            ->setTemplate('scene_join');
+
+        $emailer->setViewVars(
             [
                 'scene' => $scene,
                 'sceneCharacter' => $sceneCharacter,
@@ -72,19 +76,22 @@ class ScenesEmailComponent extends Component
         $emailer = (new Email())
             ->setFrom('wantonwicked@gamingsandbox.com')
             ->setSubject($newScene['Scene']['name'] . ' is being run at a new time')
-            ->setEmailFormat('html')
+            ->setEmailFormat('html');
+
+        $emailer->viewBuilder()
             ->setLayout('wantonwicked')
-            ->setTemplate('scene_schedule')
-            ->setViewVars(
+            ->setTemplate('scene_schedule');
+
+        $emailer->setViewVars(
                 [
                     'newScene' => $newScene,
                     'oldScene' => $oldScene
                 ]
             );
         foreach ($sceneCharacters as $sceneCharacter) {
-            $emailer->setTo($sceneCharacter['Character']['Player']['user_email']);
-            $emailer->send();
+            $emailer->addTo($sceneCharacter->character->user->user_email);
         }
+        $emailer->send();
     }
 
     public function sendCancelEmails(Scene $scene): void
@@ -111,15 +118,19 @@ class ScenesEmailComponent extends Component
         $emailer = (new Email())
             ->setFrom('wantonwicked@gamingsandbox.com')
             ->setSubject($scene->name . ' has been cancelled')
-            ->setEmailFormat('html')
+            ->setEmailFormat('html');
+        $emailer->viewBuilder()
             ->setLayout('wantonwicked')
-            ->setTemplate('scene_cancel')
+            ->setTemplate('scene_cancel');
+
+        $emailer
             ->setViewVars([
                 'scene' => $scene,
             ]);
+
         foreach ($sceneCharacters as $sceneCharacter) {
-            $emailer->setTo($sceneCharacter->character->user->user_email);
-            $emailer->send();
+            $emailer->addTo($sceneCharacter->character->user->user_email);
         }
+        $emailer->send();
     }
 }
