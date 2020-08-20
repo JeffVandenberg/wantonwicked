@@ -20,7 +20,7 @@
             <tbody>
             <tr v-for="scene in scenes" :key="scene.id">
                 <td>
-                    <a href="/scenes/view/{{ scene.slug }}">{{ scene.name }}</a>
+                    <a :href="'/scenes/view/' + scene.slug">{{ scene.name }}</a>
                 </td>
                 <td>
                     {{ scene.run_on_date | dateTime }}

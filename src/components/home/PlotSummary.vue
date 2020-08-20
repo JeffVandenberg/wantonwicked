@@ -24,7 +24,7 @@
             <tbody>
             <tr v-for="plot in plots" :key="plot.id">
                 <td>
-                    <a href="/plots/view/{{ plot.slug }}">{{plot.name}}</a>
+                    <a :href="'/plots/view/' +  plot.slug">{{plot.name}}</a>
                 </td>
                 <td>
                     {{ plot.run_by.username }}

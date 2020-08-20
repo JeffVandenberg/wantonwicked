@@ -22,7 +22,7 @@
                 <tbody>
                 <tr v-for="request in requests" :key="request.id">
                     <td>
-                        <a href="/requests/view/{{ request.id }}">{{request.title}}</a>
+                        <a :href="'/requests/view/' + request.id">{{request.title}}</a>
                     </td>
                     <td>
                         {{ request.request_status.name}}
