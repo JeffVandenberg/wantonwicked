@@ -386,10 +386,11 @@ class CharactersController extends AppController
     }
 
     /**
-     * @param int $characterId Character ID to view
+     * @param int|null $characterId Character ID to view
      * @return void
+     * @throws Exception
      */
-    public function stView($characterId = null)
+    public function stView($characterId = null): void
     {
         $options = [
             'show_admin' => true,
@@ -398,19 +399,17 @@ class CharactersController extends AppController
         ];
         $sheetService = new SheetService();
 
-        if ($this->getRequest()->is('post')) {
-            if ($this->getRequest()->getData()['character_id']) {
-                // try to update the character
-                $updatedData = $this->getRequest()->getData();
-                $updatedData['slug'] = Text::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
-                $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
+        if ($this->getRequest()->is('post') && $this->getRequest()->getData()['character_id']) {
+            // try to update the character
+            $updatedData = $this->getRequest()->getData();
+            $updatedData['slug'] = Text::slug($updatedData['city'] . ' ' . $updatedData['character_name']);
+            $result = $sheetService->saveSheet($updatedData, $options, $this->Auth->user());
 
-                if (!is_string($result)) {
-                    $this->Flash->set('Updated ' . $updatedData['character_name'] . '.');
-                    $this->redirect(['action' => 'stView']);
-                } else {
-                    $this->Flash->set($result);
-                }
+            if (!is_string($result)) {
+                $this->Flash->set('Updated ' . $updatedData['character_name'] . '.');
+                $this->redirect(['action' => 'stView']);
+            } else {
+                $this->Flash->set($result);
             }
         }
         if ($this->getRequest()->is('get')) {
