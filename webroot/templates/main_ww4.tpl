@@ -49,31 +49,7 @@
             {MENU_BAR}
         </div>
         <div class="top-bar-right">
-            <span id="server-time"></span>
-            <!-- IF USER_INFO.logged_in -->
-                <!-- IF USER_INFO.new_request_count -->
-                <a href="/requests/st-dashboard" class="button-badge">
-                    <i class="fa fi-clipboard storyteller-action" title="ST Request Dashboard"></i>
-                    <span class="badge badge-primary warning" title="New Requests">{USER_INFO.new_request_count}</span>
-                </a>
-                <!-- ENDIF -->
-                <a href="/requests" class="button-badge">
-                    <i class="fa fi-clipboard" title="Your Requests"></i>
-                    <!-- IF USER_INFO.request_count-->
-                    <span class="badge badge-primary warning" title="Open Requests">{USER_INFO.request_count}</span>
-                    <!-- ENDIF -->
-                </a>
-                <button class="button" type="button" data-toggle="user-dropdown">
-                    {USER_INFO.username}
-                </button>
-                <div class="dropdown-pane" id="user-dropdown" data-dropdown>
-                    <div><a href="/forum/ucp.php">User Control Panel</a></div>
-                    <div><a href="{USER_INFO.logout_link}">Logout</a></div>
-                </div>
-            <!-- ELSE -->
-                <a href="/forum/ucp.php?mode=login&redirect={USER_INFO.redirect}">Login</a>
-                <a href="/forum/ucp.php?mode=register&redirect={USER_INFO.redirect}">Register</a>
-            <!-- ENDIF -->
+            {USER_PANEL}
         </div>
     </nav>
 </div>

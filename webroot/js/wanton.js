@@ -46,6 +46,13 @@ $(function () {
         }
         e.target.disabled = true;
     });
+
+    $(document).on('change', '#game-select', (e) => {
+        let href = window.location.protocol + `//` + window.location.hostname + `/home/switch_game/?game_id=${e.currentTarget.value}&redirect=` + encodeURI(window.location.href);
+        // console.log(href);
+        window.location.href = href
+        // window.location.href = replaceUrlParam(window.location.href, 'game', e.currentTarget.value);
+    })
 });
 
 function giveFavor(characterId) {
@@ -241,4 +248,17 @@ function copyToClipboard(selector, callback) {
     if (callback) {
         callback()
     }
+}
+
+function replaceUrlParam(url, paramName, paramValue)
+{
+    if (paramValue == null) {
+        paramValue = '';
+    }
+    let pattern = new RegExp('\\b('+paramName+'=).*?(&|#|$)');
+    if (url.search(pattern)>=0) {
+        return url.replace(pattern,'$1' + paramValue + '$2');
+    }
+    url = url.replace(/[?#]$/,'');
+    return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue;
 }

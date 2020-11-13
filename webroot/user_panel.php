@@ -1,6 +1,9 @@
 <?php
+
+use classes\core\helpers\FormHelper;
 use classes\integration\WikiInformation;
 use classes\request\repository\RequestRepository;
+use phpbb\user;
 
 /* @var array $userdata */
 $get_vars = "";
@@ -34,8 +37,16 @@ $userInfo['username'] = 'Login';
 $userInfo['logged_in'] = false;
 
 $userControlPanel = "";
-if ($userdata['user_id'] != 1) {
+$game = $_SESSION['Auth']['Game']['id'] ?? 1;
+$games = [
+    1 => 'Wanton Wicked',
+    2 => 'Side Game'
+];
+$gameSelect = FormHelper::select($games, 'game_select', $game, ['class' => 'game-select']);
+
+if ((int) $userdata['user_id'] !== 1) {
     // build logged in panel
+    /* @var user $user */
     $logout = append_sid("/forum/ucp.php", "mode=logout&redirect=$redirect", true, $user->session_id);
 
     $requestRepository = new RequestRepository();
@@ -44,6 +55,7 @@ if ($userdata['user_id'] != 1) {
 
     // build user panel
     ob_start(); ?>
+<?php echo $gameSelect ?>
 <span id="server-time"></span>
 <?php if($newStRequestCount): ?>
 <a href="/requests/st-dashboard" class="button-badge">
@@ -76,17 +88,13 @@ if ($userdata['user_id'] != 1) {
     $userInfo['logged_in'] = true;
 
     WikiInformation::setUcp($user_panel);
-} else {
-    $user_panel = <<<EOQ
-<span id="server-time"></span>
-$up_name 
-$up_loginout
-EOQ;
-    WikiInformation::setUcp($user_panel);
+    return;
 }
 
 $user_panel = <<<EOQ
+$gameSelect
 <span id="server-time"></span>
 $up_name 
 $up_loginout
 EOQ;
+WikiInformation::setUcp($user_panel);

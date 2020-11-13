@@ -98,6 +98,7 @@ $template->assign_vars(array(
         'PAGE_CONTENT' => $page_content,
         'EXTRA_HEADERS' => $extra_headers ?? '',
         'USER_PANEL' => $user_panel,
+        'GAME_SELECT' => $gameSelect,
         'USER_INFO' => $userInfo,
         'CONTENT_HEADER' => $contentHeader,
         'SERVER_TIME' => (microtime(true) + date('Z'))*1000,

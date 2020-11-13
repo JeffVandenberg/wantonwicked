@@ -21,6 +21,7 @@
 namespace App\Controller;
 
 use App\Controller\Component\ConfigComponent;
+use App\Controller\Component\GameComponent;
 use App\Controller\Component\MenuComponent;
 use App\Controller\Component\PermissionsComponent;
 use Cake\Controller\Controller;
@@ -39,6 +40,7 @@ use Exception;
  * @link        http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  * @property PermissionsComponent $Permissions
  * @property ConfigComponent Config
+ * @property GameComponent Game
  */
 class AppController extends Controller
 {
@@ -59,6 +61,7 @@ class AppController extends Controller
         'RequestHandler',
         'Flash',
         'Config',
+        'Game'
     ];
 
     /**
@@ -98,11 +101,18 @@ class AppController extends Controller
     public function beforeRender(Event $event)
     {
         parent::beforeRender($event);
+        $gameId = $this->Game->getGame();
+        $gameInfo = $this->Game->getGameInfo($gameId);
+
         $this->viewBuilder()->setLayout(($this->getRequest()->is('ajax')) ? 'ajax' : 'default');
         $this->set('menu', $this->Menu->GetMenu());
         $this->set('serverTime', (microtime(true) + date('Z')) * 1000);
         $this->set('buildNumber', file_get_contents(ROOT . '/build_number'));
         $this->set('isLoggedIn', $this->Auth->user('user_id') > 1);
-        $this->set('city', $this->Config->readGlobal('city'));
+        $this->set('games', $this->Game->listGames());
+
+        $this->set('game', $gameId);
+        $this->set('gameInfo', $gameInfo);
+        $this->set('city', $gameInfo['city']);
     }
 }

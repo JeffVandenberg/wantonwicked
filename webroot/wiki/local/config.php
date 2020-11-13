@@ -204,7 +204,7 @@ include_once('../user_panel.php');
 
 $FmtPV['$ServerTime'] = ((microtime(true) + date('Z'))*1000);
 $FmtPV['$UserControlPanel'] = "classes\integration\WikiInformation::getUcp()";
-$FmtPV['$SiteUserName'] = "\"$userdata[username]\"";
+$FmtPV['$SiteUserName'] = $userdata['username'];
 
 include_once('../menu_bar.php');
 

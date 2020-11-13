@@ -10,6 +10,7 @@ namespace App\Controller;
  */
 
 use App\Controller\Component\ConfigComponent;
+use App\Controller\Component\GameComponent;
 use App\Controller\Component\PermissionsComponent;
 use App\Model\Entity\RequestStatus;
 use App\Model\Entity\RequestType;
@@ -31,6 +32,7 @@ use GuzzleHttp\Client;
 /**
  * @property ConfigComponent $Config
  * @property PermissionsComponent Permissions
+ * @property GameComponent Game
  */
 class HomeController extends AppController
 {
@@ -44,7 +46,8 @@ class HomeController extends AppController
         $this->Auth->allow([
             'home',
             'staff',
-            'gsNews'
+            'gsNews',
+            'switchGame',
         ]);
     }
 
@@ -115,6 +118,15 @@ class HomeController extends AppController
         $this->redirect('/storyteller_index.php');
     }
 
+    public function switchGame() {
+        // set game
+        if($this->request->getQuery('game_id')) {
+            $this->Game->setGame($this->request->getQuery('game_id'));
+        }
+
+        $redirect = $this->request->getQuery('redirect') ?? '/';
+        $this->redirect($redirect);
+    }
     /**
      * @param array $user User Data
      * @return bool

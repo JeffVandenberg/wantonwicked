@@ -5,6 +5,7 @@ use classes\character\data\Character;
 /* @var AppView $this */
 /* @var array $icons */
 /* @var array $cities */
+/* @var string $city */
 
 if (isset($character) && $character->Id) {
     /* @var Character $character */
@@ -24,6 +25,7 @@ if (isset($character) && $character->Id) {
         <div class="small-12 medium-4 column">
             <label>City
                 <?php echo $this->Form->select('city', $cities, [
+                    'value' => $city,
                     'label' => 'City',
                     'empty' => false,
                     'id' => 'search_city'
