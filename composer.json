@@ -29,7 +29,7 @@
     "guzzlehttp/guzzle": "6.3.*"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master",
+    "roave/security-advisories": "dev-latest",
     "psy/psysh": "@stable",
     "cakephp/cakephp-codesniffer": "^3.3",
     "phpunit/phpunit": "^6.5",
@@ -47,5 +47,11 @@
     },
     "files": [
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "cakephp/plugin-installer": true,
+      "composer/installers": true
+    }
   }
 }
